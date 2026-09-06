@@ -28,3 +28,14 @@
 ## 验证边界
 
 `node --test tests/subtitle.test.mjs` 检查禁用/第一屏关闭、静态安全首项、缺配置兼容、空值、TEXT/JSON 取值、失败回退及旧版配置迁移。实际 Halo 升级与浏览器场景使用专属实验站，并分别记录完整源码 SHA、主题包/夹具/配置摘要、1440×1000 与 390×844 的亮暗结果和随机请求计数；不连接真实第三方文案服务。单元测试不替代真实页面验收，无头手机视口不替代真机。
+
+手工运行器 `tests/subtitle-runtime.py` 只使用当前 checkout 下完成 bootstrap 的 `.runtime/subtitle-lab`，固定 Halo `18093` / Hexo `14002`，并校验目录标记与两个进程的归属。它会在该专属站安装指定基线、写入合成旧配置、升级候选包并运行场景，结束后保留候选主题与缺失新开关的合成配置。运行前按 [双站文档](COMPARISON-LAB.md)用相同端口和目录完成 bootstrap；不要指定已有业务数据的站点。
+
+```sh
+python3 -B tests/subtitle-runtime.py \
+  --baseline-package /path/to/baseline/theme.zip \
+  --baseline-sha <构建基线包的完整提交> \
+  --package dist/halo-butterfly-next-0.1.0-alpha.1.zip
+```
+
+该运行器需要 `agent-browser` 和独立无头 Chromium，会创建自己的命名会话，只允许访问 `127.0.0.1`。本地 TEXT/JSON/404 由该 Halo 实验站提供；分别对 Resource Timing 和浏览器网络记录计数。证据及截图写入专属运行目录，包含是否有未提交修改；正式验收应提交代码、从该提交重新构建并重跑。成功后关闭浏览器，保留服务器。该运行器属于显式手工集成检查，不由 `pnpm check` 自动启动服务。
