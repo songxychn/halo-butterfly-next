@@ -8,8 +8,22 @@
   text-align: center;
   padding: 1.5rem 1rem;
 
+  a {
+    text-decoration: underline;
+    text-underline-offset: .2em;
+
+    &:focus-visible {
+      outline: 2px solid var(--text-color);
+      outline-offset: 3px;
+    }
+  }
+
   .halo {
-    color: #2f55d4;
+    color: var(--footer-halo-color, #2f55d4);
+
+    [data-color-scheme='dark'] & {
+      --footer-halo-color: #8aa7ff;
+    }
   }
 
   .theme {
