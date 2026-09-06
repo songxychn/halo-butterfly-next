@@ -141,9 +141,12 @@ async function main() {
   const installation = await readJson(path.join(browserRuntime, 'installation.json'));
   const pinned = await readJson(path.join(REPO, 'fixtures/browser/package.json'));
   assert(installation.version === pinned.dependencies.playwright && installation.lockSha256 === sha256(await readFile(path.join(REPO, 'fixtures/browser/pnpm-lock.yaml'))), 'Browser install lock mismatch');
+  const actualPlaywright = await readJson(path.join(browserRuntime, 'deps/node_modules/playwright/package.json'));
+  assert(actualPlaywright.version === pinned.dependencies.playwright, 'Actual Playwright package differs from lock');
   const packagePath = await realpath(options['--theme-package']), packageHash = sha256(await readFile(packagePath));
   const installed = await readJson(path.join(runtime, 'installed-package.json'));
   validatePackage(installed, options['--theme-source-sha'], packageHash);
+  assert(git('cat-file', '-t', options['--theme-source-sha']) === 'commit', 'Theme source declaration is not a local repository commit');
   const lock = await readJson(path.join(REPO, 'fixtures/plugins/versions.json'));
   assert(owner.lockSha256 === sha256(canonical(lock)), 'Plugin lock identity mismatch');
   for (const plugin of lock.plugins) assert(sha256(await readFile(path.join(runtime, 'halo/data/plugins', `${plugin.name}-${plugin.version}.jar`))) === plugin.sha256, 'Installed plugin JAR differs from lock');
