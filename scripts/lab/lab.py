@@ -359,7 +359,7 @@ def validate_menu(client):
         raise RuntimeError('Primary menu order differs from fixture')
     for index, item in enumerate(CONTENT['menu']):
         actual = client.api('/api/v1alpha1/menuitems/' + names[index])
-        expected = {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': []}
+        expected = {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': [], 'menuName': 'comparison-primary'}
         if any(actual['spec'].get(key) != value for key, value in expected.items()) or actual['metadata'].get('annotations', {}).get('icon') != item['icon']:
             raise RuntimeError('Menu item or icon differs from fixture: ' + names[index])
 
@@ -474,7 +474,7 @@ def seed(client):
     names = []
     for index, item in enumerate(CONTENT['menu']):
         name = 'comparison-menu-' + str(index)
-        client.ensure('/api/v1alpha1/menuitems', {'apiVersion': 'v1alpha1', 'kind': 'MenuItem', 'metadata': {'name': name, 'annotations': {'icon': item['icon']}}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': []}})
+        client.ensure('/api/v1alpha1/menuitems', {'apiVersion': 'v1alpha1', 'kind': 'MenuItem', 'metadata': {'name': name, 'annotations': {'icon': item['icon']}}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': [], 'menuName': 'comparison-primary'}})
         names.append(name)
     menu['spec']['menuItems'] = names
     client.api('/api/v1alpha1/menus/comparison-primary', 'PUT', menu)
@@ -560,6 +560,70 @@ class Resources(HTMLParser):
             self.urls.add(attrs['href'])
 
 
+class RenderedMenus(HTMLParser):
+    VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
+
+    def __init__(self, platform):
+        super().__init__()
+        self.platform = platform
+        self.stack = []
+        self.menus = {}
+        self.active = None
+        self.anchor = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        classes = set(attrs.get('class', '').split())
+        ancestors = {node[1].get('id') for node in self.stack}
+        label = None
+        if self.platform == 'halo' and tag == 'menu':
+            if 'menu' in classes: label = 'desktop'
+            elif 'bar' in classes: label = 'mobile'
+        elif self.platform == 'hexo' and tag == 'div' and 'menus_items' in classes:
+            if 'sidebar-menus' in ancestors: label = 'mobile'
+            elif 'menus' in ancestors: label = 'desktop'
+        if label:
+            if label in self.menus:
+                raise RuntimeError('Duplicate rendered navigation container: ' + label)
+            self.menus[label] = []
+            self.active = (label, len(self.stack))
+        if self.active and tag == 'a':
+            self.anchor = {'text': [], 'href': attrs.get('href', ''), 'icons': []}
+        if self.anchor and tag == 'i':
+            self.anchor['icons'].append(sorted(classes))
+        if tag not in self.VOID_TAGS:
+            self.stack.append((tag, attrs))
+
+    def handle_data(self, data):
+        if self.anchor:
+            self.anchor['text'].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'a' and self.anchor is not None:
+            self.anchor['text'] = ' '.join(''.join(self.anchor['text']).split())
+            self.menus[self.active[0]].append(self.anchor)
+            self.anchor = None
+        index = next((index for index in range(len(self.stack) - 1, -1, -1) if self.stack[index][0] == tag), None)
+        if index is not None:
+            self.stack = self.stack[:index]
+        if self.active and len(self.stack) <= self.active[1]:
+            self.active = None
+
+
+def validate_rendered_menus(markup, platform):
+    parser = RenderedMenus(platform)
+    parser.feed(markup)
+    if set(parser.menus) != {'desktop', 'mobile'}:
+        raise RuntimeError(platform + ' rendered navigation containers are missing')
+    for label, links in parser.menus.items():
+        if len(links) != len(CONTENT['menu']):
+            raise RuntimeError(f'{platform} rendered {label} menu count differs from fixture: {len(links)}')
+        for actual, expected in zip(links, CONTENT['menu']):
+            if actual['text'] != expected['title'] or actual['href'] != expected['path'] or len(actual['icons']) != 1 or set(actual['icons'][0]) - {'fa-fw'} != set(expected['icon'].split()):
+                raise RuntimeError(f'{platform} rendered {label} navigation differs from fixture: {actual}')
+    return parser.menus
+
+
 def resource_result(url):
     with LOCAL.open(url, timeout=15) as response:
         content_type = response.headers.get('Content-Type', '').split(';', 1)[0].strip().lower()
@@ -590,7 +654,8 @@ def evidence():
                 if order[:len(expected)] != expected:
                     raise RuntimeError(f'{name} home order differs from fixture: {order}')
             parser = Resources(); parser.feed(markup); resources.update(parser.urls)
-            results.append({'path': route, 'status': response.status, 'bytes': len(markup.encode()), 'sha256': hashlib.sha256(markup.encode()).hexdigest()})
+            navigation = validate_rendered_menus(markup, name)
+            results.append({'path': route, 'status': response.status, 'bytes': len(markup.encode()), 'sha256': hashlib.sha256(markup.encode()).hexdigest(), 'navigation': navigation})
         assets = []
         for asset in sorted((FIXTURES / 'assets').iterdir()):
             data = LOCAL.open(base + '/lab/' + asset.name, timeout=15).read()
