@@ -4,6 +4,8 @@ Butterfly 的 Halo 社区维护版，基于 [小红的 Halo 移植项目](https:
 
 当前版本 **0.1.0-alpha.1**：先交付可构建、可安装、可迁移、可验证的维护基础。页面仍以原 Halo 版为基础，**尚未全面对齐 Hexo Butterfly 5.7.0**。具体边界见 [路线与差异清单](docs/ROADMAP.md)。
 
+持续对齐工作见 [完整功能矩阵](docs/parity/MATRIX.md)、[双站对照环境](docs/COMPARISON-LAB.md)、[1.0 工程验收合同](docs/RELEASE-ACCEPTANCE.md)及[进度记录](docs/PROGRESS.md)。矩阵中的未验证项不代表已支持；私有 RC 与正式 1.0 发布分别验收。
+
 ## 效果预览
 
 以下截图来自 Halo **2.26.1** 的真实运行页面，使用合成测试内容和主题默认封面。当前通过私有仓库提供预览，仓库及安装包仅对获授权的 GitHub 用户可见。
@@ -42,6 +44,8 @@ pnpm verify
 ```
 
 安装包位于 `dist/`。源码在 `src/`；`templates/` 和 `dist/` 是生成物。`pnpm dev` 可监听源码重建，`pnpm build` 可单独构建。构建包含全部页面 JS/CSS、四种 Loading、图标、内置封面及许可证，不依赖原主题 CDN。
+
+`pnpm verify` 同时校验功能矩阵完整性及生成文档一致性；CI 另外检出固定的上游提交，与真实源码重新核对清单。`pnpm lab` 提供对照环境命令，初始化参数和端口隔离要求见[运行文档](docs/COMPARISON-LAB.md)。
 
 对已安装的真实 Halo 做基础 HTTP 检查：
 
