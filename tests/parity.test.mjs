@@ -1,12 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { checkMatrix, checkRequiredScenarios, checkEvidenceManifest, contractScenarioIds } from '../scripts/check-parity.mjs';
+import { checkParity, checkMatrix, checkRequiredScenarios, checkEvidenceManifest, contractScenarioIds } from '../scripts/check-parity.mjs';
 import { yamlLeaves, defaultLeaves, requiredEntries, UPSTREAM_COMMIT } from '../scripts/parity-inventory.mjs';
 
 const matrix = JSON.parse(await readFile(new URL('../docs/parity/matrix.json', import.meta.url), 'utf8'));
 const inventory = JSON.parse(await readFile(new URL('../docs/parity/upstream-5.7.0.json', import.meta.url), 'utf8'));
 const required = JSON.parse(await readFile(new URL('../docs/parity/required-scenarios.json', import.meta.url), 'utf8'));
+
+test('完整离线门禁随 pnpm verify 检查生成文档、实际代码/配置、合同与证据引用', async () => {
+  const result = await checkParity();
+  assert.equal(result.total, 897);
+  assert.equal(result.required, 897);
+  assert.equal(result.sourceVerified, false);
+});
 
 test('固定上游配置、扩展和手工场景均完整，覆盖检查不提升功能状态', () => {
   assert.deepEqual(checkMatrix(matrix, inventory), []);
