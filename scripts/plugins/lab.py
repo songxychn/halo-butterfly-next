@@ -131,10 +131,15 @@ def api(collection):
 
 
 def clean(obj):
+    spec = copy.deepcopy(obj['spec'])
+    if obj['kind'] == 'Moment':
+        # MomentReconciler asynchronously supplies this server-owned timestamp.
+        # Approval boolean, visibility, release date and content remain strict.
+        spec.pop('approvedTime', None)
     return {'apiVersion': obj['apiVersion'], 'kind': obj['kind'],
             'metadata': {'name': obj['metadata']['name'], 'labels': obj['metadata'].get('labels', {}),
                          'annotations': obj['metadata'].get('annotations', {})},
-            'spec': obj['spec']}
+            'spec': spec}
 
 
 def resources(client):

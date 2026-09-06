@@ -62,7 +62,7 @@ python3 -B scripts/plugins/lab.py disable
 python3 -B scripts/plugins/lab.py enable
 ```
 
-备份是五类合成资源 spec/owner 元数据与专属 Hexo 输入的逻辑快照，包含校验摘要、端口、版本锁、当前主题包和插件状态；文件 0600、命名唯一、不覆盖前次。恢复仅接受同 owner/端口/版本锁/主题包，且恢复前当前内容必须匹配上次记录。它**不是完整数据库/附件/配置备份**，不恢复原始 resourceVersion/creationTimestamp/后台统计，不作为正式迁移回滚的证据。环境级完整恢复方式是保留旧 runtime，在另一个空目录与空闲端口重新 bootstrap 并播种；不要删除旧数据库。
+备份是五类合成资源 spec/owner 元数据与专属 Hexo 输入的逻辑快照，包含校验摘要、端口、版本锁、当前主题包和插件状态；文件 0600、命名唯一、不覆盖前次。恢复仅接受同 owner/端口/版本锁/主题包，且恢复前当前内容必须匹配上次记录。它**不是完整数据库/附件/配置备份**，规范化时仅排除 MomentReconciler 异步填写的 approvedTime（approved、visible、releaseTime 与正文仍严格核对），不恢复原始 resourceVersion/creationTimestamp/后台统计，不作为正式迁移回滚的证据。环境级完整恢复方式是保留旧 runtime，在另一个空目录与空闲端口重新 bootstrap 并播种；不要删除旧数据库。
 
 启停命令只操作三个归属且 JAR 摘要一致的插件。已知满足版本启用、安装停用和恢复启用可以分别采集；本工具不降级真实插件、不伪造旧版兼容性。
 
@@ -103,4 +103,4 @@ node scripts/plugins/diagnose.mjs \
 - PLG-06：评论、高亮、灯箱、SEO 内容处理组合全部待测。三个内容插件同时启用不能冒称这些组合已通过。
 - 浏览器：这里只使用 Playwright Chromium 与视口模拟，不代表 Safari/Firefox 稳定版或真机；全站导航可访问性和视觉一致性仍由独立任务验收。
 
-保护测试：`node --test tests/plugin-guards.test.mjs`（包含 8 项 Python 边界测试）。主题产品缺陷应单独建 issue 与证据，不修改夹具或覆盖主题样式掩盖。
+保护测试：`node --test tests/plugin-guards.test.mjs`（包含 9 项 Python 边界测试）。主题产品缺陷应单独建 issue 与证据，不修改夹具或覆盖主题样式掩盖。

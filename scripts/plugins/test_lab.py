@@ -36,6 +36,13 @@ class Guards(unittest.TestCase):
         data = copy.deepcopy(source); data['links'].append(data['links'][0])
         with self.assertRaises(RuntimeError): m.validate_payload(data)
 
+    def test_only_derived_approval_timestamp_is_normalized(self):
+        original = m.desired('normal', 'http://127.0.0.1:18094', 'fixture-maintainer')['moments'][0]
+        observed = copy.deepcopy(original); observed['spec']['approvedTime'] = '2026-09-06T00:00:00Z'
+        self.assertEqual(m.clean(observed), m.clean(original))
+        observed['spec']['approved'] = False
+        self.assertNotEqual(m.clean(observed), m.clean(original))
+
     def test_changed_and_unowned_collections_fail_before_mutation(self):
         data = m.desired('normal', 'http://127.0.0.1:18094', 'fixture-maintainer')
         class Client:

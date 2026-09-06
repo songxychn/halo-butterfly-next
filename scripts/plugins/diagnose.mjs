@@ -21,7 +21,7 @@ export function validateTarget(marker, owner, runtime) {
 }
 
 async function settle(page) {
-  await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => Promise.race([document.fonts.ready, new Promise((_, reject) => setTimeout(() => reject(new Error('Font readiness timed out')), 10000))]));
   // Move through real scroll positions so lazy content is requested without modifying CSS.
   for (let i = 0; i < 8; i++) {
     const end = await page.evaluate(index => { scrollTo(0, index * innerHeight * .8); return scrollY + innerHeight >= document.documentElement.scrollHeight; }, i);
@@ -165,7 +165,7 @@ async function main() {
     limitations: ['First contract diagnostic only. No complete PLG-01/04/06 acceptance.', 'No actual stable Safari/Firefox or physical-device coverage.', 'Absent rendered state, below-minimum plugin versions, broken media/long content, permission interactions and comment/content/SEO combinations remain untested.', 'Same-origin reads and exact public visit-counter POST only; synthetic counters may increase. Other writes, external origins and WebSockets blocked.'] };
   try {
     for (const [kind, apiPath] of [['links', '/apis/api.link.halo.run/v1alpha1/links?page=1&size=100'], ['photos', '/apis/api.photo.halo.run/v1alpha1/photos?page=1&size=100'], ['moments', '/apis/api.moment.halo.run/v1alpha1/moments?page=1&size=100']]) {
-      const response = await fetch(bases.halo + apiPath), text = await response.text();
+      const response = await fetch(bases.halo + apiPath, { redirect: 'error', signal: AbortSignal.timeout(30000) }), text = await response.text();
       let body; try { body = JSON.parse(text); } catch {}
       const expected = owner.resources[kind], actual = body?.items;
       const failures = [];
