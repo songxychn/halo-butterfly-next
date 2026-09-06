@@ -32,6 +32,8 @@ async function bundle(input, outputDir) {
   await viteBuild({
     configFile: false,
     logLevel: 'error',
+    // These IIFEs run directly in browsers, which do not provide Node's process.
+    define: { 'process.env.NODE_ENV': JSON.stringify('production') },
     plugins: [{
       name: 'legacy-butterfly-decorators',
       enforce: 'pre',
