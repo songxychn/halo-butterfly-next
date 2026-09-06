@@ -90,7 +90,7 @@ export default class Render {
 
     const sideBtn = $('.side-btn');
 
-    const tocBtn = $(`<button  class="button h5-toc" type="button"  title="文章目录" ><i class="fa-sharp fa-solid fa-list-tree"></i></button>`);
+    const tocBtn = $(`<button  class="button h5-toc" type="button"  title="文章目录" ><i class="fa-solid fa-list"></i></button>`);
 
     sideBtn.prepend(tocBtn);
 

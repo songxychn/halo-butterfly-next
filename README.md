@@ -1,91 +1,50 @@
-<p align="center">Index 主题 Halo 2.0</p>
+# Butterfly Next for Halo
 
-> `Index` 是Hexo社区[hexo-theme-Index](https://github.com/jerryc127) 此次移植`pug`模板引擎调整为 `thymeleaf`，
-> 希望大家喜欢 ❤️ ！同时也要在此感谢原作者 [Jerry](https://github.com/jerryc127)
-> 欢迎大家加入 [halo-theme-Index 交流群：916571927](https://jq.qq.com/?_wv=1027&k=LfbGKBVG)
+Butterfly 的 Halo 社区维护版，基于 [小红的 Halo 移植项目](https://github.com/dhjddcn/halo-theme-butterfly) 保留完整 Git 历史，分阶段追平 [Hexo Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)。这是独立维护项目，不代表 Halo 或 Butterfly 官方。
 
-## 👀 [预览主题](https://dhjdd.cn)
+当前版本 **0.1.0-alpha.1**：先交付可构建、可安装、可迁移、可验证的维护基础。页面仍以原 Halo 版为基础，**尚未全面对齐 Hexo Butterfly 5.7.0**。具体边界见 [路线与差异清单](docs/ROADMAP.md)。
 
-**效果图** 👇
+## 安装
 
-![效果图](https://cdn.jsdelivr.net/npm/halo-theme-butterfly/docs/renderings.png)
+首轮实际验证 Halo **2.26.1**。兼容声明限定 `>=2.26.1 & <2.27.0`，其他 2.26 补丁版仍需实际验证。请先在测试站使用 alpha 版本。
 
-## 🌈 安装
+从维护版的构建产物取得 `theme-butterfly-next-0.1.0-alpha.1.zip`，在 Halo 控制台的主题管理中上传、配置并启用。主题 ID 为 `theme-butterfly-next`；可与原 `theme-butterfly` 同时安装。当前本地项目尚未发布公开发行包。
 
-- 主题仓库地址 `https://github.com/dhjddcn/halo-theme-butterfly.git`
-- 在 [Release](https://github.com/dhjddcn/halo-theme-butterfly/releases) 页面下载最新版本 `zip`
-  后，通过 `Halo Console` 安装上传即可。
+原主题用户先阅读 [配置迁移说明](docs/MIGRATION.md)。不要覆盖原主题目录，也不要直接套用旧主题的 ConfigMap。
 
-## ⚠️ 注意
+## 构建与检查
 
-安装主题后，需要在 `Halo Console - 主题 - 基本 - metadata.name`
-中进行配置，否则主题无法正常使用。此处配置的名称可以在 `Halo Console - 用户 - 用户详情 - 用户名` 中获取。
+需要 Node.js 24 与 pnpm 11.19.0：
 
-![效果图](https://cdn.jsdelivr.net/npm/halo-theme-butterfly/docs/user.png)
-![效果图](https://cdn.jsdelivr.net/npm/halo-theme-butterfly/docs/metadata.png)
+```bash
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm verify
+```
 
-## 🌐 免费可用的 npm cdn
+安装包位于 `dist/`。源码在 `src/`；`templates/` 和 `dist/` 是生成物。`pnpm dev` 可监听源码重建，`pnpm build` 可单独构建。构建包含全部页面 JS/CSS、四种 Loading、图标、内置封面及许可证，不依赖原主题 CDN。
 
-- https://unpkg.com/halo-theme-butterfly/templates/assets/
-- https://cdn.jsdelivr.net/npm/halo-theme-butterfly/templates/assets/
-- https://jsd.onmicrosoft.cn/npm/halo-theme-butterfly/templates/assets/
-- https://fastly.jsdelivr.net/npm/halo-theme-butterfly@latest/templates/assets/
+对已安装的真实 Halo 做基础 HTTP 检查：
 
-## ⭐️ 主题功能
+```bash
+node scripts/smoke.mjs --base http://127.0.0.1:8090
+# 根据测试站的真实路由补充文章、自定义页及分页：
+node scripts/smoke.mjs --base http://127.0.0.1:8090 --routes /,/page/2,/archives/your-post,/about
+```
 
-- [x] 二维码打赏
-- [x] 预制主题字体
-- [x] 自定义背景图
-- [x] 页面顶部自定义图
-- [x] 文章列表（列表/平铺）
-- [x] 侧边栏 全局/单独控制
-- [x] 分类/标签页UI优化
-- [x] 社交账号配置
-- [x] 代码高亮 + 行号 + 复制 + 折叠
-- [x] 随机图片api配置
-- [x] 统计页面 总访问量
-- [x] 站点运行时间
-- [x] 主题模式（深色/浅色）
+HTTP 检查不等同于视觉和交互验收。维护流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，首轮证据见 [验收记录](docs/VALIDATION.md)。GitHub Actions 工作流已配置；远程执行结果以公开仓库实际运行记录为准。
 
-### 📃 TODO
+## 当前能力与默认行为
 
-> 目前仍有部分功能不完善，暂时没时间做，后面继续迭代。
+- 保留首页、文章、归档、分类、标签和自定义页面；原友链、图库、瞬间模板尚待插件集成验收。
+- 搜索与评论使用 Halo 对应插件。插件停用时隐藏相关入口，手机菜单仍可使用。
+- 作者用户名留空时显示站点信息；无需存在名为 `admin` 的用户。
+- 默认使用系统字体和本项目原创 SVG 封面；随机图片和随机文案 API 默认关闭。
+- 深色模式使用主题独立的存储键；资源与配置使用独立主题标识。
+- canonical 和 Open Graph 可在基本设置中关闭，描述/关键词交由 Halo 输出。
+- Halo 2.26 新的插件页面公共布局尚未实现，详见差异清单。
 
-- 页面元数据控制
-  百度收录查询 + 主动推送
-- 全站 Pjax
-- 相册页开发
-- 多种布局切换
-- 页面动画效果优化
-- 自定义标签
-- 数学公式
-- 局部优化
-- 移动端侧边栏优化
-  <br>
+## 致谢与许可
 
-## 💡 如何自定义导航条菜单图标？
+主题代码沿用 [GPL-3.0](LICENSE)。保留原 Halo 移植作者小红及历史贡献者的署名，外观与功能对齐目标来自 JerryC 的 Hexo Butterfly。
 
-> 主题本次移植使用的是 `fontawesome` 字体图标，你可以在 [fontawesome](https://fontawesome.com/search)
-> 上找到你想要的图标，然后复制图标的 `class` 名称，如下所示：<br/>
-> 如我站点首页图标为 `fa-home fa-solid fa-bolt-auto` ，则在 `菜单-图标` 填入 `fa-home fa-solid fa-bolt-auto` 即可<br>
-
-## 🛡️ 许可证
-
-[![license](https://img.shields.io/github/license/halo-dev/halo.svg?style=flat-square)](https://github.com/halo-dev/halo/blob/master/LICENSE)
-
-Halo 使用 GPL-v3.0 协议开源，请遵守开源协议。
-
-## 🍹 赞助
-
-如果你觉得这个主题不错，你可以帮作者买一杯果汁表示鼓励 🍹。（赞助的时候记得加上备注 😁）
-
-![赞助](https://cdn.jsdelivr.net/npm/halo-theme-butterfly/docs/sponsor.png)
-
-| 时间         | 小伙伴  | 平台     | 金额    | 备注 |
-|:-----------|:-----|:-------|:------|:---|
-| 2022-07-25 | 咕咕鸽  | QQ     | 50    | 🍹 |
-| 2023-03-14 | Cary | Alipay | 10    | 🍹 |
-| 2023-03-14 | *哦   | Wechat | 50    | 🍹 |
-| 2023-03-22 | 心底.  | Wechat | 28.88 | 🍹 |
-| 2023-03-22 | xx鹏  | Alipay | 3.33  | 🍹 |
-| 2024-06-23 | *!   | Wechat | 18.88 | 🍹 |
+安装包已替换继承的 Font Awesome Pro、旧字体与旧默认照片，改用 Font Awesome Free、系统字体和原创 SVG。第三方资源及许可证说明见 [THIRD_PARTY.md](docs/THIRD_PARTY.md)。原始资源仍可在上游 Git 历史中找到，保留历史不等于为这些资源重新授权。

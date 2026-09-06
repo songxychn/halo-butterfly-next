@@ -24,7 +24,7 @@
         </span>
 
         <span class="wp tag" th:if="${not #lists.isEmpty(post.categories)}">
-           <i class="fa-duotone fa-tags"></i>
+           <i class="fa-solid fa-tags"></i>
             <span class="cys">
               <th:block th:each="cy : ${post.tags}">
                 <a class="lk" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>

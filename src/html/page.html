@@ -1,7 +1,7 @@
 <layout
   th:replace="~{views/layout :: layout (
   page = 'single',
-  title = ${singlePage.spec.title} ,
+  title = ${singlePage.spec.title + ' - ' + site.title} ,
   pin = ~{::pin},
   header = ~{::header},
   main = ~{::main}
@@ -9,7 +9,7 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script id="pageScript" th:inline="javascript" th:with="above_background = ${ #strings.isEmpty(singlePage.spec.cover) ? theme.config.index.above_background : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link  : ''  )}">
+    <script id="pageScript" th:inline="javascript" th:with="above_background = ${ #strings.isEmpty(singlePage.spec.cover) ? theme.config.index.above_background : singlePage.spec.cover}">
       Object.assign(window.MainApp.conf, {
         //第一屏
         enable_above: /*[[${theme.config.index.enable_above}]]*/ '',

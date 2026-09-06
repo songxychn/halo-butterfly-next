@@ -1,19 +1,23 @@
 apiVersion: v1alpha1
 kind: Setting
 metadata:
-  name: theme-butterfly-setting
+  name: theme-butterfly-next-setting
 spec:
   forms:
     - group: base
       label: 基本设置
       formSchema:
+        - $formkit: checkbox
+          name: enable_seo
+          label: 输出主题分享元数据与规范链接
+          value: true
+          help: 输出 Open Graph 及文章、自定义页面、首页第一页的 canonical。使用其他 SEO 插件时可关闭；描述和关键词由 Halo 提供。
         - $formkit: text
           name: metadata_name
           label: 作者用户名
           placeholder: 请填写作者的唯一标识（用户名）
-          value: admin
-          help: 后台管理页面（console）用户 -> 修改资料 -> 用户名，不可乱填否则侧边栏个人资料显示异常（示例：admin）
-          validation: required
+          value: ""
+          help: 可选。填写 Halo 用户名显示个人资料；留空或用户不存在时使用站点信息。
         - $formkit: text
           name: icp
           label: ICP 备案号
@@ -51,14 +55,11 @@ spec:
         - $formkit: select
           name: font_family
           label: 主题字体
-          value: 'CircularBody'
+          value: 'null'
+          help: 当前预览版使用系统字体。旧版附带字体不再分发。
           options:
             - value: 'null'
-              label: "游览器默认字体"
-            - value: "CircularBody"
-              label: "CircularBody"
-            - value: "HarmonyOS_Regular"
-              label: "HarmonyOS_Regular"
+              label: "系统字体"
         - $formkit: text
           name: body_background
           label: 全局背景（浅色）
@@ -86,64 +87,13 @@ spec:
               value: 'dot'
           validation: required
         - $formkit: group
-          label: 静态资源加载（js、css）
-          name: source
-          value:
-            custom: ''
-            type: site
-            site: '/themes/theme-butterfly/assets/'
-            npm: 'https://unpkg.com/halo-theme-butterfly/templates/assets/'
-          children:
-            - $formkit: radio
-              help: 从本站加载 npm-cdn 自定义链接 来加载静态文件（js、css）
-              label: 类型
-              name: type
-              id: _type
-              key: _type
-              value: site
-              validation: required
-              options:
-                - label: 本站
-                  value: site
-                - label: npm
-                  value: npm
-                - label: 自定义
-                  value: custom
-            - $formkit: url
-              name: custom
-              key: _custom
-              id: _custom
-              if: $get(_type).value == custom
-              label: 自定义链接
-              placeholder: 请填写 自定义资源链接地址
-              help: 请确保链接下assets文件夹下主题静态资源文件一致,否则可能导致页面无法正常显示！
-              validation: required|url
-            - $formkit: radio
-              name: npm
-              key: _npm
-              id: _npm
-              if: $get(_type).value == npm
-              label: npm加速地址
-              help: 免费可用的npmJs-cdn加速地址
-              value: 'https://unpkg.com/halo-theme-butterfly/templates/assets/'
-              options:
-                - label: 'unpkg.com'
-                  value: 'https://unpkg.com/halo-theme-butterfly/templates/assets/'
-                - label: 'cdn.jsdelivr.net'
-                  value: 'https://cdn.jsdelivr.net/npm/halo-theme-butterfly/templates/assets/'
-                - label: 'jsd.onmicrosoft.cn'
-                  value: 'https://jsd.onmicrosoft.cn/npm/halo-theme-butterfly/templates/assets/'
-                - label: 'fastly.jsdelivr.net'
-                  value: 'https://fastly.jsdelivr.net/npm/halo-theme-butterfly@latest/templates/assets/'
-              validation: required
-        - $formkit: group
           label: 图片加载
           name: img
           value:
             preload: 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
             err: 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
-            random_enable: true
-            random_link: 'https://api.yimian.xyz/img'
+            random_enable: false
+            random_link: ''
           children:
             - $formkit: attachment
               name: preload
@@ -163,7 +113,7 @@ spec:
               name: random_enable
               label: 启用随机图片
               help: 是否启用随机图API（必须先配置 API），开启后将使用随机图填充没有设置封面的，未开启时使用主题内置的封面图
-              value: true
+              value: false
               validation: required
               options:
                 - label: 启用
@@ -174,9 +124,9 @@ spec:
               name: random_link
               label: 随机图片链接
               placeholder: 请正确填写 随机图片链接
-              value: 'https://api.yimian.xyz/img'
+              value: ''
               help: 自定义随机图API，用于填充没有设置封面的 ，免费 API 不会一直可用，请知悉
-              validation: required|url
+              validation: url
     #导航设置
     - group: nav
       label: 导航设置
@@ -341,7 +291,7 @@ spec:
               value: ""
               help: 默认值：rgb(54 50 50)
               validation: required
-    #侧边栏设置          
+    #侧边栏设置
     - group: aside
       label: 侧边栏设置
       formSchema:
@@ -369,7 +319,7 @@ spec:
           name: button
           label: 侧边栏按钮
           value:
-            name: '主题仓库'
+            name: '上游 Halo 移植项目'
             link: 'https://github.com/dhjddcn/halo-theme-butterfly'
           children:
             - $formkit: text
@@ -458,7 +408,7 @@ spec:
               value: true
             - label: 禁用
               value: false
-    #卡片设置              
+    #卡片设置
     - group: card
       label: 卡片设置
       formSchema:
@@ -494,7 +444,7 @@ spec:
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
-          value: 'https://unpkg.com/halo-theme-butterfly/docs/above.png'
+          value: '/themes/theme-butterfly-next/assets/images/above.svg'
           help: 如果全局背景图设置为图片链接，则此处背景图将不生效
           validation: required
         - $formkit: textarea
@@ -519,7 +469,7 @@ spec:
           name: typewriter_random_api
           label: 随机文案链接（api）
           placeholder: 请正确填写 随机文案链接（api）
-          value: 'https://api.btstu.cn/yan/api.php'
+          value: ''
           help: 自定义随机文案API(推荐使用一言,返回格式设置为TEXT格式，json需要配置取值格式)，免费 API 不会一直可用，请知悉
         - $formkit: text
           name: typewriter_api_value_format
@@ -550,7 +500,7 @@ spec:
               value: true
             - label: 禁用
               value: false
-    #归档设置          
+    #归档设置
     - group: archives
       label: 归档设置
       formSchema:
@@ -568,10 +518,10 @@ spec:
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
-          value: 'https://unpkg.com/halo-theme-butterfly/docs/above.png'
+          value: '/themes/theme-butterfly-next/assets/images/above.svg'
           help: 如果全局背景图设置为图片链接，则此处背景图将不生效
           validation: required
-    #标签设置          
+    #标签设置
     - group: tags
       label: 标签设置
       formSchema:
@@ -589,10 +539,10 @@ spec:
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
-          value: 'https://unpkg.com/halo-theme-butterfly/docs/above.png'
+          value: '/themes/theme-butterfly-next/assets/images/above.svg'
           help: 如果全局背景图设置为图片链接，则此处背景图将不生效
           validation: required
-    #分类设置          
+    #分类设置
     - group: categories
       label: 分类设置
       formSchema:
@@ -610,7 +560,7 @@ spec:
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
-          value: 'https://unpkg.com/halo-theme-butterfly/docs/above.png'
+          value: '/themes/theme-butterfly-next/assets/images/above.svg'
           help: 如果全局背景图设置为图片链接，则此处背景图将不生效
           validation: required
     #渲染设置
@@ -849,5 +799,5 @@ spec:
             - value: "xonokai"
               label: "xonokai"
             - value: "z-touch"
-              label: "z-touch"              
-                            
+              label: "z-touch"
+

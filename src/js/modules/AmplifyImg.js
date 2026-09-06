@@ -7,7 +7,7 @@
 import {Fancybox} from '@fancyapps/ui';
 import $ from 'jquery';
 import {useInsertStyle} from '../core/_util';
-import fancyBoxCss from '@fancyapps/ui/dist/fancybox/fancybox.css';
+import fancyBoxCss from '@fancyapps/ui/dist/fancybox/fancybox.css?inline';
 
 export default class AmplifyImg {
   name = 'AmplifyImg';

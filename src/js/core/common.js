@@ -49,10 +49,23 @@ export default class Common {
 
     //移动端侧边栏呼出图标
     const sideBar = $('.side-bar');
-    $('.nav a.bars').click((e) => {
+    const toggle = $('.nav a.bars');
+    let closeMenu;
+    toggle.click((e) => {
       e.preventDefault();
+      if (sideBar.hasClass('active')) { closeMenu?.(); return; }
       sideBar.addClass('active');
-      useMask(() => sideBar.removeClass('active'));
+      toggle.attr('aria-expanded', 'true');
+      closeMenu = useMask(() => {
+        sideBar.removeClass('active');
+        toggle.attr('aria-expanded', 'false').trigger('focus');
+      });
+    });
+    toggle.on('keydown', event => {
+      if (event.key === ' ') { event.preventDefault(); toggle.trigger('click'); }
+    });
+    $(document).on('keydown', event => {
+      if (event.key === 'Escape' && sideBar.hasClass('active')) closeMenu?.();
     });
 
     //移动端侧边栏侧边菜单
@@ -70,7 +83,7 @@ export default class Common {
     img.src = window.MainApp.conf.above_background;
     img.onload = () => {
       const above = document.querySelector('.header > .above');
-      above.style.backgroundImage = `url(${img.src})`;
+      if (above) above.style.backgroundImage = `url(${img.src})`;
     };
     img.onerror = () => {
       console.error('第一屏图片预加载失败');

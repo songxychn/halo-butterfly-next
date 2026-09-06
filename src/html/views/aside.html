@@ -3,14 +3,14 @@
   <img
     th:src="${theme.config.loading.img.preload}"
     onerror="this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='"
-    th:data-lazy-src="${#strings.isEmpty(contributor.avatar) ?  '/' : contributor.avatar}"
-    th:alt="${contributor.displayName}"
+    th:data-lazy-src="${contributor?.avatar ?: #theme.assets('/images/above.svg')}"
+    th:alt="${contributor?.displayName ?: site.title}"
     class="avatar"
   >
 
-  <h1 class="name" th:text="${contributor.displayName}"></h1>
+  <h1 class="name" th:text="${contributor?.displayName ?: site.title}"></h1>
 
-  <div class="desc" th:text="${contributor.bio}"></div>
+  <div class="desc" th:text="${contributor?.bio ?: site.subtitle}"></div>
 
   <div class="data w-100">
     <a class="item" title="文章" href="/archives">
@@ -39,7 +39,7 @@
 <!--/* 公告 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="notice" class="aside-notice title card">
   <h1 class="title">
-    <i class="fa-duotone fa-bullhorn fa-shake"></i>
+    <i class="fa-solid fa-bullhorn fa-shake"></i>
     <span class="name">公告</span>
   </h1>
 
@@ -49,7 +49,7 @@
 <!--/* 分类 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="category" th:if="${theme.config.aside.enable_category}" class="aside-category card">
   <h1 class="title">
-    <i class="fa-duotone fa-layer-group"></i>
+    <i class="fa-solid fa-layer-group"></i>
     <span class="name">分类</span>
   </h1>
 
@@ -68,7 +68,7 @@
 <!--/* 标签 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="tags" th:if="${theme.config.aside.enable_tags}" class="aside-tags card">
   <h1 class="title">
-    <i class="fa-duotone fa-tags"></i>
+    <i class="fa-solid fa-tags"></i>
     <span class="name">标签</span>
   </h1>
 
@@ -86,7 +86,7 @@
 <!--/* 网站信息 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo}" class="aside-webInfo card">
   <h1 class="title">
-    <i class="fa-duotone fa-chart-simple"></i>
+    <i class="fa-solid fa-chart-simple"></i>
     <span class="name">网站资讯</span>
   </h1>
 
@@ -124,7 +124,7 @@
   <div class="is-sticky">
     <section class="aside-toc card">
       <h1 class="title">
-        <i class="fa-sharp fa-solid fa-list-tree"></i>
+        <i class="fa-solid fa-list"></i>
         <span class="name">目录</span>
       </h1>
       <div class="toc">

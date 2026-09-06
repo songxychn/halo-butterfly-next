@@ -2,7 +2,7 @@
   xmlns:th="https://www.thymeleaf.org"
   th:replace="~{views/layout :: layout (
   page = 'post',
-  title = ${post.spec.title},
+  title = ${post.spec.title + ' - ' + site.title},
   pin = ~{::pin},
   header = ~{::header},
   main = ~{::main}
@@ -62,8 +62,8 @@
                   </th:block>
                 </span>
             </span>
-              <span class="wp tag" th:if="${not #lists.isEmpty(post.categories)}">
-               <i class="fa-duotone fa-tags"></i>
+              <span class="wp tag" th:if="${not #lists.isEmpty(post.tags)}">
+               <i class="fa-solid fa-tags"></i>
                 <span class="cys">
                   <th:block th:each="cy : ${post.tags}">
                     <a class="lk" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
@@ -116,7 +116,7 @@
 
         <div class="author">
           <span class="name">文章作者：</span>
-          <span class="text" th:text="${contributor.displayName}"></span>
+          <span class="text" th:text="${contributor?.displayName ?: site.title}"></span>
         </div>
 
         <div class="url">
@@ -127,7 +127,7 @@
 
         <div class="declaration">
           <span class="name">版权声明：</span>
-          <span class="text">本站所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="/" target="_blank" th:text="${contributor.displayName}"></a>！</span>
+          <span class="text">本站所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="/" target="_blank" th:text="${contributor?.displayName ?: site.title}"></a>！</span>
         </div>
       </div>
 

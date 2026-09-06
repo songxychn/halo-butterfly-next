@@ -1,35 +1,37 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:with="
-     assets_link = ${theme.config.loading.source[theme.config.loading.source.type]},
+     assets_link = ${#theme.assets('/') + '/'},
+     canonicalPath = ${post != null ? post.status.permalink : (singlePage != null ? singlePage.status.permalink : (page == 'index' and posts.page == 1 ? '/' : null))},
+     canonical = ${canonicalPath == null ? null : (#strings.startsWith(canonicalPath, 'http') ? canonicalPath : (#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : site.url) + canonicalPath)},
      param_prefix = ${#strings.containsIgnoreCase(theme.config.loading.img.random_link,'?') ? '&' : '?'}
   "
   th:fragment="layout (page,title,pin,header,main)"
 >
   <!DOCTYPE html>
-  <html lang="en" data-color-scheme="light" th:with="isDev = ${true ? #dates.createNow().time : ''} ">
+  <html lang="zh-CN" data-color-scheme="light" th:with="isDev = ${true ? #dates.createNow().time : ''} ">
   <head>
     <title th:text="${title}"></title>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover,maximum-scale=4">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
     <meta name="author" th:content="${site.title}">
     <meta name="site" th:content="${site.url}">
-    <meta name="description" th:content="${site.subtitle}"/>
-    <meta property="og:keywords" th:content="${site.seo.keywords}">
-    <meta property="og:description" th:content="${site.subtitle}">
+    <th:block th:if="${theme.config.base.enable_seo}">
+    <meta property="og:description" th:content="${post != null ? post.status.excerpt : site.subtitle}">
     <meta property="og:site_name" th:content="${site.title}">
-    <meta property="og:url" th:content="${site.url}">
-    <meta property="og:title" th:content="${site.title}">
+    <meta property="og:url" th:if="${canonical != null}" th:content="${canonical}">
+    <meta property="og:title" th:content="${title}">
     <meta property="og:locale" content="zh_CN">
-    <meta property="og:type" th:content="${page}" th:value="${page}">
-    <link rel="canonical" th:href="${site.url}">
+    <meta property="og:type" th:content="${post != null ? 'article' : 'website'}">
+    <link rel="canonical" th:if="${canonical != null}" th:href="${canonical}">
+    </th:block>
     <th:block th:replace="~{views/config}"/>
     <th:block th:replace="${pin}"/>
     <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/' + page + '.min.css?v=' + theme.spec.version}">
   </head>
 
-  <body th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${contributorFinder.getContributor(theme.config.base.metadata_name)}">
+  <body th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
   <script type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
 
   <div id="Butterfly" th:class="${page}">

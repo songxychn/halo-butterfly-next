@@ -110,11 +110,13 @@ export function useMask(close) {
 
   useDisableScroll(true);
 
-  dom.click(() => {
+  const dismiss = () => {
     useDisableScroll(false);
     dom.off('click').fadeOut(400);
     close();
-  });
+  };
+  dom.off('click').on('click', dismiss);
+  return dismiss;
 }
 
 /**
