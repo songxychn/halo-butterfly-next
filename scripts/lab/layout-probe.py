@@ -99,7 +99,9 @@ def build(halo_jar, output, javac='javac'):
         entries = {str(path.relative_to(classes)).replace(os.sep, '/'): path.read_bytes()
                    for path in classes.rglob('*.class')}
         for source, target in FIXTURE['resources'].items():
-            entries[target] = (FIXTURES / 'resources' / source).read_bytes()
+            data = (FIXTURES / 'resources' / source).read_bytes()
+            # JAR manifest sections end with a blank line, generated rather than source whitespace.
+            entries[target] = data.rstrip(b'\r\n') + b'\r\n\r\n' if target == 'META-INF/MANIFEST.MF' else data
         entries['META-INF/layout-probe.json'] = json.dumps(
             {'owner': OWNER, 'plugin': PLUGIN, 'version': FIXTURE['version'],
              'haloSha256': FIXTURE['halo']['sha256'], 'fixtureSha256': fixture_digest()},
