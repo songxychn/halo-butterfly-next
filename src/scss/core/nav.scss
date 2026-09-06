@@ -102,16 +102,26 @@
           opacity: 1;
           transform: scaleX(1);
         }
-
-        .fa-chevron-down {
-          transform: rotate(180deg);
-        }
       }
 
       i {
         font-size: 1em;
       }
 
+    }
+
+    button.link {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    :is(a, button):focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
     }
 
     //操作项
@@ -154,26 +164,22 @@
           transition: transform .3s;
         }
 
-        &:hover .menu-children {
-          visibility: visible;
-          opacity: 1;
-          transform: scaleY(1)
+        &.active > .link .fa-chevron-down {
+          transform: rotate(180deg);
         }
       }
 
       //二级
       &-children {
         position: absolute;
-        opacity: 0;
-        visibility: hidden;
         width: max-content;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, .15);
         background-color: var(--nav-dropdown-background-color);
-        transform: scaleY(0);
-        transform-origin: top;
-        transition: transform 0.3s ease-out, opacity .2s ease-out, visibility .1s ease-out;
 
+        &[hidden] {
+          display: none;
+        }
 
         &--item {
           transition: background-color .3s;
