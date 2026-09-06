@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, writeFile, rm, mkdir, symlink, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
-import { validateBaseUrl, validatePackage, ownRuntime, responseFailure, comparableAsset, browserEnvironment } from '../scripts/browser/support.mjs';
+import { validateBaseUrl, validatePackage, ownRuntime, responseFailure, comparableAsset, browserEnvironment, finishPage } from '../scripts/browser/support.mjs';
 
 const identity = { owner: 'halo-butterfly-next-comparison', schema: 1, ports: { halo: 18091, hexo: 14000 } };
 test('浏览器目标只接受显式且属于所声明实验目录的本地 Halo origin', () => {
@@ -47,4 +47,15 @@ test('拒绝Playwright会自动连接远程浏览器的Selenium环境覆盖', ()
   const old = process.env.SELENIUM_REMOTE_URL;
   try { process.env.SELENIUM_REMOTE_URL = 'http://127.0.0.1:4444'; assert.throws(() => browserEnvironment(), /Remote browser/); }
   finally { if (old === undefined) delete process.env.SELENIUM_REMOTE_URL; else process.env.SELENIUM_REMOTE_URL = old; }
+});
+test('上下文关闭产生的晚到请求失败与响应体任务必须进入最终状态', async () => {
+  const result = { failures: [], jsErrors: [], blockedRequests: [], requestFailures: [], resources: [] };
+  const pending = [];
+  await finishPage(result, pending, async () => {
+    result.requestFailures.push({ reason: 'request interrupted at close' });
+    pending.push(Promise.resolve().then(() => result.resources.push({ failure: 'late response body mismatch' })));
+  });
+  assert.equal(result.status, 'failed');
+  assert(result.failures.includes('Blocked or failed requests'));
+  assert(result.failures.includes('Invalid resource response or package asset mismatch'));
 });

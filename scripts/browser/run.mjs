@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, comparableAsset, readJson, writeJson, sha256 } from './support.mjs';
+import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, comparableAsset, finishPage, readJson, writeJson, sha256 } from './support.mjs';
 
 const options = {};
 for (let i = 2; i < process.argv.length; i += 2) {
@@ -199,12 +199,7 @@ async function main() {
             } catch (captureError) { result.screenshotError = message(captureError); }
           }
         }
-        await Promise.all(pending);
-        if (result.jsErrors.length) result.failures.push('Uncaught page JavaScript errors');
-        if (result.blockedRequests.length || result.requestFailures.length) result.failures.push('Blocked or failed requests');
-        if (result.resources.some(item => item.failure)) result.failures.push('Invalid resource response or package asset mismatch');
-        result.status = result.failures.length ? 'failed' : 'passed';
-        await context.close();
+        await finishPage(result, pending, () => context.close());
         await writeJson(path.join(output, `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.json`), result);
         console.log(`${name} ${viewport.width} ${mode} ${route} ${result.status}`);
         await snapshot();

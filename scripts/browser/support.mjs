@@ -69,3 +69,17 @@ export function responseFailure(status, contentType, resourceType) {
   if (['stylesheet', 'script', 'image', 'font', 'media'].includes(resourceType) && /^(text\/html|application\/xhtml\+xml)(;|$)/i.test(contentType)) return 'Asset returned HTML';
   return null;
 }
+
+export async function finishPage(result, pending, closeContext) {
+  await Promise.all(pending);
+  // Closing can emit requestfailed and complete response-body tasks. Drain
+  // those events before deriving the status that is written to evidence.
+  try { await closeContext(); }
+  catch (error) { result.failures.push('Context close: ' + String(error.message || error)); }
+  await Promise.all(pending);
+  if (result.jsErrors.length) result.failures.push('Uncaught page JavaScript errors');
+  if (result.blockedRequests.length || result.requestFailures.length) result.failures.push('Blocked or failed requests');
+  if (result.resources.some(item => item.failure)) result.failures.push('Invalid resource response or package asset mismatch');
+  result.status = result.failures.length ? 'failed' : 'passed';
+  return result;
+}
