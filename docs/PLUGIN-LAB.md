@@ -94,6 +94,8 @@ node scripts/plugins/diagnose.mjs \
 
 报告包含脚本源提交/工作区状态、主题源声明/ZIP SHA、实际插件版本/JAR SHA、引擎版本/执行文件 SHA、OS/模式/视口、公开 API 数量与字段、逐页 HTTP/资源/JS/横溢/内容数量、真实下一页链接、图片灯箱打开与 Escape、最终 HTML 和截图 SHA。静态和浏览器检查分开记录：API 正确不代表页面正确，缺少翻页入口即使第二页 URL 200 也不能通过。
 
+分页检查优先使用公开 API 提供的 prevUrl/nextUrl；当前固定插件的匿名 API 实测只有 ListResult 分页元数据，没有这两个 URL，因此报告明确使用实际渲染 href 加固定插件路由契约。接受 `/photos?page=2&size=20`、查询参数换序和合法相对链接，核对同 origin、目标页及 size/group/tag 语义；不能通过删除 size 满足过窄字符串匹配。页面提供合法可见入口时，检查器实际点击、核对目的页与对应分页 API 内容，再返回原页。没有入口时记录 clicked=false 和失败，不伪造点击成功；当前筛选数据不足以让瞬间 tag 产生第二页，完整筛选分页交互仍待产品修复后的夹具扩充。
+
 读取当前 origin 的 GET/HEAD；唯一允许写入是正常浏览触发的精确公开计数 POST `/apis/api.halo.run/v1alpha1/trackers/counter`，会增加合成计数。外站、WebSocket、其余写入一律拒绝，不 mock 成功。等待真实字体、有限动画与可见图片；不注入 CSS 隐藏问题，截图失败或未就绪会标 diagnosticOnly。错误和未测状态保留，不能用截图覆盖 API/JS 错误。
 
 ## 首轮覆盖边界

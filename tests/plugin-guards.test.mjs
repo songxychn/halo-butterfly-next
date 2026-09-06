@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { canonical, validateTarget, disabledApiUnavailable } from '../scripts/plugins/diagnose.mjs';
+import { canonical, validateTarget, disabledApiUnavailable, paginationContext, paginationLink } from '../scripts/plugins/diagnose.mjs';
 const repo = fileURLToPath(new URL('../', import.meta.url));
 
 test('P+ target requires matching owned runtime and distinct explicit loopback ports', () => {
@@ -22,6 +22,29 @@ test('disabled API accepts only 404 or the observed same-site Halo authenticatio
   assert.equal(disabledApiUnavailable(404, null), true);
   assert.equal(disabledApiUnavailable(302, '/login?authentication_required'), true);
   for (const [status, location] of [[200, null], [302, 'https://external.invalid/login'], [302, '/login'], [500, null]]) assert.equal(disabledApiUnavailable(status, location), false);
+});
+
+test('photo pagination preserves real size/group semantics and accepts query-relative/provider URLs', () => {
+  const base = 'http://127.0.0.1:18094';
+  const unfiltered = paginationContext('photos', base + '/photos', 20);
+  assert.equal(paginationLink('/photos?page=2&size=20', unfiltered, 'next'), base + '/photos?page=2&size=20');
+  const current = paginationContext('photos', base + '/photos?group=合成山川&size=5', 20);
+  const provider = '/photos?page=2&size=5&group=' + encodeURIComponent('合成山川');
+  assert.ok(paginationLink('?size=5&group=合成山川&page=2', current, 'next', provider));
+  for (const wrong of ['/2', '/photos/page/2', '/photos?page=3&size=5&group=合成山川', '/photos?page=2&size=5', '/photos?page=2&group=合成山川', '/photos?page=2&size=20&group=合成山川', '/photos?page=2&page=3&size=5&group=合成山川', '//external.invalid/photos?page=2&size=5&group=合成山川']) assert.equal(paginationLink(wrong, current, 'next'), null, wrong);
+  assert.equal(paginationLink(provider, current, 'next', 'https://external.invalid/photos?page=2'), null);
+  const second = paginationContext('photos', base + provider, 20);
+  assert.ok(paginationLink('/photos?page=1&size=5&group=合成山川', second, 'previous'));
+});
+
+test('moment pagination keeps tag and rejects query-page, wrong paths, filters or credentials', () => {
+  const base = 'http://127.0.0.1:18094';
+  const current = paginationContext('moments', base + '/moments?tag=山川', 10);
+  assert.ok(paginationLink('/moments/page/2?tag=%E5%B1%B1%E5%B7%9D', current, 'next'));
+  for (const wrong of ['/moments/page/2', '/moments/page/2?tag=星空', '/moments?page=2&tag=山川', '/moments/page/3?tag=山川', 'http://user@127.0.0.1:18094/moments/page/2?tag=山川']) assert.equal(paginationLink(wrong, current, 'next'), null, wrong);
+  assert.equal(paginationLink('/moments?tag=山川', current, 'previous'), null);
+  const second = paginationContext('moments', base + '/moments/page/2?tag=山川', 10);
+  assert.ok(paginationLink('/moments?tag=山川', second, 'previous'));
 });
 
 test('P+ mutation guards preserve unowned content, drift and corrupt backups', () => {

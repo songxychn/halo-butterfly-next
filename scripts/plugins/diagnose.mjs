@@ -16,6 +16,93 @@ export function disabledApiUnavailable(status, location) {
   return status === 404 || (status === 302 && location === '/login?authentication_required');
 }
 
+export function paginationContext(kind, value, defaultSize) {
+  const url = new URL(value);
+  const allowed = kind === 'photos' ? ['page', 'size', 'group'] : ['tag'];
+  assert(['photos', 'moments'].includes(kind) && url.protocol === 'http:' && url.hostname === '127.0.0.1' && !url.username && !url.password && !url.hash, 'Invalid pagination origin');
+  assert([...url.searchParams.keys()].every(key => allowed.includes(key) && url.searchParams.getAll(key).length === 1), 'Unexpected or duplicate pagination parameter');
+  const positive = value => /^[1-9]\d*$/.test(String(value)) && Number.isSafeInteger(Number(value));
+  let page;
+  if (kind === 'photos') {
+    assert(url.pathname === '/photos', 'Invalid photo pagination route');
+    page = url.searchParams.get('page') || '1';
+  } else {
+    const match = url.pathname.match(/^\/moments(?:\/page\/([1-9]\d*))?\/?$/);
+    assert(match, 'Invalid moment pagination route'); page = match[1] || '1';
+  }
+  const size = kind === 'photos' ? url.searchParams.get('size') || defaultSize : defaultSize;
+  assert(positive(page) && positive(size), 'Invalid pagination number');
+  return { kind, url: url.href, origin: url.origin, page: Number(page), size: Number(size), defaultSize: Number(defaultSize), filterName: kind === 'photos' ? 'group' : 'tag', filter: url.searchParams.get(kind === 'photos' ? 'group' : 'tag') };
+}
+
+export function paginationLink(value, current, direction, advertisedUrl) {
+  try {
+    const parsed = new URL(value, current.url), target = paginationContext(current.kind, parsed.href, current.defaultSize);
+    const expectedPage = current.page + (direction === 'next' ? 1 : -1);
+    if (!['next', 'previous'].includes(direction) || expectedPage < 1 || target.origin !== current.origin || target.page !== expectedPage || target.size !== current.size || target.filter !== current.filter) return null;
+    if (advertisedUrl) {
+      const advertised = paginationLink(advertisedUrl, current, direction);
+      if (!advertised) return null;
+      const expected = paginationContext(current.kind, advertised, current.defaultSize);
+      if (['kind', 'origin', 'page', 'size', 'filter'].some(key => expected[key] !== target[key])) return null;
+    }
+    return parsed.href;
+  } catch { return null; }
+}
+
+function pageApi(context, page = context.page) {
+  const params = new URLSearchParams({ page: String(page), size: String(context.size) });
+  if (context.filter !== null) params.set(context.filterName, context.filter);
+  return `/apis/api.${context.kind === 'photos' ? 'photo' : 'moment'}.halo.run/v1alpha1/${context.kind}?${params}`;
+}
+
+async function publicPage(base, apiPath) {
+  const response = await fetch(base + apiPath, { redirect: 'manual', signal: AbortSignal.timeout(30000) });
+  const body = await response.text();
+  assert(response.status === 200, 'Pagination API HTTP ' + response.status);
+  const model = JSON.parse(body);
+  assert(Array.isArray(model.items), 'Pagination API must return real items');
+  return { path: apiPath, status: response.status, sha256: sha256(body), model };
+}
+
+async function paginationChecks(page, base, route, result, output, index) {
+  const originalUrl = page.url(), current = paginationContext(route.kind, originalUrl, route.kind === 'photos' ? 20 : 10);
+  const currentApi = await publicPage(base, pageApi(current));
+  assert(currentApi.model.page === current.page && currentApi.model.size === current.size, 'Pagination API context differs from rendered route');
+  result.pagination = { context: current, currentApi, urlSource: currentApi.model.nextUrl || currentApi.model.prevUrl ? 'public API URLs' : 'rendered href validated against pinned plugin route contract; public API exposes no prevUrl/nextUrl', checks: [] };
+  for (const direction of ['next', 'previous']) {
+    const required = currentApi.model[direction === 'next' ? 'hasNext' : 'hasPrevious'];
+    if (!required) continue;
+    const advertised = currentApi.model[direction === 'next' ? 'nextUrl' : 'prevUrl'];
+    const check = { direction, advertisedUrl: advertised || null, required: true, status: 'not-found', clicked: false };
+    result.pagination.checks.push(check);
+    if (advertised && !paginationLink(advertised, current, direction)) {
+      result.failures.push('Pagination API advertised a wrong-origin or context-losing URL'); continue;
+    }
+    const candidates = page.locator('.main > .content a[href]');
+    let candidate;
+    for (let i = 0; i < await candidates.count(); i++) {
+      const item = candidates.nth(i), href = await item.getAttribute('href');
+      if (paginationLink(href, current, direction, advertised) && await item.isVisible()) { candidate = item; check.href = href; break; }
+    }
+    if (!candidate) { result.failures.push('No rendered ' + direction + '-page link preserving page, size and ' + current.filterName); continue; }
+    try {
+      const targetApi = await publicPage(base, pageApi(current, current.page + (direction === 'next' ? 1 : -1)));
+      check.targetApi = targetApi;
+      await candidate.scrollIntoViewIfNeeded();
+      await Promise.all([page.waitForURL(url => Boolean(paginationLink(url.href, current, direction, advertised))), candidate.click()]);
+      check.clicked = true; check.finalUrl = page.url(); await settle(page);
+      const texts = await page.locator(route.selector).evaluateAll(items => items.map(x => x.textContent.trim() || x.getAttribute('alt')));
+      const expected = targetApi.model.items.map(x => route.kind === 'photos' ? x.spec.displayName : x.spec.content.html.replace(/<[^>]*>/g, ''));
+      assert(texts.length === expected.length && expected.every(text => texts.some(actual => actual.includes(text))), 'Clicked pagination content differs from public API');
+      check.renderedCount = texts.length; check.status = 'passed';
+      const filename = `${index}-${direction}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true, timeout: 15000 });
+      check.screenshot = { file: filename, sha256: sha256(await readFile(path.join(output, filename))) };
+    } catch (error) { check.status = 'failed'; check.error = error.message; result.failures.push('Pagination click: ' + error.message); }
+    finally { if (page.url() !== originalUrl) { await page.goto(originalUrl, { waitUntil: 'domcontentloaded' }); await settle(page); } }
+  }
+}
+
 export function validateTarget(marker, owner, runtime) {
   assert(marker?.owner === 'halo-butterfly-next-comparison' && marker.schema === 1, 'Comparison marker required');
   assert(owner?.owner === OWNER && owner.runtime === runtime && JSON.stringify(owner.ports) === JSON.stringify(marker.ports), 'P+ owner/ports mismatch');
@@ -88,7 +175,7 @@ async function inspectPage(browser, base, route, variant, output, index, package
       if (result.dom.horizontalOverflow) result.failures.push('Horizontal page overflow');
       if (result.dom.colorScheme !== variant.mode) result.failures.push('Actual page color scheme differs from requested scenario');
       if (result.dom.activeFiniteAnimations) result.failures.push('Finite animations did not settle');
-      if (route.requireNext && !result.dom.links.some(x => x.href && new URL(x.href, base).href === base + route.requireNext)) result.failures.push('No rendered next-page link to ' + route.requireNext);
+      if (route.site === 'halo' && ['photos', 'moments'].includes(route.kind)) await paginationChecks(page, base, route, result, output, index);
       if (route.kind === 'photos' && route.site === 'halo' && result.dom.count > 0) {
         try {
           const trigger = page.locator('.content [data-fancybox]').first(); await trigger.click();
@@ -115,11 +202,9 @@ function routesFor(state, stage) {
     { site: 'hexo', kind, path: '/' + kind + '/', selector: { links: '.flink-list-item', photos: '.gallery-container .item', moments: '.shuoshuo-item' }[kind], count: Math.min(counts[kind] || 0, { links: Infinity, photos: 10, moments: 8 }[kind]) }
   ]);
   if (stage !== 'disabled' && (counts.photos || 0) > 20) {
-    result.find(x => x.site === 'halo' && x.kind === 'photos').requireNext = '/photos?page=2';
     result.push({ site: 'halo', kind: 'photos', path: '/photos?page=2', selector: '.content .imgs img', count: counts.photos - 20 });
   }
   if (stage !== 'disabled' && (counts.moments || 0) > 10) {
-    result.find(x => x.site === 'halo' && x.kind === 'moments').requireNext = '/moments/page/2';
     result.push({ site: 'halo', kind: 'moments', path: '/moments/page/2', selector: '.content .list > .item', count: counts.moments - 10 });
   }
   if (stage !== 'disabled' && (counts.photogroups || 0) > 1) result.push({ site: 'halo', kind: 'photos', path: '/photos?group=pplus-group-a', selector: '.content .imgs img', count: shape.photos.filter(x => x.spec.groupName === 'pplus-group-a').length });
