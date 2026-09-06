@@ -96,6 +96,8 @@ def main():
         name = obj['metadata']['name']
         if name in existing:
             actual = existing[name]
+            if plural == 'menuitems' and actual['spec'].get('parent') != obj['spec'].get('parent'):
+                raise ValueError('Existing synthetic resource differs; preserving it: ' + name)
             if actual['spec'] != obj['spec'] or actual['metadata'].get('annotations', {}) != obj['metadata'].get('annotations', {}):
                 # Halo may fill optional defaults. Preserve those; verify our fields.
                 if any(actual['spec'].get(k) != v for k, v in obj['spec'].items()) or actual['metadata'].get('annotations', {}) != obj['metadata'].get('annotations', {}):
