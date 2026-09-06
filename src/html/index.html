@@ -16,7 +16,9 @@
         //第一屏
         enable_above: /*[[${theme.config.index.enable_above}]]*/ '',
         above_background: /*[[${theme.config.index.above_background}]]*/ '',
-        // 打字机
+        // 字幕：缺少新增开关时保留旧版本的可见打字效果
+        enable_subtitle: /*[[${theme.config.index.enable_subtitle != false}]]*/ true,
+        subtitle_effect: /*[[${theme.config.index.subtitle_effect != false}]]*/ true,
         enable_typewriter_random_text: /*[[${theme.config.index.enable_typewriter_random_text}]]*/ '',
         typewriter_custom_text: /*[[${theme.config.index.typewriter_custom_text}]]*/ '',
         typewriter_random_api: /*[[${theme.config.index.typewriter_random_api}]]*/ '',
@@ -45,7 +47,7 @@
       <section class="above" th:if="${theme.config.index.enable_above}">
         <div class="above-info">
           <h1 class="above-title" th:text="${site.title}"></h1>
-          <div class="above-subtitle">
+          <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false}">
             <span class="above-subtitle--text"></span>
           </div>
         </div>
