@@ -12,7 +12,7 @@
 pnpm install --frozen-lockfile --ignore-scripts
 pnpm build
 python3 scripts/lab/lab.py bootstrap \
-  --package dist/halo-butterfly-next-0.1.0-alpha.1.zip \
+  --package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
   --source-sha "$(git rev-parse HEAD)"
 python3 scripts/lab/lab.py health
 python3 scripts/lab/lab.py evidence

@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-independent-review",
+  "issue": 16,
+  "reviewer": "/root/acceptance_contract",
+  "author": "/root/parity_matrix",
+  "reviewedAt": "2026-09-06T15:21:58.248401+00:00",
+  "sourceSha": "98853f3562658e08e231113f441c2622c693f0d7",
+  "baseSha": "a9eb480c5bed2b37cb5cd9eddb60bb92ca58c761",
+  "changedFiles": 12,
+  "sourceWorktreeDirty": false,
+  "decision": "passed",
+  "openFindings": [],
+  "resolvedFindings": [
+    {
+      "priority": "P2",
+      "description": "Closed mobile toggle lost focus to BODY after expanding viewport.",
+      "originalSha": "11a8bd795dad52c8338fac4d3e6dd618084221d2",
+      "reproduction": "7/8 failures after two animation frames at 390→1440.",
+      "resolution": "Symmetric lastFocusedElement fallback; 36 final independent repeated cases across two breakpoints/light-dark and content/body non-stealing controls passed."
+    },
+    {
+      "priority": "P2",
+      "description": "Existing top-level fixture MenuItem with unexpected parent was silently accepted and primary activated.",
+      "originalSha": "400e433c88ac41a4360995ce7cbbdde3360a05e4",
+      "resolution": "Explicit parent equality with missing/null compatibility; independent fake-client replay now rejects with complete state unchanged. CI test includes reject/no writes and null positive case."
+    }
+  ],
+  "validation": {
+    "fullVerify": {
+      "command": "pnpm verify",
+      "exitCode": 0,
+      "tests": 36,
+      "packageFiles": 120
+    },
+    "packageSha256": "415403fb597565924fb2f33e95038db6c3ab5bd07af963c1baa32e014c3b3134",
+    "installedByteIdenticalFiles": 120,
+    "installedMismatches": [],
+    "runtime": {
+      "station": "http://127.0.0.1:18090",
+      "coreChecks": 38,
+      "resizeChecks": 36,
+      "nativeChildNavigationChecks": 8,
+      "browserErrors": [],
+      "emptyModes": [
+        "light",
+        "dark"
+      ],
+      "systemDataRestored": true,
+      "menuItemResourcesRestored": true,
+      "renderedPrimaryRestored": "navigation-keyboard",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36"
+    },
+    "reference": {
+      "station": "http://127.0.0.1:14003",
+      "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+      "sourceCheckoutClean": true,
+      "verified": "Labels/icons/links and non-hide group initially expanded then collapsed on click; retained as menu-only comparison."
+    },
+    "authorEvidenceAudit": {
+      "indexedFiles": 34,
+      "hashMismatches": [],
+      "summarySha256": "e543cd4cbbd36c2d2c2b73e37f4a76c5cb90a7505dc864360e87eb43d958b191"
+    },
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34041907021,
+      "headSha": "98853f3562658e08e231113f441c2622c693f0d7",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34041907021"
+    },
+    "pullRequest": {
+      "number": 27,
+      "url": "https://github.com/songxychn/halo-butterfly-next/pull/27",
+      "headSha": "98853f3562658e08e231113f441c2622c693f0d7",
+      "base": "master",
+      "files": 12,
+      "isDraft": false,
+      "mergeable": "MERGEABLE"
+    }
+  },
+  "codeAssessment": [
+    "Native button disclosures provide aria-expanded/controls and preserve native child anchors; parent click handler does not receive child links.",
+    "Drawer hidden/inert, focus trap, layered Escape, background inert restoration and per-axis overflow restoration are implemented coherently.",
+    "Document Symbol singleton prevents duplicate navigation initialization across repeated constructors; page/public layout each load one matching page bundle and both share the Common navigation entry.",
+    "Fixture scope is explicit localhost-only task identities; source changes add no package dependencies or credentials."
+  ],
+  "limitations": [
+    "Headless Chromium viewports are not physical-device, Firefox or real Safari acceptance.",
+    "Desktop scoped axe retains color-contrast incomplete for four header nodes over a background image in each mode; no whole A11Y domain pass.",
+    "Actual SearchWidget fixture is installed but disabled; unavailable search entry was tested, uninstall was not independently performed here.",
+    "Upstream non-hide mobile groups initially expand while Halo groups remain collapsed; hide/default annotation parity, long menus, sticky/current-route enhancements and arbitrary deep nesting remain open feature work.",
+    "Fixed upstream reference has different article/profile content; compare menu semantics only. First click immediately after resize did not keep its drawer open; stable viewport retry succeeded with no script errors.",
+    "Review excludes unchanged baseline subtitle implementation authored by this reviewer; no self-review claim."
+  ],
+  "stationHandoff": {
+    "browserSessionClosed": true,
+    "portsHandedBackToRoot": [
+      18090,
+      14003
+    ],
+    "servicesRetained": true,
+    "serverConfigurationRestored": true
+  },
+  "evidence": {
+    "independent-verify.log": {
+      "sha256": "3e5dfa3d1b55ad0361b02cd9b620c4a5c36b5b957cfff18d3be47f42ade6377f",
+      "bytes": 3863
+    },
+    "independent-fixture-conflict.json": {
+      "sha256": "a2308765169a4acea23b51892bbe88fda32e38db9041515833d274704e2a5865",
+      "bytes": 292
+    },
+    "independent-navigation-core.json": {
+      "sha256": "a9d12cdb9c2338e65f6190d35167c7e2327dd85dcd7e8e92df0dac95d6f8271a",
+      "bytes": 3444
+    },
+    "independent-resize-regression.json": {
+      "sha256": "c15ea43ae79752985d567e09e74239d588fd4abdb6709aefaa964d0cf4891fc1",
+      "bytes": 9007
+    },
+    "independent-fixture-lifecycle.json": {
+      "sha256": "25487bff2646c46c1a4cbae258e9a49510180cd82482433df1eb1f1b0b40e059",
+      "bytes": 1068
+    },
+    "independent-child-navigation.json": {
+      "sha256": "a21f9c41fca6532bcffb5a614074a189f8174fc9cef27755afd7e17e44c27e05",
+      "bytes": 997
+    },
+    "independent-reference.json": {
+      "sha256": "7c3acdf807bc426ab9d11a3bdeeba5e34d1b90dab1ce13c5e1f7727dff0425a9",
+      "bytes": 742
+    },
+    "author-evidence-audit.json": {
+      "sha256": "0231c27c3d5943898ea8ab0dec91c0a599e4f03bd3acd46d2400d42c2ad5fde5",
+      "bytes": 3614
+    }
+  }
+}

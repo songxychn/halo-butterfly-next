@@ -35,7 +35,7 @@
 python3 -B tests/subtitle-runtime.py \
   --baseline-package /path/to/baseline/theme.zip \
   --baseline-sha <构建基线包的完整提交> \
-  --package dist/halo-butterfly-next-0.1.0-alpha.1.zip
+  --package dist/halo-butterfly-next-0.1.0-alpha.2.zip
 ```
 
 该运行器需要 `agent-browser` 和独立无头 Chromium，会创建自己的命名会话，只允许访问 `127.0.0.1`。本地 TEXT/JSON/404 由该 Halo 实验站提供；分别对 Resource Timing 和浏览器网络记录计数。截图前等待加载遮罩移除和有限 CSS 入场动画结束，并检查导航/字幕的可见透明度。证据及截图写入专属运行目录，包含是否有未提交修改；正式验收应提交代码、从该提交重新构建并重跑。成功后关闭浏览器，保留服务器。该运行器属于显式手工集成检查，不由 `pnpm check` 自动启动服务。
