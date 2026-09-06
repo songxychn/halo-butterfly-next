@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "date": "2026-09-06T15:14:50.808741+00:00",
+  "reviewer": "/root",
+  "author": "/root/comparison_lab",
+  "sourceSha": "c1ef1ed7b1cb3fee5ca65107a133e123b8d49051",
+  "decision": "passed",
+  "scope": "8 browser fixture, runner, guard-test and documentation files",
+  "findings": [],
+  "resolvedReviewFindings": [
+    "Blocked public visit counter caused false page errors; exact owned-origin counter POST is now permitted and reported",
+    "Resource tasks and context-close events settle before result status is derived",
+    "Zero-page progress snapshots use unique names"
+  ],
+  "independentChecks": {
+    "guardTests": 9,
+    "baselineScreenshotsHashVerified": 120,
+    "candidateScreenshotsHashVerified": 40,
+    "candidatePagesPassed": 40,
+    "candidateJsErrors": 0,
+    "candidateFailedResources": 0,
+    "candidateSource": "546c55854f09b6b0d923e30c06b7617f09f8d0ee",
+    "candidatePackage": "ca913cab4faedb4bacdd53a11ab4058263dc2b01370eaff2e6701c29afdc3465",
+    "candidateRunnerResult": "incomplete: two engines intentionally omitted, not misreported as full pass"
+  },
+  "authorBaseline": {
+    "runnerSha": "17c151e2695f1ec8de96d23c4e816f413738645c",
+    "sourceSha": "bbc1ebe5c5726cf36f52949455e1a97120637cac",
+    "pages": 120,
+    "engines": 3,
+    "result": "failed; expected process and old cursor path defects retained"
+  },
+  "rawReports": [
+    {
+      "path": "/private/tmp/halo-butterfly-next-browser-matrix/.runtime/browser-matrix/runs/2026-09-06T15-06-34-437Z-7cdd1c0c/report.json",
+      "sha256": "5ac55f6f17b5f91b2949c532446414f938d25b2d7a87ed59f5f87931acd9e371"
+    },
+    {
+      "path": "/private/tmp/halo-butterfly-next-browser-matrix/.runtime/browser-matrix/runs/2026-09-06T15-12-31-473Z-d7267f74/report.json",
+      "sha256": "52ecede91f293b923426366038792931a43021f1e2120ad88699649aef14fab2"
+    }
+  ],
+  "contractAcceptance": false,
+  "limits": [
+    "This review accepts the bounded browser smoke infrastructure only, not BROWSER-04 or product parity",
+    "Real Safari, stable branded Firefox and real phones remain separate acceptance items"
+  ]
+}
