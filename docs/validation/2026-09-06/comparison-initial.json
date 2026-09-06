@@ -1,0 +1,47 @@
+{
+  "capturedAt": "2026-09-06T14:21:04.303360+00:00",
+  "themeSourceCommit": "bbc1ebe5c5726cf36f52949455e1a97120637cac",
+  "labCommit": "f625b244201e976739f36b393be9ff9f8b98fc6a",
+  "kind": "initial comparison, not parity acceptance",
+  "sites": [
+    "Halo 2.26.1",
+    "Hexo 7.3.0 / Butterfly 5.7.0"
+  ],
+  "browser": "independent headless Chromium 152.0.7977.54",
+  "platform": "macOS 26.6.2",
+  "locale": "zh-CN",
+  "timezone": "Asia/Shanghai",
+  "captures": {
+    "count": 16,
+    "pages": [
+      "home",
+      "post preview-1"
+    ],
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "colorModes": [
+      "light",
+      "dark"
+    ]
+  },
+  "observations": [
+    "Halo primary navigation and side menu render empty although the API contains five menu items. Issue #3 was reopened; fixture mapping requires correction.",
+    "Empty Halo typewriter content triggers fallback text; the current theme has no subtitle off switch. This is a theme gap, not a stable disabled subtitle baseline.",
+    "Halo homepage title size and cover overlay differ visually from fixed upstream; visual parity is unverified."
+  ],
+  "limitations": [
+    "API and HTTP success do not imply rendered menu parity.",
+    "Clock and counters are not frozen. Loaded-image checks include a transparent data-URI placeholder; they do not establish all lazy content is ready.",
+    "Screenshots remain local and are not release artifacts.",
+    "Headless mobile viewports do not replace real touch-device testing."
+  ],
+  "result": "gaps-found"
+}
