@@ -35,7 +35,7 @@ export function renderMatrix(matrix) {
     }
     lines.push('');
   }
-  return `${lines.join('\n')}\n`;
+  return `${lines.join('\n').trimEnd()}\n`;
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
