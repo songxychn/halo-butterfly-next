@@ -19,7 +19,11 @@
   }
 
   .halo {
-    color: #2f55d4;
+    color: var(--footer-halo-color, #2f55d4);
+
+    [data-color-scheme='dark'] & {
+      --footer-halo-color: #8aa7ff;
+    }
   }
 
   .theme {
