@@ -29,6 +29,8 @@ pnpm migrate --input old.json --from 2.0.5 --output next.json
 
 原版字体重置为系统字体，已知的原版默认封面重置为 Next 内置 SVG；自定义封面链接保留。JS/CSS 的旧 CDN 配置重置为当前安装包资源，避免跨版本脚本混用。旧配置中的 Pro 专用图标需替换为 Font Awesome Free 图标。
 
+首页字幕新增 `index.enable_subtitle` 与 `index.subtitle_effect`，均默认开启以保留旧站行为。原版迁移自动补齐缺项并保留显式 `false`；Next 直接升级时缺失的新开关也按开启处理。空文案不再循环显示配置警告，字幕内容按纯文本呈现；完整映射与 API 失败回退见 [字幕说明](SUBTITLE.md)。
+
 没有对应项的选项会标记 `unsupported`；类型不符标记 `type-mismatch`，需要手动解析的内容标记 `manual-review`。例如原版打赏、过期提示、部分颜色/宽度、自定义标题没有直接对应项。`needsReview: true` 时必须逐项检查，不能将输出视为无损迁移。即使报告没有这些项，也要检查外链、图标、自定义 HTML 和默认值变化。
 
 ## 切换与回退

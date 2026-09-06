@@ -447,14 +447,33 @@ spec:
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
           help: 如果全局背景图设置为图片链接，则此处背景图将不生效
           validation: required
+        - $formkit: radio
+          name: enable_subtitle
+          label: 启用首页字幕
+          help: 关闭后不显示字幕，也不请求随机文案。默认开启以保留旧版本行为。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: radio
+          name: subtitle_effect
+          label: 启用字幕打字效果
+          help: 关闭后静态显示第一条文案；随机来源开启时显示返回文案，失败回退到自定义第一条。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
         - $formkit: textarea
           rows: 5
           name: typewriter_custom_text
-          label: 打字机文案
-          placeholder: 请填写 打字机文案
-          help: 首页第一屏打字机文案 (注：多个文案用 |&| 分割)
+          label: 首页字幕文案
+          placeholder: 请填写 首页字幕文案
+          help: 多条文案用 |&| 分隔；关闭打字效果时显示第一条。留空不显示提示文字；随机来源失败时回退到此处文案。
           value: '欢迎使用Butterfly主题，一个简洁、优雅的主题~'
-          validation: required
         - $formkit: radio
           name: enable_typewriter_random_text
           label: 启用随机打字机文案
@@ -800,4 +819,3 @@ spec:
               label: "xonokai"
             - value: "z-touch"
               label: "z-touch"
-
