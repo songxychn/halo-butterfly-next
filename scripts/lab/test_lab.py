@@ -89,6 +89,55 @@ class LabTests(unittest.TestCase):
         self.assertEqual(result['contentType'], 'text/css')
         self.assertEqual(result['sha256'], lab.hashlib.sha256(response.read.return_value).hexdigest())
 
+    def test_taxonomy_collection_rejects_unreferenced_default(self):
+        class FakeClient:
+            def api(self, path):
+                return {'items': [{'metadata': {'name': 'development'}, 'spec': {'slug': 'development', 'displayName': '主题开发'}}, {'metadata': {'name': 'initial-default'}, 'spec': {'slug': 'default', 'displayName': '默认分类'}}]}
+        with self.assertRaisesRegex(RuntimeError, 'Taxonomy collection differs'):
+            lab.validate_taxonomies(FakeClient(), {'Category': [{'name': '主题开发'}], 'Tag': [{'name': 'Butterfly'}]})
+
+    def test_taxonomy_collections_match_both_platforms(self):
+        class FakeClient:
+            def api(self, path):
+                plural = 'categories' if 'categories?' in path else 'tags'
+                return {'items': [{'metadata': {'name': item['name']}, 'spec': {'slug': item['name'], 'displayName': item['title']}} for item in lab.CONTENT[plural]]}
+        lab.validate_taxonomies(FakeClient(), {'Category': [{'name': '主题开发'}], 'Tag': [{'name': 'Butterfly'}]})
+
+    def test_menu_validation_rejects_missing_icon(self):
+        class FakeClient:
+            def api(self, path):
+                if '/menus/' in path:
+                    return {'spec': {'menuItems': ['comparison-menu-' + str(i) for i in range(len(lab.CONTENT['menu']))]}}
+                item = lab.CONTENT['menu'][0]
+                return {'metadata': {}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': 0, 'children': []}}
+        with self.assertRaisesRegex(RuntimeError, 'Menu item or icon differs'):
+            lab.validate_menu(FakeClient())
+
+    def test_initial_taxonomy_cleanup_requires_fresh_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            client = MagicMock()
+            with patch.object(lab, 'RUNTIME', Path(directory)), self.assertRaisesRegex(RuntimeError, 'Fresh initialization snapshot unavailable'):
+                lab.cleanup_initial_taxonomies(client)
+            client.api.assert_not_called()
+
+    def test_initial_taxonomy_cleanup_preserves_other_post_references(self):
+        welcome = {'metadata': {'name': 'initial-welcome'}, 'spec': {'title': 'Hello Halo', 'slug': 'hello-halo', 'owner': 'fixture', 'publish': False, 'categories': [], 'tags': []}}
+        original = {'metadata': welcome['metadata'], 'spec': {**welcome['spec'], 'categories': ['initial-default']}}
+        snapshot = {'posts': [original], 'categories': [{'metadata': {'name': 'initial-default'}, 'spec': {'slug': 'default'}}], 'tags': []}
+        class FakeClient:
+            def __init__(self): self.calls = []
+            def api(self, path, method='GET', data=None):
+                self.calls.append((path, method))
+                if path.endswith('/initial-welcome'): return welcome
+                return {'items': [welcome, {'spec': {'categories': ['initial-default']}}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lab.write_json(root / 'initial-content.json', snapshot, private=True)
+            client = FakeClient()
+            with patch.object(lab, 'RUNTIME', root), self.assertRaisesRegex(RuntimeError, 'referenced by another article'):
+                lab.cleanup_initial_taxonomies(client)
+            self.assertTrue(all(method == 'GET' for _, method in client.calls))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -168,6 +168,7 @@ class Client:
     def __init__(self, initialize=False):
         if not (RUNTIME / 'lab.json').exists() or not owned_process('halo'):
             raise RuntimeError('Refusing API mutations without an owned Halo lab process')
+        self.initialized_now = False
         self.jar = http.cookiejar.CookieJar()
         self.opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.request.HTTPCookieProcessor(self.jar))
         credentials = RUNTIME / 'halo/credentials.json'
@@ -184,6 +185,7 @@ class Client:
             if urllib.parse.urlparse(response.url).path == '/system/setup' and parser.csrf:
                 payload = {**self.auth, '_csrf': parser.csrf, 'email': 'fixture@example.invalid', 'siteTitle': CONTENT['site']['title'], 'language': 'zh-CN', 'externalUrl': BASE['halo']}
                 self.opener.open(urllib.request.Request(BASE['halo'] + '/system/setup', data=urllib.parse.urlencode(payload).encode()), timeout=60).read()
+                self.initialized_now = True
         page = self.opener.open(BASE['halo'] + '/login', timeout=30).read().decode()
         parser = Inputs(); parser.feed(page)
         self.csrf = parser.csrf
@@ -268,6 +270,109 @@ def check_hexo_inputs(saved):
         raise RuntimeError('Reference content/config drift detected; bootstrap preserves existing files')
 
 
+def capture_initial_content(client):
+    snapshot = {kind: client.api('/apis/content.halo.run/v1alpha1/' + kind + '?size=100')['items'] for kind in ['posts', 'categories', 'tags']}
+    expected = {'posts': ('title', 'Hello Halo', 'hello-halo'), 'categories': ('displayName', '默认分类', 'default'), 'tags': ('displayName', 'Halo', 'halo')}
+    for kind, (field, title, slug) in expected.items():
+        items = snapshot[kind]
+        if len(items) != 1 or items[0]['spec'].get(field) != title or items[0]['spec'].get('slug') != slug:
+            raise RuntimeError('Fresh Halo initial content differs from the known baseline; preserving it')
+    welcome = snapshot['posts'][0]
+    snapshot['welcomeContent'] = client.api('/apis/api.console.halo.run/v1alpha1/posts/' + welcome['metadata']['name'] + '/release-content')
+    write_json(RUNTIME / 'initial-content.json', snapshot, private=True)
+
+
+def cleanup_initial_taxonomies(client):
+    snapshot_path = RUNTIME / 'initial-content.json'
+    if not snapshot_path.exists():
+        raise RuntimeError('Fresh initialization snapshot unavailable; use a new runtime before seeding')
+    snapshot = json.loads(snapshot_path.read_text())
+    original = snapshot['posts'][0]
+    name = original['metadata']['name']
+    api = '/apis/content.halo.run/v1alpha1/posts/' + name
+    welcome = client.api(api)
+    if any(welcome['spec'].get(key) != original['spec'].get(key) for key in ['title', 'slug', 'owner']):
+        raise RuntimeError('Initial welcome article was edited; preserving its taxonomies')
+    for key in ['categories', 'tags']:
+        if welcome['spec'].get(key, []) not in [[], original['spec'].get(key, [])]:
+            raise RuntimeError('Initial welcome taxonomy links changed; preserving them')
+    if welcome['spec'].get('publish'):
+        client.api('/apis/api.console.halo.run/v1alpha1/posts/' + name + '/unpublish', 'PUT')
+    for _ in range(10):
+        welcome = client.api(api)
+        if any(welcome['spec'].get(key) != original['spec'].get(key) for key in ['title', 'slug', 'owner']):
+            raise RuntimeError('Initial welcome article changed during cleanup; preserving it')
+        if any(welcome['spec'].get(key, []) not in [[], original['spec'].get(key, [])] for key in ['categories', 'tags']):
+            raise RuntimeError('Initial welcome taxonomy links changed during cleanup; preserving them')
+        if not welcome['spec'].get('categories') and not welcome['spec'].get('tags'): break
+        welcome['spec'].update({'categories': [], 'tags': []})
+        try:
+            client.api(api, 'PUT', welcome)
+            break
+        except ApiError as error:
+            if error.status != 409: raise
+            time.sleep(0.2)  # Halo's status reconciler may advance metadata.version after unpublish.
+    else:
+        raise RuntimeError('Welcome article remained busy; preserving recovery snapshot')
+    removed = []
+    for kind in ['categories', 'tags']:
+        for item in snapshot[kind]:
+            item_name = item['metadata']['name']
+            endpoint = '/apis/content.halo.run/v1alpha1/' + kind + '/' + item_name
+            for _ in range(30):
+                posts = client.api('/apis/content.halo.run/v1alpha1/posts?size=100')['items']
+                if any(item_name in post['spec'].get(kind, []) for post in posts):
+                    raise RuntimeError('Initial taxonomy is referenced by another article; preserving it')
+                try:
+                    current = client.api(endpoint)
+                except ApiError as error:
+                    if error.status != 404: raise
+                    break
+                if any(current['spec'].get(key) != value for key, value in item['spec'].items()):
+                    raise RuntimeError('Initial taxonomy was edited; preserving it')
+                if current['metadata'].get('deletionTimestamp'): break
+                if current.get('status', {}).get('postCount') != 0:
+                    time.sleep(0.2)
+                    continue
+                try:
+                    client.api(endpoint, 'DELETE')
+                    break
+                except ApiError as error:
+                    if error.status != 409: raise
+                    time.sleep(0.2)
+            else:
+                raise RuntimeError('Initial taxonomy remained busy; preserving recovery snapshot')
+            removed.append({'kind': kind, 'name': item_name, 'slug': item['spec']['slug']})
+    for _ in range(30):
+        remaining = {kind: {x['metadata']['name'] for x in client.api('/apis/content.halo.run/v1alpha1/' + kind + '?size=100')['items']} for kind in ['categories', 'tags']}
+        if all(x['name'] not in remaining[x['kind']] for x in removed): break
+        time.sleep(1)
+    else:
+        raise RuntimeError('Initial taxonomy deletion has not reconciled; preserving recovery snapshot')
+    write_json(RUNTIME / 'initial-cleanup.json', {'initialSnapshotSha256': digest(snapshot_path), 'preservedWelcomeId': name, 'removedTaxonomies': removed})
+
+
+def validate_menu(client):
+    names = ['comparison-menu-' + str(index) for index in range(len(CONTENT['menu']))]
+    menu = client.api('/api/v1alpha1/menus/comparison-primary')
+    if menu['spec'].get('menuItems') != names:
+        raise RuntimeError('Primary menu order differs from fixture')
+    for index, item in enumerate(CONTENT['menu']):
+        actual = client.api('/api/v1alpha1/menuitems/' + names[index])
+        expected = {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': []}
+        if any(actual['spec'].get(key) != value for key, value in expected.items()) or actual['metadata'].get('annotations', {}).get('icon') != item['icon']:
+            raise RuntimeError('Menu item or icon differs from fixture: ' + names[index])
+
+
+def validate_taxonomies(client, models):
+    for plural, kind in [('categories', 'Category'), ('tags', 'Tag')]:
+        actual = client.api('/apis/content.halo.run/v1alpha1/' + plural + '?size=100')['items']
+        values = {(x['metadata']['name'], x['spec']['slug'], x['spec']['displayName']) for x in actual}
+        expected = {(x['name'], x['name'], x['title']) for x in CONTENT[plural]}
+        if values != expected or {x['name'] for x in models[kind]} != {x['title'] for x in CONTENT[plural]}:
+            raise RuntimeError('Taxonomy collection differs from fixture: ' + plural)
+
+
 def validate_config(client, saved):
     plugins = client.api('/apis/plugin.halo.run/v1alpha1/plugins?size=100')['items']
     if any(x['spec'].get('enabled') for x in plugins):
@@ -279,6 +384,7 @@ def validate_config(client, saved):
             for key, value in fields.items():
                 if actual.get(group, {}).get(key) != value:
                     raise RuntimeError(f'Configuration drift at {group}.{key}; existing value preserved')
+    validate_menu(client)
 
 
 def validate_content(client):
@@ -287,6 +393,7 @@ def validate_content(client):
     if set(published) != {p['name'] for p in CONTENT['posts']}:
         raise RuntimeError('Published Halo content set differs from the fixture; existing posts preserved')
     models = json.loads((RUNTIME / 'hexo/db.json').read_text())['models']
+    validate_taxonomies(client, models)
     reference = {x['slug']: x for x in models['Post']}
     if set(reference) != set(published):
         raise RuntimeError('Hexo post set differs from Halo')
@@ -330,6 +437,7 @@ def seed(client):
         validate_config(client, saved)
         print('Seed unchanged; created 0 content objects; existing configuration preserved')
         return
+    cleanup_initial_taxonomies(client)
     # Baseline profile isolates theme rendering from Halo's bundled optional plugins.
     plugins = client.api('/apis/plugin.halo.run/v1alpha1/plugins?size=100')['items']
     for plugin in plugins:
@@ -362,15 +470,11 @@ def seed(client):
             # Recover a previous run interrupted between create and publish.
             if not existing.get('spec', {}).get('publish'):
                 client.api(console + '/' + item['name'] + '/publish', 'PUT')
-    # Halo's fresh welcome article remains stored but is unpublished for equivalent page counts.
-    for post in client.api('/apis/content.halo.run/v1alpha1/posts?size=100')['items']:
-        if post['spec']['slug'] == 'hello-halo' and post['spec']['title'] == 'Hello Halo' and post['spec'].get('publish'):
-            client.api('/apis/api.console.halo.run/v1alpha1/posts/' + post['metadata']['name'] + '/unpublish', 'PUT')
     menu = client.ensure('/api/v1alpha1/menus', {'apiVersion': 'v1alpha1', 'kind': 'Menu', 'metadata': {'name': 'comparison-primary'}, 'spec': {'displayName': '对照导航', 'menuItems': []}})
     names = []
     for index, item in enumerate(CONTENT['menu']):
         name = 'comparison-menu-' + str(index)
-        client.ensure('/api/v1alpha1/menuitems', {'apiVersion': 'v1alpha1', 'kind': 'MenuItem', 'metadata': {'name': name}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': []}})
+        client.ensure('/api/v1alpha1/menuitems', {'apiVersion': 'v1alpha1', 'kind': 'MenuItem', 'metadata': {'name': name, 'annotations': {'icon': item['icon']}}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': index, 'children': []}})
         names.append(name)
     menu['spec']['menuItems'] = names
     client.api('/api/v1alpha1/menus/comparison-primary', 'PUT', menu)
@@ -394,6 +498,7 @@ def seed(client):
         config.setdefault(group, {}).update(patch)
     client.api(config_path, 'PUT', config)
     validate_content(client)
+    validate_menu(client)
     write_json(stamp, {'fixtureSha256': current, 'posts': 12, 'pages': 1, 'themeConfig': patches, 'systemConfig': system_patches, 'hexoInputs': hexo_inputs()})
     print(f'Seed ready; created {created} content objects (repeat run creates 0)')
 
@@ -466,6 +571,8 @@ def resource_result(url):
 
 def evidence():
     report = {'schema': 1, 'timestamp': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'versions': VERSIONS, 'fixtureSha256': fixture_hash(), 'installedPackage': json.loads((RUNTIME / 'installed-package.json').read_text()), 'sites': {}, 'limitations': ['HTTP evidence does not certify visual parity, browser interaction or plugin integration.']}
+    report['labCommit'] = run(['git', '-C', REPO, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
+    report['labWorkingTreeClean'] = not run(['git', '-C', REPO, 'status', '--porcelain'], capture_output=True, text=True).stdout.strip()
     routes = ['/', '/page/2/', '/archives/', '/categories/', '/categories/development/', '/tags/', '/tags/butterfly/', '/archives/preview-1/', '/archives/preview-2/', '/about-preview/']
     for name, base in BASE.items():
         results = []
@@ -506,6 +613,9 @@ def evidence():
     if names != sorted(p['name'] for p in CONTENT['posts']):
         raise RuntimeError('Published Halo content set does not equal the fixture')
     report['haloPublishedPosts'] = names
+    report['initialContentCleanup'] = json.loads((RUNTIME / 'initial-cleanup.json').read_text())
+    report['taxonomies'] = {kind: CONTENT[kind] for kind in ['categories', 'tags']}
+    report['menu'] = CONTENT['menu']
     report['haloPlugins'] = [{'name': x['metadata']['name'], 'enabled': x['spec'].get('enabled'), 'version': x['spec'].get('version')} for x in client.api('/apis/plugin.halo.run/v1alpha1/plugins?size=100')['items']]
     if shutil.which('jcmd'):
         pid = owned_process('halo')
@@ -532,6 +642,8 @@ def main():
     elif args.command == 'start': start()
     elif args.command == 'bootstrap':
         prepare(); start(); client = Client(initialize=True)
+        if client.initialized_now:
+            capture_initial_content(client)
         if (RUNTIME / 'seed.json').exists():
             installed = json.loads((RUNTIME / 'installed-package.json').read_text())
             if installed['sha256'] != digest(args.package):
