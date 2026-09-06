@@ -18,6 +18,8 @@ Butterfly 的参考映射直接使用固定 5.7.0 的 `type: link` + `_data/link
 
 ## 新建独立站
 
+当前构建示例使用 0.1.0-alpha.2。首轮保留站实际产品仍为 `703d3992a9eb30d0560bd0dfee9388c61376d12a`、0.1.0-alpha.1，ZIP SHA-256 `ca913cab4faedb4bacdd53a11ab4058263dc2b01370eaff2e6701c29afdc3465`；检查器合入新 master 不等于站点升级，既有证据继续按实际旧包归因。
+
 需要基础实验工具的 Python 3.9+、Java 21+、Node 24、pnpm 11.19.0。先按 `docs/COMPARISON-LAB.md` 构建实际要测的主题。以下端口仅供本任务，不能复用其他维护者的站点或数据库。脚本只认已初始化且匹配的 lab.json、两个仍运行的所属进程、完整 seed.json；首轮认领时三个插件必须全部未安装。
 
 ```sh
@@ -25,7 +27,7 @@ pnpm install --frozen-lockfile --ignore-scripts
 pnpm build
 LAB_RUNTIME="$PWD/.runtime/plugin-lab" HALO_PORT=18094 HEXO_PORT=14004 \
   python3 -B scripts/lab/lab.py bootstrap \
-  --package dist/halo-butterfly-next-0.1.0-alpha.1.zip \
+  --package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
   --source-sha "$(git rev-parse HEAD)"
 python3 -B scripts/plugins/lab.py download
 python3 -B scripts/plugins/lab.py install
@@ -75,7 +77,7 @@ python3 -B scripts/plugins/lab.py enable
 ```sh
 python3 -B scripts/plugins/lab.py exercise \
   --browser-runtime "$PWD/.runtime/browser-matrix" \
-  --package dist/halo-butterfly-next-0.1.0-alpha.1.zip \
+  --package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
   --source-sha ACTUAL_THEME_BUILD_SHA
 ```
 
@@ -84,7 +86,7 @@ node scripts/browser/install.mjs
 node scripts/plugins/diagnose.mjs \
   --lab-runtime "$PWD/.runtime/plugin-lab" \
   --browser-runtime "$PWD/.runtime/browser-matrix" \
-  --theme-package dist/halo-butterfly-next-0.1.0-alpha.1.zip \
+  --theme-package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
   --theme-source-sha ACTUAL_THEME_BUILD_SHA
 # 每场景先 smoke（桌面亮色）；默认完整是桌面/手机视口 × 亮/暗
 #  --profile smoke
