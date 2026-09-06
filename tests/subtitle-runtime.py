@@ -101,6 +101,11 @@ def main():
                 browser('open', BASE + '/')
                 browser('wait', '--fn', 'document.readyState === "complete" && Boolean(window.MainApp?.useTheme)')
                 evaluate('window.MainApp.useTheme.setMode(' + json.dumps(mode) + ')')
+                browser('wait', '--fn', '''!document.body.classList.contains('loading') &&
+                  !document.querySelector('.loading-container') &&
+                  getComputedStyle(document.querySelector('#Butterfly')).display !== 'none' &&
+                  document.getAnimations().filter(a => Number.isFinite(a.effect.getComputedTiming().iterations))
+                    .every(a => ['finished','idle'].includes(a.playState))''')
                 if typed:
                     browser('wait', '--fn', 'Boolean(document.querySelector(".typed-cursor")) && Boolean(document.querySelector(".above-subtitle--text")?.textContent)')
                     if expected_text is not None:
@@ -113,12 +118,17 @@ def main():
                   cursors:document.querySelectorAll('.above-subtitle .typed-cursor').length,
                   text:document.querySelector('.above-subtitle--text')?.textContent ?? null,
                   childElements:document.querySelector('.above-subtitle--text')?.childElementCount ?? 0,
+                  loading:document.body.classList.contains('loading'),
+                  navigationOpacity:getComputedStyle(document.querySelector('.nav')).opacity,
+                  subtitleOpacity:document.querySelector('.above-subtitle') ? getComputedStyle(document.querySelector('.above-subtitle')).opacity : null,
                   conf:{enabled:MainApp.conf.enable_subtitle,effect:MainApp.conf.subtitle_effect},
                   resources:performance.getEntriesByType('resource').map(x=>x.name).filter(x=>x.includes('/lab/subtitle-')),
                   userAgent:navigator.userAgent})''')
                 assert state['mode'] == mode and state['width'] == width and state['documentWidth'] <= width, state
                 assert state['nodeCount'] == int(visible) and state['cursors'] == int(typed), state
                 assert state['childElements'] == child_elements, state
+                assert not state['loading'] and state['navigationOpacity'] == '1', state
+                if visible: assert state['subtitleOpacity'] == '1', state
                 assert len(state['resources']) == api_calls, state
                 if visible and not typed: assert state['text'] == (expected_text or ''), state
                 if not visible: assert state['text'] is None, state
