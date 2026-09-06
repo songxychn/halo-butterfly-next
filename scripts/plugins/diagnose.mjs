@@ -12,6 +12,9 @@ const assert = (condition, message) => { if (!condition) throw new Error(message
 const git = (...args) => execFileSync('git', ['-C', REPO, ...args], { encoding: 'utf8' }).trim();
 const OWNER = 'halo-butterfly-next-plugin-lab';
 export const canonical = value => JSON.stringify(Array.isArray(value) ? value.map(x => JSON.parse(canonical(x))) : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(key => [key, JSON.parse(canonical(value[key]))])) : value);
+export function disabledApiUnavailable(status, location) {
+  return status === 404 || (status === 302 && location === '/login?authentication_required');
+}
 
 export function validateTarget(marker, owner, runtime) {
   assert(marker?.owner === 'halo-butterfly-next-comparison' && marker.schema === 1, 'Comparison marker required');
@@ -168,18 +171,18 @@ async function main() {
     limitations: ['First contract diagnostic only. No complete PLG-01/04/06 acceptance.', 'No actual stable Safari/Firefox or physical-device coverage.', 'Absent rendered state, below-minimum plugin versions, broken media/long content, permission interactions and comment/content/SEO combinations remain untested.', 'Same-origin reads and exact public visit-counter POST only; synthetic counters may increase. Other writes, external origins and WebSockets blocked.'] };
   try {
     for (const [kind, apiPath] of [['links', '/apis/api.link.halo.run/v1alpha1/links?page=1&size=100'], ['photos', '/apis/api.photo.halo.run/v1alpha1/photos?page=1&size=100'], ['moments', '/apis/api.moment.halo.run/v1alpha1/moments?page=1&size=100']]) {
-      const response = await fetch(bases.halo + apiPath, { redirect: 'error', signal: AbortSignal.timeout(30000) }), text = await response.text();
+      const response = await fetch(bases.halo + apiPath, { redirect: 'manual', signal: AbortSignal.timeout(30000) }), text = await response.text();
       let body; try { body = JSON.parse(text); } catch {}
       const expected = owner.resources[kind], actual = body?.items;
       const failures = [];
-      if (stage === 'disabled') { if (response.status !== 404) failures.push('Disabled API should return 404'); }
+      if (stage === 'disabled') { if (!disabledApiUnavailable(response.status, response.headers.get('location'))) failures.push('Disabled API is not unavailable or has an unexpected redirect'); }
       else if (response.status !== 200 || !Array.isArray(actual) || body.total !== expected.length) failures.push('Public API status/total differs from fixture');
       else for (const item of expected) {
         const found = actual.find(x => x.metadata.name === item.metadata.name);
         const keys = kind === 'moments' ? ['content', 'owner', 'releaseTime', 'visible', 'tags'] : ['displayName', 'url', 'groupName', ...(kind === 'links' ? ['logo', 'description'] : ['cover', 'description', 'tags'])];
         if (!found || keys.some(key => canonical(found.spec[key]) !== canonical(item.spec[key]))) failures.push('Public model mismatch: ' + item.metadata.name);
       }
-      report.api.push({ kind, path: apiPath, status: response.status, sha256: sha256(text), body, failures });
+      report.api.push({ kind, path: apiPath, status: response.status, location: response.headers.get('location'), sha256: sha256(text), body, failures });
     }
     const variants = options['--profile'] === 'smoke' ? [{ viewport: { width: 1440, height: 1000 }, mode: 'light' }] : [{ width: 1440, height: 1000 }, { width: 390, height: 844 }].flatMap(viewport => ['light', 'dark'].map(mode => ({ viewport, mode })));
     for (const route of routesFor(owner, stage)) for (const variant of variants) {

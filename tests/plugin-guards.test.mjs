@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { canonical, validateTarget } from '../scripts/plugins/diagnose.mjs';
+import { canonical, validateTarget, disabledApiUnavailable } from '../scripts/plugins/diagnose.mjs';
 const repo = fileURLToPath(new URL('../', import.meta.url));
 
 test('P+ target requires matching owned runtime and distinct explicit loopback ports', () => {
@@ -16,6 +16,12 @@ test('P+ target requires matching owned runtime and distinct explicit loopback p
 
 test('canonical plugin lock hashing recursively sorts objects and preserves Unicode and list order', () => {
   assert.equal(canonical({ z: [{ y: '山川', a: 1 }], a: null }), '{"a":null,"z":[{"a":1,"y":"山川"}]}');
+});
+
+test('disabled API accepts only 404 or the observed same-site Halo authentication challenge', () => {
+  assert.equal(disabledApiUnavailable(404, null), true);
+  assert.equal(disabledApiUnavailable(302, '/login?authentication_required'), true);
+  for (const [status, location] of [[200, null], [302, 'https://external.invalid/login'], [302, '/login'], [500, null]]) assert.equal(disabledApiUnavailable(status, location), false);
 });
 
 test('P+ mutation guards preserve unowned content, drift and corrupt backups', () => {

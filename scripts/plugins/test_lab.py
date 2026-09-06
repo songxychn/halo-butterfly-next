@@ -43,6 +43,12 @@ class Guards(unittest.TestCase):
         observed['spec']['approved'] = False
         self.assertNotEqual(m.clean(observed), m.clean(original))
 
+    def test_photo_exif_user_metadata_is_not_discarded(self):
+        original = m.desired('normal', 'http://127.0.0.1:18094', 'fixture-maintainer')['photos'][0]
+        changed = copy.deepcopy(original); changed['exif'] = {'make': 'synthetic-camera'}
+        self.assertNotEqual(m.clean(changed), m.clean(original))
+        self.assertEqual(m.clean(changed)['exif'], changed['exif'])
+
     def test_changed_and_unowned_collections_fail_before_mutation(self):
         data = m.desired('normal', 'http://127.0.0.1:18094', 'fixture-maintainer')
         class Client:

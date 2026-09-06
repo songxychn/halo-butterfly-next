@@ -88,7 +88,7 @@ node scripts/plugins/diagnose.mjs \
   --theme-source-sha ACTUAL_THEME_BUILD_SHA
 # 每场景先 smoke（桌面亮色）；默认完整是桌面/手机视口 × 亮/暗
 #  --profile smoke
-# 停用后明确指定预期 404 状态；恢复启用后按原场景再采集
+# 停用后页面预期 404；API 实测为本地登录挑战 302（不跟随），恢复后再采集
 #  --stage disabled
 ```
 
@@ -103,4 +103,4 @@ node scripts/plugins/diagnose.mjs \
 - PLG-06：评论、高亮、灯箱、SEO 内容处理组合全部待测。三个内容插件同时启用不能冒称这些组合已通过。
 - 浏览器：这里只使用 Playwright Chromium 与视口模拟，不代表 Safari/Firefox 稳定版或真机；全站导航可访问性和视觉一致性仍由独立任务验收。
 
-保护测试：`node --test tests/plugin-guards.test.mjs`（包含 9 项 Python 边界测试）。主题产品缺陷应单独建 issue 与证据，不修改夹具或覆盖主题样式掩盖。
+保护测试：`node --test tests/plugin-guards.test.mjs`（包含 10 项 Python 边界测试）。主题产品缺陷应单独建 issue 与证据，不修改夹具或覆盖主题样式掩盖。

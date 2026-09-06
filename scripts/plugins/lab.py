@@ -136,10 +136,13 @@ def clean(obj):
         # MomentReconciler asynchronously supplies this server-owned timestamp.
         # Approval boolean, visibility, release date and content remain strict.
         spec.pop('approvedTime', None)
-    return {'apiVersion': obj['apiVersion'], 'kind': obj['kind'],
+    result = {'apiVersion': obj['apiVersion'], 'kind': obj['kind'],
             'metadata': {'name': obj['metadata']['name'], 'labels': obj['metadata'].get('labels', {}),
                          'annotations': obj['metadata'].get('annotations', {})},
             'spec': spec}
+    if obj['kind'] == 'Photo' and obj.get('exif') is not None:
+        result['exif'] = copy.deepcopy(obj['exif'])
+    return result
 
 
 def resources(client):
@@ -269,6 +272,9 @@ def replace_resources(client, old, target):
                 current = client.api(api(key) + '/' + name)
                 current['spec'] = obj['spec']; current['metadata']['labels'] = obj['metadata']['labels']
                 current['metadata']['annotations'] = obj['metadata']['annotations']
+                if key == 'photos':
+                    if 'exif' in obj: current['exif'] = obj['exif']
+                    else: current.pop('exif', None)
                 client.api(api(key) + '/' + name, 'PUT', current)
     deadline = time.monotonic() + 20
     while True:
