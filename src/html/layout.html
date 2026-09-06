@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:lang="${#locale.toLanguageTag}"
+  data-color-scheme="light"
+  th:fragment="html (head, content)"
+  th:with="assets_link = ${#theme.assets('/') + '/'}"
+>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <title th:if="${head == null}" th:text="${site.title}"></title>
+    <th:block th:replace="~{views/config}"/>
+    <link rel="stylesheet" th:href="${assets_link + 'css/plugin.min.css?v=' + theme.spec.version}"/>
+    <th:block th:if="${head != null}">
+      <th:block th:replace="${head}"/>
+    </th:block>
+  </head>
+
+  <body
+    th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}"
+    th:with="stats = ${siteStatsFinder.getStats()}, contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}"
+  >
+    <script th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
+    <div id="Butterfly" class="plugin">
+      <a class="plugin-skip-link" href="#plugin-content">跳到主要内容</a>
+      <header class="header dp">
+        <th:block th:replace="~{views/nav}"/>
+      </header>
+
+      <main id="plugin-content" class="main" tabindex="-1">
+        <section class="content card plugin-content">
+          <th:block th:replace="${content}"/>
+        </section>
+      </main>
+
+      <th:block th:replace="~{views/footer}"/>
+      <th:block th:replace="~{views/components :: side}"/>
+    </div>
+    <script th:src="${assets_link + 'js/plugin.min.js?v=' + theme.spec.version}"></script>
+  </body>
+</html>

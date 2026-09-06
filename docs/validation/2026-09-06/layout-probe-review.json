@@ -1,0 +1,51 @@
+{
+  "kind": "independent-probe-review",
+  "recordedAt": "2026-09-06T14:36:16.074854+00:00",
+  "sourceSha": "3c25f3c4f37f71437b792c9d85eb5821331294c6",
+  "author": "/root/acceptance_contract",
+  "actor": "/root",
+  "haloVersion": "2.26.1",
+  "artifactSha256": "89dc40d823c5132502112bd109f82af3f59f2a36a409ec11f5ca68a613857a5a",
+  "compiler": "javac 25 --release 21",
+  "layoutExpectation": "fallback",
+  "themePageLayout": "MISSING",
+  "commandsAndReports": [
+    "Reviewed all 11 changed files against master 45e54b4.",
+    "node --test tests/layout-probe.test.mjs: 5 passed.",
+    "Independent build from verified official JAR matched author artifact byte hash.",
+    "exercise --expect-layout fallback with independently built artifact on the exclusively owned lab."
+  ],
+  "stages": [
+    {
+      "name": "existing-disabled",
+      "bothRoutes": 404
+    },
+    {
+      "name": "enabled",
+      "bothRoutes": 200
+    },
+    {
+      "name": "disabled",
+      "bothRoutes": 404
+    },
+    {
+      "name": "reenabled",
+      "bothRoutes": 200
+    },
+    {
+      "name": "uninstalled",
+      "bothRoutes": 404
+    },
+    {
+      "name": "reinstalled-enabled",
+      "bothRoutes": 200
+    }
+  ],
+  "result": "passed for fixture review",
+  "limitations": [
+    "This is a concise record of independently executed CLI results, not the original mutable runtime report.",
+    "The lab was then handed to the public-layout author; its runtime evidence now describes subsequent theme implementation.",
+    "Fallback head=null has no title in fixed Halo 2.26.1; supported theme mode still requires one site title.",
+    "No full PLG-05 or theme page-layout acceptance is claimed by this fixture report."
+  ]
+}
