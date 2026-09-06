@@ -9,6 +9,27 @@
     flex: 1;
   }
 
+  // Plugin pages can be shorter than the viewport, so their mode control must
+  // remain reachable without the scrolling required by article pages.
+  > .side-btn {
+    right: 10px;
+    opacity: 1;
+    transform: none;
+
+    &:not(.active) > .back-top {
+      display: none;
+    }
+  }
+
+  // Off-screen navigation must also leave the keyboard tab order.
+  > .side-bar {
+    visibility: hidden;
+
+    &.active {
+      visibility: visible;
+    }
+  }
+
   .plugin-content {
     min-width: 0;
     overflow-wrap: anywhere;
