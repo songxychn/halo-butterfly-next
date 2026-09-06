@@ -819,3 +819,17 @@ spec:
               label: "xonokai"
             - value: "z-touch"
               label: "z-touch"
+
+    - group: error404
+      label: 404 页面
+      formSchema:
+        - $formkit: text
+          name: subtitle
+          label: 提示文案
+          value: 'Page Not Found'
+          help: 按纯文本显示。留空时使用“页面未找到”。
+        - $formkit: attachment
+          name: background
+          label: 404 配图
+          value: ''
+          help: 留空使用首页第一屏背景；图片加载失败时回退到首页背景及主题内置插图。
