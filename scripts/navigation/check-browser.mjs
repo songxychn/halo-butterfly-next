@@ -1,19 +1,21 @@
 /** Real Halo interaction regression using a task-owned headless agent-browser. */
 import {execFileSync} from 'node:child_process';
-import {mkdirSync, readFileSync, existsSync, writeFileSync} from 'node:fs';
-import {createHash} from 'node:crypto';
+import {mkdirSync, writeFileSync} from 'node:fs';
 import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {readThemeArtifact} from './artifact.mjs';
 const base = process.argv[2];
 if (base !== 'http://127.0.0.1:18090') throw new Error('Pass the authorized isolated Halo URL explicitly.');
 const output = resolve(process.argv[3] || '.evidence/navigation/browser');
 const empty = process.argv.includes('--empty');
+const artifact = readThemeArtifact(fileURLToPath(new URL('../../', import.meta.url)));
 mkdirSync(output, {recursive: true});
 const session = execFileSync('agent-browser', ['session', 'id', '--scope', 'worktree', '--prefix', `navigation-check-${process.pid}`], {encoding: 'utf8'}).trim();
 const reports = [];
 const provenance = {
   sourceSha: execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim(),
   sourceWorktreeDirty: Boolean(execFileSync('git', ['status', '--porcelain'], {encoding: 'utf8'}).trim()),
-  artifactSha256: existsSync('dist/halo-butterfly-next-0.1.0-alpha.1.zip') ? createHash('sha256').update(readFileSync('dist/halo-butterfly-next-0.1.0-alpha.1.zip')).digest('hex') : null,
+  ...artifact,
   session,
 };
 function command(...args) {
