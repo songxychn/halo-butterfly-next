@@ -50,16 +50,18 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 | 日期/语言 | 固定日期、Asia/Shanghai、zh-CN | 固定 publishTime、站点 zh-CN；JVM 与浏览器验收固定 Asia/Shanghai |
 | 每页 10 篇、按日期倒序 | index/archives generator | system.post.pageSize 与固定 publishTime |
 | 首页/归档/分类/标签顶部图 | 对应 `*_img` | 各组 `above_background` |
-| 导航与头像 | theme.menu / avatar | 独立 comparison-primary Menu、MenuItem annotations.icon / 合成维护者 avatar |
+| 导航与头像 | theme.menu / avatar | 独立 comparison-primary Menu、MenuItem spec.menuName + annotations.icon / 合成维护者 avatar |
 | 亮暗模式 | darkmode、关闭自动切换 | style.mode=user |
-| 首页动态字幕 | 基础配置关闭 subtitle | 基础配置使用空 typewriter 文本 |
+| 首页动态字幕 | 基础配置关闭 subtitle | 配置为空时仍循环显示“请填写打字文案或者配置随机文案！”；主题缺少关闭开关 |
 | 评论/搜索/代码插件 | 基础配置不接入评论或搜索服务 | 首次初始化停用新实例的可选插件；后续启用视为配置漂移并保留 |
 
-基础配置不测试动画字幕、评论或搜索插件。这些是待建的独立场景，不能从基础环境结果记作通过。Halo 当前没有统一的懒加载关闭选项；Hexo 基础环境关闭懒加载，Halo 仍执行真实懒加载。无封面回退、代码高亮实现及其他视觉差异保留可见，不用 CSS 覆盖伪装一致。
+Halo 的 `src/js/page/index.js` 会将空 `typewriter_custom_text` 替换为默认提示，并继续启动 Typed。因此本 profile **没有关闭 Halo 动态字幕**，只关闭了 Hexo 字幕；两站这里仍有可见差异，属于待修主题缺口。实验环境保留这个真实行为，不以空格或隐藏 CSS 伪装关闭。
+
+基础配置不将动画字幕、评论或搜索插件标记为验收通过。这些是待建的独立场景，不能从基础环境结果记作通过。Halo 当前没有统一的懒加载关闭选项；Hexo 基础环境关闭懒加载，Halo 仍执行真实懒加载。无封面回退、代码高亮实现及其他视觉差异保留可见，不用 CSS 覆盖伪装一致。
 
 ## 证据和浏览器稳定条件
 
-`evidence` 输出 `.runtime/comparison/evidence.json`：版本与夹具摘要、调用方声明的主题源提交、ZIP 摘要、20 条核心路由、共享图像摘要、HTML 中实际引用的本地脚本/CSS/图片加载结果、插件版本与启停状态。它还逐项校验双方 12 篇文章的标题、日期、分类、标签、封面及正文，核对发布集、分类与标签全集、首页顺序和导航顺序/链接/图标，并检查配置漂移。时间戳与动态 HTML 摘要仅用于识别本轮证据，不要求跨运行逐字相等。
+`evidence` 输出 `.runtime/comparison/evidence.json`：版本与夹具摘要、调用方声明的主题源提交、ZIP 摘要、20 条核心路由、共享图像摘要、HTML 中实际引用的本地脚本/CSS/图片加载结果、插件版本与启停状态。它还逐项校验双方 12 篇文章的标题、日期、分类、标签、封面及正文，核对发布集、分类与标签全集、首页顺序和导航顺序/链接/图标，并检查配置漂移。每条路由还从最终 HTTP HTML 提取桌面和手机侧边导航，要求两处各有 5 项正确文本、href 和图标；API 字段存在而页面菜单为空会直接失败。时间戳与动态 HTML 摘要仅用于识别本轮证据，不要求跨运行逐字相等。
 
 浏览器对照使用 `versions.json` 中的桌面 1440×1000、手机 390×844、zh-CN、Asia/Shanghai 及亮暗模式。使用独立无头浏览器，不连接现有 Chrome。截图前等待文档、字体及可见图片完成加载；逐段滚动触发真实懒加载，再返回目标位置并等待导航过渡完成。不要通过注入样式隐藏缺陷。相同滚动位置记录两个站点的实际渲染、浏览器版本、视口、模式、当前配置及异常。无头手机视口不代表触屏真机验收。
 
@@ -69,7 +71,7 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 
 ## 首轮可重复运行记录（2026-09-06）
 
-使用最终初始化逻辑创建全新 Halo 数据库，第一次创建 13 个内容对象（12 篇文章、1 个单页）；第二次 `bootstrap` 创建 0 个对象并通过内容/配置不变校验。完整 `pnpm check` 7 项通过，其中实验环境包装测试包含 15 项 Python 保护测试。停机恢复后重新通过 `health` 和 `evidence`。
+使用最终初始化逻辑创建全新 Halo 数据库，第一次创建 13 个内容对象（12 篇文章、1 个单页）；第二次 `bootstrap` 创建 0 个对象并通过内容/配置不变校验。包含最新矩阵检查的 `pnpm check` 18 项通过，其中实验环境包装测试包含 20 项 Python 保护测试。停机恢复后重新通过 `health` 和 `evidence`。
 
 | 证据 | 本轮结果 |
 | --- | --- |
@@ -78,6 +80,7 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 | HTTP 核心路由 | 两站各 10 条，共 20 条通过 |
 | 共用 SVG | 两站各 2 个，4 项摘要一致 |
 | 页面脚本/CSS/图片引用 | Halo 27 个、Hexo 6 个本地资源 HTTP 200，响应类型均为资源而非 HTML |
+| 最终渲染导航 | 20 条路由均检查桌面和手机菜单，每处 5 项文本、href、图标正确 |
 | 文章语义 | 12 篇标题、日期、分类、标签、封面、发布正文和首页顺序通过；分类/标签全集及菜单图标一致 |
 | JVM 实际属性 | `jcmd <owned-pid> VM.system_properties` 返回 `java.version=25`、`user.timezone=Asia/Shanghai` |
 | 插件基线 | 新实例的 8 个可选插件全部停用；具体版本留在本地 evidence.json |
@@ -85,5 +88,7 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 独立审查补强了多 token `rel`（例如 `preload stylesheet`）的资源收集，并拒绝将 HTTP 200 的 HTML/XHTML 回退页视为成功资源。最新资源证据同时记录 Content-Type。
 
 独立浏览器对照还发现 fresh Halo 的默认分类标签残留、菜单图标字段未映射。修正后再次从空数据库重建，并检查完整分类标签集合及菜单字段。默认内容的身份快照和清理记录随本轮本地证据保存。
+
+追加的独立实测发现：仅填写 `Menu.spec.menuItems` 并不足以在 Halo 2.26.1 渲染导航。已核对官方固定 JAR 中 `MenuFinderImpl.getPrimary()` 与 `listMenuItemsByMenuName()`：前者读取 `system.menu.primary`，后者按 `MenuItem.spec.menuName` 查询关联项。因此初始化同时填写 `spec.menuName=comparison-primary`，且 API 与最终 HTML 两层均做断言。修复前新增检查器实测拒绝空菜单；修复后同一实验站的桌面、手机菜单均渲染 5 项。
 
 本轮没有将视觉差异或跨浏览器交互标记为通过；由集成负责人用同一夹具继续独立验收。
