@@ -38,7 +38,7 @@ python3 -B scripts/plugins/lab.py seed --scenario empty
 
 ## 内容与安全边界
 
-`content.json` 定义三个场景。empty 没有分组与内容；normal 每种内容一条、一个分组；populated 有两组、4 个友链、24 张图、12 条瞬间。图库默认每页 20，瞬间默认每页 10，能真实请求第二页；友链页面是分组列表，本实验不伪造不存在的页面分页契约。
+`content.json` 定义三个场景。empty 没有分组与内容；normal 每种内容一条、一个分组；populated 有两组、4 个友链、24 张图、12 条瞬间。Halo 图库默认每页 20，瞬间默认每页 10，能真实请求第二页；Butterfly gallery 标签首次显示 10 张，上游 5.7.0 的 shuoshuo 模板固定每页 8 条，报告按各自真实契约计数，不改上游代码抹平差异。友链页面是分组列表，本实验不伪造不存在的页面分页契约。
 
 ```sh
 python3 -B scripts/plugins/lab.py seed --scenario normal

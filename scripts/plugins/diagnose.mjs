@@ -32,8 +32,9 @@ async function settle(page) {
     if (end) break;
   }
   await page.evaluate(() => scrollTo(0, 0));
-  await page.waitForFunction(() => document.getAnimations().every(a => a.effect?.getComputedTiming().iterations === Infinity || a.playState === 'finished'), null, { timeout: 6000 }).catch(() => {});
   await page.waitForFunction(() => [...document.images].filter(img => { const r = img.getBoundingClientRect(); return r.width && r.height && r.left < innerWidth && r.right > 0 && r.top < innerHeight && r.bottom > 0 && img.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }); }).every(img => img.complete && img.naturalWidth > 0 && (!img.dataset.lazySrc || new URL(img.currentSrc).pathname === new URL(img.dataset.lazySrc, location.href).pathname)), null, { timeout: 8000 });
+  // Image decoding/layout can start later finite animations, so settle them last.
+  await page.waitForFunction(() => document.getAnimations().every(a => a.effect?.getComputedTiming().iterations === Infinity || a.playState === 'finished'), null, { timeout: 6000 }).catch(() => {});
 }
 
 async function inspectPage(browser, base, route, variant, output, index, packagePath, expectedCount) {
@@ -111,7 +112,7 @@ function routesFor(state, stage) {
   const shape = state.resources || {}, counts = Object.fromEntries(Object.entries(shape).map(([k, values]) => [k, values.length]));
   const result = ['links', 'photos', 'moments'].flatMap(kind => [
     { site: 'halo', kind, path: '/' + kind, selector: { links: '.main > .content .groups a.link', photos: '.main > .content .imgs img', moments: '.main > .content .list > .item' }[kind], count: Math.min(counts[kind] || 0, { links: Infinity, photos: 20, moments: 10 }[kind]), ...(stage === 'disabled' ? { expectedStatus: 404 } : {}) },
-    { site: 'hexo', kind, path: '/' + kind + '/', selector: { links: '.flink-list-item', photos: '.gallery-container .item', moments: '.shuoshuo-item' }[kind], count: Math.min(counts[kind] || 0, kind === 'links' ? Infinity : 10) }
+    { site: 'hexo', kind, path: '/' + kind + '/', selector: { links: '.flink-list-item', photos: '.gallery-container .item', moments: '.shuoshuo-item' }[kind], count: Math.min(counts[kind] || 0, { links: Infinity, photos: 10, moments: 8 }[kind]) }
   ]);
   if (stage !== 'disabled' && (counts.photos || 0) > 20) {
     result.find(x => x.site === 'halo' && x.kind === 'photos').requireNext = '/photos?page=2';
