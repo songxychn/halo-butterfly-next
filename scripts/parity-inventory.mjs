@@ -95,6 +95,7 @@ export async function inspectUpstream(root) {
   const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
   if (commit !== UPSTREAM_COMMIT) throw new Error(`Upstream must be ${UPSTREAM_COMMIT}, got ${commit}`);
   execFileSync('git', ['diff', '--quiet', 'HEAD', '--'], { cwd: root });
+  if (execFileSync('git', ['status', '--porcelain', '--untracked-files=normal'], { cwd: root, encoding: 'utf8' }).trim()) throw new Error('Upstream checkout must be clean, including untracked source files');
   const packageJson = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
   if (packageJson.version !== UPSTREAM_VERSION) throw new Error('Unexpected upstream package version');
   const fileNames = execFileSync('git', ['ls-tree', '-r', '--name-only', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim().split('\n').sort();
