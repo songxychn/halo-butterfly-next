@@ -8,9 +8,9 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 const theme = parse(await readFile(path.join(root, 'theme.yaml'), 'utf8'));
 const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${theme.metadata.name}-${pkg.version}.zip`)));
-const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html'];
+const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
-for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links']) {
+for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links', 'plugin']) {
   required.push(`templates/assets/js/${page}.min.js`, `templates/assets/css/${page}.min.css`);
 }
 for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) required.push(`templates/assets/plugins/loading/${name}.min.js`);
@@ -27,5 +27,8 @@ if (theme.metadata.name !== 'halo-butterfly-next' || theme.spec.configMapName !=
 if (theme.spec.requires !== '>=2.26.1 & <2.27.0' || 'require' in theme.spec) throw new Error('兼容版本声明错误');
 const layout = await zip.file('templates/views/layout.html').async('string');
 if (!layout.includes('#theme.assets')) throw new Error('资源必须由当前主题解析');
+const publicLayout = await zip.file('templates/layout.html').async('string');
+if (!/th:fragment="html\s*\(\s*head\s*,\s*content\s*\)"/.test(publicLayout)) throw new Error('公共布局必须提供 html(head, content) 契约');
+if (!publicLayout.includes('#theme.assets')) throw new Error('公共布局资源必须由当前主题解析');
 if (!(await zip.file('templates/views/config.html').async('string')).includes('/*[[')) throw new Error('Thymeleaf 内联表达式丢失');
 console.log(`安装包检查通过：${Object.keys(zip.files).length} 个文件，所有页面和 Loading 资源齐全`);
