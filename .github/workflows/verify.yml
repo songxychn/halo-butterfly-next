@@ -21,6 +21,15 @@ jobs:
         with:
           version: 11.19.0
       - run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Checkout fixed Butterfly reference
+        uses: actions/checkout@v4
+        with:
+          repository: jerryc127/hexo-theme-butterfly
+          ref: f223b1888b42b2b336068e6c959ed90a3cd7c8f3
+          path: .runtime/upstream-butterfly
+          persist-credentials: false
+      - name: Verify inventory against fixed upstream source
+        run: pnpm parity:check --upstream .runtime/upstream-butterfly
       - run: pnpm verify
       - name: Rebuild and compare archive
         shell: bash

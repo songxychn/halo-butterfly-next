@@ -21,7 +21,9 @@
     "dev": "node scripts/build.mjs --watch",
     "build": "node scripts/build.mjs",
     "check": "node --test tests/*.test.mjs",
-    "verify": "pnpm check && pnpm build && node scripts/check-package.mjs",
+    "verify": "pnpm parity:check && pnpm check && pnpm build && node scripts/check-package.mjs",
+    "parity:check": "node scripts/check-parity.mjs",
+    "lab": "python3 scripts/lab/lab.py",
     "migrate": "node scripts/migrate-config.mjs"
   },
   "devDependencies": {
