@@ -381,6 +381,7 @@ def exercise(lab, client, state, args):
                    '--theme-source-sha', args.source_sha, '--stage', stage, '--profile', profile]
         subprocess.run(command, check=True)
     set_enabled(client, True)
+    reference_asset(lab, state, args.artifacts.resolve())
     seed(lab, client, state, 'empty'); diagnose('empty')
     proof['stages'].append({'stage': 'empty-enabled', 'plugins': plugin_states(client, lab)})
     seed(lab, client, state, 'normal'); diagnose('normal')
