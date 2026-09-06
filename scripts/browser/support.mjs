@@ -56,6 +56,7 @@ export async function ownRuntime(directory = RUNTIME) {
 }
 
 export function browserEnvironment(runtime = RUNTIME) {
+  if (process.env.SELENIUM_REMOTE_URL) throw new Error('Remote browser connection environment is not allowed');
   const browsers = path.join(runtime, 'browsers');
   if (process.env.PLAYWRIGHT_BROWSERS_PATH && path.resolve(process.env.PLAYWRIGHT_BROWSERS_PATH) !== browsers) {
     throw new Error('PLAYWRIGHT_BROWSERS_PATH must remain within this task runtime');

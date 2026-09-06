@@ -43,3 +43,8 @@ test('文本资源仅规范化浏览器实际去掉的UTF-8 BOM，不掩盖空�
   assert.notDeepEqual(comparableAsset(Buffer.concat([bom, bytes]), 'image'), bytes);
   assert.notDeepEqual(comparableAsset(Buffer.concat([Buffer.from(' '), bytes]), 'stylesheet'), bytes);
 });
+test('拒绝Playwright会自动连接远程浏览器的Selenium环境覆盖', () => {
+  const old = process.env.SELENIUM_REMOTE_URL;
+  try { process.env.SELENIUM_REMOTE_URL = 'http://127.0.0.1:4444'; assert.throws(() => browserEnvironment(), /Remote browser/); }
+  finally { if (old === undefined) delete process.env.SELENIUM_REMOTE_URL; else process.env.SELENIUM_REMOTE_URL = old; }
+});
