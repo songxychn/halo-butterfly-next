@@ -99,7 +99,8 @@ export default class Navigation {
         if (focusWasInDesktopMenu) this.toggle.focus({preventScroll: true});
       } else if (this.open) {
         this.closeDrawer(true);
-      } else if (document.activeElement === this.toggle) {
+      } else if (document.activeElement === this.toggle ||
+          (document.activeElement === document.body && this.lastFocusedElement === this.toggle)) {
         document.querySelector('.nav-title a')?.focus({preventScroll: true});
       }
     });

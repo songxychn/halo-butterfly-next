@@ -174,6 +174,25 @@ try {
     command('press', 'Escape');
     check("document.body.style.overflowX === 'clip' && document.body.style.overflowY === 'scroll' && document.body.style.getPropertyPriority('overflow-y') === 'important' && document.body.style.paddingLeft === '7px'", mode + ': close preserves independent overflow axes, priority and unrelated inline styles');
     evaluate("document.body.style.removeProperty('overflow-x');document.body.style.removeProperty('overflow-y');document.body.style.removeProperty('padding-left')");
+    for (const [mobileWidth, desktopWidth] of [[390, 1440], [768, 769]]) {
+      command('set', 'viewport', String(mobileWidth), '844');
+      returnToTop();
+      command('focus', '.nav .bars');
+      command('set', 'viewport', String(desktopWidth), '1000');
+      evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))).then(()=>true)');
+      check("document.querySelector('#mobile-navigation').hidden && document.activeElement.matches('.nav-title a')", `${mode}: closed toggle focus survives ${mobileWidth}→${desktopWidth}`);
+      command('set', 'viewport', String(mobileWidth), '844');
+      command('focus', '.footer .theme');
+      command('set', 'viewport', String(desktopWidth), '1000');
+      evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))).then(()=>true)');
+      check("document.activeElement.matches('.footer .theme')", `${mode}: resize ${mobileWidth}→${desktopWidth} preserves content link focus`);
+      command('set', 'viewport', String(mobileWidth), '844');
+      command('focus', '.footer .theme');
+      evaluate('document.activeElement.blur()');
+      command('set', 'viewport', String(desktopWidth), '1000');
+      evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))).then(()=>true)');
+      check("document.activeElement === document.body", `${mode}: resize ${mobileWidth}→${desktopWidth} does not steal body focus last held in content`);
+    }
   }
   writeFileSync(resolve(output, 'report.json'), JSON.stringify({...provenance,testedAt: new Date().toISOString(),base,fixture:empty?'empty':'two-level',result:'passed',checks:reports},null,2));
   process.stdout.write(`${reports.length} real-browser navigation checks passed. Reports: ${output}\n`);
