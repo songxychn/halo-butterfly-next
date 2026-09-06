@@ -26,11 +26,12 @@ export async function runSubtitle({ element, config = {}, createTyped, requestRa
   if (!element || config.enable_above === false || config.enable_subtitle === false) return;
 
   let strings = customSubtitles(config.typewriter_custom_text);
+  let contentType = 'html'; // Preserve author-configured markup in the existing dynamic mode.
   const api = typeof config.typewriter_random_api === 'string' ? config.typewriter_random_api.trim() : '';
   if (config.enable_typewriter_random_text === true && api) {
     try {
       const text = randomSubtitle(await requestRandom(api), config.typewriter_api_value_format);
-      if (text !== null) strings = [text];
+      if (text !== null) { strings = [text]; contentType = null; }
     } catch {
       // Unavailable services use the same local content as the no-source case.
     }
@@ -42,7 +43,7 @@ export async function runSubtitle({ element, config = {}, createTyped, requestRa
   }
   return createTyped(element, {
     strings,
-    contentType: null,
+    contentType,
     startDelay: 300,
     typeSpeed: 200,
     loop: true,

@@ -26,7 +26,7 @@ test('静态字幕使用首项及 textContent，保留首项为空的语义且�
   }
 });
 
-test('缺失或空值新开关保留旧版动态文案，Typed 也使用纯文本内容', async () => {
+test('缺失或空值新开关保留旧版动态文案及自定义 HTML 行为', async () => {
   for (const switches of [{}, { enable_subtitle: null, subtitle_effect: null }]) {
     const element = target();
     let calls = 0;
@@ -35,7 +35,7 @@ test('缺失或空值新开关保留旧版动态文案，Typed 也使用纯文�
         calls++;
         assert.equal(node, element);
         assert.deepEqual(options.strings, ['旧站第一句', '<b>第二句</b>']);
-        assert.equal(options.contentType, null);
+        assert.equal(options.contentType, 'html');
         assert.equal(options.typeSpeed, 200);
       } });
     assert.equal(calls, 1);
@@ -81,6 +81,19 @@ test('随机来源未启用或缺少 URL 时不请求；动态失败回退本地
   await runSubtitle({ element: target(), config: { enable_typewriter_random_text: true, typewriter_random_api: '/fixture', typewriter_custom_text: '本地甲|&|本地乙' },
     requestRandom: async () => { throw new Error('offline'); }, createTyped: (_node, value) => { options = value; } });
   assert.deepEqual(options.strings, ['本地甲', '本地乙']);
+  assert.equal(options.contentType, 'html');
+});
+
+test('动态远程文案按纯文本呈现，失败回退仍保留作者的自定义 HTML', async () => {
+  const config = { enable_typewriter_random_text: true, typewriter_random_api: '/fixture', typewriter_custom_text: '<b>作者文案</b>' };
+  for (const success of [true, false]) {
+    let options;
+    await runSubtitle({ element: target(), config,
+      requestRandom: async () => { if (!success) throw new Error('offline'); return { body: '<img src=x onerror=alert(1)>', contentType: 'text/plain' }; },
+      createTyped: (_node, value) => { options = value; } });
+    assert.equal(options.contentType, success ? null : 'html');
+    assert.deepEqual(options.strings, [success ? '<img src=x onerror=alert(1)>' : '<b>作者文案</b>']);
+  }
 });
 
 test('原版 2.0.5/2.0.7 迁移补齐兼容开关，显式 false 不被默认值覆盖', async () => {
