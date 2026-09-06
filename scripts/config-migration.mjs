@@ -1,4 +1,7 @@
 import { parse } from 'yaml';
+import { readFileSync } from 'node:fs';
+
+const { version: targetVersion } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 
 const forbiddenKeys = new Set(['__proto__', 'constructor', 'prototype']);
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -122,7 +125,7 @@ export function migrateConfig(input, from, defaults) {
     assign(source, target, value, source === target ? 'copied' : 'converted');
   };
   visit(input, '');
-  return { config, report: { from, targetTheme: 'halo-butterfly-next', targetVersion: '0.1.0-alpha.1', changes,
+  return { config, report: { from, targetTheme: 'halo-butterfly-next', targetVersion, changes,
     needsReview: changes.some(item => ['unsupported', 'manual-review', 'type-mismatch'].includes(item.action)) } };
 }
 

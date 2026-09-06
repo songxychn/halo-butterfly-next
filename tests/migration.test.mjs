@@ -78,6 +78,9 @@ test('CLI refuses existing files and leaves source contents unchanged', async ()
     assert.equal(run().status, 0);
     const generated = await readFile(output, 'utf8');
     assert.equal(JSON.parse(generated).aside.enable, false);
+    const report = JSON.parse(await readFile(output + '.report.json', 'utf8'));
+    const theme = parse(await readFile(new URL('../theme.yaml', import.meta.url), 'utf8'));
+    assert.equal(report.targetVersion, theme.spec.version);
     assert.notEqual(run().status, 0);
     assert.equal(await readFile(output, 'utf8'), generated);
     assert.equal(await readFile(input, 'utf8'), original);
