@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-independent-review",
+  "reviewer": "/root/acceptance_contract",
+  "author": "/root",
+  "reviewedAt": "2026-09-06T15:06:45.832294+00:00",
+  "sourceSha": "a2bff3c608b6ee6c0130b4bdcba50f474418dda1",
+  "baseSha": "40f3fc860d90cdb85de6437191762c255cf0c7b8",
+  "scope": [
+    "scripts/build.mjs",
+    "scripts/check-package.mjs"
+  ],
+  "findings": [],
+  "decision": "passed",
+  "validation": {
+    "source": "git archive exact SHA, independent snapshot, author worktree clean and unchanged",
+    "diffCheck": "passed",
+    "fullVerify": {
+      "command": "pnpm verify",
+      "exitCode": 0,
+      "tests": 32,
+      "packageFiles": 120,
+      "parityTracked": 897
+    },
+    "packageSha256": "c357aff73a308df6e40fcae17e2ecc0b2097a37d2c1c5e24f5ca6d59bdcc56c5",
+    "negativePackageGate": [
+      {
+        "entry": "templates/assets/js/archives.min.js",
+        "status": 1,
+        "rejectedByExpectedGate": true
+      },
+      {
+        "entry": "templates/assets/plugins/loading/circle.min.js",
+        "status": 1,
+        "rejectedByExpectedGate": true
+      }
+    ],
+    "restoredPackageCheck": "安装包检查通过：120 个文件，所有页面和 Loading 资源齐全",
+    "runtime": {
+      "station": "http://127.0.0.1:18092",
+      "stationMutations": false,
+      "cases": 12,
+      "passed": true,
+      "pageErrors": [],
+      "report": "independent-browser-charts.json",
+      "sessionClosed": true
+    },
+    "ci": {
+      "source": "independent gh run view",
+      "runId": 34041041641,
+      "headSha": "a2bff3c608b6ee6c0130b4bdcba50f474418dda1",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34041041641"
+    }
+  },
+  "assessment": [
+    "Production NODE_ENV define applies to every page and loading IIFE compiled by bundle().",
+    "Package gate scans shipped page and loading JavaScript; injected residual references were rejected on both supported path classes.",
+    "Three chart pages initialize MainApp and draw nontransparent canvas pixels on desktop/mobile viewport in light/dark; no process global is introduced."
+  ],
+  "limitations": [
+    "Headless Chromium viewport coverage is not physical-device or real Safari/Firefox acceptance.",
+    "Review is bounded to issue21 and these two changed files; does not accept full chart feature domain or prior matrix capabilities.",
+    "Known unrelated cursor resource failures and provider interception findings remain tracked separately."
+  ]
+}

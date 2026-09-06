@@ -499,9 +499,10 @@
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
         "settings": [],
         "code": [
-          "src/html/views/nav.html"
+          "src/html/views/nav.html",
+          "src/js/core/navigation.js"
         ],
-        "finding": "已有 Halo 主菜单及 icon 注解、外链和二级菜单，待核对宽度折叠和键盘行为。 基础五项菜单已在双站最终 HTML 核验；#16 继续两级 disclosure、抽屉焦点和响应式状态，未通过全部菜单合同。"
+        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
       },
       "dependencies": [
         "dual-site",
@@ -527,9 +528,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/16"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/27"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "98853f3562658e08e231113f441c2622c693f0d7",
+          "actor": "/root/acceptance_contract",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/parity_matrix"
     },
@@ -3106,14 +3119,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "index.enable_subtitle"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.js",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/modules/subtitle.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 #14 正在补齐字幕和效果开关、静态首项及失败回退；第三方来源枚举和 typed_option 仍须独立完成。"
+        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
       },
       "dependencies": [
         "dual-site",
@@ -3138,9 +3154,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/14"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/20"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
+          "actor": "/root",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/acceptance_contract"
     },
@@ -3166,14 +3194,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "index.subtitle_effect"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.js",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/modules/subtitle.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 #14 正在补齐字幕和效果开关、静态首项及失败回退；第三方来源枚举和 typed_option 仍须独立完成。"
+        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
       },
       "dependencies": [
         "dual-site",
@@ -3198,9 +3229,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/14"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/20"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
+          "actor": "/root",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/acceptance_contract"
     },
@@ -3353,9 +3396,10 @@
           "index.typewriter_custom_text"
         ],
         "code": [
-          "src/js/page/index.js"
+          "src/js/page/index.js",
+          "src/js/modules/subtitle.mjs"
         ],
-        "finding": "已有自定义打字机文本，待核对多行和空值。 #14 正在补齐字幕和效果开关、静态首项及失败回退；第三方来源枚举和 typed_option 仍须独立完成。"
+        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
       },
       "dependencies": [
         "dual-site",
@@ -3380,9 +3424,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/14"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/20"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
+          "actor": "/root",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/acceptance_contract"
     },
@@ -27354,9 +27410,10 @@
           "src/html/views/nav.html",
           "src/html/views/components.html",
           "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/scroll.js",
+          "src/js/core/navigation.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 基础五项菜单已在双站最终 HTML 核验；#16 继续两级 disclosure、抽屉焦点和响应式状态，未通过全部菜单合同。"
+        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
       },
       "dependencies": [
         "dual-site",
@@ -27381,9 +27438,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/16"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/27"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "98853f3562658e08e231113f441c2622c693f0d7",
+          "actor": "/root/acceptance_contract",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/parity_matrix"
     },
@@ -28405,9 +28474,10 @@
           "src/html/views/nav.html",
           "src/html/views/components.html",
           "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/scroll.js",
+          "src/js/core/navigation.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
       },
       "dependencies": [
         "dual-site",
@@ -28431,10 +28501,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/27"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "98853f3562658e08e231113f441c2622c693f0d7",
+          "actor": "/root/acceptance_contract",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
+      "status": "in-progress",
+      "author": "/root/parity_matrix"
     },
     {
       "id": "template:includes/third-party/abcjs/abcjs",
@@ -31148,9 +31231,10 @@
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.js",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/modules/subtitle.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 #14 正在补齐字幕和效果开关、静态首项及失败回退；第三方来源枚举和 typed_option 仍须独立完成。"
+        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
       },
       "dependencies": [
         "dual-site",
@@ -31174,9 +31258,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/14"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/20"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
+          "actor": "/root",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/acceptance_contract"
     },
@@ -44923,9 +45019,10 @@
           "src/html/views/nav.html",
           "src/html/views/components.html",
           "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/scroll.js",
+          "src/js/core/navigation.js"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 基础五项菜单已在双站最终 HTML 核验；#16 继续两级 disclosure、抽屉焦点和响应式状态，未通过全部菜单合同。"
+        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
       },
       "dependencies": [
         "dual-site",
@@ -44949,9 +45046,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/16"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/27"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "98853f3562658e08e231113f441c2622c693f0d7",
+          "actor": "/root/acceptance_contract",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/parity_matrix"
     },
@@ -45711,9 +45820,10 @@
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.js",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/modules/subtitle.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 #14 正在补齐字幕和效果开关、静态首项及失败回退；第三方来源枚举和 typed_option 仍须独立完成。"
+        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
       },
       "dependencies": [
         "dual-site",
@@ -45736,9 +45846,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/14"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/20"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
+          "actor": "/root",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/acceptance_contract"
     },
@@ -46748,9 +46870,10 @@
           "src/html/views/nav.html",
           "src/html/views/components.html",
           "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/scroll.js",
+          "src/js/core/navigation.js"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 基础五项菜单已在双站最终 HTML 核验；#16 继续两级 disclosure、抽屉焦点和响应式状态，未通过全部菜单合同。"
+        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
       },
       "dependencies": [
         "dual-site",
@@ -46774,9 +46897,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/16"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/27"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review-ci",
+          "path": "docs/validation/2026-09-06/alpha-2-components.json",
+          "sha256": "be763a5e7636071e5f0d3d267bf792ef5b8c638fe39206026e7b5d5490abc97a",
+          "date": "2026-09-06T15:21:45.935409+00:00",
+          "commit": "98853f3562658e08e231113f441c2622c693f0d7",
+          "actor": "/root/acceptance_contract",
+          "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        }
+      ],
       "status": "in-progress",
       "author": "/root/parity_matrix"
     },
