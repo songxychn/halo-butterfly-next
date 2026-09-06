@@ -109,9 +109,48 @@ class LabTests(unittest.TestCase):
                 if '/menus/' in path:
                     return {'spec': {'menuItems': ['comparison-menu-' + str(i) for i in range(len(lab.CONTENT['menu']))]}}
                 item = lab.CONTENT['menu'][0]
-                return {'metadata': {}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': 0, 'children': []}}
+                return {'metadata': {}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': 0, 'children': [], 'menuName': 'comparison-primary'}}
         with self.assertRaisesRegex(RuntimeError, 'Menu item or icon differs'):
             lab.validate_menu(FakeClient())
+
+    def test_menu_validation_requires_finder_menu_name(self):
+        class FakeClient:
+            def api(self, path):
+                if '/menus/' in path:
+                    return {'spec': {'menuItems': ['comparison-menu-' + str(i) for i in range(len(lab.CONTENT['menu']))]}}
+                item = lab.CONTENT['menu'][0]
+                return {'metadata': {'annotations': {'icon': item['icon']}}, 'spec': {'displayName': item['title'], 'href': item['path'], 'target': '_self', 'priority': 0, 'children': []}}
+        with self.assertRaisesRegex(RuntimeError, 'Menu item or icon differs'):
+            lab.validate_menu(FakeClient())
+
+    @staticmethod
+    def rendered_menu_fixture(platform):
+        links = ''.join('<div><a href="' + item['path'] + '"><i class="fa-fw ' + item['icon'] + '"></i><span> ' + item['title'] + '</span></a></div>' for item in lab.CONTENT['menu'])
+        if platform == 'halo':
+            return '<nav><menu class="menu">' + links + '</menu></nav><div class="side-bar"><img src="/avatar.svg"><menu class="bar">' + links + '</menu></div>'
+        return '<div id="sidebar-menus"><img src="/avatar.svg"><div class="menus_items">' + links + '</div></div><nav><div id="menus"><div class="menus_items">' + links + '</div></div></nav>'
+
+    def test_rendered_menu_evidence_checks_both_platforms_and_surfaces(self):
+        for platform in ['halo', 'hexo']:
+            with self.subTest(platform=platform):
+                actual = lab.validate_rendered_menus(self.rendered_menu_fixture(platform), platform)
+                self.assertEqual(set(actual), {'desktop', 'mobile'})
+                self.assertEqual({key: len(items) for key, items in actual.items()}, {'desktop': 5, 'mobile': 5})
+
+    def test_rendered_menu_evidence_rejects_empty_halo_menus(self):
+        with self.assertRaisesRegex(RuntimeError, 'menu count differs.*0'):
+            lab.validate_rendered_menus('<nav><menu class="menu"></menu></nav><div class="side-bar"><menu class="bar"></menu></div>', 'halo')
+
+    def test_rendered_menu_evidence_rejects_wrong_text_href_or_icon(self):
+        markup = self.rendered_menu_fixture('halo')
+        for before, after in [('首页', '其他'), ('href="/"', 'href="/unexpected/"'), ('fas fa-home', 'fas fa-missing')]:
+            with self.subTest(before=before), self.assertRaisesRegex(RuntimeError, 'navigation differs'):
+                lab.validate_rendered_menus(markup.replace(before, after, 1), 'halo')
+
+    def test_rendered_menu_evidence_requires_mobile_container(self):
+        markup = self.rendered_menu_fixture('halo').replace('class="bar"', 'class="other"')
+        with self.assertRaisesRegex(RuntimeError, 'containers are missing'):
+            lab.validate_rendered_menus(markup, 'halo')
 
     def test_initial_taxonomy_cleanup_requires_fresh_snapshot(self):
         with tempfile.TemporaryDirectory() as directory:

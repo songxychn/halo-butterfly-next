@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{layout :: html(head = ~{::head}, content = ~{::content})}">
+<th:block th:fragment="head">
+  <title>布局探针：显式 head</title>
+  <meta name="layout-probe" content="provided-head">
+</th:block>
+<th:block th:fragment="content">
+  <section id="layout-probe-head-content">
+    <h1>插件自有页面：显式 head</h1>
+    <p>此正文来自独立插件 JAR，没有文章或单页面模型。</p>
+    <a href="/__layout-probe/no-head">打开 head 为空的探针</a>
+  </section>
+</th:block>
+</html>

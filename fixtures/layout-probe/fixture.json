@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "name": "plugin-halo-butterfly-layout-probe",
+  "version": "0.0.1",
+  "halo": {
+    "version": "2.26.1",
+    "url": "https://github.com/halo-dev/halo/releases/download/v2.26.1/halo-2.26.1.jar",
+    "sha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc"
+  },
+  "compileLibraries": [
+    "api-2.26.1.jar",
+    "spring-context-7.0.9.jar",
+    "spring-beans-7.0.9.jar",
+    "spring-core-7.0.9.jar",
+    "spring-web-7.0.9.jar",
+    "spring-webflux-7.0.9.jar",
+    "reactor-core-3.8.7.jar",
+    "reactive-streams-1.0.4.jar",
+    "pf4j-3.15.0.jar"
+  ],
+  "resources": {
+    "MANIFEST.MF": "META-INF/MANIFEST.MF",
+    "components.idx": "META-INF/plugin-components.idx",
+    "plugin.yaml": "plugin.yaml",
+    "with-head.html": "templates/layout-probe-head.html",
+    "without-head.html": "templates/layout-probe-no-head.html",
+    "LICENSE": "LICENSE"
+  },
+  "routes": [
+    {"path": "/__layout-probe/head", "template": "layout-probe-head", "marker": "layout-probe-head-content", "title": "布局探针：显式 head", "hasHead": true},
+    {"path": "/__layout-probe/no-head", "template": "layout-probe-no-head", "marker": "layout-probe-no-head-content", "hasHead": false}
+  ]
+}
