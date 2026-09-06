@@ -29,7 +29,9 @@ BASE_URL=http://127.0.0.1:18091 node scripts/browser/run.mjs \
   --theme-source-sha 0123456789abcdef0123456789abcdef01234567
 ```
 
-`BASE_URL` 没有默认值，只接受明确的 `http://127.0.0.1:<port>` origin，并要求端口匹配实验目录的 Halo 所属标识。禁止 URL 凭据、路径、查询参数和非本地站点。运行器不登录，不安装主题/插件，不改变站点配置；每页使用新的浏览器上下文，模式值只写该上下文自己的 localStorage。请求仅放行同 origin 的 GET/HEAD；外站、写入请求和 WebSocket 均阻止并登记为缺口。
+`BASE_URL` 没有默认值，只接受明确的 `http://127.0.0.1:<port>` origin，并要求端口匹配实验目录的 Halo 所属标识。禁止 URL 凭据、路径、查询参数和非本地站点。运行器不登录，不安装主题/插件，不改变站点配置；每页使用新的浏览器上下文，模式值只写该上下文自己的 localStorage。
+
+请求放行同 origin 的 GET/HEAD，以及唯一的公开访客计数 `POST /apis/api.halo.run/v1alpha1/trackers/counter`。已核对 Halo 实际 `/halo-tracker.js`：该请求上报文章/独立页面的 group、plural、name、视口、页面 URL 等访问信息，返回访问计数。因此合成站访问数可能增长。每页报告 `allowedWrites` 保存接口、用途与请求体摘要；真实请求直达实验站，不伪造成功。近似路径、查询串、认证/控制台 API 和所有其他写入、外站、WebSocket 仍阻止并登记。
 
 请由测试站当前负责人保持安装包不变直到运行结束。报告同时保存工具 SHA/工作区状态、主题 SHA 声明/ZIP SHA-256、Playwright/锁摘要、浏览器实际版本与可执行文件摘要、操作系统、时区、视口和模式，并在结束时核对安装记录未变化。
 

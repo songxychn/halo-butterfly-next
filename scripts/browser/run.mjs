@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, comparableAsset, finishPage, readJson, writeJson, sha256 } from './support.mjs';
+import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, finishPage, readJson, writeJson, sha256 } from './support.mjs';
 
 const options = {};
 for (let i = 2; i < process.argv.length; i += 2) {
@@ -99,12 +99,12 @@ async function main() {
     runner: { sourceCommit: git('rev-parse', 'HEAD'), workingTreeClean: !git('status', '--porcelain'), playwright: actual.version, packageManager: fixture.packageManager, lockSha256: installation.lockSha256, browserRegistry: installation.engines },
     theme: { sourceCommit: options['--theme-source-sha'], packageSha256: packageHash, packageName: path.basename(packagePath), attribution: 'Caller declaration matched to local lab installation record; source-to-build proof remains separate' },
     platform: { type: os.type(), release: os.release(), version: os.version(), arch: os.arch(), node: process.version, ...(process.platform === 'darwin' ? { macOS: execFileSync('sw_vers', ['-productVersion'], { encoding: 'utf8' }).trim() } : {}) },
-    target: { baseUrl: base, fixtureProfile: 'comparison lab core routes; plugin profile not certified' },
+    target: { baseUrl: base, fixtureProfile: 'comparison lab core routes; plugin profile not certified', allowedWrite: { method: 'POST', path: COUNTER_PATH, purpose: 'Normal public page visit count in the owned synthetic lab; counts may increase' } },
     engines: [], expectedPagesPerEngine: ROUTES.length * 4, omittedEngines: ENGINES.filter(name => !engines.includes(name)), contractAcceptance: false,
     limitations: [
       'Playwright Chromium/Firefox/WebKit builds are not branded stable Chrome/Firefox/Safari; WebKit is not actual Safari and viewport emulation is not a physical device.',
       'Core ten routes only. P+ plugins, full supported interactions, touch devices and manual visual/a11y judgment remain untested; BROWSER-04 is not completed by this smoke suite.',
-      'Only same-origin GET/HEAD requests are allowed. Writes, WebSockets and external resources are blocked and reported; analytics and external services are not certified.',
+      'Same-origin GET/HEAD plus the exact public Halo visit-counter POST are allowed. Synthetic visit counts may increase. All other writes, WebSockets and external resources are blocked; broader analytics/external services remain untested.',
       'Screenshots await finite animations and visible images without CSS injection. Infinite animations are counted, not stopped; offscreen lazy images are not claimed loaded.',
       'Playwright response-body hashes describe decoded browser API bytes, not wire compression bytes. CSS/JS package comparison removes only an optional UTF-8 BOM on either side; original hashes remain recorded.',
       'Keyboard mode/mobile-menu checks run on the home route; exhaustive submenu focus containment remains a separate navigation contract.'
@@ -139,16 +139,17 @@ async function main() {
     }
     try {
       for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844 }]) for (const mode of ['light', 'dark']) for (const route of ROUTES) {
-        const result = { path: route, viewport, mode, status: 'running', resources: [], blockedRequests: [], requestFailures: [], jsErrors: [], failures: [] };
+        const result = { path: route, viewport, mode, status: 'running', resources: [], allowedWrites: [], blockedRequests: [], requestFailures: [], jsErrors: [], failures: [] };
         engine.pages.push(result);
         const context = await browser.newContext({ viewport, colorScheme: mode, reducedMotion: 'no-preference', locale: 'zh-CN', timezoneId: 'Asia/Shanghai', serviceWorkers: 'block', acceptDownloads: false, storageState: { cookies: [], origins: [{ origin: base, localStorage: [{ name: 'halo-butterfly-next.color-scheme', value: mode }] }] } });
         const pending = [];
         await context.route('**/*', async requestRoute => {
-          const request = requestRoute.request(), url = new URL(request.url());
-          if (url.origin !== base || !['GET', 'HEAD'].includes(request.method())) {
+          const request = requestRoute.request(), policy = requestPolicy(request.url(), request.method(), base);
+          if (policy === 'blocked') {
             result.blockedRequests.push({ url: request.url(), method: request.method() });
             return requestRoute.abort('blockedbyclient');
           }
+          if (policy === 'visit-counter') result.allowedWrites.push({ url: request.url(), method: request.method(), purpose: 'Halo public visit counter', bodySha256: sha256(request.postData() || '') });
           return requestRoute.continue();
         });
         await context.routeWebSocket('**/*', socket => { result.blockedRequests.push({ url: socket.url(), method: 'WEBSOCKET' }); socket.close(); });

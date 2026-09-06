@@ -7,6 +7,7 @@ export const REPO = fileURLToPath(new URL('../../', import.meta.url));
 export const FIXTURE = path.join(REPO, 'fixtures/browser');
 export const RUNTIME = path.join(REPO, '.runtime/browser-matrix');
 export const ENGINES = ['chromium', 'firefox', 'webkit'];
+export const COUNTER_PATH = '/apis/api.halo.run/v1alpha1/trackers/counter';
 export const ROUTES = ['/', '/page/2/', '/archives/', '/categories/', '/categories/development/', '/tags/', '/tags/butterfly/', '/archives/preview-1/', '/archives/preview-2/', '/about-preview/'];
 export const sha256 = value => createHash('sha256').update(value).digest('hex');
 // Browser response APIs decode textual bodies and Chromium drops a UTF-8 BOM.
@@ -68,6 +69,15 @@ export function responseFailure(status, contentType, resourceType) {
   if (status < 200 || status >= 400) return `HTTP ${status}`;
   if (['stylesheet', 'script', 'image', 'font', 'media'].includes(resourceType) && /^(text\/html|application\/xhtml\+xml)(;|$)/i.test(contentType)) return 'Asset returned HTML';
   return null;
+}
+
+export function requestPolicy(value, method, base) {
+  const url = new URL(value);
+  if (url.origin !== base || url.username || url.password) return 'blocked';
+  if (['GET', 'HEAD'].includes(method)) return 'read';
+  // Exact public endpoint only: query strings, suffixes, encoded lookalikes,
+  // console/auth APIs and every other write remain blocked.
+  return method === 'POST' && value === base + COUNTER_PATH ? 'visit-counter' : 'blocked';
 }
 
 export async function finishPage(result, pending, closeContext) {
