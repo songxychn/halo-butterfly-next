@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 spec = importlib.util.spec_from_file_location('comparison_lab', Path(__file__).with_name('lab.py'))
 lab = importlib.util.module_from_spec(spec)
@@ -64,6 +64,30 @@ class LabTests(unittest.TestCase):
         parser = lab.Resources()
         parser.feed('<a href="https://example.invalid">link</a><img src="data:x" data-lazy-src="/lab/cover.svg"><script src="/main.js"></script><link rel="stylesheet" href="/main.css">')
         self.assertEqual(parser.urls, {'data:x', '/lab/cover.svg', '/main.js', '/main.css'})
+
+    def test_resource_parser_accepts_multiple_rel_tokens(self):
+        parser = lab.Resources()
+        parser.feed('<link rel="preload stylesheet" href="/page.css"><link rel="STYLESHEET preload" href="/other.css"><link rel="shortcut\ticon" href="/icon.svg"><link rel="preload" href="/unrelated">')
+        self.assertEqual(parser.urls, {'/page.css', '/other.css', '/icon.svg'})
+
+    def test_resource_rejects_successful_html_fallback(self):
+        for content_type in ['text/html; charset=UTF-8', 'Text/HTML', 'application/xhtml+xml']:
+            with self.subTest(content_type=content_type):
+                response = MagicMock(status=200, headers={'Content-Type': content_type})
+                response.__enter__.return_value = response
+                with patch.object(lab.LOCAL, 'open', return_value=response), self.assertRaisesRegex(RuntimeError, 'did not return asset content'):
+                    lab.resource_result('http://127.0.0.1:18091/missing.css')
+                response.read.assert_not_called()
+
+    def test_resource_records_real_css_content(self):
+        response = MagicMock(status=200, headers={'Content-Type': 'text/css; charset=UTF-8'})
+        response.__enter__.return_value = response
+        response.read.return_value = b'body { color: black; }'
+        with patch.object(lab.LOCAL, 'open', return_value=response):
+            result = lab.resource_result('http://127.0.0.1:18091/page.css')
+        self.assertEqual(result['status'], 200)
+        self.assertEqual(result['contentType'], 'text/css')
+        self.assertEqual(result['sha256'], lab.hashlib.sha256(response.read.return_value).hexdigest())
 
 
 if __name__ == '__main__':

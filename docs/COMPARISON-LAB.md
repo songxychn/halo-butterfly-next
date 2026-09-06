@@ -69,7 +69,7 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 
 ## 首轮可重复运行记录（2026-09-06）
 
-使用最终初始化逻辑创建全新 Halo 数据库，第一次创建 13 个内容对象（12 篇文章、1 个单页）；第二次 `bootstrap` 创建 0 个对象并通过内容/配置不变校验。完整 `pnpm check` 7 项通过，其中实验环境包装测试包含 7 项 Python 保护测试。停机恢复后重新通过 `health` 和 `evidence`。
+使用最终初始化逻辑创建全新 Halo 数据库，第一次创建 13 个内容对象（12 篇文章、1 个单页）；第二次 `bootstrap` 创建 0 个对象并通过内容/配置不变校验。完整 `pnpm check` 7 项通过，其中实验环境包装测试包含 10 项 Python 保护测试。停机恢复后重新通过 `health` 和 `evidence`。
 
 | 证据 | 本轮结果 |
 | --- | --- |
@@ -77,9 +77,11 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 | 主题 ZIP SHA-256 | `92e7bfeff60a753aeef2cbcd57f1d148e5f589e5fd3b6df3eec27944b836800a` |
 | HTTP 核心路由 | 两站各 10 条，共 20 条通过 |
 | 共用 SVG | 两站各 2 个，4 项摘要一致 |
-| 页面脚本/CSS/图片引用 | Halo 14 个、Hexo 6 个本地资源 HTTP 200 |
+| 页面脚本/CSS/图片引用 | Halo 27 个、Hexo 6 个本地资源 HTTP 200，响应类型均为资源而非 HTML |
 | 文章语义 | 12 篇标题、日期、分类、标签、封面、发布正文和首页顺序通过 |
 | JVM 实际属性 | `jcmd <owned-pid> VM.system_properties` 返回 `java.version=25`、`user.timezone=Asia/Shanghai` |
 | 插件基线 | 新实例的 8 个可选插件全部停用；具体版本留在本地 evidence.json |
+
+独立审查补强了多 token `rel`（例如 `preload stylesheet`）的资源收集，并拒绝将 HTTP 200 的 HTML/XHTML 回退页视为成功资源。最新资源证据同时记录 Content-Type。
 
 本轮没有将视觉差异或跨浏览器交互标记为通过；由集成负责人用同一夹具继续独立验收。

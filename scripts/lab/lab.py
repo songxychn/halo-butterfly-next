@@ -450,8 +450,18 @@ class Resources(HTMLParser):
         if tag in ['script', 'img', 'source']:
             for key in ['src', 'data-lazy-src']:
                 if attrs.get(key): self.urls.add(attrs[key])
-        if tag == 'link' and attrs.get('rel') in ['stylesheet', 'icon'] and attrs.get('href'):
+        rel = set(attrs.get('rel', '').lower().split())
+        if tag == 'link' and rel.intersection({'stylesheet', 'icon'}) and attrs.get('href'):
             self.urls.add(attrs['href'])
+
+
+def resource_result(url):
+    with LOCAL.open(url, timeout=15) as response:
+        content_type = response.headers.get('Content-Type', '').split(';', 1)[0].strip().lower()
+        if response.status != 200 or content_type in {'text/html', 'application/xhtml+xml'}:
+            raise RuntimeError(f'Resource did not return asset content: {url} (HTTP {response.status}, {content_type})')
+        data = response.read()
+        return {'status': response.status, 'contentType': content_type, 'sha256': hashlib.sha256(data).hexdigest()}
 
 
 def evidence():
@@ -486,8 +496,7 @@ def evidence():
             full = urllib.parse.urljoin(base, url)
             if urllib.parse.urlparse(full).netloc != urllib.parse.urlparse(base).netloc:
                 raise RuntimeError(f'Baseline page requires an external resource: {full}')
-            response = LOCAL.open(full, timeout=15); data = response.read()
-            loaded.append({'url': url, 'status': response.status, 'sha256': hashlib.sha256(data).hexdigest()})
+            loaded.append({'url': url, **resource_result(full)})
         report['sites'][name] = {'url': base, 'routes': results, 'assets': assets, 'resources': loaded}
     client = Client()
     validate_content(client)
