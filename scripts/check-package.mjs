@@ -23,7 +23,7 @@ for (const name of Object.keys(zip.files)) {
 }
 const config = parse(await zip.file('settings.yaml').async('string'));
 if (config.metadata.name !== theme.spec.settingName) throw new Error('Setting 标识不一致');
-if (theme.metadata.name !== 'theme-butterfly-next' || theme.spec.configMapName !== 'theme-butterfly-next-configMap') throw new Error('维护版必须使用独立标识');
+if (theme.metadata.name !== 'halo-butterfly-next' || theme.spec.configMapName !== 'halo-butterfly-next-configMap') throw new Error('维护版必须使用独立标识');
 if (theme.spec.requires !== '>=2.26.1 & <2.27.0' || 'require' in theme.spec) throw new Error('兼容版本声明错误');
 const layout = await zip.file('templates/views/layout.html').async('string');
 if (!layout.includes('#theme.assets')) throw new Error('资源必须由当前主题解析');

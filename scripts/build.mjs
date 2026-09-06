@@ -46,7 +46,7 @@ async function bundle(input, outputDir) {
     }],
     build: {
       outDir: outputDir, emptyOutDir: false, target: 'es2022',
-      lib: { entry: input, name: `ButterflyNext_${name}`, formats: ['iife'], fileName: () => `${name}.min.js` },
+      lib: { entry: input, name: `HaloButterflyNext_${name}`, formats: ['iife'], fileName: () => `${name}.min.js` },
     },
   });
 }

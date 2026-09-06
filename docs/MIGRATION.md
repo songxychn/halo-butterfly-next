@@ -14,7 +14,7 @@ pnpm migrate --input old.json --from 2.0.5 --output next.json
 
 脚本只在本地生成新文件和 `next.json.report.json`，不会连接 Halo、修改输入或覆盖已有输出。报告只记录字段、动作和目标字段，不包含原始值。配置输出采用仅当前用户可读写的权限。
 
-默认输出是 Next 的分组 JSON，核对后可通过已认证的 Halo API `PUT /apis/api.console.halo.run/v1alpha1/themes/theme-butterfly-next/json-config` 应用；该请求替换新主题整份配置，应用前也应导出 Next 当前配置。`--format configmap` 面向熟悉 Halo 自定义资源的维护者，不要将它当成分组 JSON 发送给上述接口。
+默认输出是 Next 的分组 JSON，核对后可通过已认证的 Halo API `PUT /apis/api.console.halo.run/v1alpha1/themes/halo-butterfly-next/json-config` 应用；该请求替换新主题整份配置，应用前也应导出 Next 当前配置。`--format configmap` 面向熟悉 Halo 自定义资源的维护者，不要将它当成分组 JSON 发送给上述接口。
 
 ## 自动转换范围
 

@@ -10,7 +10,7 @@
 | jQuery、Clipboard、Tocbot、Typed.js | DOM、复制、目录、打字机 | MIT；许可证随包分发 |
 | ECharts | 原分类统计页面 | Apache-2.0；许可证随包分发 |
 | Animate.css | 原有动画 | MIT；许可证随包分发 |
-| `src/images/above.svg` | Butterfly Next 原创装饰图 | GPL-3.0，同本主题 |
+| `src/images/above.svg` | Halo Butterfly Next 原创装饰图 | GPL-3.0，同本主题 |
 
 确切依赖版本由 `pnpm-lock.yaml` 锁定。第三方许可证位于安装包的 `templates/assets/licenses/` 及相应插件目录。
 

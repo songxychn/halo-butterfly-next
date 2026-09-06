@@ -1,6 +1,6 @@
 # 参与维护
 
-Butterfly Next 是独立的 Halo 社区维护项目。先阅读 [阶段计划](docs/ROADMAP.md)，每个 PR 解决一个明确问题或一个上游功能差异。使用中文描述问题、行为变化和验证结果。
+Halo Butterfly Next 是独立的 Halo 社区维护项目。先阅读 [阶段计划](docs/ROADMAP.md)，每个 PR 解决一个明确问题或一个上游功能差异。使用中文描述问题、行为变化和验证结果。
 
 ## AI 辅助开发约定
 

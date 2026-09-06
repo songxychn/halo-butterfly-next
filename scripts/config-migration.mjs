@@ -117,16 +117,16 @@ export function migrateConfig(input, from, defaults) {
       assign(source, target, 'null', 'reset-system-font'); return;
     }
     if (source.endsWith('.above_background') && typeof value === 'string' && isLegacyBanner(value)) {
-      assign(source, target, '/themes/theme-butterfly-next/assets/images/above.svg', 'reset-bundled-image'); return;
+      assign(source, target, '/themes/halo-butterfly-next/assets/images/above.svg', 'reset-bundled-image'); return;
     }
     assign(source, target, value, source === target ? 'copied' : 'converted');
   };
   visit(input, '');
-  return { config, report: { from, targetTheme: 'theme-butterfly-next', targetVersion: '0.1.0-alpha.1', changes,
+  return { config, report: { from, targetTheme: 'halo-butterfly-next', targetVersion: '0.1.0-alpha.1', changes,
     needsReview: changes.some(item => ['unsupported', 'manual-review', 'type-mismatch'].includes(item.action)) } };
 }
 
 export function asConfigMap(config) {
-  return { apiVersion: 'v1alpha1', kind: 'ConfigMap', metadata: { name: 'theme-butterfly-next-configMap' },
+  return { apiVersion: 'v1alpha1', kind: 'ConfigMap', metadata: { name: 'halo-butterfly-next-configMap' },
     data: Object.fromEntries(Object.entries(config).map(([group, value]) => [group, JSON.stringify(value)])) };
 }

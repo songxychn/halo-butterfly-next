@@ -1,4 +1,4 @@
-# Butterfly Next for Halo
+# Halo Butterfly Next
 
 Butterfly 的 Halo 社区维护版，基于 [小红的 Halo 移植项目](https://github.com/dhjddcn/halo-theme-butterfly) 保留完整 Git 历史，分阶段追平 [Hexo Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)。这是独立维护项目，不代表 Halo 或 Butterfly 官方。
 
@@ -8,7 +8,7 @@ Butterfly 的 Halo 社区维护版，基于 [小红的 Halo 移植项目](https:
 
 首轮实际验证 Halo **2.26.1**。兼容声明限定 `>=2.26.1 & <2.27.0`，其他 2.26 补丁版仍需实际验证。请先在测试站使用 alpha 版本。
 
-从维护版的构建产物取得 `theme-butterfly-next-0.1.0-alpha.1.zip`，在 Halo 控制台的主题管理中上传、配置并启用。主题 ID 为 `theme-butterfly-next`；可与原 `theme-butterfly` 同时安装。当前本地项目尚未发布公开发行包。
+从维护版的构建产物取得 `halo-butterfly-next-0.1.0-alpha.1.zip`，在 Halo 控制台的主题管理中上传、配置并启用。主题 ID 为 `halo-butterfly-next`；可与原 `theme-butterfly` 同时安装。当前本地项目尚未发布公开发行包。
 
 原主题用户先阅读 [配置迁移说明](docs/MIGRATION.md)。不要覆盖原主题目录，也不要直接套用旧主题的 ConfigMap。
 

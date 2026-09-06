@@ -44,7 +44,7 @@ test('2.0.7 preserves nested settings, isolates assets and keeps custom banners'
 test('Halo ConfigMap input and output use independent identity', () => {
   const parsed = readConfig(JSON.stringify({ apiVersion: 'v1alpha1', kind: 'ConfigMap', metadata: { name: 'theme-butterfly-configMap' }, data: { aside: '{"enable":false}' } }));
   const output = asConfigMap(migrateConfig(parsed, '2.0.7', defaults).config);
-  assert.equal(output.metadata.name, 'theme-butterfly-next-configMap');
+  assert.equal(output.metadata.name, 'halo-butterfly-next-configMap');
   assert.equal(readConfig(JSON.stringify(output)).aside.enable, false);
   assert.throws(() => readConfig('{"kind":"ConfigMap","data":{"base":"not-json"}}'), /有效 JSON/);
 });
@@ -52,7 +52,7 @@ test('Halo ConfigMap input and output use independent identity', () => {
 test('published defaults use Fastly CDN and nullable social URLs', () => {
   const { config, report } = migrateConfig({ index: { above_background: 'https://fastly.jsdelivr.net/npm/halo-theme-butterfly@latest/above.png' },
     socials: { no_data: [{ name: 'GitHub', icon: '<i class="fa-brands fa-github"></i>', url: null }] } }, '2.0.5', defaults);
-  assert.equal(config.index.above_background, '/themes/theme-butterfly-next/assets/images/above.svg');
+  assert.equal(config.index.above_background, '/themes/halo-butterfly-next/assets/images/above.svg');
   assert.equal(config.aside.social.length, 1);
   assert.equal(config.aside.social[0].link, '');
   assert(report.changes.some(item => item.field === 'socials.no_data.0.url' && item.action === 'manual-review'));

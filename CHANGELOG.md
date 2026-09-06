@@ -2,6 +2,7 @@
 
 ## 0.1.0-alpha.1
 
+- 公开发布前统一项目名、主题 ID 与包名为 `halo-butterfly-next`，展示名为 Halo Butterfly Next。
 - 从原 Halo Butterfly 2.0.7 源码基线建立独立社区维护版，目标上游为 Hexo Butterfly 5.7.0。
 - 独立主题、Setting、ConfigMap 与浏览器主题模式存储标识。
 - 用统一 Node/Vite 构建替换原 Gulp/Gradle 入口；提交依赖锁文件，补齐所有页面和 Loading 的可重复打包与检查。

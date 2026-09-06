@@ -20,7 +20,7 @@ for (const route of values.routes.split(',')) {
   const canonicals = [...html.matchAll(/<link\b(?=[^>]*rel="canonical")(?=[^>]*href="([^"]+)")[^>]*>/g)];
   assert(canonicals.length <= 1, `${route} 重复 canonical`);
   for (const [, value] of canonicals) assert(/^https?:\/\//.test(value), `${route} canonical 必须是绝对地址`);
-  for (const [, asset] of html.matchAll(/(?:src|href)="(\/themes\/theme-butterfly-next\/assets\/[^"<>]+)"/g)) {
+  for (const [, asset] of html.matchAll(/(?:src|href)="(\/themes\/halo-butterfly-next\/assets\/[^"<>]+)"/g)) {
     if (checked.has(asset)) continue;
     checked.add(asset);
     const resource = await request(new URL(asset.replaceAll('&amp;', '&'), base));

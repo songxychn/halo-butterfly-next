@@ -12,7 +12,7 @@
   };
   try {
     const mode = window.MainApp.conf.style_mode;
-    const saved = localStorage.getItem('butterfly-next.color-scheme');
+    const saved = localStorage.getItem('halo-butterfly-next.color-scheme');
     document.documentElement.dataset.colorScheme = ['light', 'dark'].includes(mode) ? mode :
       mode === 'auto' ? (new Date().getHours() >= 6 && new Date().getHours() < 18 ? 'light' : 'dark') :
       (saved === 'dark' ? 'dark' : 'light');
