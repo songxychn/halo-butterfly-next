@@ -48,7 +48,7 @@ python3 -B scripts/lab/layout-probe.py exercise --expect-layout fallback
 5. 通过 Plugin 资源 API 卸载，等待资源删除，两路由均为 404。
 6. 重新安装并启用，保留专属实验站与夹具，供后续主题验收。
 
-每个启用场景要求 HTTP 200、HTML 类型、没有跳转、响应头 `X-Layout-Probe-Template` 指向实际插件自有模板、正文标记各一次、标题恰好一个。显式 head 必须输出指定标题和 meta；空 head 必须使用合成站点标题且无该 meta。若主题提供了同名覆盖模板，插件主动返回失败，避免把主题自有模板伪装成公共布局测试。
+每个启用场景要求 HTTP 200、HTML 类型、没有跳转、响应头 `X-Layout-Probe-Template` 指向实际插件自有模板、正文标记各一次。显式 head 必须输出恰好一个指定标题和 meta；支持模式的空 head 必须使用恰好一个合成站点标题且无该 meta。固定 Halo 2.26.1 内置 fallback 的空 head 不产生 title，因此 fallback 模式明确要求零 title，不能沿用这一条件降低主题支持模式的要求。若主题提供了同名覆盖模板，插件主动返回失败，避免把主题自有模板伪装成公共布局测试。
 
 `--expect-layout fallback` 要求 Theme 状态为 `MISSING` 或 `INVALID`；`--expect-layout supported` 要求 `SUPPORTED`。状态检查与真实模板渲染同时进行，不能以状态字符串替代路由结果。每一步写入专属运行目录的 `layout-probe-evidence.json`，含构建与主题包摘要、源提交、期望/实际布局状态、路由结果及限制。失败保留现场及部分结果，不自动升级主题或重建数据库。
 
@@ -67,3 +67,11 @@ node --test tests/layout-probe.test.mjs
 ```
 
 保护场景包括确定性 JAR、路径越界、错误官方摘要不执行编译器/不覆盖旧产物、实验目录和端口归属、未播种环境、错误 HTML、主题覆盖模板、重复 head/正文。离线通过不表示已经实际安装、启停或卸载；实际结果单独附在运行证据和后续验收记录中。
+
+## 当前基线实测
+
+2026-09-06 在专属 `18092/14001` 实例完成真实 Halo 2.26.1 运行验证。环境工具依赖明确合入已独立审查提交 `f625b244201e976739f36b393be9ff9f8b98fc6a`；基线主题包构建提交为 `8190cf56bd82eedeede9c8dacddf4a753cbf9390`（以运行目录 `installed-package.json` 的实际完整 SHA 为准）。主题 `pageLayout.state=MISSING`，因此下述结果只属于夹具 fallback 验证。
+
+同一 `javac 25` 编译器、两个独立输出路径的插件 JAR 摘要相同：`89dc40d823c5132502112bd109f82af3f59f2a36a409ec11f5ca68a613857a5a`。启用、再启用和重新安装后，两路由均为 200，返回预期插件模板身份与唯一正文；显式 head 保留唯一指定标题和 meta，空 head 与官方内置模板一致为零 title。停用和卸载后两路由均为 404，卸载后 Plugin 资源消失。
+
+最终提交对应的构建报告和重跑结果分别保存在当前 checkout 的 `.runtime/layout-probe-build/*.build.json`、`.runtime/probe-lab/layout-probe-evidence.json`，以其中的完整源码 SHA、`workingTreeClean` 和包摘要作为验收归因。运行凭据留在不入库的实验目录内，不复制到文档。该专属实例及启用的探针继续保留；主题 `SUPPORTED`、浏览器/视觉、a11y、独立审查和精确提交 CI 仍需各自验证。

@@ -79,3 +79,17 @@ for changed, source in [('<html>Error</html>', header), (markup, head['template'
 empty_head_markup = f'<title>Site</title><section id="{no_head["marker"]}">fixture</section>'
 assert probe.validate_page(empty_head_markup, f'plugin:{probe.PLUGIN}:{no_head["template"]}', no_head, 'Site')['headMetaCount'] == 0
 `));
+
+
+test('官方 fallback 的空 head 为零 title，主题支持模式仍严格要求站点标题', () => python(`
+route = probe.FIXTURE['routes'][1]
+header = f'plugin:{probe.PLUGIN}:{route["template"]}'
+fallback = f'<section id="{route["marker"]}">content</section>'
+supported = '<title>Site</title>' + fallback
+assert probe.validate_page(fallback, header, route, 'Site', 'fallback')['titles'] == []
+assert probe.validate_page(supported, header, route, 'Site', 'supported')['titles'] == ['Site']
+for markup, mode in [(fallback, 'supported'), (supported, 'fallback')]:
+    try: probe.validate_page(markup, header, route, 'Site', mode)
+    except RuntimeError: pass
+    else: raise AssertionError('layout modes cannot substitute for each other')
+`));

@@ -7,14 +7,12 @@ import importlib.util
 import json
 import os
 from pathlib import Path
-import re
 import secrets
 import subprocess
 import sys
 import tempfile
 import time
 import urllib.error
-import urllib.parse
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 REPO = Path(__file__).resolve().parents[2]
@@ -162,21 +160,21 @@ class ProbePage(HTMLParser):
         if self.in_title: self.titles[-1] += data
 
 
-def validate_page(markup, template_header, route, site_title):
+def validate_page(markup, template_header, route, site_title, expected_layout='supported'):
     page = ProbePage(); page.feed(markup)
     if template_header != f'plugin:{PLUGIN}:{route["template"]}':
         raise RuntimeError('Response did not identify the expected plugin-owned template')
     if page.ids.count(route['marker']) != 1:
         raise RuntimeError('Probe content must occur exactly once')
-    expected_title = route.get('title', site_title)
-    if page.titles != [expected_title]:
-        raise RuntimeError(f'Expected one title: {expected_title}')
+    expected_titles = [route['title']] if route['hasHead'] else ([] if expected_layout == 'fallback' else [site_title])
+    if page.titles != expected_titles:
+        raise RuntimeError(f'Expected exact titles for {expected_layout}: {expected_titles}')
     if page.metas != (['provided-head'] if route['hasHead'] else []):
         raise RuntimeError('Head fragment missing or duplicated')
-    return {'title': page.titles[0], 'marker': route['marker'], 'headMetaCount': len(page.metas)}
+    return {'titles': page.titles, 'marker': route['marker'], 'headMetaCount': len(page.metas)}
 
 
-def routes(lab, active):
+def routes(lab, active, expected_layout):
     results = []
     for route in FIXTURE['routes']:
         url = lab.BASE['halo'] + route['path']
@@ -187,7 +185,7 @@ def routes(lab, active):
                     raise RuntimeError('Unexpected probe route status, redirect or content type')
                 markup = response.read().decode()
                 checks = validate_page(markup, response.headers.get('X-Layout-Probe-Template'),
-                                       route, lab.CONTENT['site']['title'])
+                                       route, lab.CONTENT['site']['title'], expected_layout)
                 results.append({'path': route['path'], 'status': 200, **checks,
                                 'htmlSha256': hashlib.sha256(markup.encode()).hexdigest()})
         except urllib.error.HTTPError as error:
@@ -266,26 +264,26 @@ def exercise(lab, artifact, expected_layout):
             raise RuntimeError('Existing probe is not owned by this fixture run')
         owned_artifact(lab, artifact)
         set_enabled(client, False)
-        record('existing-disabled', routes(lab, False))
+        record('existing-disabled', routes(lab, False, expected_layout))
     else:
-        record('missing', routes(lab, False))
+        record('missing', routes(lab, False, expected_layout))
         report['installedArtifact'] = install_probe(lab, client, artifact, owner_path)
     set_enabled(client, True)
-    record('enabled', routes(lab, True))
+    record('enabled', routes(lab, True, expected_layout))
     set_enabled(client, False)
-    record('disabled', routes(lab, False))
+    record('disabled', routes(lab, False, expected_layout))
     set_enabled(client, True)
-    record('reenabled', routes(lab, True))
+    record('reenabled', routes(lab, True, expected_layout))
     owned_artifact(lab, artifact)
     client.api(RESOURCE_API + '/' + PLUGIN, 'DELETE')
     deadline = time.monotonic() + 45
     while plugin_state(lab, client) is not None:
         if time.monotonic() >= deadline: raise RuntimeError('Timed out waiting for probe uninstall')
         time.sleep(1)
-    record('uninstalled', routes(lab, False))
+    record('uninstalled', routes(lab, False, expected_layout))
     report['installedArtifact'] = install_probe(lab, client, artifact, owner_path)
     set_enabled(client, True)
-    record('reinstalled-enabled', routes(lab, True))
+    record('reinstalled-enabled', routes(lab, True, expected_layout))
     report['result'] = 'passed'
     report['retained'] = 'Owned lab and enabled probe retained for subsequent theme acceptance'
     write_json(lab.RUNTIME / 'layout-probe-evidence.json', report)
