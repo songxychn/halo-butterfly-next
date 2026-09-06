@@ -1,5 +1,5 @@
 import { readFile, mkdir, readdir, writeFile, realpath } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -17,6 +17,11 @@ export function comparableAsset(value, resourceType) {
 }
 export const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
 export const writeJson = (file, value) => writeFile(file, JSON.stringify(value, null, 2) + '\n', { flag: 'wx' });
+export async function writeProgress(directory, count, value) {
+  const file = path.join(directory, `progress-${String(count).padStart(3, '0')}-${randomUUID()}.json`);
+  await writeJson(file, value);
+  return file;
+}
 
 export function validateBaseUrl(value, identity) {
   if (!value) throw new Error('BASE_URL is required; no implicit target is allowed');

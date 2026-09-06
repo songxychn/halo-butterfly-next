@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, rm, mkdir, symlink, realpath } from 'node:fs/promises';
+import { mkdtemp, writeFile, readFile, rm, mkdir, symlink, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
-import { COUNTER_PATH, validateBaseUrl, validatePackage, ownRuntime, responseFailure, requestPolicy, comparableAsset, browserEnvironment, finishPage } from '../scripts/browser/support.mjs';
+import { COUNTER_PATH, validateBaseUrl, validatePackage, ownRuntime, responseFailure, requestPolicy, comparableAsset, browserEnvironment, finishPage, writeProgress } from '../scripts/browser/support.mjs';
 
 const identity = { owner: 'halo-butterfly-next-comparison', schema: 1, ports: { halo: 18091, hexo: 14000 } };
 test('浏览器目标只接受显式且属于所声明实验目录的本地 Halo origin', () => {
@@ -65,4 +65,13 @@ test('只放行所属origin的精确公开访客计数POST，不接受近似路�
   assert.equal(requestPolicy(base + '/archives/', 'GET', base), 'read');
   for (const url of [counter + '/', counter + '?x=1', counter + '#fragment', counter.replace('/counter', '/%63ounter'), counter.replace('/counter', '/Counter'), base + '/apis/api.console.halo.run/v1alpha1/themes', base + '/login', counter.replace(':18091', ':18092'), counter.replace('http:', 'https:'), counter.replace('127.0.0.1', 'user:password@127.0.0.1')]) assert.equal(requestPolicy(url, 'POST', base), 'blocked', url);
   for (const method of ['PUT', 'PATCH', 'DELETE']) assert.equal(requestPolicy(counter, method, base), 'blocked');
+});
+test('多个不可用引擎的零页面快照不碰名且保留之前的失败记录', async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), 'browser-progress-'));
+  try {
+    const states = [{ engine: 'chromium', status: 'unavailable' }, { engine: 'firefox', status: 'unavailable' }];
+    const files = await Promise.all(states.map(state => writeProgress(directory, 0, state)));
+    assert.notEqual(files[0], files[1]);
+    assert.deepEqual(await Promise.all(files.map(async file => JSON.parse(await readFile(file, 'utf8')))), states);
+  } finally { await rm(directory, { recursive: true, force: true }); }
 });

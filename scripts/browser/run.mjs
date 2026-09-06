@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, finishPage, readJson, writeJson, sha256 } from './support.mjs';
+import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, finishPage, readJson, writeJson, writeProgress, sha256 } from './support.mjs';
 
 const options = {};
 for (let i = 2; i < process.argv.length; i += 2) {
@@ -111,8 +111,7 @@ async function main() {
     ]
   };
   const snapshot = async () => {
-    const file = path.join(output, `progress-${String(report.engines.reduce((sum, engine) => sum + engine.pages.length, 0)).padStart(3, '0')}-${Date.now()}.json`);
-    await writeJson(file, { runId: report.runId, engines: report.engines.map(engine => ({ name: engine.name, status: engine.status, pages: engine.pages.length, failedPages: engine.pages.filter(page => page.status === 'failed').length, error: engine.error })) });
+    await writeProgress(output, report.engines.reduce((sum, engine) => sum + engine.pages.length, 0), { runId: report.runId, engines: report.engines.map(engine => ({ name: engine.name, status: engine.status, pages: engine.pages.length, failedPages: engine.pages.filter(page => page.status === 'failed').length, error: engine.error })) });
   };
   const expectedAsset = new Map();
   function assetBytes(url) {
