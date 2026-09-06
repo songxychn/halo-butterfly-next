@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{layout :: html(head = null, content = ~{::content})}">
+<th:block th:fragment="content">
+  <section id="layout-probe-no-head-content">
+    <h1>插件自有页面：head 为空</h1>
+    <p>标题由当前公共布局提供；此正文不依赖主题私有变量。</p>
+    <a href="/__layout-probe/head">打开显式 head 的探针</a>
+  </section>
+</th:block>
+</html>
