@@ -76,7 +76,8 @@
 <!--/* 移动端侧边  */-->
 <th:block th:fragment="side">
   <!--/* 侧边菜单 */-->
-  <div class="side-bar">
+  <div class="side-bar" id="mobile-navigation" role="dialog" aria-modal="true" aria-label="网站导航" tabindex="-1" hidden inert>
+    <button class="side-bar-close" type="button" aria-label="关闭菜单"><i class="fas fa-times" aria-hidden="true"></i></button>
     <img th:replace="~{views/components:: lazyLoadImg(${contributor?.avatar ?: #theme.assets('/images/above.svg')},${contributor?.displayName ?: site.title},'avatar',false,'')}"/>
 
     <div class="site-data">
@@ -104,23 +105,25 @@
             th:target="${menuItem.spec.target?.value}"
             th:with="icon = ${#annotations.getOrDefault(menuItem, 'icon','')}"
           >
-            <i th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
+            <i aria-hidden="true" th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
             <span class="name" th:text="${menuItem.status.displayName}"></span>
           </a>
         </li>
         <!--/* 二级*/-->
         <li th:unless="${isChildren}" class="bar-item child">
-          <a
-            class="link"
-            href="javascript:void(0);"
+          <button
+            type="button"
+            class="link menu-toggle"
+            aria-expanded="false"
+            th:attr="aria-controls=${'mobile-submenu-' + menuItem.metadata.name}"
             th:with="icon = ${#annotations.getOrDefault(menuItem, 'icon','')}"
           >
-            <i th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
+            <i aria-hidden="true" th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
             <span class="name" th:text="${menuItem.status.displayName}"></span>
-            <i class="fas fa-chevron-left"></i>
-          </a>
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+          </button>
 
-          <ul class="bar-children animate__animated animate__fadeIn">
+          <ul class="bar-children animate__animated animate__fadeIn" th:id="${'mobile-submenu-' + menuItem.metadata.name}" hidden>
             <li th:each="children : ${menuItem.children}" class="bar-children--item">
               <a
                 class="bar-children--link"
@@ -128,7 +131,7 @@
                 th:target="${children.spec.target?.value}"
                 th:with="icon = ${#annotations.getOrDefault(children, 'icon','')}"
               >
-                <!--              <i th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>-->
+                <i aria-hidden="true" th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
                 <span class="name" th:text="${children.status.displayName}"></span>
               </a>
             </li>

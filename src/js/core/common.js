@@ -5,7 +5,7 @@
  * @Description:common
  */
 import $ from 'jquery';
-import {useMask} from './_util';
+import Navigation from './navigation';
 import LazyLoad from './_lazyLoad';
 
 export default class Common {
@@ -47,29 +47,7 @@ export default class Common {
       elements_selector: 'img', threshold: 0, data_src: 'lazy-src',
     });
 
-    //移动端侧边栏呼出图标
-    const sideBar = $('.side-bar');
-    const toggle = $('.nav a.bars');
-    let closeMenu;
-    toggle.click((e) => {
-      e.preventDefault();
-      if (sideBar.hasClass('active')) { closeMenu?.(); return; }
-      sideBar.addClass('active');
-      toggle.attr('aria-expanded', 'true');
-      closeMenu = useMask(() => {
-        sideBar.removeClass('active');
-        toggle.attr('aria-expanded', 'false').trigger('focus');
-      });
-    });
-    toggle.on('keydown', event => {
-      if (event.key === ' ') { event.preventDefault(); toggle.trigger('click'); }
-    });
-    $(document).on('keydown', event => {
-      if (event.key === 'Escape' && sideBar.hasClass('active')) closeMenu?.();
-    });
-
-    //移动端侧边栏侧边菜单
-    $('menu.bar').on('click', 'li.child', (event) => event.currentTarget.classList.toggle('active'));
+    new Navigation();
   }
 
   //返回顶部

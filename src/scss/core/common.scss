@@ -81,6 +81,31 @@ a:hover {
       border-radius: 12px 0 0 12px;
     }
 
+    &[hidden] {
+      display: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    :is(a, button):focus-visible {
+      outline: 2px solid var(--text-color);
+      outline-offset: 2px;
+    }
+
+    &-close {
+      display: block;
+      margin: 12px 12px 0 auto;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--cd-border-color);
+      border-radius: 8px;
+      background: var(--cd-data-background-color);
+    }
+
     $cd-border-radius: 8px;
 
     &.active {
@@ -133,7 +158,7 @@ a:hover {
         margin: 10px 0;
 
         &.active {
-          .bar-children {
+          > .bar-children:not([hidden]) {
             display: flex;
           }
 
@@ -143,6 +168,7 @@ a:hover {
         }
 
         > .link {
+          width: 100%;
           border-radius: $cd-border-radius;
           background-color: var(--cd-data-background-color);
           border: 1px solid var(--cd-border-color);
