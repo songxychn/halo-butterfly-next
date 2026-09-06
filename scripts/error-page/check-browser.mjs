@@ -57,8 +57,8 @@ try {
     check("document.documentElement.scrollWidth<=innerWidth && document.querySelector('.error-home').getBoundingClientRect().width>0", `${name}: no horizontal overflow and home link rendered`);
     check("document.querySelector('meta[name=robots]').content.includes('noindex') && !document.querySelector('link[rel=canonical]')", `${name}: missing page is not indexed or canonicalized`);
     check("document.querySelector('#mobile-navigation').hidden && document.querySelector('#mobile-navigation').inert", `${name}: closed drawer is excluded from focus`);
-    command('focus', '.switch-model'); command('press', 'Tab'); command('press', 'Shift+Tab');
-    check("document.activeElement.matches('.switch-model:focus-visible')", `${name}: keyboard reaches visible mode control`);
+    command('focus', '.error-home'); command('press', 'Tab');
+    check("document.activeElement.matches('.switch-model:focus-visible') && document.activeElement.getBoundingClientRect().top>=0 && document.activeElement.getBoundingClientRect().bottom<=innerHeight", `${name}: keyboard reaches visible mode control`);
     command('press', 'Enter');
     command('wait', '--fn', `document.documentElement.dataset.colorScheme==='${mode === 'light' ? 'dark' : 'light'}'`);
     command('press', 'Enter'); command('wait', '--fn', `document.documentElement.dataset.colorScheme==='${mode}'`);
