@@ -15,6 +15,9 @@ for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags
 }
 for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) required.push(`templates/assets/plugins/loading/${name}.min.js`);
 for (const name of required) if (!zip.file(name)) throw new Error(`安装包缺少 ${name}`);
+for (const name of Object.keys(zip.files).filter(name => /^templates\/assets\/(?:js|plugins\/loading)\/.*\.js$/.test(name))) {
+  if (/\bprocess\.env\.NODE_ENV\b/.test(await zip.file(name).async('string'))) throw new Error(`浏览器脚本残留未解析的构建环境引用：${name}`);
+}
 for (const name of Object.keys(zip.files)) {
   if (!name.startsWith('templates/') && !required.includes(name)) throw new Error(`不允许打包 ${name}`);
   if (name.includes('..') || name.startsWith('/')) throw new Error(`非法路径 ${name}`);
