@@ -1,0 +1,485 @@
+{
+  "runId": "issue-5-footer-a11y-7f647fe",
+  "testedAt": "2026-09-06T14:30:08.758845+00:00",
+  "sourceSha": "7f647fe38f4a54ed60f5ed831b297579f3fc57d8",
+  "baselineSha": "422c3b6d2ca8495e57534649a7641e0fd2956ae0",
+  "artifactSha256": "11819367c7793238bf628951ab1f16b0adab0c6769a756a7b9c74c823d7bc79d",
+  "artifactFile": "dist/halo-butterfly-next-0.1.0-alpha.1.zip",
+  "baselineArtifactSha256": "92e7bfeff60a753aeef2cbcd57f1d148e5f589e5fd3b6df3eec27944b836800a",
+  "author": "/root/parity_matrix",
+  "independentReview": "passed by /root on exact sourceSha: source diff, independent pnpm verify, four real headless states, scoped axe and eight keyboard focus checks",
+  "scenarioIds": [
+    "A11Y-01",
+    "A11Y-02",
+    "A11Y-04"
+  ],
+  "scope": "Only .footer links in the existing synthetic legacy baseline home page; partial evidence for these contract scenarios, not their full acceptance.",
+  "result": "passed for issue #5 footer scope",
+  "target": "http://127.0.0.1:18090/",
+  "runtime": {
+    "theme": {
+      "name": "halo-butterfly-next",
+      "version": "0.1.0-alpha.1",
+      "phase": "READY",
+      "pageLayout": {
+        "message": "templates/layout.html was not found.",
+        "reason": "MissingLayoutTemplate",
+        "state": "MISSING",
+        "template": "templates/layout.html"
+      }
+    },
+    "mode": "user",
+    "configSha256": "e0cc40ac2a9980d3fa78ddf0e65ee2ce7e87fc2d1a629dd43a19e7428d9bed06",
+    "plugins": [
+      {
+        "name": "PluginSitemap",
+        "version": "1.3.0",
+        "enabled": true,
+        "phase": "STARTED"
+      },
+      {
+        "name": "shiki",
+        "version": "1.3.2",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginFeed",
+        "version": "1.5.0",
+        "enabled": true,
+        "phase": "STARTED"
+      },
+      {
+        "name": "editor-hyperlink-card",
+        "version": "1.9.1",
+        "enabled": true,
+        "phase": "STARTED"
+      },
+      {
+        "name": "PluginCommentWidget",
+        "version": "3.1.2",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "app-store-integration",
+        "version": "1.18.1",
+        "enabled": true,
+        "phase": "STARTED"
+      },
+      {
+        "name": "ai-foundation",
+        "version": "1.0.0",
+        "enabled": true,
+        "phase": "STARTED"
+      }
+    ],
+    "haloVersion": "2.26.1",
+    "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "health": {
+      "groups": [
+        "liveness",
+        "readiness"
+      ],
+      "status": "UP"
+    }
+  },
+  "installedFilesByteIdentical": 117,
+  "configUnchanged": true,
+  "browser": {
+    "brands": [
+      {
+        "brand": "Not?A_Brand",
+        "version": "24"
+      },
+      {
+        "brand": "Chromium",
+        "version": "152"
+      }
+    ],
+    "fullVersionList": [
+      {
+        "brand": "Not?A_Brand",
+        "version": "24.0.0.0"
+      },
+      {
+        "brand": "Chromium",
+        "version": "152.0.7977.54"
+      }
+    ],
+    "mobile": false,
+    "platform": "macOS",
+    "platformVersion": "26.6.2"
+  },
+  "axeVersion": "4.12.1",
+  "axeTags": [
+    "wcag2a",
+    "wcag2aa"
+  ],
+  "states": [
+    {
+      "case": "desktop-light",
+      "viewport": {
+        "height": 1000,
+        "width": 1440
+      },
+      "mode": "light",
+      "horizontalOverflow": false,
+      "links": [
+        {
+          "selector": ".footer .halo",
+          "href": "https://halo.run/",
+          "text": "Halo",
+          "textContrastRatio": 5.9141,
+          "focusContrastRatio": 8.4695,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "desktop-light-halo-focus.json",
+            "sha256": "e2dc503ce9a1e4b4f8254048475eba8c8b680ee244170074afa999151d64fcb0"
+          }
+        },
+        {
+          "selector": ".footer .theme",
+          "href": "https://github.com/dhjddcn/halo-theme-butterfly",
+          "text": "小红",
+          "textContrastRatio": 4.644,
+          "focusContrastRatio": 8.4695,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "desktop-light-theme-focus.json",
+            "sha256": "ef2e8e4f213db4e2dfbceb9b65b7cd6e15c094c60a774d38bee3b2cf4c3e5409"
+          }
+        }
+      ],
+      "footerAudit": {
+        "counts": {
+          "inapplicable": 56,
+          "incomplete": 0,
+          "passes": 3,
+          "violations": 0
+        },
+        "report": {
+          "path": "desktop-light-footer-a11y.json",
+          "sha256": "773bbacd8dd8388cd8afb73abe94ecacf1ab6ddf9d516111c4c835db51e88ab5"
+        }
+      },
+      "fullPageAudit": {
+        "counts": {
+          "inapplicable": 40,
+          "incomplete": 2,
+          "passes": 20,
+          "violations": 0
+        },
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodeCount": 2
+          },
+          {
+            "id": "link-in-text-block",
+            "nodeCount": 10
+          }
+        ],
+        "report": {
+          "path": "desktop-light-a11y.json",
+          "sha256": "24b28962cf65b84a42253beb4dea51f1c7719e5aacb018d779f2bb0d6dc7962f"
+        }
+      },
+      "screenshot": {
+        "path": "after-desktop-light.png",
+        "sha256": "df3dd6ee9d999d854f351d052299bc54ffd557281137bc2b0a5be27c79e8294b"
+      }
+    },
+    {
+      "case": "desktop-dark",
+      "viewport": {
+        "height": 1000,
+        "width": 1440
+      },
+      "mode": "dark",
+      "horizontalOverflow": false,
+      "links": [
+        {
+          "selector": ".footer .halo",
+          "href": "https://halo.run/",
+          "text": "Halo",
+          "textContrastRatio": 7.6954,
+          "focusContrastRatio": 9.1301,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "desktop-dark-halo-focus.json",
+            "sha256": "a2b56b8283d8ce7a5b386a913859f9060c92b84133dd38b6750f6a5ecb86744a"
+          }
+        },
+        {
+          "selector": ".footer .theme",
+          "href": "https://github.com/dhjddcn/halo-theme-butterfly",
+          "text": "小红",
+          "textContrastRatio": 5.8584,
+          "focusContrastRatio": 9.1301,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "desktop-dark-theme-focus.json",
+            "sha256": "165408ef9f3b324c13b7085184bfbadbac249e86fe7a7229d635aff5f9888721"
+          }
+        }
+      ],
+      "footerAudit": {
+        "counts": {
+          "inapplicable": 56,
+          "incomplete": 0,
+          "passes": 3,
+          "violations": 0
+        },
+        "report": {
+          "path": "desktop-dark-footer-a11y.json",
+          "sha256": "773bbacd8dd8388cd8afb73abe94ecacf1ab6ddf9d516111c4c835db51e88ab5"
+        }
+      },
+      "fullPageAudit": {
+        "counts": {
+          "inapplicable": 40,
+          "incomplete": 2,
+          "passes": 20,
+          "violations": 1
+        },
+        "violations": [
+          {
+            "id": "color-contrast",
+            "targets": [
+              [
+                "a[target=\"_blank\"] > button"
+              ]
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodeCount": 3
+          },
+          {
+            "id": "link-in-text-block",
+            "nodeCount": 10
+          }
+        ],
+        "report": {
+          "path": "desktop-dark-a11y.json",
+          "sha256": "7f59a3e272365079d9ac1bbd7117260a1f20aedb85b64a99044493d27b618135"
+        }
+      },
+      "screenshot": {
+        "path": "after-desktop-dark.png",
+        "sha256": "4e62e19f7952f52b635535b85144c3e05344f57794dbc2d30b4b804449bcd382"
+      }
+    },
+    {
+      "case": "mobile-light",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "mode": "light",
+      "horizontalOverflow": false,
+      "links": [
+        {
+          "selector": ".footer .halo",
+          "href": "https://halo.run/",
+          "text": "Halo",
+          "textContrastRatio": 5.9141,
+          "focusContrastRatio": 8.4695,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "mobile-light-halo-focus.json",
+            "sha256": "393cc277631cb70992b0b84ac3bcda66e659b6b39d1423823eab31dc6e35167b"
+          }
+        },
+        {
+          "selector": ".footer .theme",
+          "href": "https://github.com/dhjddcn/halo-theme-butterfly",
+          "text": "小红",
+          "textContrastRatio": 4.644,
+          "focusContrastRatio": 8.4695,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "mobile-light-theme-focus.json",
+            "sha256": "ca11324b83a33f2fe4112d4aa4c12efe2cc7ff465a0106fb66901f5586adb653"
+          }
+        }
+      ],
+      "footerAudit": {
+        "counts": {
+          "inapplicable": 56,
+          "incomplete": 0,
+          "passes": 3,
+          "violations": 0
+        },
+        "report": {
+          "path": "mobile-light-footer-a11y.json",
+          "sha256": "773bbacd8dd8388cd8afb73abe94ecacf1ab6ddf9d516111c4c835db51e88ab5"
+        }
+      },
+      "fullPageAudit": {
+        "counts": {
+          "inapplicable": 37,
+          "incomplete": 2,
+          "passes": 23,
+          "violations": 0
+        },
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodeCount": 2
+          },
+          {
+            "id": "link-in-text-block",
+            "nodeCount": 10
+          }
+        ],
+        "report": {
+          "path": "mobile-light-a11y.json",
+          "sha256": "4309cf292d0246bfe8dcba548156f5463e762ee97ef6cda9409a05d153748d9b"
+        }
+      },
+      "screenshot": {
+        "path": "after-mobile-light.png",
+        "sha256": "66eeeaba7587946d396a18393f111caf182b6d12795367cc4cb7a9d7bf79e8d1"
+      }
+    },
+    {
+      "case": "mobile-dark",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "mode": "dark",
+      "horizontalOverflow": false,
+      "links": [
+        {
+          "selector": ".footer .halo",
+          "href": "https://halo.run/",
+          "text": "Halo",
+          "textContrastRatio": 7.6954,
+          "focusContrastRatio": 9.1301,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "mobile-dark-halo-focus.json",
+            "sha256": "879011d2ab73a1e1fc38fa80c84ba20e8152a2b224f44c9073bd1a342cbe7969"
+          }
+        },
+        {
+          "selector": ".footer .theme",
+          "href": "https://github.com/dhjddcn/halo-theme-butterfly",
+          "text": "小红",
+          "textContrastRatio": 5.8584,
+          "focusContrastRatio": 9.1301,
+          "underline": true,
+          "keyboardFocusVisible": true,
+          "focusEvidence": {
+            "path": "mobile-dark-theme-focus.json",
+            "sha256": "a2004bfff90af06ff4531b8690c5273a7317e3b2739919add7d7aa062e0faac8"
+          }
+        }
+      ],
+      "footerAudit": {
+        "counts": {
+          "inapplicable": 56,
+          "incomplete": 0,
+          "passes": 3,
+          "violations": 0
+        },
+        "report": {
+          "path": "mobile-dark-footer-a11y.json",
+          "sha256": "773bbacd8dd8388cd8afb73abe94ecacf1ab6ddf9d516111c4c835db51e88ab5"
+        }
+      },
+      "fullPageAudit": {
+        "counts": {
+          "inapplicable": 37,
+          "incomplete": 2,
+          "passes": 23,
+          "violations": 1
+        },
+        "violations": [
+          {
+            "id": "color-contrast",
+            "targets": [
+              [
+                "a[target=\"_blank\"] > button"
+              ]
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodeCount": 3
+          },
+          {
+            "id": "link-in-text-block",
+            "nodeCount": 10
+          }
+        ],
+        "report": {
+          "path": "mobile-dark-a11y.json",
+          "sha256": "136f862639ab24618f7a7ac13bddbc31adb0ba1422e448d54210a8838a2fc018"
+        }
+      },
+      "screenshot": {
+        "path": "after-mobile-dark.png",
+        "sha256": "7255da725dfa17759145c9acfb793f2b28841d5e280a312b0ebc7e46f03098f4"
+      }
+    }
+  ],
+  "keyboardSequence": [
+    "focus .footer .halo (entry point)",
+    "press Tab -> .footer .theme",
+    "press Shift+Tab -> .footer .halo"
+  ],
+  "build": {
+    "command": "PATH=<Node 24 bin>:$PATH pnpm verify",
+    "exitCode": 0,
+    "testsPassed": 17,
+    "packagedFiles": 117,
+    "report": {
+      "path": "verify-final.log",
+      "sha256": "08e4b808f6c77e3154348968d6212b41a8aa5b8dba532bdabcfafa1ec7eb252a"
+    }
+  },
+  "commands": [
+    "agent-browser --session <task-owned-session> set viewport 1440 1000 (or 390 844)",
+    "agent-browser click .switch-model; wait root data-color-scheme",
+    "zsh .evidence/footer-a11y/capture.sh <state>",
+    "agent-browser a11y --selector .footer --tags wcag2a,wcag2aa --json"
+  ],
+  "captureConditions": [
+    "document.fonts.ready",
+    "visible images complete and naturalWidth > 0, respecting lazy loading",
+    "finite document animations finished",
+    "real browser screenshot without injected CSS"
+  ],
+  "limitations": [
+    "The mobile cases use a 390x844 headless Chromium viewport, not a physical phone.",
+    "Full-page dark color-contrast still fails on the welcome button at 2.23:1; footer no longer contributes a violation.",
+    "Full-page color-contrast needs manual checking for hero background-image text; category links still have link-in-text-block incomplete due to overlapping elements.",
+    "No whole-site WCAG or full A11Y contract acceptance is claimed.",
+    "This private local testing ZIP retains alpha.1 metadata; it is identified by exact source SHA and ZIP SHA-256, not published as a new release.",
+    "Existing MissingLayoutTemplate runtime status remains outside this change (issue #7)."
+  ],
+  "hoverPreserved": true
+}
