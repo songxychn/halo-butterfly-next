@@ -81,6 +81,13 @@ try {
       checks.push({name: label, passed, actual, expected});
       if (!passed) throw new Error(label);
     }
+    if (profile.typography?.[width]) {
+      const actual = evaluate("(()=>{const s=getComputedStyle(document.querySelector('.error-title'));return {fontSize:s.fontSize,lineHeight:s.lineHeight,fontWeight:s.fontWeight}})()"), expected = profile.typography[width];
+      const passed = Object.entries(expected).every(([key, value]) => actual[key] === value);
+      const label = `${name}: 404 title typography matches fixed upstream computed values`;
+      checks.push({name: label, passed, actual, expected});
+      if (!passed) throw new Error(label);
+    }
     check("document.querySelector('meta[name=robots]').content.includes('noindex') && !document.querySelector('link[rel=canonical]')", `${name}: missing page is not indexed or canonicalized`);
     check("document.querySelector('#mobile-navigation').hidden && document.querySelector('#mobile-navigation').inert", `${name}: closed drawer is excluded from focus`);
     command('focus', '.error-home'); command('press', 'Tab');
