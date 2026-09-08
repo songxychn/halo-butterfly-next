@@ -8,8 +8,10 @@
 @use '../core';
 @use "../core/util";
 @use "../modules/components";
+@use '../modules/plugin-pagination';
 
 .photos {
+  @include plugin-pagination.pagination;
   .main > .content {
     padding: 0;
 

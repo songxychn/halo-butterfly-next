@@ -9,8 +9,10 @@
 @use "../core/util";
 @use "../modules/components";
 @use "../modules/render";
+@use '../modules/plugin-pagination';
 
 .moments {
+  @include plugin-pagination.pagination;
 
   @include util.useThemeVar((
     m-color: (#363636, #F7F7FA),

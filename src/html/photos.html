@@ -53,6 +53,7 @@
       <div class="imgs">
         <img class="img animate__animated animate__bounceIn" th:each="photo : ${photos.items}" th:src="${photo.spec.url}" th:alt="${photo.spec.displayName}">
       </div>
+      <th:block th:replace="~{views/plugin-pagination :: pagination(${photos}, '图库分页')}"/>
     </section>
     <th:block th:replace="~{views/aside::common}"/>
   </th:block>
