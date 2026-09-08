@@ -17,12 +17,19 @@ async function cohort(root){
  for(const profile of PIN.profiles)for(const route of PIN.routes){const dir=path.join(root,profile,route);await mkdir(dir,{recursive:true});const data=Buffer.from('fixed-package');await writeFile(path.join(dir,'theme.zip'),data);
  const identity={sourceSha:'a'.repeat(40),packageSha256:sha256(data),haloJarSha256:'b'.repeat(64),fixtureSha256:'c'.repeat(64),configSha256:'d'.repeat(64),contentSha256:'e'.repeat(64),pluginsSha256:'f'.repeat(64)};
  const base='http://127.0.0.1:18100',routes=Object.fromEntries(PIN.routes.map(route=>[route,'/'+route]));const plugins=PROFILE.profiles[profile][route].map(name=>({name,enabled:true,version:(PROFILE.plugins.find(p=>p.name===name)||PROFILE.probe).version}));const requiredPlugins=PROFILE.requiredPlugins[route];const station={identity,base,profile,route,plugins,requiredPlugins};await writeJson(path.join(dir,'station.json'),station);
- const run={schema:1,profile,route,actualPlugins:plugins,requiredPlugins,base,routes,identity,result:'complete-samples',stationUnchanged:true,runner:{sourceSha:'a'.repeat(40),workingTreeClean:true},tools:{lighthouse:PIN.lighthouse,chrome:{version:PIN.chrome.version,executableSha256:PIN.chrome.executableSha256,treeSha256:'1'.repeat(64)}},machine:{cpu:'same'},samples:[],station:await evidence(path.join(dir,'station.json'),dir),artifact:await evidence(path.join(dir,'theme.zip'),dir)};
+ const run={schema:1,profile,route,actualPlugins:plugins,requiredPlugins,base,routes,identity,result:'complete-samples',stationUnchanged:true,runner:{sourceSha:'a'.repeat(40),workingTreeClean:true},tools:{lighthouse:PIN.lighthouse,chrome:{version:PIN.chrome.version,executableSha256:PIN.chrome.executableSha256,treeSha256:PIN.chrome.treeSha256||'1'.repeat(64)}},machine:{cpu:'same'},samples:[],station:await evidence(path.join(dir,'station.json'),dir),artifact:await evidence(path.join(dir,'theme.zip'),dir)};
  for(const device of PIN.devices)for(let index=0;index<5;index++){
  const prefix=path.join(dir,`${route}-${device}-${index}`);await writeJson(prefix+'.lhr.json',lhr(device,base+routes[route]));await writeJson(prefix+'.trace.json',{traceEvents:[{name:'navigationStart'}]});await writeJson(prefix+'.devtools.json',[{method:'Network.requestWillBeSent'}]);run.samples.push({route,device,index,status:'passed',lhr:await evidence(prefix+'.lhr.json',dir),trace:await evidence(prefix+'.trace.json',dir),devtoolsLog:await evidence(prefix+'.devtools.json',dir)});
  }await writeJson(path.join(dir,'report.json'),run);}
 }
 async function mutateRun(root,profile,change,route='home'){const file=path.join(root,profile,route,'report.json'),run=JSON.parse(await readFile(file));await change(run);await writeJson(file,run);}
+test('性能引擎冻结 Lighthouse、Chrome 可执行文件和应用树摘要',()=>{
+ assert.equal(PIN.lighthouse,'13.4.1');
+ assert.equal(PIN.chrome.version,'153.0.8010.12');
+ assert.match(PIN.chrome.executableSha256,/^[a-f0-9]{64}$/);
+ assert.match(PIN.chrome.treeSha256,/^[a-f0-9]{64}$/);
+ assert.notEqual(PIN.chrome.executableSha256,PIN.chrome.treeSha256);
+});
 test('PERF预算使用5次中位数及百分比和绝对增量双条件，包括零基线',()=>{
  assert.equal(median([1000,10,20,30,40]),30);assert.throws(()=>median([1,2,3,4]));assert.throws(()=>median([1,2,3,4,NaN]));
  assert.equal(regressed(0,100,.1,100),false);assert.equal(regressed(0,100.01,.1,100),true);assert.equal(regressed(2000,2101,.1,100),false);assert.equal(regressed(1000,1101,.1,100),true);assert.equal(regressed(100000,120480,.1,20480),false);assert.equal(regressed(100000,120481,.1,20480),true);
@@ -37,11 +44,16 @@ test('本地地址与独立运行目录保护拒绝远程站/用户资料和已�
  const dir=await mkdtemp(path.join(os.tmpdir(),'perf-owner-'));t.after(()=>rm(dir,{recursive:true,force:true}));await writeFile(path.join(dir,'existing'),'x');await assert.rejects(ownRuntime(dir));
 });
 test('完整两profile预算可通过但不冒充PERF03故障/按需或完整合同通过',async t=>{
- const dir=await mkdtemp(path.join(os.tmpdir(),'perf-full-'));t.after(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));await cp(path.join(dir,'baseline'),path.join(dir,'candidate'),{recursive:true});const result=await compare(path.join(dir,'baseline'),path.join(dir,'candidate'));assert.equal(result.cases.length,16);assert.equal(result.budgetResult,'passed');assert.equal(result.result,'incomplete');assert.equal(result.contractAcceptance,false);assert.equal(result.scenarios['PERF-03'],'incomplete');
+ const dir=await mkdtemp(path.join(os.tmpdir(),'perf-full-'));t.after(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));await cp(path.join(dir,'baseline'),path.join(dir,'candidate'),{recursive:true});const result=await compare(path.join(dir,'baseline'),path.join(dir,'candidate'));assert.equal(result.cases.length,16);assert.equal(result.budgetResult,'passed');assert.equal(result.result,'incomplete');assert.equal(result.contractAcceptance,false);assert.equal(result.scenarios['PERF-01'],'passed');assert.equal(result.scenarios['PERF-02'],'passed');assert.equal(result.scenarios['PERF-03'],'incomplete');
+});
+test('主题首屏JS/CSS体积超预算使PERF-03失败，不能因按需未验写成incomplete',async t=>{
+ const dir=await mkdtemp(path.join(os.tmpdir(),'perf-size-'));t.after(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));await cp(path.join(dir,'baseline'),path.join(dir,'candidate'),{recursive:true});
+ await mutateRun(path.join(dir,'candidate'),'default',async r=>{for(const s of r.samples.filter(s=>s.route==='home'&&s.device==='mobile')){const f=path.join(dir,'candidate/default/home',s.lhr.path),value=JSON.parse(await readFile(f));value.audits['network-requests'].details.items[0].resourceSize=120481;await writeJson(f,value);s.lhr=await evidence(f,path.join(dir,'candidate/default/home'));}},'home');
+ const result=await compare(path.join(dir,'baseline'),path.join(dir,'candidate'));assert.equal(result.result,'failed');assert.equal(result.budgetResult,'failed');assert.equal(result.scenarios['PERF-01'],'passed');assert.equal(result.scenarios['PERF-02'],'passed');assert.equal(result.scenarios['PERF-03'],'failed');assert.deepEqual(result.failures,['default/home/mobile']);
 });
 test('比较拒绝缺profile/缺样本/重复样本/身份漂移和原始证据篡改',async t=>{
  const dir=await mkdtemp(path.join(os.tmpdir(),'perf-reject-'));t.after(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));
- for(const [name,edit] of [['dirty',r=>r.runner.workingTreeClean=false],['dependency',r=>r.requiredPlugins=['PluginPhotos']],['sample',r=>r.samples.pop()],['duplicate',r=>r.samples[1].index=0],['failed',r=>r.samples[0].status='failed'],['artifact',r=>r.identity.packageSha256='1'.repeat(64)],['machine',r=>r.machine.cpu='other'],['tool',r=>r.tools.chrome.version='other'],['config',r=>r.identity.configSha256='1'.repeat(64)],['path',r=>r.samples[0].trace.path='../outside.json']]){
+ for(const [name,edit] of [['dirty',r=>r.runner.workingTreeClean=false],['dependency',r=>r.requiredPlugins=['PluginPhotos']],['sample',r=>r.samples.pop()],['duplicate',r=>r.samples[1].index=0],['failed',r=>r.samples[0].status='failed'],['artifact',r=>r.identity.packageSha256='1'.repeat(64)],['machine',r=>r.machine.cpu='other'],['tool',r=>r.tools.chrome.version='other'],['tree',r=>r.tools.chrome.treeSha256='2'.repeat(64)],['config',r=>r.identity.configSha256='1'.repeat(64)],['path',r=>r.samples[0].trace.path='../outside.json']]){
  const target=path.join(dir,name);await cp(path.join(dir,'baseline'),target,{recursive:true});await mutateRun(target,'default',edit);const result=await compare(path.join(dir,'baseline'),target);assert.equal(result.budgetResult,'incomplete',name);
  }
  const tampered=path.join(dir,'tampered');await cp(path.join(dir,'baseline'),tampered,{recursive:true});await writeFile(path.join(tampered,'default/home/home-mobile-0.lhr.json'),'{}');await assert.rejects(readRun(path.join(tampered,'default/home'),'default','home'),/hash mismatch/);

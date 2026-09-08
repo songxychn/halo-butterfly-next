@@ -5,7 +5,7 @@ import {validateLhr,summarize,budgets} from './metrics.mjs';
 export async function readRun(directory,profile,route){
  const run=await readJson(path.join(directory,'report.json'));assert(run.schema===1&&run.profile===profile&&run.route===route&&run.result==='complete-samples','Incomplete/wrong profile run');
  assert(run.samples.length===PIN.devices.length*PIN.samples,'Missing/extra sample coverage');assert(run.identity&&run.tools&&run.machine&&run.stationUnchanged===true&&run.runner?.workingTreeClean===true&&/^[a-f0-9]{40}$/.test(run.runner?.sourceSha||''),'Missing run identity or stable station proof');
- assert(run.tools.lighthouse===PIN.lighthouse&&run.tools.chrome?.version===PIN.chrome.version&&run.tools.chrome?.executableSha256===PIN.chrome.executableSha256&&/^[a-f0-9]{64}$/.test(run.tools.chrome?.treeSha256||''),'Unpinned browser or Lighthouse identity');
+ assert(run.tools.lighthouse===PIN.lighthouse&&run.tools.chrome?.version===PIN.chrome.version&&run.tools.chrome?.executableSha256===PIN.chrome.executableSha256&&run.tools.chrome?.treeSha256===PIN.chrome.treeSha256,'Unpinned browser or Lighthouse identity');
  localBase(run.base);
  const station=await readEvidence(directory,run.station);assert(digestObject(station.identity)===digestObject(run.identity)&&station.profile===profile&&station.route===route&&station.base===run.base,'Station evidence identity mismatch');
  assert(sha256(await readEvidenceBytes(directory,run.artifact))===run.identity.packageSha256,'Actual package bytes do not match declared identity');
@@ -45,8 +45,14 @@ export async function compare(baseline,candidate){
   }catch(e){report.incomplete.push({profile,route,reason:e.message});}
  }
  report.budgetResult=report.failures.length?'failed':report.incomplete.length?'incomplete':'passed';
- report.scenarios={'PERF-01':report.budgetResult==='incomplete'?'incomplete':report.cases.some(c=>Object.values(c.checks.absolute).some(v=>!v))?'failed':'passed','PERF-02':report.budgetResult==='incomplete'?'incomplete':report.cases.some(c=>Object.values(c.checks.regression).some(v=>!v))?'failed':'passed','PERF-03':'incomplete'};
- report.incomplete.push({scenario:'PERF-03',reason:'Navigation resource budgets do not establish on-demand component loading or failed-provider Loading recovery. Separate real fault-injection evidence is required; this command cannot certify full PERF-03.'});
+ const sizeFailed=report.cases.some(c=>Object.values(c.checks.size).some(v=>!v));
+ report.scenarios={
+  'PERF-01':report.budgetResult==='incomplete'?'incomplete':report.cases.some(c=>Object.values(c.checks.absolute).some(v=>!v))?'failed':'passed',
+  'PERF-02':report.budgetResult==='incomplete'?'incomplete':report.cases.some(c=>Object.values(c.checks.regression).some(v=>!v))?'failed':'passed',
+  'PERF-03':report.budgetResult==='incomplete'?'incomplete':sizeFailed?'failed':'incomplete'
+ };
+ if(sizeFailed)report.incomplete.push({scenario:'PERF-03',reason:'Theme first-navigation JS/CSS size budget failed. On-demand component loading and failed-provider Loading recovery remain uncertified and still require separate fault-injection evidence.'});
+ else report.incomplete.push({scenario:'PERF-03',reason:'Navigation resource budgets do not establish on-demand component loading or failed-provider Loading recovery. Separate real fault-injection evidence is required; this command cannot certify full PERF-03.'});
  report.result=report.failures.length?'failed':'incomplete';return report;
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){

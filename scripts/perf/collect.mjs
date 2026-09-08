@@ -14,7 +14,7 @@ const limit=Number(args.limit||10);assert(Number.isInteger(limit)&&limit>=1&&lim
 await ownRuntime();await longform();
 const install=await readJson(path.join(RUNTIME,'installation.json'));
 assert(install.lighthouse===PIN.lighthouse&&install.dependencyLockSha256===sha256(await readFile(path.join(FIXTURE,'pnpm-lock.yaml'))),'Tool lock changed; reinstall and remeasure both sides');
-assert(sha256(await readFile(install.chrome.binary))===PIN.chrome.executableSha256&&install.chrome.version===PIN.chrome.version&&await treeDigest(install.chrome.app)===install.chrome.treeSha256,'Pinned Chrome application changed');
+assert(sha256(await readFile(install.chrome.binary))===PIN.chrome.executableSha256&&install.chrome.version===PIN.chrome.version&&install.chrome.treeSha256===PIN.chrome.treeSha256&&await treeDigest(install.chrome.app)===PIN.chrome.treeSha256,'Pinned Chrome application changed');
 const cli=path.join(RUNTIME,'deps/node_modules/lighthouse/cli/index.js');assert((await readJson(path.join(path.dirname(cli),'../package.json'))).version===PIN.lighthouse,'Installed Lighthouse changed');
 const runner=sourceIdentity();assert(limit<10||runner.workingTreeClean,'Commit the exact runner before full sampling; dirty pilots remain incomplete');
 const output=path.join(RUNTIME,'runs',args.cohort,args.profile,args.route),lock='/private/tmp/halo-butterfly-next-performance-cpu.lock';
