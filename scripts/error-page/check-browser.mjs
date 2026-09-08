@@ -35,16 +35,17 @@ function check(expression, name) {
 }
 const siteTitle = JSON.parse(readFileSync('fixtures/comparison/content.json', 'utf8')).site.title;
 try {
-  if (profile.abortImage) {
+  const blockedImages = profile.abortImages || (profile.abortImage ? [profile.abortImage] : []);
+  if (blockedImages.length) {
     command('open', 'about:blank');
-    command('network', 'route', profile.abortImage, '--abort');
+    for (const image of blockedImages) command('network', 'route', image, '--abort');
   }
   const viewports = profileName === 'default' ? [1440, 390, 320] : [1440, 390];
   for (const width of viewports) for (const mode of profileName === 'default' || profileName === 'custom' ? ['light', 'dark'] : [width === 1440 ? 'dark' : 'light']) {
     const name = `${profileName}-${width}-${mode}`;
     command('open', base + '/__error404_fixture__/missing');
     command('set', 'viewport', String(width), width === 1440 ? '1000' : '844');
-    command('wait', '--fn', "document.readyState==='complete' && document.querySelector('.error-image')?.naturalWidth>0");
+    command('wait', '--fn', `document.readyState==='complete' && ${profile.image ? "document.querySelector('.error-image')?.naturalWidth>0" : "document.querySelector('.error-image')?.hidden"}`);
     command('mouse', 'move', '0', '0');
     if (evaluate('document.documentElement.dataset.colorScheme') !== mode) {
       command('focus', '.switch-model'); command('press', 'Enter');
@@ -53,7 +54,9 @@ try {
     settle();
     check(`document.title.includes(${JSON.stringify(siteTitle)}) && document.querySelector('.error-title').textContent==='404'`, `${name}: error and site identity`);
     check(`document.querySelector('.error-subtitle').textContent===${JSON.stringify(profile.subtitle)} && !window.__error404_untrusted`, `${name}: configured text is escaped and complete`);
-    check(`new URL(document.querySelector('.error-image').currentSrc).pathname===${JSON.stringify(profile.image)} && document.querySelector('.error-image').naturalWidth>0`, `${name}: configured or fallback image loaded`);
+    if (profile.image) check(`new URL(document.querySelector('.error-image').currentSrc).pathname===${JSON.stringify(profile.image)} && document.querySelector('.error-image').naturalWidth>0`, `${name}: configured or fallback image loaded`);
+    else check("document.querySelector('.error-image').hidden && document.querySelector('.error-image').naturalWidth===0", `${name}: exhausted decorative image is hidden`);
+    if (profile.settings.background.includes('missing-image')) check("!document.querySelector('.error-image').hasAttribute('srcset')", `${name}: failed responsive candidates cannot override fallback src`);
     check("document.documentElement.scrollWidth<=innerWidth && document.querySelector('.error-home').getBoundingClientRect().width>0", `${name}: no horizontal overflow and home link rendered`);
     check("document.querySelector('meta[name=robots]').content.includes('noindex') && !document.querySelector('link[rel=canonical]')", `${name}: missing page is not indexed or canonicalized`);
     check("document.querySelector('#mobile-navigation').hidden && document.querySelector('#mobile-navigation').inert", `${name}: closed drawer is excluded from focus`);

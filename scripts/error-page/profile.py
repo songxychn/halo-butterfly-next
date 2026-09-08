@@ -7,14 +7,14 @@ import os
 from pathlib import Path
 
 
-def main():
+def main(argv=None, client=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['apply', 'restore'])
     parser.add_argument('--profile', default='default')
     parser.add_argument('--base', required=True, choices=['http://127.0.0.1:18095', 'http://127.0.0.1:18096'])
     parser.add_argument('--lab-runtime', type=Path, required=True)
     parser.add_argument('--backup', type=Path, required=True)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     repo = Path(__file__).resolve().parents[2]
     runtime = args.lab_runtime.resolve()
     marker = json.loads((runtime / 'lab.json').read_text())
@@ -29,7 +29,9 @@ def main():
     profiles = json.loads((repo / 'fixtures/error-page/profiles.json').read_text())
     if args.action == 'apply' and args.profile not in profiles:
         raise ValueError('Unknown profile')
-    client = lab.Client()
+    # A batch runner can reuse one in-memory lab session instead of logging in
+    # once per profile. The same ownership/base checks still run for each call.
+    client = client or lab.Client()
     path = '/apis/api.console.halo.run/v1alpha1/themes/halo-butterfly-next/json-config'
     config = client.api(path)
     if args.backup.exists():

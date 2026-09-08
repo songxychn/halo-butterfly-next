@@ -9,7 +9,13 @@ class Error404 {
     const next = () => {
       let candidate = fallbacks.shift();
       while (candidate && candidate === image.getAttribute('src')) candidate = fallbacks.shift();
-      if (candidate) image.src = candidate;
+      if (candidate) {
+        // Halo may add responsive candidates for the original URL. They take
+        // precedence over src and must not survive a switch to a fallback.
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
+        image.src = candidate;
+      }
       else image.hidden = true;
     };
     image.addEventListener('error', next);
