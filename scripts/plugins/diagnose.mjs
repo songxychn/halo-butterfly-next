@@ -65,11 +65,34 @@ async function publicPage(base, apiPath) {
   return { path: apiPath, status: response.status, sha256: sha256(body), model };
 }
 
+export function assertMatchingPageItems(actual, expected, label = 'Page') {
+  assert(Array.isArray(actual) && Array.isArray(expected) && canonical(actual) === canonical(expected), label + ' content does not match the current public API items in count, order and content');
+}
+
+async function pageContent(page, route, items) {
+  const observed = await page.evaluate(({ selector, kind, items }) => {
+    const text = value => (value || '').replace(/\s+/g, ' ').trim();
+    const url = value => new URL(value, location.href).href;
+    const mediaUrl = element => url(element.dataset.lazySrc || element.getAttribute('src'));
+    const bodyText = html => { const template = document.createElement('template'); template.innerHTML = html || ''; return text(template.content.textContent); };
+    const actual = [...document.querySelectorAll(selector)].map(element => kind === 'photos'
+      ? { title: element.getAttribute('alt'), url: mediaUrl(element) }
+      : { text: text(element.querySelector('.h')?.textContent), media: [...element.querySelectorAll('.medium img,.medium video,.medium audio')].map(media => ({ type: { IMG: 'PHOTO', VIDEO: 'VIDEO', AUDIO: 'AUDIO' }[media.tagName], url: mediaUrl(media) })) });
+    const expected = items.map(item => kind === 'photos'
+      ? { title: item.spec.displayName, url: url(item.spec.url) }
+      : { text: bodyText(item.spec.content.html), media: (item.spec.content.medium || []).map(media => ({ type: media.type, url: url(media.url) })) });
+    return { actual, expected };
+  }, { selector: route.selector, kind: route.kind, items });
+  return { ...observed, matches: canonical(observed.actual) === canonical(observed.expected) };
+}
+
 async function paginationChecks(page, base, route, result, output, index) {
   const originalUrl = page.url(), current = paginationContext(route.kind, originalUrl, route.kind === 'photos' ? 20 : 10);
   const currentApi = await publicPage(base, pageApi(current));
   assert(currentApi.model.page === current.page && currentApi.model.size === current.size, 'Pagination API context differs from rendered route');
   result.pagination = { context: current, currentApi, urlSource: currentApi.model.nextUrl || currentApi.model.prevUrl ? 'public API URLs' : 'rendered href validated against pinned plugin route contract; public API exposes no prevUrl/nextUrl', checks: [] };
+  result.pagination.currentContent = await pageContent(page, route, currentApi.model.items);
+  assertMatchingPageItems(result.pagination.currentContent.actual, result.pagination.currentContent.expected, 'Initial page');
   for (const direction of ['next', 'previous']) {
     const required = currentApi.model[direction === 'next' ? 'hasNext' : 'hasPrevious'];
     if (!required) continue;
@@ -89,13 +112,13 @@ async function paginationChecks(page, base, route, result, output, index) {
     try {
       const targetApi = await publicPage(base, pageApi(current, current.page + (direction === 'next' ? 1 : -1)));
       check.targetApi = targetApi;
+      assert(targetApi.model.page === current.page + (direction === 'next' ? 1 : -1) && targetApi.model.size === current.size, 'Target pagination API context differs from requested route');
       await candidate.scrollIntoViewIfNeeded();
       await Promise.all([page.waitForURL(url => Boolean(paginationLink(url.href, current, direction, advertised))), candidate.click()]);
       check.clicked = true; check.finalUrl = page.url(); await settle(page);
-      const texts = await page.locator(route.selector).evaluateAll(items => items.map(x => x.textContent.trim() || x.getAttribute('alt')));
-      const expected = targetApi.model.items.map(x => route.kind === 'photos' ? x.spec.displayName : x.spec.content.html.replace(/<[^>]*>/g, ''));
-      assert(texts.length === expected.length && expected.every(text => texts.some(actual => actual.includes(text))), 'Clicked pagination content differs from public API');
-      check.renderedCount = texts.length; check.status = 'passed';
+      check.content = await pageContent(page, route, targetApi.model.items);
+      assertMatchingPageItems(check.content.actual, check.content.expected, 'Clicked page');
+      check.renderedCount = check.content.actual.length; check.status = 'passed';
       const filename = `${index}-${direction}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true, timeout: 15000 });
       check.screenshot = { file: filename, sha256: sha256(await readFile(path.join(output, filename))) };
     } catch (error) { check.status = 'failed'; check.error = error.message; result.failures.push('Pagination click: ' + error.message); }

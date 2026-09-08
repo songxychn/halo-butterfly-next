@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { canonical, validateTarget, disabledApiUnavailable, paginationContext, paginationLink } from '../scripts/plugins/diagnose.mjs';
+import { canonical, validateTarget, disabledApiUnavailable, paginationContext, paginationLink, assertMatchingPageItems } from '../scripts/plugins/diagnose.mjs';
 const repo = fileURLToPath(new URL('../', import.meta.url));
 
 test('P+ target requires matching owned runtime and distinct explicit loopback ports', () => {
@@ -50,4 +50,17 @@ test('moment pagination keeps tag and rejects query-page, wrong paths, filters o
 test('P+ mutation guards preserve unowned content, drift and corrupt backups', () => {
   const result = spawnSync('python3', ['-B', path.join(repo, 'scripts/plugins/test_lab.py')], { encoding: 'utf8', cwd: repo });
   assert.equal(result.status, 0, result.stdout + result.stderr);
+});
+
+test('each rendered page must match its own API items, including order, duplicates and media', () => {
+  const expected = [{ title: 'image 04', url: '/a.svg' }, { title: 'image 03', url: '/b.svg' }];
+  assert.doesNotThrow(() => assertMatchingPageItems(structuredClone(expected), expected));
+  for (const wrong of [
+    [{ title: 'image 24', url: '/a.svg' }, { title: 'image 23', url: '/b.svg' }],
+    [expected[0], expected[0]], [...expected].reverse(), [expected[0]],
+    [{ ...expected[0], url: '/wrong.svg' }, expected[1]],
+  ]) assert.throws(() => assertMatchingPageItems(wrong, expected), /current public API/);
+  const moment = { text: 'A complete moment', media: [{ type: 'PHOTO', url: '/a.svg' }] };
+  assert.throws(() => assertMatchingPageItems([{ ...moment, text: 'A complete moment plus unrelated text' }], [moment]), /current public API/);
+  assert.throws(() => assertMatchingPageItems([{ ...moment, media: [] }], [moment]), /current public API/);
 });
