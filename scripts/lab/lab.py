@@ -425,6 +425,24 @@ def validate_content(client):
     return sorted(published)
 
 
+def disable_initial_plugin(client, name):
+    """Disable one fresh-lab plugin without replaying a stale resource on conflict."""
+    path = '/apis/plugin.halo.run/v1alpha1/plugins/' + name
+    for attempt in range(4):
+        plugin = client.api(path)
+        if not plugin['spec'].get('enabled'):
+            return
+        plugin['spec']['enabled'] = False
+        try:
+            client.api(path, 'PUT', plugin)
+            return
+        except ApiError as error:
+            if error.status != 409 or attempt == 3:
+                raise
+            print(f'Initial plugin {name}: resource conflict; retry {attempt + 1}/3', flush=True)
+            time.sleep(0.1 * 2 ** attempt)
+
+
 def seed(client):
     current = fixture_hash()
     stamp = RUNTIME / 'seed.json'
@@ -442,8 +460,7 @@ def seed(client):
     plugins = client.api('/apis/plugin.halo.run/v1alpha1/plugins?size=100')['items']
     for plugin in plugins:
         if plugin['spec'].get('enabled'):
-            plugin['spec']['enabled'] = False
-            client.api('/apis/plugin.halo.run/v1alpha1/plugins/' + plugin['metadata']['name'], 'PUT', plugin)
+            disable_initial_plugin(client, plugin['metadata']['name'])
     owner = client.auth['username']
     user = client.api('/api/v1alpha1/users/' + owner)
     user['spec'].update({'displayName': CONTENT['site']['author'], 'bio': CONTENT['site']['description'], 'avatar': '/lab/avatar.svg'})
