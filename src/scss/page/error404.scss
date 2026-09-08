@@ -3,18 +3,25 @@
 .error404 {
   --error-focus-color: #1c69ed;
 
+  > .header { margin-bottom: 10px; }
+
   > .main {
     flex: 1;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding-block: 3rem;
+    max-width: 1000px;
+    padding: 40px 55px;
   }
 
   .error-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-width: 0;
-    width: min(100%, 1000px);
+    width: 100%;
+    min-height: 360px;
+    // Upstream has 15px layout padding, then two nested 20px insets.
+    // Its 5% top margin resolves against the wider inner layout box.
+    margin-top: calc(5% + 4px);
     overflow: hidden;
   }
 
@@ -106,9 +113,14 @@
   }
 
   @media (max-width: 768px) {
-    > .main { padding-block: 1.5rem; }
-    .error-card { grid-template-columns: 1fr; }
-    .error-art { min-height: 0; height: 220px; }
+    > .main { padding: 20px 25px; }
+    .error-card {
+      grid-template-columns: 1fr;
+      grid-template-rows: 225px minmax(275px, auto);
+      min-height: 500px;
+      margin-top: calc(5% + 2px);
+    }
+    .error-art { min-height: 0; height: 225px; }
     .error-info { padding: 1.5rem 1rem; }
   }
 
