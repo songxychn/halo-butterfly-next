@@ -53,13 +53,14 @@
 | [P+ 双站工具 / PR #37](https://github.com/songxychn/halo-butterfly-next/pull/37) | `d072d5b` 经独立审查和 CI 合并为 `3a299ea`。固定 Links 2.3.0、Photos 2.1.2、Moments 1.18.0，建立空数据、正常、多页及停用/恢复验证，并逐页核对 API 内容、顺序和资源。首次独立审查发现当前页误判，修复并补负例后通过。原产品基线仍有 12 项分页缺口；另一次 Hexo 动画稳定性失败及后续两次通过均保留原记录。这里只交付工具，不把诊断结果改写为完整插件合同通过 |
 | [图库瞬间分页 / PR #39](https://github.com/songxychn/halo-butterfly-next/pull/39) | 审查 head `888eaf0`（产品 `48a3fc11`，其后仅文档）。独立干净 worktree `pnpm verify`：53 项测试、121 文件；ZIP SHA-256 `958ec18d0dd84343cd774f672ef874cc726dd83576679f83933348add73e7696`。[PR CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34191511332) 通过。集成 `aaf96ea` 的 [master CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34245453927) 被随后 #40 推送取消，不记成功。使用插件 `prevUrl`/`nextUrl`，不关闭 PLG-04 或矩阵 `verified`。见[审查摘要](validation/2026-09-08/plugin-pagination-review.json) |
 | [主题 404 / PR #40](https://github.com/songxychn/halo-butterfly-next/pull/40) | 审查 head `df13024`。独立 `pnpm verify`：53 项测试、123 文件；ZIP SHA-256 `5bbe816965f7e089ceeea6f1642d3829a1da2cbed453d04f416e9d8542a384b1`。[PR CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34191516859) 通过。集成 `0b5790d` 的 [master CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34245460152) 通过。保留真实 HTTP 404 与 Halo JSON 错误契约；Hexo `error_404.enable` 仍未映射。不关闭 PAGE-01/A11Y 全域或矩阵 `verified`。见[审查摘要](validation/2026-09-08/error-page-review.json) |
+| [性能测量工具 / PR #43](https://github.com/songxychn/halo-butterfly-next/pull/43) | 审查 head `8857d1d`。非作者 explore agent（`cursor-fcid-explore`）批准合并。作者落实 Chrome 应用树 `treeSha256` pin `cd77ddc2c729ff00bb2888ffcf2d9a215442171b38a3f57489ee83d746f01c25`；体积超预算时 `PERF-03=failed`。独立/PR `pnpm verify`：65 项测试、124 文件。[PR CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34250273740) 通过。集成 `0aaacc9` 的 [master CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34251148133) 通过，记录时仍为最新 master 运行、未被后继推送取消。GitHub #35 已因 Closes 关闭。未跑 160 真实样本，不关闭 PERF-01/02/03 或矩阵 `verified`。见[审查摘要](validation/2026-09-08/performance-tool-review.json) |
 
 截至本轮集成，矩阵仍为 897 个跟踪条目（含 387 个配置叶子）：557 待补齐、262 待平台映射、68 有实现待验、10 推进中、0 已完成全部验收。跟踪条目数量不等于独立功能数量。404 与分页已有实现，但矩阵状态尚未从 gap 提升，下一轮记录时按 `implemented-unverified` 校正，不能写成已验收。
 
 ## 正在推进
 
-1. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：测量工具已接到含 404 设置的 master，并重冻 `theme-defaults.json`（含 `error404`）。真实 160 样本采样仍须集成负责人分配专属站与 CPU 窗口；工具通过不关闭 PERF 合同。P/P+ 是页面集合，不是插件安装配置。
-2. M1 用户可见切片：按首页/导航、文章排版、侧栏卡片等打包，双站对照后才把相关矩阵项从待验推进；切片证据覆盖该能力出现的页面，站点级 PAGE-01/A11Y/PERF 仍是 RC 门禁。
+1. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：测量工具已由 [PR #43](https://github.com/songxychn/halo-butterfly-next/pull/43) 合入 master `0aaacc9`。GitHub issue 已因 Closes 关闭，但 PERF-01/02/03 合同仍不关闭；尚未跑 160 份真实采样，须集成负责人分配专属站与 CPU 窗口。P/P+ 是页面集合，不是插件安装配置。
+2. M1 用户可见切片：[PR #47](https://github.com/songxychn/halo-butterfly-next/pull/47) 仍开（首页首屏与导航 logo/标题/fixed）；后续文章排版、侧栏卡片等继续打包，双站对照后才把相关矩阵项从待验推进。站点级 PAGE-01/A11Y/PERF 仍是 RC 门禁。
 3. DEC-01/02/03 决策样例：搜索/评论提供方、标签语法、PWA/PJAX/生成器，用可运行双站差异提请维护者裁定；裁定前不删减矩阵分母。
 4. 双站已知的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。提供方替代、内容语法兼容等实质取舍在有具体样例后交维护者裁定。
 
