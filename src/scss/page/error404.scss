@@ -47,10 +47,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0;
     min-width: 0;
-    padding: 2rem;
+    padding: 83.4px 2rem 16px;
     // Butterfly's error-page em values resolve from its 14px body default.
     // Scope that base here without changing the site's global font settings.
     font-size: 14px;
@@ -58,15 +58,22 @@
   }
 
   .error-title {
-    margin: -.6em 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 1em;
+    margin: 0;
     font-size: 9em;
     line-height: 2;
     font-weight: 700;
+    // Keep the upstream line metrics and visual center in a compact box.
+    // Negative margins would overlap a wrapping subtitle's contrast region.
   }
 
   .error-subtitle {
     max-width: 100%;
-    margin-top: -3em;
+    margin-top: 9.8px;
     font-size: 1.6em;
     line-height: 2;
     overflow-wrap: anywhere;
@@ -128,8 +135,10 @@
       margin-top: calc(5% + 2px);
     }
     .error-art { min-height: 0; height: 225px; }
-    .error-info { padding: 1.5rem 1rem; }
+    .error-info { padding: 61.1px 1rem 8px; }
     .error-title { font-size: 8em; }
+    .error-subtitle { margin-top: 2.8px; }
+    .error-home { margin-top: 2px; }
   }
 
   @at-root html[data-color-scheme='dark'] & {

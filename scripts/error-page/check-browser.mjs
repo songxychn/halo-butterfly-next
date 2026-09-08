@@ -89,6 +89,12 @@ try {
       if (!passed) throw new Error(label);
     }
     if (profile.cardRadius) check(`getComputedStyle(document.querySelector('.error-card')).borderRadius===${JSON.stringify(profile.cardRadius)}`, `${name}: default card corners match fixed upstream`);
+    if (profile.titleCenterY?.[width]) {
+      const actual = evaluate("(()=>{const r=document.querySelector('.error-title').getBoundingClientRect();return r.y+r.height/2})()"), expected = profile.titleCenterY[width];
+      const passed = Math.abs(actual - expected) <= 1;
+      checks.push({name: `${name}: 404 visual center matches fixed upstream`, passed, actual, expected});
+      if (!passed) throw new Error(`${name}: 404 visual center differs from upstream`);
+    }
     check("document.querySelector('meta[name=robots]').content.includes('noindex') && !document.querySelector('link[rel=canonical]')", `${name}: missing page is not indexed or canonicalized`);
     check("document.querySelector('#mobile-navigation').hidden && document.querySelector('#mobile-navigation').inert", `${name}: closed drawer is excluded from focus`);
     command('focus', '.error-home'); command('press', 'Tab');
