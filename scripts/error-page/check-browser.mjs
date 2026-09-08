@@ -88,6 +88,7 @@ try {
       checks.push({name: label, passed, actual, expected});
       if (!passed) throw new Error(label);
     }
+    if (profile.cardRadius) check(`getComputedStyle(document.querySelector('.error-card')).borderRadius===${JSON.stringify(profile.cardRadius)}`, `${name}: default card corners match fixed upstream`);
     check("document.querySelector('meta[name=robots]').content.includes('noindex') && !document.querySelector('link[rel=canonical]')", `${name}: missing page is not indexed or canonicalized`);
     check("document.querySelector('#mobile-navigation').hidden && document.querySelector('#mobile-navigation').inert", `${name}: closed drawer is excluded from focus`);
     command('focus', '.error-home'); command('press', 'Tab');
