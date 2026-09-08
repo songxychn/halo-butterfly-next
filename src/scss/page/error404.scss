@@ -1,0 +1,151 @@
+@use '../core';
+
+.error404 {
+  --error-focus-color: #1c69ed;
+
+  > .header { margin-bottom: 10px; }
+
+  > .main {
+    flex: 1;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 1000px;
+    padding: 40px 55px;
+  }
+
+  .error-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-width: 0;
+    width: 100%;
+    min-height: 360px;
+    border-radius: 8px;
+    // Upstream has 15px layout padding, then two nested 20px insets.
+    // Its 5% top margin resolves against the wider inner layout box.
+    margin-top: calc(5% + 4px);
+    overflow: hidden;
+  }
+
+  .error-art {
+    position: relative;
+    min-width: 0;
+    min-height: 360px;
+    background-color: var(--theme);
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      &[hidden] { display: none; }
+    }
+  }
+
+  .error-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    min-width: 0;
+    padding: 83.4px 2rem 16px;
+    // Butterfly's error-page em values resolve from its 14px body default.
+    // Scope that base here without changing the site's global font settings.
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .error-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 1em;
+    margin: 0;
+    font-size: 9em;
+    line-height: 2;
+    font-weight: 700;
+    // Keep the upstream line metrics and visual center in a compact box.
+    // Negative margins would overlap a wrapping subtitle's contrast region.
+  }
+
+  .error-subtitle {
+    max-width: 100%;
+    margin-top: 9.8px;
+    font-size: 1.6em;
+    line-height: 2;
+    overflow-wrap: anywhere;
+  }
+
+  .error-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: .75rem;
+    padding: .4rem 1.5rem;
+    border-radius: 8px;
+    background-color: #1c69ed;
+    color: #fff;
+
+    &:hover { background-color: #1657c5; }
+  }
+
+  // The upstream error page hides its footer. Keep the user's mode control
+  // reachable on this short page, independently of scroll position.
+  > .footer { display: none; }
+
+  > .side-btn {
+    position: static;
+    align-self: flex-end;
+    margin: 0 10px 8px;
+    opacity: 1;
+    transform: none;
+
+    > .button { color: #fff; }
+    &:not(.active) > .back-top { display: none; }
+  }
+
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--error-focus-color);
+    outline-offset: 3px;
+  }
+
+  .error-skip-link {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    z-index: 200;
+    padding: .5em 1em;
+    background: var(--body-background);
+    color: var(--text-color);
+    transform: translateY(-150%);
+
+    &:focus { transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    > .main { padding: 20px 25px; }
+    .error-card {
+      grid-template-columns: 1fr;
+      grid-template-rows: 225px minmax(275px, auto);
+      min-height: 500px;
+      margin-top: calc(5% + 2px);
+    }
+    .error-art { min-height: 0; height: 225px; }
+    .error-info { padding: 61.1px 1rem 8px; }
+    .error-title { font-size: 8em; }
+    .error-subtitle { margin-top: 2.8px; }
+    .error-home { margin-top: 2px; }
+  }
+
+  @at-root html[data-color-scheme='dark'] & {
+    --error-focus-color: #e5e7eb;
+    .error-home {
+      background-color: #23764f;
+      &:hover { background-color: #195b3c; }
+    }
+  }
+}
