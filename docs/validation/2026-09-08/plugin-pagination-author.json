@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "kind": "plugin-pagination-author-validation",
+  "issue": 32,
+  "author": "/root",
+  "contractAcceptance": false,
+  "finalProductSource": "48a3fc11a60bd986fe2e0a68101dba3657ae7300",
+  "finalPackageSha256": "958ec18d0dd84343cd774f672ef874cc726dd83576679f83933348add73e7696",
+  "packageFiles": 121,
+  "engineering": {
+    "nodeTests": 53,
+    "packageCheck": "passed",
+    "log": {
+      "path": "/private/tmp/halo-butterfly-next-plugin-pagination/.evidence/pagination-a11y-fix-verify.log",
+      "sha256": "5d537e2f4db4c3cb21cc54d9e7aa8f10c9a3ea79aae57a297a33a21dc4c77569"
+    }
+  },
+  "stages": [
+    {
+      "name": "P+ full dual-site",
+      "product": {
+        "sourceCommit": "3d6d38aece22077b4531362a55253dd7f6f70ed3",
+        "sha256": "f14fa72feb91fa1d4d840fba96d8fae45d1befe17843f7c344f8acb90a8f21ea"
+      },
+      "runner": {
+        "sourceCommit": "d072d5b045297ddd3e78c4a925914478adbb921d",
+        "workingTreeClean": true,
+        "playwright": "1.63.0",
+        "lockSha256": "923502d4bfc680e227e6fcd3869f0c080d099393de9bd820854e11e964c4fe1e"
+      },
+      "views": 36,
+      "failures": 0,
+      "status": "passed-with-limitations",
+      "evidence": {
+        "path": "/private/tmp/halo-butterfly-next-plugin-lab/.runtime/plugin-lab-final/plugin-evidence/2026-09-08T05-18-44-212Z-8f5fed3a/report.json",
+        "sha256": "b55ec72560e4a425b4dd5bb8040e20a816faea8d2cb0a84e3a3830e2b4db87cd"
+      }
+    },
+    {
+      "name": "filtered pagination and native keyboard",
+      "installedProductSource": "3d6d38aece22077b4531362a55253dd7f6f70ed3",
+      "runnerSource": "643a3e6133d5a6d625c925b6be46a48ab81e0b30",
+      "packageSha256": "f14fa72feb91fa1d4d840fba96d8fae45d1befe17843f7c344f8acb90a8f21ea",
+      "cases": 36,
+      "keyboardNavigations": 40,
+      "momentPageSizeDuringCase": 3,
+      "originalMomentPageSizeRestored": 10,
+      "restoreLog": {
+        "path": "/private/tmp/halo-butterfly-next-plugin-pagination/.evidence/pagination-extra-2.log",
+        "sha256": "16818ba18f98f9ae1b7c5920fae84f361611ef18986b0bdbe98308915580c809"
+      },
+      "status": "passed",
+      "evidence": {
+        "path": "/private/tmp/halo-butterfly-next-plugin-pagination/.evidence/pagination-extra-1788845256341/report.json",
+        "sha256": "d363f95cf16db1daef771e39f132fbd1f5cb62843c052c4f66c63f41266dae53"
+      }
+    },
+    {
+      "name": "initial scoped accessibility",
+      "status": "incomplete",
+      "reason": "aria-label on role-less span was flagged by axe aria-prohibited-attr; original report retained",
+      "evidence": {
+        "path": "/private/tmp/halo-butterfly-next-plugin-pagination/.evidence/pagination-a11y/first.json",
+        "sha256": "a38e1a2ee51ba04152f4bc8a3416ebd914d93d5ac0f492f44b756c1a38fbbd38"
+      }
+    },
+    {
+      "name": "scoped accessibility after visible page text fix",
+      "source": "48a3fc11a60bd986fe2e0a68101dba3657ae7300",
+      "cases": 12,
+      "violations": 0,
+      "incomplete": 0,
+      "status": "passed",
+      "evidence": {
+        "path": "/private/tmp/halo-butterfly-next-plugin-pagination/.evidence/pagination-a11y/final/report.json",
+        "sha256": "a88dabeeab9f3d38818ba8b4d0a34098b37d21cbb375b96c423278f3db3cd73d"
+      }
+    }
+  ],
+  "limitations": [
+    "The final product change after the 36+36 functional runs only replaces unsupported aria-label on a span with visible Chinese page state text; the 12 scoped axe cases were run against the rebuilt and installed final product. Earlier functional evidence retains its actual source/package attribution.",
+    "Author evidence is not independent review.",
+    "Pinned synthetic plugins and automated CfT only; full PLG-01/04/06, visual equivalence with Hexo gallery append-loading, actual devices and stable Safari/Firefox remain incomplete."
+  ]
+}
