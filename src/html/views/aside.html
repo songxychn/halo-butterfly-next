@@ -27,9 +27,8 @@
     </a>
   </div>
 
-  <a target="_blank" th:href="${theme.config.aside.button.link}">
-    <button class="button" th:utext="${theme.config.aside.button.name}"></button>
-  </a>
+  <a class="button" target="_blank" th:href="${theme.config.aside.button.link}"
+     th:utext="${theme.config.aside.button.name}"></a>
 
   <div class="social" th:with="social = ${not #lists.isEmpty(theme.config.aside.social)}">
     <a th:each="item : ${theme.config.aside.social}" class="link" target="_blank" th:title="${item.name}" th:href="${item.link}" th:utext="${item.icon}"></a>
@@ -132,4 +131,3 @@
     </section>
   </div>
 </aside>
-
