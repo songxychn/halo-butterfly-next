@@ -4,8 +4,7 @@
   <a th:if="${items.hasPrevious()}" class="page prev" rel="prev"
      th:href="${items.prevUrl}">上一页</a>
   <span class="page-info" aria-current="page"
-        th:aria-label="${'第 ' + items.page + ' 页，共 ' + items.totalPages + ' 页'}"
-        th:text="${items.page + ' / ' + items.totalPages}"></span>
+        th:text="${'第 ' + items.page + ' 页，共 ' + items.totalPages + ' 页'}"></span>
   <a th:if="${items.hasNext()}" class="page next" rel="next"
      th:href="${items.nextUrl}">下一页</a>
 </nav>
