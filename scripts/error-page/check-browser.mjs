@@ -33,6 +33,18 @@ function check(expression, name) {
   checks.push({name, passed});
   if (!passed) throw new Error(name);
 }
+function contrast(foreground, background) {
+  const luminance = color => {
+    const rgba = color.match(/[\d.]+/g).map(Number);
+    if (rgba.length > 3 && rgba[3] !== 1) throw new Error('Contrast measurement expects opaque colors');
+    return rgba.slice(0, 3).map(value => {
+      value /= 255;
+      return value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4;
+    }).reduce((total, value, index) => total + value * [.2126, .7152, .0722][index], 0);
+  };
+  const a = luminance(foreground), b = luminance(background);
+  return (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+}
 const siteTitle = JSON.parse(readFileSync('fixtures/comparison/content.json', 'utf8')).site.title;
 try {
   const blockedImages = profile.abortImages || (profile.abortImage ? [profile.abortImage] : []);
@@ -52,6 +64,10 @@ try {
       command('wait', '--fn', `document.documentElement.dataset.colorScheme==='${mode}'`);
     }
     settle();
+    const modeIcon = evaluate("(()=>{const button=document.querySelector('.switch-model');return {color:getComputedStyle(button.querySelector('i')).color,background:getComputedStyle(button).backgroundColor}})()");
+    const ratio = contrast(modeIcon.color, modeIcon.background);
+    checks.push({name: `${name}: mode icon contrast meets required-control 3:1`, passed: ratio >= 3, ratio, ...modeIcon});
+    if (ratio < 3) throw new Error(`${name}: insufficient mode icon contrast`);
     check(`document.title.includes(${JSON.stringify(siteTitle)}) && document.querySelector('.error-title').textContent==='404'`, `${name}: error and site identity`);
     check(`document.querySelector('.error-subtitle').textContent===${JSON.stringify(profile.subtitle)} && !window.__error404_untrusted`, `${name}: configured text is escaped and complete`);
     if (profile.image) check(`new URL(document.querySelector('.error-image').currentSrc).pathname===${JSON.stringify(profile.image)} && document.querySelector('.error-image').naturalWidth>0`, `${name}: configured or fallback image loaded`);
@@ -89,7 +105,7 @@ try {
     command('focus', '.error-home'); command('press', 'Tab'); command('press', 'Shift+Tab'); settle();
     check("document.activeElement.matches('.error-home:focus-visible') && parseFloat(getComputedStyle(document.activeElement).outlineWidth)>=2", `${name}: home link has visible keyboard focus`);
     const state = evaluate(`(()=>{const card=document.querySelector('.error-card'),art=document.querySelector('.error-art'),info=document.querySelector('.error-info'),home=document.querySelector('.error-home'),style=getComputedStyle(home);return {profile:${JSON.stringify(profileName)},viewport:[innerWidth,innerHeight],mode:document.documentElement.dataset.colorScheme,title:document.title,subtitle:document.querySelector('.error-subtitle').textContent,image:document.querySelector('.error-image').currentSrc,card:card.getBoundingClientRect().toJSON(),art:art.getBoundingClientRect().toJSON(),info:info.getBoundingClientRect().toJSON(),home:{color:style.color,background:style.backgroundColor,outlineColor:style.outlineColor,outlineWidth:style.outlineWidth,outlineOffset:style.outlineOffset},browser:navigator.userAgent}})()`);
-    const audit = JSON.parse(command('a11y', '--selector', '.error-card', '--tags', 'wcag2a,wcag2aa', '--json'));
+    const audit = JSON.parse(command('a11y', '--selector', '.error-card', '--tags', 'wcag2a,wcag2aa,wcag21aa,wcag22aa', '--json'));
     writeFileSync(resolve(output, name + '-a11y.json'), JSON.stringify(audit, null, 2));
     if (!audit.success || audit.data.counts.violations !== 0 || audit.data.counts.incomplete !== 0) throw new Error('404 card accessibility scan unresolved: ' + name);
     checks.push({name: `${name}: 404 card axe scan has no violations or incomplete results`, passed: true});
