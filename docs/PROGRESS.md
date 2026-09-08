@@ -41,11 +41,24 @@
 | [光标资源 PR #26](https://github.com/songxychn/halo-butterfly-next/pull/26) | `546c558`：当前主题资源地址供不同样式表共享；独立 6 类页面光标请求和 120 个安装文件一致性通过 |
 | [导航 PR #27](https://github.com/songxychn/halo-butterfly-next/pull/27) | `98853f3`：两级键盘入口、抽屉焦点及响应式恢复；独立审查修复两处 P2 后，36 项工程测试、82 条实际浏览器断言及空菜单/恢复验证通过。默认展开、长菜单及桌面对比度人工判断仍保留 |
 
+## 2026-09-08：alpha.2 发布与后续集成
+
+以下记录关联精确审查提交、PR 和合并后 CI；机器可读摘要及原始审查报告见[交付索引](validation/2026-09-08/delivery-index.json)。
+
+| 项目 | 结果与边界 |
+| --- | --- |
+| [私有 alpha.2 / PR #31](https://github.com/songxychn/halo-butterfly-next/pull/31) | 已发布[私有预览包](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.2)，tag 指向 `3e603fa`。独立审查 head `3e659f6`，PR、master、tag CI 均通过；本机与独立审查者重新下载的 ZIP、摘要文件、发行验证 JSON 均与冻结附件一致。ZIP SHA-256 `a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42`，120 文件。覆盖三引擎 120 页、导航 74 条、公共布局 8 状态/6 步生命周期及真实已发布 alpha.1 缓存升级、回退、恢复。旧配置和内容原值保留，升级只补入两个已声明的字幕默认字段 |
+| [侧栏按钮 / PR #34](https://github.com/songxychn/halo-butterfly-next/pull/34) | `db2d36f` 独立通过 12 状态，局部 axe 零违规、零未决，最低文字和焦点环对比度 4.89；单个原生链接保留地址和打开方式，键盘不再重复进入嵌套按钮。集成 `a10eb34`；此验收限于欢迎按钮 |
+| [新站初始化重试 / PR #36](https://github.com/songxychn/halo-butterfly-next/pull/36) | `47bec9b` 独立通过 24 项 Python / 46 项 Node、6 项额外故障反例。仅初始化关闭插件时发生 409 才重新读版本并有限重试，最多 4 次 PUT；其他错误直接报出。实际新站首次写入 13 个夹具对象，再次运行不写入，配置与标记保留；实际新站未观测到 409，冲突分支证据来自离线注入。集成 `93083dd` |
+| [P+ 双站工具 / PR #37](https://github.com/songxychn/halo-butterfly-next/pull/37) | `d072d5b` 经独立审查和 CI 合并为 `3a299ea`。固定 Links 2.3.0、Photos 2.1.2、Moments 1.18.0，建立空数据、正常、多页及停用/恢复验证，并逐页核对 API 内容、顺序和资源。首次独立审查发现当前页误判，修复并补负例后通过。原产品基线仍有 12 项分页缺口；另一次 Hexo 动画稳定性失败及后续两次通过均保留原记录。这里只交付工具，不把诊断结果改写为完整插件合同通过 |
+
+截至本轮集成，矩阵仍为 897 个跟踪条目（含 387 个配置叶子）：557 待补齐、262 待平台映射、68 有实现待验、10 推进中、0 已完成全部验收。跟踪条目数量不等于独立功能数量。
+
 ## 正在推进
 
-1. [#29 私有 alpha.2](https://github.com/songxychn/halo-butterfly-next/issues/29)：集成上述维护修复，继续版本构建、三引擎、公共布局/导航组合、真实 alpha.1 缓存升级与回退、独立审查及发行附件一致性验证。候选证据未完成前不记为已发布。
-2. [#25 生态插件夹具](https://github.com/songxychn/halo-butterfly-next/issues/25)：锁定友链、图库、瞬间的插件身份/版本/摘要与公开契约，在独立合成站验证空列表、正常及分页数据。
-3. [#28 侧栏欢迎按钮](https://github.com/songxychn/halo-butterfly-next/issues/28)：修复暗色文字对比度及嵌套链接/按钮的重复键盘入口，作为下一独立功能包。
-4. 双站初检发现的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。继续从完整矩阵提取工作；提供方替代、内容语法兼容等实质取舍在有具体样例后交维护者裁定。
+1. [#30 404 页面](https://github.com/songxychn/halo-butterfly-next/issues/30)：对照固定上游的卡片布局、字体和间距，验证默认、自定义、空白、图片失败和长文本配置，随后完成精确提交独立审查与 CI。
+2. [#32 图库与瞬间分页](https://github.com/songxychn/halo-butterfly-next/issues/32)：为服务端分页补齐原生上一页/下一页，保留插件提供的分组、标签及每页数量参数；在 P+ 双站和多页筛选夹具中验证后独立审查。
+3. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：固定工具、浏览器、机器与原始样本；分别以默认和推荐配置运行首页、长文章、图库和公共插件页，并与冻结基线比较。P/P+ 是页面集合，不是插件安装配置。
+4. 双站已知的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。继续从完整矩阵提取工作；提供方替代、内容语法兼容等实质取舍在有具体样例后交维护者裁定。
 
 当前截图、HTTP 通过和 alpha 包一致性均不是完整视觉、交互、无障碍或性能验收。尚未通过的真实浏览器/真机、插件联调、迁移生命周期、扩展能力与发行条件继续保持未完成。保持仓库私有；公开、历史重写及正式 1.0 发布须维护者确认。
