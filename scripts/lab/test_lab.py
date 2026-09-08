@@ -1,5 +1,6 @@
 """Offline regressions for lab ownership, fixture fidelity and non-destructive repeats."""
 import importlib.util
+import copy
 import json
 from pathlib import Path
 import tempfile
@@ -12,6 +13,63 @@ spec.loader.exec_module(lab)
 
 
 class LabTests(unittest.TestCase):
+    def test_initial_plugin_conflict_refreshes_latest_resource_and_preserves_other_fields(self):
+        path = '/apis/plugin.halo.run/v1alpha1/plugins/ai-foundation'
+        first = {'metadata': {'name': 'ai-foundation', 'version': 1}, 'spec': {'enabled': True, 'version': '1'}, 'status': {'phase': 'STARTING'}}
+        latest = {'metadata': {'name': 'ai-foundation', 'version': 2, 'annotations': {'new': 'keep'}}, 'spec': {'enabled': True, 'version': '2'}, 'status': {'phase': 'STARTED'}}
+        calls = []
+        class Client:
+            def api(self, url, method='GET', data=None):
+                calls.append((url, method, copy.deepcopy(data)))
+                if method == 'GET':
+                    return copy.deepcopy(first if len(calls) == 1 else latest)
+                if len(calls) == 2:
+                    raise lab.ApiError(method, url, 409)
+        with patch.object(lab.time, 'sleep') as sleep:
+            lab.disable_initial_plugin(Client(), 'ai-foundation')
+        self.assertEqual([(url, method) for url, method, _ in calls], [(path, 'GET'), (path, 'PUT'), (path, 'GET'), (path, 'PUT')])
+        expected = copy.deepcopy(latest); expected['spec']['enabled'] = False
+        self.assertEqual(calls[-1][2], expected)
+        sleep.assert_called_once_with(0.1)
+
+    def test_initial_plugin_already_disabled_or_disabled_during_conflict_needs_no_more_put(self):
+        for conflict in [False, True]:
+            with self.subTest(conflict=conflict):
+                calls = []
+                class Client:
+                    def api(self, path, method='GET', data=None):
+                        calls.append(method)
+                        if method == 'GET':
+                            return {'metadata': {'name': 'fixture-plugin'}, 'spec': {'enabled': conflict and len(calls) == 1}}
+                        raise lab.ApiError(method, path, 409)
+                with patch.object(lab.time, 'sleep'):
+                    lab.disable_initial_plugin(Client(), 'fixture-plugin')
+                self.assertEqual(calls, ['GET', 'PUT', 'GET'] if conflict else ['GET'])
+
+    def test_initial_plugin_persistent_conflict_is_bounded_and_non409_is_not_retried(self):
+        for status in [409, 400, 401, 403, 404, 500]:
+            with self.subTest(status=status):
+                calls = []
+                class Client:
+                    def api(self, path, method='GET', data=None):
+                        calls.append(method)
+                        if method == 'GET':
+                            return {'metadata': {'name': 'fixture-plugin', 'version': len(calls)}, 'spec': {'enabled': True}}
+                        raise lab.ApiError(method, path, status)
+                with patch.object(lab.time, 'sleep') as sleep, self.assertRaises(lab.ApiError) as error:
+                    lab.disable_initial_plugin(Client(), 'fixture-plugin')
+                self.assertEqual(error.exception.status, status)
+                self.assertEqual(calls, ['GET', 'PUT'] * (4 if status == 409 else 1))
+                self.assertEqual([call.args[0] for call in sleep.call_args_list], [0.1, 0.2, 0.4] if status == 409 else [])
+
+    def test_initial_plugin_read_error_is_not_retried_or_written(self):
+        client = MagicMock()
+        client.api.side_effect = lab.ApiError('GET', '/plugin', 404)
+        with patch.object(lab.time, 'sleep') as sleep, self.assertRaises(lab.ApiError):
+            lab.disable_initial_plugin(client, 'fixture-plugin')
+        client.api.assert_called_once_with('/apis/plugin.halo.run/v1alpha1/plugins/fixture-plugin')
+        sleep.assert_not_called()
+
     def test_nonempty_runtime_is_never_claimed(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
