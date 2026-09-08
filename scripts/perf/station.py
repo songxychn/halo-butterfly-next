@@ -65,6 +65,22 @@ def seed(lab, client):
     else: raise ValueError('Longform publish did not settle')
     return {'result':'seeded-and-checked','name':meta['name'],'bodySha256':sha(body.encode()),'assets':12}
 
+def plugin_collections(client, enabled, base, owner, lock):
+    for file,key in [('versions.json','pluginLockSha256'),('content.json','pluginContentSha256')]:
+        if sha((ROOT/'fixtures/plugins'/file).read_bytes())!=lock[key]:raise ValueError('The shared plugin fixture changed; re-freeze and remeasure both sides')
+    spec=importlib.util.spec_from_file_location('performance_plugin_contract', ROOT/'scripts/plugins/lab.py')
+    contract=importlib.util.module_from_spec(spec);spec.loader.exec_module(contract)
+    expected=contract.desired('populated',base,owner);collections={}
+    for plugin,kinds in [('PluginPhotos',['photos','photogroups']),('PluginLinks',['links','linkgroups']),('PluginMoments',['moments'])]:
+        if plugin not in enabled:continue
+        for kind in kinds:
+            items=client.api(contract.api(kind)+'?page=0&size=1000')['items']
+            normalized=sorted([contract.clean(item) for item in items],key=lambda p:p['metadata']['name'])
+            target=sorted(expected[kind],key=lambda p:p['metadata']['name'])
+            if canonical(normalized)!=canonical(target):raise ValueError('Actual plugin objects differ from fixed populated fixture: '+kind)
+            collections[kind]=normalized
+    return collections
+
 def inspect(lab,client,args):
     package=args.package.resolve(); raw=package.read_bytes(); installed=json.loads((lab.RUNTIME/'installed-package.json').read_text())
     if installed['sha256']!=sha(raw) or not re.fullmatch('[a-f0-9]{40}',installed.get('sourceCommit','')): raise ValueError('Package/installation identity mismatch')
@@ -93,15 +109,7 @@ def inspect(lab,client,args):
         if not re.fullmatch(r'[A-Za-z0-9_.-]+',name) or not re.fullmatch(r'[A-Za-z0-9_.+-]+',version):raise ValueError('Unsafe installed plugin identity')
         jar=lab.RUNTIME/'halo/data/plugins'/(name+'-'+version+'.jar')
         inventory.append({'name':name,'version':version,'enabled':bool(plugin['spec'].get('enabled')),'sha256':sha(jar.read_bytes())})
-    collections={}
-    kinds=[]
-    for plugin, names in [('PluginPhotos',['photos','photogroups']),('PluginLinks',['links','linkgroups']),('PluginMoments',['moments'])]:
-        if plugin in enabled:kinds.extend(names)
-    for kind in kinds:
-        group='moment.halo.run/v1alpha1' if kind=='moments' else 'core.halo.run/v1alpha1'
-        items=client.api('/apis/'+group+'/'+kind+'?page=0&size=1000')['items']
-        if len(items)!=lock['counts'][kind] or any(not p['metadata']['name'].startswith('pplus-') for p in items): raise ValueError('Missing populated P+ fixture: '+kind)
-        collections[kind]=sorted([{'name':p['metadata']['name'],'spec':p['spec']} for p in items],key=lambda p:p['name'])
+    collections=plugin_collections(client, enabled, lab.BASE['halo'], client.auth['username'], lock)
     config=client.api('/apis/api.console.halo.run/v1alpha1/themes/halo-butterfly-next/json-config')
     expected_config=json.loads((FIXTURE/'theme-defaults.json').read_text())['config']
     if canonical(config)!=canonical(expected_config):raise ValueError('Theme config differs from frozen actual defaults; default/recommended coverage remains incomplete')
@@ -128,7 +136,7 @@ def inspect(lab,client,args):
         if parsed.netloc and parsed.netloc!=urlsplit(base).netloc:raise ValueError('Nonlocal performance route')
         routes[key]=parsed.path+('?' + parsed.query if parsed.query else '')
     identity={'sourceSha':installed['sourceCommit'],'packageSha256':sha(raw),'haloJarSha256':jarsha,'fixtureSha256':sha(canonical({'longform':meta,'plugins':lock,'assets':asset_hashes})),'configSha256':sha(canonical({'theme':config,'system':system,'users':public_users,'menus':menus})),'contentSha256':sha(canonical({'posts':content,'pluginCollections':collections})),'pluginsSha256':sha(canonical({'installed':inventory,'enabledArtifacts':versions}))}
-    return {'schema':1,'base':base,'profile':args.profile,'route':args.route,'requiredPlugins':lock['requiredPlugins'][args.route],'routes':routes,'identity':identity,'installed':installed,'plugins':inventory,'enabledArtifacts':versions,'contentCounts':{'posts':len(content),**{k:len(v) for k,v in collections.items()}},'result':'passed'}
+    return {'schema':1,'base':base,'profile':args.profile,'route':args.route,'requiredPlugins':lock['requiredPlugins'][args.route],'routes':routes,'identity':identity,'sourceAttribution':installed.get('sourceCommitAttribution','installer-record; independently verify source-to-artifact provenance'),'installed':installed,'plugins':inventory,'enabledArtifacts':versions,'contentCounts':{'posts':len(content),**{k:len(v) for k,v in collections.items()}},'result':'passed'}
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('command',choices=['seed-longform','inspect']);p.add_argument('--lab-runtime',type=Path,required=True);p.add_argument('--package',type=Path);p.add_argument('--profile',choices=['default','recommended'],default='default');p.add_argument('--route',choices=['home','longform','photos','public-layout']);args=p.parse_args();lab,client=load_lab(args.lab_runtime)

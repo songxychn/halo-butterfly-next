@@ -13,7 +13,7 @@ node scripts/perf/longform.mjs --check
 
 `--chrome-app`是调用者提供的实际缓存位置；仓库未写入某人的绝对路径作为默认依赖。工具和依赖安装在本worktree `.runtime/performance`，运行目录有独立所有权标记，依赖不进入主题ZIP。Chrome应用更新、锁文件变更或硬件/系统变化后，应重新安装并重测基线和候选两侧。
 
-实际配置继承固定版本Lighthouse默认值并导出完整解析设置。手机：390×844、DPR1、`formFactor=mobile`、模拟RTT150ms/1638.4Kbps/CPU4；桌面：1440×1000、DPR1、desktop、40ms/10240Kbps/CPU1；两者均`throttlingMethod=simulate`。`emulatedUserAgent`按两种模式固定，locale为zh-CN。配置中的`rttMs`和`throughputKbps`属于模拟参数，不能换成DevTools请求限速字段。
+实际配置继承固定版本Lighthouse默认值并导出完整解析设置。手机：390×844、DPR1、`formFactor=mobile`、模拟RTT150ms/1638.4Kbps/CPU4；桌面：1440×1000、DPR1、desktop、40ms/10240Kbps/CPU1；两者均`throttlingMethod=simulate`。`emulatedUserAgent`按两种模式固定，locale为zh-CN。审计固定选择 performance 加 errors-in-console；页面脚本异常或控制台错误即拒绝样本，不因LCP较快而通过。配置中的`rttMs`和`throughputKbps`属于模拟参数，不能换成DevTools请求限速字段。
 
 来源：[Lighthouse13.4.1](https://github.com/GoogleChrome/lighthouse/releases/tag/v13.4.1)、[配置类型](https://github.com/GoogleChrome/lighthouse/blob/v13.4.1/types/lhr/settings.d.ts)、[网络记录字段](https://github.com/GoogleChrome/lighthouse/blob/v13.4.1/core/audits/network-requests.js)、[原始trace保存](https://github.com/GoogleChrome/lighthouse/blob/v13.4.1/core/lib/asset-saver.js)。
 
@@ -27,7 +27,7 @@ python3 scripts/perf/station.py seed-longform --lab-runtime /absolute/owned/perf
 
 在全新专属实验实例完成基础comparison bootstrap之后再添加长文和插件内容。后续不要再次调用基础bootstrap来覆盖性能配置：基础夹具保护会拒绝新增长文或启用插件。服务管理仍使用实验工具的归属检查；本工具不新建/停止服务。
 
-#25 已经固定 PluginLinks2.3.0、PluginPhotos2.1.2、PluginMoments1.18.0 的JAR/manifest/API契约以及4友链、24图、12瞬间、两组数据。`plugin-profile.json`保存这些确切输入与来源摘要；其功能审查/集成结果与性能采样分别记录，不能写成尚未锁版，也不能从固定版本推导功能已通过。实际测量前须采用已审查的#25夹具，真实页面可用才采样。
+#25 已经固定 PluginLinks2.3.0、PluginPhotos2.1.2、PluginMoments1.18.0 的JAR/manifest/API契约以及4友链、24图、12瞬间、两组数据。`plugin-profile.json`保存这些确切输入与来源摘要；其功能审查/集成结果与性能采样分别记录，不能写成尚未锁版，也不能从固定版本推导功能已通过。实际测量前须采用已审查的#25夹具，真实页面可用才采样。性能预检只读复用已合入 master 的 `scripts/plugins/lab.py` 中 desired/clean 契约；逐项核对对象名称、内容、分组、URL、归属等，数量相同但内容被改也不能通过。
 
 合同的 P/P+ 是核心/插件页面集，以下 `default`/`recommended` 是本工具的安装组合，二者不混用。`plugin-profile.json` 的 `requiredPlugins` 逐路由声明依赖，`profiles` 声明该次采样允许启用的确切集合：
 
@@ -62,7 +62,7 @@ node scripts/perf/collect.mjs --lab-runtime /absolute/owned/performance-lab \
   --cohort baseline-full-SHA --cpu-window assigned-window
 ```
 
-同一cohort下分别采集两个profile的四个route，结果存放 `runs/<cohort>/<profile>/<route>/`；候选使用另一cohort名。每次default路由切换前，由负责人按表调整插件后再采样，首页与长文均核对零启用集合。工具不会替调用者开关插件、安装主题或改变基础配置。每个样本先启动全新独立无头Chrome进程/空profile，冷浏览器缓存；Halo的固定3次HTTP热身在另一个阶段执行。Lighthouse从首次导航开始测量，不先等待页面完全渲染再启动审计。每个完整10样本批次要求工具提交工作区干净；dirty的一次诊断仍只记incomplete。
+同一cohort下分别采集两个profile的四个route，结果存放 `runs/<cohort>/<profile>/<route>/`；候选使用另一cohort名。每次default路由切换前，由负责人按表调整插件后再采样，首页与长文均核对零启用集合。工具不会替调用者开关插件、安装主题或改变基础配置。安装记录中的源码归因由调用者提供，工具核验精确包字节；正式验收仍由独立审查将该包与相应提交的构建/CI产物对应，不能只凭40位字符串声称源码来源已认证。每个样本先启动全新独立无头Chrome进程/空profile，冷浏览器缓存；Halo的固定3次HTTP热身在另一个阶段执行。Lighthouse从首次导航开始测量，不先等待页面完全渲染再启动审计。每个完整10样本批次要求工具提交工作区干净；dirty的一次诊断仍只记incomplete。
 
 进程通过独立process group运行，超时收尾只终止该样本自己的组；不会全局清理Chrome。共享的任务专属CPU锁防止两套性能工具并发。若进程被外部中断且锁保留，先核实锁内PID和实际进程归属，再由负责人处理；不自动删除未知锁。服务和基线配置继续保留供复验。
 

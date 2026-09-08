@@ -1,4 +1,4 @@
-import copy, importlib.util, tempfile, unittest
+import copy, importlib.util, tempfile, unittest, json
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('perf_station',Path(__file__).with_name('station.py'));module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
 class ApiError(Exception):
@@ -41,4 +41,29 @@ class StationTests(unittest.TestCase):
         self.assertEqual(c.writes,[])
     def test_unpublished_matching_fixture_recovers_only_publish(self):
         self.obj['spec']['publish']=False;c=FakeClient(self.obj,self.body);module.seed(self.lab,c);self.assertEqual([x[1] for x in c.writes],['PUT'])
+class PluginFixtureTests(unittest.TestCase):
+    def setUp(self):
+        self.lock=json.loads((module.FIXTURE/'plugin-profile.json').read_text())
+        spec=importlib.util.spec_from_file_location('shared_plugin_fixture',module.ROOT/'scripts/plugins/lab.py');self.contract=importlib.util.module_from_spec(spec);spec.loader.exec_module(self.contract)
+        self.objects=self.contract.desired('populated','http://127.0.0.1:18900','fixture-owner')
+        objects=self.objects
+        self.client=type('Client',(),{'api':lambda _,endpoint:{'items':objects[endpoint.split('?')[0].split('/')[-1]]}})()
+    def check(self):return module.plugin_collections(self.client,{'PluginPhotos','PluginLinks','PluginMoments'},'http://127.0.0.1:18900','fixture-owner',self.lock)
+    def test_shared_populated_contract_matches_every_object(self):
+        self.assertEqual({k:len(v) for k,v in self.check().items()},self.lock['counts'])
+    def test_same_counts_but_changed_url_group_or_body_do_not_pass(self):
+        for kind,field in [('photos','url'),('photos','groupName'),('links','url'),('moments','content')]:
+            original=copy.deepcopy(self.objects[kind][0]['spec'][field]);self.objects[kind][0]['spec'][field]='wrong'
+            with self.assertRaises(ValueError):self.check()
+            self.objects[kind][0]['spec'][field]=original
+    def test_wrong_source_lock_or_object_owner_rejected(self):
+        self.lock['pluginContentSha256']='0'*64
+        with self.assertRaises(ValueError):self.check()
+        self.lock=json.loads((module.FIXTURE/'plugin-profile.json').read_text())
+        self.objects['moments'][0]['spec']['owner']='someone-else'
+        with self.assertRaises(ValueError):self.check()
+    def test_default_home_does_not_require_running_optional_plugin_apis(self):
+        class NoPlugins:
+            def api(self,*args):raise AssertionError('No optional API expected')
+        self.assertEqual(module.plugin_collections(NoPlugins(),set(),'http://127.0.0.1:18900','fixture-owner',self.lock),{})
 if __name__=='__main__':unittest.main()

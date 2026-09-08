@@ -11,7 +11,7 @@ import {median,regressed,budgets,validateLhr} from '../scripts/perf/metrics.mjs'
 import {compare,readRun} from '../scripts/perf/compare.mjs';
 import {longform} from '../scripts/perf/longform.mjs';
 function lhr(device='mobile',url='http://127.0.0.1:18100/',values={}){
- const metrics={lcp:1000,tbt:100,cls:.01,...values};return {lighthouseVersion:PIN.lighthouse,requestedUrl:url,finalDisplayedUrl:url,configSettings:settings(device),audits:{'largest-contentful-paint':{numericValue:metrics.lcp},'total-blocking-time':{numericValue:metrics.tbt},'cumulative-layout-shift':{numericValue:metrics.cls},'network-requests':{details:{items:[['js',100000],['css',50000]].map(([type,size])=>({url:'http://127.0.0.1:18100/themes/halo-butterfly-next/assets/index.'+type,transferSize:size/2,resourceSize:size,statusCode:200,finished:true}))}}}};
+ const metrics={lcp:1000,tbt:100,cls:.01,...values};return {lighthouseVersion:PIN.lighthouse,requestedUrl:url,finalDisplayedUrl:url,configSettings:settings(device),audits:{'errors-in-console':{score:1,details:{items:[]}},'largest-contentful-paint':{numericValue:metrics.lcp},'total-blocking-time':{numericValue:metrics.tbt},'cumulative-layout-shift':{numericValue:metrics.cls},'network-requests':{details:{items:[['js',100000],['css',50000]].map(([type,size])=>({url:'http://127.0.0.1:18100/themes/halo-butterfly-next/assets/index.'+type,transferSize:size/2,resourceSize:size,statusCode:200,finished:true}))}}}};
 }
 async function cohort(root){
  for(const profile of PIN.profiles)for(const route of PIN.routes){const dir=path.join(root,profile,route);await mkdir(dir,{recursive:true});const data=Buffer.from('fixed-package');await writeFile(path.join(dir,'theme.zip'),data);
@@ -30,7 +30,7 @@ test('PERF预算使用5次中位数及百分比和绝对增量双条件，包括
 });
 test('LHR拒绝页面/工具错误、缺失非有限指标、错误限速和失败或外部资源',()=>{
  const options={url:'http://127.0.0.1:18100/',device:'mobile'};assert.equal(validateLhr(lhr(),options).themeJsBytes,100000);
- for(const edit of [x=>x.runtimeError={code:'NO_FCP'},x=>delete x.audits['total-blocking-time'],x=>x.audits['total-blocking-time'].numericValue=Infinity,x=>x.lighthouseVersion='wrong',x=>x.finalDisplayedUrl+='error',x=>x.configSettings.screenEmulation.width=360,x=>x.configSettings.throttling.rttMs=40,x=>x.audits['network-requests'].details.items[0].finished=false,x=>x.audits['network-requests'].details.items[0].statusCode=404,x=>x.audits['network-requests'].details.items[0].url='https://example.invalid/a.js']){const value=lhr();edit(value);assert.throws(()=>validateLhr(value,options));}
+ for(const edit of [x=>x.runtimeError={code:'NO_FCP'},x=>x.audits['errors-in-console'].details.items.push({description:'TypeError'}),x=>delete x.audits['errors-in-console'],x=>delete x.audits['total-blocking-time'],x=>x.audits['total-blocking-time'].numericValue=Infinity,x=>x.lighthouseVersion='wrong',x=>x.finalDisplayedUrl+='error',x=>x.configSettings.screenEmulation.width=360,x=>x.configSettings.throttling.rttMs=40,x=>x.audits['network-requests'].details.items[0].finished=false,x=>x.audits['network-requests'].details.items[0].statusCode=404,x=>x.audits['network-requests'].details.items[0].url='https://example.invalid/a.js']){const value=lhr();edit(value);assert.throws(()=>validateLhr(value,options));}
 });
 test('本地地址与独立运行目录保护拒绝远程站/用户资料和已占目录',async t=>{
  for(const url of ['https://127.0.0.1:18100/','http://localhost:18100','http://127.0.0.1:18100/path','http://a:b@127.0.0.1:18100'])assert.throws(()=>localBase(url));

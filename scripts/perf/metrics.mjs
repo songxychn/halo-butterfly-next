@@ -5,8 +5,10 @@ export function regressed(base,candidate,ratio,absolute){assert([base,candidate,
 export function validateLhr(lhr,{url,device}){
  assert(lhr&&lhr.lighthouseVersion===PIN.lighthouse&&!lhr.runtimeError,'Wrong Lighthouse version or runtimeError');
  assert(lhr.requestedUrl===url&&lhr.finalDisplayedUrl===url,'Lighthouse URL changed');
+ const errors=lhr.audits?.['errors-in-console'];assert(errors?.score===1&&Array.isArray(errors.details?.items)&&errors.details.items.length===0,'Browser console errors or missing error audit');
  const expected=settings(device),actual=lhr.configSettings;assert(actual,'Missing resolved config');
- for(const key of ['formFactor','throttlingMethod','disableStorageReset','emulatedUserAgent'])assert(actual[key]===expected[key],'Wrong Lighthouse setting: '+key);
+ for(const key of ['formFactor','throttlingMethod','disableStorageReset','emulatedUserAgent','locale'])assert(actual[key]===expected[key],'Wrong Lighthouse setting: '+key);
+ for(const key of ['onlyCategories','onlyAudits'])assert(digestObject(actual[key])===digestObject(expected[key]),'Wrong audit selection: '+key);
  for(const key of ['screenEmulation','throttling'])for(const [field,value] of Object.entries(expected[key]))assert(actual[key]?.[field]===value,'Wrong Lighthouse setting: '+key+'.'+field);
  const result={};for(const [key,id] of Object.entries(auditIds)){const a=lhr.audits?.[id];assert(a&&!a.errorMessage&&Number.isFinite(a.numericValue)&&a.numericValue>=0,'Missing/nonfinite/error metric: '+id);result[key]=a.numericValue;}
  const items=lhr.audits?.['network-requests']?.details?.items;assert(Array.isArray(items)&&items.length>0,'Missing raw network audit');
