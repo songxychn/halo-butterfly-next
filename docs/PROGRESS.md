@@ -58,7 +58,7 @@
 
 ## 正在推进
 
-1. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：本地 `codex/performance-baseline` 已有测量工具与长文夹具，需变基到当前 master 后补齐缺口、独立审查并开 PR。P/P+ 是页面集合，不是插件安装配置。
+1. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：测量工具已接到含 404 设置的 master，并重冻 `theme-defaults.json`（含 `error404`）。真实 160 样本采样仍须集成负责人分配专属站与 CPU 窗口；工具通过不关闭 PERF 合同。P/P+ 是页面集合，不是插件安装配置。
 2. M1 用户可见切片：按首页/导航、文章排版、侧栏卡片等打包，双站对照后才把相关矩阵项从待验推进；切片证据覆盖该能力出现的页面，站点级 PAGE-01/A11Y/PERF 仍是 RC 门禁。
 3. DEC-01/02/03 决策样例：搜索/评论提供方、标签语法、PWA/PJAX/生成器，用可运行双站差异提请维护者裁定；裁定前不删减矩阵分母。
 4. 双站已知的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。提供方替代、内容语法兼容等实质取舍在有具体样例后交维护者裁定。
