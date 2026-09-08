@@ -50,6 +50,17 @@
       font-weight: 700;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
     }
+
+    .site-icon {
+      margin-right: 6px;
+      height: 36px;
+      width: auto;
+      vertical-align: middle;
+    }
+
+    .post-title {
+      display: none;
+    }
   }
 
   &.style {
@@ -59,6 +70,14 @@
     background-color: var(--nav-active-background-color);
     box-shadow: var(--nav-active-shadow);
     transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+  }
+
+  &.fixed {
+    position: fixed;
+    z-index: 91;
+    top: 0;
+    background-color: var(--nav-active-background-color);
+    box-shadow: var(--nav-active-shadow);
   }
 
   &.active {
@@ -215,7 +234,7 @@
   }
 
 
-  &:is(.style) {
+  &:is(.style, .fixed) {
     .nav-title, .nav-do {
       color: var(--nav-active-font-color);
 
@@ -226,6 +245,16 @@
           color: var(--nav-active-hover-font-color);
         }
       }
+    }
+  }
+
+  &:is(.style, .fixed).has-post {
+    .site-name {
+      display: none;
+    }
+
+    .post-title {
+      display: inline;
     }
   }
 }

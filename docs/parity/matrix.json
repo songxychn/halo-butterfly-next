@@ -261,14 +261,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
+        "settings": [
+          "nav.logo"
+        ],
         "code": [
           "src/html/views/nav.html",
-          "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/scss/core/nav.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 nav.logo 为附件字段，空值不渲染图片。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -291,12 +291,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:nav.display_title",
@@ -320,14 +321,13 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
-        "code": [
-          "src/html/views/nav.html",
-          "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+        "settings": [
+          "nav.display_title"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/nav.html"
+        ],
+        "finding": "已映射 display_title，默认 true；false 时隐藏站点名。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -350,12 +350,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:nav.display_post_title",
@@ -379,14 +380,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
+        "settings": [
+          "nav.display_post_title"
+        ],
         "code": [
           "src/html/views/nav.html",
-          "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/scss/core/nav.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "文章页可在滚动固定态显示文章标题替换站点名；默认 true。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -409,12 +410,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:nav.fixed",
@@ -438,14 +440,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
+        "settings": [
+          "nav.fixed"
+        ],
         "code": [
           "src/html/views/nav.html",
-          "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/scroll.js",
+          "src/js/core/nav-scroll.mjs",
+          "src/scss/core/nav.scss",
+          "src/html/views/config.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 nav.fixed：默认 false 保持滚动显隐；true 时导航始终吸顶可见。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -468,12 +473,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:menu",
@@ -3003,14 +3009,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "index.site_info_top"
+        ],
         "code": [
           "src/html/index.html",
-          "src/html/views/components.html",
-          "src/js/page/index.js",
           "src/scss/page/index.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 index.site_info_top，留空垂直居中。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -3032,12 +3038,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:index_top_img_height",
@@ -3061,14 +3068,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "index.top_img_height"
+        ],
         "code": [
           "src/html/index.html",
-          "src/html/views/components.html",
-          "src/js/page/index.js",
           "src/scss/page/index.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 index.top_img_height，留空为 100vh。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -3090,12 +3097,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:subtitle.enable",
@@ -27471,14 +27479,17 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
+        "settings": [
+          "nav.fixed",
+          "nav.logo",
+          "nav.display_title",
+          "nav.display_post_title"
+        ],
         "code": [
           "src/html/views/nav.html",
-          "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/scss/core/nav.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "导航模板已输出 logo、站点名与文章标题条件节点。菜单 hide/三级仍待对齐。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -27500,12 +27511,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/header/post-info",
@@ -45079,14 +45091,17 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
-        "code": [
-          "src/html/views/nav.html",
-          "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+        "settings": [
+          "nav.fixed",
+          "nav.display_post_title"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "code": [
+          "src/js/core/scroll.js",
+          "src/js/core/nav-scroll.mjs",
+          "src/scss/core/nav.scss",
+          "src/html/views/nav.html"
+        ],
+        "finding": "滚动显隐与始终固定、文章标题切换已实现。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -45107,12 +45122,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/44"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:hero-scroll",

@@ -34,6 +34,9 @@ test('2.0.7 preserves nested settings, isolates assets and keeps custom banners'
     nav: { font_color: { light: '#123456' } }, aside: { social: [] }, index: { above_background: 'https://example.invalid/custom.png' } }, '2.0.7', defaults);
   assert.equal(result.config.nav.font_color.light, '#123456');
   assert.equal(result.config.nav.font_color.dark, defaults.nav.font_color.dark);
+  assert.equal(result.config.nav.fixed, false);
+  assert.equal(result.config.nav.display_title, true);
+  assert.equal(result.config.index.top_img_height, '');
   assert.equal(result.config.loading.img.random_enable, true);
   assert.equal(result.config.index.above_background, 'https://example.invalid/custom.png');
   assert.deepEqual(result.config.aside.social, []);
