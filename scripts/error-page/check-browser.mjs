@@ -59,7 +59,11 @@ try {
     if (profile.settings.background.includes('missing-image')) check("!document.querySelector('.error-image').hasAttribute('srcset')", `${name}: failed responsive candidates cannot override fallback src`);
     check("document.documentElement.scrollWidth<=innerWidth && document.querySelector('.error-home').getBoundingClientRect().width>0", `${name}: no horizontal overflow and home link rendered`);
     if (profile.geometry?.[width]) {
-      check(`Object.entries(${JSON.stringify(profile.geometry[width])}).every(([key,value])=>Math.abs(document.querySelector('.error-card').getBoundingClientRect()[key]-value)<=1)`, `${name}: default card geometry matches fixed upstream within one CSS pixel`);
+      const actual = evaluate("document.querySelector('.error-card').getBoundingClientRect().toJSON()"), expected = profile.geometry[width];
+      const passed = Object.entries(expected).every(([key, value]) => Math.abs(actual[key] - value) <= 1);
+      const label = `${name}: default card geometry matches fixed upstream within one CSS pixel`;
+      checks.push({name: label, passed, actual, expected});
+      if (!passed) throw new Error(label);
     }
     check("document.querySelector('meta[name=robots]').content.includes('noindex') && !document.querySelector('link[rel=canonical]')", `${name}: missing page is not indexed or canonicalized`);
     check("document.querySelector('#mobile-navigation').hidden && document.querySelector('#mobile-navigation').inert", `${name}: closed drawer is excluded from focus`);
