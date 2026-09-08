@@ -78,6 +78,11 @@
     top: 0;
     background-color: var(--nav-active-background-color);
     box-shadow: var(--nav-active-shadow);
+
+    // Keep always-pinned nav visible after `.style` is added for title switch.
+    &.style {
+      top: 0;
+    }
   }
 
   &.active {
@@ -248,7 +253,7 @@
     }
   }
 
-  &:is(.style, .fixed).has-post {
+  &.style.has-post {
     .site-name {
       display: none;
     }

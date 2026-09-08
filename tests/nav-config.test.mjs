@@ -27,6 +27,37 @@ test('默认滚动：超过阈值后下滚隐藏、上滚显示，回顶清除',
   assert.deepEqual(navScrollAppearance({scrollTop: 80, previousTop: 90}), {style: true, active: true});
   assert.deepEqual(navScrollAppearance({scrollTop: 0, previousTop: 80}), {style: false, active: false});
   assert.equal(navScrollAppearance({scrollTop: 20, previousTop: 10}), null);
+  assert.deepEqual(
+    navScrollAppearance({scrollTop: 57, previousTop: 50, alwaysPinned: false}),
+    {style: true, active: false},
+  );
+});
+
+test('nav.fixed=true 过阈值才加 style、回顶清 style，且不加 active', () => {
+  assert.deepEqual(
+    navScrollAppearance({scrollTop: 57, previousTop: 50, alwaysPinned: true}),
+    {style: true, active: false},
+  );
+  assert.deepEqual(
+    navScrollAppearance({scrollTop: 80, previousTop: 90, alwaysPinned: true}),
+    {style: true, active: false},
+  );
+  assert.deepEqual(
+    navScrollAppearance({scrollTop: 0, previousTop: 80, alwaysPinned: true}),
+    {style: false, active: false},
+  );
+  assert.equal(navScrollAppearance({scrollTop: 20, previousTop: 10, alwaysPinned: true}), null);
+  assert.equal(navScrollAppearance({scrollTop: 56, previousTop: 40, alwaysPinned: true}), null);
+});
+
+test('文章标题切换只绑定 .style.has-post，fixed.style 保持 top:0', async () => {
+  const navScss = await readFile(new URL('../src/scss/core/nav.scss', import.meta.url), 'utf8');
+  assert.match(navScss, /&\.style\.has-post/);
+  assert.doesNotMatch(navScss, /&:is\(\.style,\s*\.fixed\)\.has-post/);
+  assert.match(navScss, /&\.fixed[\s\S]*?&\.style\s*\{[\s\S]*?top:\s*0/);
+  const scrollJs = await readFile(new URL('../src/js/core/scroll.js', import.meta.url), 'utf8');
+  assert.match(scrollJs, /alwaysPinned:\s*this\.#fixed/);
+  assert.doesNotMatch(scrollJs, /if \(this\.#fixed\) return;/);
 });
 
 test('导航模板按设置条件输出 logo、站点名和文章标题', async () => {

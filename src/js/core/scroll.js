@@ -35,8 +35,12 @@ export default class Scroll {
 
   // 激活头部导航栏
   #activeNav(scrollTop) {
-    if (this.#fixed) return;
-    const next = navScrollAppearance({scrollTop, previousTop: this.#num, threshold: this.#max});
+    const next = navScrollAppearance({
+      scrollTop,
+      previousTop: this.#num,
+      threshold: this.#max,
+      alwaysPinned: this.#fixed,
+    });
     if (!next) return;
     this.#navDom.toggleClass('style', next.style);
     this.#navDom.toggleClass('active', next.active);
