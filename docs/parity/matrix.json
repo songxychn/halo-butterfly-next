@@ -617,124 +617,141 @@
       "evidence": [],
       "status": "implemented-unverified"
     },
-    {
-      "id": "config:code_blocks.macStyle",
-      "kind": "config",
-      "key": "code_blocks.macStyle",
-      "title": "代码块 / code_blocks.macStyle",
-      "sources": [
-        {
-          "file": "_config.yml",
-          "line": 33,
+                {
+          "id": "config:code_blocks.macStyle",
+          "kind": "config",
           "key": "code_blocks.macStyle",
-          "defaultValue": false
+          "title": "代码块 / code_blocks.macStyle",
+          "sources": [
+            {
+              "file": "_config.yml",
+              "line": 33,
+              "key": "code_blocks.macStyle",
+              "defaultValue": false
+            },
+            {
+              "file": "scripts/common/default_config.js",
+              "line": 14,
+              "key": "code_blocks.macStyle",
+              "defaultValue": false
+            }
+          ],
+          "upstreamInventory": "yaml",
+          "halo": {
+            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+            "settings": [
+              "render.enable_code_mac_style"
+            ],
+            "code": [
+              "src/js/modules/CodeBlock.js",
+              "src/scss/modules/codeBlock.scss",
+              "src/html/post.html",
+              "src/html/page.html",
+              "src/html/views/components.html",
+              "settings.yaml"
+            ],
+            "finding": "已映射 code_blocks.macStyle 为 render.enable_code_mac_style；默认 false，关闭时不绘制 mac 圆点。尚未双站对照验收。"
+          },
+          "dependencies": [
+            "dual-site",
+            "halo-core"
+          ],
+          "acceptance": {
+            "profile": "code",
+            "cases": [
+              "code_blocks.macStyle：分别设置 true 与 false，核对对应输出及再次刷新。",
+              "保持同组其他设置不变；验证 code_blocks.macStyle 与全局/逐页覆盖的优先级。"
+            ],
+            "contractScenarios": [
+              "ENV-02",
+              "PAGE-01",
+              "POST-01",
+              "PLG-06",
+              "CFG-01"
+            ]
+          },
+          "tracking": {
+            "issues": [
+              "https://github.com/songxychn/halo-butterfly-next/issues/2",
+              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+            ],
+            "pullRequests": [
+              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+            ]
+          },
+          "evidence": [],
+          "status": "implemented-unverified"
         },
-        {
-          "file": "scripts/common/default_config.js",
-          "line": 14,
-          "key": "code_blocks.macStyle",
-          "defaultValue": false
-        }
-      ],
-      "upstreamInventory": "yaml",
-      "halo": {
-        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
-        "code": [
-          "src/js/modules/CodeBlock.js"
-        ],
-        "finding": "当前工具栏固定绘制 mac 风格圆点，尚无对应开关。"
-      },
-      "dependencies": [
-        "dual-site",
-        "halo-core"
-      ],
-      "acceptance": {
-        "profile": "code",
-        "cases": [
-          "code_blocks.macStyle：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 code_blocks.macStyle 与全局/逐页覆盖的优先级。"
-        ],
-        "contractScenarios": [
-          "ENV-02",
-          "PAGE-01",
-          "POST-01",
-          "PLG-06",
-          "CFG-01"
-        ]
-      },
-      "tracking": {
-        "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
-        ],
-        "pullRequests": []
-      },
-      "evidence": [],
-      "status": "implemented-unverified"
-    },
-    {
-      "id": "config:code_blocks.height_limit",
-      "kind": "config",
-      "key": "code_blocks.height_limit",
-      "title": "代码块 / code_blocks.height_limit",
-      "sources": [
-        {
-          "file": "_config.yml",
-          "line": 35,
+                {
+          "id": "config:code_blocks.height_limit",
+          "kind": "config",
           "key": "code_blocks.height_limit",
-          "defaultValue": false
+          "title": "代码块 / code_blocks.height_limit",
+          "sources": [
+            {
+              "file": "_config.yml",
+              "line": 35,
+              "key": "code_blocks.height_limit",
+              "defaultValue": false
+            },
+            {
+              "file": "scripts/common/default_config.js",
+              "line": 15,
+              "key": "code_blocks.height_limit",
+              "defaultValue": false
+            }
+          ],
+          "upstreamInventory": "yaml",
+          "halo": {
+            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+            "settings": [
+              "render.code_height_limit"
+            ],
+            "code": [
+              "src/js/modules/CodeBlock.js",
+              "src/scss/modules/codeBlock.scss",
+              "src/html/post.html",
+              "src/html/page.html",
+              "src/html/views/components.html",
+              "settings.yaml"
+            ],
+            "finding": "已映射 code_blocks.height_limit 为 render.code_height_limit；默认 false 不限制，200/400 超出后显示展开条。尚未双站对照验收。"
+          },
+          "dependencies": [
+            "dual-site",
+            "halo-core"
+          ],
+          "acceptance": {
+            "profile": "code",
+            "cases": [
+              "code_blocks.height_limit：逐值执行 false / 200 / 400。",
+              "保持同组其他设置不变；验证 code_blocks.height_limit 与全局/逐页覆盖的优先级。"
+            ],
+            "values": [
+              false,
+              200,
+              400
+            ],
+            "contractScenarios": [
+              "ENV-02",
+              "PAGE-01",
+              "POST-01",
+              "PLG-06",
+              "CFG-01"
+            ]
+          },
+          "tracking": {
+            "issues": [
+              "https://github.com/songxychn/halo-butterfly-next/issues/2",
+              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+            ],
+            "pullRequests": [
+              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+            ]
+          },
+          "evidence": [],
+          "status": "implemented-unverified"
         },
-        {
-          "file": "scripts/common/default_config.js",
-          "line": 15,
-          "key": "code_blocks.height_limit",
-          "defaultValue": false
-        }
-      ],
-      "upstreamInventory": "yaml",
-      "halo": {
-        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
-        "code": [
-          "src/js/modules/CodeBlock.js",
-          "src/scss/modules/codeBlock.scss",
-          "src/html/post.html",
-          "src/html/page.html"
-        ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
-      },
-      "dependencies": [
-        "dual-site",
-        "halo-core"
-      ],
-      "acceptance": {
-        "profile": "code",
-        "cases": [
-          "code_blocks.height_limit：逐值执行 false / 200 / 400。",
-          "保持同组其他设置不变；验证 code_blocks.height_limit 与全局/逐页覆盖的优先级。"
-        ],
-        "values": [
-          false,
-          200,
-          400
-        ],
-        "contractScenarios": [
-          "ENV-02",
-          "PAGE-01",
-          "POST-01",
-          "PLG-06",
-          "CFG-01"
-        ]
-      },
-      "tracking": {
-        "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
-        ],
-        "pullRequests": []
-      },
-      "evidence": [],
-      "status": "gap"
-    },
     {
       "id": "config:code_blocks.word_wrap",
       "kind": "config",
@@ -793,182 +810,206 @@
       "evidence": [],
       "status": "gap"
     },
-    {
-      "id": "config:code_blocks.copy",
-      "kind": "config",
-      "key": "code_blocks.copy",
-      "title": "代码块 / code_blocks.copy",
-      "sources": [
-        {
-          "file": "_config.yml",
-          "line": 39,
+                {
+          "id": "config:code_blocks.copy",
+          "kind": "config",
           "key": "code_blocks.copy",
-          "defaultValue": true
+          "title": "代码块 / code_blocks.copy",
+          "sources": [
+            {
+              "file": "_config.yml",
+              "line": 39,
+              "key": "code_blocks.copy",
+              "defaultValue": true
+            },
+            {
+              "file": "scripts/common/default_config.js",
+              "line": 17,
+              "key": "code_blocks.copy",
+              "defaultValue": true
+            }
+          ],
+          "upstreamInventory": "yaml",
+          "halo": {
+            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+            "settings": [
+              "render.enable_code_copy"
+            ],
+            "code": [
+              "src/js/modules/CodeBlock.js",
+              "src/scss/modules/codeBlock.scss",
+              "src/html/post.html",
+              "src/html/page.html",
+              "src/html/views/components.html",
+              "settings.yaml"
+            ],
+            "finding": "已映射 code_blocks.copy 为 render.enable_code_copy；false 时不输出复制按钮。尚未双站对照验收。"
+          },
+          "dependencies": [
+            "dual-site",
+            "halo-core"
+          ],
+          "acceptance": {
+            "profile": "code",
+            "cases": [
+              "code_blocks.copy：分别设置 true 与 false，核对对应输出及再次刷新。",
+              "保持同组其他设置不变；验证 code_blocks.copy 与全局/逐页覆盖的优先级。"
+            ],
+            "contractScenarios": [
+              "ENV-02",
+              "PAGE-01",
+              "POST-01",
+              "PLG-06",
+              "CFG-01"
+            ]
+          },
+          "tracking": {
+            "issues": [
+              "https://github.com/songxychn/halo-butterfly-next/issues/2",
+              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+            ],
+            "pullRequests": [
+              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+            ]
+          },
+          "evidence": [],
+          "status": "implemented-unverified"
         },
-        {
-          "file": "scripts/common/default_config.js",
-          "line": 17,
-          "key": "code_blocks.copy",
-          "defaultValue": true
-        }
-      ],
-      "upstreamInventory": "yaml",
-      "halo": {
-        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [
-          "render.enable_code_copy"
-        ],
-        "code": [
-          "src/js/modules/CodeBlock.js"
-        ],
-        "finding": "已有代码复制和文章注解覆盖，待对照权限失败与键盘操作。"
-      },
-      "dependencies": [
-        "dual-site",
-        "halo-core"
-      ],
-      "acceptance": {
-        "profile": "code",
-        "cases": [
-          "code_blocks.copy：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 code_blocks.copy 与全局/逐页覆盖的优先级。"
-        ],
-        "contractScenarios": [
-          "ENV-02",
-          "PAGE-01",
-          "POST-01",
-          "PLG-06",
-          "CFG-01"
-        ]
-      },
-      "tracking": {
-        "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
-        ],
-        "pullRequests": []
-      },
-      "evidence": [],
-      "status": "implemented-unverified"
-    },
-    {
-      "id": "config:code_blocks.language",
-      "kind": "config",
-      "key": "code_blocks.language",
-      "title": "代码块 / code_blocks.language",
-      "sources": [
-        {
-          "file": "_config.yml",
-          "line": 40,
+                {
+          "id": "config:code_blocks.language",
+          "kind": "config",
           "key": "code_blocks.language",
-          "defaultValue": true
+          "title": "代码块 / code_blocks.language",
+          "sources": [
+            {
+              "file": "_config.yml",
+              "line": 40,
+              "key": "code_blocks.language",
+              "defaultValue": true
+            },
+            {
+              "file": "scripts/common/default_config.js",
+              "line": 18,
+              "key": "code_blocks.language",
+              "defaultValue": true
+            }
+          ],
+          "upstreamInventory": "yaml",
+          "halo": {
+            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+            "settings": [
+              "render.enable_code_title"
+            ],
+            "code": [
+              "src/js/modules/CodeBlock.js",
+              "src/scss/modules/codeBlock.scss",
+              "src/html/post.html",
+              "src/html/page.html",
+              "src/html/views/components.html",
+              "settings.yaml"
+            ],
+            "finding": "已映射 code_blocks.language 为 render.enable_code_title；false 时移除语言标题节点。尚未双站对照验收。"
+          },
+          "dependencies": [
+            "dual-site",
+            "halo-core"
+          ],
+          "acceptance": {
+            "profile": "code",
+            "cases": [
+              "code_blocks.language：分别设置 true 与 false，核对对应输出及再次刷新。",
+              "保持同组其他设置不变；验证 code_blocks.language 与全局/逐页覆盖的优先级。"
+            ],
+            "contractScenarios": [
+              "ENV-02",
+              "PAGE-01",
+              "POST-01",
+              "PLG-06",
+              "CFG-01"
+            ]
+          },
+          "tracking": {
+            "issues": [
+              "https://github.com/songxychn/halo-butterfly-next/issues/2",
+              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+            ],
+            "pullRequests": [
+              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+            ]
+          },
+          "evidence": [],
+          "status": "implemented-unverified"
         },
-        {
-          "file": "scripts/common/default_config.js",
-          "line": 18,
-          "key": "code_blocks.language",
-          "defaultValue": true
-        }
-      ],
-      "upstreamInventory": "yaml",
-      "halo": {
-        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [
-          "render.enable_code_title"
-        ],
-        "code": [
-          "src/js/modules/CodeBlock.js"
-        ],
-        "finding": "已有语言标题显示开关，待对照。"
-      },
-      "dependencies": [
-        "dual-site",
-        "halo-core"
-      ],
-      "acceptance": {
-        "profile": "code",
-        "cases": [
-          "code_blocks.language：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 code_blocks.language 与全局/逐页覆盖的优先级。"
-        ],
-        "contractScenarios": [
-          "ENV-02",
-          "PAGE-01",
-          "POST-01",
-          "PLG-06",
-          "CFG-01"
-        ]
-      },
-      "tracking": {
-        "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
-        ],
-        "pullRequests": []
-      },
-      "evidence": [],
-      "status": "implemented-unverified"
-    },
-    {
-      "id": "config:code_blocks.shrink",
-      "kind": "config",
-      "key": "code_blocks.shrink",
-      "title": "代码块 / code_blocks.shrink",
-      "sources": [
-        {
-          "file": "_config.yml",
-          "line": 42,
+                {
+          "id": "config:code_blocks.shrink",
+          "kind": "config",
           "key": "code_blocks.shrink",
-          "defaultValue": false
+          "title": "代码块 / code_blocks.shrink",
+          "sources": [
+            {
+              "file": "_config.yml",
+              "line": 42,
+              "key": "code_blocks.shrink",
+              "defaultValue": false
+            },
+            {
+              "file": "scripts/common/default_config.js",
+              "line": 19,
+              "key": "code_blocks.shrink",
+              "defaultValue": false
+            }
+          ],
+          "upstreamInventory": "yaml",
+          "halo": {
+            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+            "settings": [
+              "render.enable_code_expander"
+            ],
+            "code": [
+              "src/js/modules/CodeBlock.js",
+              "src/scss/modules/codeBlock.scss",
+              "src/html/post.html",
+              "src/html/page.html",
+              "src/html/views/components.html",
+              "settings.yaml"
+            ],
+            "finding": "已映射 code_blocks.shrink：enable_code_expander 关闭对应 none（不输出折叠按钮）；开启对应 false（默认展开并显示按钮）。尚未实现 shrink=true 默认折叠，亦未双站对照验收。"
+          },
+          "dependencies": [
+            "dual-site",
+            "halo-core"
+          ],
+          "acceptance": {
+            "profile": "code",
+            "cases": [
+              "code_blocks.shrink：逐值执行 true / false / \"none\"。",
+              "保持同组其他设置不变；验证 code_blocks.shrink 与全局/逐页覆盖的优先级。"
+            ],
+            "values": [
+              true,
+              false,
+              "none"
+            ],
+            "contractScenarios": [
+              "ENV-02",
+              "PAGE-01",
+              "POST-01",
+              "PLG-06",
+              "CFG-01"
+            ]
+          },
+          "tracking": {
+            "issues": [
+              "https://github.com/songxychn/halo-butterfly-next/issues/2",
+              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+            ],
+            "pullRequests": [
+              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+            ]
+          },
+          "evidence": [],
+          "status": "implemented-unverified"
         },
-        {
-          "file": "scripts/common/default_config.js",
-          "line": 19,
-          "key": "code_blocks.shrink",
-          "defaultValue": false
-        }
-      ],
-      "upstreamInventory": "yaml",
-      "halo": {
-        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [
-          "render.enable_code_expander"
-        ],
-        "code": [
-          "src/js/modules/CodeBlock.js"
-        ],
-        "finding": "已有折叠按钮开关，缺少上游 true/false/none 三态默认规则。"
-      },
-      "dependencies": [
-        "dual-site",
-        "halo-core"
-      ],
-      "acceptance": {
-        "profile": "code",
-        "cases": [
-          "code_blocks.shrink：逐值执行 true / false / \"none\"。",
-          "保持同组其他设置不变；验证 code_blocks.shrink 与全局/逐页覆盖的优先级。"
-        ],
-        "values": [
-          true,
-          false,
-          "none"
-        ],
-        "contractScenarios": [
-          "ENV-02",
-          "PAGE-01",
-          "POST-01",
-          "PLG-06",
-          "CFG-01"
-        ]
-      },
-      "tracking": {
-        "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
-        ],
-        "pullRequests": []
-      },
-      "evidence": [],
-      "status": "implemented-unverified"
-    },
     {
       "id": "config:code_blocks.fullpage",
       "kind": "config",
@@ -45252,55 +45293,62 @@
       "evidence": [],
       "status": "gap"
     },
-    {
-      "id": "interaction:copy-code",
-      "kind": "interaction",
-      "key": "copy-code",
-      "title": "复制代码成功与失败",
-      "sources": [
-        {
-          "file": "source/js/main.js",
-          "line": 132,
-          "symbol": "const copy = async"
-        }
-      ],
-      "upstreamInventory": "manual",
-      "halo": {
-        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
-        "code": [
-          "src/js/modules/CodeBlock.js",
-          "src/scss/modules/codeBlock.scss",
-          "src/html/post.html",
-          "src/html/page.html"
-        ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
-      },
-      "dependencies": [
-        "dual-site",
-        "halo-core"
-      ],
-      "acceptance": {
-        "profile": "code",
-        "cases": [
-          "剪贴板包含代码原文，权限拒绝时明确提示，行号不被复制。"
-        ],
-        "contractScenarios": [
-          "ENV-02",
-          "PAGE-01",
-          "POST-01",
-          "PLG-06"
-        ]
-      },
-      "tracking": {
-        "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
-        ],
-        "pullRequests": []
-      },
-      "evidence": [],
-      "status": "gap"
-    },
+                {
+          "id": "interaction:copy-code",
+          "kind": "interaction",
+          "key": "copy-code",
+          "title": "复制代码成功与失败",
+          "sources": [
+            {
+              "file": "source/js/main.js",
+              "line": 132,
+              "symbol": "const copy = async"
+            }
+          ],
+          "upstreamInventory": "manual",
+          "halo": {
+            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+            "settings": [
+              "render.enable_code_copy"
+            ],
+            "code": [
+              "src/js/modules/CodeBlock.js",
+              "src/scss/modules/codeBlock.scss",
+              "src/html/post.html",
+              "src/html/page.html",
+              "src/html/views/components.html",
+              "settings.yaml"
+            ],
+            "finding": "复制按钮为可点击/键盘激活的 button；成功有消息与 copy-notice；关闭 copy 后不输出按钮。尚未双站对照验收。"
+          },
+          "dependencies": [
+            "dual-site",
+            "halo-core"
+          ],
+          "acceptance": {
+            "profile": "code",
+            "cases": [
+              "剪贴板包含代码原文，权限拒绝时明确提示，行号不被复制。"
+            ],
+            "contractScenarios": [
+              "ENV-02",
+              "PAGE-01",
+              "POST-01",
+              "PLG-06"
+            ]
+          },
+          "tracking": {
+            "issues": [
+              "https://github.com/songxychn/halo-butterfly-next/issues/2",
+              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+            ],
+            "pullRequests": [
+              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+            ]
+          },
+          "evidence": [],
+          "status": "implemented-unverified"
+        },
     {
       "id": "interaction:collapse-code",
       "kind": "interaction",
