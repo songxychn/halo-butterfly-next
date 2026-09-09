@@ -44,7 +44,8 @@
       <th:block th:replace="~{views/nav}"/>
 
       <!--/* 第一屏内容 */-->
-      <section class="above" th:if="${theme.config.index.enable_above}">
+      <section class="above" th:if="${theme.config.index.enable_above}"
+               th:style="|height: ${#strings.isEmpty(theme.config.index.top_img_height) ? '100vh' : theme.config.index.top_img_height}; --index-site-info-top: ${#strings.isEmpty(theme.config.index.site_info_top) ? '50%' : theme.config.index.site_info_top};|">
         <div class="above-info">
           <h1 class="above-title" th:text="${site.title}"></h1>
           <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false}">

@@ -131,6 +131,42 @@ spec:
     - group: nav
       label: 导航设置
       formSchema:
+        - $formkit: radio
+          name: fixed
+          label: 滚动后始终固定导航
+          help: 关闭时滚动超过导航高度后向下隐藏、向上显示（上游 nav.fixed 默认关闭）。开启后导航始终吸顶可见。
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: attachment
+          name: logo
+          label: 导航 Logo
+          placeholder: 可选，留空不显示
+          value: ""
+          help: 显示在站点标题左侧。留空不显示图片。
+        - $formkit: radio
+          name: display_title
+          label: 显示站点标题
+          help: 关闭后导航不显示站点名，可只保留 Logo。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: radio
+          name: display_post_title
+          label: 滚动后显示文章标题
+          help: 仅文章页。开启且导航进入滚动固定态时，用文章标题替换站点名。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
         - $formkit: group
           name: font_color
           label: 导航栏默认字体颜色
@@ -447,6 +483,18 @@ spec:
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
           help: 如果全局背景图设置为图片链接，则此处背景图将不生效
           validation: required
+        - $formkit: text
+          name: top_img_height
+          label: 首页第一屏高度
+          placeholder: 例如 100vh、60vh、500px
+          value: ""
+          help: 留空为全屏 100vh，对应上游 index_top_img_height。
+        - $formkit: text
+          name: site_info_top
+          label: 首页标题垂直位置
+          placeholder: 例如 43%、50%、20%
+          value: ""
+          help: 留空为垂直居中。对应上游 index_site_info_top。
         - $formkit: radio
           name: enable_subtitle
           label: 启用首页字幕
