@@ -2393,12 +2393,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游开关和排列方式从 Halo Post 元数据与统计读取显示内容。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/views/components.html"
+        "settings": [
+          "index.post_meta.date_type"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/scss/modules/components.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 post_meta.page.date_type（created/updated/both），默认 created；缺省只显示发布日。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2423,12 +2426,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/52"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/54"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_meta.page.date_format",
@@ -2510,12 +2516,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游开关和排列方式从 Halo Post 元数据与统计读取显示内容。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/views/components.html"
+        "settings": [
+          "index.post_meta.categories"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/scss/modules/components.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 post_meta.page.categories；false 时列表卡片不渲染分类。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2535,12 +2544,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/52"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/54"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_meta.page.tags",
@@ -2564,12 +2576,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游开关和排列方式从 Halo Post 元数据与统计读取显示内容。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/views/components.html"
+        "settings": [
+          "index.post_meta.tags"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/scss/modules/components.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 post_meta.page.tags；默认显示，false 时列表卡片不渲染标签。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2589,12 +2604,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/52"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/54"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_meta.page.label",
@@ -2618,12 +2636,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游开关和排列方式从 Halo Post 元数据与统计读取显示内容。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/views/components.html"
+        "settings": [
+          "index.post_meta.label"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/scss/modules/components.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 post_meta.page.label；false 时去掉发布于/更新于前缀。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2643,12 +2664,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/52"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/54"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_meta.post.position",

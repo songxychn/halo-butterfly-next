@@ -68,12 +68,16 @@
   </li>
 </ul>
 
-<!--/* 文章列表  */-->
+<!--/* 文章列表。日期/分类/标签受 index.post_meta（上游 post_meta.page）控制；评论/点赞/预览不是 post_meta。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
   th:class="${'essay ' + layout}"
-  th:with="noData = ${not #lists.isEmpty(data)}"
+  th:with="
+    noData = ${not #lists.isEmpty(data)},
+    dateType = ${theme.config.index.post_meta?.date_type},
+    showLabel = ${theme.config.index.post_meta?.label != false}
+  "
 >
   <th:block th:if="${noData}">
     <li class="item card" th:each="post : ${data}">
@@ -100,18 +104,30 @@
           </div>
 
           <div class="row">
-          <span class="wp publishTime">
-            <i class="far fa-calendar-alt fa-bolt"></i>
-            <time th:datetime="${post.spec.publishTime}" th:text="'发布于 '+${#dates.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></time>
-          </span>
-            <span class="wp category" th:if="${!#arrays.isEmpty(post.categories)}">
-            <i class="fas fa-inbox"></i>
-            <span class="cys">
-              <th:block th:each="cy : ${post.categories}">
-                <a class="link" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
-              </th:block>
+            <span class="wp publishTime" th:if="${dateType != 'updated'}">
+              <i class="far fa-calendar-alt fa-bolt"></i>
+              <time th:datetime="${post.spec.publishTime}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
             </span>
-          </span>
+            <span class="wp lastModifyTime" th:if="${dateType == 'updated' or dateType == 'both'}">
+              <i class="fas fa-history fa-fw"></i>
+              <time th:datetime="${post.status.lastModifyTime}" th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+            </span>
+            <span class="wp category" th:if="${theme.config.index.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
+              <i class="fas fa-inbox"></i>
+              <span class="cys">
+                <th:block th:each="cy : ${post.categories}">
+                  <a class="link" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+                </th:block>
+              </span>
+            </span>
+            <span class="wp tag" th:if="${theme.config.index.post_meta?.tags != false and not #lists.isEmpty(post.tags)}">
+              <i class="fa-solid fa-tags"></i>
+              <span class="cys">
+                <th:block th:each="cy : ${post.tags}">
+                  <a class="link" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+                </th:block>
+              </span>
+            </span>
           </div>
         </div>
         <div th:if="${layout == 'list'}" class="excerpt" th:text="${post.spec.excerpt.raw}"></div>

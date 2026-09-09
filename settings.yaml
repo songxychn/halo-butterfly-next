@@ -553,6 +553,58 @@ spec:
               value: list
             - label: 平铺
               value: tile
+        - $formkit: group
+          name: post_meta
+          label: 首页列表元信息
+          help: 对应上游 Butterfly post_meta.page（不含 date_format / relative）。控制首页/分类/标签列表卡片上的日期、分类与标签。
+          value:
+            date_type: created
+            categories: true
+            tags: true
+            label: true
+          children:
+            - $formkit: radio
+              name: date_type
+              label: 日期显示
+              help: 对应上游 post_meta.page.date_type。created 只发布日（默认），updated 只更新日，both 两者。
+              value: created
+              options:
+                - label: 仅发布日
+                  value: created
+                - label: 仅更新日
+                  value: updated
+                - label: 发布日与更新日
+                  value: both
+            - $formkit: radio
+              name: categories
+              label: 显示分类
+              help: 对应上游 post_meta.page.categories。关闭后即使有分类也不渲染。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+            - $formkit: radio
+              name: tags
+              label: 显示标签
+              help: 对应上游 post_meta.page.tags。关闭后即使有标签也不渲染。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+            - $formkit: radio
+              name: label
+              label: 显示日期前缀
+              help: 对应上游 post_meta.page.label。关闭后不显示「发布于」「更新于」等前缀。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
     #文章设置
     - group: post
       label: 文章设置
