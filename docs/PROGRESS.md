@@ -117,12 +117,25 @@
 | P2（审查已列） | `shrink=true` 默认折叠未做；`page.html` 无逐页 copy 注解；无双站。**不**关闭 POST-01 / PAGE-01 |
 | 审查链 | 相对 `a05107a`；`settingsSha256` `d7f1092b6686c1c11a0f64d109caef3c2f1847cde1a6f20667b3b1cd48b39cbb` 与 freeze 一致，sourceCommit `3942fce`。同 GitHub 账户不能 Approve |
 
-截至本轮记录，origin/master 矩阵为 897：536 待补齐、262 待平台映射、89 有实现待验、10 推进中、0 已完成全部验收。本记录不改矩阵文件。下一刀是 [#61](https://github.com/songxychn/halo-butterfly-next/issues/61)（侧栏封面 `cover.aside_enable`），尚未完成。
+截至本轮记录，origin/master 矩阵为 897：536 待补齐、262 待平台映射、89 有实现待验、10 推进中、0 已完成全部验收。本记录不改矩阵文件。下一刀是 [#61](https://github.com/songxychn/halo-butterfly-next/issues/61)（侧栏封面 `cover.aside_enable`），尚未完成。[PR #62](https://github.com/songxychn/halo-butterfly-next/pull/62) 已合并 `a382af9`（2026-09-09T14:58:16Z），其 [master CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34367135493) 通过（`gh run view` 等到 completed 后为 success；该运行在 #63 合入推送前已于 2026-09-09T14:59:50Z 结束，不得写成 cancelled）。[#61](https://github.com/songxychn/halo-butterfly-next/issues/61) 已由 [PR #63](https://github.com/songxychn/halo-butterfly-next/pull/63) 关闭，见下节。
+
+## 2026-09-09：侧栏最近文章与 cover.aside_enable 合入
+
+[PR #63](https://github.com/songxychn/halo-butterfly-next/pull/63) 已合并，关闭 [#61](https://github.com/songxychn/halo-butterfly-next/issues/61)。审查/CI head `81bc030`；合并 `d11357d`（2026-09-09T15:08:48Z）。[PR CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34367854243) 通过（98 tests、124 文件）。合并提交的 [master CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/34368311111) 通过（`gh run view` 等到 completed 后为 success）。独立审查为 [issue comment 5604127343](https://github.com/songxychn/halo-butterfly-next/pull/63#issuecomment-5604127343)（非作者 explore，非 GitHub Approve；reviews 为空；verdict approve，无 P1）。见[审查摘要](validation/2026-09-08/cover-aside-review.json)。
+
+| 项目 | 结果与边界 |
+| --- | --- |
+| 新升矩阵 | `config:cover.aside_enable`、`config:aside.card_recent_post.enable`、`limit`、`sort`、`template:includes/widget/card_recent_post` 升为 `implemented-unverified`，**不**标 `verified` |
+| 仍 gap | `config:cover.archives_enable`、`config:aside.card_recent_post.sort_order` 仍 gap。本刀不做这两项。归档页 `archives.html` 目前无条件渲染封面 |
+| P2（审查已列） | 无双站；`limit=0` Halo 封顶 20；`postFinder` sort 运行时未验。**不**关闭 PAGE-01 |
+| 审查链 | 相对 `81bc030`；`settingsSha256` `1519fb73c5e6d54101e79946a3706b23ed49c44370bdef328bf67145df6cd41e` 与 freeze 一致，sourceCommit `a0a2600`。同 GitHub 账户不能 Approve |
+
+截至本轮记录，origin/master 矩阵为 897：531 待补齐、262 待平台映射、94 有实现待验、10 推进中、0 已完成全部验收。本记录不改矩阵文件。下一刀是 [#64](https://github.com/songxychn/halo-butterfly-next/issues/64)（归档封面 `cover.archives_enable`），尚未完成。
 
 ## 正在推进
 
 1. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：测量工具已由 [PR #43](https://github.com/songxychn/halo-butterfly-next/pull/43) 合入 master `0aaacc9`。GitHub issue 已因 Closes 关闭，但 PERF-01/02/03 合同仍不关闭；尚未跑 160 份真实采样，须集成负责人分配专属站与 CPU 窗口。P/P+ 是页面集合，不是插件安装配置。
-2. M1 用户可见切片：[PR #47](https://github.com/songxychn/halo-butterfly-next/pull/47) 已合入（首页首屏与导航 logo/标题/fixed）。[PR #51](https://github.com/songxychn/halo-butterfly-next/pull/51) 已合入（文章页 `post_meta.post` 五项，不含 `date_format`）。[PR #54](https://github.com/songxychn/halo-butterfly-next/pull/54) 已合入（列表 `post_meta.page` 四项，不含 `date_format`）。[PR #57](https://github.com/songxychn/halo-butterfly-next/pull/57) 已合入（首页列表封面 `cover.index_enable` / `default_cover`，不含 aside/archives）。[PR #60](https://github.com/songxychn/halo-butterfly-next/pull/60) 已合入（文章页代码块工具栏 copy/shrink/language/macStyle/height_limit 与复制交互，不含 word_wrap/fullpage）。下一刀是 [#61](https://github.com/songxychn/halo-butterfly-next/issues/61)（侧栏封面 `cover.aside_enable`），尚未完成；双站对照后才把相关矩阵项从待验推进。站点级 PAGE-01/A11Y/PERF 仍是 RC 门禁。
+2. M1 用户可见切片：[PR #47](https://github.com/songxychn/halo-butterfly-next/pull/47) 已合入（首页首屏与导航 logo/标题/fixed）。[PR #51](https://github.com/songxychn/halo-butterfly-next/pull/51) 已合入（文章页 `post_meta.post` 五项，不含 `date_format`）。[PR #54](https://github.com/songxychn/halo-butterfly-next/pull/54) 已合入（列表 `post_meta.page` 四项，不含 `date_format`）。[PR #57](https://github.com/songxychn/halo-butterfly-next/pull/57) 已合入（首页列表封面 `cover.index_enable` / `default_cover`，不含 aside/archives）。[PR #60](https://github.com/songxychn/halo-butterfly-next/pull/60) 已合入（文章页代码块工具栏 copy/shrink/language/macStyle/height_limit 与复制交互，不含 word_wrap/fullpage）。[PR #63](https://github.com/songxychn/halo-butterfly-next/pull/63) 已合入（侧栏最近文章与 `cover.aside_enable`，不含 `archives_enable` / `sort_order`）。下一刀是 [#64](https://github.com/songxychn/halo-butterfly-next/issues/64)（归档封面 `cover.archives_enable`），尚未完成；双站对照后才把相关矩阵项从待验推进。站点级 PAGE-01/A11Y/PERF 仍是 RC 门禁。
 3. DEC-01/02/03 决策样例：搜索/评论提供方、标签语法、PWA/PJAX/生成器，用可运行双站差异提请维护者裁定；裁定前不删减矩阵分母。
 4. 双站已知的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。提供方替代、内容语法兼容等实质取舍在有具体样例后交维护者裁定。
 

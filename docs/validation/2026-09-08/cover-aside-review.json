@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 61,
+  "pr": 63,
+  "title": "M1：侧栏最近文章与 cover.aside_enable",
+  "author": "cursor/m1-cover-aside",
+  "recorder": "cursor/record-63",
+  "recordedAt": "2026-09-09T15:12:00Z",
+  "visibility": "private",
+  "sourceSha": "81bc030e9f952738057bfda026f593a42095e4a2",
+  "reviewHead": "81bc030e9f952738057bfda026f593a42095e4a2",
+  "mergeSha": "d11357dbd23454188dd4dfd43f2b8fc0284d8cea",
+  "mergedAt": "2026-09-09T15:08:48Z",
+  "closesIssue": 61,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/63#issuecomment-5604127343",
+    "createdAt": "2026-09-09T15:08:26Z",
+    "head": "81bc030e9f952738057bfda026f593a42095e4a2",
+    "note": "Independent non-author explore review posted as issue comment 5604127343, not a GitHub Approve. Verdict: approve. No P1. Does not close PAGE-01."
+  },
+  "settingsSha256": "1519fb73c5e6d54101e79946a3706b23ed49c44370bdef328bf67145df6cd41e",
+  "productCommits": [
+    {
+      "sha": "a0a2600",
+      "summary": "Align sidebar recent-post card and cover.aside_enable"
+    },
+    {
+      "sha": "b1373f4",
+      "summary": "Refreeze performance theme-defaults.json onto the sidebar recent-post implementation commit"
+    },
+    {
+      "sha": "81bc030",
+      "summary": "Register #63 onto sidebar recent-post and cover.aside_enable matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:cover.aside_enable",
+    "config:aside.card_recent_post.enable",
+    "config:aside.card_recent_post.limit",
+    "config:aside.card_recent_post.sort",
+    "template:includes/widget/card_recent_post"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:cover.archives_enable",
+    "config:aside.card_recent_post.sort_order"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 531,
+    "mapping-required": 262,
+    "implemented-unverified": 94,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 64,
+    "state": "OPEN",
+    "title": "M1：归档封面 cover.archives_enable",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/64",
+    "note": "Opened follow-up; not completed in this record. archives.html currently renders timeline covers unconditionally. This slice does not implement cover.archives_enable or aside.card_recent_post.sort_order."
+  },
+  "precedingDocsPr": {
+    "pr": 62,
+    "title": "docs: 记录 #60 代码块工具栏合并证据",
+    "headSha": "e0666557583706eaa5c6d2f6216da9bdfbc923dd",
+    "mergeSha": "a382af92730834dda7c4ebb00b0381319773a288",
+    "mergedAt": "2026-09-09T14:58:16Z",
+    "prCi": 34366920827,
+    "prCiConclusion": "success",
+    "masterCi": 34367135493,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34367135493",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/62#issuecomment-5603979133",
+    "note": "Push-event master CI on a382af92730834dda7c4ebb00b0381319773a288 completed success at 2026-09-09T14:59:50Z, before the #63 merge push at 2026-09-09T15:08:48Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34367854243,
+      "runAttempt": 1,
+      "headSha": "81bc030e9f952738057bfda026f593a42095e4a2",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34367854243",
+      "note": "pnpm verify on this run: tests 98; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34368311111,
+      "runAttempt": 1,
+      "headSha": "d11357dbd23454188dd4dfd43f2b8fc0284d8cea",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34368311111",
+      "note": "Waited with gh run view until completed. tests 98; package check 124 files; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #63; there is no Approve. Independent review is issue comment 5604127343 by songxychn, described as a non-author explore review; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 81bc030e9f952738057bfda026f593a42095e4a2: newly raised to implemented-unverified are config:cover.aside_enable, config:aside.card_recent_post.enable, config:aside.card_recent_post.limit, config:aside.card_recent_post.sort, and template:includes/widget/card_recent_post. config:cover.archives_enable and config:aside.card_recent_post.sort_order stay gap.",
+    "settingsSha256 1519fb73c5e6d54101e79946a3706b23ed49c44370bdef328bf67145df6cd41e matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit a0a26009dddde8845664a6fcfe5eef28682f3abc.",
+    "aside_enable only controls recent-post thumbnails. enable=false omits the whole card. Cover priority matches homepage list: post cover > default_cover > random_enable. aside_enable=false or no image yields no-cover and no img.",
+    "limit: null→5; ≤0 or >20 capped at 20 (upstream 0=all; Halo postFinder.list page size). sort: date→spec.publishTime,desc; updated→status.lastModifyTime,desc.",
+    "Non-blocking P2 from the independent review: no dual-site lab; limit=0 Halo-capped at 20; postFinder sort not runtime-verified. Additional review P2: non-img covers are not shown as aside thumbnails (same as homepage list); card title is hardcoded 最新文章; aside-recent-post icon color not dark-mode checked.",
+    "Does not close PAGE-01. Next slice is open #64 cover.archives_enable (archives.html currently renders covers unconditionally), not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:cover.aside_enable, config:aside.card_recent_post.enable, config:aside.card_recent_post.limit, config:aside.card_recent_post.sort, and template:includes/widget/card_recent_post.",
+    "config:cover.archives_enable and config:aside.card_recent_post.sort_order remain gap; this slice does not implement them. archives.html currently renders timeline covers unconditionally.",
+    "limit=0 is Halo-capped at 20 (upstream 0=all); documented, not dual-site verified.",
+    "postFinder.list({sort}) is statically aligned but not runtime-verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #62 merge-commit master CI run 34367135493 on a382af92730834dda7c4ebb00b0381319773a288 completed success before the #63 push; must not be recorded as cancelled.",
+    "Issue #64 cover.archives_enable is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
