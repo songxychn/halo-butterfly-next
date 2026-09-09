@@ -20,13 +20,13 @@ test('封面默认值对齐上游 Butterfly 5.7.0 cover.index_enable / default_c
   assert.equal(defaults.loading.img.random_enable, false);
 });
 
-test('settings 仅暴露 index_enable 与 default_cover，不含 aside/archives', async () => {
+test('settings 暴露 index_enable、default_cover 与 aside_enable，仍不含 archives_enable', async () => {
   const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
   const cover = settings.spec.forms.find(form => form.group === 'cover');
   assert.ok(cover);
   const names = cover.formSchema.map(node => node.name);
-  assert.deepEqual(names, ['index_enable', 'default_cover']);
-  assert.ok(!names.includes('aside_enable') && !names.includes('archives_enable'));
+  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable']);
+  assert.ok(!names.includes('archives_enable'));
 });
 
 test('list fragment：index_enable=false 不渲染封面；无文章封面时用 default_cover', async () => {

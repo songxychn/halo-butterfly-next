@@ -45,6 +45,55 @@
   <div class="content" th:utext="${theme.config.aside.notice}"></div>
 </section>
 
+<!--/* 最近文章。对齐上游 card_recent_post；封面受 cover.aside_enable 控制。 */-->
+<section
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="recentPost"
+  th:if="${theme.config.aside.card_recent_post.enable != false}"
+  class="aside-recent-post card"
+>
+  <h1 class="title">
+    <i class="fas fa-history"></i>
+    <span class="name">最新文章</span>
+  </h1>
+
+  <div
+    class="content"
+    th:with="
+      rawLimit = ${theme.config.aside.card_recent_post.limit},
+      recentLimit = ${rawLimit == null ? 5 : ((rawLimit <= 0 or rawLimit > 20) ? 20 : rawLimit)},
+      sortUpdated = ${theme.config.aside.card_recent_post.sort == 'updated'},
+      recentResult = ${sortUpdated ? postFinder.list({page: 1, size: recentLimit, sort: {'status.lastModifyTime,desc'}}) : postFinder.list({page: 1, size: recentLimit, sort: {'spec.publishTime,desc'}})},
+      recentPosts = ${recentResult.items},
+      noData = ${not #lists.isEmpty(recentPosts)}
+    "
+  >
+    <th:block th:if="${noData}">
+      <a
+        class="item"
+        th:each="post : ${recentPosts}"
+        th:href="${post.status.permalink}"
+        th:title="${post.spec.title}"
+        th:with="
+          coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+          showCover = ${theme.config.cover.aside_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+        "
+        th:classappend="${showCover ? '' : ' no-cover'}"
+      >
+        <span th:if="${showCover}" class="thumbnail">
+          <img th:replace="~{views/components:: lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+        </span>
+        <span class="info">
+          <span class="name" th:text="${post.spec.title}"></span>
+          <time th:if="${sortUpdated}" th:datetime="${post.status.lastModifyTime}" th:text="${#dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+          <time th:unless="${sortUpdated}" th:datetime="${post.spec.publishTime}" th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+        </span>
+      </a>
+    </th:block>
+    <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+  </div>
+</section>
+
 <!--/* 分类 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="category" th:if="${theme.config.aside.enable_category}" class="aside-category card">
   <h1 class="title">
@@ -113,6 +162,7 @@
 <aside xmlns:th="https://www.thymeleaf.org" th:fragment="common" th:if="${theme.config.aside.enable}" class="aside">
   <th:block th:replace="~{::user}"/>
   <th:block th:replace="~{::notice}"/>
+  <th:block th:replace="~{::recentPost}"/>
   <th:block th:replace="~{::category}"/>
   <th:block th:replace="~{::tags}"/>
   <th:block th:replace="~{::webInfo}"/>
@@ -130,4 +180,5 @@
       </div>
     </section>
   </div>
+  <th:block th:replace="~{::recentPost}"/>
 </aside>

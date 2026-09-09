@@ -404,6 +404,42 @@ spec:
           placeholder: 请填写 侧边栏公告内容
           value: '好博客，一定要 分享出去 呀~'
           help: 侧边栏公告内容, 支持 html 代码片段
+        - $formkit: group
+          name: card_recent_post
+          label: 最近文章
+          help: 对应上游 aside.card_recent_post。不含 sort_order、card_archives、card_newest_comments。
+          value:
+            enable: true
+            limit: 5
+            sort: date
+          children:
+            - $formkit: radio
+              name: enable
+              label: 显示最近文章卡片
+              help: 对应上游 aside.card_recent_post.enable（默认开启）。关闭后侧栏不渲染该卡片。
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: limit
+              label: 显示数量
+              help: 对应上游 aside.card_recent_post.limit（默认 5）。上游 0 表示全部；Halo 最多取 20 篇（填 0 或大于 20 时按 20）。
+              value: 5
+              min: 0
+              max: 20
+            - $formkit: radio
+              name: sort
+              label: 排序字段
+              help: 对应上游 aside.card_recent_post.sort。date 用 publishTime，updated 用 lastModifyTime。不含 sort_order。
+              value: date
+              options:
+                - label: 发布时间
+                  value: date
+                - label: 更新时间
+                  value: updated
         - $formkit: radio
           name: enable_category
           label: 启用侧边栏分类
@@ -625,6 +661,16 @@ spec:
           placeholder: 可选，文章未设置封面时使用
           value: ""
           help: 对应上游 cover.default_cover。留空对齐上游 null。上游可为 URL 数组并由 random_cover.js 去重随机；Halo 此项为单张附件/URL。优先级：文章封面 > 本默认封面 > loading.img.random_enable。
+        - $formkit: radio
+          name: aside_enable
+          label: 侧栏最近文章显示封面
+          help: 对应上游 Butterfly cover.aside_enable（默认开启）。只作用于侧栏最近文章卡片的缩略图；关闭后该卡片以 no-cover 展示且不输出缩略图。不做归档封面（cover.archives_enable）。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
     #文章设置
     - group: post
       label: 文章设置
