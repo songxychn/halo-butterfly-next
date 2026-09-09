@@ -774,14 +774,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
+        "settings": [
+          "render.enable_code_word_wrap"
+        ],
         "code": [
           "src/js/modules/CodeBlock.js",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
-          "src/html/page.html"
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 code_blocks.word_wrap 为 render.enable_code_word_wrap；默认 false，关闭时保持横向滚动，开启时给包装加上 word-wrap 并换行。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -803,12 +807,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/67"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
                 {
           "id": "config:code_blocks.copy",

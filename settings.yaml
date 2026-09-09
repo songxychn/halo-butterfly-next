@@ -926,6 +926,17 @@ spec:
               value: 200
             - label: 400px
               value: 400
+        - $formkit: radio
+          name: enable_code_word_wrap
+          if: $get(enable_code).value
+          label: 启用代码块自动换行
+          help: 对应上游 code_blocks.word_wrap。默认关闭；关闭时横向滚动，开启时长行换行。
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
         - $formkit: select
           name: code_theme_light
           if: $get(enable_code).value
