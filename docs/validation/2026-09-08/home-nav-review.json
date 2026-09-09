@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 44,
+  "pr": 47,
+  "title": "M1：首页首屏与导航 logo/标题/fixed 配置",
+  "author": "cursor/m1-home-nav",
+  "recorder": "cursor/record-47",
+  "recordedAt": "2026-09-09T03:44:00Z",
+  "visibility": "private",
+  "sourceSha": "5519dd0b2ac7ae88abab2aabfbdc10830f59eefc",
+  "reviewHead": "5519dd0b2ac7ae88abab2aabfbdc10830f59eefc",
+  "mergeSha": "d6343f651b0bb1254dfed018d553a9db27802410",
+  "mergedAt": "2026-09-09T01:39:00Z",
+  "closesIssue": 44,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "earlyReview": {
+    "head": "b2bc6e49223db39972e59b250f1f79a0ddf8d695",
+    "agentId": "258c400c-f555-446f-92c3-0de5244784d5",
+    "role": "explore-subagent",
+    "verdict": "changes-requested",
+    "finding": "P2-1: when nav.fixed=true, the post title must not switch on the first screen"
+  },
+  "productFix": {
+    "sha": "f3c790554822c73c83b877090c96671128efb34a",
+    "summary": "Title switch binds only .style.has-post; alwaysPinned past 56px still adds .style but not .active; CSS .fixed.style { top: 0 }"
+  },
+  "followUpComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/47#issuecomment-5588600471",
+    "createdAt": "2026-09-08T16:39:51Z",
+    "head": "5519dd0b2ac7ae88abab2aabfbdc10830f59eefc",
+    "note": "Author-account follow-up after rebase onto #43 and theme-defaults.json refreeze. Checked freeze and scroll pure functions/CSS; did not change product code again. This is not a GitHub Approve."
+  },
+  "settingsSha256": "f87efe3716472c64156072c03c9cf914a70b60ded5e83b3a8799b33d9520af05",
+  "navFixedDefault": {
+    "value": false,
+    "meaning": "scroll show/hide after nav height; not disabling sticky. true keeps the nav always pinned and visible."
+  },
+  "matrixItemsRaised": [
+    "config:nav.fixed",
+    "config:nav.logo",
+    "config:nav.display_title",
+    "config:nav.display_post_title",
+    "config:index_top_img_height",
+    "config:index_site_info_top",
+    "interaction:sticky-nav",
+    "template:includes/header/nav"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34252140952,
+      "runAttempt": 2,
+      "headSha": "5519dd0b2ac7ae88abab2aabfbdc10830f59eefc",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34252140952",
+      "note": "First attempt of this run failed at actions/upload-artifact FinalizeArtifact 403; failed steps were rerun. pnpm verify on attempt 2: tests 71 / pass 71."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34300046974,
+      "headSha": "d6343f651b0bb1254dfed018d553a9db27802410",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34300046974",
+      "note": "Cancelled a few seconds later by the #48 merge push. Must be recorded as cancelled, not success."
+    },
+    "successorMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34300050425,
+      "headSha": "08f31b012015bc25f759626b4263b6528089f0cd",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34300050425",
+      "note": "Current origin/master at record time (Merge #48). Common tree that contains #47."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #47; there is no Approve. Follow-up is issue comment 5588600471 by songxychn on the same account that opened the PR.",
+    "Early head b2bc6e49223db39972e59b250f1f79a0ddf8d695 was changes-requested (P2-1) by explore subagent 258c400c-f555-446f-92c3-0de5244784d5.",
+    "Fix f3c790554822c73c83b877090c96671128efb34a: post title switches only with .style.has-post; alwaysPinned past 56px adds .style without .active; .fixed.style { top: 0 }.",
+    "Review head 5519dd0b2ac7ae88abab2aabfbdc10830f59eefc rebased onto merged #43 and refroze fixtures/performance/theme-defaults.json settingsSha256 f87efe3716472c64156072c03c9cf914a70b60ded5e83b3a8799b33d9520af05.",
+    "nav.fixed default false means scroll show/hide, not turning sticky off. settings.yaml help: 关闭时滚动超过导航高度后向下隐藏、向上显示；开启后导航始终吸顶可见.",
+    "Eight matrix rows moved gap → implemented-unverified. None are verified. PAGE-01 / A11Y / PERF stay open. No dual-site lab evidence."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close PAGE-01, A11Y, or PERF contract scenarios.",
+    "Does not mark any matrix row verified; at most implemented-unverified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "Merge-commit master CI run 34300046974 on d6343f651b0bb1254dfed018d553a9db27802410 is cancelled; must not be recorded as success. Successor master 08f31b012015bc25f759626b4263b6528089f0cd CI 34300050425 succeeded.",
+    "This docs PR does not change matrix.json; 404/pagination rows may still be gap even if implementation exists on master."
+  ]
+}
