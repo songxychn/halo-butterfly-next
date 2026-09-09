@@ -115,6 +115,20 @@
     }
   }
 
+  &.word-wrap {
+    pre[class*=language-] {
+      white-space: pre-wrap;
+      overflow-x: visible;
+
+      code[class*=language-] {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        overflow-x: hidden;
+      }
+    }
+  }
+
   &.has-height-limit {
     &:not(.expand-done) {
       pre[class*=language-] code[class*=language-] {

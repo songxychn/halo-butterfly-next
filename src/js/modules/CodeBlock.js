@@ -67,6 +67,7 @@ export default class codeBlock {
       if (!toolbar.length) return;
 
       if (this.#flag('enable_code_mac_style')) wrap.addClass('mac-style');
+      if (this.#flag('enable_code_word_wrap')) wrap.addClass('word-wrap');
 
       if (this.#flag('enable_code_title')) toolbar.addClass('enable-title');
       else toolbar.find('.toolbar-item').first().remove();
