@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 59,
+  "pr": 60,
+  "title": "M1：文章页代码块工具栏开关与复制",
+  "author": "cursor/m1-code-blocks",
+  "recorder": "cursor/record-60",
+  "recordedAt": "2026-09-09T14:50:30Z",
+  "visibility": "private",
+  "sourceSha": "a05107adfb30697435b3a1b41e258ee5701c03d9",
+  "reviewHead": "a05107adfb30697435b3a1b41e258ee5701c03d9",
+  "mergeSha": "f16928842c21518e33e6b73c5039a031ce0934dd",
+  "mergedAt": "2026-09-09T14:48:05Z",
+  "closesIssue": 59,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/60#issuecomment-5603824792",
+    "createdAt": "2026-09-09T14:47:34Z",
+    "head": "a05107adfb30697435b3a1b41e258ee5701c03d9",
+    "note": "Independent non-author explore review posted as issue comment 5603824792, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "d7f1092b6686c1c11a0f64d109caef3c2f1847cde1a6f20667b3b1cd48b39cbb",
+  "productCommits": [
+    {
+      "sha": "3942fce",
+      "summary": "Make post code-block toolbar copy/shrink/language/macStyle closable and add keyboard-activatable copy feedback"
+    },
+    {
+      "sha": "b74a690",
+      "summary": "Refreeze performance theme-defaults.json onto the code-block toolbar implementation commit"
+    },
+    {
+      "sha": "a05107a",
+      "summary": "Register #59 onto post code-block toolbar matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:code_blocks.height_limit",
+    "interaction:copy-code"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:code_blocks.copy",
+    "config:code_blocks.shrink",
+    "config:code_blocks.language",
+    "config:code_blocks.macStyle"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:code_blocks.word_wrap",
+    "config:code_blocks.fullpage"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 536,
+    "mapping-required": 262,
+    "implemented-unverified": 89,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 61,
+    "state": "OPEN",
+    "title": "M1：侧栏封面 cover.aside_enable",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/61",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement cover.archives_enable or code_blocks.word_wrap/fullpage."
+  },
+  "precedingDocsPr": {
+    "pr": 58,
+    "title": "docs: 记录 #57 首页列表封面合并证据",
+    "headSha": "940abf3497859e588af2deee1c3fa5d6332744f5",
+    "mergeSha": "2f25831c5b4aaadc8b4cd7c453ac208dfae4d824",
+    "mergedAt": "2026-09-09T14:30:19Z",
+    "prCi": 34363813010,
+    "prCiConclusion": "success",
+    "masterCi": 34364043076,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34364043076",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/58#issuecomment-5603564130",
+    "note": "Push-event master CI on 2f25831c5b4aaadc8b4cd7c453ac208dfae4d824 completed success at 2026-09-09T14:31:39Z, before the #60 merge push at 2026-09-09T14:48:05Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34365332061,
+      "runAttempt": 1,
+      "headSha": "a05107adfb30697435b3a1b41e258ee5701c03d9",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34365332061",
+      "note": "pnpm verify on this run: tests 93; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34366011779,
+      "runAttempt": 1,
+      "headSha": "f16928842c21518e33e6b73c5039a031ce0934dd",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34366011779",
+      "note": "Waited with gh run view until completed. tests 93; package check 124 files; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #60; there is no Approve. Independent review is issue comment 5603824792 by songxychn, described as a non-author explore review; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head a05107adfb30697435b3a1b41e258ee5701c03d9: newly raised to implemented-unverified are config:code_blocks.height_limit and interaction:copy-code. copy/shrink/language/macStyle stay implemented-unverified. word_wrap and fullpage stay gap.",
+    "settingsSha256 d7f1092b6686c1c11a0f64d109caef3c2f1847cde1a6f20667b3b1cd48b39cbb matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 3942fcede6be0f9cc9f2078153ccd46451a2b867.",
+    "Defaults align upstream Butterfly 5.7.0: copy=true, language=true, shrink=false, macStyle=false, height_limit=false. Mapping: copy→render.enable_code_copy, language→render.enable_code_title, shrink→render.enable_code_expander, macStyle→render.enable_code_mac_style, height_limit→render.code_height_limit.",
+    "Non-blocking P2 from the independent review: shrink=true default-collapsed state is not implemented; page.html has no per-page copy annotation (only post.html injects MainApp.attrs.enable_code_copy); no dual-site lab.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #61 cover.aside_enable, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:code_blocks.height_limit and interaction:copy-code. copy/shrink/language/macStyle remain implemented-unverified.",
+    "config:code_blocks.word_wrap and config:code_blocks.fullpage remain gap; this slice does not implement them.",
+    "code_blocks.shrink=true default-collapsed (upstream closed) is not implemented; enable_code_expander only covers upstream false (expanded+button) and none (no button).",
+    "page.html has no per-page copy annotation path; only post.html injects MainApp.attrs.enable_code_copy.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #58 merge-commit master CI run 34364043076 on 2f25831c5b4aaadc8b4cd7c453ac208dfae4d824 completed success before the #60 push; must not be recorded as cancelled.",
+    "Issue #61 cover.aside_enable is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
