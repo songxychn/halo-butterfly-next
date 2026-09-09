@@ -14,11 +14,13 @@
     &-info {
       padding: 0 8%;
       transition: bottom .3s, padding .3s;
-      text-align: center;
 
-      @include util.useResponsive(900px) {
-        bottom: 30px;
+      &.left {
         text-align: left;
+      }
+
+      &.center {
+        text-align: center;
       }
 
       @include util.useResponsive(util.$w-md) {
@@ -28,13 +30,11 @@
     }
   }
 
-  //.main > .content {
-  //  padding: 1.5rem 1.8rem;
-  //}
-
   @include util.useThemeVar((
     post-title-color: (#ffffff, rgba(255, 255, 255, 0.9)),
     post-meta-color: (#eeeeee, rgba(255, 255, 255, 0.7)),
+    post-info-title-color: (#1f2d3d, rgba(255, 255, 255, 0.9)),
+    post-info-meta-color: (#4c4948, rgba(255, 255, 255, 0.7)),
   ));
 
   &-title {
@@ -59,8 +59,36 @@
     color: var(--post-meta-color);
     font-size: 95%;
     user-select: none;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    &.left {
+      text-align: left;
+
+      .row {
+        justify-content: flex-start;
+      }
+    }
+
+    &.center {
+      text-align: center;
+
+      .row {
+        justify-content: center;
+      }
+    }
 
     .row {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 100%;
+
+      .wp {
+        min-width: 0;
+        max-width: 100%;
+      }
+
       .wp:not(:last-child):after {
         content: '|';
         margin: 0 5px;
@@ -73,7 +101,33 @@
           color: var(--post-meta-color);
         }
       }
+    }
+  }
 
+  .content > .post-info {
+    margin-bottom: 1.2rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+
+    &.left {
+      text-align: left;
+    }
+
+    &.center {
+      text-align: center;
+    }
+
+    .post-title {
+      color: var(--post-info-title-color);
+    }
+
+    .post-meta {
+      color: var(--post-info-meta-color);
+
+      .row .wp.category .lk:not(:last-child):after,
+      .row .wp.tag .lk:not(:last-child):after {
+        color: var(--post-info-meta-color);
+      }
     }
   }
 }
