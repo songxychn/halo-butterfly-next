@@ -937,6 +937,17 @@ spec:
               value: true
             - label: 禁用
               value: false
+        - $formkit: radio
+          name: enable_code_fullpage
+          if: $get(enable_code).value
+          label: 启用代码块全屏
+          help: 对应上游 code_blocks.fullpage。默认关闭；开启后工具栏显示全屏按钮。
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
         - $formkit: select
           name: code_theme_light
           if: $get(enable_code).value

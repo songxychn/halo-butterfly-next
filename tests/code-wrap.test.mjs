@@ -37,13 +37,9 @@ test('开关为 true 时给代码块包装加上游 word-wrap 类；false 不加
   assert.match(fragment, /enable_code_word_wrap: \/\*\[\[\$\{theme\.config\.render\.enable_code_word_wrap\}\]\]\*\/ false/);
 });
 
-test('word_wrap 样式仅在 .word-wrap 下换行，且本刀不含 fullpage', () => {
+test('word_wrap 样式仅在 .word-wrap 下换行', () => {
   assert.match(scss, /&\.word-wrap/);
   assert.match(scss, /white-space:\s*pre-wrap/);
   assert.match(scss, /overflow-wrap:\s*break-word/);
   assert.match(scss, /overflow-x:\s*hidden/);
-  assert.doesNotMatch(js, /fullpage/i);
-  assert.doesNotMatch(scss, /fullpage/i);
-  assert.doesNotMatch(settingsText, /fullpage/i);
-  assert.doesNotMatch(fragment, /fullpage/i);
 });

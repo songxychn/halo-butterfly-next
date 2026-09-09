@@ -74,14 +74,14 @@ export default class codeBlock {
 
       if (this.#flag('enable_code_hr')) toolbar.addClass('enable-hr');
 
-      this.#codeToolbarCustom(toolbar, pre);
+      this.#codeToolbarCustom(toolbar, pre, wrap);
       this.#applyHeightLimit(wrap, pre);
     });
 
     setTimeout(() => pres.addClass('code-success'), 200);
   }
 
-  #codeToolbarCustom(toolbar, pre) {
+  #codeToolbarCustom(toolbar, pre, wrap) {
     toolbar.append('<div class="custom-item"></div>');
     const customItem = toolbar.find('.custom-item');
 
@@ -105,7 +105,99 @@ export default class codeBlock {
       customItem.append(expander);
     }
 
+    if (this.#flag('enable_code_fullpage')) {
+      const button = $('<button type="button" class="fullpage-button" aria-label="全屏代码" title="全屏代码" aria-pressed="false"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button>');
+      button.on('click', (e) => {
+        e.preventDefault();
+        this.#toggleFullpage(wrap, button);
+      });
+      customItem.append(button);
+    }
+
     if (!customItem.children().length) customItem.remove();
+  }
+
+  #fullpageWrap = null;
+  #fullpageButton = null;
+  #scrollLock = null;
+  #escBound = false;
+
+  #toggleFullpage(wrap, button) {
+    if (!wrap?.length) return;
+    this.#setFullpage(wrap, button, !wrap.hasClass('code-fullpage'));
+  }
+
+  #setFullpage(wrap, button, on) {
+    if (on) {
+      if (this.#fullpageWrap && this.#fullpageWrap[0] !== wrap[0]) {
+        this.#setFullpage(this.#fullpageWrap, this.#fullpageButton, false);
+      }
+      wrap.addClass('code-fullpage');
+      this.#fullpageWrap = wrap;
+      this.#fullpageButton = button;
+      this.#lockScroll();
+      this.#syncFullpageButton(button, true);
+      this.#bindEsc();
+      return;
+    }
+    wrap.removeClass('code-fullpage');
+    this.#syncFullpageButton(button, false);
+    if (this.#fullpageWrap && this.#fullpageWrap[0] === wrap[0]) {
+      this.#fullpageWrap = null;
+      this.#fullpageButton = null;
+      this.#unlockScroll();
+      this.#unbindEsc();
+    }
+  }
+
+  #syncFullpageButton(button, on) {
+    if (!button?.length) return;
+    const icon = button.find('i');
+    icon.toggleClass('fa-down-left-and-up-right-to-center', on);
+    icon.toggleClass('fa-up-right-and-down-left-from-center', !on);
+    button.attr('aria-pressed', String(on));
+    button.attr('aria-label', on ? '退出全屏' : '全屏代码');
+    button.attr('title', on ? '退出全屏' : '全屏代码');
+  }
+
+  #lockScroll() {
+    if (this.#scrollLock) return;
+    this.#scrollLock = {
+      body: document.body.style.overflow,
+      html: document.documentElement.style.overflow,
+    };
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.classList.add('code-fullpage');
+    document.documentElement.classList.add('code-fullpage');
+  }
+
+  #unlockScroll() {
+    if (!this.#scrollLock) return;
+    document.body.style.overflow = this.#scrollLock.body;
+    document.documentElement.style.overflow = this.#scrollLock.html;
+    document.body.classList.remove('code-fullpage');
+    document.documentElement.classList.remove('code-fullpage');
+    this.#scrollLock = null;
+  }
+
+  #onFullpageKeydown = (event) => {
+    if (event.key !== 'Escape' && event.key !== 'Esc') return;
+    if (!this.#fullpageWrap) return;
+    event.preventDefault();
+    this.#setFullpage(this.#fullpageWrap, this.#fullpageButton, false);
+  };
+
+  #bindEsc() {
+    if (this.#escBound) return;
+    document.addEventListener('keydown', this.#onFullpageKeydown);
+    this.#escBound = true;
+  }
+
+  #unbindEsc() {
+    if (!this.#escBound) return;
+    document.removeEventListener('keydown', this.#onFullpageKeydown);
+    this.#escBound = false;
   }
 
   #copyText(text, button, event) {

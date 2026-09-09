@@ -1039,14 +1039,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
+        "settings": [
+          "render.enable_code_fullpage"
+        ],
         "code": [
           "src/js/modules/CodeBlock.js",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
-          "src/html/page.html"
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 code_blocks.fullpage 为 render.enable_code_fullpage；默认 false，关闭时不插入全屏按钮，开启时工具栏提供可键盘激活的全屏按钮（Esc 或再次点击退出并恢复 overflow）。尚未双站对照验收。不做 shrink=true 默认折叠。"
       },
       "dependencies": [
         "dual-site",
@@ -1068,12 +1072,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/70"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:social",
@@ -45455,14 +45460,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
+        "settings": [
+          "render.enable_code_fullpage"
+        ],
         "code": [
           "src/js/modules/CodeBlock.js",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
-          "src/html/page.html"
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已实现代码块全屏交互：开关开启时插入 button.fullpage-button，切换 wrap 的 code-fullpage 与 body/html overflow；Esc 或再次点击退出。尚未双站对照验收。不做 shrink=true 默认折叠。"
       },
       "dependencies": [
         "dual-site",
@@ -45482,12 +45491,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/70"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:lightbox",

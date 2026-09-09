@@ -12,6 +12,8 @@ test('代码块工具栏默认值对齐上游 Butterfly 5.7.0 code_blocks', () =
   assert.equal(defaults.render.enable_code_expander, true);
   assert.equal(defaults.render.enable_code_mac_style, false);
   assert.equal(defaults.render.code_height_limit, false);
+  assert.equal(defaults.render.enable_code_word_wrap, false);
+  assert.equal(defaults.render.enable_code_fullpage, false);
   assert.equal(defaults.render.code_theme_light, 'one-light');
   assert.equal(defaults.render.code_theme_dark, 'one-dark');
 });
