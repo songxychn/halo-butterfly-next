@@ -567,6 +567,69 @@ spec:
               value: true
             - label: 禁用
               value: false
+        - $formkit: group
+          name: post_meta
+          label: 文章页元信息
+          help: 对应上游 Butterfly post_meta.post（不含 date_format / relative）
+          value:
+            position: left
+            date_type: both
+            categories: true
+            tags: true
+            label: true
+          children:
+            - $formkit: radio
+              name: position
+              label: 元信息对齐
+              help: 对应上游 post_meta.post.position，可选 left / center。默认 left。
+              value: left
+              options:
+                - label: 左对齐
+                  value: left
+                - label: 居中
+                  value: center
+            - $formkit: radio
+              name: date_type
+              label: 日期显示
+              help: 对应上游 post_meta.post.date_type。created 只发布日，updated 只更新日，both 两者。
+              value: both
+              options:
+                - label: 发布日与更新日
+                  value: both
+                - label: 仅发布日
+                  value: created
+                - label: 仅更新日
+                  value: updated
+            - $formkit: radio
+              name: categories
+              label: 显示分类
+              help: 对应上游 post_meta.post.categories。关闭后即使有分类也不渲染。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+            - $formkit: radio
+              name: tags
+              label: 显示标签
+              help: 对应上游 post_meta.post.tags。关闭后即使有标签也不渲染。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+            - $formkit: radio
+              name: label
+              label: 显示日期前缀
+              help: 对应上游 post_meta.post.label。关闭后不显示「发布于」「更新于」等前缀。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
     #归档设置
     - group: archives
       label: 归档设置

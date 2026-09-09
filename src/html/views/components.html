@@ -8,6 +8,66 @@
   th:class="${class}"
 >
 
+<!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
+<ul
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postMeta"
+  th:class="${'post-meta ' + (theme.config.post.post_meta?.position == 'center' ? 'center' : 'left')}"
+  th:with="
+    dateType = ${theme.config.post.post_meta?.date_type},
+    showLabel = ${theme.config.post.post_meta?.label != false},
+    rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
+    plain = ${rawHtml.replaceAll('(?s)<[^>]+>', '')},
+    wordLen = ${#strings.length(plain)},
+    readMin = ${(wordLen + 499) / 500}
+  "
+>
+  <li class="row" th:if="${(theme.config.post.post_meta?.categories != false and not #lists.isEmpty(post.categories)) or (theme.config.post.post_meta?.tags != false and not #lists.isEmpty(post.tags))}">
+    <span class="wp category" th:if="${theme.config.post.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
+      <i class="fa-solid fa-layer-group"></i>
+      <span class="cys">
+        <th:block th:each="cy : ${post.categories}">
+          <a class="lk" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+        </th:block>
+      </span>
+    </span>
+    <span class="wp tag" th:if="${theme.config.post.post_meta?.tags != false and not #lists.isEmpty(post.tags)}">
+      <i class="fa-solid fa-tags"></i>
+      <span class="cys">
+        <th:block th:each="cy : ${post.tags}">
+          <a class="lk" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+        </th:block>
+      </span>
+    </span>
+  </li>
+
+  <li class="row">
+    <span class="wp publishTime" th:if="${dateType != 'updated'}">
+      <i class="fa-solid fa-calendar-days"></i>
+      <time th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+    </span>
+    <span class="wp lastModifyTime" th:if="${dateType != 'created'}">
+      <i class="fas fa-history fa-fw"></i>
+      <time th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+    </span>
+  </li>
+
+  <li class="row">
+    <span class="wp wordCount">
+      <i class="fa-solid fa-list-ol"></i>
+      <span th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
+    </span>
+    <span class="wp clock">
+      <i class="fa-regular fa-clock"></i>
+      <span th:text="'阅读时长 ' + ${readMin} + ' 分钟'"></span>
+    </span>
+    <span class="wp visit">
+      <i class="far fa-eye fa-fw"></i>
+      <span th:text="'阅读量 ' + ${post.stats.visit}"></span>
+    </span>
+  </li>
+</ul>
+
 <!--/* 文章列表  */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
