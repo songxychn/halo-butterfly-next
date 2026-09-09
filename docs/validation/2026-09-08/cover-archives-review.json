@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 64,
+  "pr": 65,
+  "title": "M1：归档封面 cover.archives_enable",
+  "author": "cursor/m1-cover-archives",
+  "recorder": "cursor/record-65",
+  "recordedAt": "2026-09-09T15:25:00Z",
+  "visibility": "private",
+  "sourceSha": "14f9995845155e4fdb4b9ad566da1345bab0452c",
+  "reviewHead": "14f9995845155e4fdb4b9ad566da1345bab0452c",
+  "mergeSha": "08357cea10d49f119a9c0c5689ebf9ef11e043ae",
+  "mergedAt": "2026-09-09T15:18:40Z",
+  "closesIssue": 64,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/65#issuecomment-5604267368",
+    "createdAt": "2026-09-09T15:18:20Z",
+    "head": "14f9995845155e4fdb4b9ad566da1345bab0452c",
+    "note": "Independent non-author review posted as issue comment 5604267368, not a GitHub Approve. Verdict: approve. No P1. Does not close PAGE-01."
+  },
+  "settingsSha256": "3e1579d6737b4889c3973aa3977054c6490a4a138b7b5b8fc9c0fc8c79fc3d3d",
+  "productCommits": [
+    {
+      "sha": "c785db5",
+      "summary": "Align archive year-month timeline covers and cover.archives_enable"
+    },
+    {
+      "sha": "6a859ba",
+      "summary": "Refreeze performance theme-defaults.json onto the archive cover implementation commit"
+    },
+    {
+      "sha": "14f9995",
+      "summary": "Register #64 onto archive cover cover.archives_enable matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:cover.archives_enable"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:aside.card_recent_post.sort_order",
+    "config:code_blocks.word_wrap",
+    "config:code_blocks.fullpage"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 530,
+    "mapping-required": 262,
+    "implemented-unverified": 95,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 67,
+    "state": "OPEN",
+    "title": "M1：代码块自动换行 code_blocks.word_wrap",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/67",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement code_blocks.word_wrap or code_blocks.fullpage."
+  },
+  "precedingDocsPr": {
+    "pr": 66,
+    "title": "docs: 记录 #63 侧栏最近文章与 cover.aside_enable 合并证据",
+    "headSha": "4183de2e144229fbfb6330e6f6745916057267a9",
+    "mergeSha": "59685980958ba7ab894bc545d97998e815cbd20a",
+    "mergedAt": "2026-09-09T15:20:56Z",
+    "prCi": 34369380245,
+    "prCiConclusion": "success",
+    "masterCi": 34369657125,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34369657125",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/66#issuecomment-5604303576",
+    "note": "Waited with gh run view until completed. Push-event master CI 34369657125 on 59685980958ba7ab894bc545d97998e815cbd20a is success (completed 2026-09-09T15:22:41Z). This is #66 docs-merge CI. Do not confuse with #65 product merge master CI 34369407348."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34369023012,
+      "runAttempt": 1,
+      "headSha": "14f9995845155e4fdb4b9ad566da1345bab0452c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34369023012",
+      "note": "pnpm verify on this run: tests 103; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34369407348,
+      "runAttempt": 1,
+      "headSha": "08357cea10d49f119a9c0c5689ebf9ef11e043ae",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34369407348",
+      "note": "Queried with gh run view: completed success at 2026-09-09T15:20:17Z, before the #66 docs merge push at 2026-09-09T15:20:56Z. tests 103; package check 124 files; parity total 897. Must be recorded as success, not cancelled. Distinct from #66 master CI 34369657125."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #65; there is no Approve. Independent review is issue comment 5604267368 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 14f9995845155e4fdb4b9ad566da1345bab0452c: newly raised to implemented-unverified is only config:cover.archives_enable. Does not mark verified.",
+    "settingsSha256 3e1579d6737b4889c3973aa3977054c6490a4a138b7b5b8fc9c0fc8c79fc3d3d matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit c785db5597e99bd9b5c0ad9f36dae27e47b330f3.",
+    "archives_enable default true. archives.html outputs a.cover + lazyLoadImg only when archives_enable != false and a cover source exists; otherwise the entry gets no-cover and no empty cover anchor.",
+    "Cover source priority matches homepage list / sidebar recent-post: post cover > default_cover > loading.img.random_enable. Upstream article-sort.pug uses only article.cover when theme.cover.archives_enable; this Halo fallback is wider and is documented as adaptation, not dual-site verified.",
+    "Scope: year-month timeline in archives.html only. components.html list still reads index_enable; aside.html recentPost still reads aside_enable.",
+    "Non-blocking P2 from the independent review: no dual-site lab; upstream archives cover source is article.cover only, while this implementation shares default_cover/random fallback with list/aside; Halo year-month timeline vs upstream article-sort cards (archives.scss no-cover padding-left: 0 covered by static tests).",
+    "Does not close PAGE-01. Next slice is open #67 code_blocks.word_wrap, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is only config:cover.archives_enable.",
+    "Upstream archive list uses article.cover only; this implementation shares default_cover / loading.img.random_enable fallback with list and aside. Switch semantics align; fallback is wider.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #65 merge-commit master CI run 34369407348 on 08357cea10d49f119a9c0c5689ebf9ef11e043ae completed success at 2026-09-09T15:20:17Z, before the #66 merge push at 2026-09-09T15:20:56Z; must not be recorded as cancelled. Do not confuse with #66 master CI 34369657125 (also success after wait).",
+    "Issue #67 code_blocks.word_wrap is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

@@ -334,6 +334,48 @@
         "limit=0 Halo-capped at 20; postFinder sort not runtime-verified",
         "Issue #64 cover.archives_enable is open, not completed"
       ]
+    },
+    {
+      "kind": "docs-record",
+      "issue": 61,
+      "pr": 66,
+      "recordsPr": 63,
+      "reviewHead": "4183de2e144229fbfb6330e6f6745916057267a9",
+      "mergeSha": "59685980958ba7ab894bc545d97998e815cbd20a",
+      "prCi": 34369380245,
+      "masterCi": 34369657125,
+      "evidence": "cover-aside-review.json",
+      "evidenceSha256": "255104ceb752042f30045b395a4e22a64017e4c29bd5e45da237cbf2e7d451cc",
+      "prCiConclusion": "success",
+      "masterCiConclusion": "success",
+      "limitations": [
+        "Documentation PR that recorded #63; does not close issues",
+        "Merge-commit master CI 34369657125 completed success at 2026-09-09T15:22:41Z. Distinct from #65 product merge master CI 34369407348 (success at 2026-09-09T15:20:17Z, before this #66 push). Not cancelled."
+      ]
+    },
+    {
+      "kind": "component",
+      "issue": 64,
+      "pr": 65,
+      "reviewHead": "14f9995845155e4fdb4b9ad566da1345bab0452c",
+      "mergeSha": "08357cea10d49f119a9c0c5689ebf9ef11e043ae",
+      "prCi": 34369023012,
+      "masterCi": 34369407348,
+      "evidence": "cover-archives-review.json",
+      "evidenceSha256": "35330d8bb1bc670bd6bd9d5db5f0742993bbb725dc2def44a71cce014f3a08a8",
+      "prCiConclusion": "success",
+      "masterCiConclusion": "success",
+      "limitations": [
+        "No dual-site lab",
+        "Does not close PAGE-01",
+        "Same GitHub account cannot approve its own pull request",
+        "Independent review is issue comment 5604267368, not a GitHub Approve",
+        "Does not mark matrix verified",
+        "Newly raised implemented-unverified: only config:cover.archives_enable",
+        "Upstream archives cover source is article.cover only; this implementation shares default_cover/random fallback with list/aside",
+        "PR #65 merge-commit master CI 34369407348 completed success at 2026-09-09T15:20:17Z before the #66 merge push; not cancelled. Distinct from #66 master CI 34369657125",
+        "Issue #67 code_blocks.word_wrap is open, not completed"
+      ]
     }
   ]
 }
