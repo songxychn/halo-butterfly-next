@@ -26,13 +26,12 @@ test('封面与最近文章默认值对齐上游 Butterfly 5.7.0 cover.aside_ena
   assert.equal(defaults.aside.enable_category, true);
 });
 
-test('cover 组为 index_enable、default_cover、aside_enable，仍不含 archives_enable', async () => {
+test('cover 组为 index_enable、default_cover、aside_enable、archives_enable 四项', async () => {
   const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
   const cover = settings.spec.forms.find(form => form.group === 'cover');
   assert.ok(cover);
   const names = cover.formSchema.map(node => node.name);
-  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable']);
-  assert.ok(!names.includes('archives_enable'));
+  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable']);
 });
 
 test('aside.card_recent_post 使用上游嵌套名，不含 sort_order', async () => {
