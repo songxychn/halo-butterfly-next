@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 55,
+  "pr": 57,
+  "title": "M1：首页列表封面 cover.index_enable / default_cover",
+  "author": "cursor/m1-cover-index",
+  "recorder": "cursor/record-57",
+  "recordedAt": "2026-09-09T14:25:30Z",
+  "visibility": "private",
+  "sourceSha": "49653c297a13ed37dfc852f0d683b20136282c72",
+  "reviewHead": "49653c297a13ed37dfc852f0d683b20136282c72",
+  "mergeSha": "292a0db44879ae30a2719d38090b34699bcade6d",
+  "mergedAt": "2026-09-09T14:21:31Z",
+  "closesIssue": 55,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/57#issuecomment-5603436225",
+    "createdAt": "2026-09-09T14:21:29Z",
+    "head": "49653c297a13ed37dfc852f0d683b20136282c72",
+    "note": "Same-session independent review comment, not a GitHub Approve. Verdict: can merge. Does not close PAGE-01."
+  },
+  "settingsSha256": "cebd89dbf2152038734a867188e20e7b596582182d3d5bfb3cfbd71450864c66",
+  "productCommits": [
+    {
+      "sha": "afd3ad2",
+      "summary": "Align homepage/list cover.index_enable / default_cover and raise two matrix rows to implemented-unverified"
+    },
+    {
+      "sha": "49653c2",
+      "summary": "Refreeze performance theme-defaults.json onto the homepage list cover implementation commit"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:cover.index_enable",
+    "config:cover.default_cover"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:cover.aside_enable",
+    "config:cover.archives_enable"
+  ],
+  "matrixTrackingNote": "tracking.pullRequests is empty on both raised rows in the merged tree; recorded as P2. This docs PR does not edit matrix.json.",
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 538,
+    "mapping-required": 262,
+    "implemented-unverified": 87,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": null,
+    "state": "not-opened",
+    "title": "封面 aside/archives 或代码块工具栏待开",
+    "note": "No follow-up GitHub issue exists yet after #55 closed. Do not record as completed."
+  },
+  "precedingDocsPr": {
+    "pr": 56,
+    "title": "docs: 记录 #54 列表 post_meta.page 合并证据",
+    "headSha": "56a877e265719403e5626980b6880ff0a5ed34c3",
+    "mergeSha": "8d8581349f4292ffaf854e7f7629735b369b656f",
+    "mergedAt": "2026-09-09T14:18:45Z",
+    "prCi": 34362532670,
+    "prCiConclusion": "success",
+    "masterCi": 34362778956,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34362778956",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/56#issuecomment-5603394182",
+    "note": "Push-event master CI on 8d8581349f4292ffaf854e7f7629735b369b656f completed success at 2026-09-09T14:20:22Z, before the #57 merge push at 2026-09-09T14:21:31Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34362582409,
+      "runAttempt": 1,
+      "headSha": "49653c297a13ed37dfc852f0d683b20136282c72",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34362582409",
+      "note": "pnpm verify on this run: tests 88; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34363081328,
+      "runAttempt": 1,
+      "headSha": "292a0db44879ae30a2719d38090b34699bcade6d",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34363081328",
+      "note": "Waited with gh run view until completed. tests 88; package check 124 files; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #57; there is no Approve. Independent review is issue comment 5603436225 by songxychn on the same account that opened the PR; this is not a GitHub Approve.",
+    "Review head 49653c297a13ed37dfc852f0d683b20136282c72: config:cover.index_enable and config:cover.default_cover are implemented-unverified; config:cover.aside_enable and config:cover.archives_enable stay gap.",
+    "settingsSha256 cebd89dbf2152038734a867188e20e7b596582182d3d5bfb3cfbd71450864c66 matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit afd3ad22f280fabee59b664ed722555acf8440ed.",
+    "Defaults: index_enable=true, default_cover empty (upstream true / null). Priority: post cover > default_cover > loading.img.random_enable. index_enable=false adds no-cover and does not render list covers.",
+    "Homepage/category/tag lists share the list fragment, so they follow index_enable; this is not archives_enable.",
+    "Non-blocking P2 from the independent review: tracking.pullRequests is empty on the two raised rows in the merged tree; this docs record does not edit the matrix to register #57.",
+    "Does not close PAGE-01. No dual-site lab. Next slice is not opened: 封面 aside/archives 或代码块工具栏待开."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; at most implemented-unverified for cover.index_enable and cover.default_cover.",
+    "config:cover.aside_enable and config:cover.archives_enable remain gap; this slice does not implement them.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #56 merge-commit master CI run 34362778956 on 8d8581349f4292ffaf854e7f7629735b369b656f completed success before the #57 push; must not be recorded as cancelled.",
+    "tracking.pullRequests remains empty in the merged matrix (P2); this docs PR does not change matrix.json.",
+    "No follow-up GitHub issue is open for the next M1 slice; 封面 aside/archives 或代码块工具栏待开 is not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
