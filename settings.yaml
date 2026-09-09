@@ -795,7 +795,7 @@ spec:
           name: enable_code_title
           if: $get(enable_code).value
           label: 启用代码标题
-          help: 启用代码块的标题，默认显示语言类型，也可自定义标题
+          help: 对应上游 code_blocks.language。关闭后不显示语言标题。
           value: true
           options:
             - label: 启用
@@ -828,7 +828,7 @@ spec:
           name: enable_code_copy
           if: $get(enable_code).value
           label: 启用代码复制
-          help: 启用代码块复制按钮
+          help: 对应上游 code_blocks.copy。关闭后不显示复制按钮。
           value: true
           options:
             - label: 启用
@@ -839,13 +839,37 @@ spec:
           name: enable_code_expander
           if: $get(enable_code).value
           label: 启用代码折叠
-          help: 启用代码折叠功能
+          help: 对应上游 code_blocks.shrink。关闭后不显示折叠按钮（none）；开启时默认展开并显示按钮（false）。
           value: true
           options:
             - label: 启用
               value: true
             - label: 禁用
               value: false
+        - $formkit: radio
+          name: enable_code_mac_style
+          if: $get(enable_code).value
+          label: 启用 mac 风格圆点
+          help: 对应上游 code_blocks.macStyle。默认关闭，与上游一致；开启后显示窗口圆点。
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: radio
+          name: code_height_limit
+          if: $get(enable_code).value
+          label: 代码块高度限制
+          help: 对应上游 code_blocks.height_limit。默认不限制；200/400 为像素上限。
+          value: false
+          options:
+            - label: 不限制
+              value: false
+            - label: 200px
+              value: 200
+            - label: 400px
+              value: 400
         - $formkit: select
           name: code_theme_light
           if: $get(enable_code).value

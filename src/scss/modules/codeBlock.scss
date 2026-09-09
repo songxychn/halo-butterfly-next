@@ -6,12 +6,13 @@
  */
 
 .code-toolbar {
+  position: relative;
   margin: 12px 0;
   overflow: hidden;
   box-shadow: var(--code-toolbar-box-shadow);
   border-radius: 5px;
 
-  &:before {
+  &.mac-style::before {
     content: "";
     position: absolute;
     top: 9px;
@@ -54,9 +55,18 @@
       color: #999;
       pointer-events: all;
 
-      > i {
+      > button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0 12px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        line-height: inherit;
         cursor: var(--cursor-pointer);
-        margin-left: 15px;
         transition: transform 0.2s;
 
         &:hover {
@@ -67,26 +77,64 @@
           font-size: .9rem;
         }
       }
+
+      .copy-notice {
+        position: absolute;
+        right: 0;
+        top: 28px;
+        z-index: 2;
+        padding: 2px 6px;
+        border-radius: 3px;
+        background: var(--code-loading-background-color, #fff);
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: nowrap;
+        pointer-events: none;
+        color: #4c4948;
+
+        &.is-error {
+          color: #d03050;
+        }
+      }
     }
 
-    // 启动展开
     &.enable-expander {
-
-      i.code-expander {
+      .code-expander {
         transform: rotate(90deg);
       }
     }
 
-    // 启用标题
     &.enable-title {
       .toolbar-item:first-child {
         display: block;
       }
     }
 
-    // 启动分割线
     &.enable-hr {
       border-bottom: 1px solid #b2a8a84d;
+    }
+  }
+
+  &.has-height-limit {
+    &:not(.expand-done) {
+      pre[class*=language-] code[class*=language-] {
+        max-height: var(--code-height-limit);
+        overflow: hidden;
+      }
+    }
+
+    .code-expand-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      margin: 0;
+      padding: 6px 0;
+      border: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .92));
+      color: #999;
+      cursor: var(--cursor-pointer);
     }
   }
 
