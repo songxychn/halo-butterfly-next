@@ -139,6 +139,10 @@
           }
         }
 
+        &.no-cover > .info {
+          width: 100%;
+        }
+
         @include util.useResponsive($width: util.$w-md) {
           flex-direction: column;
           height: auto;
@@ -151,6 +155,9 @@
       grid-template-columns: repeat(3, 1fr); /* 创建3列 */
       grid-auto-rows: minmax(100px, auto); /* 自动调整行高 */
       gap: 20px; /* 网格项之间的间隔 */
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
 
       > .item {
         height: 20rem;
@@ -175,6 +182,14 @@
 
           > .data {
             font-size: 80%;
+          }
+        }
+
+        &.no-cover {
+          height: auto;
+
+          > .info {
+            height: auto;
           }
         }
       }

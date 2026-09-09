@@ -68,7 +68,7 @@
   </li>
 </ul>
 
-<!--/* 文章列表。日期/分类/标签受 index.post_meta（上游 post_meta.page）控制；评论/点赞/预览不是 post_meta。 */-->
+<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page）控制；评论/点赞/预览不是 post_meta。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
@@ -76,13 +76,22 @@
   th:with="
     noData = ${not #lists.isEmpty(data)},
     dateType = ${theme.config.index.post_meta?.date_type},
-    showLabel = ${theme.config.index.post_meta?.label != false}
+    showLabel = ${theme.config.index.post_meta?.label != false},
+    indexCoverEnable = ${theme.config.cover.index_enable != false}
   "
 >
   <th:block th:if="${noData}">
-    <li class="item card" th:each="post : ${data}">
-      <a th:if="${not #strings.isEmpty(post.spec.cover) || theme.config.loading.img.random_enable }" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''}">
-        <img th:replace="~{::lazyLoadImg(${post.spec.cover},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+    <li
+      class="item card"
+      th:each="post : ${data}"
+      th:with="
+        coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+        showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+      "
+      th:classappend="${showCover ? '' : ' no-cover'}"
+    >
+      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''}">
+        <img th:replace="~{::lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
       </a>
 
       <div class="info">
