@@ -9,7 +9,7 @@ const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.
 test('代码块工具栏默认值对齐上游 Butterfly 5.7.0 code_blocks', () => {
   assert.equal(defaults.render.enable_code_copy, true);
   assert.equal(defaults.render.enable_code_title, true);
-  assert.equal(defaults.render.enable_code_expander, true);
+  assert.equal(defaults.render.enable_code_expander, 'false');
   assert.equal(defaults.render.enable_code_mac_style, false);
   assert.equal(defaults.render.code_height_limit, false);
   assert.equal(defaults.render.enable_code_word_wrap, false);
@@ -56,7 +56,7 @@ test('JS 按开关输出控件：copy 可键盘激活，关闭 copy 不输出按
   const js = await readFile(new URL('../src/js/modules/CodeBlock.js', import.meta.url), 'utf8');
   assert.match(js, /#copyEnabled\(/);
   assert.match(js, /#flag\('enable_code_copy'\)/);
-  assert.match(js, /#flag\('enable_code_expander'\)/);
+  assert.match(js, /#shrinkMode\(/);
   assert.match(js, /#flag\('enable_code_title'\)/);
   assert.match(js, /#flag\('enable_code_mac_style'\)/);
   assert.match(js, /addClass\('mac-style'\)/);
@@ -74,7 +74,7 @@ test('JS 按开关输出控件：copy 可键盘激活，关闭 copy 不输出按
   assert.ok(copyStart >= 0 && copyIf > copyStart && copyAppend > copyIf);
   assert.equal((js.match(/class="code-copy"/g) || []).length, 1);
 
-  const expanderIf = js.indexOf("#flag('enable_code_expander')");
+  const expanderIf = js.indexOf('#shrinkMode()');
   const expanderAppend = js.indexOf('class="code-expander"', expanderIf);
   assert.ok(expanderIf >= 0 && expanderAppend > expanderIf);
 });

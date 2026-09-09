@@ -55,15 +55,12 @@ test('进入/退出全屏：class、Esc、overflow 恢复', () => {
   assert.match(scss, /html\[data-color-scheme='dark'\].*fullpage-button|fullpage-button[\s\S]*data-color-scheme='dark'/s);
 });
 
-test('本刀不含 shrink=true 默认折叠新语义', () => {
-  assert.equal(defaults.render.enable_code_expander, true);
-  assert.match(js, /aria-expanded="true"/);
-  assert.doesNotMatch(js, /addClass\('closed'\)/);
-  assert.doesNotMatch(js, /shrink\s*[:=]\s*true/);
-  assert.doesNotMatch(settingsText, /shrink\s*=\s*true/);
+test('全屏不覆盖 copy / expander / macStyle / word_wrap / height_limit', () => {
+  assert.equal(defaults.render.enable_code_expander, 'false');
   assert.match(js, /class="code-copy"/);
   assert.match(js, /class="code-expander"/);
   assert.match(js, /#flag\('enable_code_mac_style'\)/);
   assert.match(js, /#flag\('enable_code_word_wrap'\)/);
   assert.match(js, /code_height_limit/);
+  assert.match(js, /#flag\('enable_code_fullpage'\)/);
 });
