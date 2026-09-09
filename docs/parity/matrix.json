@@ -1965,14 +1965,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+        "settings": [
+          "cover.aside_enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/aside.html",
+          "src/scss/core/aside.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 cover.aside_enable（默认 true）。只控制侧栏最近文章卡片缩略图：false 或无图时加 no-cover 且不输出 img。封面优先级与首页 list 一致（文章封面 > default_cover > loading.img.random_enable）。不做 archives_enable。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -1994,12 +1995,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/61"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:cover.archives_enable",
@@ -6501,12 +6503,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_recent_post.enable"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 aside.card_recent_post.enable（默认 true）为嵌套组，不改动既有扁平 enable_category 等。false 时不渲染最近文章卡片。卡片插在 aside::common 公告之后、分类之前；文章页 aside::post 放在 TOC is-sticky 块下方。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -6527,12 +6532,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/61"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_recent_post.limit",
@@ -6556,12 +6562,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_recent_post.limit"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 aside.card_recent_post.limit（默认 5）。上游 0=全部；Halo 用 postFinder.list 分页，模板将 0 或大于 20 的值封顶为 20。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -6582,12 +6591,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/61"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_recent_post.sort",
@@ -6611,12 +6621,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_recent_post.sort"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 aside.card_recent_post.sort（默认 date）。date→spec.publishTime，updated→status.lastModifyTime；通过 Halo 2.26 postFinder.list({sort})。不做 sort_order。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -6641,12 +6654,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/61"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_recent_post.sort_order",
@@ -31901,12 +31915,18 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_recent_post.enable",
+          "aside.card_recent_post.limit",
+          "aside.card_recent_post.sort",
+          "cover.aside_enable"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已用 aside.html recentPost fragment 对齐上游 widget：标题+时间+可选缩略图（lazyLoadImg）。数据来自 Halo 2.26.1 postFinder.list。未做 card_archives / card_newest_comments / sort_order。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -31927,12 +31947,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/61"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_tags",
