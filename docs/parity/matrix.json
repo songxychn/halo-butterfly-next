@@ -1864,14 +1864,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "cover.index_enable"
+        ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/modules/components.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 cover.index_enable（默认 true）。false 时首页 list/tile 以及共用 list 模板的分类/标签页不渲染封面。对齐上游 indexPostUI；不做 aside_enable / archives_enable。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -1893,12 +1894,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/55"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:cover.aside_enable",
@@ -2038,14 +2040,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "cover.default_cover"
+        ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/modules/components.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 cover.default_cover（默认空，对齐上游 null）。无文章封面时用该附件/URL。上游数组随机抽取未在 Halo 表单复现（单项 URL）。优先级：文章封面 > default_cover > loading.img.random_enable。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2075,12 +2078,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/55"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:error_img.flink",

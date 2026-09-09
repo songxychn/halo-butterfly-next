@@ -605,6 +605,26 @@ spec:
                   value: true
                 - label: 隐藏
                   value: false
+    #文章封面（首页列表）
+    - group: cover
+      label: 文章封面
+      formSchema:
+        - $formkit: radio
+          name: index_enable
+          label: 首页列表显示封面
+          help: 对应上游 Butterfly cover.index_enable（默认开启）。关闭后首页 list/tile 不渲染封面。当前分类/标签页共用 list 模板，亦跟随此开关（对齐上游 indexPostUI；归档封面由 cover.archives_enable 控制，本项不含）。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: attachment
+          name: default_cover
+          label: 默认封面
+          placeholder: 可选，文章未设置封面时使用
+          value: ""
+          help: 对应上游 cover.default_cover。留空对齐上游 null。上游可为 URL 数组并由 random_cover.js 去重随机；Halo 此项为单张附件/URL。优先级：文章封面 > 本默认封面 > loading.img.random_enable。
     #文章设置
     - group: post
       label: 文章设置
