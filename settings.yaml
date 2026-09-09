@@ -671,6 +671,16 @@ spec:
               value: true
             - label: 禁用
               value: false
+        - $formkit: radio
+          name: archives_enable
+          label: 归档时间轴显示封面
+          help: 对应上游 Butterfly cover.archives_enable（默认开启）。只作用于归档页年-月时间轴条目的封面；关闭后不渲染封面并以 no-cover 展示。不做首页 list/tile 或侧栏最近文章封面。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
     #文章设置
     - group: post
       label: 文章设置

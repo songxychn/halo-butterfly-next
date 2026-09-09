@@ -2027,14 +2027,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+        "settings": [
+          "cover.archives_enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/archives.html",
+          "src/scss/page/archives.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 cover.archives_enable（默认 true）。只控制归档页年-月时间轴封面：false 或无图时加 no-cover 且不输出 img。封面优先级与首页 list / 侧栏 recent 一致（文章封面 > default_cover > loading.img.random_enable）。不做 index_enable / aside_enable。尚未双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2056,12 +2057,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/64"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:cover.default_cover",
