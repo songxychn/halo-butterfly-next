@@ -4913,14 +4913,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.post_pagination"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/post-pagination.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 post_pagination（false / 1 / 2，默认 1）到 post.post_pagination。false 不渲染上下篇。值为 2 时对齐 pagination.pug 不调换 Hexo page.prev/next；否则对调。Halo cursor.previous=较早发布 ↔ Hexo page.next，cursor.next=较晚发布 ↔ Hexo page.prev。仅文章页在版权后、评论前插入；单页 page.html 不插入。标题与 permalink 用 th:text / th:href / th:title。不做 related_post、noticeOutdate、逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4947,12 +4950,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/82"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:noticeOutdate.enable",

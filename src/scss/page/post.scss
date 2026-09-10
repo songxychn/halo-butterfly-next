@@ -131,4 +131,120 @@
       }
     }
   }
+
+  #pagination.pagination-post {
+    display: flex;
+    overflow: hidden;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-radius: var(--card-border-radius);
+
+    @include util.useResponsive(util.$w-md) {
+      flex-direction: column;
+    }
+
+    .pagination-related {
+      position: relative;
+      display: block;
+      flex: 1;
+      overflow: hidden;
+      min-width: 0;
+      max-width: 100%;
+      height: 150px;
+      background: #000;
+      color: #fff;
+      vertical-align: bottom;
+
+      &.full-width {
+        width: 100% !important;
+        flex-basis: 100%;
+      }
+
+      &:hover .cover {
+        opacity: .5;
+        transform: scale(1.1);
+      }
+
+      .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: .4;
+        transition: all .6s, filter 375ms ease-in .2s;
+      }
+
+      .info {
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+
+        &.text-right {
+          text-align: right;
+        }
+
+        .info-1,
+        .info-2 {
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          box-sizing: border-box;
+          padding: 20px 40px;
+          color: #fff;
+          transform: translate(0, -50%);
+          transition: transform .3s, opacity .3s;
+
+          @include util.useResponsive(util.$w-md) {
+            padding: 16px 12px;
+          }
+        }
+
+        .info-1 {
+          .info-item-1 {
+            color: rgba(255, 255, 255, .7);
+            text-transform: uppercase;
+            font-size: 90%;
+          }
+
+          .info-item-2 {
+            @include util.text-clamp(1);
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            color: #fff;
+            font-weight: 500;
+          }
+        }
+
+        .info-2 {
+          opacity: 0;
+          transform: translate(0, 0);
+
+          .info-item-1 {
+            @include util.text-clamp(2);
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+          }
+        }
+      }
+
+      &:not(.no-desc):hover {
+        .info-1 {
+          opacity: 0;
+          transform: translate(0, -100%);
+        }
+
+        .info-2 {
+          opacity: 1;
+          transform: translate(0, -50%);
+        }
+      }
+    }
+  }
 }
