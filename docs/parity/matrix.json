@@ -4982,14 +4982,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.noticeOutdate.enable"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 noticeOutdate.enable（默认 false）到 post.noticeOutdate.enable。关闭不渲染提醒。仅文章页；单页 page.html 不插入。不做 related_post、wordcount、逐页 page.noticeOutdate 覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5011,12 +5014,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/85"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/87"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:noticeOutdate.style",
@@ -5040,14 +5046,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.noticeOutdate.style"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 noticeOutdate.style（simple / flat，该 SHA _config.yml 默认 flat）到 post.noticeOutdate.style。simple 纯色条；flat 左侧色条加警告图标（运行时 class，非编译期）。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5073,12 +5082,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/85"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/87"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:noticeOutdate.limit_day",
@@ -5102,14 +5114,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.noticeOutdate.limit_day"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 noticeOutdate.limit_day（默认 365）到 post.noticeOutdate.limit_day。天数对齐 btf.diffDate：Math.floor((now - 更新时间)/86400000)，更新时间取 status.lastModifyTime，无则 spec.publishTime；≥ limit_day 才显示。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5131,12 +5146,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/85"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/87"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:noticeOutdate.position",
@@ -5160,14 +5178,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.noticeOutdate.position"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 noticeOutdate.position（top / bottom，默认 top）到 post.noticeOutdate.position。top 插在正文前，bottom 插在正文后（对齐 outdate-notice.pug）。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5193,12 +5214,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/85"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/87"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:noticeOutdate.message_prev",
@@ -5222,14 +5246,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.noticeOutdate.message_prev"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 noticeOutdate.message_prev（默认 It has been）到 post.noticeOutdate.message_prev。与天数、后缀按上游 JS 空格拼接，可见文本 th:text。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5251,12 +5278,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/85"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/87"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:noticeOutdate.message_next",
@@ -5280,14 +5310,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "post.noticeOutdate.message_next"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.mjs",
+          "src/scss/page/post.scss",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射 noticeOutdate.message_next（默认英文过期说明）到 post.noticeOutdate.message_next。与前缀、天数按上游 JS 空格拼接，可见文本 th:text。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5309,12 +5342,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/85"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/87"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:footer.nav",

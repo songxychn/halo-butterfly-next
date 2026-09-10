@@ -60,7 +60,11 @@
         <h1 class="post-title" th:text="${post.spec.title}"></h1>
         <th:block th:replace="~{views/components :: postMeta}"/>
       </div>
-      <article class="render" th:utext="${post.content.content}"></article>
+      <article class="render">
+        <th:block th:replace="~{views/components :: noticeOutdate('top')}"/>
+        <th:block th:utext="${post.content.content}"/>
+        <th:block th:replace="~{views/components :: noticeOutdate('bottom')}"/>
+      </article>
 
       <div class="copy-right">
         <i class="fa-solid fa-copyright"></i>

@@ -820,6 +820,64 @@ spec:
               value: "1"
             - label: 2：上一篇较新、下一篇较早
               value: "2"
+        - $formkit: group
+          name: noticeOutdate
+          label: 文章过期提醒
+          help: 对应上游 Butterfly noticeOutdate（_config.yml / outdate-notice.pug / main.js addPostOutdateNotice，5.7.0 f223b188）。默认关闭。enable 关闭不渲染；天数 Math.floor((now - 更新时间) / 86400000) ≥ limit_day 才显示；更新时间取 status.lastModifyTime，无则 spec.publishTime。position top 在正文前、bottom 在正文后。style simple / flat（该 SHA 默认 flat）。文案前后缀与天数用 th:text 拼接。仅文章页；不做 related_post、wordcount、逐页覆盖。
+          value:
+            enable: false
+            style: flat
+            limit_day: 365
+            position: top
+            message_prev: It has been
+            message_next: days since the last update, the content of the article may be outdated.
+          children:
+            - $formkit: radio
+              name: enable
+              label: 启用过期提醒
+              help: 对应上游 noticeOutdate.enable（默认 false）。关闭不渲染提醒。
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: radio
+              name: style
+              label: 样式
+              help: 对应上游 noticeOutdate.style。simple 为纯色条；flat 为左侧色条加警告图标。该 SHA 默认 flat。
+              value: flat
+              options:
+                - label: simple
+                  value: simple
+                - label: flat（默认）
+                  value: flat
+            - $formkit: number
+              name: limit_day
+              label: 超限天数
+              help: 对应上游 noticeOutdate.limit_day（默认 365）。对齐 btf.diffDate：Math.floor((now - 更新时间) / 86400000) ≥ 本值才显示。
+              value: 365
+              min: 0
+            - $formkit: radio
+              name: position
+              label: 位置
+              help: 对应上游 noticeOutdate.position（默认 top）。top 插在正文前，bottom 插在正文后。
+              value: top
+              options:
+                - label: 顶部（正文前）
+                  value: top
+                - label: 底部（正文后）
+                  value: bottom
+            - $formkit: text
+              name: message_prev
+              label: 文案前缀
+              help: 对应上游 noticeOutdate.message_prev。与天数、后缀用空格拼接，可见文本 th:text。
+              value: It has been
+            - $formkit: text
+              name: message_next
+              label: 文案后缀
+              help: 对应上游 noticeOutdate.message_next。可见文本 th:text，不做 HTML。
+              value: days since the last update, the content of the article may be outdated.
     #归档设置
     - group: archives
       label: 归档设置
