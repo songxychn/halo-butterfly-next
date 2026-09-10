@@ -505,6 +505,49 @@
         "PR #74 merge-commit master CI 34375799081 completed success at 2026-09-09T16:19:02Z before the #75 merge push; not cancelled",
         "Issue #76 post_meta.date_format is open, not completed"
       ]
+    },
+    {
+      "kind": "docs-record",
+      "issue": 73,
+      "pr": 77,
+      "recordsPr": 75,
+      "reviewHead": "aa41cfea20d74468de89675c59567e1794c3f3b4",
+      "mergeSha": "f6d47359a273da6abdf755e34bb478241698e8ae",
+      "prCi": 34480932905,
+      "masterCi": 34482006258,
+      "evidence": "code-shrink-review.json",
+      "evidenceSha256": "6ae83ab0d2060b0c44ece0f6ef26d77ce1a0b438ad3df922d58c8873eb29e626",
+      "prCiConclusion": "success",
+      "masterCiConclusion": "success",
+      "limitations": [
+        "Documentation PR that recorded #75; does not close issues",
+        "Merge-commit master CI 34482006258 completed success at 2026-09-10T13:21:57Z before the #78 merge push; not cancelled"
+      ]
+    },
+    {
+      "kind": "component",
+      "issue": 76,
+      "pr": 78,
+      "reviewHead": "a80660b5111b2b7ec89e7c964adb94cd02395d2a",
+      "mergeSha": "49ba69b90f0e26dbb4920798a14d9e3d6562aff5",
+      "prCi": 34481406484,
+      "masterCi": 34482431216,
+      "evidence": "date-format-review.json",
+      "evidenceSha256": "5eb65665ae0eab58de58dc19d7d2e9d7b209ede7c1e449047697f7853989d13a",
+      "prCiConclusion": "success",
+      "masterCiConclusion": "success",
+      "limitations": [
+        "No dual-site lab",
+        "Does not close POST-01/PAGE-01",
+        "Same GitHub account cannot approve its own pull request",
+        "Independent review is issue comment 5619384352, not a GitHub Approve",
+        "Does not mark matrix verified",
+        "Newly raised implemented-unverified: config:post_meta.post.date_format and config:post_meta.page.date_format; evidence still []",
+        "Relative date granularity is coarser than upstream diffDate (no month unit / ISO fallback)",
+        "applyRelativeDates selector is document-wide time[data-relative-date=true], slightly wider than upstream containers",
+        "PR #77 merge-commit master CI 34482006258 completed success at 2026-09-10T13:21:57Z before the #78 merge push; not cancelled",
+        "Issue #79 index_post_content.method / length is open, not completed"
+      ]
     }
   ]
 }

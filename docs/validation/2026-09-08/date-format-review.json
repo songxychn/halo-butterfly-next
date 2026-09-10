@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 76,
+  "pr": 78,
+  "title": "M1：文章与列表日期格式 post_meta.date_format",
+  "author": "cursor/m1-date-format",
+  "recorder": "cursor/record-78",
+  "recordedAt": "2026-09-10T13:30:00Z",
+  "visibility": "private",
+  "sourceSha": "a80660b5111b2b7ec89e7c964adb94cd02395d2a",
+  "reviewHead": "a80660b5111b2b7ec89e7c964adb94cd02395d2a",
+  "mergeSha": "49ba69b90f0e26dbb4920798a14d9e3d6562aff5",
+  "mergedAt": "2026-09-10T13:24:18Z",
+  "closesIssue": 76,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/78#issuecomment-5619384352",
+    "createdAt": "2026-09-10T13:23:03Z",
+    "head": "a80660b5111b2b7ec89e7c964adb94cd02395d2a",
+    "note": "Independent review posted as issue comment 5619384352, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "f3cba754755343ba599ca138deb471208b8db6c341d881b7ef4788f88716375b",
+  "productCommits": [
+    {
+      "sha": "672c620",
+      "summary": "Align post_meta.post.date_format and post_meta.page.date_format (Halo post.post_meta / index.post_meta radios, default date). date keeps yyyy-MM-dd; relative keeps absolute time[datetime] and replaces visible text client-side."
+    },
+    {
+      "sha": "a3bef0c",
+      "summary": "Refreeze performance theme-defaults.json onto the date-format implementation commit"
+    },
+    {
+      "sha": "a80660b",
+      "summary": "Register #76 onto article and list date-format matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:post_meta.post.date_format",
+    "config:post_meta.page.date_format"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:index_post_content.method",
+    "config:index_post_content.length"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 524,
+    "mapping-required": 262,
+    "implemented-unverified": 101,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 79,
+    "state": "OPEN",
+    "title": "M1：首页列表摘要 index_post_content.method / length",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/79",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement index_post_content.method or length. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 77,
+    "title": "docs: 记录 #75 代码块默认折叠合并证据",
+    "headSha": "aa41cfea20d74468de89675c59567e1794c3f3b4",
+    "mergeSha": "f6d47359a273da6abdf755e34bb478241698e8ae",
+    "mergedAt": "2026-09-10T13:20:14Z",
+    "prCi": 34480932905,
+    "prCiConclusion": "success",
+    "masterCi": 34482006258,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34482006258",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/77#issuecomment-5619345131",
+    "note": "Waited with gh run view until completed. Push-event master CI 34482006258 on f6d47359a273da6abdf755e34bb478241698e8ae completed success at 2026-09-10T13:21:57Z, before the #78 merge push at 2026-09-10T13:24:18Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34481406484,
+      "runAttempt": 1,
+      "headSha": "a80660b5111b2b7ec89e7c964adb94cd02395d2a",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34481406484",
+      "note": "pnpm verify on this run: tests 122 pass / 0 fail."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34482431216,
+      "runAttempt": 1,
+      "headSha": "49ba69b90f0e26dbb4920798a14d9e3d6562aff5",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34482431216",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-10T13:26:24Z. tests 122; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #78; there is no Approve. Independent review is issue comment 5619384352 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head a80660b5111b2b7ec89e7c964adb94cd02395d2a: newly raised to implemented-unverified are only config:post_meta.post.date_format and config:post_meta.page.date_format. evidence remains []. Does not mark verified.",
+    "settingsSha256 f3cba754755343ba599ca138deb471208b8db6c341d881b7ef4788f88716375b matches settings.yaml at 672c620 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 672c620f55dfedfe8e1f63909d3e6e90fd3027a0. Both date_format defaults are date.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188: post_meta.post.date_format and post_meta.page.date_format default date. Halo radios are independent on post.post_meta and index.post_meta. date keeps yyyy-MM-dd; relative keeps absolute time[datetime] and replaces visible text via applyRelativeDates.",
+    "Non-blocking P2 from the independent review: no dual-site lab; relative copy stops at just now / x minutes / x hours / x days (upstream diffDate has months and ISO fallback); applyRelativeDates selects document-wide time[data-relative-date=true], slightly wider than upstream #post-meta / #recent-posts containers.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #79 index_post_content.method / length, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are only config:post_meta.post.date_format and config:post_meta.page.date_format; evidence remains [].",
+    "Relative date granularity is coarser than upstream btf.diffDate; applyRelativeDates selector is slightly wider than upstream containers.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #77 merge-commit master CI run 34482006258 on f6d47359a273da6abdf755e34bb478241698e8ae completed success at 2026-09-10T13:21:57Z, before the #78 merge push at 2026-09-10T13:24:18Z; must not be recorded as cancelled.",
+    "Issue #79 index_post_content.method / length is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
