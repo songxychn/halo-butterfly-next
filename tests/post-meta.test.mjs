@@ -11,6 +11,7 @@ test('文章页 post_meta 默认值对齐上游 Butterfly 5.7.0 post_meta.post',
   assert.deepEqual(defaults.post.post_meta, {
     position: 'left',
     date_type: 'both',
+    date_format: 'date',
     categories: true,
     tags: true,
     label: true,
