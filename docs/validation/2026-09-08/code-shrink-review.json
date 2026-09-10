@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 73,
+  "pr": 75,
+  "title": "M1：代码块默认折叠 code_blocks.shrink=true",
+  "author": "cursor/m1-code-shrink",
+  "recorder": "cursor/record-75",
+  "recordedAt": "2026-09-10T13:06:10Z",
+  "visibility": "private",
+  "sourceSha": "9d1df0ddbcd8ba59dc1223ba50d3d73748faa6fb",
+  "reviewHead": "9d1df0ddbcd8ba59dc1223ba50d3d73748faa6fb",
+  "mergeSha": "8818f31ee6304ac022b20158c6172a8e2d5ed7ed",
+  "mergedAt": "2026-09-10T13:01:28Z",
+  "closesIssue": 73,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/75#issuecomment-5606407464",
+    "createdAt": "2026-09-09T17:58:47Z",
+    "head": "9d1df0ddbcd8ba59dc1223ba50d3d73748faa6fb",
+    "note": "Independent review posted as issue comment 5606407464, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "20cf238db57abce2e6cb482425a9537d35d926160549bf1c8329d765287c9c8f",
+  "productCommits": [
+    {
+      "sha": "cb336f6",
+      "summary": "Align code_blocks.shrink three-state radio (false/true/none); default \"false\". Old boolean true maps to upstream false (expander + expanded); false maps to none. New string \"true\" is initially closed."
+    },
+    {
+      "sha": "b570306",
+      "summary": "Refreeze performance theme-defaults.json onto the code-shrink implementation commit"
+    },
+    {
+      "sha": "9d1df0d",
+      "summary": "Register #73 onto code-block default-collapse matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "interaction:collapse-code"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:code_blocks.shrink"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:post_meta.post.date_format",
+    "config:post_meta.page.date_format"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 526,
+    "mapping-required": 262,
+    "implemented-unverified": 99,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 76,
+    "state": "OPEN",
+    "title": "M1：文章与列表日期格式 post_meta.date_format",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/76",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement post_meta date_format or per-page highlight_shrink."
+  },
+  "precedingDocsPr": {
+    "pr": 74,
+    "title": "docs: 记录 #71 代码块全屏合并证据",
+    "headSha": "59765d62d54c72ca7bb5b85c84bfb38d546a4544",
+    "mergeSha": "81c20ecccda3ae7f9309cae242eb0e0cf4030e92",
+    "mergedAt": "2026-09-09T16:17:34Z",
+    "prCi": 34375476050,
+    "prCiConclusion": "success",
+    "masterCi": 34375799081,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34375799081",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/74#issuecomment-5605084494",
+    "note": "Waited with gh run view until completed. Push-event master CI 34375799081 on 81c20ecccda3ae7f9309cae242eb0e0cf4030e92 completed success at 2026-09-09T16:19:02Z, before the #75 merge push at 2026-09-10T13:01:28Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34376842281,
+      "runAttempt": 1,
+      "headSha": "9d1df0ddbcd8ba59dc1223ba50d3d73748faa6fb",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34376842281",
+      "note": "pnpm verify on this run: tests 118; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34480096038,
+      "runAttempt": 1,
+      "headSha": "8818f31ee6304ac022b20158c6172a8e2d5ed7ed",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34480096038",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-10T13:02:58Z. tests 118; package check 124 files; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #75; there is no Approve. Independent review is issue comment 5606407464 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 9d1df0ddbcd8ba59dc1223ba50d3d73748faa6fb: newly raised to implemented-unverified is only interaction:collapse-code. config:code_blocks.shrink remains implemented-unverified (finding updated to three-state complete). Does not mark verified.",
+    "settingsSha256 20cf238db57abce2e6cb482425a9537d35d926160549bf1c8329d765287c9c8f matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit cb336f608362ea88211195b843a3f38cf17e18ca. Default enable_code_expander is \"false\".",
+    "Defaults align upstream Butterfly 5.7.0: code_blocks.shrink false. Halo radio values false/true/none. Compatibility: old boolean true maps to upstream false (expander present, initially expanded); old boolean false maps to none (no expander). New string \"true\" is the only value that starts closed. Default is \"false\".",
+    "Non-blocking P2 from the independent review: no dual-site lab; sites with stored boolean true/false may display oddly in the Halo console until the operator reselects or migration runs (runtime resolveCodeShrink still maps correctly); upstream page.highlight_shrink is not mapped.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #76 post_meta.date_format, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is only interaction:collapse-code; config:code_blocks.shrink remains implemented-unverified with three-state complete.",
+    "Per-page highlight_shrink is not mapped.",
+    "Old boolean values may display abnormally in the Halo console until reselected; runtime mapping still applies.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #74 merge-commit master CI run 34375799081 on 81c20ecccda3ae7f9309cae242eb0e0cf4030e92 completed success at 2026-09-09T16:19:02Z, before the #75 merge push at 2026-09-10T13:01:28Z; must not be recorded as cancelled.",
+    "Issue #76 post_meta.date_format is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
