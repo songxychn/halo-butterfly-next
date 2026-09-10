@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 82,
+  "pr": 84,
+  "title": "M1：文章上下篇导航 post_pagination",
+  "author": "cursor/m1-post-pagination",
+  "recorder": "cursor/record-84",
+  "recordedAt": "2026-09-10T14:12:14Z",
+  "visibility": "private",
+  "sourceSha": "d60ce9f13477c92d02fa4ea43db1a0e9c39806ad",
+  "reviewHead": "d60ce9f13477c92d02fa4ea43db1a0e9c39806ad",
+  "mergeSha": "7d2fb248fcb4a5709dbe2f850d478ced772b0fa8",
+  "mergedAt": "2026-09-10T14:08:47Z",
+  "closesIssue": 82,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/84#issuecomment-5620002425",
+    "createdAt": "2026-09-10T14:07:03Z",
+    "head": "d60ce9f13477c92d02fa4ea43db1a0e9c39806ad",
+    "note": "Independent review posted as issue comment 5620002425, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "c936eeff7d7f8a9db46a055ded555668b5d8cb017b7c782e2133317b028d72b2",
+  "productCommits": [
+    {
+      "sha": "7b60f1b",
+      "summary": "Align post_pagination (Halo article prev/next). Default 1; false hides the block; 2 keeps Hexo prev/next order; otherwise swaps. Halo previous=earlier ↔ Hexo next. Titles and permalinks use th:text / th:href / th:title."
+    },
+    {
+      "sha": "0a13428",
+      "summary": "Refreeze performance theme-defaults.json onto the post_pagination implementation commit"
+    },
+    {
+      "sha": "d60ce9f",
+      "summary": "Register #82 onto article prev/next pagination matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:post_pagination"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "interaction:post-pagination"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 521,
+    "mapping-required": 262,
+    "implemented-unverified": 104,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 85,
+    "state": "OPEN",
+    "title": "M1：文章过期提醒 noticeOutdate",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/85",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement noticeOutdate. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 83,
+    "title": "docs: 记录 #81 首页列表摘要合并证据",
+    "headSha": "ac0e8b985ab6b761f655b9be8fabaf0833daa205",
+    "mergeSha": "d638a0c908a52cc4fe858d0735cbec212a26d1b2",
+    "mergedAt": "2026-09-10T13:56:37Z",
+    "prCi": 34485605869,
+    "prCiConclusion": "success",
+    "masterCi": 34485823698,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34485823698",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/83#issuecomment-5619849649",
+    "note": "Waited with gh run view until completed. Push-event master CI 34485823698 on d638a0c908a52cc4fe858d0735cbec212a26d1b2 completed success at 2026-09-10T13:58:22Z, before the #84 merge push at 2026-09-10T14:08:47Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34486799104,
+      "runAttempt": 1,
+      "headSha": "d60ce9f13477c92d02fa4ea43db1a0e9c39806ad",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34486799104",
+      "note": "pnpm verify on this run: tests 136 pass / 0 fail."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34487132013,
+      "runAttempt": 1,
+      "headSha": "7d2fb248fcb4a5709dbe2f850d478ced772b0fa8",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34487132013",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-10T14:10:30Z. parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #84; there is no Approve. Independent review is issue comment 5620002425 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head d60ce9f13477c92d02fa4ea43db1a0e9c39806ad: newly raised to implemented-unverified is only config:post_pagination. evidence remains []. interaction:post-pagination remains gap. Does not mark verified.",
+    "settingsSha256 c936eeff7d7f8a9db46a055ded555668b5d8cb017b7c782e2133317b028d72b2 matches settings.yaml at 7b60f1b and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 7b60f1b342d19481043134e90f107b5f2dac9961. Default is 1.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 post_pagination: false does not render; 2 keeps Hexo page.prev / page.next order; otherwise swaps. Halo cursor.previous is earlier (↔ Hexo page.next); cursor.next is later (↔ Hexo page.prev). Inserted on post.html after copyright and before comments; page.html has no insertion. Visible titles and permalinks use th:text / th:href / th:title.",
+    "Non-blocking P2 from the independent review: no dual-site lab; interaction:post-pagination remains gap; hover excerpt reuses index.index_post_content (upstream postDesc idea) without a separate Hexo method/length check in this slice.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #85 noticeOutdate, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is only config:post_pagination; evidence remains [].",
+    "interaction:post-pagination remains gap.",
+    "Hover excerpt reuses index_post_content; method/length edges were not dual-site checked in this slice.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #83 merge-commit master CI run 34485823698 on d638a0c908a52cc4fe858d0735cbec212a26d1b2 completed success at 2026-09-10T13:58:22Z, before the #84 merge push at 2026-09-10T14:08:47Z; must not be recorded as cancelled.",
+    "Issue #85 noticeOutdate is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
