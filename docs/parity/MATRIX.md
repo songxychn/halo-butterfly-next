@@ -8,9 +8,9 @@
 
 | 状态 | 项数 |
 | --- | ---: |
-| 待实现 | 527 |
+| 待实现 | 526 |
 | 待平台映射 | 262 |
-| 有相关实现，待对照验收 | 98 |
+| 有相关实现，待对照验收 | 99 |
 | 开发中 | 10 |
 | 验收失败 | 0 |
 | 待独立审查 | 0 |
@@ -923,7 +923,7 @@
 | <a id="interaction-sticky-nav"></a>`interaction:sticky-nav`<br>滚动导航显隐与文章标题 | [source/js/main.js:450](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L450)<br>`const scrollFn =` | 设置：nav.fixed, nav.display_post_title<br>映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。 | ENV-02, PAGE-01, PAGE-03, A11Y-02<br>上滚/下滚/首屏边界检查导航固定、标题切换和遮挡。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="interaction-hero-scroll"></a>`interaction:hero-scroll`<br>首页向下滚动按钮 | [source/js/main.js:51](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L51)<br>`const scrollDownInIndex =` | 原需求保留；尚未实现或完成 Halo 平台映射。<br>将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。 | ENV-02, PAGE-01, PAGE-04, PAGE-02<br>按钮将内容区移到正确偏移，窄屏及减少动画设置也可操作。 | 待实现<br>无验收证据 |
 | <a id="interaction-copy-code"></a>`interaction:copy-code`<br>复制代码成功与失败 | [source/js/main.js:132](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L132)<br>`const copy = async` | 设置：render.enable_code_copy<br>在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。 | ENV-02, PAGE-01, POST-01, PLG-06<br>剪贴板包含代码原文，权限拒绝时明确提示，行号不被复制。 | 有相关实现，待对照验收<br>无验收证据 |
-| <a id="interaction-collapse-code"></a>`interaction:collapse-code`<br>代码折叠与高度限制 | [source/js/main.js:64](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L64)<br>`const addHighlightTool =` | 原需求保留；尚未实现或完成 Halo 平台映射。<br>在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。 | ENV-02, PAGE-01, POST-01, PLG-06<br>初始 true/false/none，点击展开收起与 height_limit 共同生效。 | 待实现<br>无验收证据 |
+| <a id="interaction-collapse-code"></a>`interaction:collapse-code`<br>代码折叠与高度限制 | [source/js/main.js:64](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L64)<br>`const addHighlightTool =` | 设置：render.enable_code_expander<br>在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。 | ENV-02, PAGE-01, POST-01, PLG-06<br>初始 true/false/none，点击展开收起与 height_limit 共同生效。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="interaction-fullpage-code"></a>`interaction:fullpage-code`<br>代码全屏 | [source/js/main.js:155](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L155)<br>`const codeFullpage =` | 设置：render.enable_code_fullpage<br>在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。 | ENV-02, PAGE-01, POST-01, PLG-06<br>打开/退出全屏恢复滚动和按钮状态。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="interaction-lightbox"></a>`interaction:lightbox`<br>图片灯箱 | [source/js/main.js:259](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L259)<br>`const runLightbox =` | 原需求保留；尚未实现或完成 Halo 平台映射。<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01<br>打开、前后图、关闭、键盘与无灯箱图片，导航离开后解除事件。 | 待实现<br>无验收证据 |
 | <a id="interaction-toc-scroll"></a>`interaction:toc-scroll`<br>目录与滚动同步 | [source/js/main.js:516](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/source/js/main.js#L516)<br>`const scrollFnToDo =` | 原需求保留；尚未实现或完成 Halo 平台映射。<br>扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。 | ENV-02, PAGE-01, POST-02, PAGE-02<br>目录定位、高亮、编号、展开、阅读百分比及移动目录。 | 待实现<br>无验收证据 |

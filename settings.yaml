@@ -894,14 +894,16 @@ spec:
         - $formkit: radio
           name: enable_code_expander
           if: $get(enable_code).value
-          label: 启用代码折叠
-          help: 对应上游 code_blocks.shrink。关闭后不显示折叠按钮（none）；开启时默认展开并显示按钮（false）。
-          value: true
+          label: 代码块默认折叠
+          help: 对应上游 code_blocks.shrink（false / true / none）。false：有折叠按钮且初始展开；true：有按钮且初始折叠（closed）；none：不显示折叠按钮。默认 false，与上游一致。旧版布尔 true（有按钮、初始展开）运行时映射为 false；旧版布尔 false（无按钮）映射为 none，已有站点不会因升级变成初始折叠。
+          value: "false"
           options:
-            - label: 启用
-              value: true
-            - label: 禁用
-              value: false
+            - label: 初始展开（上游 false）
+              value: "false"
+            - label: 初始折叠（上游 true）
+              value: "true"
+            - label: 不显示按钮（上游 none）
+              value: "none"
         - $formkit: radio
           name: enable_code_mac_style
           if: $get(enable_code).value

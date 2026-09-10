@@ -7,6 +7,7 @@
 import $ from 'jquery';
 import Clipboard from 'clipboard';
 import {useToBool} from '../core/_util';
+import {resolveCodeShrink} from '../core/code-shrink.mjs';
 
 export default class codeBlock {
   name = 'codeBlock';
@@ -40,6 +41,10 @@ export default class codeBlock {
     if (value === false || value === 'false' || value == null || value === '') return false;
     const n = Number(value);
     return Number.isFinite(n) && n > 0 ? n : false;
+  }
+
+  #shrinkMode() {
+    return resolveCodeShrink(this.#conf?.enable_code_expander);
   }
 
   #code() {
@@ -95,12 +100,17 @@ export default class codeBlock {
       customItem.append(button);
     }
 
-    if (this.#flag('enable_code_expander')) {
-      const expander = $('<button type="button" class="code-expander" aria-label="折叠代码" title="折叠代码" aria-expanded="true"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>');
+    const shrink = this.#shrinkMode();
+    if (shrink !== 'none') {
+      const initiallyClosed = shrink === 'true';
+      if (initiallyClosed) wrap.addClass('closed');
+      const expander = $(`<button type="button" class="code-expander" aria-label="${initiallyClosed ? '展开代码' : '折叠代码'}" title="${initiallyClosed ? '展开代码' : '折叠代码'}" aria-expanded="${initiallyClosed ? 'false' : 'true'}"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>`);
       expander.on('click', function() {
-        pre.children('code').toggle();
-        toolbar.toggleClass('enable-expander');
-        $(this).attr('aria-expanded', String(!toolbar.hasClass('enable-expander')));
+        wrap.toggleClass('closed');
+        const closed = wrap.hasClass('closed');
+        $(this).attr('aria-expanded', String(!closed));
+        $(this).attr('aria-label', closed ? '展开代码' : '折叠代码');
+        $(this).attr('title', closed ? '展开代码' : '折叠代码');
       });
       customItem.append(expander);
     }

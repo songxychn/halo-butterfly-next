@@ -980,7 +980,7 @@
               "src/html/views/components.html",
               "settings.yaml"
             ],
-            "finding": "已映射 code_blocks.shrink：enable_code_expander 关闭对应 none（不输出折叠按钮）；开启对应 false（默认展开并显示按钮）。尚未实现 shrink=true 默认折叠，亦未双站对照验收。"
+            "finding": "已映射 code_blocks.shrink 三态到 render.enable_code_expander 字符串 radio：false 有按钮且初始展开，true 有按钮且初始 closed，none 无折叠按钮。默认 false，与上游 _config.yml 一致。旧布尔 true 运行时映射为 false，旧布尔 false 映射为 none。尚未双站对照验收，禁止 verified。"
           },
           "dependencies": [
             "dual-site",
@@ -1008,10 +1008,12 @@
           "tracking": {
             "issues": [
               "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59"
+              "https://github.com/songxychn/halo-butterfly-next/issues/59",
+              "https://github.com/songxychn/halo-butterfly-next/issues/73"
             ],
             "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60"
+              "https://github.com/songxychn/halo-butterfly-next/pull/60",
+              "https://github.com/songxychn/halo-butterfly-next/pull/75"
             ]
           },
           "evidence": [],
@@ -45413,14 +45415,19 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-        "settings": [],
+        "settings": [
+          "render.enable_code_expander"
+        ],
         "code": [
           "src/js/modules/CodeBlock.js",
+          "src/js/core/code-shrink.mjs",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
-          "src/html/page.html"
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已实现代码块折叠三态：none 不插入折叠按钮且不初始 closed；false 插入可键盘激活的 button.code-expander 且初始展开；true 同样有按钮并给包装加上游 closed。与 copy / macStyle / height_limit / word_wrap / fullpage 并存。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -45440,12 +45447,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/73"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/75"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:fullpage-code",

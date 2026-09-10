@@ -98,12 +98,6 @@
       }
     }
 
-    &.enable-expander {
-      .code-expander {
-        transform: rotate(90deg);
-      }
-    }
-
     &.enable-title {
       .toolbar-item:first-child {
         display: block;
@@ -126,6 +120,21 @@
         word-wrap: break-word;
         overflow-x: hidden;
       }
+    }
+  }
+
+  &.closed {
+    pre[class*=language-],
+    .code-expand-btn {
+      display: none;
+    }
+
+    .toolbar .code-expander {
+      transform: rotate(-90deg);
+    }
+
+    &.mac-style .toolbar .code-expander {
+      transform: rotate(90deg);
     }
   }
 
