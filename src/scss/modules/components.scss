@@ -126,6 +126,9 @@
 
           > .excerpt {
             line-height: 1.8;
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
             @include util.text-clamp(2);
 
             @include util.useResponsive($width: util.$w-md) {

@@ -69,7 +69,7 @@
   </li>
 </ul>
 
-<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page）控制；评论/点赞/预览不是 post_meta。 */-->
+<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page）控制；摘要受 index.index_post_content（上游 index_post_content.method / length）控制；评论/点赞/预览不是 post_meta。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
@@ -79,7 +79,9 @@
     dateType = ${theme.config.index.post_meta?.date_type},
     dateFormat = ${theme.config.index.post_meta?.date_format},
     showLabel = ${theme.config.index.post_meta?.label != false},
-    indexCoverEnable = ${theme.config.cover.index_enable != false}
+    indexCoverEnable = ${theme.config.cover.index_enable != false},
+    ipcMethod = ${theme.config.index.index_post_content?.method},
+    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
   "
 >
   <th:block th:if="${noData}">
@@ -141,7 +143,23 @@
             </span>
           </div>
         </div>
-        <div th:if="${layout == 'list'}" class="excerpt" th:text="${post.spec.excerpt.raw}"></div>
+        <th:block
+          th:if="${layout == 'list' and ipcMethod != false and ipcMethod != 'false'}"
+          th:with="
+            description = ${#strings.defaultString(post.spec.excerpt.raw, '')},
+            methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+            methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+            useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+            contentVo = ${useDescription or methodOne ? null : postFinder.content(post.metadata.name)},
+            htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
+            stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
+            plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(post.status.excerpt, '')},
+            autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+            excerptText = ${useDescription ? description : (methodOne ? '' : autoExcerpt)}
+          "
+        >
+          <div class="excerpt" th:if="${not #strings.isEmpty(excerptText)}" th:text="${excerptText}"></div>
+        </th:block>
       </div>
     </li>
   </th:block>
