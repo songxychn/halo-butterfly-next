@@ -259,6 +259,72 @@
   </div>
 </th:block>
 
+<!--/* 文章上下篇。对齐 Butterfly 5.7.0 layout/includes/pagination.pug（globalPageType=post）。
+     Halo cursor.previous=较早发布 ↔ Hexo page.next；cursor.next=较晚发布 ↔ Hexo page.prev。
+     post_pagination===2 时 {prev: page.prev, next: page.next}，否则对调。
+     标题/链接/摘要 th:text、th:href、th:title；悬停摘要复用 index_post_content（上游 postDesc）。 */-->
+<nav
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postPagination"
+  id="pagination"
+  class="pagination-post"
+  th:if="${theme.config.post.post_pagination != false and theme.config.post.post_pagination != 'false'}"
+  th:with="
+    paginationMode = ${theme.config.post.post_pagination},
+    navCursor = ${postFinder.cursor(post.metadata.name)},
+    haloPrev = ${navCursor != null ? navCursor.previous : null},
+    haloNext = ${navCursor != null ? navCursor.next : null},
+    modeTwo = ${paginationMode == 2 or paginationMode == '2'},
+    prevPost = ${modeTwo ? haloNext : haloPrev},
+    nextPost = ${modeTwo ? haloPrev : haloNext},
+    ipcMethod = ${theme.config.index.index_post_content?.method},
+    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+  "
+>
+  <th:block th:replace="~{:: postPaginationLink(${prevPost}, 'prev', ${nextPost != null}, ${ipcMethod}, ${ipcLength})}"/>
+  <th:block th:replace="~{:: postPaginationLink(${nextPost}, 'next', ${prevPost != null}, ${ipcMethod}, ${ipcLength})}"/>
+</nav>
+
+<a
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postPaginationLink(target, direction, hasOther, ipcMethod, ipcLength)"
+  th:if="${target != null}"
+  class="pagination-related"
+  th:href="${target.status.permalink}"
+  th:title="${target.spec.title}"
+  th:with="
+    description = ${#strings.defaultString(target.spec.excerpt.raw, '')},
+    methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+    methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+    methodOff = ${ipcMethod == false or ipcMethod == 'false'},
+    useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+    contentVo = ${methodOff or useDescription or methodOne ? null : postFinder.content(target.metadata.name)},
+    htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
+    stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
+    plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(target.status.excerpt, '')},
+    autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+    excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
+    hasDesc = ${not #strings.isEmpty(excerptText)},
+    coverSrc = ${not #strings.isEmpty(target.spec.cover) ? target.spec.cover : theme.config.cover.default_cover},
+    hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable}
+  "
+  th:classappend="${(hasOther ? '' : 'full-width ') + (hasDesc ? '' : 'no-desc')}"
+>
+  <th:block th:if="${hasImg}">
+    <img th:replace="~{::lazyLoadImg(${coverSrc},${target.spec.title},'cover',true,${'v=' + #dates.format(target.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+  </th:block>
+  <div th:unless="${hasImg}" class="cover"></div>
+  <div class="info" th:classappend="${direction == 'next' ? 'text-right' : ''}">
+    <div class="info-1">
+      <div class="info-item-1" th:text="${direction == 'prev' ? '上一篇' : '下一篇'}"></div>
+      <div class="info-item-2" th:text="${target.spec.title}"></div>
+    </div>
+    <div class="info-2" th:if="${hasDesc}">
+      <div class="info-item-1" th:text="${excerptText}"></div>
+    </div>
+  </div>
+</a>
+
 <!--/* 文章/页面代码块：Prism 资源与工具栏开关 */-->
 <th:block
   xmlns:th="https://www.thymeleaf.org"

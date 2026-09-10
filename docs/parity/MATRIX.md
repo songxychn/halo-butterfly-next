@@ -8,9 +8,9 @@
 
 | 状态 | 项数 |
 | --- | ---: |
-| 待实现 | 522 |
+| 待实现 | 521 |
 | 待平台映射 | 262 |
-| 有相关实现，待对照验收 | 103 |
+| 有相关实现，待对照验收 | 104 |
 | 开发中 | 10 |
 | 验收失败 | 0 |
 | 待独立审查 | 0 |
@@ -100,7 +100,7 @@
 | <a id="config-related_post-enable"></a>`config:related_post.enable`<br>文章与单页内容 / related_post.enable | [_config.yml:231](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L231)<br>`related_post.enable` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>related_post.enable：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 related_post.enable 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-related_post-limit"></a>`config:related_post.limit`<br>文章与单页内容 / related_post.limit | [_config.yml:233](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L233)<br>`related_post.limit` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>related_post.limit：默认 6、边界值及文档允许的替代值，核对对应输出及再次刷新。；保持同组其他设置不变；验证 related_post.limit 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-related_post-date_type"></a>`config:related_post.date_type`<br>文章与单页内容 / related_post.date_type | [_config.yml:235](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L235)<br>`related_post.date_type` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>related_post.date_type：逐值执行 "created" / "updated"。；保持同组其他设置不变；验证 related_post.date_type 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
-| <a id="config-post_pagination"></a>`config:post_pagination`<br>文章与单页内容 / post_pagination | [_config.yml:241](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L241)<br>`post_pagination` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>post_pagination：逐值执行 false / 1 / 2。；保持同组其他设置不变；验证 post_pagination 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
+| <a id="config-post_pagination"></a>`config:post_pagination`<br>文章与单页内容 / post_pagination | [_config.yml:241](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L241)<br>`post_pagination` | 设置：post.post_pagination<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>post_pagination：逐值执行 false / 1 / 2。；保持同组其他设置不变；验证 post_pagination 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-noticeOutdate-enable"></a>`config:noticeOutdate.enable`<br>文章与单页内容 / noticeOutdate.enable | [_config.yml:245](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L245)<br>`noticeOutdate.enable` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>noticeOutdate.enable：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 noticeOutdate.enable 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-noticeOutdate-style"></a>`config:noticeOutdate.style`<br>文章与单页内容 / noticeOutdate.style | [_config.yml:247](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L247)<br>`noticeOutdate.style` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>noticeOutdate.style：逐值执行 "simple" / "flat"。；保持同组其他设置不变；验证 noticeOutdate.style 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-noticeOutdate-limit_day"></a>`config:noticeOutdate.limit_day`<br>文章与单页内容 / noticeOutdate.limit_day | [_config.yml:249](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L249)<br>`noticeOutdate.limit_day` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。 | ENV-02, PAGE-01, POST-01, POST-02, CFG-01<br>noticeOutdate.limit_day：默认 365、边界值及文档允许的替代值，核对对应输出及再次刷新。；保持同组其他设置不变；验证 noticeOutdate.limit_day 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |

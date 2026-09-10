@@ -82,6 +82,8 @@
         </div>
       </div>
 
+      <th:block th:replace="~{views/components :: postPagination}"/>
+
       <halo:comment
         th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && post.spec.allowComment}"
         group="content.halo.run"

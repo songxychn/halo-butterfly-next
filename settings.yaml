@@ -808,6 +808,18 @@ spec:
                   value: true
                 - label: 隐藏
                   value: false
+        - $formkit: radio
+          name: post_pagination
+          label: 文章上下篇
+          help: 对应上游 Butterfly post_pagination（默认 1）。false 不渲染。1 / 2 对齐 layout/includes/pagination.pug：值为 2 时不调换 Hexo page.prev 与 page.next，否则对调。Halo postFinder.cursor.previous 为较早发布（对应 Hexo page.next），next 为较晚发布（对应 Hexo page.prev）。默认 1 时左侧上一篇为较早、右侧下一篇为较晚。标题与链接文本转义。不做 related_post、逐页覆盖。
+          value: "1"
+          options:
+            - label: 关闭
+              value: "false"
+            - label: 1（默认）：上一篇较早、下一篇较新
+              value: "1"
+            - label: 2：上一篇较新、下一篇较早
+              value: "2"
     #归档设置
     - group: archives
       label: 归档设置
