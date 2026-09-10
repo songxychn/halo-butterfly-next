@@ -7,6 +7,14 @@
 import $ from 'jquery';
 import {useDelay} from '../core/_util';
 import tocBot from 'tocbot';
+import {
+  applyTocNumbers,
+  getScrollPercent,
+  resolveCollapseDepth,
+  resolveNumber,
+  resolveExpand,
+  resolveScrollPercent,
+} from '../core/toc.mjs';
 
 export default class Render {
   name = 'Render';
@@ -33,6 +41,7 @@ export default class Render {
 
   #domObserver() {
     const renderDom = document.querySelector('article.render');
+    if (!renderDom) return;
 
     const observer = new ResizeObserver(entries => {
       for (let entry of entries) {
@@ -46,9 +55,16 @@ export default class Render {
   }
 
   /**
-   * 设置目录
+   * 设置目录。对齐 toc.number / expand / scroll_percent。
    */
   #tocBot() {
+    const tocEl = document.querySelector('.aside-toc > .toc');
+    if (!tocEl) return;
+
+    const expand = resolveExpand(this.#conf.toc_expand);
+    tocEl.classList.toggle('is-expand', expand);
+    tocEl.classList.toggle('is-numbered', resolveNumber(this.#conf.toc_number));
+
     tocBot.init({
       contentSelector: 'article.render',
       tocSelector: '.aside-toc > .toc',
@@ -58,6 +74,7 @@ export default class Render {
       includeTitleTags: true,
       scrollSmoothDuration: 280,
       throttleTimeout: 30,
+      collapseDepth: resolveCollapseDepth(this.#conf.toc_expand),
       headingsOffset: 20, // 目录中高亮的偏移值，和scrollSmoothOffset有关联
       scrollSmoothOffset: -20, // 屏幕滚动的偏移值（这里和导航条固定也有关联）
       fixedSidebarOffset: 'auto',
@@ -66,7 +83,14 @@ export default class Render {
       },
     });
 
+    const article = document.querySelector('article.render');
+    const percentEl = document.querySelector('.aside-toc .toc-percentage');
+    const showPercent = resolveScrollPercent(this.#conf.toc_scroll_percent);
+
     MainApp.useScroll.change((max, num, scrollTop) => {
+      if (showPercent && percentEl && article) {
+        percentEl.textContent = String(getScrollPercent(scrollTop, article));
+      }
       if(scrollTop < max || window.innerWidth <= 1100) return;
       if(num <= scrollTop) {
         this.#tocStickyDom.css('top', '');
@@ -79,6 +103,7 @@ export default class Render {
     const toc = $('.aside-toc > .toc');
 
     if(!toc.html()) toc.html('暂无目录~');
+    else applyTocNumbers(tocEl, resolveNumber(this.#conf.toc_number));
 
   }
 
@@ -87,6 +112,7 @@ export default class Render {
    */
   #tocBotH5() {
     const adeToc = this.#tocStickyDom.find('.aside-toc');
+    if (!adeToc.length) return;
 
     const sideBtn = $('.side-btn');
 
