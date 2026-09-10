@@ -7,6 +7,7 @@
 import $ from 'jquery';
 import Navigation from './navigation';
 import LazyLoad from './_lazyLoad';
+import { applyRelativeDates } from './relative-date.mjs';
 
 export default class Common {
 
@@ -16,6 +17,8 @@ export default class Common {
     this.#createSingleAction(); //创建单一行为事件
 
     if(MainApp.conf.enable_aside && MainApp.conf.enable_webInfo) this.#runDay(); //站点运行时间
+
+    applyRelativeDates();
 
   }
 

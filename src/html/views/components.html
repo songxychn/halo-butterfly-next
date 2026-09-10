@@ -15,6 +15,7 @@
   th:class="${'post-meta ' + (theme.config.post.post_meta?.position == 'center' ? 'center' : 'left')}"
   th:with="
     dateType = ${theme.config.post.post_meta?.date_type},
+    dateFormat = ${theme.config.post.post_meta?.date_format},
     showLabel = ${theme.config.post.post_meta?.label != false},
     rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
     plain = ${rawHtml.replaceAll('(?s)<[^>]+>', '')},
@@ -44,11 +45,11 @@
   <li class="row">
     <span class="wp publishTime" th:if="${dateType != 'updated'}">
       <i class="fa-solid fa-calendar-days"></i>
-      <time th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+      <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
     </span>
     <span class="wp lastModifyTime" th:if="${dateType != 'created'}">
       <i class="fas fa-history fa-fw"></i>
-      <time th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+      <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
     </span>
   </li>
 
@@ -76,6 +77,7 @@
   th:with="
     noData = ${not #lists.isEmpty(data)},
     dateType = ${theme.config.index.post_meta?.date_type},
+    dateFormat = ${theme.config.index.post_meta?.date_format},
     showLabel = ${theme.config.index.post_meta?.label != false},
     indexCoverEnable = ${theme.config.cover.index_enable != false}
   "
@@ -115,11 +117,11 @@
           <div class="row">
             <span class="wp publishTime" th:if="${dateType != 'updated'}">
               <i class="far fa-calendar-alt fa-bolt"></i>
-              <time th:datetime="${post.spec.publishTime}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+              <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
             </span>
             <span class="wp lastModifyTime" th:if="${dateType == 'updated' or dateType == 'both'}">
               <i class="fas fa-history fa-fw"></i>
-              <time th:datetime="${post.status.lastModifyTime}" th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+              <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
             </span>
             <span class="wp category" th:if="${theme.config.index.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
               <i class="fas fa-inbox"></i>

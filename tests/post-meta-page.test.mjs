@@ -17,6 +17,7 @@ function listFragment(source) {
 test('首页列表 post_meta 默认值对齐上游 Butterfly 5.7.0 post_meta.page（date_type=created）', () => {
   assert.deepEqual(defaults.index.post_meta, {
     date_type: 'created',
+    date_format: 'date',
     categories: true,
     tags: true,
     label: true,
@@ -28,6 +29,7 @@ test('文章页 post.post_meta 默认值不被首页列表组覆盖', () => {
   assert.deepEqual(defaults.post.post_meta, {
     position: 'left',
     date_type: 'both',
+    date_format: 'date',
     categories: true,
     tags: true,
     label: true,

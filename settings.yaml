@@ -592,9 +592,10 @@ spec:
         - $formkit: group
           name: post_meta
           label: 首页列表元信息
-          help: 对应上游 Butterfly post_meta.page（不含 date_format / relative）。控制首页/分类/标签列表卡片上的日期、分类与标签。
+          help: 对应上游 Butterfly post_meta.page。控制首页/分类/标签列表卡片上的日期、分类与标签。date_format 与文章页 post.post_meta.date_format 独立。
           value:
             date_type: created
+            date_format: date
             categories: true
             tags: true
             label: true
@@ -611,6 +612,16 @@ spec:
                   value: updated
                 - label: 发布日与更新日
                   value: both
+            - $formkit: radio
+              name: date_format
+              label: 日期格式
+              help: 对应上游 Butterfly post_meta.page.date_format。date 为 yyyy-MM-dd 绝对日期（默认），relative 为相对时间（x 分钟前 / x 小时前 / x 天前）。与文章页 post.post_meta.date_format 独立。
+              value: date
+              options:
+                - label: 绝对日期
+                  value: date
+                - label: 相对时间
+                  value: relative
             - $formkit: radio
               name: categories
               label: 显示分类
@@ -698,10 +709,11 @@ spec:
         - $formkit: group
           name: post_meta
           label: 文章页元信息
-          help: 对应上游 Butterfly post_meta.post（不含 date_format / relative）
+          help: 对应上游 Butterfly post_meta.post。date_format 与首页列表 index.post_meta.date_format 独立。
           value:
             position: left
             date_type: both
+            date_format: date
             categories: true
             tags: true
             label: true
@@ -728,6 +740,16 @@ spec:
                   value: created
                 - label: 仅更新日
                   value: updated
+            - $formkit: radio
+              name: date_format
+              label: 日期格式
+              help: 对应上游 Butterfly post_meta.post.date_format。date 为 yyyy-MM-dd 绝对日期（默认），relative 为相对时间（x 分钟前 / x 小时前 / x 天前）。与列表 index.post_meta.date_format 独立。
+              value: date
+              options:
+                - label: 绝对日期
+                  value: date
+                - label: 相对时间
+                  value: relative
             - $formkit: radio
               name: categories
               label: 显示分类
