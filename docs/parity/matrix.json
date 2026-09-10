@@ -3936,13 +3936,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
-        "code": [
-          "src/js/modules/Render.js",
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "toc.number"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/modules/render.scss"
+        ],
+        "finding": "已映射 toc.number（默认 true）到 toc.number。开启后目录项带 1. / 1.1. 序号（对齐 hexo toc list_number）；关闭不渲染序号。仅文章页侧栏。不做 toc.post / toc.page、anchor、逐页 toc_number。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -3964,12 +3969,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/88"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:toc.expand",
@@ -3993,13 +3999,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
-        "code": [
-          "src/js/modules/Render.js",
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "toc.expand"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/modules/render.scss"
+        ],
+        "finding": "已映射 toc.expand（默认 false）到 toc.expand。开启后目录加 is-expand、子级全部展开（tocbot collapseDepth 6）；关闭时仅当前项父级展开（collapseDepth 0）。仅文章页。不做逐页 toc_expand。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4021,12 +4032,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/88"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:toc.style_simple",
@@ -4050,13 +4062,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
-        "code": [
-          "src/js/modules/Render.js",
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "toc.style_simple"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/modules/render.scss"
+        ],
+        "finding": "已映射 toc.style_simple（默认 false）到 toc.style_simple。仅文章页：开启后侧栏只保留目录，不渲染最近文章等其它卡片。不做 related_post。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4078,12 +4095,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/88"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:toc.scroll_percent",
@@ -4107,13 +4125,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
-        "code": [
-          "src/js/modules/Render.js",
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "toc.scroll_percent"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/modules/render.scss"
+        ],
+        "finding": "已映射 toc.scroll_percent（默认 true）到 toc.scroll_percent。开启后目录标题显示阅读进度百分比（对齐 btf.getScrollPercent，写入 .toc-percentage textContent）；关闭不渲染、不更新。不做 rightside_scroll_percent。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4135,12 +4158,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/88"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_copyright.enable",

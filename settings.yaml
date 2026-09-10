@@ -878,6 +878,50 @@ spec:
               label: 文案后缀
               help: 对应上游 noticeOutdate.message_next。可见文本 th:text，不做 HTML。
               value: days since the last update, the content of the article may be outdated.
+    #文章目录（对齐上游 toc.number / expand / style_simple / scroll_percent）
+    - group: toc
+      label: 文章目录
+      formSchema:
+        - $formkit: radio
+          name: number
+          label: 目录序号
+          help: 对应上游 Butterfly toc.number（_config.yml / card_post_toc.pug list_number，5.7.0 f223b188）。默认开启。关闭后目录项不带 1. / 1.1. 序号。不做 toc.post / toc.page、逐页 toc_number。
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: radio
+          name: expand
+          label: 默认展开
+          help: 对应上游 toc.expand（默认关闭）。开启后目录加 is-expand、子级全部展开；关闭时仅当前项父级展开。不做逐页 toc_expand。
+          value: false
+          options:
+            - label: 展开
+              value: true
+            - label: 折叠（默认）
+              value: false
+        - $formkit: radio
+          name: style_simple
+          label: 简洁侧栏
+          help: 对应上游 toc.style_simple（默认关闭，仅文章页）。开启后文章侧栏只保留目录，不渲染最近文章等其它卡片。不做 related_post。
+          value: false
+          options:
+            - label: 仅目录
+              value: true
+            - label: 目录与其它卡片（默认）
+              value: false
+        - $formkit: radio
+          name: scroll_percent
+          label: 滚动百分比
+          help: 对应上游 toc.scroll_percent（默认开启）。开启后目录标题显示阅读进度百分比；关闭不渲染、不更新。不做 rightside_scroll_percent。
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
     #归档设置
     - group: archives
       label: 归档设置
