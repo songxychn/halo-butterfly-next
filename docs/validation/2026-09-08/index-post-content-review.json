@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 79,
+  "pr": 81,
+  "title": "M1：首页列表摘要 index_post_content",
+  "author": "cursor/m1-index-post-content",
+  "recorder": "cursor/record-81",
+  "recordedAt": "2026-09-10T13:53:05Z",
+  "visibility": "private",
+  "sourceSha": "da84ca37495d8038e30505ad054409031e07f84b",
+  "reviewHead": "da84ca37495d8038e30505ad054409031e07f84b",
+  "mergeSha": "14b8b26e5b02a2286f335a8dd6a34141ffa04501",
+  "mergedAt": "2026-09-10T13:49:55Z",
+  "closesIssue": 79,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/81#issuecomment-5619751613",
+    "createdAt": "2026-09-10T13:49:31Z",
+    "head": "da84ca37495d8038e30505ad054409031e07f84b",
+    "note": "Independent review posted as issue comment 5619751613, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "1851c4355a82d96524509be1904aadb4d6c3abc0ae6409d4c74ee1addc6f80dd",
+  "productCommits": [
+    {
+      "sha": "cdf2c2b",
+      "summary": "Align index_post_content.method / length (Halo list excerpt). false hides the block; 1 uses only the manual excerpt; 2 prefers the manual excerpt else truncates body; 3 always truncates (default). length default 500 for method 2/3. Visible text via th:text."
+    },
+    {
+      "sha": "dbb5cb9",
+      "summary": "Refreeze performance theme-defaults.json onto the index_post_content implementation commit"
+    },
+    {
+      "sha": "da84ca3",
+      "summary": "Register #79 onto homepage list excerpt matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:index_post_content.method",
+    "config:index_post_content.length"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:post_pagination"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 522,
+    "mapping-required": 262,
+    "implemented-unverified": 103,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 82,
+    "state": "OPEN",
+    "title": "M1：文章上下篇导航 post_pagination",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/82",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement post_pagination. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 80,
+    "title": "docs: 记录 #78 日期格式合并证据",
+    "headSha": "f13ac12d1db78d1d84fcbb4542ee1e75310c4670",
+    "mergeSha": "da326d2203d6b76adde3ff47449c43b14a558eae",
+    "mergedAt": "2026-09-10T13:47:33Z",
+    "prCi": 34483615922,
+    "prCiConclusion": "success",
+    "masterCi": 34484866291,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34484866291",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/80#issuecomment-5619584323",
+    "note": "Waited with gh run view until completed. Push-event master CI 34484866291 on da326d2203d6b76adde3ff47449c43b14a558eae completed success at 2026-09-10T13:49:04Z, before the #81 merge push at 2026-09-10T13:49:55Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34484449538,
+      "runAttempt": 1,
+      "headSha": "da84ca37495d8038e30505ad054409031e07f84b",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34484449538",
+      "note": "pnpm verify on this run: tests 129 pass / 0 fail."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34485114265,
+      "runAttempt": 1,
+      "headSha": "14b8b26e5b02a2286f335a8dd6a34141ffa04501",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34485114265",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-10T13:51:17Z. parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #81; there is no Approve. Independent review is issue comment 5619751613 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head da84ca37495d8038e30505ad054409031e07f84b: newly raised to implemented-unverified are only config:index_post_content.method and config:index_post_content.length. evidence remains []. Does not mark verified.",
+    "settingsSha256 1851c4355a82d96524509be1904aadb4d6c3abc0ae6409d4c74ee1addc6f80dd matches settings.yaml at cdf2c2b and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit cdf2c2b4711a9f3b9d5bcf904d308091251e1846. Defaults are method 3 and length 500.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 postDesc: false does not render; 1 uses only the manual excerpt; 2 prefers the manual excerpt else truncates; 3 always truncates. Visible excerpt uses th:text, not th:utext.",
+    "Non-blocking P2 from the independent review: no dual-site lab; Halo spec.excerpt.raw vs Hexo front-matter description; content falls back to post.status.excerpt when postFinder.content is empty; runtime excerpt is inlined in Thymeleaf while index-post-content.mjs is for tests; upstream encrypt truncate-to-empty is not mapped.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #82 post_pagination, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are only config:index_post_content.method and config:index_post_content.length; evidence remains [].",
+    "Halo manual excerpt maps to spec.excerpt.raw, which differs from Hexo front-matter description; method 1/2 still need a live site check.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #80 merge-commit master CI run 34484866291 on da326d2203d6b76adde3ff47449c43b14a558eae completed success at 2026-09-10T13:49:04Z, before the #81 merge push at 2026-09-10T13:49:55Z; must not be recorded as cancelled.",
+    "Issue #82 post_pagination is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
