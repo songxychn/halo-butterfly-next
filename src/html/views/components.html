@@ -259,6 +259,30 @@
   </div>
 </th:block>
 
+<!--/* 文章过期提醒：对齐 outdate-notice.pug；enable 关闭或未超限不渲染；可见文本 th:text */-->
+<th:block
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="noticeOutdate(slot)"
+  th:with="
+    cfg = ${theme.config.post.noticeOutdate},
+    noticeEnabled = ${cfg != null and (cfg.enable == true or cfg.enable == 'true')},
+    noticeLimit = ${cfg == null or cfg.limit_day == null or cfg.limit_day == '' ? 365 : cfg.limit_day},
+    noticeStyle = ${cfg != null and cfg.style == 'simple' ? 'simple' : 'flat'},
+    noticePosition = ${cfg != null and cfg.position == 'bottom' ? 'bottom' : 'top'},
+    noticePrev = ${cfg == null or cfg.message_prev == null ? 'It has been' : cfg.message_prev},
+    noticeNext = ${cfg == null or cfg.message_next == null ? 'days since the last update, the content of the article may be outdated.' : cfg.message_next},
+    noticeUpdated = ${post.status.lastModifyTime != null ? post.status.lastModifyTime : post.spec.publishTime},
+    noticeDiffDay = ${noticeUpdated == null ? 0 : ((#dates.createNow().time - noticeUpdated.toEpochMilli()) / 86400000)}
+  "
+>
+  <div
+    id="post-outdate-notice"
+    th:if="${noticeEnabled and noticeDiffDay >= noticeLimit and noticePosition == slot}"
+    th:class="${noticeStyle}"
+    th:text="${noticePrev + ' ' + noticeDiffDay + ' ' + noticeNext}"
+  ></div>
+</th:block>
+
 <!--/* 文章上下篇。对齐 Butterfly 5.7.0 layout/includes/pagination.pug（globalPageType=post）。
      Halo cursor.previous=较早发布 ↔ Hexo page.next；cursor.next=较晚发布 ↔ Hexo page.prev。
      post_pagination===2 时 {prev: page.prev, next: page.next}，否则对调。
