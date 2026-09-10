@@ -590,6 +590,34 @@ spec:
             - label: 平铺
               value: tile
         - $formkit: group
+          name: index_post_content
+          label: 首页列表摘要
+          help: 对应上游 Butterfly index_post_content。method：false 不显示；1 仅手动摘要；2 优先手动摘要否则截断正文；3 截断正文（默认）。length 仅 method 为 2 或 3 时生效，默认 500。不做逐页覆盖。
+          value:
+            method: "3"
+            length: 500
+          children:
+            - $formkit: radio
+              name: method
+              label: 摘要方式
+              help: 对应上游 Butterfly index_post_content.method。false 不显示摘要；1 仅手动摘要（Halo spec.excerpt.raw）；2 有手动摘要则用之，否则截断正文；3 始终截断正文（默认）。
+              value: "3"
+              options:
+                - label: 不显示
+                  value: "false"
+                - label: 仅手动摘要
+                  value: "1"
+                - label: 优先手动摘要，否则截断正文
+                  value: "2"
+                - label: 截断正文
+                  value: "3"
+            - $formkit: number
+              name: length
+              label: 截断长度
+              help: 对应上游 Butterfly index_post_content.length。仅 method 为 2 或 3 时生效。对齐 hexo-util truncate（省略号计入长度），默认 500。
+              value: 500
+              min: 0
+        - $formkit: group
           name: post_meta
           label: 首页列表元信息
           help: 对应上游 Butterfly post_meta.page。控制首页/分类/标签列表卡片上的日期、分类与标签。date_format 与文章页 post.post_meta.date_format 独立。

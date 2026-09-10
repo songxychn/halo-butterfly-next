@@ -3692,14 +3692,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
-        "code": [
-          "src/html/index.html",
-          "src/html/views/components.html",
-          "src/js/page/index.js",
-          "src/scss/page/index.scss"
+        "settings": [
+          "index.index_post_content.method"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/index-post-content.mjs",
+          "src/scss/modules/components.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 index_post_content.method（false / 1 / 2 / 3，默认 3）到 index.index_post_content.method。false 不渲染列表摘要；1 仅手动摘要 spec.excerpt.raw；2 优先手动摘要否则按 length 截断正文；3（及未识别值）截断正文。正文来自 postFinder.content，去标签后按 hexo-util truncate（省略号计入 length）。可见文本 th:text。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -3727,12 +3729,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/79"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:index_post_content.length",
@@ -3756,14 +3759,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
-        "code": [
-          "src/html/index.html",
-          "src/html/views/components.html",
-          "src/js/page/index.js",
-          "src/scss/page/index.scss"
+        "settings": [
+          "index.index_post_content.length"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/index-post-content.mjs",
+          "src/scss/modules/components.scss",
+          "settings.yaml"
+        ],
+        "finding": "已映射 index_post_content.length（默认 500）到 index.index_post_content.length。仅 method 为 2（无手动摘要时）或 3 时生效；method 1 / false 不截断。截断对齐 hexo-util truncate：不足 length 原样，否则 length-3 字符加 ...。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -3785,12 +3790,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/79"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:toc.post",
