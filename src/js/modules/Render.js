@@ -15,6 +15,10 @@ import {
   resolveExpand,
   resolveScrollPercent,
 } from '../core/toc.mjs';
+import {
+  capRelatedPosts,
+  resolveLimit,
+} from '../core/related-post.mjs';
 
 export default class Render {
   name = 'Render';
@@ -30,6 +34,7 @@ export default class Render {
     this.#domObserver();
     this.#tocBotH5();
     this.#copyRight();
+    this.#relatedPosts();
   }
 
   /**
@@ -138,6 +143,15 @@ export default class Render {
     a.attr('href', window.location.href);
 
     a.html(decodeURI(window.location.href));
+  }
+
+  /**
+   * 相关文章：按 data-post-name 去重并截断到 related_post.limit。
+   */
+  #relatedPosts() {
+    const list = document.querySelector('.relatedPosts-list');
+    if (!list) return;
+    capRelatedPosts(list, resolveLimit(this.#conf.related_post_limit), list.getAttribute('data-current-post'));
   }
 
 }

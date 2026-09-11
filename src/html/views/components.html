@@ -349,6 +349,79 @@
   </div>
 </a>
 
+
+<!--/* 相关文章。对齐 related_post.enable / limit / date_type。仅文章页。 */-->
+<div
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="relatedPosts"
+  class="relatedPosts"
+  th:if="${theme.config.post.related_post?.enable != false and theme.config.post.related_post?.enable != 'false' and not #lists.isEmpty(post.tags)}"
+  th:with="
+    rpCfg = ${theme.config.post.related_post},
+    rpLimit = ${rpCfg.limit == null or rpCfg.limit == 0 or rpCfg.limit == '0' ? 6 : rpCfg.limit},
+    rpUpdated = ${rpCfg.date_type != 'created'},
+    ipcMethod = ${theme.config.index.index_post_content?.method},
+    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+  "
+>
+  <div class="headline">
+    <i class="fa-solid fa-thumbs-up fa-fw"></i>
+    <span class="name" th:text="'相关推荐'"></span>
+  </div>
+  <div
+    class="relatedPosts-list"
+    th:attr="data-limit=${rpLimit},data-current-post=${post.metadata.name}"
+  >
+    <th:block th:each="tag : ${post.tags}">
+      <th:block th:with="listed = ${postFinder.listByTag(1, rpLimit + 1, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
+        <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
+          <a
+            class="pagination-related"
+            th:href="${item.status.permalink}"
+            th:title="${item.spec.title}"
+            th:attr="data-post-name=${item.metadata.name}"
+            th:with="
+              description = ${#strings.defaultString(item.spec.excerpt.raw, '')},
+              methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+              methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+              methodOff = ${ipcMethod == false or ipcMethod == 'false'},
+              useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+              contentVo = ${methodOff or useDescription or methodOne ? null : postFinder.content(item.metadata.name)},
+              htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
+              stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
+              plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(item.status.excerpt, '')},
+              autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+              excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
+              hasDesc = ${not #strings.isEmpty(excerptText)},
+              coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : theme.config.cover.default_cover},
+              hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable},
+              showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
+            "
+            th:classappend="${hasDesc ? '' : 'no-desc'}"
+          >
+            <th:block th:if="${hasImg}">
+              <img th:replace="~{::lazyLoadImg(${coverSrc},${item.spec.title},'cover',true,${'v=' + #dates.format(item.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+            </th:block>
+            <div th:unless="${hasImg}" class="cover"></div>
+            <div class="info text-center">
+              <div class="info-1">
+                <div class="info-item-1">
+                  <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
+                  <time th:datetime="${showTime}" th:text="${#dates.format(showTime, 'yyyy-MM-dd')}"></time>
+                </div>
+                <div class="info-item-2" th:text="${item.spec.title}"></div>
+              </div>
+              <div class="info-2" th:if="${hasDesc}">
+                <div class="info-item-1" th:text="${excerptText}"></div>
+              </div>
+            </div>
+          </a>
+        </th:block>
+      </th:block>
+    </th:block>
+  </div>
+</div>
+
 <!--/* 文章/页面代码块：Prism 资源与工具栏开关 */-->
 <th:block
   xmlns:th="https://www.thymeleaf.org"
