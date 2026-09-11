@@ -13,6 +13,8 @@
   overflow-wrap: anywhere;
   word-break: break-word;
 
+  .footer-flex,
+  .footer-flex-item,
   .footer-other,
   .footer-copyright,
   .copyright,
@@ -22,6 +24,20 @@
     min-width: 0;
     overflow-wrap: anywhere;
     word-break: break-word;
+  }
+
+
+  .footer-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35em 1.1em;
+    margin-bottom: 0.75rem;
+    max-width: 100%;
+  }
+
+  .footer-flex-item {
+    max-width: 100%;
   }
 
   .footer-copyright {

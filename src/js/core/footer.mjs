@@ -8,13 +8,14 @@
  * owner / copyright 仅显式 false 关闭。since 与当前年不同且非空时显示
  * 「© since - current By author」，否则「© current By author」。
  * 作者用站点名称。custom_text 有内容才渲染；可见文本走转义，不做 HTML。
- * 不做 footer.nav、footer_img、reward。
+ * footer.nav 默认空；扁平 title/url，不做 html / 嵌套列。不做 footer_img。
  */
 
 export const DEFAULTS = {
   owner: { enable: true, since: 2025 },
   copyright: { enable: true, version: true },
   custom_text: '',
+  nav: [],
 };
 
 function isExplicitFalse(value) {
@@ -68,4 +69,19 @@ export function formatOwnerCopyright(sinceYear, currentYear, author) {
 export function resolveCustomText(value) {
   if (value == null) return '';
   return String(value);
+}
+
+/** pug `if nav`：非空且至少一项同时有 title 与 url。不做 html 子项。 */
+export function visibleNavItems(items) {
+  if (!Array.isArray(items)) return [];
+  return items.filter(item => {
+    if (!item || typeof item !== 'object') return false;
+    const title = item.title == null ? '' : String(item.title).trim();
+    const url = item.url == null ? '' : String(item.url).trim();
+    return title !== '' && url !== '';
+  });
+}
+
+export function shouldRenderNav(items) {
+  return visibleNavItems(items).length > 0;
 }
