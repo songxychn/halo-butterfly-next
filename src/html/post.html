@@ -29,6 +29,7 @@
         toc_expand: /*[[${theme.config.toc.expand}]]*/ false,
         toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
         related_post_limit: /*[[${theme.config.post.related_post.limit}]]*/ 6,
+        post_copyright_decode: /*[[${theme.config.post.post_copyright.decode}]]*/ false,
       });
       // 文章页面 自定义元数据
       Object.assign(window.MainApp.attrs, {
@@ -71,25 +72,7 @@
         <th:block th:replace="~{views/components :: noticeOutdate('bottom')}"/>
       </article>
 
-      <div class="copy-right">
-        <i class="fa-solid fa-copyright"></i>
-
-        <div class="author">
-          <span class="name">文章作者：</span>
-          <span class="text" th:text="${contributor?.displayName ?: site.title}"></span>
-        </div>
-
-        <div class="url">
-          <span class="name">本文链接：</span>
-          <span class="text"><a class="permalink" target="_blank"></a></span>
-        </div>
-
-
-        <div class="declaration">
-          <span class="name">版权声明：</span>
-          <span class="text">本站所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="/" target="_blank" th:text="${contributor?.displayName ?: site.title}"></a>！</span>
-        </div>
-      </div>
+      <th:block th:replace="~{views/components :: postCopyright}"/>
 
       <th:block th:replace="~{views/components :: postReward}"/>
       <th:block th:replace="~{views/components :: postPagination}"/>

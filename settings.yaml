@@ -914,6 +914,52 @@ spec:
                 - label: updated（更新）
                   value: updated
         - $formkit: group
+          name: post_copyright
+          label: 文章版权
+          help: 对应上游 Butterfly post_copyright（_config.yml / layout/includes/post/post-copyright.pug，5.7.0 f223b188）。默认 enable true、decode false、author_href 空、license CC BY-NC-SA 4.0、license_url 知识共享 4.0 链接。仅显式关闭 enable 才不渲染。空 author_href 回退站点 URL。可见文本 th:text，无新增 th:utext。仅文章页。不做 footer.nav、footer_img、reward 交互、逐页覆盖。
+          value:
+            enable: true
+            decode: false
+            author_href: ""
+            license: CC BY-NC-SA 4.0
+            license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+          children:
+            - $formkit: radio
+              name: enable
+              label: 显示版权块
+              help: 对应上游 post_copyright.enable（默认 true）。仅显式 false 关闭。关闭不渲染版权块。
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+            - $formkit: radio
+              name: decode
+              label: 解码文章链接
+              help: 对应上游 post_copyright.decode（默认 false）。仅显式 true 才对 permalink 做 decodeURI。可见文本走 text，不用 html。
+              value: false
+              options:
+                - label: 解码
+                  value: true
+                - label: 原样
+                  value: false
+            - $formkit: text
+              name: author_href
+              label: 作者链接
+              help: 对应上游 post_copyright.author_href（默认空，回退站点 URL）。可见文本 th:href，不做 HTML。
+              value: ""
+            - $formkit: text
+              name: license
+              label: 许可协议名称
+              help: 对应上游 post_copyright.license（默认 CC BY-NC-SA 4.0）。空时回退该默认。可见文本 th:text。
+              value: CC BY-NC-SA 4.0
+            - $formkit: text
+              name: license_url
+              label: 许可协议链接
+              help: 对应上游 post_copyright.license_url。空时回退 https://creativecommons.org/licenses/by-nc-sa/4.0/ 。可见文本 th:href。
+              value: https://creativecommons.org/licenses/by-nc-sa/4.0/
+        - $formkit: group
           name: reward
           label: 打赏
           help: 对应上游 Butterfly reward（_config.yml / layout/includes/post/reward.pug，5.7.0 f223b188）。默认 enable false、text 空、QR_code 空。仅显式开启且至少有一张二维码才渲染。空 text 显示「打赏」。可见文本 th:text / th:alt，无新增 th:utext。仅文章页，插在版权块之后、上下篇之前。不做 footer、related_post helper、逐页覆盖。
