@@ -1404,7 +1404,17 @@ spec:
         - $formkit: radio
           name: footer
           label: 页脚背景遮罩
-          help: 对应上游 Butterfly mask.footer（_config.yml / source/css/_layout/footer.styl，5.7.0 f223b188）。默认 true。仅当 footer_img 非空时给页脚加 :before 遮罩。仅显式 false 关闭。不做 mask.header。
+          help: 对应上游 Butterfly mask.footer（_config.yml / source/css/_layout/footer.styl，5.7.0 f223b188）。默认 true。仅当 footer_img 非空时给页脚加 :before 遮罩。仅显式 false 关闭。页头见 mask.header。
+          value: true
+          options:
+            - label: 开启
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: radio
+          name: header
+          label: 页头第一屏遮罩
+          help: 对应上游 Butterfly mask.header（_config.yml / source/css/_layout/head.styl，5.7.0 f223b188）。默认 true。仅显式 false 关闭。有第一屏（.above）时给页头加 :before 遮罩，对齐 :not(.not-top-img)。无第一屏（header.dp）不加。不做 aside.hide / aside.mobile。
           value: true
           options:
             - label: 开启
