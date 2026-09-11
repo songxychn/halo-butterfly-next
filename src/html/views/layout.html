@@ -9,7 +9,12 @@
   th:fragment="layout (page,title,pin,header,main)"
 >
   <!DOCTYPE html>
-  <html lang="zh-CN" data-color-scheme="light" th:with="isDev = ${true ? #dates.createNow().time : ''} ">
+  <html
+    lang="zh-CN"
+    data-color-scheme="light"
+    th:classappend="${theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true')} ? 'hide-aside'"
+    th:with="isDev = ${true ? #dates.createNow().time : ''} "
+  >
   <head>
     <title th:text="${title}"></title>
     <meta charset="UTF-8"/>

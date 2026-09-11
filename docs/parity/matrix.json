@@ -5943,12 +5943,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.hide"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/layout.html",
+          "src/js/core/aside-hide.mjs",
+          "src/scss/core/main.scss",
+          "tests/aside-hide.test.mjs"
+        ],
+        "finding": "已映射 aside.hide（默认 false）到 aside.hide。仅显式 true 给 html 加 hide-aside；桌面 min-width 900px 隐藏 .aside、主栏约 80%。须 aside.enable。禁止复用作者卡片 aside.button。不做 aside.mobile 与右下角隐藏开关。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5969,12 +5974,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/117"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/119"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.button",
