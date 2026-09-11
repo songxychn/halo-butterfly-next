@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 105,
+  "pr": 107,
+  "title": "M1：页脚导航 footer.nav",
+  "author": "cursor/m1-footer-nav",
+  "recorder": "cursor/record-107",
+  "recordedAt": "2026-09-11T16:10:33Z",
+  "visibility": "private",
+  "sourceSha": "4032c185d06f095399bc2f32a8d8b2129d75e3bb",
+  "reviewHead": "4032c185d06f095399bc2f32a8d8b2129d75e3bb",
+  "mergeSha": "483d6e8fb1520cf6173bf8b748308f70b534a798",
+  "mergedAt": "2026-09-11T16:04:47Z",
+  "closesIssue": 105,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/107#issuecomment-5637206619",
+    "createdAt": "2026-09-11T16:04:07Z",
+    "head": "4032c185d06f095399bc2f32a8d8b2129d75e3bb",
+    "note": "Independent review posted as issue comment 5637206619, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. Review noted CI still pending; this record waited until PR CI 34619319456 and merge-commit master CI 34619904123 completed success."
+  },
+  "settingsSha256": "4b5a0bca49b2bdbcb910e4dd8adbd7bf5a6b93411533e4143c7fa1585cabccc0",
+  "productCommits": [
+    {
+      "sha": "f54ffc5",
+      "summary": "Align footer.nav. Default empty list does not render. This slice is a flat title+url repeater; does not do nested columns, width, or html children. Visible text uses th:text / th:href. Does not do footer_img."
+    },
+    {
+      "sha": "741bdc0",
+      "summary": "Refreeze performance theme-defaults.json onto the footer.nav implementation commit"
+    },
+    {
+      "sha": "4032c18",
+      "summary": "Register #107 onto config:footer.nav matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:footer.nav"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:footer_img",
+    "template:includes/footer",
+    "style:source/css/_layout/footer.styl"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 497,
+    "mapping-required": 262,
+    "implemented-unverified": 128,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 108,
+    "state": "OPEN",
+    "title": "M1：页脚背景 footer_img",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/108",
+    "note": "Remaining footer leaf deferred by #105/#107. Default false. Does not do aside.hide / aside.mobile (aside.button already maps the author-card button). Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 106,
+    "title": "docs: 记录 #103 文章版权合并证据",
+    "headSha": "7f32f09b4627ed626ab9619b8ceb7c2a02802ce9",
+    "mergeSha": "00ffcbb748411fac614758a55cc080c7ffafe19f",
+    "mergedAt": "2026-09-11T16:00:15Z",
+    "prCi": 34619066491,
+    "prCiConclusion": "success",
+    "masterCi": 34619443777,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34619443777",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/106#issuecomment-5637118684",
+    "note": "Waited with gh run view until completed. Push-event master CI 34619443777 on 00ffcbb748411fac614758a55cc080c7ffafe19f completed success at 2026-09-11T16:01:51Z, before the #107 merge push at 2026-09-11T16:04:47Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34619319456,
+      "runAttempt": 1,
+      "headSha": "4032c185d06f095399bc2f32a8d8b2129d75e3bb",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34619319456",
+      "note": "Local node --test tests/*.test.mjs: 173 pass / 0 fail (including tests/footer.test.mjs). GitHub Verify theme conclusion success."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34619904123,
+      "runAttempt": 1,
+      "headSha": "483d6e8fb1520cf6173bf8b748308f70b534a798",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34619904123",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-11T16:06:25Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #107; there is no Approve. Independent review is issue comment 5637206619 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 4032c185d06f095399bc2f32a8d8b2129d75e3bb: newly raised to implemented-unverified is config:footer.nav. evidence remains []. config:footer_img, template:includes/footer, and style:source/css/_layout/footer.styl remain gap. Does not mark verified.",
+    "settingsSha256 4b5a0bca49b2bdbcb910e4dd8adbd7bf5a6b93411533e4143c7fa1585cabccc0 matches settings.yaml at f54ffc5 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit f54ffc57b1d845031d3c46fa106588b7ffdcbfaf. Default footer.nav is [].",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 footer.nav empty: empty list does not render. This slice is a flat title+url repeater; nested columns, width, and html children (pug !=) are out of scope. Visible text uses th:text / th:href / th:title. No new th:utext. 390 uses overflow-wrap anywhere.",
+    "Non-blocking P2 from the independent review: flat vs upstream nested columns is an explicit slice tradeoff; no dual-site lab; tracking.prs used instead of conventional tracking.pullRequests; Thymeleaf #strings.isEmpty does not trim while JS visibleNavItems does, so an all-blank list could leave an empty .footer-flex shell; review-time CI was still pending (later completed success).",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #108 footer_img; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is config:footer.nav; evidence remains [].",
+    "config:footer_img, template:includes/footer, and style:source/css/_layout/footer.styl remain gap.",
+    "Does not implement nested footer.nav columns, html children, footer_img, aside.hide, or aside.mobile.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #106 merge-commit master CI run 34619443777 on 00ffcbb748411fac614758a55cc080c7ffafe19f completed success at 2026-09-11T16:01:51Z, before the #107 merge push at 2026-09-11T16:04:47Z; must not be recorded as cancelled.",
+    "PR #107 merge-commit master CI run 34619904123 on 483d6e8fb1520cf6173bf8b748308f70b534a798 completed success at 2026-09-11T16:06:25Z; must not be recorded as cancelled.",
+    "Issue #108 footer_img is open; #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
