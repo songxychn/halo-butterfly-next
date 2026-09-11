@@ -446,3 +446,37 @@
   <link rel="preload stylesheet" as="style" id="codeDark" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_dark + '.css'}">
   <script type="text/javascript" th:src="${assets_link + 'plugins/prism/prism.min.js'}"></script>
 </th:block>
+
+<!--/* 打赏。对齐 Butterfly 5.7.0 layout/includes/post/reward.pug + post.pug
+     （theme.reward.enable && theme.reward.QR_code）。仅文章页。可见文本 th:text。 */-->
+<div
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postReward"
+  class="post-reward"
+  th:if="${(theme.config.post.reward?.enable == true or theme.config.post.reward?.enable == 'true') and not #lists.isEmpty(theme.config.post.reward?.QR_code)}"
+  th:with="rewardText = ${#strings.isEmpty(theme.config.post.reward?.text) ? '打赏' : theme.config.post.reward.text}"
+>
+  <div class="reward-button">
+    <i class="fa-solid fa-qrcode"></i>
+    <span th:text="${rewardText}"></span>
+  </div>
+  <div class="reward-main">
+    <ul class="reward-all">
+      <li
+        class="reward-item"
+        th:each="item : ${theme.config.post.reward.QR_code}"
+        th:if="${item != null and not #strings.isEmpty(item.img)}"
+      >
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          th:href="${not #strings.isEmpty(item.link) ? item.link : item.img}"
+          th:title="${item.text}"
+        >
+          <img class="post-qr-code-img" th:src="${item.img}" th:alt="${item.text}"/>
+        </a>
+        <div class="post-qr-code-desc" th:text="${item.text}"></div>
+      </li>
+    </ul>
+  </div>
+</div>

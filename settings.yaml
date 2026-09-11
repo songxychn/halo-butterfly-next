@@ -913,6 +913,51 @@ spec:
                   value: created
                 - label: updated（更新）
                   value: updated
+        - $formkit: group
+          name: reward
+          label: 打赏
+          help: 对应上游 Butterfly reward（_config.yml / layout/includes/post/reward.pug，5.7.0 f223b188）。默认 enable false、text 空、QR_code 空。仅显式开启且至少有一张二维码才渲染。空 text 显示「打赏」。可见文本 th:text / th:alt，无新增 th:utext。仅文章页，插在版权块之后、上下篇之前。不做 footer、related_post helper、逐页覆盖。
+          value:
+            enable: false
+            text: ""
+            QR_code: []
+          children:
+            - $formkit: radio
+              name: enable
+              label: 启用打赏
+              help: 对应上游 reward.enable（默认 false）。关闭不渲染。开启仍须 QR_code 非空（对齐 post.pug 的 enable && QR_code）。
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: text
+              name: text
+              label: 按钮文案
+              help: 对应上游 reward.text（默认空，回退 i18n donate）。空时显示「打赏」。可见文本 th:text，不做 HTML。
+              value: ""
+            - $formkit: repeater
+              name: QR_code
+              label: 二维码
+              help: 对应上游 reward.QR_code（img / link / text）。img 为空的项不输出。点击链接空则用图片地址。默认空列表。
+              value: []
+              children:
+                - $formkit: attachment
+                  name: img
+                  label: 图片
+                  help: 对应 QR_code[].img。
+                  value: ""
+                - $formkit: text
+                  name: link
+                  label: 点击链接
+                  help: 对应 QR_code[].link。空则用 img。
+                  value: ""
+                - $formkit: text
+                  name: text
+                  label: 说明
+                  help: 对应 QR_code[].text。可见文本 th:text / th:alt。
+                  value: ""
     #文章目录（对齐上游 toc.number / expand / style_simple / scroll_percent）
     - group: toc
       label: 文章目录
