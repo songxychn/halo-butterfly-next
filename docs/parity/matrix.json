@@ -17286,13 +17286,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+        "settings": [
+          "mask.header"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/layout.html",
+          "src/js/core/mask.mjs",
+          "src/scss/core/header.scss",
+          "tests/mask-header.test.mjs"
+        ],
+        "finding": "已映射 mask.header（默认 true）到 mask.header。仅显式 false 关闭。有第一屏 .above 时 #Butterfly.mask-header 才给页头加 :before 遮罩，对齐 :not(.not-top-img)。无第一屏不加。不做 aside.hide / aside.mobile。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -17313,12 +17317,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/114"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/116"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mask.footer",
