@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 102,
+  "pr": 103,
+  "title": "M1：文章版权 post_copyright.enable / decode / author_href / license",
+  "author": "cursor/m1-post-copyright",
+  "recorder": "cursor/record-103",
+  "recordedAt": "2026-09-11T15:54:49Z",
+  "visibility": "private",
+  "sourceSha": "cc26eb19799b046d819d8217bac1a4b08951cc70",
+  "reviewHead": "cc26eb19799b046d819d8217bac1a4b08951cc70",
+  "mergeSha": "50c18c3622a2a2bf7e331fd971e3da0280001126",
+  "mergedAt": "2026-09-11T15:50:31Z",
+  "closesIssue": 102,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/103#issuecomment-5637024582",
+    "createdAt": "2026-09-11T15:49:49Z",
+    "head": "cc26eb19799b046d819d8217bac1a4b08951cc70",
+    "note": "Independent review posted as issue comment 5637024582, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. Review noted CI already green. This record waited until PR CI 34617914061 and merge-commit master CI 34618517520 completed success."
+  },
+  "settingsSha256": "0403aeeced077e21d50dabd284323134cf890c399d4844d8948f2dac0eddd189",
+  "productCommits": [
+    {
+      "sha": "5c8ace2",
+      "summary": "Align post_copyright.enable / decode / author_href / license / license_url. Defaults enable true, decode false, author_href empty, license CC BY-NC-SA 4.0. Only explicit false hides the block. Empty author_href falls back to site URL. Permalink uses text not html; decodeURI only when decode is explicit true. Post page only. Does not do footer.nav or per-page copyright."
+    },
+    {
+      "sha": "e28f6c4",
+      "summary": "Refreeze performance theme-defaults.json onto the post-copyright implementation commit"
+    },
+    {
+      "sha": "cc26eb1",
+      "summary": "Register #102 onto post_copyright matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:post_copyright.decode",
+    "config:post_copyright.author_href"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:post_copyright.enable",
+    "config:post_copyright.license",
+    "config:post_copyright.license_url"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "template:includes/post/post-copyright"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 498,
+    "mapping-required": 262,
+    "implemented-unverified": 127,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 105,
+    "state": "OPEN",
+    "title": "M1：页脚导航 footer.nav",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/105",
+    "note": "Remaining footer leaf deferred by #97/#99. Default empty. Does not do footer_img. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 104,
+    "title": "docs: 记录 #101 打赏合并证据",
+    "headSha": "ef4136d976b24fabbcfc10b9f2a3a6bb63cec4a1",
+    "mergeSha": "fb797208112baaa76026a731f215034acb4c9af9",
+    "mergedAt": "2026-09-11T15:52:25Z",
+    "prCi": 34618139707,
+    "prCiConclusion": "success",
+    "masterCi": 34618697437,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34618697437",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/104#issuecomment-5637018543",
+    "note": "Waited with gh run watch until completed. Push-event master CI 34618697437 on fb797208112baaa76026a731f215034acb4c9af9 completed success at 2026-09-11T15:54:15Z. Must be recorded as success, not cancelled. #103 merge-commit master CI 34618517520 completed success at 2026-09-11T15:51:54Z, before this #104 merge push at 2026-09-11T15:52:25Z; that #103 run must also be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34617914061,
+      "runAttempt": 1,
+      "headSha": "cc26eb19799b046d819d8217bac1a4b08951cc70",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34617914061",
+      "note": "Local node --test tests/*.test.mjs: 172 pass / 0 fail (including tests/post-copyright.test.mjs). GitHub Verify theme conclusion success."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34618517520,
+      "runAttempt": 1,
+      "headSha": "50c18c3622a2a2bf7e331fd971e3da0280001126",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34618517520",
+      "note": "Waited with gh run watch until completed. conclusion success at 2026-09-11T15:51:54Z, before the #104 merge push at 2026-09-11T15:52:25Z. Must not be recorded as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #103; there is no Approve. Independent review is issue comment 5637024582 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head cc26eb19799b046d819d8217bac1a4b08951cc70: newly raised to implemented-unverified are config:post_copyright.decode and config:post_copyright.author_href. config:post_copyright.enable / license / license_url were already IU (hardcoded) and stay IU after gaining real settings. evidence remains []. template:includes/post/post-copyright remains gap. Does not mark verified.",
+    "settingsSha256 0403aeeced077e21d50dabd284323134cf890c399d4844d8948f2dac0eddd189 matches settings.yaml at 5c8ace2 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 5c8ace2432d82108bad75d5978393dc3d9a10716. Default enable true; decode false; author_href empty; license CC BY-NC-SA 4.0; license_url the Creative Commons 4.0 URL.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 post_copyright: only explicit false turns enable off; decodeURI only when decode is explicit true; empty author_href falls back to site.url. Visible text uses th:text / th:href. Permalink uses textContent, not html(decodeURI). No new th:utext. Post page only. 390 uses overflow-wrap anywhere.",
+    "Non-blocking P2 from the independent review: no dual-site lab; template:includes/post/post-copyright remains gap; no per-page page.copyright.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #105 footer.nav; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:post_copyright.decode / author_href; enable / license / license_url stay IU after gaining real settings; evidence remains [].",
+    "template:includes/post/post-copyright remains gap.",
+    "Does not implement footer.nav, footer_img, reward interaction, or per-page page.copyright.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #103 merge-commit master CI run 34618517520 on 50c18c3622a2a2bf7e331fd971e3da0280001126 completed success at 2026-09-11T15:51:54Z, before the #104 merge push at 2026-09-11T15:52:25Z; must not be recorded as cancelled.",
+    "PR #104 merge-commit master CI run 34618697437 on fb797208112baaa76026a731f215034acb4c9af9 completed success at 2026-09-11T15:54:15Z; must not be recorded as cancelled.",
+    "Issue #105 footer.nav is open; #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
