@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 111,
+  "pr": 113,
+  "title": "M1：页脚遮罩 mask.footer",
+  "author": "cursor/m1-mask-footer",
+  "recorder": "cursor/record-113",
+  "recordedAt": "2026-09-11T16:41:41Z",
+  "visibility": "private",
+  "sourceSha": "3ff1c8b5ece4565971ea19c197dd0d1169b95bb9",
+  "reviewHead": "3ff1c8b5ece4565971ea19c197dd0d1169b95bb9",
+  "mergeSha": "bd95a74561266770ee1e813a43c4c85f63cf3065",
+  "mergedAt": "2026-09-11T16:39:28Z",
+  "closesIssue": 111,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/113#issuecomment-5637624114",
+    "createdAt": "2026-09-11T16:38:52Z",
+    "head": "3ff1c8b5ece4565971ea19c197dd0d1169b95bb9",
+    "note": "Independent review posted as issue comment 5637624114, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. Review noted CI still pending; this record waited until PR CI 34622822776 and merge-commit master CI 34623257381 completed success."
+  },
+  "settingsSha256": "3b98aec0f6e7cc0837674e4dba623bf795a4d66031bba963ed2a4a44b8e2964d",
+  "productCommits": [
+    {
+      "sha": "0a9a24e",
+      "summary": "Align mask.footer. Default true; only explicit false turns it off. Overlay :before only when footer_img is non-empty. Does not do mask.header."
+    },
+    {
+      "sha": "ebffcb4",
+      "summary": "Refreeze performance theme-defaults.json onto the mask.footer implementation commit"
+    },
+    {
+      "sha": "3ff1c8b",
+      "summary": "Register #113 onto config:mask.footer matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:mask.footer"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:footer_img",
+    "config:footer.nav",
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:mask.header",
+    "template:includes/footer",
+    "style:source/css/_layout/footer.styl"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 495,
+    "mapping-required": 262,
+    "implemented-unverified": 130,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 114,
+    "state": "OPEN",
+    "title": "M1：页头遮罩 mask.header",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/114",
+    "note": "Upstream mask.header default true; overlay on #page-header:not(.not-top-img):before. Does not do aside.hide / aside.mobile. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 112,
+    "title": "docs: 记录 #110 页脚背景合并证据",
+    "headSha": "5a7169d59ec053cfb4000c60df2d2ae87e4e2799",
+    "mergeSha": "550b6e1ce1440a3c04ece680b0b061cad3d68f3d",
+    "mergedAt": "2026-09-11T16:32:29Z",
+    "prCi": 34622316918,
+    "prCiConclusion": "success",
+    "masterCi": 34622584621,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34622584621",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/112#issuecomment-5637536489",
+    "note": "Waited with gh run view until completed. Push-event master CI 34622584621 on 550b6e1ce1440a3c04ece680b0b061cad3d68f3d completed success at 2026-09-11T16:34:04Z, before the #113 merge push at 2026-09-11T16:39:28Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34622822776,
+      "runAttempt": 1,
+      "headSha": "3ff1c8b5ece4565971ea19c197dd0d1169b95bb9",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34622822776",
+      "note": "Local node --test tests/footer.test.mjs tests/perf.test.mjs: 20 pass / 0 fail. Full suite expected 175. GitHub Verify theme conclusion success."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34623257381,
+      "runAttempt": 1,
+      "headSha": "bd95a74561266770ee1e813a43c4c85f63cf3065",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34623257381",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-11T16:41:13Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #113; there is no Approve. Independent review is issue comment 5637624114 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 3ff1c8b5ece4565971ea19c197dd0d1169b95bb9: newly raised to implemented-unverified is config:mask.footer. evidence remains []. config:mask.header, template:includes/footer, and style:source/css/_layout/footer.styl remain gap. Does not mark verified.",
+    "settingsSha256 3b98aec0f6e7cc0837674e4dba623bf795a4d66031bba963ed2a4a44b8e2964d matches settings.yaml at 0a9a24e and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 0a9a24e16f677e6d9e0c978d1cc4c7b8a932ed0b. Default mask.footer is true.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 mask.footer true: only explicit false turns it off. Overlay applies only when footer_img is non-empty. No new th:utext. tracking.pullRequests used. Does not do mask.header.",
+    "Non-blocking P2 from the independent review: --footer-mask-bg is not wired to upstream --mark-bg / theme --above-mask-color; extra pointer-events / inset / z-index: 1 vs upstream :before.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #114 mask.header; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is config:mask.footer; evidence remains [].",
+    "config:mask.header, template:includes/footer, and style:source/css/_layout/footer.styl remain gap.",
+    "Does not implement mask.header, aside.hide, or aside.mobile.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #112 merge-commit master CI run 34622584621 on 550b6e1ce1440a3c04ece680b0b061cad3d68f3d completed success at 2026-09-11T16:34:04Z, before the #113 merge push at 2026-09-11T16:39:28Z; must not be recorded as cancelled.",
+    "PR #113 merge-commit master CI run 34623257381 on bd95a74561266770ee1e813a43c4c85f63cf3065 completed success at 2026-09-11T16:41:13Z; must not be recorded as cancelled.",
+    "Issue #114 mask.header is open; #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
