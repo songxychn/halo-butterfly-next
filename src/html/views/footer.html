@@ -1,4 +1,9 @@
-<footer class="footer">
+<footer
+  class="footer"
+  th:with="footerImg = ${theme.config.footer?.footer_img}"
+  th:classappend="${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'} ? ' footer--bg'"
+  th:style="${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'} ? |background-image: url('${footerImg}');| : ''"
+>
   <div
     class="footer-flex"
     th:if="${not #lists.isEmpty(theme.config.footer?.nav)}"

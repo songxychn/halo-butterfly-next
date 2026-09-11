@@ -13,6 +13,8 @@ import {
   resolveSinceYear,
   shouldRenderNav,
   visibleNavItems,
+  shouldRenderFooterImg,
+  footerImgStyle,
 } from '../src/js/core/footer.mjs';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
@@ -45,6 +47,7 @@ test('默认对齐上游 SHA：owner true/2025、copyright true/true、custom_te
   assert.equal(defaults.footer.copyright.version, true);
   assert.equal(defaults.footer.custom_text, '');
   assert.deepEqual(defaults.footer.nav, []);
+  assert.equal(defaults.footer.footer_img, '');
   assert.equal(groupChild('owner', 'enable').value, true);
   assert.deepEqual(groupChild('owner', 'enable').options.map(option => option.value), [true, false]);
   assert.equal(groupChild('owner', 'since').value, 2025);
@@ -52,12 +55,14 @@ test('默认对齐上游 SHA：owner true/2025、copyright true/true、custom_te
   assert.equal(groupChild('copyright', 'version').value, true);
   assert.equal(child('custom_text').value, '');
   assert.deepEqual(child('nav').value, []);
+  assert.equal(child('footer_img').value, '');
   assert.equal(DEFAULTS.owner.enable, true);
   assert.equal(DEFAULTS.owner.since, 2025);
   assert.equal(DEFAULTS.copyright.enable, true);
   assert.equal(DEFAULTS.copyright.version, true);
   assert.match(String(child('owner').help), /footer\.pug/);
-  assert.match(String(child('owner').help), /不做 footer_img/);
+  assert.match(String(child('owner').help), /footer_img/);
+  assert.match(String(child('owner').help), /mask\.footer/);
   assert.match(String(groupChild('owner', 'enable').help), /footer\.owner\.enable/);
   assert.match(String(groupChild('copyright', 'enable').help), /footer\.copyright\.enable/);
   assert.match(String(groupChild('copyright', 'version').help), /footer\.copyright\.version/);
@@ -65,6 +70,9 @@ test('默认对齐上游 SHA：owner true/2025、copyright true/true、custom_te
   assert.equal(child('nav').name, 'nav');
   assert.match(String(child('nav').help), /footer\.nav/);
   assert.match(String(child('nav').help), /th:text/);
+  assert.equal(child('footer_img').name, 'footer_img');
+  assert.match(String(child('footer_img').help), /footer_img/);
+  assert.match(String(child('footer_img').help), /th:style/);
 });
 
 test('owner / copyright 仅显式 false 关闭；缺省为 true', () => {
@@ -123,6 +131,9 @@ test('模板：owner/copyright 可关；标题 th:text；无 th:utext；保留�
   assert.match(footerHtml, /not #lists\.isEmpty\(theme\.config\.footer\?\.nav\)/);
   assert.match(footerHtml, /th:text="\$\{item\.title\}"/);
   assert.match(footerHtml, /th:href="\$\{item\.url\}"/);
+  assert.match(footerHtml, /footer--bg/);
+  assert.match(footerHtml, /background-image: url\('\$\{footerImg\}'\)/);
+  assert.match(footerHtml, /footerImg != true/);
   assert.doesNotMatch(footerHtml, /© 2020 -/);
 });
 
@@ -132,6 +143,9 @@ test('390 不横向溢出：anywhere 折行', () => {
   assert.match(scss, /max-width:\s*100%/);
   assert.match(scss, /flex-wrap:\s*wrap/);
   assert.match(scss, /white-space:\s*pre-wrap/);
+  assert.match(scss, /\.footer--bg/);
+  assert.match(scss, /background-size:\s*cover/);
+  assert.match(scss, /background-position:\s*bottom/);
 });
 
 test('nav 默认空不渲染；title 与 url 都有才输出', () => {
@@ -142,4 +156,19 @@ test('nav 默认空不渲染；title 与 url 都有才输出', () => {
   assert.equal(shouldRenderNav([{ title: 'A', url: '' }]), false);
   assert.deepEqual(visibleNavItems([{ title: '友链', url: '/links' }, { title: 'x', url: '' }]).map(i => i.title), ['友链']);
   assert.equal(shouldRenderNav([{ title: '友链', url: '/links' }]), true);
+});
+
+test('footer_img 默认空不渲染；true 本刀不套背景；URL 才输出 background-image', () => {
+  assert.equal(DEFAULTS.footer_img, '');
+  assert.equal(shouldRenderFooterImg(undefined), false);
+  assert.equal(shouldRenderFooterImg(''), false);
+  assert.equal(shouldRenderFooterImg(false), false);
+  assert.equal(shouldRenderFooterImg('false'), false);
+  assert.equal(shouldRenderFooterImg(true), false);
+  assert.equal(shouldRenderFooterImg('true'), false);
+  assert.equal(shouldRenderFooterImg('https://example.test/f.png'), true);
+  assert.equal(footerImgStyle(''), '');
+  assert.equal(footerImgStyle(true), '');
+  assert.equal(footerImgStyle('https://example.test/f.png'), 'background-image: url(https://example.test/f.png);');
+  assert.equal(footerImgStyle('/fixtures/landscape.svg'), 'background-image: url(/fixtures/landscape.svg);');
 });
