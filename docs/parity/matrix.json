@@ -1792,14 +1792,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+        "settings": [
+          "footer.footer_img"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer_img（上游顶层，默认 false）到 footer.footer_img。空 / false 不套背景。本刀非空当附件/URL，th:style 写 background-image。不做 true=复用页头 top_img，不做 mask.footer、颜色值。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -1826,12 +1829,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/108"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:background",

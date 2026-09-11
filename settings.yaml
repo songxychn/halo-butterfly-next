@@ -1404,7 +1404,7 @@ spec:
         - $formkit: group
           name: owner
           label: 站点所有权
-          help: 对应上游 Butterfly footer.owner（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认 enable true、since 2025。关闭不渲染 © 行。since 与当前年不同时显示 since - current，否则只显示当前年。作者用站点名称。本刀含 footer.nav（扁平 title/url）。不做 footer_img、嵌套列 html。
+          help: 对应上游 Butterfly footer.owner（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认 enable true、since 2025。关闭不渲染 © 行。since 与当前年不同时显示 since - current，否则只显示当前年。作者用站点名称。本刀含 footer.nav（扁平 title/url）与 footer_img。不做嵌套列 html、mask.footer。
           value:
             enable: true
             since: 2025
@@ -1455,7 +1455,7 @@ spec:
         - $formkit: repeater
           name: nav
           label: 页脚导航
-          help: 对应上游 Butterfly footer.nav（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认空。空列表不渲染。本刀为 title + url 扁平链接，不做嵌套列、width、html 子项。可见文本 th:text / th:href，无新增 th:utext。不做 footer_img。
+          help: 对应上游 Butterfly footer.nav（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认空。空列表不渲染。本刀为 title + url 扁平链接，不做嵌套列、width、html 子项。可见文本 th:text / th:href，无新增 th:utext。
           value: []
           children:
             - $formkit: text
@@ -1472,6 +1472,11 @@ spec:
           name: custom_text
           label: 自定义文案
           help: 对应上游 footer.custom_text（默认空）。有内容才渲染。可见文本 th:text，不做 HTML。
+          value: ""
+        - $formkit: attachment
+          name: footer_img
+          label: 页脚背景
+          help: 对应上游 Butterfly footer_img（_config.yml 顶层，5.7.0 f223b188）。默认 false。Halo 放在页脚组，空字符串视为 false，不套背景。非空为附件/URL，写入 background-image（th:style，无 th:utext）。不做 true=复用页头 top_img，不做 mask.footer、颜色值与 background 简写。
           value: ""
     - group: error404
       label: 404 页面

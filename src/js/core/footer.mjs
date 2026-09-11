@@ -8,7 +8,9 @@
  * owner / copyright 仅显式 false 关闭。since 与当前年不同且非空时显示
  * 「© since - current By author」，否则「© current By author」。
  * 作者用站点名称。custom_text 有内容才渲染；可见文本走转义，不做 HTML。
- * footer.nav 默认空；扁平 title/url，不做 html / 嵌套列。不做 footer_img。
+ * footer.nav 默认空；扁平 title/url，不做 html / 嵌套列。
+ * footer_img 默认空（上游 false）：空 / false 不套背景；true 本刀不复用页头。
+ * 非空 URL 才写 background-image。不做 mask.footer。
  */
 
 export const DEFAULTS = {
@@ -16,7 +18,13 @@ export const DEFAULTS = {
   copyright: { enable: true, version: true },
   custom_text: '',
   nav: [],
+  footer_img: '',
 };
+
+const ABSOLUTE_URL = /^(?:[a-z][a-z\d+.-]*:)?\/\//i;
+const RELATIVE_URL = /^(\.\/|\.\.\/|\/|[^/]+\/).*$/;
+const COLOR = /^(#|rgb|rgba|hsl|hsla)/i;
+const SIMPLE_FILE = /\.(png|jpg|jpeg|gif|bmp|webp|svg|tiff)$/i;
 
 function isExplicitFalse(value) {
   return value === false || value === 'false';
@@ -84,4 +92,25 @@ export function visibleNavItems(items) {
 
 export function shouldRenderNav(items) {
   return visibleNavItems(items).length > 0;
+}
+
+/** 上游 false / 空 → 不渲染；true 复用页头，本刀不套背景。 */
+export function shouldRenderFooterImg(value) {
+  if (value === false || value === 'false' || value === true || value === 'true') return false;
+  if (value == null) return false;
+  return String(value).trim() !== '';
+}
+
+/**
+ * 对齐 getBgPath（scripts/helpers/page.js）。本刀模板只走 URL 的
+ * background-image；颜色/简写供单测对照，模板不输出。
+ */
+export function footerImgStyle(value) {
+  if (!shouldRenderFooterImg(value)) return '';
+  const path = String(value).trim();
+  if (COLOR.test(path)) return `background-color: ${path};`;
+  if (ABSOLUTE_URL.test(path) || RELATIVE_URL.test(path) || SIMPLE_FILE.test(path)) {
+    return `background-image: url(${path});`;
+  }
+  return `background: ${path};`;
 }

@@ -8,9 +8,9 @@
 
 | 状态 | 项数 |
 | --- | ---: |
-| 待实现 | 497 |
+| 待实现 | 496 |
 | 待平台映射 | 262 |
-| 有相关实现，待对照验收 | 128 |
+| 有相关实现，待对照验收 | 129 |
 | 开发中 | 10 |
 | 验收失败 | 0 |
 | 待独立审查 | 0 |
@@ -49,7 +49,7 @@
 | <a id="config-tag_per_img"></a>`config:tag_per_img`<br>图片与封面 / tag_per_img | [_config.yml:80](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L80)<br>`tag_per_img` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>tag_per_img：未配置、自定义有效值及清空，核对对应输出及再次刷新。；保持同组其他设置不变；验证 tag_per_img 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-category_img"></a>`config:category_img`<br>图片与封面 / category_img | [_config.yml:83](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L83)<br>`category_img` | 设置：categories.above_background<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>category_img：未配置、自定义有效值及清空，核对对应输出及再次刷新。；保持同组其他设置不变；验证 category_img 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-category_per_img"></a>`config:category_per_img`<br>图片与封面 / category_per_img | [_config.yml:88](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L88)<br>`category_per_img` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>category_per_img：未配置、自定义有效值及清空，核对对应输出及再次刷新。；保持同组其他设置不变；验证 category_per_img 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
-| <a id="config-footer_img"></a>`config:footer_img`<br>图片与封面 / footer_img | [_config.yml:91](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L91)<br>`footer_img` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>footer_img：逐值执行 false / true / "/fixtures/landscape.svg"。；保持同组其他设置不变；验证 footer_img 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
+| <a id="config-footer_img"></a>`config:footer_img`<br>图片与封面 / footer_img | [_config.yml:91](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L91)<br>`footer_img` | 设置：footer.footer_img<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>footer_img：逐值执行 false / true / "/fixtures/landscape.svg"。；保持同组其他设置不变；验证 footer_img 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-background"></a>`config:background`<br>图片与封面 / background | [_config.yml:96](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L96)<br>`background` | 设置：style.body_background<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>background：逐值执行 null / "#112233" / "/fixtures/landscape.svg" / ["#112233","/fixtures/landscape.svg"]。；保持同组其他设置不变；验证 background 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-cover-index_enable"></a>`config:cover.index_enable`<br>图片与封面 / cover.index_enable | [_config.yml:100](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L100)<br>`cover.index_enable` | 设置：cover.index_enable<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>cover.index_enable：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 cover.index_enable 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-cover-aside_enable"></a>`config:cover.aside_enable`<br>图片与封面 / cover.aside_enable | [_config.yml:101](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L101)<br>`cover.aside_enable` | 设置：cover.aside_enable<br>使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 | ENV-02, PAGE-01, PAGE-04, NET-01, CFG-01<br>cover.aside_enable：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 cover.aside_enable 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
