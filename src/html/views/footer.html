@@ -1,4 +1,19 @@
 <footer class="footer">
+  <div
+    class="footer-flex"
+    th:if="${not #lists.isEmpty(theme.config.footer?.nav)}"
+  >
+    <a
+      class="footer-flex-item"
+      th:each="item : ${theme.config.footer.nav}"
+      th:if="${item != null and not #strings.isEmpty(item.title) and not #strings.isEmpty(item.url)}"
+      th:href="${item.url}"
+      th:title="${item.title}"
+      th:text="${item.title}"
+      target="_blank"
+      rel="noopener noreferrer"
+    ></a>
+  </div>
   <div class="footer-other"
        th:with="
          currentYear = ${#dates.format(#dates.createNow(), 'yyyy')},

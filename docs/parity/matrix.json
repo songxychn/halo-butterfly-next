@@ -5502,12 +5502,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+        "settings": [
+          "footer.nav"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer.nav（默认空）到 footer.nav。空列表不渲染。本刀为 title + url 扁平链接，不做嵌套列、width、html 子项（pug != html 不做）。可见文本 th:text / th:href。不做 footer_img。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5528,12 +5533,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/105"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:footer.owner.enable",

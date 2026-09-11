@@ -1404,7 +1404,7 @@ spec:
         - $formkit: group
           name: owner
           label: 站点所有权
-          help: 对应上游 Butterfly footer.owner（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认 enable true、since 2025。关闭不渲染 © 行。since 与当前年不同时显示 since - current，否则只显示当前年。作者用站点名称。不做 footer.nav、footer_img、reward。
+          help: 对应上游 Butterfly footer.owner（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认 enable true、since 2025。关闭不渲染 © 行。since 与当前年不同时显示 since - current，否则只显示当前年。作者用站点名称。本刀含 footer.nav（扁平 title/url）。不做 footer_img、嵌套列 html。
           value:
             enable: true
             since: 2025
@@ -1427,7 +1427,7 @@ spec:
         - $formkit: group
           name: copyright
           label: 框架与主题
-          help: 对应上游 Butterfly footer.copyright（_config.yml / footer.pug）。默认 enable true、version true。关闭不渲染 Powered by 行。version 关闭不显示主题版本号。Halo 替代 Hexo。不做 footer.nav。
+          help: 对应上游 Butterfly footer.copyright（_config.yml / footer.pug）。默认 enable true、version true。关闭不渲染 Powered by 行。version 关闭不显示主题版本号。Halo 替代 Hexo。
           value:
             enable: true
             version: true
@@ -1452,6 +1452,22 @@ spec:
                   value: true
                 - label: 隐藏
                   value: false
+        - $formkit: repeater
+          name: nav
+          label: 页脚导航
+          help: 对应上游 Butterfly footer.nav（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认空。空列表不渲染。本刀为 title + url 扁平链接，不做嵌套列、width、html 子项。可见文本 th:text / th:href，无新增 th:utext。不做 footer_img。
+          value: []
+          children:
+            - $formkit: text
+              name: title
+              label: 名称
+              help: 对应 nav 项 title。空则该项不输出。可见文本 th:text。
+              value: ""
+            - $formkit: text
+              name: url
+              label: 链接
+              help: 对应 nav 项 url。空则该项不输出。可见文本 th:href。
+              value: ""
         - $formkit: textarea
           name: custom_text
           label: 自定义文案
