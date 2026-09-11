@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 94,
+  "pr": 101,
+  "title": "M1：打赏 reward.enable / text / QR_code",
+  "author": "cursor/m1-reward",
+  "recorder": "cursor/record-101",
+  "recordedAt": "2026-09-11T15:44:35Z",
+  "visibility": "private",
+  "sourceSha": "f432ee5294d5d198c29a104a9936b3d2f51586f5",
+  "reviewHead": "f432ee5294d5d198c29a104a9936b3d2f51586f5",
+  "mergeSha": "14546fd610eaef10b245155ea721203f99caa201",
+  "mergedAt": "2026-09-11T15:37:01Z",
+  "closesIssue": 94,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/101#issuecomment-5636858163",
+    "createdAt": "2026-09-11T15:36:08Z",
+    "head": "f432ee5294d5d198c29a104a9936b3d2f51586f5",
+    "note": "Independent review posted as issue comment 5636858163, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. Review noted CI still pending; this record waited until PR CI 34616685828 and merge-commit master CI 34617184918 completed success."
+  },
+  "settingsSha256": "9a5d9c7e13cc7805a4194067db5422e6b5930f11747a1b9a16807b96b8e42ea6",
+  "productCommits": [
+    {
+      "sha": "35c6267",
+      "summary": "Align reward.enable / text / QR_code. Defaults enable false, text empty, QR_code empty. Renders only when explicitly enabled and QR_code is non-empty. Empty text shows 打赏. Visible text uses th:text. Post page only. Does not do footer or related_post helper."
+    },
+    {
+      "sha": "e278331",
+      "summary": "Refreeze performance theme-defaults.json onto the reward implementation commit"
+    },
+    {
+      "sha": "f432ee5",
+      "summary": "Register #94 onto reward matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:reward.enable",
+    "config:reward.text",
+    "config:reward.QR_code"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "template:includes/post/reward",
+    "interaction:reward",
+    "style:source/css/_layout/reward.styl"
+  ],
+  "matrixStillMappingRequired": [
+    "data-schema:reward-items"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 500,
+    "mapping-required": 262,
+    "implemented-unverified": 125,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 102,
+    "state": "OPEN",
+    "title": "M1：文章版权 post_copyright.decode / author_href / enable / license",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/102",
+    "note": "Opened after #101 merge. Completes remaining post_copyright leaves plus real settings for enable/license/license_url that were hardcoded IU. Does not close PAGE-01/POST-01. #95 and #96 remain OPEN duplicates of #94; do not implement them."
+  },
+  "precedingDocsPr": {
+    "pr": 100,
+    "title": "docs: 记录 #99 页脚合并证据",
+    "headSha": "7f2f9197fc20115200f2f74aa58ca1f3a3990695",
+    "mergeSha": "de6d92d9955aed3ea86faee463a0739c42ebc75c",
+    "mergedAt": "2026-09-11T15:25:11Z",
+    "prCi": 34615786060,
+    "prCiConclusion": "success",
+    "masterCi": 34616009598,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34616009598",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/100#issuecomment-5636710029",
+    "note": "Waited with gh run view until completed. Push-event master CI 34616009598 on de6d92d9955aed3ea86faee463a0739c42ebc75c completed success at 2026-09-11T15:26:57Z, before the #101 merge push at 2026-09-11T15:37:01Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34616685828,
+      "runAttempt": 1,
+      "headSha": "f432ee5294d5d198c29a104a9936b3d2f51586f5",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34616685828",
+      "note": "Local node --test tests/*.test.mjs: 167 pass / 0 fail. GitHub Verify theme conclusion success. Independent review comment was posted while CI was still pending; this record uses the later completed conclusion. Intermediate pull_request run 34616643307 on e278331 was cancelled by the third commit push; not recorded as success."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34617184918,
+      "runAttempt": 1,
+      "headSha": "14546fd610eaef10b245155ea721203f99caa201",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34617184918",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-11T15:38:46Z. parity total 897 verified 0. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #101; there is no Approve. Independent review is issue comment 5636858163 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head f432ee5294d5d198c29a104a9936b3d2f51586f5: newly raised to implemented-unverified are config:reward.enable / text / QR_code. evidence remains []. template:includes/post/reward, interaction:reward, and style:source/css/_layout/reward.styl remain gap. data-schema:reward-items remains mapping-required. Does not mark verified.",
+    "settingsSha256 9a5d9c7e13cc7805a4194067db5422e6b5930f11747a1b9a16807b96b8e42ea6 matches settings.yaml at 35c6267 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 35c6267e29cdd5e1167faaddf9bd0eac0dd6da8f. Default enable false; text empty; QR_code empty list.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 reward: only explicit true plus non-empty QR_code renders (post.pug enable && QR_code). Empty text falls back to 打赏. Visible text uses th:text / th:alt / th:src. No new th:utext. Post page only, after the copyright block and before post pagination. CSS hover shows .reward-main. 390 uses overflow-wrap anywhere.",
+    "Non-blocking P2 from the independent review: no dual-site lab; CI was still pending at comment time; empty-img items are filtered while the outer list-nonempty check remains.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Does not close duplicate issues #95/#96. Next slice is open #102 post_copyright; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:reward.enable / text / QR_code; evidence remains [].",
+    "template:includes/post/reward, interaction:reward, and reward.styl remain gap; data-schema:reward-items remains mapping-required.",
+    "Does not implement footer.nav, related_post helper, reward JS tap, or per-page overrides.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #100 merge-commit master CI run 34616009598 on de6d92d9955aed3ea86faee463a0739c42ebc75c completed success at 2026-09-11T15:26:57Z, before the #101 merge push at 2026-09-11T15:37:01Z; must not be recorded as cancelled.",
+    "Intermediate PR CI run 34616643307 on e278331 was cancelled by the later f432ee5 push; not recorded as success.",
+    "Issues #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
