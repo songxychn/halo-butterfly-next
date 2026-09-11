@@ -447,6 +447,38 @@
   <script type="text/javascript" th:src="${assets_link + 'plugins/prism/prism.min.js'}"></script>
 </th:block>
 
+<!--/* 文章版权。对齐 Butterfly 5.7.0 layout/includes/post/post-copyright.pug
+     （theme.post_copyright.enable && page.copyright !== false；本刀不做逐页覆盖）。
+     仅文章页。可见文本 th:text / th:href。不做 footer.nav。 */-->
+<div
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postCopyright"
+  class="copy-right"
+  th:if="${theme.config.post.post_copyright?.enable != false and theme.config.post.post_copyright?.enable != 'false'}"
+  th:with="
+    pc = ${theme.config.post.post_copyright},
+    pcLicense = ${#strings.isEmpty(pc?.license) ? 'CC BY-NC-SA 4.0' : pc.license},
+    pcLicenseUrl = ${#strings.isEmpty(pc?.license_url) ? 'https://creativecommons.org/licenses/by-nc-sa/4.0/' : pc.license_url},
+    pcAuthorHref = ${#strings.isEmpty(pc?.author_href) ? (#strings.isEmpty(site.url) ? '/' : site.url) : pc.author_href}
+  "
+>
+  <i class="fa-solid fa-copyright"></i>
+  <div class="author">
+    <span class="name">文章作者：</span>
+    <span class="text">
+      <a target="_blank" rel="noopener noreferrer" th:href="${pcAuthorHref}" th:text="${contributor?.displayName ?: site.title}"></a>
+    </span>
+  </div>
+  <div class="url">
+    <span class="name">文章链接：</span>
+    <span class="text"><a class="permalink" target="_blank" rel="noopener noreferrer"></a></span>
+  </div>
+  <div class="declaration">
+    <span class="name">版权声明：</span>
+    <span class="text">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" th:href="${pcLicenseUrl}" th:text="${pcLicense}"></a> 许可协议。转载请注明来源 <a target="_blank" rel="noopener noreferrer" th:href="${#strings.isEmpty(site.url) ? '/' : site.url}" th:text="${site.title}"></a>！</span>
+  </div>
+</div>
+
 <!--/* 打赏。对齐 Butterfly 5.7.0 layout/includes/post/reward.pug + post.pug
      （theme.reward.enable && theme.reward.QR_code）。仅文章页。可见文本 th:text。 */-->
 <div

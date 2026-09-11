@@ -19,6 +19,9 @@ import {
   capRelatedPosts,
   resolveLimit,
 } from '../core/related-post.mjs';
+import {
+  formatPermalinkText,
+} from '../core/post-copyright.mjs';
 
 export default class Render {
   name = 'Render';
@@ -139,10 +142,10 @@ export default class Render {
    */
   #copyRight() {
     const a = $('.copy-right a.permalink');
-
-    a.attr('href', window.location.href);
-
-    a.html(decodeURI(window.location.href));
+    if (!a.length) return;
+    const href = window.location.href;
+    a.attr('href', href);
+    a.text(formatPermalinkText(href, this.#conf.post_copyright_decode));
   }
 
   /**

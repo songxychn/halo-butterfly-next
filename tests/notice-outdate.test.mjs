@@ -150,7 +150,7 @@ test('文章页在正文前后插入；单页不插入；enable 与超限由 th:
   assert.match(postHtml, /views\/components :: noticeOutdate\('bottom'\)/);
   assert.ok(postHtml.indexOf("noticeOutdate('top')") < postHtml.indexOf('th:utext="${post.content.content}"'));
   assert.ok(postHtml.indexOf('th:utext="${post.content.content}"') < postHtml.indexOf("noticeOutdate('bottom')"));
-  assert.ok(postHtml.indexOf("noticeOutdate('bottom')") < postHtml.indexOf('copy-right'));
+  assert.ok(postHtml.indexOf("noticeOutdate('bottom')") < postHtml.indexOf('postCopyright'));
   assert.doesNotMatch(pageHtml, /noticeOutdate/);
   assert.doesNotMatch(pageHtml, /post-outdate-notice/);
 
