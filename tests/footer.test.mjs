@@ -15,6 +15,9 @@ import {
   visibleNavItems,
   shouldRenderFooterImg,
   footerImgStyle,
+  MASK_FOOTER_DEFAULT,
+  resolveMaskFooter,
+  shouldRenderFooterMask,
 } from '../src/js/core/footer.mjs';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
@@ -26,6 +29,18 @@ function footerForm() {
   const form = settings.spec.forms.find(item => item.group === 'footer');
   assert.ok(form, 'footer');
   return form;
+}
+
+function maskForm() {
+  const form = settings.spec.forms.find(item => item.group === 'mask');
+  assert.ok(form, 'mask');
+  return form;
+}
+
+function maskChild(name) {
+  const node = maskForm().formSchema.find(item => item.name === name);
+  assert.ok(node, name);
+  return node;
 }
 
 function child(name) {
@@ -48,6 +63,7 @@ test('默认对齐上游 SHA：owner true/2025、copyright true/true、custom_te
   assert.equal(defaults.footer.custom_text, '');
   assert.deepEqual(defaults.footer.nav, []);
   assert.equal(defaults.footer.footer_img, '');
+  assert.equal(defaults.mask.footer, true);
   assert.equal(groupChild('owner', 'enable').value, true);
   assert.deepEqual(groupChild('owner', 'enable').options.map(option => option.value), [true, false]);
   assert.equal(groupChild('owner', 'since').value, 2025);
@@ -73,6 +89,11 @@ test('默认对齐上游 SHA：owner true/2025、copyright true/true、custom_te
   assert.equal(child('footer_img').name, 'footer_img');
   assert.match(String(child('footer_img').help), /footer_img/);
   assert.match(String(child('footer_img').help), /th:style/);
+  assert.equal(maskChild('footer').value, true);
+  assert.deepEqual(maskChild('footer').options.map(option => option.value), [true, false]);
+  assert.match(String(maskChild('footer').help), /mask\.footer/);
+  assert.match(String(maskChild('footer').help), /mask\.header/);
+  assert.equal(MASK_FOOTER_DEFAULT, true);
 });
 
 test('owner / copyright 仅显式 false 关闭；缺省为 true', () => {
@@ -132,6 +153,8 @@ test('模板：owner/copyright 可关；标题 th:text；无 th:utext；保留�
   assert.match(footerHtml, /th:text="\$\{item\.title\}"/);
   assert.match(footerHtml, /th:href="\$\{item\.url\}"/);
   assert.match(footerHtml, /footer--bg/);
+  assert.match(footerHtml, /footer--mask/);
+  assert.match(footerHtml, /footerMaskOn = \$\{theme\.config\.mask\?\.footer != false and theme\.config\.mask\?\.footer != 'false'\}/);
   assert.match(footerHtml, /background-image: url\('\$\{footerImg\}'\)/);
   assert.match(footerHtml, /footerImg != true/);
   assert.doesNotMatch(footerHtml, /© 2020 -/);
@@ -146,6 +169,8 @@ test('390 不横向溢出：anywhere 折行', () => {
   assert.match(scss, /\.footer--bg/);
   assert.match(scss, /background-size:\s*cover/);
   assert.match(scss, /background-position:\s*bottom/);
+  assert.match(scss, /footer--mask::before/);
+  assert.match(scss, /content:\s*''/);
 });
 
 test('nav 默认空不渲染；title 与 url 都有才输出', () => {
@@ -171,4 +196,18 @@ test('footer_img 默认空不渲染；true 本刀不套背景；URL 才输出 ba
   assert.equal(footerImgStyle(true), '');
   assert.equal(footerImgStyle('https://example.test/f.png'), 'background-image: url(https://example.test/f.png);');
   assert.equal(footerImgStyle('/fixtures/landscape.svg'), 'background-image: url(/fixtures/landscape.svg);');
+});
+
+test('mask.footer 默认 true；仅显式 false 关闭；无背景不加遮罩', () => {
+  assert.equal(resolveMaskFooter(undefined), true);
+  assert.equal(resolveMaskFooter(null), true);
+  assert.equal(resolveMaskFooter(true), true);
+  assert.equal(resolveMaskFooter('true'), true);
+  assert.equal(resolveMaskFooter(false), false);
+  assert.equal(resolveMaskFooter('false'), false);
+  assert.equal(shouldRenderFooterMask('', true), false);
+  assert.equal(shouldRenderFooterMask(false, true), false);
+  assert.equal(shouldRenderFooterMask('https://example.test/f.png', true), true);
+  assert.equal(shouldRenderFooterMask('https://example.test/f.png', undefined), true);
+  assert.equal(shouldRenderFooterMask('https://example.test/f.png', false), false);
 });

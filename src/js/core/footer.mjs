@@ -10,7 +10,8 @@
  * 作者用站点名称。custom_text 有内容才渲染；可见文本走转义，不做 HTML。
  * footer.nav 默认空；扁平 title/url，不做 html / 嵌套列。
  * footer_img 默认空（上游 false）：空 / false 不套背景；true 本刀不复用页头。
- * 非空 URL 才写 background-image。不做 mask.footer。
+ * 非空 URL 才写 background-image。mask.footer 默认 true，仅显式 false 关闭；
+ * 有背景且未关闭时才加遮罩。不做 mask.header。
  */
 
 export const DEFAULTS = {
@@ -20,6 +21,9 @@ export const DEFAULTS = {
   nav: [],
   footer_img: '',
 };
+
+/** 上游 mask.footer 默认 true。 */
+export const MASK_FOOTER_DEFAULT = true;
 
 const ABSOLUTE_URL = /^(?:[a-z][a-z\d+.-]*:)?\/\//i;
 const RELATIVE_URL = /^(\.\/|\.\.\/|\/|[^/]+\/).*$/;
@@ -113,4 +117,16 @@ export function footerImgStyle(value) {
     return `background-image: url(${path});`;
   }
   return `background: ${path};`;
+}
+
+/** 默认 true；仅显式 false 关闭。 */
+export function resolveMaskFooter(value) {
+  if (value === false || value === 'false') return false;
+  if (value === true || value === 'true') return true;
+  return MASK_FOOTER_DEFAULT;
+}
+
+/** 上游：footer_img != false && mask.footer。本刀 URL 背景 + 默认开遮罩。 */
+export function shouldRenderFooterMask(footerImg, maskFooter) {
+  return shouldRenderFooterImg(footerImg) && resolveMaskFooter(maskFooter);
 }
