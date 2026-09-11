@@ -28,6 +28,7 @@
         toc_number: /*[[${theme.config.toc.number}]]*/ true,
         toc_expand: /*[[${theme.config.toc.expand}]]*/ false,
         toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
+        related_post_limit: /*[[${theme.config.post.related_post.limit}]]*/ 6,
       });
       // 文章页面 自定义元数据
       Object.assign(window.MainApp.attrs, {
@@ -91,6 +92,7 @@
       </div>
 
       <th:block th:replace="~{views/components :: postPagination}"/>
+      <th:block th:replace="~{views/components :: relatedPosts}"/>
 
       <halo:comment
         th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && post.spec.allowComment}"

@@ -4767,14 +4767,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+        "settings": [
+          "post.related_post.enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/components.html",
+          "src/js/core/related-post.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/page/post.scss"
+        ],
+        "finding": "已映射 related_post.enable（默认 true）到 post.related_post.enable。关闭不渲染。无标签不渲染。仅文章页，插在上下篇之后、评论之前。单页 page.html 不插入。不做 footer、reward、逐页覆盖。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4796,12 +4800,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/91"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/93"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:related_post.limit",
@@ -4825,14 +4832,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+        "settings": [
+          "post.related_post.limit"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/components.html",
+          "src/js/core/related-post.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/page/post.scss"
+        ],
+        "finding": "已映射 related_post.limit（默认 6）到 post.related_post.limit。对齐 helper 的 limit || 6，非正数回退 6。模板按标签 listByTag 收集候选，客户端去重截断到 limit。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4854,12 +4865,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/91"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/93"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:related_post.date_type",
@@ -4883,14 +4897,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+        "settings": [
+          "post.related_post.date_type"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/components.html",
+          "src/js/core/related-post.mjs",
+          "src/js/modules/Render.js",
+          "src/scss/page/post.scss"
+        ],
+        "finding": "已映射 related_post.date_type（created / updated，默认 created）到 post.related_post.date_type。created 显示 spec.publishTime，其余显示 status.lastModifyTime（无则发布时间）。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4916,12 +4934,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/91"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/93"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_pagination",

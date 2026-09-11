@@ -878,6 +878,41 @@ spec:
               label: 文案后缀
               help: 对应上游 noticeOutdate.message_next。可见文本 th:text，不做 HTML。
               value: days since the last update, the content of the article may be outdated.
+        - $formkit: group
+          name: related_post
+          label: 相关文章
+          help: 对应上游 Butterfly related_post（_config.yml / related_post.js / post.pug，5.7.0 f223b188）。默认 enable true、limit 6、date_type created。enable 关闭不渲染。无标签不渲染。按当前文章标签 listByTag 收集候选，客户端去重截断到 limit。date_type created 显示发布时间，其余显示更新时间。仅文章页，插在上下篇之后、评论之前。标题 th:text。不做 footer、reward、逐页覆盖。
+          value:
+            enable: true
+            limit: 6
+            date_type: created
+          children:
+            - $formkit: radio
+              name: enable
+              label: 启用相关文章
+              help: 对应上游 related_post.enable（默认 true）。关闭不渲染相关文章。
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: limit
+              label: 显示数量
+              help: 对应上游 related_post.limit（默认 6）。对齐 helper 的 limit || 6，非正数回退 6。
+              value: 6
+              min: 1
+            - $formkit: radio
+              name: date_type
+              label: 日期类型
+              help: 对应上游 related_post.date_type（created / updated，默认 created）。created 显示发布时间，其余显示更新时间。
+              value: created
+              options:
+                - label: created（发布）
+                  value: created
+                - label: updated（更新）
+                  value: updated
     #文章目录（对齐上游 toc.number / expand / style_simple / scroll_percent）
     - group: toc
       label: 文章目录
