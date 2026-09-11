@@ -5482,12 +5482,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+        "settings": [
+          "footer.owner.enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer.owner.enable（默认 true）到 footer.owner.enable。关闭不渲染 © 所有权行。作者用站点名称 site.title。不做 footer.nav、footer_img、reward。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5508,12 +5513,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/97"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/99"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:footer.owner.since",
@@ -5537,12 +5545,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+        "settings": [
+          "footer.owner.since"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer.owner.since（默认 2025）到 footer.owner.since。since 与当前年不同且非空时显示 since - current，否则只显示当前年。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5563,12 +5576,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/97"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/99"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:footer.copyright.enable",
@@ -5592,12 +5608,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+        "settings": [
+          "footer.copyright.enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer.copyright.enable（默认 true）到 footer.copyright.enable。关闭不渲染框架/主题行。Halo 替代 Hexo，主题名 Halo Butterfly Next。不做 footer.nav。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5618,12 +5639,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/97"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/99"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:footer.copyright.version",
@@ -5647,12 +5671,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+        "settings": [
+          "footer.copyright.version"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer.copyright.version（默认 true）到 footer.copyright.version。开启时在主题名后显示 theme.spec.version；关闭不显示版本号。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5673,12 +5702,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/97"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/99"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:footer.custom_text",
@@ -5702,12 +5734,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+        "settings": [
+          "footer.custom_text"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 footer.custom_text（默认空）到 footer.custom_text。有内容才渲染 .footer_custom_text。可见文本 th:text，不做 HTML（上游 pug !=）。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5728,12 +5765,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/97"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/99"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.enable",
