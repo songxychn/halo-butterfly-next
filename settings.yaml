@@ -342,6 +342,16 @@ spec:
             - label: 禁用
               value: false
         - $formkit: radio
+          name: hide
+          label: 初始隐藏侧栏
+          help: 对应上游 Butterfly aside.hide（_config.yml / source/css/_layout/aside.styl，5.7.0 f223b188）。默认 false。仅显式 true 才给 html 加 hide-aside：桌面宽度（min-width 900px）隐藏 .aside、主栏约 80%。必须用 aside.hide，禁止复用作者卡片 aside.button。不做 aside.mobile，也不做右下角隐藏开关。
+          value: false
+          options:
+            - label: 显示
+              value: false
+            - label: 隐藏
+              value: true
+        - $formkit: radio
           name: position
           label: 侧边栏位置
           help: 侧边栏展示位置，左边或右边
