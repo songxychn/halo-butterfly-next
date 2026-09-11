@@ -1,8 +1,12 @@
 <footer
   class="footer"
-  th:with="footerImg = ${theme.config.footer?.footer_img}"
-  th:classappend="${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'} ? ' footer--bg'"
-  th:style="${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'} ? |background-image: url('${footerImg}');| : ''"
+  th:with="
+    footerImg = ${theme.config.footer?.footer_img},
+    footerImgOn = ${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'},
+    footerMaskOn = ${theme.config.mask?.footer != false and theme.config.mask?.footer != 'false'}
+  "
+  th:classappend="${footerImgOn} ? (${footerMaskOn} ? ' footer--bg footer--mask' : ' footer--bg') : ''"
+  th:style="${footerImgOn} ? |background-image: url('${footerImg}');| : ''"
 >
   <div
     class="footer-flex"

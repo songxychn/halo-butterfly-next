@@ -8,9 +8,9 @@
 
 | 状态 | 项数 |
 | --- | ---: |
-| 待实现 | 496 |
+| 待实现 | 495 |
 | 待平台映射 | 262 |
-| 有相关实现，待对照验收 | 129 |
+| 有相关实现，待对照验收 | 130 |
 | 开发中 | 10 |
 | 验收失败 | 0 |
 | 待独立审查 | 0 |
@@ -310,7 +310,7 @@
 | <a id="config-rounded_corners_ui"></a>`config:rounded_corners_ui`<br>视觉样式 / rounded_corners_ui | [_config.yml:788](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L788)<br>`rounded_corners_ui` | 设置：card.radius<br>将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。 | ENV-02, PAGE-01, A11Y-04, CFG-01<br>rounded_corners_ui：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 rounded_corners_ui 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-text_align_justify"></a>`config:text_align_justify`<br>视觉样式 / text_align_justify | [_config.yml:791](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L791)<br>`text_align_justify` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。 | ENV-02, PAGE-01, A11Y-04, CFG-01<br>text_align_justify：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 text_align_justify 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-mask-header"></a>`config:mask.header`<br>视觉样式 / mask.header | [_config.yml:795](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L795)<br>`mask.header` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。 | ENV-02, PAGE-01, A11Y-04, CFG-01<br>mask.header：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 mask.header 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
-| <a id="config-mask-footer"></a>`config:mask.footer`<br>视觉样式 / mask.footer | [_config.yml:796](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L796)<br>`mask.footer` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。 | ENV-02, PAGE-01, A11Y-04, CFG-01<br>mask.footer：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 mask.footer 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
+| <a id="config-mask-footer"></a>`config:mask.footer`<br>视觉样式 / mask.footer | [_config.yml:796](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L796)<br>`mask.footer` | 设置：mask.footer<br>将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。 | ENV-02, PAGE-01, A11Y-04, CFG-01<br>mask.footer：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 mask.footer 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-preloader-enable"></a>`config:preloader.enable`<br>加载及页面生命周期 / preloader.enable | [_config.yml:800](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L800)<br>`preloader.enable` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 | ENV-02, PAGE-01, EXT-03, NET-01, CFG-01<br>preloader.enable：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 preloader.enable 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-preloader-source"></a>`config:preloader.source`<br>加载及页面生命周期 / preloader.source | [_config.yml:804](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L804)<br>`preloader.source` | 设置：loading.type<br>在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 | ENV-02, PAGE-01, EXT-03, NET-01, CFG-01<br>preloader.source：逐值执行 1 / 2。；保持同组其他设置不变；验证 preloader.source 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-preloader-pace_css_url"></a>`config:preloader.pace_css_url`<br>加载及页面生命周期 / preloader.pace_css_url | [_config.yml:806](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L806)<br>`preloader.pace_css_url` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 | ENV-02, PAGE-01, EXT-03, NET-01, CFG-01<br>preloader.pace_css_url：未配置、自定义有效值及清空，核对对应输出及再次刷新。；保持同组其他设置不变；验证 preloader.pace_css_url 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |

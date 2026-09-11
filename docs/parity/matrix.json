@@ -17342,13 +17342,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+        "settings": [
+          "mask.footer"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.mjs",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs"
+        ],
+        "finding": "已映射 mask.footer（默认 true）到 mask.footer。仅显式 false 关闭。仅当 footer_img 非空时给 .footer 加 footer--mask :before 遮罩。不做 mask.header。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -17369,12 +17373,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/111"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/113"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:preloader.enable",
