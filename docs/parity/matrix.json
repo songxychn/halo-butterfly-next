@@ -9414,12 +9414,16 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "style.mode"
+          "darkmode.autoChangeMode"
         ],
         "code": [
-          "src/js/core/theme.js"
+          "settings.yaml",
+          "src/html/views/config.html",
+          "src/js/core/theme.js",
+          "src/js/core/darkmode.mjs",
+          "tests/darkmode.test.mjs"
         ],
-        "finding": "auto 当前按 6 至 18 点切换，尚缺跟随系统及自定义时间。"
+        "finding": "已映射为 Halo darkmode.autoChangeMode，默认 false。1 跟随 prefers-color-scheme（无系统偏好回退小时窗口）；2 按小时。已存 light/dark 优先。style.mode 的 light/dark 仍强制；auto 在 autoChangeMode 为 false 时仍按小时。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9447,9 +9451,12 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/147"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/149"
+        ]
       },
       "evidence": [],
       "status": "implemented-unverified"
@@ -9476,14 +9483,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "darkmode.start"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/config.html",
+          "src/js/core/darkmode.mjs",
+          "tests/darkmode.test.mjs"
+        ],
+        "finding": "已映射为 Halo darkmode.start，默认空字符串（对齐上游 null），回退 6。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9512,12 +9521,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/147"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/149"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:darkmode.end",
@@ -9541,14 +9553,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "darkmode.end"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/config.html",
+          "src/js/core/darkmode.mjs",
+          "tests/darkmode.test.mjs"
+        ],
+        "finding": "已映射为 Halo darkmode.end，默认空字符串（对齐上游 null），回退 18。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9577,12 +9591,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/147"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/149"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rightside_scroll_percent",
