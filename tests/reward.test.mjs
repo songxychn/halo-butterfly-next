@@ -17,7 +17,7 @@ const defaults = defaultsFromSettings(settings);
 const components = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const postHtml = await readFile(new URL('../src/html/post.html', import.meta.url), 'utf8');
 const pageHtml = await readFile(new URL('../src/html/page.html', import.meta.url), 'utf8');
-const scss = await readFile(new URL('../src/scss/page/post.scss', import.meta.url), 'utf8');
+const scss = await readFile(new URL('../src/scss/core/reward.scss', import.meta.url), 'utf8');
 
 function postForm() {
   const form = settings.spec.forms.find(item => item.group === 'post');
