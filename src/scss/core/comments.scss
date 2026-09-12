@@ -1,0 +1,125 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/comments.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #post-comment / .comment-head / .comment-headline /
+ * .comment-switch / #switch-btn / .comment-wrap / .move。
+ * comments.text 默认 true，走 float:right / max-content / 8px 圆角 /
+ * $comments-switch-bg（#f6f8fa）。
+ * 颜色：$comments-switch-first-text #49b1f5、second #ff7242、round #fff。
+ * Halo 评论是 <halo:comment>，包在 #post-comment > .comment-wrap > div；
+ * 不做双评论切换脚本，不接入 Disqus/Waline 等提供方。
+ * 深色仍 data-color-scheme（darkmode.scss 已有 #post-comment .comment-switch），
+ * 不改 data-theme。不改 #pagination.pagination-post 的 150px。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ */
+@keyframes tabshow {
+  0% {
+    transform: translateY(15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#post-comment {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  box-sizing: border-box;
+
+  .comment-head {
+    margin-bottom: 20px;
+
+    &:after {
+      display: block;
+      clear: both;
+      content: '';
+    }
+
+    .comment-headline {
+      display: inline-block;
+      vertical-align: middle;
+      font-weight: 700;
+      font-size: 1.43em;
+    }
+
+    .comment-switch {
+      display: inline-block;
+      float: right;
+      margin: 2px auto 0;
+      padding: 4px 16px;
+      width: max-content;
+      max-width: 100%;
+      border-radius: 8px;
+      background: var(--sidebar-bg, #f6f8fa);
+
+      .first-comment {
+        color: var(--theme, #49b1f5);
+      }
+
+      .second-comment {
+        color: #ff7242;
+      }
+
+      #switch-btn {
+        position: relative;
+        display: inline-block;
+        margin: -4px 8px 0;
+        width: 42px;
+        height: 22px;
+        border-radius: 34px;
+        background-color: var(--theme, #49b1f5);
+        vertical-align: middle;
+        cursor: pointer;
+        transition: .4s;
+
+        &:before {
+          position: absolute;
+          bottom: 4px;
+          left: 4px;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background-color: #fff;
+          content: '';
+          transition: .4s;
+        }
+      }
+    }
+  }
+
+  .comment-wrap {
+    > div {
+      animation: tabshow .5s;
+
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+
+  &.move {
+    #switch-btn {
+      background-color: #ff7242;
+
+      &:before {
+        transform: translateX(20px);
+      }
+    }
+
+    .comment-wrap {
+      > div {
+        &:first-child {
+          display: none;
+        }
+
+        &:last-child {
+          display: block;
+        }
+      }
+    }
+  }
+}
