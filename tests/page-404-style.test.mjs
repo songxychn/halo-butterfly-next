@@ -70,6 +70,12 @@ test('Halo 404 不把 #rightside display:none；.type-404 + #rightside 仅空操
   assert.match(error404Scss, /opacity:\s*1/);
   const haloBlock = page404Scss.slice(page404Scss.lastIndexOf('#Butterfly.error404 {'));
   assert.doesNotMatch(haloBlock, /#rightside[^{]*\{[^}]*display:\s*none/s);
+  assert.doesNotMatch(haloBlock, /width:\s*50%/);
+  assert.doesNotMatch(haloBlock, /height:\s*45%/);
+  assert.doesNotMatch(haloBlock, /height:\s*55%/);
+  const type404 = page404Scss.slice(0, page404Scss.lastIndexOf('#Butterfly.error404 {'));
+  assert.match(type404, /width:\s*50%/);
+  assert.match(type404, /height:\s*45%/);
 });
 
 test('编译后选择器挂在 .type-404 / error404，无 data-theme，不把文章上下篇压掉', () => {
@@ -87,4 +93,16 @@ test('编译后选择器挂在 .type-404 / error404，无 data-theme，不把文
   assert.match(css, /#pagination\.pagination-post/);
   assert.match(css, /height:\s*150px/);
   assert.doesNotMatch(css, /\[data-theme/);
+});
+
+test('编译 error404.scss 后 grid 列不被 #Butterfly.error404 的 width/height 拆掉', () => {
+  const css = sass.compile(new URL('../src/scss/page/error404.scss', import.meta.url).pathname, {
+    loadPaths: ['node_modules'],
+  }).css.replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.match(css, /grid-template-columns:\s*1fr 1fr/);
+  assert.match(css, /height:\s*225px/);
+  assert.match(css, /\.type-404[^{]*\.error-img[^{]*\{[^}]*width:\s*50%/s);
+  assert.doesNotMatch(css, /#Butterfly\.error404 \.error-art\s*\{[^}]*width:\s*50%/s);
+  assert.doesNotMatch(css, /#Butterfly\.error404 \.error-info\s*\{[^}]*width:\s*50%/s);
+  assert.doesNotMatch(css, /#Butterfly\.error404 \.error-art\s*\{[^}]*height:\s*45%/s);
 });
