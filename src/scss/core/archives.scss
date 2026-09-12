@@ -1,0 +1,298 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_page/archives.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 .article-sort / .article-sort-title / .article-sort-item；
+ * Halo 是 .archives / .axis-title / .axis-list / .axis-list--item /
+ * .cover / .info / .title。选择器并列。无 .article-sort DOM 时上游选择器为空操作。
+ * 封面 100px×70px / 768 的 70px×70px：改 Halo .cover 规则本身，不加 #Butterfly
+ * ID 去压不兼容的 width 百分比，以免把已有 flex 时间轴拆掉。
+ * 不把 config:cover.archives_enable、已落地 404.styl / homepage.styl /
+ * common.styl / _layout / darkmode / readmode 升 verified。不改 settings.yaml。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ */
+
+/* 上游 .article-sort：无对应 DOM，空操作。 */
+.article-sort {
+  margin-left: 10px;
+  padding-left: 20px;
+  border-left: 2px solid var(--theme);
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  &-title {
+    position: relative;
+    margin-left: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    font-size: 1.72em;
+
+    &:hover {
+      &:before {
+        border-color: var(--pseudo-hover, var(--theme));
+      }
+    }
+
+    &:before {
+      position: absolute;
+      top: calc(((100% - 36px) / 2));
+      left: -9px;
+      z-index: 1;
+      width: 10px;
+      height: 10px;
+      border: 5px solid var(--theme);
+      border-radius: 10px;
+      background: var(--card-bg, var(--card-background-color, #fff));
+      content: '';
+      line-height: 10px;
+      transition: all .2s ease-in-out;
+    }
+
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      width: 2px;
+      height: 1.5em;
+      background: var(--theme);
+      content: '';
+    }
+  }
+
+  &-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 10px;
+    transition: all .2s ease-in-out;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    &:hover {
+      &:before {
+        border-color: var(--pseudo-hover, var(--theme));
+      }
+    }
+
+    &:before {
+      position: absolute;
+      left: calc(-20px - 17px);
+      width: 6px;
+      height: 6px;
+      border: 3px solid var(--theme);
+      border-radius: 6px;
+      background: var(--card-bg, var(--card-background-color, #fff));
+      content: '';
+      transition: all .2s ease-in-out;
+    }
+
+    &.no-article-cover {
+      height: 80px;
+
+      .article-sort-item-info {
+        padding: 0;
+      }
+    }
+
+    &.year {
+      font-size: 1.43em;
+      margin-bottom: 10px;
+
+      &:hover {
+        &:before {
+          border-color: var(--theme);
+        }
+      }
+
+      &:before {
+        border-color: var(--pseudo-hover, var(--theme));
+      }
+    }
+
+    &-time {
+      color: var(--card-meta, var(--text-obs-color, #858585));
+      font-size: .85em;
+
+      time {
+        padding-left: 6px;
+        cursor: default;
+      }
+    }
+
+    &-title {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      color: var(--font-color, var(--text-color));
+      font-size: 1.05em;
+      transition: all .3s;
+      -webkit-line-clamp: 2;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+
+      &:hover {
+        color: var(--theme);
+        transform: translateX(10px);
+      }
+    }
+
+    &-img {
+      overflow: hidden;
+      width: 100px;
+      height: 70px;
+      border-radius: var(--card-border-radius, 8px);
+
+      @media screen and (max-width: 768px) {
+        width: 70px;
+        height: 70px;
+      }
+
+      :first-child {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter 375ms ease-in .2s, transform .6s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &-info {
+      flex: 1;
+      padding: 0 16px;
+      min-width: 0;
+    }
+  }
+}
+
+/* Halo 归档时间轴：同等特异性对齐上游数字，不使用 #Butterfly ID。 */
+.archives {
+  .axis-title {
+    position: relative;
+    margin-left: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    font-size: 1.72em;
+    max-width: 100%;
+    min-width: 0;
+
+    &:before {
+      position: absolute;
+      top: calc(((100% - 36px) / 2));
+      left: -9px;
+      z-index: 1;
+      width: 10px;
+      height: 10px;
+      border: 5px solid var(--theme);
+      border-radius: 10px;
+      background: var(--axis-line-background-color, var(--card-bg, #fff));
+      content: '';
+      line-height: 10px;
+      transition: all .2s ease-in-out;
+    }
+
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      width: 2px;
+      height: 1.5em;
+      background: var(--theme);
+      content: '';
+    }
+  }
+
+  .axis-list {
+    margin-left: 10px;
+    padding-left: 20px;
+    border-left: 2px solid var(--theme);
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    &--item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 0 0 20px 10px;
+      transition: all .2s ease-in-out;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+
+      &:before {
+        position: absolute;
+        left: calc(-20px - 17px);
+        width: 6px;
+        height: 6px;
+        border: 3px solid var(--theme);
+        border-radius: 6px;
+        background: var(--axis-line-background-color, var(--card-bg, #fff));
+        content: '';
+        transition: all .2s ease-in-out;
+      }
+
+      &.no-cover {
+        height: 80px;
+
+        > .info {
+          padding: 0;
+        }
+      }
+
+      &.year {
+        font-size: 1.43em;
+        margin-bottom: 10px;
+      }
+
+      .cover {
+        overflow: hidden;
+        width: 100px;
+        height: 70px;
+        border-radius: var(--card-border-radius, 8px);
+
+        @media screen and (max-width: 768px) {
+          width: 70px;
+          height: 70px;
+        }
+      }
+
+      .info {
+        flex: 1;
+        padding: 0 16px;
+        min-width: 0;
+
+        time {
+          color: var(--card-meta, var(--text-obs-color, #858585));
+          font-size: .85em;
+          padding-left: 6px;
+        }
+
+        .title {
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          color: var(--font-color, var(--text-color));
+          font-size: 1.05em;
+          transition: all .3s;
+          -webkit-line-clamp: 2;
+          word-break: break-word;
+          overflow-wrap: anywhere;
+
+          &:hover {
+            color: var(--link-hover-color, var(--theme));
+            transform: translateX(10px);
+          }
+        }
+      }
+    }
+  }
+}

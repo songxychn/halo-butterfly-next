@@ -22,14 +22,14 @@
 
     &-title {
       position: relative;
-      margin-left: 18px;
+      margin-left: 10px;
       padding-bottom: 20px;
-      padding-left: 18px;
-      font-size: 1.5rem;
+      padding-left: 20px;
+      font-size: 1.72em;
 
       &:before {
         position: absolute;
-        top: calc(((100% - 48px) / 2));
+        top: calc(((100% - 36px) / 2));
         left: -9px;
         z-index: 1;
         width: 10px;
@@ -50,15 +50,14 @@
         left: 0;
         z-index: 0;
         width: 2px;
-        height: 1.8em;
+        height: 1.5em;
         background-color: var(--theme);
         content: '';
-        top: 28px;
       }
     }
 
     &-list {
-      margin-left: 18px;
+      margin-left: 10px;
       padding-left: 20px;
       border-left: 2px solid var(--theme);
 
@@ -86,6 +85,7 @@
 
         &.year {
           font-size: 1.43em;
+          margin-bottom: 10px;
 
           &:before {
             filter: hue-rotate(135deg);
@@ -101,12 +101,17 @@
         }
 
         .cover {
-          width: 6rem;
-          height: 6rem;
+          width: 100px;
+          height: 70px;
           border-radius: 8px;
           transition: transform .3s;
           @include util.text-overflow;
           position: relative;
+
+          @media screen and (max-width: 768px) {
+            width: 70px;
+            height: 70px;
+          }
 
           img {
             width: 100%;
@@ -119,27 +124,33 @@
           }
         }
 
-        &.no-cover > .info {
-          padding-left: 0;
+        &.no-cover {
+          height: 80px;
+
+          > .info {
+            padding: 0;
+          }
         }
 
         .info {
           padding: 0 16px;
           flex: 1;
+          min-width: 0;
 
           time {
             color: var(--text-obs-color);
-            font-size: 95%;
+            font-size: .85em;
+            padding-left: 6px;
           }
 
           .title {
-            font-size: 1rem;
-            transition: transform .3s;
+            font-size: 1.05em;
+            transition: all .3s;
             @include util.text-clamp(2);
 
             &:hover {
               color: var(--link-hover-color);
-              //transform: translateX(10px);
+              transform: translateX(10px);
             }
           }
         }

@@ -38965,11 +38965,12 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/archives.scss",
+          "src/scss/core/index.scss",
+          "src/scss/page/archives.scss",
+          "tests/archives-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/archives.scss 对齐 archives.styl 归档页样式。选择器并列 .article-sort 与 Halo .archives / .axis-title / .axis-list / .axis-list--item。无 .article-sort DOM 时上游选择器为空操作。1.72em / 1.43em / .85em / 1.05em、封面 100px×70px / 768 的 70px、无封面 80px、标题 clamp 2 与 hover translateX(10px)。不改 data-theme。不把 config:cover.archives_enable、已落地 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38989,12 +38990,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/204"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/206"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_page/categories.styl",
