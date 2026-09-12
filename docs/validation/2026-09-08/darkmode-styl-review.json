@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 150,
+  "pr": 152,
+  "title": "M1：深色模式样式 darkmode.styl",
+  "author": "cursor/m1-darkmode-styl",
+  "recorder": "cursor/record-152",
+  "recordedAt": "2026-09-12T08:00:00Z",
+  "visibility": "private",
+  "sourceSha": "ab9d94c0dee03f1b31bebd79b53734ffd13d615d",
+  "reviewHead": "ab9d94c0dee03f1b31bebd79b53734ffd13d615d",
+  "mergeSha": "80703942e07a773e8bede707db68649affa85698",
+  "mergedAt": "2026-09-12T07:57:41Z",
+  "closesIssue": 150,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/152#issuecomment-5644591881",
+    "createdAt": "2026-09-12T07:57:04Z",
+    "head": "ab9d94c0dee03f1b31bebd79b53734ffd13d615d",
+    "note": "Independent review posted as issue comment 5644591881, not a GitHub Approve. Verdict: approve. No P1. The reviewer's one-shot CI snapshot was pending (run 34681854369). This record waited until pull_request CI 34681854369 and merge-commit master CI 34682047375 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "5d08d43b20134a02a7606cd958775f088b16e4e8",
+      "summary": "Port upstream darkmode.styl to src/scss/core/darkmode.scss. Selectors hang on html[data-color-scheme='dark'], not data-theme. Upstream CSS variables, #web_bg overlay, kbd/code/img filters, aside dashed borders, Halo token aliases (--body-background / --card-background-color / --text-color). Does not reuse author-card aside.button. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "3db466909c64160b34cd4cf6393c0c262b08a950",
+      "summary": "Raise style:source/css/_mode/darkmode.styl from gap to implemented-unverified; evidence remains []. Do not raise config:darkmode.* or interaction:darkmode to verified."
+    },
+    {
+      "sha": "ab9d94c0dee03f1b31bebd79b53734ffd13d615d",
+      "summary": "Register #152 onto style:source/css/_mode/darkmode.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:darkmode.enable",
+    "config:darkmode.button",
+    "config:darkmode.autoChangeMode",
+    "config:darkmode.start",
+    "config:darkmode.end",
+    "interaction:darkmode",
+    "config:translate.enable",
+    "config:translate.default",
+    "interaction:translate",
+    "config:readmode",
+    "interaction:readmode",
+    "config:rightside_bottom",
+    "config:rightside_scroll_percent",
+    "template:includes/rightside",
+    "template:includes/footer"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_layout/rightside.styl",
+    "config:rightside_item_order.enable",
+    "config:translate.defaultEncoding",
+    "config:translate.translateDelay",
+    "config:translate.msgToTraditionalChinese",
+    "config:translate.msgToSimplifiedChinese"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 477,
+    "mapping-required": 262,
+    "implemented-unverified": 148,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 153,
+    "state": "OPEN",
+    "title": "M1：阅读模式样式 readmode.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/153",
+    "note": "config:readmode / interaction:readmode and style:source/css/_mode/darkmode.styl are implemented-unverified; do not raise them, rightside/footer templates, or landed darkmode config to verified. This slice is style:source/css/_mode/readmode.styl. Must not reuse author-card aside.button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 151,
+    "title": "docs: 记录 #149 深色模式自动切换合并证据",
+    "headSha": "264aebc2a7fcecc5932dd2e972c246adb260db5e",
+    "mergeSha": "190f3e2c8961a13537043eca0e2b4a86f6d9cbfc",
+    "mergedAt": "2026-09-12T07:43:50Z",
+    "prCi": 34681252667,
+    "prCiConclusion": "success",
+    "masterCi": 34681485118,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34681485118",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/151#issuecomment-5644530569",
+    "note": "Waited with gh run view until completed. Push-event master CI 34681485118 on 190f3e2c8961a13537043eca0e2b4a86f6d9cbfc completed success at 2026-09-12T07:45:32Z, before the #152 merge push at 2026-09-12T07:57:41Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34681854369,
+      "runAttempt": 1,
+      "headSha": "ab9d94c0dee03f1b31bebd79b53734ffd13d615d",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34681854369",
+      "note": "GitHub Verify theme. Independent reviewer's one-shot snapshot was pending. Orchestrator waited until completed success at 2026-09-12T07:54:36Z before squash merge. Earlier run 34681847641 was cancelled on non-head 3db4669 and must not be treated as this PR's merge gate. New tests: tests/darkmode-style.test.mjs (4)."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34682047375,
+      "runAttempt": 1,
+      "headSha": "80703942e07a773e8bede707db68649affa85698",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34682047375",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T07:59:05Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #152; there is no Approve. Independent review is issue comment 5644591881 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head ab9d94c0dee03f1b31bebd79b53734ffd13d615d: newly raised to implemented-unverified is style:source/css/_mode/darkmode.styl. evidence remains []. readmode.styl remains gap. Does not mark verified. Does not raise config:darkmode.* or interaction:darkmode.",
+    "Three commits (CSS-only, no freeze): 5d08d43 implement then 3db4669 matrix IU then ab9d94c matrix PR number. settings.yaml unchanged.",
+    "Selectors hang on html[data-color-scheme='dark'], not data-theme. YAML help with # is unchanged. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. #darkmode still uses enable && button.",
+    "Non-blocking P2 from the independent review: localStorage key remains halo-butterfly-next.color-scheme not upstream theme. No snackbar / item_order. svg { fill: !important } was lifted from upstream #gitalk-container svg to the whole dark tree. Some upstream selectors (#page-header, #web_bg) may be absent in Halo DOM; Halo counterparts (.aside-recent-post, .aside-toc, #Butterfly) are listed in parallel. Nav dark colors still come from settings. Extra ::-webkit-scrollbar-thumb vs upstream styl. No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #153 style:source/css/_mode/readmode.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_mode/darkmode.styl; evidence remains [].",
+    "style:source/css/_mode/readmode.styl remains gap.",
+    "Does not implement snackbar or rightside_item_order. Must not raise landed rightside/footer templates or footer/aside/rightside/readmode/translate/darkmode config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #151 merge-commit master CI run 34681485118 on 190f3e2c8961a13537043eca0e2b4a86f6d9cbfc completed success at 2026-09-12T07:45:32Z, before the #152 merge push at 2026-09-12T07:57:41Z; must not be recorded as cancelled.",
+    "PR #152 merge-commit master CI run 34682047375 on 80703942e07a773e8bede707db68649affa85698 completed success at 2026-09-12T07:59:05Z; not cancelled.",
+    "Issue #153 style:source/css/_mode/readmode.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
