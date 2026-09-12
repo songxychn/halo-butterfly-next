@@ -46,7 +46,7 @@
   }
 
   > .aside {
-    width: 25%;
+    width: 26%;
     align-self: flex-start;
   }
 
@@ -70,16 +70,23 @@
     }
   }
 
-  &:is(.aside-left) .aside {
-    margin-right: 18px;
+  /* 上游 aside.styl minWidth900：position=right → padding-left 15px，否则 padding-right。
+     不再用 18px margin，避免与 padding 叠出双倍缝。本文件是 .main 根，选择器用 &.aside-*。 */
+  @media (min-width: 900px) {
+    &.aside-right > #aside-content,
+    &.aside-right > .aside {
+      padding-left: 15px;
+    }
+
+    &.aside-left > #aside-content,
+    &.aside-left > .aside {
+      padding-right: 15px;
+    }
   }
 
-  &:is(.aside-right) .aside {
-    margin-left: 18px;
-  }
 
-
-  @include util.useResponsive(1100px, '# &') {
+  /* 上游 common.styl + aside.styl：maxWidth900 主栏/侧栏叠成一列。 */
+  @include util.useResponsive(900px, '# &') {
     flex-direction: column;
     > .content {
       width: 100%;

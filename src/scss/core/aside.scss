@@ -1,41 +1,96 @@
 /**
- * @date: 2024/2/18
- * @author: 小红
- * @fileName: aside
- * @Description: 侧部栏
+ * 对齐 Butterfly 5.7.0 source/css/_layout/aside.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #aside-content；Halo 模板是 <aside class="aside">，选择器并列。
+ * 宽 26%、minWidth900 padding 随 .main.aside-right / aside-left、maxWidth900 全宽。
+ * .card-widget 并列 .card；作者卡并列 .aside-user / #card-info-btn；标题并列 .item-headline。
+ * .sticky_layout 对齐上游 sticky；Halo 文章目录仍用 .is-sticky（render.scss）。
+ * 深色 token 仍走 html[data-color-scheme='dark']，不改 data-theme。
+ * 不做 snackbar、卡片排序、改 settings.yaml。
+ * 不复用作者卡片按钮设置键。#hide-aside-btn 仍走 hide_button（rightside / components）。
+ * #card-toc 移动端浮层已在 render.scss，本刀不重复覆盖。
  */
 
 @use "util";
 
+#aside-content,
 .aside {
-   .card {
-    padding: 16px 23px;
+  width: 26%;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 
-    &:not(:first-child) {
-      margin-top: 15px;
+  @media (max-width: 900px) {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .card-widget,
+  .card {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 20px 24px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .item-headline,
+  .card > .title {
+    padding-bottom: 6px;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 5px;
+
+    > i {
+      margin-right: 2px;
+      font-size: 1.1rem;
     }
 
-    > .title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-
-      > i {
-        margin-right: 2px;
-        font-size: 1.1rem;
-      }
+    span {
+      margin-left: 6px;
     }
   }
 
+  .sticky_layout {
+    @media (min-width: 900px) {
+      position: sticky;
+      position: -webkit-sticky;
+      top: 20px;
+      transition: top .3s;
+    }
+  }
+
+  .card-info {
+    text-align: center;
+  }
+}
+
+/* position padding 写在 main.scss（本文件被 @import 进 .main，不能在此写 .main.aside-* 选择器）。 */
+
+.aside {
   &-user {
     text-align: center;
 
-    > .avatar {
+    > .avatar,
+    .avatar-img {
+      overflow: hidden;
       width: 110px;
       height: 110px;
       border-radius: 70px;
-      transition: transform .3s;
+      transition: filter 375ms ease-in .2s, transform .3s;
       margin: 0 auto;
+      object-fit: cover;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
       &:hover {
         filter: brightness(1.2);
@@ -44,55 +99,81 @@
       }
     }
 
-    > .name {
-      font-size: 1.5rem;
+    > .name,
+    .author-info-name {
+      font-weight: 500;
+      font-size: 1.57em;
       margin: 6px 0 -5px 0;
     }
 
-    > .data {
+    > .desc,
+    .author-info-description {
+      margin-top: -.42em;
+    }
+
+    > .data,
+    .site-data {
       display: table;
       margin: 14px 0 4px;
       table-layout: fixed;
       width: 100%;
 
-      .item {
+      .item,
+      > a {
         display: table-cell;
       }
 
       .headline {
-        font-size: 1rem;
+        @include util.text-overflow;
+        color: var(--font-color, inherit);
+        font-size: .95em;
       }
 
-      .num {
-        font-size: 1.4rem;
-        color: var(--text-obs-color);
+      .num,
+      .length-num {
+        margin-top: -.45em;
+        font-size: 1.2em;
+        color: var(--text-obs-color, var(--text-highlight-color));
       }
 
+      a:hover div {
+        color: var(--theme) !important;
+      }
     }
 
-    > .button {
+    > .button,
+    #card-info-btn {
+      display: block;
       width: 95%;
-      margin: 0 auto;
-      padding: 5px 10px;
-      color: #fff;
-      background-color: #1c69ed;
+      margin: 14px auto 0;
+      padding: 0;
+      color: var(--btn-color, #fff);
+      background-color: var(--btn-bg, var(--theme));
+      text-align: center;
+      line-height: 2.4;
+      border-radius: 7px;
       transition: background-color .2s, transform .35s;
+      filter: none;
+
+      span {
+        padding-left: 10px;
+      }
 
       &:hover {
-        background-color: #1657c5;
+        background-color: var(--btn-hover-color, #ff7242);
         filter: none;
       }
 
       &:focus-visible {
-        outline: 2px solid #1c69ed;
+        outline: 2px solid var(--btn-bg, var(--theme));
         outline-offset: 3px;
       }
 
       @at-root html[data-color-scheme='dark'] & {
-        background-color: #23764f;
+        background-color: var(--btn-bg, #1f1f1f);
 
         &:hover {
-          background-color: #195b3c;
+          background-color: var(--btn-hover-color, #787878);
         }
 
         &:focus-visible {
@@ -101,19 +182,26 @@
       }
     }
 
-    .social {
+    .social,
+    .card-info-social-icons {
       display: flex;
       justify-content: center;
       line-height: 1;
-      margin: 15px 0 0;
+      margin: 6px 0 -6px;
 
-      > .link {
-        font-size: 1.35em;
-        margin: 0 8px;
+      > .link,
+      .social-icon {
+        font-size: 1.4em;
+        margin: 0 10px;
+        color: var(--font-color, inherit);
         transition: transform .3s;
 
+        i {
+          transition: all .3s;
+        }
+
         &:hover {
-          transform: scale(1.1);
+          transform: rotate(360deg);
         }
       }
     }
@@ -121,7 +209,7 @@
 
   &-notice {
     > .title > i {
-      color: rgb(246, 8, 8);
+      color: #ff0000;
     }
   }
 
@@ -141,7 +229,7 @@
         }
 
         &:not(:last-child) {
-          border-bottom: 1px dashed rgba(133, 133, 133, 0.18);
+          border-bottom: 1px dashed var(--light-grey, #f5f5f5);
         }
 
         &:last-child {
@@ -181,9 +269,13 @@
           > time {
             display: block;
             margin-top: 2px;
-            color: var(--text-obs-color);
+            color: var(--card-meta, var(--text-obs-color));
             font-size: 0.85em;
           }
+        }
+
+        &.no-cover {
+          min-height: 4.4em;
         }
 
         &.no-cover > .info {
@@ -204,13 +296,20 @@
         display: flex;
         position: relative;
         flex-direction: row;
-        padding: 3px 10px 3px 25px;
+        margin: 2px 0;
+        padding: 2px 8px 2px 25px;
+        color: var(--font-color, inherit);
+        transition: all .3s;
+        border-radius: 8px;
 
         &:hover {
-          filter: hue-rotate(38deg);
+          padding: 2px 12px 2px 25px;
+          background-color: var(--text-bg-hover, rgba(73, 177, 245, 0.7));
+          color: var(--white, #fff);
+          filter: none;
 
           .name {
-            transform: translateX(5px);
+            transform: none;
           }
         }
 
@@ -229,13 +328,20 @@
         }
 
         > .name {
-          width: 75%;
+          width: 70%;
           margin-right: auto;
-          transition: transform .3s;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         > span {
           @include util.text-overflow;
+        }
+
+        > .num {
+          width: calc(100% - 70% - 20px);
+          text-align: right;
         }
       }
     }
@@ -252,15 +358,17 @@
       flex-wrap: wrap;
 
       > .link {
-        transition: transform .2s;
+        display: inline-block;
         padding: 0 4px;
+        line-height: 1.8;
+        transition: color .2s;
 
         > .num {
           font-size: 0.7rem;
         }
 
         &:hover {
-          transform: translateY(-3px);
+          color: var(--theme) !important;
         }
       }
     }
@@ -273,11 +381,146 @@
 
     .content {
       > .item {
-        padding: 5px 0;
         display: flex;
         align-items: center;
+        padding: 2px 10px 0;
         justify-content: space-between;
+
+        > span:first-child {
+          flex: 1;
+          padding-right: 20px;
+        }
       }
     }
+  }
+}
+
+#aside-content {
+  .card-tag-cloud a {
+    display: inline-block;
+    padding: 0 4px;
+    line-height: 1.8;
+
+    &:hover {
+      color: var(--theme) !important;
+    }
+  }
+
+  .aside-list {
+    > span {
+      display: block;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    > .aside-list-item {
+      display: flex;
+      align-items: center;
+      padding: 6px 0;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px dashed var(--light-grey, #f5f5f5);
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      .thumbnail {
+        overflow: hidden;
+        width: 4em;
+        height: 4em;
+        border-radius: 8px;
+      }
+
+      .content {
+        flex: 1;
+        padding-left: 10px;
+        word-break: break-all;
+      }
+
+      &.no-cover {
+        min-height: 4.4em;
+      }
+    }
+  }
+
+  .card-archives ul.card-archive-list,
+  .card-categories ul.card-category-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card-webinfo .webinfo .webinfo-item {
+    display: flex;
+    align-items: center;
+    padding: 2px 10px 0;
+
+    div:first-child {
+      flex: 1;
+      padding-right: 20px;
+    }
+  }
+}
+
+.sticky_layout:only-child > :first-child {
+  margin-top: 0;
+}
+
+.card-more-btn {
+  float: right;
+  color: inherit;
+
+  &:hover {
+    animation: more-btn-move 1s infinite;
+  }
+}
+
+.card-announcement .item-headline i {
+  color: #ff0000;
+}
+
+.avatar-img {
+  overflow: hidden;
+  margin: 0 auto;
+  width: 110px;
+  height: 110px;
+  border-radius: 70px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    transition: filter 375ms ease-in .2s, transform .3s;
+    object-fit: cover;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.site-data {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+
+  > a {
+    display: table-cell;
+  }
+}
+
+@keyframes more-btn-move {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(3px);
   }
 }
