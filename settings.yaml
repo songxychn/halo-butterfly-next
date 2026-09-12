@@ -42,7 +42,7 @@ spec:
           label: 主题模式
           value: 'user'
           placeholder: 请填写主题颜色
-          help: '设置博客的主题模式（自动/用户/浅色/深色），默认为用户模式，仅在用户模式下页面才有主题切换按钮，自动模式下根据时间自动切换'
+          help: "设置博客的主题模式（自动/用户/浅色/深色），默认用户。右下角 #darkmode 显隐见 darkmode.enable / darkmode.button，不再仅限 user。自动模式仍按时间切换。不做 start/end。"
           options:
             - value: 'auto'
               label: 自动模式
@@ -1499,6 +1499,29 @@ spec:
           label: 按钮文案
           help: "对应上游 Butterfly translate.default（默认 繁）。显示在 #translateLink 上。enable 关闭时不渲染该按钮。空值回退为 繁。禁止复用作者卡片 aside.button。"
           value: "繁"
+    - group: darkmode
+      label: 深色模式
+      formSchema:
+        - $formkit: radio
+          name: enable
+          label: 深色模式
+          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。禁止复用作者卡片 aside.button。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。"
+          value: true
+          options:
+            - label: 开启
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: radio
+          name: button
+          label: 右下角切换按钮
+          help: "对应上游 Butterfly darkmode.button。默认 true。须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。禁止复用作者卡片 aside.button。不做 item_order。"
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
     - group: footer
       label: 页脚
       formSchema:
