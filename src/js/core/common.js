@@ -11,6 +11,7 @@ import { applyRelativeDates } from './relative-date.mjs';
 import { bindHideAsideButton } from './aside-hide-button.mjs';
 import { bindRightsideConfig, bindReadmode } from './rightside.mjs';
 import { bindTranslate } from './translate.mjs';
+import { bindDarkmode } from './darkmode.mjs';
 
 export default class Common {
 
@@ -26,6 +27,7 @@ export default class Common {
     bindRightsideConfig();
     bindReadmode();
     bindTranslate();
+    bindDarkmode();
 
   }
 

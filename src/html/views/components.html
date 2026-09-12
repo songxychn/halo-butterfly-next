@@ -251,13 +251,13 @@
        保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
        距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
-       translate.enable 默认 false。不做 chat / comment / item_order。 */-->
+       translate.enable 默认 false。darkmode.enable/button 默认 true。不做 chat / comment / item_order。 */-->
   <div
     id="rightside"
     class="side-btn"
     th:with="
       hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
-      darkBtnOn = ${theme.config.style.mode == 'user'},
+      darkBtnOn = ${theme.config.darkmode?.enable != false and theme.config.darkmode?.enable != 'false' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
       percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
       readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
       translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'}
@@ -282,6 +282,15 @@
         th:text="${theme.config.translate == null or theme.config.translate.default == null or theme.config.translate.default == '' ? '繁' : theme.config.translate.default}"
       ></button>
       <button
+        id="darkmode"
+        class="button"
+        type="button"
+        title="浅色和深色模式转换"
+        th:if="${darkBtnOn}"
+      >
+        <i class="fas fa-adjust" aria-hidden="true"></i>
+      </button>
+      <button
         id="hide-aside-btn"
         class="button"
         type="button"
@@ -289,15 +298,6 @@
         th:if="${hideBtnOn}"
       >
         <i class="fas fa-arrows-alt-h" aria-hidden="true"></i>
-      </button>
-      <button
-        class="button switch-model"
-        type="button"
-        title="浅色和深色模式转换"
-        th:if="${darkBtnOn}"
-        onclick="MainApp.useTheme.toggleMode()"
-      >
-        <i class="fas fa-adjust" aria-hidden="true"></i>
       </button>
     </div>
     <div id="rightside-config-show">
