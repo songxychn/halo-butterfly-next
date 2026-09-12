@@ -42,7 +42,7 @@ spec:
           label: 主题模式
           value: 'user'
           placeholder: 请填写主题颜色
-          help: "设置博客的主题模式（自动/用户/浅色/深色），默认用户。右下角 #darkmode 显隐见 darkmode.enable / darkmode.button，不再仅限 user。自动模式仍按时间切换。不做 start/end。"
+          help: "设置博客的主题模式（自动/用户/浅色/深色），默认用户。右下角 #darkmode 显隐见 darkmode.enable / darkmode.button。light/dark 仍强制。自动切换策略见 darkmode.autoChangeMode；小时窗口见 start / end。"
           options:
             - value: 'auto'
               label: 自动模式
@@ -1505,7 +1505,7 @@ spec:
         - $formkit: radio
           name: enable
           label: 深色模式
-          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。禁止复用作者卡片 aside.button。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。"
+          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。自动切换见 autoChangeMode。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / item_order / snackbar。"
           value: true
           options:
             - label: 开启
@@ -1522,6 +1522,28 @@ spec:
               value: true
             - label: 隐藏
               value: false
+        - $formkit: select
+          name: autoChangeMode
+          label: 自动切换
+          help: "对应上游 Butterfly darkmode.autoChangeMode（默认 false）。false 仅恢复已存主题；1 跟随 prefers-color-scheme（无系统偏好时回退小时窗口）；2 按小时。style.mode 的 light/dark 仍强制。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / item_order / snackbar。"
+          value: false
+          options:
+            - label: 关闭（false）
+              value: false
+            - label: 跟随系统（1）
+              value: 1
+            - label: 按小时（2）
+              value: 2
+        - $formkit: text
+          name: start
+          label: 夜间开始小时
+          help: "对应上游 Butterfly darkmode.start。空值回退 6。0 与 24 有效。仅 autoChangeMode 为 1（无系统偏好时）或 2 使用。禁止复用作者卡片 aside.button。"
+          value: ""
+        - $formkit: text
+          name: end
+          label: 夜间结束小时
+          help: "对应上游 Butterfly darkmode.end。空值回退 18。0 与 24 有效。仅 autoChangeMode 为 1（无系统偏好时）或 2 使用。禁止复用作者卡片 aside.button。"
+          value: ""
     - group: footer
       label: 页脚
       formSchema:
