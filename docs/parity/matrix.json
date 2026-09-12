@@ -8848,14 +8848,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "translate.enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/js/core/common.js",
+          "src/js/core/translate.mjs",
+          "src/js/core/translate-maps.mjs",
+          "tests/translate.test.mjs"
+        ],
+        "finding": "已映射为 Halo translate.enable，默认 false，仅显式 true 渲染 #translateLink。不复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置 / item_order。不把 rightside/footer 模板或已落地 config 升 verified。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -8878,12 +8882,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/141"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:translate.default",
@@ -8907,14 +8912,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "translate.default"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/js/core/common.js",
+          "src/js/core/translate.mjs",
+          "tests/translate.test.mjs"
+        ],
+        "finding": "已映射为 Halo translate.default，默认 繁，作 #translateLink 初始文案；空值回退 繁。enable 关闭时不渲染按钮。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -8937,12 +8945,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/141"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:translate.defaultEncoding",
@@ -46155,14 +46164,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "translate.enable",
+          "translate.default"
+        ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+          "src/js/core/common.js",
+          "src/js/core/translate.mjs",
+          "src/js/core/translate-maps.mjs",
+          "tests/translate.test.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已映射简繁点击：#translateLink 用 textContent 切 繁/簡，转换页面文本并写 translate-chn-cht。默认编码 2、延迟 0、msg 繁/簡 沿用上游默认但不进设置。不走 innerHTML。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -46183,12 +46196,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/141"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:back-top",
