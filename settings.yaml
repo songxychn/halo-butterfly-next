@@ -1458,13 +1458,19 @@ spec:
         - $formkit: radio
           name: scroll_percent
           label: 回到顶部阅读百分比
-          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。不做 rightside_bottom / item_order / readmode。禁止复用作者卡片 aside.button。"
+          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。距底偏移见 rightside.bottom。不做 item_order / readmode。禁止复用作者卡片 aside.button。"
           value: false
           options:
             - label: 显示
               value: true
             - label: 隐藏
               value: false
+        - $formkit: text
+          name: bottom
+          label: 距底偏移
+          placeholder: 例如 40px、80px、10%
+          value: ""
+          help: "对应上游 Butterfly rightside_bottom（_config.yml / source/css/var.styl $rightside-bottom / source/css/_layout/rightside.styl #rightside，5.7.0 f223b188）。默认空，等价 40px。非空写入 CSS 变量 --rightside-bottom（须带单位）。不做 item_order / readmode / 完整 rightside.styl。禁止复用作者卡片 aside.button。"
     - group: footer
       label: 页脚
       formSchema:
