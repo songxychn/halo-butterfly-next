@@ -5,7 +5,7 @@ import { getScrollPercent } from './toc.mjs';
  *
  * 齿轮 #rightside-config 切换 #rightside-config-hide.show。
  * rightside_scroll_percent 默认 false；仅显式 true 在 #go-up 显示百分比。
- * readmode 默认 true；仅显式 false 不渲染。仅文章页。不做 translate / chat / comment / item_order。
+ * readmode 默认 true；仅显式 false 不渲染。仅文章页。繁简见 translate.mjs。不做 chat / comment / item_order。
  * 不复用作者卡片 aside.button。不把 footer 模板升 verified。
  */
 

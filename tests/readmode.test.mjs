@@ -57,7 +57,7 @@ test('YAML help 含 #readmode 已加引号；模板仅 page==post；无新增 th
   assert.match(componentsHtml, /id="readmode"/);
   assert.match(componentsHtml, /readmodeOn/);
   assert.match(componentsHtml, /page == 'post'/);
-  assert.match(componentsHtml, /hideBtnOn or darkBtnOn or readmodeOn/);
+  assert.match(componentsHtml, /hideBtnOn or darkBtnOn or readmodeOn or translateOn/);
   assert.match(commonJs, /bindReadmode/);
   assert.doesNotMatch(componentsHtml, /th:utext/);
 });
