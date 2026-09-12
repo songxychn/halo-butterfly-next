@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 204,
+  "pr": 206,
+  "title": "M1：归档页样式 archives.styl",
+  "author": "cursor/m1-archives-styl",
+  "recorder": "cursor/record-206",
+  "recordedAt": "2026-09-12T15:04:00Z",
+  "visibility": "private",
+  "sourceSha": "d6309fc85b5ae442e3a37adbb501fdd2a3b78dbe",
+  "reviewHead": "d6309fc85b5ae442e3a37adbb501fdd2a3b78dbe",
+  "mergeSha": "2226311e65d46330186051af572eef62ec430af0",
+  "mergedAt": "2026-09-12T15:00:32Z",
+  "closesIssue": 204,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/206#issuecomment-5646671484",
+    "createdAt": "2026-09-12T14:59:59Z",
+    "head": "d6309fc85b5ae442e3a37adbb501fdd2a3b78dbe",
+    "note": "Independent review posted as issue comment 5646671484, not a GitHub Approve. Verdict: approve-as-comment. No P1. Halo cover changed .archives .axis-list--item .cover itself to 100x70; no #Butterfly ID percentage override; compiled CSS still flex timeline. The reviewer's CI snapshot was run 34700606942 in_progress; this record waited until that PR CI completed success and merge-commit master CI 34700925082 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "b7e6f5b395c2f39b4754c28ba99a4af94a5d6bb2",
+      "summary": "Add src/scss/core/archives.scss and top-level @use after page-404. Parallel .article-sort (no-op) and Halo .archives / .axis-title / .axis-list / .axis-list--item. Align title 1.72em, dots 10px/6px, cover 100x70 / 768 70x70, title clamp 2 and hover translateX(10px). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "6ede0c0a69f93d3962857984e0a66a48e6957242",
+      "summary": "Raise style:source/css/_page/archives.styl from gap to implemented-unverified; evidence remains []. Do not raise config:cover.archives_enable or landed 404.styl / homepage.styl / common.styl / _layout/*.styl / darkmode/readmode to verified."
+    },
+    {
+      "sha": "d6309fc85b5ae442e3a37adbb501fdd2a3b78dbe",
+      "summary": "Register #206 onto style:source/css/_page/archives.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_page/archives.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:index_layout",
+    "config:cover.index_enable",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_page/categories.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 459,
+    "mapping-required": 262,
+    "implemented-unverified": 166,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 207,
+    "state": "OPEN",
+    "title": "M1：分类页样式 categories.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/207",
+    "note": "style:source/css/_page/archives.styl and 404.styl and homepage.styl and common.styl and all _layout/*.styl rows are implemented-unverified; do not raise them or config:cover.archives_enable / error_404.enable to verified. This slice is style:source/css/_page/categories.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 205,
+    "title": "docs: 记录 #203 的 404 页样式合并证据",
+    "headSha": "8ac12c2e0e06bdbd9ab04ea21b30a879c9912008",
+    "mergeSha": "88cba112d208324a1cbcb06f8ea934e97572eecb",
+    "mergedAt": "2026-09-12T14:46:06Z",
+    "prCi": 34699971556,
+    "prCiConclusion": "success",
+    "masterCi": 34700246719,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34700246719",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/205#issuecomment-5646595990",
+    "note": "Waited with gh run view until completed. Push-event master CI 34700246719 on 88cba112d208324a1cbcb06f8ea934e97572eecb completed success at 2026-09-12T14:47:50Z, before the #206 merge push at 2026-09-12T15:00:32Z. Must be recorded as success, not cancelled. The reviewer's CI snapshot for #205 was run 34699971556 pending; that run later completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34700606942,
+      "runAttempt": 1,
+      "headSha": "d6309fc85b5ae442e3a37adbb501fdd2a3b78dbe",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34700606942",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34700606942 in_progress for head d6309fc. Orchestrator confirmed the same run completed success at 2026-09-12T14:56:00Z before squash merge. Intermediate push run 34700594302 cancelled (head 6ede0c0, superseded by the matrix PR-number commit). New tests: tests/archives-style.test.mjs (5), compiling src/scss/page/archives.scss."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34700925082,
+      "runAttempt": 1,
+      "headSha": "2226311e65d46330186051af572eef62ec430af0",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34700925082",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T15:02:35Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #206; there is no Approve. Independent review 5646671484 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head d6309fc85b5ae442e3a37adbb501fdd2a3b78dbe: newly raised to implemented-unverified is style:source/css/_page/archives.styl. evidence remains []. Does not mark verified. Does not raise config:cover.archives_enable.",
+    "Three commits (CSS-only, no freeze): b7e6f5b implement then 6ede0c0 matrix IU then d6309fc matrix PR number. settings.yaml unchanged.",
+    "Parallel selectors .article-sort and Halo .archives / .axis-*. Cover changed on .archives .axis-list--item .cover itself to 100px x 70px / 768 70px, not via #Butterfly ID. Compiled CSS remains display:flex with .info { flex: 1 }. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px.",
+    "Non-blocking P2 from the review: no dual-site (declared; evidence [] is correct); no .article-sort DOM (Halo uses .archives / .axis-*).",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #207 style:source/css/_page/categories.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_page/archives.styl; evidence remains [].",
+    "style:source/css/_page/categories.styl remains gap.",
+    "Must not raise landed archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles or config:cover.archives_enable / error_404.enable to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #205 merge-commit master CI run 34700246719 on 88cba112d208324a1cbcb06f8ea934e97572eecb completed success at 2026-09-12T14:47:50Z, before the #206 merge push at 2026-09-12T15:00:32Z; must not be recorded as cancelled.",
+    "PR #206 merge-commit master CI run 34700925082 on 2226311e65d46330186051af572eef62ec430af0 completed success at 2026-09-12T15:02:35Z; not cancelled.",
+    "Issue #207 style:source/css/_page/categories.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
