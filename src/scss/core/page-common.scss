@@ -1,0 +1,46 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_page/common.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #body-wrap / .layout 1200px / 40px 15px / 900 变列 / 768 padding 20px 5px /
+ * 2000 宽 60% / 主栏 74% / hide-aside 1000/1300 / apple background-attachment:scroll。
+ * Halo 壳是 #Butterfly + <main class="main">：#body-wrap 与 .layout 作并列选择器；
+ * 主栏数字在 main.scss 同步。html.hide-aside（aside.styl 切片，主栏 80%）不改。
+ * .layout.hide-aside / .main.hide-aside 是页面级关侧栏（无该类时为空操作）。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 不把 config:aside.position / 已落地 third-party/loading/comments 等升 verified。
+ */
+#body-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout.hide-aside,
+.main.hide-aside {
+  max-width: 1000px;
+
+  @media screen and (min-width: 2000px) {
+    max-width: 1300px;
+  }
+
+  & > div {
+    width: 100% !important;
+  }
+}
+
+.apple {
+  #page-header.full_page,
+  .header.full_page,
+  #Butterfly.index .above {
+    background-attachment: scroll !important;
+  }
+
+  .recent-post-item,
+  .avatar-img,
+  .flink-item-icon {
+    transform: translateZ(0);
+  }
+}
