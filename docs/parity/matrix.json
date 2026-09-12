@@ -39017,11 +39017,12 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/categories.scss",
+          "src/scss/core/index.scss",
+          "src/scss/page/categories.scss",
+          "tests/categories-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/categories.scss 对齐 categories.styl 分类页样式。选择器并列 .category-lists（空操作）与 Halo .categories 的 .category-title / .category-list（若存在才绑；图表页无列表则保持空操作）。未重写模板去造 .category-lists。未重做 category.html 列表卡片。.category-title 2.57em / 768 2em；.category-list-count margin-left 8px 且 before '(' / after ')'；嵌套 ul padding 0 0 0 20px、内层 4px；li margin 6px 0、padding .12em .4em .12em 1.4em；Sass 复用 list-beauty mixin。不改 data-theme。不把 config:cover.archives_enable、已落地 archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39041,12 +39042,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/207"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_page/common.styl",
