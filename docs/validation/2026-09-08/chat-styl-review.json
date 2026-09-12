@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 183,
+  "pr": 185,
+  "title": "M1：聊天按钮样式 chat.styl",
+  "author": "cursor/m1-chat-styl",
+  "recorder": "cursor/record-185",
+  "recordedAt": "2026-09-12T12:03:30Z",
+  "visibility": "private",
+  "sourceSha": "915d91016e317f08cc9f14dfe71614298b0e9f0e",
+  "reviewHead": "915d91016e317f08cc9f14dfe71614298b0e9f0e",
+  "mergeSha": "6465de39ac4cc901668fbd1487f4de5c67b03619",
+  "mergedAt": "2026-09-12T12:00:22Z",
+  "closesIssue": 183,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/185#issuecomment-5645744292",
+    "createdAt": "2026-09-12T11:59:47Z",
+    "head": "915d91016e317f08cc9f14dfe71614298b0e9f0e",
+    "note": "Independent review posted as issue comment 5645744292, not a GitHub Approve. Verdict: approve. No P1. The reviewer's gh pr checks snapshot was run 34692321611 pending. This record waited until that run completed success and merge-commit master CI 34692495186 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "bb2878cdcc887f7dc748f22756c235107e82e45a",
+      "summary": "Add src/scss/core/chat.scss aligning hide rules to upstream chat.styl. #chatra:not(.chatra--expanded) visibility hidden, width/height 1px, opacity 0, pointer-events none. Top-level @use chat in core/index.scss. No Chatra/Crisp/Tidio/Knocket provider. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "f565d6c3ea1e7e99bf0cd4ce29bbb29bd04549fe",
+      "summary": "Raise style:source/css/_layout/chat.styl from gap to implemented-unverified; evidence remains []. Do not raise config:chat.* / template:includes/third-party/chat/* or landed sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode to verified."
+    },
+    {
+      "sha": "915d91016e317f08cc9f14dfe71614298b0e9f0e",
+      "summary": "Register #185 onto style:source/css/_layout/chat.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_layout/chat.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "config:reward.enable",
+    "config:reward.text",
+    "config:reward.QR_code",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/third-party.styl",
+    "config:rightside_item_order.enable",
+    "config:translate.defaultEncoding",
+    "config:translate.translateDelay",
+    "config:translate.msgToTraditionalChinese",
+    "config:translate.msgToSimplifiedChinese"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 466,
+    "mapping-required": 262,
+    "implemented-unverified": 159,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 186,
+    "state": "OPEN",
+    "title": "M1：评论区样式 comments.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/186",
+    "note": "style:source/css/_layout/chat.styl and sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside.styl are implemented-unverified; do not raise them or config:chat.* to verified. This slice is style:source/css/_layout/comments.styl. Comment providers stay mapping-required. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 184,
+    "title": "docs: 记录 #182 移动侧栏样式合并证据",
+    "headSha": "19926c59a1b0b6c71ecf1a7d3efbefd9261b55f4",
+    "mergeSha": "afff8ec6ad06598bf21e722ce6751142e55fab28",
+    "mergedAt": "2026-09-12T11:51:27Z",
+    "prCi": 34691878981,
+    "prCiConclusion": "success",
+    "masterCi": 34692129985,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34692129985",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/184#issuecomment-5645701144",
+    "note": "Waited with gh run view until completed. Push-event master CI 34692129985 on afff8ec6ad06598bf21e722ce6751142e55fab28 completed success at 2026-09-12T11:52:57Z, before the #185 merge push at 2026-09-12T12:00:22Z. Must be recorded as success, not cancelled. The reviewer's first CI snapshot for #184 was run 34691878981 completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34692321611,
+      "runAttempt": 1,
+      "headSha": "915d91016e317f08cc9f14dfe71614298b0e9f0e",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34692321611",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded pending for head 915d910. Orchestrator confirmed the same run completed success before squash merge. New tests: tests/chat-style.test.mjs (3)."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34692495186,
+      "runAttempt": 1,
+      "headSha": "6465de39ac4cc901668fbd1487f4de5c67b03619",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34692495186",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T12:02:07Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #185; there is no Approve. Independent review 5645744292 is issue comment, not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 915d91016e317f08cc9f14dfe71614298b0e9f0e: newly raised to implemented-unverified is style:source/css/_layout/chat.styl. evidence remains []. comments.styl remains gap. Does not mark verified. Does not raise config:chat.* or chat templates.",
+    "Three commits (CSS-only, no freeze): bb2878c implement then f565d6c matrix IU then 915d910 matrix PR number. settings.yaml unchanged.",
+    "Hide rules hang on #chatra:not(.chatra--expanded), not data-theme. Matches upstream visibility hidden / 1px / opacity 0 / pointer-events none. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not embed Chatra/Crisp/Tidio/Knocket.",
+    "Non-blocking P2 from the review: no dual-site (declared; evidence [] is correct); compiled CSS always includes the hide rules (upstream emits them only when chat.rightside_button && chat.use==chatra); no Chatra DOM so the rules are a no-op; button_hide_show not implemented.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #186 style:source/css/_layout/comments.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_layout/chat.styl; evidence remains [].",
+    "style:source/css/_layout/comments.styl remains gap.",
+    "Does not implement snackbar, comments.styl, chat providers, or rightside_item_order. Must not raise landed sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles or config:chat.* to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #184 merge-commit master CI run 34692129985 on afff8ec6ad06598bf21e722ce6751142e55fab28 completed success at 2026-09-12T11:52:57Z, before the #185 merge push at 2026-09-12T12:00:22Z; must not be recorded as cancelled.",
+    "PR #185 merge-commit master CI run 34692495186 on 6465de39ac4cc901668fbd1487f4de5c67b03619 completed success at 2026-09-12T12:02:07Z; not cancelled.",
+    "Issue #186 style:source/css/_layout/comments.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
