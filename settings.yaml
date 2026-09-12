@@ -1474,13 +1474,31 @@ spec:
         - $formkit: radio
           name: readmode
           label: 阅读模式
-          help: "对应上游 Butterfly readmode（_config.yml / layout/includes/rightside.pug #readmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 不渲染阅读模式按钮。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode。禁止复用作者卡片 aside.button。不做 item_order / translate。"
+          help: "对应上游 Butterfly readmode（_config.yml / layout/includes/rightside.pug #readmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 不渲染阅读模式按钮。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode。禁止复用作者卡片 aside.button。繁简见 translate.enable。不做 item_order。"
           value: true
           options:
             - label: 开启
               value: true
             - label: 关闭
               value: false
+    - group: translate
+      label: 繁简转换
+      formSchema:
+        - $formkit: radio
+          name: enable
+          label: 繁简转换按钮
+          help: "对应上游 Butterfly translate.enable（_config.yml / layout/includes/rightside.pug #translateLink / source/js/tw_cn.js，5.7.0 f223b188）。默认 false。仅显式 true 时渲染 #translateLink。关闭不渲染。按钮文案见 translate.default。禁止复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置 / item_order。"
+          value: false
+          options:
+            - label: 开启
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: text
+          name: default
+          label: 按钮文案
+          help: "对应上游 Butterfly translate.default（默认 繁）。显示在 #translateLink 上。enable 关闭时不渲染该按钮。空值回退为 繁。禁止复用作者卡片 aside.button。"
+          value: "繁"
     - group: footer
       label: 页脚
       formSchema:

@@ -10,6 +10,7 @@ import LazyLoad from './_lazyLoad';
 import { applyRelativeDates } from './relative-date.mjs';
 import { bindHideAsideButton } from './aside-hide-button.mjs';
 import { bindRightsideConfig, bindReadmode } from './rightside.mjs';
+import { bindTranslate } from './translate.mjs';
 
 export default class Common {
 
@@ -24,6 +25,7 @@ export default class Common {
     bindHideAsideButton();
     bindRightsideConfig();
     bindReadmode();
+    bindTranslate();
 
   }
 
