@@ -102,7 +102,7 @@
 
 /* 上游 aside.styl +minWidth900()：html.hide-aside .layout
    > .aside-content { display: none }；> div:first-child { width: 80% }；justify-content: center。
-   Halo .layout → .main，.aside-content → .aside。不做 aside.mobile / 隐藏开关。 */
+   Halo .layout → .main，.aside-content → .aside。不做隐藏开关。移动端见 aside.mobile。 */
 @media (min-width: 900px) {
   html.hide-aside .main {
     justify-content: center;
@@ -114,6 +114,15 @@
     > .content {
       width: 80%;
     }
+  }
+}
+
+/* 上游 aside.styl：aside.mobile == false 时 +maxWidth768()
+   .card-widget:not(#card-toc) { display: none }。
+   Halo .card-widget → .aside .card，#card-toc → .aside-toc。不做隐藏开关。 */
+@media (max-width: 768px) {
+  html.aside-mobile-off .aside .card:not(.aside-toc) {
+    display: none;
   }
 }
 

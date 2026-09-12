@@ -12,7 +12,7 @@
   <html
     lang="zh-CN"
     data-color-scheme="light"
-    th:classappend="${theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true')} ? 'hide-aside'"
+    th:classappend="${(theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (theme.config.aside.enable and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
     th:with="isDev = ${true ? #dates.createNow().time : ''} "
   >
   <head>

@@ -344,13 +344,23 @@ spec:
         - $formkit: radio
           name: hide
           label: 初始隐藏侧栏
-          help: 对应上游 Butterfly aside.hide（_config.yml / source/css/_layout/aside.styl，5.7.0 f223b188）。默认 false。仅显式 true 才给 html 加 hide-aside：桌面宽度（min-width 900px）隐藏 .aside、主栏约 80%。必须用 aside.hide，禁止复用作者卡片 aside.button。不做 aside.mobile，也不做右下角隐藏开关。
+          help: 对应上游 Butterfly aside.hide（_config.yml / source/css/_layout/aside.styl，5.7.0 f223b188）。默认 false。仅显式 true 才给 html 加 hide-aside：桌面宽度（min-width 900px）隐藏 .aside、主栏约 80%。必须用 aside.hide，禁止复用作者卡片 aside.button。不做右下角隐藏开关。移动端见 aside.mobile。
           value: false
           options:
             - label: 显示
               value: false
             - label: 隐藏
               value: true
+        - $formkit: radio
+          name: mobile
+          label: 窄屏显示侧栏卡片
+          help: "对应上游 Butterfly aside.mobile（_config.yml / source/css/_layout/aside.styl，5.7.0 f223b188）。默认 true。仅显式 false 时在 max-width 768px 隐藏侧栏卡片（目录 .aside-toc 除外，对齐 #card-toc）。必须用 aside.mobile，禁止复用作者卡片 aside.button。不做隐藏开关 / aside.hide。"
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
         - $formkit: radio
           name: position
           label: 侧边栏位置
