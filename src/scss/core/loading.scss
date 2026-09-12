@@ -1,0 +1,134 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/loading.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游仅在 preloader.enable && preloader.source == 1 时输出
+ * #loading-box 左右半屏、spinner 115px、.loaded 滑出。
+ * 浅色 --preloader-bg 回退 #37474f、--preloader-color 回退 #fff；
+ * 深色 token 已在 darkmode.scss。
+ * 本刀不接入 pace、不改 settings.yaml，不把 config:preloader.* 升 verified。
+ * Halo 现有 loading.type（circle/hourglass/…）插件仍独立；无 #loading-box DOM
+ * 时这些规则是空操作。preloader.enable 上游默认 false。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ */
+@keyframes configure-clockwise {
+  0% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(90deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(270deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes configure-xclockwise {
+  0% {
+    transform: rotate(45deg);
+  }
+
+  25% {
+    transform: rotate(-45deg);
+  }
+
+  50% {
+    transform: rotate(-135deg);
+  }
+
+  75% {
+    transform: rotate(-225deg);
+  }
+
+  100% {
+    transform: rotate(-315deg);
+  }
+}
+
+#loading-box {
+  .loading-left-bg,
+  .loading-right-bg {
+    position: fixed;
+    z-index: 1000;
+    width: 50%;
+    max-width: 50%;
+    height: 100%;
+    background-color: var(--preloader-bg, #37474f);
+  }
+
+  .loading-right-bg {
+    right: 0;
+  }
+
+  .spinner-box {
+    position: fixed;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 100vh;
+    box-sizing: border-box;
+
+    .configure-border-1 {
+      position: absolute;
+      padding: 3px;
+      width: 115px;
+      height: 115px;
+      background: #ffab91;
+      animation: configure-clockwise 3s ease-in-out 0s infinite alternate;
+    }
+
+    .configure-border-2 {
+      left: -115px;
+      padding: 3px;
+      width: 115px;
+      height: 115px;
+      background: rgb(63, 249, 220);
+      transform: rotate(45deg);
+      animation: configure-xclockwise 3s ease-in-out 0s infinite alternate;
+    }
+
+    .loading-word {
+      position: absolute;
+      color: var(--preloader-color, #fff);
+      font-size: 16px;
+    }
+
+    .configure-core {
+      width: 100%;
+      height: 100%;
+      background-color: var(--preloader-bg, #37474f);
+    }
+  }
+
+  &.loaded {
+    .loading-left-bg {
+      transition: all .5s;
+      transform: translate(-100%, 0);
+    }
+
+    .loading-right-bg {
+      transition: all .5s;
+      transform: translate(100%, 0);
+    }
+
+    .spinner-box {
+      display: none;
+    }
+  }
+}
