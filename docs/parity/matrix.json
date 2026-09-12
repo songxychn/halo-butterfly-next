@@ -8782,14 +8782,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "rightside.bottom"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/html/views/config.html",
+          "src/scss/core/common.scss",
+          "src/scss/core/rightside.scss",
+          "tests/rightside-bottom.test.mjs"
+        ],
+        "finding": "已映射为 Halo rightside.bottom，默认空字符串，等价上游 var.styl 空值回退 40px。非空写入 --rightside-bottom（须带单位）。不复用作者卡片 aside.button。不做 item_order / readmode。rightside.styl 其余仍 gap。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -8812,12 +8816,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/135"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:translate.enable",
