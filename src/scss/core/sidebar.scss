@@ -1,0 +1,189 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/sidebar.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #sidebar / #menu-mask / #sidebar-menus / .menus_items / .site-page。
+ * Halo 抽屉是 #mobile-navigation.side-bar，遮罩是 #Butterfly > .mask，
+ * 菜单是 menu.bar / .bar-item > .link / .bar-children，选择器并列。
+ * 宽度 330px；open/active 为 translate3d(-100%, 0, 0)。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。
+ * 不做 snackbar、改 settings.yaml、把 template:includes/sidebar 升 verified。
+ * 不复用作者卡片按钮设置键。#hide-aside-btn 仍走 hide_button。
+ */
+
+#sidebar #menu-mask,
+#Butterfly > .mask {
+  position: fixed;
+  z-index: 102;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .8);
+}
+
+#sidebar-menus,
+#mobile-navigation.side-bar,
+.side-bar {
+  position: fixed;
+  top: 0;
+  right: -330px;
+  z-index: 103;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-left: 5px;
+  width: 330px;
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  background: var(--sidebar-bg, #f6f8fa);
+  transition: all .5s;
+  box-sizing: border-box;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &.open,
+  &.active {
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  :is(a, button):focus-visible {
+    outline: 2px solid var(--theme);
+    outline-offset: 3px;
+  }
+
+  > .side-bar-close {
+    display: block;
+    margin: 12px 12px 0 auto;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--sidebar-menu-bg, #fff);
+  }
+
+  > .avatar-img,
+  > .avatar {
+    display: block;
+    height: 100px;
+    width: 100px;
+    max-width: 100%;
+    margin: 20px auto;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .site-data {
+    padding: 0 10px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  hr {
+    margin: 20px auto;
+  }
+
+  .menus_items,
+  menu.bar,
+  .bar {
+    margin: 20px;
+    padding: 15px;
+    max-width: 100%;
+    min-width: 0;
+    background: var(--sidebar-menu-bg, #fff);
+    box-shadow: 0 0 1px 1px rgba(7, 17, 27, .05);
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .site-page,
+  .bar-item > .link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 4px 0;
+    padding: 2px 23px 2px 15px;
+    max-width: 100%;
+    min-width: 0;
+    color: var(--font-color, var(--text-color, #4c4948));
+    font-size: 1.15em;
+    cursor: pointer;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+    &:hover {
+      background: var(--text-bg-hover, var(--theme));
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+      color: var(--white, #fff);
+      transition: all .2s ease;
+      transform: translateX(3px);
+    }
+
+    i:first-child {
+      width: 15%;
+      text-align: left;
+    }
+  }
+
+  .site-page.group > i:last-child,
+  .bar-item.child > .link > i:last-child {
+    position: absolute;
+    top: .6em;
+    right: 10px;
+    transition: transform .3s;
+  }
+
+  .site-page.group.hide > i:last-child {
+    transform: rotate(90deg);
+  }
+
+  .bar-item.child.active > .link > i:last-child {
+    transform: rotate(-90deg);
+  }
+
+  .site-page.group + .menus_item_child {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .menus_item_child,
+  .bar-children {
+    margin: 0;
+    padding-left: 25px;
+    max-width: 100%;
+    min-width: 0;
+    max-height: 0;
+    list-style: none;
+    opacity: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: transform .3s ease, opacity .3s ease, max-height .3s ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    will-change: transform, opacity, max-height;
+  }
+
+  .site-page.group:not(.hide) + .menus_item_child,
+  .bar-item.active > .bar-children:not([hidden]) {
+    display: block;
+    max-height: 1000px;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
