@@ -38629,11 +38629,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/rightside.scss",
+          "src/scss/core/index.scss",
+          "tests/rightside-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已扩展 src/scss/core/rightside.scss 对齐 rightside.styl。选择器挂在 #rightside，滚动显隐并列 .rightside-show / .active，不改 data-theme。补齐定位、z-index 100、按钮 35px / --btn-bg、#mobile-toc-button、hide 组 status、#go-up cubic-bezier。#hide-aside-btn 仍用 aside.hide_button。不把 template:includes/rightside 或 rightside/footer/darkmode/readmode config 升 verified。不做 snackbar / item_order。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38653,12 +38653,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/159"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/161"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_layout/sidebar.styl",
