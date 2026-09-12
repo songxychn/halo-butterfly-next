@@ -2,13 +2,26 @@
  * 对齐 Butterfly 5.7.0 source/css/_layout/rightside.styl
  * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
  *
- * 定位/滚动显隐仍用既有 .side-btn / .active（common.scss）。
- * 本文件补 hide 组展开、窄屏隐藏 #hide-aside-btn。
- * 含 #go-up .scroll-percent（rightside_scroll_percent）。
- * 距底偏移 --rightside-bottom 在 common.scss .side-btn（空值 40px）。
- * 不做完整配色与 cubic-bezier 动画。
+ * 定位/滚动显隐：上游 rightside-show；Halo JS 同时加 .active 与 .rightside-show。
+ * 距底仍用 --rightside-bottom（空值 40px）。按钮 35px / --btn-bg。
+ * 深色 token 仍走 html[data-color-scheme='dark']，不改 data-theme。
+ * 不做 item_order、snackbar、改 settings.yaml。
  */
 #rightside {
+  position: fixed;
+  right: -48px;
+  bottom: var(--rightside-bottom, 40px);
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.5s;
+  box-sizing: border-box;
+
+  &.rightside-show,
+  &.active {
+    opacity: 0.8;
+    transform: translate(-58px, 0);
+  }
+
   #rightside-config-hide {
     height: 0;
     opacity: 0;
@@ -24,6 +37,37 @@
       pointer-events: auto;
       transform: translate(0, 0);
     }
+
+    &.status {
+      height: auto;
+      opacity: 1;
+    }
+  }
+
+  > div {
+    > button,
+    > a {
+      display: block;
+      margin-bottom: 5px;
+      width: 35px;
+      height: 35px;
+      background-color: var(--btn-bg, var(--theme));
+      color: var(--btn-color, var(--button-text-color, #fff));
+      text-align: center;
+      font-size: 16px;
+      line-height: 35px;
+      border-radius: 5px;
+      box-sizing: border-box;
+
+      &:hover {
+        background-color: var(--btn-hover-color, #ff7242);
+        filter: none;
+      }
+
+      i {
+        vertical-align: baseline;
+      }
+    }
   }
 
   #rightside-config-hide,
@@ -33,11 +77,19 @@
       display: block;
     }
   }
-}
 
-@media (max-width: 900px) {
-  #hide-aside-btn {
+  #mobile-toc-button {
     display: none;
+
+    @media (max-width: 900px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 900px) {
+    #hide-aside-btn {
+      display: none;
+    }
   }
 }
 
@@ -46,6 +98,8 @@
 
   .scroll-percent {
     position: absolute;
+    top: 0;
+    left: 0;
     inset: 0;
     display: none;
     width: 100%;
@@ -55,22 +109,50 @@
     line-height: 35px;
     text-align: center;
     pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.8);
+  }
+
+  i {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    opacity: 1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1);
   }
 
   &.show-percent .scroll-percent {
     display: block;
     opacity: 1;
+    transform: scale(1);
+    animation: fadeInScale 0.4s ease-out;
   }
 
   &.show-percent > i {
     opacity: 0;
+    transform: scale(0.8);
   }
 
   &:hover.show-percent .scroll-percent {
     opacity: 0;
+    transform: scale(0.8);
   }
 
   &:hover.show-percent > i {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
     opacity: 1;
+    transform: scale(1);
   }
 }
