@@ -1458,7 +1458,7 @@ spec:
         - $formkit: radio
           name: scroll_percent
           label: 回到顶部阅读百分比
-          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。距底偏移见 rightside.bottom。不做 item_order / readmode。禁止复用作者卡片 aside.button。"
+          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。距底偏移见 rightside.bottom。阅读模式见 rightside.readmode。不做 item_order。禁止复用作者卡片 aside.button。"
           value: false
           options:
             - label: 显示
@@ -1470,7 +1470,17 @@ spec:
           label: 距底偏移
           placeholder: 例如 40px、80px、10%
           value: ""
-          help: "对应上游 Butterfly rightside_bottom（_config.yml / source/css/var.styl $rightside-bottom / source/css/_layout/rightside.styl #rightside，5.7.0 f223b188）。默认空，等价 40px。非空写入 CSS 变量 --rightside-bottom（须带单位）。不做 item_order / readmode / 完整 rightside.styl。禁止复用作者卡片 aside.button。"
+          help: "对应上游 Butterfly rightside_bottom（_config.yml / source/css/var.styl $rightside-bottom / source/css/_layout/rightside.styl #rightside，5.7.0 f223b188）。默认空，等价 40px。非空写入 CSS 变量 --rightside-bottom（须带单位）。阅读模式见 rightside.readmode。不做 item_order / 完整 rightside.styl。禁止复用作者卡片 aside.button。"
+        - $formkit: radio
+          name: readmode
+          label: 阅读模式
+          help: "对应上游 Butterfly readmode（_config.yml / layout/includes/rightside.pug #readmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 不渲染阅读模式按钮。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode。禁止复用作者卡片 aside.button。不做 item_order / translate。"
+          value: true
+          options:
+            - label: 开启
+              value: true
+            - label: 关闭
+              value: false
     - group: footer
       label: 页脚
       formSchema:

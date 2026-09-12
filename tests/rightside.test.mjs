@@ -18,7 +18,7 @@ test('模板：#rightside 骨架、hide/show 组、齿轮与 #go-up；无新增 
   assert.match(componentsHtml, /id="go-up"/);
   assert.match(componentsHtml, /id="hide-aside-btn"/);
   assert.match(componentsHtml, /hideBtnOn/);
-  assert.match(componentsHtml, /hideBtnOn or darkBtnOn/);
+  assert.match(componentsHtml, /hideBtnOn or darkBtnOn or readmodeOn/);
   assert.match(componentsHtml, /fa-cog/);
   const hideIdx = componentsHtml.indexOf('id="rightside-config-hide"');
   const showIdx = componentsHtml.indexOf('id="rightside-config-show"');

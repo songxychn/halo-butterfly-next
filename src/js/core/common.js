@@ -9,7 +9,7 @@ import Navigation from './navigation';
 import LazyLoad from './_lazyLoad';
 import { applyRelativeDates } from './relative-date.mjs';
 import { bindHideAsideButton } from './aside-hide-button.mjs';
-import { bindRightsideConfig } from './rightside.mjs';
+import { bindRightsideConfig, bindReadmode } from './rightside.mjs';
 
 export default class Common {
 
@@ -23,6 +23,7 @@ export default class Common {
     applyRelativeDates();
     bindHideAsideButton();
     bindRightsideConfig();
+    bindReadmode();
 
   }
 
