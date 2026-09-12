@@ -3,9 +3,13 @@
  * @author: 小红
  * @fileName: main
  * @Description: main
+ *
+ * .layout 并列选择器对齐 _page/common.styl；数字 1200px / 40px 15px / 20px 5px /
+ * 主栏 padding 50px 40px、768 为 36px 14px。html.hide-aside 80% 仍走 aside.styl。
  */
 @use "util";
 
+.layout,
 .main {
   @import "aside";
 
@@ -15,12 +19,13 @@
 
 
   & {
-    width: 100%;
     display: flex;
-    margin: 0 auto;
-    max-width: 1250px;
-    padding: 28px 15px;
+    flex: 1 auto;
     flex-direction: row;
+    margin: 0 auto;
+    padding: 40px 15px;
+    max-width: 1200px;
+    width: 100%;
   }
 
   .card {
@@ -37,11 +42,14 @@
 
   > .content {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     align-self: flex-start;
-    padding: 1.5rem;
+    padding: 50px 40px;
+    box-sizing: border-box;
 
     @include util.useResponsive($width: util.$w-md) {
-      padding: 1.2rem .8rem;
+      padding: 36px 14px;
     }
   }
 
@@ -98,7 +106,7 @@
   }
 
   @include util.useResponsive(util.$w-md) {
-    padding: 18px 8px;
+    padding: 20px 5px;
   }
 
   @include util.useResponsive($width: 2000px, $size: min) {
