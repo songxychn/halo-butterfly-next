@@ -61,7 +61,7 @@ test('默认对齐上游 SHA：number true、expand false、style_simple false�
   assert.match(String(field('scroll_percent').help), /toc\.scroll_percent/);
   assert.match(String(field('number').help), /不做 toc\.post/);
   assert.match(String(field('style_simple').help), /不做 related_post/);
-  assert.match(String(field('scroll_percent').help), /不做 rightside_scroll_percent/);
+  assert.match(String(field('scroll_percent').help), /rightside\.scroll_percent/);
   assert.equal(resolveNumber(defaults.toc.number), true);
   assert.equal(resolveExpand(defaults.toc.expand), false);
   assert.equal(resolveStyleSimple(defaults.toc.style_simple), false);

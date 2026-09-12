@@ -31,12 +31,11 @@ test('模板：#rightside 骨架、hide/show 组、齿轮与 #go-up；无新增 
   assert.match(indexScss, /rightside/);
 });
 
-test('样式：hide 组 .show；窄屏隐藏 #hide-aside-btn；不做 scroll_percent', () => {
+test('样式：hide 组 .show；窄屏隐藏 #hide-aside-btn', () => {
   assert.match(scss, /#rightside-config-hide/);
   assert.match(scss, /&\.show/);
   assert.match(scss, /max-width:\s*900px/);
   assert.match(scss, /#hide-aside-btn/);
-  assert.doesNotMatch(scss, /scroll-percent/);
 });
 
 test('交互：齿轮切换 #rightside-config-hide.show', () => {
