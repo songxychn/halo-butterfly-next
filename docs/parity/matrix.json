@@ -9567,14 +9567,19 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "rightside.scroll_percent"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/html/views/config.html",
+          "src/js/core/rightside.mjs",
+          "src/js/core/scroll.js",
+          "src/scss/core/rightside.scss",
+          "tests/rightside-scroll-percent.test.mjs"
+        ],
+        "finding": "已映射为 Halo rightside.scroll_percent，默认 false，仅显式 true 在 #go-up 显示 .scroll-percent（小于 95%）。关闭不渲染该 span。数字走 textContent。不做 rightside_bottom / item_order / readmode。rightside.styl 其余仍 gap。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9597,12 +9602,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/132"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rightside_item_order.enable",
