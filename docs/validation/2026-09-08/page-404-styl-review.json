@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 201,
+  "pr": 203,
+  "title": "M1：404 页样式 404.styl",
+  "author": "cursor/m1-404-styl",
+  "recorder": "cursor/record-203",
+  "recordedAt": "2026-09-12T14:36:00Z",
+  "visibility": "private",
+  "sourceSha": "a7847ea7381aa54745b3d3efd24b4f00b844dc44",
+  "reviewHead": "a7847ea7381aa54745b3d3efd24b4f00b844dc44",
+  "mergeSha": "faf55ada1b436f9a66c58041180d3aa124dbbbc0",
+  "mergedAt": "2026-09-12T14:32:31Z",
+  "closesIssue": 201,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/203#issuecomment-5646524721",
+    "createdAt": "2026-09-12T14:31:46Z",
+    "head": "a7847ea7381aa54745b3d3efd24b4f00b844dc44",
+    "note": "First independent review 5646495898 (head b4595cc) was request-changes: Halo #Butterfly.error404 .error-art/.error-info width 50% and 768 height 45% overrode .error404 grid. P1 fix commit a7847ea. Re-review 5646524721 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No remaining P1. The reviewer's CI snapshot was run 34699372257 in_progress; this record waited until that PR CI completed success and merge-commit master CI 34699588896 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "45a1a9b9317980eeec5c288c8a9e5cd29f2db1e6",
+      "summary": "Add src/scss/core/page-404.scss and top-level @use. Parallel .type-404 / .error-content and Halo #Butterfly.error404 / #error-content.error-card. Upstream numbers 360px / 768 500px, .error_title 9em / 8em, subtitle clamp 2. Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Halo #rightside stays static on 404 (not display:none)."
+    },
+    {
+      "sha": "8dfab200825ca9d961125f31c4a0cb3977968f32",
+      "summary": "Raise style:source/css/_page/404.styl from gap to implemented-unverified; evidence remains []. Do not raise config:error_404.enable / subtitle / background or landed homepage.styl / common.styl / _layout/*.styl / darkmode/readmode to verified."
+    },
+    {
+      "sha": "b4595cc94e331643e399a9ee4943fc121ee65ff3",
+      "summary": "Register #203 onto style:source/css/_page/404.styl matrix tracking.pullRequests"
+    },
+    {
+      "sha": "a7847ea7381aa54745b3d3efd24b4f00b844dc44",
+      "summary": "P1 fix: do not set width/height on #Butterfly.error404 .error-art/.error-info so Halo error404.scss grid 1fr 1fr and 768 height 225px remain. Keep 50%/45%/55% only on the .type-404 no-op block. Add error404.scss compile regression."
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_page/404.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:index_layout",
+    "config:cover.index_enable",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_page/archives.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 460,
+    "mapping-required": 262,
+    "implemented-unverified": 165,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 204,
+    "state": "OPEN",
+    "title": "M1：归档页样式 archives.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/204",
+    "note": "style:source/css/_page/404.styl and homepage.styl and common.styl and all _layout/*.styl rows are implemented-unverified; do not raise them or config:error_404.enable / index_layout / cover.index_enable to verified. This slice is style:source/css/_page/archives.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 202,
+    "title": "docs: 记录 #200 首页列表样式合并证据",
+    "headSha": "cc5c2cce211d8c292ea8c5ee3c58e8986a0d61a5",
+    "mergeSha": "390ec5888bb141d537274089cf05eb359d8fdc4d",
+    "mergedAt": "2026-09-12T14:14:10Z",
+    "prCi": 34698341149,
+    "prCiConclusion": "success",
+    "masterCi": 34698692177,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34698692177",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/202#issuecomment-5646411231",
+    "note": "Waited with gh run view until completed. Push-event master CI 34698692177 on 390ec5888bb141d537274089cf05eb359d8fdc4d completed success at 2026-09-12T14:16:04Z, before the #203 merge push at 2026-09-12T14:32:31Z. Must be recorded as success, not cancelled. The reviewer's CI snapshot for #202 was run 34698341149 pending; that run later completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34699372257,
+      "runAttempt": 1,
+      "headSha": "a7847ea7381aa54745b3d3efd24b4f00b844dc44",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34699372257",
+      "note": "GitHub Verify theme. First-review snapshot recorded run 34699027284 pending for head b4595cc (later completed success). Re-review snapshot recorded run 34699372257 in_progress for head a7847ea. Orchestrator confirmed 34699372257 completed success at 2026-09-12T14:30:03Z before squash merge. Intermediate push run 34699020000 cancelled (head 8dfab20, superseded). New tests: tests/page-404-style.test.mjs (6), including error404.scss cascade regression."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34699588896,
+      "runAttempt": 1,
+      "headSha": "faf55ada1b436f9a66c58041180d3aa124dbbbc0",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34699588896",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T14:33:58Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #203; there is no Approve. First independent review 5646495898 (head b4595cc) was request-changes. Re-review 5646524721 (head a7847ea) is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No remaining P1.",
+    "Review head a7847ea7381aa54745b3d3efd24b4f00b844dc44: newly raised to implemented-unverified is style:source/css/_page/404.styl. evidence remains []. Does not mark verified. Does not raise config:error_404.enable / subtitle / background.",
+    "Four commits (CSS-only, no freeze): 45a1a9b implement then 8dfab20 matrix IU then b4595cc matrix PR number then a7847ea P1 grid-column fix. settings.yaml unchanged.",
+    "Parallel selectors .type-404 / .error-content and Halo #Butterfly.error404 / #error-content.error-card, not data-theme. Upstream 360px / 500px / 9em / clamp 2 kept on .type-404. Halo figure/text columns stay on error404.scss grid (1fr 1fr, 768 height 225px). html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Halo #rightside is not display:none on 404.",
+    "Non-blocking P2 from the review: no dual-site (declared; evidence [] is correct); no .type-404 DOM (Halo uses #Butterfly.error404); .type-404 + #rightside { display: none } is a no-op.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #204 style:source/css/_page/archives.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_page/404.styl; evidence remains [].",
+    "style:source/css/_page/archives.styl remains gap.",
+    "Must not raise landed 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles or config:error_404.enable / index_layout / cover.index_enable to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #202 merge-commit master CI run 34698692177 on 390ec5888bb141d537274089cf05eb359d8fdc4d completed success at 2026-09-12T14:16:04Z, before the #203 merge push at 2026-09-12T14:32:31Z; must not be recorded as cancelled.",
+    "PR #203 merge-commit master CI run 34699588896 on faf55ada1b436f9a66c58041180d3aa124dbbbc0 completed success at 2026-09-12T14:33:58Z; not cancelled.",
+    "Issue #204 style:source/css/_page/archives.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
