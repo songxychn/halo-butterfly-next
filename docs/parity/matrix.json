@@ -38699,11 +38699,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/sidebar.scss",
+          "src/scss/core/common.scss",
+          "tests/sidebar-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/sidebar.scss 对齐 sidebar.styl 移动侧栏遮罩与抽屉。选择器并列 #sidebar / #menu-mask / #sidebar-menus 与 Halo #mobile-navigation.side-bar / #Butterfly > .mask / menu.bar，不改 data-theme。补齐 330px、z-index 102/103、--sidebar-bg / --sidebar-menu-bg、open/active translate3d(-100%)、菜单 20px/15px、.site-page hover。不把 template:includes/sidebar / interaction:mobile-menu、已落地 reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38723,12 +38723,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/180"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_layout/third-party.styl",
