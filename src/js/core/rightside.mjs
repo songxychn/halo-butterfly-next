@@ -5,7 +5,7 @@ import { getScrollPercent } from './toc.mjs';
  *
  * 齿轮 #rightside-config 切换 #rightside-config-hide.show。
  * rightside_scroll_percent 默认 false；仅显式 true 在 #go-up 显示百分比。
- * 不做 readmode / translate / chat / comment / item_order / rightside_bottom。
+ * readmode 默认 true；仅显式 false 不渲染。仅文章页。不做 translate / chat / comment / item_order。
  * 不复用作者卡片 aside.button。不把 footer 模板升 verified。
  */
 
@@ -64,4 +64,55 @@ export function bindRightsideScrollPercent(root = typeof document !== 'undefined
   return (scrollTop) => {
     updateGoUpPercent(goUp, percentEl, scrollTop, document.body);
   };
+}
+
+export const READMODE_DEFAULT = true;
+
+function isExplicitFalse(value) {
+  return value === false || value === 'false';
+}
+
+/** 上游默认 true；仅显式 false 关闭。 */
+export function resolveReadmode(value) {
+  if (isExplicitFalse(value)) return false;
+  return READMODE_DEFAULT;
+}
+
+/** 上游 globalPageType === 'post' && readmode。 */
+export function shouldShowReadmodeButton(readmodeValue, isPost) {
+  return Boolean(isPost) && resolveReadmode(readmodeValue);
+}
+
+export function createExitReadmodeButton(doc) {
+  if (!doc || typeof doc.createElement !== 'function') return null;
+  const el = doc.createElement('button');
+  el.type = 'button';
+  el.className = 'fas fa-sign-out-alt exit-readmode';
+  el.title = '退出阅读模式';
+  return el;
+}
+
+export function enterReadMode(body, doc) {
+  if (!body || !body.classList) return null;
+  const newEle = createExitReadmodeButton(doc);
+  if (!newEle) return null;
+  const exitReadMode = () => {
+    body.classList.remove('read-mode');
+    newEle.remove();
+    newEle.removeEventListener('click', exitReadMode);
+  };
+  body.classList.add('read-mode');
+  newEle.addEventListener('click', exitReadMode);
+  body.appendChild(newEle);
+  return newEle;
+}
+
+export function bindReadmode(root = typeof document !== 'undefined' ? document : null) {
+  if (!root || typeof root.getElementById !== 'function') return;
+  const btn = root.getElementById('readmode');
+  if (!btn) return;
+  const body = root.body || (typeof document !== 'undefined' ? document.body : null);
+  btn.addEventListener('click', () => {
+    enterReadMode(body, root);
+  });
 }

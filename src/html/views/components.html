@@ -250,17 +250,28 @@
   <!--/* 对齐 rightside.pug：#rightside / config-hide / config-show / #go-up。
        保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
-       距底偏移见 --rightside-bottom。不做 readmode / translate / chat / comment / item_order。 */-->
+       距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
+       不做 translate / chat / comment / item_order。 */-->
   <div
     id="rightside"
     class="side-btn"
     th:with="
       hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
       darkBtnOn = ${theme.config.style.mode == 'user'},
-      percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'}
+      percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
+      readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'}
     "
   >
     <div id="rightside-config-hide">
+      <button
+        id="readmode"
+        class="button"
+        type="button"
+        title="阅读模式"
+        th:if="${readmodeOn}"
+      >
+        <i class="fas fa-book-open" aria-hidden="true"></i>
+      </button>
       <button
         id="hide-aside-btn"
         class="button"
@@ -286,7 +297,7 @@
         class="button"
         type="button"
         title="设置"
-        th:if="${hideBtnOn or darkBtnOn}"
+        th:if="${hideBtnOn or darkBtnOn or readmodeOn}"
       >
         <i class="fas fa-cog" aria-hidden="true"></i>
       </button>

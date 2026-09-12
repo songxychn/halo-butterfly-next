@@ -9206,14 +9206,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
-        "code": [
-          "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+        "settings": [
+          "rightside.readmode"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/js/core/common.js",
+          "src/js/core/rightside.mjs",
+          "src/scss/core/readmode.scss",
+          "tests/readmode.test.mjs"
+        ],
+        "finding": "已映射为 Halo rightside.readmode，默认 true，仅显式 false 不渲染 #readmode。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode（不走 innerHTML）。不复用作者卡片 aside.button。不做 item_order / translate。readmode.styl 其余仍 gap。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9236,12 +9240,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/138"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/140"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:darkmode.enable",
@@ -45986,14 +45993,17 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "rightside.readmode"
+        ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+          "src/js/core/common.js",
+          "src/js/core/rightside.mjs",
+          "src/scss/core/readmode.scss",
+          "tests/readmode.test.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已映射进入/退出阅读模式：#readmode 给 body 加 .read-mode，退出按钮 .exit-readmode 移除该类。仅文章页且 rightside.readmode 非显式 false。不走 innerHTML。readmode.styl 其余仍 gap。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -46014,12 +46024,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/138"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/140"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:hide-aside",
