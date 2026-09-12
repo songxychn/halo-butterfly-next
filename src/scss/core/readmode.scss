@@ -1,41 +1,194 @@
 /**
- * 对齐 Butterfly 5.7.0 source/css/_mode/readmode.styl 的阅读模式骨架
+ * 对齐 Butterfly 5.7.0 source/css/_mode/readmode.styl
  * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
  *
- * 隐藏导航/侧栏/页脚/右侧栏与文章卡片附属块；退出按钮固定。
- * 不做完整配色、代码块/标签插件皮肤。
+ * 上游 [data-theme='dark'] .read-mode 映射为
+ * html[data-color-scheme='dark'] body.read-mode，不改 data-theme。
+ * 不做 snackbar、rightside_item_order、localStorage 键 theme。
  */
+
 body.read-mode {
+  --font-color: #4c4948;
   --readmode-light-color: #fff;
+  --white: #4c4948;
+  --light-grey: #4c4948;
+  --gray: #d6dbdf;
+  --hr-border: #d6dbdf;
+  --hr-before-color: #b9c2c9;
+  --highlight-bg: #f7f7f7;
   --exit-btn-bg: #c0c0c0;
   --exit-btn-color: #fff;
-  --exit-btn-hover: #8c8c8c;
+  --exit-btn-hover: #8d8d8d;
+  --pseudo-hover: none;
+  --text-color: var(--font-color);
   background: var(--readmode-light-color);
 
   .nav,
+  #nav,
   .aside,
+  #aside-content,
   .footer,
+  #footer,
   #rightside,
-  .side-bar {
+  .side-bar,
+  #web_bg,
+  #post-outdate-notice,
+  .not-top-img,
+  .highlight-tools {
     display: none !important;
   }
 
-  .content.card {
+  .header.above,
+  .header .above,
+  #page-header.post-bg {
+    background: none !important;
+
+    &::before {
+      opacity: 0;
+    }
+  }
+
+  .post-info,
+  #post-info {
+    text-align: center;
+  }
+
+  .content.card,
+  #post {
     margin: 0 auto;
     background: transparent;
     box-shadow: none;
 
-    > :not(article):not(.post-info) {
+    &:hover {
+      box-shadow: none;
+    }
+
+    > canvas {
       display: none !important;
+    }
+
+    > :not(article):not(.post-info):not(#post-info):not(.post-content) {
+      display: none !important;
+    }
+  }
+
+  #Butterfly a,
+  .container a {
+    color: #99a9bf;
+  }
+
+  * {
+    color: var(--font-color) !important;
+  }
+
+  pre,
+  .highlight:not(.js-file-line-container),
+  .code-toolbar,
+  .hljs {
+    background: var(--highlight-bg) !important;
+  }
+
+  figure.highlight,
+  .code-toolbar {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 0;
+
+    &::before {
+      content: '';
+    }
+
+    &:hover {
+      padding: 0;
+    }
+  }
+
+  ul,
+  li,
+  ol {
+    &:hover::before {
+      transform: none !important;
+    }
+  }
+
+  ol,
+  li {
+    &::before {
+      background: transparent !important;
+      color: var(--font-color) !important;
+    }
+  }
+
+  ul > li::before {
+    border-color: var(--gray) !important;
+  }
+
+  .tabs {
+    border: 2px solid var(--tab-border-color, var(--gray));
+  }
+
+  code {
+    color: var(--font-color);
+  }
+
+  blockquote {
+    border-color: var(--gray);
+    background-color: var(--readmode-light-color);
+  }
+
+  kbd {
+    border: 1px solid var(--gray);
+    background-color: transparent;
+    box-shadow: none;
+    color: var(--font-color);
+  }
+
+  .hide-toggle {
+    border: 1px solid var(--gray) !important;
+  }
+
+  .hide-button,
+  .btn-beautify,
+  .hl-label {
+    border: 1px solid var(--gray) !important;
+    background: var(--readmode-light-color) !important;
+    color: var(--font-color) !important;
+  }
+
+  .note {
+    border: 2px solid var(--gray);
+    border-left-color: var(--gray) !important;
+    filter: none;
+    background-color: var(--readmode-light-color) !important;
+    color: var(--font-color);
+
+    &::before,
+    .note-icon {
+      color: var(--font-color);
     }
   }
 }
 
 html[data-color-scheme='dark'] body.read-mode {
+  --font-color: rgba(255, 255, 255, 0.7);
   --readmode-light-color: #0d0d0d;
+  --white: rgba(255, 255, 255, 0.9);
+  --light-grey: rgba(255, 255, 255, 0.7);
+  --gray: rgba(255, 255, 255, 0.7);
+  --hr-border: rgba(255, 255, 255, 0.5);
+  --hr-before-color: rgba(255, 255, 255, 0.7);
+  --highlight-bg: #171717;
   --exit-btn-bg: #1f1f1f;
   --exit-btn-color: rgba(255, 255, 255, 0.9);
-  --exit-btn-hover: #4c4c4c;
+  --exit-btn-hover: #525252;
 }
 
 .exit-readmode {
@@ -48,13 +201,13 @@ html[data-color-scheme='dark'] body.read-mode {
   border: 0;
   border-radius: 8px;
   background: var(--exit-btn-bg, #c0c0c0);
-  color: var(--exit-btn-color, #fff);
+  color: var(--exit-btn-color, #fff) !important;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s;
 
   &:hover {
-    background: var(--exit-btn-hover, #8c8c8c);
+    background: var(--exit-btn-hover, #8d8d8d);
   }
 }
 
