@@ -78,12 +78,26 @@
       <th:block th:replace="~{views/components :: postPagination}"/>
       <th:block th:replace="~{views/components :: relatedPosts}"/>
 
-      <halo:comment
+      <div
+        id="post-comment"
         th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && post.spec.allowComment}"
-        group="content.halo.run"
-        kind="Post"
-        th:attr="name=${post.metadata.name}"
-      />
+      >
+        <div class="comment-head">
+          <div class="comment-headline">
+            <i class="fa-solid fa-comments fa-fw" aria-hidden="true"></i>
+            <span th:text="'评论'"></span>
+          </div>
+        </div>
+        <div class="comment-wrap">
+          <div>
+            <halo:comment
+              group="content.halo.run"
+              kind="Post"
+              th:attr="name=${post.metadata.name}"
+            />
+          </div>
+        </div>
+      </div>
     </section>
     <th:block th:replace="~{views/aside::post}"/>
   </th:block>
