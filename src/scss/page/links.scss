@@ -3,6 +3,10 @@
  * @author: 小红
  * @fileName: links
  * @Description: 链接
+ *
+ * 友链卡片保持 grid minmax(260px, 1fr)，高 100px。三列 float 宽度见
+ * core/flink.scss 的 .flink-list-item（空操作）。不加 #Butterfly
+ * 去压 width: calc(100% / 3 - 15px)。不改 html.hide-aside 80%。
  */
 
 @use '../core';
@@ -15,8 +19,9 @@
 
     .item {
       .name {
-        font-size: 1.2rem;
-        margin: 15px 0;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 15px 0 5px;
       }
 
       .logo {
@@ -59,19 +64,17 @@
 
         .n {
           @include util.text-clamp(1);
-          font-size: .9rem;
+          font-size: 1.43em;
           font-weight: 700;
         }
 
         .d {
           @include util.text-clamp(2);
           line-height: 1.3;
-          font-size: .8rem;
+          font-size: .93em;
         }
       }
     }
 
   }
 }
- 
- 
