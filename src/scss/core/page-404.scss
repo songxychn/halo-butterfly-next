@@ -1,0 +1,166 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_page/404.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 .type-404 / .error-content；Halo 是 #Butterfly.error404 /
+ * #error-content.error-card。选择器并列。始终输出（上游仅 error_404.enable
+ * 时编译）；无 .type-404 DOM 时上游选择器为空操作。
+ * 不把 config:error_404.enable / subtitle / background、已落地 homepage.styl
+ * / common.styl / _layout 升 verified。不改 settings.yaml。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 上游 .type-404 + #rightside { display: none } 仅挂在 .type-404（空操作）。
+ * Halo 404 仍由 page/error404.scss 把 #rightside 改为 static，模式开关可达。
+ * Halo 图文列仍走 error404.scss 的 grid（1fr 1fr / 768 的 225px）；本文件
+ * 不对 #Butterfly.error404 .error-art/.error-info 写 width/height，以免 ID
+ * 特异性把 grid 项压成单元格内 50%。
+ */
+.type-404 {
+  .error-content {
+    overflow: hidden;
+    margin: 0 20px;
+    height: 360px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+      margin: 0;
+      height: 500px;
+    }
+
+    .error-img {
+      display: inline-block;
+      overflow: hidden;
+      width: 50%;
+      height: 100%;
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 45%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-color: var(--theme);
+        transition: filter 375ms ease-in .2s, transform .6s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .error-info {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      width: 50%;
+      height: 100%;
+      vertical-align: top;
+      text-align: center;
+      max-width: 100%;
+      min-width: 0;
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 55%;
+      }
+
+      .error_title {
+        margin-top: -.6em;
+        font-size: 9em;
+
+        @media screen and (max-width: 768px) {
+          font-size: 8em;
+        }
+      }
+
+      .error_subtitle {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        margin-top: -3em;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        font-size: 1.6em;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+
+  .nc {
+    margin-top: 5%;
+    padding: 0 20px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  #footer,
+  > .footer {
+    display: none;
+  }
+
+  & + #rightside {
+    display: none;
+  }
+}
+
+#Butterfly.error404 {
+  #error-content,
+  .error-card {
+    overflow: hidden;
+    min-height: 360px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+      min-height: 500px;
+    }
+  }
+
+  .error-art {
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      background-color: var(--theme);
+    }
+  }
+
+  .error-info {
+    max-width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .error-title,
+  .error_title {
+    font-size: 9em;
+
+    @media screen and (max-width: 768px) {
+      font-size: 8em;
+    }
+  }
+
+  .error-subtitle,
+  .error_subtitle {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    font-size: 1.6em;
+    -webkit-line-clamp: 2;
+  }
+
+  > .footer {
+    display: none;
+  }
+}
