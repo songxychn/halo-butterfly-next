@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 138,
+  "pr": 140,
+  "title": "M1：阅读模式 readmode",
+  "author": "cursor/m1-readmode",
+  "recorder": "cursor/record-140",
+  "recordedAt": "2026-09-12T06:22:00Z",
+  "visibility": "private",
+  "sourceSha": "a37338871b09a30b172ac211e5e066a4ff388d34",
+  "reviewHead": "a37338871b09a30b172ac211e5e066a4ff388d34",
+  "mergeSha": "31fa4d435c3ae79408d1a6af4a7966cbcc88ba76",
+  "mergedAt": "2026-09-12T06:19:04Z",
+  "closesIssue": 138,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/140#issuecomment-5644141793",
+    "createdAt": "2026-09-12T06:18:20Z",
+    "head": "a37338871b09a30b172ac211e5e066a4ff388d34",
+    "note": "Independent review posted as issue comment 5644141793, not a GitHub Approve. Verdict: approve. No P1. The reviewer's one-shot CI snapshot was pending; this record waited until PR CI 34677578968 and merge-commit master CI 34677813149 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": false,
+  "settingsSha256": "0599052cae121ca9ad4ff61c846287ddd7f5361c2313255ae96cc52d34d1c942",
+  "sourceCommit": "6222f313761be491af3d2a80eff46d1c68ed8b76",
+  "productCommits": [
+    {
+      "sha": "6222f313761be491af3d2a80eff46d1c68ed8b76",
+      "summary": "Align upstream readmode onto Halo rightside.readmode. Default true; only explicit false omits #readmode. Post pages only. Click adds .read-mode on body; exit button .exit-readmode uses classes not innerHTML. Does not reuse author-card aside.button. No new th:utext."
+    },
+    {
+      "sha": "a94313b6c3583d283d3e74a921c959d69721c9d8",
+      "summary": "Refreeze performance theme-defaults.json onto the readmode implementation commit 6222f313761be491af3d2a80eff46d1c68ed8b76; settingsSha256 0599052cae121ca9ad4ff61c846287ddd7f5361c2313255ae96cc52d34d1c942"
+    },
+    {
+      "sha": "bcf1b6849ac8e1f967c8ea6a31afe513cfa15131",
+      "summary": "Raise config:readmode and interaction:readmode from gap to implemented-unverified; evidence remains []"
+    },
+    {
+      "sha": "a37338871b09a30b172ac211e5e066a4ff388d34",
+      "summary": "Register #140 onto config:readmode and interaction:readmode matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:readmode",
+    "interaction:readmode"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:rightside_bottom",
+    "config:rightside_scroll_percent",
+    "template:includes/rightside",
+    "template:includes/footer",
+    "config:aside.hide",
+    "config:aside.mobile",
+    "config:aside.button",
+    "interaction:hide-aside"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_layout/rightside.styl",
+    "config:rightside_item_order.enable",
+    "config:translate.enable",
+    "interaction:translate"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 484,
+    "mapping-required": 262,
+    "implemented-unverified": 141,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 141,
+    "state": "OPEN",
+    "title": "M1：繁简转换 translate.enable",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/141",
+    "note": "config:readmode and interaction:readmode are implemented-unverified; do not raise them, rightside/footer templates, or landed config to verified. This slice is translate.enable (optional default button text). Must not reuse author-card aside.button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 139,
+    "title": "docs: 记录 #137 右侧栏距底偏移合并证据",
+    "headSha": "18205ba34d7cc4b1fec6925a9e7498f2e5c7b6db",
+    "mergeSha": "5ce6125206536124b3ae9b009d4581338e391e62",
+    "mergedAt": "2026-09-12T06:05:56Z",
+    "prCi": 34676931026,
+    "prCiConclusion": "success",
+    "masterCi": 34677252799,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34677252799",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/139#issuecomment-5644063915",
+    "note": "Waited with gh run view until completed. Push-event master CI 34677252799 on 5ce6125206536124b3ae9b009d4581338e391e62 completed success at 2026-09-12T06:07:08Z, before the #140 merge push at 2026-09-12T06:19:04Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34677578968,
+      "runAttempt": 1,
+      "headSha": "a37338871b09a30b172ac211e5e066a4ff388d34",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34677578968",
+      "note": "GitHub Verify theme: 203 tests pass. Independent reviewer's one-shot snapshot was pending; later gh run view completed success at 2026-09-12T06:15:36Z."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34677813149,
+      "runAttempt": 1,
+      "headSha": "31fa4d435c3ae79408d1a6af4a7966cbcc88ba76",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34677813149",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T06:20:22Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #140; there is no Approve. Independent review is issue comment 5644141793 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head a37338871b09a30b172ac211e5e066a4ff388d34: newly raised to implemented-unverified are config:readmode and interaction:readmode. evidence remains []. style:source/css/_mode/readmode.styl remains gap. template:includes/rightside stays implemented-unverified. Does not mark verified.",
+    "Four commits: 6222f31 implement then a94313b freeze then bcf1b68 matrix IU then a373388 matrix PR number. freeze sourceCommit 6222f313761be491af3d2a80eff46d1c68ed8b76; settingsSha256 0599052cae121ca9ad4ff61c846287ddd7f5361c2313255ae96cc52d34d1c942 matches settings.yaml. config.rightside.readmode is true.",
+    "Halo maps upstream readmode (default true) onto new key rightside.readmode. Only explicit false omits #readmode. Post pages only. Click adds .read-mode on body; exit .exit-readmode uses classes not innerHTML. YAML help containing #readmode is quoted. No new th:utext. tracking.pullRequests used. Does not reuse author-card aside.button.",
+    "Non-blocking P2 from the independent review: not full readmode.styl (color tokens, code/tag plugin skins). Exit button includes fa-sign-out-alt (upstream 5.7.0 is class exit-readmode only). item_order / translate not done. No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #141 translate.enable; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:readmode and interaction:readmode; evidence remains [].",
+    "style:source/css/_mode/readmode.styl remains gap.",
+    "Does not implement translate or rightside_item_order. Must not raise landed rightside/footer templates or footer/aside/rightside config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #139 merge-commit master CI run 34677252799 on 5ce6125206536124b3ae9b009d4581338e391e62 completed success at 2026-09-12T06:07:08Z, before the #140 merge push at 2026-09-12T06:19:04Z; must not be recorded as cancelled.",
+    "PR #140 merge-commit master CI run 34677813149 on 31fa4d435c3ae79408d1a6af4a7966cbcc88ba76 completed success at 2026-09-12T06:20:22Z; not cancelled.",
+    "Issue #141 translate.enable is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
