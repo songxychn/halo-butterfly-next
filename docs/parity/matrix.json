@@ -39277,11 +39277,12 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/tags.scss",
+          "src/scss/core/index.scss",
+          "src/scss/page/tags.scss",
+          "tests/tags-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/tags.scss 对齐 tags.styl 标签云样式。选择器并列 .tag-cloud / .tag-cloud-list / .tag-cloud-title（空操作，无 DOM）与 Halo .tags / .equinox / .link。未重写模板去造 .tag-cloud-list。未改标签详情页 tag.html / tag.scss。无新增 th:utext。上游 padding 3px 12px、margin 5px、line-height 1.7、圆角 7、hover scale(1.02)、768 zoom .85、title 2.57em / 768 2em 仅留在上游选择器。Halo 对齐链接 padding / 间距，图表保持 360px，.link 仍 1.5em。不把 zoom:.85 或 2.57em 用 ID 压到图表/equinox。不用 #Butterfly 把不兼容 width/height 压到 .tags。不改 data-theme。不把已落地 shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39301,12 +39302,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/216"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_search/algolia.styl",
