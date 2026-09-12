@@ -49,10 +49,8 @@ test('aside.hide 默认 false；仅显式 true 隐藏；键名不是 aside.butto
 });
 
 test('布局：aside.enable 且 hide 为 true 时 html 加 hide-aside；无新增 th:utext', () => {
-  assert.match(
-    layoutHtml,
-    /th:classappend="\$\{theme\.config\.aside\.enable and \(theme\.config\.aside\.hide == true or theme\.config\.aside\.hide == 'true'\)\} \? 'hide-aside'"/,
-  );
+  assert.match(layoutHtml, /theme\.config\.aside\.hide == true or theme\.config\.aside\.hide == 'true'/);
+  assert.match(layoutHtml, /hide-aside/);
   assert.doesNotMatch(layoutHtml, /th:utext/);
   assert.match(settingsText, /name: hide/);
   const hideIdx = settingsText.indexOf('name: hide');

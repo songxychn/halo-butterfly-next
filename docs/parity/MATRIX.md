@@ -8,9 +8,9 @@
 
 | 状态 | 项数 |
 | --- | ---: |
-| 待实现 | 493 |
+| 待实现 | 492 |
 | 待平台映射 | 262 |
-| 有相关实现，待对照验收 | 132 |
+| 有相关实现，待对照验收 | 133 |
 | 开发中 | 10 |
 | 验收失败 | 0 |
 | 待独立审查 | 0 |
@@ -116,7 +116,7 @@
 | <a id="config-aside-enable"></a>`config:aside.enable`<br>侧栏卡片 / aside.enable | [_config.yml:274](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L274)<br>`aside.enable` | 设置：aside.enable<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.enable：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.enable 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-aside-hide"></a>`config:aside.hide`<br>侧栏卡片 / aside.hide | [_config.yml:275](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L275)<br>`aside.hide` | 设置：aside.hide<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.hide：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.hide 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-aside-button"></a>`config:aside.button`<br>侧栏卡片 / aside.button | [_config.yml:277](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L277)<br>`aside.button` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.button：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.button 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
-| <a id="config-aside-mobile"></a>`config:aside.mobile`<br>侧栏卡片 / aside.mobile | [_config.yml:278](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L278)<br>`aside.mobile` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.mobile：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.mobile 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
+| <a id="config-aside-mobile"></a>`config:aside.mobile`<br>侧栏卡片 / aside.mobile | [_config.yml:278](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L278)<br>`aside.mobile` | 设置：aside.mobile<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.mobile：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.mobile 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-aside-position"></a>`config:aside.position`<br>侧栏卡片 / aside.position | [_config.yml:280](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L280)<br>`aside.position` | 设置：aside.position<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.position：逐值执行 "left" / "right"。；保持同组其他设置不变；验证 aside.position 与全局/逐页覆盖的优先级。 | 有相关实现，待对照验收<br>无验收证据 |
 | <a id="config-aside-display-archive"></a>`config:aside.display.archive`<br>侧栏卡片 / aside.display.archive | [_config.yml:282](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L282)<br>`aside.display.archive` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.display.archive：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.display.archive 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |
 | <a id="config-aside-display-tag"></a>`config:aside.display.tag`<br>侧栏卡片 / aside.display.tag | [_config.yml:283](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L283)<br>`aside.display.tag` | 尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。<br>使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。 | ENV-02, PAGE-01, PAGE-03, CFG-01<br>aside.display.tag：分别设置 true 与 false，核对对应输出及再次刷新。；保持同组其他设置不变；验证 aside.display.tag 与全局/逐页覆盖的优先级。 | 待实现<br>无验收证据 |

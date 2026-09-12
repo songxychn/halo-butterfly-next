@@ -6061,12 +6061,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.mobile"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/layout.html",
+          "src/js/core/aside-mobile.mjs",
+          "src/scss/core/main.scss",
+          "tests/aside-mobile.test.mjs"
+        ],
+        "finding": "已映射 aside.mobile（默认 true）到 aside.mobile。仅显式 false 给 html 加 aside-mobile-off；max-width 768px 隐藏 .aside .card:not(.aside-toc)，对齐 #card-toc。须 aside.enable。禁止复用作者卡片 aside.button。不做隐藏开关 / aside.hide。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -6087,12 +6092,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/120"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/122"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.position",
