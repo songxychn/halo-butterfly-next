@@ -61,10 +61,13 @@ test('不把 archives_enable 写进 list fragment / recentPost', async () => {
   assert.doesNotMatch(recent, /index_enable/);
 });
 
-test('归档时间轴无封面时有 no-cover 规则，不改有封面布局', async () => {
+test('归档时间轴无封面时有 no-cover 规则，有封面为 100×70 而非 6rem', async () => {
   const scss = await readFile(new URL('../src/scss/page/archives.scss', import.meta.url), 'utf8');
   const axis = scss.slice(scss.indexOf('&-list'), scss.indexOf('@include components.pagination'));
-  assert.match(axis, /&\.no-cover > \.info/);
-  assert.match(axis, /padding-left:\s*0/);
-  assert.match(axis, /\.cover \{[\s\S]*width:\s*6rem/);
+  assert.match(axis, /&\.no-cover/);
+  assert.match(axis, /height:\s*80px/);
+  assert.match(axis, /padding:\s*0/);
+  assert.match(axis, /\.cover \{[\s\S]*width:\s*100px/);
+  assert.match(axis, /height:\s*70px/);
+  assert.doesNotMatch(axis, /width:\s*6rem/);
 });
