@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 159,
+  "pr": 161,
+  "title": "M1：右侧按钮栏样式 rightside.styl",
+  "author": "cursor/m1-rightside-styl",
+  "recorder": "cursor/record-161",
+  "recordedAt": "2026-09-12T08:59:00Z",
+  "visibility": "private",
+  "sourceSha": "e47403d770000f2cdc9ac0bd7a5cf91fb0e801a5",
+  "reviewHead": "e47403d770000f2cdc9ac0bd7a5cf91fb0e801a5",
+  "mergeSha": "eadd8eedc6a6dbcfcdab8b71b82fcc3f76f85272",
+  "mergedAt": "2026-09-12T08:56:27Z",
+  "closesIssue": 159,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/161#issuecomment-5644865602",
+    "createdAt": "2026-09-12T08:55:41Z",
+    "head": "e47403d770000f2cdc9ac0bd7a5cf91fb0e801a5",
+    "note": "Second independent review (P1 re-review) posted as issue comment 5644865602, not a GitHub Approve. Verdict: approve. No P1. Earlier comment 5644839892 on 8a3a597 was changes-requested (404/plugin .side-btn lost to #rightside { position:fixed }); fixed in e47403d with &#Butterfly > #rightside. The re-reviewer's one-shot CI snapshot was pending (run 34684356676). This record waited until pull_request CI 34684356676 and merge-commit master CI 34684546450 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "priorIndependentReviewComment": {
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/161#issuecomment-5644839892",
+    "createdAt": "2026-09-12T08:49:38Z",
+    "head": "8a3a597c4adfa6963bc24cde216f4c1461a9e1f5",
+    "verdict": "changes-requested",
+    "p1": "#rightside { position:fixed } overrode .error404 > .side-btn / .plugin > .side-btn on short pages"
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "1410413b13b7768a5c0cc6bf20bf0189605e9e8f",
+      "summary": "Expand src/scss/core/rightside.scss to upstream rightside.styl. #rightside fixed positioning, z-index 100, .rightside-show/.active, 35px buttons / --btn-bg, #mobile-toc-button, hide-group status, #go-up cubic-bezier. Does not reuse author-card aside.button. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "1e0f0d8711eb10c46fc9493d1a6bf8387ae2e3f9",
+      "summary": "Raise style:source/css/_layout/rightside.styl from gap to implemented-unverified; evidence remains []. Do not raise template:includes/rightside or rightside/footer/darkmode/readmode config to verified."
+    },
+    {
+      "sha": "8a3a597c4adfa6963bc24cde216f4c1461a9e1f5",
+      "summary": "Register #161 onto style:source/css/_layout/rightside.styl matrix tracking.pullRequests"
+    },
+    {
+      "sha": "e47403d770000f2cdc9ac0bd7a5cf91fb0e801a5",
+      "summary": "P1 fix: error404.scss / plugin.scss use &#Butterfly > #rightside so static opacity:1 beats #rightside { position:fixed } on short 404/plugin pages."
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_layout/rightside.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "template:includes/rightside",
+    "template:includes/footer",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl",
+    "interaction:hide-aside",
+    "config:aside.hide_button",
+    "config:rightside.bottom",
+    "config:rightside.scroll_percent"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_layout/aside.styl",
+    "config:rightside_item_order.enable",
+    "config:translate.defaultEncoding",
+    "config:translate.translateDelay",
+    "config:translate.msgToTraditionalChinese",
+    "config:translate.msgToSimplifiedChinese"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 474,
+    "mapping-required": 262,
+    "implemented-unverified": 151,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 162,
+    "state": "OPEN",
+    "title": "M1：侧栏样式 aside.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/162",
+    "note": "style:source/css/_layout/rightside.styl and footer.styl are implemented-unverified; do not raise them, rightside/footer templates, or aside/rightside/readmode/translate/darkmode config to verified. This slice is style:source/css/_layout/aside.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 160,
+    "title": "docs: 记录 #158 页脚样式合并证据",
+    "headSha": "b1bd76407f86e0a9416459825a2eb3c054e459f7",
+    "mergeSha": "24cc02a5cf3f021233f69da1d6b3c1972593dd33",
+    "mergedAt": "2026-09-12T08:40:08Z",
+    "prCi": 34683748921,
+    "prCiConclusion": "success",
+    "masterCi": 34683857736,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34683857736",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/160#issuecomment-5644793198",
+    "note": "Waited with gh run view until completed. Push-event master CI 34683857736 on 24cc02a5cf3f021233f69da1d6b3c1972593dd33 completed success at 2026-09-12T08:41:56Z, before the #161 merge push at 2026-09-12T08:56:27Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34684356676,
+      "runAttempt": 1,
+      "headSha": "e47403d770000f2cdc9ac0bd7a5cf91fb0e801a5",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34684356676",
+      "note": "GitHub Verify theme. Re-reviewer's one-shot snapshot was pending. Orchestrator waited until completed success at 2026-09-12T08:53:26Z before squash merge. Earlier run 34684048557 succeeded on non-head 8a3a597 and must not be treated as this PR's merge gate. Run 34684040334 was cancelled on 1e0f0d8. New tests: tests/rightside-style.test.mjs (4)."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34684546450,
+      "runAttempt": 1,
+      "headSha": "eadd8eedc6a6dbcfcdab8b71b82fcc3f76f85272",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34684546450",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T08:58:10Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #161; there is no Approve. First independent review 5644839892 on 8a3a597 was changes-requested (P1). Second review 5644865602 on e47403d is issue comment, not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head e47403d770000f2cdc9ac0bd7a5cf91fb0e801a5: newly raised to implemented-unverified is style:source/css/_layout/rightside.styl. evidence remains []. aside.styl remains gap. Does not mark verified. Does not raise template:includes/rightside.",
+    "Four commits (CSS-only, no freeze): 1410413 implement then 1e0f0d8 matrix IU then 8a3a597 matrix PR number then e47403d P1 404/plugin overlay. settings.yaml unchanged.",
+    "Selectors hang on #rightside with .rightside-show/.active, not data-theme. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button.",
+    "P1 fix: #Butterfly.error404 > #rightside and #Butterfly.plugin > #rightside (source &#Butterfly > #rightside) beat #rightside { position:fixed } so short pages keep the bar in-flow.",
+    "Non-blocking P2 from the re-review: #go-up remains outside the #rightside block (baseline); common.scss .side-btn still has position:fixed; z-index:80. No snackbar / item_order. No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #162 style:source/css/_layout/aside.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_layout/rightside.styl; evidence remains [].",
+    "style:source/css/_layout/aside.styl remains gap.",
+    "Does not implement snackbar or rightside_item_order. Must not raise landed rightside/footer templates or footer/aside/rightside/readmode/translate/darkmode config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #160 merge-commit master CI run 34683857736 on 24cc02a5cf3f021233f69da1d6b3c1972593dd33 completed success at 2026-09-12T08:41:56Z, before the #161 merge push at 2026-09-12T08:56:27Z; must not be recorded as cancelled.",
+    "PR #161 merge-commit master CI run 34684546450 on eadd8eedc6a6dbcfcdab8b71b82fcc3f76f85272 completed success at 2026-09-12T08:58:10Z; not cancelled.",
+    "Issue #162 style:source/css/_layout/aside.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
