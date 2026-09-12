@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 213,
+  "pr": 215,
+  "title": "M1：说说页样式 shuoshuo.styl",
+  "author": "cursor/m1-shuoshuo-styl",
+  "recorder": "cursor/record-215",
+  "recordedAt": "2026-09-12T16:10:00Z",
+  "visibility": "private",
+  "sourceSha": "b537212ade0cd0374d68cb90dc47ccfcc0ddbf51",
+  "reviewHead": "b537212ade0cd0374d68cb90dc47ccfcc0ddbf51",
+  "mergeSha": "fd54ef968c651a4bafb3aca39d33a50de023be40",
+  "mergedAt": "2026-09-12T16:06:18Z",
+  "closesIssue": 213,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/215#issuecomment-5647034536",
+    "createdAt": "2026-09-12T16:05:29Z",
+    "head": "b537212ade0cd0374d68cb90dc47ccfcc0ddbf51",
+    "note": "Independent review posted as issue comment 5647034536, not a GitHub Approve. Verdict: approve-as-comment. No P1. Compiled moments.scss keeps Halo media 170×110; 40px / 2.7em / page-input stay on no-DOM #article-container .shuoshuo-* / .shuoshuo-navigation. The reviewer's CI snapshot was run 34703820975 completed success. This record waited until merge-commit master CI 34704217728 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "6a79eeeea75dcbc179c24b7dfd4b5accfe975e4e",
+      "summary": "Add src/scss/core/shuoshuo.scss and top-level @use after flink. Parallel #article-container .shuoshuo-item (no-op) and Halo .moments / .list / .item. Align card padding 35px 30px 30px / 768 25px 20px 20px. Keep media 170×110. Keep html.hide-aside 80%. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "223c9b1475465ab40cb00d91abaed20841312c49",
+      "summary": "Raise style:source/css/_page/shuoshuo.styl from gap to implemented-unverified; evidence remains []. Do not raise landed flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout/*.styl / darkmode/readmode to verified."
+    },
+    {
+      "sha": "b537212ade0cd0374d68cb90dc47ccfcc0ddbf51",
+      "summary": "Register #215 onto style:source/css/_page/shuoshuo.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_page/shuoshuo.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:index_layout",
+    "config:cover.index_enable",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_page/tags.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 456,
+    "mapping-required": 262,
+    "implemented-unverified": 169,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 216,
+    "state": "OPEN",
+    "title": "M1：标签页样式 tags.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/216",
+    "note": "style:source/css/_page/shuoshuo.styl and flink.styl and categories.styl and archives.styl and 404.styl and homepage.styl and common.styl and all _layout/*.styl rows are implemented-unverified; do not raise them to verified. This slice is style:source/css/_page/tags.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 214,
+    "title": "docs: 记录 #212 友链页样式合并证据",
+    "headSha": "352c4302b55c05445a8dd04c6d21bdbf58bb6f38",
+    "mergeSha": "08ce413f0e879d437099519b8fcb45403ac57b8f",
+    "mergedAt": "2026-09-12T15:54:02Z",
+    "prCi": 34703414522,
+    "prCiConclusion": "success",
+    "masterCi": 34703616049,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34703616049",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/214#issuecomment-5646964329",
+    "note": "Waited with gh run view until completed. Push-event master CI 34703616049 on 08ce413f0e879d437099519b8fcb45403ac57b8f completed success at 2026-09-12T15:55:50Z, before the #215 merge push at 2026-09-12T16:06:18Z. Must be recorded as success, not cancelled. The reviewer's CI snapshot for #214 was run 34703414522 in_progress; that run later completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34703820975,
+      "runAttempt": 1,
+      "headSha": "b537212ade0cd0374d68cb90dc47ccfcc0ddbf51",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34703820975",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34703820975 completed success for head b537212. Orchestrator confirmed the same run completed success at 2026-09-12T16:00:34Z before squash merge. New tests: tests/shuoshuo-style.test.mjs (5), compiling src/scss/page/moments.scss."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34704217728,
+      "runAttempt": 1,
+      "headSha": "fd54ef968c651a4bafb3aca39d33a50de023be40",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34704217728",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T16:08:16Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #215; there is no Approve. Independent review 5647034536 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head b537212ade0cd0374d68cb90dc47ccfcc0ddbf51: newly raised to implemented-unverified is style:source/css/_page/shuoshuo.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 6a79eee implement then 223c9b1 matrix IU then b537212 matrix PR number. settings.yaml unchanged.",
+    "Parallel selectors #article-container .shuoshuo-item and Halo .moments / .list / .item. 40px avatar / 2.7em pager / page-input stay on the no-op upstream blocks. Halo media remains 170×110. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. moments.html still has exactly one th:utext.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); no .shuoshuo-item DOM.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #216 style:source/css/_page/tags.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_page/shuoshuo.styl; evidence remains [].",
+    "style:source/css/_page/tags.styl remains gap.",
+    "Must not raise landed shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #214 merge-commit master CI run 34703616049 on 08ce413f0e879d437099519b8fcb45403ac57b8f completed success at 2026-09-12T15:55:50Z, before the #215 merge push at 2026-09-12T16:06:18Z; must not be recorded as cancelled.",
+    "PR #212 merge-commit master CI run 34703149705 on c862d4882f3d1516d98173de61f37c7b8080adbc completed success at 2026-09-12T15:46:46Z; not cancelled.",
+    "PR #215 merge-commit master CI run 34704217728 on fd54ef968c651a4bafb3aca39d33a50de023be40 completed success at 2026-09-12T16:08:16Z; not cancelled.",
+    "Issue #216 style:source/css/_page/tags.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
