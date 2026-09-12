@@ -1,0 +1,156 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 144,
+  "pr": 146,
+  "title": "M1：深色模式按钮 interaction:darkmode",
+  "author": "cursor/m1-darkmode",
+  "recorder": "cursor/record-146",
+  "recordedAt": "2026-09-12T07:12:00Z",
+  "visibility": "private",
+  "sourceSha": "75f62810dc1faa83e1925fc4d8ee7e4d75d460de",
+  "reviewHead": "75f62810dc1faa83e1925fc4d8ee7e4d75d460de",
+  "mergeSha": "4270f0a8f8e751a974a5fb1c4ac174dcee6ebfa2",
+  "mergedAt": "2026-09-12T07:09:13Z",
+  "closesIssue": 144,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/146#issuecomment-5644377044",
+    "createdAt": "2026-09-12T07:08:40Z",
+    "head": "75f62810dc1faa83e1925fc4d8ee7e4d75d460de",
+    "note": "Independent review posted as issue comment 5644377044, not a GitHub Approve. Verdict: approve. No P1. The reviewer's one-shot CI snapshot was pending (run 34679742176). This record waited until pull_request CI 34679742176 and merge-commit master CI 34679976087 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": false,
+  "settingsSha256": "3fdce760f4c18740058a6784cb7329e9d9f5f06ea83500877b02606944d2c2f9",
+  "sourceCommit": "7ec49ac07b3a1ff11a944da7b9b522bf476cc45f",
+  "productCommits": [
+    {
+      "sha": "7ec49ac07b3a1ff11a944da7b9b522bf476cc45f",
+      "summary": "Align upstream darkmode.enable/button onto Halo darkmode.enable/button. Defaults true; only explicit false hides #darkmode. Visibility no longer limited to style.mode == user. Click uses Theme.toggleMode; no innerHTML. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. No new th:utext."
+    },
+    {
+      "sha": "9bb298df0ed08e3b9a53f58e1ac5cbe7d655c2af",
+      "summary": "Refreeze performance theme-defaults.json onto the darkmode implementation commit 7ec49ac07b3a1ff11a944da7b9b522bf476cc45f; settingsSha256 3fdce760f4c18740058a6784cb7329e9d9f5f06ea83500877b02606944d2c2f9"
+    },
+    {
+      "sha": "ff6b62fca165989d81bec6a4ba229c4dc4a86244",
+      "summary": "Raise interaction:darkmode from gap to implemented-unverified; update config:darkmode.enable and config:darkmode.button settings/findings; evidence remains []"
+    },
+    {
+      "sha": "75f62810dc1faa83e1925fc4d8ee7e4d75d460de",
+      "summary": "Register #146 onto config:darkmode.enable, config:darkmode.button, and interaction:darkmode matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "interaction:darkmode"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:darkmode.enable",
+    "config:darkmode.button",
+    "config:darkmode.autoChangeMode",
+    "config:translate.enable",
+    "config:translate.default",
+    "interaction:translate",
+    "config:readmode",
+    "interaction:readmode",
+    "config:rightside_bottom",
+    "config:rightside_scroll_percent",
+    "template:includes/rightside",
+    "template:includes/footer",
+    "config:aside.hide",
+    "config:aside.mobile",
+    "config:aside.button",
+    "interaction:hide-aside"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:darkmode.start",
+    "config:darkmode.end",
+    "style:source/css/_mode/darkmode.styl",
+    "style:source/css/_mode/readmode.styl",
+    "config:translate.defaultEncoding",
+    "config:translate.translateDelay",
+    "config:translate.msgToTraditionalChinese",
+    "config:translate.msgToSimplifiedChinese",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_layout/rightside.styl",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 480,
+    "mapping-required": 262,
+    "implemented-unverified": 145,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 147,
+    "state": "OPEN",
+    "title": "M1：深色模式 autoChangeMode",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/147",
+    "note": "interaction:darkmode and config:darkmode.enable/button are implemented-unverified; do not raise them, rightside/footer templates, or landed config to verified. This slice is config:darkmode.autoChangeMode (optional start/end for hourly mode 2). Must not reuse author-card aside.button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 145,
+    "title": "docs: 记录 #143 繁简转换合并证据",
+    "headSha": "2544452886551bad2c475dfbd46c48e57de97da9",
+    "mergeSha": "db3adb7ff7c4cdb61ddacf2770fb97fa4908fd87",
+    "mergedAt": "2026-09-12T06:55:38Z",
+    "prCi": 34679254425,
+    "prCiConclusion": "success",
+    "masterCi": 34679394265,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34679394265",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/145#issuecomment-5644316165",
+    "note": "Waited with gh run view until completed. Push-event master CI 34679394265 on db3adb7ff7c4cdb61ddacf2770fb97fa4908fd87 completed success at 2026-09-12T06:57:21Z, before the #146 merge push at 2026-09-12T07:09:13Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34679742176,
+      "runAttempt": 1,
+      "headSha": "75f62810dc1faa83e1925fc4d8ee7e4d75d460de",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34679742176",
+      "note": "GitHub Verify theme: 210 tests pass. Independent reviewer's one-shot snapshot was pending. Orchestrator waited until completed success at 2026-09-12T07:05:34Z before squash merge."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34679976087,
+      "runAttempt": 1,
+      "headSha": "4270f0a8f8e751a974a5fb1c4ac174dcee6ebfa2",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34679976087",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T07:10:56Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #146; there is no Approve. Independent review is issue comment 5644377044 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 75f62810dc1faa83e1925fc4d8ee7e4d75d460de: newly raised to implemented-unverified is interaction:darkmode. config:darkmode.enable and config:darkmode.button stay implemented-unverified with updated settings/findings. evidence remains []. config:darkmode.autoChangeMode stays IU (still style.mode). config:darkmode.start/end and darkmode.styl remain gap. Does not mark verified.",
+    "Four commits: 7ec49ac implement then 9bb298d freeze then ff6b62f matrix IU then 75f6281 matrix PR number. freeze sourceCommit 7ec49ac07b3a1ff11a944da7b9b522bf476cc45f; settingsSha256 3fdce760f4c18740058a6784cb7329e9d9f5f06ea83500877b02606944d2c2f9 matches settings.yaml. config.darkmode.enable is true; config.darkmode.button is true.",
+    "Halo maps upstream darkmode.enable && darkmode.button (defaults true) onto new group darkmode. Only explicit false hides #darkmode. Visibility is no longer limited to style.mode == user. Click uses Theme.toggleMode not innerHTML. YAML help containing #darkmode is quoted. tracking.pullRequests used. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button.",
+    "Non-blocking P2 from the independent review: localStorage key remains halo-butterfly-next.color-scheme not upstream theme. autoChangeMode 1/2, start/end, full styl, snackbar, item_order not done. style.mode still coexists. Button dropped class .switch-model; some lab/A11Y scripts still click .switch-model. No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #147 config:darkmode.autoChangeMode; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is interaction:darkmode; config:darkmode.enable and config:darkmode.button remain implemented-unverified; evidence remains [].",
+    "config:darkmode.autoChangeMode remains implemented-unverified (still mapped to style.mode). config:darkmode.start / end and style:source/css/_mode/darkmode.styl remain gap.",
+    "Does not implement autoChangeMode 1/2, start/end, full darkmode.styl, snackbar, or rightside_item_order. Must not raise landed rightside/footer templates or footer/aside/rightside/readmode/translate/darkmode config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #145 merge-commit master CI run 34679394265 on db3adb7ff7c4cdb61ddacf2770fb97fa4908fd87 completed success at 2026-09-12T06:57:21Z, before the #146 merge push at 2026-09-12T07:09:13Z; must not be recorded as cancelled.",
+    "PR #146 merge-commit master CI run 34679976087 on 4270f0a8f8e751a974a5fb1c4ac174dcee6ebfa2 completed success at 2026-09-12T07:10:56Z; not cancelled.",
+    "Issue #147 config:darkmode.autoChangeMode is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
