@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 171,
+  "pr": 173,
+  "title": "M1：文章页样式 post.styl",
+  "author": "cursor/m1-post-styl",
+  "recorder": "cursor/record-173",
+  "recordedAt": "2026-09-12T10:38:00Z",
+  "visibility": "private",
+  "sourceSha": "3d5e1c7d62d0a8ae74a3db847608dada81f009bb",
+  "reviewHead": "3d5e1c7d62d0a8ae74a3db847608dada81f009bb",
+  "mergeSha": "ba9cce918a6bbb7a3c7efbcce234b3df517f5c04",
+  "mergedAt": "2026-09-12T10:35:27Z",
+  "closesIssue": 171,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/173#issuecomment-5645355043",
+    "createdAt": "2026-09-12T10:34:53Z",
+    "head": "3d5e1c7d62d0a8ae74a3db847608dada81f009bb",
+    "note": "Independent review posted as issue comment 5645355043, not a GitHub Approve. Verdict: approve. No P1. The reviewer's gh pr checks snapshot was run 34688533582 completed success. This record waited until that run and merge-commit master CI 34688855486 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "73237c1abe543f28bc4328cd35ca3e4f1a239163",
+      "summary": "Add src/scss/core/post.scss aligning article layout to upstream post.styl. Parallel #post / .post and .container / .render / .post-content. Adds kbd/iframe, tag_share, post-copyright/copy-right (margin 40px, var(--light-grey) border, hover shadow), #post-outdate-notice. Does not change #pagination.pagination-post 150px. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "0d0d69e1a7c55a42e36aa64be6baf54e7da5422a",
+      "summary": "Raise style:source/css/_layout/post.styl from gap to implemented-unverified; evidence remains []. Do not raise config:post_pagination / noticeOutdate / post_copyright or landed head/pagination/aside/footer/rightside/darkmode/readmode to verified."
+    },
+    {
+      "sha": "3d5e1c7d62d0a8ae74a3db847608dada81f009bb",
+      "summary": "Register #173 onto style:source/css/_layout/post.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_layout/post.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:post_pagination",
+    "config:noticeOutdate.enable",
+    "config:post_copyright.enable",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl",
+    "config:mask.header",
+    "template:includes/rightside",
+    "template:includes/footer"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_layout/relatedposts.styl",
+    "template:includes/post/post-copyright",
+    "config:beautify.enable",
+    "config:text_align_justify",
+    "config:rightside_item_order.enable",
+    "config:translate.defaultEncoding",
+    "config:translate.translateDelay",
+    "config:translate.msgToTraditionalChinese",
+    "config:translate.msgToSimplifiedChinese"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 470,
+    "mapping-required": 262,
+    "implemented-unverified": 155,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 174,
+    "state": "OPEN",
+    "title": "M1：相关文章样式 relatedposts.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/174",
+    "note": "style:source/css/_layout/post.styl and pagination/head/aside/footer/rightside.styl are implemented-unverified; do not raise them, post_pagination, related_post config, mask.header, or aside/rightside/footer templates to verified. This slice is style:source/css/_layout/relatedposts.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 172,
+    "title": "docs: 记录 #170 分页样式合并证据",
+    "headSha": "69beaf4c5aaff7bf74a5dd048ea717cca04509f9",
+    "mergeSha": "f5dcad46b4f145a650ce6b273fdcaae235727f1d",
+    "mergedAt": "2026-09-12T10:16:23Z",
+    "prCi": 34687837738,
+    "prCiConclusion": "success",
+    "masterCi": 34688009933,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34688009933",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/172#issuecomment-5645269439",
+    "note": "Waited with gh run view until completed. Push-event master CI 34688009933 on f5dcad46b4f145a650ce6b273fdcaae235727f1d completed success at 2026-09-12T10:18:11Z, before the #173 merge push at 2026-09-12T10:35:27Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34688533582,
+      "runAttempt": 1,
+      "headSha": "3d5e1c7d62d0a8ae74a3db847608dada81f009bb",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34688533582",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded completed success (job build pass) for head 3d5e1c7. Orchestrator confirmed the same run before squash merge. New tests: tests/post-style.test.mjs (4)."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34688855486,
+      "runAttempt": 1,
+      "headSha": "ba9cce918a6bbb7a3c7efbcce234b3df517f5c04",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34688855486",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T10:36:52Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #173; there is no Approve. Independent review 5645355043 is issue comment, not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 3d5e1c7d62d0a8ae74a3db847608dada81f009bb: newly raised to implemented-unverified is style:source/css/_layout/post.styl. evidence remains []. relatedposts.styl remains gap. Does not mark verified. Does not raise config:post_pagination / noticeOutdate / post_copyright or template:includes/post/post-copyright.",
+    "Three commits (CSS-only, no freeze): 73237c1 implement then 0d0d69e matrix IU then 3d5e1c7 matrix PR number. settings.yaml unchanged.",
+    "Article layout hangs on #post / .post and .container / .render / .post-content, not data-theme. Compiled CSS has no #post-title. Copyright maps .post-copyright and Halo .copy-right. Outdate remains #post-outdate-notice. Post prev/next remains #pagination.pagination-post with related 150px. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button.",
+    "Non-blocking P2 from the review: no dual-site (declared; evidence [] is correct). Upstream .container img/p/hr not ported, outside the claimed kbd/iframe slice, not blocking.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #174 style:source/css/_layout/relatedposts.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_layout/post.styl; evidence remains [].",
+    "style:source/css/_layout/relatedposts.styl remains gap.",
+    "Does not implement snackbar, beautify settings, text_align_justify, relatedposts.styl full text, reward popup, or rightside_item_order. Must not raise landed pagination/head/aside/footer/rightside/darkmode/readmode styles or post_pagination/noticeOutdate/post_copyright/related_post config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #172 merge-commit master CI run 34688009933 on f5dcad46b4f145a650ce6b273fdcaae235727f1d completed success at 2026-09-12T10:18:11Z, before the #173 merge push at 2026-09-12T10:35:27Z; must not be recorded as cancelled.",
+    "PR #173 merge-commit master CI run 34688855486 on ba9cce918a6bbb7a3c7efbcce234b3df517f5c04 completed success at 2026-09-12T10:36:52Z; not cancelled.",
+    "Issue #174 style:source/css/_layout/relatedposts.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
