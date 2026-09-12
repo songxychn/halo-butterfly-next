@@ -38144,11 +38144,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/aside.scss",
+          "src/scss/core/main.scss",
+          "tests/aside-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已扩展 src/scss/core/aside.scss 对齐 aside.styl。选择器并列 #aside-content / .aside，不改 data-theme。补齐宽 26%、minWidth900 padding 随 aside-right/left、maxWidth900 全宽叠栏、.card-widget 20px 24px、作者卡 / #card-info-btn / .item-headline / .sticky_layout。#hide-aside-btn 仍用 aside.hide_button。不把 config:aside.*、interaction:hide-aside 或已落地 footer/rightside/darkmode/readmode 升 verified。不做 snackbar / 卡片排序。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38168,12 +38168,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/162"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_layout/chat.styl",
