@@ -1,0 +1,20 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/chat.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游仅在 chat.rightside_button == true 且 chat.use == 'chatra' 时
+ * 隐藏未展开的 #chatra（visibility/width/height/opacity/pointer-events）。
+ * 本刀不接入 Chatra/Crisp/Tidio/Knocket，不改 settings.yaml，
+ * config:chat.* 与 chat 模板仍 mapping-required。
+ * Halo 尚无 #chatra DOM 时这些规则是空操作。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ */
+#chatra:not(.chatra--expanded) {
+  visibility: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
