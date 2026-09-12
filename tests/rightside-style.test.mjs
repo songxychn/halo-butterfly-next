@@ -6,6 +6,8 @@ const scss = await readFile(new URL('../src/scss/core/rightside.scss', import.me
 const indexScss = await readFile(new URL('../src/scss/core/index.scss', import.meta.url), 'utf8');
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
+const error404Scss = await readFile(new URL('../src/scss/page/error404.scss', import.meta.url), 'utf8');
+const pluginScss = await readFile(new URL('../src/scss/page/plugin.scss', import.meta.url), 'utf8');
 const rules = scss.replace(/\/\*[\s\S]*?\*\//g, '');
 
 test('rightside.scss 挂在 #rightside，选择器不使用 data-theme', () => {
@@ -43,4 +45,13 @@ test('本刀不改 hide_button 语义，不复用 aside.button', () => {
   assert.match(componentsHtml, /id="rightside-config-hide"/);
   assert.doesNotMatch(scss, /aside\.button/);
   assert.match(settingsText, /name: hide_button/);
+});
+
+test('404/plugin 页覆盖须压过 #rightside 的 ID 定位', () => {
+  assert.match(error404Scss, /&#Butterfly > #rightside/);
+  assert.match(pluginScss, /&#Butterfly > #rightside/);
+  assert.match(error404Scss, /position:\s*static/);
+  assert.match(pluginScss, /position:\s*static/);
+  assert.match(error404Scss, /opacity:\s*1/);
+  assert.match(pluginScss, /opacity:\s*1/);
 });

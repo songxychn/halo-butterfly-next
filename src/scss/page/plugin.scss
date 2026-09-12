@@ -11,7 +11,8 @@
 
   // Plugin pages can be shorter than the viewport, so their mode control must
   // remain reachable without scrolling and must not cover the plugin or footer.
-  > .side-btn {
+  // #rightside { position:fixed } 是 ID，须用 #Butterfly.plugin > #rightside 压过。
+  &#Butterfly > #rightside {
     position: static;
     align-self: flex-end;
     margin: 0 10px 8px;
