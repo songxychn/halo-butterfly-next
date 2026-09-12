@@ -39225,11 +39225,12 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/shuoshuo.scss",
+          "src/scss/core/index.scss",
+          "src/scss/page/moments.scss",
+          "tests/shuoshuo-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/shuoshuo.scss 对齐 shuoshuo.styl 说说页样式。选择器并列 #article-container .shuoshuo-item（空操作，无 DOM）与 Halo .moments .item。未重写模板去造 .shuoshuo-item。无新增 th:utext。上游 padding 35px 30px 30px / 768 25px 20px 20px、margin-bottom 20px、头像 40×40、info 10px、date .8em、content 15px 0 10px、tag 0 8px / 12px / .85em、分页按钮 2.7em 仅留在上游选择器。Halo 对齐卡片 padding / 间距，保留媒体 170×110。不把上游分页输入框或 #article-container 用 ID 压到瞬间页。不用 #Butterfly 把不兼容 width/height 压到 .moments。不改 data-theme。不把已落地 flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39249,12 +39250,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/213"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_page/tags.styl",
