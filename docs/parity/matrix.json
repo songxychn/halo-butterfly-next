@@ -38822,11 +38822,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/readmode.scss",
+          "src/scss/core/index.scss",
+          "tests/readmode-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已移植为 src/scss/core/readmode.scss。选择器挂在 body.read-mode 与 html[data-color-scheme='dark']，不改 data-theme。补齐上游 CSS 变量、隐藏 chrome、代码块/引用/kbd/note 去装饰，以及 Halo 并列选择器（.content.card / .nav / .aside）。不把 config:readmode 或 interaction:readmode 升 verified。不做 snackbar / item_order / localStorage 键 theme。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38846,12 +38846,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/153"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/155"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_page/404.styl",
