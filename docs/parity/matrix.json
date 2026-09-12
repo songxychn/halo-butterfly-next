@@ -28883,11 +28883,12 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
+          "src/js/core/rightside.mjs",
           "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+          "src/scss/core/rightside.scss",
+          "tests/rightside.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已对齐 rightside.pug 骨架：#rightside / #rightside-config-hide / #rightside-config-show / #rightside-config / #go-up。hideAside 仍用 aside.hide_button，挂在 hide 组。保留 .side-btn 滚动 .active。不做 readmode/translate/chat/comment、item_order、scroll_percent。rightside.styl 配色与 bottom 变量仍 gap。不把 footer 模板或 config 升 verified。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -28909,12 +28910,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/129"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/sidebar",

@@ -76,8 +76,9 @@ test('aside.hide_button 默认 true；仅显式 false 关闭；不复用作者�
   assert.equal(shouldRestoreAsideStatus(true, false), false);
 });
 
-test('布局：#hide-aside-btn 在 side-btn；无新增 th:utext；作者卡片 aside.button 仍独立', () => {
+test('布局：#hide-aside-btn 在 #rightside-config-hide；无新增 th:utext；作者卡片 aside.button 仍独立', () => {
   assert.match(componentsHtml, /id="hide-aside-btn"/);
+  assert.match(componentsHtml, /id="rightside-config-hide"/);
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button != false/);
   assert.match(componentsHtml, /theme\.config\.aside\.enable != false/);
   assert.doesNotMatch(componentsHtml, /th:utext/);

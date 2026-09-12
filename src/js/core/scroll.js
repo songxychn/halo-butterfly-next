@@ -48,11 +48,15 @@ export default class Scroll {
 
   // 激活侧边按钮
   #activeBtn(scrollTop) {
-    // 滚动到顶部取消按钮
-    if(scrollTop < this.#max && scrollTop <= 2) this.#sideBtnDom.removeClass('active');
+    // 滚动到顶部取消按钮。上游 #rightside.rightside-show；Halo 仍用 .active。
+    if(scrollTop < this.#max && scrollTop <= 2) {
+      this.#sideBtnDom.removeClass('active rightside-show');
+    }
 
     // 向下滚动激活侧边按钮
-    if(scrollTop > this.#max && this.#num <= scrollTop) this.#sideBtnDom.addClass('active');
+    if(scrollTop > this.#max && this.#num <= scrollTop) {
+      this.#sideBtnDom.addClass('active rightside-show');
+    }
   }
 
 
