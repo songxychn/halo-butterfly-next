@@ -1,0 +1,280 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_page/shuoshuo.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #article-container .shuoshuo-item padding 35px 30px 30px /
+ * 768 25px 20px 20px、margin-bottom 20px；头像 40×40 圆；
+ * info margin-left 10px；date .8em；content padding 15px 0 10px；
+ * tag padding 0 8px、border-radius 12px、font-size .85em；
+ * 分页按钮 2.7em。
+ * Halo 瞬间 DOM 是 .moments / .list / .item，媒体 170×110，
+ * 没有 .shuoshuo-item。选择器并列：上游 #article-container 选择器空操作；
+ * Halo 对齐卡片 padding / 间距，不拆现有布局。
+ * 不要把上游分页输入框或 #article-container 专用规则用 ID 压到瞬间页。
+ * 不要用 #Butterfly ID 把不兼容 width/height 压到 .moments（#203 P1 同类）。
+ * 不把已落地 flink.styl / categories.styl / archives.styl / 404.styl /
+ * homepage.styl / common.styl / _layout / darkmode / readmode 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 #article-container .shuoshuo-item：无对应 DOM，空操作。 */
+#article-container {
+  .shuoshuo-item {
+    margin-bottom: 20px;
+    padding: 35px 30px 30px;
+    background: var(--card-bg);
+    box-shadow: var(--card-box-shadow);
+    transition: all .3s;
+    border-radius: 8px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    &:hover {
+      box-shadow: var(--card-hover-box-shadow);
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 25px 20px 20px;
+    }
+  }
+
+  .shuoshuo-item-header {
+    display: flex;
+    align-items: center;
+    cursor: default;
+  }
+
+  .shuoshuo-avatar {
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+
+    img {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .shuoshuo-info {
+    margin-left: 10px;
+    line-height: 1.5;
+  }
+
+  .shuoshuo-date {
+    color: #858585;
+    font-size: .8em;
+  }
+
+  .shuoshuo-content {
+    padding: 15px 0 10px;
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .shuoshuo-footer {
+    display: flex;
+    align-items: center;
+
+    &.flex-between {
+      justify-content: space-between;
+    }
+
+    &.flex-end {
+      justify-content: flex-end;
+    }
+
+    .shuoshuo-tag {
+      display: inline-block;
+      margin-right: 8px;
+      padding: 0 8px;
+      width: fit-content;
+      border: 1px solid var(--theme);
+      border-radius: 12px;
+      color: var(--theme);
+      font-size: .85em;
+      cursor: default;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background: var(--theme);
+        color: var(--white, #fff);
+      }
+    }
+
+    .shuoshuo-comment-btn {
+      padding: 2px;
+      color: #90a4ae;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--theme);
+      }
+    }
+  }
+
+  .shuoshuo-comment {
+    padding-top: 10px;
+
+    &.no-comment {
+      display: none;
+    }
+  }
+}
+
+/* 上游 .shuoshuo-navigation：无对应 DOM，空操作。分页输入框不压到瞬间页。 */
+.shuoshuo-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px 0;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.7em;
+    height: 2.7em;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+    font-size: .9em;
+    line-height: 2.5em;
+    transition: all .2s ease-in-out;
+    border-radius: 6px;
+
+    &:not(:disabled) {
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    &:hover:not(:disabled) {
+      background-color: var(--btn-hover-color);
+    }
+
+    &:disabled {
+      background: #f5f5f5;
+      color: #ccc;
+      opacity: .5;
+      cursor: not-allowed;
+    }
+  }
+
+  .shuoshuo-page-info {
+    margin: 0 15px;
+    color: #858585;
+    white-space: nowrap;
+    font-size: .9em;
+  }
+
+  .shuoshuo-page-input {
+    margin-right: 12px;
+    padding: 0 15px;
+    height: 2.7em;
+    border: 1px solid var(--btn-bg);
+    background: var(--card-bg);
+    color: #858585;
+    text-align: center;
+    font-size: .9em;
+    transition: all .2s ease-in-out;
+    border-radius: 6px;
+    -moz-appearance: textfield;
+
+    &:focus {
+      outline: none;
+      border-width: 2px;
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+
+    &.shuoshuo-page-num {
+      min-width: 40px;
+      width: 40px;
+      border: none;
+      background: var(--theme);
+      color: var(--white, #fff);
+      font-weight: 500;
+      cursor: text;
+
+      &:focus {
+        border: 1px solid var(--theme);
+        background: var(--white, #fff);
+        color: #333;
+      }
+    }
+
+    &.invalid {
+      border-color: #ff4757;
+      background-color: #ffeaea;
+      color: #ff4757;
+      animation: shake .5s ease-in-out;
+    }
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-2px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+/* Halo .moments：对齐卡片 padding / 间距，保留媒体 170×110，不加 #Butterfly。 */
+.moments {
+  .content > .list .item {
+    margin-bottom: 20px;
+    padding: 35px 30px 30px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+      padding: 25px 20px 20px;
+    }
+  }
+
+  .h {
+    padding: 15px 0 10px;
+  }
+
+  .medium {
+    img,
+    video,
+    audio {
+      width: 170px;
+      height: 110px;
+      max-width: 100%;
+    }
+  }
+}
