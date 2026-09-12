@@ -122,11 +122,14 @@ export default class Render {
     const adeToc = this.#tocStickyDom.find('.aside-toc');
     if (!adeToc.length) return;
 
-    const sideBtn = $('.side-btn');
+    const showPane = $('#rightside-config-show');
+    const sideBtn = showPane.length ? showPane : $('.side-btn');
+    const goUp = $('#go-up');
 
-    const tocBtn = $(`<button  class="button h5-toc" type="button"  title="文章目录" ><i class="fa-solid fa-list"></i></button>`);
+    const tocBtn = $(`<button id="mobile-toc-button" class="button h5-toc" type="button" title="文章目录"><i class="fas fa-list-ul"></i></button>`);
 
-    sideBtn.prepend(tocBtn);
+    if (goUp.length && showPane.length) tocBtn.insertBefore(goUp);
+    else sideBtn.prepend(tocBtn);
 
     tocBtn.on('click', async () => {
       adeToc.toggle('fast');

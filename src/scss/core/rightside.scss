@@ -1,0 +1,40 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/rightside.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 定位/滚动显隐仍用既有 .side-btn / .active（common.scss）。
+ * 本文件补 hide 组展开、窄屏隐藏 #hide-aside-btn。
+ * 不做 rightside_bottom 变量、scroll_percent 动画、完整配色。
+ */
+#rightside {
+  #rightside-config-hide {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translate(45px, 0);
+    transition: transform 0.4s, opacity 0.4s;
+
+    &.show {
+      height: auto;
+      opacity: 1;
+      overflow: visible;
+      pointer-events: auto;
+      transform: translate(0, 0);
+    }
+  }
+
+  #rightside-config-hide,
+  #rightside-config-show {
+    > button,
+    > a {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  #hide-aside-btn {
+    display: none;
+  }
+}

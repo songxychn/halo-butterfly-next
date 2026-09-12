@@ -247,24 +247,58 @@
     </menu>
   </div>
 
-  <!--/* 侧边按钮 */-->
-  <div class="side-btn">
-    <button
-      id="hide-aside-btn"
-      class="button"
-      type="button"
-      title="显示/隐藏侧栏"
-      th:if="${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'}"
-    >
-      <i class="fas fa-arrows-alt-h" aria-hidden="true"></i>
-    </button>
-    <button class="button switch-model" th:if="${theme.config.style.mode == 'user'}" onclick="MainApp.useTheme.toggleMode()" type="button" title="浅色和深色模式转换">
-      <i class="fas fa-adjust"></i>
-    </button>
-
-    <button class="button back-top" onclick="MainApp.useCommon.backTop()" type="button" title="回到顶部">
-      <i class="fa-solid fa-arrow-up"></i>
-    </button>
+  <!--/* 对齐 rightside.pug：#rightside / config-hide / config-show / #go-up。
+       保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
+       hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
+       不做 readmode / translate / chat / comment / item_order / scroll_percent。 */-->
+  <div
+    id="rightside"
+    class="side-btn"
+    th:with="
+      hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
+      darkBtnOn = ${theme.config.style.mode == 'user'}
+    "
+  >
+    <div id="rightside-config-hide">
+      <button
+        id="hide-aside-btn"
+        class="button"
+        type="button"
+        title="显示/隐藏侧栏"
+        th:if="${hideBtnOn}"
+      >
+        <i class="fas fa-arrows-alt-h" aria-hidden="true"></i>
+      </button>
+      <button
+        class="button switch-model"
+        type="button"
+        title="浅色和深色模式转换"
+        th:if="${darkBtnOn}"
+        onclick="MainApp.useTheme.toggleMode()"
+      >
+        <i class="fas fa-adjust" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div id="rightside-config-show">
+      <button
+        id="rightside-config"
+        class="button"
+        type="button"
+        title="设置"
+        th:if="${hideBtnOn or darkBtnOn}"
+      >
+        <i class="fas fa-cog" aria-hidden="true"></i>
+      </button>
+      <button
+        id="go-up"
+        class="button back-top"
+        type="button"
+        title="回到顶部"
+        onclick="MainApp.useCommon.backTop()"
+      >
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </th:block>
 
