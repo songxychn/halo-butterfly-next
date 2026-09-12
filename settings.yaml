@@ -362,6 +362,16 @@ spec:
             - label: 隐藏
               value: false
         - $formkit: radio
+          name: hide_button
+          label: 右下角隐藏侧栏开关
+          help: "对应上游 Butterfly aside.button（_config.yml / layout/includes/rightside.pug / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不渲染 #hide-aside-btn。必须用 aside.hide_button，禁止复用作者卡片 aside.button。不改 aside.hide / aside.mobile。不做完整 rightside。"
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: radio
           name: position
           label: 侧边栏位置
           help: 侧边栏展示位置，左边或右边
