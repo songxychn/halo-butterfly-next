@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 123,
+  "pr": 125,
+  "title": "M1：侧栏隐藏开关 aside.hide_button",
+  "author": "cursor/m1-aside-hide-button",
+  "recorder": "cursor/record-125",
+  "recordedAt": "2026-09-12T04:35:00Z",
+  "visibility": "private",
+  "sourceSha": "e31ceab48c9408c1ec3ebdca5a7b7a11136b60ec",
+  "reviewHead": "e31ceab48c9408c1ec3ebdca5a7b7a11136b60ec",
+  "mergeSha": "e12e2eae6b3e20beb148f89e052f08619fb70f5c",
+  "mergedAt": "2026-09-12T04:30:29Z",
+  "closesIssue": 123,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/125#issuecomment-5643458765",
+    "createdAt": "2026-09-12T04:29:54Z",
+    "head": "e31ceab48c9408c1ec3ebdca5a7b7a11136b60ec",
+    "note": "Independent review posted as issue comment 5643458765, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. This record waited until PR CI 34672870827 and merge-commit master CI 34673184345 completed success."
+  },
+  "settingsSha256": "f034dd26fcd1e0e0535078b702244689b12b0676a36a3c6a60e95df1dc96b0a7",
+  "productCommits": [
+    {
+      "sha": "d660658",
+      "summary": "Align upstream aside.button hide-toggle onto new Halo key aside.hide_button. Default true; only explicit false omits #hide-aside-btn. Click toggles html.hide-aside and writes localStorage aside-status with TTL 2 days. Does not reuse author-card aside.button. Does not change aside.hide / aside.mobile. Does not implement full rightside."
+    },
+    {
+      "sha": "93d063e",
+      "summary": "Refreeze performance theme-defaults.json onto the aside.hide_button implementation commit"
+    },
+    {
+      "sha": "e31ceab",
+      "summary": "Register #125 onto config:aside.button and interaction:hide-aside matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:aside.button",
+    "interaction:hide-aside"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:aside.hide",
+    "config:aside.mobile",
+    "config:mask.header",
+    "config:mask.footer",
+    "config:footer_img",
+    "config:footer.nav",
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "template:includes/footer",
+    "style:source/css/_layout/footer.styl",
+    "template:includes/rightside",
+    "style:source/css/_layout/rightside.styl"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 490,
+    "mapping-required": 262,
+    "implemented-unverified": 135,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 126,
+    "state": "OPEN",
+    "title": "M1：页脚模板 includes/footer",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/126",
+    "note": "Footer owner/copyright/nav/footer_img/mask.footer already implemented-unverified. This slice is the remaining footer.pug template (and optional footer.styl). Must not raise those config rows to verified. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 124,
+    "title": "docs: 记录 #122 侧栏窄屏合并证据",
+    "headSha": "df6f35ae3e3b5fc14b8f87801e8fa66cb57115cf",
+    "mergeSha": "7ba114d12a2348104e640913f7ba1b5356f08168",
+    "mergedAt": "2026-09-12T04:15:02Z",
+    "prCi": 34672319834,
+    "prCiConclusion": "success",
+    "masterCi": 34672505309,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34672505309",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/124#issuecomment-5643388189",
+    "note": "Waited with gh run view until completed. Push-event master CI 34672505309 on 7ba114d12a2348104e640913f7ba1b5356f08168 completed success at 2026-09-12T04:16:44Z, before the #125 merge push at 2026-09-12T04:30:29Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34672870827,
+      "runAttempt": 1,
+      "headSha": "e31ceab48c9408c1ec3ebdca5a7b7a11136b60ec",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34672870827",
+      "note": "GitHub Verify theme: 187 tests pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34673184345,
+      "runAttempt": 1,
+      "headSha": "e12e2eae6b3e20beb148f89e052f08619fb70f5c",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34673184345",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T04:31:42Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #125; there is no Approve. Independent review is issue comment 5643458765 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head e31ceab48c9408c1ec3ebdca5a7b7a11136b60ec: newly raised to implemented-unverified are config:aside.button and interaction:hide-aside. evidence remains []. template:includes/footer, footer.styl, template:includes/rightside, and rightside.styl remain gap. config:aside.hide / aside.mobile stay implemented-unverified. Does not mark verified.",
+    "settingsSha256 f034dd26fcd1e0e0535078b702244689b12b0676a36a3c6a60e95df1dc96b0a7 matches settings.yaml at d660658 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit d6606582003d80a03ab5a975c0c81808a0a67ac2. Default aside.hide_button is true.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 aside.button true: only explicit false omits #hide-aside-btn when aside.enable is on. Click toggles html.hide-aside and writes localStorage aside-status TTL 2 days. New settings key aside.hide_button; does not reuse author-card aside.button. Help quoting protects #hide-aside-btn. No new th:utext. tracking.pullRequests used. Does not change aside.hide / aside.mobile initial classappend.",
+    "Non-blocking P2 from the independent review: the button is in Halo .side-btn (visible after scroll .active), not full #rightside. Upstream keeps it behind the cog by default and hides it at max-width 900px; Halo does not. No per-page page.aside. aside.hide / aside.mobile findings still say this slice does not do the hide toggle. No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #126 footer template; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:aside.button and interaction:hide-aside; evidence remains [].",
+    "template:includes/footer, style:source/css/_layout/footer.styl, template:includes/rightside, and style:source/css/_layout/rightside.styl remain gap.",
+    "Does not implement full rightside.pug / rightside.styl. Must not reuse existing aside.button author-card settings.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #124 merge-commit master CI run 34672505309 on 7ba114d12a2348104e640913f7ba1b5356f08168 completed success at 2026-09-12T04:16:44Z, before the #125 merge push at 2026-09-12T04:30:29Z; must not be recorded as cancelled.",
+    "PR #125 merge-commit master CI run 34673184345 on e12e2eae6b3e20beb148f89e052f08619fb70f5c completed success at 2026-09-12T04:31:42Z; must not be recorded as cancelled.",
+    "Issue #126 footer template is open; #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}
