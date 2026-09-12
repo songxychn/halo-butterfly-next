@@ -1,0 +1,147 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/relatedposts.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 .relatedPosts > .relatedPosts-list > a；Halo 卡片是
+ * <a class="pagination-related">，选择器并列 `> a`。
+ * 三列 33.333%-6px / 200px；768 两列 50%-4px / 150px；600 单列。
+ * 标题 -webkit-line-clamp 2，悬停摘要 clamp 3。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px 文章上下篇。
+ * 不做 reward.styl 全文、打赏弹层、snackbar、改 settings.yaml。
+ * 不复用作者卡片按钮设置键。#hide-aside-btn 仍走 hide_button。
+ */
+@use "util";
+
+.relatedPosts {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  > .headline {
+    margin-bottom: 5px;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-weight: 700;
+    font-size: 1.43em;
+  }
+
+  > .relatedPosts-list {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    min-width: 0;
+
+    > a,
+    > a.pagination-related {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      box-sizing: border-box;
+      margin: 3px;
+      width: calc(33.333% - 6px);
+      max-width: 100%;
+      min-width: 0;
+      height: 200px;
+      background: #000;
+      color: #fff;
+      border-radius: var(--card-border-radius, 8px);
+
+      @include util.useResponsive(util.$w-md) {
+        margin: 2px;
+        width: calc(50% - 4px);
+        height: 150px;
+      }
+
+      @include util.useResponsive(600px) {
+        width: calc(100% - 4px);
+      }
+
+      &:hover .cover {
+        opacity: .5;
+        transform: scale(1.1);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--theme);
+        outline-offset: 3px;
+      }
+
+      .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: .4;
+        background: var(--default-bg-color, #49b1f5);
+        transition: all .6s, filter 375ms ease-in .2s;
+      }
+
+      .info {
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+
+        .info-1,
+        .info-2 {
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          box-sizing: border-box;
+          padding: 20px 16px;
+          color: #fff;
+          transform: translate(0, -50%);
+          transition: transform .3s, opacity .3s;
+        }
+
+        .info-1 {
+          .info-item-1 {
+            color: rgba(255, 255, 255, .7);
+            font-size: 90%;
+          }
+
+          .info-item-2 {
+            @include util.text-clamp(2);
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            color: #fff;
+            font-weight: 500;
+          }
+        }
+
+        .info-2 {
+          opacity: 0;
+          transform: translate(0, 0);
+
+          .info-item-1 {
+            @include util.text-clamp(3);
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+          }
+        }
+      }
+
+      &:not(.no-desc):hover {
+        .info-1 {
+          opacity: 0;
+          transform: translate(0, -100%);
+        }
+
+        .info-2 {
+          opacity: 1;
+          transform: translate(0, -50%);
+        }
+      }
+    }
+  }
+}
