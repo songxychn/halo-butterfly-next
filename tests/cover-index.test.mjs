@@ -74,5 +74,6 @@ test('列表卡片在窄屏限制横向溢出：min-width 0、overflow hidden、
   assert.match(mixin, /overflow-wrap:\s*anywhere/);
   assert.match(mixin, /util\.\$w-md/);
   assert.match(mixin, /&\.no-cover > \.info/);
-  assert.match(mixin, /grid-template-columns:\s*repeat\(1, 1fr\)/);
+  assert.match(mixin, /&\.tile/);
+  assert.match(mixin, /width:\s*100%/);
 });
