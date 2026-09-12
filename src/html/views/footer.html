@@ -24,23 +24,31 @@
     ></a>
   </div>
   <div class="footer-other"
+       th:classappend="${not #lists.isEmpty(theme.config.footer?.nav)} ? ' footer-other--nav'"
        th:with="
          currentYear = ${#dates.format(#dates.createNow(), 'yyyy')},
          ownerOn = ${theme.config.footer?.owner?.enable != false and theme.config.footer?.owner?.enable != 'false'},
          copyOn = ${theme.config.footer?.copyright?.enable != false and theme.config.footer?.copyright?.enable != 'false'},
          versionOn = ${theme.config.footer?.copyright?.version != false and theme.config.footer?.copyright?.version != 'false'},
          sinceRaw = ${theme.config.footer?.owner?.since},
-         sinceText = ${sinceRaw == null or sinceRaw == '' ? '' : (sinceRaw + '')}
+         sinceText = ${sinceRaw == null or sinceRaw == '' ? '' : (sinceRaw + '')},
+         navOn = ${not #lists.isEmpty(theme.config.footer?.nav)}
        ">
     <div class="footer-copyright">
       <span class="copyright"
             th:if="${ownerOn}"
             th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear} ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + site.title) : ('© ' + currentYear + ' By ' + site.title)"></span>
       <span class="framework-info powered" th:if="${copyOn}">
-        Powered by&nbsp;<a class="halo" href="https://halo.run/" target="_blank">Halo</a>&nbsp;|&nbsp;Halo Butterfly Next<span th:if="${versionOn}" th:text="' ' + theme.spec.version"></span>&nbsp;·&nbsp;源自&nbsp;<a class="theme"
+        <span class="footer-separator" th:if="${ownerOn and navOn}">|</span>
+        <span>框架 </span>
+        <a class="halo" href="https://halo.run/" target="_blank" rel="noopener noreferrer">Halo</a>
+        <span class="footer-separator">|</span>
+        <span>主题 </span>
+        <a class="theme"
            title="原 Halo Butterfly 移植项目"
            href="https://github.com/dhjddcn/halo-theme-butterfly"
-           target="_blank">小红</a>
+           target="_blank"
+           rel="noopener noreferrer">Halo Butterfly Next</a><span th:if="${versionOn}" th:text="' ' + theme.spec.version"></span>
       </span>
     </div>
     <div class="footer_custom_text"

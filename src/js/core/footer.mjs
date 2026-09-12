@@ -9,9 +9,11 @@
  * 「© since - current By author」，否则「© current By author」。
  * 作者用站点名称。custom_text 有内容才渲染；可见文本走转义，不做 HTML。
  * footer.nav 默认空；扁平 title/url，不做 html / 嵌套列。
- * footer_img 默认空（上游 false）：空 / false 不套背景；true 本刀不复用页头。
+ * 模板结构对齐 footer.pug：.footer-separator、框架/主题链；有 nav 时
+ * .footer-other--nav。custom_text 仍 th:text，无新增 th:utext。
+ * footer_img 默认空（上游 false）：空 / false 不套背景；true 不复用页头。
  * 非空 URL 才写 background-image。mask.footer 默认 true，仅显式 false 关闭；
- * 有背景且未关闭时才加遮罩。不做 mask.header。
+ * 有背景且未关闭时才加遮罩。不做 mask.header。不做完整 footer.styl 配色。
  */
 
 export const DEFAULTS = {

@@ -27272,9 +27272,11 @@
         "settings": [],
         "code": [
           "src/html/views/footer.html",
-          "src/scss/core/footer.scss"
+          "src/scss/core/footer.scss",
+          "src/js/core/footer.mjs",
+          "tests/footer.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 #5 已验证署名链接下划线、焦点与暗色对比度，仅覆盖页脚无障碍子集；页脚配置和视觉对齐状态保持未完成。"
+        "finding": "已对齐 footer.pug 模板骨架：扁平 nav、.footer-separator、框架/主题链、.footer-other--nav、custom_text th:text。备案与 halo:footer 为 Halo 附加。不做嵌套列/html 子项、不做 custom_text HTML。footer.styl 配色与 flex 列仍 gap。已落地 footer config 不得升 verified。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -27295,14 +27297,15 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/5"
+          "https://github.com/songxychn/halo-butterfly-next/issues/5",
+          "https://github.com/songxychn/halo-butterfly-next/issues/126"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/15"
         ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head",

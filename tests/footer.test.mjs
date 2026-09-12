@@ -211,3 +211,17 @@ test('mask.footer 默认 true；仅显式 false 关闭；无背景不加遮罩',
   assert.equal(shouldRenderFooterMask('https://example.test/f.png', undefined), true);
   assert.equal(shouldRenderFooterMask('https://example.test/f.png', false), false);
 });
+
+test('模板结构：footer-separator、框架/主题链；有 nav 时 footer-other--nav；无新增 th:utext', () => {
+  assert.match(footerHtml, /class="footer-separator"/);
+  assert.match(footerHtml, /ownerOn and navOn/);
+  assert.match(footerHtml, /footer-other--nav/);
+  assert.match(footerHtml, />框架 </);
+  assert.match(footerHtml, />主题 </);
+  assert.match(footerHtml, /Halo Butterfly Next/);
+  assert.match(footerHtml, /rel="noopener noreferrer"/);
+  assert.doesNotMatch(footerHtml, /th:utext/);
+  assert.match(scss, /\.footer-separator/);
+  assert.match(scss, /footer-other--nav/);
+  assert.match(scss, /font-size:\s*0\.9em/);
+});
