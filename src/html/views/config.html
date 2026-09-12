@@ -19,6 +19,17 @@
       mode === 'auto' ? (new Date().getHours() >= 6 && new Date().getHours() < 18 ? 'light' : 'dark') :
       (saved === 'dark' ? 'dark' : 'light');
   } catch { document.documentElement.dataset.colorScheme = 'light'; }
+  try {
+    const restoreAside = /*[[${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'}]]*/ true;
+    if (restoreAside) {
+      const raw = localStorage.getItem('aside-status');
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data.expiry && Date.now() > data.expiry) localStorage.removeItem('aside-status');
+        else if (data.value !== undefined) document.documentElement.classList.toggle('hide-aside', data.value === 'hide');
+      }
+    }
+  } catch {}
 </script>
 
 <!--/* style */-->
