@@ -9286,12 +9286,15 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "style.mode"
+          "darkmode.enable"
         ],
         "code": [
-          "src/js/core/theme.js"
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/js/core/darkmode.mjs",
+          "tests/darkmode.test.mjs"
         ],
-        "finding": "已有 auto/user/light/dark 模式，需对齐 enable 和按钮的独立控制。"
+        "finding": "已映射为 Halo darkmode.enable，默认 true；仅显式 false 时不提供右下角 #darkmode（须同时 darkmode.button）。不复用作者卡片 aside.button。不拆 style.mode。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9314,7 +9317,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/144"
         ],
         "pullRequests": []
       },
@@ -9344,12 +9348,15 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "style.mode"
+          "darkmode.button"
         ],
         "code": [
-          "src/html/views/components.html"
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/js/core/darkmode.mjs",
+          "tests/darkmode.test.mjs"
         ],
-        "finding": "当前仅 user 模式显示切换按钮，需对齐独立开关。"
+        "finding": "已映射为 Halo darkmode.button，默认 true；须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。不再仅限 style.mode == user。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -9372,7 +9379,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/144"
         ],
         "pullRequests": []
       },
@@ -46118,14 +46126,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "darkmode.enable",
+          "darkmode.button"
+        ],
         "code": [
           "src/html/views/components.html",
+          "src/js/core/common.js",
+          "src/js/core/darkmode.mjs",
           "src/js/core/theme.js",
-          "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+          "tests/darkmode.test.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已映射 #darkmode：darkmode.enable && darkmode.button 才渲染，默认均 true。点击走 Theme.toggleMode，不走 innerHTML。未改 localStorage 键（仍 halo-butterfly-next.color-scheme）。不做 autoChangeMode 1/2、start/end、完整 darkmode.styl、item_order、snackbar。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -46146,12 +46158,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/144"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:translate",
