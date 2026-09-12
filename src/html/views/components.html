@@ -250,13 +250,14 @@
   <!--/* 对齐 rightside.pug：#rightside / config-hide / config-show / #go-up。
        保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
-       不做 readmode / translate / chat / comment / item_order / scroll_percent。 */-->
+       不做 readmode / translate / chat / comment / item_order / rightside_bottom。 */-->
   <div
     id="rightside"
     class="side-btn"
     th:with="
       hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
-      darkBtnOn = ${theme.config.style.mode == 'user'}
+      darkBtnOn = ${theme.config.style.mode == 'user'},
+      percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'}
     "
   >
     <div id="rightside-config-hide">
@@ -296,6 +297,7 @@
         title="回到顶部"
         onclick="MainApp.useCommon.backTop()"
       >
+        <span class="scroll-percent" th:if="${percentOn}"></span>
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
       </button>
     </div>

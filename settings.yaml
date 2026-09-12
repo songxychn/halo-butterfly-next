@@ -1071,7 +1071,7 @@ spec:
         - $formkit: radio
           name: scroll_percent
           label: 滚动百分比
-          help: 对应上游 toc.scroll_percent（默认开启）。开启后目录标题显示阅读进度百分比；关闭不渲染、不更新。不做 rightside_scroll_percent。
+          help: 对应上游 toc.scroll_percent（默认开启）。开启后目录标题显示阅读进度百分比；关闭不渲染、不更新。右下角回到顶部百分比见 rightside.scroll_percent。
           value: true
           options:
             - label: 显示
@@ -1452,6 +1452,19 @@ spec:
             - label: 关闭
               value: false
     #页脚（对齐上游 footer.owner / copyright / custom_text）
+    - group: rightside
+      label: 右下角按钮
+      formSchema:
+        - $formkit: radio
+          name: scroll_percent
+          label: 回到顶部阅读百分比
+          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。不做 rightside_bottom / item_order / readmode。禁止复用作者卡片 aside.button。"
+          value: false
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
     - group: footer
       label: 页脚
       formSchema:

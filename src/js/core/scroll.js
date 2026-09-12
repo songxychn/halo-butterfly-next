@@ -7,6 +7,7 @@
 import $ from 'jquery';
 import {useThrottle} from './_util';
 import {isNavAlwaysPinned, navScrollAppearance} from './nav-scroll.mjs';
+import { bindRightsideScrollPercent } from './rightside.mjs';
 
 export default class Scroll {
   #CHANGE_FN = null; // 回调
@@ -15,10 +16,12 @@ export default class Scroll {
   #max = 56; // 最大值
   #num = 0; // 上一次滚动值
   #fixed = false;
+  #goUpPercent = null;
 
   // 初始化
   constructor() {
     this.#fixed = isNavAlwaysPinned(window.MainApp?.conf?.nav_fixed);
+    this.#goUpPercent = bindRightsideScrollPercent();
     window.addEventListener('scroll', useThrottle(() => {
       let scrollTop = window.scrollY || document.documentElement.scrollTop;
 
@@ -28,6 +31,7 @@ export default class Scroll {
       // 激活侧边按钮
       this.#activeBtn(scrollTop);
 
+      this.#goUpPercent && this.#goUpPercent(scrollTop);
       this.#CHANGE_FN && this.#CHANGE_FN(this.#max, this.#num, scrollTop);
       this.#num = scrollTop;
     }, 200));
