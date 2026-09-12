@@ -1,0 +1,241 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_mode/darkmode.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游选择器 [data-theme='dark'] 映射为 html[data-color-scheme='dark']，
+ * 不改 data-theme，不改 FOUC。始终产出样式：darkmode.enable / button 只控制
+ * #darkmode，不决定深色 CSS 是否存在。
+ *
+ * Stylus 色函数按 Sass 语义预计算：darken/lighten 调整 HSL 明度。
+ * 不做 snackbar、rightside_item_order、localStorage 键 theme。
+ */
+
+html[data-color-scheme='dark'] {
+  --global-bg: #0d0d0d;
+  --font-color: rgba(255, 255, 255, 0.7);
+  --hr-border: rgba(255, 255, 255, 0.4);
+  --hr-before-color: rgba(255, 255, 255, 0.7);
+  --search-bg: #121212;
+  --search-input-color: rgba(255, 255, 255, 0.7);
+  --search-a-color: rgba(255, 255, 255, 0.7);
+  --preloader-bg: #0d0d0d;
+  --preloader-color: rgba(255, 255, 255, 0.7);
+  --tab-border-color: #2c2c2c;
+  --tab-button-bg: #2c2c2c;
+  --tab-button-color: rgba(255, 255, 255, 0.7);
+  --tab-button-hover-bg: #383838;
+  --tab-button-active-bg: #121212;
+  --card-bg: #121212;
+  --sidebar-bg: #121212;
+  --sidebar-menu-bg: #1f1f1f;
+  --btn-hover-color: #787878;
+  --btn-bg: #1f1f1f;
+  --text-bg-hover: #383838;
+  --light-grey: rgba(255, 255, 255, 0.7);
+  --dark-grey: rgba(255, 255, 255, 0.2);
+  --white: rgba(255, 255, 255, 0.9);
+  --text-highlight-color: rgba(255, 255, 255, 0.9);
+  --blockquote-color: rgba(255, 255, 255, 0.7);
+  --blockquote-bg: #2c2c2c;
+  --reward-pop: #2c2c2c;
+  --toc-link-color: rgba(255, 255, 255, 0.6);
+  --scrollbar-color: #525252;
+  --timeline-bg: #1f1f1f;
+  --zoom-bg: #121212;
+  --mark-bg: rgba(0, 0, 0, 0.6);
+  --btn-color: #cccccc;
+  --btn-default-color: #aaaaaa;
+  --tags-blue-color: #39556d;
+  --tags-blue-color-lighten: rgba(66, 139, 202, 0.15);
+  --tags-pink-color: #d3257c;
+  --tags-pink-color-lighten: rgba(255, 105, 180, 0.15);
+  --tags-red-color: #6e1212;
+  --tags-red-color-lighten: rgba(255, 0, 0, 0.15);
+  --tags-orange-color: #784c17;
+  --tags-orange-color-lighten: rgba(255, 140, 0, 0.15);
+  --tags-purple-color: #4e4265;
+  --tags-purple-color-lighten: rgba(111, 66, 193, 0.15);
+  --tags-green-color: #4d614d;
+  --tags-green-color-lighten: rgba(92, 184, 92, 0.15);
+  --note-default-border: #5a5a5a;
+  --note-default-bg: #2b2b2b;
+  --note-default-text: #b3b3b3;
+  --note-modern-default-border: #9a9a9a;
+  --note-modern-default-bg: #353535;
+  --note-modern-default-text: #c4c4c4;
+  --note-primary-border: #5935a1;
+  --note-primary-bg: #2e1c3e;
+  --note-primary-text: #a47dd4;
+  --note-modern-primary-border: #9985cc;
+  --note-modern-primary-bg: #3c2d4c;
+  --note-modern-primary-text: #b693e6;
+  --note-info-border: #346fa2;
+  --note-info-bg: #1f2e3b;
+  --note-info-text: #7bb3db;
+  --note-modern-info-border: #7ca8b5;
+  --note-modern-info-bg: #2b3c44;
+  --note-modern-info-text: #8fc6e0;
+  --note-success-border: #4a944a;
+  --note-success-bg: #202e20;
+  --note-success-text: #82c682;
+  --note-modern-success-border: #8bb087;
+  --note-modern-success-bg: #2c3d2c;
+  --note-modern-success-text: #96d196;
+  --note-warning-border: #c08a3e;
+  --note-warning-bg: #3e301f;
+  --note-warning-text: #e6ba6b;
+  --note-modern-warning-border: #b8a285;
+  --note-modern-warning-bg: #4b3c2b;
+  --note-modern-warning-text: #d4b373;
+  --note-danger-border: #b34440;
+  --note-danger-bg: #3b201f;
+  --note-danger-text: #e67572;
+  --note-modern-danger-border: #c7898c;
+  --note-modern-danger-bg: #4d2b2e;
+  --note-modern-danger-text: #d98b8e;
+
+  /* Halo 现有 token：让卡片/正文/背景吃到上游调色，不改 --theme / nav-* 设置项 */
+  --body-background: var(--global-bg);
+  --text-color: var(--font-color);
+  --card-background-color: var(--card-bg);
+  --blockquote-font-color: var(--blockquote-color);
+  --blockquote-background-color: var(--blockquote-bg);
+  --h-color: var(--text-highlight-color);
+
+  #web_bg::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    content: '';
+  }
+
+  .container,
+  #Butterfly {
+    code {
+      background: #2c2c2c;
+    }
+
+    pre > code {
+      background: #171717;
+    }
+  }
+
+  figure.highlight,
+  .code-toolbar {
+    box-shadow: none;
+  }
+
+  .note code {
+    background: rgba(27, 31, 35, 0.05);
+  }
+
+  kbd {
+    border-color: #696969;
+    background-color: #525252;
+    color: #e2f1ff;
+  }
+
+  #page-header.nav-fixed > #nav,
+  #page-header.not-top-img > #nav {
+    background: rgba(18, 18, 18, 0.8);
+    box-shadow: 0 5px 6px -5px rgba(133, 133, 133, 0);
+  }
+
+  #post-comment .comment-switch {
+    background: #2c2c2c !important;
+  }
+
+  #switch-btn {
+    filter: brightness(0.8);
+  }
+
+  .hide-button,
+  .toggle-button,
+  #post-outdate-notice,
+  .error-img,
+  .container iframe,
+  #Butterfly iframe,
+  .gist,
+  .ads-wrap,
+  .tag-cloud-list > a {
+    filter: brightness(0.8);
+  }
+
+  img:not(.cover) {
+    filter: brightness(0.88) contrast(0.95);
+  }
+
+  #aside-content .aside-list > .aside-list-item:not(:last-child),
+  .aside-recent-post .content > .item:not(:last-child) {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  }
+
+  #gitalk-container {
+    filter: brightness(0.8);
+  }
+
+  svg {
+    fill: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  #disqusjs #dsqjs {
+    &:hover,
+    &:focus,
+    .dsqjs-tab-active,
+    .dsqjs-no-comment {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .dsqjs-order-label {
+      background-color: #1f1f1f;
+    }
+
+    .dsqjs-post-body {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    code,
+    pre {
+      background: #2c2c2c;
+    }
+
+    blockquote {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  #artitalk_main #lazy,
+  #operare_artitalk .c2 {
+    background: #121212;
+  }
+
+  @media (max-width: 900px) {
+    #card-toc,
+    .aside-toc {
+      background: #1f1f1f;
+    }
+  }
+
+  .artalk.atk-dark-mode,
+  .atk-layer-wrap.atk-dark-mode {
+    --at-color-font: rgba(255, 255, 255, 0.7);
+    --at-color-meta: rgba(255, 255, 255, 0.7);
+    --at-color-grey: rgba(255, 255, 255, 0.7);
+  }
+
+  .atk-send-btn,
+  .atk-badge {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  #waline-wrap {
+    --waline-color: rgba(255, 255, 255, 0.7);
+    --waline-dark-grey: rgba(255, 255, 255, 0.7);
+    --waline-info-color: rgba(255, 255, 255, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+  }
+}
