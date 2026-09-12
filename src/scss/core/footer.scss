@@ -63,6 +63,29 @@
     max-width: 100%;
   }
 
+  /* 上游 footer.styl：.footer-separator { margin: 0 4px } */
+  .footer-separator {
+    margin: 0 4px;
+  }
+
+  /* 上游 footer.styl：.footer-other；有 footer.nav 时 padding/背景 */
+  .footer-other {
+    padding: 40px 20px;
+    width: 100%;
+    text-align: center;
+
+    &.footer-other--nav {
+      padding: 10px 8px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .copyright,
+  .framework-info,
+  .footer_custom_text {
+    font-size: 0.9em;
+  }
+
   .footer-copyright {
     display: flex;
     flex-wrap: wrap;
