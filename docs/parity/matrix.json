@@ -39121,11 +39121,12 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/flink.scss",
+          "src/scss/core/index.scss",
+          "src/scss/page/links.scss",
+          "tests/flink-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/flink.scss 对齐 flink.styl 友链页样式。选择器并列 .flink / .flink-list-item（空操作，无 DOM）与 Halo .links / .groups / .link。未重写模板去造 .flink-list-item。上游三列 width calc(100% / 3 - 15px)、高 90px、1024 calc(50% - 15px)、600 calc(100% - 15px) 仅留在 .flink-list-item。Halo 保持 grid repeat(auto-fill, minmax(260px, 1fr))，卡片高 100px；对齐 logo 60px、.n 1.43em 单行、.d .93em clamp、分组名 1.5em。不用 #Butterfly 把 float 三列宽度压到 .links .link。不改 data-theme。不把已落地 categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39145,12 +39146,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/210"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_page/homepage.styl",
