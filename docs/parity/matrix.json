@@ -40121,11 +40121,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/css-var.scss",
+          "src/scss/core/index.scss",
+          "tests/css-var-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/css-var.scss 对齐 source/css/var.styl。$bright-blue #49b1f5、$font-size 14px、$sidebar-width 330px、$index_top_img_height 100vh、$index_site_info_top 43%、$line-height-code-block 1.6、$preloader-bg #37474f、$tagsP-* / $tab-border-color 挂在无 DOM 的 .container 下（上游文件本身无选择器；Halo 活 token 已在 _base / global-index，不要把 14px / 330px / 100vh 压到活 html/body）。未实现 snackbar / preloader 产品开关。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 index.styl / normalize.min.css / timeline.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -40145,12 +40145,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/291"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:default",
