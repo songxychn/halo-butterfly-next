@@ -37,7 +37,7 @@
     <div class="footer-copyright">
       <span class="copyright"
             th:if="${ownerOn}"
-            th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear} ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + site.title) : ('© ' + currentYear + ' By ' + site.title)"></span>
+            th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + site.title) : ('© ' + currentYear + ' By ' + site.title)}"></span>
       <span class="framework-info powered" th:if="${copyOn}">
         <span class="footer-separator" th:if="${ownerOn and navOn}">|</span>
         <span>框架 </span>
@@ -48,7 +48,7 @@
            title="原 Halo Butterfly 移植项目"
            href="https://github.com/dhjddcn/halo-theme-butterfly"
            target="_blank"
-           rel="noopener noreferrer">Halo Butterfly Next</a><span th:if="${versionOn}" th:text="' ' + theme.spec.version"></span>
+           rel="noopener noreferrer">Halo Butterfly Next</a><span th:if="${versionOn}" th:text="${' ' + theme.spec.version}"></span>
       </span>
     </div>
     <div class="footer_custom_text"
