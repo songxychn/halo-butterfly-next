@@ -1,0 +1,66 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_highlight/highlight/index.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 .container figure.highlight：.line:before padding 0 6px 0 0 /
+ * min-width 30px；.line.marked 背景 $highlight-selection（light 默认
+ * #80CBC440）；table display block / overflow auto / border none；
+ * td padding 0；.gutter pre padding 10px、text-align right；
+ * .code pre padding 10px、width 100%。
+ * Halo 正文是 article.render，代码块是 .code-toolbar，没有 Hexo
+ * figure.highlight / table-gutter DOM。上游选择器空操作保留数字。
+ * 不要用 #Butterfly ID 把 overflow/width/min-width 压到主栏或已有工具栏
+ * （#203 P1 同类）。不重写模板去造 Hexo highlight 结构。
+ * 不实现 prismjs/* / theme.styl / diff.styl。不把已落地 highlight.styl /
+ * _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 .container figure.highlight：无对应 DOM，空操作。 */
+.container {
+  figure.highlight {
+    .line {
+      &:before {
+        display: inline-block;
+        padding: 0 6px 0 0;
+        min-width: 30px;
+        color: var(--hlnumber-color);
+        content: counter(line);
+        counter-increment: line;
+        text-align: left;
+      }
+
+      &.marked {
+        background-color: #80cbc440;
+      }
+    }
+
+    table {
+      display: block;
+      overflow: auto;
+      border: none;
+
+      td {
+        padding: 0;
+        border: none;
+      }
+    }
+
+    .gutter pre {
+      padding-right: 10px;
+      padding-left: 10px;
+      background-color: var(--hlnumber-bg);
+      color: var(--hlnumber-color);
+      text-align: right;
+    }
+
+    .code pre {
+      padding-right: 10px;
+      padding-left: 10px;
+      width: 100%;
+    }
+  }
+}
