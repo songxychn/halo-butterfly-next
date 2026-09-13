@@ -39968,11 +39968,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/tags-timeline.scss",
+          "src/scss/core/index.scss",
+          "tests/tags-timeline-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/tags-timeline.scss 对齐 timeline.styl。.timeline（margin 0 10px 20px、padding 14px 0 5px 20px、左边框 2px）、.item-circle:before 6px 圆点 / 默认边框 3px / headline 4px left -28px、.timeline-item-content padding 12px 15px / radius 8px / .93em、相邻 .timeline margin-top -20px 挂在无 DOM 的 .container 下（上游文件自身有 .container；不要把 padding / border / -20px 压到主栏）。$color-types blue/pink/red/purple/orange/green 写入 --timeline-color / --timeline-bg。未实现 source/css/index.styl / var.styl / _third-party/normalize.min.css。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 tabs.styl / series.styl / note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39992,12 +39992,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/282"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_third-party/normalize.min.css",
