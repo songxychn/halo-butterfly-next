@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "kind": "independent-review-record",
+  "issue": 264,
+  "pr": 265,
+  "title": "M1：隐藏标签样式 _tags/hide.styl",
+  "author": "cursor/m1-tags-hide-styl",
+  "recorder": "cursor/docs-record-265",
+  "recordedAt": "2026-09-13T08:44:00Z",
+  "visibility": "private",
+  "sourceSha": "3444f6bcbdcb32c05c5ea06533cd04e3910a6201",
+  "reviewHead": "3444f6bcbdcb32c05c5ea06533cd04e3910a6201",
+  "mergeSha": "27a657620032b646068f539598943b05964a5e34",
+  "mergedAt": "2026-09-13T08:39:13Z",
+  "closesIssue": 264,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/265#issuecomment-5652247023",
+    "createdAt": "2026-09-13T08:35:17Z",
+    "head": "3444f6bcbdcb32c05c5ea06533cd04e3910a6201",
+    "note": "Independent review posted as issue comment 5652247023, not a GitHub Approve. Verdict: approve-as-comment. No P1. Top-level @use \"tags-hide\" after tags-hexo; .hide-button padding 5px 18px / border-radius 6px and .toggle margin-bottom 20px / border-radius 5px stay on no-DOM .container (upstream file has no .container); no #Butterfly onto live .button or #hide-aside-btn. The reviewer's CI snapshot recorded run 34747746593 completed success; this record waited until merge-commit master CI 34748223806 completed success at 2026-09-13T08:41:38Z. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "405dace852490e92b29a9b82bde87e45e49f3d33",
+      "summary": "Add src/scss/core/tags-hide.scss and top-level @use after tags-hexo. Parallel .container .hide-button padding 5px 18px / radius 6px and .toggle 20px / radius 5px (no-op vs live .button / #hide-aside-btn). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not rewrite templates or implement _tags/inlineImg.styl. Not aside.hide / aside.hide_button."
+    },
+    {
+      "sha": "f4180cea06244dfabefcdc9967b5b5f3103ff3b6",
+      "summary": "Raise style:source/css/_tags/hide.styl from gap to implemented-unverified; evidence remains []. Do not raise landed hexo.styl / gallery.styl / button.styl / index.styl / function.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout to verified. _tags/inlineImg.styl remains gap at that SHA."
+    },
+    {
+      "sha": "3444f6bcbdcb32c05c5ea06533cd04e3910a6201",
+      "summary": "Register #265 onto style:source/css/_tags/hide.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_tags/hide.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_tags/hexo.styl",
+    "style:source/css/_tags/gallery.styl",
+    "style:source/css/_tags/button.styl",
+    "style:source/css/_global/index.styl",
+    "style:source/css/_global/function.styl",
+    "style:source/css/_highlight/theme.styl",
+    "style:source/css/_highlight/prismjs/line-number.styl",
+    "style:source/css/_highlight/prismjs/index.styl",
+    "style:source/css/_highlight/prismjs/diff.styl",
+    "style:source/css/_highlight/highlight/diff.styl",
+    "style:source/css/_highlight/highlight/index.styl",
+    "style:source/css/_highlight/highlight.styl",
+    "style:source/css/_search/local-search.styl",
+    "style:source/css/_search/algolia.styl",
+    "style:source/css/_search/index.styl",
+    "style:source/css/_page/tags.styl",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_tags/inlineImg.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 439,
+    "mapping-required": 262,
+    "implemented-unverified": 186,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 267,
+    "state": "OPEN",
+    "title": "M1：行内图片标签样式 _tags/inlineImg.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/267",
+    "note": "Product work for #267 is out of this documentation PR. Do not record an inlineImg.styl product PR here. Do not raise landed hide.styl / hexo.styl / gallery.styl / button.styl / index.styl / function.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout to verified. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 266,
+    "title": "docs: 记录 #262 Hexo 标签样式合并证据",
+    "headSha": "983b4ecd649b251a9e169d23321938d83f8a17c5",
+    "mergeSha": "30a743ea005fdd2a72161ef4526187c793f566b0",
+    "mergedAt": "2026-09-13T08:36:13Z",
+    "prCi": 34747736856,
+    "prCiConclusion": "success",
+    "masterCi": 34748100157,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34748100157",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/266#issuecomment-5652236257",
+    "note": "Reviewer's CI snapshot recorded Passed 1 / Failed 0 / Pending 0 for run 34747736856. Orchestrator confirmed the same run completed success at 2026-09-13T08:29:55Z before squash merge. Waited with gh run view until push-event master CI 34748100157 on 30a743ea005fdd2a72161ef4526187c793f566b0 completed success at 2026-09-13T08:38:28Z. Must be recorded as success, not cancelled. PR #265 merge-commit master CI 34748223806 completed success at 2026-09-13T08:41:38Z; also must not be recorded as cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34747746593,
+      "runAttempt": 1,
+      "headSha": "3444f6bcbdcb32c05c5ea06533cd04e3910a6201",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34747746593",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34747746593 completed success for head 3444f6b. Orchestrator confirmed the same run completed success at 2026-09-13T08:30:21Z before squash merge. Prior run 34747732051 cancelled after hanging the PR number; not recorded as success. New tests: tests/tags-hide-style.test.mjs (5), compiling src/scss/page/index.scss. pnpm check 388 pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34748223806,
+      "runAttempt": 1,
+      "headSha": "27a657620032b646068f539598943b05964a5e34",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34748223806",
+      "note": "Waited with gh run view until completed. Push-event master CI 34748223806 completed success at 2026-09-13T08:41:38Z. Do not record as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #265; there is no Approve. Independent review 5652247023 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head 3444f6bcbdcb32c05c5ea06533cd04e3910a6201: newly raised to implemented-unverified is style:source/css/_tags/hide.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 405dace implement then f4180ce matrix IU then 3444f6b matrix PR number. settings.yaml unchanged. Did not rewrite templates. Did not implement _tags/inlineImg.styl. Did not change code-block theme enum. Not aside.hide / aside.hide_button.",
+    "Selectors .container .hide-button / .toggle stay on no-DOM upstream selectors so they do not override live .button, #hide-aside-btn, or .code-toolbar. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not use #Butterfly. Dark mode stays data-color-scheme, not data-theme.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); live hide-tag DOM is not created by this slice; this slice does not land _tags/inlineImg.styl.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. This record does not include an inlineImg.styl product PR."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_tags/hide.styl; evidence remains [].",
+    "This record does not include an inlineImg.styl product PR.",
+    "Must not raise landed hide.styl / hexo.styl / gallery.styl / button.styl / index.styl / function.styl / highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / prismjs/index.styl / prismjs/line-number.styl / theme.styl / search/index.styl / algolia.styl / local-search.styl / tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #266 merge-commit master CI run 34748100157 on 30a743ea005fdd2a72161ef4526187c793f566b0 completed success at 2026-09-13T08:38:28Z; must not be recorded as cancelled.",
+    "PR #265 merge-commit master CI run 34748223806 on 27a657620032b646068f539598943b05964a5e34 completed success at 2026-09-13T08:41:38Z; must not be recorded as cancelled.",
+    "PR #262 merge-commit master CI run 34747425231 on 7c21954a859d7e3ec2f47ea58ec8143c40a024ed completed success at 2026-09-13T08:21:51Z; must not be recorded as cancelled.",
+    "PR #263 merge-commit master CI run 34747286905 on b9f2169c97a71d8b6edd59947fc4e7591fbb5830 completed success at 2026-09-13T08:18:58Z; must not be recorded as cancelled.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
