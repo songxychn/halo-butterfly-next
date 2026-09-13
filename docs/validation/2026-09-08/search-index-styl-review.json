@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 219,
+  "pr": 221,
+  "title": "M1：搜索面板样式 _search/index.styl",
+  "author": "cursor/m1-search-index-styl",
+  "recorder": "cursor/record-221",
+  "recordedAt": "2026-09-13T04:46:00Z",
+  "visibility": "private",
+  "sourceSha": "2101c90700dc8974c00e9dc04c1cd3a8bbaa55e8",
+  "reviewHead": "2101c90700dc8974c00e9dc04c1cd3a8bbaa55e8",
+  "mergeSha": "8db6c4053edaecaf5bd15c378ea85744af701f44",
+  "mergedAt": "2026-09-13T04:41:49Z",
+  "closesIssue": 219,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/221#issuecomment-5651191609",
+    "createdAt": "2026-09-13T04:41:18Z",
+    "head": "2101c90700dc8974c00e9dc04c1cd3a8bbaa55e8",
+    "note": "Independent review posted as issue comment 5651191609, not a GitHub Approve. Verdict: approve-as-comment. No P1. Top-level @use \"search\" after tags; 600px / 768 fullscreen stay on no-DOM .search-dialog; no #Butterfly on main column. The reviewer's CI snapshot was run 34738345785 in_progress; this record waited until that PR CI completed success and merge-commit master CI 34738494047 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "1c828284600ba72a65a6e97826a81bfa175bf2b1",
+      "summary": "Add src/scss/core/search.scss and top-level @use after tags. Parallel .search-dialog / .search-nav / #search-mask (no-op; Halo only SearchWidget.open()). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not rewrite templates to invent a Hexo search dialog. Did not add algolia.styl / local-search.styl provider files."
+    },
+    {
+      "sha": "ce6c311c96756e1437353fc9aa06888933710799",
+      "summary": "Raise style:source/css/_search/index.styl from gap to implemented-unverified; evidence remains []. Do not raise landed tags.styl / _page/*.styl / _layout/*.styl / darkmode/readmode to verified. algolia.styl and local-search.styl remain gap."
+    },
+    {
+      "sha": "2101c90700dc8974c00e9dc04c1cd3a8bbaa55e8",
+      "summary": "Register #221 onto style:source/css/_search/index.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_search/index.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_page/tags.styl",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_search/algolia.styl",
+    "style:source/css/_search/local-search.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 454,
+    "mapping-required": 262,
+    "implemented-unverified": 171,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 222,
+    "state": "OPEN",
+    "title": "M1：Algolia 搜索样式 _search/algolia.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/222",
+    "note": "Do not raise landed search/index.styl / _page/*.styl / _layout/*.styl to verified. This slice is style:source/css/_search/algolia.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. Does not implement local-search.styl or DEC-01 or Algolia SDK. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 220,
+    "title": "docs: 记录 #218 标签页样式合并证据",
+    "headSha": "cffa38f1819b869aae8738bfcf26bb70b939e7b5",
+    "mergeSha": "71b8c74d3f83840c66989c97447c7430b2980abe",
+    "mergedAt": "2026-09-13T03:37:35Z",
+    "prCi": 34729241567,
+    "prCiConclusion": "success",
+    "masterCi": 34735948345,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34735948345",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/220#issuecomment-5650792090",
+    "note": "Waited with gh run view until completed. Push-event master CI 34735948345 on 71b8c74d3f83840c66989c97447c7430b2980abe completed success at 2026-09-13T03:39:35Z, before the #221 merge push at 2026-09-13T04:41:49Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34738345785,
+      "runAttempt": 1,
+      "headSha": "2101c90700dc8974c00e9dc04c1cd3a8bbaa55e8",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34738345785",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34738345785 in_progress for head 2101c90. Orchestrator confirmed the same run completed success at 2026-09-13T04:40:02Z before squash merge. New tests: tests/search-style.test.mjs (5), compiling src/scss/page/index.scss. pnpm check 313 pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34738494047,
+      "runAttempt": 1,
+      "headSha": "8db6c4053edaecaf5bd15c378ea85744af701f44",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34738494047",
+      "note": "Waited with gh run view until completed. Push-event master CI 34738494047 completed success at 2026-09-13T04:44:54Z. Do not record as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #221; there is no Approve. Independent review 5651191609 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head 2101c90700dc8974c00e9dc04c1cd3a8bbaa55e8: newly raised to implemented-unverified is style:source/css/_search/index.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 1c82828 implement then ce6c311 matrix IU then 2101c90 matrix PR number. settings.yaml unchanged. nav.html not rewritten to invent .search-dialog.",
+    "Parallel selectors .search-dialog / .search-nav / #search-mask. 600px / top 10% / padding 20px / radius 8 / 768 fullscreen / .search-nav 1.4em / input 5px 14px border 2px radius 40px / results max-height calc(80vh - 220px) stay on no-DOM upstream selectors. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not use #Butterfly to press 600px/100% onto the main column.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); no .search-dialog DOM.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #222 style:source/css/_search/algolia.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_search/index.styl; evidence remains [].",
+    "style:source/css/_search/algolia.styl and style:source/css/_search/local-search.styl remain gap.",
+    "Must not raise landed search/index.styl / tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #220 merge-commit master CI run 34735948345 on 71b8c74d3f83840c66989c97447c7430b2980abe completed success at 2026-09-13T03:39:35Z, before the #221 merge push at 2026-09-13T04:41:49Z; must not be recorded as cancelled.",
+    "PR #221 merge-commit master CI run 34738494047 completed success at 2026-09-13T04:44:54Z. Do not record this run as cancelled.",
+    "Issue #222 style:source/css/_search/algolia.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
