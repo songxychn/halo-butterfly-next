@@ -37961,11 +37961,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/prismjs-diff.scss",
+          "src/scss/core/index.scss",
+          "tests/prismjs-diff-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/prismjs-diff.scss 对齐 prismjs/diff.styl。选择器 .container pre[class*='language-'] 下 light 默认 Prism token 颜色空操作（Halo 正文是 article.render，已有 .code-toolbar 并加载 prism-${code_theme_light|dark}.css，无上游 .container 包装）。未重写模板。未替换第三方 prism 主题文件。未实现 prismjs/index.styl / line-number.styl / theme.styl。token 数字按 light 默认空操作：function #FFB62C、comment rgba(149,165,166,.8)、punctuation #5e6687、operator/number #c76b29、string #22a2c9、important #c94922、deleted line-through。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 token 颜色压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / highlight/diff.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -37985,12 +37985,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/237"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_highlight/prismjs/index.styl",
