@@ -37907,11 +37907,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/highlight-index.scss",
+          "src/scss/core/index.scss",
+          "tests/highlight-index-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/highlight-index.scss 对齐 highlight/index.styl。选择器 .container figure.highlight .line:before / .line.marked / table / .gutter pre / .code pre 空操作（Halo 正文是 article.render，已有 .code-toolbar，无 Hexo figure.highlight DOM）。未重写模板去造 table-gutter。未实现 prismjs/* / theme.styl / diff.styl。未改代码块主题枚举。无新增 th:utext。上游 .line:before padding 0 6px 0 0、min-width 30px、.line.marked #80CBC440、table overflow auto、gutter padding 10px / text-align right、.code pre width 100% 仅留在上游选择器。不用 #Butterfly 把 overflow/width/min-width 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -37931,12 +37931,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/231"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_highlight/prismjs/diff.styl",
