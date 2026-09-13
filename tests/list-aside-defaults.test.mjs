@@ -30,7 +30,7 @@ test('列表 post_meta.page 默认对齐 5.7.0：tags 关闭；归档卡默认�
   assert.equal(defaults.cover.default_cover, '');
 });
 
-test('列表封面用真实 src、第 2/4/6 篇 right（stat.odd），无评论点赞预览、日期前缀发表于', async () => {
+test('列表封面用真实 src、第 2/4/6 篇 right（index%2==1），无评论点赞预览、日期前缀发表于', async () => {
   const source = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
   const list = listFragment(source);
   const lazy = lazyFragment(source);
@@ -38,8 +38,10 @@ test('列表封面用真实 src、第 2/4/6 篇 right（stat.odd），无评论�
   assert.match(lazy, /not #strings\.isEmpty\(resolvedSrc\) \? resolvedSrc : theme\.config\.loading\.img\.preload/);
   assert.doesNotMatch(lazy, /data-lazy-src/);
   assert.match(list, /th:each="post, stat : \$\{data\}"/);
-  assert.match(list, /stat\.odd \? ' right'/);
+  // Butterfly 0-based index%2===0 → left。Thymeleaf even/odd 是 1-based nth-child，禁止用 even/odd 表达左右。
+  assert.match(list, /stat\.index % 2 == 1 \? ' right'/);
   assert.doesNotMatch(list, /stat\.even \? ' right'/);
+  assert.doesNotMatch(list, /stat\.odd \? ' right'/);
   assert.match(list, /showLabel \? '发表于 '/);
   assert.doesNotMatch(list, /class="wp comment"/);
   assert.doesNotMatch(list, /'点赞 '/);

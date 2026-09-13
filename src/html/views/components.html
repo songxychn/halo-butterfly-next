@@ -94,7 +94,8 @@
       "
       th:classappend="${showCover ? '' : ' no-cover'}"
     >
-      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''} + ${stat.odd ? ' right' : ''}">
+      <!--/* Butterfly index%2===0 为 left（0-based 第 1 篇）。Thymeleaf even/odd 按 1-based :nth-child，不能当 0-based 用。 */-->
+      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''} + ${stat.index % 2 == 1 ? ' right' : ''}">
         <img th:replace="~{::lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
       </a>
 
