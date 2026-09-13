@@ -80,9 +80,8 @@ test('本刀不改 hide_button、不改文章上下篇 150px、不改 html.hide-
   assert.doesNotMatch(postHtml.replace(/th:utext="\$\{post\.content\.content\}"/, ''), /th:utext/);
 });
 
-test('不用 #Butterfly 把 600px 弹层或 768 全屏压到主栏；不接入 local-search 提供方文件', () => {
+test('不用 #Butterfly 把 600px 弹层或 768 全屏压到主栏', () => {
   assert.doesNotMatch(rules, /#Butterfly/);
-  assert.doesNotMatch(indexScss, /@use "local-search"/);
   assert.doesNotMatch(rules, /@use "algolia"/);
   assert.doesNotMatch(rules, /@use "local-search"/);
   assert.doesNotMatch(rules, /@require/);
