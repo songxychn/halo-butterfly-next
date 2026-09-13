@@ -68,3 +68,72 @@ test('编译后选择器并列 #page-header / .header，无错误 BEM ID', () =>
   assert.doesNotMatch(css, /#nav-title/);
   assert.doesNotMatch(css, /\[data-theme/);
 });
+
+test('编译 CSS：首页 above-title 默认 1.85em（390 约 25.9px），min-width 768px 才 2.85em（桌面约 39.9px）', () => {
+  const css = sass.compile(new URL('../src/scss/page/index.scss', import.meta.url).pathname, {
+    loadPaths: ['node_modules'],
+  }).css.replace(/\/\*[\s\S]*?\*\//g, '');
+
+  function mediaInner(source, query) {
+    const needle = `@media (${query})`;
+    const inners = [];
+    let searchFrom = 0;
+    while (true) {
+      const start = source.indexOf(needle, searchFrom);
+      if (start < 0) break;
+      const brace = source.indexOf('{', start);
+      if (brace < 0) break;
+      let depth = 0;
+      let end = brace;
+      for (; end < source.length; end++) {
+        if (source[end] === '{') depth++;
+        else if (source[end] === '}') {
+          depth--;
+          if (depth === 0) {
+            end++;
+            break;
+          }
+        }
+      }
+      inners.push(source.slice(brace + 1, end - 1));
+      searchFrom = end;
+    }
+    return inners.join('\n');
+  }
+
+  function stripMedia(source) {
+    let out = source;
+    let searchFrom = 0;
+    while (true) {
+      const start = out.indexOf('@media', searchFrom);
+      if (start < 0) break;
+      const brace = out.indexOf('{', start);
+      if (brace < 0) break;
+      let depth = 0;
+      let end = brace;
+      for (; end < out.length; end++) {
+        if (out[end] === '{') depth++;
+        else if (out[end] === '}') {
+          depth--;
+          if (depth === 0) {
+            end++;
+            break;
+          }
+        }
+      }
+      out = out.slice(0, start) + out.slice(end);
+      searchFrom = start;
+    }
+    return out;
+  }
+
+  const desktop = mediaInner(css, 'min-width: 768px');
+  assert.match(desktop, /\.header \.above-title[^{]*\{[^}]*font-size:\s*2\.85em/);
+  assert.match(headerScss, /font-size:\s*1\.85em/);
+  assert.match(headerScss, /@media \(min-width: 768px\)/);
+  const unscopedTitle = [...stripMedia(css).matchAll(/\.header \.above-title\s*\{([^}]*)\}/g)]
+    .map(match => match[1])
+    .join('\n');
+  assert.match(unscopedTitle, /font-size:\s*1\.85em/);
+  assert.doesNotMatch(unscopedTitle, /font-size:\s*2\.85em/);
+});
