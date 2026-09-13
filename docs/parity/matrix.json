@@ -39329,11 +39329,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/algolia.scss",
+          "src/scss/core/index.scss",
+          "tests/algolia-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/algolia.scss 对齐 algolia.styl。选择器 #algolia-search / .search-dialog / .ais-Hits-list / #algolia-info / .algolia-poweredBy 空操作（无 DOM）。未重写模板去造 Algolia 弹层。未接入 Algolia SDK。无新增 th:utext。上游 768 min-height calc(var(--search-height) - 245px)、poweredBy float right / padding-top 2px / svg 1.1em 仅留在上游选择器。不用 #Butterfly 把 min-height 压到主栏。不实现 local-search.styl。不做 DEC-01。不改 data-theme。不把已落地 search/index.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39353,12 +39353,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/222"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/223"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_search/index.styl",
