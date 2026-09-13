@@ -62,25 +62,27 @@
     width: 100%;
   }
 
-  &.aside-left {
-    flex-direction: row-reverse;
-
-    > .content {
-      width: 74%;
-    }
-  }
-
-  &.aside-right {
-    flex-direction: row;
-
-    > .content {
-      width: 74%;
-    }
-  }
-
-  /* 上游 aside.styl minWidth900：position=right → padding-left 15px，否则 padding-right。
-     不再用 18px margin，避免与 padding 叠出双倍缝。本文件是 .main 根，选择器用 &.aside-*。 */
+  /* 桌面双栏（row / 74%）只在 min-width 900px 生效。
+     若写在媒体查询外，.main.aside-right 会压过 max-width 900px 的叠栏。
+     不用 mixin `'# &'`：逗号选择器 `.layout, .main` 会编成 `#Butterfly .layout, .main`。 */
   @media (min-width: 900px) {
+    &.aside-left {
+      flex-direction: row-reverse;
+
+      > .content {
+        width: 74%;
+      }
+    }
+
+    &.aside-right {
+      flex-direction: row;
+
+      > .content {
+        width: 74%;
+      }
+    }
+
+    /* 上游 aside.styl minWidth900：position=right → padding-left 15px，否则 padding-right。 */
     &.aside-right > #aside-content,
     &.aside-right > .aside {
       padding-left: 15px;
@@ -92,16 +94,22 @@
     }
   }
 
+  /* 上游 common.styl + aside.styl：maxWidth900（含 390）主栏/侧栏上下叠放。
+     显式覆盖 aside-left/right。aside.mobile 默认仍显示卡片，只改叠放不隐藏。 */
+  @media (max-width: 900px) {
+    &,
+    &.aside-left,
+    &.aside-right {
+      flex-direction: column;
 
-  /* 上游 common.styl + aside.styl：maxWidth900 主栏/侧栏叠成一列。 */
-  @include util.useResponsive(900px, '# &') {
-    flex-direction: column;
-    > .content {
-      width: 100%;
-    }
-    > .aside {
-      width: 100%;
-      margin: 20px 0 0;
+      > .content {
+        width: 100%;
+      }
+
+      > .aside {
+        width: 100%;
+        margin: 20px 0 0;
+      }
     }
   }
 

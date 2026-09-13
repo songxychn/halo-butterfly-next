@@ -27,7 +27,7 @@ test('上游宽度 26%、position padding、maxWidth900、card-widget、sticky�
   assert.match(mainScss, /&\.aside-right/);
   assert.match(mainScss, /&\.aside-left/);
   assert.match(scss, /max-width:\s*900px|900px/);
-  assert.match(mainScss, /useResponsive\(900px/);
+  assert.match(mainScss, /@media \(max-width: 900px\)/);
   assert.match(scss, /\.card-widget/);
   assert.match(scss, /padding:\s*20px 24px/);
   assert.match(scss, /\.sticky_layout/);

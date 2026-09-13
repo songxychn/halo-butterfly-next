@@ -110,21 +110,21 @@
         above-title-color: (rgb(255, 255, 255), rgba(255, 255, 255, 0.9)),
       ));
 
-      @include util.useResponsive(util.$w-md) {
-        font-size: 1.85em;
-      }
+      /* 上游 head.styl #site-title：默认 1.85em，+minWidth768 才 2.85em。
+         mixin @at-root 写在 2.85em 之前时，编译后无查询的 2.85em 会盖掉移动端字号。 */
+      font-size: 1.85em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
+      line-height: 1.5;
+      font-weight: 700;
+      color: var(--above-title-color);
+      animation: above-title-scale 1s;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      @include util.text-clamp(3);
 
-      & {
+      @media (min-width: 768px) {
         font-size: 2.85em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
-        line-height: 1.5;
-        font-weight: 700;
-        color: var(--above-title-color);
-        animation: above-title-scale 1s;
-        max-width: 100%;
-        overflow-wrap: anywhere;
-        word-break: break-word;
-        @include util.text-clamp(3);
       }
     }
 
