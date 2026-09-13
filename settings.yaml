@@ -491,6 +491,16 @@ spec:
             - label: 禁用
               value: false
         - $formkit: radio
+          name: enable_archives
+          label: 启用侧边栏归档
+          help: 对应上游 aside.card_archives.enable（默认开启）。关闭后不渲染归档卡。不含 type / format / order / limit / sort_order。
+          value: true
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: radio
           name: enable_custom
           label: 启用侧边栏自定义模块
           help: 是否启用自定义模块
@@ -502,8 +512,8 @@ spec:
               value: false
         - $formkit: radio
           name: enable_webInfo
-          label: 启用侧边栏网站资讯
-          help: 是否启用侧边栏网站资讯
+          label: 启用侧边栏网站信息
+          help: 是否启用侧边栏网站信息
           value: true
           options:
             - label: 启用
@@ -650,12 +660,12 @@ spec:
         - $formkit: group
           name: post_meta
           label: 首页列表元信息
-          help: 对应上游 Butterfly post_meta.page。控制首页/分类/标签列表卡片上的日期、分类与标签。date_format 与文章页 post.post_meta.date_format 独立。
+          help: 对应上游 Butterfly post_meta.page。控制首页/分类/标签列表卡片上的日期、分类与标签。tags 默认关闭对齐上游。date_format 与文章页 post.post_meta.date_format 独立。
           value:
             date_type: created
             date_format: date
             categories: true
-            tags: true
+            tags: false
             label: true
           children:
             - $formkit: radio
@@ -693,8 +703,8 @@ spec:
             - $formkit: radio
               name: tags
               label: 显示标签
-              help: 对应上游 post_meta.page.tags。关闭后即使有标签也不渲染。
-              value: true
+              help: 对应上游 post_meta.page.tags（默认关闭）。关闭后即使有标签也不渲染。
+              value: false
               options:
                 - label: 显示
                   value: true

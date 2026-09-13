@@ -51,7 +51,7 @@ test('默认 date_format 均为 date，两组字段互相独立', () => {
     date_type: 'created',
     date_format: 'date',
     categories: true,
-    tags: true,
+    tags: false,
     label: true,
   });
   const postField = groupField('post', 'date_format');
@@ -79,7 +79,7 @@ test('文章页只读 post.post_meta.date_format，列表只读 index.post_meta.
   assert.doesNotMatch(list, /th:utext/);
   assert.match(postMeta, /showLabel \? '发布于 '/);
   assert.match(postMeta, /showLabel \? '更新于 '/);
-  assert.match(list, /showLabel \? '发布于 '/);
+  assert.match(list, /showLabel \? '发表于 '/);
   assert.match(list, /showLabel \? '更新于 '/);
 });
 

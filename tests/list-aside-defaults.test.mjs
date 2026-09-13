@@ -1,0 +1,107 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { readFile } from 'node:fs/promises';
+import { parse } from 'yaml';
+import { defaultsFromSettings } from '../scripts/config-migration.mjs';
+import { applyRelativeDates } from '../src/js/core/relative-date.mjs';
+
+const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
+
+function listFragment(source) {
+  const start = source.indexOf('th:fragment="list(data,layout)"');
+  assert.notEqual(start, -1);
+  const end = source.indexOf('th:fragment="emptyData', start);
+  assert.notEqual(end, -1);
+  return source.slice(start, end);
+}
+
+function lazyFragment(source) {
+  const start = source.indexOf('th:fragment="lazyLoadImg');
+  assert.notEqual(start, -1);
+  const end = source.indexOf('th:fragment="postMeta"', start);
+  assert.notEqual(end, -1);
+  return source.slice(start, end);
+}
+
+test('列表 post_meta.page 默认对齐 5.7.0：tags 关闭；归档卡默认开启', () => {
+  assert.equal(defaults.index.post_meta.tags, false);
+  assert.equal(defaults.index.post_meta.categories, true);
+  assert.equal(defaults.aside.enable_archives, true);
+  assert.equal(defaults.cover.default_cover, '');
+});
+
+test('列表封面用真实 src、偶数项 right、无评论点赞预览、日期前缀发表于', async () => {
+  const source = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
+  const list = listFragment(source);
+  const lazy = lazyFragment(source);
+  assert.match(lazy, /resolvedSrc/);
+  assert.match(lazy, /not #strings\.isEmpty\(resolvedSrc\) \? resolvedSrc : theme\.config\.loading\.img\.preload/);
+  assert.doesNotMatch(lazy, /data-lazy-src/);
+  assert.match(list, /th:each="post, stat : \$\{data\}"/);
+  assert.match(list, /stat\.even \? ' right'/);
+  assert.match(list, /showLabel \? '发表于 '/);
+  assert.doesNotMatch(list, /class="wp comment"/);
+  assert.doesNotMatch(list, /'点赞 '/);
+  assert.doesNotMatch(list, /'预览 '/);
+  assert.match(list, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : theme\.config\.cover\.default_cover\}/);
+});
+
+test('作者卡与手机抽屉统计为文章/标签/分类，不用点赞', async () => {
+  const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
+  const components = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
+  const user = aside.slice(aside.indexOf('th:fragment="user"'), aside.indexOf('th:fragment="notice"'));
+  const drawer = components.slice(components.indexOf('class="site-data"'), components.indexOf('<hr/>'));
+  for (const block of [user, drawer]) {
+    const articleAt = block.indexOf('>文章<');
+    const tagAt = block.indexOf('>标签<');
+    const categoryAt = block.indexOf('>分类<');
+    assert.ok(articleAt >= 0 && tagAt > articleAt && categoryAt > tagAt, block.slice(0, 400));
+    assert.doesNotMatch(block, /点赞/);
+    assert.doesNotMatch(block, /javascript:/);
+    assert.match(block, /href="\/tags"/);
+    assert.match(block, /tagFinder\.list\(1, 1\)\.total/);
+  }
+});
+
+test('默认侧栏有归档卡与网站信息，分类/标签无多余 ul，文章页先作者公告再目录', async () => {
+  const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
+  assert.match(aside, /th:fragment="archives"/);
+  assert.match(aside, /enable_archives != false/);
+  assert.match(aside, /<span class="name">归档<\/span>/);
+  assert.match(aside, /<span class="name">网站信息<\/span>/);
+  assert.doesNotMatch(aside, /网站资讯/);
+  const category = aside.slice(aside.indexOf('th:fragment="category"'), aside.indexOf('th:fragment="tags"'));
+  const tags = aside.slice(aside.indexOf('th:fragment="tags"'), aside.indexOf('th:fragment="archives"'));
+  assert.doesNotMatch(category, /<\/ul>/);
+  assert.doesNotMatch(tags, /<\/ul>/);
+  const common = aside.slice(aside.indexOf('th:fragment="common"'), aside.indexOf('th:fragment="post"'));
+  assert.ok(common.indexOf('~{::tags}') < common.indexOf('~{::archives}'));
+  assert.ok(common.indexOf('~{::archives}') < common.indexOf('~{::webInfo}'));
+  const post = aside.slice(aside.indexOf('th:fragment="post"'));
+  const userAt = post.indexOf('~{::user}');
+  const noticeAt = post.indexOf('~{::notice}');
+  const stickyAt = post.indexOf('class="is-sticky"');
+  const tocAt = post.indexOf('aside-toc');
+  const recentAt = post.lastIndexOf('~{::recentPost}');
+  assert.ok(userAt >= 0 && noticeAt > userAt && stickyAt > noticeAt && tocAt > stickyAt && recentAt > tocAt);
+});
+
+test('作者头像不再走预加载占位；相对时间保留发表于前缀', async () => {
+  const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
+  const user = aside.slice(aside.indexOf('th:fragment="user"'), aside.indexOf('th:fragment="notice"'));
+  assert.match(user, /contributor\?\.avatar/);
+  assert.doesNotMatch(user, /data-lazy-src/);
+  assert.doesNotMatch(user, /loading\.img\.preload/);
+  const now = Date.parse('2026-09-10T13:00:00Z');
+  const nodes = [
+    { getAttribute: () => '2026-09-10T12:50:00Z', textContent: '发表于 2026-09-10' },
+  ];
+  applyRelativeDates({ querySelectorAll: () => nodes }, now);
+  assert.equal(nodes[0].textContent, '发表于 10 分钟前');
+});
+
+test('实验室为无封面篇写入 cover.default_cover；主题默认仍为空对齐上游 null', async () => {
+  const lab = await readFile(new URL('../scripts/lab/lab.py', import.meta.url), 'utf8');
+  assert.match(lab, /'cover': \{'default_cover': '\/lab\/cover\.svg'\}/);
+  assert.equal(defaults.cover.default_cover, '');
+});

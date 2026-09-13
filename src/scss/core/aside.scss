@@ -456,6 +456,27 @@
     list-style: none;
   }
 
+  .card-archives ul.card-archive-list > .card-archive-list-item a,
+  .aside-archives .card-archive-list-item a {
+    display: flex;
+    flex-direction: row;
+    margin: 2px 0;
+    padding: 2px 8px;
+    color: var(--font-color, inherit);
+    transition: all .3s;
+    border-radius: 8px;
+
+    &:hover {
+      padding: 2px 12px;
+      background-color: var(--text-bg-hover, rgba(73, 177, 245, 0.7));
+      color: var(--white, #fff);
+    }
+
+    span:first-child {
+      flex: 1;
+    }
+  }
+
   .card-webinfo .webinfo .webinfo-item {
     display: flex;
     align-items: center;

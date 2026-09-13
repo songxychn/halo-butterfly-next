@@ -19,7 +19,7 @@ test('首页列表 post_meta 默认值对齐上游 Butterfly 5.7.0 post_meta.pag
     date_type: 'created',
     date_format: 'date',
     categories: true,
-    tags: true,
+    tags: false,
     label: true,
   });
   assert.equal(defaults.index.post_layout, 'list');
@@ -47,23 +47,22 @@ test('list fragment 按 index.post_meta 控制分类/标签/日期/前缀，并�
   assert.match(list, /post\.tags/);
   assert.match(list, /dateType != 'updated'/);
   assert.match(list, /dateType == 'updated' or dateType == 'both'/);
-  assert.match(list, /showLabel \? '发布于 '/);
+  assert.match(list, /showLabel \? '发表于 '/);
   assert.match(list, /showLabel \? '更新于 '/);
   assert.doesNotMatch(list, /dateType != 'created'/);
   assert.doesNotMatch(list, /theme\.config\.post\.post_meta/);
   assert.doesNotMatch(list, /yyyy-MM-dd HH:mm/);
 });
 
-test('列表评论/点赞/预览仍在，且不受 post_meta 开关控制', async () => {
+test('列表默认不输出评论/点赞/预览，对齐 5.7.0 comments.card_post_count 关闭', async () => {
   const list = listFragment(await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8'));
-  assert.match(list, /class="wp comment"/);
-  assert.match(list, /'评论 '/);
-  assert.match(list, /class="wp upvote"/);
-  assert.match(list, /'点赞 '/);
-  assert.match(list, /class="wp visit"/);
-  assert.match(list, /'预览 '/);
-  const commentBlock = list.slice(list.indexOf('wp comment'), list.indexOf('wp publishTime'));
-  assert.doesNotMatch(commentBlock, /post_meta/);
+  assert.doesNotMatch(list, /class="wp comment"/);
+  assert.doesNotMatch(list, /'评论 '/);
+  assert.doesNotMatch(list, /class="wp upvote"/);
+  assert.doesNotMatch(list, /'点赞 '/);
+  assert.doesNotMatch(list, /'预览 '/);
+  assert.match(list, /class="wp publishTime"/);
+  assert.match(list, /class="wp category"/);
 });
 
 test('首页/分类/标签页共用 list fragment', async () => {
