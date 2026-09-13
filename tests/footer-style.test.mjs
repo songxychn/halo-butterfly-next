@@ -6,6 +6,7 @@ const scss = await readFile(new URL('../src/scss/core/footer.scss', import.meta.
 const indexScss = await readFile(new URL('../src/scss/core/index.scss', import.meta.url), 'utf8');
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const footerHtml = await readFile(new URL('../src/html/views/footer.html', import.meta.url), 'utf8');
+const configHtml = await readFile(new URL('../src/html/views/config.html', import.meta.url), 'utf8');
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const rules = scss.replace(/\/\*[\s\S]*?\*\//g, '');
 
@@ -16,6 +17,18 @@ test('footer.scss 挂在 .footer/#footer，选择器不使用 data-theme', () =>
   assert.doesNotMatch(rules, /\[data-theme/);
   assert.doesNotMatch(scss, /th:utext/);
   assert.doesNotMatch(footerHtml, /th:utext/);
+});
+
+test('实验室默认 --theme 对齐 Butterfly #49b1f5；暗色页脚不改成绿', () => {
+  const htmlBlock = configHtml.match(/html \{([\s\S]*?)\n  \}/);
+  const darkBlock = configHtml.match(/html\[data-color-scheme=dark\] \{([\s\S]*?)\n  \}/);
+  assert.ok(htmlBlock, 'html --theme block');
+  assert.ok(darkBlock, 'dark --theme block');
+  assert.match(htmlBlock[1], /--theme:\s*#49b1f5;/);
+  assert.match(darkBlock[1], /--theme:\s*#49b1f5;/);
+  assert.doesNotMatch(htmlBlock[1], /#1c69ed|#3aa675/);
+  assert.doesNotMatch(darkBlock[1], /#1c69ed|#3aa675/);
+  assert.match(scss, /background-color:\s*var\(--theme\)/);
 });
 
 test('上游配色：theme 背景、light-grey 文字、mark-bg 遮罩、hover', () => {
