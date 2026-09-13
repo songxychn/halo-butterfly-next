@@ -1,0 +1,101 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_tags/tabs.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游文件自身有 .container：.tabs margin 0 0 20px、三边框 1px、
+ * addBorderRadius() 默认 6px、overflow hidden；.nav-tabs > .tab padding 8px 18px /
+ * 顶边框 2px；.tab-item-content padding 36px 24px 10px（768px 下 24px 14px）；
+ * .tab-to-top button #99a9bf / hover var(--theme)。
+ * Halo 活 DOM 有阅读模式 .tabs 与评论区 animation: tabshow（comments.scss 已定义
+ * 同名 @keyframes translateY(15px)）。不要用 #Butterfly 把 padding / border
+ * 压到主栏、活 .tabs 或 .code-toolbar（#203 P1 同类）。不要重写 @keyframes tabshow。
+ *
+ * 不实现 timeline.styl 及其余 _tags/* / source/css/index.styl / var.styl。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ * 不用 useResponsive（会注入 #Butterfly）。
+ */
+
+.container {
+  .tabs {
+    position: relative;
+    margin: 0 0 20px;
+    border-right: 1px solid var(--tab-border-color);
+    border-bottom: 1px solid var(--tab-border-color);
+    border-left: 1px solid var(--tab-border-color);
+    border-radius: 6px;
+    overflow: hidden;
+
+    > .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      background: var(--tab-button-bg);
+
+      > .tab {
+        flex-grow: 1;
+        padding: 8px 18px;
+        border-top: 2px solid var(--tab-border-color);
+        background: var(--tab-button-bg);
+        color: var(--tab-button-color);
+        line-height: 2;
+        transition: all 0.4s;
+
+        i {
+          width: 1.5em;
+        }
+
+        &.active {
+          border-top: 2px solid var(--theme);
+          background: var(--tab-button-active-bg);
+          cursor: default;
+        }
+
+        &:not(.active):hover {
+          border-top: 2px solid var(--tab-button-hover-bg);
+          background: var(--tab-button-hover-bg);
+        }
+      }
+
+      &.no-default ~ .tab-to-top {
+        display: none;
+      }
+    }
+
+    > .tab-contents {
+      .tab-item-content {
+        position: relative;
+        display: none;
+        padding: 36px 24px 10px;
+
+        @media (max-width: 768px) {
+          padding: 24px 14px;
+        }
+
+        &.active {
+          display: block;
+          animation: tabshow 0.5s;
+        }
+
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    > .tab-to-top {
+      padding: 0 16px 10px 0;
+      width: 100%;
+      text-align: right;
+
+      button {
+        color: #99a9bf;
+
+        &:hover {
+          color: var(--theme);
+        }
+      }
+    }
+  }
+}
