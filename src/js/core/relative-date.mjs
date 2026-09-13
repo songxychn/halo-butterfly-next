@@ -18,6 +18,7 @@ export function formatRelative(input, now = Date.now()) {
 }
 
 function datePrefix(text) {
+  if (text.startsWith('发表于 ')) return '发表于 ';
   if (text.startsWith('发布于 ')) return '发布于 ';
   if (text.startsWith('更新于 ')) return '更新于 ';
   return '';

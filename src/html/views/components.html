@@ -1,9 +1,9 @@
-<!--/* 图片加载 */-->
+<!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
 <img
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:src="${theme.config.loading.img.preload}"
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random) ? (theme.config.loading.img.random_link + parma) : src}"
+  th:src="${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload}"
   th:attr="onerror='this.src='+${'`'+theme.config.loading.img.err+'`'}"
-  th:data-lazy-src="${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random)  ? (theme.config.loading.img.random_link + parma)  : src}"
   th:alt="${alt}"
   th:class="${class}"
 >
@@ -69,7 +69,7 @@
   </li>
 </ul>
 
-<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page）控制；摘要受 index.index_post_content（上游 index_post_content.method / length）控制；评论/点赞/预览不是 post_meta。 */-->
+<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page，tags 默认 false）控制；摘要受 index.index_post_content 控制。评论/点赞/预览对齐 comments.card_post_count 默认关闭，不在列表卡上输出。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
@@ -87,14 +87,15 @@
   <th:block th:if="${noData}">
     <li
       class="item card"
-      th:each="post : ${data}"
+      th:each="post, stat : ${data}"
       th:with="
         coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
         showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
       "
       th:classappend="${showCover ? '' : ' no-cover'}"
     >
-      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''}">
+      <!--/* Butterfly index%2===0 为 left（0-based 第 1 篇）。Thymeleaf even/odd 按 1-based :nth-child，不能当 0-based 用。 */-->
+      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''} + ${stat.index % 2 == 1 ? ' right' : ''}">
         <img th:replace="~{::lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
       </a>
 
@@ -102,24 +103,9 @@
         <a class="title" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:text="${post.spec.title}"></a>
         <div class="data">
           <div class="row">
-          <span class="wp comment">
-              <i class="fa-solid fa-comments"></i>
-              <span th:text="'评论 '+${post.stats.comment}"></span>
-          </span>
-            <span class="wp upvote">
-              <i class="fa-solid fa-thumbs-up"></i>
-              <span th:text="'点赞 '+${post.stats.upvote}"></span>
-          </span>
-            <span class="wp visit">
-              <i class="fa-solid fa-eye"></i>
-              <span th:text="'预览 '+${post.stats.visit}"></span>
-          </span>
-          </div>
-
-          <div class="row">
             <span class="wp publishTime" th:if="${dateType != 'updated'}">
               <i class="far fa-calendar-alt fa-bolt"></i>
-              <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+              <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发表于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
             </span>
             <span class="wp lastModifyTime" th:if="${dateType == 'updated' or dateType == 'both'}">
               <i class="fas fa-history fa-fw"></i>
@@ -190,13 +176,13 @@
         <h2 class="title">文章</h2>
         <span class="num" th:text="${stats.post}"></span>
       </a>
+      <a class="item" href="/tags" title="标签">
+        <h2 class="title">标签</h2>
+        <span class="num" th:text="${tagFinder.list(1, 1).total}"></span>
+      </a>
       <a class="item" href="/categories" title="分类">
         <h2 class="title">分类</h2>
         <span class="num" th:text="${stats.category}"></span>
-      </a>
-      <a class="item" title="评论" href="javascript:">
-        <h2 class="title">点赞</h2>
-        <span class="num" th:text="${stats.upvote}"></span>
       </a>
     </div>
     <hr/>
