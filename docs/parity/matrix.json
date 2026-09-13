@@ -39377,11 +39377,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/search.scss",
+          "src/scss/core/index.scss",
+          "tests/search-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/search.scss 对齐 _search/index.styl 搜索面板共用样式。选择器 .search-dialog / .search-nav / #search-mask 空操作（Halo 仅 SearchWidget.open()，无弹层 DOM）。未重写模板去造 Hexo 搜索弹层。无新增 th:utext。上游宽 600px、top 10%、padding 20px、圆角 8、768 全屏、.search-nav 1.4em、输入框 padding 5px 14px、border 2px、圆角 40px、结果 max-height: calc(80vh - 220px) 仅留在上游选择器。不用 #Butterfly 把 600px 弹层 / 100% 全屏压到 Halo 主栏或文章布局。不实现 algolia.styl / local-search.styl 提供方专用规则，不接入 Algolia。不做 DEC-01。不改 data-theme。不把已落地 tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39401,12 +39401,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/219"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_search/local-search.styl",
