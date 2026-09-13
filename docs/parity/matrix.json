@@ -39764,11 +39764,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/tags-label.scss",
+          "src/scss/core/index.scss",
+          "tests/tags-label-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/tags-label.scss 对齐 label.styl。.hl-label（padding 2px 4px、border-radius 3px）与 .default / blue / pink / red / purple / orange / green 挂在无 DOM 的 .container 下（上游文件本身无 .container；Halo 活 DOM 有 .button / #hide-aside-btn，不要把 padding 压到主栏或侧栏隐藏开关）。未实现 _tags/note.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 aside.hide / aside.hide_button。不把已落地 inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl / function.styl / index.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39788,12 +39788,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/270"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_tags/note.styl",
