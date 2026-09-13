@@ -38012,11 +38012,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/prismjs-index.scss",
+          "src/scss/core/index.scss",
+          "tests/prismjs-index-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/prismjs-index.scss 对齐 prismjs/index.styl。选择器 .container pre[class*='language-'] 下 scrollbar / &:not(.line-numbers) padding 10px 20px / .caption margin-left -3.8em 空操作（Halo 正文是 article.render，已有 .code-toolbar pre padding 30px 0 0，无上游 .container 包装）。未重写模板。未实现 prismjs/line-number.styl / theme.styl。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 padding 10px 20px 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38036,12 +38036,15 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/240"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/241"
+        ]
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_highlight/prismjs/line-number.styl",
