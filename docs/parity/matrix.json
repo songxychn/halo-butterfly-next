@@ -37808,11 +37808,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/highlight.scss",
+          "src/scss/core/index.scss",
+          "tests/highlight-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/highlight.scss 对齐 highlight.styl。:root 与 html[data-color-scheme='dark'] 落地 --hl-color / --hl-bg / --hltools-* / --hlnumber-* / --hlscrollbar-bg / --hlexpand-bg。选择器 .container / figure.highlight / .highlight-tools / $code-block overflow auto、margin 0 0 20px、line-height 1.6 空操作（Halo 正文是 article.render，已有 .code-toolbar copy/shrink/fullpage/word_wrap，无 Hexo figure.highlight DOM）。未重写模板去造 Hexo highlight 结构。未实现 highlight/index.styl / prismjs/* / theme.styl / diff.styl。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 overflow/width 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -37832,12 +37832,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/228"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_highlight/highlight/diff.styl",
