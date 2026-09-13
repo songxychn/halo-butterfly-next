@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 237,
+  "pr": 238,
+  "title": "M1：Prism token 样式 _highlight/prismjs/diff.styl",
+  "author": "cursor/m1-prismjs-diff-styl",
+  "recorder": "cursor/record-238",
+  "recordedAt": "2026-09-13T06:15:06Z",
+  "visibility": "private",
+  "sourceSha": "5ebb9b1bd94b6c94b6239618779542adac0a3dd0",
+  "reviewHead": "5ebb9b1bd94b6c94b6239618779542adac0a3dd0",
+  "mergeSha": "ef7751a654582e8fbf1bc4e95283c3b4c412ed80",
+  "mergedAt": "2026-09-13T06:10:42Z",
+  "closesIssue": 237,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/238#issuecomment-5651562787",
+    "createdAt": "2026-09-13T06:08:18Z",
+    "head": "5ebb9b1bd94b6c94b6239618779542adac0a3dd0",
+    "note": "Independent review posted as issue comment 5651562787, not a GitHub Approve. Verdict: approve-as-comment. No P1. Top-level @use \"prismjs-diff\" after highlight-diff; light-default Prism token colors stay on no-DOM .container pre[class*='language-']; no #Butterfly on main column or .code-toolbar. The reviewer's CI snapshot was run 34741789892 pending; this record waited until that PR CI completed success and merge-commit master CI 34742100838 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "58c792743967dcfe3cdad2fa5be4a9b7dc791d8e",
+      "summary": "Add src/scss/core/prismjs-diff.scss and top-level @use after highlight-diff. Parallel .container pre[class*='language-'] Prism light-default tokens (no-op vs live .code-toolbar). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not rewrite templates or implement prismjs/index, line-number, or theme.styl."
+    },
+    {
+      "sha": "3cf5e188458b543c538794dd59588d738d859b13",
+      "summary": "Raise style:source/css/_highlight/prismjs/diff.styl from gap to implemented-unverified; evidence remains []. Do not raise landed highlight* / _search / _page / _layout to verified. prismjs/index.styl remains gap at that SHA."
+    },
+    {
+      "sha": "5ebb9b1bd94b6c94b6239618779542adac0a3dd0",
+      "summary": "Register #238 onto style:source/css/_highlight/prismjs/diff.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_highlight/prismjs/diff.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_highlight/highlight/diff.styl",
+    "style:source/css/_highlight/highlight/index.styl",
+    "style:source/css/_highlight/highlight.styl",
+    "style:source/css/_search/local-search.styl",
+    "style:source/css/_search/algolia.styl",
+    "style:source/css/_search/index.styl",
+    "style:source/css/_page/tags.styl",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_highlight/prismjs/index.styl",
+    "style:source/css/_highlight/prismjs/line-number.styl",
+    "style:source/css/_highlight/theme.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 448,
+    "mapping-required": 262,
+    "implemented-unverified": 177,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 240,
+    "state": "OPEN",
+    "title": "M1：Prism 代码块容器样式 _highlight/prismjs/index.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/240",
+    "note": "Product work for #240 is out of this documentation PR. Do not record PR #241 here. Do not raise landed highlight* / prismjs/diff.styl / _search / _page / _layout to verified. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 239,
+    "title": "docs: 记录 #235 代码高亮 diff token 样式合并证据",
+    "headSha": "ac21106e5d08a15a8ba89546d16b5e3ee55e8618",
+    "mergeSha": "4f3b9876deeb6dc6aaa17874aa4f94698a29f67e",
+    "mergedAt": "2026-09-13T06:07:52Z",
+    "prCi": 34741883999,
+    "prCiConclusion": "success",
+    "masterCi": 34741991996,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34741991996",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/239#issuecomment-5651556006",
+    "note": "Waited with gh run view until completed. Push-event master CI 34741991996 on 4f3b9876deeb6dc6aaa17874aa4f94698a29f67e completed success at 2026-09-13T06:10:05Z, before the #238 merge push at 2026-09-13T06:10:42Z. Must be recorded as success, not cancelled. PR #238 merge-commit master CI 34742100838 completed success at 2026-09-13T06:12:26Z; also must not be recorded as cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34741789892,
+      "runAttempt": 1,
+      "headSha": "5ebb9b1bd94b6c94b6239618779542adac0a3dd0",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34741789892",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34741789892 pending for head 5ebb9b1. Orchestrator confirmed the same run completed success at 2026-09-13T06:04:43Z before squash merge. New tests: tests/prismjs-diff-style.test.mjs (5), compiling src/scss/page/index.scss. pnpm check 343 pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34742100838,
+      "runAttempt": 1,
+      "headSha": "ef7751a654582e8fbf1bc4e95283c3b4c412ed80",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34742100838",
+      "note": "Waited with gh run view until completed. Push-event master CI 34742100838 completed success at 2026-09-13T06:12:26Z. Do not record as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #238; there is no Approve. Independent review 5651562787 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head 5ebb9b1bd94b6c94b6239618779542adac0a3dd0: newly raised to implemented-unverified is style:source/css/_highlight/prismjs/diff.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 58c7927 implement then 3cf5e18 matrix IU then 5ebb9b1 matrix PR number. settings.yaml unchanged. Did not rewrite templates. Did not implement prismjs/index / line-number / theme.styl. Did not change code-block theme enum.",
+    "Selectors .container pre[class*='language-'] light-default Prism tokens stay on no-DOM upstream selectors so they do not override live .code-toolbar prism theme CSS. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not use #Butterfly. Dark mode stays data-color-scheme, not data-theme.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); live Prism tokens remain the loaded one-light/one-dark theme files.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. This record does not include PR #241 prismjs/index.styl evidence."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_highlight/prismjs/diff.styl; evidence remains [].",
+    "This record does not include PR #241 prismjs/index.styl evidence.",
+    "Must not raise landed highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / search/index.styl / algolia.styl / local-search.styl / tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #239 merge-commit master CI run 34741991996 on 4f3b9876deeb6dc6aaa17874aa4f94698a29f67e completed success at 2026-09-13T06:10:05Z, before the #238 merge push at 2026-09-13T06:10:42Z; must not be recorded as cancelled.",
+    "PR #238 merge-commit master CI run 34742100838 on ef7751a654582e8fbf1bc4e95283c3b4c412ed80 completed success at 2026-09-13T06:12:26Z; must not be recorded as cancelled.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}
