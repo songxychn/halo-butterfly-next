@@ -37859,11 +37859,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/highlight-diff.scss",
+          "src/scss/core/index.scss",
+          "tests/highlight-diff-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/highlight-diff.scss 对齐 highlight/diff.styl。选择器 .container figure.highlight 下 pre .deletion / .addition / .meta / .comment 及 highlight.js token 颜色空操作（Halo 正文是 article.render，已有 .code-toolbar，无 Hexo figure.highlight / .deletion DOM）。未重写模板。未实现 prismjs/* / theme.styl。token 数字按 light 默认空操作：deletion #BF42BF、addition #105EDE、purple #7C4DFF、comment rgba(149,165,166,.8)、red #E53935、orange #F76D47、yellow #FFB62C、green #91B859、aqua #39ADB5、blue #6182B8。table @extend $scrollbar-style 仅留在上游选择器。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 token 颜色压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -37883,12 +37883,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/233"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_highlight/highlight/index.styl",
