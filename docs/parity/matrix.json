@@ -37712,11 +37712,11 @@
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [],
         "code": [
-          "src/html/views/config.html",
-          "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/core/global-function.scss",
+          "src/scss/core/index.scss",
+          "tests/global-function-style.test.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已新增 src/scss/core/global-function.scss 对齐 function.styl。工具类 .limit-one-line / .cardHover / .list-beauty / .custom-hr / .btn-effects 落地；入场动画与 imgHover width/height 100% 挂在无 DOM 的 .container 下（Halo 活 DOM 已有 #footer / #page-header / .avatar-img / .reward-main，不要把 translateY/scale/100% 压到主栏或工具栏）。未实现 _global/index.styl。avatar.effect 默认 false，不写活 .avatar-img 旋转。无新增 th:utext。不用 #Butterfly。不改 data-theme。不把已落地 highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -37736,12 +37736,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/249"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "style:source/css/_global/index.styl",
