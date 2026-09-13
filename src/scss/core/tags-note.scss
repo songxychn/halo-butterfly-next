@@ -1,0 +1,450 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_tags/note.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游文件本身无 .container：.note（margin 0 0 20px、padding 15px、
+ * border-radius 3px）、.simple/.flat 左边框 5px、icons 默认 true
+ * （padding-left 3em、\\f0a9/\\f055/\\f05a/\\f058/\\f06a/\\f056）。
+ * Halo 活 DOM 有 blockquote / p / img / .note（阅读模式）。不要用
+ * #Butterfly 或裸选择器把 padding / !important margin 压到主栏、活段落
+ * 或 .code-toolbar（#203 P1 同类）。挂在无 DOM 的 .container 下保持空操作。
+ *
+ * 不实现 series.styl 及其余 _tags/* / source/css/index.styl / var.styl。
+ * 不改 settings.yaml。不改 data-theme。不改 html.hide-aside 80%。
+ * 不改 #pagination.pagination-post。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  .note {
+    position: relative;
+    margin: 0 0 20px;
+    padding: 15px;
+    border-radius: 3px;
+
+    &.icon-padding {
+      padding-left: 3em;
+    }
+
+    > .note-icon {
+      position: absolute;
+      top: calc(50% - 0.5em);
+      left: 0.8em;
+      font-size: larger;
+    }
+
+    &.blue {
+      &:not(.disabled) {
+        border-left-color: var(--tags-blue-color) !important;
+
+        &.modern {
+          border-left-color: transparent !important;
+          color: var(--tags-blue-color);
+        }
+
+        &:not(.simple) {
+          background: var(--tags-blue-color-lighten);
+        }
+      }
+
+      > .note-icon {
+        color: var(--tags-blue-color);
+      }
+    }
+    &.pink {
+      &:not(.disabled) {
+        border-left-color: var(--tags-pink-color) !important;
+
+        &.modern {
+          border-left-color: transparent !important;
+          color: var(--tags-pink-color);
+        }
+
+        &:not(.simple) {
+          background: var(--tags-pink-color-lighten);
+        }
+      }
+
+      > .note-icon {
+        color: var(--tags-pink-color);
+      }
+    }
+    &.red {
+      &:not(.disabled) {
+        border-left-color: var(--tags-red-color) !important;
+
+        &.modern {
+          border-left-color: transparent !important;
+          color: var(--tags-red-color);
+        }
+
+        &:not(.simple) {
+          background: var(--tags-red-color-lighten);
+        }
+      }
+
+      > .note-icon {
+        color: var(--tags-red-color);
+      }
+    }
+    &.purple {
+      &:not(.disabled) {
+        border-left-color: var(--tags-purple-color) !important;
+
+        &.modern {
+          border-left-color: transparent !important;
+          color: var(--tags-purple-color);
+        }
+
+        &:not(.simple) {
+          background: var(--tags-purple-color-lighten);
+        }
+      }
+
+      > .note-icon {
+        color: var(--tags-purple-color);
+      }
+    }
+    &.orange {
+      &:not(.disabled) {
+        border-left-color: var(--tags-orange-color) !important;
+
+        &.modern {
+          border-left-color: transparent !important;
+          color: var(--tags-orange-color);
+        }
+
+        &:not(.simple) {
+          background: var(--tags-orange-color-lighten);
+        }
+      }
+
+      > .note-icon {
+        color: var(--tags-orange-color);
+      }
+    }
+    &.green {
+      &:not(.disabled) {
+        border-left-color: var(--tags-green-color) !important;
+
+        &.modern {
+          border-left-color: transparent !important;
+          color: var(--tags-green-color);
+        }
+
+        &:not(.simple) {
+          background: var(--tags-green-color-lighten);
+        }
+      }
+
+      > .note-icon {
+        color: var(--tags-green-color);
+      }
+    }
+
+    &.simple {
+      border: 1px solid var(--note-default-border);
+      border-left-width: 5px;
+    }
+
+    &.modern {
+      border: 1px solid transparent !important;
+      background-color: var(--note-modern-default-bg);
+      color: var(--note-modern-default-text);
+    }
+
+    &.flat {
+      border: initial;
+      border-left: 5px solid var(--note-default-border);
+      background-color: var(--note-default-bg);
+      color: var(--note-default-text);
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 3px;
+      margin-bottom: 0;
+      padding-top: 0 !important;
+      border-bottom: initial;
+    }
+
+    p,
+    ul,
+    ol,
+    table,
+    pre,
+    blockquote,
+    img {
+      &:first-child {
+        margin-top: 0 !important;
+      }
+
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .img-alt {
+      margin: 5px 0 10px;
+    }
+
+    &:not(.no-icon) {
+      padding-left: 3em;
+
+      &::before {
+        position: absolute;
+        top: calc(50% - 0.95em);
+        left: 0.8em;
+        font-size: larger;
+        font-weight: 600;
+        font-family: "Font Awesome 7 Free", "Font Awesome 6 Free";
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+
+    &.default {
+      &.flat {
+        background: var(--note-default-bg);
+        color: var(--font-color);
+      }
+
+      &.modern {
+        border-color: var(--note-modern-default-border) !important;
+        background: var(--note-modern-default-bg);
+        color: var(--note-modern-default-text);
+
+        a:not(.btn) {
+          color: var(--note-modern-default-text);
+
+          &:hover {
+            color: var(--note-modern-default-hover);
+          }
+        }
+      }
+
+      &:not(.modern) {
+        border-left-color: var(--note-default-border);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: var(--note-default-text);
+        }
+      }
+
+      &:not(.no-icon)::before {
+        content: "\f0a9";
+      }
+
+      &:not(.modern):not(.no-icon)::before {
+        color: var(--note-default-text);
+      }
+    }
+    &.primary {
+      &.flat {
+        background: var(--note-primary-bg);
+        color: var(--font-color);
+      }
+
+      &.modern {
+        border-color: var(--note-modern-primary-border) !important;
+        background: var(--note-modern-primary-bg);
+        color: var(--note-modern-primary-text);
+
+        a:not(.btn) {
+          color: var(--note-modern-primary-text);
+
+          &:hover {
+            color: var(--note-modern-primary-hover);
+          }
+        }
+      }
+
+      &:not(.modern) {
+        border-left-color: var(--note-primary-border);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: var(--note-primary-text);
+        }
+      }
+
+      &:not(.no-icon)::before {
+        content: "\f055";
+      }
+
+      &:not(.modern):not(.no-icon)::before {
+        color: var(--note-primary-text);
+      }
+    }
+    &.info {
+      &.flat {
+        background: var(--note-info-bg);
+        color: var(--font-color);
+      }
+
+      &.modern {
+        border-color: var(--note-modern-info-border) !important;
+        background: var(--note-modern-info-bg);
+        color: var(--note-modern-info-text);
+
+        a:not(.btn) {
+          color: var(--note-modern-info-text);
+
+          &:hover {
+            color: var(--note-modern-info-hover);
+          }
+        }
+      }
+
+      &:not(.modern) {
+        border-left-color: var(--note-info-border);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: var(--note-info-text);
+        }
+      }
+
+      &:not(.no-icon)::before {
+        content: "\f05a";
+      }
+
+      &:not(.modern):not(.no-icon)::before {
+        color: var(--note-info-text);
+      }
+    }
+    &.success {
+      &.flat {
+        background: var(--note-success-bg);
+        color: var(--font-color);
+      }
+
+      &.modern {
+        border-color: var(--note-modern-success-border) !important;
+        background: var(--note-modern-success-bg);
+        color: var(--note-modern-success-text);
+
+        a:not(.btn) {
+          color: var(--note-modern-success-text);
+
+          &:hover {
+            color: var(--note-modern-success-hover);
+          }
+        }
+      }
+
+      &:not(.modern) {
+        border-left-color: var(--note-success-border);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: var(--note-success-text);
+        }
+      }
+
+      &:not(.no-icon)::before {
+        content: "\f058";
+      }
+
+      &:not(.modern):not(.no-icon)::before {
+        color: var(--note-success-text);
+      }
+    }
+    &.warning {
+      &.flat {
+        background: var(--note-warning-bg);
+        color: var(--font-color);
+      }
+
+      &.modern {
+        border-color: var(--note-modern-warning-border) !important;
+        background: var(--note-modern-warning-bg);
+        color: var(--note-modern-warning-text);
+
+        a:not(.btn) {
+          color: var(--note-modern-warning-text);
+
+          &:hover {
+            color: var(--note-modern-warning-hover);
+          }
+        }
+      }
+
+      &:not(.modern) {
+        border-left-color: var(--note-warning-border);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: var(--note-warning-text);
+        }
+      }
+
+      &:not(.no-icon)::before {
+        content: "\f06a";
+      }
+
+      &:not(.modern):not(.no-icon)::before {
+        color: var(--note-warning-text);
+      }
+    }
+    &.danger {
+      &.flat {
+        background: var(--note-danger-bg);
+        color: var(--font-color);
+      }
+
+      &.modern {
+        border-color: var(--note-modern-danger-border) !important;
+        background: var(--note-modern-danger-bg);
+        color: var(--note-modern-danger-text);
+
+        a:not(.btn) {
+          color: var(--note-modern-danger-text);
+
+          &:hover {
+            color: var(--note-modern-danger-hover);
+          }
+        }
+      }
+
+      &:not(.modern) {
+        border-left-color: var(--note-danger-border);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: var(--note-danger-text);
+        }
+      }
+
+      &:not(.no-icon)::before {
+        content: "\f056";
+      }
+
+      &:not(.modern):not(.no-icon)::before {
+        color: var(--note-danger-text);
+      }
+    }
+  }
+}
