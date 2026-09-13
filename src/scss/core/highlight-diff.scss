@@ -1,0 +1,125 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_highlight/highlight/diff.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 figure.highlight：table @extend $scrollbar-style；
+ * pre .deletion $highlight-deletion；pre .addition $highlight-addition；
+ * pre .meta $highlight-purple；pre .comment 及 highlight.js token 颜色。
+ * token 数字按 light 默认空操作：$highlight-deletion #BF42BF、
+ * $highlight-addition #105EDE、$highlight-purple #7C4DFF、
+ * $highlight-comment rgba(149, 165, 166, .8)、$highlight-red #E53935、
+ * $highlight-orange #F76D47、$highlight-yellow #FFB62C、
+ * $highlight-green #91B859、$highlight-aqua #39ADB5、
+ * $highlight-blue #6182B8。
+ * Halo 正文是 article.render，代码块是 .code-toolbar，没有 Hexo
+ * figure.highlight / .deletion DOM。上游选择器空操作保留数字。
+ * 不要用 #Butterfly ID 把 token 颜色压到主栏或已有工具栏（#203 P1 同类）。
+ * 不重写模板去造 Hexo highlight 结构。不实现 prismjs/* / theme.styl。
+ * 不改代码块主题枚举。不把已落地 highlight.styl / highlight/index.styl /
+ * _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 figure.highlight：无对应 DOM，空操作。 */
+.container {
+  figure.highlight {
+    table {
+      @-moz-document url-prefix() {
+        scrollbar-color: var(--hlscrollbar-bg) transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--hlscrollbar-bg);
+      }
+    }
+
+    pre .deletion {
+      color: #bf42bf;
+    }
+
+    pre .addition {
+      color: #105ede;
+    }
+
+    pre .meta {
+      color: #7c4dff;
+    }
+
+    pre {
+      .comment {
+        color: rgba(149, 165, 166, 0.8);
+      }
+
+      .variable,
+      .attribute,
+      .regexp,
+      .ruby .constant,
+      .xml .tag .title,
+      .xml .pi,
+      .xml .doctype,
+      .html .doctype,
+      .css .id,
+      .tag .name,
+      .css .class,
+      .css .pseudo {
+        color: #e53935;
+      }
+
+      .tag {
+        color: #39adb5;
+      }
+
+      .number,
+      .preprocessor,
+      .literal,
+      .params,
+      .constant,
+      .command {
+        color: #f76d47;
+      }
+
+      .built_in {
+        color: #ffb62c;
+      }
+
+      .ruby .class .title,
+      .css .rules .attribute,
+      .string,
+      .value,
+      .inheritance,
+      .header,
+      .ruby .symbol,
+      .xml .cdata,
+      .special,
+      .number,
+      .formula {
+        color: #91b859;
+      }
+
+      .keyword,
+      .title,
+      .css .hexcolor {
+        color: #39adb5;
+      }
+
+      .function,
+      .python .decorator,
+      .python .title,
+      .ruby .function .title,
+      .ruby .title .keyword,
+      .perl .sub,
+      .javascript .title,
+      .coffeescript .title {
+        color: #6182b8;
+      }
+
+      .tag .attr,
+      .javascript .function {
+        color: #7c4dff;
+      }
+    }
+  }
+}
