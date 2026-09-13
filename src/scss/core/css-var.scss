@@ -1,0 +1,41 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/var.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游是 Stylus 变量文件，自身没有选择器。Halo 活 token 已在
+ * src/scss/core/_base.scss / global-index.scss（--global-font-size 14px、
+ * --pseudo-hover #ff7242、--tags-*-color 等）。不要整文件替换这些活 token。
+ * 不要用 #Butterfly 把 14px / 330px / 100vh / 43% 压到主栏或 .code-toolbar
+ * （#203 P1 同类）。默认数字全部挂在无 DOM 的 .container 下保持空操作。
+ *
+ * 本刀不实现 snackbar / preloader 产品开关，也不改 data-theme。
+ * 不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  --bright-blue: #49b1f5;
+  --strong-cyan: #00c4b6;
+  --light-orange: #ff7242;
+  --light-red: #f47466;
+  --font-size: 14px;
+  --text-line-height: 2;
+  --index-top-img-height: 100vh;
+  --index-site-info-top: 43%;
+  --sidebar-width: 330px;
+  --line-height-code-block: 1.6;
+  --hr-icon: '\f0c4';
+  --hr-icon-top: -10px;
+  --preloader-bg: #37474f;
+  --preloader-word-color: #fff;
+  --rightside-bottom: 40px;
+  --tab-border-color: #f0f0f0;
+  --tab-button-bg: #f0f0f0;
+  --tab-to-top-color: #99a9bf;
+  --tagsP-blue-color: #428bca;
+  --tagsP-pink-color: #ff69b4;
+  --tagsP-red-color: #ff0000;
+  --tagsP-orange-color: #ff8c00;
+  --tagsP-purple-color: #6f42c1;
+  --tagsP-green-color: #5cb85c;
+}
