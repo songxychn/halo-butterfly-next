@@ -94,7 +94,7 @@
       "
       th:classappend="${showCover ? '' : ' no-cover'}"
     >
-      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''} + ${stat.even ? ' right' : ''}">
+      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''} + ${stat.odd ? ' right' : ''}">
         <img th:replace="~{::lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
       </a>
 
