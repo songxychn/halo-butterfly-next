@@ -456,6 +456,11 @@
     list-style: none;
   }
 
+  /* 上游 aside.card_archives.limit 默认 8：限制归档行数，不是当月文章数。 */
+  .card-archives ul.card-archive-list > .card-archive-list-item:nth-child(n + 9) {
+    display: none;
+  }
+
   .card-archives ul.card-archive-list > .card-archive-list-item a,
   .aside-archives .card-archive-list-item a {
     display: flex;
