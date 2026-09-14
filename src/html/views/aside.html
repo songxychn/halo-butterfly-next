@@ -128,7 +128,12 @@
   </div>
 </section>
 
-<!--/* 归档。对齐上游 aside.card_archives.enable 默认开启；本刀不做 type/format/order/limit/sort_order。 */-->
+<!--/*
+  归档。对齐上游 aside.card_archives.enable 默认开启。
+  Halo postFinder.archives(page,size) 按文章分页再按年月分组，size 必须覆盖该桶全部文章，不能当行数上限。
+  上游 card_archives.limit 默认 8 限制的是月份/年份行数；计数用 #lists.size(monthVo.posts)。
+  本刀不做 type / format / order / sort_order。
+*/-->
 <section
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="archives"
@@ -139,8 +144,17 @@
     <i class="fas fa-archive"></i>
     <span class="name">归档</span>
   </h1>
-  <div class="content" th:with="archiveYears = ${postFinder.archives(1, 8)}, noData = ${archiveYears != null and not #lists.isEmpty(archiveYears.items)}">
-    <ul class="card-archive-list" th:if="${noData}">
+  <div
+    class="content"
+    th:with="
+      archiveSize = ${stats.post == null or stats.post < 1 ? 1 : (stats.post > 1000 ? 1000 : stats.post)},
+      archiveYears = ${postFinder.archives(1, archiveSize)},
+      archiveRowLimit = 8,
+      noData = ${archiveYears != null and not #lists.isEmpty(archiveYears.items)}
+    "
+  >
+    <!--/* archiveRowLimit=8：上游 limit 是行数。li 为 ul 直接子元素，用 nth-child 只显示 8 行。 */-->
+    <ul class="card-archive-list" th:if="${noData}" th:attr="data-archive-row-limit=${archiveRowLimit}">
       <th:block th:each="year : ${archiveYears.items}">
         <li class="card-archive-list-item" th:each="monthVo : ${year.months}">
           <a class="card-archive-list-link" href="/archives">
@@ -154,29 +168,36 @@
   </div>
 </section>
 
-<!--/* 网站信息 */-->
+<!--/* 网站信息。对齐上游 card_webinfo：文章数目 + 最后更新时间；无 busuanzi 时不硬渲染总访问量；无文章点赞。 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo}" class="aside-webInfo card">
   <h1 class="title">
     <i class="fa-solid fa-chart-simple"></i>
     <span class="name">网站信息</span>
   </h1>
 
-  <div class="content">
+  <div
+    class="content"
+    th:with="
+      latestUpdated = ${postFinder.list({page: 1, size: 1, sort: {'status.lastModifyTime,desc'}})},
+      latestPublished = ${postFinder.list({page: 1, size: 1, sort: {'spec.publishTime,desc'}})},
+      updatedPost = ${latestUpdated != null and not #lists.isEmpty(latestUpdated.items) ? latestUpdated.items[0] : null},
+      publishedPost = ${latestPublished != null and not #lists.isEmpty(latestPublished.items) ? latestPublished.items[0] : null},
+      updatedAt = ${updatedPost != null ? (updatedPost.status.lastModifyTime != null ? updatedPost.status.lastModifyTime : updatedPost.spec.publishTime) : null},
+      publishedAt = ${publishedPost != null ? publishedPost.spec.publishTime : null},
+      lastPush = ${updatedAt == null ? publishedAt : (publishedAt == null ? updatedAt : (updatedAt >= publishedAt ? updatedAt : publishedAt))}
+    "
+  >
     <div class="item">
       <span>文章数目：</span>
       <span th:text="${stats.post} + '章'"></span>
-    </div>
-    <div class="item">
-      <span>文章点赞：</span>
-      <span th:text="${stats.upvote} + '赞'"></span>
     </div>
     <div class="item" th:if="${not #strings.isEmpty(theme.config.base.site_birthday)}">
       <span>运行时间：</span>
       <span class="run-day" th:data-date="${theme.config.base.site_birthday}">... 天</span>
     </div>
-    <div class="item">
-      <span>总访问量：</span>
-      <span th:text="${stats.visit} + '人'"></span>
+    <div class="item" th:if="${lastPush != null}">
+      <span>最后更新时间：</span>
+      <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>
     </div>
   </div>
 </section>

@@ -108,3 +108,54 @@ test('实验室为无封面篇写入 cover.default_cover；主题默认仍为空
   assert.match(lab, /'cover': \{'default_cover': '\/lab\/cover\.svg'\}/);
   assert.equal(defaults.cover.default_cover, '');
 });
+
+function archivesFragment(source) {
+  const start = source.indexOf('th:fragment="archives"');
+  assert.notEqual(start, -1);
+  const end = source.indexOf('th:fragment="webInfo"', start);
+  assert.notEqual(end, -1);
+  return source.slice(start, end);
+}
+
+function webInfoFragment(source) {
+  const start = source.indexOf('th:fragment="webInfo"');
+  assert.notEqual(start, -1);
+  const end = source.indexOf('th:fragment="common"', start);
+  assert.notEqual(end, -1);
+  return source.slice(start, end);
+}
+
+test('归档卡月份计数取该桶全部文章，archives() 的 size 不是行数上限 8', async () => {
+  const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
+  const scss = await readFile(new URL('../src/scss/core/aside.scss', import.meta.url), 'utf8');
+  const archives = archivesFragment(aside);
+  assert.doesNotMatch(archives, /postFinder\.archives\(\s*1\s*,\s*8\s*\)/);
+  assert.match(archives, /archiveSize = \$\{stats\.post/);
+  assert.match(archives, /postFinder\.archives\(\s*1\s*,\s*archiveSize\s*\)/);
+  assert.match(archives, /archiveRowLimit = 8/);
+  assert.match(archives, /#lists\.size\(monthVo\.posts\)/);
+  assert.doesNotMatch(archives, /\b12\b/);
+  assert.match(scss, /nth-child\(\s*n\s*\+\s*9\s*\)/);
+});
+
+test('网站信息保留文章数目与最后更新时间，无文章点赞和总访问量', async () => {
+  const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
+  const webInfo = webInfoFragment(aside);
+  assert.match(webInfo, /<span class="name">网站信息<\/span>/);
+  assert.match(webInfo, /文章数目/);
+  assert.match(webInfo, /最后更新时间/);
+  assert.match(webInfo, /lastPush/);
+  assert.match(webInfo, /status\.lastModifyTime,desc/);
+  assert.match(webInfo, /spec\.publishTime,desc/);
+  assert.match(webInfo, /data-relative-date="true"/);
+  assert.doesNotMatch(webInfo, /文章点赞/);
+  assert.doesNotMatch(webInfo, /总访问量/);
+  assert.doesNotMatch(webInfo, /stats\.upvote/);
+  assert.doesNotMatch(webInfo, /stats\.visit/);
+  const now = Date.parse('2026-09-10T13:00:00Z');
+  const nodes = [
+    { getAttribute: () => '2026-09-10T12:50:00Z', textContent: '2026-09-10 20:50' },
+  ];
+  applyRelativeDates({ querySelectorAll: () => nodes }, now);
+  assert.equal(nodes[0].textContent, '10 分钟前');
+});
