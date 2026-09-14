@@ -138,7 +138,9 @@ test('模板：owner/copyright 可关；标题 th:text；无 th:utext；保留�
   assert.match(footerHtml, /th:if="\$\{ownerOn\}"/);
   assert.match(footerHtml, /th:if="\$\{copyOn\}"/);
   assert.match(footerHtml, /th:if="\$\{versionOn\}"/);
-  assert.match(footerHtml, /th:text="\$\{!#strings\.isEmpty\(sinceText\) and sinceText != currentYear \? \('© ' \+ sinceText \+ ' - ' \+ currentYear \+ ' By ' \+ site\.title\) : \('© ' \+ currentYear \+ ' By ' \+ site\.title\)\}"/);
+  assert.match(footerHtml, /th:text="\$\{!#strings\.isEmpty\(sinceText\) and sinceText != currentYear \? \('© ' \+ sinceText \+ ' - ' \+ currentYear \+ ' By ' \+ \(contributor\?\.displayName \?: site\.title\)\) : \('© ' \+ currentYear \+ ' By ' \+ \(contributor\?\.displayName \?: site\.title\)\)\}"/);
+  assert.match(footerHtml, /contributor\?\.displayName \?: site\.title/);
+  assert.doesNotMatch(footerHtml, /' By ' \+ site\.title/);
   assert.match(footerHtml, /th:text="\$\{' ' \+ theme\.spec\.version\}"/);
   assert.doesNotMatch(footerHtml, /th:text="' ' \+ theme\.spec\.version"/);
   assert.match(footerHtml, /th:if="\$\{not #strings\.isEmpty\(theme\.config\.footer\?\.custom_text\)\}"/);
