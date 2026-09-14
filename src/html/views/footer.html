@@ -37,7 +37,7 @@
     <div class="footer-copyright">
       <span class="copyright"
             th:if="${ownerOn}"
-            th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + site.title) : ('© ' + currentYear + ' By ' + site.title)}"></span>
+            th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + (contributor?.displayName ?: site.title)) : ('© ' + currentYear + ' By ' + (contributor?.displayName ?: site.title))}"></span>
       <span class="framework-info powered" th:if="${copyOn}">
         <span class="footer-separator" th:if="${ownerOn and navOn}">|</span>
         <span>框架 </span>
