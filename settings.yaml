@@ -1044,6 +1044,52 @@ spec:
                   label: 说明
                   help: 对应 QR_code[].text。可见文本 th:text / th:alt。
                   value: ""
+    - group: wordcount
+      label: 字数统计
+      formSchema:
+        - $formkit: radio
+          name: enable
+          label: 启用字数与阅读时长
+          help: 对应上游 Butterfly wordcount.enable（依赖 hexo-wordcount，_config.yml 默认 false）。关闭时文章页不渲染字数总计与阅读时长。不做 total_wordcount、页脚字数。
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 禁用
+              value: false
+        - $formkit: radio
+          name: post_wordcount
+          label: 显示字数总计
+          help: 对应上游 wordcount.post_wordcount（默认 true）。仅 wordcount.enable 开启时生效。
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: radio
+          name: min2read
+          label: 显示阅读时长
+          help: 对应上游 wordcount.min2read（默认 true）。仅 wordcount.enable 开启时生效。
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+    - group: busuanzi
+      label: 访问统计
+      formSchema:
+        - $formkit: radio
+          name: page_pv
+          label: 显示文章阅读量
+          help: 对应上游 Butterfly busuanzi.page_pv。实验室对照关闭，本主题默认关闭以免文章页多出阅读量。不做 site_uv / site_pv（网站信息另票）。
+          value: false
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
     #文章目录（对齐上游 toc.number / expand / style_simple / scroll_percent）
     - group: toc
       label: 文章目录
