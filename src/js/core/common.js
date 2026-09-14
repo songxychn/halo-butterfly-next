@@ -19,6 +19,7 @@ export default class Common {
     if(window.MainApp.conf.enable_above && window.MainApp.conf.above_background) this.#loadAboveBackgroundImg(); //第一屏图片预加载 
 
     this.#createSingleAction(); //创建单一行为事件
+    this.#bindScrollDown();
 
     if(MainApp.conf.enable_aside && MainApp.conf.enable_webInfo) this.#runDay(); //站点运行时间
 
@@ -65,6 +66,17 @@ export default class Common {
   //返回顶部
   backTop() {
     $('html,body').animate({scrollTop: 0}, 300);
+  }
+
+  // 首页 #scroll-down：对齐 5.7.0 main.js 滚到内容区（Halo 为 #Butterfly > .main）
+  #bindScrollDown() {
+    const el = document.getElementById('scroll-down');
+    if (!el) return;
+    el.addEventListener('click', () => {
+      const main = document.querySelector('#Butterfly > .main');
+      if (!main) return;
+      $('html,body').animate({scrollTop: main.offsetTop}, 300);
+    });
   }
 
   //第一屏图片预加载

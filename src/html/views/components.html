@@ -8,7 +8,7 @@
   th:class="${class}"
 >
 
-<!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
+<!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数/时长受 wordcount.enable（默认关，对齐 hexo-wordcount 未装）；阅读量受 busuanzi.page_pv（实验室关）。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="postMeta"
@@ -17,6 +17,10 @@
     dateType = ${theme.config.post.post_meta?.date_type},
     dateFormat = ${theme.config.post.post_meta?.date_format},
     showLabel = ${theme.config.post.post_meta?.label != false},
+    wordcountOn = ${theme.config.wordcount?.enable == true or theme.config.wordcount?.enable == 'true'},
+    showWordcount = ${wordcountOn and theme.config.wordcount?.post_wordcount != false},
+    showMin2read = ${wordcountOn and theme.config.wordcount?.min2read != false},
+    showPagePv = ${theme.config.busuanzi?.page_pv == true or theme.config.busuanzi?.page_pv == 'true'},
     rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
     plain = ${rawHtml.replaceAll('(?s)<[^>]+>', '')},
     wordLen = ${#strings.length(plain)},
@@ -53,16 +57,16 @@
     </span>
   </li>
 
-  <li class="row">
-    <span class="wp wordCount">
+  <li class="row" th:if="${showWordcount or showMin2read or showPagePv}">
+    <span class="wp wordCount" th:if="${showWordcount}">
       <i class="fa-solid fa-list-ol"></i>
       <span th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
     </span>
-    <span class="wp clock">
+    <span class="wp clock" th:if="${showMin2read}">
       <i class="fa-regular fa-clock"></i>
       <span th:text="'阅读时长 ' + ${readMin} + ' 分钟'"></span>
     </span>
-    <span class="wp visit">
+    <span class="wp visit" th:if="${showPagePv}">
       <i class="far fa-eye fa-fw"></i>
       <span th:text="'阅读量 ' + ${post.stats.visit}"></span>
     </span>
