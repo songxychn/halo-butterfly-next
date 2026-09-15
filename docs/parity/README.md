@@ -70,7 +70,9 @@ node scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 | `verified` | 已验收：专属断言、合同场景、独立审查和对应提交 CI 全部通过 |
 | `blocked` | 按合同阻塞处理：用 `blocker.phase/reason/nextAction` 记录阻塞原因及下一步，原范围保留 |
 
-初版不提供自动“不适用”状态。确实仅属于 Hexo 构建机制的事项如需改为不适用，先完成合同要求的来源证明和独立结论，再以明确变更修订矩阵规则。删减可见能力、减少 provider 或用不同能力替代仍须用户确认。
+初版不提供自动“不适用”状态。确实仅属于 Hexo 构建机制的事项如需改为不适用，先完成合同要求的来源证明和独立结论，再以明确变更修订矩阵规则。删减可见能力、减少 provider 或用不同能力替代仍须用户确认。经 DEC 裁定延期到后续版本的条目使用 `blocked`（`blocker.phase` 为目标版本），保留在矩阵中，不计入当前工程终点分母。
+
+DEC-02（[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)）：`tag:*` 的 Halo 输入是与 Butterfly 生成结果一致的 HTML，主题不解析 `{% %}`。
 
 ## 已验收证据
 
