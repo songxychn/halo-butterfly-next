@@ -30,6 +30,12 @@ export function checkMatrix(matrix, inventory) {
     if (!nonempty(item.title) || !nonempty(item.key) || !nonempty(item.kind)) fail(`Missing identity: ${item.id}`);
     if (!(item.status in statusLabels)) fail(`Invalid status: ${item.id} (${item.status})`);
     if (item.status === 'blocked' && (!nonempty(item.blocker?.phase) || !nonempty(item.blocker?.reason) || !nonempty(item.blocker?.nextAction))) fail(`Blocked without next action: ${item.id}`);
+    if (item.status === 'not-applicable') {
+      const decision = item.decision;
+      if (!nonempty(decision?.id) || !nonempty(decision?.option) || !nonempty(decision?.reason) || !nonempty(decision?.replacement) || !timestamp(decision?.date) || !/^https:\/\/github\.com\/songxychn\/halo-butterfly-next\/issues\/\d+$/.test(decision?.issue ?? '')) {
+        fail(`Not-applicable without decision: ${item.id}`);
+      }
+    }
     if (!Array.isArray(item.sources) || !item.sources.length) fail(`Missing upstream source: ${item.id}`);
     for (const source of item.sources ?? []) if (!sources.has(source.file) || !Number.isInteger(source.line) || source.line < 1 || source.line > sources.get(source.file).lines) fail(`Invalid upstream reference: ${item.id}`);
     if (!nonempty(item.halo?.strategy) || !nonempty(item.halo?.finding) || !Array.isArray(item.halo?.code) || !Array.isArray(item.halo?.settings)) fail(`Missing Halo adaptation: ${item.id}`);
@@ -150,7 +156,8 @@ export async function checkParity({ root = ROOT, upstream } = {}) {
   if (rendered !== renderMatrix(matrix)) errors.push('MATRIX.md is stale; run node scripts/parity-render.mjs');
   if (errors.length) throw new Error(errors.join('\n'));
   return { total: matrix.items.length, required: requiredEntries(inventory).length + required.items.length, yamlLeaves: inventory.configuration.length,
-    verified: matrix.items.filter(item => item.status === 'verified').length, sourceVerified: Boolean(upstream) };
+    verified: matrix.items.filter(item => item.status === 'verified').length,
+    notApplicable: matrix.items.filter(item => item.status === 'not-applicable').length, sourceVerified: Boolean(upstream) };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

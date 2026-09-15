@@ -59,6 +59,6 @@
 1. [#30 404 页面](https://github.com/songxychn/halo-butterfly-next/issues/30)：对照固定上游的卡片布局、字体和间距，验证默认、自定义、空白、图片失败和长文本配置，随后完成精确提交独立审查与 CI。
 2. [#32 图库与瞬间分页](https://github.com/songxychn/halo-butterfly-next/issues/32)：为服务端分页补齐原生上一页/下一页，保留插件提供的分组、标签及每页数量参数；在 P+ 双站和多页筛选夹具中验证后独立审查。
 3. [#35 性能基线](https://github.com/songxychn/halo-butterfly-next/issues/35)：固定工具、浏览器、机器与原始样本；分别以默认和推荐配置运行首页、长文章、图库和公共插件页，并与冻结基线比较。P/P+ 是页面集合，不是插件安装配置。
-4. 双站已知的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。继续从完整矩阵提取工作；提供方替代、内容语法兼容等实质取舍在有具体样例后交维护者裁定。
+4. 双站已知的其他视觉差异继续保留，见[对照初检](validation/2026-09-06/comparison-initial.json)。DEC-01 已按选项 2 裁定（[#46](https://github.com/songxychn/halo-butterfly-next/issues/46)）：1.0 搜索/评论以官方插件为唯一主题支持面。继续从完整矩阵提取工作；DEC-02 等内容语法取舍仍须有具体样例后再交维护者裁定。
 
 当前截图、HTTP 通过和 alpha 包一致性均不是完整视觉、交互、无障碍或性能验收。尚未通过的真实浏览器/真机、插件联调、迁移生命周期、扩展能力与发行条件继续保持未完成。保持仓库私有；公开、历史重写及正式 1.0 发布须维护者确认。
