@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 192,
+  "pr": 194,
+  "title": "M1：第三方组件样式 third-party.styl",
+  "author": "cursor/m1-third-party-styl",
+  "recorder": "cursor/record-194",
+  "recordedAt": "2026-09-12T13:00:00Z",
+  "visibility": "private",
+  "sourceSha": "21211d5a2f6677a55d6ca6e9c8d225151b57b3c7",
+  "reviewHead": "21211d5a2f6677a55d6ca6e9c8d225151b57b3c7",
+  "mergeSha": "f76384246b2d451ec5798295d8173420175d26b9",
+  "mergedAt": "2026-09-12T12:57:40Z",
+  "closesIssue": 192,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/194#issuecomment-5646019604",
+    "createdAt": "2026-09-12T12:56:09Z",
+    "head": "21211d5a2f6677a55d6ca6e9c8d225151b57b3c7",
+    "note": "Independent review posted as issue comment 5646019604, not a GitHub Approve. Verdict: approve. No P1. The reviewer's CI snapshot was run 34694807654 completed success. This record waited until that run completed success and merge-commit master CI 34695093579 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "8b53c29a0b55fc723eba851c802dab46005913d4",
+      "summary": "Add src/scss/core/third-party.scss aligning third-party.styl. Selectors #vcomment / #waline-wrap / .artalk-vote / .twikoo / .fireworks z-index 9999 / medium-zoom 99999 / .mermaid-wrap / .chartjs-container / #gitalk-container / .katex-display / mjx-container / .snackbar-container.snackbar-css / .abc-music-sheet / fancybox 768 toolbar. CSS-only; no provider scripts; skip .katex display:none and mermaid.code_write hide. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "4498ff8792cb8f06a8b948840754881ddd08bff6",
+      "summary": "Raise style:source/css/_layout/third-party.styl from gap to implemented-unverified; evidence remains []. Do not raise config:snackbar.* / mermaid.* / artalk.vote / config:preloader.enable or landed loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode to verified."
+    },
+    {
+      "sha": "21211d5a2f6677a55d6ca6e9c8d225151b57b3c7",
+      "summary": "Register #194 onto style:source/css/_layout/third-party.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_layout/third-party.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_page/common.styl",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 463,
+    "mapping-required": 262,
+    "implemented-unverified": 162,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 195,
+    "state": "OPEN",
+    "title": "M1：页面通用样式 common.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/195",
+    "note": "All style:source/css/_layout/*.styl rows are implemented-unverified; do not raise them or config:snackbar.enable to verified. This slice is style:source/css/_page/common.styl. Snackbar interaction stays gap. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 193,
+    "title": "docs: 记录 #191 全屏加载样式合并证据",
+    "headSha": "907f3f0e75e0717e1984842ed03d8246ea632536",
+    "mergeSha": "b217f12441e10975bda968293896f188fd52064b",
+    "mergedAt": "2026-09-12T12:43:29Z",
+    "prCi": 34694232386,
+    "prCiConclusion": "success",
+    "masterCi": 34694454920,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34694454920",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/193#issuecomment-5645950306",
+    "note": "Waited with gh run view until completed. Push-event master CI 34694454920 on b217f12441e10975bda968293896f188fd52064b completed success at 2026-09-12T12:45:20Z, before the #194 merge push at 2026-09-12T12:57:40Z. Must be recorded as success, not cancelled. The reviewer's CI snapshot for #193 was run 34694232386 completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34694807654,
+      "runAttempt": 1,
+      "headSha": "21211d5a2f6677a55d6ca6e9c8d225151b57b3c7",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34694807654",
+      "note": "GitHub Verify theme. Reviewer's gh pr checks snapshot recorded completed success for head 21211d5. Orchestrator confirmed the same run completed success before squash merge. New tests: tests/third-party-style.test.mjs (4)."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34695093579,
+      "runAttempt": 1,
+      "headSha": "f76384246b2d451ec5798295d8173420175d26b9",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34695093579",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T12:59:28Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #194; there is no Approve. Independent review 5646019604 is issue comment, not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 21211d5a2f6677a55d6ca6e9c8d225151b57b3c7: newly raised to implemented-unverified is style:source/css/_layout/third-party.styl. evidence remains []. All _layout/*.styl rows are now implemented-unverified. Does not mark verified. Does not raise config:snackbar.enable.",
+    "Three commits (CSS-only, no freeze): 8b53c29 implement then 4498ff8 matrix IU then 21211d5 matrix PR number. settings.yaml unchanged.",
+    "Hide/third-party rules hang on #vcomment / #waline-wrap / .fireworks / .medium-zoom-image--opened, not data-theme. fireworks z-index 9999. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Skips .katex { display: none } and mermaid.code_write hide so plugin output is not concealed. Does not embed pace or snackbar scripts.",
+    "Non-blocking P2 from the review: no dual-site (declared; evidence [] is correct); compiled CSS always includes rules that upstream emits only when mermaid/chartjs/artalk.vote/math are on; no matching DOM so those rules are a no-op; upstream :not(last-child) stylus typo kept.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #195 style:source/css/_page/common.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_layout/third-party.styl; evidence remains [].",
+    "style:source/css/_page/common.styl remains gap.",
+    "Does not implement snackbar interaction, mermaid/chartjs/artalk providers, or pace. Must not raise landed loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles or config:snackbar.enable to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #193 merge-commit master CI run 34694454920 on b217f12441e10975bda968293896f188fd52064b completed success at 2026-09-12T12:45:20Z, before the #194 merge push at 2026-09-12T12:57:40Z; must not be recorded as cancelled.",
+    "PR #194 merge-commit master CI run 34695093579 on f76384246b2d451ec5798295d8173420175d26b9 completed success at 2026-09-12T12:59:28Z; not cancelled.",
+    "Issue #195 style:source/css/_page/common.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

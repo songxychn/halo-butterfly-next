@@ -62,10 +62,15 @@
 
             <th:block th:each="months : ${archive.months}">
               <li class="axis-list--item "
-                  th:each="post : ${months.posts}">
+                  th:each="post : ${months.posts}"
+                  th:with="
+                    coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+                    showCover = ${theme.config.cover.archives_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+                  "
+                  th:classappend="${showCover ? '' : ' no-cover'}">
 
-                <a class="cover" th:href="${post.status.permalink}">
-                  <img th:replace="~{views/components:: lazyLoadImg(${post.spec.cover},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+                <a th:if="${showCover}" class="cover" th:href="${post.status.permalink}">
+                  <img th:replace="~{views/components:: lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
                 </a>
 
                 <div class="info">

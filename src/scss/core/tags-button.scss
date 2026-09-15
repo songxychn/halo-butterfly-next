@@ -1,0 +1,171 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_tags/button.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游选择器已在 .container 下：.btn-center / .btn-beautify（outline / block /
+ * larger、--btn-beautify-color / --tags-*-color）。Halo 无 .container 祖先，
+ * 保持空操作。不要用 #Butterfly 把 width: fit-content / outline hover 背景
+ * 压到主栏或已有 .button / .code-toolbar（#203 P1 同类）。
+ *
+ * @extend .btn-effects / .btn-effects-large：把既有 hover scale 1.02 / 1.03
+ * 写进本选择器（跨 @use 模块不能 @extend）。border-radius 8px 对应
+ * addBorderRadius（rounded_corners_ui 默认 true）。
+ *
+ * 不实现 gallery.styl 及其余 _tags/* / source/css/index.styl / var.styl。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  .btn-center {
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  .btn-beautify {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 0 4px 6px;
+    padding: 0 15px;
+    background-color: var(--btn-beautify-color, var(--btn-default-color));
+    color: var(--btn-color, #fff);
+    vertical-align: top;
+    line-height: 2;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+
+    &.blue {
+      --btn-beautify-color: var(--tags-blue-color);
+    }
+
+    &.pink {
+      --btn-beautify-color: var(--tags-pink-color);
+    }
+
+    &.red {
+      --btn-beautify-color: var(--tags-red-color);
+    }
+
+    &.purple {
+      --btn-beautify-color: var(--tags-purple-color);
+    }
+
+    &.orange {
+      --btn-beautify-color: var(--tags-orange-color);
+    }
+
+    &.green {
+      --btn-beautify-color: var(--tags-green-color);
+    }
+
+    &:hover {
+      background-color: var(--btn-hover-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    &:active {
+      transition-duration: 0.1s;
+      transform: translateY(0) scale(0.98);
+    }
+
+    &:not(.block) + .btn-beautify:not(.block) {
+      margin: 0 4px 20px;
+    }
+
+    &.block {
+      display: block;
+      margin: 0 0 20px;
+      width: fit-content;
+      width: -moz-fit-content;
+
+      &.center {
+        margin: 0 auto 20px;
+      }
+
+      &.right {
+        margin: 0 0 20px auto;
+      }
+    }
+
+    &.larger {
+      padding: 6px 15px;
+
+      &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px) scale(1.03);
+      }
+    }
+
+    &.outline {
+      border: 1px solid transparent;
+      border-color: var(--btn-beautify-color, var(--btn-default-color));
+      background-color: transparent;
+      color: var(--btn-beautify-color, var(--btn-default-color));
+
+      i,
+      span {
+        transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      &::before {
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+      }
+
+      &:hover {
+        border-color: var(--btn-beautify-color, var(--btn-default-color));
+        background-color: var(--btn-beautify-color, var(--btn-default-color));
+        color: var(--btn-color) !important;
+
+        i,
+        span {
+          color: var(--btn-color);
+        }
+      }
+    }
+
+    i {
+      display: inline-block;
+      vertical-align: middle;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover i {
+      animation: buttonIconBounce 0.6s ease-in-out;
+    }
+
+    i + span {
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover i + span {
+      margin-left: 8px;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      content: "";
+      transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover::before {
+      left: 100%;
+    }
+
+    > * {
+      position: relative;
+      z-index: 2;
+    }
+  }
+}

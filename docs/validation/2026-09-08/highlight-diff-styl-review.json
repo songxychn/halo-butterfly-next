@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 233,
+  "pr": 235,
+  "title": "M1：代码高亮 diff token 样式 _highlight/highlight/diff.styl",
+  "author": "cursor/m1-highlight-diff-styl",
+  "recorder": "cursor/record-235",
+  "recordedAt": "2026-09-13T06:04:48Z",
+  "visibility": "private",
+  "sourceSha": "4cb3cbf78cb57e967d3256773111498851af50fb",
+  "reviewHead": "4cb3cbf78cb57e967d3256773111498851af50fb",
+  "mergeSha": "1e74d52ea5624153ee2c2a5c2563ac8a8f58a67d",
+  "mergedAt": "2026-09-13T05:57:38Z",
+  "closesIssue": 233,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/235#issuecomment-5651509380",
+    "createdAt": "2026-09-13T05:56:16Z",
+    "head": "4cb3cbf78cb57e967d3256773111498851af50fb",
+    "note": "Independent review posted as issue comment 5651509380, not a GitHub Approve. Verdict: approve-as-comment. No P1. Top-level @use \"highlight-diff\" after highlight-index; light-default token colors stay on no-DOM .container figure.highlight; no #Butterfly on main column or .code-toolbar. The reviewer's CI snapshot was run 34741338308 pending; this record waited until that PR CI completed success and merge-commit master CI 34741570084 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "fc733c2325db78d510932773ba18368fe8df47c1",
+      "summary": "Add src/scss/core/highlight-diff.scss and top-level @use after highlight-index. Parallel .container figure.highlight pre .deletion/.addition/.meta/.comment and highlight.js tokens (no-op). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not rewrite templates or implement prismjs / theme.styl."
+    },
+    {
+      "sha": "a5e64965fbf7b24582c4da2e2d094bacb2cb69a7",
+      "summary": "Raise style:source/css/_highlight/highlight/diff.styl from gap to implemented-unverified; evidence remains []. Do not raise landed highlight.styl / highlight/index.styl / _search/*.styl / _page/*.styl / _layout/*.styl to verified. prismjs/diff.styl remains gap at that SHA."
+    },
+    {
+      "sha": "4cb3cbf78cb57e967d3256773111498851af50fb",
+      "summary": "Register #235 onto style:source/css/_highlight/highlight/diff.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_highlight/highlight/diff.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_highlight/highlight/index.styl",
+    "style:source/css/_highlight/highlight.styl",
+    "style:source/css/_search/local-search.styl",
+    "style:source/css/_search/algolia.styl",
+    "style:source/css/_search/index.styl",
+    "style:source/css/_page/tags.styl",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_highlight/prismjs/diff.styl",
+    "style:source/css/_highlight/theme.styl",
+    "style:source/css/_highlight/prismjs/index.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 449,
+    "mapping-required": 262,
+    "implemented-unverified": 176,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 237,
+    "state": "OPEN",
+    "title": "M1：Prism token 样式 _highlight/prismjs/diff.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/237",
+    "note": "Product work for #237 is out of this documentation PR. Do not record PR #238 here. Do not raise landed highlight.styl / highlight/index.styl / highlight/diff.styl / _search/*.styl / _page/*.styl / _layout/*.styl to verified. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 236,
+    "title": "docs: 记录 #232 代码高亮 gutter 样式合并证据",
+    "headSha": "2fdceb753c1ac48b117683833d484bc7b6c86334",
+    "mergeSha": "ab9d7896cad50b5d4a7186b44e214ae334efe23d",
+    "mergedAt": "2026-09-13T06:00:44Z",
+    "prCi": 34741491093,
+    "prCiConclusion": "success",
+    "masterCi": 34741698227,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34741698227",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/236#issuecomment-5651513847",
+    "note": "Waited with gh run view until completed. Push-event master CI 34741698227 on ab9d7896cad50b5d4a7186b44e214ae334efe23d completed success at 2026-09-13T06:02:24Z. Must be recorded as success, not cancelled. PR #235 merge-commit master CI 34741570084 completed success at 2026-09-13T05:59:49Z before the #236 merge push at 2026-09-13T06:00:44Z; also must not be recorded as cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34741338308,
+      "runAttempt": 1,
+      "headSha": "4cb3cbf78cb57e967d3256773111498851af50fb",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34741338308",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34741338308 pending for head 4cb3cbf. Orchestrator confirmed the same run completed success at 2026-09-13T05:54:03Z before squash merge. New tests: tests/highlight-diff-style.test.mjs (5), compiling src/scss/page/index.scss. pnpm check 338 pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34741570084,
+      "runAttempt": 1,
+      "headSha": "1e74d52ea5624153ee2c2a5c2563ac8a8f58a67d",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34741570084",
+      "note": "Waited with gh run view until completed. Push-event master CI 34741570084 completed success at 2026-09-13T05:59:49Z, before the #236 merge push at 2026-09-13T06:00:44Z. Do not record as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #235; there is no Approve. Independent review 5651509380 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head 4cb3cbf78cb57e967d3256773111498851af50fb: newly raised to implemented-unverified is style:source/css/_highlight/highlight/diff.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): fc733c2 implement then a5e6496 matrix IU then 4cb3cbf matrix PR number. settings.yaml unchanged. Did not rewrite templates. Did not implement prismjs / theme.styl. Did not change code-block theme enum.",
+    "Selectors .container figure.highlight pre .deletion #bf42bf / .addition #105ede / .meta #7c4dff / .comment rgba(149,165,166,.8) and highlight.js tokens stay on no-DOM upstream selectors. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not use #Butterfly to press token colors onto the main column or .code-toolbar. Dark mode stays data-color-scheme, not data-theme.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); no figure.highlight DOM.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. This record does not include PR #238 prismjs/diff.styl evidence."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_highlight/highlight/diff.styl; evidence remains [].",
+    "This record does not include PR #238 prismjs/diff.styl evidence.",
+    "Must not raise landed highlight.styl / highlight/index.styl / highlight/diff.styl / search/index.styl / algolia.styl / local-search.styl / tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #235 merge-commit master CI run 34741570084 on 1e74d52ea5624153ee2c2a5c2563ac8a8f58a67d completed success at 2026-09-13T05:59:49Z, before the #236 merge push at 2026-09-13T06:00:44Z; must not be recorded as cancelled.",
+    "PR #236 merge-commit master CI run 34741698227 on ab9d7896cad50b5d4a7186b44e214ae334efe23d completed success at 2026-09-13T06:02:24Z; must not be recorded as cancelled.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

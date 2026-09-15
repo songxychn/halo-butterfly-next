@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 135,
+  "pr": 137,
+  "title": "M1：右侧栏 rightside_bottom",
+  "author": "cursor/m1-rightside-bottom",
+  "recorder": "cursor/record-137",
+  "recordedAt": "2026-09-12T05:57:00Z",
+  "visibility": "private",
+  "sourceSha": "f8c410eb66d9ab9895fe7284fc8c89d631473d60",
+  "reviewHead": "f8c410eb66d9ab9895fe7284fc8c89d631473d60",
+  "mergeSha": "b72731ee617f298d0f6f1922b19038d9ba3bcc36",
+  "mergedAt": "2026-09-12T05:53:53Z",
+  "closesIssue": 135,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/137#issuecomment-5643999105",
+    "createdAt": "2026-09-12T05:52:30Z",
+    "head": "f8c410eb66d9ab9895fe7284fc8c89d631473d60",
+    "note": "Independent review posted as issue comment 5643999105, not a GitHub Approve. Verdict: approve. No P1. This record waited until PR CI 34676510155 and merge-commit master CI 34676747773 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": false,
+  "settingsSha256": "6d9ac8e98ea885862fcbabb50523ab0220a888057352e3402181c812286f9452",
+  "sourceCommit": "13ae8a10340614e88062d05a49bf5924cb4ec4c8",
+  "productCommits": [
+    {
+      "sha": "13ae8a10340614e88062d05a49bf5924cb4ec4c8",
+      "summary": "Align upstream rightside_bottom onto Halo rightside.bottom. Default empty string; CSS falls back to 40px. Non-empty writes --rightside-bottom (unit required). .side-btn uses var(--rightside-bottom, 40px). Does not reuse author-card aside.button. No new th:utext."
+    },
+    {
+      "sha": "3e73b847be991c8463223d3860882b09a21192bb",
+      "summary": "Refreeze performance theme-defaults.json onto the rightside.bottom implementation commit 13ae8a10340614e88062d05a49bf5924cb4ec4c8; settingsSha256 6d9ac8e98ea885862fcbabb50523ab0220a888057352e3402181c812286f9452"
+    },
+    {
+      "sha": "8fbe0531ef78a776e3ffbbd98f693812550eb346",
+      "summary": "Raise config:rightside_bottom from gap to implemented-unverified; evidence remains []"
+    },
+    {
+      "sha": "f8c410eb66d9ab9895fe7284fc8c89d631473d60",
+      "summary": "Register #137 onto config:rightside_bottom matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:rightside_bottom"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:rightside_scroll_percent",
+    "template:includes/rightside",
+    "template:includes/footer",
+    "config:aside.hide",
+    "config:aside.mobile",
+    "config:aside.button",
+    "interaction:hide-aside",
+    "config:mask.header",
+    "config:mask.footer",
+    "config:footer_img",
+    "config:footer.nav",
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_layout/rightside.styl",
+    "config:rightside_item_order.enable",
+    "config:readmode",
+    "interaction:readmode"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 486,
+    "mapping-required": 262,
+    "implemented-unverified": 139,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 138,
+    "state": "OPEN",
+    "title": "M1：阅读模式 readmode",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/138",
+    "note": "config:rightside_bottom, config:rightside_scroll_percent, and template:includes/rightside are implemented-unverified; do not raise them, footer template, or landed footer/aside config to verified. This slice is readmode (optional readmode.styl). Must not reuse author-card aside.button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 136,
+    "title": "docs: 记录 #134 右侧栏百分比合并证据",
+    "headSha": "8852813fc2b4001d825243a8315a5064c27e37a3",
+    "mergeSha": "15e236f61d4d18de532e1eaf09bf62704fc04429",
+    "mergedAt": "2026-09-12T05:41:12Z",
+    "prCi": 34675926549,
+    "prCiConclusion": "success",
+    "masterCi": 34676217100,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34676217100",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/136#issuecomment-5643877822",
+    "note": "Waited with gh run view until completed. Push-event master CI 34676217100 on 15e236f61d4d18de532e1eaf09bf62704fc04429 completed success at 2026-09-12T05:43:30Z, before the #137 merge push at 2026-09-12T05:53:53Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34676510155,
+      "runAttempt": 1,
+      "headSha": "f8c410eb66d9ab9895fe7284fc8c89d631473d60",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34676510155",
+      "note": "GitHub Verify theme: 199 tests pass. Independent reviewer's one-shot snapshot was already completed success at 2026-09-12T05:49:58Z."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34676747773,
+      "runAttempt": 1,
+      "headSha": "b72731ee617f298d0f6f1922b19038d9ba3bcc36",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34676747773",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T05:55:14Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #137; there is no Approve. Independent review is issue comment 5643999105 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head f8c410eb66d9ab9895fe7284fc8c89d631473d60: newly raised to implemented-unverified is config:rightside_bottom. evidence remains []. template:includes/rightside and config:rightside_scroll_percent stay implemented-unverified. style:source/css/_layout/rightside.styl and footer.styl remain gap. Does not mark verified.",
+    "Four commits: 13ae8a1 implement then 3e73b84 freeze then 8fbe053 matrix IU then f8c410e matrix PR number. freeze sourceCommit 13ae8a10340614e88062d05a49bf5924cb4ec4c8; settingsSha256 6d9ac8e98ea885862fcbabb50523ab0220a888057352e3402181c812286f9452 matches settings.yaml. config.rightside.bottom is empty string.",
+    "Halo maps upstream top-level rightside_bottom (empty default; var.styl fallback 40px, not 400px) onto new key rightside.bottom. Empty CSS falls back to 40px; non-empty writes --rightside-bottom (unit required). .side-btn uses var(--rightside-bottom, 40px). YAML help containing #rightside is quoted. No new th:utext. tracking.pullRequests used. Does not reuse author-card aside.button.",
+    "Non-blocking P2 from the independent review: not full rightside.styl (z-index 100 vs Halo 80, opacity, cubic-bezier). item_order / readmode not done. Unitless numbers are not auto-suffixed with px (upstream convert() would). No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #138 readmode; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is config:rightside_bottom; evidence remains [].",
+    "style:source/css/_layout/footer.styl and style:source/css/_layout/rightside.styl remain gap.",
+    "Does not implement rightside_item_order or readmode. Must not raise landed rightside/footer templates or footer/aside config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #136 merge-commit master CI run 34676217100 on 15e236f61d4d18de532e1eaf09bf62704fc04429 completed success at 2026-09-12T05:43:30Z, before the #137 merge push at 2026-09-12T05:53:53Z; must not be recorded as cancelled.",
+    "PR #137 merge-commit master CI run 34676747773 on b72731ee617f298d0f6f1922b19038d9ba3bcc36 completed success at 2026-09-12T05:55:14Z; not cancelled.",
+    "Issue #138 readmode is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

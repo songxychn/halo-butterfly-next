@@ -1,0 +1,10 @@
+<nav th:fragment="pagination(items, label)"
+     th:if="${items.totalPages > 1 and items.page <= items.totalPages}"
+     class="pagination plugin-pagination" th:aria-label="${label}">
+  <a th:if="${items.hasPrevious()}" class="page prev" rel="prev"
+     th:href="${items.prevUrl}">上一页</a>
+  <span class="page-info" aria-current="page"
+        th:text="${'第 ' + items.page + ' 页，共 ' + items.totalPages + ' 页'}"></span>
+  <a th:if="${items.hasNext()}" class="page next" rel="next"
+     th:href="${items.nextUrl}">下一页</a>
+</nav>

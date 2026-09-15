@@ -6,12 +6,13 @@
  */
 
 .code-toolbar {
+  position: relative;
   margin: 12px 0;
   overflow: hidden;
   box-shadow: var(--code-toolbar-box-shadow);
   border-radius: 5px;
 
-  &:before {
+  &.mac-style::before {
     content: "";
     position: absolute;
     top: 9px;
@@ -54,9 +55,18 @@
       color: #999;
       pointer-events: all;
 
-      > i {
+      > button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0 12px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        line-height: inherit;
         cursor: var(--cursor-pointer);
-        margin-left: 15px;
         transition: transform 0.2s;
 
         &:hover {
@@ -67,26 +77,142 @@
           font-size: .9rem;
         }
       }
-    }
 
-    // 启动展开
-    &.enable-expander {
+      .copy-notice {
+        position: absolute;
+        right: 0;
+        top: 28px;
+        z-index: 2;
+        padding: 2px 6px;
+        border-radius: 3px;
+        background: var(--code-loading-background-color, #fff);
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: nowrap;
+        pointer-events: none;
+        color: #4c4948;
 
-      i.code-expander {
-        transform: rotate(90deg);
+        &.is-error {
+          color: #d03050;
+        }
       }
     }
 
-    // 启用标题
     &.enable-title {
       .toolbar-item:first-child {
         display: block;
       }
     }
 
-    // 启动分割线
     &.enable-hr {
       border-bottom: 1px solid #b2a8a84d;
+    }
+  }
+
+  &.word-wrap {
+    pre[class*=language-] {
+      white-space: pre-wrap;
+      overflow-x: visible;
+
+      code[class*=language-] {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        overflow-x: hidden;
+      }
+    }
+  }
+
+  &.closed {
+    pre[class*=language-],
+    .code-expand-btn {
+      display: none;
+    }
+
+    .toolbar .code-expander {
+      transform: rotate(-90deg);
+    }
+
+    &.mac-style .toolbar .code-expander {
+      transform: rotate(90deg);
+    }
+  }
+
+  &.code-fullpage {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 0;
+    animation: code-fullpage .3s;
+
+    .code-expand-btn,
+    .code-expander {
+      display: none;
+    }
+
+    .toolbar {
+      position: relative;
+      flex: 0 0 2.15em;
+      height: 2.15em;
+      z-index: 10000;
+
+      .custom-item {
+        .fullpage-button {
+          color: #4c4948;
+          opacity: 1;
+
+          i {
+            color: inherit;
+          }
+        }
+      }
+    }
+
+    pre[class*=language-] {
+      display: block;
+      flex: 1 1 auto;
+      height: calc(100vh - 2.15em);
+      margin-bottom: 0;
+      padding-top: 0;
+      overflow: auto;
+      border-radius: 0;
+
+      code[class*=language-] {
+        display: block !important;
+        max-height: none !important;
+        overflow: auto;
+        height: 100%;
+      }
+    }
+  }
+
+  &.has-height-limit {
+    &:not(.expand-done) {
+      pre[class*=language-] code[class*=language-] {
+        max-height: var(--code-height-limit);
+        overflow: hidden;
+      }
+    }
+
+    .code-expand-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      margin: 0;
+      padding: 6px 0;
+      border: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .92));
+      color: #999;
+      cursor: var(--cursor-pointer);
     }
   }
 
@@ -132,4 +258,34 @@
     }
   }
 
+}
+
+@keyframes code-fullpage {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+html.code-fullpage,
+html.code-fullpage body {
+  overflow: hidden;
+}
+
+html[data-color-scheme='dark'] .code-toolbar.code-fullpage .toolbar .custom-item .fullpage-button {
+  color: #e8e8e8;
+
+  i {
+    color: inherit;
+  }
 }

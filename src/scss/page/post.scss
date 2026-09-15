@@ -3,22 +3,29 @@
  * @author: 小红
  * @fileName: post
  * @Description: 文章
+ *
+ * 文章页 Halo 结构（顶图 info、文章上下篇、打赏、相关文章）。
+ * post.styl 的 #post / .container / 版权 / 过期提醒在 core/post.scss。
+ * 本文件不改 #pagination.pagination-post 的 150px。
  */
 @use '../core';
 @use "../core/util";
 @use "../modules/components";
 @use "../modules/render";
+@use "../modules/codeBlock";
 
 .post {
   .header .above {
     &-info {
       padding: 0 8%;
       transition: bottom .3s, padding .3s;
-      text-align: center;
 
-      @include util.useResponsive(900px) {
-        bottom: 30px;
+      &.left {
         text-align: left;
+      }
+
+      &.center {
+        text-align: center;
       }
 
       @include util.useResponsive(util.$w-md) {
@@ -28,13 +35,11 @@
     }
   }
 
-  //.main > .content {
-  //  padding: 1.5rem 1.8rem;
-  //}
-
   @include util.useThemeVar((
     post-title-color: (#ffffff, rgba(255, 255, 255, 0.9)),
     post-meta-color: (#eeeeee, rgba(255, 255, 255, 0.7)),
+    post-info-title-color: (#1f2d3d, rgba(255, 255, 255, 0.9)),
+    post-info-meta-color: (#4c4948, rgba(255, 255, 255, 0.7)),
   ));
 
   &-title {
@@ -59,8 +64,36 @@
     color: var(--post-meta-color);
     font-size: 95%;
     user-select: none;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    &.left {
+      text-align: left;
+
+      .row {
+        justify-content: flex-start;
+      }
+    }
+
+    &.center {
+      text-align: center;
+
+      .row {
+        justify-content: center;
+      }
+    }
 
     .row {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 100%;
+
+      .wp {
+        min-width: 0;
+        max-width: 100%;
+      }
+
       .wp:not(:last-child):after {
         content: '|';
         margin: 0 5px;
@@ -73,7 +106,154 @@
           color: var(--post-meta-color);
         }
       }
-
     }
   }
+
+  .content > .post-info {
+    margin-bottom: 1.2rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+
+    &.left {
+      text-align: left;
+    }
+
+    &.center {
+      text-align: center;
+    }
+
+    .post-title {
+      color: var(--post-info-title-color);
+    }
+
+    .post-meta {
+      color: var(--post-info-meta-color);
+
+      .row .wp.category .lk:not(:last-child):after,
+      .row .wp.tag .lk:not(:last-child):after {
+        color: var(--post-info-meta-color);
+      }
+    }
+  }
+
+  #pagination.pagination-post {
+    display: flex;
+    overflow: hidden;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-radius: var(--card-border-radius);
+
+    @include util.useResponsive(util.$w-md) {
+      flex-direction: column;
+    }
+
+    .pagination-related {
+      position: relative;
+      display: block;
+      flex: 1;
+      overflow: hidden;
+      min-width: 0;
+      max-width: 100%;
+      height: 150px;
+      background: #000;
+      color: #fff;
+      vertical-align: bottom;
+
+      &.full-width {
+        width: 100% !important;
+        flex-basis: 100%;
+      }
+
+      &:hover .cover {
+        opacity: .5;
+        transform: scale(1.1);
+      }
+
+      .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: .4;
+        transition: all .6s, filter 375ms ease-in .2s;
+      }
+
+      .info {
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+
+        &.text-right {
+          text-align: right;
+        }
+
+        .info-1,
+        .info-2 {
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          box-sizing: border-box;
+          padding: 20px 40px;
+          color: #fff;
+          transform: translate(0, -50%);
+          transition: transform .3s, opacity .3s;
+
+          @include util.useResponsive(util.$w-md) {
+            padding: 16px 12px;
+          }
+        }
+
+        .info-1 {
+          .info-item-1 {
+            color: rgba(255, 255, 255, .7);
+            text-transform: uppercase;
+            font-size: 90%;
+          }
+
+          .info-item-2 {
+            @include util.text-clamp(1);
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            color: #fff;
+            font-weight: 500;
+          }
+        }
+
+        .info-2 {
+          opacity: 0;
+          transform: translate(0, 0);
+
+          .info-item-1 {
+            @include util.text-clamp(2);
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+          }
+        }
+      }
+
+      &:not(.no-desc):hover {
+        .info-1 {
+          opacity: 0;
+          transform: translate(0, -100%);
+        }
+
+        .info-2 {
+          opacity: 1;
+          transform: translate(0, -50%);
+        }
+      }
+    }
+  }
+
+  /* #post-outdate-notice 对齐 post.styl，见 core/post.scss */
+  /* .post-reward 对齐 reward.styl，见 core/reward.scss */
+
+  /* .relatedPosts 对齐 relatedposts.styl，见 core/relatedposts.scss */
 }

@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 88,
+  "pr": 90,
+  "title": "M1：文章目录 toc.number / expand / style_simple / scroll_percent",
+  "author": "cursor/m1-toc",
+  "recorder": "cursor/record-90",
+  "recordedAt": "2026-09-10T23:22:10Z",
+  "visibility": "private",
+  "sourceSha": "9488cdb881efc9d04dfcb4f07ea7e05a5321337b",
+  "reviewHead": "9488cdb881efc9d04dfcb4f07ea7e05a5321337b",
+  "mergeSha": "d56f3f969d56b188dfde9dba735d79ca42ded474",
+  "mergedAt": "2026-09-10T22:48:56Z",
+  "closesIssue": 88,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/90#issuecomment-5626309560",
+    "createdAt": "2026-09-10T22:30:53Z",
+    "head": "9488cdb881efc9d04dfcb4f07ea7e05a5321337b",
+    "note": "Independent review posted as issue comment 5626309560, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "f6335ec6281b437605ac8daad1a94c37f0d183a7f2a436e320b378c6114516b4",
+  "productCommits": [
+    {
+      "sha": "82ce481",
+      "summary": "Align toc.number / expand / style_simple / scroll_percent. Default number true, expand false, style_simple false, scroll_percent true. Numbers like 1. / 1.1. expand controls nested open. style_simple keeps only toc on the article aside. Percent writes textContent. Does not do toc.post / toc.page, anchor, related_post, or per-page overrides."
+    },
+    {
+      "sha": "03f8e28",
+      "summary": "Refreeze performance theme-defaults.json onto the toc implementation commit"
+    },
+    {
+      "sha": "9488cdb",
+      "summary": "Register #88 onto article toc matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:toc.number",
+    "config:toc.expand",
+    "config:toc.style_simple",
+    "config:toc.scroll_percent"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:toc.post",
+    "config:toc.page"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 511,
+    "mapping-required": 262,
+    "implemented-unverified": 114,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 91,
+    "state": "OPEN",
+    "title": "M1：相关文章 related_post.enable / limit / date_type",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/91",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement related_post. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 89,
+    "title": "docs: 记录 #87 文章过期提醒合并证据",
+    "headSha": "90a0b81d64c4b3d40a34a91bed16c7fbcd54c3b2",
+    "mergeSha": "bd8cca6b20e0ab071ebb852970335c9017f67326",
+    "mergedAt": "2026-09-10T14:28:18Z",
+    "prCi": 34489036381,
+    "prCiConclusion": "success",
+    "masterCi": 34489276801,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34489276801",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/89#issuecomment-5620307518",
+    "note": "Waited with gh run view until completed. Push-event master CI 34489276801 on bd8cca6b20e0ab071ebb852970335c9017f67326 completed success at 2026-09-10T14:29:58Z, before the #90 merge push at 2026-09-10T22:48:56Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34531127896,
+      "runAttempt": 1,
+      "headSha": "9488cdb881efc9d04dfcb4f07ea7e05a5321337b",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34531127896",
+      "note": "pnpm verify on this run: tests 151 pass / 0 fail locally on the same head; GitHub Verify theme conclusion success."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34539263348,
+      "runAttempt": 1,
+      "headSha": "d56f3f969d56b188dfde9dba735d79ca42ded474",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34539263348",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-10T22:50:17Z. parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #90; there is no Approve. Independent review is issue comment 5626309560 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 9488cdb881efc9d04dfcb4f07ea7e05a5321337b: newly raised to implemented-unverified are config:toc.number / expand / style_simple / scroll_percent. evidence remains []. config:toc.post and config:toc.page remain implemented-unverified and were not changed. Does not mark verified.",
+    "settingsSha256 f6335ec6281b437605ac8daad1a94c37f0d183a7f2a436e320b378c6114516b4 matches settings.yaml at 82ce481 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 82ce4812920df7bab7de7e36079b83fd161c3530. Default number true; expand false; style_simple false; scroll_percent true.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 toc: number shows 1. / 1.1.; expand false collapses nested lists except the active ancestors; style_simple true keeps only the toc card on the article aside; scroll_percent writes reading progress via textContent on .toc-percentage. Injected on post.html only; page.html has no toc conf.",
+    "Non-blocking P2 from the independent review: no dual-site lab; Halo article aside is toc + recentPost so style_simple is not isomorphic to upstream card set; getScrollPercent has no upstream-style size cache (values still equivalent); percent node uses th:if rather than always-on DOM.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #91 related_post, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:toc.number / expand / style_simple / scroll_percent; evidence remains [].",
+    "config:toc.post and config:toc.page were not changed in this slice.",
+    "Does not implement anchor.*, related_post, or per-page toc_number / toc_expand / toc_style_simple.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #89 merge-commit master CI run 34489276801 on bd8cca6b20e0ab071ebb852970335c9017f67326 completed success at 2026-09-10T14:29:58Z, before the #90 merge push at 2026-09-10T22:48:56Z; must not be recorded as cancelled.",
+    "Issue #91 related_post is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

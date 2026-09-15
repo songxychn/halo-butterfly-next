@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 210,
+  "pr": 212,
+  "title": "M1：友链页样式 flink.styl",
+  "author": "cursor/m1-flink-styl",
+  "recorder": "cursor/record-212",
+  "recordedAt": "2026-09-12T15:48:00Z",
+  "visibility": "private",
+  "sourceSha": "e2590b63ea974e6812002643a6be329143c5c8df",
+  "reviewHead": "e2590b63ea974e6812002643a6be329143c5c8df",
+  "mergeSha": "c862d4882f3d1516d98173de61f37c7b8080adbc",
+  "mergedAt": "2026-09-12T15:44:47Z",
+  "closesIssue": 210,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/212#issuecomment-5646915817",
+    "createdAt": "2026-09-12T15:44:12Z",
+    "head": "e2590b63ea974e6812002643a6be329143c5c8df",
+    "note": "Independent review posted as issue comment 5646915817, not a GitHub Approve. Verdict: approve-as-comment. No P1. Three-column float width stays on no-op .flink-list-item; compiled links.scss keeps grid minmax(260px, 1fr); #Butterfly .links .link has no calc(100% / 3 - 15px). The reviewer's CI snapshot was run 34702857370 in_progress; this record waited until that PR CI completed success and merge-commit master CI 34703149705 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "475fbd3bea58833dcc14c9da8abc4558a8257b7b",
+      "summary": "Add src/scss/core/flink.scss and top-level @use after categories. Parallel .flink / .flink-list-item (no-op) and Halo .links / .groups / .link. Keep Halo grid. Align logo 60px, name 1.43em, desc .93em, group title 1.5em. Keep html.hide-aside 80%. No new th:utext. No settings.yaml change."
+    },
+    {
+      "sha": "716193e280250df58676949871ee5bd1d815952e",
+      "summary": "Raise style:source/css/_page/flink.styl from gap to implemented-unverified; evidence remains []. Do not raise landed categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout/*.styl / darkmode/readmode to verified."
+    },
+    {
+      "sha": "e2590b63ea974e6812002643a6be329143c5c8df",
+      "summary": "Register #212 onto style:source/css/_page/flink.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_page/flink.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:index_layout",
+    "config:cover.index_enable",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_page/shuoshuo.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 457,
+    "mapping-required": 262,
+    "implemented-unverified": 168,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 213,
+    "state": "OPEN",
+    "title": "M1：说说页样式 shuoshuo.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/213",
+    "note": "style:source/css/_page/flink.styl and categories.styl and archives.styl and 404.styl and homepage.styl and common.styl and all _layout/*.styl rows are implemented-unverified; do not raise them to verified. This slice is style:source/css/_page/shuoshuo.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 211,
+    "title": "docs: 记录 #209 分类页样式合并证据",
+    "headSha": "b6e8ee9cffa703393f5e63a26c7f36aea5734b6d",
+    "mergeSha": "1cd1b55ec69304513dbbbfcb6f5a2f879a629169",
+    "mergedAt": "2026-09-12T15:32:26Z",
+    "prCi": 34702290030,
+    "prCiConclusion": "success",
+    "masterCi": 34702537153,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34702537153",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/211#issuecomment-5646845612",
+    "note": "Waited with gh run view until completed. Push-event master CI 34702537153 on 1cd1b55ec69304513dbbbfcb6f5a2f879a629169 completed success at 2026-09-12T15:34:02Z, before the #212 merge push at 2026-09-12T15:44:47Z. Must be recorded as success, not cancelled. The reviewer's CI snapshot for #211 was run 34702290030 pending; that run later completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34702857370,
+      "runAttempt": 1,
+      "headSha": "e2590b63ea974e6812002643a6be329143c5c8df",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34702857370",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34702857370 in_progress for head e2590b6. Orchestrator confirmed the same run completed success at 2026-09-12T15:41:33Z before squash merge. Intermediate push run 34702841052 cancelled (head 716193e, superseded by the matrix PR-number commit). New tests: tests/flink-style.test.mjs (5), compiling src/scss/page/links.scss."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34703149705,
+      "runAttempt": 1,
+      "headSha": "c862d4882f3d1516d98173de61f37c7b8080adbc",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34703149705",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T15:46:46Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #212; there is no Approve. Independent review 5646915817 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head e2590b63ea974e6812002643a6be329143c5c8df: newly raised to implemented-unverified is style:source/css/_page/flink.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 475fbd3 implement then 716193e matrix IU then e2590b6 matrix PR number. settings.yaml unchanged.",
+    "Parallel selectors .flink / .flink-list-item and Halo .links / .groups / .link. Three-column float width stays on the no-op .flink-list-item block. Halo .links .list remains grid minmax(260px, 1fr). html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); no .flink-list-item DOM.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #213 style:source/css/_page/shuoshuo.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_page/flink.styl; evidence remains [].",
+    "style:source/css/_page/shuoshuo.styl remains gap.",
+    "Must not raise landed flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #211 merge-commit master CI run 34702537153 on 1cd1b55ec69304513dbbbfcb6f5a2f879a629169 completed success at 2026-09-12T15:34:02Z, before the #212 merge push at 2026-09-12T15:44:47Z; must not be recorded as cancelled.",
+    "PR #212 merge-commit master CI run 34703149705 on c862d4882f3d1516d98173de61f37c7b8080adbc completed success at 2026-09-12T15:46:46Z; not cancelled.",
+    "Issue #213 style:source/css/_page/shuoshuo.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

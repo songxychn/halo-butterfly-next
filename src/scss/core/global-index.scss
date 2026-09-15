@@ -1,0 +1,316 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_global/index.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 :root 两段（全局 token + tags plugin token）、body、滚动条 5px、
+ * html.with-fancybox、标题/表格/链接/blockquote/#web_bg。
+ *
+ * Halo 活 DOM：body 已有 font 14px / overflow-y overlay / --body-background；
+ * ::-webkit-scrollbar 已是 6px + var(--theme)；::selection 已是 #00c4b6；
+ * darkmode.scss 已有深色同名 token；html.hide-aside 主栏 80% 在 main.scss。
+ * 本刀把 light token / body / 5px 滚动条挂在无 DOM 的 .container 下，
+ * 不用 #Butterfly、不用活 :root 把 --global-bg / --card-bg / 5px 压到
+ * 设置驱动的 --body-background 或主栏（#203 P1 同类）。
+ *
+ * copy.enable 默认 true，不写活 body user-select:none。
+ * lazyload.blur 默认 false，不覆盖活 #Butterfly img blur。
+ * background 默认空，#web_bg 100% 只挂 .container。
+ * 不实现 _tags/* / source/css/index.styl / var.styl。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  --global-font-size: 14px;
+  --global-bg: #fff;
+  --font-color: #4c4948;
+  --hr-border: #fff;
+  --hr-before-color: #daeffd;
+  --search-bg: #f6f8fa;
+  --search-input-color: #4c4948;
+  --search-a-color: #4c4948;
+  --preloader-bg: #37474f;
+  --preloader-color: #fff;
+  --tab-border-color: #f0f0f0;
+  --tab-button-bg: #f0f0f0;
+  --tab-button-color: #1f2d3d;
+  --tab-button-hover-bg: #dcdcdc;
+  --tab-button-active-bg: #fff;
+  --card-bg: #fff;
+  --card-meta: #858585;
+  --sidebar-bg: #f6f8fa;
+  --sidebar-menu-bg: #fff;
+  --btn-hover-color: #ff7242;
+  --btn-color: #fff;
+  --btn-bg: #49b1f5;
+  --text-bg-hover: rgba(73, 177, 245, 0.7);
+  --light-grey: #eee;
+  --dark-grey: #cacaca;
+  --white: #fff;
+  --text-highlight-color: #1f2d3d;
+  --blockquote-color: #6a737d;
+  --blockquote-bg: rgba(73, 177, 245, 0.1);
+  --reward-pop: #f5f5f5;
+  --toc-link-color: #666261;
+  --card-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
+  --card-hover-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.09);
+  --pseudo-hover: #ff7242;
+  --headline-presudo: #a0a0a0;
+  --scrollbar-color: #49b1f5;
+  --default-bg-color: #49b1f5;
+  --zoom-bg: #fff;
+  --mark-bg: rgba(0, 0, 0, 0.3);
+
+  --btn-default-color: #777;
+  --tags-blue-color: #428bca;
+  --tags-blue-color-lighten: #fff;
+  --tags-pink-color: #ff69b4;
+  --tags-pink-color-lighten: #fff;
+  --tags-red-color: #f00;
+  --tags-red-color-lighten: #fff;
+  --tags-orange-color: #ff8c00;
+  --tags-orange-color-lighten: #fff;
+  --tags-purple-color: #6f42c1;
+  --tags-purple-color-lighten: #fff;
+  --tags-green-color: #5cb85c;
+  --tags-green-color-lighten: #fff;
+  --note-default-border: #777;
+  --note-default-bg: #fff;
+  --note-default-text: #777;
+  --note-modern-default-border: #e1e1e1;
+  --note-modern-default-bg: #fff;
+  --note-modern-default-text: #666;
+  --note-modern-default-hover: #141414;
+  --note-primary-border: #6f42c1;
+  --note-primary-bg: #fff;
+  --note-primary-text: #6f42c1;
+  --note-modern-primary-border: #e1c2ff;
+  --note-modern-primary-bg: #fff;
+  --note-modern-primary-text: #6f42c1;
+  --note-modern-primary-hover: #32246f;
+  --note-info-border: #428bca;
+  --note-info-bg: #fff;
+  --note-info-text: #428bca;
+  --note-modern-info-border: #b3e5ef;
+  --note-modern-info-bg: #fff;
+  --note-modern-info-text: #31708f;
+  --note-modern-info-hover: #071315;
+  --note-success-border: #5cb85c;
+  --note-success-bg: #fff;
+  --note-success-text: #5cb85c;
+  --note-modern-success-border: #d0e6be;
+  --note-modern-success-bg: #fff;
+  --note-modern-success-text: #3c763d;
+  --note-modern-success-hover: #101b0e;
+  --note-warning-border: #f0ad4e;
+  --note-warning-bg: #fff;
+  --note-warning-text: #f0ad4e;
+  --note-modern-warning-border: #fae4cd;
+  --note-modern-warning-bg: #fff;
+  --note-modern-warning-text: #8a6d3b;
+  --note-modern-warning-hover: #4a3320;
+  --note-danger-border: #d9534f;
+  --note-danger-bg: #fff;
+  --note-danger-text: #d9534f;
+  --note-modern-danger-border: #ebcdd2;
+  --note-modern-danger-bg: #fff;
+  --note-modern-danger-text: #a94442;
+  --note-modern-danger-hover: #58222a;
+
+  /* 上游 body：overflow-y scroll / min-height 100% / --global-bg。Halo 活 body 已有 overlay / --body-background */
+  position: relative;
+  overflow-y: scroll;
+  min-height: 100%;
+  background: var(--global-bg);
+  color: var(--font-color);
+  font-size: var(--global-font-size);
+  font-family: -apple-system, blinkmacsystemfont, "Segoe UI", "Helvetica Neue", lato, roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 2;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  scroll-behavior: smooth;
+
+  *::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  input::placeholder {
+    color: var(--font-color);
+  }
+
+  #web_bg {
+    position: fixed;
+    z-index: -999;
+    width: 100%;
+    height: 100%;
+    background-attachment: local;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+    margin: 20px 0 14px;
+    color: var(--text-highlight-color);
+    font-weight: bold;
+
+    code {
+      font-size: inherit !important;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .table-wrap {
+    overflow-x: scroll;
+    margin: 0 0 20px;
+    border-radius: 5px;
+
+    table {
+      border-radius: 5px;
+
+      thead > tr:first-child {
+        th:first-child {
+          border-top-left-radius: 5px;
+        }
+
+        th:last-child {
+          border-top-right-radius: 5px;
+        }
+      }
+
+      tbody > tr:last-child {
+        td:first-child {
+          border-bottom-left-radius: 5px;
+        }
+
+        td:last-child {
+          border-bottom-right-radius: 5px;
+        }
+      }
+    }
+  }
+
+  table {
+    display: table;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-top: 1px solid var(--light-grey);
+    border-left: 1px solid var(--light-grey);
+    empty-cells: show;
+
+    thead {
+      background: rgba(153, 169, 191, 0.1);
+    }
+
+    th,
+    td {
+      padding: 6px 12px;
+      border: 1px solid var(--light-grey);
+      border-top: none;
+      border-left: none;
+      vertical-align: middle;
+    }
+  }
+
+  *::selection {
+    background: #00c4b6;
+    color: #f7f7f7;
+  }
+
+  button {
+    padding: 0;
+    outline: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  a {
+    color: #99a9bf;
+    text-decoration: none;
+    word-wrap: break-word;
+    transition: all 0.2s;
+    overflow-wrap: break-word;
+
+    &:hover {
+      color: #49b1f5;
+    }
+  }
+
+  img {
+    &[src=""],
+    &:not([src]) {
+      opacity: 0;
+    }
+  }
+
+  blockquote {
+    margin: 0 0 20px;
+    padding: 7px 15px;
+    border-left: 4px solid #49b1f5;
+    background-color: var(--blockquote-bg);
+    color: var(--blockquote-color);
+    border-radius: 8px;
+
+    footer cite:before {
+      padding: 0 5px;
+      content: "—";
+    }
+
+    > :last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+html.with-fancybox .container {
+  --scrollbar-color: transparent;
+}
+
+@-moz-document url-prefix() {
+  .container * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) transparent;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.img-alt {
+  margin: -10px 0 10px;
+  color: #858585;
+
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+.fa-fw {
+  width: 1.25em;
+  text-align: center;
+}

@@ -1,9 +1,8 @@
 <!--/* 信息 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="user" class="aside-user card">
   <img
-    th:src="${theme.config.loading.img.preload}"
+    th:src="${contributor?.avatar ?: #theme.assets('/images/above.svg')}"
     onerror="this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='"
-    th:data-lazy-src="${contributor?.avatar ?: #theme.assets('/images/above.svg')}"
     th:alt="${contributor?.displayName ?: site.title}"
     class="avatar"
   >
@@ -17,13 +16,13 @@
       <div class="headline">文章</div>
       <div class="num" th:text="${stats.post}"></div>
     </a>
+    <a class="item" href="/tags" title="标签">
+      <div class="headline">标签</div>
+      <div class="num" th:text="${tagFinder.list(1, 1).total}"></div>
+    </a>
     <a class="item" href="/categories" title="分类">
       <div class="headline">分类</div>
       <div class="num" th:text="${stats.category}"></div>
-    </a>
-    <a class="item" title="评论" href="javascript:">
-      <div class="headline">点赞</div>
-      <div class="num" th:text="${stats.upvote}"></div>
     </a>
   </div>
 
@@ -45,6 +44,55 @@
   <div class="content" th:utext="${theme.config.aside.notice}"></div>
 </section>
 
+<!--/* 最近文章。对齐上游 card_recent_post；封面受 cover.aside_enable 控制。 */-->
+<section
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="recentPost"
+  th:if="${theme.config.aside.card_recent_post.enable != false}"
+  class="aside-recent-post card"
+>
+  <h1 class="title">
+    <i class="fas fa-history"></i>
+    <span class="name">最新文章</span>
+  </h1>
+
+  <div
+    class="content"
+    th:with="
+      rawLimit = ${theme.config.aside.card_recent_post.limit},
+      recentLimit = ${rawLimit == null ? 5 : ((rawLimit <= 0 or rawLimit > 20) ? 20 : rawLimit)},
+      sortUpdated = ${theme.config.aside.card_recent_post.sort == 'updated'},
+      recentResult = ${sortUpdated ? postFinder.list({page: 1, size: recentLimit, sort: {'status.lastModifyTime,desc'}}) : postFinder.list({page: 1, size: recentLimit, sort: {'spec.publishTime,desc'}})},
+      recentPosts = ${recentResult.items},
+      noData = ${not #lists.isEmpty(recentPosts)}
+    "
+  >
+    <th:block th:if="${noData}">
+      <a
+        class="item"
+        th:each="post : ${recentPosts}"
+        th:href="${post.status.permalink}"
+        th:title="${post.spec.title}"
+        th:with="
+          coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+          showCover = ${theme.config.cover.aside_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+        "
+        th:classappend="${showCover ? '' : ' no-cover'}"
+      >
+        <span th:if="${showCover}" class="thumbnail">
+          <img th:replace="~{views/components:: lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+        </span>
+        <span class="info">
+          <span class="name" th:text="${post.spec.title}"></span>
+          <time th:if="${sortUpdated}" th:datetime="${post.status.lastModifyTime}" th:text="${#dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+          <time th:unless="${sortUpdated}" th:datetime="${post.spec.publishTime}" th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+        </span>
+      </a>
+    </th:block>
+    <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+  </div>
+</section>
+
 <!--/* 分类 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="category" th:if="${theme.config.aside.enable_category}" class="aside-category card">
   <h1 class="title">
@@ -60,7 +108,6 @@
       </a>
     </th:block>
     <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
-    </ul>
   </div>
 </section>
 
@@ -78,33 +125,79 @@
       </a>
     </th:block>
     <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
-    </ul>
   </div>
 </section>
 
-<!--/* 网站信息 */-->
+<!--/*
+  归档。对齐上游 aside.card_archives.enable 默认开启。
+  Halo postFinder.archives(page,size) 按文章分页再按年月分组，size 必须覆盖该桶全部文章，不能当行数上限。
+  上游 card_archives.limit 默认 8 限制的是月份/年份行数；计数用 #lists.size(monthVo.posts)。
+  本刀不做 type / format / order / sort_order。
+*/-->
+<section
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="archives"
+  th:if="${theme.config.aside.enable_archives != false}"
+  class="aside-archives card card-archives"
+>
+  <h1 class="title">
+    <i class="fas fa-archive"></i>
+    <span class="name">归档</span>
+  </h1>
+  <div
+    class="content"
+    th:with="
+      archiveSize = ${stats.post == null or stats.post < 1 ? 1 : (stats.post > 1000 ? 1000 : stats.post)},
+      archiveYears = ${postFinder.archives(1, archiveSize)},
+      archiveRowLimit = 8,
+      noData = ${archiveYears != null and not #lists.isEmpty(archiveYears.items)}
+    "
+  >
+    <!--/* archiveRowLimit=8：上游 limit 是行数。li 为 ul 直接子元素，用 nth-child 只显示 8 行。 */-->
+    <ul class="card-archive-list" th:if="${noData}" th:attr="data-archive-row-limit=${archiveRowLimit}">
+      <th:block th:each="year : ${archiveYears.items}">
+        <li class="card-archive-list-item" th:each="monthVo : ${year.months}">
+          <a class="card-archive-list-link" href="/archives">
+            <span class="card-archive-list-date" th:text="|${year.year}年${monthVo.month}月|"></span>
+            <span class="card-archive-list-count" th:text="${#lists.size(monthVo.posts)}"></span>
+          </a>
+        </li>
+      </th:block>
+    </ul>
+    <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+  </div>
+</section>
+
+<!--/* 网站信息。对齐上游 card_webinfo：文章数目 + 最后更新时间；无 busuanzi 时不硬渲染总访问量；无文章点赞。 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo}" class="aside-webInfo card">
   <h1 class="title">
     <i class="fa-solid fa-chart-simple"></i>
-    <span class="name">网站资讯</span>
+    <span class="name">网站信息</span>
   </h1>
 
-  <div class="content">
+  <div
+    class="content"
+    th:with="
+      latestUpdated = ${postFinder.list({page: 1, size: 1, sort: {'status.lastModifyTime,desc'}})},
+      latestPublished = ${postFinder.list({page: 1, size: 1, sort: {'spec.publishTime,desc'}})},
+      updatedPost = ${latestUpdated != null and not #lists.isEmpty(latestUpdated.items) ? latestUpdated.items[0] : null},
+      publishedPost = ${latestPublished != null and not #lists.isEmpty(latestPublished.items) ? latestPublished.items[0] : null},
+      updatedAt = ${updatedPost != null ? (updatedPost.status.lastModifyTime != null ? updatedPost.status.lastModifyTime : updatedPost.spec.publishTime) : null},
+      publishedAt = ${publishedPost != null ? publishedPost.spec.publishTime : null},
+      lastPush = ${updatedAt == null ? publishedAt : (publishedAt == null ? updatedAt : (updatedAt >= publishedAt ? updatedAt : publishedAt))}
+    "
+  >
     <div class="item">
       <span>文章数目：</span>
       <span th:text="${stats.post} + '章'"></span>
-    </div>
-    <div class="item">
-      <span>文章点赞：</span>
-      <span th:text="${stats.upvote} + '赞'"></span>
     </div>
     <div class="item" th:if="${not #strings.isEmpty(theme.config.base.site_birthday)}">
       <span>运行时间：</span>
       <span class="run-day" th:data-date="${theme.config.base.site_birthday}">... 天</span>
     </div>
-    <div class="item">
-      <span>总访问量：</span>
-      <span th:text="${stats.visit} + '人'"></span>
+    <div class="item" th:if="${lastPush != null}">
+      <span>最后更新时间：</span>
+      <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>
     </div>
   </div>
 </section>
@@ -113,21 +206,41 @@
 <aside xmlns:th="https://www.thymeleaf.org" th:fragment="common" th:if="${theme.config.aside.enable}" class="aside">
   <th:block th:replace="~{::user}"/>
   <th:block th:replace="~{::notice}"/>
+  <th:block th:replace="~{::recentPost}"/>
   <th:block th:replace="~{::category}"/>
   <th:block th:replace="~{::tags}"/>
+  <th:block th:replace="~{::archives}"/>
   <th:block th:replace="~{::webInfo}"/>
 </aside>
 
-<!--/* 侧边栏-文章 */-->
-<aside xmlns:th="https://www.thymeleaf.org" th:fragment="post" class="aside">
+<!--/* 侧边栏-文章。目录四项对齐上游 toc.number / expand / style_simple / scroll_percent。 */-->
+<aside
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="post"
+  class="aside"
+  th:with="
+    tocCfg = ${theme.config.toc},
+    tocNumber = ${tocCfg == null or (tocCfg.number != false and tocCfg.number != 'false')},
+    tocExpand = ${tocCfg != null and (tocCfg.expand == true or tocCfg.expand == 'true')},
+    tocSimple = ${tocCfg != null and (tocCfg.style_simple == true or tocCfg.style_simple == 'true')},
+    tocPercent = ${tocCfg == null or (tocCfg.scroll_percent != false and tocCfg.scroll_percent != 'false')}
+  "
+>
+  <th:block th:unless="${tocSimple}" th:replace="~{::user}"/>
+  <th:block th:unless="${tocSimple}" th:replace="~{::notice}"/>
   <div class="is-sticky">
     <section class="aside-toc card">
       <h1 class="title">
         <i class="fa-solid fa-list"></i>
         <span class="name">目录</span>
+        <span class="toc-percentage" th:if="${tocPercent}"></span>
       </h1>
-      <div class="toc">
+      <div
+        class="toc"
+        th:classappend="${(tocNumber ? 'is-numbered ' : '') + (tocExpand ? 'is-expand' : '')}"
+      >
       </div>
     </section>
   </div>
+  <th:block th:unless="${tocSimple}" th:replace="~{::recentPost}"/>
 </aside>

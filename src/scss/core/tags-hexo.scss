@@ -1,0 +1,50 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_tags/hexo.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游文件本身无 .container：blockquote.pullquote（max-width 45%、float
+ * left/right）、.video-container（padding-top 56.25%、height 0、iframe
+ * width/height 100%）。Halo 活 DOM 有 blockquote 与可能的 iframe。不要用
+ * #Butterfly 或裸选择器把 float / 45% / 56.25% / height:0 / 100% 压到主栏、
+ * 活 blockquote、iframe 或 .code-toolbar（#203 P1 同类）。挂在无 DOM 的
+ * .container 下保持空操作。
+ *
+ * 不实现 hide.styl 及其余 _tags/* / source/css/index.styl / var.styl。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  blockquote.pullquote {
+    position: relative;
+    max-width: 45%;
+    font-size: 110%;
+
+    &.left {
+      float: left;
+      margin: 1em 0.5em 0 0;
+    }
+
+    &.right {
+      float: right;
+      margin: 1em 0 0 0.5em;
+    }
+  }
+
+  .video-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+    padding-top: 56.25%;
+    height: 0;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

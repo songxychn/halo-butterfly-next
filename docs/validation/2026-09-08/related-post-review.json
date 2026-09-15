@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 91,
+  "pr": 93,
+  "title": "M1：相关文章 related_post.enable / limit / date_type",
+  "author": "cursor/m1-related-post",
+  "recorder": "cursor/record-93",
+  "recordedAt": "2026-09-11T11:43:51Z",
+  "visibility": "private",
+  "sourceSha": "08005387ec0144d62e0d5772a3317537d2d6985c",
+  "reviewHead": "08005387ec0144d62e0d5772a3317537d2d6985c",
+  "mergeSha": "cc0e7ec3182b3292c81bfaba8815a22b25342e9b",
+  "mergedAt": "2026-09-11T06:39:16Z",
+  "closesIssue": 91,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/93#issuecomment-5630370230",
+    "createdAt": "2026-09-11T06:22:33Z",
+    "head": "08005387ec0144d62e0d5772a3317537d2d6985c",
+    "note": "Independent review posted as issue comment 5630370230, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "011b93b49c07df37bb75b3a40977e966e3b368f85a59e2cc272fec61fbf94d3a",
+  "productCommits": [
+    {
+      "sha": "9c9f36a",
+      "summary": "Align related_post.enable / limit / date_type. Default enable true, limit 6, date_type created. Off or no tags does not render. Candidates collected by tag then deduped and capped. Article page only; titles use th:text. Does not do footer, reward, or per-page overrides."
+    },
+    {
+      "sha": "f4be559",
+      "summary": "Refreeze performance theme-defaults.json onto the related_post implementation commit"
+    },
+    {
+      "sha": "0800538",
+      "summary": "Register #91 onto related_post matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:related_post.enable",
+    "config:related_post.limit",
+    "config:related_post.date_type"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "helper:related_posts",
+    "interaction:related",
+    "style:source/css/_layout/relatedposts.styl"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 508,
+    "mapping-required": 262,
+    "implemented-unverified": 117,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 97,
+    "state": "OPEN",
+    "title": "M1：页脚 footer.owner / copyright / custom_text",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/97",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement footer. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 92,
+    "title": "docs: 记录 #90 文章目录合并证据",
+    "headSha": "72774039ad3a7754fe5a95739398cae7ab56a609",
+    "mergeSha": "552faedb861d992fc42502cc65cf938d5c6c48b3",
+    "mergedAt": "2026-09-11T01:30:10Z",
+    "prCi": 34547327530,
+    "prCiConclusion": "success",
+    "masterCi": 34550922081,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34550922081",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/92#issuecomment-5628021265",
+    "note": "Waited with gh run view until completed. Push-event master CI 34550922081 on 552faedb861d992fc42502cc65cf938d5c6c48b3 completed success at 2026-09-11T01:31:54Z, before the #93 merge push at 2026-09-11T06:39:16Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34569515157,
+      "runAttempt": 1,
+      "headSha": "08005387ec0144d62e0d5772a3317537d2d6985c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34569515157",
+      "note": "pnpm verify on this run: tests 157 pass / 0 fail locally on the same head; GitHub Verify theme conclusion success."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34570852163,
+      "runAttempt": 1,
+      "headSha": "cc0e7ec3182b3292c81bfaba8815a22b25342e9b",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34570852163",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-11T06:40:57Z. parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #93; there is no Approve. Independent review is issue comment 5630370230 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 08005387ec0144d62e0d5772a3317537d2d6985c: newly raised to implemented-unverified are config:related_post.enable / limit / date_type. evidence remains []. helper:related_posts, interaction:related, and style:source/css/_layout/relatedposts.styl remain gap. Does not mark verified.",
+    "settingsSha256 011b93b49c07df37bb75b3a40977e966e3b368f85a59e2cc272fec61fbf94d3a matches settings.yaml at 9c9f36a and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 9c9f36af0d19c1f016e06818c6a99f9dd03172b9. Default enable true; limit 6; date_type created.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 related_post: enable true does not skip the widget; limit || 6; date_type created shows publishTime, otherwise lastModifyTime (else publishTime). Inserted on post.html after postPagination and before comments; page.html has no insertion. Titles use th:text / th:title.",
+    "Non-blocking P2 from the independent review: no dual-site lab; Halo listByTag order then client-side dedup/cap vs upstream Map weight plus random.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #97 footer, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:related_post.enable / limit / date_type; evidence remains [].",
+    "helper:related_posts, interaction:related, and relatedposts.styl remain gap.",
+    "Halo listByTag collection then capRelatedPosts vs upstream Map weight plus random.",
+    "Does not implement footer or reward.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #92 merge-commit master CI run 34550922081 on 552faedb861d992fc42502cc65cf938d5c6c48b3 completed success at 2026-09-11T01:31:54Z, before the #93 merge push at 2026-09-11T06:39:16Z; must not be recorded as cancelled.",
+    "Issue #97 footer is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

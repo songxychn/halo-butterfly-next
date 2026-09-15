@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 70,
+  "pr": 71,
+  "title": "M1：代码块全屏 code_blocks.fullpage",
+  "author": "cursor/m1-code-fullpage",
+  "recorder": "cursor/record-71",
+  "recordedAt": "2026-09-09T16:12:00Z",
+  "visibility": "private",
+  "sourceSha": "56d28facfad6eb5002ee8562831dba726ddcd37d",
+  "reviewHead": "56d28facfad6eb5002ee8562831dba726ddcd37d",
+  "mergeSha": "a2d04f35f72e4b6782415e1a277da5ee75ae8234",
+  "mergedAt": "2026-09-09T16:08:54Z",
+  "closesIssue": 70,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/71#issuecomment-5604925760",
+    "createdAt": "2026-09-09T16:05:43Z",
+    "head": "56d28facfad6eb5002ee8562831dba726ddcd37d",
+    "note": "Independent review posted as issue comment 5604925760, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "1c363d87541f69057cc4bce0986d6212b6e4b2643dd5bee0a7146f22bb77814f",
+  "productCommits": [
+    {
+      "sha": "32278aa",
+      "summary": "Align code_blocks.fullpage; default false inserts no fullscreen control, true adds a keyboard-activatable toolbar button. Esc or second click exits and restores overflow. Does not implement shrink=true default collapse."
+    },
+    {
+      "sha": "7577d02",
+      "summary": "Refreeze performance theme-defaults.json onto the code fullpage implementation commit"
+    },
+    {
+      "sha": "56d28fa",
+      "summary": "Register #70 onto code_blocks.fullpage matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:code_blocks.fullpage",
+    "interaction:fullpage-code"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "interaction:collapse-code"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 527,
+    "mapping-required": 262,
+    "implemented-unverified": 98,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 73,
+    "state": "OPEN",
+    "title": "M1：代码块默认折叠 code_blocks.shrink=true",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/73",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement shrink=true default collapse (interaction:collapse-code)."
+  },
+  "precedingDocsPr": {
+    "pr": 72,
+    "title": "docs: 记录 #69 代码块自动换行合并证据",
+    "headSha": "f7bb938ade62cc3fa047e901bcfa785c717cb650",
+    "mergeSha": "9fa055de1c3ce20869746e706be1dbe8169208ed",
+    "mergedAt": "2026-09-09T16:06:06Z",
+    "prCi": 34374282980,
+    "prCiConclusion": "success",
+    "masterCi": 34374585122,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34374585122",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/72#issuecomment-5604930287",
+    "note": "Waited with gh run view until completed. Push-event master CI 34374585122 on 9fa055de1c3ce20869746e706be1dbe8169208ed completed success at 2026-09-09T16:08:25Z, before the #71 merge push at 2026-09-09T16:08:54Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34372758881,
+      "runAttempt": 1,
+      "headSha": "56d28facfad6eb5002ee8562831dba726ddcd37d",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34372758881",
+      "note": "pnpm verify on this run: tests 112; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34374880464,
+      "runAttempt": 1,
+      "headSha": "a2d04f35f72e4b6782415e1a277da5ee75ae8234",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34374880464",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-09T16:10:41Z. tests 112; package check 124 files; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #71; there is no Approve. Independent review is issue comment 5604925760 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 56d28facfad6eb5002ee8562831dba726ddcd37d: newly raised to implemented-unverified are config:code_blocks.fullpage and interaction:fullpage-code. Does not mark verified.",
+    "settingsSha256 1c363d87541f69057cc4bce0986d6212b6e4b2643dd5bee0a7146f22bb77814f matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 32278aa58ba15a4920813d0e51c4f91813e2b907. enable_code_fullpage is false.",
+    "Defaults align upstream Butterfly 5.7.0: code_blocks.fullpage false. Mapping: fullpage→render.enable_code_fullpage (if enable_code). False inserts no fullscreen control; true adds button.fullpage-button. Esc or second click exits and restores body/html overflow.",
+    "Non-blocking P2 from the independent review: no dual-site lab; upstream uses figure.highlight + i.fullpage-button, Halo uses Prism .code-toolbar + button (semantically equivalent, button is better for a11y). Halo also adds Esc exit, html overflow snapshot restore, and a single-fullscreen mutex that upstream codeFullpage does not.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #73 code_blocks.shrink=true / interaction:collapse-code, not completed. interaction:collapse-code (shrink=true default collapsed) remains gap."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:code_blocks.fullpage and interaction:fullpage-code.",
+    "interaction:collapse-code (shrink=true default collapsed) remains gap; this slice does not implement it.",
+    "Upstream DOM is figure.highlight + i.fullpage-button; Halo is .code-toolbar + button.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #72 merge-commit master CI run 34374585122 on 9fa055de1c3ce20869746e706be1dbe8169208ed completed success at 2026-09-09T16:08:25Z, before the #71 merge push at 2026-09-09T16:08:54Z; must not be recorded as cancelled.",
+    "Issue #73 code_blocks.shrink=true / interaction:collapse-code is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

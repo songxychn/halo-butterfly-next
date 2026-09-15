@@ -2,9 +2,21 @@
 <nav
   xmlns:th="https://www.thymeleaf.org"
   class="nav"
+  th:classappend="${(theme.config.nav.fixed == true ? ' fixed' : '') + (post != null and theme.config.nav.display_post_title != false ? ' has-post' : '')}"
 >
   <div class="nav-title">
-    <a class="link" th:text="${site.title}" href="/"></a>
+    <a class="link nav-page-title" href="/" th:aria-label="${site.title}">
+      <img
+        class="site-icon"
+        th:if="${!#strings.isEmpty(theme.config.nav.logo)}"
+        th:src="${theme.config.nav.logo}"
+        th:alt="${theme.config.nav.display_title != false ? '' : site.title}"
+        width="36"
+        height="36"
+      >
+      <span class="site-name" th:if="${theme.config.nav.display_title != false}" th:text="${site.title}"></span>
+      <span class="post-title" th:if="${post != null and theme.config.nav.display_post_title != false}" th:text="${post.spec.title}"></span>
+    </a>
   </div>
   <div class="nav-do">
     <!--/* 搜索 */-->

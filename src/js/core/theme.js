@@ -4,7 +4,7 @@
  * @fileName: _theme
  * @Description: 主题切换
  */
-import {useIsDaytime} from './_util';
+import { resolveInitialColorScheme, shouldListenPrefersColorScheme } from './darkmode.mjs';
 
 export default class Theme {
   #LOCALSTORAGE_KEY = 'halo-butterfly-next.color-scheme';
@@ -14,20 +14,50 @@ export default class Theme {
 
   // 初始化主题模式
   constructor() {
-    const mes = {
-      auto: () => useIsDaytime() ? 'light' : 'dark',
-      user: () => (() => { try { return localStorage.getItem(this.#LOCALSTORAGE_KEY) || 'light'; } catch { return 'light'; } })(),
-      light: () => 'light',
-      dark: () => 'dark',
-    };
-    this.setMode((mes[MainApp.conf.style_mode] || mes.user)());
+    const conf = typeof MainApp !== 'undefined' && MainApp.conf ? MainApp.conf : {};
+    let saved = null;
+    try { saved = localStorage.getItem(this.#LOCALSTORAGE_KEY); } catch {}
+    let prefersDark = false;
+    let prefersLight = false;
+    try {
+      prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    } catch {}
+    const theme = resolveInitialColorScheme({
+      styleMode: conf.style_mode,
+      autoChangeMode: conf.darkmode_autoChangeMode,
+      start: conf.darkmode_start,
+      end: conf.darkmode_end,
+      saved,
+      prefersDark,
+      prefersLight,
+      hour: new Date().getHours(),
+    });
+    this.setMode(theme, { persist: false });
+    if (shouldListenPrefersColorScheme({
+      styleMode: conf.style_mode,
+      autoChangeMode: conf.darkmode_autoChangeMode,
+      saved,
+    })) {
+      try {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+          try {
+            const chosen = localStorage.getItem(this.#LOCALSTORAGE_KEY);
+            if (chosen === 'light' || chosen === 'dark') return;
+          } catch {}
+          this.setMode(event.matches ? 'dark' : 'light', { persist: false });
+        });
+      } catch {}
+    }
   }
 
-  // 设置主题模式
-  setMode(theme) {
+  // 设置主题模式。自动推导的初始值不写入 localStorage，避免把 autoChangeMode 1/2 冻成已选项。
+  setMode(theme, { persist = true } = {}) {
     this.mode = theme === 'dark' ? 'dark' : 'light';
     document.documentElement.dataset[this.#ATTR_KEY] = this.mode;
-    try { localStorage.setItem(this.#LOCALSTORAGE_KEY, this.mode); } catch {}
+    if (persist) {
+      try { localStorage.setItem(this.#LOCALSTORAGE_KEY, this.mode); } catch {}
+    }
     this.#CHANGE_FN && this.#CHANGE_FN(this.mode);
   }
 
@@ -38,7 +68,7 @@ export default class Theme {
 
   // 切换主题模式
   toggleMode() {
-    this.setMode(this.mode === 'light' ? 'dark' : 'light');
+    this.setMode(this.mode === 'light' ? 'dark' : 'light', { persist: true });
   }
 
   // 主题模式切换回调

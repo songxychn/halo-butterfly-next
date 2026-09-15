@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 120,
+  "pr": 122,
+  "title": "M1：侧栏移动端 aside.mobile",
+  "author": "cursor/m1-aside-mobile",
+  "recorder": "cursor/record-122",
+  "recordedAt": "2026-09-12T04:15:00Z",
+  "visibility": "private",
+  "sourceSha": "1b2b62a25d1b19eccedff515e564fc773dc66368",
+  "reviewHead": "1b2b62a25d1b19eccedff515e564fc773dc66368",
+  "mergeSha": "bd8fe50d38552a58bddcc51c2ba72f622f562fe2",
+  "mergedAt": "2026-09-12T04:03:43Z",
+  "closesIssue": 120,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/122#issuecomment-5643333401",
+    "createdAt": "2026-09-12T04:02:53Z",
+    "head": "1b2b62a25d1b19eccedff515e564fc773dc66368",
+    "note": "Independent review posted as issue comment 5643333401, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. This record waited until PR CI 34669363000 and merge-commit master CI 34672008283 completed success."
+  },
+  "settingsSha256": "a8d86806c83fba7d136793fa0ad0f4aec586d7fe43413b37f23dfd26268e37ad",
+  "productCommits": [
+    {
+      "sha": "1ddc9f4",
+      "summary": "Align aside.mobile. Default true; only explicit false adds html.aside-mobile-off when aside.enable is on. Narrow viewport hides non-toc aside cards. New settings key aside.mobile; does not reuse author-card aside.button. Does not do the hide-aside toggle or change aside.hide."
+    },
+    {
+      "sha": "8a9b1f4",
+      "summary": "Refreeze performance theme-defaults.json onto the aside.mobile implementation commit"
+    },
+    {
+      "sha": "1b2b62a",
+      "summary": "Register #122 onto config:aside.mobile matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:aside.mobile"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:aside.hide",
+    "config:mask.header",
+    "config:mask.footer",
+    "config:footer_img",
+    "config:footer.nav",
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:aside.button",
+    "interaction:hide-aside",
+    "template:includes/footer",
+    "style:source/css/_layout/footer.styl"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 492,
+    "mapping-required": 262,
+    "implemented-unverified": 133,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 123,
+    "state": "OPEN",
+    "title": "M1：侧栏隐藏开关（另开设置键，不复用 aside.button）",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/123",
+    "note": "Upstream aside.button default true is the hide-aside toggle, not the Halo author-card aside.button name/link. Must add a new settings key; must not reuse existing aside.button. Does not change aside.hide / aside.mobile. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 121,
+    "title": "docs: 记录 #119 侧栏隐藏合并证据",
+    "headSha": "0b66c380094b1176a3984479cfc111db56b9e5a8",
+    "mergeSha": "57d7b65326b2cd1bbfcbadca433fd0e12c3800b4",
+    "mergedAt": "2026-09-12T02:20:14Z",
+    "prCi": 34660665482,
+    "prCiConclusion": "success",
+    "masterCi": 34667378940,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34667378940",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/121#issuecomment-5642814865",
+    "note": "Waited with gh run view until completed. Push-event master CI 34667378940 on 57d7b65326b2cd1bbfcbadca433fd0e12c3800b4 completed success at 2026-09-12T02:21:57Z, before the #122 merge push at 2026-09-12T04:03:43Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34669363000,
+      "runAttempt": 1,
+      "headSha": "1b2b62a25d1b19eccedff515e564fc773dc66368",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34669363000",
+      "note": "GitHub Verify theme: 184 tests pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34672008283,
+      "runAttempt": 1,
+      "headSha": "bd8fe50d38552a58bddcc51c2ba72f622f562fe2",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34672008283",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T04:05:32Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #122; there is no Approve. Independent review is issue comment 5643333401 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 1b2b62a25d1b19eccedff515e564fc773dc66368: newly raised to implemented-unverified is config:aside.mobile. evidence remains []. config:aside.button, interaction:hide-aside, template:includes/footer, and style:source/css/_layout/footer.styl remain gap. config:aside.hide stays implemented-unverified. Does not mark verified.",
+    "settingsSha256 a8d86806c83fba7d136793fa0ad0f4aec586d7fe43413b37f23dfd26268e37ad matches settings.yaml at 1ddc9f4 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 1ddc9f4c15084481d6956132596654ee9e6cb524. Default aside.mobile is true.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 aside.mobile true: only explicit false adds html.aside-mobile-off when aside.enable is on. Narrow max-width 768px hides .aside .card:not(.aside-toc). New settings key aside.mobile; does not reuse author-card aside.button. Help quoting protects #card-toc. No new th:utext. tracking.pullRequests used. Does not do the hide-aside toggle / localStorage or change aside.hide.",
+    "Non-blocking P2 from the independent review: config:aside.hide finding and aside-hide.mjs header still say this slice does not do aside.mobile (stale docs). aside-hide tests now match a hide substring instead of the full th:classappend. No dual-site / 390 evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #123 hide-aside toggle with a new settings key; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is config:aside.mobile; evidence remains [].",
+    "config:aside.button, interaction:hide-aside, template:includes/footer, and style:source/css/_layout/footer.styl remain gap.",
+    "Does not implement the upstream aside.button hide-toggle or localStorage. Must not reuse existing aside.button author-card settings.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #121 merge-commit master CI run 34667378940 on 57d7b65326b2cd1bbfcbadca433fd0e12c3800b4 completed success at 2026-09-12T02:21:57Z, before the #122 merge push at 2026-09-12T04:03:43Z; must not be recorded as cancelled.",
+    "PR #122 merge-commit master CI run 34672008283 on bd8fe50d38552a58bddcc51c2ba72f622f562fe2 completed success at 2026-09-12T04:05:32Z; must not be recorded as cancelled.",
+    "Issue #123 hide-aside toggle is open; #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

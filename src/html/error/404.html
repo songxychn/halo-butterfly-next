@@ -1,0 +1,38 @@
+<layout th:replace="~{views/layout :: layout (
+  page = 'error404',
+  title = ${'404 - 页面未找到 - ' + site.title},
+  pin = ~{::pin},
+  header = ~{::header},
+  main = ~{::main}
+)}">
+  <th:block th:fragment="pin">
+    <meta name="robots" content="noindex, follow">
+  </th:block>
+
+  <th:block th:fragment="header">
+    <header class="header dp">
+      <a class="error-skip-link" href="#error-content">跳到错误信息</a>
+      <th:block th:replace="~{views/nav}"/>
+    </header>
+  </th:block>
+
+  <th:block th:fragment="main">
+    <section id="error-content" class="error-card card" tabindex="-1"
+      th:with="
+        errorConfig = ${theme.config.error404},
+        siteBackground = ${#strings.isEmpty(#strings.trim(theme.config.index.above_background)) ? #theme.assets('/images/above.svg') : theme.config.index.above_background},
+        errorBackground = ${errorConfig == null or #strings.isEmpty(#strings.trim(errorConfig.background)) ? siteBackground : #strings.trim(errorConfig.background)},
+        errorSubtitle = ${errorConfig == null or #strings.isEmpty(#strings.trim(errorConfig.subtitle)) ? '页面未找到' : errorConfig.subtitle}
+      ">
+      <div class="error-art" aria-hidden="true">
+        <img class="error-image" th:src="${errorBackground}" alt=""
+          th:data-site-background="${siteBackground}" th:data-fallback="${#theme.assets('/images/above.svg')}">
+      </div>
+      <div class="error-info">
+        <h1 id="error-title" class="error-title">404</h1>
+        <p class="error-subtitle" th:text="${errorSubtitle}">页面未找到</p>
+        <a class="error-home" href="/">返回首页</a>
+      </div>
+    </section>
+  </th:block>
+</layout>

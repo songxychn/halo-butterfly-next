@@ -1,0 +1,18 @@
+import {mkdir,cp,readFile} from 'node:fs/promises';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {PIN,FIXTURE,RUNTIME,assert,options,ownRuntime,readJson,writeJson,sha256,treeDigest} from './support.mjs';
+const args=options(process.argv.slice(2),['--chrome-app']);assert(args['chrome-app'],'Usage: node scripts/perf/install.mjs --chrome-app /explicit/Google Chrome for Testing.app');
+assert(process.platform===PIN.chrome.platform&&process.arch===PIN.chrome.arch,'Pinned performance engine requires native macOS arm64');assert(Number(process.versions.node.split('.')[0])===PIN.nodeMajor,'Node 24 required');
+const app=path.resolve(args['chrome-app']),binary=path.join(app,PIN.chrome.executable);
+assert(sha256(await readFile(binary))===PIN.chrome.executableSha256,'Pinned Chrome executable digest mismatch');
+const version=execFileSync(binary,['--version'],{encoding:'utf8'}).trim();assert(version.endsWith(PIN.chrome.version),'Pinned Chrome version mismatch');
+assert(execFileSync('pnpm',['--version'],{encoding:'utf8'}).trim()===PIN.pnpm,'Pinned pnpm version required');
+assert(/^[a-f0-9]{64}$/.test(PIN.chrome.treeSha256||''),'Pinned Chrome application tree digest required');
+const treeSha256=await treeDigest(app);
+assert(treeSha256===PIN.chrome.treeSha256,'Pinned Chrome application tree digest mismatch');
+await ownRuntime();const deps=path.join(RUNTIME,'deps');await mkdir(deps,{recursive:true});for(const file of ['package.json','pnpm-lock.yaml'])await cp(path.join(FIXTURE,file),path.join(deps,file));
+execFileSync('pnpm',['install','--frozen-lockfile','--ignore-scripts','--store-dir',path.join(RUNTIME,'pnpm-store')],{cwd:deps,stdio:'inherit'});
+const packageFile=path.join(deps,'node_modules/lighthouse/package.json'),pkg=await readJson(packageFile);assert(pkg.version===PIN.lighthouse,'Lighthouse version mismatch');
+await writeJson(path.join(RUNTIME,'installation.json'),{schema:1,lighthouse:pkg.version,dependencyLockSha256:sha256(await readFile(path.join(FIXTURE,'pnpm-lock.yaml'))),chrome:{version:PIN.chrome.version,app,binary,executableSha256:PIN.chrome.executableSha256,treeSha256,source:PIN.chrome.source},installedAt:new Date().toISOString()});
+console.log('Fixed performance tool installation recorded; no browser measurement run.');

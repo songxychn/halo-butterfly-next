@@ -6,6 +6,8 @@
  */
 import $ from 'jquery';
 import {useThrottle} from './_util';
+import {isNavAlwaysPinned, navScrollAppearance} from './nav-scroll.mjs';
+import { bindRightsideScrollPercent } from './rightside.mjs';
 
 export default class Scroll {
   #CHANGE_FN = null; // 回调
@@ -13,9 +15,13 @@ export default class Scroll {
   #navDom = $('.header > .nav');
   #max = 56; // 最大值
   #num = 0; // 上一次滚动值
+  #fixed = false;
+  #goUpPercent = null;
 
   // 初始化
-  constructor(config) {
+  constructor() {
+    this.#fixed = isNavAlwaysPinned(window.MainApp?.conf?.nav_fixed);
+    this.#goUpPercent = bindRightsideScrollPercent();
     window.addEventListener('scroll', useThrottle(() => {
       let scrollTop = window.scrollY || document.documentElement.scrollTop;
 
@@ -25,6 +31,7 @@ export default class Scroll {
       // 激活侧边按钮
       this.#activeBtn(scrollTop);
 
+      this.#goUpPercent && this.#goUpPercent(scrollTop);
       this.#CHANGE_FN && this.#CHANGE_FN(this.#max, this.#num, scrollTop);
       this.#num = scrollTop;
     }, 200));
@@ -32,27 +39,28 @@ export default class Scroll {
 
   // 激活头部导航栏
   #activeNav(scrollTop) {
-    if(scrollTop > this.#max) {
-      this.#navDom.addClass('style');
-      if(this.#num <= scrollTop) {
-        this.#navDom.removeClass('active');
-      }
-      else {
-        this.#navDom.addClass('active');
-      }
-    }
-    else {
-      if(scrollTop === 0) this.#navDom.removeClass('active style');
-    }
+    const next = navScrollAppearance({
+      scrollTop,
+      previousTop: this.#num,
+      threshold: this.#max,
+      alwaysPinned: this.#fixed,
+    });
+    if (!next) return;
+    this.#navDom.toggleClass('style', next.style);
+    this.#navDom.toggleClass('active', next.active);
   }
 
   // 激活侧边按钮
   #activeBtn(scrollTop) {
-    // 滚动到顶部取消按钮
-    if(scrollTop < this.#max && scrollTop <= 2) this.#sideBtnDom.removeClass('active');
+    // 滚动到顶部取消按钮。上游 #rightside.rightside-show；Halo 仍用 .active。
+    if(scrollTop < this.#max && scrollTop <= 2) {
+      this.#sideBtnDom.removeClass('active rightside-show');
+    }
 
     // 向下滚动激活侧边按钮
-    if(scrollTop > this.#max && this.#num <= scrollTop) this.#sideBtnDom.addClass('active');
+    if(scrollTop > this.#max && this.#num <= scrollTop) {
+      this.#sideBtnDom.addClass('active rightside-show');
+    }
   }
 
 
@@ -66,4 +74,3 @@ export default class Scroll {
 }
  
  
-

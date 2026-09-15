@@ -1,0 +1,44 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_highlight/prismjs/index.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 .container pre[class*='language-']：@extend $scrollbar-style；
+ * &:not(.line-numbers) padding 10px 20px；.caption margin-left -3.8em /
+ * padding 4px 16px !important；caption a padding 0 !important。
+ * 选择器挂在无 DOM 的 .container 上。Halo 正文是 article.render，
+ * 代码块已是 .code-toolbar（pre padding 30px 0 0），不要把 10px 20px
+ * 压到活工具栏（#203 P1 同类）。不重写模板。
+ * 不实现 prismjs/line-number.styl / theme.styl。不改代码块主题枚举。
+ * 不把已落地 highlight.styl / highlight/index / highlight/diff /
+ * prismjs/diff / _search / _page / _layout 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 .container pre[class*='language-']：Halo 活 DOM 在 .code-toolbar，空操作。 */
+.container {
+  pre[class*='language-'] {
+    @-moz-document url-prefix() {
+      scrollbar-color: var(--hlscrollbar-bg) transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--hlscrollbar-bg);
+    }
+
+    &:not(.line-numbers) {
+      padding: 10px 20px;
+    }
+
+    .caption {
+      margin-left: -3.8em;
+      padding: 4px 16px !important;
+
+      a {
+        padding: 0 !important;
+      }
+    }
+  }
+}

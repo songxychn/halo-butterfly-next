@@ -1,0 +1,27 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/index.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游是 Stylus barrel，自身没有声明块：
+ *   if hexo-config('css_prefix') @import 'nib'  ← Halo 不接入 nib / css_prefix
+ *   @import '_third-party/normalize.min.css'    ← 已落地 vendor-normalize
+ *   @import 'var'                               ← 本刀不实现 var.styl
+ *   @import '_global/*'
+ *   @import '_highlight/highlight'
+ *   @import '_page/*'
+ *   @import '_layout/*'
+ *   @import '_tags/*'
+ *   @import '_mode/*'
+ *   @import '_search/index'
+ *
+ * Halo 入口是 src/scss/core/index.scss 的顶层 @use 链；本文件只锁定 barrel
+ * 契约，不重排已落地模块、不把 barrel 副作用压到活文档。
+ * 上游文件本身无 .container。Halo 无该祖先，空规则保持空操作。
+ *
+ * 不要用 #Butterfly 把入口 barrel 压到主栏或 .code-toolbar（#203 P1 同类）。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+}

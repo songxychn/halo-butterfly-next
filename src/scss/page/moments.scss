@@ -3,14 +3,21 @@
  * @author: 小红
  * @fileName: moments
  * @Description: 瞬间
+ *
+ * 卡片 padding 35px 30px 30px / 768 25px 20px 20px，margin-bottom 20px。
+ * 媒体保持 170×110。#article-container .shuoshuo-item 空操作见
+ * core/shuoshuo.scss。不加 #Butterfly 去压不兼容 width/height。
+ * 不把上游分页输入框压到 .plugin-pagination。不改 html.hide-aside 80%。
  */
 
 @use '../core';
 @use "../core/util";
 @use "../modules/components";
 @use "../modules/render";
+@use '../modules/plugin-pagination';
 
 .moments {
+  @include plugin-pagination.pagination;
 
   @include util.useThemeVar((
     m-color: (#363636, #F7F7FA),
@@ -21,17 +28,23 @@
     > .list {
 
       .item {
-        margin-bottom: 15px;
-        padding: 10px;
-        //border-radius: 10px;
-        //box-shadow: 1px 1px 5px 0 #d8d8d8;
+        margin-bottom: 20px;
+        padding: 35px 30px 30px;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
         border-bottom: var(--theme) dashed 1px;
+
+        @media screen and (max-width: 768px) {
+          padding: 25px 20px 20px;
+        }
       }
 
       .h {
         font-weight: 700;
         color: var(--m-color);
         font-size: .8rem;
+        padding: 15px 0 10px;
       }
 
       .medium {
@@ -44,6 +57,7 @@
           height: 110px;
           border-radius: 5px;
           margin-right: 10px;
+          max-width: 100%;
         }
 
         video {

@@ -3,9 +3,13 @@
  * @author: 小红
  * @fileName: main
  * @Description: main
+ *
+ * .layout 并列选择器对齐 _page/common.styl；数字 1200px / 40px 15px / 20px 5px /
+ * 主栏 padding 50px 40px、768 为 36px 14px。html.hide-aside 80% 仍走 aside.styl。
  */
 @use "util";
 
+.layout,
 .main {
   @import "aside";
 
@@ -15,12 +19,13 @@
 
 
   & {
-    width: 100%;
     display: flex;
-    margin: 0 auto;
-    max-width: 1250px;
-    padding: 28px 15px;
+    flex: 1 auto;
     flex-direction: row;
+    margin: 0 auto;
+    padding: 40px 15px;
+    max-width: 1200px;
+    width: 100%;
   }
 
   .card {
@@ -37,16 +42,19 @@
 
   > .content {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     align-self: flex-start;
-    padding: 1.5rem;
+    padding: 50px 40px;
+    box-sizing: border-box;
 
     @include util.useResponsive($width: util.$w-md) {
-      padding: 1.2rem .8rem;
+      padding: 36px 14px;
     }
   }
 
   > .aside {
-    width: 25%;
+    width: 26%;
     align-self: flex-start;
   }
 
@@ -54,44 +62,59 @@
     width: 100%;
   }
 
-  &.aside-left {
-    flex-direction: row-reverse;
+  /* 桌面双栏（row / 74%）只在 min-width 900px 生效。
+     若写在媒体查询外，.main.aside-right 会压过 max-width 900px 的叠栏。
+     不用 mixin `'# &'`：逗号选择器 `.layout, .main` 会编成 `#Butterfly .layout, .main`。 */
+  @media (min-width: 900px) {
+    &.aside-left {
+      flex-direction: row-reverse;
 
-    > .content {
-      width: 74%;
+      > .content {
+        width: 74%;
+      }
+    }
+
+    &.aside-right {
+      flex-direction: row;
+
+      > .content {
+        width: 74%;
+      }
+    }
+
+    /* 上游 aside.styl minWidth900：position=right → padding-left 15px，否则 padding-right。 */
+    &.aside-right > #aside-content,
+    &.aside-right > .aside {
+      padding-left: 15px;
+    }
+
+    &.aside-left > #aside-content,
+    &.aside-left > .aside {
+      padding-right: 15px;
     }
   }
 
-  &.aside-right {
-    flex-direction: row;
+  /* 上游 common.styl + aside.styl：maxWidth900（含 390）主栏/侧栏上下叠放。
+     显式覆盖 aside-left/right。aside.mobile 默认仍显示卡片，只改叠放不隐藏。 */
+  @media (max-width: 900px) {
+    &,
+    &.aside-left,
+    &.aside-right {
+      flex-direction: column;
 
-    > .content {
-      width: 74%;
-    }
-  }
+      > .content {
+        width: 100%;
+      }
 
-  &:is(.aside-left) .aside {
-    margin-right: 18px;
-  }
-
-  &:is(.aside-right) .aside {
-    margin-left: 18px;
-  }
-
-
-  @include util.useResponsive(1100px, '# &') {
-    flex-direction: column;
-    > .content {
-      width: 100%;
-    }
-    > .aside {
-      width: 100%;
-      margin: 20px 0 0;
+      > .aside {
+        width: 100%;
+        margin: 20px 0 0;
+      }
     }
   }
 
   @include util.useResponsive(util.$w-md) {
-    padding: 18px 8px;
+    padding: 20px 5px;
   }
 
   @include util.useResponsive($width: 2000px, $size: min) {
@@ -99,3 +122,30 @@
   }
 
 }
+
+/* 上游 aside.styl +minWidth900()：html.hide-aside .layout
+   > .aside-content { display: none }；> div:first-child { width: 80% }；justify-content: center。
+   Halo .layout → .main，.aside-content → .aside。不做隐藏开关。移动端见 aside.mobile。 */
+@media (min-width: 900px) {
+  html.hide-aside .main {
+    justify-content: center;
+
+    > .aside {
+      display: none;
+    }
+
+    > .content {
+      width: 80%;
+    }
+  }
+}
+
+/* 上游 aside.styl：aside.mobile == false 时 +maxWidth768()
+   .card-widget:not(#card-toc) { display: none }。
+   Halo .card-widget → .aside .card，#card-toc → .aside-toc。不做隐藏开关。 */
+@media (max-width: 768px) {
+  html.aside-mobile-off .aside .card:not(.aside-toc) {
+    display: none;
+  }
+}
+

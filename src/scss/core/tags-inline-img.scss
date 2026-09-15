@@ -1,0 +1,22 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_tags/inlineImg.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游文件自身有 .container：.inline-img（display: inline、margin: 0 3px、
+ * height: 1.1em、vertical-align: text-bottom）。Halo 无 .container 祖先，
+ * 保持空操作。不要用 #Butterfly 把 1.1em 压到主栏、封面、活 img 或
+ * .code-toolbar（#203 P1 同类）。
+ *
+ * 不实现 label.styl 及其余 _tags/* / source/css/index.styl / var.styl。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  .inline-img {
+    display: inline;
+    margin: 0 3px;
+    height: 1.1em;
+    vertical-align: text-bottom;
+  }
+}

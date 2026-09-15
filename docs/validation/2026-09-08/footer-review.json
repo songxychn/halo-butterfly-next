@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 97,
+  "pr": 99,
+  "title": "M1：页脚 footer.owner / copyright / custom_text",
+  "author": "cursor/m1-footer",
+  "recorder": "cursor/record-99",
+  "recordedAt": "2026-09-11T15:21:00Z",
+  "visibility": "private",
+  "sourceSha": "3d48bebf20d8efba9f29000106f4c4706c0f4c56",
+  "reviewHead": "3d48bebf20d8efba9f29000106f4c4706c0f4c56",
+  "mergeSha": "c7a00e3a30a94839510b389cb4e7435b92783cb3",
+  "mergedAt": "2026-09-11T15:17:28Z",
+  "closesIssue": 97,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/99#issuecomment-5636594469",
+    "createdAt": "2026-09-11T15:15:36Z",
+    "head": "3d48bebf20d8efba9f29000106f4c4706c0f4c56",
+    "note": "Independent review posted as issue comment 5636594469, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01/A11Y/PERF. Review noted CI still in_progress; this record waited until PR CI 34614811486 and merge-commit master CI 34615248697 completed success."
+  },
+  "settingsSha256": "158c485e62f64caf61e9d044de4d596507e74e6d64347e4dda1f8521d570a17c",
+  "productCommits": [
+    {
+      "sha": "6f1d3e5",
+      "summary": "Align footer.owner.enable / since, footer.copyright.enable / version, and footer.custom_text. Defaults owner.enable true, since 2025, copyright.enable true, copyright.version true, custom_text empty. Off does not render the matching block. Visible text uses th:text. Does not do footer.nav, footer_img, or reward."
+    },
+    {
+      "sha": "50761b2",
+      "summary": "Refreeze performance theme-defaults.json onto the footer implementation commit"
+    },
+    {
+      "sha": "3d48beb",
+      "summary": "Register #97 onto footer matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:footer.nav",
+    "config:footer_img",
+    "template:includes/footer",
+    "style:source/css/_layout/footer.styl"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 503,
+    "mapping-required": 262,
+    "implemented-unverified": 122,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 94,
+    "state": "OPEN",
+    "title": "M1：打赏 reward.enable / text / QR_code",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/94",
+    "note": "Earliest open reward issue. #95 and #96 duplicate the same title and are still OPEN; do not implement the same slice three times. This footer slice does not implement reward. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 98,
+    "title": "docs: 记录 #93 相关文章合并证据",
+    "headSha": "ceea0e096b2d5eec0889d0a245158ba3a518d0c8",
+    "mergeSha": "2fcffc0229831028804e84ba45c74eff73297d37",
+    "mergedAt": "2026-09-11T15:02:56Z",
+    "prCi": 34609499648,
+    "prCiConclusion": "success",
+    "masterCi": 34613787870,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34613787870",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/98#issuecomment-5636292231",
+    "note": "Waited with gh run view until completed. Push-event master CI 34613787870 on 2fcffc0229831028804e84ba45c74eff73297d37 completed success at 2026-09-11T15:04:35Z, before the #99 merge push at 2026-09-11T15:17:28Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34614811486,
+      "runAttempt": 1,
+      "headSha": "3d48bebf20d8efba9f29000106f4c4706c0f4c56",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34614811486",
+      "note": "pnpm verify on this head: tests 163 pass / 0 fail locally; GitHub Verify theme conclusion success. Independent review comment was posted while CI was still in_progress; this record uses the later completed conclusion."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34615248697,
+      "runAttempt": 1,
+      "headSha": "c7a00e3a30a94839510b389cb4e7435b92783cb3",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34615248697",
+      "note": "Waited with gh run watch until completed. conclusion success at 2026-09-11T15:19:09Z. parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #99; there is no Approve. Independent review is issue comment 5636594469 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 3d48bebf20d8efba9f29000106f4c4706c0f4c56: newly raised to implemented-unverified are config:footer.owner.enable / since, config:footer.copyright.enable / version, config:footer.custom_text. evidence remains []. config:footer.nav, config:footer_img, template:includes/footer, and style:source/css/_layout/footer.styl remain gap. Does not mark verified.",
+    "settingsSha256 158c485e62f64caf61e9d044de4d596507e74e6d64347e4dda1f8521d570a17c matches settings.yaml at 6f1d3e5 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 6f1d3e5ba04e417d4124b35c682ab1a57ef416a0. Default owner.enable true; since 2025; copyright.enable true; copyright.version true; custom_text empty.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 footer: owner/copyright only explicit false turns off; since differing from the current year shows a range; custom_text renders only when non-empty. Visible text uses th:text. No new th:utext (upstream pug uses != for custom_text). ICP, police, and halo:footer remain. 390 uses overflow-wrap anywhere.",
+    "Non-blocking P2 from the independent review: no dual-site lab; author line uses site.title versus upstream config.author.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #94 reward (#95/#96 duplicates); not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:footer.owner.enable / since, config:footer.copyright.enable / version, config:footer.custom_text; evidence remains [].",
+    "config:footer.nav, config:footer_img, template:includes/footer, and footer.styl remain gap.",
+    "Author line uses site.title versus upstream config.author.",
+    "Does not implement footer.nav, footer_img, or reward.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #98 merge-commit master CI run 34613787870 on 2fcffc0229831028804e84ba45c74eff73297d37 completed success at 2026-09-11T15:04:35Z, before the #99 merge push at 2026-09-11T15:17:28Z; must not be recorded as cancelled.",
+    "Issue #94 reward is open; #95 and #96 duplicate it and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

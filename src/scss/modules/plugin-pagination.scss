@@ -1,0 +1,48 @@
+@use './components';
+
+@mixin pagination {
+  @include components.pagination;
+
+  .plugin-pagination {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 0;
+
+    > a.page {
+      width: auto;
+      min-width: 44px;
+      height: auto;
+      min-height: 44px;
+      margin: 0;
+      padding: 4px 12px;
+      line-height: 36px;
+      color: #fff;
+      background-color: #1c69ed;
+
+      &:hover {
+        background-color: #1657c5;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #1c69ed;
+        outline-offset: 3px;
+      }
+
+      @at-root html[data-color-scheme='dark'] & {
+        background-color: #23764f;
+
+        &:hover {
+          background-color: #195b3c;
+        }
+
+        &:focus-visible {
+          outline-color: #e5e7eb;
+        }
+      }
+    }
+
+    > .page-info {
+      padding: 0 8px;
+    }
+  }
+}

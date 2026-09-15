@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 216,
+  "pr": 218,
+  "title": "M1：标签页样式 tags.styl",
+  "author": "cursor/m1-tags-styl",
+  "recorder": "cursor/record-218",
+  "recordedAt": "2026-09-13T00:20:00Z",
+  "visibility": "private",
+  "sourceSha": "ed27c65b82a8ad96b8c041212a364ee182eb0421",
+  "reviewHead": "ed27c65b82a8ad96b8c041212a364ee182eb0421",
+  "mergeSha": "5efdab189a0275fa368da6df31d1b180be9d6b24",
+  "mergedAt": "2026-09-12T20:17:55Z",
+  "closesIssue": 216,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/218#issuecomment-5648423313",
+    "createdAt": "2026-09-12T20:17:17Z",
+    "head": "ed27c65b82a8ad96b8c041212a364ee182eb0421",
+    "note": "Independent review posted as issue comment 5648423313, not a GitHub Approve. Verdict: approve-as-comment. No P1. Compiled tags.scss keeps Halo chart 360px and .equinox flex wrap; zoom:.85 / 2.57em stay on no-DOM .tag-cloud*. The reviewer's CI snapshot was run 34716434443 in_progress; this record waited until that PR CI completed success and merge-commit master CI 34716681288 attempt 2 completed success (attempt 1 was startup_failure, then rerun). Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "de694e8612d2b411b376b49fe2d5dd08e6968ddb",
+      "summary": "Add src/scss/core/tags.scss and top-level @use after shuoshuo. Parallel .tag-cloud / .tag-cloud-list / .tag-cloud-title (no-op) and Halo .tags / .equinox / .link. Keep Halo chart 360px. Align link padding 3px 12px, margin 5px, line-height 1.7, radius 7px. Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not change tag.html / tag.scss."
+    },
+    {
+      "sha": "608761a1c91c462d1020d487047ee56df347e36e",
+      "summary": "Raise style:source/css/_page/tags.styl from gap to implemented-unverified; evidence remains []. Do not raise landed shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout/*.styl / darkmode/readmode to verified."
+    },
+    {
+      "sha": "ed27c65b82a8ad96b8c041212a364ee182eb0421",
+      "summary": "Register #218 onto style:source/css/_page/tags.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_page/tags.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:index_layout",
+    "config:cover.index_enable",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_search/index.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 455,
+    "mapping-required": 262,
+    "implemented-unverified": 170,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 219,
+    "state": "OPEN",
+    "title": "M1：搜索面板样式 _search/index.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/219",
+    "note": "All _page/*.styl and _layout/*.styl rows are implemented-unverified; do not raise them to verified. This slice is style:source/css/_search/index.styl. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. Does not implement algolia.styl / local-search.styl providers or DEC-01. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 217,
+    "title": "docs: 记录 #215 说说页样式合并证据",
+    "headSha": "746e062307ad4b1db035a56c9edaa4b3bde78055",
+    "mergeSha": "51281525ccd719dc0bad72b29957361460591ae8",
+    "mergedAt": "2026-09-12T17:05:42Z",
+    "prCi": 34705365572,
+    "prCiConclusion": "success",
+    "masterCi": 34707191791,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34707191791",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/217#issuecomment-5647293829",
+    "note": "Waited with gh run view until completed. Push-event master CI 34707191791 on 51281525ccd719dc0bad72b29957361460591ae8 completed success at 2026-09-12T17:07:46Z, before the #218 merge push at 2026-09-12T20:17:55Z. Must be recorded as success, not cancelled. The reviewer's CI snapshot for #217 was run 34705365572 in_progress; that run later completed success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34716434443,
+      "runAttempt": 1,
+      "headSha": "ed27c65b82a8ad96b8c041212a364ee182eb0421",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34716434443",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34716434443 in_progress for head ed27c65. Orchestrator confirmed the same run completed success at 2026-09-12T20:15:25Z before squash merge. New tests: tests/tags-style.test.mjs (5), compiling src/scss/page/tags.scss."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34716681288,
+      "runAttempt": 2,
+      "headSha": "5efdab189a0275fa368da6df31d1b180be9d6b24",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34716681288",
+      "note": "Attempt 1 concluded startup_failure even though job build later succeeded. Orchestrator reran the same run; attempt 2 completed success at 2026-09-12T20:37:36Z. Record attempt 1 as startup_failure and attempt 2 as success; do not record 34716681288 as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #218; there is no Approve. Independent review 5648423313 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head ed27c65b82a8ad96b8c041212a364ee182eb0421: newly raised to implemented-unverified is style:source/css/_page/tags.styl. evidence remains []. Does not mark verified. All _page/*.styl rows are now implemented-unverified.",
+    "Three commits (CSS-only, no freeze): de694e8 implement then 608761a matrix IU then ed27c65 matrix PR number. settings.yaml unchanged. tag.html / tag.scss not changed.",
+    "Parallel selectors .tag-cloud / .tag-cloud-list / .tag-cloud-title and Halo .tags / .equinox / .link. zoom:.85 / 2.57em stay on the no-op .tag-cloud* blocks. Halo .tags .chart remains 360px; .equinox remains flex wrap; .link stays 1.5em. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); no .tag-cloud-list DOM.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #219 style:source/css/_search/index.styl; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_page/tags.styl; evidence remains [].",
+    "style:source/css/_search/index.styl remains gap.",
+    "Must not raise landed tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #217 merge-commit master CI run 34707191791 on 51281525ccd719dc0bad72b29957361460591ae8 completed success at 2026-09-12T17:07:46Z, before the #218 merge push at 2026-09-12T20:17:55Z; must not be recorded as cancelled.",
+    "PR #218 merge-commit master CI run 34716681288 attempt 1 was startup_failure; attempt 2 completed success at 2026-09-12T20:37:36Z. Do not record this run as cancelled.",
+    "Issue #219 style:source/css/_search/index.styl is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

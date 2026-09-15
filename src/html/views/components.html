@@ -1,60 +1,155 @@
-<!--/* 图片加载 */-->
+<!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
 <img
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:src="${theme.config.loading.img.preload}"
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random) ? (theme.config.loading.img.random_link + parma) : src}"
+  th:src="${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload}"
   th:attr="onerror='this.src='+${'`'+theme.config.loading.img.err+'`'}"
-  th:data-lazy-src="${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random)  ? (theme.config.loading.img.random_link + parma)  : src}"
   th:alt="${alt}"
   th:class="${class}"
 >
 
-<!--/* 文章列表  */-->
+<!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数/时长受 wordcount.enable（默认关，对齐 hexo-wordcount 未装）；阅读量受 busuanzi.page_pv（实验室关）。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
+<ul
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postMeta"
+  th:class="${'post-meta ' + (theme.config.post.post_meta?.position == 'center' ? 'center' : 'left')}"
+  th:with="
+    dateType = ${theme.config.post.post_meta?.date_type},
+    dateFormat = ${theme.config.post.post_meta?.date_format},
+    showLabel = ${theme.config.post.post_meta?.label != false},
+    wordcountOn = ${theme.config.wordcount?.enable == true or theme.config.wordcount?.enable == 'true'},
+    showWordcount = ${wordcountOn and theme.config.wordcount?.post_wordcount != false},
+    showMin2read = ${wordcountOn and theme.config.wordcount?.min2read != false},
+    showPagePv = ${theme.config.busuanzi?.page_pv == true or theme.config.busuanzi?.page_pv == 'true'},
+    rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
+    plain = ${rawHtml.replaceAll('(?s)<[^>]+>', '')},
+    wordLen = ${#strings.length(plain)},
+    readMin = ${(wordLen + 499) / 500}
+  "
+>
+  <li class="row" th:if="${(theme.config.post.post_meta?.categories != false and not #lists.isEmpty(post.categories)) or (theme.config.post.post_meta?.tags != false and not #lists.isEmpty(post.tags))}">
+    <span class="wp category" th:if="${theme.config.post.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
+      <i class="fa-solid fa-layer-group"></i>
+      <span class="cys">
+        <th:block th:each="cy : ${post.categories}">
+          <a class="lk" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+        </th:block>
+      </span>
+    </span>
+    <span class="wp tag" th:if="${theme.config.post.post_meta?.tags != false and not #lists.isEmpty(post.tags)}">
+      <i class="fa-solid fa-tags"></i>
+      <span class="cys">
+        <th:block th:each="cy : ${post.tags}">
+          <a class="lk" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+        </th:block>
+      </span>
+    </span>
+  </li>
+
+  <li class="row">
+    <span class="wp publishTime" th:if="${dateType != 'updated'}">
+      <i class="fa-solid fa-calendar-days"></i>
+      <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+    </span>
+    <span class="wp lastModifyTime" th:if="${dateType != 'created'}">
+      <i class="fas fa-history fa-fw"></i>
+      <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+    </span>
+  </li>
+
+  <li class="row" th:if="${showWordcount or showMin2read or showPagePv}">
+    <span class="wp wordCount" th:if="${showWordcount}">
+      <i class="fa-solid fa-list-ol"></i>
+      <span th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
+    </span>
+    <span class="wp clock" th:if="${showMin2read}">
+      <i class="fa-regular fa-clock"></i>
+      <span th:text="'阅读时长 ' + ${readMin} + ' 分钟'"></span>
+    </span>
+    <span class="wp visit" th:if="${showPagePv}">
+      <i class="far fa-eye fa-fw"></i>
+      <span th:text="'阅读量 ' + ${post.stats.visit}"></span>
+    </span>
+  </li>
+</ul>
+
+<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page，tags 默认 false）控制；摘要受 index.index_post_content 控制。评论/点赞/预览对齐 comments.card_post_count 默认关闭，不在列表卡上输出。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
   th:class="${'essay ' + layout}"
-  th:with="noData = ${not #lists.isEmpty(data)}"
+  th:with="
+    noData = ${not #lists.isEmpty(data)},
+    dateType = ${theme.config.index.post_meta?.date_type},
+    dateFormat = ${theme.config.index.post_meta?.date_format},
+    showLabel = ${theme.config.index.post_meta?.label != false},
+    indexCoverEnable = ${theme.config.cover.index_enable != false},
+    ipcMethod = ${theme.config.index.index_post_content?.method},
+    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+  "
 >
   <th:block th:if="${noData}">
-    <li class="item card" th:each="post : ${data}">
-      <a th:if="${not #strings.isEmpty(post.spec.cover) || theme.config.loading.img.random_enable }" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''}">
-        <img th:replace="~{::lazyLoadImg(${post.spec.cover},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+    <li
+      class="item card"
+      th:each="post, stat : ${data}"
+      th:with="
+        coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+        showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+      "
+      th:classappend="${showCover ? '' : ' no-cover'}"
+    >
+      <!--/* Butterfly index%2===0 为 left（0-based 第 1 篇）。Thymeleaf even/odd 按 1-based :nth-child，不能当 0-based 用。 */-->
+      <a th:if="${showCover}" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:class="'cover' + ${post.spec.pinned ? ' top' : ''} + ${stat.index % 2 == 1 ? ' right' : ''}">
+        <img th:replace="~{::lazyLoadImg(${coverSrc},${post.spec.title},'img',true,${param_prefix +'v=' + #dates.format(post.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
       </a>
 
       <div class="info">
         <a class="title" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:text="${post.spec.title}"></a>
         <div class="data">
           <div class="row">
-          <span class="wp comment">
-              <i class="fa-solid fa-comments"></i>
-              <span th:text="'评论 '+${post.stats.comment}"></span>
-          </span>
-            <span class="wp upvote">
-              <i class="fa-solid fa-thumbs-up"></i>
-              <span th:text="'点赞 '+${post.stats.upvote}"></span>
-          </span>
-            <span class="wp visit">
-              <i class="fa-solid fa-eye"></i>
-              <span th:text="'预览 '+${post.stats.visit}"></span>
-          </span>
-          </div>
-
-          <div class="row">
-          <span class="wp publishTime">
-            <i class="far fa-calendar-alt fa-bolt"></i>
-            <time th:datetime="${post.spec.publishTime}" th:text="'发布于 '+${#dates.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></time>
-          </span>
-            <span class="wp category" th:if="${!#arrays.isEmpty(post.categories)}">
-            <i class="fas fa-inbox"></i>
-            <span class="cys">
-              <th:block th:each="cy : ${post.categories}">
-                <a class="link" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
-              </th:block>
+            <span class="wp publishTime" th:if="${dateType != 'updated'}">
+              <i class="far fa-calendar-alt fa-bolt"></i>
+              <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发表于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
             </span>
-          </span>
+            <span class="wp lastModifyTime" th:if="${dateType == 'updated' or dateType == 'both'}">
+              <i class="fas fa-history fa-fw"></i>
+              <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '更新于 ' : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+            </span>
+            <span class="wp category" th:if="${theme.config.index.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
+              <i class="fas fa-inbox"></i>
+              <span class="cys">
+                <th:block th:each="cy : ${post.categories}">
+                  <a class="link" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+                </th:block>
+              </span>
+            </span>
+            <span class="wp tag" th:if="${theme.config.index.post_meta?.tags != false and not #lists.isEmpty(post.tags)}">
+              <i class="fa-solid fa-tags"></i>
+              <span class="cys">
+                <th:block th:each="cy : ${post.tags}">
+                  <a class="link" th:href="${cy.status.permalink}" th:text="${cy.spec.displayName}"></a>
+                </th:block>
+              </span>
+            </span>
           </div>
         </div>
-        <div th:if="${layout == 'list'}" class="excerpt" th:text="${post.spec.excerpt.raw}"></div>
+        <th:block
+          th:if="${layout == 'list' and ipcMethod != false and ipcMethod != 'false'}"
+          th:with="
+            description = ${#strings.defaultString(post.spec.excerpt.raw, '')},
+            methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+            methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+            useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+            contentVo = ${useDescription or methodOne ? null : postFinder.content(post.metadata.name)},
+            htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
+            stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
+            plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(post.status.excerpt, '')},
+            autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+            excerptText = ${useDescription ? description : (methodOne ? '' : autoExcerpt)}
+          "
+        >
+          <div class="excerpt" th:if="${not #strings.isEmpty(excerptText)}" th:text="${excerptText}"></div>
+        </th:block>
       </div>
     </li>
   </th:block>
@@ -85,13 +180,13 @@
         <h2 class="title">文章</h2>
         <span class="num" th:text="${stats.post}"></span>
       </a>
+      <a class="item" href="/tags" title="标签">
+        <h2 class="title">标签</h2>
+        <span class="num" th:text="${tagFinder.list(1, 1).total}"></span>
+      </a>
       <a class="item" href="/categories" title="分类">
         <h2 class="title">分类</h2>
         <span class="num" th:text="${stats.category}"></span>
-      </a>
-      <a class="item" title="评论" href="javascript:">
-        <h2 class="title">点赞</h2>
-        <span class="num" th:text="${stats.upvote}"></span>
       </a>
     </div>
     <hr/>
@@ -142,14 +237,333 @@
     </menu>
   </div>
 
-  <!--/* 侧边按钮 */-->
-  <div class="side-btn">
-    <button class="button switch-model" th:if="${theme.config.style.mode == 'user'}" onclick="MainApp.useTheme.toggleMode()" type="button" title="浅色和深色模式转换">
-      <i class="fas fa-adjust"></i>
-    </button>
-
-    <button class="button back-top" onclick="MainApp.useCommon.backTop()" type="button" title="回到顶部">
-      <i class="fa-solid fa-arrow-up"></i>
-    </button>
+  <!--/* 对齐 rightside.pug：#rightside / config-hide / config-show / #go-up。
+       保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
+       hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
+       距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
+       translate.enable 默认 false。darkmode.enable/button 默认 true。autoChangeMode 默认 false。不做 chat / comment / item_order。 */-->
+  <div
+    id="rightside"
+    class="side-btn"
+    th:with="
+      hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
+      darkBtnOn = ${theme.config.darkmode?.enable != false and theme.config.darkmode?.enable != 'false' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
+      percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
+      readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
+      translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'}
+    "
+  >
+    <div id="rightside-config-hide">
+      <button
+        id="readmode"
+        class="button"
+        type="button"
+        title="阅读模式"
+        th:if="${readmodeOn}"
+      >
+        <i class="fas fa-book-open" aria-hidden="true"></i>
+      </button>
+      <button
+        id="translateLink"
+        class="button"
+        type="button"
+        title="简繁转换"
+        th:if="${translateOn}"
+        th:text="${theme.config.translate == null or theme.config.translate.default == null or theme.config.translate.default == '' ? '繁' : theme.config.translate.default}"
+      ></button>
+      <button
+        id="darkmode"
+        class="button"
+        type="button"
+        title="浅色和深色模式转换"
+        th:if="${darkBtnOn}"
+      >
+        <i class="fas fa-adjust" aria-hidden="true"></i>
+      </button>
+      <button
+        id="hide-aside-btn"
+        class="button"
+        type="button"
+        title="显示/隐藏侧栏"
+        th:if="${hideBtnOn}"
+      >
+        <i class="fas fa-arrows-alt-h" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div id="rightside-config-show">
+      <button
+        id="rightside-config"
+        class="button"
+        type="button"
+        title="设置"
+        th:if="${hideBtnOn or darkBtnOn or readmodeOn or translateOn}"
+      >
+        <i class="fas fa-cog" aria-hidden="true"></i>
+      </button>
+      <button
+        id="go-up"
+        class="button back-top"
+        type="button"
+        title="回到顶部"
+        onclick="MainApp.useCommon.backTop()"
+      >
+        <span class="scroll-percent" th:if="${percentOn}"></span>
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </th:block>
+
+<!--/* 文章过期提醒：对齐 outdate-notice.pug；enable 关闭或未超限不渲染；可见文本 th:text */-->
+<th:block
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="noticeOutdate(slot)"
+  th:with="
+    cfg = ${theme.config.post.noticeOutdate},
+    noticeEnabled = ${cfg != null and (cfg.enable == true or cfg.enable == 'true')},
+    noticeLimit = ${cfg == null or cfg.limit_day == null or cfg.limit_day == '' ? 365 : cfg.limit_day},
+    noticeStyle = ${cfg != null and cfg.style == 'simple' ? 'simple' : 'flat'},
+    noticePosition = ${cfg != null and cfg.position == 'bottom' ? 'bottom' : 'top'},
+    noticePrev = ${cfg == null or cfg.message_prev == null ? 'It has been' : cfg.message_prev},
+    noticeNext = ${cfg == null or cfg.message_next == null ? 'days since the last update, the content of the article may be outdated.' : cfg.message_next},
+    noticeUpdated = ${post.status.lastModifyTime != null ? post.status.lastModifyTime : post.spec.publishTime},
+    noticeDiffDay = ${noticeUpdated == null ? 0 : ((#dates.createNow().time - noticeUpdated.toEpochMilli()) / 86400000)}
+  "
+>
+  <div
+    id="post-outdate-notice"
+    th:if="${noticeEnabled and noticeDiffDay >= noticeLimit and noticePosition == slot}"
+    th:class="${noticeStyle}"
+    th:text="${noticePrev + ' ' + noticeDiffDay + ' ' + noticeNext}"
+  ></div>
+</th:block>
+
+<!--/* 文章上下篇。对齐 Butterfly 5.7.0 layout/includes/pagination.pug（globalPageType=post）。
+     Halo cursor.previous=较早发布 ↔ Hexo page.next；cursor.next=较晚发布 ↔ Hexo page.prev。
+     post_pagination===2 时 {prev: page.prev, next: page.next}，否则对调。
+     标题/链接/摘要 th:text、th:href、th:title；悬停摘要复用 index_post_content（上游 postDesc）。 */-->
+<nav
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postPagination"
+  id="pagination"
+  class="pagination-post"
+  th:if="${theme.config.post.post_pagination != false and theme.config.post.post_pagination != 'false'}"
+  th:with="
+    paginationMode = ${theme.config.post.post_pagination},
+    navCursor = ${postFinder.cursor(post.metadata.name)},
+    haloPrev = ${navCursor != null ? navCursor.previous : null},
+    haloNext = ${navCursor != null ? navCursor.next : null},
+    modeTwo = ${paginationMode == 2 or paginationMode == '2'},
+    prevPost = ${modeTwo ? haloNext : haloPrev},
+    nextPost = ${modeTwo ? haloPrev : haloNext},
+    ipcMethod = ${theme.config.index.index_post_content?.method},
+    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+  "
+>
+  <th:block th:replace="~{:: postPaginationLink(${prevPost}, 'prev', ${nextPost != null}, ${ipcMethod}, ${ipcLength})}"/>
+  <th:block th:replace="~{:: postPaginationLink(${nextPost}, 'next', ${prevPost != null}, ${ipcMethod}, ${ipcLength})}"/>
+</nav>
+
+<a
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postPaginationLink(target, direction, hasOther, ipcMethod, ipcLength)"
+  th:if="${target != null}"
+  class="pagination-related"
+  th:href="${target.status.permalink}"
+  th:title="${target.spec.title}"
+  th:with="
+    description = ${#strings.defaultString(target.spec.excerpt.raw, '')},
+    methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+    methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+    methodOff = ${ipcMethod == false or ipcMethod == 'false'},
+    useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+    contentVo = ${methodOff or useDescription or methodOne ? null : postFinder.content(target.metadata.name)},
+    htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
+    stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
+    plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(target.status.excerpt, '')},
+    autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+    excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
+    hasDesc = ${not #strings.isEmpty(excerptText)},
+    coverSrc = ${not #strings.isEmpty(target.spec.cover) ? target.spec.cover : theme.config.cover.default_cover},
+    hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable}
+  "
+  th:classappend="${(hasOther ? '' : 'full-width ') + (hasDesc ? '' : 'no-desc')}"
+>
+  <th:block th:if="${hasImg}">
+    <img th:replace="~{::lazyLoadImg(${coverSrc},${target.spec.title},'cover',true,${'v=' + #dates.format(target.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+  </th:block>
+  <div th:unless="${hasImg}" class="cover"></div>
+  <div class="info" th:classappend="${direction == 'next' ? 'text-right' : ''}">
+    <div class="info-1">
+      <div class="info-item-1" th:text="${direction == 'prev' ? '上一篇' : '下一篇'}"></div>
+      <div class="info-item-2" th:text="${target.spec.title}"></div>
+    </div>
+    <div class="info-2" th:if="${hasDesc}">
+      <div class="info-item-1" th:text="${excerptText}"></div>
+    </div>
+  </div>
+</a>
+
+
+<!--/* 相关文章。对齐 related_post.enable / limit / date_type。仅文章页。 */-->
+<div
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="relatedPosts"
+  class="relatedPosts"
+  th:if="${theme.config.post.related_post?.enable != false and theme.config.post.related_post?.enable != 'false' and not #lists.isEmpty(post.tags)}"
+  th:with="
+    rpCfg = ${theme.config.post.related_post},
+    rpLimit = ${rpCfg.limit == null or rpCfg.limit == 0 or rpCfg.limit == '0' ? 6 : rpCfg.limit},
+    rpUpdated = ${rpCfg.date_type != 'created'},
+    ipcMethod = ${theme.config.index.index_post_content?.method},
+    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+  "
+>
+  <div class="headline">
+    <i class="fa-solid fa-thumbs-up fa-fw"></i>
+    <span class="name" th:text="'相关推荐'"></span>
+  </div>
+  <div
+    class="relatedPosts-list"
+    th:attr="data-limit=${rpLimit},data-current-post=${post.metadata.name}"
+  >
+    <th:block th:each="tag : ${post.tags}">
+      <th:block th:with="listed = ${postFinder.listByTag(1, rpLimit + 1, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
+        <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
+          <a
+            class="pagination-related"
+            th:href="${item.status.permalink}"
+            th:title="${item.spec.title}"
+            th:attr="data-post-name=${item.metadata.name}"
+            th:with="
+              description = ${#strings.defaultString(item.spec.excerpt.raw, '')},
+              methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+              methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+              methodOff = ${ipcMethod == false or ipcMethod == 'false'},
+              useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+              contentVo = ${methodOff or useDescription or methodOne ? null : postFinder.content(item.metadata.name)},
+              htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
+              stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
+              plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(item.status.excerpt, '')},
+              autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+              excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
+              hasDesc = ${not #strings.isEmpty(excerptText)},
+              coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : theme.config.cover.default_cover},
+              hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable},
+              showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
+            "
+            th:classappend="${hasDesc ? '' : 'no-desc'}"
+          >
+            <th:block th:if="${hasImg}">
+              <img th:replace="~{::lazyLoadImg(${coverSrc},${item.spec.title},'cover',true,${'v=' + #dates.format(item.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+            </th:block>
+            <div th:unless="${hasImg}" class="cover"></div>
+            <div class="info text-center">
+              <div class="info-1">
+                <div class="info-item-1">
+                  <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
+                  <time th:datetime="${showTime}" th:text="${#dates.format(showTime, 'yyyy-MM-dd')}"></time>
+                </div>
+                <div class="info-item-2" th:text="${item.spec.title}"></div>
+              </div>
+              <div class="info-2" th:if="${hasDesc}">
+                <div class="info-item-1" th:text="${excerptText}"></div>
+              </div>
+            </div>
+          </a>
+        </th:block>
+      </th:block>
+    </th:block>
+  </div>
+</div>
+
+<!--/* 文章/页面代码块：Prism 资源与工具栏开关 */-->
+<th:block
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="codeBlockPin"
+>
+  <script id="codeBlockScript" th:inline="javascript">
+    Object.assign(window.MainApp.conf, {
+      enable_code: /*[[${theme.config.render.enable_code}]]*/ true,
+      enable_code_copy: /*[[${theme.config.render.enable_code_copy}]]*/ true,
+      enable_code_expander: /*[[${theme.config.render.enable_code_expander}]]*/ 'false',
+      enable_code_title: /*[[${theme.config.render.enable_code_title}]]*/ true,
+      enable_code_hr: /*[[${theme.config.render.enable_code_hr}]]*/ true,
+      enable_code_line: /*[[${theme.config.render.enable_code_line}]]*/ true,
+      enable_code_mac_style: /*[[${theme.config.render.enable_code_mac_style}]]*/ false,
+      code_height_limit: /*[[${theme.config.render.code_height_limit}]]*/ false,
+      enable_code_word_wrap: /*[[${theme.config.render.enable_code_word_wrap}]]*/ false,
+      enable_code_fullpage: /*[[${theme.config.render.enable_code_fullpage}]]*/ false,
+    });
+  </script>
+  <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/prism/prism.min.css'}">
+  <link rel="preload stylesheet" as="style" id="codeLight" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_light + '.css'}">
+  <link rel="preload stylesheet" as="style" id="codeDark" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_dark + '.css'}">
+  <script type="text/javascript" th:src="${assets_link + 'plugins/prism/prism.min.js'}"></script>
+</th:block>
+
+<!--/* 文章版权。对齐 Butterfly 5.7.0 layout/includes/post/post-copyright.pug
+     （theme.post_copyright.enable && page.copyright !== false；本刀不做逐页覆盖）。
+     仅文章页。可见文本 th:text / th:href。不做 footer.nav。 */-->
+<div
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postCopyright"
+  class="copy-right"
+  th:if="${theme.config.post.post_copyright?.enable != false and theme.config.post.post_copyright?.enable != 'false'}"
+  th:with="
+    pc = ${theme.config.post.post_copyright},
+    pcLicense = ${#strings.isEmpty(pc?.license) ? 'CC BY-NC-SA 4.0' : pc.license},
+    pcLicenseUrl = ${#strings.isEmpty(pc?.license_url) ? 'https://creativecommons.org/licenses/by-nc-sa/4.0/' : pc.license_url},
+    pcAuthorHref = ${#strings.isEmpty(pc?.author_href) ? (#strings.isEmpty(site.url) ? '/' : site.url) : pc.author_href}
+  "
+>
+  <i class="fa-solid fa-copyright"></i>
+  <div class="author">
+    <span class="name">文章作者：</span>
+    <span class="text">
+      <a target="_blank" rel="noopener noreferrer" th:href="${pcAuthorHref}" th:text="${contributor?.displayName ?: site.title}"></a>
+    </span>
+  </div>
+  <div class="url">
+    <span class="name">文章链接：</span>
+    <span class="text"><a class="permalink" target="_blank" rel="noopener noreferrer"></a></span>
+  </div>
+  <div class="declaration">
+    <span class="name">版权声明：</span>
+    <span class="text">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" th:href="${pcLicenseUrl}" th:text="${pcLicense}"></a> 许可协议。转载请注明来源 <a target="_blank" rel="noopener noreferrer" th:href="${#strings.isEmpty(site.url) ? '/' : site.url}" th:text="${site.title}"></a>！</span>
+  </div>
+</div>
+
+<!--/* 打赏。对齐 Butterfly 5.7.0 layout/includes/post/reward.pug + post.pug
+     （theme.reward.enable && theme.reward.QR_code）。仅文章页。可见文本 th:text。 */-->
+<div
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="postReward"
+  class="post-reward"
+  th:if="${(theme.config.post.reward?.enable == true or theme.config.post.reward?.enable == 'true') and not #lists.isEmpty(theme.config.post.reward?.QR_code)}"
+  th:with="rewardText = ${#strings.isEmpty(theme.config.post.reward?.text) ? '打赏' : theme.config.post.reward.text}"
+>
+  <div class="reward-button">
+    <i class="fa-solid fa-qrcode"></i>
+    <span th:text="${rewardText}"></span>
+  </div>
+  <div class="reward-main">
+    <ul class="reward-all">
+      <li
+        class="reward-item"
+        th:each="item : ${theme.config.post.reward.QR_code}"
+        th:if="${item != null and not #strings.isEmpty(item.img)}"
+      >
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          th:href="${not #strings.isEmpty(item.link) ? item.link : item.img}"
+          th:title="${item.text}"
+        >
+          <img class="post-qr-code-img" th:src="${item.img}" th:alt="${item.text}"/>
+        </a>
+        <div class="post-qr-code-desc" th:text="${item.text}"></div>
+      </li>
+    </ul>
+  </div>
+</div>

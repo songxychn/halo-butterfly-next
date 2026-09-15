@@ -8,9 +8,9 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 const theme = parse(await readFile(path.join(root, 'theme.yaml'), 'utf8'));
 const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${theme.metadata.name}-${pkg.version}.zip`)));
-const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html'];
+const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
-for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links', 'plugin']) {
+for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links', 'plugin', 'error404']) {
   required.push(`templates/assets/js/${page}.min.js`, `templates/assets/css/${page}.min.css`);
 }
 for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) required.push(`templates/assets/plugins/loading/${name}.min.js`);

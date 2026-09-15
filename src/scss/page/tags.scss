@@ -3,7 +3,14 @@
  * @author: 小红
  * @fileName: tags
  * @Description: 标签
+ *
+ * 图表页 .chart 360px。.equinox flex wrap，.link 1.5em。
+ * 对齐 padding 3px 12px / margin 5px / line-height 1.7 / 圆角 7。
+ * .tag-cloud-list 空操作见 core/tags.scss。
+ * 不加 #Butterfly 去压 zoom:.85 或 2.57em。不改 html.hide-aside 80%。
+ * 不改标签详情页 tag.scss。
  */
+
 @use '../core';
 @use "../core/util";
 @use "../modules/components";
@@ -25,6 +32,13 @@
       position: relative;
       transition: transform .2s ease-in-out;
       font-size: 1.5em;
+      margin: 5px;
+      padding: 3px 12px;
+      line-height: 1.7;
+      border-radius: 7px;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
 
       &:hover {
         transform: scale(1.1);
@@ -40,5 +54,3 @@
     }
   }
 }
-
- 
