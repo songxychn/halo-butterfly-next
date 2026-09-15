@@ -71,7 +71,9 @@ node scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 | `blocked` | 按合同阻塞处理：用 `blocker.phase/reason/nextAction` 记录阻塞原因及下一步，原范围保留 |
 | `not-applicable` | 不适用（有依据）：须含 `decision.id/option/issue/date/reason/replacement`；仅用于维护者已裁定的提供方缩减/平台替代，或确属 Hexo 构建机制的条目 |
 
-`not-applicable` 不计入 1.0 进度分母，但仍保留上游来源，不能删除条目。没有 `decision` 的条目不得使用该状态。删减可见能力、减少 provider 或用不同能力替代，在对应 DEC 写入 issue 与合同修订之前，不得标为不适用。
+`not-applicable` 不计入 1.0 进度分母，但仍保留上游来源，不能删除条目。没有 `decision` 的条目不得使用该状态。删减可见能力、减少 provider 或用不同能力替代，在对应 DEC 写入 issue 与合同修订之前，不得标为不适用。经 DEC 裁定延期到后续版本的条目使用 `blocked`（`blocker.phase` 为目标版本），保留在矩阵中，不计入当前工程终点分母。
+
+DEC-02（[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)）：`tag:*` 的 Halo 输入是与 Butterfly 生成结果一致的 HTML，主题不解析 `{% %}`。
 
 ## 已验收证据
 

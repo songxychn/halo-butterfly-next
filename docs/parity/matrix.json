@@ -28,10 +28,10 @@
     "halo-core": "Halo 2.26.1 实际 API、Finder、模型与注解契约。",
     "public-layout": "所有页面共同加载的 Halo 公共布局及插件页面布局契约。",
     "synthetic-backend": "本地桩服务或专用合成账户；无真实个人数据。",
-    "editor-contract": "Halo 编辑器/内容转换/主题渲染的职责与接口需明确。",
+    "editor-contract": "DEC-02：主题消费已渲染 HTML，不解析 Hexo `{% %}`。编辑器写入与 Butterfly 生成结果一致的 DOM；Hexo 源经离线转换。",
     "plugin-contract": "记录插件确切版本、启用、停用和缺失状态。",
     "asset-license": "资源来源、版本、分发许可和第三方声明核验。",
-    "scope-decision": "涉及替代/删减上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；其余 DEC 在裁定前不减范围。"
+    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；其余 DEC 在裁定前不减范围。"
   },
   "acceptanceProfiles": {
     "navigation": {
@@ -190,8 +190,9 @@
     "tags": {
       "title": "标签扩展",
       "scenarios": [
-        "每种标签使用同一源内容与参数，比较生成 DOM、文本、嵌套、转义和空输入。",
-        "交互标签测试键盘、亮暗、手机和重复初始化；错误输入不得执行任意脚本。"
+        "每种标签使用与 Butterfly 生成结果一致的 HTML（路径 A）及同一参数，比较 DOM、文本、嵌套、转义和空输入。",
+        "交互标签测试键盘、亮暗、手机和重复初始化；错误输入不得执行任意脚本。",
+        "路径 B 粘贴 `{% %}` 原文时 Halo 原样输出，不作为通过条件。"
       ]
     },
     "lifecycle": {
@@ -617,141 +618,141 @@
       "evidence": [],
       "status": "implemented-unverified"
     },
-                {
-          "id": "config:code_blocks.macStyle",
-          "kind": "config",
+    {
+      "id": "config:code_blocks.macStyle",
+      "kind": "config",
+      "key": "code_blocks.macStyle",
+      "title": "代码块 / code_blocks.macStyle",
+      "sources": [
+        {
+          "file": "_config.yml",
+          "line": 33,
           "key": "code_blocks.macStyle",
-          "title": "代码块 / code_blocks.macStyle",
-          "sources": [
-            {
-              "file": "_config.yml",
-              "line": 33,
-              "key": "code_blocks.macStyle",
-              "defaultValue": false
-            },
-            {
-              "file": "scripts/common/default_config.js",
-              "line": 14,
-              "key": "code_blocks.macStyle",
-              "defaultValue": false
-            }
-          ],
-          "upstreamInventory": "yaml",
-          "halo": {
-            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-            "settings": [
-              "render.enable_code_mac_style"
-            ],
-            "code": [
-              "src/js/modules/CodeBlock.js",
-              "src/scss/modules/codeBlock.scss",
-              "src/html/post.html",
-              "src/html/page.html",
-              "src/html/views/components.html",
-              "settings.yaml"
-            ],
-            "finding": "已映射 code_blocks.macStyle 为 render.enable_code_mac_style；默认 false，关闭时不绘制 mac 圆点。尚未双站对照验收。"
-          },
-          "dependencies": [
-            "dual-site",
-            "halo-core"
-          ],
-          "acceptance": {
-            "profile": "code",
-            "cases": [
-              "code_blocks.macStyle：分别设置 true 与 false，核对对应输出及再次刷新。",
-              "保持同组其他设置不变；验证 code_blocks.macStyle 与全局/逐页覆盖的优先级。"
-            ],
-            "contractScenarios": [
-              "ENV-02",
-              "PAGE-01",
-              "POST-01",
-              "PLG-06",
-              "CFG-01"
-            ]
-          },
-          "tracking": {
-            "issues": [
-              "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59"
-            ],
-            "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60"
-            ]
-          },
-          "evidence": [],
-          "status": "implemented-unverified"
+          "defaultValue": false
         },
-                {
-          "id": "config:code_blocks.height_limit",
-          "kind": "config",
+        {
+          "file": "scripts/common/default_config.js",
+          "line": 14,
+          "key": "code_blocks.macStyle",
+          "defaultValue": false
+        }
+      ],
+      "upstreamInventory": "yaml",
+      "halo": {
+        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+        "settings": [
+          "render.enable_code_mac_style"
+        ],
+        "code": [
+          "src/js/modules/CodeBlock.js",
+          "src/scss/modules/codeBlock.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
+        ],
+        "finding": "已映射 code_blocks.macStyle 为 render.enable_code_mac_style；默认 false，关闭时不绘制 mac 圆点。尚未双站对照验收。"
+      },
+      "dependencies": [
+        "dual-site",
+        "halo-core"
+      ],
+      "acceptance": {
+        "profile": "code",
+        "cases": [
+          "code_blocks.macStyle：分别设置 true 与 false，核对对应输出及再次刷新。",
+          "保持同组其他设置不变；验证 code_blocks.macStyle 与全局/逐页覆盖的优先级。"
+        ],
+        "contractScenarios": [
+          "ENV-02",
+          "PAGE-01",
+          "POST-01",
+          "PLG-06",
+          "CFG-01"
+        ]
+      },
+      "tracking": {
+        "issues": [
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/59"
+        ],
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/60"
+        ]
+      },
+      "evidence": [],
+      "status": "implemented-unverified"
+    },
+    {
+      "id": "config:code_blocks.height_limit",
+      "kind": "config",
+      "key": "code_blocks.height_limit",
+      "title": "代码块 / code_blocks.height_limit",
+      "sources": [
+        {
+          "file": "_config.yml",
+          "line": 35,
           "key": "code_blocks.height_limit",
-          "title": "代码块 / code_blocks.height_limit",
-          "sources": [
-            {
-              "file": "_config.yml",
-              "line": 35,
-              "key": "code_blocks.height_limit",
-              "defaultValue": false
-            },
-            {
-              "file": "scripts/common/default_config.js",
-              "line": 15,
-              "key": "code_blocks.height_limit",
-              "defaultValue": false
-            }
-          ],
-          "upstreamInventory": "yaml",
-          "halo": {
-            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-            "settings": [
-              "render.code_height_limit"
-            ],
-            "code": [
-              "src/js/modules/CodeBlock.js",
-              "src/scss/modules/codeBlock.scss",
-              "src/html/post.html",
-              "src/html/page.html",
-              "src/html/views/components.html",
-              "settings.yaml"
-            ],
-            "finding": "已映射 code_blocks.height_limit 为 render.code_height_limit；默认 false 不限制，200/400 超出后显示展开条。尚未双站对照验收。"
-          },
-          "dependencies": [
-            "dual-site",
-            "halo-core"
-          ],
-          "acceptance": {
-            "profile": "code",
-            "cases": [
-              "code_blocks.height_limit：逐值执行 false / 200 / 400。",
-              "保持同组其他设置不变；验证 code_blocks.height_limit 与全局/逐页覆盖的优先级。"
-            ],
-            "values": [
-              false,
-              200,
-              400
-            ],
-            "contractScenarios": [
-              "ENV-02",
-              "PAGE-01",
-              "POST-01",
-              "PLG-06",
-              "CFG-01"
-            ]
-          },
-          "tracking": {
-            "issues": [
-              "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59"
-            ],
-            "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60"
-            ]
-          },
-          "evidence": [],
-          "status": "implemented-unverified"
+          "defaultValue": false
         },
+        {
+          "file": "scripts/common/default_config.js",
+          "line": 15,
+          "key": "code_blocks.height_limit",
+          "defaultValue": false
+        }
+      ],
+      "upstreamInventory": "yaml",
+      "halo": {
+        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+        "settings": [
+          "render.code_height_limit"
+        ],
+        "code": [
+          "src/js/modules/CodeBlock.js",
+          "src/scss/modules/codeBlock.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
+        ],
+        "finding": "已映射 code_blocks.height_limit 为 render.code_height_limit；默认 false 不限制，200/400 超出后显示展开条。尚未双站对照验收。"
+      },
+      "dependencies": [
+        "dual-site",
+        "halo-core"
+      ],
+      "acceptance": {
+        "profile": "code",
+        "cases": [
+          "code_blocks.height_limit：逐值执行 false / 200 / 400。",
+          "保持同组其他设置不变；验证 code_blocks.height_limit 与全局/逐页覆盖的优先级。"
+        ],
+        "values": [
+          false,
+          200,
+          400
+        ],
+        "contractScenarios": [
+          "ENV-02",
+          "PAGE-01",
+          "POST-01",
+          "PLG-06",
+          "CFG-01"
+        ]
+      },
+      "tracking": {
+        "issues": [
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/59"
+        ],
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/60"
+        ]
+      },
+      "evidence": [],
+      "status": "implemented-unverified"
+    },
     {
       "id": "config:code_blocks.word_wrap",
       "kind": "config",
@@ -817,208 +818,208 @@
       "evidence": [],
       "status": "implemented-unverified"
     },
-                {
-          "id": "config:code_blocks.copy",
-          "kind": "config",
+    {
+      "id": "config:code_blocks.copy",
+      "kind": "config",
+      "key": "code_blocks.copy",
+      "title": "代码块 / code_blocks.copy",
+      "sources": [
+        {
+          "file": "_config.yml",
+          "line": 39,
           "key": "code_blocks.copy",
-          "title": "代码块 / code_blocks.copy",
-          "sources": [
-            {
-              "file": "_config.yml",
-              "line": 39,
-              "key": "code_blocks.copy",
-              "defaultValue": true
-            },
-            {
-              "file": "scripts/common/default_config.js",
-              "line": 17,
-              "key": "code_blocks.copy",
-              "defaultValue": true
-            }
-          ],
-          "upstreamInventory": "yaml",
-          "halo": {
-            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-            "settings": [
-              "render.enable_code_copy"
-            ],
-            "code": [
-              "src/js/modules/CodeBlock.js",
-              "src/scss/modules/codeBlock.scss",
-              "src/html/post.html",
-              "src/html/page.html",
-              "src/html/views/components.html",
-              "settings.yaml"
-            ],
-            "finding": "已映射 code_blocks.copy 为 render.enable_code_copy；false 时不输出复制按钮。尚未双站对照验收。"
-          },
-          "dependencies": [
-            "dual-site",
-            "halo-core"
-          ],
-          "acceptance": {
-            "profile": "code",
-            "cases": [
-              "code_blocks.copy：分别设置 true 与 false，核对对应输出及再次刷新。",
-              "保持同组其他设置不变；验证 code_blocks.copy 与全局/逐页覆盖的优先级。"
-            ],
-            "contractScenarios": [
-              "ENV-02",
-              "PAGE-01",
-              "POST-01",
-              "PLG-06",
-              "CFG-01"
-            ]
-          },
-          "tracking": {
-            "issues": [
-              "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59"
-            ],
-            "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60"
-            ]
-          },
-          "evidence": [],
-          "status": "implemented-unverified"
+          "defaultValue": true
         },
-                {
-          "id": "config:code_blocks.language",
-          "kind": "config",
+        {
+          "file": "scripts/common/default_config.js",
+          "line": 17,
+          "key": "code_blocks.copy",
+          "defaultValue": true
+        }
+      ],
+      "upstreamInventory": "yaml",
+      "halo": {
+        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+        "settings": [
+          "render.enable_code_copy"
+        ],
+        "code": [
+          "src/js/modules/CodeBlock.js",
+          "src/scss/modules/codeBlock.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
+        ],
+        "finding": "已映射 code_blocks.copy 为 render.enable_code_copy；false 时不输出复制按钮。尚未双站对照验收。"
+      },
+      "dependencies": [
+        "dual-site",
+        "halo-core"
+      ],
+      "acceptance": {
+        "profile": "code",
+        "cases": [
+          "code_blocks.copy：分别设置 true 与 false，核对对应输出及再次刷新。",
+          "保持同组其他设置不变；验证 code_blocks.copy 与全局/逐页覆盖的优先级。"
+        ],
+        "contractScenarios": [
+          "ENV-02",
+          "PAGE-01",
+          "POST-01",
+          "PLG-06",
+          "CFG-01"
+        ]
+      },
+      "tracking": {
+        "issues": [
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/59"
+        ],
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/60"
+        ]
+      },
+      "evidence": [],
+      "status": "implemented-unverified"
+    },
+    {
+      "id": "config:code_blocks.language",
+      "kind": "config",
+      "key": "code_blocks.language",
+      "title": "代码块 / code_blocks.language",
+      "sources": [
+        {
+          "file": "_config.yml",
+          "line": 40,
           "key": "code_blocks.language",
-          "title": "代码块 / code_blocks.language",
-          "sources": [
-            {
-              "file": "_config.yml",
-              "line": 40,
-              "key": "code_blocks.language",
-              "defaultValue": true
-            },
-            {
-              "file": "scripts/common/default_config.js",
-              "line": 18,
-              "key": "code_blocks.language",
-              "defaultValue": true
-            }
-          ],
-          "upstreamInventory": "yaml",
-          "halo": {
-            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-            "settings": [
-              "render.enable_code_title"
-            ],
-            "code": [
-              "src/js/modules/CodeBlock.js",
-              "src/scss/modules/codeBlock.scss",
-              "src/html/post.html",
-              "src/html/page.html",
-              "src/html/views/components.html",
-              "settings.yaml"
-            ],
-            "finding": "已映射 code_blocks.language 为 render.enable_code_title；false 时移除语言标题节点。尚未双站对照验收。"
-          },
-          "dependencies": [
-            "dual-site",
-            "halo-core"
-          ],
-          "acceptance": {
-            "profile": "code",
-            "cases": [
-              "code_blocks.language：分别设置 true 与 false，核对对应输出及再次刷新。",
-              "保持同组其他设置不变；验证 code_blocks.language 与全局/逐页覆盖的优先级。"
-            ],
-            "contractScenarios": [
-              "ENV-02",
-              "PAGE-01",
-              "POST-01",
-              "PLG-06",
-              "CFG-01"
-            ]
-          },
-          "tracking": {
-            "issues": [
-              "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59"
-            ],
-            "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60"
-            ]
-          },
-          "evidence": [],
-          "status": "implemented-unverified"
+          "defaultValue": true
         },
-                {
-          "id": "config:code_blocks.shrink",
-          "kind": "config",
+        {
+          "file": "scripts/common/default_config.js",
+          "line": 18,
+          "key": "code_blocks.language",
+          "defaultValue": true
+        }
+      ],
+      "upstreamInventory": "yaml",
+      "halo": {
+        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+        "settings": [
+          "render.enable_code_title"
+        ],
+        "code": [
+          "src/js/modules/CodeBlock.js",
+          "src/scss/modules/codeBlock.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
+        ],
+        "finding": "已映射 code_blocks.language 为 render.enable_code_title；false 时移除语言标题节点。尚未双站对照验收。"
+      },
+      "dependencies": [
+        "dual-site",
+        "halo-core"
+      ],
+      "acceptance": {
+        "profile": "code",
+        "cases": [
+          "code_blocks.language：分别设置 true 与 false，核对对应输出及再次刷新。",
+          "保持同组其他设置不变；验证 code_blocks.language 与全局/逐页覆盖的优先级。"
+        ],
+        "contractScenarios": [
+          "ENV-02",
+          "PAGE-01",
+          "POST-01",
+          "PLG-06",
+          "CFG-01"
+        ]
+      },
+      "tracking": {
+        "issues": [
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/59"
+        ],
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/60"
+        ]
+      },
+      "evidence": [],
+      "status": "implemented-unverified"
+    },
+    {
+      "id": "config:code_blocks.shrink",
+      "kind": "config",
+      "key": "code_blocks.shrink",
+      "title": "代码块 / code_blocks.shrink",
+      "sources": [
+        {
+          "file": "_config.yml",
+          "line": 42,
           "key": "code_blocks.shrink",
-          "title": "代码块 / code_blocks.shrink",
-          "sources": [
-            {
-              "file": "_config.yml",
-              "line": 42,
-              "key": "code_blocks.shrink",
-              "defaultValue": false
-            },
-            {
-              "file": "scripts/common/default_config.js",
-              "line": 19,
-              "key": "code_blocks.shrink",
-              "defaultValue": false
-            }
-          ],
-          "upstreamInventory": "yaml",
-          "halo": {
-            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-            "settings": [
-              "render.enable_code_expander"
-            ],
-            "code": [
-              "src/js/modules/CodeBlock.js",
-              "src/scss/modules/codeBlock.scss",
-              "src/html/post.html",
-              "src/html/page.html",
-              "src/html/views/components.html",
-              "settings.yaml"
-            ],
-            "finding": "已映射 code_blocks.shrink 三态到 render.enable_code_expander 字符串 radio：false 有按钮且初始展开，true 有按钮且初始 closed，none 无折叠按钮。默认 false，与上游 _config.yml 一致。旧布尔 true 运行时映射为 false，旧布尔 false 映射为 none。尚未双站对照验收，禁止 verified。"
-          },
-          "dependencies": [
-            "dual-site",
-            "halo-core"
-          ],
-          "acceptance": {
-            "profile": "code",
-            "cases": [
-              "code_blocks.shrink：逐值执行 true / false / \"none\"。",
-              "保持同组其他设置不变；验证 code_blocks.shrink 与全局/逐页覆盖的优先级。"
-            ],
-            "values": [
-              true,
-              false,
-              "none"
-            ],
-            "contractScenarios": [
-              "ENV-02",
-              "PAGE-01",
-              "POST-01",
-              "PLG-06",
-              "CFG-01"
-            ]
-          },
-          "tracking": {
-            "issues": [
-              "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59",
-              "https://github.com/songxychn/halo-butterfly-next/issues/73"
-            ],
-            "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60",
-              "https://github.com/songxychn/halo-butterfly-next/pull/75"
-            ]
-          },
-          "evidence": [],
-          "status": "implemented-unverified"
+          "defaultValue": false
         },
+        {
+          "file": "scripts/common/default_config.js",
+          "line": 19,
+          "key": "code_blocks.shrink",
+          "defaultValue": false
+        }
+      ],
+      "upstreamInventory": "yaml",
+      "halo": {
+        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+        "settings": [
+          "render.enable_code_expander"
+        ],
+        "code": [
+          "src/js/modules/CodeBlock.js",
+          "src/scss/modules/codeBlock.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
+        ],
+        "finding": "已映射 code_blocks.shrink 三态到 render.enable_code_expander 字符串 radio：false 有按钮且初始展开，true 有按钮且初始 closed，none 无折叠按钮。默认 false，与上游 _config.yml 一致。旧布尔 true 运行时映射为 false，旧布尔 false 映射为 none。尚未双站对照验收，禁止 verified。"
+      },
+      "dependencies": [
+        "dual-site",
+        "halo-core"
+      ],
+      "acceptance": {
+        "profile": "code",
+        "cases": [
+          "code_blocks.shrink：逐值执行 true / false / \"none\"。",
+          "保持同组其他设置不变；验证 code_blocks.shrink 与全局/逐页覆盖的优先级。"
+        ],
+        "values": [
+          true,
+          false,
+          "none"
+        ],
+        "contractScenarios": [
+          "ENV-02",
+          "PAGE-01",
+          "POST-01",
+          "PLG-06",
+          "CFG-01"
+        ]
+      },
+      "tracking": {
+        "issues": [
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/59",
+          "https://github.com/songxychn/halo-butterfly-next/issues/73"
+        ],
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/60",
+          "https://github.com/songxychn/halo-butterfly-next/pull/75"
+        ]
+      },
+      "evidence": [],
+      "status": "implemented-unverified"
+    },
     {
       "id": "config:code_blocks.fullpage",
       "kind": "config",
@@ -8286,17 +8287,18 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
-        "halo-core"
+        "halo-core",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "aside",
@@ -8313,12 +8315,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:aside.card_post_series.series_title",
@@ -8341,17 +8349,18 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
-        "halo-core"
+        "halo-core",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "aside",
@@ -8368,12 +8377,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:aside.card_post_series.orderBy",
@@ -8396,17 +8411,18 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
-        "halo-core"
+        "halo-core",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "aside",
@@ -8427,12 +8443,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:aside.card_post_series.order",
@@ -8455,17 +8477,18 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
-        "halo-core"
+        "halo-core",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "aside",
@@ -8486,12 +8509,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:aside.card_webinfo.enable",
@@ -20800,19 +20829,20 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "editor-contract"
+        "editor-contract",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "tags",
@@ -20830,12 +20860,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:series.orderBy",
@@ -20858,19 +20894,20 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "editor-contract"
+        "editor-contract",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "tags",
@@ -20892,12 +20929,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:series.order",
@@ -20920,19 +20963,20 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "editor-contract"
+        "editor-contract",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "tags",
@@ -20954,12 +20998,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:series.number",
@@ -20982,19 +21032,20 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "editor-contract"
+        "editor-contract",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "tags",
@@ -21012,12 +21063,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "config:abcjs.enable",
@@ -21160,14 +21217,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21192,12 +21249,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:mermaid.code_write",
@@ -21220,14 +21278,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21252,12 +21310,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:mermaid.theme.light",
@@ -21280,14 +21339,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21318,12 +21377,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:mermaid.theme.dark",
@@ -21346,14 +21406,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21384,12 +21444,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:mermaid.open_in_new_tab",
@@ -21412,14 +21473,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21444,12 +21505,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:mermaid.zoom_pan",
@@ -21472,14 +21534,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21504,12 +21566,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.enable",
@@ -21532,14 +21595,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21564,12 +21627,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.fontColor.light",
@@ -21592,14 +21656,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21624,12 +21688,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.fontColor.dark",
@@ -21652,14 +21717,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21684,12 +21749,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.borderColor.light",
@@ -21712,14 +21778,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21744,12 +21810,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.borderColor.dark",
@@ -21772,14 +21839,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21804,12 +21871,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.scale_ticks_backdropColor.light",
@@ -21832,14 +21900,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21864,12 +21932,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:chartjs.scale_ticks_backdropColor.dark",
@@ -21892,14 +21961,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21924,12 +21993,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:note.style",
@@ -21952,14 +22022,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -21988,12 +22058,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:note.icons",
@@ -22016,14 +22087,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -22046,12 +22117,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:note.border_radius",
@@ -22074,14 +22146,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -22104,12 +22176,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:note.light_bg_offset",
@@ -22132,14 +22205,14 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -22162,12 +22235,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "config:pjax.enable",
@@ -31567,14 +31641,14 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -31598,12 +31672,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "template:includes/third-party/math/index",
@@ -31775,14 +31850,14 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
       "dependencies": [
         "dual-site",
@@ -31806,12 +31881,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "template:includes/third-party/newest-comments/artalk",
@@ -33290,17 +33366,18 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
-        "halo-core"
+        "halo-core",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "aside",
@@ -33317,12 +33394,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "template:includes/widget/card_post_toc",
@@ -33835,14 +33918,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -33852,8 +33935,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "btn：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/button.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "btn：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% btn %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "行内按钮：移植 Butterfly 按钮 class/样式。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33864,12 +33948,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:chartjs",
@@ -33884,14 +33969,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -33901,8 +33987,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "chartjs：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/chartjs.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "chartjs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% chartjs %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "路径 A 携带图表 JSON（仅解析，不 eval）。不得用归档统计图关闭本项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33913,12 +34000,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:flink",
@@ -33933,14 +34021,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -33950,8 +34038,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "flink：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/flink.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "flink：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% flink %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "1.0 仅验收正文友链卡片 HTML。不等于 Links 插件页；活数据灌入正文为 1.1。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33962,12 +34051,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:gallery",
@@ -33982,14 +34072,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -33999,8 +34090,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "gallery：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/gallery.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "gallery：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% gallery %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "正文灯箱网格。不得用 Photos 插件页关闭本项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34011,12 +34103,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:galleryGroup",
@@ -34031,14 +34124,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34048,8 +34142,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "galleryGroup：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/gallery.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "galleryGroup：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% galleryGroup %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "正文图库分组封面。不得用 Photos 插件页关闭本项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34060,12 +34155,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:hideBlock",
@@ -34080,14 +34176,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34097,8 +34194,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "hideBlock：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/hide.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "hideBlock：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% hideBlock %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "点击揭示的块级隐藏；按钮名来自路径 A HTML。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34109,12 +34207,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:hideInline",
@@ -34129,14 +34228,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34146,8 +34246,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "hideInline：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/hide.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "hideInline：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% hideInline %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "点击揭示的行内隐藏；按钮名来自路径 A HTML。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34158,12 +34259,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:hideToggle",
@@ -34178,14 +34280,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34195,8 +34298,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "hideToggle：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/hide.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "hideToggle：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% hideToggle %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "折叠块；按钮名来自路径 A HTML。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34207,12 +34311,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:inlineImg",
@@ -34227,14 +34332,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34244,8 +34349,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "inlineImg：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/inlineImg.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "inlineImg：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% inlineImg %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "行内图片尺寸与样式按上游 HTML 约定。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34256,12 +34362,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:label",
@@ -34276,14 +34383,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34293,8 +34400,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "label：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/label.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "label：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% label %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "彩色行内标签：移植 Butterfly label class/样式。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34305,12 +34413,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:mermaid",
@@ -34325,14 +34434,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34342,8 +34452,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "mermaid：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/mermaid.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "mermaid：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% mermaid %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "路径 A 为 mermaid 容器；按需加载脚本。不得把未渲染源码记为通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34354,12 +34465,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:note",
@@ -34374,14 +34486,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34391,8 +34503,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "note：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/note.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "note：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% note %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "提示块样式与图标由主题 CSS 作用于路径 A HTML；subnote 为别名。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34403,12 +34516,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:score",
@@ -34423,14 +34537,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34440,8 +34554,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "score：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/score.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "score：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% score %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "分数展示结构，纯 CSS/HTML。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34452,12 +34567,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:series",
@@ -34472,14 +34588,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34489,8 +34605,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "series：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/series.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "series：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% series %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "1.0 仅验收作者提供的静态系列列表 HTML。活数据查询见 1.1 blocked 项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34501,12 +34618,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:subnote",
@@ -34521,14 +34639,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34538,8 +34656,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "subnote：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/note.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "subnote：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% subnote %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "note 的别名；与 tag:note 共用样式，不单独发明语法。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34550,12 +34669,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:subsubtabs",
@@ -34570,14 +34690,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34587,8 +34708,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "subsubtabs：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/tabs.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "subsubtabs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% subsubtabs %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "tabs 嵌套别名；与 tag:tabs 共用交互。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34599,12 +34721,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:subtabs",
@@ -34619,14 +34742,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34636,8 +34760,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "subtabs：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/tabs.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "subtabs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% subtabs %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "tabs 嵌套别名；与 tag:tabs 共用交互。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34648,12 +34773,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:tabs",
@@ -34668,14 +34794,15 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34685,8 +34812,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "tabs：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/tabs.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "tabs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% tabs %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "可键盘切换的标签页；主题 JS 绑定已生成的 tabs DOM。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34697,12 +34825,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "tag:timeline",
@@ -34717,14 +34846,14 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
       "dependencies": [
         "dual-site",
@@ -34734,8 +34863,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "timeline：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/tag/timeline.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "timeline：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
+          "路径 B 粘贴 `{% timeline %}` 原文时 Halo 原样输出，不作为通过条件。",
+          "时间线结构列表，纯 CSS/HTML。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34746,12 +34876,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "gap"
     },
     {
       "id": "helper:aside_archives",
@@ -35988,19 +36119,20 @@
       ],
       "upstreamInventory": "registrations",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.js",
           "src/js/core/_lazyLoad.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "public-layout"
+        "public-layout",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "lifecycle",
@@ -36017,12 +36149,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "lifecycle-hook:scripts/tag/series.js#filter:before_post_render",
@@ -36037,19 +36175,20 @@
       ],
       "upstreamInventory": "registrations",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.js",
           "src/js/core/_lazyLoad.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "public-layout"
+        "public-layout",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "lifecycle",
@@ -36066,12 +36205,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "resource:abcjs_basic_js",
@@ -43713,20 +43858,21 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "1.0 不实现活数据；保留上游能力，按 DEC-02 延期到 1.1。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/html/archives.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
-        "editor-contract"
+        "editor-contract",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "page-data",
@@ -43742,12 +43888,18 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "page-data:shuoshuo_url",
@@ -47184,62 +47336,62 @@
       "evidence": [],
       "status": "gap"
     },
-                {
-          "id": "interaction:copy-code",
-          "kind": "interaction",
-          "key": "copy-code",
-          "title": "复制代码成功与失败",
-          "sources": [
-            {
-              "file": "source/js/main.js",
-              "line": 132,
-              "symbol": "const copy = async"
-            }
-          ],
-          "upstreamInventory": "manual",
-          "halo": {
-            "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
-            "settings": [
-              "render.enable_code_copy"
-            ],
-            "code": [
-              "src/js/modules/CodeBlock.js",
-              "src/scss/modules/codeBlock.scss",
-              "src/html/post.html",
-              "src/html/page.html",
-              "src/html/views/components.html",
-              "settings.yaml"
-            ],
-            "finding": "复制按钮为可点击/键盘激活的 button；成功有消息与 copy-notice；关闭 copy 后不输出按钮。尚未双站对照验收。"
-          },
-          "dependencies": [
-            "dual-site",
-            "halo-core"
-          ],
-          "acceptance": {
-            "profile": "code",
-            "cases": [
-              "剪贴板包含代码原文，权限拒绝时明确提示，行号不被复制。"
-            ],
-            "contractScenarios": [
-              "ENV-02",
-              "PAGE-01",
-              "POST-01",
-              "PLG-06"
-            ]
-          },
-          "tracking": {
-            "issues": [
-              "https://github.com/songxychn/halo-butterfly-next/issues/2",
-              "https://github.com/songxychn/halo-butterfly-next/issues/59"
-            ],
-            "pullRequests": [
-              "https://github.com/songxychn/halo-butterfly-next/pull/60"
-            ]
-          },
-          "evidence": [],
-          "status": "implemented-unverified"
-        },
+    {
+      "id": "interaction:copy-code",
+      "kind": "interaction",
+      "key": "copy-code",
+      "title": "复制代码成功与失败",
+      "sources": [
+        {
+          "file": "source/js/main.js",
+          "line": 132,
+          "symbol": "const copy = async"
+        }
+      ],
+      "upstreamInventory": "manual",
+      "halo": {
+        "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
+        "settings": [
+          "render.enable_code_copy"
+        ],
+        "code": [
+          "src/js/modules/CodeBlock.js",
+          "src/scss/modules/codeBlock.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "settings.yaml"
+        ],
+        "finding": "复制按钮为可点击/键盘激活的 button；成功有消息与 copy-notice；关闭 copy 后不输出按钮。尚未双站对照验收。"
+      },
+      "dependencies": [
+        "dual-site",
+        "halo-core"
+      ],
+      "acceptance": {
+        "profile": "code",
+        "cases": [
+          "剪贴板包含代码原文，权限拒绝时明确提示，行号不被复制。"
+        ],
+        "contractScenarios": [
+          "ENV-02",
+          "PAGE-01",
+          "POST-01",
+          "PLG-06"
+        ]
+      },
+      "tracking": {
+        "issues": [
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/59"
+        ],
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/60"
+        ]
+      },
+      "evidence": [],
+      "status": "implemented-unverified"
+    },
     {
       "id": "interaction:collapse-code",
       "kind": "interaction",
