@@ -69,8 +69,9 @@ node scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 | `ci-required` | 待 CI：独立审查通过，等待当前提交检查 |
 | `verified` | 已验收：专属断言、合同场景、独立审查和对应提交 CI 全部通过 |
 | `blocked` | 按合同阻塞处理：用 `blocker.phase/reason/nextAction` 记录阻塞原因及下一步，原范围保留 |
+| `not-applicable` | 不适用（有依据）：须含 `decision.id/option/issue/date/reason/replacement`；仅用于维护者已裁定的提供方缩减/平台替代，或确属 Hexo 构建机制的条目 |
 
-初版不提供自动“不适用”状态。确实仅属于 Hexo 构建机制的事项如需改为不适用，先完成合同要求的来源证明和独立结论，再以明确变更修订矩阵规则。删减可见能力、减少 provider 或用不同能力替代仍须用户确认。
+`not-applicable` 不计入 1.0 进度分母，但仍保留上游来源，不能删除条目。没有 `decision` 的条目不得使用该状态。删减可见能力、减少 provider 或用不同能力替代，在对应 DEC 写入 issue 与合同修订之前，不得标为不适用。
 
 ## 已验收证据
 

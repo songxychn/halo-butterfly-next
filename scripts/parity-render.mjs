@@ -14,13 +14,14 @@ export const statusLabels = {
   'ci-required': '待 CI',
   verified: '已验收',
   blocked: '阻塞（范围保留）',
+  'not-applicable': '不适用（已裁定）',
 };
 
 export function renderMatrix(matrix) {
   const lines = ['# Butterfly 5.7.0 功能矩阵', '',
     '> 此文件由 `node scripts/parity-render.mjs` 生成。只编辑 `matrix.json`；覆盖检查不代表功能验收。', '',
     `固定上游：${matrix.upstream.version} / \`${matrix.upstream.commit}\`。首次 Halo 源码盘点：\`${matrix.haloBaseline}\`。`, '',
-    '每项必须经过其验收场景、独立审查和对应提交的 CI 才能置为 `verified`。平台差异保留原需求，未经维护者确认不能删除或标为不适用。', '',
+    '每项必须经过其验收场景、独立审查和对应提交的 CI 才能置为 `verified`。`not-applicable` 仅用于合同已裁定的提供方缩减/平台替代或确属 Hexo 构建机制的条目，且必须带 `decision`。其余平台差异保留原需求。', '',
     '| 状态 | 项数 |', '| --- | ---: |'];
   for (const [key, label] of Object.entries(statusLabels)) lines.push(`| ${label} | ${matrix.items.filter(item => item.status === key).length} |`);
   lines.push('', '详细适配方案、依赖和每项验收案例见 [matrix.json](matrix.json)。共用条件及证据格式见 [维护说明](README.md)。', '');
