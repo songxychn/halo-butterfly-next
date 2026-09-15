@@ -6,137 +6,261 @@
  */
 import $ from 'jquery';
 import Clipboard from 'clipboard';
-import {useInsertStyle, useToBool} from '../core/_util';
+import {useToBool} from '../core/_util';
+import {resolveCodeShrink} from '../core/code-shrink.mjs';
 
 export default class codeBlock {
   name = 'codeBlock';
-  
-  #renderDom = $('article.render'); // 文章渲染区域
-  
+
+  #renderDom = $('article.render');
+
   #conf = MainApp.conf;
-  
+
   #attrs = MainApp.attrs;
-  
+
   constructor() {
-    if(this.#conf?.enable_code){
-      this.#addCss();
+    if (this.#flag('enable_code')) {
       this.#code();
       this.#codeToolbar();
     }
   }
 
-  /**
-   * 添加样式
-   */
-  #addCss(){
-    const cssStr = `.render .code-toolbar {margin: 12px 0;overflow: hidden;box-shadow: var(--code-toolbar-box-shadow);border-radius: 5px;}.render .code-toolbar:before {content: "";position: absolute;top: 9px;left: 12px;z-index: 1;width: 12px;height: 12px;border-radius: 50%;background-color: #fc625d;box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;}.render .code-toolbar .toolbar {position: absolute;pointer-events: none;opacity: 1;left: 0;right: 0;top: 0;z-index: unset;height: 30px;line-height: 30px;text-align: center;}.render .code-toolbar .toolbar-item:first-child {display: none;}.render .code-toolbar .toolbar-item:first-child span {background-color: transparent;box-shadow: none;}.render .code-toolbar .toolbar .custom-item {position: absolute;top: 0;user-select: none;font-size: 1rem;right: 12px;color: #999;pointer-events: all;}.render .code-toolbar .toolbar .custom-item > i {cursor: var(--cursor-pointer);margin-left: 15px;transition: transform 0.2s;}.render .code-toolbar .toolbar .custom-item > i:hover {filter: brightness(1.2);}.render .code-toolbar .toolbar .custom-item > i.code-copy {font-size: .9rem;}.render .code-toolbar .toolbar.enable-expander i.code-expander {transform: rotate(90deg);}.render .code-toolbar .toolbar.enable-title .toolbar-item:first-child {display: block;}.render .code-toolbar .toolbar.enable-hr {border-bottom: 1px solid #b2a8a84d;}.render .code-toolbar pre[class*=language-] {position: relative;margin: 0;padding: 30px 0 0;overflow: hidden;white-space: pre;text-shadow: none;border-radius: 5px;}.render .code-toolbar pre[class*=language-] .line-numbers-rows {border-right: none;left: 0;top: 0;bottom: 0;padding-top: 12px;}.render .code-toolbar pre[class*=language-] code[class*=language-] {display: block;margin-bottom: 0;overflow-x: auto;padding: 5px 18px 10px;border-radius: 0 0 8px 8px;text-shadow: none;}.render .code-toolbar pre[class*=language-] code[class*=language-]::-webkit-scrollbar {width: 5px;height: 5px;}.render .code-toolbar pre[class*=language-] code[class*=language-] .token.string, .render .code-toolbar pre[class*=language-] code[class*=language-] .style .token.string, .render .code-toolbar pre[class*=language-] code[class*=language-] .token.entity, .render .code-toolbar pre[class*=language-] code[class*=language-] .token.operator, .render .code-toolbar pre[class*=language-] code[class*=language-] .token.url {background-color: transparent;}.render .code-toolbar pre[class*=language-].line-numbers code[class*=language-] {padding: 10px 20px 10px 50px;}`;
-    useInsertStyle(cssStr);
+  #flag(name) {
+    return useToBool(this.#conf?.[name]);
   }
 
-  /**
-   * 代码块基础设置
-   */
-  #code(){
-    
+  #copyEnabled() {
+    if (!this.#flag('enable_code_copy')) return false;
+    const attr = this.#attrs?.enable_code_copy;
+    if (attr === undefined || attr === null || attr === '') return true;
+    return useToBool(attr);
+  }
+
+  #heightLimitPx() {
+    const value = this.#conf?.code_height_limit;
+    if (value === false || value === 'false' || value == null || value === '') return false;
+    const n = Number(value);
+    return Number.isFinite(n) && n > 0 ? n : false;
+  }
+
+  #shrinkMode() {
+    return resolveCodeShrink(this.#conf?.enable_code_expander);
+  }
+
+  #code() {
     this.#renderDom.addClass('single_code_select');
-
-    if(this.#conf.enable_code_line)  this.#renderDom.addClass('line-numbers');
-
-    //重新渲染代码块
+    if (this.#flag('enable_code_line')) this.#renderDom.addClass('line-numbers');
     if (window.Prism) window.Prism.highlightAllUnder(this.#renderDom[0]);
-
-    // 初始化代码块
     this.#codeTheme(MainApp.useTheme.getMode());
-    
-    // 代码块主题切换
     MainApp.useTheme.change((mode) => this.#codeTheme(mode));
   }
 
-  /**
-   * 代码块浅色暗色主题
-   * @param mode
-   */
   #codeTheme(mode) {
     const codeLight = document.getElementById('codeLight');
     const codeDark = document.getElementById('codeDark');
-    if(!codeLight || !codeDark) return;
-
+    if (!codeLight || !codeDark) return;
     codeLight.disabled = mode === 'dark';
-
     codeDark.disabled = mode === 'light';
   }
 
-  /**
-   * 代码块工具栏
-   */
   #codeToolbar() {
     const pres = this.#renderDom.find('pre');
-    
     pres.each((index, dom) => {
       const pre = $(dom);
-
-      // 代码块工具栏
+      const wrap = pre.parent('.code-toolbar');
       const toolbar = pre.next('.toolbar');
+      if (!toolbar.length) return;
 
-      if(toolbar) {
-        //标题
-        if(this.#conf['enable_code_title']) {
-          toolbar.addClass('enable-title');
-        }
+      if (this.#flag('enable_code_mac_style')) wrap.addClass('mac-style');
+      if (this.#flag('enable_code_word_wrap')) wrap.addClass('word-wrap');
 
-        // 分割线
-        if(this.#conf['enable_code_hr']) {
-          toolbar.addClass('enable-hr');
-        }
+      if (this.#flag('enable_code_title')) toolbar.addClass('enable-title');
+      else toolbar.find('.toolbar-item').first().remove();
 
-        // 自定义设置
-        this.#codeToolbarCustom(toolbar, pre);
-      }
+      if (this.#flag('enable_code_hr')) toolbar.addClass('enable-hr');
+
+      this.#codeToolbarCustom(toolbar, pre, wrap);
+      this.#applyHeightLimit(wrap, pre);
     });
-    
+
     setTimeout(() => pres.addClass('code-success'), 200);
   }
 
-  /**
-   * 代码块工具栏自定义
-   * @param toolbar
-   * @param pre
-   */
-  #codeToolbarCustom(toolbar, pre){
-    toolbar.append(`<div class="custom-item"></div>`);
-
+  #codeToolbarCustom(toolbar, pre, wrap) {
+    toolbar.append('<div class="custom-item"></div>');
     const customItem = toolbar.find('.custom-item');
 
-    // 代码块复制
-    if(this.#conf['enable_code_copy'] && useToBool(this.#attrs?.['enable_code_copy'])) {
-      customItem.append('<i class="fas fa-paste code-copy"></i>');
-      customItem.find('.code-copy').on('click', (e) => {
+    if (this.#copyEnabled()) {
+      const button = $('<button type="button" class="code-copy" aria-label="复制代码" title="复制代码"><i class="fas fa-paste" aria-hidden="true"></i></button>');
+      button.on('click', (e) => {
+        e.preventDefault();
         const text = pre.children('code[class*=\'language-\']').text();
-        const clipboard = new Clipboard(e.target, {text: () => text});
-
-        clipboard.on('success', () => {
-          MainApp.useMessage.info('复制成功~');
-          clipboard.destroy();
-        });
-
-        clipboard.on('error', () => {
-          clipboard.destroy();
-        });
-
-        clipboard['onClick'](e);
+        this.#copyText(text, button[0], e);
       });
+      customItem.append(button);
     }
 
-    // 代码块展开
-    if(this.#conf['enable_code_expander']) {
-      customItem.append('<i class="fa-solid fa-caret-down code-expander"></i>');
-
-      customItem.find('.code-expander').on('click', function() {
-        pre.children('code').toggle();
-        toolbar.toggleClass('enable-expander');
+    const shrink = this.#shrinkMode();
+    if (shrink !== 'none') {
+      const initiallyClosed = shrink === 'true';
+      if (initiallyClosed) wrap.addClass('closed');
+      const expander = $(`<button type="button" class="code-expander" aria-label="${initiallyClosed ? '展开代码' : '折叠代码'}" title="${initiallyClosed ? '展开代码' : '折叠代码'}" aria-expanded="${initiallyClosed ? 'false' : 'true'}"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>`);
+      expander.on('click', function() {
+        wrap.toggleClass('closed');
+        const closed = wrap.hasClass('closed');
+        $(this).attr('aria-expanded', String(!closed));
+        $(this).attr('aria-label', closed ? '展开代码' : '折叠代码');
+        $(this).attr('title', closed ? '展开代码' : '折叠代码');
       });
+      customItem.append(expander);
     }
 
+    if (this.#flag('enable_code_fullpage')) {
+      const button = $('<button type="button" class="fullpage-button" aria-label="全屏代码" title="全屏代码" aria-pressed="false"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button>');
+      button.on('click', (e) => {
+        e.preventDefault();
+        this.#toggleFullpage(wrap, button);
+      });
+      customItem.append(button);
+    }
+
+    if (!customItem.children().length) customItem.remove();
   }
-  
+
+  #fullpageWrap = null;
+  #fullpageButton = null;
+  #scrollLock = null;
+  #escBound = false;
+
+  #toggleFullpage(wrap, button) {
+    if (!wrap?.length) return;
+    this.#setFullpage(wrap, button, !wrap.hasClass('code-fullpage'));
+  }
+
+  #setFullpage(wrap, button, on) {
+    if (on) {
+      if (this.#fullpageWrap && this.#fullpageWrap[0] !== wrap[0]) {
+        this.#setFullpage(this.#fullpageWrap, this.#fullpageButton, false);
+      }
+      wrap.addClass('code-fullpage');
+      this.#fullpageWrap = wrap;
+      this.#fullpageButton = button;
+      this.#lockScroll();
+      this.#syncFullpageButton(button, true);
+      this.#bindEsc();
+      return;
+    }
+    wrap.removeClass('code-fullpage');
+    this.#syncFullpageButton(button, false);
+    if (this.#fullpageWrap && this.#fullpageWrap[0] === wrap[0]) {
+      this.#fullpageWrap = null;
+      this.#fullpageButton = null;
+      this.#unlockScroll();
+      this.#unbindEsc();
+    }
+  }
+
+  #syncFullpageButton(button, on) {
+    if (!button?.length) return;
+    const icon = button.find('i');
+    icon.toggleClass('fa-down-left-and-up-right-to-center', on);
+    icon.toggleClass('fa-up-right-and-down-left-from-center', !on);
+    button.attr('aria-pressed', String(on));
+    button.attr('aria-label', on ? '退出全屏' : '全屏代码');
+    button.attr('title', on ? '退出全屏' : '全屏代码');
+  }
+
+  #lockScroll() {
+    if (this.#scrollLock) return;
+    this.#scrollLock = {
+      body: document.body.style.overflow,
+      html: document.documentElement.style.overflow,
+    };
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.classList.add('code-fullpage');
+    document.documentElement.classList.add('code-fullpage');
+  }
+
+  #unlockScroll() {
+    if (!this.#scrollLock) return;
+    document.body.style.overflow = this.#scrollLock.body;
+    document.documentElement.style.overflow = this.#scrollLock.html;
+    document.body.classList.remove('code-fullpage');
+    document.documentElement.classList.remove('code-fullpage');
+    this.#scrollLock = null;
+  }
+
+  #onFullpageKeydown = (event) => {
+    if (event.key !== 'Escape' && event.key !== 'Esc') return;
+    if (!this.#fullpageWrap) return;
+    event.preventDefault();
+    this.#setFullpage(this.#fullpageWrap, this.#fullpageButton, false);
+  };
+
+  #bindEsc() {
+    if (this.#escBound) return;
+    document.addEventListener('keydown', this.#onFullpageKeydown);
+    this.#escBound = true;
+  }
+
+  #unbindEsc() {
+    if (!this.#escBound) return;
+    document.removeEventListener('keydown', this.#onFullpageKeydown);
+    this.#escBound = false;
+  }
+
+  #copyText(text, button, event) {
+    const finish = (ok) => this.#copyFeedback(button, ok);
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => finish(true)).catch(() => this.#clipboardJs(text, button, event, finish));
+      return;
+    }
+    this.#clipboardJs(text, button, event, finish);
+  }
+
+  #clipboardJs(text, button, event, finish) {
+    const clipboard = new Clipboard(button, {text: () => text});
+    clipboard.on('success', () => {
+      clipboard.destroy();
+      finish(true);
+    });
+    clipboard.on('error', () => {
+      clipboard.destroy();
+      finish(false);
+    });
+    clipboard.onClick(event);
+  }
+
+  #copyFeedback(button, ok) {
+    const text = ok ? '复制成功~' : '复制失败';
+    if (ok) MainApp.useMessage.info(text);
+    else MainApp.useMessage.error(text);
+    const host = button.parentElement || button;
+    host.querySelectorAll('.copy-notice').forEach((el) => el.remove());
+    const notice = document.createElement('span');
+    notice.className = `copy-notice${ok ? '' : ' is-error'}`;
+    notice.setAttribute('role', 'status');
+    notice.setAttribute('aria-live', 'polite');
+    notice.textContent = text;
+    button.insertAdjacentElement('afterend', notice);
+    setTimeout(() => notice.remove(), 1600);
+  }
+
+  #applyHeightLimit(wrap, pre) {
+    const limit = this.#heightLimitPx();
+    if (!limit || !wrap.length) return;
+    const code = pre.children('code')[0];
+    if (!code || code.scrollHeight <= limit) return;
+    wrap.addClass('has-height-limit');
+    wrap[0].style.setProperty('--code-height-limit', `${limit}px`);
+    const btn = $('<button type="button" class="code-expand-btn" aria-label="展开代码" aria-expanded="false"><i class="fas fa-angle-double-down" aria-hidden="true"></i></button>');
+    btn.on('click', () => {
+      wrap.toggleClass('expand-done');
+      const expanded = wrap.hasClass('expand-done');
+      btn.attr('aria-expanded', String(expanded));
+      btn.attr('aria-label', expanded ? '收起代码' : '展开代码');
+    });
+    wrap.append(btn);
+  }
 }

@@ -508,7 +508,7 @@ def seed(client):
         time.sleep(1)
     else:
         raise RuntimeError('Theme config reconciler did not become ready')
-    patches = {'base': {'metadata_name': owner}, 'index': {'above_background': '/lab/cover.svg', 'typewriter_custom_text': '', 'enable_typewriter_random_text': False}, 'style': {'mode': 'user'}, 'aside': {'notice': '共用合成内容；验收结果以证据记录为准。', 'social': [], 'button': {'name': '关于对照实验室', 'link': '/about-preview/'}}}
+    patches = {'base': {'metadata_name': owner}, 'index': {'above_background': '/lab/cover.svg', 'typewriter_custom_text': '', 'enable_typewriter_random_text': False}, 'cover': {'default_cover': '/lab/cover.svg'}, 'style': {'mode': 'user'}, 'aside': {'notice': '共用合成内容；验收结果以证据记录为准。', 'social': [], 'button': {'name': '关于对照实验室', 'link': '/about-preview/'}}}
     for group in ['archives', 'tags', 'categories']:
         patches[group] = {'above_background': '/lab/cover.svg'}
     for group, patch in patches.items():

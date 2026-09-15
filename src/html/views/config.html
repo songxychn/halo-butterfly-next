@@ -3,20 +3,60 @@
   window.MainApp = {
     conf: {
       style_mode: /*[[${theme.config.style.mode}]]*/ null,
+      darkmode_autoChangeMode: /*[[${theme.config.darkmode?.autoChangeMode}]]*/ false,
+      darkmode_start: /*[[${theme.config.darkmode?.start}]]*/ '',
+      darkmode_end: /*[[${theme.config.darkmode?.end}]]*/ '',
       enable_aside: /*[[${theme.config.aside.enable}]]*/ true,
       enable_webInfo: /*[[${theme.config.aside.enable_webInfo}]]*/ true,
       assets_link: /*[[${assets_link}]]*/ true,
+      nav_fixed: /*[[${theme.config.nav.fixed == true}]]*/ false,
+      nav_display_post_title: /*[[${theme.config.nav.display_post_title != false}]]*/ true,
+      rightside_scroll_percent: /*[[${theme.config.rightside?.scroll_percent}]]*/ false,
     },
     attrs: {},
     modules: {},
   };
   try {
-    const mode = window.MainApp.conf.style_mode;
+    const conf = window.MainApp.conf;
+    const mode = conf.style_mode;
     const saved = localStorage.getItem('halo-butterfly-next.color-scheme');
-    document.documentElement.dataset.colorScheme = ['light', 'dark'].includes(mode) ? mode :
-      mode === 'auto' ? (new Date().getHours() >= 6 && new Date().getHours() < 18 ? 'light' : 'dark') :
-      (saved === 'dark' ? 'dark' : 'light');
+    const acm = conf.darkmode_autoChangeMode;
+    const autoMode = (acm === 1 || acm === '1') ? 1 : (acm === 2 || acm === '2') ? 2 : false;
+    const parseHour = (value, fallback) => {
+      if (value === null || value === undefined || value === '') return fallback;
+      const n = Number(value);
+      if (!Number.isFinite(n)) return fallback;
+      const h = Math.trunc(n);
+      return (h < 0 || h > 24) ? fallback : h;
+    };
+    const start = parseHour(conf.darkmode_start, 6);
+    const end = parseHour(conf.darkmode_end, 18);
+    const hour = new Date().getHours();
+    const night = start < end ? (hour < start || hour >= end) : (hour >= start || hour < end);
+    let theme = 'light';
+    if (mode === 'light' || mode === 'dark') theme = mode;
+    else if (saved === 'light' || saved === 'dark') theme = saved;
+    else {
+      const effective = autoMode !== false ? autoMode : (mode === 'auto' ? 2 : false);
+      if (effective === 1) {
+        const light = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        theme = light ? 'light' : dark ? 'dark' : (night ? 'dark' : 'light');
+      } else if (effective === 2) theme = night ? 'dark' : 'light';
+    }
+    document.documentElement.dataset.colorScheme = theme;
   } catch { document.documentElement.dataset.colorScheme = 'light'; }
+  try {
+    const restoreAside = /*[[${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'}]]*/ true;
+    if (restoreAside) {
+      const raw = localStorage.getItem('aside-status');
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data.expiry && Date.now() > data.expiry) localStorage.removeItem('aside-status');
+        else if (data.value !== undefined) document.documentElement.classList.toggle('hide-aside', data.value === 'hide');
+      }
+    }
+  } catch {}
 </script>
 
 <!--/* style */-->
@@ -24,13 +64,14 @@
   :root {
     --card-border-radius: /*[(${theme.config.card.radius})]*/ 24px;
     --card-box-shadow: /*[(${theme.config.card.shadow})]*/ transparent;
+    --rightside-bottom: /*[(${#strings.isEmpty(theme.config.rightside?.bottom) ? '40px' : theme.config.rightside.bottom})]*/ 40px;
     --link-hover-color: var(--theme);
     --cursor-default: url(/*[(${assets_link + 'plugins/cursor/simple/default.cur'})]*/ ''), auto;
     --cursor-pointer: url(/*[(${assets_link + 'plugins/cursor/simple/pointer.cur'})]*/ ''), auto;
   }
 
   html {
-    --theme: #1c69ed;
+    --theme: #49b1f5;
     --body-background: /*[(${theme.config.style.body_background})]*/ transparent;
     --nav-font-color: /*[(${theme.config.nav.font_color.light})]*/ transparent;
     --nav-active-font-color: /*[(${theme.config.nav.active_font_color.light})]*/ transparent;
@@ -43,7 +84,7 @@
   }
 
   html[data-color-scheme=dark] {
-    --theme: #3aa675;
+    --theme: #49b1f5;
     --body-background: rgb(15, 23, 42);
     --nav-font-color: /*[(${theme.config.nav.font_color.dark})]*/ transparent;
     --nav-active-font-color: /*[(${theme.config.nav.active_font_color.dark})]*/ transparent;

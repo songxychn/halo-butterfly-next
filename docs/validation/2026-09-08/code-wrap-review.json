@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 67,
+  "pr": 69,
+  "title": "M1：代码块自动换行 code_blocks.word_wrap",
+  "author": "cursor/m1-code-wrap",
+  "recorder": "cursor/record-69",
+  "recordedAt": "2026-09-09T15:45:00Z",
+  "visibility": "private",
+  "sourceSha": "74e3cfaf190e97784606b0fccade0fa216ea60b1",
+  "reviewHead": "74e3cfaf190e97784606b0fccade0fa216ea60b1",
+  "mergeSha": "722d4613208fd2da4a1d8560963e61aa27ad3c11",
+  "mergedAt": "2026-09-09T15:41:11Z",
+  "closesIssue": 67,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/69#issuecomment-5604581240",
+    "createdAt": "2026-09-09T15:40:31Z",
+    "head": "74e3cfaf190e97784606b0fccade0fa216ea60b1",
+    "note": "Independent review posted as issue comment 5604581240, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "9ac2d9a98da7cf9c0c60f0ec5d97e2cd88cba455649453192d185139e7d84835",
+  "productCommits": [
+    {
+      "sha": "99601b2",
+      "summary": "Align code_blocks.word_wrap; default false keeps horizontal scroll, true adds word-wrap and wraps lines. Does not implement fullpage or shrink default collapse."
+    },
+    {
+      "sha": "7c63899",
+      "summary": "Refreeze performance theme-defaults.json onto the code word-wrap implementation commit"
+    },
+    {
+      "sha": "74e3cfa",
+      "summary": "Register #67 onto code_blocks.word_wrap matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:code_blocks.word_wrap"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:code_blocks.fullpage",
+    "interaction:fullpage-code",
+    "interaction:collapse-code"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 529,
+    "mapping-required": 262,
+    "implemented-unverified": 96,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 70,
+    "state": "OPEN",
+    "title": "M1：代码块全屏 code_blocks.fullpage",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/70",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement code_blocks.fullpage, interaction:fullpage-code, or shrink=true default collapse (interaction:collapse-code)."
+  },
+  "precedingDocsPr": {
+    "pr": 68,
+    "title": "docs: 记录 #65 归档封面 cover.archives_enable 合并证据",
+    "headSha": "366f1318540cedf1e173b27d703820ac0474fec2",
+    "mergeSha": "5ca97ac9a49e596c7c537685c96ed8c6d47d99d5",
+    "mergedAt": "2026-09-09T15:34:07Z",
+    "prCi": 34370298218,
+    "prCiConclusion": "success",
+    "masterCi": 34371096512,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34371096512",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/68#issuecomment-5604488449",
+    "note": "Waited with gh run view until completed. Push-event master CI 34371096512 on 5ca97ac9a49e596c7c537685c96ed8c6d47d99d5 completed success at 2026-09-09T15:35:48Z, before the #69 merge push at 2026-09-09T15:41:11Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34371191835,
+      "runAttempt": 1,
+      "headSha": "74e3cfaf190e97784606b0fccade0fa216ea60b1",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34371191835",
+      "note": "pnpm verify on this run: tests 107; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34371865455,
+      "runAttempt": 1,
+      "headSha": "722d4613208fd2da4a1d8560963e61aa27ad3c11",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34371865455",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-09T15:42:48Z. tests 107; package check 124 files; parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #69; there is no Approve. Independent review is issue comment 5604581240 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 74e3cfaf190e97784606b0fccade0fa216ea60b1: newly raised to implemented-unverified is only config:code_blocks.word_wrap. Does not mark verified.",
+    "settingsSha256 9ac2d9a98da7cf9c0c60f0ec5d97e2cd88cba455649453192d185139e7d84835 matches settings.yaml and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit 99601b28a74bf790a658de6b7202b51b613b398e. enable_code_word_wrap is false.",
+    "Defaults align upstream Butterfly 5.7.0: code_blocks.word_wrap false. Mapping: word_wrap→render.enable_code_word_wrap (if enable_code). True adds class word-wrap on .code-toolbar and wraps; false keeps horizontal scroll.",
+    "Non-blocking P2 from the independent review: upstream highlight.styl computes wordWrap = highlight_enable && !highlight_line_number && code_blocks.word_wrap (line numbers disable wrap at compile time); this PR does not implement that exclusion, so wrap may still apply when line numbers are on. No dual-site lab. CSS is a Prism runtime adaptation (pre-wrap + overflow-wrap) rather than the upstream compile-time mixin.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #70 code_blocks.fullpage, not completed. interaction:fullpage-code and interaction:collapse-code (shrink=true default collapsed) remain gap."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is only config:code_blocks.word_wrap.",
+    "config:code_blocks.fullpage, interaction:fullpage-code, and interaction:collapse-code (shrink=true default collapsed) remain gap; this slice does not implement them.",
+    "Upstream disables word_wrap at compile time when line numbers are enabled; this PR does not implement that mutual exclusion.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #68 merge-commit master CI run 34371096512 on 5ca97ac9a49e596c7c537685c96ed8c6d47d99d5 completed success at 2026-09-09T15:35:48Z, before the #69 merge push at 2026-09-09T15:41:11Z; must not be recorded as cancelled.",
+    "Issue #70 code_blocks.fullpage is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

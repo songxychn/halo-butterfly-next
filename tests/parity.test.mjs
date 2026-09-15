@@ -60,12 +60,69 @@ test('默认配置静态解析不执行代码', () => {
 test('重复 ID、无效状态和超出源码的行号被拒绝', () => {
   const changed = structuredClone(matrix);
   changed.items.push(structuredClone(changed.items[0]));
-  changed.items[0].status = 'not-applicable';
+  changed.items[0].status = 'nope';
   changed.items[0].sources[0].line = 999999;
   const errors = checkMatrix(changed,inventory);
   assert(errors.some(error => error.startsWith('Duplicate')));
   assert(errors.some(error => error.startsWith('Invalid status')));
   assert(errors.some(error => error.startsWith('Invalid upstream reference')));
+});
+
+test('不适用状态必须带完整 DEC 裁定记录', () => {
+  const changed = structuredClone(matrix);
+  const item = changed.items[0];
+  item.status = 'not-applicable';
+  assert(checkMatrix(changed, inventory).some(error => error.startsWith('Not-applicable without decision')));
+  item.decision = {
+    id: 'DEC-01',
+    option: 'platform-substitute',
+    issue: 'https://github.com/songxychn/halo-butterfly-next/issues/46',
+    date: '2026-09-15T22:21:00+08:00',
+    reason: 'fixture',
+    replacement: 'PluginSearchWidget',
+  };
+  assert.equal(checkMatrix(changed, inventory).filter(error => error.startsWith('Not-applicable without decision')).length, 0);
+});
+
+test('DEC-01 平台替代后搜索引擎与评论 SDK 为不适用，保留项仍适用', () => {
+  const keep = new Set([
+    'config:aside.card_newest_comments.enable',
+    'config:aside.card_newest_comments.sort_order',
+    'config:aside.card_newest_comments.limit',
+    'config:aside.card_newest_comments.storage',
+    'config:aside.card_newest_comments.avatar',
+    'config:search.use',
+    'config:comments.use',
+    'config:comments.text',
+    'config:comments.lazyload',
+    'config:comments.count',
+    'config:comments.card_post_count',
+    'template:includes/third-party/comments/index',
+    'template:includes/third-party/comments/js',
+    'template:includes/third-party/newest-comments/common',
+    'template:includes/third-party/newest-comments/index',
+    'template:includes/third-party/search/index',
+    'template:includes/third-party/card-post-count/index',
+    'template:includes/widget/card_newest_comment',
+    'style:source/css/_layout/comments.styl',
+    'page-data:comments',
+    'interaction:search-popup',
+    'interaction:comments-lazy',
+    'interaction:newest-comments',
+    'interaction:shuoshuo-comments',
+  ]);
+  const na = matrix.items.filter(item => item.status === 'not-applicable' && item.decision?.id === 'DEC-01');
+  assert.equal(na.length, 135);
+  assert.equal(keep.size, 24);
+  for (const id of keep) {
+    const item = matrix.items.find(entry => entry.id === id);
+    assert.ok(item, id);
+    assert.notEqual(item.status, 'not-applicable', id);
+    assert(item.tracking.issues.includes('https://github.com/songxychn/halo-butterfly-next/issues/46'), id);
+  }
+  assert.equal(matrix.items.find(item => item.id === 'interaction:dual-comments').status, 'not-applicable');
+  assert.equal(matrix.items.find(item => item.id === 'config:search.docsearch.appId').status, 'not-applicable');
+  assert.equal(matrix.items.find(item => item.id === 'config:giscus.repo').status, 'not-applicable');
 });
 
 test('只有任意字符串、失败证据或作者自审不能把条目置为已验收', () => {

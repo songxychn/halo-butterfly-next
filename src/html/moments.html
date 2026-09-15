@@ -54,6 +54,7 @@
         </li>
       </ul>
       <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+      <th:block th:replace="~{views/plugin-pagination :: pagination(${moments}, '瞬间分页')}"/>
     </section>
     <th:block th:replace="~{views/aside::common}"/>
   </th:block>

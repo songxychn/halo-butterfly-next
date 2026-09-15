@@ -1,0 +1,165 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_page/categories.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 .category-lists / .category-title 2.57em、768 2em、
+ * .category-list-count 左右括号与 margin-left 8px、
+ * 嵌套 ul padding 20px / 内层 4px、li margin 6px 0 与
+ * padding .12em .4em .12em 1.4em，@extend .list-beauty。
+ * Halo 分类页是 .categories 图表页（.chart 450px），没有
+ * .category-lists DOM；单分类 category.html 走 essayList，本刀不重做列表卡片。
+ * 选择器并列 .category-lists（空操作）与 Halo .categories 能对齐的部分
+ * （.category-title / .category-list 若存在才绑；没有列表则上游选择器保持空操作）。
+ * 不加 #Butterfly ID 去压不兼容的 width/height。
+ * 不把 config:cover.archives_enable、已落地 archives.styl / 404.styl / homepage.styl /
+ * common.styl / _layout / darkmode / readmode 升 verified。不改 settings.yaml。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ */
+
+/* 上游 function.styl .list-beauty：Sass mixin，不引入 stylus。 */
+@mixin list-beauty {
+  list-style: none;
+
+  li {
+    position: relative;
+    padding: .12em .4em .12em 1.4em;
+
+    &:hover:before {
+      border-color: var(--pseudo-hover, var(--theme));
+    }
+
+    &:before {
+      position: absolute;
+      top: .67em;
+      left: 0;
+      width: .43em;
+      height: .43em;
+      border: .215em solid var(--theme);
+      border-radius: .43em;
+      background: transparent;
+      content: '';
+      cursor: pointer;
+      transition: all .3s ease-out;
+    }
+  }
+}
+
+/* 上游 .category-lists：无对应 DOM，空操作。 */
+.category-lists {
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  .category-title {
+    font-size: 2.57em;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    @media screen and (max-width: 768px) {
+      font-size: 2em;
+    }
+  }
+
+  .category-list {
+    margin-bottom: 0;
+    max-width: 100%;
+    min-width: 0;
+
+    a {
+      color: var(--font-color, var(--text-color));
+
+      &:hover {
+        color: var(--link-hover-color, var(--theme));
+      }
+    }
+
+    .category-list-count {
+      margin-left: 8px;
+      color: var(--card-meta, var(--text-obs-color, #858585));
+
+      &:before {
+        content: '(';
+      }
+
+      &:after {
+        content: ')';
+      }
+    }
+  }
+
+  ul {
+    padding: 0 0 0 20px;
+    @include list-beauty;
+
+    ul {
+      padding-left: 4px;
+    }
+
+    li {
+      position: relative;
+      margin: 6px 0;
+      padding: .12em .4em .12em 1.4em;
+    }
+  }
+}
+
+/* Halo .categories：标题/列表若存在才绑；图表页没有列表时为空操作。不绑 aside ul。 */
+.categories {
+  .category-title {
+    font-size: 2.57em;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    @media screen and (max-width: 768px) {
+      font-size: 2em;
+    }
+  }
+
+  .category-list {
+    margin-bottom: 0;
+    max-width: 100%;
+    min-width: 0;
+
+    a {
+      color: var(--font-color, var(--text-color));
+
+      &:hover {
+        color: var(--link-hover-color, var(--theme));
+      }
+    }
+
+    .category-list-count {
+      margin-left: 8px;
+      color: var(--card-meta, var(--text-obs-color, #858585));
+
+      &:before {
+        content: '(';
+      }
+
+      &:after {
+        content: ')';
+      }
+    }
+
+    ul {
+      padding: 0 0 0 20px;
+      @include list-beauty;
+
+      ul {
+        padding-left: 4px;
+      }
+
+      li {
+        position: relative;
+        margin: 6px 0;
+        padding: .12em .4em .12em 1.4em;
+      }
+    }
+  }
+}

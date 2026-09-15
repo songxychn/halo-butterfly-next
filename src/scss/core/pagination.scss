@@ -1,0 +1,70 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_layout/pagination.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游列表分页在 #pagination .pagination / .layout .pagination。
+ * Halo 列表页是 Pagination.js 插入的 <div class="pagination">（.page / .prev / .next / .current），
+ * 没有包一层 #pagination（#pagination 已给文章上下篇 pagination-post 用，本刀不改 post.scss）。
+ * 插件分页 .plugin-pagination 保持既有 44px，不套 2.5em 方块。
+ * $theme-paginator-color → var(--theme)。hover 走 --btn-hover-color。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不做 snackbar、shuoshuo 分页、改 settings.yaml。隐藏侧栏开关键名不变。
+ */
+@use "util";
+
+#pagination .pagination,
+.layout .pagination,
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+  max-width: 100%;
+  min-width: 0;
+  @include util.flex-center;
+  flex-wrap: wrap;
+}
+
+#pagination .pagination > *:not(.space),
+.layout .pagination > *:not(.space),
+.pagination:not(.plugin-pagination) > *:not(.space) {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 6px;
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  border-radius: var(--card-border-radius, 8px);
+  box-shadow: var(--card-box-shadow);
+  background-color: var(--card-background-color);
+  text-align: center;
+  transition: .3s;
+  overflow-wrap: anywhere;
+
+  &:hover {
+    background: var(--btn-hover-color, var(--theme));
+    color: var(--btn-color, #fff);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme);
+    outline-offset: 3px;
+  }
+}
+
+#pagination .pagination .page-number.current,
+#pagination .pagination .page.current,
+.layout .pagination .page-number.current,
+.pagination:not(.plugin-pagination) > .page-number.current,
+.pagination:not(.plugin-pagination) > .page.current,
+.pagination:not(.plugin-pagination) > .current {
+  background: var(--theme);
+  color: var(--white, #fff);
+}
+
+#archive .pagination,
+.archives .pagination {
+  margin-top: 30px;
+
+  > *:not(.space) {
+    box-shadow: none;
+  }
+}

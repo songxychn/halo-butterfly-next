@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-independent-review",
+  "issue": 30,
+  "pr": 40,
+  "reviewer": "cursor-fcid",
+  "author": "codex/error-page",
+  "reviewedAt": "2026-09-08T15:32:00+00:00",
+  "sourceSha": "df13024064c90a80713631350ce491da25a666bc",
+  "mergeSha": "0b5790de0bf016ab82cce58121d85c3636b67fce",
+  "decision": "passed",
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "openFindings": [],
+  "validation": {
+    "fullVerify": {
+      "command": "pnpm install --frozen-lockfile --ignore-scripts && pnpm verify",
+      "exitCode": 0,
+      "tests": 53,
+      "packageFiles": 123
+    },
+    "packageSha256": "5bbe816965f7e089ceeea6f1642d3829a1da2cbed453d04f416e9d8542a384b1",
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34191516859,
+      "headSha": "df13024064c90a80713631350ce491da25a666bc",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34191516859"
+    },
+    "mergedMasterCi": {
+      "runId": 34245460152,
+      "headSha": "0b5790de0bf016ab82cce58121d85c3636b67fce",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34245460152"
+    }
+  },
+  "codeAssessment": [
+    "Theme supplies templates/error/404.html only; JSON errors remain Halo application/problem+json; missing paths are not canonicalized to the home page.",
+    "Empty background falls back to index above_background then bundled above.svg; image error clears srcset/sizes before switching src.",
+    "Subtitle uses th:text escaping; default matches upstream Page Not Found; blank/whitespace falls back to 页面未找到.",
+    "Hexo error_404.enable is documented as unmapped and is not claimed covered."
+  ],
+  "limitations": [
+    "Independent review did not rerun HTTP/browser/axe on an assigned 18095/18096 lab.",
+    "Scoped card axe and geometry checks are not PAGE-01/A11Y domain passes and do not mark matrix 404 rows verified."
+  ]
+}

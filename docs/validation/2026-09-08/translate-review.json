@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 141,
+  "pr": 143,
+  "title": "M1：繁简转换 translate.enable",
+  "author": "cursor/m1-translate",
+  "recorder": "cursor/record-143",
+  "recordedAt": "2026-09-12T06:50:00Z",
+  "visibility": "private",
+  "sourceSha": "cf4f8b72f98bdb5c71caddd10fef82a9603a6b02",
+  "reviewHead": "cf4f8b72f98bdb5c71caddd10fef82a9603a6b02",
+  "mergeSha": "a7808d4adfb3d4fbf6883f6e4096acac4399d70b",
+  "mergedAt": "2026-09-12T06:46:58Z",
+  "closesIssue": 141,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/143#issuecomment-5644274856",
+    "createdAt": "2026-09-12T06:45:39Z",
+    "head": "cf4f8b72f98bdb5c71caddd10fef82a9603a6b02",
+    "note": "Independent review posted as issue comment 5644274856, not a GitHub Approve. Verdict: approve. No P1. The reviewer's one-shot CI snapshot was SUCCESS. This record waited until merge-commit master CI 34679024330 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": false,
+  "settingsSha256": "7923f050ab68aa4759dbb15609610113a22b81996874a59a5583784e761cdef1",
+  "sourceCommit": "64f2fac39fc9c48d1fb0ed6bbec1ffe40f6c8508",
+  "productCommits": [
+    {
+      "sha": "64f2fac39fc9c48d1fb0ed6bbec1ffe40f6c8508",
+      "summary": "Align upstream translate.enable onto Halo translate.enable. Default false; only explicit true renders #translateLink. translate.default defaults to 繁 via th:text. Click toggles 繁/簡 with textContent and walks page text; no innerHTML. Does not reuse author-card aside.button. No new th:utext."
+    },
+    {
+      "sha": "caae77441f3bfa02f27e3d6f941e1e31ecd840e8",
+      "summary": "Refreeze performance theme-defaults.json onto the translate implementation commit 64f2fac39fc9c48d1fb0ed6bbec1ffe40f6c8508; settingsSha256 7923f050ab68aa4759dbb15609610113a22b81996874a59a5583784e761cdef1"
+    },
+    {
+      "sha": "e4e2ea852fc99cf116c00493329784fe0a67743c",
+      "summary": "Raise config:translate.enable, config:translate.default, and interaction:translate from gap to implemented-unverified; evidence remains []"
+    },
+    {
+      "sha": "cf4f8b72f98bdb5c71caddd10fef82a9603a6b02",
+      "summary": "Register #143 onto config:translate.enable, config:translate.default, and interaction:translate matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:translate.enable",
+    "config:translate.default",
+    "interaction:translate"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "config:readmode",
+    "interaction:readmode",
+    "config:rightside_bottom",
+    "config:rightside_scroll_percent",
+    "template:includes/rightside",
+    "template:includes/footer",
+    "config:aside.hide",
+    "config:aside.mobile",
+    "config:aside.button",
+    "interaction:hide-aside"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:translate.defaultEncoding",
+    "config:translate.translateDelay",
+    "config:translate.msgToTraditionalChinese",
+    "config:translate.msgToSimplifiedChinese",
+    "interaction:darkmode",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_layout/rightside.styl",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 481,
+    "mapping-required": 262,
+    "implemented-unverified": 144,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 144,
+    "state": "OPEN",
+    "title": "M1：深色模式按钮 interaction:darkmode",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/144",
+    "note": "config:translate.enable/default and interaction:translate are implemented-unverified; do not raise them, rightside/footer templates, or landed config to verified. This slice is interaction:darkmode (optional enable/button visibility). Must not reuse author-card aside.button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 142,
+    "title": "docs: 记录 #140 阅读模式合并证据",
+    "headSha": "2c8fab0cae54df330f5bd22d2df48abbde594490",
+    "mergeSha": "14a3959465f57bd431cda61a4c443d2a73ad1d4d",
+    "mergedAt": "2026-09-12T06:29:15Z",
+    "prCi": 34678064934,
+    "prCiConclusion": "success",
+    "masterCi": 34678249820,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34678249820",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/142#issuecomment-5644196324",
+    "note": "Waited with gh run view until completed. Push-event master CI 34678249820 on 14a3959465f57bd431cda61a4c443d2a73ad1d4d completed success at 2026-09-12T06:30:43Z, before the #143 merge push at 2026-09-12T06:46:58Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34678750520,
+      "runAttempt": 1,
+      "headSha": "cf4f8b72f98bdb5c71caddd10fef82a9603a6b02",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34678750520",
+      "note": "GitHub Verify theme: 207 tests pass. Independent reviewer's one-shot snapshot was SUCCESS at 2026-09-12T06:42:34Z."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34679024330,
+      "runAttempt": 1,
+      "headSha": "a7808d4adfb3d4fbf6883f6e4096acac4399d70b",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34679024330",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T06:48:28Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #143; there is no Approve. Independent review is issue comment 5644274856 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head cf4f8b72f98bdb5c71caddd10fef82a9603a6b02: newly raised to implemented-unverified are config:translate.enable, config:translate.default, and interaction:translate. evidence remains []. config:translate.defaultEncoding / translateDelay / msgs remain gap. template:includes/rightside and config:readmode stay implemented-unverified. Does not mark verified.",
+    "Four commits: 64f2fac implement then caae774 freeze then e4e2ea8 matrix IU then cf4f8b7 matrix PR number. freeze sourceCommit 64f2fac39fc9c48d1fb0ed6bbec1ffe40f6c8508; settingsSha256 7923f050ab68aa4759dbb15609610113a22b81996874a59a5583784e761cdef1 matches settings.yaml. config.translate.enable is false; config.translate.default is 繁.",
+    "Halo maps upstream translate.enable (default false) onto new group translate.enable. Only explicit true renders #translateLink. Not post-only. Button uses th:text. Click uses textContent not innerHTML. YAML help containing #translateLink is quoted. tracking.pullRequests used. Does not reuse author-card aside.button.",
+    "Non-blocking P2 from the independent review: defaultEncoding/delay/two msgs not in settings (runtime keeps upstream 2/0/繁/簡). No snackbar. item_order not done (hide order is readmode, translate, hideAside, darkmode). No code-block protection (upstream tw_cn.js also does not protect). No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #144 interaction:darkmode; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are config:translate.enable, config:translate.default, interaction:translate; evidence remains [].",
+    "config:translate.defaultEncoding, translateDelay, and the two msg keys remain gap.",
+    "Does not implement darkmode interaction or rightside_item_order. Must not raise landed rightside/footer templates or footer/aside/rightside/readmode/translate config to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #142 merge-commit master CI run 34678249820 on 14a3959465f57bd431cda61a4c443d2a73ad1d4d completed success at 2026-09-12T06:30:43Z, before the #143 merge push at 2026-09-12T06:46:58Z; must not be recorded as cancelled.",
+    "PR #143 merge-commit master CI run 34679024330 on a7808d4adfb3d4fbf6883f6e4096acac4399d70b completed success at 2026-09-12T06:48:28Z; not cancelled.",
+    "Issue #144 interaction:darkmode is open, not completed.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

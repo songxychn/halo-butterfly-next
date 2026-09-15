@@ -10,6 +10,7 @@ import Clipboard from 'clipboard';
 import $ from 'jquery';
 import tocBot from 'tocbot';
 import {useCodeSettings, useDelay, useToBool} from '../core/_util';
+import {formatPermalinkText} from './post-copyright.mjs';
 
 /**
  * @desc: 图片放大
@@ -136,9 +137,14 @@ export class renderContent {
    *文章版权设置
    */
   setCopyrightSetting() {
-    const a = $('.copy-right a.permalink'); // 版权信息
-    a.attr('href', window.location.href);
-    a.html(decodeURI(window.location.href));
+    const a = $('.copy-right a.permalink');
+    if (!a.length) return;
+    const href = window.location.href;
+    a.attr('href', href);
+    const decodeFlag = (typeof MainApp !== 'undefined' && MainApp.conf)
+      ? MainApp.conf.post_copyright_decode
+      : false;
+    a.text(formatPermalinkText(href, decodeFlag));
   }
 
   code() {

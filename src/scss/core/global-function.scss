@@ -1,0 +1,407 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_global/function.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 工具类：.limit-one-line / .limit-more-line / .fontawesomeIcon /
+ * .cardHover（border-radius 8px，rounded_corners_ui 默认 true）/
+ * .imgHover / .postImgHover / .list-beauty（圆点 .43em、$light-blue→var(--theme)）/
+ * .custom-hr（hr_icon.enable 默认 true，content "\f0c4"，top -10px）/
+ * .verticalCenter / .scroll-down-effects / .btn-effects / .btn-effects-large。
+ * 入场动画默认 enter_transitions true：#content-inner / #footer / #page-header /
+ * #nav.show / #site-title 等。Halo 活 DOM 已有 #footer / #page-header /
+ * .nav / .avatar-img / .reward-main / #sidebar-menus，不要把 translateY /
+ * scale / width 100% / height 100% 压到主栏或已有工具栏（#203 P1 同类）。
+ * 入场动画、imgHover 100%、.reward-main donate、#sidebar-menus.open 子项
+ * 动画挂在无 DOM 的 .container 上。avatar.effect 默认 false，不写活 .avatar-img
+ * 旋转。不实现 _global/index.styl。不改 html.hide-aside 主栏 80%。
+ * 不把已落地 highlight* / prismjs* / theme.styl / _search / _page / _layout
+ * 升 verified。不改 settings.yaml。深色仍 data-color-scheme。
+ * 不改 #pagination.pagination-post 的 150px。不复用 aside.button。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.limit-one-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.limit-more-line {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.fontawesomeIcon {
+  display: inline-block;
+  font-weight: 600;
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cardHover {
+  background: var(--card-bg);
+  box-shadow: var(--card-box-shadow);
+  transition: all 0.3s;
+  border-radius: 8px;
+
+  &:hover {
+    box-shadow: var(--card-hover-box-shadow);
+  }
+}
+
+.imgHover {
+  transition: filter 375ms ease-in 0.2s, transform 0.6s;
+  object-fit: cover;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.postImgHover {
+  &:hover .cover {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+
+  .cover {
+    opacity: 0.4;
+    transition: all 0.6s, filter 375ms ease-in 0.2s;
+    object-fit: cover;
+  }
+}
+
+.list-beauty {
+  list-style: none;
+
+  li {
+    position: relative;
+    padding: 0.12em 0.4em 0.12em 1.4em;
+
+    &:hover:before {
+      border-color: var(--pseudo-hover);
+    }
+
+    &:before {
+      position: absolute;
+      top: 0.67em;
+      left: 0;
+      width: 0.43em;
+      height: 0.43em;
+      border: 0.215em solid var(--theme, #49b1f5);
+      border-radius: 0.43em;
+      background: transparent;
+      content: "";
+      cursor: pointer;
+      transition: all 0.3s ease-out;
+    }
+  }
+}
+
+.custom-hr {
+  position: relative;
+  margin: 40px auto;
+  border: 2px dashed var(--hr-border);
+  width: calc(100% - 4px);
+
+  &:hover:before {
+    left: calc(95% - 20px);
+  }
+
+  &:before {
+    position: absolute;
+    top: -10px;
+    left: 5%;
+    z-index: 1;
+    color: var(--hr-before-color);
+    content: "\f0c4";
+    font-size: 20px;
+    line-height: 1;
+    transition: all 1s ease-in-out;
+    display: inline-block;
+    font-weight: 600;
+    font-family: "Font Awesome 7 Free", "Font Awesome 6 Free";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.verticalCenter {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translate(0, -50%);
+}
+
+.scroll-down-effects {
+  animation: scroll-down-effect 1.5s infinite;
+}
+
+.btn-effects {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    transform: translateY(-1px) scale(1.02);
+  }
+
+  &:active {
+    transition-duration: 0.1s;
+    transform: translateY(0) scale(0.98);
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover i {
+    animation: buttonIconBounce 0.6s ease-in-out;
+  }
+
+  i + span {
+    margin-left: 6px;
+    vertical-align: middle;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover i + span {
+    margin-left: 8px;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    content: "";
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.btn-effects-large:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* 入场动画 / imgHover 100% / reward-main / sidebar 子项：无 .container 包装，空操作。 */
+.container {
+  .imgHover {
+    width: 100%;
+    height: 100%;
+  }
+
+  .postImgHover .cover {
+    width: 100%;
+    height: 100%;
+  }
+
+  #content-inner,
+  #footer {
+    animation: bottom-top 1s;
+  }
+
+  #page-header:not(.full_page),
+  #nav.show {
+    animation: header-effect 1s;
+  }
+
+  #site-title,
+  #site-subtitle {
+    animation: titleScale 1s;
+  }
+
+  canvas:not(#ribbon-canvas),
+  #web_bg.bg-animation {
+    animation: to_show 4s;
+  }
+
+  #ribbon-canvas {
+    animation: ribbon_to_show 4s;
+  }
+
+  #sidebar-menus.open {
+    > :nth-child(1) {
+      animation: sidebarItem 0.2s;
+    }
+
+    > :nth-child(2) {
+      animation: sidebarItem 0.4s;
+    }
+
+    > :nth-child(3) {
+      animation: sidebarItem 0.6s;
+    }
+
+    > :nth-child(4) {
+      animation: sidebarItem 0.8s;
+    }
+  }
+
+  .reward-main {
+    animation: donate_effcet 0.3s 0.1s ease both;
+  }
+}
+
+@keyframes scroll-down-effect {
+  0% {
+    opacity: 0.4;
+    transform: translate(0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(0, -16px);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes header-effect {
+  0% {
+    transform: translateY(-35px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes bottom-top {
+  0% {
+    transform: translateY(35px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes search_close {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes to_show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes to_hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ribbon_to_show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes sub_menus {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes donate_effcet {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sidebarItem {
+  0% {
+    transform: translateX(200px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes buttonIconBounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  25% {
+    transform: translateY(-3px) scale(1.1) rotateZ(-5deg);
+  }
+
+  50% {
+    transform: translateY(0) scale(1.05) rotateZ(0);
+  }
+
+  75% {
+    transform: translateY(-1px) scale(1.02) rotateZ(2deg);
+  }
+}

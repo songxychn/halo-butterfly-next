@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "kind": "independent-review-record",
+  "issue": 243,
+  "pr": 244,
+  "title": "M1：Prism 行号样式 _highlight/prismjs/line-number.styl",
+  "author": "cursor/m1-prismjs-line-number-styl",
+  "recorder": "cursor/record-244",
+  "recordedAt": "2026-09-13T06:44:16Z",
+  "visibility": "private",
+  "sourceSha": "0b4553477fd0aa523d43c69f55cb88f451a1a52f",
+  "reviewHead": "0b4553477fd0aa523d43c69f55cb88f451a1a52f",
+  "mergeSha": "b72f4c8502dd6970931b04c5e12b8a2273d17005",
+  "mergedAt": "2026-09-13T06:39:52Z",
+  "closesIssue": 243,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/244#issuecomment-5651700727",
+    "createdAt": "2026-09-13T06:36:21Z",
+    "head": "0b4553477fd0aa523d43c69f55cb88f451a1a52f",
+    "note": "Independent review posted as issue comment 5651700727, not a GitHub Approve. Verdict: approve-as-comment. No P1. Top-level @use \"prismjs-line-number\" after prismjs-index; padding-left 3.8em / line-height 1.6 / rows left -3.8em stay on no-DOM .container pre[class*='language-'].line-numbers; no #Butterfly padding-left 3.8em on main column or .code-toolbar. The reviewer's CI snapshot was run 34742802834 success; this record waited until merge-commit master CI 34743299210 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "86557a8a4fd4275713442214f6f61510253973f8",
+      "summary": "Add src/scss/core/prismjs-line-number.scss and top-level @use after prismjs-index. Parallel .container pre[class*='language-'].line-numbers padding-left 3.8em / line-height 1.6 / .line-numbers-rows left -3.8em (no-op vs live .code-toolbar padding 30px 0 0 and rows left 0). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not rewrite templates or implement theme.styl."
+    },
+    {
+      "sha": "2dec7bb695c5d49886e6b32a520334d348e92702",
+      "summary": "Raise style:source/css/_highlight/prismjs/line-number.styl from gap to implemented-unverified; evidence remains []. Do not raise landed highlight* / prismjs/diff / prismjs/index / _search / _page / _layout to verified. theme.styl remains gap at that SHA."
+    },
+    {
+      "sha": "0b4553477fd0aa523d43c69f55cb88f451a1a52f",
+      "summary": "Register #244 onto style:source/css/_highlight/prismjs/line-number.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_highlight/prismjs/line-number.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_highlight/prismjs/index.styl",
+    "style:source/css/_highlight/prismjs/diff.styl",
+    "style:source/css/_highlight/highlight/diff.styl",
+    "style:source/css/_highlight/highlight/index.styl",
+    "style:source/css/_highlight/highlight.styl",
+    "style:source/css/_search/local-search.styl",
+    "style:source/css/_search/algolia.styl",
+    "style:source/css/_search/index.styl",
+    "style:source/css/_page/tags.styl",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_highlight/theme.styl",
+    "style:source/css/_global/function.styl",
+    "style:source/css/_global/index.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 446,
+    "mapping-required": 262,
+    "implemented-unverified": 179,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 246,
+    "state": "OPEN",
+    "title": "M1：代码高亮主题变量 _highlight/theme.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/246",
+    "note": "Product work for #246 is out of this documentation PR. Do not record PR #247 here. Do not raise landed highlight* / prismjs/* / _search / _page / _layout to verified. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 245,
+    "title": "docs: 记录 #241 Prism 代码块容器样式合并证据",
+    "headSha": "f66169b576c09ce28a33ba7f58616ff3106b98e9",
+    "mergeSha": "6a74104dc64c179aa046d9832afa83b71c2b43c1",
+    "mergedAt": "2026-09-13T06:36:37Z",
+    "prCi": 34742969180,
+    "prCiConclusion": "success",
+    "masterCi": 34743167614,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34743167614",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/245#issuecomment-5651696728",
+    "note": "Waited with gh run view until completed. Push-event master CI 34743167614 on 6a74104dc64c179aa046d9832afa83b71c2b43c1 completed success at 2026-09-13T06:38:48Z, before the #244 merge push at 2026-09-13T06:39:52Z. Must be recorded as success, not cancelled. PR #241 merge-commit master CI 34742607953 completed success at 2026-09-13T06:25:10Z; also must not be recorded as cancelled. PR #244 merge-commit master CI 34743299210 completed success at 2026-09-13T06:41:57Z; also must not be recorded as cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34742802834,
+      "runAttempt": 1,
+      "headSha": "0b4553477fd0aa523d43c69f55cb88f451a1a52f",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34742802834",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34742802834 success for head 0b45534. Orchestrator confirmed the same run completed success at 2026-09-13T06:29:50Z before squash merge. New tests: tests/prismjs-line-number-style.test.mjs (5), compiling src/scss/page/index.scss. pnpm check 353 pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34743299210,
+      "runAttempt": 1,
+      "headSha": "b72f4c8502dd6970931b04c5e12b8a2273d17005",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34743299210",
+      "note": "Waited with gh run view until completed. Push-event master CI 34743299210 completed success at 2026-09-13T06:41:57Z. Do not record as cancelled. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #244; there is no Approve. Independent review 5651700727 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head 0b4553477fd0aa523d43c69f55cb88f451a1a52f: newly raised to implemented-unverified is style:source/css/_highlight/prismjs/line-number.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 86557a8 implement then 2dec7bb matrix IU then 0b45534 matrix PR number. settings.yaml unchanged. Did not rewrite templates. Did not implement theme.styl. Did not change code-block theme enum.",
+    "Selectors .container pre[class*='language-'].line-numbers padding-left 3.8em / line-height 1.6 / .line-numbers-rows left -3.8em stay on no-DOM upstream selectors so they do not override live .code-toolbar padding 30px 0 0 or rows left 0. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not use #Butterfly. Dark mode stays data-color-scheme, not data-theme.",
+    "Non-blocking P2: no dual-site (declared; evidence [] is correct); live line-number layout remains codeBlock.scss 50px left padding / rows left 0.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. This record does not include PR #247 theme.styl evidence."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_highlight/prismjs/line-number.styl; evidence remains [].",
+    "This record does not include PR #247 theme.styl evidence.",
+    "Must not raise landed highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / prismjs/index.styl / prismjs/line-number.styl / search/index.styl / algolia.styl / local-search.styl / tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #245 merge-commit master CI run 34743167614 on 6a74104dc64c179aa046d9832afa83b71c2b43c1 completed success at 2026-09-13T06:38:48Z, before the #244 merge push at 2026-09-13T06:39:52Z; must not be recorded as cancelled.",
+    "PR #241 merge-commit master CI run 34742607953 on df31ec3b052b56919f9ba5a18a823a7a33abe93b completed success at 2026-09-13T06:25:10Z; must not be recorded as cancelled.",
+    "PR #244 merge-commit master CI run 34743299210 on b72f4c8502dd6970931b04c5e12b8a2273d17005 completed success at 2026-09-13T06:41:57Z; must not be recorded as cancelled.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

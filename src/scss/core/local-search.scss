@@ -1,0 +1,46 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_search/local-search.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 768 下若 search.local_search.pagination.enable
+ * 则 .search-result-list min-height: calc(var(--search-height) - 255px) !important，
+ * 否则 max-height: calc(var(--search-height) - 200px) !important。
+ * #local-search-stats .search-result-stats text-align left；
+ * .search-keyword font-weight 600；#loading-database ~ * visibility hidden。
+ * Halo 导航只有 SearchWidget.open() 入口，没有 #local-search / .search-dialog DOM。
+ * 上游选择器空操作，两套高度数字都保留。不重写模板去造本地搜索弹层。
+ * 不要用 #Butterfly ID 把 min-height / max-height 压到 Halo 主栏或文章布局
+ * （#203 P1 同类）。不接入本地搜索索引或 Algolia。不做 DEC-01。
+ * 不把已落地 search/index.styl / algolia.styl / _page/*.styl / _layout /
+ * darkmode / readmode 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 #local-search：无对应 DOM，空操作。两套高度数字都保留。 */
+#local-search {
+  .search-dialog {
+    .search-result-list {
+      @media screen and (max-width: 768px) {
+        min-height: calc(var(--search-height) - 255px) !important;
+        max-height: calc(var(--search-height) - 200px) !important;
+      }
+    }
+  }
+
+  #local-search-stats {
+    .search-result-stats {
+      text-align: left;
+    }
+  }
+
+  .search-keyword {
+    font-weight: 600;
+  }
+
+  #loading-database ~ * {
+    visibility: hidden;
+  }
+}

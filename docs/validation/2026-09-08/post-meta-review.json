@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 49,
+  "pr": 51,
+  "title": "M1：文章页 post_meta.post 对齐",
+  "author": "cursor/m1-post-meta",
+  "recorder": "cursor/record-51",
+  "recordedAt": "2026-09-09T13:57:36Z",
+  "visibility": "private",
+  "sourceSha": "4ea5df9d13118aeaf86a4c7133c4034a6a3acd89",
+  "reviewHead": "4ea5df9d13118aeaf86a4c7133c4034a6a3acd89",
+  "mergeSha": "824c3f0f61ab59890a1e211d4c451d5de4932c3d",
+  "mergedAt": "2026-09-09T13:53:35Z",
+  "closesIssue": 49,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/51#issuecomment-5603019037",
+    "createdAt": "2026-09-09T13:53:29Z",
+    "head": "4ea5df9d13118aeaf86a4c7133c4034a6a3acd89",
+    "note": "Same-session independent review comment, not a GitHub Approve. Verdict: can merge. Does not close PAGE-01 / POST-01."
+  },
+  "settingsSha256": "2ed1ac4207f1db6365a9537bb2e12a7b48810ba3844b5af18d304aa9efddb83d",
+  "productCommits": [
+    {
+      "sha": "68d1ff1",
+      "summary": "Align post_meta.post switches and replace first-screen wordcount placeholders"
+    },
+    {
+      "sha": "3a92ec7",
+      "summary": "Refreeze performance theme-defaults.json onto the post_meta implementation commit"
+    },
+    {
+      "sha": "4ea5df9",
+      "summary": "Raise five post_meta.post matrix rows to implemented-unverified"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:post_meta.post.position",
+    "config:post_meta.post.date_type",
+    "config:post_meta.post.categories",
+    "config:post_meta.post.tags",
+    "config:post_meta.post.label"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "config:post_meta.post.date_format"
+  ],
+  "matrixStillMappingRequired": [
+    "config:wordcount.enable",
+    "config:wordcount.post_wordcount",
+    "config:wordcount.min2read",
+    "config:wordcount.total_wordcount"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 544,
+    "mapping-required": 262,
+    "implemented-unverified": 81,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 52,
+    "state": "OPEN",
+    "title": "M1：首页列表 post_meta.page 对齐（不含 relative）",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/52",
+    "note": "Opened follow-up; not completed in this record."
+  },
+  "simultaneousDocsPr": {
+    "pr": 50,
+    "title": "docs: 记录 #47 首页导航合并证据",
+    "headSha": "d171d838a8894e12acb1336afe3fc039c24d575d",
+    "mergeSha": "57e2a7b5ca9d71a85d90bb06aacb53102f061a89",
+    "mergedAt": "2026-09-09T13:53:31Z",
+    "prCi": 34316321346,
+    "prCiConclusion": "success",
+    "masterCi": 34360015626,
+    "masterCiConclusion": "cancelled",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34360015626",
+    "note": "Merged four seconds before #51. Push-event master CI on 57e2a7b was cancelled by the #51 merge push and must be recorded as cancelled, not success."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34320643874,
+      "runAttempt": 1,
+      "headSha": "4ea5df9d13118aeaf86a4c7133c4034a6a3acd89",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34320643874",
+      "note": "pnpm verify on this run: tests 76 / pass 76; package check 124 files."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34360021769,
+      "runAttempt": 1,
+      "headSha": "824c3f0f61ab59890a1e211d4c451d5de4932c3d",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34360021769",
+      "note": "Waited with gh run view until completed. tests 76 / pass 76; package check 124 files. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #51; there is no Approve. Independent review is issue comment 5603019037 by songxychn on the same account that opened the PR; this is not a GitHub Approve.",
+    "Review head 4ea5df9d13118aeaf86a4c7133c4034a6a3acd89: five post_meta.post.* rows (position/date_type/categories/tags/label) are implemented-unverified; date_format stays gap; wordcount.* stay mapping-required; post_meta.page.* not raised.",
+    "settingsSha256 2ed1ac4207f1db6365a9537bb2e12a7b48810ba3844b5af18d304aa9efddb83d matches fixtures/performance/theme-defaults.json freeze.",
+    "enable_above=false puts meta in the article-card #post-info and does not duplicate the first screen. Header tag row uses post.tags, not post.categories.",
+    "Wordcount on the first screen is stripped-HTML character length / 500 rounded up. It is not hexo-wordcount (cn/en split, cn:350 / en:160). Always shown; not gated by wordcount.enable.",
+    "Non-blocking P2 from the independent review: no dual-site 1440/390 light/dark; naive tag-strip regex can count script text; wordcount.enable is unused.",
+    "Does not close PAGE-01 / POST-01. Next slice is open issue #52 (list post_meta.page), not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close PAGE-01 or POST-01 contract scenarios.",
+    "Does not mark any matrix row verified; at most implemented-unverified for the five post_meta.post keys.",
+    "config:post_meta.post.date_format remains gap; config:wordcount.* remain mapping-required.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #50 merge-commit master CI run 34360015626 on 57e2a7b5ca9d71a85d90bb06aacb53102f061a89 is cancelled by the #51 push; must not be recorded as success.",
+    "Issue #52 is open follow-up for list post_meta.page and is not completed in this record.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

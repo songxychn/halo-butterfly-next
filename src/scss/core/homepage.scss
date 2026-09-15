@@ -1,0 +1,364 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_page/homepage.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #recent-posts / .recent-post-item；Halo 首页列表是 .essay.list / .essay.tile > .item。
+ * 选择器并列。index_layout 默认 1：.essay.list 对齐 1–3（flex、16.8em、封面 42%/230px）。
+ * .essay.tile 对齐 layout 6（两列 calc(50% - 8px)，2000px 三列，封面 230px）。
+ * layout 4 / 5 / 7 只在 #recent-posts.layout-N / .essay.layout-N 下输出（无该类时为空操作）。
+ * 不把 config:index_layout / cover.index_enable 升 verified，不改 settings.yaml。
+ * 不输出 post_meta.page.date_format=relative 的 time{display:none}（Halo 用 data-relative-date）。
+ * 深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ */
+
+#recent-posts .recent-post-item,
+#Butterfly .essay > .item {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  &:hover {
+    .post-bg,
+    .cover .img,
+    > .cover .img {
+      transform: scale(1.1);
+    }
+  }
+
+  &.ads-wrap {
+    display: block !important;
+    height: auto !important;
+  }
+
+  .post_cover,
+  > .cover {
+    overflow: hidden;
+  }
+
+  .post-bg {
+    z-index: -4;
+    width: 100%;
+    height: 100%;
+    transition: filter 375ms ease-in .2s, transform .6s;
+    object-fit: cover;
+  }
+
+  > .cover .img {
+    width: 100%;
+    height: 100%;
+    transition: filter 375ms ease-in .2s, transform .6s;
+    object-fit: cover;
+  }
+
+  > .recent-post-info,
+  > .info {
+    max-width: 100%;
+    min-width: 0;
+
+    @media screen and (max-width: 768px) {
+      padding: 20px 20px 30px;
+      width: 100%;
+    }
+  }
+
+  > .recent-post-info.no-cover,
+  &.no-cover > .info {
+    @media screen and (max-width: 768px) {
+      padding: 30px 20px;
+    }
+  }
+
+  > .recent-post-info > .article-title,
+  > .info > .title {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    color: var(--text-highlight-color, inherit);
+    font-size: 1.55em;
+    line-height: 1.4;
+    transition: all .2s ease-in-out;
+    -webkit-line-clamp: 2;
+
+    .sticky {
+      margin-right: 10px;
+      color: #ff7242;
+      transform: rotate(45deg);
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.43em;
+    }
+
+    &:hover {
+      color: var(--theme);
+    }
+  }
+
+  > .recent-post-info > .article-meta-wrap,
+  > .info > .data {
+    margin: 6px 0;
+    color: var(--card-meta, var(--text-obs-color, #858585));
+    font-size: .9em;
+
+    > .post-meta-date {
+      cursor: default;
+    }
+
+    i {
+      margin: 0 4px 0 0;
+    }
+
+    .fa-spinner {
+      margin: 0;
+    }
+
+    .article-meta-label {
+      padding-right: 4px;
+    }
+
+    .article-meta-separator {
+      margin: 0 6px;
+    }
+
+    .article-meta-link {
+      margin: 0 4px;
+    }
+
+    a {
+      color: var(--card-meta, var(--text-obs-color, #858585));
+
+      &:hover {
+        color: var(--theme);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  > .recent-post-info > .content,
+  > .info > .excerpt {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+/* index_layout 1–3（上游默认 1）；Halo .essay.list */
+#recent-posts:not(.layout-4):not(.layout-5):not(.layout-6):not(.layout-7) .recent-post-item,
+#recent-posts.layout-1 .recent-post-item,
+#recent-posts.layout-2 .recent-post-item,
+#recent-posts.layout-3 .recent-post-item,
+#Butterfly .essay.list > .item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 16.8em;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
+
+  @media screen and (min-width: 2000px) {
+    height: 18.8em;
+  }
+
+  > .post_cover,
+  > .cover {
+    width: 42%;
+    height: 100%;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: 230px;
+    }
+
+    &.right {
+      order: 1;
+
+      @media screen and (max-width: 768px) {
+        order: 0;
+      }
+    }
+  }
+
+  > .recent-post-info,
+  > .info {
+    padding: 0 40px;
+    width: 58%;
+
+    @media screen and (max-width: 768px) {
+      padding: 20px 20px 30px;
+      width: 100%;
+    }
+  }
+
+  > .recent-post-info.no-cover,
+  &.no-cover > .info {
+    width: 100%;
+  }
+}
+
+/* index_layout 4：通栏封面 230px。无 .layout-4 时为空操作。 */
+#recent-posts.layout-4 .recent-post-item,
+#Butterfly .essay.layout-4 > .item {
+  > .post_cover,
+  > .cover {
+    width: 100%;
+    height: 230px;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: 230px;
+    }
+  }
+
+  > .recent-post-info,
+  > .info {
+    padding: 30px 30px 25px;
+    width: 100%;
+  }
+
+  > .recent-post-info.no-cover,
+  &.no-cover > .info {
+    padding: 35px 30px;
+  }
+}
+
+/* index_layout 6；Halo .essay.tile。封面 230px，两列，2000px 三列。 */
+#recent-posts.layout-6 .recent-post-item,
+#Butterfly .essay.tile > .item {
+  display: inline-block;
+  width: calc(100% / 2 - 8px);
+  vertical-align: top;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 2000px) {
+    width: calc(100% / 3 - 8px);
+  }
+
+  > .post_cover,
+  > .cover {
+    width: 100%;
+    height: 230px;
+  }
+
+  > .recent-post-info,
+  > .info {
+    padding: 30px 30px 25px;
+    width: 100%;
+  }
+
+  > .recent-post-info.no-cover,
+  &.no-cover > .info {
+    padding: 35px 30px;
+  }
+}
+
+/* index_layout 5：通栏封面 17em + 封面遮罩叠字。无 .layout-5 时为空操作。 */
+#recent-posts.layout-5 .recent-post-item,
+#Butterfly .essay.layout-5 > .item {
+  > .post_cover,
+  > .cover {
+    width: 100%;
+    height: 17em;
+
+    &:before {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(18, 18, 18, .4);
+      content: "";
+      backdrop-filter: blur(3px);
+    }
+  }
+
+  > .recent-post-info,
+  > .info {
+    padding: 30px 30px 25px;
+  }
+
+  > .recent-post-info:not(.no-cover),
+  &:not(.no-cover) > .info {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 100%;
+    color: var(--text-highlight-color);
+    transform: translateY(-50%);
+    --text-highlight-color: rgba(255, 255, 255, 1);
+    --card-meta: rgba(255, 255, 255, .7);
+  }
+
+  > .recent-post-info.no-cover,
+  &.no-cover > .info {
+    padding: 35px 30px;
+  }
+}
+
+/* index_layout 7：两列 + 17em 遮罩叠字。无 .layout-7 时为空操作。 */
+#recent-posts.layout-7 .recent-post-item,
+#Butterfly .essay.layout-7 > .item {
+  display: inline-block;
+  width: calc(100% / 2 - 8px);
+  vertical-align: top;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 2000px) {
+    width: calc(100% / 3 - 8px);
+  }
+
+  > .post_cover,
+  > .cover {
+    width: 100%;
+    height: 17em;
+
+    &:before {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(18, 18, 18, .4);
+      content: "";
+      backdrop-filter: blur(3px);
+    }
+  }
+
+  > .recent-post-info,
+  > .info {
+    padding: 30px 30px 25px;
+  }
+
+  > .recent-post-info:not(.no-cover),
+  &:not(.no-cover) > .info {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 100%;
+    color: var(--text-highlight-color);
+    transform: translateY(-50%);
+    --text-highlight-color: rgba(255, 255, 255, 1);
+    --card-meta: rgba(255, 255, 255, .7);
+  }
+
+  > .recent-post-info.no-cover,
+  &.no-cover > .info {
+    padding: 35px 30px;
+  }
+}

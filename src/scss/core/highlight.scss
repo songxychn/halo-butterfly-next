@@ -1,0 +1,325 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_highlight/highlight.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 :root --hl-color / --hl-bg / --hltools-* / --hlnumber-* /
+ * --hlscrollbar-bg / --hlexpand-bg；深色挂 [data-theme='dark']。
+ * Halo 深色仍 html[data-color-scheme='dark']，不改 data-theme。
+ * $code-block overflow auto、margin 0 0 20px、line-height 1.6；
+ * .container pre padding 10px 20px；inline code padding 2px 5px。
+ * 默认 code_blocks.theme light：#F6F8FA / #90A4AE。
+ * Halo 正文是 article.render，代码块是 .code-toolbar（已有 copy/shrink/
+ * fullpage/word_wrap），没有 Hexo figure.highlight DOM。
+ * 上游 .container / figure.highlight / .highlight-tools 空操作保留数字。
+ * 不要用 #Butterfly ID 把 overflow/width/height 压到主栏或已有工具栏
+ * （#203 P1 同类）。不重写模板去造 Hexo highlight 结构。
+ * 不实现 highlight/index.styl / prismjs/* / theme.styl / diff.styl。
+ * 不改代码块主题枚举。不把已落地 _search/*.styl / _page/*.styl /
+ * _layout / darkmode / readmode 升 verified。
+ * 不改 settings.yaml。不改 #pagination.pagination-post 的 150px。
+ * 不改 html.hide-aside 主栏 80%。不复用作者卡片 aside.button。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。
+ */
+
+:root {
+  --hl-color: #90a4ae;
+  --hl-bg: #f6f8fa;
+  --hltools-bg: #e6ebf1;
+  --hltools-color: #90a4ae;
+  --hlnumber-bg: #f6f8fa;
+  --hlnumber-color: rgba(144, 164, 174, 0.5);
+  --hlscrollbar-bg: #dce4eb;
+  --hlexpand-bg: linear-gradient(180deg, rgba(246, 248, 250, 0.6), rgba(246, 248, 250, 0.9));
+}
+
+html[data-color-scheme='dark'] {
+  --hl-color: rgba(255, 255, 255, 0.7);
+  --hl-bg: #171717;
+  --hltools-bg: #1a1a1a;
+  --hltools-color: #90a4ae;
+  --hlnumber-bg: #171717;
+  --hlnumber-color: rgba(255, 255, 255, 0.4);
+  --hlscrollbar-bg: #1f1f1f;
+  --hlexpand-bg: linear-gradient(180deg, rgba(23, 23, 23, 0.6), rgba(23, 23, 23, 0.9));
+}
+
+@mixin code-block {
+  overflow: auto;
+  margin: 0 0 20px;
+  padding: 0;
+  background: var(--hl-bg);
+  color: var(--hl-color);
+  line-height: 1.6;
+}
+
+@mixin hl-scrollbar {
+  @-moz-document url-prefix() {
+    scrollbar-color: var(--hlscrollbar-bg) transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--hlscrollbar-bg);
+  }
+}
+
+/* 上游 .container：Halo 无此正文包装，空操作。不要挂到 article.render / .code-toolbar。 */
+.container {
+  pre,
+  code {
+    font-size: var(--global-font-size);
+    font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+    border-radius: 6px;
+  }
+
+  code {
+    padding: 2px 5px;
+    background: rgba(27, 31, 35, 0.05);
+    color: #f47466;
+  }
+
+  pre {
+    @include code-block;
+    padding: 10px 20px;
+
+    code {
+      padding: 0;
+      background: none;
+      color: var(--hl-color);
+      text-shadow: none;
+    }
+  }
+
+  figure.highlight {
+    @include code-block;
+    position: relative;
+    border-radius: 6px;
+
+    pre {
+      margin: 0;
+      padding: 8px 0;
+      border: none;
+    }
+
+    figcaption,
+    .caption {
+      padding: 6px 0 2px 14px;
+      font-size: var(--global-font-size);
+      line-height: 1em;
+
+      a {
+        float: right;
+        padding-right: 10px;
+        color: var(--hl-color);
+
+        &:hover {
+          border-bottom-color: var(--hl-color);
+        }
+      }
+    }
+
+    &.default {
+      pre {
+        padding: 10px 20px;
+        @include hl-scrollbar;
+      }
+    }
+
+    &.copy-true {
+      user-select: all;
+      -webkit-user-select: all;
+
+      > table,
+      > pre {
+        display: block !important;
+        opacity: 0;
+      }
+    }
+
+    /* macStyle 默认 false，数字仍留在空操作选择器。 */
+    &.mac-style {
+      margin: 0 0 24px;
+      border-radius: 8px;
+      box-shadow: 0 5px 10px 0 rgba(144, 164, 174, 0.4);
+      -webkit-transform: translateZ(0);
+    }
+
+    &.code-fullpage {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 9999;
+      margin: 0;
+      border-radius: 0;
+      animation: code-fullpage 0.3s;
+
+      .code-expand-btn,
+      .expand {
+        display: none;
+      }
+
+      .highlight-tools {
+        & ~ pre,
+        & ~ table {
+          display: block;
+          overflow: auto;
+          margin-bottom: 0;
+          height: calc(100vh - 2.15em);
+        }
+      }
+    }
+  }
+
+  .highlight-tools {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 8px;
+    min-height: 24px;
+    height: 2.15em;
+    background: var(--hltools-bg);
+    color: var(--hltools-color);
+    font-size: var(--global-font-size);
+
+    > * {
+      flex: 0 0 auto;
+      margin: 2px;
+    }
+
+    i {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        color: var(--theme);
+      }
+    }
+
+    &.closed {
+      & ~ * {
+        display: none;
+      }
+
+      .expand {
+        transform: rotate(-90deg);
+      }
+    }
+
+    .code-lang {
+      flex: 1 1 auto;
+      overflow: hidden;
+      padding-right: 10px;
+      text-transform: uppercase;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 1.15em;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    > :nth-child(1) {
+      margin-right: auto;
+    }
+
+    .macStyle {
+      display: flex;
+      padding: 3px;
+
+      > * {
+        margin-right: 8px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      > :last-child {
+        margin-right: 5px;
+      }
+
+      .mac-close {
+        background: #fc625d;
+      }
+
+      .mac-minimize {
+        background: #fdbc40;
+      }
+
+      .mac-maximize {
+        background: #35cd4b;
+      }
+    }
+  }
+
+  .gutter {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .gist table {
+    width: auto;
+
+    td {
+      border: none;
+    }
+  }
+
+  /* 上游 .copy-notice 在 .container 外；挂在这里避免压到 Halo .code-toolbar .copy-notice。 */
+  .copy-notice {
+    position: absolute;
+    z-index: 99999;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: var(--hltools-bg);
+    white-space: nowrap;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  .code-expand-btn {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+    background: var(--hlexpand-bg);
+    text-align: center;
+    font-size: var(--global-font-size);
+    cursor: pointer;
+
+    i {
+      padding: 6px 0;
+      color: var(--hlnumber-color);
+      animation: code-expand-key 1.2s infinite;
+    }
+
+    &.expand-done {
+      > i {
+        transform: rotate(180deg);
+      }
+
+      + table,
+      + pre {
+        margin-bottom: 1.8em;
+      }
+    }
+  }
+}
+
+@keyframes code-expand-key {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}

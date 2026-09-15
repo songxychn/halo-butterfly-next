@@ -16,6 +16,7 @@
         above_background: /*[[${above_background}]]*/ '',
       });
     </script>
+    <th:block th:replace="~{views/components :: codeBlockPin}"/>
   </th:block>
 
 
@@ -39,12 +40,26 @@
   <th:block th:fragment="main">
     <section class="content card">
       <article class="render" th:utext="${singlePage.content.content}"></article>
-      <halo:comment
+      <div
+        id="post-comment"
         th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && singlePage.spec.allowComment}"
-        group="content.halo.run"
-        kind="SinglePage"
-        th:attr="name=${singlePage.metadata.name}"
-      />
+      >
+        <div class="comment-head">
+          <div class="comment-headline">
+            <i class="fa-solid fa-comments fa-fw" aria-hidden="true"></i>
+            <span th:text="'评论'"></span>
+          </div>
+        </div>
+        <div class="comment-wrap">
+          <div>
+            <halo:comment
+              group="content.halo.run"
+              kind="SinglePage"
+              th:attr="name=${singlePage.metadata.name}"
+            />
+          </div>
+        </div>
+      </div>
     </section>
     <th:block th:replace="~{views/aside::common}"/>
   </th:block>

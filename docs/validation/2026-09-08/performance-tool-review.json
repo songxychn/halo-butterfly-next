@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-independent-review",
+  "issue": 35,
+  "pr": 43,
+  "reviewer": "cursor-fcid-explore",
+  "author": "cursor/performance-baseline",
+  "reviewedAt": "2026-09-08T16:27:16Z",
+  "sourceSha": "8857d1da8d08b754af151a6cda705b2cbdc1889c",
+  "reviewedSha": "8857d1da8d08b754af151a6cda705b2cbdc1889c",
+  "mergeSha": "0aaacc9a6e3358851f78be2d30924a3638f8e1e9",
+  "decision": "passed",
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "openFindings": [],
+  "validation": {
+    "fullVerify": {
+      "command": "pnpm verify",
+      "source": "independent explore agent isolated worktree and independently queried PR CI",
+      "tests": 65,
+      "packageFiles": 124
+    },
+    "treeSha256Pin": "cd77ddc2c729ff00bb2888ffcf2d9a215442171b38a3f57489ee83d746f01c25",
+    "chrome": {
+      "version": "153.0.8010.12",
+      "executableSha256": "8319963f6625accf51c0dd4f55091ceaf9f09ed39e7a52fed4fae12b2a6b668a"
+    },
+    "lighthouse": "13.4.1",
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34250273740,
+      "headSha": "8857d1da8d08b754af151a6cda705b2cbdc1889c",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34250273740"
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34251148133,
+      "headSha": "0aaacc9a6e3358851f78be2d30924a3638f8e1e9",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34251148133",
+      "note": "latest origin/master at record time; not cancelled by a later push"
+    }
+  },
+  "codeAssessment": [
+    "Author pinned Chrome for Testing application treeSha256 cd77ddc2c729ff00bb2888ffcf2d9a215442171b38a3f57489ee83d746f01c25; install/collect/compare all compare against the repo pin.",
+    "Theme first-screen JS/CSS over budget sets scenarios.PERF-03 to failed rather than incomplete; size-pass still leaves PERF-03 incomplete pending on-demand and failed-provider Loading evidence.",
+    "Independent non-author explore agent reviewed exact SHA 8857d1da8d08b754af151a6cda705b2cbdc1889c and approved merge; no new P1/P2.",
+    "GitHub issue #35 closed via Closes on PR #43; PERF-01/02/03 contract scenarios remain open."
+  ],
+  "limitations": [
+    "No 160 real Lighthouse samples; diagnostic 1-sample run was not executed in this record.",
+    "Does not close PERF-01/02/03, does not mark matrix verified, and contractAcceptance remains false.",
+    "Tool tests passing are not theme performance acceptance."
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "kind": "independent-review-record",
+  "issue": 279,
+  "pr": 280,
+  "title": "M1：标签页标签样式 _tags/tabs.styl",
+  "author": "cursor/m1-tags-tabs-styl",
+  "recorder": "cursor/docs-record-280",
+  "recordedAt": "2026-09-13T10:02:00Z",
+  "visibility": "private",
+  "sourceSha": "d0bb7a380dc778dea4cd5132ba2929f95356737d",
+  "reviewHead": "d0bb7a380dc778dea4cd5132ba2929f95356737d",
+  "mergeSha": "c3a67207cc2e865815240b4d06b6ee5318ca0098",
+  "mergedAt": "2026-09-13T09:58:54Z",
+  "closesIssue": 279,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/280#issuecomment-5652556206",
+    "createdAt": "2026-09-13T09:53:45Z",
+    "head": "d0bb7a380dc778dea4cd5132ba2929f95356737d",
+    "note": "Independent review posted as issue comment 5652556206, not a GitHub Approve. Verdict: approve-as-comment. No P1. Top-level @use \"tags-tabs\" after tags-series; .tabs margin 0 0 20px / radius 6px / .tab padding 8px 18px stay on no-DOM .container (upstream file has .container); no #Butterfly onto live read-mode .tabs / .code-toolbar; did not rewrite @keyframes tabshow. The reviewer's CI snapshot recorded run 34750349663 completed success at 2026-09-13T09:52:02Z. Prior run 34750340357 cancelled on 61b0c96. Merge-commit master CI 34750663414 on c3a6720 completed success at 2026-09-13T10:01:15Z. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "productCommits": [
+    {
+      "sha": "19944d190045257b98a040db584d45639fcf020a",
+      "summary": "Add src/scss/core/tags-tabs.scss and top-level @use after tags-series. Parallel .container .tabs margin 0 0 20px / radius 6px / .tab padding 8px 18px (no-op vs live read-mode .tabs). Keep html.hide-aside 80%. No new th:utext. No settings.yaml change. Did not rewrite templates, did not rewrite @keyframes tabshow, did not implement _tags/timeline.styl."
+    },
+    {
+      "sha": "61b0c966dbf7615bce9627a48b6a49545a9f70c3",
+      "summary": "Raise style:source/css/_tags/tabs.styl from gap to implemented-unverified; evidence remains []. Do not raise landed series.styl / note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl to verified. _tags/timeline.styl remains gap at that SHA."
+    },
+    {
+      "sha": "d0bb7a380dc778dea4cd5132ba2929f95356737d",
+      "summary": "Register #280 onto style:source/css/_tags/tabs.styl matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "style:source/css/_tags/tabs.styl"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "style:source/css/_tags/series.styl",
+    "style:source/css/_tags/note.styl",
+    "style:source/css/_tags/label.styl",
+    "style:source/css/_tags/inlineImg.styl",
+    "style:source/css/_tags/hide.styl",
+    "style:source/css/_tags/hexo.styl",
+    "style:source/css/_tags/gallery.styl",
+    "style:source/css/_tags/button.styl",
+    "style:source/css/_global/index.styl",
+    "style:source/css/_global/function.styl",
+    "style:source/css/_highlight/theme.styl",
+    "style:source/css/_highlight/prismjs/line-number.styl",
+    "style:source/css/_highlight/prismjs/index.styl",
+    "style:source/css/_highlight/prismjs/diff.styl",
+    "style:source/css/_highlight/highlight/diff.styl",
+    "style:source/css/_highlight/highlight/index.styl",
+    "style:source/css/_highlight/highlight.styl",
+    "style:source/css/_search/local-search.styl",
+    "style:source/css/_search/algolia.styl",
+    "style:source/css/_search/index.styl",
+    "style:source/css/_page/tags.styl",
+    "style:source/css/_page/shuoshuo.styl",
+    "style:source/css/_page/flink.styl",
+    "style:source/css/_page/categories.styl",
+    "style:source/css/_page/archives.styl",
+    "style:source/css/_page/404.styl",
+    "style:source/css/_page/homepage.styl",
+    "style:source/css/_page/common.styl",
+    "style:source/css/_layout/third-party.styl",
+    "style:source/css/_layout/loading.styl",
+    "style:source/css/_layout/comments.styl",
+    "style:source/css/_layout/chat.styl",
+    "style:source/css/_layout/sidebar.styl",
+    "style:source/css/_layout/reward.styl",
+    "style:source/css/_layout/relatedposts.styl",
+    "style:source/css/_layout/post.styl",
+    "style:source/css/_layout/pagination.styl",
+    "style:source/css/_layout/head.styl",
+    "style:source/css/_layout/aside.styl",
+    "style:source/css/_layout/rightside.styl",
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_mode/readmode.styl",
+    "style:source/css/_mode/darkmode.styl"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_tags/timeline.styl",
+    "config:error_404.enable",
+    "config:snackbar.enable",
+    "config:preloader.enable",
+    "config:rightside_item_order.enable"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 434,
+    "mapping-required": 262,
+    "implemented-unverified": 191,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 282,
+    "state": "OPEN",
+    "title": "M1：时间线标签样式 _tags/timeline.styl",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/282",
+    "note": "Product work for #282 is out of this documentation PR. Do not record a timeline.styl product PR here. Do not raise landed tabs.styl / series.styl / note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl to verified. Must not reuse author-card aside.button. #hide-aside-btn must keep aside.hide_button. html.hide-aside 80% stays. No new th:utext. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 281,
+    "title": "docs: 记录 #277 系列文章标签样式合并证据",
+    "headSha": "51ce9736b62d900c2666e16e934e1ab68b5217b9",
+    "mergeSha": "d3827719f5d2ec38ba8e6e28650165be1fc87b21",
+    "mergedAt": "2026-09-13T09:55:54Z",
+    "prCi": 34750457709,
+    "prCiConclusion": "success",
+    "masterCi": 34750574855,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34750574855",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/281#issuecomment-5652556314",
+    "note": "Reviewer's CI snapshot recorded run 34750457709 queued. Orchestrator confirmed the same run completed success at 2026-09-13T09:54:51Z before squash merge. Waited with gh run view until push-event master CI 34750574855 on d3827719f5d2ec38ba8e6e28650165be1fc87b21 completed success at 2026-09-13T09:58:13Z. Must be recorded as success, not cancelled. PR #280 merge-commit master CI 34750663414 completed success at 2026-09-13T10:01:15Z; also must not be recorded as cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34750349663,
+      "runAttempt": 1,
+      "headSha": "d0bb7a380dc778dea4cd5132ba2929f95356737d",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34750349663",
+      "note": "GitHub Verify theme. Reviewer's snapshot recorded run 34750349663 completed success for head d0bb7a3 at 2026-09-13T09:52:02Z. Orchestrator confirmed the same run before squash merge. Prior run 34750340357 cancelled after hanging the PR number; not recorded as success. New tests: tests/tags-tabs-style.test.mjs (5), compiling src/scss/page/index.scss. pnpm check 413 pass."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34750663414,
+      "runAttempt": 1,
+      "headSha": "c3a67207cc2e865815240b4d06b6ee5318ca0098",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34750663414",
+      "note": "Waited with gh run view until completed. Push-event master CI 34750663414 completed success at 2026-09-13T10:01:15Z. Do not record as cancelled. Official merge commit is c3a6720 (parent d382771, real 5-file diff). parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #280; there is no Approve. Independent review 5652556206 is issue comment, not a GitHub Approve. Verdict: approve-as-comment. No P1.",
+    "Review head d0bb7a380dc778dea4cd5132ba2929f95356737d: newly raised to implemented-unverified is style:source/css/_tags/tabs.styl. evidence remains []. Does not mark verified.",
+    "Three commits (CSS-only, no freeze): 19944d1 implement then 61b0c96 matrix IU then d0bb7a3 matrix PR number. settings.yaml unchanged. Did not rewrite templates. Did not implement _tags/timeline.styl. Did not rewrite @keyframes tabshow. Did not change code-block theme enum.",
+    "Selectors .container .tabs stay on no-DOM upstream selectors so they do not override live read-mode .tabs, #hide-aside-btn, or .code-toolbar. html.hide-aside 80% kept. Does not reuse author-card aside.button. #hide-aside-btn still uses aside.hide_button. Post prev/next remains #pagination.pagination-post 150px. Does not use #Butterfly. Dark mode stays data-color-scheme, not data-theme.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. This record does not include a timeline.styl product PR."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is style:source/css/_tags/tabs.styl; evidence remains [].",
+    "This record does not include a timeline.styl product PR.",
+    "Must not raise landed tabs.styl / series.styl / note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl / index.styl / function.styl / highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / prismjs/index.styl / prismjs/line-number.styl / theme.styl / search/index.styl / algolia.styl / local-search.styl / tags.styl / shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode styles to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #281 merge-commit master CI run 34750574855 on d3827719f5d2ec38ba8e6e28650165be1fc87b21 completed success at 2026-09-13T09:58:13Z; must not be recorded as cancelled.",
+    "PR #280 merge-commit master CI run 34750663414 on c3a67207cc2e865815240b4d06b6ee5318ca0098 completed success at 2026-09-13T10:01:15Z; must not be recorded as cancelled.",
+    "PR #277 merge-commit master CI run 34750207797 on d0257f1e8ed8517ad94bc485fa00d5dce295bfef completed success at 2026-09-13T09:47:52Z; must not be recorded as cancelled.",
+    "Same-tree ancestor 93bb75d0aff8dbd8140faf76b9d33ea8a363f21e of #271 has no Actions run; must not be invented as cancelled. git diff 93bb75d 7c46248 is empty.",
+    "Issues #95 and #96 remain OPEN duplicates of #94."
+  ]
+}

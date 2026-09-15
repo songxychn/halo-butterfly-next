@@ -1,0 +1,50 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_highlight/theme.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游按 $highlight_theme 分支赋值 $highlight-background / foreground /
+ * selection / gutter / tools / scrollbar 及 $highlight_enable token 色。
+ * 本刀只落地 light 默认（与 $highlight_theme == false 同底）：
+ * background #F6F8FA、foreground #90A4AE、selection #80CBC440、
+ * mac-border rgba(144,164,174,.4)、gutter color alpha(foreground,.5)、
+ * tools bg darken(background,5)=#e6ebf1、scrollbar darken(background,8)=#dce4eb；
+ * token：comment rgba(149,165,166,.8)、red #E53935、orange #F76D47、
+ * yellow #FFB62C、green #91B859、aqua #39ADB5、blue #6182B8、purple #7C4DFF、
+ * deletion #BF42BF、addition #105EDE。
+ * 选择器挂在无 DOM 的 .container figure.highlight 自定义属性上。
+ * 不要写到 :root / .code-toolbar（highlight.scss 已有活 --hl-*；
+ * 不要把 darker / pale night / ocean 压到活工具栏）。
+ * Halo 正文是 article.render，代码块已是 .code-toolbar，不重写模板。
+ * 不实现 _global/*。不改代码块主题枚举。
+ * 不把已落地 highlight.styl / highlight/index / highlight/diff /
+ * prismjs/* / _search / _page / _layout 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 theme.styl light 默认变量：无 figure.highlight DOM，空操作。 */
+.container {
+  figure.highlight {
+    --highlight-background: #f6f8fa;
+    --highlight-foreground: #90a4ae;
+    --highlight-selection: #80cbc440;
+    --highlight-mac-border: rgba(144, 164, 174, 0.4);
+    --highlight-gutter-color: rgba(144, 164, 174, 0.5);
+    --highlight-gutter-bg: #f6f8fa;
+    --highlight-tools-color: #90a4ae;
+    --highlight-tools-bg: #e6ebf1;
+    --highlight-scrollbar: #dce4eb;
+    --highlight-comment: rgba(149, 165, 166, 0.8);
+    --highlight-red: #e53935;
+    --highlight-orange: #f76d47;
+    --highlight-yellow: #ffb62c;
+    --highlight-green: #91b859;
+    --highlight-aqua: #39adb5;
+    --highlight-blue: #6182b8;
+    --highlight-purple: #7c4dff;
+    --highlight-deletion: #bf42bf;
+    --highlight-addition: #105ede;
+  }
+}

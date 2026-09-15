@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 129,
+  "pr": 131,
+  "title": "M1：右侧栏 includes/rightside",
+  "author": "cursor/m1-rightside",
+  "recorder": "cursor/record-131",
+  "recordedAt": "2026-09-12T05:16:00Z",
+  "visibility": "private",
+  "sourceSha": "7e5ffa38a2492f274bf8cbb29840575fb97581f8",
+  "reviewHead": "7e5ffa38a2492f274bf8cbb29840575fb97581f8",
+  "mergeSha": "9da1a6e5649d85aa19b19417ba4186de9799f748",
+  "mergedAt": "2026-09-12T05:13:21Z",
+  "closesIssue": 129,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/131#issuecomment-5643678533",
+    "createdAt": "2026-09-12T05:12:16Z",
+    "head": "7e5ffa38a2492f274bf8cbb29840575fb97581f8",
+    "note": "Independent review posted as issue comment 5643678533, not a GitHub Approve. Verdict: approve. No P1. The reviewer's one-shot CI snapshot was pending; this record waited until PR CI 34674716965 and merge-commit master CI 34675029062 completed success. Does not close POST-01/PAGE-01/A11Y/PERF."
+  },
+  "settingsYamlUnchanged": true,
+  "settingsSha256": "f034dd26fcd1e0e0535078b702244689b12b0676a36a3c6a60e95df1dc96b0a7",
+  "productCommits": [
+    {
+      "sha": "159ab11a7fdb17a9dad004eb580e01bafdf3e37f",
+      "summary": "Align rightside.pug skeleton: #rightside, hide/show panes, cog, #go-up. hideAside stays on aside.hide_button in the hide group. Keep .side-btn scroll .active. No new th:utext. Does not do readmode/item_order/scroll_percent. Does not raise footer template to verified."
+    },
+    {
+      "sha": "7e5ffa38a2492f274bf8cbb29840575fb97581f8",
+      "summary": "Register #131 onto template:includes/rightside matrix tracking.pullRequests"
+    }
+  ],
+  "matrixItemsRaised": [
+    "template:includes/rightside"
+  ],
+  "matrixItemsKeptImplementedUnverified": [
+    "template:includes/footer",
+    "config:aside.hide",
+    "config:aside.mobile",
+    "config:aside.button",
+    "interaction:hide-aside",
+    "config:mask.header",
+    "config:mask.footer",
+    "config:footer_img",
+    "config:footer.nav",
+    "config:footer.owner.enable",
+    "config:footer.owner.since",
+    "config:footer.copyright.enable",
+    "config:footer.copyright.version",
+    "config:footer.custom_text"
+  ],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [
+    "style:source/css/_layout/footer.styl",
+    "style:source/css/_layout/rightside.styl",
+    "config:rightside_bottom",
+    "config:rightside_scroll_percent",
+    "config:rightside_item_order.enable",
+    "config:readmode"
+  ],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 488,
+    "mapping-required": 262,
+    "implemented-unverified": 137,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 132,
+    "state": "OPEN",
+    "title": "M1：右侧栏 rightside_scroll_percent",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/132",
+    "note": "template:includes/rightside is now implemented-unverified; do not raise it, footer template, or landed footer/aside config to verified. This slice is rightside_scroll_percent on #go-up (optional rightside_bottom / remaining styl). Must not reuse author-card aside.button. Does not close PAGE-01/POST-01/A11Y. #95 and #96 remain OPEN duplicates of #94."
+  },
+  "precedingDocsPr": {
+    "pr": 130,
+    "title": "docs: 记录 #128 页脚模板合并证据",
+    "headSha": "050834ae29ec57d144b2ad00bf4d74a98abfa0dd",
+    "mergeSha": "d0f95993982400780660c599c206a934bc15a72e",
+    "mergedAt": "2026-09-12T04:59:20Z",
+    "prCi": 34674262448,
+    "prCiConclusion": "success",
+    "masterCi": 34674417547,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34674417547",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/130#issuecomment-5643599685",
+    "note": "Waited with gh run view until completed. Push-event master CI 34674417547 on d0f95993982400780660c599c206a934bc15a72e completed success at 2026-09-12T05:00:58Z, before the #131 merge push at 2026-09-12T05:13:21Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34674716965,
+      "runAttempt": 1,
+      "headSha": "7e5ffa38a2492f274bf8cbb29840575fb97581f8",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34674716965",
+      "note": "GitHub Verify theme: 192 tests pass. Independent reviewer's one-shot snapshot was pending; later gh run view completed success at 2026-09-12T05:07:43Z."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34675029062,
+      "runAttempt": 1,
+      "headSha": "9da1a6e5649d85aa19b19417ba4186de9799f748",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34675029062",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-12T05:15:00Z. parity total 897 verified 0."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #131; there is no Approve. Independent review is issue comment 5643678533 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 7e5ffa38a2492f274bf8cbb29840575fb97581f8: newly raised to implemented-unverified is template:includes/rightside. evidence remains []. style:source/css/_layout/rightside.styl and footer.styl remain gap. template:includes/footer stays implemented-unverified. Does not mark verified.",
+    "settings.yaml and fixtures/performance/theme-defaults.json were not changed; no freeze commit. Current settingsSha256 remains f034dd26fcd1e0e0535078b702244689b12b0676a36a3c6a60e95df1dc96b0a7. Two commits: 159ab11 implement then 7e5ffa3 matrix PR number.",
+    "Skeleton aligns Butterfly 5.7.0 f223b188 rightside.pug: #rightside, hide/show panes, cog, #go-up. hideAside stays on aside.hide_button in the hide group. Keep .side-btn and scroll .active. max-width 900px hides #hide-aside-btn. No new th:utext. tracking.pullRequests used. Does not reuse author-card aside.button.",
+    "Non-blocking P2 from the independent review: not full rightside.styl (bottom var, opacity .8, z-index 100, scroll_percent). Nested .side-btn > .button 35px no longer matches. Cog has no fa-spin. Visibility still uses Halo .active rather than only rightside-show. h5-toc still 1100px not upstream 900px #mobile-toc-button. No dual-site evidence; must not raise verified.",
+    "Does not close POST-01, PAGE-01, A11Y, or PERF. Next slice is open #132 rightside_scroll_percent; not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified is template:includes/rightside; evidence remains [].",
+    "style:source/css/_layout/footer.styl and style:source/css/_layout/rightside.styl remain gap.",
+    "Does not implement readmode/translate/chat/comment, rightside_item_order, or rightside_scroll_percent. Must not raise landed footer config or footer template to verified.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #130 merge-commit master CI run 34674417547 on d0f95993982400780660c599c206a934bc15a72e completed success at 2026-09-12T05:00:58Z, before the #131 merge push at 2026-09-12T05:13:21Z; must not be recorded as cancelled.",
+    "PR #131 merge-commit master CI run 34675029062 on 9da1a6e5649d85aa19b19417ba4186de9799f748 completed success at 2026-09-12T05:15:00Z; must not be recorded as cancelled.",
+    "Issue #132 rightside_scroll_percent is open; #95 and #96 duplicate #94 and remain OPEN.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

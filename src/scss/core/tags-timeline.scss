@@ -1,0 +1,127 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_tags/timeline.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游文件自身有 .container：.timeline margin 0 10px 20px / padding 14px 0 5px 20px /
+ * 左边框 2px；.timeline-item margin 0 0 15px；.item-circle:before 6px 圆点、
+ * 默认边框 3px、headline 4px / left -28px；.timeline-item-content padding 12px 15px /
+ * radius 8px / font-size .93em；相邻 .timeline margin-top -20px。
+ * $color-types（blue/pink/red/purple/orange/green）写入 --timeline-color / --timeline-bg。
+ * Halo 活 DOM 无时间线模板，但 darkmode 已有 --timeline-bg。不要用 #Butterfly 把
+ * padding / border / margin-top -20px 压到主栏或 .code-toolbar（#203 P1 同类）。
+ *
+ * 不实现 source/css/index.styl / var.styl / _third-party/normalize.min.css。
+ * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
+ * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
+ */
+
+.container {
+  .timeline {
+    margin: 0 10px 20px;
+    padding: 14px 0 5px 20px;
+    border-left: 2px solid var(--timeline-color, var(--theme));
+
+    &.blue {
+      --timeline-color: var(--tags-blue-color);
+      --timeline-bg: rgba(66, 139, 202, 0.2);
+    }
+
+    &.pink {
+      --timeline-color: var(--tags-pink-color);
+      --timeline-bg: rgba(255, 105, 180, 0.2);
+    }
+
+    &.red {
+      --timeline-color: var(--tags-red-color);
+      --timeline-bg: rgba(255, 0, 0, 0.2);
+    }
+
+    &.purple {
+      --timeline-color: var(--tags-purple-color);
+      --timeline-bg: rgba(111, 66, 193, 0.2);
+    }
+
+    &.orange {
+      --timeline-color: var(--tags-orange-color);
+      --timeline-bg: rgba(255, 140, 0, 0.2);
+    }
+
+    &.green {
+      --timeline-color: var(--tags-green-color);
+      --timeline-bg: rgba(92, 184, 92, 0.2);
+    }
+
+    .timeline-item {
+      margin: 0 0 15px;
+
+      &:hover {
+        .item-circle::before {
+          border-color: var(--timeline-color, var(--theme));
+        }
+      }
+
+      &.headline {
+        .timeline-item-title {
+          .item-circle {
+            > p {
+              font-weight: 600;
+              font-size: 1.2em;
+            }
+
+            &::before {
+              left: -28px;
+              border: 4px solid var(--timeline-color, var(--theme));
+            }
+          }
+        }
+
+        &:hover {
+          .item-circle::before {
+            border-color: var(--pseudo-hover);
+          }
+        }
+      }
+
+      .timeline-item-title {
+        position: relative;
+      }
+
+      .item-circle {
+        &::before {
+          position: absolute;
+          top: 50%;
+          left: -27px;
+          width: 6px;
+          height: 6px;
+          border: 3px solid var(--pseudo-hover);
+          border-radius: 50%;
+          background: var(--card-bg);
+          content: "";
+          transition: all 0.3s;
+          transform: translate(0, -50%);
+        }
+
+        > p {
+          margin: 0 0 8px;
+          font-weight: 500;
+        }
+      }
+
+      .timeline-item-content {
+        position: relative;
+        padding: 12px 15px;
+        border-radius: 8px;
+        background: var(--timeline-bg, #fff);
+        font-size: 0.93em;
+
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    & + .timeline {
+      margin-top: -20px;
+    }
+  }
+}

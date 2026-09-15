@@ -299,10 +299,13 @@
   }
 }
 
-//目录
+//目录。number / expand / scroll_percent 对齐上游 aside.styl #card-toc。
 .toc {
-
+  max-width: 100%;
+  min-width: 0;
   overflow-y: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   max-height: 500px;
 
   &::-webkit-scrollbar {
@@ -322,9 +325,19 @@
   }
 
 
+  &-number {
+    margin-right: 0.3em;
+  }
+
+  &:not(.is-numbered) .toc-number {
+    display: none;
+  }
+
   &-link {
     color: currentColor;
     height: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 
     &::before {
       background-color: #EEE;
@@ -348,6 +361,24 @@
     max-height: 0;
   }
 
+  &.is-expand {
+    .is-collapsible,
+    .is-collapsed {
+      max-height: none;
+    }
+  }
+
+  &:not(.is-expand) {
+    .toc-list .toc-list {
+      display: none;
+    }
+
+    .is-active-li > .toc-list,
+    .toc-list-item:has(> .is-active-link) > .toc-list {
+      display: block;
+    }
+  }
+
   .is-position-fixed {
     position: fixed !important;
     top: 0;
@@ -365,6 +396,35 @@
 
 }
 
+.aside-toc {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  > .title {
+    display: flex;
+    align-items: baseline;
+    max-width: 100%;
+    min-width: 0;
+
+    .name {
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .toc-percentage {
+      margin-left: auto;
+      color: #a9a9a9;
+      font-style: italic;
+      font-size: 140%;
+      flex-shrink: 0;
+    }
+  }
+}
+
 .is-sticky {
   position: sticky;
   top: 20px;
@@ -380,9 +440,21 @@
       max-width: 380px;
       max-height: calc(100% - 60px);
       width: calc(100% - 80px);
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
       transition: transform .3s ease-in-out;
       transform-origin: right bottom;
       right: 55px;
+
+      .toc:not(.is-expand) {
+        .toc-list .toc-list,
+        .is-collapsible,
+        .is-collapsed {
+          display: block;
+          max-height: none;
+        }
+      }
     }
   }
 }
@@ -402,44 +474,10 @@
 }
 
 
-//版权
+//版权卡片视觉对齐 post.styl，细则在 core/post.scss（#post .post-copyright / .copy-right）。
 .copy-right {
-  @include util.useThemeVar((
-    cpy-border-color:(#ebe5f83b, rgba(33, 35, 37, 0.9)), //版权边框颜色
-    cpy-background-color:(#f0f0f0cc, rgba(33, 35, 37, 0.9)), //版权背景颜色
-    cpy-text-color:(#1f2d3d, rgba(255, 255, 255, 0.9)), //版权字体颜色
-  ));
-
-  & {
-    margin: 25px 0;
-    padding: 10px 16px;
-    border: 1px solid var(--cpy-border-color);
-    transition: box-shadow .2s, transform .2s;
-    background-color: var(--cpy-background-color);
-    border-radius: 8px;
-    color: var(--cpy-text-color);
-    position: relative;
-  }
-
-  > div {
-    @include util.text-overflow;
-
-    @include util.useResponsive($width: util.$w-md) {
-      font-size: .8rem;
-    }
-  }
-
-  > i.fa-copyright {
-    position: absolute;
-    font-size: 1.5em;
-    color: var(--theme);
-    right: 10px;
-    top: 10px;
-  }
-
-  a {
-    color: var(--theme);
-  }
-
-
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+  min-width: 0;
 }

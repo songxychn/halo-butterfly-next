@@ -31,6 +31,8 @@ pnpm migrate --input old.json --from 2.0.5 --output next.json
 
 首页字幕新增 `index.enable_subtitle` 与 `index.subtitle_effect`，均默认开启以保留旧站行为。原版迁移自动补齐缺项并保留显式 `false`；Next 直接升级时缺失的新开关也按开启处理。空文案不再循环显示配置警告；静态及远端文案按纯文本呈现，动态自定义文案保留 HTML 标记。完整映射与 API 失败回退见 [字幕说明](SUBTITLE.md)。
 
+导航新增 `nav.fixed`（默认 false，与升级前滚动显隐一致）、`nav.logo`（空）、`nav.display_title` / `nav.display_post_title`（默认 true）。首页新增 `index.top_img_height` 与 `index.site_info_top`，留空保持全屏高度与标题居中。旧配置缺这些字段时由主题表单默认值补齐，不改变原滚动导航行为。
+
 没有对应项的选项会标记 `unsupported`；类型不符标记 `type-mismatch`，需要手动解析的内容标记 `manual-review`。例如原版打赏、过期提示、部分颜色/宽度、自定义标题没有直接对应项。`needsReview: true` 时必须逐项检查，不能将输出视为无损迁移。即使报告没有这些项，也要检查外链、图标、自定义 HTML 和默认值变化。
 
 ## 切换与回退

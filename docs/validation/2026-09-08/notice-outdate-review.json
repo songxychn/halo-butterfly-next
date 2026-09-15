@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "kind": "exact-sha-merge-record",
+  "issue": 85,
+  "pr": 87,
+  "title": "M1：文章过期提醒 noticeOutdate",
+  "author": "cursor/m1-notice-outdate",
+  "recorder": "cursor/record-87",
+  "recordedAt": "2026-09-10T14:24:39Z",
+  "visibility": "private",
+  "sourceSha": "03cc8104cc80469fb7cb4b32e5eb5ea96c2b9e86",
+  "reviewHead": "03cc8104cc80469fb7cb4b32e5eb5ea96c2b9e86",
+  "mergeSha": "fd73d209833667cb556d54b8f9c544960db8934c",
+  "mergedAt": "2026-09-10T14:21:51Z",
+  "closesIssue": 85,
+  "githubReviews": [],
+  "githubReview": "comment-only; same GitHub account cannot approve its own pull request",
+  "decision": "recorded-after-merge; not a GitHub Approve",
+  "openFindings": [],
+  "independentReviewComment": {
+    "author": "songxychn",
+    "url": "https://github.com/songxychn/halo-butterfly-next/pull/87#issuecomment-5620191899",
+    "createdAt": "2026-09-10T14:20:19Z",
+    "head": "03cc8104cc80469fb7cb4b32e5eb5ea96c2b9e86",
+    "note": "Independent review posted as issue comment 5620191899, not a GitHub Approve. Verdict: approve. No P1. Does not close POST-01/PAGE-01."
+  },
+  "settingsSha256": "946d3f6cf60ee6a879624e883e40b376600f82738c1c28388ae2577a465ba4d2",
+  "productCommits": [
+    {
+      "sha": "e532182",
+      "summary": "Align noticeOutdate (Halo article stale-notice). Default enable false, style flat (not simple), limit_day 365, position top. Days from lastModifyTime else publishTime; show only when >= limit_day. Article page only; visible text uses th:text. Does not do related_post, wordcount, or per-page page.noticeOutdate."
+    },
+    {
+      "sha": "02c2ac7",
+      "summary": "Refreeze performance theme-defaults.json onto the noticeOutdate implementation commit"
+    },
+    {
+      "sha": "03cc810",
+      "summary": "Register #85 onto article stale-notice matrix tracking"
+    }
+  ],
+  "matrixItemsRaised": [
+    "config:noticeOutdate.enable",
+    "config:noticeOutdate.style",
+    "config:noticeOutdate.limit_day",
+    "config:noticeOutdate.position",
+    "config:noticeOutdate.message_prev",
+    "config:noticeOutdate.message_next"
+  ],
+  "matrixItemsKeptImplementedUnverified": [],
+  "matrixStatusAfter": "implemented-unverified",
+  "matrixStillGap": [],
+  "matrixCountsAfter": {
+    "total": 897,
+    "gap": 515,
+    "mapping-required": 262,
+    "implemented-unverified": 110,
+    "in-progress": 10,
+    "verified": 0
+  },
+  "nextIssue": {
+    "number": 88,
+    "state": "OPEN",
+    "title": "M1：文章目录 toc.number / expand / style_simple / scroll_percent",
+    "url": "https://github.com/songxychn/halo-butterfly-next/issues/88",
+    "note": "Opened follow-up; not completed in this record. This slice does not implement toc. Does not close PAGE-01/POST-01."
+  },
+  "precedingDocsPr": {
+    "pr": 86,
+    "title": "docs: 记录 #84 文章上下篇合并证据",
+    "headSha": "1de3d0b8f27cc7c43696a3aaa5192515251ac816",
+    "mergeSha": "11f1791daba017b95fef29e5a3858e753cc1dca9",
+    "mergedAt": "2026-09-10T14:16:26Z",
+    "prCi": 34487732697,
+    "prCiConclusion": "success",
+    "masterCi": 34487969195,
+    "masterCiConclusion": "success",
+    "masterCiUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34487969195",
+    "independentReviewComment": "https://github.com/songxychn/halo-butterfly-next/pull/86#issuecomment-5620134593",
+    "note": "Waited with gh run view until completed. Push-event master CI 34487969195 on 11f1791daba017b95fef29e5a3858e753cc1dca9 completed success at 2026-09-10T14:17:47Z, before the #87 merge push at 2026-09-10T14:21:51Z. Must be recorded as success, not cancelled."
+  },
+  "validation": {
+    "ci": {
+      "independentlyQueried": true,
+      "runId": 34488204512,
+      "runAttempt": 1,
+      "headSha": "03cc8104cc80469fb7cb4b32e5eb5ea96c2b9e86",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34488204512",
+      "note": "pnpm verify on this run: tests 145 pass / 0 fail."
+    },
+    "mergedMasterCi": {
+      "independentlyQueried": true,
+      "runId": 34488562138,
+      "runAttempt": 1,
+      "headSha": "fd73d209833667cb556d54b8f9c544960db8934c",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/34488562138",
+      "note": "Waited with gh run view until completed. conclusion success at 2026-09-10T14:23:30Z. parity total 897. This is origin/master at record time."
+    }
+  },
+  "codeAssessment": [
+    "GitHub returned zero pull-request reviews for #87; there is no Approve. Independent review is issue comment 5620191899 by songxychn; this is not a GitHub Approve. Verdict: approve. No P1.",
+    "Review head 03cc8104cc80469fb7cb4b32e5eb5ea96c2b9e86: newly raised to implemented-unverified are the six config:noticeOutdate.* leaves. evidence remains []. page-data:noticeOutdate remains mapping-required. Does not mark verified.",
+    "settingsSha256 946d3f6cf60ee6a879624e883e40b376600f82738c1c28388ae2577a465ba4d2 matches settings.yaml at e532182 and fixtures/performance/theme-defaults.json freeze; sourceCommit points to implementation commit e532182fd4968f682263a1b58859e37c43ad82b2. Default enable is false; style is flat (not simple); limit_day 365; position top.",
+    "Defaults align upstream Butterfly 5.7.0 f223b188 noticeOutdate: enable false does not render; style flat (left color bar plus warning icon) vs simple; days use lastModifyTime else publishTime; show only when >= limit_day; position top before article body, bottom after. Inserted on post.html only; page.html has no insertion. Visible notice text uses th:text.",
+    "Non-blocking P2 from the independent review: no dual-site lab; noticeDiffDay in the template is milliseconds / 86400000 without an explicit Math.floor (copy may show a decimal); SSR Thymeleaf vs upstream client JS hidden+addPostOutdateNotice; per-page page.noticeOutdate !== false was not done in this slice.",
+    "Does not close POST-01 or PAGE-01. Next slice is open #88 toc, not completed."
+  ],
+  "limitations": [
+    "No dual-site comparison lab (Halo 18091 vs Hexo 14000) and no 1440/390 light/dark screenshot evidence in this record.",
+    "Does not close POST-01 or PAGE-01 contract scenarios.",
+    "Does not mark any matrix row verified; newly raised implemented-unverified are the six config:noticeOutdate.* leaves; evidence remains [].",
+    "page-data:noticeOutdate remains mapping-required.",
+    "noticeDiffDay is not an explicit Math.floor in the template; SSR vs upstream client JS; per-page page.noticeOutdate was not implemented.",
+    "Same GitHub account cannot Approve its own pull request; author-account comments are not recorded as Approve.",
+    "PR #86 merge-commit master CI run 34487969195 on 11f1791daba017b95fef29e5a3858e753cc1dca9 completed success at 2026-09-10T14:17:47Z, before the #87 merge push at 2026-09-10T14:21:51Z; must not be recorded as cancelled.",
+    "Issue #88 toc is open, not completed.",
+    "This docs PR does not change matrix.json, src/, settings.yaml, templates/, dist/, or fixtures/."
+  ]
+}

@@ -1,0 +1,132 @@
+/**
+ * 对齐 Butterfly 5.7.0 source/css/_highlight/prismjs/diff.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游按 $highlight_theme 分支写 Prism token 颜色；本刀只落地 light
+ * 默认（prism-base16-ateliersulphurpool.light）：
+ * .token.function #FFB62C；.token.comment rgba(149, 165, 166, .8)；
+ * .token.punctuation #5e6687；.token.namespace opacity .7；
+ * .token.operator/.boolean/.number #c76b29；.token.property #c08b30；
+ * .token.tag/.placeholder/.variable #3d8fd1；.token.string #22a2c9；
+ * .token.selector #6679cc；.token.attr-name #c76b29；
+ * .token.attr-value/.keyword #ac9739；.token.important #c94922；
+ * .token.deleted line-through；.token.inserted 1px dotted #202746。
+ * 选择器挂在无 DOM 的 .container pre[class*='language-'] 上。
+ * Halo 正文是 article.render，代码块已是 .code-toolbar + 已加载
+ * prism-${code_theme_light|dark}.css，不要把 token 颜色压到工具栏
+ * （#203 P1 同类）。不重写模板。不替换第三方 prism 主题文件。
+ * 不实现 prismjs/index.styl / line-number.styl / theme.styl。
+ * 不改代码块主题枚举。不把已落地 highlight.styl / highlight/index /
+ * highlight/diff / _search / _page / _layout 升 verified。
+ * 不改 settings.yaml。深色仍 data-color-scheme，不改 data-theme。
+ * 不改 #pagination.pagination-post 的 150px。不改 html.hide-aside 主栏 80%。
+ * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
+ * 无新增 th:utext。
+ */
+
+/* 上游 pre[class*='language-']：Halo 活 DOM 在 .code-toolbar 内，挂 .container 空操作。 */
+.container {
+  pre[class*='language-'] {
+    .token.function {
+      color: #ffb62c;
+    }
+
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+      color: rgba(149, 165, 166, 0.8);
+    }
+
+    .token.punctuation {
+      color: #5e6687;
+    }
+
+    .token.namespace {
+      opacity: 0.7;
+    }
+
+    .token.operator,
+    .token.boolean,
+    .token.number {
+      color: #c76b29;
+    }
+
+    .token.property {
+      color: #c08b30;
+    }
+
+    .token.tag {
+      color: #3d8fd1;
+    }
+
+    .token.string {
+      color: #22a2c9;
+    }
+
+    .token.selector {
+      color: #6679cc;
+    }
+
+    .token.attr-name {
+      color: #c76b29;
+    }
+
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string {
+      color: #22a2c9;
+    }
+
+    .token.attr-value,
+    .token.keyword,
+    .token.control,
+    .token.directive,
+    .token.unit {
+      color: #ac9739;
+    }
+
+    .token.statement,
+    .token.regex,
+    .token.atrule {
+      color: #22a2c9;
+    }
+
+    .token.placeholder,
+    .token.variable {
+      color: #3d8fd1;
+    }
+
+    .token.deleted {
+      text-decoration: line-through;
+    }
+
+    .token.inserted {
+      border-bottom: 1px dotted #202746;
+      text-decoration: none;
+    }
+
+    .token.italic {
+      font-style: italic;
+    }
+
+    .token.important,
+    .token.bold {
+      font-weight: bold;
+    }
+
+    .token.important {
+      color: #c94922;
+    }
+
+    .token.entity {
+      cursor: help;
+    }
+
+    pre > code.highlight {
+      outline: 0.4em solid #c94922;
+      outline-offset: 0.4em;
+    }
+  }
+}

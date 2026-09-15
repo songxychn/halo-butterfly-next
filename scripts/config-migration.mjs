@@ -116,6 +116,10 @@ export function migrateConfig(input, from, defaults) {
       return;
     }
     const target = from === '2.0.5' ? legacyMappings[source] || source : source;
+    if ((source === 'code.enable_expander' || source === 'render.enable_code_expander') && typeof value === 'boolean') {
+      assign(source, target, value ? 'false' : 'none', 'converted');
+      return;
+    }
     if (source === 'style.font_family' && value !== 'null') {
       assign(source, target, 'null', 'reset-system-font'); return;
     }

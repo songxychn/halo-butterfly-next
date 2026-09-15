@@ -1,19 +1,40 @@
 /**
- * @date: 2024/1/24
- * @author: 小红
- * @fileName: header
- * @Description: 头部
+ * 对齐 Butterfly 5.7.0 source/css/_layout/head.styl
+ * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
+ *
+ * 上游 #page-header；Halo 模板是 <header class="header">，选择器并列。
+ * $light-blue → var(--theme)。第一屏 .above 对齐 full_page；无第一屏 .dp 对齐 not-top-img。
+ * 非首页顶图 400px/280px；文章顶图 400px/360px。#nav 定位仍在 nav.scss（.nav.style / .fixed / .active）。
+ * 深色 token 仍走 html[data-color-scheme='dark']，不改 data-theme。
+ * mask.header 仍仅 #Butterfly.mask-header .above::before。
+ * 不做 snackbar、移动侧栏完整交互、改 settings.yaml。
+ * 不复用作者卡片按钮设置键。#hide-aside-btn 仍走 hide_button。
  */
 @use "util";
 
+#page-header,
+.header {
+  position: relative;
+  width: 100%;
+  min-height: 60px;
+  box-sizing: border-box;
+  background-color: var(--theme);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all .5s;
+
+  /* 上游 &.not-top-img：无顶图时高度 60px、无背景。Halo 无第一屏时加 .dp */
+  &.dp,
+  &.not-top-img {
+    margin-bottom: 10px;
+    height: 60px;
+    background: none;
+  }
+}
+
 .header {
   @import "nav";
-
-  & {
-    position: relative;
-    width: 100%;
-    min-height: 60px;
-  }
 
   @keyframes above-down {
     0% {
@@ -27,38 +48,49 @@
     }
   }
 
-
   .above {
     position: relative;
     width: 100%;
-    height: 500px;
+    /* 上游 &.not-home-page：400px / maxWidth768 280px。首页 100vh 由 page/index.scss 与 inline top_img_height 覆盖 */
+    height: 400px;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     backface-visibility: hidden;
-    //animation: above-down .8s;
     transition: .35s;
-    background-blend-mode: multiply;
-    background-color: var(--above-mask-color);
+    max-width: 100%;
+    min-width: 0;
     @include util.flex-center;
+
+    @include util.useResponsive(util.$w-md) {
+      height: 280px;
+    }
 
     @include util.useThemeVar((
       above-mask-color:(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
     ));
 
-    //&::before {
-    //  position: absolute;
-    //  width: 100%;
-    //  height: 100%;
-    //  background-color: var(--above-mask-color);
-    //  content: '';
-    //}
+    /* 上游 head.styl：mask.header 且 :not(.not-top-img) → #page-header:before。
+       无第一屏时不渲染 .above，等价 not-top-img。 */
+    #Butterfly.mask-header &::before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: var(--above-mask-color);
+      content: '';
+      pointer-events: none;
+    }
 
     &-info {
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
       position: absolute;
       padding: 0 10px;
       text-align: center;
+      z-index: 1;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     &-title {
@@ -78,18 +110,39 @@
         above-title-color: (rgb(255, 255, 255), rgba(255, 255, 255, 0.9)),
       ));
 
-      @include util.useResponsive(util.$w-md) {
-        font-size: 1.85em;
-      }
+      /* 上游 head.styl #site-title：默认 1.85em，+minWidth768 才 2.85em。
+         mixin @at-root 写在 2.85em 之前时，编译后无查询的 2.85em 会盖掉移动端字号。 */
+      font-size: 1.85em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
+      line-height: 1.5;
+      font-weight: 700;
+      color: var(--above-title-color);
+      animation: above-title-scale 1s;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      @include util.text-clamp(3);
 
-      & {
-        font-size: 2.3em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
-        line-height: 1.5;
-        font-weight: 700;
-        color: var(--above-title-color);
-        animation: above-title-scale 1s;
+      @media (min-width: 768px) {
+        font-size: 2.85em;
       }
+    }
+
+  }
+
+  /* 上游 &.full_page：background-attachment: fixed。首页第一屏 */
+  .index & .above,
+  #Butterfly.index & .above {
+    background-attachment: fixed;
+  }
+
+  /* 上游 &.post-bg：400px / maxWidth768 360px */
+  .post & .above,
+  #Butterfly.post & .above {
+    height: 400px;
+
+    @include util.useResponsive(util.$w-md) {
+      height: 360px;
     }
   }
 
@@ -103,4 +156,3 @@
     }
   }
 }
-

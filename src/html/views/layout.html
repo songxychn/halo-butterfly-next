@@ -9,7 +9,12 @@
   th:fragment="layout (page,title,pin,header,main)"
 >
   <!DOCTYPE html>
-  <html lang="zh-CN" data-color-scheme="light" th:with="isDev = ${true ? #dates.createNow().time : ''} ">
+  <html
+    lang="zh-CN"
+    data-color-scheme="light"
+    th:classappend="${(theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (theme.config.aside.enable and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
+    th:with="isDev = ${true ? #dates.createNow().time : ''} "
+  >
   <head>
     <title th:text="${title}"></title>
     <meta charset="UTF-8"/>
@@ -34,7 +39,11 @@
   <body th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
   <script type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
 
-  <div id="Butterfly" th:class="${page}">
+  <div
+    id="Butterfly"
+    th:class="${page}"
+    th:classappend="${theme.config.mask?.header != false and theme.config.mask?.header != 'false'} ? ' mask-header'"
+  >
     <th:block th:replace="${header}"></th:block>
 
     <main class="main" th:classappend="${theme.config.aside.enable ? theme.config.aside.position : '' }" th:insert="${main}"></main>

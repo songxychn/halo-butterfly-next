@@ -17,8 +17,13 @@
       above-index-subtitle-color: (#eee, rgba(255, 255, 255, 0.7)),
     ));
 
+    .above-info {
+      top: var(--index-site-info-top, 50%);
+      transform: translateY(-50%);
+    }
+
     &-subtitle {
-      font-size: 1.5em;
+      font-size: 1.72em;
       line-height: 1.5;
       color: var(--above-index-subtitle-color);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
@@ -26,6 +31,25 @@
 
       @include util.useResponsive(util.$w-md) {
         font-size: 1.15em;
+      }
+    }
+
+    /* 对齐 Butterfly 5.7.0 head.styl #scroll-down；桌面与 390 都显示，不用 CSS 藏。 */
+    #scroll-down {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+
+      .scroll-down-effects {
+        position: relative;
+        font-size: 150%;
+        color: #eee;
+        text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, .15);
+        animation: scroll-down-effect 1.5s infinite;
       }
     }
   }
@@ -38,5 +62,22 @@
 
   @include components.essayList;
   @include components.pagination;
+}
+
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: .4;
+  }
+
+  50% {
+    top: -16px;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    opacity: .4;
+  }
 }
 
