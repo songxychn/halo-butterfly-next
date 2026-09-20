@@ -147,9 +147,8 @@
       width: 95%;
       margin: 14px auto 0;
       padding: 0;
-      // Dark text keeps the default blue/orange backgrounds readable.
-      --btn-color: #1f2d3d;
-      color: var(--btn-color, #fff);
+      // Preserve inherited custom colors; use readable text for the default blue.
+      color: var(--btn-color, #1f2d3d);
       background-color: var(--btn-bg, var(--theme));
       text-align: center;
       line-height: 2.4;
@@ -172,8 +171,6 @@
       }
 
       @at-root html[data-color-scheme='dark'] & {
-        --btn-color: #fff;
-        --btn-hover-color: #666;
         background-color: var(--btn-bg, #1f1f1f);
 
         &:hover {
