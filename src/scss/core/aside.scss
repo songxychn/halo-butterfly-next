@@ -147,7 +147,8 @@
       width: 95%;
       margin: 14px auto 0;
       padding: 0;
-      color: var(--btn-color, #fff);
+      // Preserve inherited custom colors; use readable text for the default blue.
+      color: var(--btn-color, #1f2d3d);
       background-color: var(--btn-bg, var(--theme));
       text-align: center;
       line-height: 2.4;
@@ -165,7 +166,7 @@
       }
 
       &:focus-visible {
-        outline: 2px solid var(--btn-bg, var(--theme));
+        outline: 2px solid #075985;
         outline-offset: 3px;
       }
 
