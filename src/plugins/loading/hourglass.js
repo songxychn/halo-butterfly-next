@@ -1,3 +1,5 @@
+import { whenContentReady } from '../../js/core/loading-ready.mjs';
+
 /**
  * @date: 2024/8/6
  * @author: 小红
@@ -103,4 +105,4 @@ const Loading = new Hourglass();
 
 Loading.start();
 
-window.addEventListener('load', () => Loading.destroy());
+whenContentReady(() => Loading.destroy());

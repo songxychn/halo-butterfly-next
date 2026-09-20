@@ -21,6 +21,7 @@
     showWordcount = ${wordcountOn and theme.config.wordcount?.post_wordcount != false},
     showMin2read = ${wordcountOn and theme.config.wordcount?.min2read != false},
     showPagePv = ${theme.config.busuanzi?.page_pv == true or theme.config.busuanzi?.page_pv == 'true'},
+    showCommentCount = ${theme.config.comments?.count == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and post.spec.allowComment},
     rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
     plain = ${rawHtml.replaceAll('(?s)<[^>]+>', '')},
     wordLen = ${#strings.length(plain)},
@@ -57,7 +58,7 @@
     </span>
   </li>
 
-  <li class="row" th:if="${showWordcount or showMin2read or showPagePv}">
+  <li class="row" th:if="${showWordcount or showMin2read or showPagePv or showCommentCount}">
     <span class="wp wordCount" th:if="${showWordcount}">
       <i class="fa-solid fa-list-ol"></i>
       <span th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
@@ -70,10 +71,14 @@
       <i class="far fa-eye fa-fw"></i>
       <span th:text="'阅读量 ' + ${post.stats.visit}"></span>
     </span>
+    <span class="wp comment-count" th:if="${showCommentCount}">
+      <i class="far fa-comments fa-fw" aria-hidden="true"></i>
+      <a href="#post-comment" th:text="'评论 ' + ${post.stats.comment}"></a>
+    </span>
   </li>
 </ul>
 
-<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page，tags 默认 false）控制；摘要受 index.index_post_content 控制。评论/点赞/预览对齐 comments.card_post_count 默认关闭，不在列表卡上输出。 */-->
+<!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page，tags 默认 false）控制；摘要受 index.index_post_content 控制。评论数由 comments.card_post_count 控制，默认关闭；不输出点赞/预览数。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
@@ -107,6 +112,10 @@
         <a class="title" th:href="${post.status.permalink}" th:title="${post.spec.title}" th:text="${post.spec.title}"></a>
         <div class="data">
           <div class="row">
+            <span class="wp comment-count" th:if="${theme.config.comments?.card_post_count == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and post.spec.allowComment}">
+              <i class="far fa-comments fa-fw" aria-hidden="true"></i>
+              <a th:href="${post.status.permalink + '#post-comment'}" th:text="'评论 ' + ${post.stats.comment}"></a>
+            </span>
             <span class="wp publishTime" th:if="${dateType != 'updated'}">
               <i class="far fa-calendar-alt fa-bolt"></i>
               <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发表于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>

@@ -42,7 +42,7 @@
       <article class="render" th:utext="${singlePage.content.content}"></article>
       <div
         id="post-comment"
-        th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && singlePage.spec.allowComment}"
+        th:if="${pluginFinder.available('PluginCommentWidget', '>=3.3.2') && haloCommentEnabled && singlePage.spec.allowComment}"
       >
         <div class="comment-head">
           <div class="comment-headline">
