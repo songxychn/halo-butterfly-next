@@ -79,7 +79,12 @@ try {
       await page.addScriptTag({ path: axePath });
       const button = page.locator("comment-form .form-submit");
       await button.scrollIntoViewIfNeeded();
-      const row = { width, mode, states: [] };
+      await page.waitForFunction(
+        (expected) => document.documentElement.dataset.colorScheme === expected,
+        mode,
+      );
+      const actualMode = await page.getAttribute("html", "data-color-scheme");
+      const row = { width, mode, actualMode, states: [] };
       for (const state of ["normal", "hover", "focus"]) {
         if (state === "hover") await button.hover();
         if (state === "focus") {

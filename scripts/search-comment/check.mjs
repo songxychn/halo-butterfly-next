@@ -155,6 +155,17 @@ async function fresh(width, mode, signedIn = false, route = "/") {
   page.setDefaultTimeout(12000);
   page.setDefaultNavigationTimeout(30000);
   await page.goto(base + route, { waitUntil: "domcontentloaded" });
+  await page.waitForFunction(
+    (expected) => document.documentElement.dataset.colorScheme === expected,
+    mode,
+  );
+  report.actualModes ??= [];
+  report.actualModes.push({
+    width,
+    expected: mode,
+    actual: await page.getAttribute("html", "data-color-scheme"),
+    route,
+  });
   return page;
 }
 async function comments(page) {
@@ -523,13 +534,23 @@ try {
   report.fatalError = e.message;
   throw e;
 } finally {
-  try {
-    for (const x of originalAllows) {
+  report.restoreErrors = [];
+  const restore = async (name, action) => {
+    try {
+      await action();
+    } catch (e) {
+      report.restoreErrors.push({ name, error: e.message });
+    }
+  };
+  for (const x of originalAllows)
+    await restore(x.path, async () => {
       const current = await api(x.path);
       current.spec.allowComment = x.value;
       await api(x.path, "PUT", current);
-    }
-    if (originalSystem) {
+      assert.equal((await api(x.path)).spec.allowComment, x.value);
+    });
+  if (originalSystem)
+    await restore("system-comment", async () => {
       const current = await api(systemPath);
       if (Object.hasOwn(originalSystem.data, "comment"))
         current.data.comment = originalSystem.data.comment;
@@ -539,8 +560,9 @@ try {
         (await api(systemPath)).data.comment,
         originalSystem.data.comment,
       );
-    }
-    for (const x of originalPlugins)
+    });
+  for (const x of originalPlugins)
+    await restore(x.name, async () => {
       await api(
         "/apis/api.console.halo.run/v1alpha1/plugins/" +
           x.name +
@@ -548,19 +570,13 @@ try {
         "PUT",
         { enable: x.enabled, async: false },
       );
-    for (const x of originalAllows)
-      assert.equal((await api(x.path)).spec.allowComment, x.value);
-    for (const x of originalPlugins)
       assert.equal(
         (await api("/apis/plugin.halo.run/v1alpha1/plugins/" + x.name)).spec
           .enabled,
         x.enabled,
       );
-    report.fixtureRestored = true;
-  } catch (e) {
-    report.fixtureRestored = false;
-    report.restoreError = e.message;
-  }
+    });
+  report.fixtureRestored = report.restoreErrors.length === 0;
   if (context) await context.close();
   await admin.close();
   await browser.close();
