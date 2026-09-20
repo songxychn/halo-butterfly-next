@@ -71,6 +71,35 @@ async function keyboardChecks(page, width) {
   return checks;
 }
 
+async function codeCollapseChecks(page) {
+  const block = page.locator('.code-toolbar').first();
+  const button = block.locator('.code-expander');
+  const original = await block.locator('pre code').textContent();
+  assert(await button.getAttribute('aria-expanded') === 'true', 'Fixture code must start expanded');
+  await button.click();
+  assert(await button.getAttribute('aria-expanded') === 'false', 'Code did not collapse');
+  assert(!await block.locator('pre').isVisible(), 'Collapsed code body remains visible');
+  await page.mouse.move(0, 0);
+  await page.keyboard.press('Tab');
+  assert(await block.evaluate(element => !element.matches(':hover') && !element.matches(':focus-within')), 'Toolbar visibility check must not retain hover or focus');
+  await page.waitForTimeout(350); // Let Prism's real opacity transition finish.
+  const toolbar = await block.locator('.toolbar').evaluate(element => {
+    const box = element.getBoundingClientRect(), parent = element.parentElement.getBoundingClientRect();
+    return { opacity: getComputedStyle(element).opacity, height: box.height,
+      contained: box.top >= parent.top && box.bottom <= parent.bottom };
+  });
+  assert(toolbar.opacity === '1' && toolbar.height > 0 && toolbar.contained, 'Collapsed toolbar is hidden or clipped');
+  await button.click({ timeout: 5000 }); // Real hit-testing; no forced click or DOM dispatch.
+  assert(await button.getAttribute('aria-expanded') === 'true' && await block.locator('pre').isVisible(), 'Pointer cannot reopen collapsed code');
+  await button.focus();
+  await page.keyboard.press('Enter');
+  assert(await button.getAttribute('aria-expanded') === 'false', 'Enter did not collapse code');
+  await page.keyboard.press('Space');
+  assert(await button.getAttribute('aria-expanded') === 'true' && await block.locator('pre').isVisible(), 'Space cannot reopen collapsed code');
+  assert(await block.locator('pre code').textContent() === original, 'Collapse changed code content');
+  return [{ name: 'code-collapse-pointer-keyboard-roundtrip', result: 'passed', toolbar }];
+}
+
 async function main() {
   for (const name of ['--lab-runtime', '--theme-package', '--theme-source-sha']) assert(options[name], `${name} is required`);
   const labRuntime = await realpath(options['--lab-runtime']);
@@ -189,6 +218,7 @@ async function main() {
           const bytes = await page.screenshot({ path: path.join(output, filename), fullPage: false, animations: 'allow' });
           result.screenshot = { path: filename, sha256: sha256(bytes) };
           if (route === '/') result.keyboard = await keyboardChecks(page, viewport.width);
+          if (route === '/archives/preview-1/') result.codeCollapse = await codeCollapseChecks(page);
         } catch (error) {
           result.failures.push(message(error));
           if (!result.screenshot) {
