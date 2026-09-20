@@ -124,6 +124,15 @@
   }
 
   &.closed {
+    // The pre is the only in-flow child. Keep room for the absolute toolbar
+    // after hiding it, including when Prism's toolbar CSS loads after ours.
+    min-height: 30px;
+
+    > .toolbar {
+      top: 0;
+      opacity: 1;
+    }
+
     pre[class*=language-],
     .code-expand-btn {
       display: none;
