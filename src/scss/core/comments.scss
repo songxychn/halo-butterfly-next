@@ -13,6 +13,15 @@
  * 不改 data-theme。不改 #pagination.pagination-post 的 150px。
  * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
  */
+@use "_util";
+
+// Official CommentWidget 3.x theme API. Keep white submit text readable,
+// including its 80% opacity hover state; do not reach into its Shadow DOM.
+@include util.useThemeVar((
+  halo-cw-primary-1-color: (#1e40af, #2563eb),
+  halo-cw-primary-3-color: (#1e40af, #93c5fd),
+));
+
 @keyframes tabshow {
   0% {
     transform: translateY(15px);
