@@ -51,13 +51,17 @@ async function keyboardChecks(page, width) {
   const initial = await page.getAttribute('html', 'data-color-scheme');
   await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForFunction(() => {
-    const button = document.querySelector('.switch-model');
+    const button = document.querySelector('#rightside-config');
     if (!button) return false;
     const r = button.getBoundingClientRect();
-    return r.x >= 0 && r.y >= 0 && r.right <= innerWidth && r.bottom <= innerHeight && getComputedStyle(button.parentElement).opacity === '1';
+    return r.x >= 0 && r.y >= 0 && r.right <= innerWidth && r.bottom <= innerHeight && Number(getComputedStyle(button.closest('#rightside')).opacity) > 0;
   });
+  await page.locator('#rightside-config').focus();
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => document.querySelector('#rightside-config-hide')?.classList.contains('show'));
   await settle(page);
-  const control = page.locator('.switch-model');
+  const control = page.locator('#darkmode');
+  assert(await control.isVisible(), 'Theme mode control is hidden after opening settings');
   const box = await control.boundingBox(), viewport = page.viewportSize();
   assert(box && box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width && box.y + box.height <= viewport.height, 'Theme mode control is outside viewport');
   await control.focus();
@@ -67,7 +71,7 @@ async function keyboardChecks(page, width) {
   await page.reload({ waitUntil: 'domcontentloaded' });
   await settle(page);
   assert(await page.getAttribute('html', 'data-color-scheme') === changed, 'Theme mode did not survive reload');
-  checks.push({ name: 'mode-keyboard-enter-and-storage-reload', result: 'passed', before: initial, after: changed });
+  checks.push({ name: 'settings-and-mode-keyboard-enter-and-storage-reload', result: 'passed', before: initial, after: changed });
   return checks;
 }
 
