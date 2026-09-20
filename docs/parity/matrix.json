@@ -31,7 +31,9 @@
     "editor-contract": "DEC-02：主题消费已渲染 HTML，不解析 Hexo `{% %}`。编辑器写入与 Butterfly 生成结果一致的 DOM；Hexo 源经离线转换。",
     "plugin-contract": "记录插件确切版本、启用、停用和缺失状态。",
     "asset-license": "资源来源、版本、分发许可和第三方声明核验。",
-    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；其余 DEC 在裁定前不减范围。"
+    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；其余 DEC 在裁定前不减范围。",
+    "official-search": "PluginSearchWidget 1.7.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；焦点恢复失败见 #313。",
+    "official-comments": "PluginCommentWidget 3.3.2 / Halo 2.26.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；完整验收范围见 docs/SEARCH-COMMENT-VALIDATION.md。"
   },
   "acceptanceProfiles": {
     "navigation": {
@@ -11082,14 +11084,15 @@
         "code": [
           "src/html/views/nav.html"
         ],
-        "finding": "DEC-01 已裁定。导航在插件可用时显示入口并调用 SearchWidget.open()；停用或未安装时无入口。待按修订后的 PLG-01/02 验收。"
+        "finding": "锁定官方 1.7.1；中文/英文/无结果/跳转/关闭与启停已测，但 Escape 后焦点未回入口（#313），真机软键盘和完整 PLG-01/02 未完成。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "synthetic-backend",
-        "scope-decision"
+        "scope-decision",
+        "official-search"
       ],
       "acceptance": {
         "profile": "search",
@@ -11106,7 +11109,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/313"
         ],
         "pullRequests": []
       },
@@ -12141,14 +12145,15 @@
           "src/html/post.html",
           "src/html/page.html"
         ],
-        "finding": "DEC-01 已裁定。文章/单页已按插件可用性与 allowComment 挂载 halo:comment。待按修订后的 PLG-01/03 验收。"
+        "finding": "锁定官方 3.3.2；匿名/登录合成维护者的提交回复、审核、故障提示和文章/单页/全局/插件开关已测；旧 3.1.2 编辑器名称通过升级解决。卸载、其他主题切换、完整角色/计数/真机仍未验收，保持未验证。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "synthetic-backend",
-        "scope-decision"
+        "scope-decision",
+        "official-comments"
       ],
       "acceptance": {
         "profile": "comments",
@@ -48305,14 +48310,15 @@
           "src/html/views/layout.html",
           "src/js/core/common.js"
         ],
-        "finding": "DEC-01 已裁定。已有入口调用，完整键盘、无结果、命中跳转和焦点恢复仍待验证。"
+        "finding": "锁定官方 1.7.1；中文/英文/无结果/跳转/关闭与启停已测，但 Escape 后焦点未回入口（#313），真机软键盘和完整 PLG-01/02 未完成。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "synthetic-backend",
-        "scope-decision"
+        "scope-decision",
+        "official-search"
       ],
       "acceptance": {
         "profile": "search",
@@ -48329,12 +48335,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/313"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "verification-failed"
     },
     {
       "id": "interaction:dual-comments",
