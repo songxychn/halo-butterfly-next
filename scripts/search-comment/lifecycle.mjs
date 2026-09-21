@@ -470,17 +470,27 @@ try {
       );
       for (const route of ["/", "/archives/preview-1/"])
         await view(route, async (page) => {
-          const target =
-            route === "/"
-              ? page.locator("ul.essay > li.item").filter({
-                  has: page.locator('a.title[href*="/archives/preview-1"]'),
-                })
-              : page.locator(".post-meta");
-          assert(
-            (await target.count()) > 0,
-            `Missing count target on ${route}`,
-          );
-          assert.equal(await target.locator(".comment-count").count(), 0);
+          const candidates = await page
+            .locator(route === "/" ? "ul.essay > li.item" : ".post-meta")
+            .all();
+          let matched = 0;
+          for (const target of candidates) {
+            if (route === "/") {
+              const href = await target.locator("a.title").getAttribute("href");
+              if (
+                new URL(href, base).pathname.replace(/\/$/, "") !==
+                "/archives/preview-1"
+              )
+                continue;
+            }
+            matched++;
+            assert.equal(
+              await target.locator(".comment-count").count(),
+              0,
+              `Comment count remains visible on ${route}`,
+            );
+          }
+          assert(matched > 0, `Missing count target on ${route}`);
         });
     }
     const postPath = "/apis/content.halo.run/v1alpha1/posts/preview-1";
