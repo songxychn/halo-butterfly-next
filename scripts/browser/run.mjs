@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
+import { observeSearchPage } from '../search-comment/diagnostics.mjs';
 import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, finishPage, readJson, writeJson, writeProgress, sha256 } from './support.mjs';
 
 const options = {};
@@ -186,6 +187,8 @@ async function main() {
         });
         await context.routeWebSocket('**/*', socket => { result.blockedRequests.push({ url: socket.url(), method: 'WEBSOCKET' }); socket.close(); });
         const page = await context.newPage();
+        const diagnostics = observeSearchPage(page, `${name}-${viewport.width}-${mode}-${route}`);
+        result.diagnostics = diagnostics.report;
         page.setDefaultTimeout(15000);
         page.on('pageerror', error => result.jsErrors.push({ message: message(error), stack: String(error.stack || '').slice(0, 5000) }));
         page.on('requestfailed', request => result.requestFailures.push({ url: request.url(), method: request.method(), reason: request.failure()?.errorText }));
@@ -225,6 +228,7 @@ async function main() {
           if (route === '/archives/preview-1/') result.codeCollapse = await codeCollapseChecks(page);
         } catch (error) {
           result.failures.push(message(error));
+          result.diagnostics.failure = await diagnostics.snapshot();
           if (!result.screenshot) {
             try {
               const filename = `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}-diagnostic.png`;
@@ -233,6 +237,7 @@ async function main() {
             } catch (captureError) { result.screenshotError = message(captureError); }
           }
         }
+        await diagnostics.finish(); // Bounded final state before the context closes.
         await finishPage(result, pending, () => context.close());
         await writeJson(path.join(output, `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.json`), result);
         console.log(`${name} ${viewport.width} ${mode} ${route} ${result.status}`);
