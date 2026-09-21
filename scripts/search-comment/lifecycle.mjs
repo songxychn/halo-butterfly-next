@@ -198,7 +198,7 @@ async function installPlugin(p) {
 async function view(
   route,
   verify,
-  { width = 390, mode = "light", delayImages = false } = {},
+  { width = 390, mode = "light", delayImages = false, whiteCover = false } = {},
 ) {
   const context = await browser.newContext({
     viewport: { width, height: 844 },
@@ -221,10 +221,19 @@ async function view(
   let releaseImages;
   const imageGate = new Promise((r) => (releaseImages = r));
   let heldImages = 0;
+  let whiteCoverRequests = 0;
   await context.route("**/*", async (r) => {
     const u = new URL(r.request().url());
     if (u.origin !== base) return r.abort();
     requests.push(u.pathname);
+    if (whiteCover && u.pathname === "/lab/cover.svg") {
+      whiteCoverRequests++;
+      return r.fulfill({
+        status: 200,
+        contentType: "image/svg+xml",
+        body: '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900"><path fill="white" d="M0 0h1600v900H0z"/></svg>',
+      });
+    }
     if (delayImages && r.request().resourceType() === "image") {
       heldImages++;
       await imageGate;
@@ -249,6 +258,9 @@ async function view(
       errors,
       get heldImages() {
         return heldImages;
+      },
+      get whiteCoverRequests() {
+        return whiteCoverRequests;
       },
     });
     assert.deepEqual(errors, []);
@@ -560,51 +572,54 @@ try {
     const results = [];
     for (const width of [1440, 390])
       for (const mode of ["light", "dark"])
-        for (const route of ["/", "/archives/preview-1/"]) {
-          await view(
-            route,
-            async (page) => {
-              await page.locator(".comment-count").first().waitFor();
-              await page.addScriptTag({
-                path: path.join(axeRoot, "axe.min.js"),
-              });
-              const audit = await page.evaluate(() =>
-                window.axe.run(
-                  { include: [[".comment-count"]] },
-                  { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } },
-                ),
-              );
-              const name = `count-a11y-${width}-${mode}-${route === "/" ? "home" : "post"}`;
-              await writeFile(
-                path.join(output, name + ".json"),
-                JSON.stringify(audit, null, 2) + "\n",
-              );
-              await page
-                .locator(".comment-count")
-                .first()
-                .scrollIntoViewIfNeeded();
-              await page.screenshot({ path: path.join(output, name + ".png") });
-              results.push({
-                width,
-                mode,
-                route,
-                violations: audit.violations.length,
-                incomplete: audit.incomplete.length,
-              });
-              assert.equal(
-                audit.violations.length,
-                0,
-                JSON.stringify(
-                  audit.violations.map((v) => ({
-                    id: v.id,
-                    nodes: v.nodes.map((n) => n.failureSummary),
-                  })),
-                ),
-              );
-            },
-            { width, mode },
-          );
-        }
+        for (const route of ["/", "/archives/preview-1/"])
+          for (const whiteCover of [false, true]) {
+            await view(
+              route,
+              async (page, info) => {
+                const link = page.locator(".comment-count > a").first();
+                await link.waitFor();
+                await link.scrollIntoViewIfNeeded();
+                await page.waitForLoadState("load");
+                await page.evaluate(() => document.fonts.ready);
+                if (whiteCover)
+                  assert(info.whiteCoverRequests > 0, "White cover fixture was not requested");
+                await page.addScriptTag({ path: path.join(axeRoot, "axe.min.js") });
+                for (const state of ["normal", "hover", "focus"]) {
+                  if (state === "hover") await link.hover();
+                  if (state === "focus") {
+                    await page.mouse.move(0, 0);
+                    await link.focus();
+                    await page.keyboard.press("Shift+Tab");
+                    await page.keyboard.press("Tab");
+                    assert(await link.evaluate((el) => el === document.activeElement && el.matches(":focus-visible")));
+                  }
+                  const style = await link.evaluate((el) => {
+                    const s = getComputedStyle(el);
+                    return { color: s.color, background: s.backgroundColor, decoration: s.textDecorationLine,
+                      outlineStyle: s.outlineStyle, outlineWidth: s.outlineWidth, outlineOffset: s.outlineOffset };
+                  });
+                  assert(style.decoration.includes("underline"), "Count link needs a persistent non-color cue");
+                  if (state === "focus") {
+                    assert.notEqual(style.outlineStyle, "none");
+                    assert(parseFloat(style.outlineWidth) >= 2);
+                  }
+                  const audit = await page.evaluate(() => window.axe.run(
+                    { include: [[".comment-count"]] },
+                    { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } },
+                  ));
+                  const name = `count-a11y-${width}-${mode}-${route === "/" ? "home" : "post"}-${whiteCover ? "white-cover" : "fixture-cover"}-${state}`;
+                  await writeFile(path.join(output, name + ".json"), JSON.stringify(audit, null, 2) + "\n");
+                  await page.screenshot({ path: path.join(output, name + ".png") });
+                  results.push({ width, mode, route, whiteCover, state, style,
+                    violations: audit.violations.length, incomplete: audit.incomplete.length });
+                  assert.equal(audit.violations.length, 0, JSON.stringify(audit.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.failureSummary) }))));
+                  assert.equal(audit.incomplete.length, 0, JSON.stringify(audit.incomplete.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.failureSummary) }))));
+                }
+              },
+              { width, mode, whiteCover },
+            );
+          }
     return results;
   });
   await check("theme-switch-preserves-comment-subjects", async () => {
