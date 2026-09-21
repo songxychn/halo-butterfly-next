@@ -3,7 +3,7 @@
  * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
  *
  * 上游 #footer；Halo 模板是 <footer class="footer">，选择器并列。
- * $light-blue → var(--theme)；--light-grey / --mark-bg 缺省回退上游值。
+ * $light-blue → var(--theme)；文字使用独立不透明前景，保留 --mark-bg 遮罩。
  * 深色 token 仍走 html[data-color-scheme='dark']，不改 data-theme。
  * 保留 #5 下划线与 :focus-visible。390 保持 overflow-wrap。
  * 不做嵌套列 DOM、snackbar、item_order、改 settings.yaml。
@@ -22,11 +22,29 @@
   background-attachment: scroll;
   background-position: bottom;
   background-size: cover;
+  // Keep the brand background; opaque text must contrast in both color schemes.
+  --footer-foreground: #102a43;
 
   &.footer--bg {
+    --footer-foreground: #ffffff;
     background-size: cover;
     background-position: bottom;
     background-attachment: scroll;
+
+    // Image brightness and the optional global mask cannot guarantee readable text.
+    .copyright,
+    .framework-info,
+    .footer_custom_text,
+    .footer-flex-item,
+    .icp a,
+    .police a {
+      color: var(--footer-foreground);
+      background-color: #333333;
+      border-radius: 3px;
+      padding: 0.15em 0.3em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
   }
 
   /* 上游：footer_img != false && mask.footer → #footer:before var(--mark-bg) */
@@ -42,7 +60,7 @@
 
   > * {
     position: relative;
-    color: var(--light-grey, #eeeeee);
+    color: var(--footer-foreground);
   }
 
   &.footer--mask > * {
@@ -64,17 +82,17 @@
   }
 
   a {
-    color: var(--light-grey, #eeeeee);
+    color: var(--footer-foreground);
     text-decoration: underline;
     text-underline-offset: 0.2em;
     transition: all 0.3s ease-in-out;
 
     &:hover {
-      color: var(--theme);
+      color: inherit;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--light-grey, #eeeeee);
+      outline: 2px solid currentColor;
       outline-offset: 3px;
     }
   }

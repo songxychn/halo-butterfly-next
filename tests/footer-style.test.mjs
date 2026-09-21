@@ -31,11 +31,15 @@ test('实验室默认 --theme 对齐 Butterfly #49b1f5；暗色页脚不改成�
   assert.match(scss, /background-color:\s*var\(--theme\)/);
 });
 
-test('上游配色：theme 背景、light-grey 文字、mark-bg 遮罩、hover', () => {
+test('页脚保留品牌背景，文字使用独立不透明前景并保留图片遮罩', () => {
   assert.match(scss, /background-color:\s*var\(--theme\)/);
-  assert.match(scss, /color:\s*var\(--light-grey, #eeeeee\)/);
+  assert.match(scss, /--footer-foreground:\s*#102a43/);
+  assert.match(scss, /\.footer--bg\s*\{\s*--footer-foreground:\s*#ffffff/);
+  assert.match(scss, /color:\s*var\(--footer-foreground\)/);
+  assert.match(scss, /background-color:\s*#333333/);
   assert.match(scss, /background-color:\s*var\(--mark-bg, rgba\(0, 0, 0, 0\.5\)\)/);
-  assert.match(scss, /a[\s\S]*&:hover[\s\S]*color:\s*var\(--theme\)/);
+  assert.match(scss, /a[\s\S]*&:hover[\s\S]*color:\s*inherit/);
+  assert.match(scss, /outline:\s*2px solid currentColor/);
   assert.match(scss, /background-attachment:\s*scroll/);
   assert.match(scss, /background-position:\s*bottom/);
   assert.match(scss, /background-size:\s*cover/);
