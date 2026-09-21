@@ -119,8 +119,9 @@ async function poll(fn, label) {
 async function check(name, fn) {
   try {
     const detail = await fn();
-    report.checks.push({ name, result: "passed", detail });
-    console.log("PASS", name);
+    const result = detail?.needsManualReview ? "needs-manual-review" : "passed";
+    report.checks.push({ name, result, detail });
+    console.log(result === "passed" ? "PASS" : "REVIEW", name);
   } catch (e) {
     report.checks.push({ name, result: "failed", error: e.message });
     console.log("FAIL", name, e.message);
@@ -198,7 +199,7 @@ async function installPlugin(p) {
 async function view(
   route,
   verify,
-  { width = 390, mode = "light", delayImages = false } = {},
+  { width = 390, mode = "light", delayImages = false, whiteCover = false } = {},
 ) {
   const context = await browser.newContext({
     viewport: { width, height: 844 },
@@ -221,10 +222,19 @@ async function view(
   let releaseImages;
   const imageGate = new Promise((r) => (releaseImages = r));
   let heldImages = 0;
+  let whiteCoverRequests = 0;
   await context.route("**/*", async (r) => {
     const u = new URL(r.request().url());
     if (u.origin !== base) return r.abort();
     requests.push(u.pathname);
+    if (whiteCover && u.pathname === "/lab/cover.svg") {
+      whiteCoverRequests++;
+      return r.fulfill({
+        status: 200,
+        contentType: "image/svg+xml",
+        body: '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900"><path fill="white" d="M0 0h1600v900H0z"/></svg>',
+      });
+    }
     if (delayImages && r.request().resourceType() === "image") {
       heldImages++;
       await imageGate;
@@ -249,6 +259,9 @@ async function view(
       errors,
       get heldImages() {
         return heldImages;
+      },
+      get whiteCoverRequests() {
+        return whiteCoverRequests;
       },
     });
     assert.deepEqual(errors, []);
@@ -560,52 +573,91 @@ try {
     const results = [];
     for (const width of [1440, 390])
       for (const mode of ["light", "dark"])
-        for (const route of ["/", "/archives/preview-1/"]) {
-          await view(
-            route,
-            async (page) => {
-              await page.locator(".comment-count").first().waitFor();
-              await page.addScriptTag({
-                path: path.join(axeRoot, "axe.min.js"),
-              });
-              const audit = await page.evaluate(() =>
-                window.axe.run(
-                  { include: [[".comment-count"]] },
-                  { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } },
-                ),
-              );
-              const name = `count-a11y-${width}-${mode}-${route === "/" ? "home" : "post"}`;
-              await writeFile(
-                path.join(output, name + ".json"),
-                JSON.stringify(audit, null, 2) + "\n",
-              );
-              await page
-                .locator(".comment-count")
-                .first()
-                .scrollIntoViewIfNeeded();
-              await page.screenshot({ path: path.join(output, name + ".png") });
-              results.push({
-                width,
-                mode,
-                route,
-                violations: audit.violations.length,
-                incomplete: audit.incomplete.length,
-              });
-              assert.equal(
-                audit.violations.length,
-                0,
-                JSON.stringify(
-                  audit.violations.map((v) => ({
-                    id: v.id,
-                    nodes: v.nodes.map((n) => n.failureSummary),
-                  })),
-                ),
-              );
-            },
-            { width, mode },
-          );
-        }
-    return results;
+        for (const route of ["/", "/archives/preview-1/"])
+          for (const whiteCover of [false, true]) {
+            await view(
+              route,
+              async (page, info) => {
+                const link = page.locator(".comment-count > a").first();
+                await link.waitFor();
+                await link.scrollIntoViewIfNeeded();
+                await page.waitForLoadState("load");
+                await page.evaluate(() => document.fonts.ready);
+                await page.evaluate(async () => {
+                  await Promise.all(document.getAnimations()
+                    .filter(a => Number.isFinite(a.effect?.getComputedTiming().endTime))
+                    .map(a => a.finished.catch(() => {})));
+                });
+                if (whiteCover)
+                  assert(info.whiteCoverRequests > 0, "White cover fixture was not requested");
+                await page.addScriptTag({ path: path.join(axeRoot, "axe.min.js") });
+                for (const state of ["normal", "hover", "focus"]) {
+                  if (state === "hover") await link.hover();
+                  if (state === "focus") {
+                    await page.mouse.move(0, 0);
+                    await link.focus();
+                    await page.keyboard.press("Shift+Tab");
+                    await page.keyboard.press("Tab");
+                    assert(await link.evaluate((el) => el === document.activeElement && el.matches(":focus-visible")));
+                  }
+                  await link.evaluate(async (el) => {
+                    getComputedStyle(el).color;
+                    await Promise.all(el.getAnimations()
+                      .filter(a => Number.isFinite(a.effect?.getComputedTiming().endTime))
+                      .map(a => a.finished.catch(() => {})));
+                  });
+                  const style = await link.evaluate((el) => {
+                    const s = getComputedStyle(el);
+                    return { color: s.color, background: s.backgroundColor, decoration: s.textDecorationLine,
+                      outlineStyle: s.outlineStyle, outlineWidth: s.outlineWidth, outlineOffset: s.outlineOffset };
+                  });
+                  assert.equal(style.color, "rgb(255, 255, 255)");
+                  assert.equal(style.background, "rgb(51, 51, 51)");
+                  assert(style.decoration.includes("underline"), "Count link needs a persistent non-color cue");
+                  if (state === "focus") {
+                    assert.notEqual(style.outlineStyle, "none");
+                    assert(parseFloat(style.outlineWidth) >= 2);
+                  }
+                  const paint = await page.locator(".comment-count > a").evaluateAll(links => links.map(el => {
+                    const s = getComputedStyle(el), effects = [];
+                    for (let parent = el; parent; parent = parent.parentElement) {
+                      const p = getComputedStyle(parent);
+                      if (p.opacity !== "1" || p.filter !== "none" || p.mixBlendMode !== "normal")
+                        effects.push({ tag: parent.tagName, className: parent.className,
+                          opacity: p.opacity, filter: p.filter, mixBlendMode: p.mixBlendMode });
+                    }
+                    const above = el.closest(".above"), info = el.closest(".above-info");
+                    return { text: el.textContent, href: el.getAttribute("href"), color: s.color,
+                      background: s.backgroundColor, backgroundImage: s.backgroundImage, effects,
+                      rect: el.getBoundingClientRect().toJSON(),
+                      aboveMask: above ? { color: getComputedStyle(above, "::before").backgroundColor,
+                        zIndex: getComputedStyle(above, "::before").zIndex } : null,
+                      infoZIndex: info ? getComputedStyle(info).zIndex : null };
+                  }));
+                  for (const item of paint) {
+                    assert.equal(item.color, "rgb(255, 255, 255)");
+                    assert.equal(item.background, "rgb(51, 51, 51)");
+                    assert.equal(item.backgroundImage, "none");
+                    assert.deepEqual(item.effects, []);
+                  }
+                  const audit = await page.evaluate(() => window.axe.run(
+                    { include: [[".comment-count"]] },
+                    { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } },
+                  ));
+                  const name = `count-a11y-${width}-${mode}-${route === "/" ? "home" : "post"}-${whiteCover ? "white-cover" : "fixture-cover"}-${state}`;
+                  await writeFile(path.join(output, name + ".json"), JSON.stringify(audit, null, 2) + "\n");
+                  await page.screenshot({ path: path.join(output, name + ".png") });
+                  await link.screenshot({ path: path.join(output, name + "-link.png") });
+                  results.push({ width, mode, route, whiteCover, state, style, paint,
+                    violations: audit.violations.length, incomplete: audit.incomplete.length,
+                    reviewItems: audit.incomplete.map(v => ({ id: v.id, nodes: v.nodes.map(n => ({ target: n.target, reason: n.failureSummary })) })) });
+                  assert.equal(audit.violations.length, 0, JSON.stringify(audit.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.failureSummary) }))));
+                }
+              },
+              { width, mode, whiteCover },
+            );
+          }
+    return { states: results, needsManualReview: results.some(r => r.incomplete > 0) };
   });
   await check("theme-switch-preserves-comment-subjects", async () => {
     await api(themePath + "theme-earth/activation", "PUT");
@@ -787,7 +839,9 @@ try {
     report.restoreErrors.length ||
     report.checks.some((x) => x.result === "failed")
       ? "failed"
-      : "passed-tested-scope";
+      : report.checks.some(x => x.result === "needs-manual-review")
+        ? "needs-manual-review"
+        : "passed-tested-scope";
   await save();
 }
-process.exitCode = report.result === "failed" ? 1 : 0;
+process.exitCode = report.result === "failed" ? 1 : report.result === "needs-manual-review" ? 2 : 0;

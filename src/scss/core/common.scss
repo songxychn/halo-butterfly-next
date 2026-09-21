@@ -39,6 +39,29 @@ a:hover {
   color: var(--link-hover-color);
 }
 
+// Count links share a readable surface even on article and card cover images.
+// Match the metadata containers so their inherited/hover colors cannot erase it.
+#Butterfly :is(.essay > .item > .info > .data, .post-meta) .comment-count > a {
+  display: inline-block;
+  padding: 0 .25em;
+  border-radius: .2em;
+  color: #fff;
+  background-color: #333;
+  text-decoration: underline;
+  text-underline-offset: .15em;
+
+  &:hover {
+    color: #fff;
+    text-decoration-thickness: 2px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    text-decoration-thickness: 2px;
+  }
+}
+
 // 为空
 .empty {
   @include util.flex-center;
