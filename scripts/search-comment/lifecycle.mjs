@@ -128,13 +128,34 @@ async function check(name, fn) {
   await save();
 }
 async function enabled(name, value) {
-  await api(`${consolePath}/${name}/plugin-state`, "PUT", {
-    enable: value,
-    async: false,
-  });
+  // Installation also starts enabled plugins asynchronously. Avoid a duplicate
+  // state write; retry only idempotent state requests that conflict with Halo's reconciler.
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const current = await api(`${resource}/${name}`);
+    if (current.spec.enabled === value) break;
+    const response = await admin.request.put(
+      base + `${consolePath}/${name}/plugin-state`,
+      {
+        data: { enable: value, async: false },
+        headers: { "X-CSRF-TOKEN": auth.csrf },
+        maxRedirects: 0,
+      },
+    );
+    if (response.status() === 409 && attempt < 4) {
+      report.stateWriteConflicts ??= [];
+      report.stateWriteConflicts.push({ name, value, attempt: attempt + 1 });
+      await new Promise((resolve) => setTimeout(resolve, 250));
+      continue;
+    }
+    assert(response.ok(), `Plugin state ${name}: HTTP ${response.status()}`);
+    break;
+  }
   await poll(async () => {
     const x = await api(`${resource}/${name}`);
-    return x.spec.enabled === value && (!value || x.status.phase === "STARTED");
+    return (
+      x.spec.enabled === value &&
+      (value ? x.status.phase === "STARTED" : x.status.phase !== "STARTED")
+    );
   }, "Plugin state did not settle");
 }
 async function snapshotComments() {
