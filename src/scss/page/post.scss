@@ -109,6 +109,39 @@
     }
   }
 
+  // A local surface keeps small metadata readable even when the optional
+  // full-header mask is off. 65% black over white is the brightest backdrop;
+  // opaque white text still has 6.98:1 contrast in either color scheme.
+  .header .above .post-meta {
+    --post-meta-color: #fff;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: .35em .65em;
+    border-radius: .35em;
+    background-color: rgba(0, 0, 0, .65);
+    color: var(--post-meta-color);
+
+    a {
+      color: var(--post-meta-color);
+    }
+
+    .lk {
+      text-decoration: underline;
+      text-underline-offset: .15em;
+
+      &:hover {
+        color: var(--post-meta-color);
+        text-decoration-thickness: 2px;
+      }
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+
   .content > .post-info {
     margin-bottom: 1.2rem;
     max-width: 100%;
