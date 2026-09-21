@@ -8,6 +8,7 @@ import $ from 'jquery';
 import Clipboard from 'clipboard';
 import {useToBool} from '../core/_util';
 import {resolveCodeShrink} from '../core/code-shrink.mjs';
+import { bindCodeScrollFocus } from '../core/code-scroll-focus.mjs';
 
 export default class codeBlock {
   name = 'codeBlock';
@@ -22,6 +23,7 @@ export default class codeBlock {
     if (this.#flag('enable_code')) {
       this.#code();
       this.#codeToolbar();
+      bindCodeScrollFocus(this.#renderDom[0]);
     }
   }
 

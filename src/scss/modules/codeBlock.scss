@@ -298,3 +298,9 @@ html[data-color-scheme='dark'] .code-toolbar.code-fullpage .toolbar .custom-item
     color: inherit;
   }
 }
+
+// Inset so overflow clipping cannot hide the keyboard indicator.
+article.render pre > code[tabindex='0']:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -3px;
+}

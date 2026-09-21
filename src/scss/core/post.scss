@@ -11,6 +11,10 @@
  * snackbar、改 settings.yaml。不复用作者卡片按钮设置键。
  * #hide-aside-btn 仍走 hide_button。不改 #pagination.pagination-post。
  */
+// Text links use their own contrast-safe palette; decorative brand color is unchanged.
+:root { --article-link-color: #005c8a; }
+html[data-color-scheme='dark'] { --article-link-color: #70caff; }
+
 .container,
 .article-container,
 .post-content,
@@ -21,14 +25,16 @@
   min-width: 0;
 
   a {
-    color: var(--theme);
+    text-decoration: underline;
+    text-underline-offset: .18em;
+    color: var(--article-link-color);
 
     &:hover {
       text-decoration: underline;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--theme);
+      outline: 2px solid var(--article-link-color);
       outline-offset: 3px;
     }
   }
@@ -99,7 +105,7 @@
     max-width: 100%;
     border: 1px solid var(--theme);
     border-radius: 12px;
-    color: var(--theme);
+    color: var(--article-link-color);
     font-size: .85em;
     transition: all .2s ease-in-out;
     overflow-wrap: anywhere;
@@ -107,12 +113,12 @@
     box-sizing: border-box;
 
     &:hover {
-      background: var(--theme);
+      background: #005c8a;
       color: var(--white, #fff);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--theme);
+      outline: 2px solid var(--article-link-color);
       outline-offset: 3px;
     }
   }
@@ -178,7 +184,7 @@
 .post .post-copyright-meta,
 #post .copy-right .name,
 .post .copy-right .name {
-  color: var(--theme);
+  color: var(--article-link-color);
   font-weight: bold;
 
   i {
@@ -204,7 +210,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--theme);
+      outline: 2px solid var(--article-link-color);
       outline-offset: 3px;
     }
   }
