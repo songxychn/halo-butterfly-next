@@ -42,6 +42,7 @@
 
       span {
         background-color: transparent;
+        color: var(--code-toolbar-color);
         box-shadow: none;
       }
     }
@@ -52,7 +53,7 @@
       user-select: none;
       font-size: 1rem;
       right: 12px;
-      color: #999;
+      color: var(--code-toolbar-color);
       pointer-events: all;
 
       > button {
@@ -85,15 +86,15 @@
         z-index: 2;
         padding: 2px 6px;
         border-radius: 3px;
-        background: var(--code-loading-background-color, #fff);
+        background: var(--code-feedback-background);
         font-size: 12px;
         line-height: 1.4;
         white-space: nowrap;
         pointer-events: none;
-        color: #4c4948;
+        color: var(--code-toolbar-color);
 
         &.is-error {
-          color: #d03050;
+          color: var(--code-color);
         }
       }
     }
@@ -174,7 +175,7 @@
 
       .custom-item {
         .fullpage-button {
-          color: #4c4948;
+          color: var(--code-toolbar-color);
           opacity: 1;
 
           i {
@@ -220,7 +221,7 @@
       padding: 6px 0;
       border: 0;
       background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .92));
-      color: #999;
+      color: var(--code-toolbar-color);
       cursor: var(--cursor-pointer);
     }
   }
@@ -303,4 +304,8 @@ html[data-color-scheme='dark'] .code-toolbar.code-fullpage .toolbar .custom-item
 article.render pre > code[tabindex='0']:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: -3px;
+}
+
+.code-toolbar .line-numbers-rows > span::before {
+  color: var(--code-toolbar-color);
 }
