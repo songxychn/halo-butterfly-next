@@ -4,6 +4,7 @@ import { readFile, writeFile, mkdir, stat, realpath } from "node:fs/promises";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
+import { observeSearchPage } from "./diagnostics.mjs";
 import {
   REPO,
   RUNTIME,
@@ -86,14 +87,17 @@ const save = () =>
     path.join(output, "report.json"),
     JSON.stringify(report, null, 2) + "\n",
   );
-async function check(name, fn) {
+async function check(name, fn, diagnostics) {
   try {
     const detail = await fn();
     report.checks.push({ name, result: "passed", detail });
     console.log("PASS", name);
     return detail;
   } catch (e) {
-    report.checks.push({ name, result: "failed", error: e.message });
+    report.checks.push({
+      name, result: "failed", error: e.message,
+      ...(diagnostics ? { diagnostics: await diagnostics.snapshot() } : {}),
+    });
     console.log("FAIL", name, e.message.slice(0, 150));
   } finally {
     await save();
@@ -220,6 +224,9 @@ try {
     for (const mode of ["light", "dark"]) {
       const label = `search-${width}-${mode}`;
       let page = await fresh(width, mode);
+      const diagnostics = observeSearchPage(page, label);
+      report.searchDiagnostics ??= [];
+      report.searchDiagnostics.push(diagnostics.report);
       await check(label + "-query-and-navigation", async () => {
         await page.waitForFunction(
           () => typeof window.SearchWidget?.open === "function",
@@ -263,7 +270,7 @@ try {
             await trigger.evaluate((e) => document.activeElement === e),
             "Escape focus did not return to search trigger",
           );
-        });
+        }, diagnostics);
         await trigger.focus();
         await page.keyboard.press("Enter");
         await input.waitFor();
@@ -278,7 +285,7 @@ try {
             await trigger.evaluate((e) => document.activeElement === e),
             "Backdrop focus did not return to search trigger",
           );
-        });
+        }, diagnostics);
         await trigger.click();
         await input.waitFor();
         await input.fill("排版");
@@ -306,7 +313,9 @@ try {
           escapeClose: true,
           backdropClose: true,
         };
-      });
+      }, diagnostics);
+      await diagnostics.finish();
+      await save();
     }
   await commentSetting({
     enable: true,
