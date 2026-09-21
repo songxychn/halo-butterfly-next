@@ -201,9 +201,9 @@ async function inspectPage(browser, base, route, variant, output, index, package
       if (route.site === 'halo' && ['photos', 'moments'].includes(route.kind)) await paginationChecks(page, base, route, result, output, index);
       if (route.kind === 'photos' && route.site === 'halo' && result.dom.count > 0) {
         try {
-          const trigger = page.locator('.content [data-fancybox]').first(); await trigger.click();
-          await page.locator('.fancybox__container').waitFor({ state: 'visible' });
-          await page.keyboard.press('Escape'); await page.locator('.fancybox__container').waitFor({ state: 'detached' });
+          const trigger = page.locator('.content .theme-lightbox-trigger').first(); await trigger.click();
+          await page.locator('.theme-image-viewer').waitFor({ state: 'visible' });
+          await page.keyboard.press('Escape'); await page.locator('.theme-image-viewer').waitFor({ state: 'detached' });
           result.interactions.push({ name: 'lightbox-open-escape-close', result: 'passed' });
         } catch (error) { result.failures.push('Photo lightbox: ' + error.message); }
       }
