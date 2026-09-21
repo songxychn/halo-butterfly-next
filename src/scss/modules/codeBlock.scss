@@ -309,3 +309,9 @@ article.render pre > code[tabindex='0']:focus-visible {
 .code-toolbar .line-numbers-rows > span::before {
   color: var(--code-toolbar-color);
 }
+
+// Override Prism's later div.code-toolbar > .toolbar opacity rule, including
+// while pointer/focus changes. Labels must not fade into the code background.
+article.render .code-toolbar > .toolbar {
+  opacity: 1;
+}
