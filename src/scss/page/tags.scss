@@ -29,6 +29,17 @@
     justify-content: center;
 
     .link {
+      color: var(--tag-color-light, #1d4ed8);
+
+      @at-root html[data-color-scheme='dark'] & {
+        color: var(--tag-color-dark, #93c5fd);
+      }
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+      }
+
       position: relative;
       transition: transform .2s ease-in-out;
       font-size: 1.5em;

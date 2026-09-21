@@ -7,7 +7,8 @@
 
 import App from '../core/App';
 import * as echarts from 'echarts';
-import {useChart, useRandomColor} from '../core/_util';
+import {useChart} from '../core/_util';
+import {tagCloudColors} from '../core/tag-cloud-colors.mjs';
 import {LineChart, GaugeChart} from 'echarts/charts';
 import {CanvasRenderer} from 'echarts/renderers';
 import {TitleComponent, TooltipComponent, GridComponent, DataZoomComponent} from 'echarts/components';
@@ -40,7 +41,9 @@ class Tags {
 
       const count = Number(dom.getAttribute('data-postCount') || 0);
 
-      dom.style.color = useRandomColor();
+      const colors = tagCloudColors(i);
+      dom.style.setProperty('--tag-color-light', colors.light);
+      dom.style.setProperty('--tag-color-dark', colors.dark);
 
       source.push([dom.innerText, count]);
     }
