@@ -6,6 +6,8 @@ v1.1 修订：[#46](https://github.com/songxychn/halo-butterfly-next/issues/46) 
 
 v1.2 修订：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45) 裁定 DEC-02。1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS，主题不解析 `{% %}`；series/flink 活数据延期 1.1。DEC-01 的 `not-applicable` 不扩大到标签能力。
 
+阶段安排补充（2026-09-21）：维护者确认先以[公开测试版](PUBLIC-ALPHA.md)为近期目标，允许在完整 1.0 验收之前准备范围明确的公开 alpha。该阶段使用独立发布门禁；本合同的 1.0 完成条件和矩阵状态不因此变化。候选准备完成后，实际公开、历史处理及发布渠道仍交维护者确认。
+
 ## 1. 目标、基准与授权边界
 
 | 对象 | 固定值或完成要求 |

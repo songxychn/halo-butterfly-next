@@ -6,6 +6,8 @@ Butterfly 的 Halo 社区维护版，基于 [小红的 Halo 移植项目](https:
 
 持续对齐工作见 [完整功能矩阵](docs/parity/MATRIX.md)、[双站对照环境](docs/COMPARISON-LAB.md)、[1.0 工程验收合同](docs/RELEASE-ACCEPTANCE.md)及[进度记录](docs/PROGRESS.md)。矩阵中的未验证项不代表已支持；私有 RC 与正式 1.0 发布分别验收。
 
+近期目标为[公开测试版](docs/PUBLIC-ALPHA.md)：优先完成核心页面、搜索评论、安装升级与回退的集中验收，再开放试用。当前仍为私有预览；公开 alpha 的发布准备不等于完整 5.7.0 对齐或稳定 1.0 验收完成。
+
 ## 效果预览
 
 以下截图来自 Halo **2.26.1** 的真实运行页面，使用合成测试内容和主题默认封面。当前通过私有仓库提供预览，仓库及安装包仅对获授权的 GitHub 用户可见。
