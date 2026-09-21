@@ -6,7 +6,8 @@
 | Hexo Butterfly 5.7.0 | jerryc127/hexo-theme-butterfly；已有样式改写及繁简字表提取，未直接导入其构建系统 | Apache-2.0；固定原文及本项目归属说明随源码和 ZIP 分发，见 [改写来源清单](../third-party-licenses/UPSTREAM-ATTRIBUTION.txt) |
 | normalize.css 8.0.1 | 从固定 Hexo 源码继承，改为 SCSS 并限定 `.container` 选择器 | MIT；保留 Nicolas Gallagher / Jonathan Neal 版权及[官方许可原文](../third-party-licenses/normalize-8.0.1-LICENSE.md)，不改标 Apache-2.0 |
 | Font Awesome Free 6.7.2 | npm `@fortawesome/fontawesome-free`，本地图标 | 图标 CC BY 4.0、字体 SIL OFL 1.1、代码 MIT；包内附上游许可证 |
-| Prism 1.29.0 | 原主题 vendored JS/CSS，高亮及代码主题 | MIT；包内补入同版本上游 LICENSE |
+| Prism 1.29.0 核心 | 原主题 vendored JS/CSS，高亮核心 | MIT，Copyright (c) 2012 Lea Verou；包内保留核心 LICENSE |
+| Prism Themes 扩展配色 | `src/plugins/prism/themes/` 的 36 个继承/改写主题，与核心独立归属 | MIT，Copyright (c) 2015 PrismJS；[官方固定许可原文](../src/plugins/prism/themes/LICENSE)随源码和 ZIP 保留；[固定来源与文件比对](../third-party-licenses/prism-themes-source.json) |
 | Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
 | jQuery、Clipboard、Tocbot、Typed.js | DOM、复制、目录、打字机 | MIT；许可证随包分发 |
 | ECharts | 原分类统计页面 | Apache-2.0；许可证随包分发 |
@@ -26,3 +27,5 @@
 公开 alpha 准备中移除了来源尚未逐项核实的两份继承 `.cur` 光标，改用操作系统的默认/链接光标；不随包分发光标文件。四张未被当前文档引用的继承 PNG（`metadata.png`、`renderings.png`、`sponsor.png`、`user.png`）也已从当前源码移除。`docs/previews/` 保留本项目合成测试站的旧版本截图；它们不作为最终 alpha.3 的截图证据。这里描述当前源码与新构建包，不表示完整 Git 历史已经清理；公开历史的处理方式仍须单独确认。
 
 2026-09-22 更正：此前将 Fancyapps UI 5.x 标为 GPLv3 不正确。[v5 官方许可](https://v5.fancyapps.com/license/)对开源项目分发另有授权要求；主题运行时代码、内嵌 CSS、直接依赖和新发行 ZIP 已移除该实现，改用 Viewer.js。比较实验室固定的上游 Hexo 参考站保留其自身依赖，仅供本地对照测试，不进入本主题 ZIP，也不据此承诺有权重新分发上游参考站。Git 历史及旧发行物的公开处理仍需单独核查，当前替换不能追溯改变旧内容的许可。
+
+Prism Themes 来源核对固定官方提交 `447479fc7b2be2051fe27e561aceed7cc87a589f`：20 个配色文件字节一致，16 个为继承旧变体或 Halo 改写，不能声称所有文件直接来自这一提交；保留各文件作者/移植署名，Next 对默认 One Light/One Dark 的对比度修改亦保留注释。其 MIT 原文与 Prism 核心许可分别保存在安装包 `templates/assets/plugins/prism/themes/LICENSE` 和 `templates/assets/plugins/prism/LICENSE`。
