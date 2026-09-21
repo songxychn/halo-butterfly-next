@@ -13,6 +13,10 @@
  * 不做 snackbar、shuoshuo 分页、改 settings.yaml。隐藏侧栏开关键名不变。
  */
 @use "util";
+@include util.useThemeVar((
+  pagination-hover-text: (#102a43, #fff),
+  pagination-focus: (#005c8a, #70caff),
+));
 
 #pagination .pagination,
 .layout .pagination,
@@ -43,11 +47,11 @@
 
   &:hover {
     background: var(--btn-hover-color, var(--theme));
-    color: var(--btn-color, #fff);
+    color: var(--pagination-hover-text);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--theme);
+    outline: 2px solid var(--pagination-focus);
     outline-offset: 3px;
   }
 }
@@ -59,7 +63,7 @@
 .pagination:not(.plugin-pagination) > .page.current,
 .pagination:not(.plugin-pagination) > .current {
   background: var(--theme);
-  color: var(--white, #fff);
+  color: #102a43;
 }
 
 #archive .pagination,
