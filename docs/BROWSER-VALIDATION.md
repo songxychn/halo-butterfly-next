@@ -45,12 +45,14 @@ BASE_URL=http://127.0.0.1:18091 node scripts/browser/run.mjs \
 
 正式截图前等待字体、加载遮罩结束、有限动画结束，以及当前可见图片实际加载成功。无限动画只登记数量，不关闭、不注入隐藏 CSS；屏外懒加载图片不会被声称已加载。准备条件失败时可保存明确标记 `diagnosticOnly` 的诊断截图，不作为稳定截图通过。
 
+每页 `diagnostics` 复用搜索诊断器，记录有界生命周期事件、未完成请求与 `readyState`，失败即取 `failure` 快照、结束时取 `final` 快照（各最多等待 1 秒）；新增诊断仅保留 URL origin/path，不采集请求头、正文、存储或 HAR，不重试、不改超时/断言/退出码。需要底层 Firefox 网络日志时由运行者在外部环境设置 `MOZ_LOG`/`MOZ_LOG_FILE`，原始日志仅保存在本地私有路径，不能加入报告或公开证据。
+
 每次创建唯一 `.runtime/browser-matrix/runs/<timestamp-id>/`，包含每页 JSON、截图与 SHA-256、精简进度快照和完整 `report.json`。不会覆盖以前的运行。标准退出码：`0` 表示三引擎核心 smoke 全通过；`1` 表示页面/资源/交互等失败；`2` 表示遗漏或不可用引擎造成不完整。任何结果都不自动修改矩阵验收状态。
 
 离线保护测试无需浏览器或独立依赖：
 
 ```sh
-node --test tests/browser-guards.test.mjs
+node --test tests/browser-guards.test.mjs tests/search-diagnostics.test.mjs
 ```
 
 首次实跑若发现基线主题缺陷，保留失败结果，交对应功能包修复后用其真实安装包重跑，不能放宽运行器规则制造通过。
