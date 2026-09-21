@@ -104,7 +104,7 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['@fancyapps/ui', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
   for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
     if (!file.endsWith('.scss')) continue;

@@ -10,6 +10,7 @@ const theme = parse(await readFile(path.join(root, 'theme.yaml'), 'utf8'));
 const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${theme.metadata.name}-${pkg.version}.zip`)));
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
+required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
 for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links', 'plugin', 'error404']) {
   required.push(`templates/assets/js/${page}.min.js`, `templates/assets/css/${page}.min.css`);
 }
@@ -19,6 +20,8 @@ for (const name of Object.keys(zip.files).filter(name => /^templates\/assets\/(?
   if (/\bprocess\.env\.NODE_ENV\b/.test(await zip.file(name).async('string'))) throw new Error(`浏览器脚本残留未解析的构建环境引用：${name}`);
 }
 for (const name of Object.keys(zip.files)) {
+  if (/fancyapps/i.test(name)) throw new Error(`旧灯箱许可文件不应进入安装包：${name}`);
+  if (/\.(js|css)$/.test(name) && /@fancyapps|fancyapps\.com|--f-spinner-width/.test(await zip.file(name).async('string'))) throw new Error(`旧灯箱实现不应进入安装包：${name}`);
   if (!name.startsWith('templates/') && !required.includes(name)) throw new Error(`不允许打包 ${name}`);
   if (name.includes('..') || name.startsWith('/')) throw new Error(`非法路径 ${name}`);
   if (name.startsWith('templates/assets/font/') || name.endsWith('/above.png')) throw new Error(`旧版来源未核实的素材不应进入安装包：${name}`);
