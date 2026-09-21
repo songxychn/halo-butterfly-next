@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import JSZip from 'jszip';
@@ -11,6 +12,18 @@ const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${them
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
+const upstreamSources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/upstream-sources.json'), 'utf8'));
+for (const source of upstreamSources.sources) {
+  const original = await readFile(path.join(root, 'third-party-licenses', source.file));
+  if (createHash('sha256').update(original).digest('hex') !== source.sha256) throw new Error(`上游许可正文与固定来源摘要不符：${source.file}`);
+}
+for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt']) {
+  const entry = zip.file(`templates/assets/licenses/${file}`);
+  if (!entry || !(await entry.async('nodebuffer')).equals(await readFile(path.join(root, 'third-party-licenses', file)))) throw new Error(`安装包缺少或改写了上游许可材料：${file}`);
+}
+for (const file of upstreamSources.adaptedFiles) {
+  if (!(await readFile(path.join(root, file.path), 'utf8')).includes('third-party-licenses/UPSTREAM-ATTRIBUTION.txt')) throw new Error(`改写源文件缺少归属声明指针：${file.path}`);
+}
 for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links', 'plugin', 'error404']) {
   required.push(`templates/assets/js/${page}.min.js`, `templates/assets/css/${page}.min.css`);
 }
