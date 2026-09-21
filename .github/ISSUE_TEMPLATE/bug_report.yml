@@ -1,0 +1,69 @@
+name: 测试版问题反馈
+description: 报告页面、交互、安装升级或回退问题。
+title: "[测试反馈] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢参与 Halo Butterfly Next 测试。请先查看对应发行说明中的已知问题，并搜索已有 issue。
+        请勿上传密码、令牌、Cookie、完整数据库或未脱敏配置。截图、日志和网址中也可能包含个人信息，请先检查。
+  - type: input
+    id: theme-version
+    attributes:
+      label: 主题版本与来源
+      description: 填写安装的 ZIP 版本；自行构建时补充提交 SHA。请勿只写“最新版”。
+      placeholder: "例如：0.1.0-alpha.2，GitHub Release ZIP"
+    validations:
+      required: true
+  - type: input
+    id: halo-version
+    attributes:
+      label: Halo 版本
+      placeholder: "例如：2.26.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题范围
+      options:
+        - 页面显示或交互
+        - 搜索或评论
+        - 其他插件集成
+        - 安装或升级
+        - 配置迁移或回退
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 浏览器、设备及相关插件
+      description: 页面问题请写浏览器完整版本、操作系统、手机机型或桌面视口、亮暗模式；插件问题请写插件名称、版本及启停状态。不适用时可留空。
+      placeholder: "浏览器 / OS / 设备：\n亮暗模式：\n相关插件及版本："
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 最小复现步骤
+      description: 写明页面类型、相关开关和操作步骤；升级或回退问题补充原版本、目标版本及操作顺序。尽量使用合成内容，无需提供生产站地址。
+      placeholder: "1. 打开……\n2. 设置……\n3. 点击或按键……"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果与影响
+      description: 说明是否阻断阅读、导航、评论、安装升级或回退；如已知可恢复方法，也请记录。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏截图或日志（可选）
+      description: 只附与复现相关的片段；遮盖个人信息，不上传完整配置、会话、数据库或凭据。
