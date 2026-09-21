@@ -66,6 +66,16 @@
             }
           }
 
+          a.link {
+            text-decoration: underline;
+            text-underline-offset: .18em;
+
+            &:focus-visible {
+              outline: 2px solid currentColor;
+              outline-offset: -2px;
+            }
+          }
+
           .wp {
             &:not(:last-child):after {
               content: "|";
