@@ -1,3 +1,5 @@
+import JSZip from "jszip";
+import { parse, stringify } from "yaml";
 /** Destructive plugin lifecycle checks ONLY on an explicitly owned synthetic lab. */
 import assert from "node:assert/strict";
 import { readFile, writeFile, mkdir, stat, realpath } from "node:fs/promises";
@@ -47,6 +49,12 @@ await mkdir(path.dirname(output), { recursive: true });
 await mkdir(output);
 const report = {
   schema: 1,
+  runnerFileSha256: sha256(await readFile(new URL(import.meta.url))),
+  trackedWorkingTreeClean: !execFileSync(
+    "git",
+    ["status", "--porcelain", "--untracked-files=no"],
+    { encoding: "utf8" },
+  ).trim(),
   runnerSha: execFileSync("git", ["rev-parse", "HEAD"], {
     encoding: "utf8",
   }).trim(),
@@ -56,7 +64,7 @@ const report = {
   restoreErrors: [],
   contractAcceptance: false,
   limitations: [
-    "Version rejection uses an isolated Plugin.spec.version contract fixture, NOT a real old plugin release.",
+    "Version rejection uses an isolated JAR manifest contract fixture, NOT a real old plugin release.",
     "Headless Chromium only; no real mobile/Safari/screen reader claims.",
     "Official search focus issue #313 remains open; no upstream code changed.",
   ],
@@ -87,7 +95,12 @@ async function api(p, method = "GET", data) {
     headers: { "X-CSRF-TOKEN": auth.csrf },
   });
   assert(r.ok(), `${method} ${p}: ${r.status()}`);
-  return r.status() === 204 ? null : await r.json();
+  if (r.status() === 204) return null;
+  assert(
+    r.headers()["content-type"]?.includes("json"),
+    `${method} ${p}: expected JSON; refresh the private synthetic session if it expired`,
+  );
+  return await r.json();
 }
 async function optional(p) {
   const r = await admin.request.get(base + p);
@@ -134,6 +147,15 @@ async function snapshotComments() {
       .sort((a, b) => a.name.localeCompare(b.name));
   }
   return result;
+}
+async function removePlugin(name) {
+  if (!(await optional(`${resource}/${name}`))) return;
+  await enabled(name, false);
+  await api(`${resource}/${name}`, "DELETE");
+  await poll(
+    async () => !(await optional(`${resource}/${name}`)),
+    "Plugin removal did not settle",
+  );
 }
 async function installPlugin(p) {
   const r = await admin.request.post(base + consolePath + "/install", {
@@ -192,7 +214,11 @@ async function view(
   page.on("pageerror", (e) => errors.push(e.message));
   page.setDefaultTimeout(10000);
   try {
-    await page.goto(base + route, { waitUntil: "domcontentloaded" });
+    const response = await page.goto(base + route, {
+      waitUntil: "domcontentloaded",
+    });
+    assert(response?.ok(), `Page ${route}: ${response?.status()}`);
+    await page.locator("#Butterfly").waitFor({ state: "attached" });
     await page.waitForFunction(
       (mode) => document.documentElement.dataset.colorScheme === mode,
       mode,
@@ -245,9 +271,12 @@ async function assertMounts(plugin, present, assetsAbsent = !present) {
     });
   }
 }
-const originals = [],
-  pendingVersions = new Map();
-let originalConfig, originalSystem, originalComments, originalTheme;
+const originals = [];
+let originalConfig,
+  originalSystem,
+  originalComments,
+  originalTheme,
+  originalPost;
 try {
   const themes = await api("/apis/theme.halo.run/v1alpha1/themes");
   assert(
@@ -259,6 +288,7 @@ try {
   originalTheme = themeGroup.active;
   assert.equal(originalTheme, "halo-butterfly-next");
   originalConfig = await api(configPath);
+  originalPost = await api("/apis/content.halo.run/v1alpha1/posts/preview-1");
   originalComments = await snapshotComments();
   assert(
     originalComments.comments.length && originalComments.replies.length,
@@ -274,6 +304,11 @@ try {
     const config = x.spec.configMapName
       ? await optional("/api/v1alpha1/configmaps/" + x.spec.configMapName)
       : null;
+    await writeFile(
+      path.join(output, `backup-${p.name}-${p.version}.jar`),
+      jar,
+      { flag: "wx" },
+    );
     originals.push({ ...p, jar, enabled: x.spec.enabled, config });
   }
   await writeFile(
@@ -282,6 +317,8 @@ try {
       {
         theme: originalTheme,
         config: originalConfig,
+        originalGlobalComment: originalSystem.data.comment ?? null,
+        originalPostAllowComment: originalPost.spec.allowComment,
         plugins: originals.map(({ jar, ...p }) => p),
       },
       null,
@@ -296,23 +333,43 @@ try {
     await check(p.name + "-disabled", () => assertMounts(p.name, false));
     await enabled(p.name, true);
     await check(p.name + "-version-contract-fixture", async () => {
-      pendingVersions.set(p.name, p.version);
+      const zip = await JSZip.loadAsync(p.jar);
+      const manifest = parse(await zip.file("plugin.yaml").async("string"));
+      manifest.spec.version = "0.0.1";
+      zip.file("plugin.yaml", stringify(manifest));
+      const mf = await zip.file("META-INF/MANIFEST.MF").async("string");
+      zip.file(
+        "META-INF/MANIFEST.MF",
+        mf.replace(
+          /Implementation-Version: [^\r\n]+/,
+          "Implementation-Version: 0.0.1",
+        ),
+      );
+      const jar = await zip.generateAsync({ type: "nodebuffer" });
+      const fixture = { ...p, version: "0.0.1", jar };
+      await writeFile(path.join(output, p.name + "-version-fixture.jar"), jar, {
+        flag: "wx",
+      });
+      await removePlugin(p.name);
       try {
-        const x = await api(`${resource}/${p.name}`);
-        x.spec.version = "0.0.1";
-        await api(`${resource}/${p.name}`, "PUT", x);
+        await installPlugin(fixture);
+        await enabled(p.name, true);
+        assert.equal(
+          (await api(`${resource}/${p.name}`)).spec.version,
+          "0.0.1",
+        );
         await assertMounts(p.name, false, false);
         return {
           declaredVersion: "0.0.1",
-          actualJarVersion: p.version,
-          actualJarSha256: p.sha256,
-          kind: "contract-fixture-not-real-compatibility",
+          sourceJarVersion: p.version,
+          sourceJarSha256: p.sha256,
+          fixtureSha256: sha256(jar),
+          kind: "manifest-contract-fixture-not-real-old-release",
         };
       } finally {
-        const x = await api(`${resource}/${p.name}`);
-        x.spec.version = p.version;
-        await api(`${resource}/${p.name}`, "PUT", x);
-        pendingVersions.delete(p.name);
+        await removePlugin(p.name);
+        await installPlugin(p);
+        await enabled(p.name, true);
         await assertMounts(p.name, true);
       }
     });
@@ -356,6 +413,10 @@ try {
       }, "Count setting did not settle");
       for (const route of ["/", "/categories/development/", "/tags/butterfly/"])
         await view(route, async (page) => {
+          if (flags.count && flags.card_post_count && route === "/")
+            await page.screenshot({
+              path: path.join(output, "comment-counts-home.png"),
+            });
           const cards = page.locator("ul.essay > li.item");
           assert(await cards.count());
           for (const card of await cards.all()) {
@@ -396,16 +457,133 @@ try {
       });
     }
   });
+  await check("comment-counts-hide-with-permissions", async () => {
+    async function absent() {
+      await poll(
+        async () =>
+          !(
+            await (
+              await admin.request.get(base + "/archives/preview-1/")
+            ).text()
+          ).includes('class="wp comment-count"'),
+        "Article count did not disappear",
+      );
+      for (const route of ["/", "/archives/preview-1/"])
+        await view(route, async (page) => {
+          const target =
+            route === "/"
+              ? page.locator("ul.essay > li.item").filter({
+                  has: page.locator('a.title[href*="/archives/preview-1"]'),
+                })
+              : page.locator(".post-meta");
+          assert(
+            (await target.count()) > 0,
+            `Missing count target on ${route}`,
+          );
+          assert.equal(await target.locator(".comment-count").count(), 0);
+        });
+    }
+    const postPath = "/apis/content.halo.run/v1alpha1/posts/preview-1";
+    let post = await api(postPath);
+    post.spec.allowComment = false;
+    await api(postPath, "PUT", post);
+    try {
+      await absent();
+    } finally {
+      post = await api(postPath);
+      post.spec.allowComment = originalPost.spec.allowComment;
+      await api(postPath, "PUT", post);
+    }
+    const systemPath = "/api/v1alpha1/configmaps/system";
+    let system = await api(systemPath);
+    system.data.comment = JSON.stringify({
+      ...JSON.parse(system.data.comment || "{}"),
+      enable: false,
+    });
+    await api(systemPath, "PUT", system);
+    try {
+      await absent();
+    } finally {
+      system = await api(systemPath);
+      if (Object.hasOwn(originalSystem.data, "comment"))
+        system.data.comment = originalSystem.data.comment;
+      else delete system.data.comment;
+      await api(systemPath, "PUT", system);
+    }
+    await enabled("PluginCommentWidget", false);
+    try {
+      await absent();
+    } finally {
+      await enabled("PluginCommentWidget", true);
+    }
+  });
+  await check("comment-count-accessibility", async () => {
+    const axeRoot = path.join(
+      REPO,
+      ".runtime/plugin-a11y/node_modules/axe-core",
+    );
+    assert.equal(
+      (await read(path.join(axeRoot, "package.json"))).version,
+      "4.12.1",
+    );
+    const results = [];
+    for (const width of [1440, 390])
+      for (const mode of ["light", "dark"])
+        for (const route of ["/", "/archives/preview-1/"]) {
+          await view(
+            route,
+            async (page) => {
+              await page.locator(".comment-count").first().waitFor();
+              await page.addScriptTag({
+                path: path.join(axeRoot, "axe.min.js"),
+              });
+              const audit = await page.evaluate(() =>
+                window.axe.run(
+                  { include: [[".comment-count"]] },
+                  { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } },
+                ),
+              );
+              const name = `count-a11y-${width}-${mode}-${route === "/" ? "home" : "post"}`;
+              await writeFile(
+                path.join(output, name + ".json"),
+                JSON.stringify(audit, null, 2) + "\n",
+              );
+              await page
+                .locator(".comment-count")
+                .first()
+                .scrollIntoViewIfNeeded();
+              await page.screenshot({ path: path.join(output, name + ".png") });
+              results.push({
+                width,
+                mode,
+                route,
+                violations: audit.violations.length,
+                incomplete: audit.incomplete.length,
+              });
+              assert.equal(
+                audit.violations.length,
+                0,
+                JSON.stringify(
+                  audit.violations.map((v) => ({
+                    id: v.id,
+                    nodes: v.nodes.map((n) => n.failureSummary),
+                  })),
+                ),
+              );
+            },
+            { width, mode },
+          );
+        }
+    return results;
+  });
   await check("theme-switch-preserves-comment-subjects", async () => {
     await api(themePath + "theme-earth/activation", "PUT");
     try {
-      await poll(
-        async () =>
-          !(await (await admin.request.get(base + "/")).text()).includes(
-            'id="Butterfly"',
-          ),
-        "Alternate theme did not activate",
-      );
+      await poll(async () => {
+        const response = await admin.request.get(base + "/");
+        assert(response.ok(), "Alternate theme must render HTTP 200");
+        return !(await response.text()).includes('id="Butterfly"');
+      }, "Alternate theme did not activate");
       assert.deepEqual(await snapshotComments(), originalComments);
     } finally {
       await api(themePath + "halo-butterfly-next/activation", "PUT");
@@ -480,8 +658,8 @@ try {
       if (!(await optional(`${resource}/${p.name}`))) await installPlugin(p);
       const x = await api(`${resource}/${p.name}`);
       if (x.spec.version !== p.version) {
-        x.spec.version = p.version;
-        await api(`${resource}/${p.name}`, "PUT", x);
+        await removePlugin(p.name);
+        await installPlugin(p);
       }
       if (p.config) {
         const cur = await optional(
@@ -502,6 +680,12 @@ try {
           await api("/api/v1alpha1/configmaps", "POST", copy);
         }
       }
+      if (p.config)
+        assert.deepEqual(
+          (await api("/api/v1alpha1/configmaps/" + p.config.metadata.name))
+            .data,
+          p.config.data,
+        );
       await enabled(p.name, p.enabled);
       assert.equal(
         sha256(
@@ -529,10 +713,37 @@ try {
       for (const k of ["comments", "loading"])
         assert.equal(actual.data[k], originalConfig.data[k]);
     });
+  if (originalPost)
+    await restore("post-allow-comment", async () => {
+      const p = "/apis/content.halo.run/v1alpha1/posts/preview-1";
+      const x = await api(p);
+      x.spec.allowComment = originalPost.spec.allowComment;
+      await api(p, "PUT", x);
+      assert.equal(
+        (await api(p)).spec.allowComment,
+        originalPost.spec.allowComment,
+      );
+    });
+  if (originalSystem)
+    await restore("global-comment", async () => {
+      const p = "/api/v1alpha1/configmaps/system";
+      const x = await api(p);
+      if (Object.hasOwn(originalSystem.data, "comment"))
+        x.data.comment = originalSystem.data.comment;
+      else delete x.data.comment;
+      await api(p, "PUT", x);
+      assert.equal((await api(p)).data.comment, originalSystem.data.comment);
+    });
   if (originalTheme)
-    await restore("active-theme", () =>
-      api(themePath + originalTheme + "/activation", "PUT"),
-    );
+    await restore("active-theme", async () => {
+      await api(themePath + originalTheme + "/activation", "PUT");
+      await poll(
+        async () =>
+          JSON.parse((await api("/api/v1alpha1/configmaps/system")).data.theme)
+            .active === originalTheme,
+        "Active theme restoration not confirmed",
+      );
+    });
   if (originalComments)
     await restore("comment-resources", async () =>
       assert.deepEqual(await snapshotComments(), originalComments),

@@ -11084,7 +11084,7 @@
         "code": [
           "src/html/views/nav.html"
         ],
-        "finding": "锁定官方 1.7.1；中文/英文/无结果/跳转/关闭与启停已测，但 Escape 后焦点未回入口（#313），真机软键盘和完整 PLG-01/02 未完成。"
+        "finding": "锁定官方 1.7.1；中文/英文/无结果/跳转/关闭与启停已测，但 Escape 后焦点未回入口（#313），真机软键盘和完整 PLG-01/02 未完成。 主题入口最低支持基线：SearchWidget >=1.7.1、CommentWidget >=3.3.2；低版本以本地 manifest 契约夹具验证拒绝，不声称实际旧版兼容。"
       },
       "dependencies": [
         "dual-site",
@@ -12145,7 +12145,7 @@
           "src/html/post.html",
           "src/html/page.html"
         ],
-        "finding": "锁定官方 3.3.2；匿名/登录合成维护者的提交回复、审核、故障提示和文章/单页/全局/插件开关已测；旧 3.1.2 编辑器名称通过升级解决。卸载、其他主题切换、完整角色/计数/真机仍未验收，保持未验证。"
+        "finding": "锁定官方 3.3.2；匿名/登录合成维护者的提交回复、审核、故障提示和文章/单页/全局/插件开关已测；旧 3.1.2 编辑器名称通过升级解决。卸载、其他主题切换、完整角色/计数/真机仍未验收，保持未验证。 主题入口最低支持基线：SearchWidget >=1.7.1、CommentWidget >=3.3.2；低版本以本地 manifest 契约夹具验证拒绝，不声称实际旧版兼容。"
       },
       "dependencies": [
         "dual-site",
@@ -12320,13 +12320,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "评论计数使用 Halo stats.comment，不拉取上游各家计数 API。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/views/layout.html"
+        "settings": [
+          "comments.count"
         ],
-        "finding": "DEC-01 已裁定。列表已展示 post.stats.comment；待对照验收显示条件与关闭语义。"
+        "code": [
+          "src/html/views/components.html",
+          "scripts/search-comment/lifecycle.mjs"
+        ],
+        "finding": "使用 Halo post.stats.comment；新增 comments.count / comments.card_post_count 默认关闭开关，满足插件版本、全局及逐篇评论条件时展示。生命周期脚本验收真实统计、开关与恢复；不等同完整 PLG 合同通过。"
       },
       "dependencies": [
         "dual-site",
@@ -12351,7 +12352,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/315"
         ],
         "pullRequests": []
       },
@@ -12380,13 +12382,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "卡片评论数使用 Halo stats.comment。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/views/layout.html"
+        "settings": [
+          "comments.card_post_count"
         ],
-        "finding": "DEC-01 已裁定。列表卡片已展示评论数；待对照验收。"
+        "code": [
+          "src/html/views/components.html",
+          "scripts/search-comment/lifecycle.mjs"
+        ],
+        "finding": "使用 Halo post.stats.comment；新增 comments.count / comments.card_post_count 默认关闭开关，满足插件版本、全局及逐篇评论条件时展示。生命周期脚本验收真实统计、开关与恢复；不等同完整 PLG 合同通过。"
       },
       "dependencies": [
         "dual-site",
@@ -12411,7 +12414,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/315"
         ],
         "pullRequests": []
       },
@@ -30216,13 +30220,14 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "列表卡片评论数入口映射为 Halo stats.comment，不再分发各家 card-post-count 脚本。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/views/layout.html"
+        "settings": [
+          "comments.card_post_count"
         ],
-        "finding": "DEC-01 已裁定。列表卡片已展示 Halo 评论数。"
+        "code": [
+          "src/html/views/components.html",
+          "scripts/search-comment/lifecycle.mjs"
+        ],
+        "finding": "使用 Halo post.stats.comment；新增 comments.count / comments.card_post_count 默认关闭开关，满足插件版本、全局及逐篇评论条件时展示。生命周期脚本验收真实统计、开关与恢复；不等同完整 PLG 合同通过。"
       },
       "dependencies": [
         "dual-site",
@@ -30246,7 +30251,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/315"
         ],
         "pullRequests": []
       },
