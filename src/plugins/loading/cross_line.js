@@ -1,3 +1,5 @@
+import { whenContentReady } from '../../js/core/loading-ready.mjs';
+
 /**
  * @date: 2023/1/20
  * @author: 小红
@@ -107,5 +109,5 @@ const Loading = new CrossLine();
 
 Loading.start();
 
-window.addEventListener('load', () => Loading.destroy());
+whenContentReady(() => Loading.destroy());
 

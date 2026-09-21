@@ -1044,6 +1044,19 @@ spec:
                   label: 说明
                   help: 对应 QR_code[].text。可见文本 th:text / th:alt。
                   value: ""
+    - group: comments
+      label: 评论
+      formSchema:
+        - $formkit: checkbox
+          name: count
+          label: 显示文章评论数
+          value: false
+          help: 使用 Halo 评论统计；需官方评论组件 3.3.2 或更新版本，且文章允许评论。
+        - $formkit: checkbox
+          name: card_post_count
+          label: 显示列表卡片评论数
+          value: false
+          help: 默认关闭。首页、分类和标签列表使用 Halo 评论统计，不请求第三方计数服务。
     - group: wordcount
       label: 字数统计
       formSchema:

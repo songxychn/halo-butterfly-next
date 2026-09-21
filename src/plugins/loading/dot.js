@@ -1,3 +1,5 @@
+import { whenContentReady } from '../../js/core/loading-ready.mjs';
+
 /**
  * @date: 2024/7/18
  * @author: 小红
@@ -120,6 +122,6 @@ const Loading = new Dot();
 
 Loading.start();
 
-window.addEventListener('load', () => Loading.destroy());
+whenContentReady(() => Loading.destroy());
 
 

@@ -80,7 +80,7 @@
 
       <div
         id="post-comment"
-        th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && post.spec.allowComment}"
+        th:if="${pluginFinder.available('PluginCommentWidget', '>=3.3.2') && haloCommentEnabled && post.spec.allowComment}"
       >
         <div class="comment-head">
           <div class="comment-headline">

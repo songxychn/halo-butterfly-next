@@ -54,10 +54,11 @@ test('list fragment 按 index.post_meta 控制分类/标签/日期/前缀，并�
   assert.doesNotMatch(list, /yyyy-MM-dd HH:mm/);
 });
 
-test('列表默认不输出评论/点赞/预览，对齐 5.7.0 comments.card_post_count 关闭', async () => {
+test('列表评论由默认关闭的 card_post_count 控制，不输出点赞/预览', async () => {
   const list = listFragment(await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8'));
   assert.doesNotMatch(list, /class="wp comment"/);
-  assert.doesNotMatch(list, /'评论 '/);
+  assert.match(list, /theme\.config\.comments\?\.card_post_count == true/);
+  assert.match(list, /post\.stats\.comment/);
   assert.doesNotMatch(list, /class="wp upvote"/);
   assert.doesNotMatch(list, /'点赞 '/);
   assert.doesNotMatch(list, /'预览 '/);
