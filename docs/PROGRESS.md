@@ -1,5 +1,15 @@
 # 持续对齐进度
 
+## 2026-09-21：近期目标调整为公开测试版
+
+维护者确认“先以公开测试版为近期目标”。新增 [公开测试版计划](PUBLIC-ALPHA.md)，以核心页面与交互、官方搜索评论、安装升级回退、候选审查和公开材料为近期收口范围；完整 1.0 合同继续保留。当前仅确定路线与待执行清单，不代表测试版门禁通过或已经开放仓库。
+
+本次盘点基线为 `d2e015abd5b06cf42671999aa38c2136b4a440e2`，与远端 master 一致；[该提交 CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/35618533908)验证和重复构建通过，本地 `pnpm verify` 为 454 项测试通过、124 文件安装包检查通过。此证据仅对应现有代码的工程门禁，不覆盖最终公开候选的真实 Halo 整体验收。
+
+下一项为 [#319](https://github.com/songxychn/halo-butterfly-next/issues/319) 明亮封面元信息对比度修复；搜索焦点 [#313](https://github.com/songxychn/halo-butterfly-next/issues/313) 的 `NOT_PLANNED` 关闭不计为修复，按公开测试版清单处理。实际开放、历史处理和发布渠道在候选齐备后确认。
+
+## 原持续对齐记录
+
 本记录对应私有仓库总任务 [#1](https://github.com/songxychn/halo-butterfly-next/issues/1)。固定目标为 Hexo Butterfly 5.7.0（`f223b1888b42b2b336068e6c959ed90a3cd7c8f3`），平台基准为 Halo 2.26.1。实际持续 Goal 于 2026-09-06 启动；本文是仓库进度记录，不代替运行中的 Goal。
 
 工程终点由 [1.0 验收合同](RELEASE-ACCEPTANCE.md)定义；各能力状态以 [完整矩阵](parity/MATRIX.md)为准。当前尚无能力凭本轮证据被标为“已对齐 5.7.0”。
