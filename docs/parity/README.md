@@ -11,7 +11,7 @@
 | [upstream-5.7.0.json](upstream-5.7.0.json) | 从固定 Git 提交提取的上游索引，含每个跟踪文件 SHA-256、行数、配置与扩展接口；不是可随实现删减的待办清单 |
 | [required-scenarios.json](required-scenarios.json) | 源码自动抽取之外必须保留的页面、交互、数据结构、正文场景索引；删除需求需要说明及维护者裁定 |
 
-固定源码来自 `jerryc127/hexo-theme-butterfly` 的 `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`，包版本 5.7.0。没有把上游源码或第三方资源重新打包进本项目；这里保留派生索引与来源链接。
+固定源码来自 `jerryc127/hexo-theme-butterfly` 的 `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`，包版本 5.7.0。本目录保留派生索引与来源链接；主题源码中已有相应样式改写和字表提取，不能将其描述为仅参考、没有派生内容。具体归属、修改路径及单独许可的 normalize.css 见 [来源与许可证](../THIRD_PARTY.md)；上游 Hexo 构建系统及比较站资源不进入主题 ZIP。
 
 | 覆盖面 | 数量 | 抽取方式 |
 | --- | ---: | --- |
