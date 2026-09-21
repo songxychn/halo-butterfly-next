@@ -3,7 +3,8 @@
 | 资源 | 来源/用途 | 许可 |
 | --- | --- | --- |
 | 原 Halo Butterfly 代码 | dhjddcn/halo-theme-butterfly，保留完整历史 | GPL-3.0 |
-| Hexo Butterfly | jerryc127/hexo-theme-butterfly；5.7.0 为对齐参考，当前未直接导入其构建系统 | Apache-2.0，以后移植文件应保留对应声明 |
+| Hexo Butterfly 5.7.0 | jerryc127/hexo-theme-butterfly；已有样式改写及繁简字表提取，未直接导入其构建系统 | Apache-2.0；固定原文及本项目归属说明随源码和 ZIP 分发，见 [改写来源清单](../third-party-licenses/UPSTREAM-ATTRIBUTION.txt) |
+| normalize.css 8.0.1 | 从固定 Hexo 源码继承，改为 SCSS 并限定 `.container` 选择器 | MIT；保留 Nicolas Gallagher / Jonathan Neal 版权及[官方许可原文](../third-party-licenses/normalize-8.0.1-LICENSE.md)，不改标 Apache-2.0 |
 | Font Awesome Free 6.7.2 | npm `@fortawesome/fontawesome-free`，本地图标 | 图标 CC BY 4.0、字体 SIL OFL 1.1、代码 MIT；包内附上游许可证 |
 | Prism 1.29.0 | 原主题 vendored JS/CSS，高亮及代码主题 | MIT；包内补入同版本上游 LICENSE |
 | Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
@@ -13,6 +14,8 @@
 | `src/images/above.svg` | Halo Butterfly Next 原创装饰图 | GPL-3.0，同本主题 |
 
 确切依赖版本由 `pnpm-lock.yaml` 锁定。第三方许可证位于安装包的 `templates/assets/licenses/` 及相应插件目录。
+
+非 npm 改写内容由 [upstream-sources.json](../third-party-licenses/upstream-sources.json) 记录固定提交、官方许可证 URL、原文字节 SHA-256 和本地来源映射。Hexo 固定为 `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`；normalize 8.0.1 固定为 `fc091cce1534909334c1911709a39c22d406977b`。固定 Hexo 树没有上游 NOTICE；`UPSTREAM-ATTRIBUTION.txt` 是本项目编写的归属和修改说明，不冒充上游 NOTICE。改写源文件保留来源/修改注释，构建与包检查保证两份未改写的官方许可及此说明进入 ZIP。
 
 构建会递归收集运行时依赖的 LICENSE/NOTICE，包括 ECharts 的 ZRender/tslib 和 Clipboard 的间接依赖。good-listener 1.2.2、delegate 3.2.0、select 1.1.2 的 npm 包在 README 中声明 MIT 和 Zeno Rocha 版权，安装包同时保留这些原始声明及 MIT 正文。
 
