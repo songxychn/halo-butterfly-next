@@ -47,7 +47,7 @@ export default class AmplifyImg {
       .theme-lightbox .viewer-toolbar>ul>li{width:44px;height:44px;margin:2px;background:#333}
       .theme-lightbox .viewer-toolbar>ul>li:before{margin:12px}
       .theme-lightbox .viewer-toolbar>ul{max-width:100%;white-space:normal}
-      .theme-lightbox .viewer-thumbnails{color:white;font-size:20px;line-height:44px}
+      .theme-lightbox .viewer-thumbnails{color:white;font-size:14px;line-height:44px}
       .theme-lightbox .viewer-thumbnails:before{display:none}
       .theme-lightbox .viewer-title{color:white;white-space:normal;opacity:1;background:#222}
       .theme-lightbox .viewer-navbar[hidden]{display:none}
@@ -62,7 +62,8 @@ export default class AmplifyImg {
     document.addEventListener('click', event => {
       if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       const trigger = event.target.closest('.theme-lightbox-trigger');
-      const image = trigger?.querySelector('img');
+      const clickedImage = event.target.closest('img');
+      const image = clickedImage && trigger?.contains(clickedImage) ? clickedImage : trigger?.querySelector('img');
       if (!image?.matches(SELECTOR) || !eligible(image)) return;
       event.preventDefault();
       this.open(image, trigger);
@@ -78,8 +79,8 @@ export default class AmplifyImg {
 
   prepare() {
     document.querySelectorAll(SELECTOR).forEach(image => {
-      if (!eligible(image) || image.closest('.theme-lightbox-trigger')) return;
-      let trigger = image.closest('a[href]');
+      if (!eligible(image)) return;
+      let trigger = image.closest('.theme-lightbox-trigger') || image.closest('a[href]');
       if (!trigger) {
         trigger = document.createElement('span');
         trigger.setAttribute('role', 'button');
@@ -88,7 +89,8 @@ export default class AmplifyImg {
         trigger.append(image);
       }
       trigger.classList.add('theme-lightbox-trigger');
-      trigger.setAttribute('aria-label', `查看图片：${image.alt || '图片'}`);
+      const count = trigger.querySelectorAll('img').length;
+      trigger.setAttribute('aria-label', count > 1 ? `查看图片组（${count} 张）` : `查看图片：${image.alt || '图片'}`);
       trigger.setAttribute('aria-haspopup', 'dialog');
     });
   }
@@ -136,7 +138,7 @@ export default class AmplifyImg {
         item.setAttribute('aria-current', String(item.classList.contains('viewer-active')));
       });
       const toggle = host.querySelector('.viewer-thumbnails');
-      if (toggle) { toggle.textContent = '▦'; toggle.setAttribute('aria-label', '显示或隐藏缩略图'); }
+      if (toggle) { toggle.textContent = '缩略'; toggle.setAttribute('aria-label', '显示或隐藏缩略图'); }
     };
     this.viewer = new Viewer(gallery, {
       container: host, className: 'theme-image-viewer', transition: false,

@@ -25,7 +25,7 @@ await writeFile(entry, `import AmplifyImg from ${JSON.stringify(join(root, 'src/
 const result = await build({configFile:false,logLevel:'error',build:{write:false,target:'es2022',lib:{entry,name:'LightboxFixture',formats:['iife']}}});
 const bundle = (Array.isArray(result) ? result[0] : result).output.find(x=>x.type==='chunk').code;
 const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><rect width="1200" height="800" fill="#367"/><circle cx="400" cy="300" r="180" fill="#ec8"/></svg>';
-const html = `<!doctype html><html lang="zh"><head><meta charset="utf-8"><title>Lightbox fixture</title><style>body{margin:0}.content{max-width:700px}img{width:180px}a,button{margin:10px}</style></head><body><button id="outside">outside</button><div id="was-inert" inert>previous inert</div><main class="main"><section class="content"><img id="one" src="/one.svg" alt="第一张"><img id="two" src="/two.svg" alt="第二张"><a id="linked" href="/full.svg"><img src="/thumb.svg" alt="原图链接"></a><a id="external" href="/destination"><img src="/external.svg" alt="外链"></a><a id="download" href="/download.svg" download><img src="/download.svg" alt="下载"></a><span data-lightbox-group="separate"><img id="grouped" src="/group.svg" alt="分组图片"></span><img id="lazy" src="/placeholder.svg" data-lazy-src="/lazy.svg" alt="延迟原图"></section></main><script src="/bundle.js"></script></body></html>`;
+const html = `<!doctype html><html lang="zh"><head><meta charset="utf-8"><title>Lightbox fixture</title><style>body{margin:0}.content{max-width:700px}img{width:180px}a,button{margin:10px}</style></head><body><button id="outside">outside</button><div id="was-inert" inert>previous inert</div><main class="main"><section class="content"><img id="one" src="/one.svg" alt="第一张"><img id="two" src="/two.svg" alt="第二张"><a id="linked" href="/full.svg"><img src="/thumb.svg" alt="原图链接"></a><a id="external" href="/destination"><img src="/external.svg" alt="外链"></a><a id="download" href="/download.svg" download><img src="/download.svg" alt="下载"></a><span data-lightbox-group="separate"><img id="grouped" src="/group.svg" alt="分组图片"></span><a id="multi" href="/full.svg"><img id="multi-first" src="/multi-first.svg" alt="共享链接第一张"><img id="multi-second" src="/multi-second.svg" alt="共享链接第二张"></a><img id="lazy" src="/placeholder.svg" data-lazy-src="/lazy.svg" alt="延迟原图"></section></main><script src="/bundle.js"></script></body></html>`;
 const server = createServer((req,res)=>{res.setHeader('Content-Type',req.url==='/bundle.js'?'text/javascript':req.url.endsWith('.svg')?'image/svg+xml':'text/html');res.end(req.url==='/bundle.js'?bundle:req.url.endsWith('.svg')?svg:html)});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const base = `http://127.0.0.1:${server.address().port}`;
@@ -115,9 +115,18 @@ try {
         await cdp.detach();
         report.checks.push({engine,width,result:'passed',behaviors:['touch-tap','touch-swipe','touch-pinch']});
       }
+      await page.locator('#multi-second').click();await waitViewed();
+      assert.equal(await activeImage.getAttribute('alt'),'共享链接第二张');
+      assert((await page.locator('.viewer-title').textContent()).includes('共享链接第二张'));
+      assert.equal(await page.locator('#multi').getAttribute('aria-label'),'查看图片组（2 张）');
+      await page.keyboard.press('Escape');await dialog.waitFor({state:'detached'});
+      assert(await page.locator('#multi').evaluate(e=>document.activeElement===e));
+      await page.keyboard.press('Enter');await waitViewed();
+      assert.equal(await activeImage.getAttribute('alt'),'共享链接第一张');
+      await page.keyboard.press('Escape');await dialog.waitFor({state:'detached'});
       await page.locator('#external').click();await page.waitForURL(base+'/destination');
       assert.deepEqual(errors,[]);
-      report.checks.push({engine,width,result:'passed',behaviors:['reinitialize','keyboard-open','focus-trap','arrows','rotate','flips','one-to-one','zoom','reset','thumbnails','slideshow','escape','close-button','backdrop','focus-return','image-links','external/download-links','groups','lazy-url','dynamic-image','safe-title']});
+      report.checks.push({engine,width,result:'passed',behaviors:['reinitialize','keyboard-open','focus-trap','arrows','rotate','flips','one-to-one','zoom','reset','thumbnails','slideshow','escape','close-button','backdrop','focus-return','image-links','shared-anchor-selected-image','external/download-links','groups','lazy-url','dynamic-image','safe-title']});
       await context.close();
     }
     await browser.close();browser=null;
