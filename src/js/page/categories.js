@@ -28,7 +28,9 @@ class Categories {
    * 图表
    */
   run_chart() {
-    
+    const chartDom = document.querySelector('section.content > .chart');
+    if (!chartDom) return;
+
     const data = [];
     
     for (let i = 0; i < MainApp.data.length; i++) {
@@ -37,8 +39,6 @@ class Categories {
 
       data.push({value: item.postCount, name: item.spec.displayName});
     }
-
-    const chartDom = document.querySelector('section.content > .chart');
 
     useChart( chartDom, () => {
       return {
