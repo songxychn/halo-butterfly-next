@@ -12,6 +12,11 @@ const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${them
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
+const prismThemes = JSON.parse(await readFile(path.join(root, 'third-party-licenses/prism-themes-source.json'), 'utf8'));
+const prismThemesLicense = await readFile(path.join(root, prismThemes.license.path));
+if (createHash('sha256').update(prismThemesLicense).digest('hex') !== prismThemes.license.sha256) throw new Error('Prism Themes 许可正文与固定官方摘要不符');
+const prismThemesEntry = zip.file('templates/assets/plugins/prism/themes/LICENSE');
+if (!prismThemesEntry || !(await prismThemesEntry.async('nodebuffer')).equals(prismThemesLicense)) throw new Error('安装包缺少或改写了 Prism Themes 独立许可');
 const upstreamSources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/upstream-sources.json'), 'utf8'));
 for (const source of upstreamSources.sources) {
   const original = await readFile(path.join(root, 'third-party-licenses', source.file));
