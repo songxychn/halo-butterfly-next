@@ -39,6 +39,7 @@ test('页脚保留品牌背景，文字使用独立不透明前景并保留图�
   assert.match(scss, /background-color:\s*#333333/);
   assert.match(scss, /background-color:\s*var\(--mark-bg, rgba\(0, 0, 0, 0\.5\)\)/);
   assert.match(scss, /a[\s\S]*&:hover[\s\S]*color:\s*inherit/);
+  assert.match(scss, /a:focus-visible\s*\{\s*outline-offset:\s*-2px/);
   assert.match(scss, /outline:\s*2px solid currentColor/);
   assert.match(scss, /background-attachment:\s*scroll/);
   assert.match(scss, /background-position:\s*bottom/);

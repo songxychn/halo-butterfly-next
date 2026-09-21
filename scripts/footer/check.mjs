@@ -72,13 +72,21 @@ try{
         }
         await page.waitForTimeout(350);
         assert(await link.evaluate(e=>getComputedStyle(e).textDecorationLine.includes('underline')));
-        if(state==='focus')assert(await link.evaluate(e=>getComputedStyle(e).outlineStyle==='solid'&&parseFloat(getComputedStyle(e).outlineWidth)>=2));
+        if(state==='focus'){
+          assert(await link.evaluate(e=>getComputedStyle(e).outlineStyle==='solid'&&parseFloat(getComputedStyle(e).outlineWidth)>=2));
+          if(background!=='solid')assert(await link.evaluate(e=>{
+            const s=getComputedStyle(e);let plate=e;
+            while(plate&&getComputedStyle(plate).backgroundColor==='rgba(0, 0, 0, 0)')plate=plate.parentElement;
+            return parseFloat(s.outlineOffset)<=-parseFloat(s.outlineWidth)&&s.outlineColor==='rgb(255, 255, 255)'&&plate&&getComputedStyle(plate).backgroundColor==='rgb(51, 51, 51)'&&getComputedStyle(plate).opacity==='1';
+          }),'Image footer focus ring must sit inside its opaque dark plate');
+          await link.screenshot({path:join(output,`${label}-focus-${index}.png`)});
+        }
         const data=await page.evaluate(async()=>{
           const f=document.querySelector('.footer');
           const painted=e=>{const s=getComputedStyle(e);return{selector:e.className||e.tagName,color:s.color,background:s.backgroundColor,opacity:s.opacity,filter:s.filter,mixBlendMode:s.mixBlendMode,zIndex:s.zIndex,position:s.position}};
           const nodes=[...f.querySelectorAll('.copyright,.framework-info>span,.framework-info>a,.footer_custom_text,.footer-flex-item,.icp a,.police a')].map(e=>{
             const ancestors=[];for(let p=e;p&&f.contains(p);p=p.parentElement)ancestors.push(painted(p));
-            return{...painted(e),text:e.textContent,outline:getComputedStyle(e).outlineStyle,underline:getComputedStyle(e).textDecorationLine,ancestors};
+            return{...painted(e),text:e.textContent,outline:getComputedStyle(e).outlineStyle,outlineOffset:getComputedStyle(e).outlineOffset,outlineColor:getComputedStyle(e).outlineColor,underline:getComputedStyle(e).textDecorationLine,ancestors};
           });
           return{nodes,footer:{background:getComputedStyle(f).backgroundColor,mask:getComputedStyle(f,'::before').backgroundColor,width:f.clientWidth,scrollWidth:f.scrollWidth},axe:await window.axe.run('.footer',{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}})};
         });
