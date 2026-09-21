@@ -79,6 +79,9 @@
       width: 100%;
       height: 100%;
       background-color: var(--above-mask-color);
+      // Extra contrast behind the 60px navigation, fading before the title.
+      // The existing mask.header switch still controls the entire overlay.
+      background-image: linear-gradient(rgba(0, 0, 0, .4) 60px, transparent 120px);
       content: '';
       pointer-events: none;
     }
