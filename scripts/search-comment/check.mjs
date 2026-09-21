@@ -273,6 +273,12 @@ try {
         await page.waitForFunction(
           () => document.querySelector("search-modal").open === false,
         );
+        await check(label + "-backdrop-focus-return", async () => {
+          assert(
+            await trigger.evaluate((e) => document.activeElement === e),
+            "Backdrop focus did not return to search trigger",
+          );
+        });
         await trigger.click();
         await input.waitFor();
         await input.fill("排版");

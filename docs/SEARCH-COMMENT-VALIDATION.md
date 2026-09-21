@@ -7,6 +7,8 @@
 | PluginSearchWidget | 1.7.1 | >=2.17.0 | 中文/英文、无结果、鼠标打开、键盘打开/命中、Escape 与遮罩关闭可用；关闭焦点恢复失败，见 [#313](https://github.com/songxychn/halo-butterfly-next/issues/313) |
 | PluginCommentWidget | 3.3.2 | >=2.26.0 | 合成访客与登录维护者的文章/单页提交、回复、审核、错误提示和挂载开关已测；完整 PLG-03 仍未全部验收 |
 
+2026-09-21 用户裁定：公开 alpha 可以披露搜索关闭后焦点不恢复的已知限制后放行；键盘用户关闭后需重新用 Tab 导航定位搜索入口。此例外只适用于公开 alpha，完整真实流程仍如实记录 `failed`，矩阵及 1.0 失败门禁不变。最终候选必须绑定实际报告，不能将此裁定记为修复证据。详见 [搜索焦点决策材料](SEARCH-FOCUS-DECISION.md)。
+
 ## 评论适配与升级
 
 3.1.2 的编辑器缺少可访问名称。3.3.2 的官方实现为其添加 `role="textbox"`、`aria-label` 和 `aria-multiline`，真实组件复测已消除 `aria-input-field-name`。主题要求至少 3.3.2；这不是主题替旧插件补写内部 DOM，也不会自动升级站点插件。
@@ -43,7 +45,7 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/a11y.mjs \
 
 `check.mjs` 会写入带“合成验收/合成回复”标记的测试评论，记录资源 ID，临时改变评论权限、文章/单页的 `allowComment` 和插件开关，在 `finally` 中恢复原值。测试评论留在合成站供追溯。测试前两个插件必须启用；不要在运行期间改变该站配置或安装包。
 
-每个输出目录只对应一次运行，使用新目录保留失败证据。`check.mjs` 如有任意失败会返回非零；当前固定搜索插件的焦点缺陷会使完整流程结果为 `failed`，不能删掉断言使总结果变绿。a11y 脚本有任何违规同样返回非零。脚本不进入默认无服务 CI；`pnpm verify` 通过并不等于这些真实场景通过。
+每个输出目录只对应一次运行，使用新目录保留失败证据。`check.mjs` 如有任意失败会返回非零；当前固定搜索插件的焦点缺陷会使完整流程结果为 `failed`，不能删掉断言使总结果变绿。Escape 和遮罩关闭分别记录焦点断言，四组合合计八项，关闭本身成功不能代替焦点恢复。a11y 脚本有任何违规同样返回非零。脚本不进入默认无服务 CI；`pnpm verify` 通过并不等于这些真实场景通过。
 
 ## 场景范围
 
@@ -85,7 +87,7 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/lifecycle.mjs \
 
 ## 未完成与下一步
 
-- [#313](https://github.com/songxychn/halo-butterfly-next/issues/313)：SearchWidget 1.7.1 的 `close()` 仅改变 `open`，未恢复触发焦点，也没有主题可订阅的稳定关闭事件。应由插件保存/恢复触发元素，或提供正式关闭事件，再做主题回归。没有向上游自动发送 issue/PR，没有修改私有 Shadow DOM 或插件原型。
+- [#313](https://github.com/songxychn/halo-butterfly-next/issues/313)：SearchWidget 1.7.1 的 `close()` 仅改变 `open`，未恢复触发焦点，也没有主题可订阅的稳定关闭事件。2026-09-21 核查官方最新 release 仍为 1.7.1，当前主分支同样没有修复；本仓库 issue 以 `NOT_PLANNED` 关闭不代表验收通过。证据、公开 alpha 阻塞判断及待批准替代方案见 [SEARCH-FOCUS-DECISION.md](SEARCH-FOCUS-DECISION.md)。没有向上游自动发送 issue/PR，没有修改私有 Shadow DOM 或插件原型。
 - 真机软键盘、真实 Safari、完整 Tab 焦点约束、屏幕阅读器及所有用户角色未验证。390px 无头视口不能替代手机设备。
 - 生命周期脚本覆盖卸载重装、低版本契约、主题切换与列表计数；以对应提交的运行报告为通过依据。实际旧版兼容、所有用户角色、完整推荐插件组合仍未完成；不声称 PLG-01/02/03/06 全部通过。
 - 矩阵记录精确依赖和已发现失败，不因此提升为 `verified`。完整合同仍见 [RELEASE-ACCEPTANCE.md](RELEASE-ACCEPTANCE.md)。
