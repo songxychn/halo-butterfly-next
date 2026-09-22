@@ -122,7 +122,7 @@ def install_plugins(lab, client, runtime, lock):
         if len(installed) != 1:
             raise RuntimeError('Installed plugin JAR bytes do not match official artifact')
         result.append({'name': plugin['name'], 'version': plugin['version'], 'enabled': True, 'sha256': plugin['sha256']})
-    enabled = {p['metadata']['name'] for p in client.api(resource + '?size=100')['items'] if p['spec'].get('enabled')}
+    enabled = {p['metadata']['name'] for p in client.api(resource.rstrip('/') + '?size=100')['items'] if p['spec'].get('enabled')}
     if enabled != {p['name'] for p in lock['plugins']}:
         raise RuntimeError('Unexpected enabled plugin outside the fixed profile')
     return result
