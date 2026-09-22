@@ -8,7 +8,8 @@ import $ from 'jquery';
 import Clipboard from 'clipboard';
 import {useToBool} from '../core/_util';
 import {resolveCodeShrink} from '../core/code-shrink.mjs';
-import { bindCodeScrollFocus } from '../core/code-scroll-focus.mjs';
+import { bindCodeScrollFocus, preserveCodeReadingFocus } from '../core/code-scroll-focus.mjs';
+import { enhanceCodeWhenReady, loadPrismAfterPaint } from '../core/prism-ready.mjs';
 
 export default class codeBlock {
   name = 'codeBlock';
@@ -20,11 +21,34 @@ export default class codeBlock {
   #attrs = MainApp.attrs;
 
   constructor() {
-    if (this.#flag('enable_code')) {
-      this.#code();
-      this.#codeToolbar();
-      bindCodeScrollFocus(this.#renderDom[0]);
-    }
+    // Mode/navigation initialize with the page, independently of the optional highlighter.
+    this.#codeTheme(MainApp.useTheme.getMode());
+    MainApp.useTheme.change((mode) => this.#codeTheme(mode));
+    const refreshScrollFocus = bindCodeScrollFocus(this.#renderDom[0]);
+    if (!this.#flag('enable_code') || !this.#renderDom[0]?.querySelector('pre code')) return;
+    MainApp.prismReady = loadPrismAfterPaint({
+      source: MainApp.prismSource,
+      domReady: MainApp.codeDomReady,
+    });
+    enhanceCodeWhenReady({
+      root: this.#renderDom[0],
+      enabled: this.#flag('enable_code'),
+      ready: MainApp.prismReady,
+      getPrism: () => window.Prism,
+      enhance: (prism) => {
+        const restoreReadingFocus = preserveCodeReadingFocus(this.#renderDom[0], pre => {
+          const wrap = $(pre).parent('.code-toolbar');
+          // Do not hide the block a keyboard reader entered while Prism loaded.
+          // Other blocks retain the configured initial collapsed state.
+          if (wrap.hasClass('closed')) this.#setCodeExpanded(wrap, wrap.find('.code-expander'), true);
+          refreshScrollFocus();
+        });
+        this.#code(prism);
+        this.#codeToolbar();
+        refreshScrollFocus();
+        restoreReadingFocus();
+      },
+    });
   }
 
   #flag(name) {
@@ -49,12 +73,11 @@ export default class codeBlock {
     return resolveCodeShrink(this.#conf?.enable_code_expander);
   }
 
-  #code() {
+  #code(prism) {
     this.#renderDom.addClass('single_code_select');
     if (this.#flag('enable_code_line')) this.#renderDom.addClass('line-numbers');
-    if (window.Prism) window.Prism.highlightAllUnder(this.#renderDom[0]);
+    prism.highlightAllUnder(this.#renderDom[0]);
     this.#codeTheme(MainApp.useTheme.getMode());
-    MainApp.useTheme.change((mode) => this.#codeTheme(mode));
   }
 
   #codeTheme(mode) {
@@ -107,12 +130,8 @@ export default class codeBlock {
       const initiallyClosed = shrink === 'true';
       if (initiallyClosed) wrap.addClass('closed');
       const expander = $(`<button type="button" class="code-expander" aria-label="${initiallyClosed ? '展开代码' : '折叠代码'}" title="${initiallyClosed ? '展开代码' : '折叠代码'}" aria-expanded="${initiallyClosed ? 'false' : 'true'}"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>`);
-      expander.on('click', function() {
-        wrap.toggleClass('closed');
-        const closed = wrap.hasClass('closed');
-        $(this).attr('aria-expanded', String(!closed));
-        $(this).attr('aria-label', closed ? '展开代码' : '折叠代码');
-        $(this).attr('title', closed ? '展开代码' : '折叠代码');
+      expander.on('click', () => {
+        this.#setCodeExpanded(wrap, expander, wrap.hasClass('closed'));
       });
       customItem.append(expander);
     }
@@ -127,6 +146,13 @@ export default class codeBlock {
     }
 
     if (!customItem.children().length) customItem.remove();
+  }
+
+  #setCodeExpanded(wrap, button, expanded) {
+    wrap.toggleClass('closed', !expanded);
+    button.attr('aria-expanded', String(expanded));
+    button.attr('aria-label', expanded ? '折叠代码' : '展开代码');
+    button.attr('title', expanded ? '折叠代码' : '展开代码');
   }
 
   #fullpageWrap = null;
