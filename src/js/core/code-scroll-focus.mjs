@@ -1,8 +1,8 @@
 // Give the actual scrolling code element a keyboard stop, including after
 // resizing, expanding and loading a font. Preserve author-supplied tab order.
 export function bindCodeScrollFocus(root) {
-  if (!root) return;
-  const codes = [...root.querySelectorAll('pre > code')]
+  if (!root) return () => {};
+  const codes = [...root.querySelectorAll('pre, pre > code')]
     .filter(code => !code.hasAttribute('tabindex'));
   const update = () => {
     for (const code of codes) {
@@ -18,4 +18,5 @@ export function bindCodeScrollFocus(root) {
   codes.forEach(code => observer.observe(code));
   document.fonts?.ready.then(update);
   update();
+  return update;
 }

@@ -5,6 +5,15 @@
  * @Description:代码块
  */
 
+// Before Prism arrives (or if it fails/ is disabled), constrain raw code to the
+// article and keep long lines scrollable. Prism wraps enhanced blocks itself.
+article.render > pre,
+article.render :not(.code-toolbar) > pre {
+  max-width: 100%;
+  overflow: auto;
+  white-space: pre;
+}
+
 .code-toolbar {
   position: relative;
   margin: 12px 0;
@@ -301,6 +310,7 @@ html[data-color-scheme='dark'] .code-toolbar.code-fullpage .toolbar .custom-item
 }
 
 // Inset so overflow clipping cannot hide the keyboard indicator.
+article.render pre[tabindex='0']:focus-visible,
 article.render pre > code[tabindex='0']:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: -3px;

@@ -9,6 +9,7 @@ import Clipboard from 'clipboard';
 import {useToBool} from '../core/_util';
 import {resolveCodeShrink} from '../core/code-shrink.mjs';
 import { bindCodeScrollFocus } from '../core/code-scroll-focus.mjs';
+import { enhanceCodeWhenReady } from '../core/prism-ready.mjs';
 
 export default class codeBlock {
   name = 'codeBlock';
@@ -20,11 +21,21 @@ export default class codeBlock {
   #attrs = MainApp.attrs;
 
   constructor() {
-    if (this.#flag('enable_code')) {
-      this.#code();
-      this.#codeToolbar();
-      bindCodeScrollFocus(this.#renderDom[0]);
-    }
+    // Mode/navigation initialize with the page, independently of the optional highlighter.
+    this.#codeTheme(MainApp.useTheme.getMode());
+    MainApp.useTheme.change((mode) => this.#codeTheme(mode));
+    const refreshScrollFocus = bindCodeScrollFocus(this.#renderDom[0]);
+    enhanceCodeWhenReady({
+      root: this.#renderDom[0],
+      enabled: this.#flag('enable_code'),
+      ready: MainApp.prismReady,
+      getPrism: () => window.Prism,
+      enhance: (prism) => {
+        this.#code(prism);
+        this.#codeToolbar();
+        refreshScrollFocus();
+      },
+    });
   }
 
   #flag(name) {
@@ -49,12 +60,11 @@ export default class codeBlock {
     return resolveCodeShrink(this.#conf?.enable_code_expander);
   }
 
-  #code() {
+  #code(prism) {
     this.#renderDom.addClass('single_code_select');
     if (this.#flag('enable_code_line')) this.#renderDom.addClass('line-numbers');
-    if (window.Prism) window.Prism.highlightAllUnder(this.#renderDom[0]);
+    prism.highlightAllUnder(this.#renderDom[0]);
     this.#codeTheme(MainApp.useTheme.getMode());
-    MainApp.useTheme.change((mode) => this.#codeTheme(mode));
   }
 
   #codeTheme(mode) {
