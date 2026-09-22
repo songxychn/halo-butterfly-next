@@ -364,12 +364,12 @@ def validate_menu(client):
             raise RuntimeError('Menu item or icon differs from fixture: ' + names[index])
 
 
-def validate_taxonomies(client, models):
+def validate_taxonomies(client, models=None):
     for plural, kind in [('categories', 'Category'), ('tags', 'Tag')]:
         actual = client.api('/apis/content.halo.run/v1alpha1/' + plural + '?size=100')['items']
         values = {(x['metadata']['name'], x['spec']['slug'], x['spec']['displayName']) for x in actual}
         expected = {(x['name'], x['name'], x['title']) for x in CONTENT[plural]}
-        if values != expected or {x['name'] for x in models[kind]} != {x['title'] for x in CONTENT[plural]}:
+        if values != expected or (models is not None and {x['name'] for x in models[kind]} != {x['title'] for x in CONTENT[plural]}):
             raise RuntimeError('Taxonomy collection differs from fixture: ' + plural)
 
 
@@ -387,15 +387,15 @@ def validate_config(client, saved):
     validate_menu(client)
 
 
-def validate_content(client):
+def validate_content(client, reference=True):
     posts = client.api('/apis/content.halo.run/v1alpha1/posts?size=100')['items']
     published = {x['metadata']['name']: x for x in posts if x['spec'].get('publish')}
     if set(published) != {p['name'] for p in CONTENT['posts']}:
         raise RuntimeError('Published Halo content set differs from the fixture; existing posts preserved')
-    models = json.loads((RUNTIME / 'hexo/db.json').read_text())['models']
+    models = json.loads((RUNTIME / 'hexo/db.json').read_text())['models'] if reference else None
     validate_taxonomies(client, models)
-    reference = {x['slug']: x for x in models['Post']}
-    if set(reference) != set(published):
+    reference_posts = {x['slug']: x for x in models['Post']} if reference else {}
+    if reference and set(reference_posts) != set(published):
         raise RuntimeError('Hexo post set differs from Halo')
     for post in CONTENT['posts']:
         spec = published[post['name']]['spec']
@@ -407,7 +407,9 @@ def validate_content(client):
         released = client.api('/apis/api.console.halo.run/v1alpha1/posts/' + post['name'] + '/release-content')
         if released['raw'] != body(post):
             raise RuntimeError('Halo released body differs from fixture')
-        ref = reference[post['name']]
+        if not reference:
+            continue
+        ref = reference_posts[post['name']]
         if any(ref[key] != post[key] for key in ['title', 'cover']) or ref['date'].replace('.000Z', 'Z') != post['date'] or ref['_content'].strip() != body(post).strip():
             raise RuntimeError('Hexo title/date/cover/body differs from fixture')
         for kind in ['Category', 'Tag']:
@@ -443,15 +445,16 @@ def disable_initial_plugin(client, name):
             time.sleep(0.1 * 2 ** attempt)
 
 
-def seed(client):
+def seed(client, reference=True):
     current = fixture_hash()
     stamp = RUNTIME / 'seed.json'
     if stamp.exists() and json.loads(stamp.read_text())['fixtureSha256'] != current:
         raise RuntimeError('Fixtures changed: use a fresh LAB_RUNTIME/ports; existing content is preserved')
     if stamp.exists():
         saved = json.loads(stamp.read_text())
-        check_hexo_inputs(saved)
-        validate_content(client)
+        if reference:
+            check_hexo_inputs(saved)
+        validate_content(client, reference=reference)
         validate_config(client, saved)
         print('Seed unchanged; created 0 content objects; existing configuration preserved')
         return
@@ -514,9 +517,9 @@ def seed(client):
     for group, patch in patches.items():
         config.setdefault(group, {}).update(patch)
     client.api(config_path, 'PUT', config)
-    validate_content(client)
+    validate_content(client, reference=reference)
     validate_menu(client)
-    write_json(stamp, {'fixtureSha256': current, 'posts': 12, 'pages': 1, 'themeConfig': patches, 'systemConfig': system_patches, 'hexoInputs': hexo_inputs()})
+    write_json(stamp, {'fixtureSha256': current, 'posts': 12, 'pages': 1, 'themeConfig': patches, 'systemConfig': system_patches, 'hexoInputs': hexo_inputs(), 'referenceChecked': reference})
     print(f'Seed ready; created {created} content objects (repeat run creates 0)')
 
 
@@ -534,8 +537,9 @@ def owned_process(name):
     return state['pid'] if result.returncode == 0 and state['identity'] in result.stdout else None
 
 
-def start():
-    for name in ['halo', 'hexo']:
+def start(halo_only=False):
+    services = ['halo'] if halo_only else ['halo', 'hexo']
+    for name in services:
         if owned_process(name) and not listening(PORTS[name]):
             continue  # A previously launched owned process may still be starting.
         if listening(PORTS[name]):
@@ -555,9 +559,9 @@ def start():
     deadline = time.monotonic() + 150
     while time.monotonic() < deadline:
         try:
-            for name in BASE:
+            for name in services:
                 LOCAL.open(BASE[name] + ('/actuator/health/readiness' if name == 'halo' else '/'), timeout=5).read()
-            print('Healthy:', BASE)
+            print('Healthy:', {name: BASE[name] for name in services})
             return
         except (OSError, urllib.error.URLError):
             time.sleep(2)
