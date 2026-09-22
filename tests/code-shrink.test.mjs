@@ -44,7 +44,8 @@ test('三态源码：none 无按钮不 closed；false 有按钮展开；true 有
   assert.match(js, /shrink !== 'none'/);
   assert.match(js, /shrink === 'true'/);
   assert.match(js, /addClass\('closed'\)/);
-  assert.match(js, /toggleClass\('closed'\)/);
+  assert.match(js, /toggleClass\('closed', !expanded\)/);
+  assert.match(js, /#setCodeExpanded\(wrap, expander, wrap\.hasClass\('closed'\)\)/);
   assert.match(js, /<button type="button" class="code-expander"/);
   assert.equal((js.match(/class="code-expander"/g) || []).length, 1);
   assert.doesNotMatch(js, /#flag\('enable_code_expander'\)/);

@@ -57,10 +57,17 @@ test('Prism focus transition preserves reading offsets only for the currently fo
       code.attrs.tabindex = '-1'; // Preserve explicit author semantics, even when restoring programmatic focus.
       pre.scrollLeft = 40; pre.scrollTop = 10;
       document.activeElement = initialFocus === 'elsewhere' ? outside : initialFocus === 'pre' ? pre : code;
-      const restore = preserveCodeReadingFocus(root);
+      let prepared = 0;
+      const restore = preserveCodeReadingFocus(root, readingPre => {
+        assert.equal(readingPre, pre);
+        prepared++;
+        code.clientHeight = 50; // A collapsed block must become visible before focus selection.
+      });
+      code.clientHeight = 0;
       pre.overflowX = pre.overflowY = 'hidden';
       if (initialFocus !== 'elsewhere') document.activeElement = document.body;
       restore();
+      assert.equal(prepared, initialFocus === 'elsewhere' ? 0 : 1);
       if (initialFocus === 'elsewhere') assert.equal(document.activeElement, outside);
       else {
         assert.equal(document.activeElement, code);

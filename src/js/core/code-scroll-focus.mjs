@@ -26,7 +26,7 @@ export function bindCodeScrollFocus(root) {
 
 // Prism reparents the focused pre/code, which can move focus to BODY. Capture
 // only a reader currently in this block; never pull focus back from elsewhere.
-export function preserveCodeReadingFocus(root) {
+export function preserveCodeReadingFocus(root, prepare = () => {}) {
   const document = root?.ownerDocument;
   const active = document?.activeElement;
   if (!active || !root.contains(active) || !active.matches('pre, pre > code')) return () => {};
@@ -36,6 +36,7 @@ export function preserveCodeReadingFocus(root) {
   const top = pre.scrollTop + (code?.scrollTop || 0);
   return () => {
     if (!root.contains(pre) || ![active, document.body].includes(document.activeElement)) return;
+    prepare(pre);
     const currentCode = pre.querySelector('code');
     const target = [currentCode, pre].find(element => element && isScrollable(element)) || active;
     // If wrapping removed overflow, restore the reader without adding a tab stop.
