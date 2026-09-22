@@ -47,7 +47,7 @@ BASE_URL=http://127.0.0.1:18091 node scripts/browser/run.mjs \
 
 每页 `diagnostics` 复用搜索诊断器，记录有界生命周期事件、未完成请求与 `readyState`，失败即取 `failure` 快照、结束时取 `final` 快照（各最多等待 1 秒）；新增诊断仅保留 URL origin/path，不采集请求头、正文、存储或 HAR，不重试、不改超时/断言/退出码。需要底层 Firefox 网络日志时由运行者在外部环境设置 `MOZ_LOG`/`MOZ_LOG_FILE`，原始日志仅保存在本地私有路径，不能加入报告或公开证据。
 
-首页键盘检查的主动 reload 通过请求对象账本区分 runner 取消：仅 reload 开始前未完成的主 frame 只读静态资源、在新文档 commit 前发出的已知 abort，且 reload 返回同 URL 的非重定向 200 文档，并在该新文档中观测到另一个请求完整读取相同资源时，才不计入产品请求失败。原始 `requestFailures`、响应状态及 `captureError` 保留，`runnerCancellations` 单列旧/新请求 ID；HTTP/类型/包内容错误、未恢复资源、reload 外或新文档取消、上下文关闭取消、被阻止写入与超时仍失败。账本不以报告字符串、URL 或宽泛时间窗作为豁免依据，旧验收报告不重分类。
+首页键盘检查的主动 reload 通过请求对象账本区分 runner 取消：仅 reload 开始前未完成的主 frame 只读静态资源、在新文档 commit 前发出的已知 abort，且 reload 返回同 URL 的非重定向 200 文档，并在该新文档中观测到另一个请求完整读取相同资源时，才不计入产品请求失败。原始 `requestFailures`、响应状态及 `captureError` 保留，`runnerCancellations` 单列旧/新请求 ID；HTTP/类型/包内容错误、未恢复资源、reload 外或新文档取消、上下文关闭取消、被阻止写入与超时仍失败。账本不单凭报告字符串、URL 或宽泛时间窗授予豁免，旧验收报告不重分类。仅对从已知 `about:blank` 开始、首次主导航请求之后且首次 commit 之前发起的主 frame 资源补齐首文档归属；后续导航 commit 之前发起的资源无法证明新文档归属时，继续失败而不充当恢复证明。
 
 每次创建唯一 `.runtime/browser-matrix/runs/<timestamp-id>/`，包含每页 JSON、截图与 SHA-256、精简进度快照和完整 `report.json`。不会覆盖以前的运行。标准退出码：`0` 表示三引擎核心 smoke 全通过；`1` 表示页面/资源/交互等失败；`2` 表示遗漏或不可用引擎造成不完整。任何结果都不自动修改矩阵验收状态。
 

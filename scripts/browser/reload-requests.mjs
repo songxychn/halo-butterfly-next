@@ -1,11 +1,12 @@
 import { boundedError } from './support.mjs';
 
-const abortReasons = new Set(['NS_BINDING_ABORTED', 'net::ERR_ABORTED']);
+const abortReasons = new Set(['NS_BINDING_ABORTED', 'net::ERR_ABORTED', 'cancelled']);
 const resourceTypes = new Set(['stylesheet', 'script', 'image', 'font', 'media']);
 
 // Object identities, not report fields or URL matching, establish which request
 // the runner interrupted. A URL is used only to require a completed replacement.
 export function observeReloadRequests(page, result) {
+  const startsFromBlank = page.url() === 'about:blank';
   const requests = new Map(), failures = new Map(), captureErrors = new Map();
   let documentId = 0, committedDocumentId = 0, nextId = 0, activeReload;
   const reloads = [];
@@ -15,10 +16,18 @@ export function observeReloadRequests(page, result) {
     let mainFrame = false;
     try { mainFrame = request.frame() === page.mainFrame(); } catch { /* Workers have no frame; never eligible. */ }
     if (mainFrame && request.isNavigationRequest()) documentId++;
-    requests.set(request, { request, id: ++nextId, documentId: mainFrame && request.isNavigationRequest() ? documentId : committedDocumentId, mainFrame, finished: false });
+    requests.set(request, { request, id: ++nextId, documentId: mainFrame && request.isNavigationRequest() ? documentId : committedDocumentId, mainFrame, initialParserRequest: startsFromBlank && documentId === 1 && committedDocumentId === 0 && mainFrame && !request.isNavigationRequest(), finished: false });
   });
   page.on('framenavigated', frame => {
-    if (frame === page.mainFrame()) committedDocumentId = documentId;
+    if (frame === page.mainFrame()) {
+      // Playwright may deliver parser resource requests before the first commit
+      // event. Only the observed first navigation out of about:blank is safe to
+      // attribute this way; later pre-commit resources stay in the old document.
+      if (startsFromBlank && committedDocumentId === 0 && documentId === 1) {
+        for (const state of requests.values()) if (state.initialParserRequest) state.documentId = 1;
+      }
+      committedDocumentId = documentId;
+    }
     if (frame === page.mainFrame() && activeReload) {
       activeReload.committed = true;
       activeReload.documentId = documentId;

@@ -4,9 +4,9 @@ import { EventEmitter } from 'node:events';
 import { observeReloadRequests } from '../scripts/browser/reload-requests.mjs';
 import { finishPage } from '../scripts/browser/support.mjs';
 
-function fixture() {
+function fixture({ parserBeforeCommit = false, alreadyNavigated = false, blankRequest = false } = {}) {
   const main = {}, child = {}, page = new EventEmitter();
-  let currentUrl = 'http://127.0.0.1:18091/';
+  let currentUrl = alreadyNavigated ? 'http://127.0.0.1:18091/' : 'about:blank';
   page.mainFrame = () => main; page.url = () => currentUrl;
   const result = { requestFailures: [], resources: [], failures: [], jsErrors: [], blockedRequests: [] };
   const ledger = observeReloadRequests(page, result);
@@ -20,7 +20,14 @@ function fixture() {
     page.emit('framenavigated', main); page.emit('requestfinished', r);
     return { status: () => options.status || 200, request: () => r, url: () => currentUrl };
   };
-  navigate();
+  let earlyRequest;
+  if (blankRequest) earlyRequest = request({ url: 'http://127.0.0.1:18091/module.js' });
+  if (parserBeforeCommit) {
+    currentUrl = 'http://127.0.0.1:18091/';
+    request({ navigation: true, type: 'document', url: currentUrl });
+    earlyRequest = request();
+    page.emit('framenavigated', main);
+  } else navigate({ url: 'http://127.0.0.1:18091/' });
   const response = (r, { status = 200, failure, bodyError, pending = false } = {}) => {
     const item = { url: r.url(), status, type: r.resourceType(), ...(failure ? { failure } : {}) };
     result.resources.push(item); ledger.response(r, item);
@@ -30,7 +37,7 @@ function fixture() {
     return item;
   };
   const finish = (close = async () => {}, pending = []) => finishPage(result, pending, close, 10, () => ledger.exemptions());
-  return { page, ledger, result, request, navigate, response, finish };
+  return { page, ledger, result, request, navigate, response, finish, earlyRequest };
 }
 async function roundtrip(options = {}) {
   const f = fixture(), old = f.request(options.old);
@@ -144,4 +151,18 @@ test('a later cancelled-body rejection cannot overwrite an earlier capture error
   await f.finish(); assert.equal(f.result.status, 'failed');
   assert.deepEqual(item.captureErrors, ['independent failure before reload', 'later cancellation rejection']);
   assert.equal(f.result.runnerCancellations.length, 0);
+});
+
+for (const [name, options, expected] of [
+  ['first parser request between observed navigation and commit', { parserBeforeCommit: true }, 'passed'],
+  ['existing document cannot claim initial about:blank exception', { parserBeforeCommit: true, alreadyNavigated: true }, 'failed'],
+  ['request started before the first navigation stays unattributed', { blankRequest: true }, 'failed']
+]) test(name, async () => {
+  const f = fixture(options), old = f.earlyRequest;
+  await f.ledger.reload(async () => { f.page.emit('requestfailed', old); const nav = f.navigate(); f.response(f.request({ url: old.url() })); return nav; });
+  await f.finish(); assert.equal(f.result.status, expected);
+});
+for (const reason of ['cancelled', 'net::ERR_ABORTED']) test('exact native cancellation '+reason+' still requires an owned reload', async () => {
+  assert.equal((await roundtrip({ old: { reason } })).result.status, 'passed');
+  assert.equal((await roundtrip({ old: { reason }, beforeReload: true })).result.status, 'failed');
 });
