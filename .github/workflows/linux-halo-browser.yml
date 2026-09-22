@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
+      PYTHONDONTWRITEBYTECODE: '1'
       HALO_PORT: '18141'
       HEXO_PORT: '14141'
     steps:

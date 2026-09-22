@@ -8,7 +8,7 @@
 
 手动 `workflow_dispatch` 必须传 `source_sha` 完整小写40位提交SHA。PR只在本工作流或 `scripts/ci/linux-halo/` 路径变更时触发，并限制同私有仓库的PR；PR默认验证精确head SHA，不以合成merge ref冒充源版本。
 
-工作流分开检出 harness 和 theme-source：后者严格匹配输入SHA，在干净工作树执行冻结安装和 `pnpm verify`。harness从本地theme-source取得精确Git对象，不改自己的工作树、不抓全部旧历史。报告分别记录harness SHA、theme SHA和ZIP SHA-256；安装后逐文件核对ZIP。未来主题候选变更时可重新指定SHA，本次通过不泛化为未来包通过。
+工作流分开检出 harness 和 theme-source：后者严格匹配输入SHA，在干净工作树执行冻结安装和 `pnpm verify`。工作流显式设置 `PYTHONDONTWRITEBYTECODE=1`，避免 Python 测试在 Linux 源码目录产生 `__pycache__`；源码干净检查仍包含所有未跟踪文件。harness从本地theme-source取得精确Git对象，不改自己的工作树、不抓全部旧历史。报告分别记录harness SHA、theme SHA和ZIP SHA-256；安装后逐文件核对ZIP。未来主题候选变更时可重新指定SHA，本次通过不泛化为未来包通过。
 
 ## 合成站与覆盖
 
