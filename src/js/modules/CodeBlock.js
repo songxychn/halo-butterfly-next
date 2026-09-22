@@ -8,7 +8,7 @@ import $ from 'jquery';
 import Clipboard from 'clipboard';
 import {useToBool} from '../core/_util';
 import {resolveCodeShrink} from '../core/code-shrink.mjs';
-import { bindCodeScrollFocus } from '../core/code-scroll-focus.mjs';
+import { bindCodeScrollFocus, preserveCodeReadingFocus } from '../core/code-scroll-focus.mjs';
 import { enhanceCodeWhenReady, loadPrismAfterPaint } from '../core/prism-ready.mjs';
 
 export default class codeBlock {
@@ -36,9 +36,11 @@ export default class codeBlock {
       ready: MainApp.prismReady,
       getPrism: () => window.Prism,
       enhance: (prism) => {
+        const restoreReadingFocus = preserveCodeReadingFocus(this.#renderDom[0]);
         this.#code(prism);
         this.#codeToolbar();
         refreshScrollFocus();
+        restoreReadingFocus();
       },
     });
   }

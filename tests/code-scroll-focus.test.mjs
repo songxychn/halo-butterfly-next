@@ -33,3 +33,51 @@ test('keyboard stop follows the actual raw or enhanced scrolling element and pre
     assert.equal(typeof bindCodeScrollFocus(null), 'function');
   } finally {Object.assign(globalThis, previous);}
 });
+
+test('Prism focus transition preserves reading offsets only for the currently focused code block', async () => {
+  const {preserveCodeReadingFocus} = await import('../src/js/core/code-scroll-focus.mjs');
+  const previous = globalThis.getComputedStyle;
+  globalThis.getComputedStyle = element => element;
+  try {
+    for (const initialFocus of ['pre', 'code', 'elsewhere']) {
+      const document = {body: {}}, outside = {};
+      const make = tag => ({tag, scrollLeft: 0, scrollTop: 0, clientWidth: 100, clientHeight: 50,
+        scrollWidth: 500, scrollHeight: 100, overflowX: 'auto', overflowY: 'auto', attrs: {},
+        matches(selector) {return selector === 'pre' ? tag === 'pre' : true;},
+        hasAttribute(name) {return Object.hasOwn(this.attrs, name);},
+        setAttribute(name, value) {this.attrs[name] = value;},
+        getAttribute(name) {return this.attrs[name];},
+        removeAttribute(name) {delete this.attrs[name];},
+        addEventListener(name, handler) {this[name] = handler;},
+        focus(options) {assert.deepEqual(options, {preventScroll: true}); document.activeElement = this;},
+      });
+      const pre = make('pre'), code = make('code');
+      pre.querySelector = () => code; code.parentElement = pre;
+      const root = {ownerDocument: document, contains: element => [pre, code].includes(element)};
+      code.attrs.tabindex = '-1'; // Preserve explicit author semantics, even when restoring programmatic focus.
+      pre.scrollLeft = 40; pre.scrollTop = 10;
+      document.activeElement = initialFocus === 'elsewhere' ? outside : initialFocus === 'pre' ? pre : code;
+      const restore = preserveCodeReadingFocus(root);
+      pre.overflowX = pre.overflowY = 'hidden';
+      if (initialFocus !== 'elsewhere') document.activeElement = document.body;
+      restore();
+      if (initialFocus === 'elsewhere') assert.equal(document.activeElement, outside);
+      else {
+        assert.equal(document.activeElement, code);
+        assert.equal(code.scrollLeft, 40); assert.equal(code.scrollTop, 10);
+        assert.equal(pre.scrollLeft, 0); assert.equal(pre.scrollTop, 0);
+        assert.equal(code.attrs.tabindex, '-1');
+      }
+      document.activeElement = pre;
+      const noSteal = preserveCodeReadingFocus(root);
+      document.activeElement = outside; noSteal();
+      assert.equal(document.activeElement, outside, 'do not replace a focus change during enhancement');
+      document.activeElement = pre;
+      delete pre.attrs.tabindex; code.overflowX = code.overflowY = 'visible';
+      const noOverflow = preserveCodeReadingFocus(root);
+      document.activeElement = document.body; noOverflow();
+      assert.equal(document.activeElement, pre); assert.equal(pre.attrs.tabindex, '-1');
+      pre.blur(); assert.equal(pre.attrs.tabindex, undefined, 'temporary focus fallback adds no permanent tab stop');
+    }
+  } finally {globalThis.getComputedStyle = previous;}
+});
