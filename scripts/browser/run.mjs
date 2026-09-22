@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
+import { observeReloadRequests } from './reload-requests.mjs';
 import { observeSearchPage } from '../search-comment/diagnostics.mjs';
 import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, boundedError, finishPage, readJson, writeJson, writeProgress, sha256 } from './support.mjs';
 
@@ -55,7 +56,7 @@ async function settle(page) {
   }));
 }
 
-async function keyboardChecks(page, width) {
+async function keyboardChecks(page, width, requests) {
   const checks = [];
   if (width === 390) {
     await page.locator('.nav .bars').focus();
@@ -88,7 +89,7 @@ async function keyboardChecks(page, width) {
   await page.keyboard.press('Enter');
   const changed = initial === 'light' ? 'dark' : 'light';
   await page.waitForFunction(mode => document.documentElement.dataset.colorScheme === mode, changed);
-  await page.reload({ waitUntil: 'domcontentloaded' });
+  await requests.reload(() => page.reload({ waitUntil: 'domcontentloaded' }));
   await settle(page);
   assert(await page.getAttribute('html', 'data-color-scheme') === changed, 'Theme mode did not survive reload');
   checks.push({ name: 'settings-and-mode-keyboard-enter-and-storage-reload', result: 'passed', before: initial, after: changed });
@@ -210,14 +211,19 @@ async function main() {
         result.diagnostics = diagnostics.report;
         page.setDefaultTimeout(15000);
         page.on('pageerror', error => result.jsErrors.push({ message: message(error), stack: String(error.stack || '').slice(0, 5000) }));
-        page.on('requestfailed', request => result.requestFailures.push({ url: request.url(), method: request.method(), reason: request.failure()?.errorText }));
+        const requests = observeReloadRequests(page, result);
         page.on('response', response => pending.push((async () => {
           const type = response.request().resourceType(), contentType = response.headers()['content-type'] || '';
           const item = { url: response.url(), type, status: response.status(), contentType, contentEncoding: response.headers()['content-encoding'] || null };
+          result.resources.push(item);
+          requests.response(response.request(), item);
           const failure = responseFailure(item.status, contentType, type);
           if (failure) item.failure = failure;
           if (['stylesheet', 'script', 'image', 'font', 'media'].includes(type) && response.status() === 200) {
-            const body = await response.body();
+            let body;
+            try { body = await response.body(); }
+            catch (error) { requests.captureError(response.request(), item, error); return; }
+            requests.bodyComplete(response.request());
             item.sha256 = sha256(body);
             const expected = assetBytes(item.url);
             if (expected) {
@@ -227,7 +233,6 @@ async function main() {
               if (item.comparableBodySha256 !== item.comparablePackageSha256) item.failure = 'Response asset differs from declared installed theme package';
             }
           }
-          result.resources.push(item);
         })().catch(error => result.failures.push('Resource capture: ' + message(error)))));
         try {
           const response = await page.goto(base + route, { waitUntil: 'domcontentloaded', timeout: 30000 });
@@ -243,7 +248,7 @@ async function main() {
           const filename = `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.png`;
           const bytes = await page.screenshot({ path: path.join(output, filename), fullPage: false, animations: 'allow' });
           result.screenshot = { path: filename, sha256: sha256(bytes) };
-          if (route === '/') result.keyboard = await keyboardChecks(page, viewport.width);
+          if (route === '/') result.keyboard = await keyboardChecks(page, viewport.width, requests);
           if (route === '/archives/preview-1/') result.codeCollapse = await codeCollapseChecks(page);
         } catch (error) {
           result.failures.push(message(error));
@@ -258,7 +263,7 @@ async function main() {
           }
         }
         await diagnostics.finish(); // Bounded final state before the context closes.
-        await finishPage(result, pending, () => context.close());
+        await finishPage(result, pending, () => context.close(), 5000, () => requests.exemptions());
         await writeJson(path.join(output, `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.json`), result);
         console.log(`${name} ${viewport.width} ${mode} ${route} ${result.status}`);
         await snapshot();

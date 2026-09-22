@@ -90,7 +90,7 @@ export function boundedError(error, limit = 1800) {
   return value.length <= limit * 2 ? value : value.slice(0, limit) + '\n[bounded diagnostic: middle omitted]\n' + value.slice(-limit);
 }
 
-export async function finishPage(result, pending, closeContext, timeoutMs = 5000) {
+export async function finishPage(result, pending, closeContext, timeoutMs = 5000, requestExemptions = () => ({})) {
   const bounded = async (operation, label) => {
     let timer;
     try {
@@ -105,8 +105,12 @@ export async function finishPage(result, pending, closeContext, timeoutMs = 5000
   // those events before deriving the status that is written to evidence.
   await bounded(closeContext, 'Context close');
   await bounded(() => Promise.all(pending), 'Response body drain after close');
+  // Only the live request ledger can provide identity-based exemptions. Raw
+  // report classifications never grant an exemption, including at cleanup.
+  const exemptions = requestExemptions();
+  if (result.resources.some(item => item.captureError && !exemptions.resourceCaptureErrors?.has(item))) result.failures.push('Resource response body capture failed');
   if (result.jsErrors.length) result.failures.push('Uncaught page JavaScript errors');
-  if (result.blockedRequests.length || result.requestFailures.length) result.failures.push('Blocked or failed requests');
+  if (result.blockedRequests.length || result.requestFailures.some(item => !exemptions.requestFailures?.has(item))) result.failures.push('Blocked or failed requests');
   if (result.resources.some(item => item.failure)) result.failures.push('Invalid resource response or package asset mismatch');
   result.status = result.failures.length ? 'failed' : 'passed';
   return result;
