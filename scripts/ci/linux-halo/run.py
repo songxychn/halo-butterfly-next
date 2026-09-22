@@ -170,8 +170,12 @@ def main():
     if not re.fullmatch('[0-9a-f]{40}', args.source_sha or '') or not args.source:
         raise RuntimeError('An exact full source SHA and checkout are required')
     source = args.source.resolve()
-    if git(source, 'rev-parse', 'HEAD') != args.source_sha or git(source, 'status', '--porcelain'):
-        raise RuntimeError('Theme checkout must be clean and exactly match source SHA')
+    actual_sha = git(source, 'rev-parse', 'HEAD')
+    if actual_sha != args.source_sha:
+        raise RuntimeError(f'Theme checkout SHA differs: expected {args.source_sha}, actual {actual_sha}')
+    status = git(source, 'status', '--porcelain', '--untracked-files=all')
+    if status:
+        raise RuntimeError('Theme checkout must be clean; changed paths: ' + status)
     if runtime.exists() or output.exists():
         raise RuntimeError('A fresh, unclaimed CI runtime and evidence directory are required')
     runtime.mkdir(mode=0o700)
