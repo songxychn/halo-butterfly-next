@@ -153,6 +153,20 @@ def configure_comments(client):
             raise RuntimeError('Explicit comment profile did not persist: ' + group)
 
 
+def matrix_summary(result):
+    """Only anonymous core diagnostics; never headers, storage or runtime config."""
+    return {'platform': result.get('platform'), 'requestHeaders': 'not collected', 'engines': [
+        {'name': engine['name'], 'version': engine.get('version'), 'status': engine['status'],
+         'pages': len(engine['pages']), 'passed': sum(page['status'] == 'passed' for page in engine['pages']),
+         'launchError': engine.get('error'), 'failures': [
+             {'path': page['path'], 'width': page['viewport']['width'], 'mode': page['mode'],
+              'assertions': page['failures'], 'pageErrors': [error['message'] for error in page['jsErrors']],
+              'readinessFailure': page.get('readinessFailure'),
+              'lifecycle': page.get('diagnostics', {}).get('failure', page.get('diagnostics', {}).get('final'))}
+             for page in engine['pages'] if page['status'] != 'passed']}
+        for engine in result['engines']]}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path)
@@ -208,6 +222,22 @@ def main():
         report['haloJarSha256'] = lab.VERSIONS['halo']['sha256']
         report['fixtureSha256'] = lab.fixture_hash()
         shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')
+        # Fail early with useful stderr before starting Halo or spending a full matrix.
+        preflight_path = output / 'chromium-preflight.json'
+        preflight = subprocess.Popen(['node', str(HARNESS / 'scripts/ci/linux-halo/preflight.mjs'), str(preflight_path)], start_new_session=True)
+        try:
+            preflight_status = preflight.wait(timeout=60)
+        finally:
+            if preflight.poll() is None:
+                os.killpg(preflight.pid, signal.SIGTERM)
+                try:
+                    preflight.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    os.killpg(preflight.pid, signal.SIGKILL)
+                    preflight.wait()
+        report['chromiumPreflight'] = json_file(preflight_path)
+        if preflight_status or report['chromiumPreflight']['status'] != 'passed':
+            raise RuntimeError('Chromium launch preflight failed; original bounded stderr retained')
         lab.start(halo_only=True)
         client = lab.Client(initialize=True)
         if not client.initialized_now:
@@ -240,6 +270,8 @@ def main():
             raise RuntimeError('Exactly one complete matrix report is required')
         result = json_file(reports[0])
         report['matrixResult'] = result['result']
+        report['matrixSummary'] = matrix_summary(result)
+        print('Linux anonymous matrix classification ' + json.dumps(report['matrixSummary'], ensure_ascii=False), flush=True)
         counts = {e['name']: len(e['pages']) for e in result['engines']}
         report['pageCounts'] = counts
         if status or result['result'] != 'passed-core-smoke' or counts != {name: 40 for name in ENGINES}:

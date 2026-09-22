@@ -13,6 +13,14 @@ spec.loader.exec_module(ci)
 
 
 class Guards(unittest.TestCase):
+    def test_matrix_summary_does_not_export_storage_headers_or_runtime_config(self):
+        result = {'platform': {'type': 'Linux'}, 'headers': {'secret': 'never'}, 'engines': [
+            {'name': 'firefox', 'status': 'failed', 'pages': [{'path': '/', 'viewport': {'width': 390}, 'mode': 'dark', 'status': 'failed', 'failures': ['timeout'], 'jsErrors': [], 'storage': {'secret': 'never'}, 'diagnostics': {'failure': {'readyState': 'loading', 'pending': []}}}]}]}
+        summary = ci.matrix_summary(result)
+        self.assertEqual(summary['engines'][0]['failures'][0]['lifecycle']['readyState'], 'loading')
+        self.assertEqual(summary['requestHeaders'], 'not collected')
+        self.assertNotIn('never', json.dumps(summary))
+
     def test_comment_profile_updates_only_selected_fields_and_checks_readback(self):
         config = {'metadata': {'name': 'comments'}, 'data': {'basic': json.dumps({'unrelated': 'preserved'}), 'other': '{}'}}
         class Client:

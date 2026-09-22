@@ -16,11 +16,13 @@
 
 固定标准comparison主题和12文章/单页夹具。停用其他内置插件，安装并仅启用两款固定官方插件，设置全局 `comment.enable=true`。评论组件按macOS实验站的白名单显式覆盖：basic 的 withReplies=false、showCommenterDevice=false、showPrivateCommentBadge=true、enablePrivateComment=false、size=20/replySize=10/withReplySize=5；avatar 的 enable=false、policy=anonymousUser、provider=gravatar；editor 的 enableEmoji=true、enableUpload=false；security.captcha 为 enable=false、type=ALPHANUMERIC、audience=ANONYMOUS、roles=[]。报告保留完整显式profile。macOS的system comment为空并依赖Halo默认，Linux显式enable=true；不声称其他设置完整一致。这是匿名核心浏览器对照profile，不是搜索查询、评论提交或完整插件生命周期验收。
 
-复用现有 `scripts/browser/run.mjs`，Chromium/Firefox/WebKit × 1440/390 × 亮暗 × 10核心路由，共120页。保留JS/资源失败、Loading/图片/字体等待、页面截图、键盘导航与模式持久化等原检查；保持无头浏览器原生请求头，不加identity或Connection补丁。仅120页全部通过且原runner返回 `passed-core-smoke` 才通过；引擎缺失、超时、失败或部分报告均失败，不吞Halo安装/配置错误。
+启动Halo前先用完全相同的 bundled Chromium 参数做独立 launch preflight，失败保留有界错误头尾，避免20分钟后才发现启动原因被参数截断。复用现有 `scripts/browser/run.mjs`，Chromium/Firefox/WebKit × 1440/390 × 亮暗 × 10核心路由，共120页。保留JS/资源失败、Loading/图片/字体等待、页面截图、键盘导航与模式持久化等原检查；保持无头浏览器原生请求头，不加identity或Connection补丁。仅120页全部通过且原runner返回 `passed-core-smoke` 才通过；引擎缺失、超时、失败或部分报告均失败，不吞Halo安装/配置错误。
 
 ## 证据与清理
 
-只上传专门证据目录：候选ZIP、package.sha256、summary.json，以及浏览器输出内严格文件名白名单的匿名逐页JSON/PNG、report.json与progress JSON。会话、密码、Cookie、storage、配置快照、日志、JAR、数据库及整个lab/browser runtime均不复制、不上传。浏览器使用匿名独立上下文，诊断不收集请求头/正文/存储；页面内容仅来自合成夹具。
+只上传专门证据目录：候选ZIP、package.sha256、summary.json、chromium-preflight.json，以及浏览器输出内严格文件名白名单的匿名逐页JSON/PNG、report.json与progress JSON。会话、密码、Cookie、storage、配置快照、日志、JAR、数据库及整个lab/browser runtime均不复制、不上传。浏览器使用匿名独立上下文，诊断不收集请求头/正文/存储；页面内容仅来自合成夹具。
+
+浏览器错误保留有界头尾；readiness失败记录具体阶段与当时字体/loading/动画/图片状态。响应体在关闭上下文前后分别限时5秒，关闭也限时5秒；超时明确记为失败并继续保存证据，不能转为通过。CI日志额外输出匿名逐页失败分类，实际请求头未采集，不能从默认配置推断线上的请求头。
 
 主runner `finally` 停止自己的浏览器进程组和带同一GitHub run/repository标记的Halo进程；工作流再用 `always()` 清理兜底。 job 45分钟、浏览器矩阵1500秒超时，强制取消时最后由临时runner销毁隔离环境。清理失败也算失败，原始浏览器失败记录保持不变。
 

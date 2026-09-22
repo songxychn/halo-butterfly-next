@@ -5,7 +5,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import { observeSearchPage } from '../search-comment/diagnostics.mjs';
-import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, finishPage, readJson, writeJson, writeProgress, sha256 } from './support.mjs';
+import { REPO, FIXTURE, RUNTIME, ENGINES, ROUTES, COUNTER_PATH, ownRuntime, browserEnvironment, validateBaseUrl, validatePackage, responseFailure, requestPolicy, comparableAsset, boundedError, finishPage, readJson, writeJson, writeProgress, sha256 } from './support.mjs';
 
 const options = {};
 for (let i = 2; i < process.argv.length; i += 2) {
@@ -14,21 +14,40 @@ for (let i = 2; i < process.argv.length; i += 2) {
   options[process.argv[i]] = process.argv[i + 1];
 }
 const git = (...args) => execFileSync('git', ['-C', REPO, ...args], { encoding: 'utf8' }).trim();
-const message = error => String(error?.message || error).slice(0, 1800);
+const message = boundedError;
 const assert = (condition, text) => { if (!condition) throw new Error(text); };
 
 async function settle(page) {
-  await page.waitForFunction(() => document.fonts.status === 'loaded' && !document.body.classList.contains('loading'), null, { timeout: 15000 });
-  await page.waitForFunction(() => document.getAnimations().every(animation => {
-    const timing = animation.effect?.getComputedTiming();
-    return timing?.iterations === Infinity || !Number.isFinite(timing?.endTime) || ['finished', 'idle'].includes(animation.playState);
-  }), null, { timeout: 15000 });
-  await page.waitForFunction(() => [...document.images].every(image => {
-    const r = image.getBoundingClientRect(), s = getComputedStyle(image);
-    if (s.display === 'none' || s.visibility !== 'visible' || r.width <= 0 || r.height <= 0 || r.bottom <= 0 || r.top >= innerHeight || r.right <= 0 || r.left >= innerWidth) return true;
-    const lazy = image.getAttribute('data-lazy-src');
-    return image.complete && image.naturalWidth > 0 && (!lazy || image.currentSrc === new URL(lazy, location.href).href);
-  }), null, { timeout: 15000 });
+  let phase = 'fonts-and-loading';
+  try {
+    await page.waitForFunction(() => document.fonts.status === 'loaded' && !document.body.classList.contains('loading'), null, { timeout: 15000 });
+    phase = 'finite-animations';
+    await page.waitForFunction(() => document.getAnimations().every(animation => {
+      const timing = animation.effect?.getComputedTiming();
+      return timing?.iterations === Infinity || !Number.isFinite(timing?.endTime) || ['finished', 'idle'].includes(animation.playState);
+    }), null, { timeout: 15000 });
+    phase = 'visible-images';
+    await page.waitForFunction(() => [...document.images].every(image => {
+      const r = image.getBoundingClientRect(), s = getComputedStyle(image);
+      if (s.display === 'none' || s.visibility !== 'visible' || r.width <= 0 || r.height <= 0 || r.bottom <= 0 || r.top >= innerHeight || r.right <= 0 || r.left >= innerWidth) return true;
+      const lazy = image.getAttribute('data-lazy-src');
+      return image.complete && image.naturalWidth > 0 && (!lazy || image.currentSrc === new URL(lazy, location.href).href);
+    }), null, { timeout: 15000 });
+  } catch (error) {
+    error.readinessFailure = { phase };
+    let timer;
+    try {
+      error.readinessFailure.state = await Promise.race([page.evaluate(() => ({
+        readyState: document.readyState, fontStatus: document.fonts.status,
+        loading: document.body.classList.contains('loading'),
+        fonts: [...document.fonts].map(font => ({family: font.family, status: font.status})),
+        finiteAnimations: document.getAnimations().filter(animation => Number.isFinite(animation.effect?.getComputedTiming().endTime)).map(animation => ({playState: animation.playState, timing: animation.effect?.getComputedTiming()})),
+        visibleImages: [...document.images].filter(image => { const r = image.getBoundingClientRect(), style = getComputedStyle(image); return style.display !== 'none' && style.visibility === 'visible' && r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth; }).map(image => ({src: image.currentSrc, lazy: image.getAttribute('data-lazy-src'), complete: image.complete, width: image.naturalWidth, height: image.naturalHeight}))
+      })), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('Readiness snapshot timed out')), 2000); })]);
+    } catch (snapshotError) { error.readinessFailure.snapshotError = message(snapshotError); }
+    finally { clearTimeout(timer); }
+    throw error;
+  }
   return page.evaluate(() => ({
     fontStatus: document.fonts.status,
     ignoredInfiniteAnimations: document.getAnimations().filter(a => a.effect?.getComputedTiming().iterations === Infinity).length,
@@ -228,6 +247,7 @@ async function main() {
           if (route === '/archives/preview-1/') result.codeCollapse = await codeCollapseChecks(page);
         } catch (error) {
           result.failures.push(message(error));
+          if (error.readinessFailure) result.readinessFailure = error.readinessFailure;
           result.diagnostics.failure = await diagnostics.snapshot();
           if (!result.screenshot) {
             try {

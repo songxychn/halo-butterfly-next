@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, writeFile, readFile, rm, mkdir, symlink, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
-import { COUNTER_PATH, validateBaseUrl, validatePackage, ownRuntime, responseFailure, requestPolicy, comparableAsset, browserEnvironment, finishPage, writeProgress } from '../scripts/browser/support.mjs';
+import { COUNTER_PATH, validateBaseUrl, validatePackage, ownRuntime, responseFailure, requestPolicy, comparableAsset, browserEnvironment, finishPage, boundedError, writeProgress } from '../scripts/browser/support.mjs';
 
 const identity = { owner: 'halo-butterfly-next-comparison', schema: 1, ports: { halo: 18091, hexo: 14000 } };
 test('浏览器目标只接受显式且属于所声明实验目录的本地 Halo origin', () => {
@@ -74,4 +74,22 @@ test('多个不可用引擎的零页面快照不碰名且保留之前的失败�
     assert.notEqual(files[0], files[1]);
     assert.deepEqual(await Promise.all(files.map(async file => JSON.parse(await readFile(file, 'utf8')))), states);
   } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+
+test('启动错误保留有界头尾，长参数不能吞掉最终stderr原因', () => {
+  const value = 'launch failed: ' + 'argument '.repeat(1000) + 'stderr: missing shared library';
+  const result = boundedError(new Error(value), 80);
+  assert(result.startsWith('launch failed: '));
+  assert(result.endsWith('stderr: missing shared library'));
+  assert(result.length < 220);
+});
+test('永不结束的response body仍关闭上下文、落盘失败而不挂住或改绿', async () => {
+  const result = { failures: [], jsErrors: [], blockedRequests: [], requestFailures: [], resources: [] };
+  let closed = false;
+  await finishPage(result, [new Promise(() => {})], async () => { closed = true; }, 5);
+  assert(closed);
+  assert.equal(result.status, 'failed');
+  assert(result.failures.some(value => value.includes('before close')));
+  assert(result.failures.some(value => value.includes('after close')));
 });

@@ -85,13 +85,26 @@ export function requestPolicy(value, method, base) {
   return method === 'POST' && value === base + COUNTER_PATH ? 'visit-counter' : 'blocked';
 }
 
-export async function finishPage(result, pending, closeContext) {
-  await Promise.all(pending);
+export function boundedError(error, limit = 1800) {
+  const value = String(error?.message || error);
+  return value.length <= limit * 2 ? value : value.slice(0, limit) + '\n[bounded diagnostic: middle omitted]\n' + value.slice(-limit);
+}
+
+export async function finishPage(result, pending, closeContext, timeoutMs = 5000) {
+  const bounded = async (operation, label) => {
+    let timer;
+    try {
+      await Promise.race([Promise.resolve().then(operation), new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(label + ' exceeded ' + timeoutMs + 'ms')), timeoutMs);
+      })]);
+    } catch (error) { result.failures.push(label + ': ' + boundedError(error)); }
+    finally { clearTimeout(timer); }
+  };
+  await bounded(() => Promise.all(pending), 'Response body drain before close');
   // Closing can emit requestfailed and complete response-body tasks. Drain
   // those events before deriving the status that is written to evidence.
-  try { await closeContext(); }
-  catch (error) { result.failures.push('Context close: ' + String(error.message || error)); }
-  await Promise.all(pending);
+  await bounded(closeContext, 'Context close');
+  await bounded(() => Promise.all(pending), 'Response body drain after close');
   if (result.jsErrors.length) result.failures.push('Uncaught page JavaScript errors');
   if (result.blockedRequests.length || result.requestFailures.length) result.failures.push('Blocked or failed requests');
   if (result.resources.some(item => item.failure)) result.failures.push('Invalid resource response or package asset mismatch');
