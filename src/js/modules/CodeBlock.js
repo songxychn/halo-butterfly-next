@@ -9,7 +9,7 @@ import Clipboard from 'clipboard';
 import {useToBool} from '../core/_util';
 import {resolveCodeShrink} from '../core/code-shrink.mjs';
 import { bindCodeScrollFocus } from '../core/code-scroll-focus.mjs';
-import { enhanceCodeWhenReady } from '../core/prism-ready.mjs';
+import { enhanceCodeWhenReady, loadPrismAfterPaint } from '../core/prism-ready.mjs';
 
 export default class codeBlock {
   name = 'codeBlock';
@@ -25,6 +25,11 @@ export default class codeBlock {
     this.#codeTheme(MainApp.useTheme.getMode());
     MainApp.useTheme.change((mode) => this.#codeTheme(mode));
     const refreshScrollFocus = bindCodeScrollFocus(this.#renderDom[0]);
+    if (!this.#flag('enable_code') || !this.#renderDom[0]?.querySelector('pre code')) return;
+    MainApp.prismReady = loadPrismAfterPaint({
+      source: MainApp.prismSource,
+      domReady: MainApp.codeDomReady,
+    });
     enhanceCodeWhenReady({
       root: this.#renderDom[0],
       enabled: this.#flag('enable_code'),

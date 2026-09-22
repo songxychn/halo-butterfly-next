@@ -2,20 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
-import {enhanceCodeWhenReady} from '../src/js/core/prism-ready.mjs';
+import {enhanceCodeWhenReady, loadPrismAfterPaint} from '../src/js/core/prism-ready.mjs';
 
 const components = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const layout = await readFile(new URL('../src/html/views/layout.html', import.meta.url), 'utf8');
 
-test('Prism is manual async with persistent load/error outcome; page bundle remains deferred', () => {
-  const prism = components.match(/<script\b[^>]*th:src="[^"\n]*plugins\/prism\/prism\.min\.js[^"\n]*"[^>]*>/)?.[0];
+test('Prism URL is configuration only, with early DOM-ready gate; page bundle remains deferred', () => {
+  assert.doesNotMatch(components, /<script[^>]*src="[^"\n]*plugins\/prism\/prism\.min\.js/);
+  assert.match(components, /window\.MainApp\.prismSource =/);
+  assert.match(components, /window\.MainApp\.codeDomReady = new Promise/);
+  assert.match(components, /document\.addEventListener\('DOMContentLoaded', resolve, \{once: true\}\)/);
   const page = layout.match(/<script\b[^>]*th:src="[^"\n]*'js\/'[^"\n]*"[^>]*>/)?.[0];
-  assert.match(prism, /\sasync\sdata-manual\s/);
-  assert.match(prism, /onload="window.MainApp.resolvePrism\(true\)"/);
-  assert.match(prism, /onerror="window.MainApp.resolvePrism\(false\)"/);
   assert.match(page, /\sdefer(?:\s|>)/);
   assert.doesNotMatch(page, /\sasync(?:\s|=|>)|type="module"/);
-  assert(components.indexOf('window.MainApp.prismReady = new Promise') < components.indexOf(prism));
   assert(layout.indexOf('th:replace="~{views/config}"') < layout.indexOf('th:replace="${pin}"'));
 });
 
@@ -58,5 +57,39 @@ test('failure, disabled code and no-code pages never invoke highlighter enhancem
   ]) {
     const result = await enhanceCodeWhenReady({root: root(), enabled: true, ready: Promise.resolve(true), getPrism: () => prism, enhance: () => {throw Error('Unexpected enhancement');}, ...overrides});
     assert.equal(result, false);
+  }
+});
+
+test('one manual async request starts only after DOM readiness and two frame opportunities', async () => {
+  for (const succeeds of [true, false]) {
+    const dom = deferred(), frames = [], scripts = [];
+    const document = {
+      createElement(tag) {
+        assert.equal(tag, 'script');
+        return {events: {}, attrs: {}, setAttribute(k, v) {this.attrs[k] = v;}, addEventListener(k, fn) {this.events[k] = fn;}};
+      },
+      head: {append(script) {scripts.push(script);}},
+    };
+    const options = {source: '/prism.js', domReady: dom.promise, document, requestFrame: callback => frames.push(callback)};
+    const ready = loadPrismAfterPaint(options);
+    assert.equal(loadPrismAfterPaint(options), ready, 'same shared promise and no duplicate request');
+    await Promise.resolve(); assert.equal(frames.length, 0); assert.equal(scripts.length, 0);
+    dom.resolve(); await Promise.resolve();
+    assert.equal(frames.length, 1); frames.shift()();
+    assert.equal(scripts.length, 0); assert.equal(frames.length, 1);
+    frames.shift()(); assert.equal(scripts.length, 1);
+    const script = scripts[0];
+    assert.equal(script.src, '/prism.js'); assert.equal(script.async, true);
+    assert(Object.hasOwn(script.attrs, 'data-manual'));
+    script.events[succeeds ? 'load' : 'error']();
+    script.events.load(); script.events.error();
+    assert.equal(await ready, succeeds, 'native outcome settles only once');
+    assert.equal(await loadPrismAfterPaint(options), succeeds); assert.equal(scripts.length, 1);
+  }
+});
+
+test('empty source and rejected DOM-ready gate keep raw code without requesting a script', async () => {
+  for (const options of [{source: '', domReady: Promise.resolve()}, {source: '/prism.js', domReady: Promise.reject(Error('unavailable'))}]) {
+    assert.equal(await loadPrismAfterPaint({...options, document: {}, requestFrame: () => {throw Error('Unexpected frame');}}), false);
   }
 });

@@ -492,10 +492,12 @@
   th:fragment="codeBlockPin"
 >
   <script id="codeBlockScript" th:inline="javascript">
-    // Retain either native script outcome even if it arrives before the page bundle.
-    window.MainApp.prismReady = new Promise(resolve => {
-      window.MainApp.resolvePrism = resolve;
+    // Capture DOM readiness before deferred page modules run. The code module
+    // requests Prism only after the visible page has had a paint opportunity.
+    window.MainApp.codeDomReady = new Promise(resolve => {
+      document.addEventListener('DOMContentLoaded', resolve, {once: true});
     });
+    window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
     Object.assign(window.MainApp.conf, {
       enable_code: /*[[${theme.config.render.enable_code}]]*/ true,
       enable_code_copy: /*[[${theme.config.render.enable_code_copy}]]*/ true,
@@ -512,8 +514,6 @@
   <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/prism/prism.min.css'}">
   <link rel="preload stylesheet" as="style" id="codeLight" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_light + '.css'}">
   <link rel="preload stylesheet" as="style" id="codeDark" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_dark + '.css'}">
-  <script async data-manual type="text/javascript" th:src="${assets_link + 'plugins/prism/prism.min.js'}"
-          onload="window.MainApp.resolvePrism(true)" onerror="window.MainApp.resolvePrism(false)"></script>
 </th:block>
 
 <!--/* 文章版权。对齐 Butterfly 5.7.0 layout/includes/post/post-copyright.pug
