@@ -1,0 +1,94 @@
+name: Linux Halo browser comparison
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact 40-character theme commit to build and test
+        required: true
+        type: string
+  pull_request:
+    paths:
+      - .github/workflows/linux-halo-browser.yml
+      - scripts/ci/linux-halo/**
+permissions:
+  contents: read
+concurrency:
+  group: linux-halo-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  core:
+    if: github.event.repository.private && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      HALO_PORT: '18141'
+      HEXO_PORT: '14141'
+    steps:
+      - name: Select ephemeral runner paths
+        run: |
+          printf 'LAB_RUNTIME=%s/linux-halo-lab\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
+          printf 'EVIDENCE_OUTPUT=%s/linux-halo-evidence\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: harness
+          persist-credentials: false
+      - name: Validate exact source identity
+        id: source
+        env:
+          REQUESTED_SHA: ${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python3 - <<'PY'
+          import os, re
+          sha = os.environ['REQUESTED_SHA']
+          if not re.fullmatch('[0-9a-f]{40}', sha):
+              raise SystemExit('source_sha must be a full lowercase 40-hex commit SHA')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('sha=' + sha + '\n')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.source.outputs.sha }}
+          path: theme-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Build exact theme checkout
+        working-directory: theme-source
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm verify
+      - name: Make exact theme object available to the independent harness
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: git -C harness fetch --no-tags ../theme-source "$SOURCE_SHA"
+      - name: Install fixed independent Playwright engines
+        working-directory: harness
+        run: node scripts/browser/install.mjs
+      - name: Install Ubuntu dependencies using the pinned Playwright CLI
+        run: node harness/.runtime/browser-matrix/deps/node_modules/playwright/cli.js install-deps chromium firefox webkit
+      - name: Run real Halo and anonymous 120-page matrix
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: python3 harness/scripts/ci/linux-halo/run.py --source theme-source --source-sha "$SOURCE_SHA"
+      - name: Stop only this job's owned synthetic service
+        if: always()
+        run: python3 harness/scripts/ci/linux-halo/run.py --cleanup
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-halo-${{ steps.source.outputs.sha }}
+          path: ${{ env.EVIDENCE_OUTPUT }}/
+          if-no-files-found: warn
+          retention-days: 14

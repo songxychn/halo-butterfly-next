@@ -13,6 +13,40 @@ spec.loader.exec_module(lab)
 
 
 class LabTests(unittest.TestCase):
+    def test_halo_only_start_does_not_launch_or_probe_hexo(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(lab, 'RUNTIME', Path(directory)), patch.object(lab, 'owned_process', return_value=None), patch.object(lab, 'listening', return_value=False), patch.object(lab.subprocess, 'Popen') as launch, patch.object(lab.LOCAL, 'open') as request:
+                launch.return_value.pid = 12345
+                lab.start(halo_only=True)
+                launch.assert_called_once()
+                command = launch.call_args.args[0]
+                self.assertEqual(command[0], 'java')
+                self.assertIn('--server.address=127.0.0.1', command)
+                request.assert_called_once_with(lab.BASE['halo'] + '/actuator/health/readiness', timeout=5)
+                self.assertFalse((Path(directory) / 'hexo-process.json').exists())
+
+    def test_no_reference_still_checks_halo_content_without_hexo_database(self):
+        class Client:
+            drift = False
+            def api(self, path):
+                for kind in ['categories', 'tags']:
+                    if path.endswith('/' + kind + '?size=100'):
+                        return {'items': [{'metadata': {'name': x['name']}, 'spec': {'slug': x['name'], 'displayName': x['title']}} for x in lab.CONTENT[kind]]}
+                if path.endswith('/posts?size=100'):
+                    return {'items': [{'metadata': {'name': x['name']}, 'spec': {**x, 'publish': True, 'publishTime': x['date']}} for x in lab.CONTENT['posts']]}
+                if path.endswith('/singlepages?size=100'):
+                    return {'items': [{'metadata': {'name': x['name']}, 'spec': {**x, 'publish': True}} for x in lab.CONTENT['pages']]}
+                if path.endswith('/release-content'):
+                    name = path.split('/')[-2]
+                    return {'raw': 'incorrect body' if self.drift else lab.body(next(x for x in lab.CONTENT['posts'] if x['name'] == name))}
+                raise AssertionError(path)
+        with tempfile.TemporaryDirectory() as directory, patch.object(lab, 'RUNTIME', Path(directory)):
+            client = Client()
+            self.assertEqual(len(lab.validate_content(client, reference=False)), 12)
+            client.drift = True
+            with self.assertRaisesRegex(RuntimeError, 'Halo released body differs'):
+                lab.validate_content(client, reference=False)
+
     def test_initial_plugin_conflict_refreshes_latest_resource_and_preserves_other_fields(self):
         path = '/apis/plugin.halo.run/v1alpha1/plugins/ai-foundation'
         first = {'metadata': {'name': 'ai-foundation', 'version': 1}, 'spec': {'enabled': True, 'version': '1'}, 'status': {'phase': 'STARTING'}}
