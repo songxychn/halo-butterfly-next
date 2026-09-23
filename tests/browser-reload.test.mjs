@@ -24,9 +24,10 @@ function fixture({ parserBeforeCommit = false, alreadyNavigated = false, blankRe
   if (blankRequest) earlyRequest = request({ url: 'http://127.0.0.1:18091/module.js' });
   if (parserBeforeCommit) {
     currentUrl = 'http://127.0.0.1:18091/';
-    request({ navigation: true, type: 'document', url: currentUrl });
+    const document = request({ navigation: true, type: 'document', url: currentUrl });
     earlyRequest = request();
     page.emit('framenavigated', main);
+    page.emit('requestfinished', document);
   } else navigate({ url: 'http://127.0.0.1:18091/' });
   const response = (r, { status = 200, failure, bodyError, pending = false } = {}) => {
     const item = { url: r.url(), status, type: r.resourceType(), ...(failure ? { failure } : {}) };
@@ -36,7 +37,7 @@ function fixture({ parserBeforeCommit = false, alreadyNavigated = false, blankRe
     if (!pending) page.emit('requestfinished', r);
     return item;
   };
-  const finish = (close = async () => {}, pending = []) => finishPage(result, pending, close, 10, () => ledger.exemptions());
+  const finish = (close = async () => {}, pending = []) => finishPage(result, pending, close, 10, ledger);
   return { page, ledger, result, request, navigate, response, finish, earlyRequest };
 }
 async function roundtrip(options = {}) {
@@ -165,4 +166,14 @@ for (const [name, options, expected] of [
 for (const reason of ['cancelled', 'net::ERR_ABORTED']) test('exact native cancellation '+reason+' still requires an owned reload', async () => {
   assert.equal((await roundtrip({ old: { reason } })).result.status, 'passed');
   assert.equal((await roundtrip({ old: { reason }, beforeReload: true })).result.status, 'failed');
+});
+
+
+test('silent old reload request is not exempted by a successful same-URL replacement', async () => {
+  const f = fixture(), old = f.request();
+  await f.ledger.reload(async () => { const nav = f.navigate(); f.response(f.request({ url: old.url() })); return nav; });
+  await f.finish();
+  assert.equal(f.result.status, 'failed'); assert.equal(f.result.requestFailures.length, 0);
+  assert.equal(f.result.runnerCancellations.length, 0);
+  assert.equal(f.result.pendingRequestsBeforeClose.length, 1);
 });

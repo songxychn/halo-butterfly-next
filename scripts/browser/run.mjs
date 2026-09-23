@@ -263,7 +263,7 @@ async function main() {
           }
         }
         await diagnostics.finish(); // Bounded final state before the context closes.
-        await finishPage(result, pending, () => context.close(), 5000, () => requests.exemptions());
+        await finishPage(result, pending, () => context.close(), 5000, requests);
         await writeJson(path.join(output, `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.json`), result);
         console.log(`${name} ${viewport.width} ${mode} ${route} ${result.status}`);
         await snapshot();

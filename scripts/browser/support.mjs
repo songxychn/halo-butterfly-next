@@ -90,24 +90,51 @@ export function boundedError(error, limit = 1800) {
   return value.length <= limit * 2 ? value : value.slice(0, limit) + '\n[bounded diagnostic: middle omitted]\n' + value.slice(-limit);
 }
 
-export async function finishPage(result, pending, closeContext, timeoutMs = 5000, requestExemptions = () => ({})) {
+export async function finishPage(result, pending, closeContext, timeoutMs = 5000, requestLedger) {
   const bounded = async (operation, label) => {
     let timer;
+    const controller = new AbortController();
     try {
-      await Promise.race([Promise.resolve().then(operation), new Promise((_, reject) => {
+      await Promise.race([Promise.resolve().then(() => operation(controller.signal)), new Promise((_, reject) => {
         timer = setTimeout(() => reject(new Error(label + ' exceeded ' + timeoutMs + 'ms')), timeoutMs);
       })]);
     } catch (error) { result.failures.push(label + ': ' + boundedError(error)); }
-    finally { clearTimeout(timer); }
+    finally { clearTimeout(timer); controller.abort(); }
   };
-  await bounded(() => Promise.all(pending), 'Response body drain before close');
+  const unfinished = () => {
+    try { return requestLedger?.pendingRequests() || []; }
+    catch (error) { result.failures.push('Request completion snapshot: ' + boundedError(error)); return []; }
+  };
+  const drain = async (signal, requireCompletion = false) => {
+    // Responses can arrive while an earlier body is draining. A single snapshot
+    // of Promise.all(pending) cannot certify those later response tasks.
+    while (!signal.aborted) {
+      const count = pending.length;
+      await Promise.all(pending);
+      if (signal.aborted) return;
+      if (pending.length !== count) continue;
+      if (!requireCompletion || !unfinished().length) return;
+      await new Promise(resolve => {
+        const stop = () => { clearTimeout(timer); signal.removeEventListener('abort', stop); resolve(); };
+        const timer = setTimeout(stop, 10);
+        signal.addEventListener('abort', stop, { once: true });
+      });
+    }
+  };
+  await bounded(signal => drain(signal, true), 'Resource completion before close');
+  // Preserve pre-close evidence. Context closure may silently discard a request,
+  // or emit a late finished/failed event; neither can certify its prior completion.
+  if (requestLedger) {
+    result.pendingRequestsBeforeClose = unfinished();
+    if (result.pendingRequestsBeforeClose.length) result.failures.push('Unfinished resource requests before context close');
+  }
   // Closing can emit requestfailed and complete response-body tasks. Drain
   // those events before deriving the status that is written to evidence.
   await bounded(closeContext, 'Context close');
-  await bounded(() => Promise.all(pending), 'Response body drain after close');
+  await bounded(signal => drain(signal), 'Response body drain after close');
   // Only the live request ledger can provide identity-based exemptions. Raw
   // report classifications never grant an exemption, including at cleanup.
-  const exemptions = requestExemptions();
+  const exemptions = requestLedger?.exemptions() || {};
   if (result.resources.some(item => item.captureError && !exemptions.resourceCaptureErrors?.has(item))) result.failures.push('Resource response body capture failed');
   if (result.jsErrors.length) result.failures.push('Uncaught page JavaScript errors');
   if (result.blockedRequests.length || result.requestFailures.some(item => !exemptions.requestFailures?.has(item))) result.failures.push('Blocked or failed requests');
