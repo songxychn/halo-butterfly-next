@@ -49,12 +49,15 @@ BASE_URL=http://127.0.0.1:18091 node scripts/browser/run.mjs \
 
 首页键盘检查的主动 reload 通过请求对象账本区分 runner 取消：仅 reload 开始前未完成的主 frame 只读静态资源、在新文档 commit 前发出的已知 abort，且 reload 返回同 URL 的非重定向 200 文档，并在该新文档中观测到另一个请求完整读取相同资源时，才不计入产品请求失败。原始 `requestFailures`、响应状态及 `captureError` 保留，`runnerCancellations` 单列旧/新请求 ID；HTTP/类型/包内容错误、未恢复资源、reload 外或新文档取消、上下文关闭取消、被阻止写入与超时仍失败。账本不单凭报告字符串、URL 或宽泛时间窗授予豁免，旧验收报告不重分类。仅对从已知 `about:blank` 开始、首次主导航请求之后且首次 commit 之前发起的主 frame 资源补齐首文档归属；后续导航 commit 之前发起的资源无法证明新文档归属时，继续失败而不充当恢复证明。
 
+矩阵在关闭上下文之前，用同一请求对象账本等待所有已观测到的 GET/HEAD 文档、CSS、脚本、图片、字体和媒体请求完成，包括子 frame 与旧文档请求。等待与动态响应体读取共用 5 秒预算；期间新发起的这些请求和新到达的响应体也纳入检查。超时仍关闭上下文，但先将未完成请求的 ID、URL、方法、类型、文档归属及是否收到响应写入 `pendingRequestsBeforeClose` 并判失败；关闭时没有 `requestfailed` 事件，或随后出现结束事件，都不能清除这份快照。没有原生 abort 证据的旧 reload 请求即使同 URL 已重新加载成功，也继续失败。此完成门禁由矩阵显式传入账本启用，不声称其它未传账本的工具或尚未发起的懒加载资源已验证。后台 fetch/XHR、事件流和已允许的计数 POST 不新增完成要求，既有请求失败、HTTP 错误及阻止写入门禁保持有效。
+
+
 每次创建唯一 `.runtime/browser-matrix/runs/<timestamp-id>/`，包含每页 JSON、截图与 SHA-256、精简进度快照和完整 `report.json`。不会覆盖以前的运行。标准退出码：`0` 表示三引擎核心 smoke 全通过；`1` 表示页面/资源/交互等失败；`2` 表示遗漏或不可用引擎造成不完整。任何结果都不自动修改矩阵验收状态。
 
 离线保护测试无需浏览器或独立依赖：
 
 ```sh
-node --test tests/browser-guards.test.mjs tests/browser-reload.test.mjs tests/search-diagnostics.test.mjs
+node --test tests/browser-guards.test.mjs tests/browser-reload.test.mjs tests/browser-completion.test.mjs tests/search-diagnostics.test.mjs
 ```
 
 首次实跑若发现基线主题缺陷，保留失败结果，交对应功能包修复后用其真实安装包重跑，不能放宽运行器规则制造通过。

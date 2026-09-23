@@ -48,6 +48,14 @@ export function observeReloadRequests(page, result) {
     }
   });
   return {
+    pendingRequests() {
+      // Completion is broader than reload eligibility: child-frame assets and
+      // documents must finish too. Background fetch/XHR, streams and the allowed
+      // counter POST have no new completion requirement; their errors still fail.
+      return [...requests.values()]
+        .filter(state => !state.finished && !state.failed && ['GET', 'HEAD'].includes(state.request.method()) && (state.request.resourceType() === 'document' || resourceTypes.has(state.request.resourceType())))
+        .map(state => ({ requestId: state.id, url: state.request.url(), method: state.request.method(), type: state.request.resourceType(), documentId: state.documentId, mainFrame: state.mainFrame, responseReceived: !!state.item }));
+    },
     async reload(operation) {
       if (activeReload) throw new Error('Nested runner reload');
       const reload = { id: reloads.length + 1, committed: false, successful: false, targetUrl: page.url(), oldDocumentId: committedDocumentId, oldRequests: new Set() };
