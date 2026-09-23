@@ -511,7 +511,7 @@
           "src/html/views/nav.html",
           "src/js/core/navigation.js"
         ],
-        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
+        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -550,6 +550,15 @@
           "commit": "98853f3562658e08e231113f441c2622c693f0d7",
           "actor": "/root/acceptance_contract",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -1053,9 +1062,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/components.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/js/core/code-shrink.mjs"
         ],
-        "finding": "已映射 code_blocks.fullpage 为 render.enable_code_fullpage；默认 false，关闭时不插入全屏按钮，开启时工具栏提供可键盘激活的全屏按钮（Esc 或再次点击退出并恢复 overflow）。尚未双站对照验收。不做 shrink=true 默认折叠。"
+        "finding": "已有全屏按钮、overflow 保存恢复和 Escape 退出；后续代码已补充 shrink 三态，并在异步增强时保留当前阅读代码块的展开状态。原“不做 shrink=true”的历史说明不再代表当前源码，完整上游对照仍未通过。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -1081,10 +1091,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/70"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/71"
+          "https://github.com/songxychn/halo-butterfly-next/pull/71",
+          "https://github.com/songxychn/halo-butterfly-next/pull/75",
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -2302,9 +2324,11 @@
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.js",
           "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "settings.yaml",
+          "src/html/error/404.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "404 页面存在，但设置中没有对应 enable 开关；不因页面落地就声明 true/false 开关已实现。 剩余：需要先裁定 Halo 固有错误页与上游生成器 enable 开关的映射，再实现或有依据标记不适用。"
       },
       "dependencies": [
         "dual-site",
@@ -2328,9 +2352,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/40"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -2355,14 +2391,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "error404.subtitle"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.js",
           "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "settings.yaml",
+          "src/html/error/404.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射为 error404.subtitle，默认 Page Not Found；空值回退中文 页面未找到，通过 th:text 渲染。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2386,10 +2426,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/40"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:error_404.background",
@@ -2413,14 +2465,19 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "error404.background"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.js",
           "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "settings.yaml",
+          "src/html/error/404.html",
+          "src/js/page/error404.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已映射为 error404.background 附件/URL；留空用首页背景，失败依次回退首页背景与内置 above.svg，最终隐藏失败图片。未沿用上游 /img/error-page.png 默认素材。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2444,10 +2501,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/40",
+          "https://github.com/songxychn/halo-butterfly-next/pull/325"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_meta.page.date_type",
@@ -3300,7 +3370,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
+        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -3338,6 +3408,15 @@
           "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
           "actor": "/root",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -3375,7 +3454,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
+        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -3413,6 +3492,15 @@
           "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
           "actor": "/root",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -3568,9 +3656,10 @@
         ],
         "code": [
           "src/js/page/index.js",
-          "src/js/modules/subtitle.mjs"
+          "src/js/modules/subtitle.mjs",
+          "src/html/index.html"
         ],
-        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
+        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -3608,6 +3697,15 @@
           "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
           "actor": "/root",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -11082,9 +11180,10 @@
         "strategy": "1.0 将 search.use 映射为官方 PluginSearchWidget 可用与否；主题不暴露 algolia_search / docsearch / 本地索引引擎选择。",
         "settings": [],
         "code": [
-          "src/html/views/nav.html"
+          "src/html/views/nav.html",
+          "src/js/core/common.js"
         ],
-        "finding": "锁定官方 1.7.1；中文/英文/无结果/跳转/关闭与启停已测，但 Escape 后焦点未回入口（#313），真机软键盘和完整 PLG-01/02 未完成。 主题入口最低支持基线：SearchWidget >=1.7.1、CommentWidget >=3.3.2；低版本以本地 manifest 契约夹具验证拒绝，不声称实际旧版兼容。"
+        "finding": "锁定 SearchWidget 1.7.1；主题最低版本检查、启停/卸载重装及本地 manifest 低版本拒绝契约有局部证据。Escape/遮罩关闭后焦点恢复失败仍存在；alpha 例外不是修复，完整 PLG-01/02、真机软键盘与屏幕阅读器未通过。 剩余：关闭焦点恢复；完整 PLG-01/02/真机"
       },
       "dependencies": [
         "dual-site",
@@ -11112,9 +11211,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/46",
           "https://github.com/songxychn/halo-butterfly-next/issues/313"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -12143,9 +12254,10 @@
         "settings": [],
         "code": [
           "src/html/post.html",
-          "src/html/page.html"
+          "src/html/page.html",
+          "src/html/views/components.html"
         ],
-        "finding": "锁定官方 3.3.2；匿名/登录合成维护者的提交回复、审核、故障提示和文章/单页/全局/插件开关已测；旧 3.1.2 编辑器名称通过升级解决。卸载、其他主题切换、完整角色/计数/真机仍未验收，保持未验证。 主题入口最低支持基线：SearchWidget >=1.7.1、CommentWidget >=3.3.2；低版本以本地 manifest 契约夹具验证拒绝，不声称实际旧版兼容。"
+        "finding": "官方 CommentWidget 3.3.2 挂载和主题最低版本检查已实现。文章/单页匿名及合成登录用户提交回复、审核、草稿故障保留、权限与开关有运行证据；#316 补齐卸载重装、低版本 manifest 契约夹具、theme-earth 往返及计数恢复，alpha.3 继续保留逐项报告。实际旧版、所有角色、真机和完整 PLG 合同仍未验收。 剩余：真实旧版兼容；所有用户角色；真机/完整 PLG-03/06"
       },
       "dependencies": [
         "dual-site",
@@ -12173,9 +12285,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/46"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/318"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -12325,9 +12450,10 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "scripts/search-comment/lifecycle.mjs"
+          "scripts/search-comment/lifecycle.mjs",
+          "src/scss/core/common.scss"
         ],
-        "finding": "使用 Halo post.stats.comment；新增 comments.count / comments.card_post_count 默认关闭开关，满足插件版本、全局及逐篇评论条件时展示。生命周期脚本验收真实统计、开关与恢复；不等同完整 PLG 合同通过。"
+        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线、不透明深色底板和焦点框。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
       },
       "dependencies": [
         "dual-site",
@@ -12355,9 +12481,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/46",
           "https://github.com/songxychn/halo-butterfly-next/issues/315"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/318"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -12387,9 +12526,10 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "scripts/search-comment/lifecycle.mjs"
+          "scripts/search-comment/lifecycle.mjs",
+          "src/scss/core/common.scss"
         ],
-        "finding": "使用 Halo post.stats.comment；新增 comments.count / comments.card_post_count 默认关闭开关，满足插件版本、全局及逐篇评论条件时展示。生命周期脚本验收真实统计、开关与恢复；不等同完整 PLG 合同通过。"
+        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线、不透明深色底板和焦点框。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
       },
       "dependencies": [
         "dual-site",
@@ -12417,9 +12557,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/46",
           "https://github.com/songxychn/halo-butterfly-next/issues/315"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/318"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -18039,7 +18192,7 @@
           "src/scss/core/header.scss",
           "tests/mask-header.test.mjs"
         ],
-        "finding": "已映射 mask.header（默认 true）到 mask.header。仅显式 false 关闭。有第一屏 .above 时 #Butterfly.mask-header 才给页头加 :before 遮罩，对齐 :not(.not-top-img)。无第一屏不加。不做 aside.hide / aside.mobile。尚未双站对照验收，禁止 verified。"
+        "finding": "保留 mask.header 默认开启及无顶图不加遮罩的映射；近期增加导航局部渐隐与文章元信息底板。alpha.3 默认遮罩范围有人工对比度证据，关闭遮罩的明亮顶图导航/大标题仍有已披露限制。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -18064,10 +18217,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/114"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/116"
+          "https://github.com/songxychn/halo-butterfly-next/pull/116",
+          "https://github.com/songxychn/halo-butterfly-next/pull/321",
+          "https://github.com/songxychn/halo-butterfly-next/pull/332"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -18159,9 +18324,11 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/_lazyLoad.js",
+          "settings.yaml",
+          "src/js/core/loading-ready.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "模板按 loading.type 是否为字符串 null 控制加载，设置面目前只有四种动画且无启用开关；不能用内部 null 分支声明上游 preloader.enable 已映射。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18186,9 +18353,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/314",
+          "https://github.com/songxychn/halo-butterfly-next/pull/316"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -18217,9 +18397,15 @@
           "loading.type"
         ],
         "code": [
-          "src/plugins/loading/circle.js"
+          "src/plugins/loading/circle.js",
+          "src/plugins/loading/dot.js",
+          "src/plugins/loading/hourglass.js",
+          "src/plugins/loading/cross_line.js",
+          "src/js/core/loading-ready.mjs",
+          "settings.yaml",
+          "src/html/views/layout.html"
         ],
-        "finding": "已有四种继承 Loading，尚无上游 fullpage/pace 等价验收。"
+        "finding": "已有 loading.type 的 circle/hourglass/cross_line/dot 四种继承动画，已改为 DOMContentLoaded 结束并有 alpha.3 局部检查；未映射上游 fullpage/pace 枚举，不声明完整等价。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18248,9 +18434,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/314"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -28156,9 +28355,10 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/_lazyLoad.js",
+          "src/js/modules/Render.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "普通页面脚本已改为 defer，正文初始化与异步 Prism 分离；#337 包含慢加载/失败/关闭增强及当前阅读块焦点/滚动保护。仍没有上游 additional-js 的全部配置和第三方能力分派映射，不因加载性能修正将整个模板视作实现完成。 剩余：additional-js 全部功能分派映射"
       },
       "dependencies": [
         "dual-site",
@@ -28182,9 +28382,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -28750,9 +28962,13 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "theme.yaml"
+          "theme.yaml",
+          "src/html/index.html",
+          "src/html/views/header.html",
+          "src/html/views/nav.html",
+          "src/js/core/common.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "首页页头已实现站名/字幕/背景/高度与信息位置、导航及下滑入口；原 matrix 仅指向 layout/theme.yaml 并写未实现已失真。 剩余：全局 disable_top_img/default_top_img、字幕全部配置与逐页背景语义尚待映射，不宜整体声称完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -28776,10 +28992,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/305"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/header/menu_item",
@@ -28804,7 +29032,7 @@
           "src/js/core/scroll.js",
           "src/js/core/navigation.js"
         ],
-        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
+        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -28842,6 +29070,15 @@
           "commit": "98853f3562658e08e231113f441c2622c693f0d7",
           "actor": "/root/acceptance_contract",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -28920,9 +29157,10 @@
         "settings": [],
         "code": [
           "src/html/post.html",
-          "src/html/views/components.html"
+          "src/html/views/components.html",
+          "src/scss/page/post.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。"
       },
       "dependencies": [
         "dual-site",
@@ -28944,10 +29182,25 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/305",
+          "https://github.com/songxychn/halo-butterfly-next/pull/318",
+          "https://github.com/songxychn/halo-butterfly-next/pull/321",
+          "https://github.com/songxychn/halo-butterfly-next/pull/332"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/header/social",
@@ -29018,9 +29271,11 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "普通页面已通过 views/layout::layout(page,title,pin,header,main) 复用 head、导航区域、主栏、页脚及资源；另有公共插件 html(head,content) 布局。alpha.3 核心页有局部运行检查，但未完成上游 layout 全条件与完整 POST/PAGE 合同。 剩余：上游 layout 条件域逐项对照；完整 POST-01/POST-02"
       },
       "dependencies": [
         "dual-site",
@@ -29045,8 +29300,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/loading/fullpage-loading",
@@ -29117,9 +29382,12 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/_lazyLoad.js",
+          "src/html/layout.html",
+          "src/js/core/loading-ready.mjs",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "普通布局与公共插件布局均根据 loading.type 注入已选择的四种 Loading；关闭值为字符串 null。#316 更新就绪退出机制，但上游 preloader 的 fullpage/pace 分派未实现；保留此差异，不以继承动画代替上游完整模板。 剩余：fullpage/pace 分派；上游 preloader 配置域映射"
       },
       "dependencies": [
         "dual-site",
@@ -29143,9 +29411,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -29270,7 +29550,7 @@
           "src/js/page/index.js",
           "src/scss/page/index.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "列表卡片已有 list/tile 分支、封面回退、元信息、摘要策略及分页入口；当前 config:index_layout 明确保留上游 1-7 未全实现差距。 剩余：补齐或裁定 1-7 布局及正常/空/多页、配置组合后再评估完整实现状态。"
       },
       "dependencies": [
         "dual-site",
@@ -29295,8 +29575,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/page/404",
@@ -29318,9 +29608,12 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/error/404.html",
+          "src/js/page/error404.js",
+          "src/scss/page/error404.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "上游 404 页面已映射到 Halo error/404.html；导航/返回首页/可配置文字与图片及回退已接入。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -29343,10 +29636,24 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/40",
+          "https://github.com/songxychn/halo-butterfly-next/pull/203",
+          "https://github.com/songxychn/halo-butterfly-next/pull/340"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/page/categories",
@@ -29468,9 +29775,12 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/links.html",
+          "src/js/page/links.js",
+          "src/scss/core/flink.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已有 PluginLinks groups/link.spec 的友链分组模板、卡片名称/描述/图片与空状态；P+ 具备固定 Links 2.3.0 的局部双站证据。上游完整分组描述、正文、头像失败和外链等价仍未全部验收。此为独立友链页，不等于 DEC-02 的正文 tag:flink。 剩余：上游分组描述/正文映射；损坏头像及完整外链交互"
       },
       "dependencies": [
         "dual-site",
@@ -29493,10 +29803,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/37",
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/page/shuoshuo",
@@ -29518,9 +29841,12 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/moments.html",
+          "src/html/views/plugin-pagination.html",
+          "src/js/page/moments.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已有 PluginMoments moments.items 模板，消费 content.html/medium，输出图片/音视频、空状态及原生服务端分页；#39 补齐上一页/下一页。日期/作者/标签的展示、逐条评论、上游数据限制等能力仍未完成映射与完整验收。 剩余：日期/作者/标签展示；逐条评论；上游数据限制和详情/媒体完整验收"
       },
       "dependencies": [
         "dual-site",
@@ -29543,10 +29869,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/page/tags",
@@ -29876,7 +30214,7 @@
           "src/js/core/scroll.js",
           "src/js/core/navigation.js"
         ],
-        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
+        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -29913,6 +30251,15 @@
           "commit": "98853f3562658e08e231113f441c2622c693f0d7",
           "actor": "/root/acceptance_contract",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -30225,9 +30572,10 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "scripts/search-comment/lifecycle.mjs"
+          "scripts/search-comment/lifecycle.mjs",
+          "src/scss/core/common.scss"
         ],
-        "finding": "使用 Halo post.stats.comment；新增 comments.count / comments.card_post_count 默认关闭开关，满足插件版本、全局及逐篇评论条件时展示。生命周期脚本验收真实统计、开关与恢复；不等同完整 PLG 合同通过。"
+        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线、不透明深色底板和焦点框。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
       },
       "dependencies": [
         "dual-site",
@@ -30254,9 +30602,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/46",
           "https://github.com/songxychn/halo-butterfly-next/issues/315"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/318"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -31140,7 +31501,7 @@
           "src/html/page.html",
           "src/html/views/layout.html"
         ],
-        "finding": "DEC-01 已裁定。当前挂载在文章与自定义页。"
+        "finding": "文章与单页已按 CommentWidget >=3.3.2、haloCommentEnabled、allowComment 挂载正确 Post/SinglePage 主体；#316 及 alpha.3 有启停、卸载重装、主题往返、提交/回复/权限恢复的局部证据。完整角色、真机、生态组合仍未完成。 剩余：所有角色/真机/插件组合"
       },
       "dependencies": [
         "dual-site",
@@ -31166,9 +31527,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/46"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/318"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -32501,9 +32875,12 @@
           "src/js/modules/CodeBlock.js",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
-          "src/html/page.html"
+          "src/html/page.html",
+          "src/html/views/components.html",
+          "src/js/core/prism-ready.mjs",
+          "src/js/core/code-scroll-focus.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "codeBlockPin 已供文章/单页使用；Prism 在 DOM 就绪后两帧请求、延迟加载后增强，失败保留原始代码，并保留当前代码阅读焦点/滚动及展开状态。 剩余：原生三引擎折叠检查保留 Firefox 超时；全部高亮主题、慢/失败场景与完整性能合同仍未通过。"
       },
       "dependencies": [
         "dual-site",
@@ -32526,10 +32903,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/329",
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/search/algolia",
@@ -32933,7 +33323,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
+        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -32970,6 +33360,15 @@
           "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
           "actor": "/root",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -33437,9 +33836,10 @@
         "code": [
           "src/js/modules/Render.js",
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/toc.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "目录卡片模板已实现编号、展开、简洁模式和阅读进度，并接入文章页及移动目录入口。 剩余：toc.post/toc.page 开关、逐页覆盖、完整锚点行为和无障碍仍需单独核对。"
       },
       "dependencies": [
         "dual-site",
@@ -33462,10 +33862,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/90"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_recent_post",
@@ -33738,7 +34150,7 @@
           "src/js/page/index.js",
           "src/scss/page/index.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "首页 Halo 模板、首屏/字幕、文章列表、分页和侧栏已存在，最终 alpha 核心检查含首页；但上游 1-7 全布局及字幕参数/来源差异仍未闭环。 剩余：缺完整上游布局与字幕/摘要/封面配置矩阵对照；有实现不等于全部上游模板语义完成。"
       },
       "dependencies": [
         "dual-site",
@@ -33761,10 +34173,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/305",
+          "https://github.com/songxychn/halo-butterfly-next/pull/340"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:page",
@@ -33786,9 +34211,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/page/single.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "SinglePage 已渲染标题/封面/正文、代码增强、灯箱及受权限和插件状态控制的原生评论；alpha 单页已测试。 剩余：所有专用页面类型、目录默认/覆盖、上游页面语义和全面运行组合仍需对账。"
       },
       "dependencies": [
         "dual-site",
@@ -33811,10 +34237,24 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/327",
+          "https://github.com/songxychn/halo-butterfly-next/pull/337",
+          "https://github.com/songxychn/halo-butterfly-next/pull/340"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:post",
@@ -33836,9 +34276,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.js",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/page/post.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "文章完整页面壳、正文、元信息、目录、代码、灯箱、过期提示、版权、打赏、翻页、相关文章及原生评论入口均已接入。 剩余：完整逐页覆盖、分享/编辑链接/系列等扩展及上游正文模板语义仍未全部闭环，不能因核心页通过直接升完整实现。"
       },
       "dependencies": [
         "dual-site",
@@ -33861,10 +34302,27 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/90",
+          "https://github.com/songxychn/halo-butterfly-next/pull/101",
+          "https://github.com/songxychn/halo-butterfly-next/pull/103",
+          "https://github.com/songxychn/halo-butterfly-next/pull/327",
+          "https://github.com/songxychn/halo-butterfly-next/pull/337",
+          "https://github.com/songxychn/halo-butterfly-next/pull/340"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:tag",
@@ -33934,9 +34392,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-button.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-button.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -33964,7 +34424,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34089,9 +34559,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-gallery.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-gallery.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34119,7 +34590,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34141,9 +34622,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-gallery.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-gallery.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34171,7 +34653,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34193,9 +34685,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-hide.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34223,7 +34716,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34245,9 +34748,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-hide.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34275,7 +34779,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34297,9 +34811,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-hide.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34327,7 +34842,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34348,9 +34873,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-inline-img.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-inline-img.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34378,7 +34905,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34399,9 +34936,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-label.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-label.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34429,7 +34968,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34502,9 +35051,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-note.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34532,7 +35083,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34604,9 +35165,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-series.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-series.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34634,7 +35197,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34655,9 +35228,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-note.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34685,7 +35260,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34707,9 +35292,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-tabs.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34737,7 +35323,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34759,9 +35355,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-tabs.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34789,7 +35386,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34811,9 +35418,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.js",
+          "src/scss/core/tags-tabs.scss"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34841,7 +35449,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -34862,9 +35480,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/core/tags-timeline.scss",
+          "src/js/modules/Render.js"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-timeline.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
       "dependencies": [
         "dual-site",
@@ -34892,7 +35512,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -37150,9 +37780,11 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/modules/AmplifyImg.js",
+          "package.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "当前灯箱已替换为 MIT Viewer.js 1.14.0；不再分发 Fancyapps UI，未实现此上游提供方本身。Viewer 的局部灯箱能力在 interaction:lightbox 记录，不以资源替换声明本项等价或不适用。 剩余：明确上游对应用户能力差异并完成等价对照；若删减提供方语义仍需明确范围裁定。"
       },
       "dependencies": [
         "dual-site",
@@ -37176,9 +37808,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/327"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -37199,9 +37843,11 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/modules/AmplifyImg.js",
+          "package.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "当前灯箱已替换为 MIT Viewer.js 1.14.0；不再分发 Fancyapps UI，未实现此上游提供方本身。Viewer 的局部灯箱能力在 interaction:lightbox 记录，不以资源替换声明本项等价或不适用。 剩余：明确上游对应用户能力差异并完成等价对照；若删减提供方语义仍需明确范围裁定。"
       },
       "dependencies": [
         "dual-site",
@@ -37225,9 +37871,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/327"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -37297,9 +37955,10 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "package.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "当前构建从锁定 Font Awesome Free 6.7.2 复制 CSS、8 个字体及许可；alpha.3 源码/ZIP 审查已核对，继承 Pro 字体已移除。尚未逐消费页面完成上游图标对应、缺失与失败回退对照。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -37323,10 +37982,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/325",
+          "https://github.com/songxychn/halo-butterfly-next/pull/328"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:gitalk",
@@ -37611,9 +38283,12 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/core/_lazyLoad.js",
+          "src/js/core/common.js",
+          "src/html/views/components.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "继承 LazyLoad 模块仍由 Common 初始化处理 img/data-lazy-src；默认图片组件已有真实 src，不能将库存在等同上游 lazyload.enable/field/native/blur 全配置支持。 剩余：逐项验证延迟资源成功/失败、视口进出及配置映射；现有图片无响应证据不清除。"
       },
       "dependencies": [
         "dual-site",
@@ -37639,8 +38314,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:mathjax",
@@ -37709,9 +38394,11 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/modules/AmplifyImg.js",
+          "package.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "当前灯箱已替换为 MIT Viewer.js 1.14.0；不再分发 Fancyapps UI，未实现此上游提供方本身。Viewer 的局部灯箱能力在 interaction:lightbox 记录，不以资源替换声明本项等价或不适用。 剩余：明确上游对应用户能力差异并完成等价对照；若删减提供方语义仍需明确范围裁定。"
       },
       "dependencies": [
         "dual-site",
@@ -37735,9 +38422,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/327"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -37954,9 +38653,11 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/plugins/prism/prism.min.js",
+          "src/js/core/prism-ready.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "现包采用含多语言的 Prism bundle 与文档级延迟加载；未实现上游 Prism autoloader 按语言加载契约。prism-ready.mjs 的脚本延迟加载不能视为 autoloader 已实现。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -37980,9 +38681,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -38003,9 +38716,13 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/plugins/prism/prism.min.js",
+          "src/js/core/prism-ready.mjs",
+          "src/js/modules/CodeBlock.js",
+          "src/html/views/components.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "随包分发 Prism 1.29.0；代码增强在 DOMContentLoaded 后两帧请求脚本，失败保持原文，重复初始化按文档去重。alpha.3 有延迟/失败及阅读焦点局部证据；原生 CSS 无响应仍保留，不能记完整资源加载通过。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -38029,10 +38746,24 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/329",
+          "https://github.com/songxychn/halo-butterfly-next/pull/335",
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:prismjs_lineNumber_js",
@@ -38052,9 +38783,12 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/plugins/prism/prism.min.js",
+          "src/js/modules/CodeBlock.js",
+          "src/html/views/components.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "Prism 的 lineNumbers 插件已内嵌本地 prism.min.js，CodeBlock 按 enable_code_line 添加 line-numbers 类；不是独立 CDN 文件。运行范围及换行/缩放/禁用与上游对照仍未完整验收。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -38078,10 +38812,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:sharejs",
@@ -38356,9 +39102,12 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "package.json",
+          "src/js/modules/subtitle.mjs",
+          "src/js/page/index.js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "Typed.js 已由依赖打包用于首页字幕；runSubtitle 支持开关、静态回退、本地文本及远端失败回退。上游 typed_option 和提供方真实联调仍未对齐，不将字幕子项整体提升。 剩余：补齐上游选项映射、真实提供方、正常/空/失败及关闭条件对照。"
       },
       "dependencies": [
         "dual-site",
@@ -38384,8 +39133,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:valine",
@@ -39719,7 +40478,7 @@
           "src/scss/core/index.scss",
           "tests/footer-style.test.mjs"
         ],
-        "finding": "已扩展 src/scss/core/footer.scss 对齐 footer.styl。选择器并列 .footer / #footer，不改 data-theme。补齐 $light-blue→var(--theme) 背景、var(--light-grey) 文字、var(--mark-bg) 遮罩、.footer-flex 宽屏 padding/space-between、.footer-other--nav 与 hover。保留 #5 下划线与 :focus-visible。Halo nav 仍是扁平链接，不做嵌套列 DOM。不把 template:includes/footer 或 config:footer.* / mask.footer / footer_img 升 verified。不做 snackbar / item_order。尚未双站对照验收，禁止 verified。"
+        "finding": "页脚已有 Halo DOM 样式适配；近期改为不透明文字颜色，图片背景文字使用 #333 底板并保留可见焦点。alpha.3 默认核心检查仅覆盖该候选和配置，嵌套列 DOM 等完整上游语义仍未闭环。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39745,10 +40504,21 @@
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/15",
-          "https://github.com/songxychn/halo-butterfly-next/pull/158"
+          "https://github.com/songxychn/halo-butterfly-next/pull/158",
+          "https://github.com/songxychn/halo-butterfly-next/pull/331"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -39772,7 +40542,7 @@
           "src/scss/core/nav.scss",
           "tests/header-style.test.mjs"
         ],
-        "finding": "已扩展 src/scss/core/header.scss 对齐 head.styl。选择器并列 #page-header / .header，不改 data-theme。补齐 var(--theme) 背景、.dp/not-top-img 60px、非首页顶图 400/280、文章顶图 400/360、full_page background-attachment:fixed、#nav padding 36px 与 backdrop-filter。mask.header 仍仅 #Butterfly.mask-header .above::before。不把 config:mask.header、已落地 nav/subtitle/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar / 移动侧栏完整交互。尚未双站对照验收，禁止 verified。"
+        "finding": "页头/导航已有样式适配，近期增加导航渐隐遮罩、元信息底板及可见链接/焦点；默认遮罩 alpha.3 局部检查已记录。关闭遮罩亮图仍不在通过范围，不能声明所有上游配置对照完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39796,10 +40566,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/165"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/167"
+          "https://github.com/songxychn/halo-butterfly-next/pull/167",
+          "https://github.com/songxychn/halo-butterfly-next/pull/321",
+          "https://github.com/songxychn/halo-butterfly-next/pull/332"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -39874,7 +40656,7 @@
           "src/scss/modules/components.scss",
           "tests/pagination-style.test.mjs"
         ],
-        "finding": "已新增 src/scss/core/pagination.scss 对齐 pagination.styl 列表分页。选择器并列 #pagination .pagination / .layout .pagination / .pagination，不改 data-theme。补齐 2.5em 页码、margin 6px、current 用 var(--theme)、hover --btn-hover-color、归档 30px 去阴影。不套用 .plugin-pagination；不改 #pagination.pagination-post 文章上下篇。不把 template:includes/pagination、config:post_pagination 或已落地 head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar / shuoshuo 分页。尚未双站对照验收，禁止 verified。"
+        "finding": "分页样式已有当前页、悬停及焦点对比度增强；alpha.3 默认页面样本支持局部结论，完整分页布局、边界和上游视觉对照未完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39898,10 +40680,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/168"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/170"
+          "https://github.com/songxychn/halo-butterfly-next/pull/170",
+          "https://github.com/songxychn/halo-butterfly-next/pull/332"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -39926,7 +40719,7 @@
           "src/scss/modules/render.scss",
           "tests/post-style.test.mjs"
         ],
-        "finding": "已新增 src/scss/core/post.scss 对齐 post.styl 文章页布局。选择器并列 #post / .post、.container / .render / .post-content，不改 data-theme。补齐正文 kbd/iframe、标签块 tag_share、版权块 post-copyright/copy-right（margin 40px、var(--light-grey) 边框、hover 阴影）、过期提醒 #post-outdate-notice。不把 config:post_pagination / noticeOutdate / post_copyright / toc / related_post / reward、template:includes/post/post-copyright，或已落地 head/pagination/aside/footer/rightside/darkmode/readmode 升 verified。不做 relatedposts.styl 全文、打赏弹层、snackbar、beautify 配置、text_align_justify。尚未双站对照验收，禁止 verified。"
+        "finding": "文章样式与正文链接/引用/版权配色已调整，代码滚动区新增键盘入口；alpha.3 长文及手机代码滚动有局部运行证据。历史 .container 样式适配与当前实际正文选择器需分别验证，不能据此认定全部正文扩展和上游样式通过。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39950,10 +40743,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/171"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/173"
+          "https://github.com/songxychn/halo-butterfly-next/pull/173",
+          "https://github.com/songxychn/halo-butterfly-next/pull/329"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -40697,9 +41501,10 @@
           "src/scss/core/tags.scss",
           "src/scss/core/index.scss",
           "src/scss/page/tags.scss",
-          "tests/tags-style.test.mjs"
+          "tests/tags-style.test.mjs",
+          "src/js/core/tag-cloud-colors.mjs"
         ],
-        "finding": "已新增 src/scss/core/tags.scss 对齐 tags.styl 标签云样式。选择器并列 .tag-cloud / .tag-cloud-list / .tag-cloud-title（空操作，无 DOM）与 Halo .tags / .equinox / .link。未重写模板去造 .tag-cloud-list。未改标签详情页 tag.html / tag.scss。无新增 th:utext。上游 padding 3px 12px、margin 5px、line-height 1.7、圆角 7、hover scale(1.02)、768 zoom .85、title 2.57em / 768 2em 仅留在上游选择器。Halo 对齐链接 padding / 间距，图表保持 360px，.link 仍 1.5em。不把 zoom:.85 或 2.57em 用 ID 压到图表/equinox。不用 #Butterfly 把不兼容 width/height 压到 .tags。不改 data-theme。不把已落地 shuoshuo.styl / flink.styl / categories.styl / archives.styl / 404.styl / homepage.styl / common.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
+        "finding": "标签页有样式及动态标签云颜色对比修正，亮暗色使用当前主题表面色调整；最终 alpha.3 核心标签页有局部检查。上游全配置、所有背景组合和逐项视觉对照仍未完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -40723,10 +41528,21 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/216"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/218"
+          "https://github.com/songxychn/halo-butterfly-next/pull/218",
+          "https://github.com/songxychn/halo-butterfly-next/pull/333"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -46726,9 +47542,10 @@
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
         "settings": [],
         "code": [
-          "src/html/categories.html"
+          "src/html/categories.html",
+          "src/js/page/categories.js"
         ],
-        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+        "finding": "分类总览页已有分类卡片和统计图；PR #330 在无分类空站提前退出初始化，避免查询不存在的统计 DOM 导致异常。alpha.3 全新空站与核心分类页提供有限运行证据。 剩余：正常/空/多分类、统计值与固定 Hexo 5.7.0 的完整逐项对照仍未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -46750,9 +47567,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/330"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -46910,9 +47739,11 @@
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
         "settings": [],
         "code": [
-          "src/html/links.html"
+          "src/html/links.html",
+          "src/js/page/links.js",
+          "src/scss/core/flink.scss"
         ],
-        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+        "finding": "已有 Links 2.3.0 分组/卡片与空状态，P+ 使用固定合成数据进行了局部双站诊断；原“尚未进行固定双站对照”已过时。损坏头像、长内容、分组描述/正文及完整 PLG-04 仍未全部验收。 剩余：PLG-04 剩余场景"
       },
       "dependencies": [
         "dual-site",
@@ -46935,9 +47766,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/37",
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -46954,12 +47798,14 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "现有 CommentWidget 是候选集成点；每个上游 provider 的展示、计数、懒加载和双评论切换仍需映射。",
+        "strategy": "用官方 PluginMoments 的 moments 分页对象映射说说正文和媒体；逐条评论与上游数据限制另行实现。",
         "settings": [],
         "code": [
-          "src/html/moments.html"
+          "src/html/moments.html",
+          "src/html/views/plugin-pagination.html",
+          "src/js/page/moments.js"
         ],
-        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+        "finding": "已有 Moments 1.18.0 的正文/媒体、空状态及服务端分页；#39 有固定双站与筛选分页局部证据。日期/作者/标签展示、逐条评论、详情页/音视频和所有错误状态仍未全面完成；不能将 P+ 通过等同完整 PLG-03/04。 剩余：逐条评论；详情页/音视频；完整日期排序/标签/错误态"
       },
       "dependencies": [
         "dual-site",
@@ -46984,9 +47830,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -47005,8 +47863,12 @@
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
         "settings": [],
-        "code": [],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "code": [
+          "src/html/error/404.html",
+          "src/js/page/error404.js",
+          "src/scss/page/error404.scss"
+        ],
+        "finding": "已有 Halo 原生错误页映射、404 标题、纯文本提示、返回首页、跳过链接及图片分级回退。最终 alpha 核心页检查含 404 亮暗/宽窄视图；不应再记为无实现。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -47028,10 +47890,24 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/40",
+          "https://github.com/songxychn/halo-butterfly-next/pull/203",
+          "https://github.com/songxychn/halo-butterfly-next/pull/340"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page:gallery",
@@ -47050,9 +47926,12 @@
         "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
         "settings": [],
         "code": [
-          "src/html/photos.html"
+          "src/html/photos.html",
+          "src/html/views/plugin-pagination.html",
+          "src/js/page/photos.js",
+          "src/js/modules/AmplifyImg.js"
         ],
-        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+        "finding": "已有 Photos 2.1.2 的分组筛选、图片及服务端分页；#39 保留插件 prevUrl/nextUrl，后续共用灯箱已替换为 MIT Viewer.js。固定 P+ 对照与分页局部证据不能证明上游 gallery 瀑布流/加载更多/正文标签输入等价；完整 PLG-04/EXT 仍未关闭。 剩余：上游 gallery 瀑布流/加载更多等价；正文标签输入；详情/坏图/完整插件组合"
       },
       "dependencies": [
         "dual-site",
@@ -47076,9 +47955,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -47095,12 +47986,15 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "使用 Halo 公开 layout.html::html(head,content) 契约承载插件自有 head 与 content，复用主题导航、页脚、资源和设置。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/html/layout.html",
+          "src/js/page/plugin.js",
+          "src/scss/page/plugin.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "PR #19 已实现 Halo 公共 layout.html::html(head,content)，提供 head 缺省标题、共享导航/页脚/资源、跳转正文及模式控件；274589a 的探针有 8 组浏览器状态、6 个生命周期、3 页全局注入与 10 页 HTTP 局部证据。实际生态组合及完整 PLG-05 尚未通过。 剩余：真实生态插件组合；当前候选 PLG-05 全场景回归"
       },
       "dependencies": [
         "dual-site",
@@ -47124,10 +48018,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/19"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:menu-width",
@@ -47202,7 +48108,7 @@
           "src/js/core/scroll.js",
           "src/js/core/navigation.js"
         ],
-        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
+        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -47239,6 +48145,15 @@
           "commit": "98853f3562658e08e231113f441c2622c693f0d7",
           "actor": "/root/acceptance_contract",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -47318,9 +48233,11 @@
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.js",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/core/common.js",
+          "tests/scroll-down.test.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "首页已渲染 #scroll-down，点击由 Common.#bindScrollDown 滚到 #Butterfly > .main；上游首页下滑入口已落地。 剩余：入口当前为 div，仍需补齐或验证键盘可达/激活及减少动画偏好、完整双站对照。"
       },
       "dependencies": [
         "dual-site",
@@ -47342,10 +48259,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/305"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:copy-code",
@@ -47484,9 +48413,10 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/components.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/js/core/code-shrink.mjs"
         ],
-        "finding": "已实现代码块全屏交互：开关开启时插入 button.fullpage-button，切换 wrap 的 code-fullpage 与 body/html overflow；Esc 或再次点击退出。尚未双站对照验收。不做 shrink=true 默认折叠。"
+        "finding": "已有全屏按钮、overflow 保存恢复和 Escape 退出；后续代码已补充 shrink 三态，并在异步增强时保留当前阅读代码块的展开状态。原“不做 shrink=true”的历史说明不再代表当前源码，完整上游对照仍未通过。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -47510,10 +48440,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/70"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/71"
+          "https://github.com/songxychn/halo-butterfly-next/pull/71",
+          "https://github.com/songxychn/halo-butterfly-next/pull/75",
+          "https://github.com/songxychn/halo-butterfly-next/pull/337"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -47536,9 +48478,12 @@
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.js",
           "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/page/post.js",
+          "src/js/page/single.js",
+          "tests/lightbox.test.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已由 MIT Viewer.js 替换旧灯箱：文章/单页等内容图片可分组查看，缩放/旋转/翻转/缩略图、键盘打开、焦点约束及关闭恢复均有实现；共享链接按实际点击图片确定初始索引。 剩余：仍缺固定双站行为对照、实际 Safari 与真机触摸/完整键盘和屏幕阅读器验收；库替换本身不等于完整功能等价。"
       },
       "dependencies": [
         "dual-site",
@@ -47560,10 +48505,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/327"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:toc-scroll",
@@ -47584,9 +48541,10 @@
         "code": [
           "src/js/modules/Render.js",
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/toc.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已使用 tocbot 对正文 h1-h6 构建目录并平滑滚动、活动项高亮；含 20px 偏移、长文进度及移动端目录按钮。 剩余：仍缺重复/中文/跳级标题、深链接、固定导航遮挡和移动目录焦点的完整验收；anchor 自动更新配置不随之宣告完成。"
       },
       "dependencies": [
         "dual-site",
@@ -47608,10 +48566,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/90"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:toc-anchor",
@@ -47634,7 +48604,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "tocbot 已建立目录链接与点击滚动，但当前 onClick preventDefault，尚未实现或证明滚动更新 URL 锚点、手动深链接及浏览器前进后退完整语义。 剩余：必须分别核对手动链接、点击标题、滚动更新 URL、前进后退；不可将目录可滚动视为锚点合同通过。"
       },
       "dependencies": [
         "dual-site",
@@ -47656,10 +48626,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/90"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:readmode",
@@ -47797,9 +48779,10 @@
           "src/js/core/common.js",
           "src/js/core/darkmode.mjs",
           "src/js/core/theme.js",
-          "tests/darkmode.test.mjs"
+          "tests/darkmode.test.mjs",
+          "src/html/views/config.html"
         ],
-        "finding": "已映射 #darkmode：darkmode.enable && darkmode.button 才渲染，默认均 true。点击走 Theme.toggleMode，不走 innerHTML。未改 localStorage 键（仍 halo-butterfly-next.color-scheme）。不做 autoChangeMode 1/2、start/end、完整 darkmode.styl、item_order、snackbar。尚未双站对照验收，禁止 verified。"
+        "finding": "已有模式切换按钮、autoChangeMode 1/2 与 start/end 策略；初始 head 和运行时使用相同策略，持久化键为 halo-butterfly-next.color-scheme。上游按钮及自动模式均有相关实现，完整配色、存储和系统变化组合仍待验收。 剩余：不要改动已实现配置状态；仍缺完整模式/存储/系统变化组合与所有颜色主题双站验收。"
       },
       "dependencies": [
         "dual-site",
@@ -47824,10 +48807,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/144"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/146"
+          "https://github.com/songxychn/halo-butterfly-next/pull/146",
+          "https://github.com/songxychn/halo-butterfly-next/pull/149",
+          "https://github.com/songxychn/halo-butterfly-next/pull/312"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -47907,9 +48902,10 @@
           "src/html/views/components.html",
           "src/js/core/theme.js",
           "src/js/core/scroll.js",
-          "src/scss/modules/components.scss"
+          "src/scss/modules/components.scss",
+          "src/js/core/common.js"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "#go-up 为具备 title 的 button，调用 MainApp.useCommon.backTop()，300ms 动画回到页面顶部；不能继续记作无实现。 剩余：仍缺长页、不同滚动状态、键盘、减少动画及双站对照验收。"
       },
       "dependencies": [
         "dual-site",
@@ -47932,10 +48928,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/131"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:tool-order",
@@ -48058,7 +49066,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "PR #20 已实现字幕与效果开关、静态首项、API 失败回退和旧配置兼容，独立 13 场景/52 视图通过。当前默认沿用旧 Halo 的启用行为，上游默认关闭的差异、来源枚举及 typed_option 全参数仍保留，未通过完整首页合同。"
+        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -48094,6 +49102,15 @@
           "commit": "e7c24ec5d820419682583bcba25511883e3c6def",
           "actor": "/root",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -48316,7 +49333,7 @@
           "src/html/views/layout.html",
           "src/js/core/common.js"
         ],
-        "finding": "锁定官方 1.7.1；中文/英文/无结果/跳转/关闭与启停已测，但 Escape 后焦点未回入口（#313），真机软键盘和完整 PLG-01/02 未完成。"
+        "finding": "官方 SearchWidget 1.7.1 的 Escape/遮罩关闭后焦点未回入口；alpha.3 固定报告有 8 项焦点失败，另有独立资源超时，不混为同一故障。维护者仅批准公开 alpha 披露例外，1.0 verification-failed 保留；完整键盘/真机软键盘仍未完成。 剩余：关闭焦点恢复；完整键盘和真机软键盘"
       },
       "dependencies": [
         "dual-site",
@@ -48346,7 +49363,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "verification-failed"
     },
     {
@@ -48533,9 +49560,13 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/photos.html",
+          "src/js/page/photos.js",
+          "src/js/modules/AmplifyImg.js",
+          "src/scss/core/tags-gallery.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "独立 Photos 页面已有分组、服务端分页和共用 Viewer.js 灯箱；这些不能代替正文 gallery 的横竖混排、行高、无限加载与远端数据错误回退。本条所指上游 runJustifiedGallery 仍缺对应实现。 剩余：正文 runJustifiedGallery 行为"
       },
       "dependencies": [
         "dual-site",
@@ -48558,9 +49589,21 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -48777,14 +49820,17 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "现有 CommentWidget 是候选集成点；每个上游 provider 的展示、计数、懒加载和双评论切换仍需映射。",
+        "strategy": "以 PluginMoments 服务端分页映射上一页/下一页，使用插件原生 URL 保留页码和 tag；输入跳页及上游固定每页 8 条仍需单独处理。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/html/moments.html",
+          "src/html/views/plugin-pagination.html",
+          "src/scss/modules/plugin-pagination.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "PR #39 已接入 PluginMoments 的 prevUrl/nextUrl、首末页、可见页状态与原生键盘跳转，并保留 tag 参数；有固定合成分页场景证据。当前没有上游输入跳页控件，每页数量遵循插件设置，并非固定 8 条；这两项及超界/空值完整等价仍待实现或明确映射。 剩余：输入跳页未实现；每页 8 条上游边界映射；全部超界/空值场景"
       },
       "dependencies": [
         "dual-site",
@@ -48808,10 +49854,22 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/39"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:shuoshuo-comments",
@@ -48934,9 +49992,10 @@
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.js",
           "src/js/modules/AmplifyImg.js",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/common.js"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已有 LazyLoad img/data-lazy-src 路径；默认图片有真实 src，部分内容由浏览器直接加载。上游 site/post、native、blur、占位和全局开关尚未逐项完成等价证明。 剩余：原生/库、site/post、占位/模糊和未入视口图片全场景未完成；不修改各配置条目的 gap。"
       },
       "dependencies": [
         "dual-site",
@@ -48960,8 +50019,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:loading",
@@ -48978,13 +50047,20 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "loading.type"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/_lazyLoad.js",
+          "src/js/core/loading-ready.mjs",
+          "src/plugins/loading/circle.js",
+          "src/plugins/loading/dot.js",
+          "src/plugins/loading/hourglass.js",
+          "src/plugins/loading/cross_line.js"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "四种继承 Loading 使用 whenContentReady 在 DOMContentLoaded 结束，不再等待所有可选图片 load；alpha.3 已有四样式生命周期局部检查。它不解决阻塞 DOMContentLoaded 的资源无响应；上游 fullpage/pace 等价与完整失败注入未验收。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
       "dependencies": [
         "dual-site",
@@ -49007,10 +50083,23 @@
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/316",
+          "https://github.com/songxychn/halo-butterfly-next/pull/314"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:pwa",
@@ -49129,7 +50218,7 @@
           "src/js/core/scroll.js",
           "src/js/core/navigation.js"
         ],
-        "finding": "PR #27 已修复两级展开按钮、抽屉焦点约束、Escape 返回和响应式焦点/滚动恢复；独立 82 条真实断言及空菜单恢复通过。上游默认展开/hide 元数据、长菜单、当前路由与更多层级仍待对齐，桌面背景图对比度需人工判断。"
+        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
       "dependencies": [
         "dual-site",
@@ -49166,6 +50255,15 @@
           "commit": "98853f3562658e08e231113f441c2622c693f0d7",
           "actor": "/root/acceptance_contract",
           "outcome": "partial: bounded fix passed; full matrix contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
       "status": "in-progress",
@@ -49386,9 +50484,10 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/links.html"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "Links groups/link.spec 已消费名称、描述、URL、logo；上游 link.yml 的完整字段和正文 tag:flink 的静态输入仍未完成映射。 剩余：Links groups/link.spec 已消费名称、描述、URL、logo；上游 link.yml 的完整字段和正文 tag:flink 的静态输入仍未完成映射。"
       },
       "dependencies": [
         "dual-site",
@@ -49413,7 +50512,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "mapping-required"
     },
     {
@@ -49435,9 +50544,10 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/html/moments.html"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "Moments spec.content.html/medium 与分页集合已消费；上游 author/date/tag/link 等完整字段及远端数据路径未完成映射。 剩余：Moments spec.content.html/medium 与分页集合已消费；上游 author/date/tag/link 等完整字段及远端数据路径未完成映射。"
       },
       "dependencies": [
         "dual-site",
@@ -49463,7 +50573,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "mapping-required"
     },
     {
@@ -49581,9 +50701,10 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/html/photos.html"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "Photos groups/photos.items.spec.url/displayName 已消费；正文 gallery 的远端/本地数据格式、瀑布流与错误回退未完成映射。 剩余：Photos groups/photos.items.spec.url/displayName 已消费；正文 gallery 的远端/本地数据格式、瀑布流与错误回退未完成映射。"
       },
       "dependencies": [
         "dual-site",
@@ -49608,7 +50729,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-09-24.json",
+          "sha256": "2366bd666493695cd91328a042ecb9cafbb32daa1aa72a88b9fccf4e9e6d70b9",
+          "date": "2026-09-23T16:04:17.971371+00:00",
+          "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
+          "actor": "/root",
+          "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        }
+      ],
       "status": "mapping-required"
     },
     {
