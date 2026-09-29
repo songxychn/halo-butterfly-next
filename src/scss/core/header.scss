@@ -69,7 +69,7 @@
     }
 
     @include util.useThemeVar((
-      above-mask-color:(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+      above-mask-color:(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
     ));
 
     /* 上游 head.styl：mask.header 且 :not(.not-top-img) → #page-header:before。
@@ -79,9 +79,6 @@
       width: 100%;
       height: 100%;
       background-color: var(--above-mask-color);
-      // Extra contrast behind the 60px navigation, fading before the title.
-      // The existing mask.header switch still controls the entire overlay.
-      background-image: linear-gradient(rgba(0, 0, 0, .4) 60px, transparent 120px);
       content: '';
       pointer-events: none;
     }
