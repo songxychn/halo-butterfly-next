@@ -1,0 +1,435 @@
+{
+  "kind": "bounded-runtime-and-independent-review",
+  "sourceSha": "e5bac5f7bb4203f4641c269823165a170caa323d",
+  "testedAt": "2026-09-29T14:34:56.878Z",
+  "artifactSha256": "62fb76a25c98306a07c50e6fc940765f704b396f2fbfbd27d3a9748239fde34a",
+  "haloVersion": "2.26.1",
+  "browser": {
+    "engine": "Chromium",
+    "version": "151.0.7922.34",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ]
+  },
+  "fixture": {
+    "sourceSha": "7bcfc498aa64fbeba2329de1e3b723f1830dd86e",
+    "sha256": "bc8565e7a0e8f10c0eefb02140b5af0893730f61abd817b0ffdaca1c07a7c5b6",
+    "extension": "Synthetic options-* categories, tags and 2024/2025 posts; navigation options.json"
+  },
+  "engineering": {
+    "command": "pnpm verify",
+    "nodeTests": 540,
+    "failed": 0,
+    "packageFiles": 127
+  },
+  "independentReviews": [
+    {
+      "actor": "/root/sidebar",
+      "scope": "menu, subtitle, integrated docs, matrix, frozen performance defaults",
+      "reviewedSha": "e5bac5f7bb4203f4641c269823165a170caa323d",
+      "result": "passed"
+    },
+    {
+      "actor": "/root/subtitle",
+      "scope": "sidebar and menu; including category tree cascade count and empty-state fixes",
+      "reviewedSha": "e5bac5f7bb4203f4641c269823165a170caa323d",
+      "result": "passed"
+    }
+  ],
+  "matrixIds": [
+    "config:menu",
+    "config:subtitle.enable",
+    "config:subtitle.effect",
+    "config:subtitle.typed_option",
+    "config:subtitle.source",
+    "config:subtitle.sub",
+    "config:aside.display.archive",
+    "config:aside.display.tag",
+    "config:aside.display.category",
+    "config:aside.card_author.enable",
+    "config:aside.card_announcement.enable",
+    "config:aside.card_recent_post.sort_order",
+    "config:aside.card_categories.enable",
+    "config:aside.card_categories.limit",
+    "config:aside.card_categories.expand",
+    "config:aside.card_categories.sort_order",
+    "config:aside.card_tags.enable",
+    "config:aside.card_tags.limit",
+    "config:aside.card_tags.orderby",
+    "config:aside.card_tags.order",
+    "config:aside.card_tags.sort_order",
+    "config:aside.card_archives.enable",
+    "config:aside.card_archives.type",
+    "config:aside.card_archives.format",
+    "config:aside.card_archives.order",
+    "config:aside.card_archives.limit",
+    "config:aside.card_archives.sort_order",
+    "config:aside.card_webinfo.enable",
+    "config:aside.card_webinfo.post_count",
+    "config:aside.card_webinfo.last_push_date",
+    "config:aside.card_webinfo.sort_order",
+    "template:includes/header/menu_item",
+    "template:includes/sidebar",
+    "template:includes/third-party/subtitle",
+    "template:includes/widget/card_announcement",
+    "template:includes/widget/card_archives",
+    "template:includes/widget/card_author",
+    "template:includes/widget/card_categories",
+    "template:includes/widget/card_recent_post",
+    "template:includes/widget/card_tags",
+    "template:includes/widget/card_webinfo",
+    "helper:aside_categories",
+    "resource:typed",
+    "interaction:menu-width",
+    "interaction:mobile-menu",
+    "interaction:subtitle",
+    "data-schema:menu-items"
+  ],
+  "matrixStatus": "implemented-unverified",
+  "coverage": "Bounded configuration and interaction scenarios only; not full per-entry acceptance",
+  "rawReportSha256": "a630995c46ac8c08132bd18e96383c6e50029f8c5b2ca244f126e11c5ff34201",
+  "runnerSha256": "5cf1ff6a9cabe0fda0ff105bf88145d4a8e01360b07d2e9d64fbb76f8bf68c66",
+  "scenarios": [
+    {
+      "name": "baseline",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "aside-off",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "aside-off",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "aside-off",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "aside-off",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "aside-options",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "aside-options",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "aside-options",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "aside-options",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "menu",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "menu",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "menu",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "menu",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-static",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-static",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-static",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-static",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-hitokoto",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-hitokoto",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-hitokoto",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-hitokoto",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-fallback",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-fallback",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-fallback",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-fallback",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-typed",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-typed",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-typed",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-typed",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-aa1",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-aa1",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-aa1",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-aa1",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-poem",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-poem",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "subtitle-poem",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "subtitle-poem",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "extended-category",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "extended-category",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "extended-category",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "extended-category",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "extended-sort",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "extended-sort",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "extended-sort",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "extended-sort",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "extended-months",
+      "width": 1440,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "extended-months",
+      "width": 1440,
+      "mode": "dark",
+      "passed": true
+    },
+    {
+      "name": "extended-months",
+      "width": 390,
+      "mode": "light",
+      "passed": true
+    },
+    {
+      "name": "extended-months",
+      "width": 390,
+      "mode": "dark",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Chromium desktop/mobile viewport, not physical devices or full 1.0 acceptance",
+    "External subtitle providers are intercepted synthetic responses, not live provider/CORS approval",
+    "Fixture station was seeded before upstream comparison-image update; added synthetic posts/categories/tags use options-* identifiers",
+    "No full Safari/Firefox/WebKit, physical device, screen reader, performance or fixed dual-site visual approval",
+    "Headless scripts and detailed screenshots remain in private local .runtime/options/evidence; the committed summary does not make them public",
+    "Same-version development package, not a new public alpha release or cross-version upgrade approval"
+  ],
+  "pullRequest": "https://github.com/songxychn/halo-butterfly-next/pull/347",
+  "ci": {
+    "runUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/36583826081",
+    "headSha": "e5bac5f7bb4203f4641c269823165a170caa323d",
+    "conclusion": "failure",
+    "pnpmVerify": "success",
+    "reproducibleArchive": "success",
+    "artifactUpload": "failure",
+    "reason": "GitHub Actions artifact storage quota exceeded"
+  }
+}
