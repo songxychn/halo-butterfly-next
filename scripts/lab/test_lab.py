@@ -13,6 +13,20 @@ spec.loader.exec_module(lab)
 
 
 class LabTests(unittest.TestCase):
+    def test_shared_photo_fixture_is_complete_and_small(self):
+        sources = json.loads((lab.FIXTURES / 'image-sources.json').read_text())
+        covers = [post['cover'] for post in lab.CONTENT['posts']]
+        self.assertEqual(len(covers), len(set(covers)))
+        self.assertEqual(lab.CONTENT['images']['home'], lab.CONTENT['posts'][8]['cover'])
+        self.assertIn(lab.CONTENT['posts'][0]['cover'], lab.body(lab.CONTENT['posts'][0]))
+        for url in covers + [*lab.CONTENT['images'].values(), lab.CONTENT['pages'][0]['cover']]:
+            with self.subTest(url=url):
+                self.assertTrue(url.startswith('/lab/'))
+                asset = lab.FIXTURES / 'assets' / url.removeprefix('/lab/')
+                self.assertTrue(asset.is_file())
+                self.assertLessEqual(asset.stat().st_size, 250_000)
+                self.assertIn(asset.name, sources['photos'] if asset.name != 'wallpaper.webp' else sources)
+
     def test_halo_only_start_does_not_launch_or_probe_hexo(self):
         with tempfile.TemporaryDirectory() as directory:
             with patch.object(lab, 'RUNTIME', Path(directory)), patch.object(lab, 'owned_process', return_value=None), patch.object(lab, 'listening', return_value=False), patch.object(lab.subprocess, 'Popen') as launch, patch.object(lab.LOCAL, 'open') as request:
