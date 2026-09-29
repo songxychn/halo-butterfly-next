@@ -103,9 +103,9 @@ test('作者头像不再走预加载占位；相对时间保留发表于前缀',
   assert.equal(nodes[0].textContent, '发表于 10 分钟前');
 });
 
-test('实验室为无封面篇写入 cover.default_cover；主题默认仍为空对齐上游 null', async () => {
+test('实验室设置默认封面；主题默认仍为空对齐上游 null', async () => {
   const lab = await readFile(new URL('../scripts/lab/lab.py', import.meta.url), 'utf8');
-  assert.match(lab, /'cover': \{'default_cover': '\/lab\/cover\.svg'\}/);
+  assert.match(lab, /'cover': \{'default_cover': CONTENT\['images'\]\['default'\]\}/);
   assert.equal(defaults.cover.default_cover, '');
 });
 

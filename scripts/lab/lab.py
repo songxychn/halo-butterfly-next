@@ -56,7 +56,7 @@ def write_json(path, data, private=False):
 
 
 def body(post):
-    return (FIXTURES / post['body']).read_text() if post.get('body') else '<h2 id="fixture">固定合成文章</h2><p>用于核对分页、归档、标签与无封面回退。两站使用同一份版本化内容。</p>'
+    return (FIXTURES / post['body']).read_text() if post.get('body') else '<h2 id="fixture">固定合成文章</h2><p>用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。</p>'
 
 
 def fixture_hash():
@@ -114,7 +114,7 @@ def prepare():
         render_hexo()
     assets = halo / 'data/attachments/lab'
     shutil.copytree(FIXTURES / 'assets', assets, dirs_exist_ok=True)
-    print('Prepared pinned Halo and Butterfly; synthetic assets copied')
+    print('Prepared pinned Halo and Butterfly; shared fixture assets copied')
 
 
 def render_hexo():
@@ -130,7 +130,8 @@ def render_hexo():
     for page in CONTENT['pages'] + [{'name': 'tags', 'title': '标签', 'type': 'tags', 'body': ''}, {'name': 'categories', 'title': '分类', 'type': 'categories', 'body': ''}]:
         directory = source / page['name']
         directory.mkdir(exist_ok=True)
-        front = {'title': page['title'], 'date': '2026-08-01T04:00:00Z', 'updated': '2026-08-01T04:00:00Z', 'top_img': '/lab/cover.svg'}
+        top_img = page.get('cover', CONTENT['images']['tag' if page['name'] == 'tags' else 'category'])
+        front = {'title': page['title'], 'date': '2026-08-01T04:00:00Z', 'updated': '2026-08-01T04:00:00Z', 'top_img': top_img}
         if 'type' in page:
             front['type'] = page['type']
         (directory / 'index.md').write_text('---\n' + json.dumps(front, ensure_ascii=False) + '\n---\n' + page['body'])
@@ -146,7 +147,7 @@ def render_hexo():
             else: shutil.copyfile(origin, target)
     cfg = {**CONTENT['site'], 'language': 'zh-CN', 'timezone': VERSIONS['timezone'], 'url': BASE['hexo'], 'theme': 'butterfly', 'permalink': 'archives/:title/', 'default_category': '', 'category_map': {x['title']: x['name'] for x in CONTENT['categories']}, 'tag_map': {x['title']: x['name'] for x in CONTENT['tags']}, 'per_page': CONTENT['site']['pageSize'], 'index_generator': {'per_page': CONTENT['site']['pageSize'], 'order_by': '-date'}, 'archive_generator': {'per_page': CONTENT['site']['pageSize']}, 'highlight': {'enable': True, 'line_number': True}, 'syntax_highlighter': 'highlight.js', 'skip_render': ['lab/**', 'pluginsSrc/**']}
     write_json(site / '_config.yml', cfg)
-    theme = {'menu': {x['title']: x['path'] + ' || ' + x['icon'] for x in CONTENT['menu']}, 'avatar': {'img': '/lab/avatar.svg', 'effect': False}, 'favicon': '/lab/avatar.svg', 'default_top_img': '/lab/cover.svg', 'index_img': '/lab/cover.svg', 'archive_img': '/lab/cover.svg', 'tag_img': '/lab/cover.svg', 'category_img': '/lab/cover.svg', 'cover': {'default_cover': ['/lab/cover.svg']}, 'subtitle': {'enable': False, 'effect': False, 'source': False, 'sub': []}, 'social': {}, 'aside': {'card_author': {'description': CONTENT['site']['description'], 'button': {'enable': True, 'text': '关于对照实验室', 'link': '/about-preview/', 'icon': 'fas fa-heart'}}, 'card_announcement': {'content': '共用合成内容；验收结果以证据记录为准。'}}, 'busuanzi': {'site_uv': False, 'site_pv': False, 'page_pv': False}, 'comments': {'use': []}, 'share': {'use': False}, 'CDN': {'internal_provider': 'local', 'third_party_provider': 'local', 'version': True}, 'darkmode': {'enable': True, 'autoChangeMode': False}, 'lazyload': {'enable': False}}
+    theme = {'menu': {x['title']: x['path'] + ' || ' + x['icon'] for x in CONTENT['menu']}, 'avatar': {'img': '/lab/avatar.svg', 'effect': False}, 'favicon': '/lab/avatar.svg', 'default_top_img': CONTENT['images']['default'], 'index_img': CONTENT['images']['home'], 'archive_img': CONTENT['images']['archive'], 'tag_img': CONTENT['images']['tag'], 'category_img': CONTENT['images']['category'], 'cover': {'default_cover': [CONTENT['images']['default']]}, 'subtitle': {'enable': False, 'effect': False, 'source': False, 'sub': []}, 'social': {}, 'aside': {'card_author': {'description': CONTENT['site']['description'], 'button': {'enable': True, 'text': '关于对照实验室', 'link': '/about-preview/', 'icon': 'fas fa-heart'}}, 'card_announcement': {'content': '共用合成内容；验收结果以证据记录为准。'}}, 'busuanzi': {'site_uv': False, 'site_pv': False, 'page_pv': False}, 'comments': {'use': []}, 'share': {'use': False}, 'CDN': {'internal_provider': 'local', 'third_party_provider': 'local', 'version': True}, 'darkmode': {'enable': True, 'autoChangeMode': False}, 'lazyload': {'enable': False}}
     write_json(site / '_config.butterfly.yml', theme)
     run(['pnpm', 'exec', 'hexo', 'clean', '--silent'], cwd=site)
     run(['pnpm', 'exec', 'hexo', 'generate', '--silent'], cwd=site)
@@ -511,9 +512,9 @@ def seed(client, reference=True):
         time.sleep(1)
     else:
         raise RuntimeError('Theme config reconciler did not become ready')
-    patches = {'base': {'metadata_name': owner}, 'index': {'above_background': '/lab/cover.svg', 'typewriter_custom_text': '', 'enable_typewriter_random_text': False}, 'cover': {'default_cover': '/lab/cover.svg'}, 'style': {'mode': 'user'}, 'aside': {'notice': '共用合成内容；验收结果以证据记录为准。', 'social': [], 'button': {'name': '关于对照实验室', 'link': '/about-preview/'}}}
-    for group in ['archives', 'tags', 'categories']:
-        patches[group] = {'above_background': '/lab/cover.svg'}
+    patches = {'base': {'metadata_name': owner}, 'index': {'above_background': CONTENT['images']['home'], 'typewriter_custom_text': '', 'enable_typewriter_random_text': False}, 'cover': {'default_cover': CONTENT['images']['default']}, 'style': {'mode': 'user'}, 'aside': {'notice': '共用合成内容；验收结果以证据记录为准。', 'social': [], 'button': {'name': '关于对照实验室', 'link': '/about-preview/'}}}
+    for group, image in [('archives', 'archive'), ('tags', 'tag'), ('categories', 'category')]:
+        patches[group] = {'above_background': CONTENT['images'][image]}
     for group, patch in patches.items():
         config.setdefault(group, {}).update(patch)
     client.api(config_path, 'PUT', config)
@@ -667,7 +668,7 @@ def evidence():
             markup = response.read().decode()
             if response.status != 200 or CONTENT['site']['title'] not in markup:
                 raise RuntimeError(f'{name} route did not render expected site: {route}')
-            if route == '/archives/preview-1/' and not all(x in markup for x in ['固定内容与验收范围', '正文末尾', '/lab/cover.svg']):
+            if route == '/archives/preview-1/' and not all(x in markup for x in ['固定内容与验收范围', '正文末尾', CONTENT['posts'][0]['cover']]):
                 raise RuntimeError(f'{name} article content mismatch')
             if route == '/':
                 order = list(dict.fromkeys(re.findall(r'href=[\"\'](?:https?://[^/]+)?/archives/(preview-\d+)/?[\"\']', markup)))
