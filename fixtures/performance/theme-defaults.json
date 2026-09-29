@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "settingsSha256": "c255bd3a2cdf3f429f7047780e42d9d3d902e49e57c8b224ba3fa002fbbb0277",
+  "settingsSha256": "dc0c11b9814dcdd71f48d640db29d609f767a739add21f7f909e450bded5856b",
   "config": {
     "base": {
       "enable_seo": true,
@@ -82,13 +82,51 @@
       "card_recent_post": {
         "enable": true,
         "limit": 5,
-        "sort": "date"
+        "sort": "date",
+        "sort_order": 20
       },
       "enable_category": true,
       "enable_tags": true,
       "enable_archives": true,
       "enable_custom": false,
-      "enable_webInfo": true
+      "enable_webInfo": true,
+      "display": {
+        "archive": true,
+        "tag": true,
+        "category": true
+      },
+      "card_author": {
+        "enable": true,
+        "sort_order": 0
+      },
+      "card_announcement": {
+        "enable": true,
+        "sort_order": 10
+      },
+      "card_categories": {
+        "limit": 5,
+        "expand": "none",
+        "sort_order": 30
+      },
+      "card_tags": {
+        "limit": 25,
+        "orderby": "random",
+        "order": 1,
+        "sort_order": 40
+      },
+      "card_archives": {
+        "type": "monthly",
+        "format": "",
+        "order": -1,
+        "limit": 8,
+        "sort_order": 50
+      },
+      "card_webinfo": {
+        "post_count": true,
+        "last_push_date": true,
+        "runtime": true,
+        "sort_order": 60
+      }
     },
     "card": {
       "radius": "15px",
@@ -102,6 +140,8 @@
       "enable_subtitle": true,
       "subtitle_effect": true,
       "typewriter_custom_text": "欢迎使用Butterfly主题，一个简洁、优雅的主题~",
+      "subtitle_source": "custom",
+      "subtitle_typed_option": "",
       "enable_typewriter_random_text": false,
       "typewriter_random_api": "",
       "typewriter_api_value_format": "",

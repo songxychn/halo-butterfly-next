@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
-import { customSubtitles, randomSubtitle, runSubtitle } from '../src/js/modules/subtitle.mjs';
+import { customSubtitles, randomSubtitle, runSubtitle, subtitleSource, subtitleTypedOptions } from '../src/js/modules/subtitle.mjs';
 import { defaultsFromSettings, migrateConfig } from '../scripts/config-migration.mjs';
 
 function target() {
@@ -103,9 +103,74 @@ test('原版 2.0.5/2.0.7 迁移补齐兼容开关，显式 false 不被默认值
     const result = migrateConfig({ index }, from, defaults);
     assert.equal(result.config.index.enable_subtitle, true);
     assert.equal(result.config.index.subtitle_effect, true);
+    assert.equal(result.config.index.subtitle_source, 'custom');
+    assert.equal(result.config.index.subtitle_typed_option, '');
     assert.equal(result.config.index.typewriter_custom_text, '甲|&|乙');
     const disabled = migrateConfig({ index: { enable_subtitle: false, subtitle_effect: false } }, from, defaults);
     assert.equal(disabled.config.index.enable_subtitle, false);
     assert.equal(disabled.config.index.subtitle_effect, false);
   }
+});
+
+test('来源缺省兼容自定义 API；显式本地或未知来源不误请求旧 API', () => {
+  const legacy = { enable_typewriter_random_text: true, typewriter_random_api: '/legacy', typewriter_api_value_format: 'data.text' };
+  for (const source of [undefined, null, '', 'custom']) assert.deepEqual(subtitleSource({ ...legacy, subtitle_source: source }), { kind: 'custom', url: '/legacy', path: 'data.text' });
+  for (const source of [false, 'false', 0, '0', 'invalid']) assert.equal(subtitleSource({ ...legacy, subtitle_source: source }), null);
+  for (const source of [1, '1', 2, '2', 3, '3']) assert.ok(subtitleSource({ subtitle_source: source }).url.startsWith('https://'));
+});
+
+test('内置来源动态按远端、出处、本地顺序播放；静态只显示远端首项', async () => {
+  const cases = [
+    ['1', { body: JSON.stringify({ hitokoto: '<img src=x onerror=alert(1)>', from: '<b>出处</b>' }) }, ['&lt;img src=x onerror=alert(1)&gt;', '出自 &lt;b&gt;出处&lt;/b&gt;']],
+    ['2', { body: '<p>远端 & <b>文字</b></p><p>不取第二项</p>', contentType: 'text/html' }, ['远端 &amp; &lt;b&gt;文字&lt;/b&gt;']],
+    ['3', { body: JSON.stringify({ status: 'success', data: { content: '今日诗词' } }) }, ['今日诗词']],
+  ];
+  for (const [source, response, remote] of cases) {
+    const config = { subtitle_source: source, enable_typewriter_random_text: false, typewriter_custom_text: '<b>本地</b>|&|末项' };
+    let options;
+    let requests = 0;
+    await runSubtitle({ element: target(), config, requestRandom: async (url, request) => {
+      requests++;
+      assert.equal(url, subtitleSource(config).url);
+      assert.equal(request.withCredentials === true, source === '3');
+      return response;
+    }, createTyped: (_node, value) => { options = value; } });
+    assert.equal(requests, 1);
+    assert.deepEqual(options.strings, [...remote, '<b>本地</b>', '末项']);
+    assert.equal(options.contentType, 'html');
+    const element = target();
+    await runSubtitle({ element, config: { ...config, subtitle_effect: false }, requestRandom: async () => response, createTyped: unused });
+    assert.equal(element.textContent, remote[0].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
+  }
+});
+
+test('内置来源失败或结构错误回退本地，空本地不创建 Typed；远端独立显示保持纯文本', async () => {
+  for (const source of ['1', '2', '3']) {
+    for (const response of [null, { body: '{}' }, { body: '<p></p>' }, { body: '{"data":{"content":12},"hitokoto":null}' }]) {
+      let options;
+      const requestRandom = async () => { if (!response) throw new Error('timeout'); return response; };
+      await runSubtitle({ element: target(), config: { subtitle_source: source, typewriter_custom_text: '<b>回退</b>|&|第二项' }, requestRandom, createTyped: (_node, value) => { options = value; } });
+      assert.deepEqual(options.strings, ['<b>回退</b>', '第二项']);
+      await runSubtitle({ element: target(), config: { subtitle_source: source, typewriter_custom_text: '' }, requestRandom, createTyped: unused });
+    }
+  }
+  let options;
+  await runSubtitle({ element: target(), config: { subtitle_source: '1' }, requestRandom: async () => ({ body: '{"hitokoto":"<script>x</script>"}' }), createTyped: (_node, value) => { options = value; } });
+  assert.equal(options.contentType, null);
+  assert.deepEqual(options.strings, ['<script>x</script>']);
+});
+
+test('Typed 参数支持速度、循环、光标等声明式选项并忽略错误类型和行为覆盖', async () => {
+  const value = { typeSpeed: 150, startDelay: 0, backSpeed: 30, backDelay: 800, smartBackspace: false, shuffle: true, fadeOut: true, fadeOutClass: 'subtitle-fade', fadeOutDelay: 20, loop: false, loopCount: 2, showCursor: false, cursorChar: '<b>|</b>', autoInsertCss: false, bindInputFocusEvents: true };
+  assert.deepEqual(subtitleTypedOptions(JSON.stringify(value)), { ...value, cursorChar: '&lt;b&gt;|&lt;/b&gt;' });
+  assert.equal(subtitleTypedOptions('{"loopCount":"Infinity"}').loopCount, Infinity);
+  for (const invalid of ['broken', '[]', 'null', null, 42]) assert.deepEqual(subtitleTypedOptions(invalid), {});
+  assert.deepEqual(subtitleTypedOptions({ typeSpeed: -1, startDelay: Infinity, backSpeed: '50', loop: 'false', loopCount: -1, fadeOutClass: 'two classes', strings: ['override'], contentType: 'html', stringsElement: '#secret', attr: 'src', onComplete: 'alert(1)' }), {});
+  let options;
+  await runSubtitle({ element: target(), config: { typewriter_custom_text: '正文', subtitle_typed_option: JSON.stringify(value) }, requestRandom: unused, createTyped: (_node, result) => { options = result; } });
+  assert.equal(options.typeSpeed, 150);
+  assert.equal(options.loop, false);
+  assert.deepEqual(options.strings, ['正文']);
+  assert.equal(options.contentType, 'html');
+  await runSubtitle({ element: target(), config: { subtitle_effect: false, typewriter_custom_text: '正文', subtitle_typed_option: '{"showCursor":true}' }, requestRandom: unused, createTyped: unused });
 });

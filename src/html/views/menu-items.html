@@ -1,0 +1,26 @@
+<!--/* Halo MenuItemVo.children is a recursive tree. Butterfly hide means initially
+       collapsed in the mobile drawer, not a hidden menu item. */-->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="items(nodes, surface, depth)">
+  <li th:each="node : ${nodes}"
+      th:with="group=${not #lists.isEmpty(node.children)}, icon=${#annotations.getOrDefault(node, 'icon', '')}, expanded=${surface == 'mobile' and #annotations.getOrDefault(node, 'hide', 'false') != 'true'}"
+      th:class="${(surface == 'nav' ? (depth == 0 ? 'menu-item' : 'menu-item menu-children--item') : (depth == 0 ? 'bar-item' : 'bar-item bar-children--item')) + (group ? ' child' : '') + (group and expanded ? ' active' : '')}">
+    <a th:unless="${group}"
+       th:class="${depth == 0 ? 'link' : (surface == 'nav' ? 'menu-children--link' : 'bar-children--link link')}"
+       th:title="${node.status.displayName}" th:href="@{${node.status.href}}" th:target="${node.spec.target?.value}">
+      <i aria-hidden="true" th:if="${not #strings.isEmpty(icon)}" th:class="${icon}"></i>
+      <span class="name" th:text="${node.status.displayName}"></span>
+    </a>
+    <th:block th:if="${group}">
+      <button type="button" th:title="${node.status.displayName}" th:class="${'link menu-toggle' + (surface == 'nav' and depth > 0 ? ' menu-children--link' : '')}"
+              th:attr="aria-controls=${surface + '-submenu-' + node.metadata.name},aria-expanded=${expanded},data-default-expanded=${expanded}">
+        <i aria-hidden="true" th:if="${not #strings.isEmpty(icon)}" th:class="${icon}"></i>
+        <span class="name" th:text="${node.status.displayName}"></span>
+        <i th:class="${surface == 'nav' ? 'fas fa-chevron-down' : 'fas fa-chevron-left'}" aria-hidden="true"></i>
+      </button>
+      <ul th:class="${surface == 'nav' ? 'menu-children' : 'bar-children'}"
+          th:id="${surface + '-submenu-' + node.metadata.name}" th:hidden="${not expanded}">
+        <th:block th:replace="~{views/menu-items :: items(${node.children}, ${surface}, ${depth + 1})}"></th:block>
+      </ul>
+    </th:block>
+  </li>
+</th:block>

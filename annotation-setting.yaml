@@ -10,6 +10,16 @@ spec:
     - $formkit: "text"
       name: "icon"
       label: "图标"
+    - $formkit: "radio"
+      name: "hide"
+      label: "移动菜单默认折叠"
+      help: "仅分组生效。对应 Butterfly 的 hide：开启时收起子菜单；关闭时默认展开，不隐藏菜单项。"
+      value: "false"
+      options:
+        - label: 默认展开
+          value: "false"
+        - label: 默认折叠
+          value: "true"
 
 ---
 apiVersion: v1alpha1

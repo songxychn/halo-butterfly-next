@@ -35,47 +35,7 @@
 
     <!--/* 菜单 */-->
     <menu class="menu" th:with="menuItems = ${menuFinder.getPrimary().menuItems}">
-      <th:block th:each="menuItem : ${menuItems}" th:with="isChildren = ${#lists.isEmpty(menuItem.children)} ">
-        <li th:if="${isChildren}" class="menu-item">
-          <a
-            class="link"
-            th:href="@{${menuItem.status.href}}"
-            th:target="${menuItem.spec.target?.value}"
-            th:with="icon = ${#annotations.getOrDefault(menuItem,'icon','')}"
-          >
-            <i aria-hidden="true" th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
-            <span class="name" th:text="${menuItem.status.displayName}"></span>
-          </a>
-        </li>
-        <!--/* 二级*/-->
-        <li th:unless="${isChildren}" class="menu-item">
-          <button
-            type="button"
-            class="link menu-toggle"
-            aria-expanded="false"
-            th:attr="aria-controls=${'nav-submenu-' + menuItem.metadata.name}"
-            th:with="icon = ${#annotations.getOrDefault(menuItem, 'icon','')}"
-          >
-            <i aria-hidden="true" th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
-            <span class="name" th:text="${menuItem.status.displayName}"></span>
-            <i class="fas fa-chevron-down" aria-hidden="true"></i>
-          </button>
-
-          <ul class="menu-children" th:id="${'nav-submenu-' + menuItem.metadata.name}" hidden>
-            <li th:each="children : ${menuItem.children}" class="menu-children--item">
-              <a
-                class="menu-children--link"
-                th:href="@{${children.status.href}}"
-                th:target="${children.spec.target?.value}"
-                th:with="icon = ${#annotations.getOrDefault(children, 'icon','')}"
-              >
-                <i aria-hidden="true" th:if="${!#strings.isEmpty(icon)}" th:class="${icon}"></i>
-                <span class="name" th:text="${children.status.displayName}"></span>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </th:block>
+      <th:block th:replace="~{views/menu-items :: items(${menuItems}, 'nav', 0)}"></th:block>
     </menu>
   </div>
 </nav>

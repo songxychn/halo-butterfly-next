@@ -509,9 +509,11 @@
         "settings": [],
         "code": [
           "src/html/views/nav.html",
-          "src/js/core/navigation.js"
+          "src/js/core/navigation.js",
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation-state.mjs"
         ],
-        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -535,7 +537,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/16"
+          "https://github.com/songxychn/halo-butterfly-next/issues/16",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/27"
@@ -559,9 +562,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/parity_matrix"
     },
     {
@@ -3370,7 +3382,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -3393,7 +3405,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/14"
+          "https://github.com/songxychn/halo-butterfly-next/issues/14",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/20"
@@ -3417,9 +3430,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/acceptance_contract"
     },
     {
@@ -3454,7 +3476,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -3477,7 +3499,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/14"
+          "https://github.com/songxychn/halo-butterfly-next/issues/14",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/20"
@@ -3501,9 +3524,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/acceptance_contract"
     },
     {
@@ -3528,14 +3560,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "index.subtitle_typed_option"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.js",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/modules/subtitle.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -3557,12 +3592,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:subtitle.source",
@@ -3587,14 +3633,14 @@
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
         "settings": [
-          "index.enable_typewriter_random_text",
-          "index.typewriter_random_api",
-          "index.typewriter_api_value_format"
+          "index.subtitle_source"
         ],
         "code": [
-          "src/js/page/index.js"
+          "src/js/page/index.js",
+          "src/js/modules/subtitle.mjs",
+          "src/html/index.html"
         ],
-        "finding": "已有通用随机 API 配置，上游三种数据源及失败回退尚未逐一映射。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -3622,11 +3668,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -3659,7 +3716,7 @@
           "src/js/modules/subtitle.mjs",
           "src/html/index.html"
         ],
-        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -3682,7 +3739,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/14"
+          "https://github.com/songxychn/halo-butterfly-next/issues/14",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/20"
@@ -3706,9 +3764,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/acceptance_contract"
     },
     {
@@ -6294,12 +6361,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.display.archive"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -6320,12 +6391,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.display.tag",
@@ -6349,12 +6431,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.display.tag"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -6375,12 +6461,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.display.category",
@@ -6404,12 +6501,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.display.category"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -6430,12 +6531,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.enable",
@@ -6459,12 +6571,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.enable"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -6485,12 +6601,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.description",
@@ -6791,12 +6918,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_announcement.enable"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -6817,12 +6948,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_announcement.content",
@@ -7089,12 +7231,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_recent_post.sort_order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7115,12 +7261,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_newest_comments.enable",
@@ -7433,9 +7590,11 @@
           "aside.enable_category"
         ],
         "code": [
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "已有分类卡片开关，其余排序/数量/层级配置缺失。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7456,11 +7615,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -7485,12 +7655,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_categories.limit"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7511,12 +7685,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_categories.expand",
@@ -7540,12 +7725,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_categories.expand"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7571,12 +7760,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_categories.sort_order",
@@ -7600,12 +7800,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_categories.sort_order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7626,12 +7830,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.enable",
@@ -7659,9 +7874,11 @@
           "aside.enable_tags"
         ],
         "code": [
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "已有标签卡片开关，其余排序/数量/颜色配置缺失。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7682,11 +7899,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -7711,12 +7939,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.limit"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7737,12 +7969,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.color",
@@ -7876,12 +8119,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.orderby"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7907,12 +8154,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.order",
@@ -7936,12 +8194,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -7966,12 +8228,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.sort_order",
@@ -7995,12 +8268,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.sort_order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8021,12 +8298,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_archives.enable",
@@ -8050,12 +8338,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.enable_archives"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8076,12 +8368,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_archives.type",
@@ -8105,12 +8408,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_archives.type"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8135,12 +8442,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_archives.format",
@@ -8164,12 +8482,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_archives.format"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8190,12 +8512,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_archives.order",
@@ -8219,12 +8552,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_archives.order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8249,12 +8586,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_archives.limit",
@@ -8278,12 +8626,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_archives.limit"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8304,12 +8656,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_archives.sort_order",
@@ -8333,12 +8696,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_archives.sort_order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8359,12 +8726,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_post_series.enable",
@@ -8648,9 +9026,11 @@
           "aside.enable_webInfo"
         ],
         "code": [
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "已有网站信息开关，内容语义尚未对齐。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8671,11 +9051,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -8700,12 +9091,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_webinfo.post_count"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8726,12 +9121,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_webinfo.last_push_date",
@@ -8755,12 +9161,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_webinfo.last_push_date"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8781,12 +9191,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_webinfo.sort_order",
@@ -8810,12 +9231,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_webinfo.sort_order"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -8836,12 +9261,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_webinfo.runtime_date",
@@ -29030,9 +29466,11 @@
           "src/html/views/components.html",
           "src/js/core/common.js",
           "src/js/core/scroll.js",
-          "src/js/core/navigation.js"
+          "src/js/core/navigation.js",
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation-state.mjs"
         ],
-        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -29055,7 +29493,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/16"
+          "https://github.com/songxychn/halo-butterfly-next/issues/16",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/27"
@@ -29079,9 +29518,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/parity_matrix"
     },
     {
@@ -30212,9 +30660,11 @@
           "src/html/views/components.html",
           "src/js/core/common.js",
           "src/js/core/scroll.js",
-          "src/js/core/navigation.js"
+          "src/js/core/navigation.js",
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation-state.mjs"
         ],
-        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -30236,7 +30686,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/27"
@@ -30260,9 +30711,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/parity_matrix"
     },
     {
@@ -33323,7 +33783,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33345,7 +33805,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/14"
+          "https://github.com/songxychn/halo-butterfly-next/issues/14",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/20"
@@ -33369,9 +33830,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/acceptance_contract"
     },
     {
@@ -33491,9 +33961,11 @@
         "settings": [],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33514,12 +33986,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_archives",
@@ -33539,9 +34022,11 @@
         "settings": [],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33562,12 +34047,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_author",
@@ -33587,9 +34083,11 @@
         "settings": [],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33610,12 +34108,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_bottom_self",
@@ -33683,9 +34192,11 @@
         "settings": [],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33706,12 +34217,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_newest_comment",
@@ -33903,9 +34425,11 @@
         "code": [
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
-          "settings.yaml"
+          "settings.yaml",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "已用 aside.html recentPost fragment 对齐上游 widget：标题+时间+可选缩略图（lazyLoadImg）。数据来自 Halo 2.26.1 postFinder.list。未做 card_archives / card_newest_comments / sort_order。尚未双站对照验收。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33927,13 +34451,24 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/61"
+          "https://github.com/songxychn/halo-butterfly-next/issues/61",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/63"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -33954,9 +34489,11 @@
         "settings": [],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -33977,12 +34514,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_top_self",
@@ -34050,9 +34598,11 @@
         "settings": [],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/html/views/layout.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -34073,12 +34623,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/index",
@@ -35588,9 +36149,11 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/components.html",
+          "src/html/views/aside.html",
+          "src/js/core/aside-options.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -35610,12 +36173,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:cloudTags",
@@ -39105,9 +39679,10 @@
           "docs/THIRD_PARTY.md",
           "package.json",
           "src/js/modules/subtitle.mjs",
-          "src/js/page/index.js"
+          "src/js/page/index.js",
+          "src/html/index.html"
         ],
-        "finding": "Typed.js 已由依赖打包用于首页字幕；runSubtitle 支持开关、静态回退、本地文本及远端失败回退。上游 typed_option 和提供方真实联调仍未对齐，不将字幕子项整体提升。 剩余：补齐上游选项映射、真实提供方、正常/空/失败及关闭条件对照。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -39129,7 +39704,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
@@ -39142,6 +39718,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -48055,9 +48640,12 @@
           "src/html/views/nav.html",
           "src/html/views/components.html",
           "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/scroll.js",
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation.js",
+          "src/js/core/navigation-state.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -48078,12 +48666,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:mobile-menu",
@@ -48106,9 +48705,11 @@
           "src/html/views/components.html",
           "src/js/core/common.js",
           "src/js/core/scroll.js",
-          "src/js/core/navigation.js"
+          "src/js/core/navigation.js",
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation-state.mjs"
         ],
-        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -48130,7 +48731,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/16"
+          "https://github.com/songxychn/halo-butterfly-next/issues/16",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/27"
@@ -48154,9 +48756,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/parity_matrix"
     },
     {
@@ -49066,7 +49677,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.mjs"
         ],
-        "finding": "当前首页缺字段沿用启用字幕/效果，保持旧 Halo 兼容；与上游默认关闭、完整来源枚举及 typed_option 参数差异尚存，原 in-progress 合理。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -49087,7 +49698,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/14"
+          "https://github.com/songxychn/halo-butterfly-next/issues/14",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/20"
@@ -49111,9 +49723,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/acceptance_contract"
     },
     {
@@ -50216,9 +50837,11 @@
           "src/html/views/components.html",
           "src/js/core/common.js",
           "src/js/core/scroll.js",
-          "src/js/core/navigation.js"
+          "src/js/core/navigation.js",
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation-state.mjs"
         ],
-        "finding": "已读当前 Navigation：两级 disclosure、抽屉 inert/焦点环、Escape 恢复与响应式恢复存在；但默认展开/hide 元数据、多层与长菜单/当前路由仍缺依据，应保留 in-progress 而非因为 alpha 通过而升档。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
+        "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -50240,7 +50863,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/16"
+          "https://github.com/songxychn/halo-butterfly-next/issues/16",
+          "https://github.com/songxychn/halo-butterfly-next/issues/346"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/27"
@@ -50264,9 +50888,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-09-29/sidebar-menu-subtitle.json",
+          "sha256": "66b4c066569ac4d220fe765b70d523c054295fea72dfbaa5e52b4664b7946a13",
+          "date": "2026-09-29T14:34:56.878Z",
+          "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
+          "actor": "/root",
+          "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
         }
       ],
-      "status": "in-progress",
+      "status": "implemented-unverified",
       "author": "/root/parity_matrix"
     },
     {

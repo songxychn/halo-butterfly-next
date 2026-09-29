@@ -48,7 +48,7 @@ test('上游移动侧栏：330px、z-index 102/103、--sidebar-bg、open 位移�
   assert.match(sidebarScss, /padding:\s*2px 23px 2px 15px/);
   assert.match(sidebarScss, /font-size:\s*1\.15em/);
   assert.match(sidebarScss, /translateX\(3px\)/);
-  assert.match(sidebarScss, /max-height:\s*1000px/);
+  assert.match(sidebarScss, /max-height:\s*none/); // Do not clip long Halo menus at 1000px.
   assert.match(sidebarScss, /:focus-visible/);
 });
 

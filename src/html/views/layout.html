@@ -1,6 +1,9 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:with="
+     asideDisplay = ${theme.config.aside.display},
+     asidePageVisible = ${(page != 'archives' or asideDisplay?.archive != false) and ((page != 'tag' and page != 'tags') or asideDisplay?.tag != false) and ((page != 'category' and page != 'categories') or asideDisplay?.category != false)},
+     asideEnabled = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible},
      assets_link = ${#theme.assets('/') + '/'},
      canonicalPath = ${post != null ? post.status.permalink : (singlePage != null ? singlePage.status.permalink : (page == 'index' and posts.page == 1 ? '/' : null))},
      canonical = ${canonicalPath == null ? null : (#strings.startsWith(canonicalPath, 'http') ? canonicalPath : (#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : site.url) + canonicalPath)},
@@ -46,7 +49,7 @@
   >
     <th:block th:replace="${header}"></th:block>
 
-    <main class="main" th:classappend="${theme.config.aside.enable ? theme.config.aside.position : '' }" th:insert="${main}"></main>
+    <main class="main" th:classappend="${asideEnabled ? theme.config.aside.position : 'off-aside'}" th:insert="${main}"></main>
 
     <th:block th:replace="~{views/footer}"/>
 

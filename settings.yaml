@@ -437,7 +437,7 @@ spec:
         - $formkit: group
           name: card_recent_post
           label: 最近文章
-          help: 对应上游 aside.card_recent_post。不含 sort_order、card_archives、card_newest_comments。
+          help: 最近文章卡片。数量和排序在服务端生效；卡片顺序在浏览器增强后生效。
           value:
             enable: true
             limit: 5
@@ -463,17 +463,23 @@ spec:
             - $formkit: radio
               name: sort
               label: 排序字段
-              help: 对应上游 aside.card_recent_post.sort。date 用 publishTime，updated 用 lastModifyTime。不含 sort_order。
+              help: 对应上游 aside.card_recent_post.sort。date 用 publishTime，updated 用 lastModifyTime。
               value: date
               options:
                 - label: 发布时间
                   value: date
                 - label: 更新时间
                   value: updated
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 20
+              help: "数值越小越靠前；相同数值保持原顺序。"
+              min: 0
         - $formkit: radio
           name: enable_category
           label: 启用侧边栏分类
-          help: 是否启用侧边栏分类（只随机展示 5 个分类，不支持二级分类）
+          help: 是否显示分类卡片；数量和层级展开在分类选项中设置。
           value: true
           options:
             - label: 启用
@@ -483,7 +489,7 @@ spec:
         - $formkit: radio
           name: enable_tags
           label: 启用侧边栏标签
-          help: 是否启用侧边栏标签（只随机展示 25 个标签）
+          help: 是否显示标签卡片；数量和排序在标签选项中设置。
           value: true
           options:
             - label: 启用
@@ -493,7 +499,7 @@ spec:
         - $formkit: radio
           name: enable_archives
           label: 启用侧边栏归档
-          help: 对应上游 aside.card_archives.enable（默认开启）。关闭后不渲染归档卡。不含 type / format / order / limit / sort_order。
+          help: 归档卡片默认开启；保留原配置键，年月、格式和排序在归档选项中设置。
           value: true
           options:
             - label: 启用
@@ -520,6 +526,212 @@ spec:
               value: true
             - label: 禁用
               value: false
+        - $formkit: group
+          name: display
+          label: 按页面显示侧栏
+          children:
+            - $formkit: radio
+              name: archive
+              label: 归档页
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: radio
+              name: tag
+              label: 标签列表及标签文章页
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: radio
+              name: category
+              label: 分类列表及分类文章页
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+        - $formkit: group
+          name: card_author
+          label: 作者卡片
+          children:
+            - $formkit: radio
+              name: enable
+              label: 显示作者卡片
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 0
+              min: 0
+        - $formkit: group
+          name: card_announcement
+          label: 公告卡片
+          children:
+            - $formkit: radio
+              name: enable
+              label: 显示公告卡片
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 10
+              min: 0
+        - $formkit: group
+          name: card_categories
+          label: 分类选项
+          help: "支持 Halo 分类层级；浏览器脚本启用后按名称排序及展开，关闭脚本仍显示受数量限制的分类链接。"
+          children:
+            - $formkit: number
+              name: limit
+              label: 分类数量
+              value: 5
+              help: "0 显示全部；按名称排序后按深度优先计数，包含子分类。"
+              min: 0
+            - $formkit: select
+              name: expand
+              label: 子分类展开方式
+              value: none
+              options:
+                - label: 始终展示
+                  value: none
+                - label: 默认展开
+                  value: 'true'
+                - label: 默认收起
+                  value: 'false'
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 30
+              min: 0
+        - $formkit: group
+          name: card_tags
+          label: 标签选项
+          help: "排序在完整标签集合上进行，再应用数量限制；关闭脚本时采用 Halo 原顺序。"
+          children:
+            - $formkit: number
+              name: limit
+              label: 标签数量
+              value: 25
+              help: "0 显示全部，只展示有公开文章的标签。"
+              min: 0
+            - $formkit: select
+              name: orderby
+              label: 排序字段
+              value: random
+              options:
+                - label: 随机
+                  value: random
+                - label: 名称
+                  value: name
+                - label: 文章数
+                  value: length
+            - $formkit: select
+              name: order
+              label: 排序方向
+              value: 1
+              options:
+                - label: 升序
+                  value: 1
+                - label: 降序
+                  value: -1
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 40
+              min: 0
+        - $formkit: group
+          name: card_archives
+          label: 归档选项
+          help: "浏览器脚本控制升降序及日期格式；关闭脚本仍按时间倒序并限制行数。计数读取全部公开文章，大型站点需关注服务端成本。"
+          children:
+            - $formkit: select
+              name: type
+              label: 归档粒度
+              value: monthly
+              options:
+                - label: 按月
+                  value: monthly
+                - label: 按年
+                  value: yearly
+            - $formkit: text
+              name: format
+              label: 日期格式
+              value: ''
+              help: "留空：月归档 YYYY年MM月，年归档 YYYY年。支持 YYYY、YY、MMMM、MMM、MM、M 和 [原样文本]，月份名称使用页面语言。"
+            - $formkit: select
+              name: order
+              label: 排序方向
+              value: -1
+              options:
+                - label: 升序
+                  value: 1
+                - label: 降序
+                  value: -1
+            - $formkit: number
+              name: limit
+              label: 归档行数
+              value: 8
+              help: "0 显示全部；按月份或年份计数，不是文章数量。"
+              min: 0
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 50
+              min: 0
+        - $formkit: group
+          name: card_webinfo
+          label: 网站信息字段
+          help: "运行时间沿用基础设置的站点建立时间；最后更新时间是 Halo 公开文章的最近发布或修改时间。"
+          children:
+            - $formkit: radio
+              name: post_count
+              label: 显示文章总数
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: radio
+              name: last_push_date
+              label: 显示最后更新时间
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: radio
+              name: runtime
+              label: 显示运行时间
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 60
+              min: 0
     #卡片设置
     - group: card
       label: 卡片设置
@@ -598,10 +810,33 @@ spec:
           placeholder: 请填写 首页字幕文案
           help: 多条文案用 |&| 分隔；关闭打字效果时显示第一条。留空不显示提示文字；随机来源失败时回退到此处文案。
           value: '欢迎使用Butterfly主题，一个简洁、优雅的主题~'
+        - $formkit: select
+          name: subtitle_source
+          label: 字幕来源
+          value: custom
+          help: 默认沿用旧版自定义 API 开关。内置来源不受旧随机开关控制，成功后先显示远端文案，再轮播本地文案；失败回退本地。第三方服务可能不可用。
+          options:
+            - label: 兼容旧版／自定义 API
+              value: custom
+            - label: 仅本地文案（上游 false）
+              value: "0"
+            - label: 一言 hitokoto.cn（上游 1）
+              value: "1"
+            - label: 一言 aa1.cn（上游 2）
+              value: "2"
+            - label: 今日诗词（上游 3）
+              value: "3"
+        - $formkit: textarea
+          name: subtitle_typed_option
+          label: 字幕打字机参数（JSON）
+          rows: 5
+          value: ""
+          placeholder: '{"typeSpeed":150,"backDelay":1500,"loop":true}'
+          help: 留空保留旧版速度 200ms；可用 typeSpeed、startDelay、backSpeed、backDelay、smartBackspace、shuffle、fadeOut、fadeOutClass、fadeOutDelay、loop、loopCount、showCursor、cursorChar、autoInsertCss、bindInputFocusEvents。loopCount 可设数字或字符串 Infinity。光标按纯文本处理；不支持覆盖文案、HTML模式、DOM目标或回调。无效 JSON 或字段忽略；静态模式不使用这些参数。
         - $formkit: radio
           name: enable_typewriter_random_text
           label: 启用随机打字机文案
-          help: 是否启用随文案API（必须先配置 API），启用后将显示随机API文案，禁用时显示打字机文案
+          help: 仅“兼容旧版／自定义 API”来源使用此开关；启用后显示自定义 API 文案，禁用时显示本地文案。
           value: false
           options:
             - label: 启用

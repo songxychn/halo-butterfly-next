@@ -6,6 +6,7 @@
  */
 import $ from 'jquery';
 import Navigation from './navigation';
+import { initializeAsideOptions } from './aside-options.mjs';
 import LazyLoad from './_lazyLoad';
 import { applyRelativeDates } from './relative-date.mjs';
 import { bindHideAsideButton } from './aside-hide-button.mjs';
@@ -23,6 +24,7 @@ export default class Common {
 
     if(MainApp.conf.enable_aside && MainApp.conf.enable_webInfo) this.#runDay(); //站点运行时间
 
+    initializeAsideOptions();
     applyRelativeDates();
     bindHideAsideButton();
     bindRightsideConfig();
