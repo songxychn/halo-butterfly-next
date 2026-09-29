@@ -104,6 +104,7 @@
   &-do {
     @include util.flex-center;
     flex-shrink: 0;
+    min-width: 0;
     flex-direction: row;
     color: var(--nav-font-color);
 
@@ -188,6 +189,20 @@
     //菜单
     .menu {
       @include util.flex-center;
+      min-width: 0;
+      width: max-content;
+      flex-shrink: 0;
+      overflow-wrap: anywhere;
+
+      > .menu-item { flex-shrink: 0; min-width: 0; }
+      > .menu-item > .link {
+        max-width: 20vw;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .current > :is(a, button) { font-weight: 700; }
+      a[aria-current='page'] { text-decoration: underline; text-underline-offset: 5px; }
 
       @include util.useResponsive(util.$w-md) {
         display: none;
@@ -211,6 +226,29 @@
         position: absolute;
         right: 0;
         width: max-content;
+        max-width: min(28rem, calc(100vw - 40px));
+        max-height: calc(100vh - 80px);
+        overflow: auto;
+        overscroll-behavior: contain;
+        overflow-wrap: anywhere;
+
+        .menu-item { margin-left: 0; }
+        .menu-children {
+          position: static;
+          width: auto;
+          margin-left: 12px;
+          box-shadow: none;
+          max-height: none;
+        }
+        button.link {
+          height: auto;
+          min-height: 40px;
+          line-height: 1.5;
+          padding: 8px 18px;
+          text-align: left;
+          color: var(--nav-dropdown-font-color);
+          &::after { display: none; }
+        }
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, .15);
         background-color: var(--nav-dropdown-background-color);
@@ -279,3 +317,9 @@
 }
  
  
+
+// If the configured desktop links cannot fit, expose the same accessible drawer.
+.nav.menu-overflow .nav-do {
+  .menu { display: none; }
+  .controls .bars { display: block; margin-left: 7px; }
+}

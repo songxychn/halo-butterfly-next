@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent two-level navigation fixture; never alters the comparison lab."""
+"""Independent navigation fixture; never alters the comparison lab."""
 import argparse
 import importlib.util
 import json
@@ -10,7 +10,7 @@ import re
 
 def resources(fixture):
     menu_name = fixture['menuName']
-    if not re.fullmatch(r'navigation-keyboard(?:-empty)?', menu_name):
+    if not re.fullmatch(r'navigation-keyboard(?:-empty|-options)?', menu_name):
         raise ValueError('Fixture must use its task-owned menu name')
     items = []
     seen = set()
@@ -22,14 +22,17 @@ def resources(fixture):
                 raise ValueError('Invalid or duplicate fixture ID')
             seen.add(name)
             children = node.get('children')
-            if children is not None and (parent or not children):
-                raise ValueError('Fixture supports nonempty groups at the top level only')
+            if children is not None and not children:
+                raise ValueError('Fixture groups must have children')
             spec = {'displayName': node['title'], 'href': '#' if children else node['path'],
                     'target': '_self', 'priority': priority, 'menuName': menu_name}
             if parent:
                 spec['parent'] = parent
+            annotations = {'icon': node['icon']}
+            if 'hide' in node:
+                annotations['hide'] = str(node['hide']).lower()
             items.append({'apiVersion': 'v1alpha1', 'kind': 'MenuItem',
-                          'metadata': {'name': name, 'annotations': {'icon': node['icon']}}, 'spec': spec})
+                          'metadata': {'name': name, 'annotations': annotations}, 'spec': spec})
             if children:
                 visit(children, name)
 
@@ -41,10 +44,17 @@ def resources(fixture):
 
 def hexo_menu(fixture):
     resources(fixture)  # Validate depth and identities before mapping.
-    def visit(nodes):
-        return {(node['title'] + '||' + node['icon']) if 'children' in node else node['title']:
-                visit(node['children']) if 'children' in node else node['path'] + ' || ' + node['icon']
-                for node in nodes}
+    def visit(nodes, depth=0):
+        result = {}
+        for node in nodes:
+            if 'children' in node:
+                if depth:
+                    raise ValueError('Butterfly 5.7.0 supports only two menu levels')
+                label = node['title'] + '||' + node['icon'] + ('||hide' if node.get('hide') else '')
+                result[label] = visit(node['children'], depth + 1)
+            else:
+                result[node['title']] = node['path'] + ' || ' + node['icon']
+        return result
     return {'menu': visit(fixture['items'])}
 
 

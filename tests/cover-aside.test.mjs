@@ -22,6 +22,7 @@ test('封面与最近文章默认值对齐上游 Butterfly 5.7.0 cover.aside_ena
     enable: true,
     limit: 5,
     sort: 'date',
+    sort_order: 20,
   });
   assert.equal(defaults.aside.enable_category, true);
 });
@@ -34,7 +35,7 @@ test('cover 组为 index_enable、default_cover、aside_enable、archives_enable
   assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable']);
 });
 
-test('aside.card_recent_post 使用上游嵌套名，不含 sort_order', async () => {
+test('aside.card_recent_post 使用上游嵌套名，支持 sort_order', async () => {
   const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
   const aside = settings.spec.forms.find(form => form.group === 'aside');
   assert.ok(aside);
@@ -42,8 +43,8 @@ test('aside.card_recent_post 使用上游嵌套名，不含 sort_order', async (
   assert.ok(group);
   assert.equal(group.$formkit, 'group');
   const names = group.children.map(node => node.name);
-  assert.deepEqual(names, ['enable', 'limit', 'sort']);
-  assert.ok(!names.includes('sort_order'));
+  assert.deepEqual(names, ['enable', 'limit', 'sort', 'sort_order']);
+  assert.ok(names.includes('sort_order'));
   const fieldNames = [];
   const visit = nodes => {
     for (const node of nodes || []) {
@@ -52,8 +53,8 @@ test('aside.card_recent_post 使用上游嵌套名，不含 sort_order', async (
     }
   };
   visit(aside.formSchema);
-  assert.ok(!fieldNames.includes('sort_order'));
-  assert.ok(!fieldNames.includes('card_archives'));
+  assert.ok(fieldNames.includes('sort_order'));
+  assert.ok(fieldNames.includes('card_archives'));
   assert.ok(!fieldNames.includes('card_newest_comments'));
   const noticeIdx = aside.formSchema.findIndex(node => node.name === 'notice');
   const recentIdx = aside.formSchema.findIndex(node => node.name === 'card_recent_post');
@@ -80,7 +81,7 @@ test('模板：enable=false 不渲染卡片；aside_enable=false 无 thumbnail /
   assert.match(recent, /lazyLoadImg\(\$\{coverSrc\}/);
   assert.doesNotMatch(recent, /lazyLoadImg\(\$\{post\.spec\.cover\}/);
   assert.doesNotMatch(recent, /archives_enable/);
-  assert.doesNotMatch(recent, /sort_order/);
+  assert.match(recent, /data-card-order=.*sort_order/);
 
   const common = source.slice(source.indexOf('th:fragment="common"'), source.indexOf('th:fragment="post"'));
   const noticeAt = common.indexOf('~{::notice}');

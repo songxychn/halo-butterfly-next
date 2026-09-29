@@ -2,9 +2,9 @@
 
 这是 issue #16 的独立合成场景，不改 `fixtures/comparison/` 的五项基础导航。两级菜单使用“首页 / 内容（归档、关于）/ 标签”，空菜单使用单独菜单身份。所有正文路径指向隔离站现有合成内容。
 
-固定对照为 Butterfly 5.7.0 / `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`，参考 `layout/includes/header/menu_item.pug`、`source/js/main.js` 的 `clickFnOfSubMenu`/`sidebarFn`/resize处理。上游桌面为hover、手机分组按点击折叠，默认非hide组展开。当前这包补齐现有Halo折叠菜单的disclosure与抽屉键盘语义；上游hide默认/注解映射、长菜单宽度、导航固定和当前路由高亮仍独立待实现，不把键盘完善写成上游已有能力。
+固定对照为 Butterfly 5.7.0 / `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`，参考 `layout/includes/header/menu_item.pug`、`source/js/main.js` 的 `clickFnOfSubMenu`/`sidebarFn`/resize处理。上游桌面为hover、手机分组按点击折叠，默认非hide组展开。当前这包补齐现有Halo折叠菜单的disclosure与抽屉键盘语义；本夹具现在显式使用 `hide=true` 对应上游 `||hide`，保留初始折叠回归；默认展开、递归树、长菜单与当前路由的后续实现见 `docs/NAVIGATION-OPTIONS.md`，不把键盘完善或多层扩展写成上游已有能力。
 
-[Halo 官方菜单接口](https://docs.halo.run/developer-guide/theme/finder-apis/menu)说明：2.26起通过 `MenuItem.spec.menuName` 与 `spec.parent` 建树，模板读取 Finder 的 `children`。夹具不用已弃用的 `spec.children` 或 `Menu.spec.menuItems` 作为层级依据，重复ID及超出两级的输入明确拒绝，不静默截断。
+[Halo 官方菜单接口](https://docs.halo.run/developer-guide/theme/finder-apis/menu)说明：2.26起通过 `MenuItem.spec.menuName` 与 `spec.parent` 建树，模板读取 Finder 的 `children`。夹具不用已弃用的 `spec.children` 或 `Menu.spec.menuItems` 作为层级依据，重复 ID 和空组明确拒绝；Halo 多层树保留 parent 链，Hexo 转换拒绝超出两级的输入，不静默截断。
 
 ## 生成与隔离播种
 

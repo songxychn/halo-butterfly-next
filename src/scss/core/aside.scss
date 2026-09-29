@@ -9,7 +9,7 @@
  * .card-widget 并列 .card；作者卡并列 .aside-user / #card-info-btn；标题并列 .item-headline。
  * .sticky_layout 对齐上游 sticky；Halo 文章目录仍用 .is-sticky（render.scss）。
  * 深色 token 仍走 html[data-color-scheme='dark']，不改 data-theme。
- * 不做 snackbar、卡片排序、改 settings.yaml。
+ * 侧栏排序和列表配置由 aside-options.mjs 渐进增强。
  * 不复用作者卡片按钮设置键。#hide-aside-btn 仍走 hide_button（rightside / components）。
  * #card-toc 移动端浮层已在 render.scss，本刀不重复覆盖。
  */
@@ -295,7 +295,7 @@
     }
 
     > .content {
-      > .link {
+      .link {
         display: flex;
         position: relative;
         flex-direction: row;
@@ -459,11 +459,6 @@
     list-style: none;
   }
 
-  /* 上游 aside.card_archives.limit 默认 8：限制归档行数，不是当月文章数。 */
-  .card-archives ul.card-archive-list > .card-archive-list-item:nth-child(n + 9) {
-    display: none;
-  }
-
   .card-archives ul.card-archive-list > .card-archive-list-item a,
   .aside-archives .card-archive-list-item a {
     display: flex;
@@ -552,4 +547,16 @@
   50% {
     transform: translateX(3px);
   }
+}
+
+.aside-category {
+  .category-children { padding-left: 14px; }
+  details > summary { cursor: pointer; color: var(--text-obs-color); font-size: .85em; }
+  details > summary:focus-visible { outline: 2px solid var(--theme); outline-offset: 2px; }
+}
+
+.aside-archives {
+  .card-archive-list { margin: 0; padding: 0; list-style: none; }
+  .card-archive-list-link { display: flex; justify-content: space-between; gap: 12px; padding: 2px 8px; border-radius: 8px; }
+  .card-archive-list-link:hover { background: var(--text-bg-hover); }
 }

@@ -1,5 +1,5 @@
 <!--/* 信息 */-->
-<section xmlns:th="https://www.thymeleaf.org" th:fragment="user" class="aside-user card">
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="user" th:if="${theme.config.aside.card_author?.enable != false}" th:attr="data-card-order=${theme.config.aside.card_author?.sort_order ?: 0}" class="aside-user card">
   <img
     th:src="${contributor?.avatar ?: #theme.assets('/images/above.svg')}"
     onerror="this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='"
@@ -35,7 +35,7 @@
 </section>
 
 <!--/* 公告 */-->
-<section xmlns:th="https://www.thymeleaf.org" th:fragment="notice" class="aside-notice title card">
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="notice" th:if="${theme.config.aside.card_announcement?.enable != false}" th:attr="data-card-order=${theme.config.aside.card_announcement?.sort_order ?: 10}" class="aside-notice title card">
   <h1 class="title">
     <i class="fa-solid fa-bullhorn fa-shake"></i>
     <span class="name">公告</span>
@@ -50,6 +50,7 @@
   th:fragment="recentPost"
   th:if="${theme.config.aside.card_recent_post.enable != false}"
   class="aside-recent-post card"
+  th:attr="data-card-order=${theme.config.aside.card_recent_post?.sort_order ?: 20}"
 >
   <h1 class="title">
     <i class="fas fa-history"></i>
@@ -93,83 +94,64 @@
   </div>
 </section>
 
-<!--/* 分类 */-->
-<section xmlns:th="https://www.thymeleaf.org" th:fragment="category" th:if="${theme.config.aside.enable_category}" class="aside-category card">
-  <h1 class="title">
-    <i class="fa-solid fa-layer-group"></i>
-    <span class="name">分类</span>
-  </h1>
-
-  <div class="content" th:with="categories = ${categoryFinder.list(1,5)},noData = ${not #lists.isEmpty(categories)}">
-    <th:block th:if="${noData}">
-      <a class="link" th:each="category : ${categories.items}" th:href="@{${category.status.permalink}}">
-        <span class="name" th:text="${category.spec.displayName}"></span>
-        <span class="num" th:text="${category.status.visiblePostCount}"></span>
+<!--/* 分类：Halo 树保留后台层级；无脚本时提供有数量限制的平铺链接。 */-->
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="category" th:if="${theme.config.aside.enable_category != false}" class="aside-category card"
+  th:attr="data-card-order=${theme.config.aside.card_categories?.sort_order ?: 30}">
+  <h1 class="title"><i class="fa-solid fa-layer-group"></i><span class="name">分类</span><a class="card-more-btn" href="/categories" aria-label="查看全部分类">›</a></h1>
+  <div class="content" data-aside-categories
+    th:with="categories = ${categoryFinder.listAsTree()}, flatCategories = ${categoryFinder.listAll().?[status.visiblePostCount > 0]}, categoryLimit = ${theme.config.aside.card_categories?.limit == null ? 5 : theme.config.aside.card_categories.limit}"
+    th:attr="data-limit=${theme.config.aside.card_categories?.limit == null ? 5 : categoryLimit},data-expand=${theme.config.aside.card_categories?.expand ?: 'none'}">
+    <div data-category-fallback>
+      <a class="link" th:each="category, status : ${flatCategories}" th:if="${(categoryLimit == 0 or status.index < categoryLimit) and category.status.visiblePostCount > 0}" th:href="${category.status.permalink}">
+        <span class="name" th:text="${category.spec.displayName}"></span><span class="num" th:text="${category.status.visiblePostCount}"></span>
       </a>
-    </th:block>
-    <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+      <th:block th:if="${#lists.isEmpty(flatCategories)}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+    </div>
+    <template data-category-tree><th:block th:replace="~{::categoryTree(${categories})}"/></template>
+  </div>
+</section>
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="categoryTree(nodes)">
+  <div class="category-entry" th:each="node : ${nodes}" th:attr="data-name=${node.spec.displayName},data-count=${node.postCount}">
+    <div class="category-row"><a class="link" th:href="${node.status.permalink}"><span class="name" th:text="${node.spec.displayName}"></span><span class="num" th:text="${node.postCount}"></span></a></div>
+    <div class="category-children" th:if="${not #lists.isEmpty(node.children)}"><th:block th:replace="~{::categoryTree(${node.children})}"/></div>
+  </div>
+</th:block>
+
+<!--/* 标签：完整候选在惰性 template 中，数量限制不影响全局排序。 */-->
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="tags" th:if="${theme.config.aside.enable_tags != false}" class="aside-tags card"
+  th:attr="data-card-order=${theme.config.aside.card_tags?.sort_order ?: 40}">
+  <h1 class="title"><i class="fa-solid fa-tags"></i><span class="name">标签</span><a class="card-more-btn" href="/tags" aria-label="查看全部标签">›</a></h1>
+  <div class="content" data-aside-tags
+    th:with="tags = ${tagFinder.listAll().?[status.visiblePostCount > 0]}, tagLimit = ${theme.config.aside.card_tags?.limit == null ? 25 : theme.config.aside.card_tags.limit}"
+    th:attr="data-limit=${tagLimit},data-orderby=${theme.config.aside.card_tags?.orderby ?: 'random'},data-order=${theme.config.aside.card_tags?.order ?: 1}">
+    <a class="link" th:each="tag, status : ${tags}" th:if="${tagLimit == 0 or status.index < tagLimit}" th:href="${tag.status.permalink}"><span class="name" th:text="${tag.spec.displayName}"></span><span class="num" th:text="${'（' + tag.status.visiblePostCount + '）'}"></span></a>
+    <template data-tag-list><a class="link" th:each="tag : ${tags}" th:href="${tag.status.permalink}" th:attr="data-name=${tag.spec.displayName},data-count=${tag.status.visiblePostCount}"><span class="name" th:text="${tag.spec.displayName}"></span><span class="num" th:text="${'（' + tag.status.visiblePostCount + '）'}"></span></a></template>
+    <th:block th:if="${#lists.isEmpty(tags)}" th:insert="~{views/components:: emptyData(false)}"></th:block>
   </div>
 </section>
 
-<!--/* 标签 */-->
-<section xmlns:th="https://www.thymeleaf.org" th:fragment="tags" th:if="${theme.config.aside.enable_tags}" class="aside-tags card">
-  <h1 class="title">
-    <i class="fa-solid fa-tags"></i>
-    <span class="name">标签</span>
-  </h1>
-
-  <div class="content" th:with="tags = ${tagFinder.list(1,25)},noData = ${not #lists.isEmpty(tags)}">
-    <th:block th:if="${noData}">
-      <a class="link" th:each="tag : ${tags.items}" th:if="${tag.status.visiblePostCount > 0}" th:href="@{${tag.status.permalink}}">
-        <span class="name" th:text="${tag.spec.displayName}"></span><span class="num" th:text="${'（' + tag.status.visiblePostCount + '）'}"></span>
-      </a>
-    </th:block>
-    <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
-  </div>
-</section>
-
-<!--/*
-  归档。对齐上游 aside.card_archives.enable 默认开启。
-  Halo postFinder.archives(page,size) 按文章分页再按年月分组，size 必须覆盖该桶全部文章，不能当行数上限。
-  上游 card_archives.limit 默认 8 限制的是月份/年份行数；计数用 #lists.size(monthVo.posts)。
-  本刀不做 type / format / order / sort_order。
-*/-->
-<section
-  xmlns:th="https://www.thymeleaf.org"
-  th:fragment="archives"
-  th:if="${theme.config.aside.enable_archives != false}"
-  class="aside-archives card card-archives"
->
-  <h1 class="title">
-    <i class="fas fa-archive"></i>
-    <span class="name">归档</span>
-  </h1>
-  <div
-    class="content"
-    th:with="
-      archiveSize = ${stats.post == null or stats.post < 1 ? 1 : (stats.post > 1000 ? 1000 : stats.post)},
-      archiveYears = ${postFinder.archives(1, archiveSize)},
-      archiveRowLimit = 8,
-      noData = ${archiveYears != null and not #lists.isEmpty(archiveYears.items)}
-    "
-  >
-    <!--/* archiveRowLimit=8：上游 limit 是行数。li 为 ul 直接子元素，用 nth-child 只显示 8 行。 */-->
-    <ul class="card-archive-list" th:if="${noData}" th:attr="data-archive-row-limit=${archiveRowLimit}">
+<!--/* archives() 按文章分页；取完整文章总量，不能将月份行数当作文章 size。 */-->
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="archives" th:if="${theme.config.aside.enable_archives != false}" class="aside-archives card card-archives"
+  th:attr="data-card-order=${theme.config.aside.card_archives?.sort_order ?: 50}">
+  <h1 class="title"><i class="fas fa-archive"></i><span class="name">归档</span><a class="card-more-btn" href="/archives" aria-label="查看全部归档">›</a></h1>
+  <div class="content" th:with="archiveSize = ${stats.post == null or stats.post < 1 ? 1 : stats.post}, archiveYears = ${postFinder.archives(1, archiveSize)}, archiveRowLimit = ${theme.config.aside.card_archives?.limit == null ? 8 : theme.config.aside.card_archives.limit}, yearly = ${theme.config.aside.card_archives?.type == 'yearly'}">
+    <style th:if="${archiveRowLimit > 0}" th:inline="css">.aside-archives .card-archive-list-item:nth-child(n + /*[[${archiveRowLimit + 1}]]*/ 9) { display: none; }</style>
+    <ul class="card-archive-list" data-aside-archives th:attr="data-order=${theme.config.aside.card_archives?.order ?: -1},data-format=${theme.config.aside.card_archives?.format ?: (yearly ? 'YYYY年' : 'YYYY年MM月')},data-archive-row-limit=${archiveRowLimit}">
       <th:block th:each="year : ${archiveYears.items}">
-        <li class="card-archive-list-item" th:each="monthVo : ${year.months}">
-          <a class="card-archive-list-link" href="/archives">
-            <span class="card-archive-list-date" th:text="|${year.year}年${monthVo.month}月|"></span>
-            <span class="card-archive-list-count" th:text="${#lists.size(monthVo.posts)}"></span>
-          </a>
+        <li th:if="${yearly}" class="card-archive-list-item" th:attr="data-year=${year.year},data-month=1">
+          <a class="card-archive-list-link" th:href="@{/archives/{year}(year=${year.year})}"><span class="card-archive-list-date" th:text="${year.year + '年'}"></span><span class="card-archive-list-count" th:text="${#aggregates.sum(year.months.![posts.size()])}"></span></a>
+        </li>
+        <li th:unless="${yearly}" class="card-archive-list-item" th:each="monthVo : ${year.months}" th:attr="data-year=${year.year},data-month=${monthVo.month}">
+          <a class="card-archive-list-link" th:href="@{/archives/{year}/{month}(year=${year.year},month=${monthVo.month})}"><span class="card-archive-list-date" th:text="|${year.year}年${monthVo.month}月|"></span><span class="card-archive-list-count" th:text="${#lists.size(monthVo.posts)}"></span></a>
         </li>
       </th:block>
     </ul>
-    <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
+    <th:block th:if="${#lists.isEmpty(archiveYears.items)}" th:insert="~{views/components:: emptyData(false)}"></th:block>
   </div>
 </section>
 
 <!--/* 网站信息。对齐上游 card_webinfo：文章数目 + 最后更新时间；无 busuanzi 时不硬渲染总访问量；无文章点赞。 */-->
-<section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo}" class="aside-webInfo card">
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo != false}" th:attr="data-card-order=${theme.config.aside.card_webinfo?.sort_order ?: 60}" class="aside-webInfo card">
   <h1 class="title">
     <i class="fa-solid fa-chart-simple"></i>
     <span class="name">网站信息</span>
@@ -187,15 +169,15 @@
       lastPush = ${updatedAt == null ? publishedAt : (publishedAt == null ? updatedAt : (updatedAt >= publishedAt ? updatedAt : publishedAt))}
     "
   >
-    <div class="item">
+    <div class="item" th:if="${theme.config.aside.card_webinfo?.post_count != false}">
       <span>文章数目：</span>
       <span th:text="${stats.post} + '章'"></span>
     </div>
-    <div class="item" th:if="${not #strings.isEmpty(theme.config.base.site_birthday)}">
+    <div class="item" th:if="${theme.config.aside.card_webinfo?.runtime != false and not #strings.isEmpty(theme.config.base.site_birthday)}">
       <span>运行时间：</span>
       <span class="run-day" th:data-date="${theme.config.base.site_birthday}">... 天</span>
     </div>
-    <div class="item" th:if="${lastPush != null}">
+    <div class="item" th:if="${theme.config.aside.card_webinfo?.last_push_date != false and lastPush != null}">
       <span>最后更新时间：</span>
       <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>
     </div>
@@ -203,7 +185,7 @@
 </section>
 
 <!--/* 侧边栏 */-->
-<aside xmlns:th="https://www.thymeleaf.org" th:fragment="common" th:if="${theme.config.aside.enable}" class="aside">
+<aside xmlns:th="https://www.thymeleaf.org" th:fragment="common" th:if="${asideEnabled}" class="aside" data-aside-sort>
   <th:block th:replace="~{::user}"/>
   <th:block th:replace="~{::notice}"/>
   <th:block th:replace="~{::recentPost}"/>
@@ -217,6 +199,7 @@
 <aside
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="post"
+  th:if="${asideEnabled}"
   class="aside"
   th:with="
     tocCfg = ${theme.config.toc},

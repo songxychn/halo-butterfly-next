@@ -132,10 +132,11 @@ test('归档卡月份计数取该桶全部文章，archives() 的 size 不是行
   assert.doesNotMatch(archives, /postFinder\.archives\(\s*1\s*,\s*8\s*\)/);
   assert.match(archives, /archiveSize = \$\{stats\.post/);
   assert.match(archives, /postFinder\.archives\(\s*1\s*,\s*archiveSize\s*\)/);
-  assert.match(archives, /archiveRowLimit = 8/);
+  assert.match(archives, /archiveRowLimit = .*limit == null \? 8/);
   assert.match(archives, /#lists\.size\(monthVo\.posts\)/);
   assert.doesNotMatch(archives, /\b12\b/);
-  assert.match(scss, /nth-child\(\s*n\s*\+\s*9\s*\)/);
+  assert.match(archives, /nth-child\(n \+.*archiveRowLimit \+ 1/);
+  assert.doesNotMatch(scss, /nth-child\(n \+ 9\)/);
 });
 
 test('网站信息保留文章数目与最后更新时间，无文章点赞和总访问量', async () => {
