@@ -4,6 +4,12 @@ on:
     branches: [master]
   pull_request:
   workflow_dispatch:
+    inputs:
+      upload_artifact:
+        description: '上传主题安装包（保留 7 天）'
+        type: boolean
+        required: false
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -37,8 +43,11 @@ jobs:
           sha256sum dist/*.zip > package.sha256
           pnpm build
           sha256sum --check package.sha256
-      - uses: actions/upload-artifact@v4
+      - name: Upload requested preview package
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_artifact }}
+        uses: actions/upload-artifact@v4
         with:
           name: halo-butterfly-next-preview
           path: dist/*.zip
           if-no-files-found: error
+          retention-days: 7

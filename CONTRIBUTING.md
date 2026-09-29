@@ -16,6 +16,12 @@ Node.js 24、pnpm 11.19.0。提交依赖时同步提交锁文件，使用 `pnpm 
 
 `pnpm dev` 监听源码并重建本地安装包；它不启动 Halo，也不会自动覆盖站点主题。开发站点通过控制台上传 `dist/` 中的 ZIP 升级主题。
 
+## CI 与按需下载安装包
+
+`Verify theme` 在 PR 和 `master` 推送时执行完整验证、构建和安装包可重复性检查，默认不上传制品。
+
+需要下载预览安装包时，在 GitHub Actions 中手动运行 `Verify theme`，勾选 `upload_artifact`。验证成功后会上传 `halo-butterfly-next-preview`，保留 7 天；未勾选时只执行验证。预览制品用于临时验收，正式版本通过 Release 提供。手动触发的 Linux/Halo 浏览器验收工作流仍保留其诊断材料上传。
+
 ## PR 验收材料
 
 - 问题触发方式及修复后的行为。
