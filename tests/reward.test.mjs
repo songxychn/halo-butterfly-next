@@ -10,7 +10,7 @@ import {
   resolveText,
   shouldRender,
   visibleQrItems,
-} from '../src/js/core/reward.mjs';
+} from '../src/js/core/reward.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

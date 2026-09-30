@@ -448,8 +448,8 @@
         ],
         "code": [
           "src/html/views/nav.html",
-          "src/js/core/scroll.js",
-          "src/js/core/nav-scroll.mjs",
+          "src/js/core/scroll.ts",
+          "src/js/core/nav-scroll.ts",
           "src/scss/core/nav.scss",
           "src/html/views/config.html"
         ],
@@ -509,9 +509,9 @@
         "settings": [],
         "code": [
           "src/html/views/nav.html",
-          "src/js/core/navigation.js",
+          "src/js/core/navigation.ts",
           "src/html/views/menu-items.html",
-          "src/js/core/navigation-state.mjs"
+          "src/js/core/navigation-state.ts"
         ],
         "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -603,7 +603,7 @@
           "render.code_theme_dark"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js"
+          "src/js/modules/CodeBlock.ts"
         ],
         "finding": "已有 Prism 亮暗主题，尚未对齐上游内置主题视觉。"
       },
@@ -667,7 +667,7 @@
           "render.enable_code_mac_style"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -732,7 +732,7 @@
           "render.code_height_limit"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -802,7 +802,7 @@
           "render.enable_code_word_wrap"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -867,7 +867,7 @@
           "render.enable_code_copy"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -932,7 +932,7 @@
           "render.enable_code_title"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -997,7 +997,7 @@
           "render.enable_code_expander"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -1069,13 +1069,13 @@
           "render.enable_code_fullpage"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/components.html",
           "settings.yaml",
-          "src/js/core/code-shrink.mjs"
+          "src/js/core/code-shrink.ts"
         ],
         "finding": "已有全屏按钮、overflow 保存恢复和 Escape 退出；后续代码已补充 shrink 三态，并在异步增强时保留当前阅读代码块的展开状态。原“不做 shrink=true”的历史说明不再代表当前源码，完整上游对照仍未通过。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
@@ -1314,8 +1314,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -1372,8 +1372,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -1430,8 +1430,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -1659,8 +1659,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -1774,8 +1774,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -1835,7 +1835,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -2219,8 +2219,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -2334,8 +2334,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
           "settings.yaml",
           "src/html/error/404.html"
@@ -2408,8 +2408,8 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
           "settings.yaml",
           "src/html/error/404.html"
@@ -2482,12 +2482,12 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
           "settings.yaml",
           "src/html/error/404.html",
-          "src/js/page/error404.js"
+          "src/js/page/error404.ts"
         ],
         "finding": "已映射为 error404.background 附件/URL；留空用首页背景，失败依次回退首页背景与内置 above.svg，最终隐藏失败图片。未沿用上游 /img/error-page.png 默认素材。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
@@ -2623,8 +2623,8 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/relative-date.mjs",
-          "src/js/core/common.js",
+          "src/js/core/relative-date.ts",
+          "src/js/core/common.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.page.date_format（date/relative）到 index.post_meta.date_format，默认 date（yyyy-MM-dd）。relative 时 time[datetime] 仍为绝对时间，可见文本由客户端替换为相对时间。与文章页 post.post_meta.date_format 独立。尚未双站对照验收，禁止 verified。"
@@ -2871,7 +2871,7 @@
           "src/html/views/header.html",
           "src/html/views/components.html",
           "src/scss/page/post.scss",
-          "src/js/core/post-meta.mjs",
+          "src/js/core/post-meta.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.post.position 为文章页对齐（left/center），默认 left。尚未双站对照验收。"
@@ -2938,7 +2938,7 @@
           "src/html/views/header.html",
           "src/html/views/components.html",
           "src/scss/page/post.scss",
-          "src/js/core/post-meta.mjs",
+          "src/js/core/post-meta.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.post.date_type（created/updated/both），默认 both。尚未双站对照验收。"
@@ -3005,8 +3005,8 @@
           "src/html/post.html",
           "src/html/views/components.html",
           "src/html/views/header.html",
-          "src/js/core/relative-date.mjs",
-          "src/js/core/common.js",
+          "src/js/core/relative-date.ts",
+          "src/js/core/common.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.post.date_format（date/relative）到 post.post_meta.date_format，默认 date（yyyy-MM-dd）。relative 时 time[datetime] 仍为绝对时间，可见文本由客户端替换为相对时间。与列表 index.post_meta.date_format 独立。不做 wordcount。尚未双站对照验收，禁止 verified。"
@@ -3073,7 +3073,7 @@
           "src/html/views/header.html",
           "src/html/views/components.html",
           "src/scss/page/post.scss",
-          "src/js/core/post-meta.mjs",
+          "src/js/core/post-meta.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.post.categories；false 时不渲染分类。尚未双站对照验收。"
@@ -3136,7 +3136,7 @@
           "src/html/views/header.html",
           "src/html/views/components.html",
           "src/scss/page/post.scss",
-          "src/js/core/post-meta.mjs",
+          "src/js/core/post-meta.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.post.tags；false 时不渲染标签。尚未双站对照验收。"
@@ -3199,7 +3199,7 @@
           "src/html/views/header.html",
           "src/html/views/components.html",
           "src/scss/page/post.scss",
-          "src/js/core/post-meta.mjs",
+          "src/js/core/post-meta.ts",
           "settings.yaml"
         ],
         "finding": "已映射 post_meta.post.label；false 时去掉发布于/更新于前缀。尚未双站对照验收。"
@@ -3378,9 +3378,9 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss",
-          "src/js/modules/subtitle.mjs"
+          "src/js/modules/subtitle.ts"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -3472,9 +3472,9 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss",
-          "src/js/modules/subtitle.mjs"
+          "src/js/modules/subtitle.ts"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -3566,9 +3566,9 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss",
-          "src/js/modules/subtitle.mjs"
+          "src/js/modules/subtitle.ts"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -3636,8 +3636,8 @@
           "index.subtitle_source"
         ],
         "code": [
-          "src/js/page/index.js",
-          "src/js/modules/subtitle.mjs",
+          "src/js/page/index.ts",
+          "src/js/modules/subtitle.ts",
           "src/html/index.html"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
@@ -3712,8 +3712,8 @@
           "index.typewriter_custom_text"
         ],
         "code": [
-          "src/js/page/index.js",
-          "src/js/modules/subtitle.mjs",
+          "src/js/page/index.ts",
+          "src/js/modules/subtitle.ts",
           "src/html/index.html"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
@@ -3871,7 +3871,7 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/index-post-content.mjs",
+          "src/js/core/index-post-content.ts",
           "src/scss/modules/components.scss",
           "settings.yaml"
         ],
@@ -3940,7 +3940,7 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/index-post-content.mjs",
+          "src/js/core/index-post-content.ts",
           "src/scss/modules/components.scss",
           "settings.yaml"
         ],
@@ -4000,7 +4000,7 @@
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
         "settings": [],
         "code": [
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/html/views/aside.html"
         ],
         "finding": "已有文章目录，但无上游目录设置集合。"
@@ -4057,7 +4057,7 @@
         "settings": [],
         "code": [
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "已有单页渲染器接入，需检查上游默认关闭与逐页覆盖。"
       },
@@ -4117,8 +4117,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/aside.html",
-          "src/js/core/toc.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已映射 toc.number（默认 true）到 toc.number。开启后目录项带 1. / 1.1. 序号（对齐 hexo toc list_number）；关闭不渲染序号。仅文章页侧栏。不做 toc.post / toc.page、anchor、逐页 toc_number。尚未双站对照验收，禁止 verified。"
@@ -4182,8 +4182,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/aside.html",
-          "src/js/core/toc.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已映射 toc.expand（默认 false）到 toc.expand。开启后目录加 is-expand、子级全部展开（tocbot collapseDepth 6）；关闭时仅当前项父级展开（collapseDepth 0）。仅文章页。不做逐页 toc_expand。尚未双站对照验收，禁止 verified。"
@@ -4247,8 +4247,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/aside.html",
-          "src/js/core/toc.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已映射 toc.style_simple（默认 false）到 toc.style_simple。仅文章页：开启后侧栏只保留目录，不渲染最近文章等其它卡片。不做 related_post。尚未双站对照验收，禁止 verified。"
@@ -4312,8 +4312,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/aside.html",
-          "src/js/core/toc.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已映射 toc.scroll_percent（默认 true）到 toc.scroll_percent。开启后目录标题显示阅读进度百分比（对齐 btf.getScrollPercent，写入 .toc-percentage textContent）；关闭不渲染、不更新。不做 rightside_scroll_percent。尚未双站对照验收，禁止 verified。"
@@ -4377,9 +4377,9 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/post-copyright.mjs",
-          "src/js/modules/Render.js",
-          "src/js/core/_decorator.js",
+          "src/js/core/post-copyright.ts",
+          "src/js/modules/Render.ts",
+          "src/js/core/_decorator.ts",
           "src/scss/modules/render.scss",
           "tests/post-copyright.test.mjs"
         ],
@@ -4444,9 +4444,9 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/post-copyright.mjs",
-          "src/js/modules/Render.js",
-          "src/js/core/_decorator.js",
+          "src/js/core/post-copyright.ts",
+          "src/js/modules/Render.ts",
+          "src/js/core/_decorator.ts",
           "src/scss/modules/render.scss",
           "tests/post-copyright.test.mjs"
         ],
@@ -4511,9 +4511,9 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/post-copyright.mjs",
-          "src/js/modules/Render.js",
-          "src/js/core/_decorator.js",
+          "src/js/core/post-copyright.ts",
+          "src/js/modules/Render.ts",
+          "src/js/core/_decorator.ts",
           "src/scss/modules/render.scss",
           "tests/post-copyright.test.mjs"
         ],
@@ -4578,9 +4578,9 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/post-copyright.mjs",
-          "src/js/modules/Render.js",
-          "src/js/core/_decorator.js",
+          "src/js/core/post-copyright.ts",
+          "src/js/modules/Render.ts",
+          "src/js/core/_decorator.ts",
           "src/scss/modules/render.scss",
           "tests/post-copyright.test.mjs"
         ],
@@ -4645,9 +4645,9 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/post-copyright.mjs",
-          "src/js/modules/Render.js",
-          "src/js/core/_decorator.js",
+          "src/js/core/post-copyright.ts",
+          "src/js/modules/Render.ts",
+          "src/js/core/_decorator.ts",
           "src/scss/modules/render.scss",
           "tests/post-copyright.test.mjs"
         ],
@@ -4712,7 +4712,7 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/reward.mjs",
+          "src/js/core/reward.ts",
           "src/scss/page/post.scss",
           "tests/reward.test.mjs"
         ],
@@ -4777,7 +4777,7 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/reward.mjs",
+          "src/js/core/reward.ts",
           "src/scss/page/post.scss",
           "tests/reward.test.mjs"
         ],
@@ -4842,7 +4842,7 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/reward.mjs",
+          "src/js/core/reward.ts",
           "src/scss/page/post.scss",
           "tests/reward.test.mjs"
         ],
@@ -4904,7 +4904,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -4962,7 +4962,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -5023,8 +5023,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/related-post.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/related-post.ts",
+          "src/js/modules/Render.ts",
           "src/scss/page/post.scss"
         ],
         "finding": "已映射 related_post.enable（默认 true）到 post.related_post.enable。关闭不渲染。无标签不渲染。仅文章页，插在上下篇之后、评论之前。单页 page.html 不插入。不做 footer、reward、逐页覆盖。尚未双站对照验收，禁止 verified。"
@@ -5088,8 +5088,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/related-post.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/related-post.ts",
+          "src/js/modules/Render.ts",
           "src/scss/page/post.scss"
         ],
         "finding": "已映射 related_post.limit（默认 6）到 post.related_post.limit。对齐 helper 的 limit || 6，非正数回退 6。模板按标签 listByTag 收集候选，客户端去重截断到 limit。尚未双站对照验收，禁止 verified。"
@@ -5153,8 +5153,8 @@
           "settings.yaml",
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/related-post.mjs",
-          "src/js/modules/Render.js",
+          "src/js/core/related-post.ts",
+          "src/js/modules/Render.ts",
           "src/scss/page/post.scss"
         ],
         "finding": "已映射 related_post.date_type（created / updated，默认 created）到 post.related_post.date_type。created 显示 spec.publishTime，其余显示 status.lastModifyTime（无则发布时间）。尚未双站对照验收，禁止 verified。"
@@ -5221,7 +5221,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/post-pagination.mjs",
+          "src/js/core/post-pagination.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5290,7 +5290,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/notice-outdate.mjs",
+          "src/js/core/notice-outdate.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5354,7 +5354,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/notice-outdate.mjs",
+          "src/js/core/notice-outdate.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5422,7 +5422,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/notice-outdate.mjs",
+          "src/js/core/notice-outdate.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5486,7 +5486,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/notice-outdate.mjs",
+          "src/js/core/notice-outdate.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5554,7 +5554,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/notice-outdate.mjs",
+          "src/js/core/notice-outdate.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5618,7 +5618,7 @@
         "code": [
           "src/html/post.html",
           "src/html/views/components.html",
-          "src/js/core/notice-outdate.mjs",
+          "src/js/core/notice-outdate.ts",
           "src/scss/page/post.scss",
           "settings.yaml"
         ],
@@ -5682,7 +5682,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -5746,7 +5746,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -5809,7 +5809,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -5872,7 +5872,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -5935,7 +5935,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -5998,7 +5998,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -6117,7 +6117,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/layout.html",
-          "src/js/core/aside-hide.mjs",
+          "src/js/core/aside-hide.ts",
           "src/scss/core/main.scss",
           "tests/aside-hide.test.mjs"
         ],
@@ -6181,8 +6181,8 @@
           "settings.yaml",
           "src/html/views/components.html",
           "src/html/views/config.html",
-          "src/js/core/aside-hide-button.mjs",
-          "src/js/core/common.js",
+          "src/js/core/aside-hide-button.ts",
+          "src/js/core/common.ts",
           "tests/aside-hide-button.test.mjs"
         ],
         "finding": "已映射上游 aside.button（默认 true，隐藏侧栏开关）到 aside.hide_button。仅显式 false 不渲染 #hide-aside-btn。须 aside.enable。禁止复用作者卡片 aside.button（name/link）。不改 aside.hide / aside.mobile。不做完整 rightside。尚未双站对照验收，禁止 verified。"
@@ -6244,7 +6244,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/layout.html",
-          "src/js/core/aside-mobile.mjs",
+          "src/js/core/aside-mobile.ts",
           "src/scss/core/main.scss",
           "tests/aside-mobile.test.mjs"
         ],
@@ -6368,7 +6368,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -6438,7 +6438,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -6508,7 +6508,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -6578,7 +6578,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -6925,7 +6925,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7238,7 +7238,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7592,7 +7592,7 @@
         "code": [
           "src/html/views/aside.html",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7662,7 +7662,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7732,7 +7732,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7807,7 +7807,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7876,7 +7876,7 @@
         "code": [
           "src/html/views/aside.html",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -7946,7 +7946,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8126,7 +8126,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8201,7 +8201,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8275,7 +8275,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8345,7 +8345,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8415,7 +8415,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8489,7 +8489,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8559,7 +8559,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8633,7 +8633,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -8703,7 +8703,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -9028,7 +9028,7 @@
         "code": [
           "src/html/views/aside.html",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -9098,7 +9098,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -9168,7 +9168,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -9238,7 +9238,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -9429,9 +9429,9 @@
         "code": [
           "settings.yaml",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/translate.mjs",
-          "src/js/core/translate-maps.mjs",
+          "src/js/core/common.ts",
+          "src/js/core/translate.ts",
+          "src/js/core/translate-maps.ts",
           "tests/translate.test.mjs"
         ],
         "finding": "已映射为 Halo translate.enable，默认 false，仅显式 true 渲染 #translateLink。不复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置 / item_order。不把 rightside/footer 模板或已落地 config 升 verified。尚未双站对照验收，禁止 verified。"
@@ -9495,8 +9495,8 @@
         "code": [
           "settings.yaml",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/translate.mjs",
+          "src/js/core/common.ts",
+          "src/js/core/translate.ts",
           "tests/translate.test.mjs"
         ],
         "finding": "已映射为 Halo translate.default，默认 繁，作 #translateLink 初始文案；空值回退 繁。enable 关闭时不渲染按钮。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
@@ -9557,8 +9557,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -9620,8 +9620,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -9679,8 +9679,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -9738,8 +9738,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -9800,8 +9800,8 @@
         "code": [
           "settings.yaml",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/rightside.mjs",
+          "src/js/core/common.ts",
+          "src/js/core/rightside.ts",
           "src/scss/core/readmode.scss",
           "tests/readmode.test.mjs"
         ],
@@ -9866,7 +9866,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/components.html",
-          "src/js/core/darkmode.mjs",
+          "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
         "finding": "已映射为 Halo darkmode.enable，默认 true；仅显式 false 时不提供右下角 #darkmode（须同时 darkmode.button）。不复用作者卡片 aside.button。不拆 style.mode。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。尚未双站对照验收，禁止 verified。"
@@ -9930,7 +9930,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/components.html",
-          "src/js/core/darkmode.mjs",
+          "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
         "finding": "已映射为 Halo darkmode.button，默认 true；须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。不再仅限 style.mode == user。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
@@ -9994,8 +9994,8 @@
         "code": [
           "settings.yaml",
           "src/html/views/config.html",
-          "src/js/core/theme.js",
-          "src/js/core/darkmode.mjs",
+          "src/js/core/theme.ts",
+          "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
         "finding": "已映射为 Halo darkmode.autoChangeMode，默认 false。1 跟随 prefers-color-scheme（无系统偏好回退小时窗口）；2 按小时。已存 light/dark 优先。style.mode 的 light/dark 仍强制；auto 在 autoChangeMode 为 false 时仍按小时。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
@@ -10064,7 +10064,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/config.html",
-          "src/js/core/darkmode.mjs",
+          "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
         "finding": "已映射为 Halo darkmode.start，默认空字符串（对齐上游 null），回退 6。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
@@ -10134,7 +10134,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/config.html",
-          "src/js/core/darkmode.mjs",
+          "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
         "finding": "已映射为 Halo darkmode.end，默认空字符串（对齐上游 null），回退 18。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
@@ -10205,8 +10205,8 @@
           "settings.yaml",
           "src/html/views/components.html",
           "src/html/views/config.html",
-          "src/js/core/rightside.mjs",
-          "src/js/core/scroll.js",
+          "src/js/core/rightside.ts",
+          "src/js/core/scroll.ts",
           "src/scss/core/rightside.scss",
           "tests/rightside-scroll-percent.test.mjs"
         ],
@@ -10268,8 +10268,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10327,8 +10327,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10390,8 +10390,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10453,8 +10453,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10511,7 +10511,7 @@
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
         "settings": [],
         "code": [
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
@@ -10568,7 +10568,7 @@
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
         "settings": [],
         "code": [
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
@@ -10626,8 +10626,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10683,8 +10683,8 @@
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
         "settings": [],
         "code": [
-          "src/js/core/common.js",
-          "src/js/modules/Render.js",
+          "src/js/core/common.ts",
+          "src/js/modules/Render.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10740,8 +10740,8 @@
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
         "settings": [],
         "code": [
-          "src/js/core/common.js",
-          "src/js/modules/Render.js",
+          "src/js/core/common.ts",
+          "src/js/modules/Render.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -10797,8 +10797,8 @@
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
         "settings": [],
         "code": [
-          "src/js/core/common.js",
-          "src/js/modules/Render.js",
+          "src/js/core/common.ts",
+          "src/js/modules/Render.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -11248,7 +11248,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -11313,7 +11313,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -11373,7 +11373,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -11433,7 +11433,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -11493,7 +11493,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -11558,7 +11558,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -11617,7 +11617,7 @@
         "settings": [],
         "code": [
           "src/html/views/nav.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "锁定 SearchWidget 1.7.1；主题最低版本检查、启停/卸载重装及本地 manifest 低版本拒绝契约有局部证据。Escape/遮罩关闭后焦点恢复失败仍存在；alpha 例外不是修复，完整 PLG-01/02、真机软键盘与屏幕阅读器未通过。 剩余：关闭焦点恢复；完整 PLG-01/02/真机"
       },
@@ -11690,7 +11690,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -11759,7 +11759,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -11828,7 +11828,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -11897,7 +11897,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -11966,7 +11966,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12035,7 +12035,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12104,7 +12104,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12173,7 +12173,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12242,7 +12242,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12311,7 +12311,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12380,7 +12380,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -12449,7 +12449,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -18384,7 +18384,7 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -18447,7 +18447,7 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -18624,7 +18624,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/layout.html",
-          "src/js/core/mask.mjs",
+          "src/js/core/mask.ts",
           "src/scss/core/header.scss",
           "tests/mask-header.test.mjs"
         ],
@@ -18699,7 +18699,7 @@
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
           "tests/footer.test.mjs"
         ],
@@ -18759,10 +18759,10 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js",
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts",
           "settings.yaml",
-          "src/js/core/loading-ready.mjs"
+          "src/js/core/loading-ready.ts"
         ],
         "finding": "模板按 loading.type 是否为字符串 null 控制加载，设置面目前只有四种动画且无启用开关；不能用内部 null 分支声明上游 preloader.enable 已映射。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
@@ -18833,11 +18833,11 @@
           "loading.type"
         ],
         "code": [
-          "src/plugins/loading/circle.js",
-          "src/plugins/loading/dot.js",
-          "src/plugins/loading/hourglass.js",
-          "src/plugins/loading/cross_line.js",
-          "src/js/core/loading-ready.mjs",
+          "src/plugins/loading/circle.ts",
+          "src/plugins/loading/dot.ts",
+          "src/plugins/loading/hourglass.ts",
+          "src/plugins/loading/cross_line.ts",
+          "src/js/core/loading-ready.ts",
           "settings.yaml",
           "src/html/views/layout.html"
         ],
@@ -18913,8 +18913,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -19206,7 +19206,7 @@
           "render.enable_h_icon"
         ],
         "code": [
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前只支持标题图标开关，缺少自定义图标。"
       },
@@ -19820,7 +19820,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -19877,7 +19877,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -19934,7 +19934,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -19991,7 +19991,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20048,7 +20048,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20105,7 +20105,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20162,7 +20162,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20219,7 +20219,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20276,7 +20276,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20333,7 +20333,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20390,7 +20390,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20447,7 +20447,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20504,7 +20504,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20561,7 +20561,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20618,7 +20618,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20675,7 +20675,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20732,7 +20732,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20789,7 +20789,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20846,7 +20846,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20903,7 +20903,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -20960,7 +20960,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21017,7 +21017,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21074,7 +21074,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21131,7 +21131,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21188,7 +21188,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21245,7 +21245,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21302,7 +21302,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21359,7 +21359,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -21416,7 +21416,7 @@
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
         "settings": [],
         "code": [
-          "src/js/modules/AmplifyImg.js"
+          "src/js/modules/AmplifyImg.ts"
         ],
         "finding": "已集成 Fancybox 5；上游为 Fancybox 6/medium-zoom 选择，待适配。"
       },
@@ -21746,7 +21746,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -21806,7 +21806,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -21866,7 +21866,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -21927,7 +21927,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -21988,7 +21988,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22055,7 +22055,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22122,7 +22122,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22183,7 +22183,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22244,7 +22244,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22305,7 +22305,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22366,7 +22366,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22427,7 +22427,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22488,7 +22488,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22549,7 +22549,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22610,7 +22610,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -22912,8 +22912,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -22970,8 +22970,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23028,8 +23028,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23086,8 +23086,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23152,8 +23152,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23210,8 +23210,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23268,8 +23268,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23326,8 +23326,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23384,8 +23384,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23442,8 +23442,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -23505,7 +23505,7 @@
           "loading.img.preload"
         ],
         "code": [
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "已有图片占位配置。"
       },
@@ -23562,8 +23562,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -28691,7 +28691,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -28741,7 +28741,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -28790,9 +28790,9 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/Render.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/Render.ts"
         ],
         "finding": "普通页面脚本已改为 defer，正文初始化与异步 Prism 分离；#337 包含慢加载/失败/关闭增强及当前阅读块焦点/滚动保护。仍没有上游 additional-js 的全部配置和第三方能力分派映射，不因加载性能修正将整个模板视作实现完成。 剩余：additional-js 全部功能分派映射"
       },
@@ -28854,7 +28854,7 @@
         "code": [
           "src/html/views/footer.html",
           "src/scss/core/footer.scss",
-          "src/js/core/footer.mjs",
+          "src/js/core/footer.ts",
           "tests/footer.test.mjs"
         ],
         "finding": "已对齐 footer.pug 模板骨架：扁平 nav、.footer-separator、框架/主题链、.footer-other--nav、custom_text th:text。备案与 halo:footer 为 Halo 附加。不做嵌套列/html 子项、不做 custom_text HTML。footer.styl 配色与 flex 列仍 gap。已落地 footer config 不得升 verified。尚未双站对照验收，禁止 verified。"
@@ -29402,7 +29402,7 @@
           "src/html/index.html",
           "src/html/views/header.html",
           "src/html/views/nav.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "首页页头已实现站名/字幕/背景/高度与信息位置、导航及下滑入口；原 matrix 仅指向 layout/theme.yaml 并写未实现已失真。 剩余：全局 disable_top_img/default_top_img、字幕全部配置与逐页背景语义尚待映射，不宜整体声称完整等价。"
       },
@@ -29464,11 +29464,11 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js",
-          "src/js/core/navigation.js",
+          "src/js/core/common.ts",
+          "src/js/core/scroll.ts",
+          "src/js/core/navigation.ts",
           "src/html/views/menu-items.html",
-          "src/js/core/navigation-state.mjs"
+          "src/js/core/navigation-state.ts"
         ],
         "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -29718,7 +29718,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
           "src/html/views/layout.html",
           "src/html/layout.html"
@@ -29779,8 +29779,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -29829,10 +29829,10 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js",
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts",
           "src/html/layout.html",
-          "src/js/core/loading-ready.mjs",
+          "src/js/core/loading-ready.ts",
           "settings.yaml"
         ],
         "finding": "普通布局与公共插件布局均根据 loading.type 注入已选择的四种 Loading；关闭值为字符串 null。#316 更新就绪退出机制，但上游 preloader 的 fullpage/pace 分派未实现；保留此差异，不以继承动画代替上游完整模板。 剩余：fullpage/pace 分派；上游 preloader 配置域映射"
@@ -29894,8 +29894,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -29945,7 +29945,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -29995,7 +29995,7 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss"
         ],
         "finding": "列表卡片已有 list/tile 分支、封面回退、元信息、摘要策略及分页入口；当前 config:index_layout 明确保留上游 1-7 未全实现差距。 剩余：补齐或裁定 1-7 布局及正常/空/多页、配置组合后再评估完整实现状态。"
@@ -30055,10 +30055,10 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
           "src/html/error/404.html",
-          "src/js/page/error404.js",
+          "src/js/page/error404.ts",
           "src/scss/page/error404.scss"
         ],
         "finding": "上游 404 页面已映射到 Halo error/404.html；导航/返回首页/可配置文字与图片及回退已接入。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
@@ -30122,7 +30122,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30172,7 +30172,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30222,10 +30222,10 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
           "src/html/links.html",
-          "src/js/page/links.js",
+          "src/js/page/links.ts",
           "src/scss/core/flink.scss"
         ],
         "finding": "已有 PluginLinks groups/link.spec 的友链分组模板、卡片名称/描述/图片与空状态；P+ 具备固定 Links 2.3.0 的局部双站证据。上游完整分组描述、正文、头像失败和外链等价仍未全部验收。此为独立友链页，不等于 DEC-02 的正文 tag:flink。 剩余：上游分组描述/正文映射；损坏头像及完整外链交互"
@@ -30288,11 +30288,11 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
           "src/html/moments.html",
           "src/html/views/plugin-pagination.html",
-          "src/js/page/moments.js"
+          "src/js/page/moments.ts"
         ],
         "finding": "已有 PluginMoments moments.items 模板，消费 content.html/medium，输出图片/音视频、空状态及原生服务端分页；#39 补齐上一页/下一页。日期/作者/标签的展示、逐条评论、上游数据限制等能力仍未完成映射与完整验收。 剩余：日期/作者/标签展示；逐条评论；上游数据限制和详情/媒体完整验收"
       },
@@ -30353,7 +30353,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30403,7 +30403,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30453,7 +30453,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30503,7 +30503,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30553,7 +30553,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -30602,8 +30602,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/rightside.mjs",
-          "src/js/core/scroll.js",
+          "src/js/core/rightside.ts",
+          "src/js/core/scroll.ts",
           "src/scss/core/rightside.scss",
           "tests/rightside.test.mjs"
         ],
@@ -30658,11 +30658,11 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js",
-          "src/js/core/navigation.js",
+          "src/js/core/common.ts",
+          "src/js/core/scroll.ts",
+          "src/js/core/navigation.ts",
           "src/html/views/menu-items.html",
-          "src/js/core/navigation-state.mjs"
+          "src/js/core/navigation-state.ts"
         ],
         "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -30744,7 +30744,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -30796,7 +30796,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -32440,7 +32440,7 @@
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
         "settings": [],
         "code": [
-          "src/js/core/_universe.js",
+          "src/js/core/_universe.ts",
           "src/html/views/layout.html"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -32491,7 +32491,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -32544,7 +32544,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -32596,7 +32596,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -32648,7 +32648,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
       },
@@ -32700,7 +32700,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
       },
@@ -33283,8 +33283,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -33332,13 +33332,13 @@
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
         "settings": [],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/components.html",
-          "src/js/core/prism-ready.mjs",
-          "src/js/core/code-scroll-focus.mjs"
+          "src/js/core/prism-ready.ts",
+          "src/js/core/code-scroll-focus.ts"
         ],
         "finding": "codeBlockPin 已供文章/单页使用；Prism 在 DOM 就绪后两帧请求、延迟加载后增强，失败保留原始代码，并保留当前代码阅读焦点/滚动及展开状态。 剩余：原生三引擎折叠检查保留 Firefox 超时；全部高亮主题、慢/失败场景与完整性能合同仍未通过。"
       },
@@ -33400,7 +33400,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -33461,7 +33461,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -33522,7 +33522,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 已裁定。当前入口在 src/html/views/nav.html。"
       },
@@ -33574,7 +33574,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "DEC-01 选项 2：1.0 站点内搜索由官方 PluginSearchWidget 承担。Algolia、DocSearch、本地 search.xml 及对应主题配置、脚本、样式、CDN 覆盖项不作为主题配置面。用户可见的开/关/查询/关窗在 config:search.use 与 interaction:search-popup 验收。"
       },
@@ -33779,9 +33779,9 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss",
-          "src/js/modules/subtitle.mjs"
+          "src/js/modules/subtitle.ts"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -33963,7 +33963,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34024,7 +34024,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34085,7 +34085,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34194,7 +34194,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34356,10 +34356,10 @@
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
         "settings": [],
         "code": [
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
-          "src/js/core/toc.mjs"
+          "src/js/core/toc.ts"
         ],
         "finding": "目录卡片模板已实现编号、展开、简洁模式和阅读进度，并接入文章页及移动目录入口。 剩余：toc.post/toc.page 开关、逐页覆盖、完整锚点行为和无障碍仍需单独核对。"
       },
@@ -34427,7 +34427,7 @@
           "src/scss/core/aside.scss",
           "settings.yaml",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34491,7 +34491,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34600,7 +34600,7 @@
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
           "src/html/views/layout.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -34708,7 +34708,7 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss"
         ],
         "finding": "首页 Halo 模板、首屏/字幕、文章列表、分页和侧栏已存在，最终 alpha 核心检查含首页；但上游 1-7 全布局及字幕参数/来源差异仍未闭环。 剩余：缺完整上游布局与字幕/摘要/封面配置矩阵对照；有实现不等于全部上游模板语义完成。"
@@ -34771,9 +34771,9 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
-          "src/js/page/single.js"
+          "src/js/page/single.ts"
         ],
         "finding": "SinglePage 已渲染标题/封面/正文、代码增强、灯箱及受权限和插件状态控制的原生评论；alpha 单页已测试。 剩余：所有专用页面类型、目录默认/覆盖、上游页面语义和全面运行组合仍需对账。"
       },
@@ -34836,9 +34836,9 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
-          "src/js/page/post.js"
+          "src/js/page/post.ts"
         ],
         "finding": "文章完整页面壳、正文、元信息、目录、代码、灯箱、过期提示、版权、打赏、翻页、相关文章及原生评论入口均已接入。 剩余：完整逐页覆盖、分享/编辑链接/系列等扩展及上游正文模板语义仍未全部闭环，不能因核心页通过直接升完整实现。"
       },
@@ -34904,7 +34904,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
@@ -34955,7 +34955,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-button.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-button.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -35017,7 +35017,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
@@ -35120,7 +35120,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-gallery.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-gallery.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35183,7 +35183,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-gallery.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-gallery.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35246,7 +35246,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-hide.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35309,7 +35309,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-hide.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35372,7 +35372,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-hide.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35436,7 +35436,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-inline-img.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-inline-img.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -35499,7 +35499,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-label.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-label.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -35561,7 +35561,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
       },
@@ -35614,7 +35614,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-note.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -35728,7 +35728,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-series.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-series.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -35791,7 +35791,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-note.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -35853,7 +35853,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-tabs.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35916,7 +35916,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-tabs.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -35979,7 +35979,7 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/core/tags-tabs.scss"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
@@ -36043,7 +36043,7 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-timeline.scss",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-timeline.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
       },
@@ -36151,7 +36151,7 @@
           "src/html/views/layout.html",
           "src/html/views/components.html",
           "src/html/views/aside.html",
-          "src/js/core/aside-options.mjs"
+          "src/js/core/aside-options.ts"
         ],
         "finding": "已补页面显示、卡片开关与排序、分类树/数量/展开、标签排序/数量、归档年/月/格式/顺序/数量和网站信息字段控制。旧分类5、标签25默认值保留；格式仅年月token子集，文章页目录布局不重排，无脚本排序为服务端默认。具体字段映射及边界见 docs/SIDEBAR-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -36945,8 +36945,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -36994,8 +36994,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37043,8 +37043,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37092,8 +37092,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37142,8 +37142,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37191,8 +37191,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37240,8 +37240,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37289,8 +37289,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
       },
@@ -37338,8 +37338,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
@@ -37394,8 +37394,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "已裁定延期，不是不适用。1.0 正文静态列表见 tag:series。"
       },
@@ -38355,7 +38355,7 @@
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/modules/AmplifyImg.ts",
           "package.json"
         ],
         "finding": "当前灯箱已替换为 MIT Viewer.js 1.14.0；不再分发 Fancyapps UI，未实现此上游提供方本身。Viewer 的局部灯箱能力在 interaction:lightbox 记录，不以资源替换声明本项等价或不适用。 剩余：明确上游对应用户能力差异并完成等价对照；若删减提供方语义仍需明确范围裁定。"
@@ -38418,7 +38418,7 @@
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/modules/AmplifyImg.ts",
           "package.json"
         ],
         "finding": "当前灯箱已替换为 MIT Viewer.js 1.14.0；不再分发 Fancyapps UI，未实现此上游提供方本身。Viewer 的局部灯箱能力在 interaction:lightbox 记录，不以资源替换声明本项等价或不适用。 剩余：明确上游对应用户能力差异并完成等价对照；若删减提供方语义仍需明确范围裁定。"
@@ -38858,8 +38858,8 @@
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
-          "src/js/core/_lazyLoad.js",
-          "src/js/core/common.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/common.ts",
           "src/html/views/components.html"
         ],
         "finding": "继承 LazyLoad 模块仍由 Common 初始化处理 img/data-lazy-src；默认图片组件已有真实 src，不能将库存在等同上游 lazyload.enable/field/native/blur 全配置支持。 剩余：逐项验证延迟资源成功/失败、视口进出及配置映射；现有图片无响应证据不清除。"
@@ -38969,7 +38969,7 @@
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/modules/AmplifyImg.ts",
           "package.json"
         ],
         "finding": "当前灯箱已替换为 MIT Viewer.js 1.14.0；不再分发 Fancyapps UI，未实现此上游提供方本身。Viewer 的局部灯箱能力在 interaction:lightbox 记录，不以资源替换声明本项等价或不适用。 剩余：明确上游对应用户能力差异并完成等价对照；若删减提供方语义仍需明确范围裁定。"
@@ -39229,7 +39229,7 @@
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
           "src/plugins/prism/prism.min.js",
-          "src/js/core/prism-ready.mjs"
+          "src/js/core/prism-ready.ts"
         ],
         "finding": "现包采用含多语言的 Prism bundle 与文档级延迟加载；未实现上游 Prism autoloader 按语言加载契约。prism-ready.mjs 的脚本延迟加载不能视为 autoloader 已实现。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
@@ -39292,8 +39292,8 @@
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
           "src/plugins/prism/prism.min.js",
-          "src/js/core/prism-ready.mjs",
-          "src/js/modules/CodeBlock.js",
+          "src/js/core/prism-ready.ts",
+          "src/js/modules/CodeBlock.ts",
           "src/html/views/components.html"
         ],
         "finding": "随包分发 Prism 1.29.0；代码增强在 DOMContentLoaded 后两帧请求脚本，失败保持原文，重复初始化按文档去重。alpha.3 有延迟/失败及阅读焦点局部证据；原生 CSS 无响应仍保留，不能记完整资源加载通过。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
@@ -39359,7 +39359,7 @@
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
           "src/plugins/prism/prism.min.js",
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/html/views/components.html"
         ],
         "finding": "Prism 的 lineNumbers 插件已内嵌本地 prism.min.js，CodeBlock 按 enable_code_line 添加 line-numbers 类；不是独立 CDN 文件。运行范围及换行/缩放/禁用与上游对照仍未完整验收。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
@@ -39678,8 +39678,8 @@
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md",
           "package.json",
-          "src/js/modules/subtitle.mjs",
-          "src/js/page/index.js",
+          "src/js/modules/subtitle.ts",
+          "src/js/page/index.ts",
           "src/html/index.html"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
@@ -42087,7 +42087,7 @@
           "src/scss/core/index.scss",
           "src/scss/page/tags.scss",
           "tests/tags-style.test.mjs",
-          "src/js/core/tag-cloud-colors.mjs"
+          "src/js/core/tag-cloud-colors.ts"
         ],
         "finding": "标签页有样式及动态标签云颜色对比修正，亮暗色使用当前主题表面色调整；最终 alpha.3 核心标签页有局部检查。上游全配置、所有背景组合和逐项视觉对照仍未完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
       },
@@ -48128,7 +48128,7 @@
         "settings": [],
         "code": [
           "src/html/categories.html",
-          "src/js/page/categories.js"
+          "src/js/page/categories.ts"
         ],
         "finding": "分类总览页已有分类卡片和统计图；PR #330 在无分类空站提前退出初始化，避免查询不存在的统计 DOM 导致异常。alpha.3 全新空站与核心分类页提供有限运行证据。 剩余：正常/空/多分类、统计值与固定 Hexo 5.7.0 的完整逐项对照仍未完成。"
       },
@@ -48325,7 +48325,7 @@
         "settings": [],
         "code": [
           "src/html/links.html",
-          "src/js/page/links.js",
+          "src/js/page/links.ts",
           "src/scss/core/flink.scss"
         ],
         "finding": "已有 Links 2.3.0 分组/卡片与空状态，P+ 使用固定合成数据进行了局部双站诊断；原“尚未进行固定双站对照”已过时。损坏头像、长内容、分组描述/正文及完整 PLG-04 仍未全部验收。 剩余：PLG-04 剩余场景"
@@ -48388,7 +48388,7 @@
         "code": [
           "src/html/moments.html",
           "src/html/views/plugin-pagination.html",
-          "src/js/page/moments.js"
+          "src/js/page/moments.ts"
         ],
         "finding": "已有 Moments 1.18.0 的正文/媒体、空状态及服务端分页；#39 有固定双站与筛选分页局部证据。日期/作者/标签展示、逐条评论、详情页/音视频和所有错误状态仍未全面完成；不能将 P+ 通过等同完整 PLG-03/04。 剩余：逐条评论；详情页/音视频；完整日期排序/标签/错误态"
       },
@@ -48450,7 +48450,7 @@
         "settings": [],
         "code": [
           "src/html/error/404.html",
-          "src/js/page/error404.js",
+          "src/js/page/error404.ts",
           "src/scss/page/error404.scss"
         ],
         "finding": "已有 Halo 原生错误页映射、404 标题、纯文本提示、返回首页、跳过链接及图片分级回退。最终 alpha 核心页检查含 404 亮暗/宽窄视图；不应再记为无实现。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
@@ -48513,8 +48513,8 @@
         "code": [
           "src/html/photos.html",
           "src/html/views/plugin-pagination.html",
-          "src/js/page/photos.js",
-          "src/js/modules/AmplifyImg.js"
+          "src/js/page/photos.ts",
+          "src/js/modules/AmplifyImg.ts"
         ],
         "finding": "已有 Photos 2.1.2 的分组筛选、图片及服务端分页；#39 保留插件 prevUrl/nextUrl，后续共用灯箱已替换为 MIT Viewer.js。固定 P+ 对照与分页局部证据不能证明上游 gallery 瀑布流/加载更多/正文标签输入等价；完整 PLG-04/EXT 仍未关闭。 剩余：上游 gallery 瀑布流/加载更多等价；正文标签输入；详情/坏图/完整插件组合"
       },
@@ -48576,7 +48576,7 @@
         "code": [
           "src/html/views/layout.html",
           "src/html/layout.html",
-          "src/js/page/plugin.js",
+          "src/js/page/plugin.ts",
           "src/scss/page/plugin.scss"
         ],
         "finding": "PR #19 已实现 Halo 公共 layout.html::html(head,content)，提供 head 缺省标题、共享导航/页脚/资源、跳转正文及模式控件；274589a 的探针有 8 组浏览器状态、6 个生命周期、3 页全局注入与 10 页 HTTP 局部证据。实际生态组合及完整 PLG-05 尚未通过。 剩余：真实生态插件组合；当前候选 PLG-05 全场景回归"
@@ -48639,11 +48639,11 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js",
+          "src/js/core/common.ts",
+          "src/js/core/scroll.ts",
           "src/html/views/menu-items.html",
-          "src/js/core/navigation.js",
-          "src/js/core/navigation-state.mjs"
+          "src/js/core/navigation.ts",
+          "src/js/core/navigation-state.ts"
         ],
         "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -48703,11 +48703,11 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js",
-          "src/js/core/navigation.js",
+          "src/js/core/common.ts",
+          "src/js/core/scroll.ts",
+          "src/js/core/navigation.ts",
           "src/html/views/menu-items.html",
-          "src/js/core/navigation-state.mjs"
+          "src/js/core/navigation-state.ts"
         ],
         "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -48790,8 +48790,8 @@
           "nav.display_post_title"
         ],
         "code": [
-          "src/js/core/scroll.js",
-          "src/js/core/nav-scroll.mjs",
+          "src/js/core/scroll.ts",
+          "src/js/core/nav-scroll.ts",
           "src/scss/core/nav.scss",
           "src/html/views/nav.html"
         ],
@@ -48843,9 +48843,9 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss",
-          "src/js/core/common.js",
+          "src/js/core/common.ts",
           "tests/scroll-down.test.mjs"
         ],
         "finding": "首页已渲染 #scroll-down，点击由 Common.#bindScrollDown 滚到 #Butterfly > .main；上游首页下滑入口已落地。 剩余：入口当前为 div，仍需补齐或验证键盘可达/激活及减少动画偏好、完整双站对照。"
@@ -48906,7 +48906,7 @@
           "render.enable_code_copy"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -48962,8 +48962,8 @@
           "render.enable_code_expander"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
-          "src/js/core/code-shrink.mjs",
+          "src/js/modules/CodeBlock.ts",
+          "src/js/core/code-shrink.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -49019,13 +49019,13 @@
           "render.enable_code_fullpage"
         ],
         "code": [
-          "src/js/modules/CodeBlock.js",
+          "src/js/modules/CodeBlock.ts",
           "src/scss/modules/codeBlock.scss",
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/components.html",
           "settings.yaml",
-          "src/js/core/code-shrink.mjs"
+          "src/js/core/code-shrink.ts"
         ],
         "finding": "已有全屏按钮、overflow 保存恢复和 Escape 退出；后续代码已补充 shrink 三态，并在异步增强时保留当前阅读代码块的展开状态。原“不做 shrink=true”的历史说明不再代表当前源码，完整上游对照仍未通过。 剩余：仍缺固定 Hexo Butterfly 5.7.0 双站逐项对照与完整 1.0 浏览器、真机及无障碍验收。"
       },
@@ -49087,11 +49087,11 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
-          "src/js/page/post.js",
-          "src/js/page/single.js",
+          "src/js/page/post.ts",
+          "src/js/page/single.ts",
           "tests/lightbox.test.mjs"
         ],
         "finding": "已由 MIT Viewer.js 替换旧灯箱：文章/单页等内容图片可分组查看，缩放/旋转/翻转/缩略图、键盘打开、焦点约束及关闭恢复均有实现；共享链接按实际点击图片确定初始索引。 剩余：仍缺固定双站行为对照、实际 Safari 与真机触摸/完整键盘和屏幕阅读器验收；库替换本身不等于完整功能等价。"
@@ -49150,10 +49150,10 @@
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
         "settings": [],
         "code": [
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss",
-          "src/js/core/toc.mjs"
+          "src/js/core/toc.ts"
         ],
         "finding": "已使用 tocbot 对正文 h1-h6 构建目录并平滑滚动、活动项高亮；含 20px 偏移、长文进度及移动端目录按钮。 剩余：仍缺重复/中文/跳级标题、深链接、固定导航遮挡和移动目录焦点的完整验收；anchor 自动更新配置不随之宣告完成。"
       },
@@ -49211,7 +49211,7 @@
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
         "settings": [],
         "code": [
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
@@ -49274,8 +49274,8 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/rightside.mjs",
+          "src/js/core/common.ts",
+          "src/js/core/rightside.ts",
           "src/scss/core/readmode.scss",
           "tests/readmode.test.mjs"
         ],
@@ -49332,8 +49332,8 @@
           "settings.yaml",
           "src/html/views/components.html",
           "src/html/views/config.html",
-          "src/js/core/aside-hide-button.mjs",
-          "src/js/core/common.js",
+          "src/js/core/aside-hide-button.ts",
+          "src/js/core/common.ts",
           "tests/aside-hide-button.test.mjs"
         ],
         "finding": "已映射 hide-aside 交互：#hide-aside-btn 切换 html.hide-aside，localStorage aside-status TTL 2 天（对齐 main.js / inject_head_js）。须 aside.enable 与 aside.hide_button。禁止复用作者卡片 aside.button。不改 aside.hide / aside.mobile 初始语义。不做完整 rightside。尚未双站对照验收，禁止 verified。"
@@ -49387,9 +49387,9 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/darkmode.mjs",
-          "src/js/core/theme.js",
+          "src/js/core/common.ts",
+          "src/js/core/darkmode.ts",
+          "src/js/core/theme.ts",
           "tests/darkmode.test.mjs",
           "src/html/views/config.html"
         ],
@@ -49457,9 +49457,9 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/translate.mjs",
-          "src/js/core/translate-maps.mjs",
+          "src/js/core/common.ts",
+          "src/js/core/translate.ts",
+          "src/js/core/translate-maps.ts",
           "tests/translate.test.mjs"
         ],
         "finding": "已映射简繁点击：#translateLink 用 textContent 切 繁/簡，转换页面文本并写 translate-chn-cht。默认编码 2、延迟 0、msg 繁/簡 沿用上游默认但不进设置。不走 innerHTML。尚未双站对照验收，禁止 verified。"
@@ -49511,10 +49511,10 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "#go-up 为具备 title 的 button，调用 MainApp.useCommon.backTop()，300ms 动画回到页面顶部；不能继续记作无实现。 剩余：仍缺长页、不同滚动状态、键盘、减少动画及双站对照验收。"
       },
@@ -49574,8 +49574,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/theme.js",
-          "src/js/core/scroll.js",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -49623,8 +49623,8 @@
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
         "settings": [],
         "code": [
-          "src/js/core/common.js",
-          "src/js/modules/Render.js",
+          "src/js/core/common.ts",
+          "src/js/modules/Render.ts",
           "src/html/views/layout.html"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -49673,9 +49673,9 @@
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
-          "src/js/page/index.js",
+          "src/js/page/index.ts",
           "src/scss/page/index.scss",
-          "src/js/modules/subtitle.mjs"
+          "src/js/modules/subtitle.ts"
         ],
         "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -49756,7 +49756,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -49805,7 +49805,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -49854,7 +49854,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -49903,7 +49903,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -49952,7 +49952,7 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/layout.html",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "官方 SearchWidget 1.7.1 的 Escape/遮罩关闭后焦点未回入口；alpha.3 固定报告有 8 项焦点失败，另有独立资源超时，不混为同一故障。维护者仅批准公开 alpha 披露例外，1.0 verification-failed 保留；完整键盘/真机软键盘仍未完成。 剩余：关闭焦点恢复；完整键盘和真机软键盘"
       },
@@ -50183,8 +50183,8 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/html/photos.html",
-          "src/js/page/photos.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/page/photos.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/tags-gallery.scss"
         ],
         "finding": "独立 Photos 页面已有分组、服务端分页和共用 Viewer.js 灯箱；这些不能代替正文 gallery 的横竖混排、行高、无限加载与远端数据错误回退。本条所指上游 runJustifiedGallery 仍缺对应实现。 剩余：正文 runJustifiedGallery 行为"
@@ -50344,7 +50344,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
       },
@@ -50395,7 +50395,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js"
+          "src/js/modules/Render.ts"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
       },
@@ -50562,8 +50562,8 @@
         "settings": [],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
       },
@@ -50611,10 +50611,10 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
-          "src/js/core/common.js"
+          "src/js/core/common.ts"
         ],
         "finding": "已有 LazyLoad img/data-lazy-src 路径；默认图片有真实 src，部分内容由浏览器直接加载。上游 site/post、native、blur、占位和全局开关尚未逐项完成等价证明。 剩余：原生/库、site/post、占位/模糊和未入视口图片全场景未完成；不修改各配置条目的 gap。"
       },
@@ -50673,13 +50673,13 @@
         ],
         "code": [
           "src/html/views/layout.html",
-          "src/js/core/App.js",
-          "src/js/core/_lazyLoad.js",
-          "src/js/core/loading-ready.mjs",
-          "src/plugins/loading/circle.js",
-          "src/plugins/loading/dot.js",
-          "src/plugins/loading/hourglass.js",
-          "src/plugins/loading/cross_line.js"
+          "src/js/core/App.ts",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/loading-ready.ts",
+          "src/plugins/loading/circle.ts",
+          "src/plugins/loading/dot.ts",
+          "src/plugins/loading/hourglass.ts",
+          "src/plugins/loading/cross_line.ts"
         ],
         "finding": "四种继承 Loading 使用 whenContentReady 在 DOMContentLoaded 结束，不再等待所有可选图片 load；alpha.3 已有四样式生命周期局部检查。它不解决阻塞 DOMContentLoaded 的资源无响应；上游 fullpage/pace 等价与完整失败注入未验收。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
       },
@@ -50835,11 +50835,11 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js",
-          "src/js/core/navigation.js",
+          "src/js/core/common.ts",
+          "src/js/core/scroll.ts",
+          "src/js/core/navigation.ts",
           "src/html/views/menu-items.html",
-          "src/js/core/navigation-state.mjs"
+          "src/js/core/navigation-state.ts"
         ],
         "finding": "已映射移动分组默认展开/hide折叠，并补 Halo 多层递归、长菜单与窄宽度抽屉、当前路径、逐层Escape焦点恢复；上游仅两层，多层是平台扩展。旧菜单无hide注解时改为默认展开，恢复旧行为需显式配置。见 docs/NAVIGATION-OPTIONS.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
       },
@@ -50921,8 +50921,8 @@
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
-          "src/js/core/common.js",
-          "src/js/core/scroll.js"
+          "src/js/core/common.ts",
+          "src/js/core/scroll.ts"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
       },
@@ -50970,8 +50970,8 @@
         "settings": [],
         "code": [
           "src/html/views/components.html",
-          "src/js/core/_lazyLoad.js",
-          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -51020,7 +51020,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
@@ -51586,7 +51586,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51635,7 +51635,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51684,7 +51684,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51733,7 +51733,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51782,7 +51782,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51831,7 +51831,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51880,7 +51880,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51929,7 +51929,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -51978,7 +51978,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -52027,7 +52027,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"
@@ -52076,7 +52076,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.js",
+          "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
         "finding": "已有相关模板或行为，尚未进行固定双站对照。"

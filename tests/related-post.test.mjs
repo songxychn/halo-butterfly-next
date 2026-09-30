@@ -9,7 +9,7 @@ import {
   resolveDateType,
   resolveEnable,
   resolveLimit,
-} from '../src/js/core/related-post.mjs';
+} from '../src/js/core/related-post.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
@@ -17,7 +17,7 @@ const components = await readFile(new URL('../src/html/views/components.html', i
 const postHtml = await readFile(new URL('../src/html/post.html', import.meta.url), 'utf8');
 const pageHtml = await readFile(new URL('../src/html/page.html', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/core/relatedposts.scss', import.meta.url), 'utf8');
-const renderJs = await readFile(new URL('../src/js/modules/Render.js', import.meta.url), 'utf8');
+const renderJs = await readFile(new URL('../src/js/modules/Render.ts', import.meta.url), 'utf8');
 
 function postForm() {
   const form = settings.spec.forms.find(item => item.group === 'post');
@@ -156,7 +156,7 @@ test('文章页插入 relatedPosts；单页不插入；enable 与无标签由 th
   assert.match(related, /th:text="\$\{item\.spec\.title\}"/);
   assert.doesNotMatch(related, /th:utext/);
   assert.doesNotMatch(related, /innerHTML/);
-  assert.match(renderJs, /from '\.\.\/core\/related-post\.mjs'/);
+  assert.match(renderJs, /from '\.\.\/core\/related-post\.ts'/);
   assert.match(renderJs, /capRelatedPosts/);
 });
 

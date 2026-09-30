@@ -7,7 +7,7 @@ import { defaultsFromSettings } from '../scripts/config-migration.mjs';
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const settings = parse(settingsText);
 const defaults = defaultsFromSettings(settings);
-const js = await readFile(new URL('../src/js/modules/CodeBlock.js', import.meta.url), 'utf8');
+const js = await readFile(new URL('../src/js/modules/CodeBlock.ts', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/modules/codeBlock.scss', import.meta.url), 'utf8');
 const fragment = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 

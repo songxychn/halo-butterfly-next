@@ -18,7 +18,7 @@ import {
   MASK_FOOTER_DEFAULT,
   resolveMaskFooter,
   shouldRenderFooterMask,
-} from '../src/js/core/footer.mjs';
+} from '../src/js/core/footer.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

@@ -7,7 +7,7 @@ import {
   ASIDE_HIDE_DEFAULT,
   resolveAsideHide,
   shouldApplyHideAside,
-} from '../src/js/core/aside-hide.mjs';
+} from '../src/js/core/aside-hide.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

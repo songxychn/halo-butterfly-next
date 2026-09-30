@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {tagCloudColors} from '../src/js/core/tag-cloud-colors.mjs';
+import {tagCloudColors} from '../src/js/core/tag-cloud-colors.ts';
 
 function luminance(hex) {
   const rgb = hex.slice(1).match(/../g).map(n => parseInt(n, 16) / 255)

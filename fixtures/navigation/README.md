@@ -41,13 +41,13 @@ Hexo 在单独目录复制合成source及配置，改独立URL与本夹具menu�
 先安装当前源码生成的ZIP，并核验已安装文件/包哈希一致。每次改源码或合入master后重新构建与复验；相同alpha版本名会缓存旧资源，运行器每次新建独立headless会话。
 
 ```sh
-pnpm verify
+bun run verify
 node scripts/navigation/check-browser.mjs http://127.0.0.1:18090 .evidence/navigation/two-level
 # 激活 empty.json 后：
 node scripts/navigation/check-browser.mjs http://127.0.0.1:18090 .evidence/navigation/empty --empty
 ```
 
-真实浏览器运行器要求 PATH 提供 `agent-browser`，以工作树与进程独有会话启动headless Chromium；不会连接用户GUI或默认会话。该命令是有浏览器环境时的显式验收，当前CI的 `pnpm verify` 只自动跑夹具映射/拒绝无效输入等离线测试，不应误称CI已执行真实浏览器回归。
+真实浏览器运行器要求 PATH 提供 `agent-browser`，以工作树与进程独有会话启动headless Chromium；不会连接用户GUI或默认会话。该命令是有浏览器环境时的显式验收，当前CI的 `bun run verify` 只自动跑夹具映射/拒绝无效输入等离线测试，不应误称CI已执行真实浏览器回归。
 
 两级场景覆盖1440×1000/390×844、亮暗：Tab到父按钮、Enter/Space展开、Tab进入叶链接、Escape分层关闭及回归；鼠标hover可打开且Escape能在静止指针下关闭；子链接分别按Enter和指针导航；抽屉关闭hidden/inert、打开移焦点、Tab/ShiftTab循环、背景inert与滚动锁、按钮/遮罩关闭；桌面子菜单焦点缩到手机入口，手机抽屉扩大到桌面释放状态；重复初始化复用控制器；恢复overflow-x/y、优先级及其他内联样式。空菜单和搜索插件不可用不会破坏入口及关闭。
 

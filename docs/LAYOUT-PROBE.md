@@ -24,8 +24,8 @@ python3 -B scripts/lab/layout-probe.py build \
 本工具默认使用自己的 `.runtime/probe-lab`、Halo `18092`、Hexo `14001`，与双站默认 `18091/14000` 隔离。启动前确认两个端口空闲，再在当前 checkout 执行：
 
 ```sh
-pnpm install --frozen-lockfile --ignore-scripts
-pnpm build
+bun install --frozen-lockfile --ignore-scripts
+bun run build
 LAB_RUNTIME="$PWD/.runtime/probe-lab" HALO_PORT=18092 HEXO_PORT=14001 \
   HALO_JAR_SOURCE=/path/to/verified/halo-2.26.1.jar \
   python3 -B scripts/lab/lab.py bootstrap \
@@ -60,7 +60,7 @@ python3 -B scripts/lab/layout-probe.py exercise --expect-layout supported
 
 真实 Halo 2.26.1 API 包已确认 `BasePlugin(PluginContext)`、`TemplateNameResolver` 以及 `run.halo.app.theme.router.ModelConst.TEMPLATE_ID`。插件组件通过 `META-INF/plugin-components.idx` 加入 Spring 上下文，路由在上下文关闭时注销。参照 [官方插件模板集成](https://docs.halo.run/developer-guide/plugin/api-reference/server/template-for-theme)与 [公共布局契约](https://docs.halo.run/developer-guide/theme/page-layout)。
 
-离线检查随 `pnpm check` 执行，也可单独运行：
+离线检查随 `bun run check` 执行，也可单独运行：
 
 ```sh
 node --test tests/layout-probe.test.mjs

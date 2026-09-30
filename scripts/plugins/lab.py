@@ -313,7 +313,7 @@ def apply_reference(lab, state, files):
             raise RuntimeError('Refusing to replace unowned Hexo input: ' + relative)
     for relative, value in files.items():
         path = lab.RUNTIME / 'hexo' / relative; path.parent.mkdir(parents=True, exist_ok=True); path.write_text(value)
-    subprocess.run(['pnpm', 'exec', 'hexo', 'generate'], cwd=lab.RUNTIME / 'hexo', check=True, stdout=subprocess.DEVNULL)
+    subprocess.run(['bun', 'run', '--no-install', 'hexo', 'generate'], cwd=lab.RUNTIME / 'hexo', check=True, stdout=subprocess.DEVNULL)
     state['hexoFiles'] = {key: sha(value.encode()) for key, value in files.items()}
 
 
@@ -339,7 +339,7 @@ def reference_asset(lab, state, directory):
     if path.exists(): return
     path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(source.read_bytes())
     state['referenceAssetSha256'] = sha(path.read_bytes()); write(lab.RUNTIME / 'plugins-owner.json', state)
-    subprocess.run(['pnpm', 'exec', 'hexo', 'generate'], cwd=lab.RUNTIME / 'hexo', check=True, stdout=subprocess.DEVNULL)
+    subprocess.run(['bun', 'run', '--no-install', 'hexo', 'generate'], cwd=lab.RUNTIME / 'hexo', check=True, stdout=subprocess.DEVNULL)
 
 
 def backup(lab, client, state):

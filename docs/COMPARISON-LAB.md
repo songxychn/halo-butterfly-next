@@ -4,13 +4,13 @@
 
 ## 初始化与运行
 
-需要 Python 3.9+、Java 21+（本机实测 Corretto 25）、Node.js 24、pnpm 11.19.0、Git、curl、OpenSSL。工具必须在 PATH 中；脚本没有个人目录默认值。首次联网获取依赖，之后可使用本地缓存。两个站点只监听 loopback，默认 Halo `18091`、Hexo `14000`；已被其他进程占用时拒绝启动。
+需要 Python 3.9+、Java 21+（本机实测 Corretto 25）、Node.js 24、Bun 1.4.0、Git、curl、OpenSSL。工具必须在 PATH 中；脚本没有个人目录默认值。首次联网获取依赖，之后可使用本地缓存。两个站点只监听 loopback，默认 Halo `18091`、Hexo `14000`；已被其他进程占用时拒绝启动。
 
 在要验收的主题 checkout 中构建；`--source-sha` 必须来自实际构建 checkout，不能填运行脚本所在 worktree 的其他 SHA。它是调用方声明，主题包字节由 SHA-256 单独标识。未提交的主题修改应先提交后用于正式证据。
 
 ```sh
-pnpm install --frozen-lockfile --ignore-scripts
-pnpm build
+bun install --frozen-lockfile --ignore-scripts
+bun run build
 python3 scripts/lab/lab.py bootstrap \
   --package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
   --source-sha "$(git rev-parse HEAD)"
@@ -42,7 +42,7 @@ python3 scripts/lab/lab.py stop
 
 `fixtures/comparison/content.json` 是双方内容真相源，包含 12 篇文章、1 个自定义页面、分类、标签、导航、固定 UTC 发布时间、分页大小，以及共同的页面背景图。首篇 `article.html` 覆盖标题层级、代码、表格、列表、图片、内部链接。`assets/` 保存双方共用的图片，包含 12 张优化后的 WebP 文章封面、首页和归档等页面使用的图片，以及原有的合成 SVG；两站 `/lab/*` 提供相同字节。首页使用第 09 篇文章的封面。Halo 通过专用附件资源映射读取新运行目录中的 `halo/data/attachments/lab`，不会修改主题 ZIP 或安装后的模板。WebP 封面来源见 `image-sources.json`；照片遵循 [Pexels License](https://www.pexels.com/license/)，`wallpaper.webp` 由用户提供的图片缩放转换而来。新夹具需使用全新 `LAB_RUNTIME` 和端口，不能在旧夹具的播种站上覆盖。
 
-Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的 `fixtures/comparison/hexo/pnpm-lock.yaml` 固定。上游源码和完整第三方资源仅存在运行目录中，不进入仓库或发布包。Halo JAR 摘要在 `versions.json` 中固定，来源为 [Halo 官方 2.26.1 发布资产](https://github.com/halo-dev/halo/releases/tag/v2.26.1)；站点路径和日期按 [Hexo 官方配置](https://hexo.io/docs/configuration) 设置。
+Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的 `fixtures/comparison/hexo/bun.lock` 固定。上游源码和完整第三方资源仅存在运行目录中，不进入仓库或发布包。Halo JAR 摘要在 `versions.json` 中固定，来源为 [Halo 官方 2.26.1 发布资产](https://github.com/halo-dev/halo/releases/tag/v2.26.1)；站点路径和日期按 [Hexo 官方配置](https://hexo.io/docs/configuration) 设置。
 
 | 共同语义 | Hexo 映射 | Halo 映射 |
 | --- | --- | --- |
@@ -55,7 +55,7 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 | 首页动态字幕 | 基础配置关闭 subtitle | 配置为空时仍循环显示“请填写打字文案或者配置随机文案！”；主题缺少关闭开关 |
 | 评论/搜索/代码插件 | 基础配置不接入评论或搜索服务 | 首次初始化停用新实例的可选插件；后续启用视为配置漂移并保留 |
 
-Halo 的 `src/js/page/index.js` 会将空 `typewriter_custom_text` 替换为默认提示，并继续启动 Typed。因此本 profile **没有关闭 Halo 动态字幕**，只关闭了 Hexo 字幕；两站这里仍有可见差异，属于待修主题缺口。实验环境保留这个真实行为，不以空格或隐藏 CSS 伪装关闭。
+Halo 的 `src/js/page/index.ts` 会将空 `typewriter_custom_text` 替换为默认提示，并继续启动 Typed。因此本 profile **没有关闭 Halo 动态字幕**，只关闭了 Hexo 字幕；两站这里仍有可见差异，属于待修主题缺口。实验环境保留这个真实行为，不以空格或隐藏 CSS 伪装关闭。
 
 基础配置不将动画字幕、评论或搜索插件标记为验收通过。这些是待建的独立场景，不能从基础环境结果记作通过。Halo 当前没有统一的懒加载关闭选项；Hexo 基础环境关闭懒加载，Halo 仍执行真实懒加载。当前 12 篇文章均设置封面；无封面回退需另设独立场景验收。代码高亮实现及其他视觉差异保留可见，不用 CSS 覆盖伪装一致。
 
@@ -67,7 +67,7 @@ Halo 的 `src/js/page/index.js` 会将空 `typewriter_custom_text` 替换为默�
 
 凭据仅存在 `halo/credentials.json`，首次生成随机密码，权限强制为 `0600`；脚本不打印密码。数据库、凭据、JAR、上游源码、日志、截图及详细证据都在已忽略的 `.runtime` 中。可提交的验收记录应摘录结果、命令、提交和摘要，不复制这些运行材料。
 
-本工具的离线保护测试随 `pnpm check` 执行，也可单独运行 `python3 -B scripts/lab/test_lab.py`。
+本工具的离线保护测试随 `bun run check` 执行，也可单独运行 `python3 -B scripts/lab/test_lab.py`。
 
 首次播种停用新实例的可选插件时，每次更新前重新读取该插件，只修改 `spec.enabled=false`。若 PUT 返回 409，则以 0.1、0.2、0.4 秒有界退避重新读取最新资源，最多尝试 4 次；插件已停用时不再写入。其他 HTTP 错误、读取失败和持续冲突仍立即或在上限后报错。此处理仅在没有 `seed.json` 的首次初始化分支使用，已有环境仍只核验，不覆盖后来启用的插件。
 

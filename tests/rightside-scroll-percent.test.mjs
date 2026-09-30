@@ -9,7 +9,7 @@ import {
   resolveRightsideScrollPercent,
   shouldShowGoUpPercent,
   updateGoUpPercent,
-} from '../src/js/core/rightside.mjs';
+} from '../src/js/core/rightside.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
@@ -17,7 +17,7 @@ const settingsText = await readFile(new URL('../settings.yaml', import.meta.url)
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const configHtml = await readFile(new URL('../src/html/views/config.html', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/core/rightside.scss', import.meta.url), 'utf8');
-const scrollJs = await readFile(new URL('../src/js/core/scroll.js', import.meta.url), 'utf8');
+const scrollJs = await readFile(new URL('../src/js/core/scroll.ts', import.meta.url), 'utf8');
 
 function rightsideForm() {
   const form = settings.spec.forms.find(item => item.group === 'rightside');

@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
-import { isNavAlwaysPinned, navScrollAppearance } from '../src/js/core/nav-scroll.mjs';
+import { isNavAlwaysPinned, navScrollAppearance } from '../src/js/core/nav-scroll.ts';
 
 const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
 
@@ -55,7 +55,7 @@ test('文章标题切换只绑定 .style.has-post，fixed.style 保持 top:0', a
   assert.match(navScss, /&\.style\.has-post/);
   assert.doesNotMatch(navScss, /&:is\(\.style,\s*\.fixed\)\.has-post/);
   assert.match(navScss, /&\.fixed[\s\S]*?&\.style\s*\{[\s\S]*?top:\s*0/);
-  const scrollJs = await readFile(new URL('../src/js/core/scroll.js', import.meta.url), 'utf8');
+  const scrollJs = await readFile(new URL('../src/js/core/scroll.ts', import.meta.url), 'utf8');
   assert.match(scrollJs, /alwaysPinned:\s*this\.#fixed/);
   assert.doesNotMatch(scrollJs, /if \(this\.#fixed\) return;/);
 });

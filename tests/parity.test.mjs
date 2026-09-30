@@ -8,7 +8,7 @@ const matrix = JSON.parse(await readFile(new URL('../docs/parity/matrix.json', i
 const inventory = JSON.parse(await readFile(new URL('../docs/parity/upstream-5.7.0.json', import.meta.url), 'utf8'));
 const required = JSON.parse(await readFile(new URL('../docs/parity/required-scenarios.json', import.meta.url), 'utf8'));
 
-test('完整离线门禁随 pnpm verify 检查生成文档、实际代码/配置、合同与证据引用', async () => {
+test('完整离线门禁随 bun run verify 检查生成文档、实际代码/配置、合同与证据引用', async () => {
   const result = await checkParity();
   assert.equal(result.total, 897);
   assert.equal(result.required, 897);

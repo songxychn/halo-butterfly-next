@@ -53,7 +53,7 @@ test('模板注入工具栏开关，页面与文章共用 codeBlockPin', async (
 });
 
 test('JS 按开关输出控件：copy 可键盘激活，关闭 copy 不输出按钮', async () => {
-  const js = await readFile(new URL('../src/js/modules/CodeBlock.js', import.meta.url), 'utf8');
+  const js = await readFile(new URL('../src/js/modules/CodeBlock.ts', import.meta.url), 'utf8');
   assert.match(js, /#copyEnabled\(/);
   assert.match(js, /#flag\('enable_code_copy'\)/);
   assert.match(js, /#shrinkMode\(/);

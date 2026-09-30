@@ -17,13 +17,13 @@ import {
   createTranslateState,
   initializeTranslate,
   translatePage,
-} from '../src/js/core/translate.mjs';
+} from '../src/js/core/translate.ts';
 
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const settings = parse(settingsText);
 const defaults = defaultsFromSettings(settings);
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
+const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
 
 function translateForm() {
   const form = settings.spec.forms.find(item => item.group === 'translate');

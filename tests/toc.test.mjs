@@ -12,14 +12,14 @@ import {
   resolveNumber,
   resolveScrollPercent,
   resolveStyleSimple,
-} from '../src/js/core/toc.mjs';
+} from '../src/js/core/toc.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
 const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
 const postHtml = await readFile(new URL('../src/html/post.html', import.meta.url), 'utf8');
 const pageHtml = await readFile(new URL('../src/html/page.html', import.meta.url), 'utf8');
-const renderJs = await readFile(new URL('../src/js/modules/Render.js', import.meta.url), 'utf8');
+const renderJs = await readFile(new URL('../src/js/modules/Render.ts', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/modules/render.scss', import.meta.url), 'utf8');
 
 function tocForm() {
@@ -141,7 +141,7 @@ test('文章页注入 conf；单页不注入；style_simple 仅文章侧栏', ()
 });
 
 test('Render 接线 number / expand / scroll_percent；百分比 textContent 非 HTML', () => {
-  assert.match(renderJs, /from '\.\.\/core\/toc\.mjs'/);
+  assert.match(renderJs, /from '\.\.\/core\/toc\.ts'/);
   assert.match(renderJs, /collapseDepth: resolveCollapseDepth\(this\.#conf\.toc_expand\)/);
   assert.match(renderJs, /applyTocNumbers\(tocEl, resolveNumber\(this\.#conf\.toc_number\)\)/);
   assert.match(renderJs, /percentEl\.textContent = String\(getScrollPercent\(scrollTop, article\)\)/);

@@ -8,7 +8,7 @@ const indexScss = await readFile(new URL('../src/scss/core/index.scss', import.m
 const componentsScss = await readFile(new URL('../src/scss/modules/components.scss', import.meta.url), 'utf8');
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
-const paginationJs = await readFile(new URL('../src/js/modules/Pagination.js', import.meta.url), 'utf8');
+const paginationJs = await readFile(new URL('../src/js/modules/Pagination.ts', import.meta.url), 'utf8');
 const rules = paginationScss.replace(/\/\*[\s\S]*?\*\//g, '');
 
 test('pagination.scss 并列 #pagination .pagination / .pagination，选择器不使用 data-theme', () => {

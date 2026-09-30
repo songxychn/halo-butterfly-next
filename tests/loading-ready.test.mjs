@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { whenContentReady } from '../src/js/core/loading-ready.mjs';
+import { whenContentReady } from '../src/js/core/loading-ready.ts';
 
 test('Loading ends at DOM readiness without waiting for image/plugin window load', () => {
   const doc = new EventTarget();

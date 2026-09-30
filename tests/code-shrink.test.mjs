@@ -3,11 +3,11 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings, migrateConfig } from '../scripts/config-migration.mjs';
-import { resolveCodeShrink } from '../src/js/core/code-shrink.mjs';
+import { resolveCodeShrink } from '../src/js/core/code-shrink.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
-const js = await readFile(new URL('../src/js/modules/CodeBlock.js', import.meta.url), 'utf8');
+const js = await readFile(new URL('../src/js/modules/CodeBlock.ts', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/modules/codeBlock.scss', import.meta.url), 'utf8');
 const fragment = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 

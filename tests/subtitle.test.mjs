@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
-import { customSubtitles, randomSubtitle, runSubtitle, subtitleSource, subtitleTypedOptions } from '../src/js/modules/subtitle.mjs';
+import { customSubtitles, randomSubtitle, runSubtitle, subtitleSource, subtitleTypedOptions } from '../src/js/modules/subtitle.ts';
 import { defaultsFromSettings, migrateConfig } from '../scripts/config-migration.mjs';
 
 function target() {

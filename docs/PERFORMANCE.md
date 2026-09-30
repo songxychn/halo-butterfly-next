@@ -4,7 +4,7 @@ Issue #35 实现 PERF-01/02/03 的测量工具，不改变[工程验收合同](R
 
 ## 固定工具和环境
 
-独立依赖是 Lighthouse13.4.1，锁文件在 `fixtures/performance/`。运行使用Node24与pnpm11.19.0；Chrome固定为现有Playwright1.63.0缓存中的Chrome for Testing153.0.8010.12（revision1243，macOS arm64）。安装器要求明确传入该应用路径，核对可执行文件版本、固定 SHA256，以及仓库冻结的完整应用树 `treeSha256`；采样和比较再次核验，不能只用 install 自记录。官方 mac-arm64 Chrome for Testing 包的可执行文件与 Playwright 1.63.0 revision 1243 的 pin 一致。没有下载或选择最新浏览器的回退逻辑，不自动寻找用户 Chrome，也不连接其 profile/CDP。此固定引擎用于性能实验，不代替 BROWSER 稳定 Safari/Firefox 或真机验收。
+包管理器或锁文件变更后须重新安装，并重新采集双方性能数据。独立依赖是 Lighthouse13.4.1，锁文件在 `fixtures/performance/`。运行使用Node24与Bun 1.4.0；Chrome固定为现有Playwright1.63.0缓存中的Chrome for Testing153.0.8010.12（revision1243，macOS arm64）。安装器要求明确传入该应用路径，核对可执行文件版本、固定 SHA256，以及仓库冻结的完整应用树 `treeSha256`；采样和比较再次核验，不能只用 install 自记录。官方 mac-arm64 Chrome for Testing 包的可执行文件与 Playwright 1.63.0 revision 1243 的 pin 一致。没有下载或选择最新浏览器的回退逻辑，不自动寻找用户 Chrome，也不连接其 profile/CDP。此固定引擎用于性能实验，不代替 BROWSER 稳定 Safari/Firefox 或真机验收。
 
 ```sh
 node scripts/perf/install.mjs --chrome-app '/explicit/cache/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app'
@@ -83,4 +83,4 @@ node scripts/perf/compare.mjs \
 
 输出分别包含`budgetResult`和各PERF场景状态。合同 PERF-03 同时包含主题首屏 JS/CSS 体积预算、按需组件不全站加载、以及失效第三方不无限阻塞 Loading。体积条款已由比较器检查：超预算时 `scenarios.PERF-03` 为 `failed`，不能因为按需/故障注入尚未执行就写成 `incomplete` 从而掩盖体积失败。体积通过时 PERF-03 仍为 `incomplete`，因为按需组件与失效提供商 Loading 恢复不能靠网络体积推导。后续实际故障/按需验证应以独立可审查报告接入，不能手填 true。运行器保存完整样本返回 0、样本未完成返回 2；比较器预算失败返回 1、尚缺完整合同证据返回 2。不存在以 Lighthouse 总分替代合同通过的路径。
 
-工程测试由默认`pnpm verify`执行。真实Lighthouse采样目前按显式CPU窗口执行；正式RC前仍须按原合同把可自动化性能门禁接入固定执行机的CI。共享随机负载机器上的分数不视为固定性能基线。
+工程测试由默认`bun run verify`执行。真实Lighthouse采样目前按显式CPU窗口执行；正式RC前仍须按原合同把可自动化性能门禁接入固定执行机的CI。共享随机负载机器上的分数不视为固定性能基线。

@@ -2,11 +2,12 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import test from 'node:test';
 import vm from 'node:vm';
+import {stripTypeScriptTypes} from 'node:module';
 
 // Execute the page method with only its external browser/chart dependencies mocked.
-const source = (await readFile(new URL('../src/js/page/categories.js', import.meta.url), 'utf8'))
+const source = stripTypeScriptTypes(await readFile(new URL('../src/js/page/categories.ts', import.meta.url), 'utf8'))
   .replace(/^import .*;$/gm, '')
-  .replace('@App([])', '');
+  .replace('App([])(Categories);', '');
 
 function run(chartDom, MainApp, useChart) {
   const component = {};
@@ -15,7 +16,7 @@ function run(chartDom, MainApp, useChart) {
     document: {querySelector: () => chartDom},
     echarts: {use() {}},
     PieChart: component, TitleComponent: component, TooltipComponent: component,
-    GridComponent: component, DataZoomComponent: component, CanvasRenderer: component,
+    GridComponent: component, DataZoomComponent: component, LegendComponent: component, CanvasRenderer: component,
   });
 }
 

@@ -7,7 +7,7 @@ import {
   MASK_HEADER_DEFAULT,
   resolveMaskHeader,
   shouldRenderHeaderMask,
-} from '../src/js/core/mask.mjs';
+} from '../src/js/core/mask.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

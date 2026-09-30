@@ -141,7 +141,7 @@ async function main() {
   Object.assign(process.env, browserEnvironment());
   const fixture = await readJson(path.join(FIXTURE, 'package.json'));
   const installation = await readJson(path.join(RUNTIME, 'installation.json'));
-  assert(installation.version === fixture.dependencies.playwright && installation.lockSha256 === sha256(await readFile(path.join(FIXTURE, 'pnpm-lock.yaml'))), 'Run browser/install.mjs again: fixture/install lock differs');
+  assert(installation.version === fixture.dependencies.playwright && installation.lockSha256 === sha256(await readFile(path.join(FIXTURE, 'bun.lock'))), 'Run browser/install.mjs again: fixture/install lock differs');
   const actual = await readJson(path.join(RUNTIME, 'deps/node_modules/playwright/package.json'));
   assert(actual.version === fixture.dependencies.playwright, 'Installed package version differs from fixture');
   const playwright = await import(pathToFileURL(path.join(RUNTIME, 'deps/node_modules/playwright/index.mjs')));

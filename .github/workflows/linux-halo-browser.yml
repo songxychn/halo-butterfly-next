@@ -69,9 +69,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 11.19.0
+          bun-version: '1.4.0'
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -82,8 +82,8 @@ jobs:
           SOURCE_SHA: ${{ steps.source.outputs.sha }}
         run: |
           test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
-          pnpm install --frozen-lockfile --ignore-scripts
-          pnpm verify
+          bun install --frozen-lockfile --ignore-scripts
+          bun run verify
       - name: Make exact theme object available to the independent harness
         env:
           SOURCE_SHA: ${{ steps.source.outputs.sha }}

@@ -13,7 +13,7 @@ assert(PIN.profiles.includes(args.profile),'Unknown profile');assert(PIN.routes.
 const limit=Number(args.limit||10);assert(Number.isInteger(limit)&&limit>=1&&limit<=10,'--limit must be 1..10 (partial runs cannot pass)');
 await ownRuntime();await longform();
 const install=await readJson(path.join(RUNTIME,'installation.json'));
-assert(install.lighthouse===PIN.lighthouse&&install.dependencyLockSha256===sha256(await readFile(path.join(FIXTURE,'pnpm-lock.yaml'))),'Tool lock changed; reinstall and remeasure both sides');
+assert(install.lighthouse===PIN.lighthouse&&install.dependencyLockSha256===sha256(await readFile(path.join(FIXTURE,'bun.lock'))),'Tool lock changed; reinstall and remeasure both sides');
 assert(sha256(await readFile(install.chrome.binary))===PIN.chrome.executableSha256&&install.chrome.version===PIN.chrome.version&&install.chrome.treeSha256===PIN.chrome.treeSha256&&await treeDigest(install.chrome.app)===PIN.chrome.treeSha256,'Pinned Chrome application changed');
 const cli=path.join(RUNTIME,'deps/node_modules/lighthouse/cli/index.js');assert((await readJson(path.join(path.dirname(cli),'../package.json'))).version===PIN.lighthouse,'Installed Lighthouse changed');
 const runner=sourceIdentity();assert(limit<10||runner.workingTreeClean,'Commit the exact runner before full sampling; dirty pilots remain incomplete');

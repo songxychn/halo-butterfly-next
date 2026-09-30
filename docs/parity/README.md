@@ -38,7 +38,7 @@
 在仓库根目录安装固定依赖后执行：
 
 ```sh
-pnpm install --frozen-lockfile --ignore-scripts
+bun install --frozen-lockfile --ignore-scripts
 node scripts/parity-render.mjs
 node scripts/check-parity.mjs
 node --test tests/parity.test.mjs

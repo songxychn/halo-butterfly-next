@@ -41,7 +41,7 @@ test('#scroll-down 有可见样式与点击滚到内容，不用 CSS 隐藏', as
   assert.match(css, /#scroll-down[^{]*\{[^}]*display:\s*flex/);
   assert.doesNotMatch(css, /#scroll-down[^{]*\{[^}]*display:\s*none/);
 
-  const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
+  const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
   assert.match(commonJs, /getElementById\('scroll-down'\)/);
   assert.match(commonJs, /#Butterfly > \.main/);
   assert.match(commonJs, /offsetTop/);

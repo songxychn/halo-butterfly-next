@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {bindCodeScrollFocus} from '../src/js/core/code-scroll-focus.mjs';
+import {bindCodeScrollFocus} from '../src/js/core/code-scroll-focus.ts';
 
 test('keyboard stop follows the actual raw or enhanced scrolling element and preserves author tab order', () => {
   const previous = {ResizeObserver: globalThis.ResizeObserver, getComputedStyle: globalThis.getComputedStyle, document: globalThis.document};
@@ -35,7 +35,7 @@ test('keyboard stop follows the actual raw or enhanced scrolling element and pre
 });
 
 test('Prism focus transition preserves reading offsets only for the currently focused code block', async () => {
-  const {preserveCodeReadingFocus} = await import('../src/js/core/code-scroll-focus.mjs');
+  const {preserveCodeReadingFocus} = await import('../src/js/core/code-scroll-focus.ts');
   const previous = globalThis.getComputedStyle;
   globalThis.getComputedStyle = element => element;
   try {
