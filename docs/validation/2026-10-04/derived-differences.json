@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "readOnly": true,
+  "queriedAt": "2026-10-04T15:17:04.263181+00:00",
+  "upstreamCommit": "de9046b47a8e04c3db85170e356dde9e68f26d77",
+  "currentCommit": "16a5274a886a3e075c1d35b26c93c2c501d91c33",
+  "method": "git show and git diff of two exact local commit objects; current source and repository evidence inspected, no runtime repeated",
+  "features": [
+    {
+      "feature": "Local old-theme configuration migration",
+      "originalAlreadyHad": "No scripts directory or migration CLI in the inspected upstream commit tree. Original supported configuring the theme in Halo; this check does not prove there were no off-repository migration tools.",
+      "provenDifference": "A local CLI reads grouped JSON or ConfigMap JSON/YAML and converts known 2.0.5/2.0.7 fields to the separate Next theme. It preserves false/empty arrays, emits field-level unsupported/type-mismatch/manual-review actions, creates new files with wx and 0600, and does not call Halo.",
+      "consumerValue": "Helps an existing original-theme user prepare a switch and inspect unsupported fields before importing. This is a switching aid, not a new blogging feature or proof of a fundamentally different product.",
+      "limits": [
+        "Not full data or content migration",
+        "Not lossless",
+        "Does not import into Halo automatically",
+        "Hexo tag-to-HTML conversion absent",
+        "Current runtime import/rollback not rerun"
+      ],
+      "code": [
+        "scripts/migrate-config.mjs",
+        "scripts/config-migration.mjs"
+      ],
+      "docs": [
+        "docs/MIGRATION.md"
+      ],
+      "reproduceDiff": {
+        "from": "de9046b47a8e04c3db85170e356dde9e68f26d77",
+        "to": "16a5274a886a3e075c1d35b26c93c2c501d91c33",
+        "paths": [
+          "scripts/migrate-config.mjs",
+          "scripts/config-migration.mjs"
+        ]
+      }
+    },
+    {
+      "feature": "Image lightbox",
+      "originalAlreadyHad": "Original AmplifyImg used Fancybox and grouped page images. Its toolbar explicitly provided zoom, 1:1, rotate, flip, slideshow, thumbnails and close; these must not be marketed as new features.",
+      "provenDifference": "Current adapter uses bundled Viewer.js. Source explicitly preserves ordinary/download links and modified clicks; accepts data-no-lightbox; honors explicit lightbox groups; derives lazy/current source at open; observes added images; avoids duplicate registration; adds focusable triggers, Chinese labels, background inert preservation and trigger-focus restoration.",
+      "consumerValue": "A maintained image-viewing integration with clearer keyboard/link/lazy-image handling and an MIT runtime dependency. Library replacement or rewrite alone is not independent market differentiation.",
+      "limits": [
+        "Original Fancybox library itself may already provide some accessibility and focus behaviors; no claim that original had none",
+        "No global quality or performance superiority proven",
+        "Synthetic cross-engine evidence is not current final Halo ZIP coverage or physical device testing"
+      ],
+      "code": [
+        "src/js/modules/AmplifyImg.js",
+        "src/js/core/_decorator.js"
+      ],
+      "docs": [
+        "docs/LIGHTBOX-VALIDATION.md"
+      ],
+      "reproduceDiff": {
+        "from": "de9046b47a8e04c3db85170e356dde9e68f26d77",
+        "to": "16a5274a886a3e075c1d35b26c93c2c501d91c33",
+        "paths": [
+          "src/js/modules/AmplifyImg.js",
+          "src/js/core/_decorator.js"
+        ]
+      }
+    },
+    {
+      "feature": "Sidebar options",
+      "originalAlreadyHad": "Original provided author, announcement, category, tag and site-information cards; basic card enable switches, global positioning and site uptime existed. Category list requested 5 and tags 25. These are inherited capabilities.",
+      "provenDifference": "Current source adds page-type visibility, author/announcement toggles, configurable card ordering, category tree/limit/expand behavior, tag sort-before-limit, year/month archive card with ordering/format/limit, and individual site-information fields.",
+      "consumerValue": "Site owners can choose sidebar content and organize larger taxonomies without editing templates. This is a functional configuration expansion relative to the inspected Halo port; many options align with Hexo Butterfly and are not original inventions.",
+      "limits": [
+        "No latest-comment/custom/series cards added by this options change",
+        "Several sorting/tree behaviors depend on JS; bounded no-JS fallback differs",
+        "Archive source reads all public-post archives; large-site performance not established",
+        "Not full Moment date formatting or full matrix acceptance"
+      ],
+      "code": [
+        "src/html/views/aside.html",
+        "src/js/core/aside-options.mjs",
+        "settings.yaml"
+      ],
+      "docs": [
+        "docs/SIDEBAR-OPTIONS.md",
+        "docs/validation/2026-09-29/sidebar-menu-subtitle.json"
+      ],
+      "reproduceDiff": {
+        "from": "de9046b47a8e04c3db85170e356dde9e68f26d77",
+        "to": "16a5274a886a3e075c1d35b26c93c2c501d91c33",
+        "paths": [
+          "src/html/views/aside.html",
+          "src/js/core/aside-options.mjs",
+          "settings.yaml"
+        ]
+      }
+    },
+    {
+      "feature": "Menus",
+      "originalAlreadyHad": "Original used Halo main menus and icon annotations, rendered two levels, and opened a mobile sidebar with click-to-toggle children. Main menu and mobile drawer themselves are inherited.",
+      "provenDifference": "Current recursive template supports deeper Halo trees; adds mobile default-collapse annotation, explicit disclosure buttons/ARIA state, Escape and focus handling, drawer background inert/scroll lock, overflow fallback, and exact route/current-page marking.",
+      "consumerValue": "Accommodates multi-level or long menus and keyboard navigation more explicitly than the original adapter.",
+      "limits": [
+        "Opening/closing menus was already supported",
+        "No claim of full screen-reader, physical-device or Safari acceptance",
+        "Default mobile group behavior changes from collapsed to expanded unless hide is set"
+      ],
+      "code": [
+        "src/html/views/menu-items.html",
+        "src/js/core/navigation.js",
+        "src/js/core/navigation-state.mjs",
+        "annotation-setting.yaml"
+      ],
+      "docs": [
+        "docs/NAVIGATION-OPTIONS.md",
+        "docs/validation/2026-09-29/sidebar-menu-subtitle.json"
+      ],
+      "reproduceDiff": {
+        "from": "de9046b47a8e04c3db85170e356dde9e68f26d77",
+        "to": "16a5274a886a3e075c1d35b26c93c2c501d91c33",
+        "paths": [
+          "src/html/views/menu-items.html",
+          "src/js/core/navigation.js",
+          "src/js/core/navigation-state.mjs",
+          "annotation-setting.yaml"
+        ]
+      }
+    },
+    {
+      "feature": "Homepage subtitle",
+      "originalAlreadyHad": "Original had Typed.js animation, custom multi-line strings, optional random API URL and configured JSON field path. Typing and remote quotes themselves are inherited.",
+      "provenDifference": "Current adds explicit off/static controls; local-only and three named source adapters; validated declarative Typed options; safe string/path handling, bounded failures and local fallback instead of displaying configuration/fetch warnings.",
+      "consumerValue": "Offers optional static/local-only presentation and predictable fallback, and lets owners tune timing without editing JavaScript.",
+      "limits": [
+        "Three external source behaviors use synthetic responses in the cited testing; no live provider availability/CORS/SLA guarantee",
+        "Defaults intentionally retain old 200ms speed and enabled behavior",
+        "Typed options are a whitelist, not arbitrary callbacks/config",
+        "No claim of unique invention: several options adapt fixed Hexo Butterfly behavior"
+      ],
+      "code": [
+        "src/js/page/index.js",
+        "src/js/modules/subtitle.mjs",
+        "settings.yaml"
+      ],
+      "docs": [
+        "docs/SUBTITLE.md",
+        "docs/validation/2026-09-29/sidebar-menu-subtitle.json"
+      ],
+      "reproduceDiff": {
+        "from": "de9046b47a8e04c3db85170e356dde9e68f26d77",
+        "to": "16a5274a886a3e075c1d35b26c93c2c501d91c33",
+        "paths": [
+          "src/js/page/index.js",
+          "src/js/modules/subtitle.mjs",
+          "settings.yaml"
+        ]
+      }
+    }
+  ],
+  "acceptanceBoundary": {
+    "optionsRecordedSource": "e5bac5f7bb4203f4641c269823165a170caa323d",
+    "optionsRecordedArtifact": "62fb76a25c98306a07c50e6fc940765f704b396f2fbfbd27d3a9748239fde34a",
+    "optionsRecordedHalo": "2.26.1",
+    "optionsRecordedBrowser": {
+      "engine": "Chromium",
+      "version": "151.0.7922.34",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "modes": [
+        "light",
+        "dark"
+      ]
+    },
+    "matrixStatus": "implemented-unverified",
+    "coverage": "Bounded configuration and interaction scenarios only; not full per-entry acceptance",
+    "note": "Historical bounded runtime/review evidence belongs to its exact recorded SHA, not automatically the current head. Current task inspected source differences only."
+  },
+  "marketConclusion": "Evidence supports describing an independently maintained derivative with migration assistance and expanded configuration/interaction behavior. It does not establish a wholly original theme, official succession, marketplace approval or unique value solely from code churn/test counts."
+}
