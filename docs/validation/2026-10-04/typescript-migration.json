@@ -1,0 +1,163 @@
+{
+  "kind": "bounded-typescript-migration-review",
+  "baselineSource": "f47a0e7a815fddb02210b61dc3a9fb3f251197dd",
+  "candidateSource": "28470838aab884d6f9ca1a7973a1cd3c13d35c06",
+  "originalPRSource": "660f121aede8008dba850ebfbb7c5696c129e00d",
+  "artifacts": {
+    "A": {
+      "sha": "f47a0e7a815fddb02210b61dc3a9fb3f251197dd",
+      "path": "/tmp/pr350-runtime/packages/baseline.zip",
+      "sha256": "62fb76a25c98306a07c50e6fc940765f704b396f2fbfbd27d3a9748239fde34a"
+    },
+    "B": {
+      "sha": "55e5794b86588f929eb0b00c164034586c971f6e",
+      "path": "/tmp/pr350-runtime/packages/candidate.zip",
+      "sha256": "4d76eec6be5ee53d639fef73bf10a5a14b63bde2cb8078738f02ea2b38ec515a",
+      "equivalentRebuildSource": "28470838aab884d6f9ca1a7973a1cd3c13d35c06",
+      "equivalentRebuildAttribution": "Root reports final docs/CI candidate verify 547 passed and byte-identical package; original frozen package remains attributed to 55e5794."
+    }
+  },
+  "engineering": {
+    "command": "bun run verify",
+    "testsPassed": 547,
+    "packageFiles": 127,
+    "node": "24.11.0",
+    "bun": "1.4.0",
+    "repeatedBuildSameBytes": true
+  },
+  "ci": {
+    "build": {
+      "run": 37213552627,
+      "result": "success",
+      "source": "28470838aab884d6f9ca1a7973a1cd3c13d35c06"
+    },
+    "linuxCandidate": {
+      "run": 37213552433,
+      "result": "skipped"
+    },
+    "linuxBaseline": {
+      "run": 37213576389,
+      "result": "skipped"
+    },
+    "linuxSkipReason": "Repository API returned PUBLIC; the existing private-only job condition was retained. No new Linux acceptance was obtained.",
+    "originalLinux": {
+      "run": 36652217131,
+      "source": "660f121aede8008dba850ebfbb7c5696c129e00d",
+      "result": "failure",
+      "passed": 106,
+      "total": 120
+    }
+  },
+  "synthetic": {
+    "pageEntryChecks": 78,
+    "lightboxCombinations": 7,
+    "bootstrapEquivalentCases": 960,
+    "domReadyCases": 10,
+    "chartRenderedDataComparisons": 18,
+    "chartLegendClick": "unverified; original diagnostic assertion failures retained",
+    "cacheIncident": "First synthetic attempt stopped at WebKit newPage after copied framework symlinks were expanded. Original cache blank-page preflight passed; copying with preserved symlinks allowed all 78 checks to complete. Original logs retained."
+  },
+  "realHalo": {
+    "environment": {
+      "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+      "fixtureSha256": "7ef008b4ab2684b58c39ae5135c2bf839d7b24d858e42717e0f0c93781e7c202",
+      "labScriptSha256": "bcfb9e79ee4fd1789933ed30b13798df2ed411017db81f829f876f50715ce0a0",
+      "java": "openjdk version \"25\" 2025-09-16 LTS\nOpenJDK Runtime Environment Corretto-25.0.0.36.2 (build 25+36-LTS)\nOpenJDK 64-Bit Server VM Corretto-25.0.0.36.2 (build 25+36-LTS, mixed mode, sharing)\n",
+      "newDatabaseBeforeStart": true
+    },
+    "schedule": [
+      "01-A",
+      "02-B",
+      "03-B",
+      "04-A"
+    ],
+    "phaseResults": {
+      "01-A": {
+        "observed": 30,
+        "passed": 24,
+        "failed": 6
+      },
+      "02-B": {
+        "observed": 30,
+        "passed": 25,
+        "failed": 5
+      },
+      "03-B": {
+        "observed": 30,
+        "passed": 26,
+        "failed": 4
+      },
+      "04-A": {
+        "observed": 30,
+        "passed": 27,
+        "failed": 3
+      }
+    },
+    "byVariantAndEngine": {
+      "A-chromium": {
+        "passed": 20
+      },
+      "A-firefox": {
+        "passed": 11,
+        "failed": 9
+      },
+      "A-webkit": {
+        "passed": 20
+      },
+      "B-chromium": {
+        "passed": 19,
+        "failed": 1
+      },
+      "B-firefox": {
+        "passed": 14,
+        "failed": 6
+      },
+      "B-webkit": {
+        "passed": 18,
+        "failed": 2
+      }
+    },
+    "routes": [
+      "/",
+      "/archives/",
+      "/tags/butterfly/",
+      "/archives/preview-1/",
+      "/about-preview/"
+    ],
+    "views": [
+      "1440x1000 light",
+      "390x844 dark"
+    ],
+    "pluginVersions": {
+      "search": "1.7.1",
+      "comment": "3.3.2"
+    },
+    "failureBoundary": "All 18 failing observations retain pending resources; four also failed navigation/readiness and one candidate WebKit observation also timed out taking a screenshot. No failed observations were replaced.",
+    "functionalChecks": "Executed subtitle/sidebar/menu, code-collapse, Chromium clipboard and lightbox focus checks had no failed assertions. Failed page initialization reduced code/lightbox coverage to 23 of 24 eligible observations.",
+    "controllerChanges": "One browser harness SHA across all phases. State controller revisions only normalized generated menu timestamps and public visit statistics; exact versions and per-invocation attribution retained, older snapshots reconstructed against previously recorded hashes.",
+    "rawReportDigests": {
+      "01-A": "8dcfb6ae814074ccbd670b3f8e0c250cff3851b219ffb500a742f882f60add71",
+      "02-B": "e43b5db83512a732e530d461c47c0d5e36ccd92f657a70c826add3a992cdc8f9",
+      "03-B": "2a557740a0a45c7f7af9d5df76a28b119e8aed64a7fcf5d44d7c4f4ff1d8fd3a",
+      "04-A": "943ec7c2b42255082b1e9a3040b8d48149925c6ec931e2d99f8194c1bad137ca"
+    }
+  },
+  "review": {
+    "frontend": {
+      "actor": "/root/independent_review",
+      "source": "28470838aab884d6f9ca1a7973a1cd3c13d35c06",
+      "result": "PASS for static and bounded supplementary checks"
+    },
+    "toolchain": {
+      "actor": "/root/pr350_toolchain_review",
+      "source": "28470838aab884d6f9ca1a7973a1cd3c13d35c06",
+      "result": "PASS after fixed historical pnpm build selection"
+    }
+  },
+  "limits": [
+    "This finite macOS experiment does not establish statistical equivalence, Linux acceptance, full plugin contracts or public release readiness.",
+    "A and B each passed 51/60, but failed browser/route distributions differ. No claim that all pending resources share one root cause.",
+    "Public alpha resource-loading blocker and search focus exception retain their prior scope; no 1.0 matrix entries promoted.",
+    "Generated chart fixture tests establish data rendering, not complete chart interaction or production layout acceptance."
+  ]
+}
