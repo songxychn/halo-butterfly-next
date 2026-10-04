@@ -1,5 +1,11 @@
 # 持续对齐进度
 
+## 2026-10-04：应用市场上架准备
+
+基于 `16a5274a886a3e075c1d35b26c93c2c501d91c33` 整理[上架差距清单](APP-STORE-READINESS.md)与[派生说明草稿](APP-STORE-DERIVATION.md)，纳入 9 月 29 日成果，保留各历史验收的原始 SHA、包身份和范围。独立只读核验确认上游未归档，固定 README 无明确停维声明；公开贡献查到 songxychn 的 issue #146，不能据此宣称本分支新增功能已经贡献上游。
+
+本次官方 latest Release 查询仍为 Halo 2.26.1 / SearchWidget 1.7.1，未重跑运行验收、未解除资源加载阻塞。市场独立上架依据、最终候选及公开材料仍待补齐；没有对外联系、创建市场应用、签署协议或发布。核验数据见 [2026-10-04 记录](validation/2026-10-04/app-store-source-check.json)。
+
 ## 2026-09-29：侧栏、菜单和字幕配置
 
 [PR #347](https://github.com/songxychn/halo-butterfly-next/pull/347) 补齐侧栏页面/卡片配置、分类树及排序、标签与归档选项，菜单默认折叠/多层/长列表/当前路由，以及字幕来源与 Typed 参数。产品提交 `e5bac5f7bb4203f4641c269823165a170caa323d` 已获非作者独立审查；本地 `pnpm verify` 为 540 项测试及 127 文件包检查通过。

@@ -27,6 +27,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 - [安装、备份、同 ID 升级及回退](docs/INSTALL-UPGRADE.md)
 - [从原 theme-butterfly 迁移](docs/MIGRATION.md)
 - [alpha.3 发行说明草稿](docs/RELEASE-alpha.3.md)
+- [应用市场上架差距与派生说明](docs/APP-STORE-READINESS.md)（准备中，尚不具备提交条件）
 
 ## 本轮变化
 
