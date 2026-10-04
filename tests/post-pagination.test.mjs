@@ -9,7 +9,7 @@ import {
   paginationOrder,
   paginationOrderFromHalo,
   resolvePostPagination,
-} from '../src/js/core/post-pagination.mjs';
+} from '../src/js/core/post-pagination.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

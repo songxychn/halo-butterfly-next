@@ -1,8 +1,9 @@
+const bootstrapSource = await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
-import {enhanceCodeWhenReady, loadPrismAfterPaint} from '../src/js/core/prism-ready.mjs';
+import {enhanceCodeWhenReady, loadPrismAfterPaint} from '../src/js/core/prism-ready.ts';
 
 const components = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const layout = await readFile(new URL('../src/html/views/layout.html', import.meta.url), 'utf8');
@@ -10,8 +11,8 @@ const layout = await readFile(new URL('../src/html/views/layout.html', import.me
 test('Prism URL is configuration only, with early DOM-ready gate; page bundle remains deferred', () => {
   assert.doesNotMatch(components, /<script[^>]*src="[^"\n]*plugins\/prism\/prism\.min\.js/);
   assert.match(components, /window\.MainApp\.prismSource =/);
-  assert.match(components, /window\.MainApp\.codeDomReady = new Promise/);
-  assert.match(components, /document\.addEventListener\('DOMContentLoaded', resolve, \{once: true\}\)/);
+  assert.match(bootstrapSource, /window\.MainApp\.codeDomReady = new Promise/);
+  assert.match(bootstrapSource, /document\.addEventListener\('DOMContentLoaded', resolve, \{once: true\}\)/);
   const page = layout.match(/<script\b[^>]*th:src="[^"\n]*'js\/'[^"\n]*"[^>]*>/)?.[0];
   assert.match(page, /\sdefer(?:\s|>)/);
   assert.doesNotMatch(page, /\sasync(?:\s|=|>)|type="module"/);

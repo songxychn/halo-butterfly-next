@@ -9,7 +9,7 @@
 构建后可在自有 comparison lab 上复验：
 
 ```sh
-pnpm verify
+bun run verify
 BASE_URL=http://127.0.0.1:18121 \
 LAB_RUNTIME=/absolute/path/to/.runtime/release-readiness \
 BROWSER_RUNTIME=/absolute/path/to/.runtime/browser-matrix \

@@ -29,7 +29,7 @@
 
 ```sh
 node scripts/browser/install.mjs
-pnpm --dir .runtime/plugin-a11y add --save-exact --ignore-scripts axe-core@4.12.1
+bun add --cwd .runtime/plugin-a11y --exact --ignore-scripts axe-core@4.12.1
 python3 scripts/search-comment/auth.py --lab-runtime .runtime/release-readiness
 BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/check.mjs \
   --lab-runtime .runtime/release-readiness \
@@ -45,7 +45,7 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/a11y.mjs \
 
 `check.mjs` 会写入带“合成验收/合成回复”标记的测试评论，记录资源 ID，临时改变评论权限、文章/单页的 `allowComment` 和插件开关，在 `finally` 中恢复原值。测试评论留在合成站供追溯。测试前两个插件必须启用；不要在运行期间改变该站配置或安装包。
 
-每个输出目录只对应一次运行，使用新目录保留失败证据。`check.mjs` 如有任意失败会返回非零；当前固定搜索插件的焦点缺陷会使完整流程结果为 `failed`，不能删掉断言使总结果变绿。Escape 和遮罩关闭分别记录焦点断言，四组合合计八项，关闭本身成功不能代替焦点恢复。a11y 脚本有任何违规同样返回非零。脚本不进入默认无服务 CI；`pnpm verify` 通过并不等于这些真实场景通过。
+每个输出目录只对应一次运行，使用新目录保留失败证据。`check.mjs` 如有任意失败会返回非零；当前固定搜索插件的焦点缺陷会使完整流程结果为 `failed`，不能删掉断言使总结果变绿。Escape 和遮罩关闭分别记录焦点断言，四组合合计八项，关闭本身成功不能代替焦点恢复。a11y 脚本有任何违规同样返回非零。脚本不进入默认无服务 CI；`bun run verify` 通过并不等于这些真实场景通过。
 
 ## 场景范围
 

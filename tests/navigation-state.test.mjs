@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { isCurrentMenuLink } from '../src/js/core/navigation-state.mjs';
+import { isCurrentMenuLink } from '../src/js/core/navigation-state.ts';
 
 test('当前菜单匹配同源页面、尾斜杠和带过滤参数的链接', () => {
   const current = 'https://example.test/archives/?page=2';

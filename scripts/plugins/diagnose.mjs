@@ -252,7 +252,7 @@ async function main() {
   assert(browserOwner.owner === 'halo-butterfly-next-browser-matrix' && browserOwner.schema === 1, 'Pinned browser runtime owner required');
   const installation = await readJson(path.join(browserRuntime, 'installation.json'));
   const pinned = await readJson(path.join(REPO, 'fixtures/browser/package.json'));
-  assert(installation.version === pinned.dependencies.playwright && installation.lockSha256 === sha256(await readFile(path.join(REPO, 'fixtures/browser/pnpm-lock.yaml'))), 'Browser install lock mismatch');
+  assert(installation.version === pinned.dependencies.playwright && installation.lockSha256 === sha256(await readFile(path.join(REPO, 'fixtures/browser/bun.lock'))), 'Browser install lock mismatch');
   const actualPlaywright = await readJson(path.join(browserRuntime, 'deps/node_modules/playwright/package.json'));
   assert(actualPlaywright.version === pinned.dependencies.playwright, 'Actual Playwright package differs from lock');
   const packagePath = await realpath(options['--theme-package']), packageHash = sha256(await readFile(packagePath));

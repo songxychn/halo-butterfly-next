@@ -2,19 +2,19 @@
 
 本工具为 `BROWSER-04` 提供可重复的基础回归设施。它扫描合成对照站的 10 条核心路由，分别运行 1440×1000、390×844 与亮暗组合，每个引擎 40 页。报告始终保留 `contractAcceptance: false`：尚未覆盖完整 P/P+、全部交互、插件、真机与人工判断，不能据此关闭验收合同。
 
-Playwright **1.63.0** 与 `playwright-core` 的精确版本、包完整性由 `fixtures/browser/package.json`、`pnpm-lock.yaml` 固定；[官方 npm 发布元数据](https://registry.npmjs.org/playwright/1.63.0)的身份摘录在 `upstream.json`。安装使用 pnpm **11.19.0**、Node.js 20 或更新版本，不自动安装包管理器。
+Playwright **1.63.0** 与 `playwright-core` 的精确版本、包完整性由 `fixtures/browser/package.json`、`bun.lock` 固定；[官方 npm 发布元数据](https://registry.npmjs.org/playwright/1.63.0)的身份摘录在 `upstream.json`。安装使用 Bun **1.4.0**、Node.js 20 或更新版本，不自动安装包管理器。
 
 [Playwright 官方说明](https://playwright.dev/docs/browsers)中，每个版本配套特定浏览器构建。此工具只启动它下载的 Chromium（`channel: chromium` 新无头模式）、Firefox 与 WebKit。后两者依赖自动化补丁，WebKit 也不是实际 Safari；这些结果不替代 `BROWSER-01/02/03` 的品牌稳定版证据。手机场景是独立无头浏览器的视口，不是真机。
 
 ## 安装
 
-在本项目 worktree 中执行，确保 `node` 和精确版本 `pnpm` 已在 PATH：
+在本项目 worktree 中执行，确保 `node` 和精确版本 `bun` 已在 PATH：
 
 ```sh
 node scripts/browser/install.mjs
 ```
 
-依赖、pnpm store、下载引擎、临时配置与报告全部放在当前 worktree 的 `.runtime/browser-matrix/`。脚本强制 `PLAYWRIGHT_BROWSERS_PATH` 指向其中的 `browsers/`，拒绝外部覆盖和 `SELENIUM_REMOTE_URL` 隐式连接；不安装系统依赖、全局浏览器，不连接已有 Chrome/Safari，不读取用户浏览器配置。缓存存在但无所属标识、所属标识不符或目录指向外部时拒绝认领。重复安装复用下载缓存。
+依赖、Bun 缓存、下载引擎、临时配置与报告全部放在当前 worktree 的 `.runtime/browser-matrix/`。脚本强制 `PLAYWRIGHT_BROWSERS_PATH` 指向其中的 `browsers/`，拒绝外部覆盖和 `SELENIUM_REMOTE_URL` 隐式连接；不安装系统依赖、全局浏览器，不连接已有 Chrome/Safari，不读取用户浏览器配置。缓存存在但无所属标识、所属标识不符或目录指向外部时拒绝认领。重复安装复用下载缓存。包管理器迁移后需重新运行安装器生成与 `bun.lock` 匹配的安装记录。
 
 下载失败时命令非零退出并保留日志和已有缓存。可在网络恢复后重试同一命令。运行阶段某个引擎不存在或无法启动会记录 `unavailable`，不会改用 Chromium 冒充；可用 `--engines chromium,firefox` 限定已安装引擎，但遗漏引擎仍计入 `incomplete`。Linux 缺少系统库也属于明确缺口，本工具不会自行修改系统。
 

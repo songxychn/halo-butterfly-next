@@ -9,7 +9,7 @@ import {
   resolveIndexPostContentMethod,
   truncateContent,
   truncatePlain,
-} from '../src/js/core/index-post-content.mjs';
+} from '../src/js/core/index-post-content.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

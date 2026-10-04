@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
-import { CHARS_PER_MINUTE, countPostChars, minutesToRead, stripHtmlToText } from '../src/js/core/post-meta.mjs';
+import { CHARS_PER_MINUTE, countPostChars, minutesToRead, stripHtmlToText } from '../src/js/core/post-meta.ts';
 
 const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
 
@@ -101,7 +101,7 @@ test('字数/时长纯函数：空串、短文、去标签，且与 500 字/分�
 });
 
 test('客户端不再用 run_meta 覆盖服务端字数', async () => {
-  const postJs = await readFile(new URL('../src/js/page/post.js', import.meta.url), 'utf8');
+  const postJs = await readFile(new URL('../src/js/page/post.ts', import.meta.url), 'utf8');
   assert.doesNotMatch(postJs, /run_meta/);
   assert.doesNotMatch(postJs, /字数总计 \$\{/);
   const scss = await readFile(new URL('../src/scss/page/post.scss', import.meta.url), 'utf8');

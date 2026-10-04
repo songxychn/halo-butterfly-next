@@ -2,13 +2,13 @@
 
 私有仓库的 `Linux Halo browser comparison` 工作流用于对照 macOS 的 Firefox 资源停滞调查（#338）。它不改变主题资源顺序、网络请求头或断言，不对失败页面重试后改绿；Linux 成功也不能直接证明 macOS 问题已修复。
 
-仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Node 24、Java 21、pnpm 11.19.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.7.1 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
+仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Node 24、Java 21、Bun 1.4.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.7.1 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
 
 ## 触发与包归属
 
 手动 `workflow_dispatch` 必须传 `source_sha` 完整小写40位提交SHA。PR只在本工作流或 `scripts/ci/linux-halo/` 路径变更时触发，并限制同私有仓库的PR；PR默认验证精确head SHA，不以合成merge ref冒充源版本。
 
-工作流分开检出 harness 和 theme-source：后者严格匹配输入SHA，在干净工作树执行冻结安装和 `pnpm verify`。工作流显式设置 `PYTHONDONTWRITEBYTECODE=1`，避免 Python 测试在 Linux 源码目录产生 `__pycache__`；源码干净检查仍包含所有未跟踪文件。harness从本地theme-source取得精确Git对象，不改自己的工作树、不抓全部旧历史。安装浏览器前把精确harness checkout克隆到`RUNNER_TEMP/h`，保留同一SHA，避免GitHub长工作目录触发Chromium的Unix socket路径上限；计算包含`org.chromium.Chromium.XXXXXX/SingletonSocket`的路径字节必须小于108。原checkout和主题源码不移动。报告分别记录harness SHA、theme SHA和ZIP SHA-256；安装后逐文件核对ZIP。未来主题候选变更时可重新指定SHA，本次通过不泛化为未来包通过。
+工作流分开检出 harness 和 theme-source：后者严格匹配输入SHA，在干净工作树执行冻结安装和 `bun run verify`。工作流显式设置 `PYTHONDONTWRITEBYTECODE=1`，避免 Python 测试在 Linux 源码目录产生 `__pycache__`；源码干净检查仍包含所有未跟踪文件。harness从本地theme-source取得精确Git对象，不改自己的工作树、不抓全部旧历史。安装浏览器前把精确harness checkout克隆到`RUNNER_TEMP/h`，保留同一SHA，避免GitHub长工作目录触发Chromium的Unix socket路径上限；计算包含`org.chromium.Chromium.XXXXXX/SingletonSocket`的路径字节必须小于108。原checkout和主题源码不移动。报告分别记录harness SHA、theme SHA和ZIP SHA-256；安装后逐文件核对ZIP。未来主题候选变更时可重新指定SHA，本次通过不泛化为未来包通过。
 
 ## 合成站与覆盖
 

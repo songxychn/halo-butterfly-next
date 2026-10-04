@@ -69,9 +69,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 11.19.0
+          bun-version: '1.4.0'
+      - name: Select the exact source package manager
+        id: theme-manager
+        working-directory: theme-source
+        run: |
+          manager=$(node -p "JSON.parse(require('node:fs').readFileSync('package.json', 'utf8')).packageManager")
+          case "$manager" in
+            pnpm@11.19.0) test -f pnpm-lock.yaml ;;
+            bun@1.4.0) test -f bun.lock ;;
+            *) echo "Unsupported source package manager: $manager" >&2; exit 1 ;;
+          esac
+          printf 'manager=%s\n' "$manager" >> "$GITHUB_OUTPUT"
+      - uses: pnpm/action-setup@v4
+        if: steps.theme-manager.outputs.manager == 'pnpm@11.19.0'
+        with:
+          version: '11.19.0'
+          run_install: false
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -80,10 +96,20 @@ jobs:
         working-directory: theme-source
         env:
           SOURCE_SHA: ${{ steps.source.outputs.sha }}
+          THEME_PACKAGE_MANAGER: ${{ steps.theme-manager.outputs.manager }}
         run: |
           test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
-          pnpm install --frozen-lockfile --ignore-scripts
-          pnpm verify
+          case "$THEME_PACKAGE_MANAGER" in
+            pnpm@11.19.0)
+              pnpm install --frozen-lockfile --ignore-scripts
+              pnpm verify
+              ;;
+            bun@1.4.0)
+              bun install --frozen-lockfile --ignore-scripts
+              bun run verify
+              ;;
+            *) echo "Unsupported source package manager" >&2; exit 1 ;;
+          esac
       - name: Make exact theme object available to the independent harness
         env:
           SOURCE_SHA: ${{ steps.source.outputs.sha }}

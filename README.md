@@ -54,11 +54,11 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 ## 源码与构建
 
-需要 Node.js 24、pnpm 11.19.0，以及 Python 3（本地守卫检查）。
+需要 Node.js 24、Bun 1.4.0，以及 Python 3（本地守卫检查）。Bun 负责依赖管理和脚本入口，构建与测试仍由 Node 24 执行。使用 `bun run build`，避免与 Bun 自带的 `bun build` 打包命令混淆。
 
 ```sh
-pnpm install --frozen-lockfile --ignore-scripts
-pnpm verify
+bun install --frozen-lockfile --ignore-scripts
+bun run verify
 ```
 
 输出 `dist/halo-butterfly-next-0.1.0-alpha.3.zip`。源码在 `src/`；`templates/` 与 `dist/` 为生成物，不手工修改。详见[对应源码与构建说明](docs/SOURCE-BUILD.md)、[双站实验室](docs/COMPARISON-LAB.md)和[贡献流程](CONTRIBUTING.md)。无服务 CI 通过不能替代真实 Halo 安装与插件交互验证。
@@ -68,3 +68,5 @@ pnpm verify
 主题沿用 [GPL-3.0](LICENSE)，保留小红及历史贡献者署名；其他组件许可见[第三方资源说明](docs/THIRD_PARTY.md)和[改写来源清单](third-party-licenses/UPSTREAM-ATTRIBUTION.txt)。旧 Font Awesome Pro、旧字体和旧默认照片不属于当前安装包；公开范围不为旧历史资源追加授权。
 
 [公开 alpha 计划](docs/PUBLIC-ALPHA.md)、[完整功能矩阵](docs/parity/MATRIX.md)和[1.0 验收合同](docs/RELEASE-ACCEPTANCE.md)继续保留各项未完成状态。
+
+自维护浏览器代码统一使用 TypeScript（`src/js/**/*.ts`、`src/plugins/loading/*.ts`），运行 `bun run typecheck` 做严格类型检查；`bun run verify` 已包含此步骤。Node 24 直接加载测试引用的可擦除 TS 语法，测试脚本仍使用 `node:test`。第三方压缩库保留 JS，使用声明文件描述调用边界。模板只注入 Halo 数据，首屏逻辑由 `src/js/bootstrap.ts` 构建后同步内联，页面资源仍输出原有 `.min.js` 文件名。

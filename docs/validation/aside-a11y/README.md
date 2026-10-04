@@ -11,10 +11,10 @@ Issue #28 修复作者卡片欢迎链接的小字对比度和重复键盘入口�
 验收依据是 [WCAG 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) 的普通文字至少4.5:1，以及 [WCAG 2.4.7](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html) 的可见键盘焦点。实际结果记录在本地 `.evidence/aside-a11y/`，不提交截图或凭据。
 
 ```sh
-pnpm verify
+bun run verify
 node scripts/aside-a11y/check-browser.mjs http://127.0.0.1:18095 .evidence/aside-a11y/final
 ```
 
-先在独立18095安装当前SHA生成的包并逐文件核对。运行器用新的独立headless会话，验证1440×1000、390×844与亮暗；每组测正常、hover、真实Tab焦点、Tab移出及ShiftTab回归，原生Enter仅新开一个配置的同源about标签页并保留原页，记录不透明计算色的精确对比度、局部axe与截图。它只允许明确传入该任务隔离站，要求现有 `fixtures/comparison` 合成内容，且不更改服务端配置。真实浏览器不是当前CI的自动步骤；CI仍由 `pnpm verify` 执行工程测试和构建。
+先在独立18095安装当前SHA生成的包并逐文件核对。运行器用新的独立headless会话，验证1440×1000、390×844与亮暗；每组测正常、hover、真实Tab焦点、Tab移出及ShiftTab回归，原生Enter仅新开一个配置的同源about标签页并保留原页，记录不透明计算色的精确对比度、局部axe与截图。它只允许明确传入该任务隔离站，要求现有 `fixtures/comparison` 合成内容，且不更改服务端配置。真实浏览器不是当前CI的自动步骤；CI仍由 `bun run verify` 执行工程测试和构建。
 
 当前插件状态、包哈希、安装文件一致性和独立审查结论随最终本地证据补充。局部通过不能代替全站A11Y合同或上游全部作者卡片功能验收。

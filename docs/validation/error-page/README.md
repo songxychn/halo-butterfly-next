@@ -20,7 +20,7 @@ Halo 的 [错误页模板契约](https://docs.halo.run/developer-guide/theme/tem
 只在 root 明确移交的 18095/14005（或另行分配的 18096）上运行。先用 `lsof` 核对监听 PID、cwd、`lab.json` 所有者和端口，再备份完整配置、已装包身份与参考站输入。共享参考站 18091/14000 等不参与修改。凭据由 `scripts/lab/lab.py` 的私有文件读取，不打印或提交。
 
 ```sh
-pnpm verify
+bun run verify
 # 先用 scripts/lab/lab.py install 安装当前干净 SHA 的 ZIP，核对安装文件字节。
 python3 scripts/error-page/check-http.py --base http://127.0.0.1:18095 --output .evidence/error-page/final/http
 python3 scripts/error-page/profile.py apply --profile default --base http://127.0.0.1:18095 --lab-runtime /path/to/assigned/runtime --backup .evidence/error-page/original-error404.json
@@ -35,4 +35,4 @@ python3 scripts/error-page/profile.py restore --base http://127.0.0.1:18095 --la
 
 参考站需保留配置副本和输入哈希，仅把 `error_404.enable` 打开并使用相同合成背景/字幕生成 `/404.html`；记录该静态文件的 200 与 Halo 失效路径的 404 是不同契约。完成后恢复参考配置并重新生成，保留恢复证明。
 
-真实浏览器和服务器验收不是当前 CI 自动步骤。CI 的 `pnpm verify` 检查工程测试、构建，以及安装包必须包含 404 模板和对应 JS/CSS；不能等同于运行时验收或独立审查通过。
+真实浏览器和服务器验收不是当前 CI 自动步骤。CI 的 `bun run verify` 检查工程测试、构建，以及安装包必须包含 404 模板和对应 JS/CSS；不能等同于运行时验收或独立审查通过。

@@ -451,11 +451,6 @@
   th:fragment="codeBlockPin"
 >
   <script id="codeBlockScript" th:inline="javascript">
-    // Capture DOM readiness before deferred page modules run. The code module
-    // requests Prism only after the visible page has had a paint opportunity.
-    window.MainApp.codeDomReady = new Promise(resolve => {
-      document.addEventListener('DOMContentLoaded', resolve, {once: true});
-    });
     window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
     Object.assign(window.MainApp.conf, {
       enable_code: /*[[${theme.config.render.enable_code}]]*/ true,

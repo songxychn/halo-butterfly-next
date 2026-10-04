@@ -9,13 +9,13 @@ import {
   shouldShowReadmodeButton,
   createExitReadmodeButton,
   enterReadMode,
-} from '../src/js/core/rightside.mjs';
+} from '../src/js/core/rightside.ts';
 
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const settings = parse(settingsText);
 const defaults = defaultsFromSettings(settings);
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
+const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/core/readmode.scss', import.meta.url), 'utf8');
 const indexScss = await readFile(new URL('../src/scss/core/index.scss', import.meta.url), 'utf8');
 

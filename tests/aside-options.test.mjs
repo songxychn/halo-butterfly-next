@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
-import { sortTags, limitItems, formatArchiveDate } from '../src/js/core/aside-options.mjs';
+import { sortTags, limitItems, formatArchiveDate } from '../src/js/core/aside-options.ts';
 const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'))).aside;
 const tag = (name, count) => ({ dataset: { name, count: String(count) } });
 
@@ -54,7 +54,7 @@ test('页面显示在服务端决定主栏宽度；分类标签使用真实 Find
 });
 
 test('全为空分类时保留服务端空状态，不替换为无内容的侧栏', async () => {
-  const { initializeAsideOptions } = await import('../src/js/core/aside-options.mjs');
+  const { initializeAsideOptions } = await import('../src/js/core/aside-options.ts');
   const tree = {
     children: [],
     append(node) { this.children = [node]; },

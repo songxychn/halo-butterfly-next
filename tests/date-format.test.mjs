@@ -3,12 +3,12 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
-import { applyRelativeDates, formatRelative } from '../src/js/core/relative-date.mjs';
+import { applyRelativeDates, formatRelative } from '../src/js/core/relative-date.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
 const source = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
+const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
 
 function postMetaFragment(html) {
   const start = html.indexOf('th:fragment="postMeta"');

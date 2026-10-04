@@ -16,7 +16,7 @@ import {
   resolveStyle,
   resolveUpdatedAt,
   shouldShow,
-} from '../src/js/core/notice-outdate.mjs';
+} from '../src/js/core/notice-outdate.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

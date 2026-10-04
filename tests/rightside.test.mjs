@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
-import { toggleRightsideConfigHide } from '../src/js/core/rightside.mjs';
+import { toggleRightsideConfigHide } from '../src/js/core/rightside.ts';
 
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const scss = await readFile(new URL('../src/scss/core/rightside.scss', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
-const renderJs = await readFile(new URL('../src/js/modules/Render.js', import.meta.url), 'utf8');
+const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
+const renderJs = await readFile(new URL('../src/js/modules/Render.ts', import.meta.url), 'utf8');
 const indexScss = await readFile(new URL('../src/scss/core/index.scss', import.meta.url), 'utf8');
 
 test('模板：#rightside 骨架、hide/show 组、齿轮与 #go-up；无新增 th:utext', () => {

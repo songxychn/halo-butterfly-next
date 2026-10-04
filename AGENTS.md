@@ -6,7 +6,7 @@
 `halo-butterfly-next` is a **theme for the Halo CMS** (not a standalone web app). The
 deliverable is an installable theme ZIP built into `dist/`. "Running it" means building
 the ZIP and installing it into a running **Halo 2.26.1** server. Standard build/dev/test
-commands live in `package.json` (`dev`, `build`, `check`, `verify`, `parity:check`, `lab`);
+commands live in `package.json` (`dev`, `build`, `typecheck`, `check`, `verify`, `parity:check`, `lab`);
 see also `README.md`, `CONTRIBUTING.md`, and `docs/COMPARISON-LAB.md`. `src/` is source;
 `templates/` and `dist/` are generated artifacts — do not hand-edit or commit them.
 
@@ -15,20 +15,21 @@ see also `README.md`, `CONTRIBUTING.md`, and `docs/COMPARISON-LAB.md`. `src/` is
 prepended to `PATH` that otherwise shadows Node. Setup added an `~/.bashrc` snippet that
 puts nvm's Node 24 ahead of the shim, so new shells already resolve `node -v` → `v24.x`.
 If a shell ever reports Node 22, run: `nvm use 24` (nvm is at `~/.nvm`), or re-source
-`~/.bashrc`. `pnpm@11.19.0` is provided via corepack/nvm.
+`~/.bashrc`. Install Bun 1.4.0 separately; Corepack does not manage Bun. Keep Node 24 for build/test scripts.
 
 ### Build / lint / test (no services needed)
-These need only Node 24 + pnpm and touch no external services:
-- `pnpm check` — Node built-in test runner (`tests/*.test.mjs`), plus the lab's Python guard tests.
-- `pnpm parity:check` — feature-matrix / parity consistency check (the closest thing to a lint gate).
-- `pnpm build` — produces `dist/halo-butterfly-next-<version>.zip`.
-- `pnpm verify` — runs `parity:check` + `check` + `build` + package check together (use this as the primary gate).
-- `pnpm dev` — rebuilds the ZIP on source changes. It does **not** start Halo and does not deploy to any site.
+These need only Node 24 + bun and touch no external services:
+- `bun run typecheck` — strict TypeScript checks for all maintained browser code.
+- `bun run check` — Node built-in test runner (`tests/*.test.mjs`), plus the lab's Python guard tests.
+- `bun run parity:check` — feature-matrix / parity consistency check (the closest thing to a lint gate).
+- `bun run build` — produces `dist/halo-butterfly-next-<version>.zip`.
+- `bun run verify` — runs `typecheck` + `parity:check` + `check` + `build` + package check together (use this as the primary gate).
+- `bun run dev` — rebuilds the ZIP on source changes. It does **not** start Halo and does not deploy to any site.
 
 ### End-to-end testing = the comparison lab (real Halo)
 To render/test the theme in a real Halo instance, use the lab (full docs: `docs/COMPARISON-LAB.md`):
 ```
-pnpm build
+bun run build
 python3 scripts/lab/lab.py bootstrap --package dist/halo-butterfly-next-<version>.zip --source-sha "$(git rev-parse HEAD)"
 python3 scripts/lab/lab.py health
 ```

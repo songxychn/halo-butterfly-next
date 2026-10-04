@@ -3,7 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { build as viteBuild } from 'vite';
-import { transformAsync } from '@babel/core';
 import * as sass from 'sass';
 import postcss from 'postcss';
 import postcssImport from 'postcss-import';
@@ -27,27 +26,15 @@ export async function filesUnder(dir) {
   return files;
 }
 
-async function bundle(input, outputDir) {
-  const name = path.basename(input, '.js');
-  await viteBuild({
+async function bundle(input, outputDir, write = true) {
+  const name = path.basename(input, path.extname(input));
+  return viteBuild({
     configFile: false,
     logLevel: 'error',
     // These IIFEs run directly in browsers, which do not provide Node's process.
     define: { 'process.env.NODE_ENV': JSON.stringify('production') },
-    plugins: [{
-      name: 'legacy-butterfly-decorators',
-      enforce: 'pre',
-      async transform(code, id) {
-        if (!id.includes('/src/js/') || !id.endsWith('.js')) return;
-        return transformAsync(code, {
-          filename: id, babelrc: false, configFile: false,
-          plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
-          sourceMaps: false,
-        });
-      },
-    }],
     build: {
-      outDir: outputDir, emptyOutDir: false, target: 'es2022',
+      write, outDir: outputDir, emptyOutDir: false, target: 'es2022',
       lib: { entry: input, name: `HaloButterflyNext_${name}`, formats: ['iife'], fileName: () => `${name}.min.js` },
     },
   });
@@ -61,6 +48,14 @@ async function build() {
   await mkdir(assets, { recursive: true });
   // Thymeleaf 的内联表达式包含注释。模板保持原文，不经过 HTML/JS 压缩器。
   await cp(path.join(root, 'src/html'), stage, { recursive: true });
+  // Keep startup synchronous and inline so color/aside restoration precedes paint.
+  const startup = await bundle(path.join(root, 'src/js/bootstrap.ts'), assets, false);
+  const startupCode = (Array.isArray(startup) ? startup[0] : startup).output.find(file => file.type === 'chunk')?.code;
+  const configFile = path.join(stage, 'views/config.html');
+  const config = await readFile(configFile, 'utf8');
+  if (!startupCode || !config.includes('/* @theme-bootstrap */')) throw new Error('Missing TypeScript bootstrap or template insertion point');
+  await writeFile(configFile, config.replace('/* @theme-bootstrap */', () => startupCode));
+
   await cp(path.join(root, 'src/plugins'), path.join(assets, 'plugins'), {
     recursive: true, filter: source => !source.startsWith(path.join(root, 'src/plugins/loading')),
   });
@@ -121,10 +116,10 @@ async function build() {
     await writeFile(path.join(assets, 'css', file.replace('.scss', '.min.css')), css.css);
   }
   for (const file of (await readdir(path.join(root, 'src/js/page'))).sort()) {
-    if (file.endsWith('.js')) await bundle(path.join(root, 'src/js/page', file), path.join(assets, 'js'));
+    if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/js/page', file), path.join(assets, 'js'));
   }
   for (const file of (await readdir(path.join(root, 'src/plugins/loading'))).sort()) {
-    if (file.endsWith('.js')) await bundle(path.join(root, 'src/plugins/loading', file), path.join(assets, 'plugins/loading'));
+    if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/plugins/loading', file), path.join(assets, 'plugins/loading'));
   }
   await rm(path.join(root, 'templates'), { recursive: true, force: true });
   await rename(stage, path.join(root, 'templates'));

@@ -14,8 +14,8 @@
 ## 可复验命令
 
 ```sh
-pnpm install --frozen-lockfile --ignore-scripts
-pnpm verify
+bun install --frozen-lockfile --ignore-scripts
+bun run verify
 node scripts/browser/install.mjs
 node scripts/lightbox/check.mjs .evidence/lightbox/run-new
 ```
@@ -24,6 +24,6 @@ node scripts/lightbox/check.mjs .evidence/lightbox/run-new
 
 浏览器脚本只启动自己的 loopback 合成页面和全新无头上下文，不访问 Halo、生产站、现有浏览器或外部资源。使用仓库固定浏览器工具时可指定 `LIGHTBOX_BROWSER_RUNTIME=/absolute/path/to/.runtime/browser-matrix` 复用只读浏览器缓存；浏览器临时目录仍在本任务 `.runtime/lightbox/tmp/`。输出目录必须不存在，失败证据不覆盖。
 
-脚本覆盖 Chromium、Firefox、WebKit × 1440/390 两种视口：键盘开关、Tab 约束、切换、缩放/1:1、旋转/翻转、幻灯片、缩略图、Escape/关闭按钮/遮罩的焦点恢复、原图及普通外链、独立分组、懒加载和动态图片、标题注入及重复初始化。Chromium 390px 另执行可信 CDP 触摸点击、滑动、双指缩放。报告记录 runner/合成 bundle SHA-256、源码 SHA、工作树状态及截图；任何断言失败返回非零。`pnpm verify` 另检查运行时依赖和 ZIP 不含旧灯箱实现，并要求新 MIT 正文存在。
+脚本覆盖 Chromium、Firefox、WebKit × 1440/390 两种视口：键盘开关、Tab 约束、切换、缩放/1:1、旋转/翻转、幻灯片、缩略图、Escape/关闭按钮/遮罩的焦点恢复、原图及普通外链、独立分组、懒加载和动态图片、标题注入及重复初始化。Chromium 390px 另执行可信 CDP 触摸点击、滑动、双指缩放。报告记录 runner/合成 bundle SHA-256、源码 SHA、工作树状态及截图；任何断言失败返回非零。`bun run verify` 另检查运行时依赖和 ZIP 不含旧灯箱实现，并要求新 MIT 正文存在。
 
 合成页面通过不能替代真实 Halo 上最终 ZIP 的安装回归；WebKit 不是实际 Safari，触摸事件不是手机软硬件实测。此变更不将 1.0 矩阵标为 `verified`。最终候选应在真实文章/单页/图库/瞬间分别复验，确认页面样式、图片加载与插件生命周期集成。

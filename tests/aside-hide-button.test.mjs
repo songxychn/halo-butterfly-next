@@ -1,3 +1,4 @@
+const bootstrapSource = await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8');
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
@@ -16,7 +17,7 @@ import {
   applyAsideStatus,
   restoreAsideStatus,
   onHideAsideButtonClick,
-} from '../src/js/core/aside-hide-button.mjs';
+} from '../src/js/core/aside-hide-button.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
@@ -24,7 +25,7 @@ const settingsText = await readFile(new URL('../settings.yaml', import.meta.url)
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
 const configHtml = await readFile(new URL('../src/html/views/config.html', import.meta.url), 'utf8');
 const layoutHtml = await readFile(new URL('../src/html/views/layout.html', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
+const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
 const asideHtml = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
 
 function asideForm() {
@@ -83,7 +84,7 @@ test('布局：#hide-aside-btn 在 #rightside-config-hide；无新增 th:utext�
   assert.match(componentsHtml, /theme\.config\.aside\.enable != false/);
   assert.doesNotMatch(componentsHtml, /th:utext/);
   assert.doesNotMatch(layoutHtml, /th:utext/);
-  assert.match(configHtml, /aside-status/);
+  assert.match(bootstrapSource, /aside-status/);
   assert.match(configHtml, /hide_button != false/);
   assert.match(commonJs, /bindHideAsideButton/);
   assert.match(asideHtml, /theme\.config\.aside\.button\.name/);

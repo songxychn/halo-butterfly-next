@@ -7,12 +7,12 @@ assert(process.platform===PIN.chrome.platform&&process.arch===PIN.chrome.arch,'P
 const app=path.resolve(args['chrome-app']),binary=path.join(app,PIN.chrome.executable);
 assert(sha256(await readFile(binary))===PIN.chrome.executableSha256,'Pinned Chrome executable digest mismatch');
 const version=execFileSync(binary,['--version'],{encoding:'utf8'}).trim();assert(version.endsWith(PIN.chrome.version),'Pinned Chrome version mismatch');
-assert(execFileSync('pnpm',['--version'],{encoding:'utf8'}).trim()===PIN.pnpm,'Pinned pnpm version required');
+assert(execFileSync('bun',['--version'],{encoding:'utf8'}).trim()===PIN.bun,'Pinned bun version required');
 assert(/^[a-f0-9]{64}$/.test(PIN.chrome.treeSha256||''),'Pinned Chrome application tree digest required');
 const treeSha256=await treeDigest(app);
 assert(treeSha256===PIN.chrome.treeSha256,'Pinned Chrome application tree digest mismatch');
-await ownRuntime();const deps=path.join(RUNTIME,'deps');await mkdir(deps,{recursive:true});for(const file of ['package.json','pnpm-lock.yaml'])await cp(path.join(FIXTURE,file),path.join(deps,file));
-execFileSync('pnpm',['install','--frozen-lockfile','--ignore-scripts','--store-dir',path.join(RUNTIME,'pnpm-store')],{cwd:deps,stdio:'inherit'});
+await ownRuntime();const deps=path.join(RUNTIME,'deps');await mkdir(deps,{recursive:true});for(const file of ['package.json','bun.lock'])await cp(path.join(FIXTURE,file),path.join(deps,file));
+execFileSync('bun',['install','--frozen-lockfile','--ignore-scripts','--cache-dir',path.join(RUNTIME,'bun-cache')],{cwd:deps,stdio:'inherit'});
 const packageFile=path.join(deps,'node_modules/lighthouse/package.json'),pkg=await readJson(packageFile);assert(pkg.version===PIN.lighthouse,'Lighthouse version mismatch');
-await writeJson(path.join(RUNTIME,'installation.json'),{schema:1,lighthouse:pkg.version,dependencyLockSha256:sha256(await readFile(path.join(FIXTURE,'pnpm-lock.yaml'))),chrome:{version:PIN.chrome.version,app,binary,executableSha256:PIN.chrome.executableSha256,treeSha256,source:PIN.chrome.source},installedAt:new Date().toISOString()});
+await writeJson(path.join(RUNTIME,'installation.json'),{schema:1,lighthouse:pkg.version,dependencyLockSha256:sha256(await readFile(path.join(FIXTURE,'bun.lock'))),chrome:{version:PIN.chrome.version,app,binary,executableSha256:PIN.chrome.executableSha256,treeSha256,source:PIN.chrome.source},installedAt:new Date().toISOString()});
 console.log('Fixed performance tool installation recorded; no browser measurement run.');

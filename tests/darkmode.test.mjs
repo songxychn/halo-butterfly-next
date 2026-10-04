@@ -1,3 +1,4 @@
+const bootstrapSource = await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8');
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
@@ -18,13 +19,13 @@ import {
   isNightHour,
   resolveInitialColorScheme,
   shouldListenPrefersColorScheme,
-} from '../src/js/core/darkmode.mjs';
+} from '../src/js/core/darkmode.ts';
 
 const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
 const settings = parse(settingsText);
 const defaults = defaultsFromSettings(settings);
 const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.js', import.meta.url), 'utf8');
+const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
 
 function darkmodeForm() {
   const form = settings.spec.forms.find(item => item.group === 'darkmode');
@@ -94,7 +95,7 @@ test('点击调用 toggleMode，不走 innerHTML', () => {
 });
 
 const configHtml = await readFile(new URL('../src/html/views/config.html', import.meta.url), 'utf8');
-const themeJs = await readFile(new URL('../src/js/core/theme.js', import.meta.url), 'utf8');
+const themeJs = await readFile(new URL('../src/js/core/theme.ts', import.meta.url), 'utf8');
 
 test('默认对齐上游 SHA：autoChangeMode false；start/end 空回退 6/18', () => {
   assert.equal(AUTO_CHANGE_MODE_DEFAULT, false);
@@ -157,7 +158,7 @@ test('初始主题：强制 / 已存优先；1 跟随系统；2 按小时；fals
 
 test('首屏与 Theme：注入 autoChangeMode；初始 setMode 不 persist；无新增 th:utext', () => {
   assert.match(configHtml, /darkmode_autoChangeMode/);
-  assert.match(configHtml, /prefers-color-scheme: dark/);
+  assert.match(bootstrapSource, /prefers-color-scheme: dark/);
   assert.match(themeJs, /persist: false/);
   assert.match(themeJs, /prefers-color-scheme: dark/);
   assert.doesNotMatch(configHtml, /th:utext/);

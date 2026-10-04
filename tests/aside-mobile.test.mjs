@@ -8,7 +8,7 @@ import {
   ASIDE_MOBILE_DEFAULT,
   resolveAsideMobile,
   shouldApplyAsideMobileOff,
-} from '../src/js/core/aside-mobile.mjs';
+} from '../src/js/core/aside-mobile.ts';
 
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);

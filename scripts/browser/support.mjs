@@ -53,7 +53,7 @@ export async function ownRuntime(directory = RUNTIME) {
     if ((await readdir(directory)).length) throw new Error('Refusing to claim a nonempty browser runtime');
     await writeJson(marker, expected);
   }
-  for (const name of ['deps', 'browsers', 'tmp', 'runs', 'pnpm-store']) {
+  for (const name of ['deps', 'browsers', 'tmp', 'runs', 'bun-cache']) {
     const target = path.join(directory, name);
     await mkdir(target, { recursive: true });
     if (await realpath(target) !== target) throw new Error('Browser runtime children must not be symlinks');

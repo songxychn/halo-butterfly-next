@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
-import { applyRelativeDates } from '../src/js/core/relative-date.mjs';
+import { applyRelativeDates } from '../src/js/core/relative-date.ts';
 
 const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
 

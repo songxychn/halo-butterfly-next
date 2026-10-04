@@ -21,7 +21,7 @@ Object.assign(process.env, {TMPDIR: temp, TMP: temp, TEMP: temp});
 const playwright = await import(pathToFileURL(join(runtime, 'deps/node_modules/playwright/index.mjs')));
 const axeSource = process.env.LIGHTBOX_AXE_PATH ? await readFile(process.env.LIGHTBOX_AXE_PATH, 'utf8') : null;
 const entry = join(output, 'entry.js');
-await writeFile(entry, `import AmplifyImg from ${JSON.stringify(join(root, 'src/js/modules/AmplifyImg.js'))}; window.initializeLightbox=()=>new AmplifyImg();window.initializeLightbox();`);
+await writeFile(entry, `import AmplifyImg from ${JSON.stringify(join(root, 'src/js/modules/AmplifyImg.ts'))}; window.initializeLightbox=()=>new AmplifyImg();window.initializeLightbox();`);
 const result = await build({configFile:false,logLevel:'error',build:{write:false,target:'es2022',lib:{entry,name:'LightboxFixture',formats:['iife']}}});
 const bundle = (Array.isArray(result) ? result[0] : result).output.find(x=>x.type==='chunk').code;
 const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><rect width="1200" height="800" fill="#367"/><circle cx="400" cy="300" r="180" fill="#ec8"/></svg>';

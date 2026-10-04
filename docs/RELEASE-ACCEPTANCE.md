@@ -171,7 +171,7 @@ Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plu
 
 | ID | 执行场景与成功条件 | 所需证据 |
 | --- | --- | --- |
-| SUPPLY-01 | Node 24 与锁定 pnpm 下 `pnpm install --frozen-lockfile --ignore-scripts`、`pnpm verify` 通过；`templates/`、`dist/` 仅从源码生成；无未跟踪输入影响结果 | 环境、命令/退出码、锁文件哈希、干净工作区及生成物检查 |
+| SUPPLY-01 | Node 24 与锁定 Bun 下 `bun install --frozen-lockfile --ignore-scripts`、`bun run verify` 通过；`templates/`、`dist/` 仅从源码生成；无未跟踪输入影响结果 | 环境、命令/退出码、锁文件哈希、干净工作区及生成物检查 |
 | SUPPLY-02 | 同一候选提交在两个全新独立构建目录（至少一个为 CI）构建；ZIP 文件名、排序、时间戳与内容可重复，SHA-256 完全相同 | 两个完整构建记录、ZIP 哈希/大小/文件数与包清单；仅复用已有 dist 不算第二次构建 |
 | SUPPLY-03 | 实际 ZIP 的每项第三方依赖/字体/图标/图片/音视频都有固定来源、版本或内容哈希、许可证及必要声明；锁文件直接/间接依赖与 vendored 资源都覆盖 | [THIRD_PARTY](THIRD_PARTY.md)更新、来源/许可证清单、包内 LICENSE/NOTICE 检查、来源不可确认项为 0 |
 | SUPPLY-04 | 新包不含继承的 Pro 图标、旧字体/默认照片、数据库、凭据、个人路径或开发缓存；保持原作者署名与 GPL/Apache 等实际声明 | 当前源码及实际 ZIP 扫描报告、许可证独立审查；不据此声称历史资源已清理 |

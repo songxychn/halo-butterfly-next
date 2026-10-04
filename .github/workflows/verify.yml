@@ -23,10 +23,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 11.19.0
-      - run: pnpm install --frozen-lockfile --ignore-scripts
+          bun-version: '1.4.0'
+      - run: bun install --frozen-lockfile --ignore-scripts
       - name: Checkout fixed Butterfly reference
         uses: actions/checkout@v4
         with:
@@ -35,13 +35,13 @@ jobs:
           path: .runtime/upstream-butterfly
           persist-credentials: false
       - name: Verify inventory against fixed upstream source
-        run: pnpm parity:check --upstream .runtime/upstream-butterfly
-      - run: pnpm verify
+        run: bun run parity:check --upstream .runtime/upstream-butterfly
+      - run: bun run verify
       - name: Rebuild and compare archive
         shell: bash
         run: |
           sha256sum dist/*.zip > package.sha256
-          pnpm build
+          bun run build
           sha256sum --check package.sha256
       - name: Upload requested preview package
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_artifact }}
