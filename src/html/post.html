@@ -17,17 +17,20 @@
     >
 
     </style>
-    <script id="pageScript" th:inline="javascript" th:with="above_background = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link  : ''  )}">
+    <script id="pageScript" th:inline="javascript" th:with="above_background = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link  : ''  )}, tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         // 第一屏
         enable_above: /*[[${theme.config.post.enable_above}]]*/ '',
         above_background: /*[[${above_background}]]*/ '',
         // 渲染
         enable_h_icon: /*[[${theme.config.render.enable_h_icon}]]*/ true,
-        // 目录：对齐 toc.number / expand / scroll_percent
-        toc_number: /*[[${theme.config.toc.number}]]*/ true,
-        toc_expand: /*[[${theme.config.toc.expand}]]*/ false,
+        // 目录：单篇显式 true / false 优先，否则继承全局
+        toc_number: /*[[${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)}]]*/ true,
+        toc_expand: /*[[${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)}]]*/ false,
         toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
+        anchor_auto_update: /*[[${theme.config.anchor?.auto_update}]]*/ false,
+        anchor_click_to_scroll: /*[[${theme.config.anchor?.click_to_scroll}]]*/ false,
+        photofigcaption: /*[[${theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'}]]*/ false,
         related_post_limit: /*[[${theme.config.post.related_post.limit}]]*/ 6,
         post_copyright_decode: /*[[${theme.config.post.post_copyright.decode}]]*/ false,
       });

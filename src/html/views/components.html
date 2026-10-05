@@ -209,10 +209,12 @@
        保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
        距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
-       translate.enable 默认 false。darkmode.enable/button 默认 true。autoChangeMode 默认 false。不做 chat / comment / item_order。 */-->
+       translate.enable 默认 false。darkmode.enable/button 默认 true。autoChangeMode 默认 false。
+       item_order 仅移动已启用的按钮；chat/comment 暂无接入。 */-->
   <div
     id="rightside"
     class="side-btn"
+    th:attr="data-item-order-enable=${theme.config.rightside?.item_order?.enable},data-item-order-hide=${theme.config.rightside?.item_order?.hide},data-item-order-show=${theme.config.rightside?.item_order?.show}"
     th:with="
       hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
       darkBtnOn = ${theme.config.darkmode?.enable != false and theme.config.darkmode?.enable != 'false' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
@@ -221,7 +223,7 @@
       translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'}
     "
   >
-    <div id="rightside-config-hide">
+    <div id="rightside-config-hide" inert>
       <button
         id="readmode"
         class="button"
@@ -264,9 +266,11 @@
         class="button"
         type="button"
         title="设置"
-        th:if="${hideBtnOn or darkBtnOn or readmodeOn or translateOn}"
+        aria-controls="rightside-config-hide"
+        aria-expanded="false"
+        th:if="${hideBtnOn or darkBtnOn or readmodeOn or translateOn or theme.config.rightside?.item_order?.enable == true or theme.config.rightside?.item_order?.enable == 'true'}"
       >
-        <i class="fas fa-cog" aria-hidden="true"></i>
+        <i class="fas fa-cog" th:classappend="${theme.config.rightside?.config_animation != false and theme.config.rightside?.config_animation != 'false'} ? 'fa-spin'" aria-hidden="true"></i>
       </button>
       <button
         id="go-up"
@@ -288,7 +292,8 @@
   th:fragment="noticeOutdate(slot)"
   th:with="
     cfg = ${theme.config.post.noticeOutdate},
-    noticeEnabled = ${cfg != null and (cfg.enable == true or cfg.enable == 'true')},
+    noticeOverride = ${#annotations.getOrDefault(post, 'noticeOutdate', 'inherit')},
+    noticeEnabled = ${noticeOverride == 'true' ? true : (noticeOverride == 'false' ? false : (cfg != null and (cfg.enable == true or cfg.enable == 'true')))},
     noticeLimit = ${cfg == null or cfg.limit_day == null or cfg.limit_day == '' ? 365 : cfg.limit_day},
     noticeStyle = ${cfg != null and cfg.style == 'simple' ? 'simple' : 'flat'},
     noticePosition = ${cfg != null and cfg.position == 'bottom' ? 'bottom' : 'top'},
@@ -471,13 +476,13 @@
 </th:block>
 
 <!--/* 文章版权。对齐 Butterfly 5.7.0 layout/includes/post/post-copyright.pug
-     （theme.post_copyright.enable && page.copyright !== false；本刀不做逐页覆盖）。
+     单篇版权开关显式 true / false 优先，否则继承全局配置。
      仅文章页。可见文本 th:text / th:href。不做 footer.nav。 */-->
 <div
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="postCopyright"
   class="copy-right"
-  th:if="${theme.config.post.post_copyright?.enable != false and theme.config.post.post_copyright?.enable != 'false'}"
+  th:if="${#annotations.getOrDefault(post, 'copyright', 'inherit') == 'true' or (#annotations.getOrDefault(post, 'copyright', 'inherit') != 'false' and theme.config.post.post_copyright?.enable != false and theme.config.post.post_copyright?.enable != 'false')}"
   th:with="
     pc = ${theme.config.post.post_copyright},
     pcLicense = ${#strings.isEmpty(pc?.license) ? 'CC BY-NC-SA 4.0' : pc.license},

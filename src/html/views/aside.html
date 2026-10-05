@@ -195,35 +195,54 @@
   <th:block th:replace="~{::webInfo}"/>
 </aside>
 
-<!--/* 侧边栏-文章。目录四项对齐上游 toc.number / expand / style_simple / scroll_percent。 */-->
+<!--/* 阅读侧栏。SinglePage 的简洁目录是可选扩展，默认仍保留普通侧栏。 */-->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="post">
+  <th:block th:replace="~{::article(${post}, true)}"/>
+</th:block>
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="single">
+  <th:block th:replace="~{::article(${singlePage}, false)}"/>
+</th:block>
 <aside
   xmlns:th="https://www.thymeleaf.org"
-  th:fragment="post"
+  th:fragment="article(content, postPage)"
   th:if="${asideEnabled}"
   class="aside"
   th:with="
     tocCfg = ${theme.config.toc},
-    tocNumber = ${tocCfg == null or (tocCfg.number != false and tocCfg.number != 'false')},
-    tocExpand = ${tocCfg != null and (tocCfg.expand == true or tocCfg.expand == 'true')},
-    tocSimple = ${tocCfg != null and (tocCfg.style_simple == true or tocCfg.style_simple == 'true')},
+    tocOverride = ${#annotations.getOrDefault(content, 'toc', 'inherit')},
+    tocNumberOverride = ${#annotations.getOrDefault(content, 'toc_number', 'inherit')},
+    tocExpandOverride = ${#annotations.getOrDefault(content, 'toc_expand', 'inherit')},
+    tocSimpleOverride = ${#annotations.getOrDefault(content, 'toc_style_simple', 'inherit')},
+    tocDefault = ${postPage ? (tocCfg == null or (tocCfg.post != false and tocCfg.post != 'false')) : (tocCfg != null and (tocCfg.page == true or tocCfg.page == 'true'))},
+    tocEnabled = ${tocOverride == 'true' ? true : (tocOverride == 'false' ? false : tocDefault)},
+    tocNumber = ${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : (tocCfg == null or (tocCfg.number != false and tocCfg.number != 'false')))},
+    tocExpand = ${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : (tocCfg != null and (tocCfg.expand == true or tocCfg.expand == 'true')))},
+    tocSimpleDefault = ${postPage and tocCfg != null and (tocCfg.style_simple == true or tocCfg.style_simple == 'true')},
+    tocSimple = ${tocEnabled and (tocSimpleOverride == 'true' ? true : (tocSimpleOverride == 'false' ? false : tocSimpleDefault))},
     tocPercent = ${tocCfg == null or (tocCfg.scroll_percent != false and tocCfg.scroll_percent != 'false')}
   "
 >
-  <th:block th:unless="${tocSimple}" th:replace="~{::user}"/>
-  <th:block th:unless="${tocSimple}" th:replace="~{::notice}"/>
-  <div class="is-sticky">
+  <th:block th:unless="${tocSimple}">
+    <th:block th:replace="~{::user}"/>
+    <th:block th:replace="~{::notice}"/>
+  </th:block>
+  <div class="is-sticky" th:if="${tocEnabled}">
     <section class="aside-toc card">
       <h1 class="title">
         <i class="fa-solid fa-list"></i>
         <span class="name">目录</span>
         <span class="toc-percentage" th:if="${tocPercent}"></span>
       </h1>
-      <div
-        class="toc"
-        th:classappend="${(tocNumber ? 'is-numbered ' : '') + (tocExpand ? 'is-expand' : '')}"
-      >
-      </div>
+      <div class="toc" th:classappend="${(tocNumber ? 'is-numbered ' : '') + (tocExpand ? 'is-expand' : '')}"></div>
     </section>
   </div>
-  <th:block th:unless="${tocSimple}" th:replace="~{::recentPost}"/>
+  <th:block th:unless="${tocSimple}">
+    <th:block th:replace="~{::recentPost}"/>
+    <th:block th:unless="${postPage}">
+      <th:block th:replace="~{::category}"/>
+      <th:block th:replace="~{::tags}"/>
+      <th:block th:replace="~{::archives}"/>
+      <th:block th:replace="~{::webInfo}"/>
+    </th:block>
+  </th:block>
 </aside>

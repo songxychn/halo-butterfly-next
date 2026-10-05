@@ -9,11 +9,18 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script id="pageScript" th:inline="javascript" th:with="above_background = ${ #strings.isEmpty(singlePage.spec.cover) ? theme.config.index.above_background : singlePage.spec.cover}">
+    <script id="pageScript" th:inline="javascript" th:with="above_background = ${ #strings.isEmpty(singlePage.spec.cover) ? theme.config.index.above_background : singlePage.spec.cover}, tocNumberOverride = ${#annotations.getOrDefault(singlePage, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(singlePage, 'toc_expand', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         //第一屏
         enable_above: /*[[${theme.config.index.enable_above}]]*/ '',
         above_background: /*[[${above_background}]]*/ '',
+        enable_h_icon: /*[[${theme.config.render.enable_h_icon}]]*/ true,
+        toc_number: /*[[${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)}]]*/ true,
+        toc_expand: /*[[${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)}]]*/ false,
+        toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
+        anchor_auto_update: /*[[${theme.config.anchor?.auto_update}]]*/ false,
+        anchor_click_to_scroll: /*[[${theme.config.anchor?.click_to_scroll}]]*/ false,
+        photofigcaption: /*[[${theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'}]]*/ false,
       });
     </script>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>
@@ -61,6 +68,6 @@
         </div>
       </div>
     </section>
-    <th:block th:replace="~{views/aside::common}"/>
+    <th:block th:replace="~{views/aside::single}"/>
   </th:block>
 </layout>

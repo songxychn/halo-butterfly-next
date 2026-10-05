@@ -8,9 +8,9 @@
  * 默认：number true、expand false、style_simple false、scroll_percent true。
  * number 对应 hexo toc(..., {list_number})，序号形如 1. / 1.1.。
  * expand 对应 .toc-content.is-expand；false 时子级折叠，当前项父级展开。
- * style_simple 仅文章页：true 时侧栏只留目录（不含最近文章等）。
+ * style_simple 默认仅文章页；独立页面可用单页设置显式开启。
  * scroll_percent 对应 GLOBAL_CONFIG.percent.toc，写入 .toc-percentage。
- * 不做 toc.post / toc.page、anchor、related_post、逐页 toc_number / toc_expand / toc_style_simple。
+ * toc.post / toc.page 和逐页覆盖在服务端决定；anchor 由 article-anchor.ts 处理。
  */
 
 const DEFAULTS = {

@@ -3998,12 +3998,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
+        "settings": [
+          "toc.post"
+        ],
         "code": [
           "src/js/modules/Render.ts",
           "src/html/views/aside.html"
         ],
-        "finding": "已有文章目录，但无上游目录设置集合。"
+        "finding": "文章目录默认开启，单篇 toc 字符串覆盖；关闭后不创建目录按钮。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -4025,7 +4027,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
@@ -4054,12 +4057,14 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
+        "settings": [
+          "toc.page"
+        ],
         "code": [
           "src/html/page.html",
           "src/js/modules/Render.ts"
         ],
-        "finding": "已有单页渲染器接入，需检查上游默认关闭与逐页覆盖。"
+        "finding": "自定义页面目录默认关闭，可全局或单页开启。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -4081,7 +4086,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
@@ -4121,7 +4127,7 @@
           "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
-        "finding": "已映射 toc.number（默认 true）到 toc.number。开启后目录项带 1. / 1.1. 序号（对齐 hexo toc list_number）；关闭不渲染序号。仅文章页侧栏。不做 toc.post / toc.page、anchor、逐页 toc_number。尚未双站对照验收，禁止 verified。"
+        "finding": "文章和单页目录编号支持全局与 toc_number 三态覆盖。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -4144,7 +4150,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/88"
+          "https://github.com/songxychn/halo-butterfly-next/issues/88",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/90"
@@ -4186,7 +4193,7 @@
           "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
-        "finding": "已映射 toc.expand（默认 false）到 toc.expand。开启后目录加 is-expand、子级全部展开（tocbot collapseDepth 6）；关闭时仅当前项父级展开（collapseDepth 0）。仅文章页。不做逐页 toc_expand。尚未双站对照验收，禁止 verified。"
+        "finding": "文章和单页目录展开支持全局与 toc_expand 三态覆盖。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -4209,7 +4216,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/88"
+          "https://github.com/songxychn/halo-butterfly-next/issues/88",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/90"
@@ -4251,7 +4259,7 @@
           "src/js/modules/Render.ts",
           "src/scss/modules/render.scss"
         ],
-        "finding": "已映射 toc.style_simple（默认 false）到 toc.style_simple。仅文章页：开启后侧栏只保留目录，不渲染最近文章等其它卡片。不做 related_post。尚未双站对照验收，禁止 verified。"
+        "finding": "文章简洁侧栏支持 toc_style_simple 三态覆盖；单页显式开启为扩展，继承默认关闭。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -4274,7 +4282,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/88"
+          "https://github.com/songxychn/halo-butterfly-next/issues/88",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/90"
@@ -10265,14 +10274,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "rightside.item_order.enable"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已接入工具栏分组排序开关，默认关闭；只处理本地已有且启用的按钮。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10295,12 +10306,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rightside_item_order.hide",
@@ -10324,14 +10336,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "rightside.item_order.hide"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "展开组按白名单顺序排列，空值沿用默认；去重并忽略未知项。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10358,12 +10372,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rightside_item_order.show",
@@ -10387,14 +10402,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "rightside.item_order.show"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "常驻组排序，返回顶部固定末尾；chat/comment 暂无按钮，不声明接入。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10421,12 +10438,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rightside_config_animation",
@@ -10450,14 +10468,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "rightside.config_animation"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
           "src/scss/modules/components.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "齿轮旋转可关闭，遵守减少动态效果。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10480,12 +10500,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:anchor.auto_update",
@@ -10509,13 +10530,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
+        "settings": [
+          "anchor.auto_update"
+        ],
         "code": [
           "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "可选滚动更新章节 hash，不增加历史；保留作者 ID 和查询参数。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10537,12 +10560,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:anchor.click_to_scroll",
@@ -10566,13 +10590,15 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "扩展现有 tocbot 接入以遵守上游目录开关、编号、展开、滚动和单页覆盖。",
-        "settings": [],
+        "settings": [
+          "anchor.click_to_scroll"
+        ],
         "code": [
           "src/js/modules/Render.ts",
           "src/html/views/aside.html",
           "src/scss/core/aside.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "可选标题链接与键盘定位；目录支持 hash、历史和直接定位。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10594,12 +10620,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:photofigcaption",
@@ -10623,14 +10650,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "post.photofigcaption"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "默认关闭，正文图片 title 优先 alt 后备；已有图注不重复，保留节点与链接。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -10652,12 +10681,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:copy.enable",
@@ -43673,11 +43703,13 @@
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
         "settings": [],
         "code": [
+          "annotation-setting.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -43699,12 +43731,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:copyright_author",
@@ -44823,11 +44856,13 @@
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
         "settings": [],
         "code": [
+          "annotation-setting.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -44849,12 +44884,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:order",
@@ -45580,11 +45616,13 @@
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
         "settings": [],
         "code": [
+          "annotation-setting.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -45606,12 +45644,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:toc_expand",
@@ -45630,11 +45669,13 @@
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
         "settings": [],
         "code": [
+          "annotation-setting.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -45656,12 +45697,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:toc_number",
@@ -45680,11 +45722,13 @@
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
         "settings": [],
         "code": [
+          "annotation-setting.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -45706,12 +45750,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:toc_style_simple",
@@ -45730,11 +45775,13 @@
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
         "settings": [],
         "code": [
+          "annotation-setting.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
       },
       "dependencies": [
         "dual-site",
@@ -45756,12 +45803,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/354"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:top_img",

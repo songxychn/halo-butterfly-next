@@ -41,3 +41,134 @@ spec:
           value: "true"
         - label: 禁用
           value: "false"
+    - $formkit: "radio"
+      name: "toc"
+      label: "显示目录"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "toc_number"
+      label: "目录编号"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "toc_expand"
+      label: "展开全部目录"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "toc_style_simple"
+      label: "简洁目录侧栏"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "copyright"
+      label: "文章版权声明"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "noticeOutdate"
+      label: "文章过期提醒"
+      help: "单篇设置优先于全局设置。开启后仍按全局过期天数判断。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+
+---
+apiVersion: v1alpha1
+kind: AnnotationSetting
+metadata:
+  generateName: annotation-setting-
+spec:
+  targetRef:
+    group: content.halo.run
+    kind: SinglePage
+  formSchema:
+    - $formkit: "radio"
+      name: "toc"
+      label: "显示目录"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "toc_number"
+      label: "目录编号"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "toc_expand"
+      label: "展开全部目录"
+      help: "单篇设置优先于全局设置。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "toc_style_simple"
+      label: "简洁目录侧栏"
+      help: "单篇设置优先于全局设置。独立页面的简洁侧栏默认关闭。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"

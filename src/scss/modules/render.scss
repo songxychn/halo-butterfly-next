@@ -483,3 +483,19 @@
   max-width: 100%;
   min-width: 0;
 }
+// Empty anchor keeps the heading text unchanged for directory labels.
+article.render .heading-anchor {
+  display: inline-block;
+  text-decoration: none;
+  &::after {
+    content: '#';
+    position: static;
+    opacity: 1;
+    transform: none;
+    width: auto;
+    height: auto;
+    background: none;
+    margin: 0 0 0 .5em;
+  }
+  &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+}
