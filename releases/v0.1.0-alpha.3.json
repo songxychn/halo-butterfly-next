@@ -1,6 +1,6 @@
 {
   "tag": "v0.1.0-alpha.3",
-  "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+  "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
   "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
   "decision": "blocked",
   "reviewer": "independent review_site preparation audit; NOT release approval",
@@ -16,9 +16,8 @@
     "Other advanced features, real devices, Safari, screen readers and full performance/1.0 scope remain unverified; see version notes."
   ],
   "blockers": [
-    "current header contrast manual review and remaining bounded alpha acceptance",
-    "final release candidate independent approval and maintainer publication authorization",
-    "published asset download verification and first real release-to-demo chain"
+    "default light header contrast on bright/white backgrounds needs repair or explicit maintainer alpha disposition",
+    "independent final release approval and maintainer publication authorization"
   ],
   "evidence": [
     {
@@ -40,13 +39,21 @@
     {
       "path": "docs/validation/2026-10-06/lazyload-license.json",
       "sha256": "7f7e46469c35e5911d1106f9492630fe92f62e05b3405f54f2edc37faf9a4a6b"
+    },
+    {
+      "path": "docs/validation/2026-10-06/alpha3-final-acceptance.md",
+      "sha256": "549d38a8361ecc3fa051b81947e829c7944e18ee95678908bcf54fc9fef3883f"
+    },
+    {
+      "path": "docs/validation/2026-10-06/alpha3-final-acceptance.json",
+      "sha256": "c69fa2aa3beaca5cca4e8f1fef72d8df04d26fce1a3ceff196d24fe8b5705d3e"
     }
   ],
   "gateNotes": {
-    "realHalo": "#338 no longer blocks alpha; remaining candidate/core/header validation is pending, not a passed-all declaration",
+    "realHalo": "Current package installed and measured on fresh Halo: core interactions checked; default light header contrast remains failed, pending maintainer disposition. #338 is not a release blocker.",
     "resourcesAndLicenses": "Independent bounded review of eb06db9 source archive and c0c73ded package passed; historical package findings retained",
-    "installUpgradeRollback": "Reuses 1951fef/ad051bff evidence by exact equality of all 127 existing package files; only two license files added, no new live installation run",
-    "sourceRebuild": "Exact eb06db9 git archive rebuilt to c0c73ded"
+    "installUpgradeRollback": "Reuses 1951fef/ad051bff evidence by exact equality of all 127 existing package files; only two license files added. No new full upgrade/rollback rerun; fresh installation separately verified this round.",
+    "sourceRebuild": "Exact 8e53148 git archive rebuilt to c0c73ded"
   },
   "acceptedReleaseLimitations": [
     {
@@ -59,5 +66,9 @@
       "evidenceStatus": "Original failed results retained; not fixed or officially root-caused by Halo",
       "decisionDocument": "docs/RESOURCE-LOADING-DECISION.md"
     }
+  ],
+  "postPublicationChecks": [
+    "published asset download and installation verification",
+    "first real Release to GHCR to hk demo chain"
   ]
 }
