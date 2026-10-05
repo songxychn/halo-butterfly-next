@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "themeId": "halo-butterfly-next",
+  "themeVersion": "0.1.0-alpha.3",
+  "mode": "merge-reviewed-fields-only",
+  "settings": {
+    "base": {
+      "metadata_name": ""
+    },
+    "style": {
+      "mode": "user",
+      "body_background": ""
+    },
+    "index": {
+      "enable_above": true,
+      "top_img_height": "",
+      "site_info_top": "",
+      "enable_subtitle": true,
+      "subtitle_effect": false,
+      "subtitle_source": "0",
+      "enable_typewriter_random_text": false,
+      "typewriter_custom_text": "Hexo Butterfly 主题在 Halo 的移植版本",
+      "post_layout": "list",
+      "index_post_content": {
+        "method": "2",
+        "length": 120
+      }
+    },
+    "aside": {
+      "enable": true,
+      "mobile": true,
+      "position": "aside-right",
+      "social": [],
+      "card_tags": {
+        "orderby": "name",
+        "order": 1
+      },
+      "notice": "Halo Butterfly Next 0.1.0-alpha.3 预览内容；Halo 验证基线 2.26.1。当前为独立本地样站，尚未公网上线，暂不提供公开安装包。"
+    },
+    "post": {
+      "enable_above": true,
+      "post_copyright": {
+        "license": "GPL-3.0",
+        "license_url": "https://www.gnu.org/licenses/gpl-3.0.html"
+      }
+    },
+    "toc": {
+      "number": true,
+      "expand": false,
+      "style_simple": false,
+      "scroll_percent": true
+    },
+    "render": {
+      "enable_code": true,
+      "enable_code_title": true,
+      "enable_code_line": true,
+      "enable_code_copy": true,
+      "enable_code_expander": "false",
+      "enable_code_word_wrap": false,
+      "enable_code_fullpage": false,
+      "code_theme_light": "one-light",
+      "code_theme_dark": "one-dark"
+    },
+    "darkmode": {
+      "enable": true,
+      "button": true
+    },
+    "comments": {
+      "count": false,
+      "card_post_count": false
+    },
+    "footer": {
+      "copyright": {
+        "enable": true,
+        "version": true
+      },
+      "custom_text": "独立的 Halo 社区维护项目。"
+    }
+  },
+  "bindings": [
+    {
+      "path": "index.above_background",
+      "target": {
+        "type": "asset",
+        "key": "cover"
+      }
+    },
+    {
+      "path": "cover.default_cover",
+      "target": {
+        "type": "asset",
+        "key": "cover"
+      }
+    },
+    {
+      "path": "aside.button",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-docs"
+      },
+      "label": "使用文档"
+    },
+    {
+      "path": "aside.notice",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-download"
+      },
+      "label": "下载与预览说明",
+      "operation": "append-link"
+    },
+    {
+      "path": "footer.nav",
+      "target": {
+        "type": "manifest",
+        "key": "footer"
+      }
+    }
+  ]
+}

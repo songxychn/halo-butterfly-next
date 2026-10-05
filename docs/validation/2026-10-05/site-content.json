@@ -1,0 +1,91 @@
+{
+  "scope": "First documentation content batch; no Halo instance or public deployment",
+  "recordedAt": "2026-10-05T06:18:17.980951+00:00",
+  "sourceBaseline": "ab4e3c643c5a575f9d9623d7c72835a2f1ef3598",
+  "workingTreeChanges": true,
+  "publication": "unpublished-drafts",
+  "content": {
+    "tutorials": 10,
+    "demos": 4,
+    "pages": 5,
+    "originalSvgAssets": 4,
+    "checkedBodyLinks": 76
+  },
+  "checks": [
+    {
+      "command": "bun run site:check",
+      "result": "passed"
+    },
+    {
+      "command": "node --test tests/site-content.test.mjs",
+      "result": "passed",
+      "tests": 6
+    },
+    {
+      "command": "bun run verify",
+      "result": "passed",
+      "tests": 553,
+      "log": ".runtime/site-content/verify.log"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "check": "SVG XML and repository documentation local links",
+      "result": "passed"
+    },
+    {
+      "check": "site content excluded from theme ZIP",
+      "result": "passed"
+    }
+  ],
+  "builtThemePackage": {
+    "path": "dist/halo-butterfly-next-0.1.0-alpha.3.zip",
+    "sha256": "4d76eec6be5ee53d639fef73bf10a5a14b63bde2cb8078738f02ea2b38ec515a",
+    "release": false
+  },
+  "inputSha256": {
+    "site/README.md": "08cbba713476f715abc692741061d70a2f41c3d4d1aa803ecf389a5f92dcd238",
+    "site/assets/cover.svg": "acc8d8bb49339fd30c9468b737b9aecf237932828c4d8b96117e57a1b7a09d24",
+    "site/assets/lake.svg": "04562b8e603fd57f7b755f443541cfc79f81542c5ce1e404c13a70b94066f74f",
+    "site/assets/night.svg": "3a0d4732ef730e491f83eee11f809bbb3421920917224290c01b0d8cd42eeb2f",
+    "site/assets/sources.json": "1f389bd23947f3e9960aa7e610599866dff91393d22c9ac4c2d71da572615465",
+    "site/assets/valley.svg": "aff682063120fba9d51c93b4890cc225766ce258ddc42cfed7d3b7407bd7d6b6",
+    "site/check.mjs": "ca8a6fe53da63415bc930d5851ecfc55e53ad5efc85d22539451768cba7de836",
+    "site/config/theme-profile.json": "d4d136a3b28c6bfcea1fb01bdb88bd98d58101bb2f7d8b94e2fd334532ae1d79",
+    "site/content/demos/demo-code.md": "81d094f6c421f13b98dd16ededab662d5f744e97d160f60e783e782e12a7ac18",
+    "site/content/demos/demo-guide.md": "a9c189c471ae12768ac7de09b197f1380df9ac1a2183e6ad8342075ca0cebba7",
+    "site/content/demos/demo-images.md": "77773af4511d3e83e4ca75fb40fa1265d8ca140562d8c0b80f07f44713b90cb0",
+    "site/content/demos/demo-typography.md": "8c560a3d9bbb875d2743f803c60d71aa4e1a8aa525b4e7484bb3ec721429b20b",
+    "site/content/pages/about.md": "6bee0405938a2a469300eb6bb038bfc272e4cd2f7b718332d5797c34b9611a86",
+    "site/content/pages/docs.md": "52eccdaff4d0ed23188bc2d2691292e3adcdfe3f830791a7e703da7359dce88b",
+    "site/content/pages/download.md": "46a15e46f773d6101507f3dd6119423410aa3ffc122573ab431099631a38968e",
+    "site/content/pages/faq.md": "99fd46535ee8532125fe0b72596e63f018730d985d3a5165b5a0599d71895ebe",
+    "site/content/pages/site-setup.md": "99e0364f894116adccb22a4fe57c7cbaff15b33a8c09ada1c87e38b33bd1fb2c",
+    "site/content/tutorials/code-blocks.md": "678932dddea90394fb940ebcbed8c8d5af76613e697aadc9523d0c78f097fd3f",
+    "site/content/tutorials/getting-started.md": "7e0fac040b988bac18e5fede3ac9a9cc122f452f3a03b2fcfd2b56c819374542",
+    "site/content/tutorials/homepage.md": "a67ad78f0f8f8b71ae270174e6c114d27381b77c717310513af1247683568a69",
+    "site/content/tutorials/images.md": "daee52b97fe268cd26ecc7cdca578c790b5124ee9f6804e4c347c3f47b6dfedb",
+    "site/content/tutorials/migration.md": "96207ee1110e9782042ee4ff385f445ad2dfd5e208f4f5e50b8eb9b7ec5dcf01",
+    "site/content/tutorials/navigation.md": "01ea13dabe6f7ff078f692f0b4d6e38119770fd0cedd237cb7fac935b0bc4f0c",
+    "site/content/tutorials/reading.md": "4817cc89cfb7fb5cf40c34a4262e74a0e3886c833821c9dc76f539a335addd14",
+    "site/content/tutorials/search-comments.md": "2f4b7017ae1036c72180238bf79d1650679b28314874513330be77c6440f412d",
+    "site/content/tutorials/sidebar.md": "53f1ae3de0dc77bff68df34f5430b685a5bb57c3e42e249ec62152200f5b7e44",
+    "site/content/tutorials/upgrade.md": "ef1a51a01a26988a3da2ae4d006aed0d17dd111b59b239cdbfebd91e6e7a8f1f",
+    "site/manifest.json": "81e2446b559c5ea081259afe94ba7b5cf9532ef136056d69bf374fa4065a6f3e",
+    "tests/site-content.test.mjs": "6085e8b3465784f22d73e0551b1a2deab8bb7fe184a2571ab68f83df7b26fbda",
+    "package.json": "06e1463d629d3e3ca788a023e93217759f725c5c6bf72b2895d959d154b6c6f4",
+    "docs/DEMO-DOCS-SITE.md": "39d12a8b036945794dfc0e547454f7959fada1d256a1c2c8ee800f92ee50797e",
+    "docs/ROADMAP.md": "92e85d6434a406bd8c107690c8cab461dde84e43811e63698eed4400936e72d8"
+  },
+  "notVerified": [
+    "Markdown rendering in real Halo",
+    "content publication and conflict handling",
+    "plugin installation or interactions",
+    "responsive page appearance",
+    "independent review",
+    "CI",
+    "public release"
+  ]
+}
