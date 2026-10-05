@@ -79,7 +79,10 @@ def recover():
     (ROOT/'pending.json').unlink()
 
 def receipt(base):
-    with HTTP.open(base+'/site-assets/demo-version.json?t='+str(time.time_ns()),timeout=15) as response: return json.load(response)
+    request=urllib.request.Request(base+'/site-assets/demo-version.json?t='+str(time.time_ns()),headers={
+        'User-Agent':'halo-butterfly-next-demo/1.0 (+https://github.com/songxychn/halo-butterfly-next)',
+        'Accept':'application/json','Cache-Control':'no-cache'})
+    with HTTP.open(request,timeout=15) as response: return json.load(response)
 def expected_receipt(actual,expected):
     return actual.get('ready') is True and all(actual.get(k)==expected[k] for k in ['tag','sourceSha','themeSha256'])
 def healthy(name,expected):
@@ -127,12 +130,15 @@ def deploy(image,bootstrap=False,retry=False):
         check_container(current['container'])
         write(ROOT/'pending.json',{'beforeText':before,'beforeState':current,'afterSha':sha(after),'candidate':name})
         apply_caddy(after,sha(before))
+        last_error='no receipt'
         for _ in range(12):
             try:
-                if expected_receipt(receipt('https://'+DOMAIN),identity):break
-            except (OSError,ValueError):pass
+                actual=receipt('https://'+DOMAIN)
+                if expected_receipt(actual,identity):break
+                last_error='mismatched tag/source/theme or not ready'
+            except (OSError,ValueError) as error:last_error=str(error)
             time.sleep(5)
-        else:raise RuntimeError('Public deployment identity did not switch')
+        else:raise RuntimeError('Public deployment identity did not switch: '+last_error)
         updated={'container':name,'imageId':image_id,'identity':identity,'previous':current,'updatedAt':int(time.time())}
         write(ROOT/'state.json',updated)
         (ROOT/'pending.json').unlink()
