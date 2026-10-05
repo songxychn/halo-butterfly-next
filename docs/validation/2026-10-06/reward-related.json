@@ -1,0 +1,750 @@
+{
+  "kind": "bounded-engagement-validation",
+  "date": "2026-10-06",
+  "actor": "/root (implementation author)",
+  "sourceSha": "ce549db199962a7dae141c92c5161c76399fdd0f",
+  "baselineSourceSha": "16664c9ee9aa594ac8dde85c7dbdf45c151bbd12",
+  "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "result": "passed-with-stated-scope",
+  "package": {
+    "path": "dist/halo-butterfly-next-0.1.0-alpha.3.zip",
+    "sha256": "b7a3bab9755de90f071a24533fdc206e869c96c80e3f5773ffad6b532f2a1671",
+    "installedFiles": 129,
+    "byteMismatches": 0,
+    "sourceAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "engineering": {
+    "command": "bun run verify",
+    "node": "24.11.0",
+    "bun": "1.4.0",
+    "testsPassed": 581,
+    "testsFailed": 0,
+    "testsSkipped": 0,
+    "log": {
+      "path": ".runtime/engagement/verify-final-code.log",
+      "sha256": "5db88cabd56d0447d8591141e3f41c9131786b553d5fbcc176fa602a293d4a96"
+    },
+    "settingsFreeze": "Only settingsSha256 refreshed; defaults unchanged, no new performance measurement."
+  },
+  "environment": {
+    "halo": "2.26.1",
+    "origin": "http://127.0.0.1:18321",
+    "runtime": ".runtime/engagement/lab",
+    "freshDatabase": true,
+    "optionalPlugins": "disabled",
+    "playwright": "1.63.0",
+    "platform": "macOS",
+    "automation": "independent headless browsers; no user browser control"
+  },
+  "fixture": {
+    "currentPost": "preview-1",
+    "tags": [
+      "butterfly",
+      "engagement-extra"
+    ],
+    "oldHighWeightCandidate": {
+      "name": "engagement-both",
+      "tags": [
+        "butterfly",
+        "engagement-extra"
+      ],
+      "publishTime": "2025-01-01T00:00:00Z"
+    },
+    "singleTagPaginationPosts": {
+      "count": 101,
+      "names": "engagement-page-000..100",
+      "tags": [
+        "butterfly"
+      ],
+      "publishTime": "2026-07-01T00:00:00Z"
+    },
+    "otherPosts": [
+      "engagement-only (extra tag)",
+      "engagement-none (no tags)",
+      "engagement-draft (unpublished)",
+      "engagement-private (published PRIVATE)"
+    ],
+    "normalSettings": {
+      "reward": {
+        "enable": true,
+        "text": "支持作者",
+        "QR_code": [
+          {
+            "img": "   ",
+            "link": "",
+            "text": "空项"
+          },
+          {
+            "img": "/lab/avatar.svg",
+            "link": "/about-preview/",
+            "text": "支持链接"
+          },
+          {
+            "img": "/lab/cover.svg",
+            "link": "",
+            "text": "打开二维码"
+          }
+        ]
+      },
+      "related_post": {
+        "enable": true,
+        "limit": 3,
+        "date_type": "created"
+      },
+      "index_post_content": {
+        "method": 1,
+        "length": 500
+      }
+    },
+    "renderedCandidateOccurrences": {
+      "engagement-both": 2,
+      "engagement-page-100": 1,
+      "engagement-draft": 0,
+      "engagement-private": 0,
+      "preview-1": 0
+    },
+    "renderedHtml": {
+      "path": ".runtime/engagement/final-rendered.html",
+      "sha256": "14a2b49910c2b5316fc433404d40b53038f8d934e714244b9f6885a14948a919"
+    },
+    "scripts": [
+      {
+        "path": ".runtime/engagement/fixture.py",
+        "sha256": "ef5a38c09e318f0f5e182c4ce6364ab7439131064f221a26a45ade8f2ec7ec5c"
+      },
+      {
+        "path": ".runtime/engagement/pagination.py",
+        "sha256": "f9df115d5b444b67f28a6a179dab4a73d6695467b511f153262d18ee503b0f95"
+      },
+      {
+        "path": ".runtime/engagement/scenario.py",
+        "sha256": "a4e712a5a005ee207a128fbdb1e2ebfd085fbe7c051e333ef55a3bf399c2d074"
+      },
+      {
+        "path": ".runtime/engagement/boundaries.mjs",
+        "sha256": "623340e016c1c156ee87875e83a34098bfd1541b35922292a38f1ba012e9055c"
+      },
+      {
+        "path": ".runtime/engagement/baseline.mjs",
+        "sha256": "aa3f6b003ce16655803ccf95df17ace69f63a704646178b28962428a9ad2779e"
+      }
+    ]
+  },
+  "browser": {
+    "raw": {
+      "path": ".runtime/engagement/browser-final-package/report.json",
+      "sha256": "a167276868690667e710e9559efc7befa6087d7402dae77ccc6490c5c809c813"
+    },
+    "passed": 12,
+    "failed": 0,
+    "cases": [
+      {
+        "engine": "chromium",
+        "browserVersion": "153.0.8010.12",
+        "width": 1440,
+        "mode": "light",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "hover opens temporarily; Escape dismisses stationary pointer",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "chromium",
+        "browserVersion": "153.0.8010.12",
+        "width": 1440,
+        "mode": "dark",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "hover opens temporarily; Escape dismisses stationary pointer",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "chromium",
+        "browserVersion": "153.0.8010.12",
+        "width": 390,
+        "mode": "light",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "chromium",
+        "browserVersion": "153.0.8010.12",
+        "width": 390,
+        "mode": "dark",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "firefox",
+        "browserVersion": "155.0",
+        "width": 1440,
+        "mode": "light",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "hover opens temporarily; Escape dismisses stationary pointer",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "firefox",
+        "browserVersion": "155.0",
+        "width": 1440,
+        "mode": "dark",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "hover opens temporarily; Escape dismisses stationary pointer",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "firefox",
+        "browserVersion": "155.0",
+        "width": 390,
+        "mode": "light",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "firefox",
+        "browserVersion": "155.0",
+        "width": 390,
+        "mode": "dark",
+        "keyboardNavigationKey": "Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "webkit",
+        "browserVersion": "26.6",
+        "width": 1440,
+        "mode": "light",
+        "keyboardNavigationKey": "Alt+Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "hover opens temporarily; Escape dismisses stationary pointer",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "webkit",
+        "browserVersion": "26.6",
+        "width": 1440,
+        "mode": "dark",
+        "keyboardNavigationKey": "Alt+Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "hover opens temporarily; Escape dismisses stationary pointer",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "webkit",
+        "browserVersion": "26.6",
+        "width": 390,
+        "mode": "light",
+        "keyboardNavigationKey": "Alt+Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      },
+      {
+        "engine": "webkit",
+        "browserVersion": "26.6",
+        "width": 390,
+        "mode": "dark",
+        "keyboardNavigationKey": "Alt+Tab",
+        "checks": [
+          "native collapsed disclosure and matching mode",
+          "rank by shared tags before limit, exclude self and duplicates",
+          "Enter opens, Tab reaches close and link, Escape closes and restores focus",
+          "Space toggles both ways; close button restores trigger",
+          "pointer/touch opens and closes; outside dismissal",
+          "Tab leaving panel closes without moving focus back",
+          "visible QR codes, safe native destinations, no overflow",
+          "selected covers load after mounting inert candidates"
+        ],
+        "jsErrors": [],
+        "failedRequests": [],
+        "status": "passed"
+      }
+    ]
+  },
+  "boundaries": {
+    "sourceSha": "ce549db199962a7dae141c92c5161c76399fdd0f",
+    "artifactSha256": "b7a3bab9755de90f071a24533fdc206e869c96c80e3f5773ffad6b532f2a1671",
+    "raw": {
+      "path": ".runtime/engagement/boundaries/report.json",
+      "sha256": "b876d8f64657ee9519a258e882e6bdc74bb1d12dac002719600708918097fcdd"
+    },
+    "passed": 22,
+    "failed": 0,
+    "cases": [
+      {
+        "scenario": "off",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "off",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "empty",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "empty",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "broken",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "broken",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "fallback",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "fallback",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "missing-fields",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "missing-fields",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "updated",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "updated",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "no-cover",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "no-cover",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "many",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "many",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "reversed",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "reversed",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "no-tags",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "no-tags",
+        "width": 390,
+        "status": "passed"
+      },
+      {
+        "scenario": "single-page",
+        "width": 1440,
+        "status": "passed"
+      },
+      {
+        "scenario": "single-page",
+        "width": 390,
+        "status": "passed"
+      }
+    ]
+  },
+  "before": {
+    "raw": {
+      "path": ".runtime/engagement/baseline-browser.json",
+      "sha256": "94acecd9b21513365184eee8bd70f5938ca7b478b4d6c75a221231fa370c417a"
+    },
+    "cases": [
+      {
+        "width": 1440,
+        "buttonTag": "DIV",
+        "related": [
+          "preview-2",
+          "preview-3",
+          "preview-4"
+        ]
+      },
+      {
+        "width": 390,
+        "buttonTag": "DIV",
+        "related": [
+          "preview-2",
+          "preview-3",
+          "preview-4"
+        ]
+      }
+    ]
+  },
+  "screenshots": [
+    {
+      "path": ".runtime/engagement/screenshots/before-1440.png",
+      "sha256": "87addc93f99bc6dacb1b13dfd952cfe1f2f1acc4c6726324ea2e930deb7ee2de"
+    },
+    {
+      "path": ".runtime/engagement/screenshots/before-390.png",
+      "sha256": "4943044eadd4d6a1d3174b207bcc976cb28d40e909c254230924d78e0122dd70"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-1440-dark-related.png",
+      "sha256": "cfac4fb0718444e957ca57214c5a77a4ab9175a9d69058f07c9e2aba831727d3"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-1440-dark-reward.png",
+      "sha256": "7749f02dc91cbd2e5f7c0d1dd0429544616bdd360bcd2d39e98fb399373d405b"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-1440-light-related.png",
+      "sha256": "f6c7ebbaf3e9eb8fa8c38f76594e2736d3b28670d977f5c4ccfdc60a48483ec8"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-1440-light-reward.png",
+      "sha256": "c4a08e53301c3ee2301dcfe299cb2ef4926a41464795ffc22feea49d2b81beb4"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-390-dark-related.png",
+      "sha256": "44e3c3936a32c36c72674bdb20368822387af3ff4075d0f18a135d1659e86b98"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-390-dark-reward.png",
+      "sha256": "63a3b4d6ed9b9e74ec11057e98b9121e1bf2942d32a56f1390e98996202a416e"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-390-light-related.png",
+      "sha256": "c5c0174a704ba992997f2c847cb5cc59fe122e334e518eceebea2d48cf4583d2"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/chromium-390-light-reward.png",
+      "sha256": "1fa08e1ab62b2f9ed56592a96553f474bd8d140a5a9bd8b10cb2b1b6f5f5c1a4"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-1440-dark-related.png",
+      "sha256": "915aa7ab372ea39045bf9dda7f0079584949996d1ce69e9a07730aebdca4b366"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-1440-dark-reward.png",
+      "sha256": "e3071a621264ae0bc4254d084b662be765a1979a4afb7ea7b389d1a5fefaf864"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-1440-light-related.png",
+      "sha256": "8b6f95916b52e56f7008a6051d4be0d43888078cbb3e61408652eb0b265cce76"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-1440-light-reward.png",
+      "sha256": "128ff61f2b4f79087fd0955ba7e169ff276514656b479ddfbc1c12c0d7f844d5"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-390-dark-related.png",
+      "sha256": "3708d45d6f736bfd5d67c6cdb2772d39ab2f9ea1ad9e27dad00bafe9c8c1361c"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-390-dark-reward.png",
+      "sha256": "71c84b8711ec084dc41f2490bd775dbc1fa9f9a6011d9aa344d47d64974f2be3"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-390-light-related.png",
+      "sha256": "efff5416be294cb24dfe1e1de4fe7cada791554b9381d53755e150182606c807"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/firefox-390-light-reward.png",
+      "sha256": "9c093a19c75cad2793f40fb4d0590fc58e84643396edc791cd013615badde770"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-1440-dark-related.png",
+      "sha256": "4556c5707b0d67cde3c13cd39485cdbbc99c817b2e34cd5b1ba526bdd75a15b0"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-1440-dark-reward.png",
+      "sha256": "e304c458a87cd3048a59d34641c4e38aae06a4f238bf4a6c2473fce90606643d"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-1440-light-related.png",
+      "sha256": "f1314f2012fc324780ef1e9edb124213775a873b33436ed64927b1661dcc92c6"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-1440-light-reward.png",
+      "sha256": "c59f39bcb3021d733163557f09e33e2fdec2a003bd207db581b6414a3890acee"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-390-dark-related.png",
+      "sha256": "a2549963a06a6292b18da4eb4a80c6341b0e0a48e0ea6434dd72f4ae3fa68f3f"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-390-dark-reward.png",
+      "sha256": "3b1fddfc9f41032a52dbc2bdc5ae84b654254fab2e135c8cd9fa7e7f204b9f2e"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-390-light-related.png",
+      "sha256": "921fb715969a878bbe090fbdae02ed94bd395310f839d0dccfa43b3466408df4"
+    },
+    {
+      "path": ".runtime/engagement/browser-final-package/webkit-390-light-reward.png",
+      "sha256": "35d9450452bf2dfe1470b2f898a2db91093b24d2a9d65583b72c02b3ac9dde9d"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/broken-1440.png",
+      "sha256": "791679f8361378eb6be9b9d774d87100a8b02b74944cb7f7586a8e5fa51dc22a"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/broken-390.png",
+      "sha256": "3895778af6adca8bc13cba38cd2649c0deab3a7ec09cf169b91fb55b3aee1443"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/fallback-1440.png",
+      "sha256": "90c194e281c19fad0c5602077dec00d0cf1fff6781579cfc839f28b85ef6c26e"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/fallback-390.png",
+      "sha256": "2034c889b21c42458353daf19bcc163e2ecd7333688ce99edf7e6215ea1be449"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/many-1440.png",
+      "sha256": "80d29e775b6bdc4587b338c2aae0d4f16bc6ba433e23ddfc1f7cc254873f34a0"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/many-390.png",
+      "sha256": "59ef6d6dcdae6d8b7c796c97bf29e88cd70b7e424d28fecaab835eeb2c91dbf1"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/missing-fields-1440.png",
+      "sha256": "195b8c522308e1423916f0fa9435cd48b19b6d47ff1f595b7b2a21d378f25bf7"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/missing-fields-390.png",
+      "sha256": "e1c3d4c3231862c1ab513265f6f7cff9ec3d79873242dec9fc2a7576ad7b067d"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/no-cover-1440.png",
+      "sha256": "caf8c7061ac78fc97f61cd773b3fc2a799c280adcc511fc3a3c5d3c7f6fc409a"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/no-cover-390.png",
+      "sha256": "9ff328c960bc09a08c99132a5dd473f47354d1e480e5dcbdf04bc5bb8403ec88"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/no-tags-1440.png",
+      "sha256": "b1bc44c7adace19dc0be25598f232bd221a37e8ae1912fc9f37e5bb7616297d9"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/no-tags-390.png",
+      "sha256": "1f7cbb08a7994cb345f8a27dbc404606d6fde1e4833bc987a5481980dcb1a3fd"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/reversed-1440.png",
+      "sha256": "884731080b759ad9d9dd0897e0192d12b974f4c61d505bf959d77849ba13040a"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/reversed-390.png",
+      "sha256": "8f8d07c6c268bff26efb00987f8a88a0323e682c0295aa493bc428c00f2b69f1"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/updated-1440.png",
+      "sha256": "b044518530efccfaf8d86aa9ed0b79ddebc901eb8e58fd9f40339d55b47df382"
+    },
+    {
+      "path": ".runtime/engagement/boundaries/updated-390.png",
+      "sha256": "8f8d07c6c268bff26efb00987f8a88a0323e682c0295aa493bc428c00f2b69f1"
+    }
+  ],
+  "preservedEarlierRuns": [
+    {
+      "path": ".runtime/engagement/browser-first/report.json",
+      "sha256": "65dd18071eee07616c9a45a4216f1fb6d9a63685c49df8142c29455fe78ebc18",
+      "sourceSha": "cd55e22ba8a65f447819a3d547328ccf2110e13a",
+      "passed": 0,
+      "failed": 4,
+      "reason": "Test incorrectly required data-lazy-src on direct-src cover images."
+    },
+    {
+      "path": ".runtime/engagement/browser-final/report.json",
+      "sha256": "865c8e828b7a6c5695616452a64c53875aae67b4cd3f62aaa594ba78b7119156",
+      "sourceSha": "0e4f1a67ef720d81c5a5052e8c0eaa80bc0e0789",
+      "passed": 8,
+      "failed": 4,
+      "reason": "macOS WebKit native controls require Option+Tab in this environment."
+    },
+    {
+      "path": ".runtime/engagement/browser-accepted/report.json",
+      "sha256": "bdd39d940a91abdf66c6def060cfe05a2fc038fb94d3a89c6b6ee63fdcb5a5b7",
+      "sourceSha": "6215b99076fd63ec35600e5b760ef1c24691fbb0",
+      "passed": 6,
+      "failed": 6,
+      "reason": "External click test target overlapped popup; WebKit internal close had an actual native blur/focus bug."
+    },
+    {
+      "path": ".runtime/engagement/boundaries/pre-margin-report.json",
+      "sha256": "7426c2bc67b436098be0b99a88f73dbece35e5063177359aabf83eea1627c4e2",
+      "sourceSha": "6215b99076fd63ec35600e5b760ef1c24691fbb0",
+      "passed": 21,
+      "failed": 1,
+      "reason": "Actual mobile multi-QR popup top was -3px; final popup margin fix passes."
+    }
+  ],
+  "limitations": [
+    "Author-only validation; no independent review or remote CI.",
+    "No Hexo side-by-side comparison or full 1.0 contract acceptance.",
+    "Headless WebKit and touch emulation do not replace real Safari or physical mobile testing.",
+    "No third-party payment request was made; assets are synthetic.",
+    "Large-site full-candidate performance is unmeasured.",
+    "GitHub issue creation was rejected by automatic approval as external publication not included in authorization. No issue, PR, push, merge or release.",
+    "Raw logs, fixture drivers and binary screenshots remain local in ignored .runtime; credential/database files are excluded."
+  ]
+}
