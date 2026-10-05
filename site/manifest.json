@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "id": "hbn-docs-demo",
+  "language": "zh-CN",
+  "title": "Halo Butterfly Next",
+  "description": "Hexo Butterfly 主题在 Halo 的移植版本",
+  "sourceCommit": "ab4e3c643c5a575f9d9623d7c72835a2f1ef3598",
+  "publication": {
+    "stage": "private-preview",
+    "publicRelease": false,
+    "downloadUrl": null,
+    "repositoryUrl": null,
+    "feedbackUrl": null
+  },
+  "baseline": {
+    "themeId": "halo-butterfly-next",
+    "themeVersion": "0.1.0-alpha.3",
+    "haloVersion": "2.26.1",
+    "plugins": [
+      {
+        "id": "PluginSearchWidget",
+        "version": "1.7.1",
+        "role": "local-search-enabled",
+        "installed": true
+      },
+      {
+        "id": "PluginCommentWidget",
+        "version": "3.3.2",
+        "role": "documented-baseline-only",
+        "installed": false
+      }
+    ]
+  },
+  "routes": {
+    "home": "/",
+    "archives": "/archives",
+    "categories": "/categories",
+    "tags": "/tags"
+  },
+  "categories": [
+    {
+      "id": "docs",
+      "name": "使用文档",
+      "resourceName": "hbn-site-category-docs",
+      "slug": "docs"
+    },
+    {
+      "id": "demo",
+      "name": "功能演示",
+      "resourceName": "hbn-site-category-demo",
+      "slug": "demo"
+    },
+    {
+      "id": "changelog",
+      "name": "更新日志",
+      "resourceName": "hbn-site-category-changelog",
+      "slug": "changelog"
+    }
+  ],
+  "tags": [
+    {
+      "id": "installation",
+      "name": "安装",
+      "resourceName": "hbn-site-tag-installation",
+      "slug": "installation"
+    },
+    {
+      "id": "appearance",
+      "name": "外观",
+      "resourceName": "hbn-site-tag-appearance",
+      "slug": "appearance"
+    },
+    {
+      "id": "navigation",
+      "name": "导航",
+      "resourceName": "hbn-site-tag-navigation",
+      "slug": "navigation"
+    },
+    {
+      "id": "reading",
+      "name": "阅读",
+      "resourceName": "hbn-site-tag-reading",
+      "slug": "reading"
+    },
+    {
+      "id": "code",
+      "name": "代码",
+      "resourceName": "hbn-site-tag-code",
+      "slug": "code"
+    },
+    {
+      "id": "images",
+      "name": "图片",
+      "resourceName": "hbn-site-tag-images",
+      "slug": "images"
+    },
+    {
+      "id": "plugins",
+      "name": "插件",
+      "resourceName": "hbn-site-tag-plugins",
+      "slug": "plugins"
+    },
+    {
+      "id": "migration",
+      "name": "迁移",
+      "resourceName": "hbn-site-tag-migration",
+      "slug": "migration"
+    }
+  ],
+  "assetsManifest": "assets/sources.json",
+  "themeProfile": "config/theme-profile.json",
+  "navigation": [
+    {
+      "label": "首页",
+      "target": {
+        "type": "route",
+        "key": "home"
+      },
+      "enabled": true
+    },
+    {
+      "label": "使用文档",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-docs"
+      },
+      "enabled": true
+    },
+    {
+      "label": "功能演示",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-demo-guide"
+      },
+      "enabled": true
+    },
+    {
+      "label": "更新日志",
+      "target": {
+        "type": "category",
+        "key": "changelog"
+      },
+      "enabled": false,
+      "disabledReason": "暂无实际发行日志；有内容后启用。"
+    },
+    {
+      "label": "预览说明",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-download"
+      },
+      "enabled": true
+    },
+    {
+      "label": "GitHub",
+      "target": {
+        "type": "publication",
+        "key": "repositoryUrl"
+      },
+      "enabled": false,
+      "disabledReason": "公开仓库渠道尚未确定。"
+    }
+  ],
+  "footer": [
+    {
+      "label": "下载与预览说明",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-download"
+      },
+      "enabled": true
+    },
+    {
+      "label": "常见问题",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-faq"
+      },
+      "enabled": true
+    },
+    {
+      "label": "关于项目",
+      "target": {
+        "type": "content",
+        "key": "hbn-site-about"
+      },
+      "enabled": true
+    }
+  ],
+  "content": [
+    {
+      "id": "hbn-site-getting-started",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "getting-started",
+      "title": "第一次使用 Halo Butterfly Next",
+      "file": "content/tutorials/getting-started.md",
+      "excerpt": "识别正确的主题包，完成安装、启用和首次检查。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "installation"
+      ],
+      "coverAsset": "lake",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": true,
+      "pinOrder": 0,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/INSTALL-UPGRADE.md",
+        "README.md"
+      ]
+    },
+    {
+      "id": "hbn-site-homepage",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "homepage",
+      "title": "配置首页大图与项目入口",
+      "file": "content/tutorials/homepage.md",
+      "excerpt": "用现有配置设置封面、静态简介、置顶文章和首页摘要。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "appearance"
+      ],
+      "coverAsset": "cover",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "settings.yaml",
+        "docs/SUBTITLE.md",
+        "src/html/index.html"
+      ]
+    },
+    {
+      "id": "hbn-site-navigation",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "navigation",
+      "title": "设置导航和页面入口",
+      "file": "content/tutorials/navigation.md",
+      "excerpt": "安排主菜单和分组，检查手机菜单与键盘访问。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "navigation"
+      ],
+      "coverAsset": "coast",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/NAVIGATION-OPTIONS.md"
+      ]
+    },
+    {
+      "id": "hbn-site-sidebar",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "sidebar",
+      "title": "配置侧栏与站点信息",
+      "file": "content/tutorials/sidebar.md",
+      "excerpt": "设置作者、公告、文档入口和分类标签的排列。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "appearance",
+        "navigation"
+      ],
+      "coverAsset": "forest",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/SIDEBAR-OPTIONS.md",
+        "src/html/views/aside.html"
+      ]
+    },
+    {
+      "id": "hbn-site-reading",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "reading",
+      "title": "调整文章与阅读体验",
+      "file": "content/tutorials/reading.md",
+      "excerpt": "调整顶图、目录、元信息、主题模式与阅读模式。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "coverAsset": "golden",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "settings.yaml",
+        "src/html/post.html"
+      ]
+    },
+    {
+      "id": "hbn-site-code-blocks",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "code-blocks",
+      "title": "使用代码高亮与代码工具栏",
+      "file": "content/tutorials/code-blocks.md",
+      "excerpt": "为代码添加语言、行号和复制操作，检查长行与折叠。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "code"
+      ],
+      "coverAsset": "night",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "settings.yaml"
+      ]
+    },
+    {
+      "id": "hbn-site-images",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "images",
+      "title": "使用图片与灯箱",
+      "file": "content/tutorials/images.md",
+      "excerpt": "区分封面与正文图片，配置图片说明并体验灯箱。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "images"
+      ],
+      "coverAsset": "dunes",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/LIGHTBOX-VALIDATION.md"
+      ]
+    },
+    {
+      "id": "hbn-site-search-comments",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "search-comments",
+      "title": "配置搜索与评论",
+      "file": "content/tutorials/search-comments.md",
+      "excerpt": "了解固定插件基线、入口显隐、权限和已知限制。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "plugins"
+      ],
+      "coverAsset": "waterfall",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/SEARCH-COMMENT-VALIDATION.md",
+        "docs/SEARCH-FOCUS-DECISION.md"
+      ]
+    },
+    {
+      "id": "hbn-site-upgrade",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "upgrade",
+      "title": "升级主题与回退",
+      "file": "content/tutorials/upgrade.md",
+      "excerpt": "保存恢复材料，完成同 ID 更新并核对数据与设置。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "installation",
+        "migration"
+      ],
+      "coverAsset": "lighthouse",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/INSTALL-UPGRADE.md"
+      ]
+    },
+    {
+      "id": "hbn-site-migration",
+      "kind": "Post",
+      "section": "tutorials",
+      "slug": "migration",
+      "title": "从旧 Butterfly 主题迁移",
+      "file": "content/tutorials/migration.md",
+      "excerpt": "转换旧 Halo 主题配置，检查报告并保留切回原主题的路径。",
+      "categories": [
+        "docs"
+      ],
+      "tags": [
+        "migration"
+      ],
+      "coverAsset": "autumn-road",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/MIGRATION.md",
+        "scripts/migrate-config.mjs"
+      ]
+    },
+    {
+      "id": "hbn-site-demo-guide",
+      "kind": "Post",
+      "section": "demos",
+      "slug": "demo-guide",
+      "title": "功能演示导览",
+      "file": "content/demos/demo-guide.md",
+      "excerpt": "从排版、代码和图片开始，体验主题已有页面和交互。",
+      "categories": [
+        "demo"
+      ],
+      "tags": [
+        "reading"
+      ],
+      "coverAsset": "balloons",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": true,
+      "pinOrder": 1,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/DEMO-DOCS-SITE.md",
+        "scripts/smoke.mjs"
+      ]
+    },
+    {
+      "id": "hbn-site-demo-typography",
+      "kind": "Post",
+      "section": "demos",
+      "slug": "demo-typography",
+      "title": "一篇文章看懂正文排版",
+      "file": "content/demos/demo-typography.md",
+      "excerpt": "一篇原创行记，展示标题、列表、引用、表格和正文图片。",
+      "categories": [
+        "demo"
+      ],
+      "tags": [
+        "reading",
+        "images"
+      ],
+      "coverAsset": "lavender",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": []
+    },
+    {
+      "id": "hbn-site-demo-code",
+      "kind": "Post",
+      "section": "demos",
+      "slug": "demo-code",
+      "title": "代码展示与交互",
+      "file": "content/demos/demo-code.md",
+      "excerpt": "使用多语言、长行和多行代码，检查当前配置下的工具栏。",
+      "categories": [
+        "demo"
+      ],
+      "tags": [
+        "code"
+      ],
+      "coverAsset": "terraces",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "settings.yaml"
+      ]
+    },
+    {
+      "id": "hbn-site-demo-images",
+      "kind": "Post",
+      "section": "demos",
+      "slug": "demo-images",
+      "title": "图片阅读与灯箱",
+      "file": "content/demos/demo-images.md",
+      "excerpt": "通过山湖、森林与星空摄影图片检查缩放和灯箱操作。",
+      "categories": [
+        "demo"
+      ],
+      "tags": [
+        "images"
+      ],
+      "coverAsset": "fjord",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/LIGHTBOX-VALIDATION.md"
+      ]
+    },
+    {
+      "id": "hbn-site-docs",
+      "kind": "SinglePage",
+      "section": "pages",
+      "slug": "docs",
+      "title": "使用文档",
+      "file": "content/pages/docs.md",
+      "excerpt": "按安装、外观、内容和更新的顺序查找教程。",
+      "categories": [],
+      "tags": [],
+      "coverAsset": "cover",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/DEMO-DOCS-SITE.md"
+      ]
+    },
+    {
+      "id": "hbn-site-download",
+      "kind": "SinglePage",
+      "section": "pages",
+      "slug": "download",
+      "title": "下载与预览说明",
+      "file": "content/pages/download.md",
+      "excerpt": "了解 alpha.3 准备状态、验证基线和公开下载条件。",
+      "categories": [],
+      "tags": [],
+      "coverAsset": "cover",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "README.md",
+        "docs/RELEASE-alpha.3.md"
+      ]
+    },
+    {
+      "id": "hbn-site-about",
+      "kind": "SinglePage",
+      "section": "pages",
+      "slug": "about-project",
+      "title": "关于 Halo Butterfly Next",
+      "file": "content/pages/about.md",
+      "excerpt": "了解社区维护定位、上游来源和反馈方式。",
+      "categories": [],
+      "tags": [],
+      "coverAsset": "cover",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "README.md",
+        "LICENSE"
+      ]
+    },
+    {
+      "id": "hbn-site-faq",
+      "kind": "SinglePage",
+      "section": "pages",
+      "slug": "faq",
+      "title": "常见问题与限制",
+      "file": "content/pages/faq.md",
+      "excerpt": "查阅下载、插件入口、资源加载和迁移的常见问题。",
+      "categories": [],
+      "tags": [],
+      "coverAsset": "cover",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "README.md",
+        "docs/SEARCH-COMMENT-VALIDATION.md"
+      ]
+    },
+    {
+      "id": "hbn-site-site-setup",
+      "kind": "SinglePage",
+      "section": "pages",
+      "slug": "site-setup",
+      "title": "演示站配置",
+      "file": "content/pages/site-setup.md",
+      "excerpt": "查看样站配置起点、素材来源与复现步骤。",
+      "categories": [],
+      "tags": [],
+      "coverAsset": "cover",
+      "themeVersion": "0.1.0-alpha.3",
+      "status": "draft",
+      "allowComment": false,
+      "pinned": false,
+      "pinOrder": null,
+      "publishTime": null,
+      "sourceFiles": [
+        "docs/DEMO-DOCS-SITE.md",
+        "settings.yaml"
+      ]
+    }
+  ]
+}
