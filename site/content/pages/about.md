@@ -18,7 +18,7 @@ Halo Butterfly Next 是 Butterfly 的 Halo 社区维护版，继承[小红的 Ha
 
 ## 反馈问题
 
-公开反馈渠道将在公开版本准备好后补充。目前取得私有预览包的使用者，请沿取得预览包的维护者渠道反馈。
+项目仓库及反馈渠道已公开。使用主题或阅读文档时发现问题，可以通过 [GitHub Issues](https://github.com/songxychn/halo-butterfly-next/issues)反馈；提交前先搜索是否已有相同问题。
 
 描述问题时提供主题、Halo、相关插件、浏览器版本和可重复的步骤。优先附最小示例及已去除私人信息的截图，不上传数据库、密码、Cookie 或 Token。
 

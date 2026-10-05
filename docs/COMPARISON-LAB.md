@@ -12,7 +12,7 @@
 bun install --frozen-lockfile --ignore-scripts
 bun run build
 python3 scripts/lab/lab.py bootstrap \
-  --package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
+  --package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
   --source-sha "$(git rev-parse HEAD)"
 python3 scripts/lab/lab.py health
 python3 scripts/lab/lab.py evidence
@@ -52,10 +52,10 @@ Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的
 | 首页/归档/分类/标签顶部图 | 对应 `*_img` | 各组 `above_background` |
 | 导航与头像 | theme.menu / avatar | 独立 comparison-primary Menu、MenuItem spec.menuName + annotations.icon / 合成维护者 avatar |
 | 亮暗模式 | darkmode、关闭自动切换 | style.mode=user |
-| 首页动态字幕 | 基础配置关闭 subtitle | 配置为空时仍循环显示“请填写打字文案或者配置随机文案！”；主题缺少关闭开关 |
+| 首页动态字幕 | 基础配置关闭 subtitle | 基础夹具使用空本地文案并关闭自定义随机来源；当前主题保持空显示，不创建 Typed |
 | 评论/搜索/代码插件 | 基础配置不接入评论或搜索服务 | 首次初始化停用新实例的可选插件；后续启用视为配置漂移并保留 |
 
-Halo 的 `src/js/page/index.ts` 会将空 `typewriter_custom_text` 替换为默认提示，并继续启动 Typed。因此本 profile **没有关闭 Halo 动态字幕**，只关闭了 Hexo 字幕；两站这里仍有可见差异，属于待修主题缺口。实验环境保留这个真实行为，不以空格或隐藏 CSS 伪装关闭。
+当前主题由 `src/js/modules/subtitle.ts` 处理字幕：空文案且没有远端文案时保持空显示，不再输出旧的配置提示或创建 Typed。`index.enable_subtitle=false` 可关闭字幕节点及随机请求；`index.subtitle_effect=false` 可改为静态文案。基础夹具没有显式关闭这两个开关，而是使用空本地文案和默认自定义来源，因此不能把夹具配置描述为“主题缺少关闭开关”。字幕开关、来源和升级行为另按[字幕验证说明](SUBTITLE.md)验收；旧包运行记录保留其当时行为。
 
 基础配置不将动画字幕、评论或搜索插件标记为验收通过。这些是待建的独立场景，不能从基础环境结果记作通过。Halo 当前没有统一的懒加载关闭选项；Hexo 基础环境关闭懒加载，Halo 仍执行真实懒加载。当前 12 篇文章均设置封面；无封面回退需另设独立场景验收。代码高亮实现及其他视觉差异保留可见，不用 CSS 覆盖伪装一致。
 

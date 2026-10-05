@@ -48,4 +48,4 @@ Halo Butterfly Next 是基于[小红的 Halo Butterfly](https://github.com/dhjdd
 
 安装和迁移以[现有指南](MIGRATION.md)为准：Next 的主题 ID、Setting、ConfigMap 独立；转换工具仅本地生成文件，有未支持项，需要人工核对；不自动修改文章或替换原主题。市场文案必须保留这些限制。
 
-提交前还需将本文件中的私有证据链接转成可访问的公开材料，更新最终候选身份和截图，保留作者与第三方许可。公开快照、协议确认及正式提交另按[准备清单](APP-STORE-READINESS.md)完成。
+本仓库及其 issue/PR 已公开。提交前还需复核证据链接可访问性，更新最终候选身份和截图，保留作者与第三方许可。发行材料、协议确认及正式提交另按[准备清单](APP-STORE-READINESS.md)完成。

@@ -29,7 +29,7 @@ bun run build
 LAB_RUNTIME="$PWD/.runtime/probe-lab" HALO_PORT=18092 HEXO_PORT=14001 \
   HALO_JAR_SOURCE=/path/to/verified/halo-2.26.1.jar \
   python3 -B scripts/lab/lab.py bootstrap \
-    --package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
+    --package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
     --source-sha "$(git rev-parse HEAD)"
 
 python3 -B scripts/lab/layout-probe.py exercise --expect-layout supported
