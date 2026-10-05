@@ -2,6 +2,8 @@
 
 目标站点为 https://butterfly.baizhukui.com。`release.yml` 发布并核验主题附件后调用 `deploy-demo.yml`，后者下载同一 ZIP、打包同 tag 内容、构建并演练镜像，最后推送 GHCR。master 合并不触发发布或线上更新。发行门禁见 [releases](../../releases/README.md)。
 
+2026-10-06 已在 hk 完成 H2 首次切换、回退到旧 PostgreSQL 站点、暂停更新和重新上线演练；五分钟检查已启用。当前运行本地迁移预览镜像，公开回执 `published:false`，没有因此创建 Release。证据见 [迁移验收记录](../../docs/validation/2026-10-06/release-h2-demo.json)。
+
 ## 镜像与运行
 
 镜像基于固定摘要的 Halo 2.26.1，自带 H2、Python 初始化器、SearchWidget 1.7.1、主题 ZIP、19 篇内容和14张许可照片。只导出公开材料，不复制任何已运行实例的数据库、凭据、Cookie 或密钥。
@@ -32,11 +34,15 @@ python3 /root/docker/app/halo-butterfly-next/h2/tools/hk-update.py rollback
 
 回退后自动更新暂停，排障后执行 `resume`；不修改 Release 和已公开镜像。旧 PostgreSQL 容器、数据与凭据保留为首次迁移的退路；切换后停用旧库以释放资源；回退到旧站时会先核对归属并启动保留的 PostgreSQL。
 
+尚无带 `SHA256SUMS` 标记的 Release 时，检查任务直接保持当前预览站，不访问尚不存在的 GHCR 通道；完整附件清单由 CI 验证。旧目录根部 `backup.sh` 只适用于 PostgreSQL；H2 后台手工数据不在跨版本保留范围内，也未配置定时或异机 H2 备份。
+
 ## GHCR 与部署结果
 
 镜像位置为 `ghcr.io/songxychn/halo-butterfly-next/demo`，版本标签不可覆盖，`demo` 通道仅推进到最新已发布语义版本（包括 alpha/beta/rc）。镜像是公开演示材料：**首次创建 GHCR package 后，需在包设置中设为 Public**，hk 的镜像代理才能匿名拉取。仓库公开并不自动保证新 package 公开；若包仍私有，部署会明确失败，Release 保留，可完成设置后重跑。不要把管理员密码或个人访问令牌打进镜像。
 
 `deploy-demo.yml` 发布镜像后等待 `/site-assets/demo-version.json` 返回相同 tag、源SHA和主题摘要；未收到 hk 回执就失败，不能把推送镜像当作部署成功。服务端错误查看 `journalctl -u hbn-demo-update.service` 和 `h2/failed.json`。该回执不包含凭据。
+
+公网回执请求带明确应用 User-Agent，避免本站 Cloudflare 对 Python 默认请求标识的 1010 拦截。镜像加速入口必须可验证 HTTPS；本次发现 Cloudflare 代理入口 TLS 失败而源站正常，不能通过关闭证书验证绕过。正式 Release 使用不同版本号，使主题 CSS/JS 的版本查询参数更新；同版本预览包替换后需清除本站旧资源 CDN 缓存，不能只验证源站 ZIP 摘要。
 
 首次本地迁移演练可使用受限 `bootstrap --image halo-butterfly-demo:rehearsal-...`。它明确标为 `published: false`，不创建 Release、不推送 GHCR；一旦线上进入已发布版本，禁止再用此入口覆盖。
 
