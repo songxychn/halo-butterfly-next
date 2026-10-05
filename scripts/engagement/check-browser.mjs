@@ -27,7 +27,10 @@ try {
     const browser = await type.launch({headless: true, ...(engine === 'chromium' ? {executablePath: type.executablePath()} : {})});
     try {
       for (const width of [1440, 390]) for (const mode of ['light', 'dark']) {
-        const result = {engine, browserVersion: browser.version(), width, mode, checks: [], jsErrors: [], failedRequests: []};
+        // macOS WebKit follows native Safari keyboard navigation: Option+Tab
+        // includes controls without changing the user's system/browser prefs.
+        const tabKey = engine === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
+        const result = {engine, browserVersion: browser.version(), width, mode, keyboardNavigationKey: tabKey, checks: [], jsErrors: [], failedRequests: []};
         report.cases.push(result);
         const context = await browser.newContext({viewport: {width, height: width === 390 ? 844 : 1000}, hasTouch: width === 390, locale: 'zh-CN', timezoneId: 'Asia/Shanghai'});
         await context.addInitScript(value => localStorage.setItem('halo-butterfly-next.color-scheme', value), mode);
@@ -41,7 +44,7 @@ try {
         const page = await context.newPage();
         page.on('pageerror', error => result.jsErrors.push(error.message));
         page.on('requestfailed', request => result.failedRequests.push({url: request.url(), error: request.failure()?.errorText}));
-        const check = async (name, operation) => {await operation(); result.checks.push(name);};
+        const check = async (name, operation) => {result.activeCheck = name; await operation(); result.checks.push(name); delete result.activeCheck;};
         try {
           const response = await page.goto(base + '/archives/preview-1/', {waitUntil: 'domcontentloaded'});
           assert.equal(response.status(), 200);
@@ -75,9 +78,9 @@ try {
             await button.focus(); await page.keyboard.press('Enter');
             assert.equal(await button.getAttribute('aria-expanded'), 'true');
             assert.equal(await panel.isVisible(), true);
-            await page.keyboard.press('Tab');
+            await page.keyboard.press(tabKey);
             assert.equal(await page.evaluate(() => document.activeElement.matches('.reward-close')), true);
-            await page.keyboard.press('Tab');
+            await page.keyboard.press(tabKey);
             assert.equal(await page.evaluate(() => document.activeElement.matches('.reward-item a')), true);
             await page.keyboard.press('Escape');
             assert.equal(await button.getAttribute('aria-expanded'), 'false');
@@ -102,7 +105,7 @@ try {
           await check('Tab leaving panel closes without moving focus back', async () => {
             await button.focus(); await page.keyboard.press('Enter');
             await page.locator('.reward-item a').last().focus();
-            await page.keyboard.press('Tab');
+            await page.keyboard.press(tabKey);
             assert.equal(await panel.isVisible(), false);
             assert.equal(await page.evaluate(() => !document.activeElement.closest('.post-reward')), true);
           });
@@ -129,7 +132,7 @@ try {
           assert.deepEqual(result.jsErrors, []);
           assert.deepEqual(result.failedRequests, []);
           result.status = 'passed';
-        } catch (error) {result.status = 'failed'; result.error = error.message;}
+        } catch (error) {result.status = 'failed'; result.error = error.message; result.errorStack = error.stack;}
         finally {await context.close(); await writeFile(join(output, 'report.json'), JSON.stringify(report, null, 2) + '\n');}
       }
     } finally {await browser.close();}

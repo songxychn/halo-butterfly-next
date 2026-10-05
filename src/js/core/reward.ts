@@ -70,6 +70,14 @@ export function bindReward(root: HTMLElement) {
   const show = (open: boolean) => {
     panel.hidden = !open;
     button.setAttribute('aria-expanded', String(open));
+    if (open && doc.defaultView) {
+      const rect = button.getBoundingClientRect();
+      const above = Math.max(0, rect.top - 20);
+      const below = Math.max(0, doc.defaultView.innerHeight - rect.bottom - 20);
+      const placeAbove = above >= below;
+      panel.setAttribute('data-placement', placeAbove ? 'above' : 'below');
+      panel.style.setProperty('--reward-max-height', `${Math.max(48, (placeAbove ? above : below) - 15)}px`);
+    }
   };
   const close = (restore = false) => {
     clearLeave();
@@ -106,6 +114,7 @@ export function bindReward(root: HTMLElement) {
     if (!(event.relatedTarget instanceof Node) || !root.contains(event.relatedTarget)) close();
   };
   const onClose = () => close(true);
+  const onResize = () => close(panel.contains(doc.activeElement));
   root.setAttribute('data-reward-bound', 'true');
   show(false);
   button.addEventListener('click', toggle);
@@ -115,6 +124,7 @@ export function bindReward(root: HTMLElement) {
   doc.addEventListener('keydown', onEscape);
   root.addEventListener('focusout', onFocusOut);
   doc.addEventListener('pointerdown', onOutside);
+  doc.defaultView?.addEventListener('resize', onResize);
   const imageCleanups = [...panel.querySelectorAll<HTMLImageElement>('img.post-qr-code-img')].map(img => {
     const onError = () => {
       img.hidden = true;
@@ -134,6 +144,7 @@ export function bindReward(root: HTMLElement) {
     doc.removeEventListener('keydown', onEscape);
     root.removeEventListener('focusout', onFocusOut);
     doc.removeEventListener('pointerdown', onOutside);
+    doc.defaultView?.removeEventListener('resize', onResize);
     imageCleanups.forEach(fn => fn());
     root.removeAttribute('data-reward-bound');
     panel.hidden = false;
