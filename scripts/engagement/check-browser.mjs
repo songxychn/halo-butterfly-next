@@ -67,7 +67,9 @@ try {
           });
           await button.scrollIntoViewIfNeeded();
           if (width === 1440) await check('hover opens temporarily; Escape dismisses stationary pointer', async () => {
-            await page.locator('.relatedPosts .headline').click();
+            assert.equal(await page.evaluate(() => !!document.elementFromPoint(5, 5)?.closest('.post-reward')), false);
+            if (width === 390) await page.touchscreen.tap(5, 5);
+            else await page.mouse.click(5, 5);
             await button.hover();
             assert.equal(await panel.isVisible(), true);
             await page.keyboard.press('Escape');
@@ -99,7 +101,9 @@ try {
             if (width === 390) {await button.tap(); assert.equal(await panel.isVisible(), true); await button.tap(); assert.equal(await panel.isVisible(), false); await button.tap();}
             else {await button.click();}
             assert.equal(await panel.isVisible(), true);
-            await page.locator('.relatedPosts .headline').click();
+            assert.equal(await page.evaluate(() => !!document.elementFromPoint(5, 5)?.closest('.post-reward')), false);
+            if (width === 390) await page.touchscreen.tap(5, 5);
+            else await page.mouse.click(5, 5);
             assert.equal(await panel.isVisible(), false);
           });
           await check('Tab leaving panel closes without moving focus back', async () => {
