@@ -151,7 +151,8 @@ test('actual template rendering ranks before limiting, groups repeated tags once
   const template = (tag, names) => ({getAttribute: () => tag, content: {querySelectorAll: () => names.map(node)}});
   const root = {
     querySelectorAll: () => [template('a', ['early', 'both']), template('b', ['later', 'both']), template('a', ['early', 'both'])],
-    getAttribute: () => 'self',
+    getAttribute: key => key === 'data-current-post' ? 'self' : null,
+    setAttribute() {},
     replaceChildren(...nodes) {this.children = nodes;},
     closest: () => widget,
   };

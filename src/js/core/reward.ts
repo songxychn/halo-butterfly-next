@@ -97,7 +97,7 @@ export function bindReward(root: HTMLElement) {
     if (event.key !== 'Escape' || panel.hidden) return;
     event.preventDefault();
     event.stopPropagation();
-    close(true);
+    close(pinned || root.contains(doc.activeElement));
   };
   const onOutside = (event: PointerEvent) => {
     if (event.target instanceof Node && !root.contains(event.target)) close();
@@ -112,7 +112,7 @@ export function bindReward(root: HTMLElement) {
   closeButton.addEventListener('click', onClose);
   root.addEventListener('pointerenter', onEnter);
   root.addEventListener('pointerleave', onLeave);
-  root.addEventListener('keydown', onEscape);
+  doc.addEventListener('keydown', onEscape);
   root.addEventListener('focusout', onFocusOut);
   doc.addEventListener('pointerdown', onOutside);
   const imageCleanups = [...panel.querySelectorAll<HTMLImageElement>('img.post-qr-code-img')].map(img => {
@@ -126,15 +126,17 @@ export function bindReward(root: HTMLElement) {
     return () => img.removeEventListener('error', onError);
   });
   const cleanup = () => {
-    clearLeave();
+    close();
     button.removeEventListener('click', toggle);
     closeButton.removeEventListener('click', onClose);
     root.removeEventListener('pointerenter', onEnter);
     root.removeEventListener('pointerleave', onLeave);
-    root.removeEventListener('keydown', onEscape);
+    doc.removeEventListener('keydown', onEscape);
     root.removeEventListener('focusout', onFocusOut);
     doc.removeEventListener('pointerdown', onOutside);
     imageCleanups.forEach(fn => fn());
+    root.removeAttribute('data-reward-bound');
+    panel.hidden = false;
     boundRewards.delete(root);
   };
   boundRewards.set(root, cleanup);

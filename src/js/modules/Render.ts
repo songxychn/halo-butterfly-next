@@ -26,7 +26,6 @@ import {
   formatPermalinkText,
 } from '../core/post-copyright.ts';
 import { bindRewards } from '../core/reward.ts';
-import LazyLoad from '../core/_lazyLoad.ts';
 
 export default class Render {
   name = 'Render';
@@ -168,10 +167,7 @@ export default class Render {
   #relatedPosts() {
     const list = document.querySelector('.relatedPosts-list');
     if (!list) return;
-    if (renderRelatedPosts(list, resolveLimit(this.#conf.related_post_limit))) {
-      // Common's initial observer cannot see images inside inert templates.
-      new LazyLoad({elements_selector: '.relatedPosts-list img', threshold: 0, data_src: 'lazy-src'});
-    }
+    renderRelatedPosts(list, resolveLimit(this.#conf.related_post_limit));
   }
 
 }

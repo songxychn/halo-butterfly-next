@@ -79,6 +79,7 @@ export function rankRelatedPosts<T extends {path: string}>(currentPath: string, 
  */
 export function renderRelatedPosts(root: Element | null, limit: unknown, random = Math.random) {
   if (!root) return 0;
+  if (root.getAttribute('data-related-rendered') === 'true') return root.querySelectorAll(':scope > a[data-post-name]').length;
   const groups = new Map<string, {path: string; node: HTMLAnchorElement}[]>();
   for (const template of root.querySelectorAll<HTMLTemplateElement>(':scope > template[data-related-tag]')) {
     const tag = template.getAttribute('data-related-tag');
@@ -92,6 +93,7 @@ export function renderRelatedPosts(root: Element | null, limit: unknown, random 
   }
   const ranked = rankRelatedPosts(root.getAttribute('data-current-post') || '', [...groups.values()], {limit, random});
   root.replaceChildren(...ranked.map(post => post.node));
+  root.setAttribute('data-related-rendered', 'true');
   const widget = root.closest<HTMLElement>('.relatedPosts');
   if (!ranked.length) widget?.remove();
   else if (widget) widget.hidden = false;
