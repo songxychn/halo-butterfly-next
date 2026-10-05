@@ -1161,7 +1161,7 @@ spec:
         - $formkit: group
           name: related_post
           label: 相关文章
-          help: 对应上游 Butterfly related_post（_config.yml / related_post.js / post.pug，5.7.0 f223b188）。默认 enable true、limit 6、date_type created。enable 关闭不渲染。无标签不渲染。按当前文章标签 listByTag 收集候选，客户端去重截断到 limit。date_type created 显示发布时间，其余显示更新时间。仅文章页，插在上下篇之后、评论之前。标题 th:text。不做 footer、reward、逐页覆盖。
+          help: 对应上游 Butterfly related_post（_config.yml / related_post.js / post.pug，5.7.0 f223b188）。默认 enable true、limit 6、date_type created。enable 关闭不渲染。无标签不渲染。按共同标签数量优先推荐，同等相关度随机展示；排除当前文章及重复项，再截断到 limit。date_type created 显示发布时间，其余显示更新时间。仅文章页，插在上下篇之后、评论之前。标题 th:text。不做 footer、reward、逐页覆盖。
           value:
             enable: true
             limit: 6
@@ -1251,7 +1251,7 @@ spec:
             - $formkit: radio
               name: enable
               label: 启用打赏
-              help: 对应上游 reward.enable（默认 false）。关闭不渲染。开启仍须 QR_code 非空（对齐 post.pug 的 enable && QR_code）。
+              help: 对应上游 reward.enable（默认 false）。关闭不渲染。开启仍须至少一个图片非空的有效二维码；只有空项时不显示按钮。
               value: false
               options:
                 - label: 启用
