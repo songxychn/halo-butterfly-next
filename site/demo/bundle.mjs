@@ -9,6 +9,7 @@ const [packagePath, outputPath] = process.argv.slice(2);
 if (!packagePath || !outputPath) throw new Error('Usage: bundle.mjs <release-theme.zip> <new-output-directory>');
 const output=resolve(outputPath);
 if (!output.startsWith(resolve('.runtime')+'/')) throw new Error('Output must be under .runtime');
+await mkdir(dirname(output),{recursive:true,mode:0o700});
 await mkdir(output,{mode:0o700});
 const manifest=JSON.parse(await readFile('site/manifest.json'));
 const version=JSON.parse(await readFile('package.json')).version;
