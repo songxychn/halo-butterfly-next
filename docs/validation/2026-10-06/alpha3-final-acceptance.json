@@ -1,0 +1,873 @@
+{
+  "schema": 1,
+  "date": "2026-10-06",
+  "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
+  "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+  "decision": "approved",
+  "scope": "Final bounded alpha acceptance; no product changes, tag, Release or production deployment",
+  "build": {
+    "verifyTests": 578,
+    "passed": 578,
+    "packageFiles": 129,
+    "masterCi": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37354328279",
+    "sourceRebuild": {
+      "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
+      "rebuiltSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+      "passed": true,
+      "command": "git archive 8e53148 | tar; bun install --frozen-lockfile --ignore-scripts; bun run build"
+    }
+  },
+  "installation": {
+    "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
+    "packageSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+    "filesMatched": 129,
+    "fixtureSha256": "6cbc417b141bbe6d508a9b9777d5230c81599f0baad11b0175cbe960c941b7b5",
+    "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "fresh": true
+  },
+  "corePages": {
+    "routes": [
+      "/",
+      "/about-preview/",
+      "/archives/",
+      "/archives/preview-1/",
+      "/categories/",
+      "/missing-alpha3-page/",
+      "/tags/"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "browser": "153.0.8010.12",
+    "rows": 28,
+    "automaticViolations": 0,
+    "incompleteNodes": 132,
+    "scriptFailures": [],
+    "boundary": "Original 132 incomplete preserved; independent manual review passes 16 metadata and 8 visible desktop TOC-number nodes only; remaining 108 header nodes are not collectively passed."
+  },
+  "interactions": {
+    "originalChecks": 42,
+    "originalPassed": 39,
+    "originalFailures": [
+      {
+        "width": 390,
+        "mode": "light",
+        "name": "TOC pointer navigation and heading focus",
+        "result": "failed",
+        "error": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.aside-toc .toc-link').first()\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"#intro\" title=\"固定内容与验收范围\" class=\"toc-link node-name--H2  is-active-link\">…</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    18 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n"
+      },
+      {
+        "width": 390,
+        "mode": "dark",
+        "name": "TOC pointer navigation and heading focus",
+        "result": "failed",
+        "error": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.aside-toc .toc-link').first()\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"#intro\" title=\"固定内容与验收范围\" class=\"toc-link node-name--H2  is-active-link\">…</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    19 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+      },
+      {
+        "width": 390,
+        "mode": "dark",
+        "name": "mode toggle survives reload",
+        "result": "failed",
+        "error": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#rightside-config')\u001b[22m\n\u001b[2m    - locator resolved to <button title=\"设置\" type=\"button\" class=\"button\" id=\"rightside-config\" aria-expanded=\"false\" aria-controls=\"rightside-config-hide\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not stable\u001b[22m\n\u001b[2m  18 × retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - element is outside of the viewport\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n"
+      }
+    ],
+    "interruption": "First desktop-light row completed before user turn interruption; remaining three rows were run separately, no duplicate success substituted.",
+    "correctedMobile": {
+      "reason": "Original mobile TOC test omitted opening drawer; mode test overlapped back-to-top scrolling. Original failures preserved.",
+      "rows": [
+        {
+          "mode": "light",
+          "test": "toc",
+          "activeHeading": "intro",
+          "result": "passed"
+        },
+        {
+          "mode": "light",
+          "test": "mode",
+          "result": "passed"
+        },
+        {
+          "mode": "dark",
+          "test": "toc",
+          "activeHeading": "intro",
+          "result": "passed"
+        },
+        {
+          "mode": "dark",
+          "test": "mode",
+          "result": "passed"
+        }
+      ]
+    },
+    "harnessCorrections": [
+      "Open mobile TOC through its actual button before clicking a heading; retain original hidden-element timeouts.",
+      "Mode-only checks use fresh context to avoid overlap with prior back-to-top animation.",
+      "First focused runner incorrectly required toolbar opacity 1; theme intentionally uses .8. Preserve its 4 timeouts; corrected visibility predicate uses existing visible .8 state."
+    ],
+    "syntheticCases": [
+      "empty category",
+      "missing author and cover",
+      "longform 20 sections",
+      "404"
+    ],
+    "productFilesChanged": false
+  },
+  "headerContrast": {
+    "scope": "Independent read-only source/report/screenshot review; no live Halo access",
+    "installation": {
+      "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
+      "packageSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+      "filesMatched": 129,
+      "fixtureSha256": "6cbc417b141bbe6d508a9b9777d5230c81599f0baad11b0175cbe960c941b7b5",
+      "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+      "fresh": true
+    },
+    "coreRows": 28,
+    "coreAutomaticViolations": 0,
+    "coreIncompleteNodes": 132,
+    "rawEvidence": [
+      {
+        "path": ".runtime/alpha3-final/core/report.json",
+        "sha256": "f0d3d16ab376c889f0b8962a67cc413b032914217e081f38897b45c2503839af"
+      },
+      {
+        "path": ".runtime/alpha3-final/white/report.json",
+        "sha256": "14f45ce66a6c3d18befdab31dbfb3d953528a3b3773dd1c7e1de991ccce1c9d0"
+      },
+      {
+        "path": ".runtime/alpha3-final/white-restoration.json",
+        "sha256": "086d643781866c7c86c39c6649c5205c0b47183bcd03ac2d5e4a31f21e157802"
+      },
+      {
+        "path": ".runtime/alpha3-final/white/1-1440-light.png",
+        "sha256": "bdaca584f655ff8c436c4dfaf0090008d4b54c8855130497ee39589710895e55"
+      },
+      {
+        "path": ".runtime/alpha3-final/white/2-1440-dark.png",
+        "sha256": "ee15ceab28fe8f0c2a343e274c8426261e9aa41eedd4fe202381538540a87cc6"
+      },
+      {
+        "path": ".runtime/alpha3-final/white/3-390-light.png",
+        "sha256": "c91e040f4ad85d8a7534852db37a1ac3ae96892aa799b691498ea5116f37bab1"
+      },
+      {
+        "path": ".runtime/alpha3-final/white/4-390-dark.png",
+        "sha256": "9fea581a938fe3fd9363b59778cb0da57cc926660f6a3f014e84b600e521547f"
+      }
+    ],
+    "reviewedCoreScreenshots": [
+      "1-1440-light.png",
+      "2-1440-dark.png",
+      "3-390-light.png",
+      "5-1440-light.png",
+      "6-1440-dark.png",
+      "7-390-light.png",
+      "9-1440-light.png",
+      "17-1440-light.png"
+    ],
+    "reviewedWhiteScreenshots": [
+      "1-1440-light.png",
+      "3-390-light.png",
+      "4-390-dark.png"
+    ],
+    "lightWhiteShadowUpperBounds": {
+      "ordinaryNav": 3.5676617897613574,
+      "siteBrand": 2.508149449896218,
+      "largeHomeTitle": 2.9100314176593853
+    },
+    "renderedPixelChecks": [
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "Butterfly 对照实验室",
+        "class": "link nav-page-title",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "18.2px",
+        "fontWeight": "700",
+        "textShadow": "rgba(0, 0, 0, 0.15) 2px 2px 4px",
+        "renderedRGBMin": [
+          157,
+          157,
+          157
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 2.3374939507455057
+      },
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "首页",
+        "class": "link",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "14.196px",
+        "fontWeight": "700",
+        "textShadow": "rgba(0, 0, 0, 0.3) 1px 1px 2px",
+        "renderedRGBMin": [
+          132,
+          132,
+          132
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 3.223596394177235
+      },
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "归档",
+        "class": "link",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "14.196px",
+        "fontWeight": "400",
+        "textShadow": "rgba(0, 0, 0, 0.3) 1px 1px 2px",
+        "renderedRGBMin": [
+          141,
+          141,
+          141
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 2.8606814432391094
+      },
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "分类",
+        "class": "link",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "14.196px",
+        "fontWeight": "400",
+        "textShadow": "rgba(0, 0, 0, 0.3) 1px 1px 2px",
+        "renderedRGBMin": [
+          135,
+          135,
+          135
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 3.096308788231394
+      },
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "标签",
+        "class": "link",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "14.196px",
+        "fontWeight": "400",
+        "textShadow": "rgba(0, 0, 0, 0.3) 1px 1px 2px",
+        "renderedRGBMin": [
+          138,
+          138,
+          138
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 2.975460715190315
+      },
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "关于",
+        "class": "link",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "14.196px",
+        "fontWeight": "400",
+        "textShadow": "rgba(0, 0, 0, 0.3) 1px 1px 2px",
+        "renderedRGBMin": [
+          134,
+          134,
+          134
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 3.1380035419900176
+      },
+      {
+        "width": 1440,
+        "mode": "light",
+        "text": "Butterfly 对照实验室",
+        "class": "above-title",
+        "foreground": "rgb(255, 255, 255)",
+        "fontSize": "39.9px",
+        "fontWeight": "700",
+        "textShadow": "rgba(0, 0, 0, 0.15) 2px 2px 4px",
+        "renderedRGBMin": [
+          154,
+          154,
+          154
+        ],
+        "renderedRGBMax": [
+          255,
+          255,
+          255
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 2.813933027204481
+      },
+      {
+        "width": 390,
+        "mode": "light",
+        "text": "Butterfly 对照实验室",
+        "class": "link nav-page-title",
+        "foreground": "rgb(238, 238, 238)",
+        "fontSize": "18.2px",
+        "fontWeight": "700",
+        "textShadow": "rgba(0, 0, 0, 0.15) 2px 2px 4px",
+        "renderedRGBMin": [
+          157,
+          157,
+          157
+        ],
+        "renderedRGBMax": [
+          238,
+          238,
+          238
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 2.3374939507455057
+      },
+      {
+        "width": 390,
+        "mode": "light",
+        "text": "Butterfly 对照实验室",
+        "class": "above-title",
+        "foreground": "rgb(255, 255, 255)",
+        "fontSize": "25.9px",
+        "fontWeight": "700",
+        "textShadow": "rgba(0, 0, 0, 0.15) 2px 2px 4px",
+        "renderedRGBMin": [
+          156,
+          156,
+          156
+        ],
+        "renderedRGBMax": [
+          255,
+          255,
+          255
+        ],
+        "maxContrastBetweenAnyPixelsInTextRect": 2.7454458936977137
+      }
+    ],
+    "verdict": "Default enabled header mask with white cover fails light-mode ordinary navigation text and home title contrast; this is outside existing #313/#338 and mask-disabled limitations. Do not mark header manual review passed.",
+    "boundaries": [
+      "Worst-case rectangle canvas minima alone do not prove individual glyph contrast failures on photos.",
+      "Post-meta owns rgba(0,0,0,.65) background omitted by canvas; reported2.645 cannot be used to fail it.",
+      "Post title selector is absent from sampling; bars icon has empty text ranges and sentinel100 is not a passing ratio.",
+      "Dark-mode canvas ratios below4.5 are not independently classified as failures here.",
+      "Pixel extrema corroborate white-background calculation; they are not a general raster-based WCAG audit.",
+      "Do not rewrite 132 incomplete items collectively as passed or failed."
+    ]
+  },
+  "upstreamStyle": {
+    "commit": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+    "repository": "https://github.com/jerryc127/hexo-theme-butterfly",
+    "lightMask": "black alpha 0.3",
+    "navigationColor": "#eeeeee",
+    "titleColor": "#ffffff",
+    "conclusion": "The measured light-mode combination follows upstream defaults; this is a theme readability limitation, separate from Halo resource hangs. Current upstream demo was not independently measured.",
+    "maintainerDecision": "Explicitly accepted for current alpha; preserve default style and disclose limitation."
+  },
+  "linuxClassification": {
+    "runId": 37347534176,
+    "artifactId": 11361896164,
+    "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "runnerSourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+    "rawReport": {
+      "path": ".runtime/alpha3-final/independent/linux-37347534176/browser/2026-10-05T17-21-55-134Z-a4107f12/report.json",
+      "sha256": "f772ddbe0d73bf4a1ecffa6d2f00d98d3c75966a8534b15bb4a20033f7628f21"
+    },
+    "cases": [
+      {
+        "route": "/",
+        "width": 1440,
+        "mode": "dark",
+        "raw": {
+          "path": ".runtime/alpha3-final/independent/linux-37347534176/browser/2026-10-05T17-21-55-134Z-a4107f12/webkit-1440-dark-0.json",
+          "sha256": "a1a881b766fa503cfec0b5fba044251657cea1253880bc740dd19ff7d488e715"
+        },
+        "originalStatus": "failed",
+        "classification": "runner-reload-cancellation-not-resource-error",
+        "failedRequest": {
+          "requestId": 15,
+          "url": "http://127.0.0.1:18141/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+          "method": "GET",
+          "reason": "Load request cancelled"
+        },
+        "runnerReloads": [
+          {
+            "id": 1,
+            "result": "completed"
+          }
+        ],
+        "evidence": [
+          "Old comment-widget script starts at 74ms; Load request cancelled at 2877ms, same timestamp as runner reload document request.",
+          "Replacement request ID30 returns HTTP200 at2976ms and requestfinished2977ms with captured body SHA778267a012f663672e795899ec91091bc8b9ec52c414017b419ce963cf521acb.",
+          "Mode/reload keyboard check passed; final readyState complete, pending empty, blocked requests and JS errors empty.",
+          "Current ledger abortReasons omits exact WebKit error string Load request cancelled; original runnerCancellations therefore empty."
+        ],
+        "recommendation": "Not an additional product release blocker and not a new #338 exception. Retain original failed result; any future runner fix must preserve request identity, active reload, and completed replacement guards."
+      },
+      {
+        "route": "/about-preview/",
+        "width": 1440,
+        "mode": "dark",
+        "raw": {
+          "path": ".runtime/alpha3-final/independent/linux-37347534176/browser/2026-10-05T17-21-55-134Z-a4107f12/webkit-1440-dark-9.json",
+          "sha256": "24ba40787ac126743138f4985088bbe20c10fa88b4e15f8b8a72e987ddf9d5b0"
+        },
+        "originalStatus": "failed",
+        "classification": "native-halo-tracker-resource-hang-with-screenshot-readiness-timeout",
+        "pendingBeforeClose": [
+          {
+            "requestId": 11,
+            "url": "http://127.0.0.1:18141/halo-tracker.js",
+            "method": "GET",
+            "type": "script",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "evidence": [
+          "halo-tracker.js GET starts49ms and has no response through failure16533ms, final21537ms and pre-close ledger. Document stays interactive and never emits load.",
+          "Font request ID22 completed538ms HTTP200 with matching package bytes; readiness fontStatus loaded. No blocked requests, request failures, JS errors or package mismatches.",
+          "Playwright1.63 screenshotter awaits document.fonts.ready; WebKit FontFaceSet source gates ready resolution on document load completion. This explains loaded status with pending ready promise."
+        ],
+        "mechanismReference": "https://github.com/WebKit/WebKit/blob/main/Source/WebCore/css/FontFaceSet.cpp",
+        "referenceBoundary": "Current official source corroborates mechanism; exact bundled WebKit binary source was not separately pinned. Relationship is evidence-based attribution, not an official Halo root cause confirmation.",
+        "recommendation": "Apply already accepted #338 hang/direct-readiness disposition; preserve failed status and missing screenshot. Do not claim a successful screenshot or independent font defect fixed."
+      }
+    ],
+    "scope": "Read-only artifact analysis only; no live station runs; no trace-derived request identity exemption injected into original report."
+  },
+  "performance": {
+    "scope": "20 cold-browser samples: home/longform x mobile/desktop x5; comparison-lab configuration with all optional plugins disabled. No same-environment baseline; not complete PERF or real-device acceptance.",
+    "configurationUnchanged": true,
+    "originalSampleStatuses": {
+      "failed": 20,
+      "reason": "Wrong Lighthouse setting: locale"
+    },
+    "adapterReason": "Lighthouse 13.4.1 resolves requested zh-CN to supported zh using its own lookupLocale; original runner failed locale equality. Only expected locale is normalized in separate diagnostic adapter; original LHR and failed report unchanged.",
+    "adapterNegativeChecks": [
+      {
+        "name": "wrong locale",
+        "result": "rejected"
+      },
+      {
+        "name": "unfinished network",
+        "result": "rejected"
+      },
+      {
+        "name": "wrong CPU",
+        "result": "rejected"
+      }
+    ],
+    "groups": [
+      {
+        "route": "/",
+        "device": "mobile",
+        "passed": 5,
+        "median": {
+          "lcp": 6948.425499999999,
+          "tbt": 0,
+          "cls": 0,
+          "themeJsBytes": 151227,
+          "themeCssBytes": 275013,
+          "requests": 20,
+          "transferBytes": 1322195
+        }
+      },
+      {
+        "route": "/",
+        "device": "desktop",
+        "passed": 5,
+        "median": {
+          "lcp": 1257.6675,
+          "tbt": 0,
+          "cls": 0,
+          "themeJsBytes": 151227,
+          "themeCssBytes": 275013,
+          "requests": 20,
+          "transferBytes": 1322195
+        }
+      },
+      {
+        "route": "/archives/perf-longform-v1/",
+        "device": "mobile",
+        "passed": 5,
+        "median": {
+          "lcp": 4656.219000000001,
+          "tbt": 72,
+          "cls": 0.0001288627694565342,
+          "themeJsBytes": 837864,
+          "themeCssBytes": 309823,
+          "requests": 33,
+          "transferBytes": 1178832
+        }
+      },
+      {
+        "route": "/archives/perf-longform-v1/",
+        "device": "desktop",
+        "passed": 5,
+        "median": {
+          "lcp": 884.065,
+          "tbt": 0,
+          "cls": 3.887393829181328e-05,
+          "themeJsBytes": 837864,
+          "themeCssBytes": 309823,
+          "requests": 33,
+          "transferBytes": 1178832
+        }
+      }
+    ],
+    "absoluteLcpTargetMs": 2500,
+    "claim": "All samples valid after separately reviewed locale normalization; both mobile medians exceed LCP target. Measurement completion is not performance compliance."
+  },
+  "reusedEvidence": {
+    "sourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+    "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "relationship": "All 127 old ZIP entries identical; current ZIP adds only two license files",
+    "scope": [
+      "install/upgrade/rollback",
+      "search/comment interaction and accepted #313 focus exception",
+      "plugin lifecycle and comment accessibility"
+    ],
+    "record": "docs/validation/2026-10-06/alpha3-release-prep.json",
+    "boundary": "Old Linux and plugin reports retain original identities and failed results. New photo fixture backgrounds are covered only by this round of current-site measurements."
+  },
+  "outstanding": [
+    "Maintainer publication authorization; then published-asset and demo-chain checks."
+  ],
+  "postPublicationChecks": [
+    "Download published assets and verify digests",
+    "First actual Release to GHCR to hk demo update"
+  ],
+  "rawEvidence": [
+    {
+      "path": ".runtime/alpha3-final/setup.py",
+      "sha256": "2aaf60ebd2f030426d986ca79889a526bba497d48491c9182c7c5b5debec29b8"
+    },
+    {
+      "path": ".runtime/alpha3-final/core.mjs",
+      "sha256": "9e916642ba45c47d3612eee2fc77b448c3c51a893c77ef70d8f5b5690da1bd0c"
+    },
+    {
+      "path": ".runtime/alpha3-final/fixtures.py",
+      "sha256": "9154cbb980d43570b9d6f0f13824b2b290c48a6f5963de5c0d6e431391dc463c"
+    },
+    {
+      "path": ".runtime/alpha3-final/interactions.mjs",
+      "sha256": "febf6a7d6871dfffc6fe7918c14f704d6c4c5bda5ccd8396ff4ec897636aa71f"
+    },
+    {
+      "path": ".runtime/alpha3-final/mobile.mjs",
+      "sha256": "a70a2826e71f3f30c24c9f9772d166cf969bbf87595cff7ed289157e25ed3fc0"
+    },
+    {
+      "path": ".runtime/alpha3-final/mobile-v2.mjs",
+      "sha256": "e4791108d1a61a4b9fe6e9eadd629b2e2a3610a33b50f4acf7b1afde5c48b0e5"
+    },
+    {
+      "path": ".runtime/alpha3-final/white.py",
+      "sha256": "e5cff7e77ccfdfd8920c592536cead66f156de1a2c22344e9fb38d3e1e0aeefa"
+    },
+    {
+      "path": ".runtime/alpha3-final/snapshot.py",
+      "sha256": "8ea02cd07076c9dbdb31ac51349b9e405ee46dbd5b1ab80c18d180ec91289a64"
+    },
+    {
+      "path": ".runtime/alpha3-final/perf.mjs",
+      "sha256": "61c636848327fa8a926c256084b8ce3aa8fbe7df4c1bdf909d1c4ea93835f866"
+    },
+    {
+      "path": ".runtime/alpha3-final/metrics-normalized.mjs",
+      "sha256": "26d6a9a8fb6c1f0b25b6df7aad0e14656f6ed3396456c635ebd505e26617e0cc"
+    },
+    {
+      "path": ".runtime/alpha3-final/revalidate-perf.mjs",
+      "sha256": "8944da34d4227e9857c0ff74566ab7f4b55c64fd8b124d3a64c466819cc75048"
+    },
+    {
+      "path": ".runtime/alpha3-final/installation.json",
+      "sha256": "053b0db4e70552fabdc80d81b9261db969306a670cc3cec6bb535cb00de30cb0"
+    },
+    {
+      "path": ".runtime/alpha3-final/core/report.json",
+      "sha256": "f0d3d16ab376c889f0b8962a67cc413b032914217e081f38897b45c2503839af"
+    },
+    {
+      "path": ".runtime/alpha3-final/interactions/report.json",
+      "sha256": "efb2c91e3037c10259371204e91ba5afd16394240052c2af00246b2fa392529b"
+    },
+    {
+      "path": ".runtime/alpha3-final/interactions-resume/report.json",
+      "sha256": "7b5f6affe7a89d66fb584721358af8f0fb2fdda03476fad4cc669daf748bb5a8"
+    },
+    {
+      "path": ".runtime/alpha3-final/mobile-corrected/report.json",
+      "sha256": "13d3a150023457d288f32fc5b59ab1491d93a90f24b647640500fa1e0da94344"
+    },
+    {
+      "path": ".runtime/alpha3-final/mobile-corrected-v2/report.json",
+      "sha256": "81e04e367757528e79559771e41faadb1c2f80911232d649111cf9b2e9b1ad9a"
+    },
+    {
+      "path": ".runtime/alpha3-final/white/report.json",
+      "sha256": "14f45ce66a6c3d18befdab31dbfb3d953528a3b3773dd1c7e1de991ccce1c9d0"
+    },
+    {
+      "path": ".runtime/alpha3-final/white-restoration.json",
+      "sha256": "086d643781866c7c86c39c6649c5205c0b47183bcd03ac2d5e4a31f21e157802"
+    },
+    {
+      "path": ".runtime/alpha3-final/independent/header-contrast-review.json",
+      "sha256": "e0056028bb971d1a6d2942347a7020572ebf829020f67fc10c14f2f56875394b"
+    },
+    {
+      "path": ".runtime/alpha3-final/independent/linux-classification.json",
+      "sha256": "963196e9cac535d383fcf0a366a78833734015922c0b28bea3e4466ad94391d2"
+    },
+    {
+      "path": ".runtime/alpha3-final/performance/report.json",
+      "sha256": "c992c4a0e146193794f385706919336bcd180e28cb4c8376c887c2028ac83c20"
+    },
+    {
+      "path": ".runtime/alpha3-final/performance/revalidated.json",
+      "sha256": "f07e4e3819d8c54d4ddd9d12570cd9f77cb3c6cf7a8cc61091a877ef3ad145b3"
+    },
+    {
+      "path": ".runtime/alpha3-final/perf-before.json",
+      "sha256": "3a47a0b451d80ea351c0fc43ebed541efd4012da9820f3e0745315c09931a518"
+    },
+    {
+      "path": ".runtime/alpha3-final/perf-after.json",
+      "sha256": "3a47a0b451d80ea351c0fc43ebed541efd4012da9820f3e0745315c09931a518"
+    },
+    {
+      "path": ".runtime/alpha3-final/upstream-head.styl",
+      "sha256": "3942f33b46d5db2b8c6d061b4aaa31ab7afdfb271cba7cb5985c44d68093c617"
+    },
+    {
+      "path": ".runtime/alpha3-final/upstream-global.styl",
+      "sha256": "eb2946ebc8c9ff9cef1f22edab3e11407d765bbc9b3110609acd2d766e51300c"
+    },
+    {
+      "path": ".runtime/alpha3-final/upstream-var.styl",
+      "sha256": "6109341b2adb4e5a45b20b8249c7afcfad1062480ddcd0514ee85e777f2233bc"
+    },
+    {
+      "path": ".runtime/lazyload-license/verify-merged.log",
+      "sha256": "6218f437d8958a0cecbbf673ace3386b11f32b1ddfbb2760377fc97f35551677"
+    },
+    {
+      "path": ".runtime/alpha3-final/independent/nonheader-review.json",
+      "sha256": "3b9f265e59c935911055e3ef8f9f91f9aee8a6b41c223ff08689a8c4ae835c07"
+    },
+    {
+      "path": ".runtime/alpha3-final/independent/performance-review.json",
+      "sha256": "5b4cdf9eab2d144e896550199d3d505c24b1238b9c6c2f954b00de01345f28ff"
+    }
+  ],
+  "nonheaderIndependentReview": {
+    "scope": "Independent read-only Chromium153.0.8010.12 DOM/CSS and screenshot check at local18271; no configuration changes",
+    "postMeta": {
+      "nodes": 16,
+      "result": "passed",
+      "whiteText": true,
+      "blackPlateAlpha": 0.65,
+      "textRectsContained": true,
+      "ancestorEffects": [],
+      "minimumRatioOverAnySDRBackdrop": 6.977601437110393
+    },
+    "toc": {
+      "nodes": 8,
+      "result": "passed",
+      "inactiveLightRatio": 8.921390117034857,
+      "activeLightRatio": 7.246741676248356,
+      "inactiveDarkRatio": 9.43354997968907,
+      "activeDarkRatio": 10.210443701348789,
+      "pseudoBarOutsideDigitRects": true,
+      "ancestorEffects": []
+    },
+    "screenshotsVisuallyReviewed": [
+      "390-light.png",
+      "390-dark.png",
+      "1440-light-toc.png",
+      "1440-dark-toc.png"
+    ],
+    "boundary": "Only16post-meta+8desktopTOC-number original incomplete nodes. Hidden nested2.1 and mobileTOC are not counted; no blanket132-node or header pass. Original axe report remains incomplete. This is not release approval.",
+    "rawEvidence": [
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/report.json",
+        "sha256": "815d53b34fde4ff05c3ed7c4c193a7624fbd00ee78815836ca66eb65e55b3fd4"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/collect-nonheader-paint.mjs",
+        "sha256": "6d9c99ea95ecd535281933bbadf0d064a728a192eda27c85a3e8675e66d6a97f"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/run-nonheader.mjs",
+        "sha256": "31f9c77cdbcdd061f02e6d21308a22da45cb43c716195a718bf751d4979a0eb3"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/390-dark.png",
+        "sha256": "60ed6e93266ab9d4b89ba7225afc0e9f52b842d84288e6b054ec18b7d330abf4"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/390-light.png",
+        "sha256": "e1a85ff480499e2fed34f0d17aab310e5e018726f933e3fd5e76b91df65bd116"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/1440-light-toc.png",
+        "sha256": "bc2a1e960505696806893669efc9228823383d1aa2eb9049f5b62df4a0acd389"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/1440-light.png",
+        "sha256": "85dda7922ecaa84085163f526f2e99264e5e5d29bf905819b4e2f28724b652ee"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/1440-dark.png",
+        "sha256": "f3c7cb6c33a7959c83b87fe97da5327e5b96d8b3e8230ccef7c53ff6a90535fb"
+      },
+      {
+        "path": ".runtime/alpha3-final/independent/nonheader/1440-dark-toc.png",
+        "sha256": "9aeb0ebb9d95a894b9c34875322409aa0dc3f979817c2df23e565914772f3ad6"
+      }
+    ]
+  },
+  "performanceIndependentReview": {
+    "samplesIndependentlyRevalidated": 20,
+    "originalAndSampleHashesMatch": true,
+    "mediansMatch": true,
+    "positiveControl": true,
+    "negatives": [
+      {
+        "name": "locale",
+        "rejectedForExpectedReason": true
+      },
+      {
+        "name": "network",
+        "rejectedForExpectedReason": true
+      },
+      {
+        "name": "CPU",
+        "rejectedForExpectedReason": true
+      }
+    ],
+    "groups": [
+      {
+        "route": "/",
+        "device": "mobile",
+        "passed": 5,
+        "median": {
+          "lcp": 6948.425499999999,
+          "tbt": 0,
+          "cls": 0,
+          "themeJsBytes": 151227,
+          "themeCssBytes": 275013,
+          "requests": 20,
+          "transferBytes": 1322195
+        }
+      },
+      {
+        "route": "/",
+        "device": "desktop",
+        "passed": 5,
+        "median": {
+          "lcp": 1257.6675,
+          "tbt": 0,
+          "cls": 0,
+          "themeJsBytes": 151227,
+          "themeCssBytes": 275013,
+          "requests": 20,
+          "transferBytes": 1322195
+        }
+      },
+      {
+        "route": "/archives/perf-longform-v1/",
+        "device": "mobile",
+        "passed": 5,
+        "median": {
+          "lcp": 4656.219000000001,
+          "tbt": 72,
+          "cls": 0.0001288627694565342,
+          "themeJsBytes": 837864,
+          "themeCssBytes": 309823,
+          "requests": 33,
+          "transferBytes": 1178832
+        }
+      },
+      {
+        "route": "/archives/perf-longform-v1/",
+        "device": "desktop",
+        "passed": 5,
+        "median": {
+          "lcp": 884.065,
+          "tbt": 0,
+          "cls": 3.887393829181328e-05,
+          "themeJsBytes": 837864,
+          "themeCssBytes": 309823,
+          "requests": 33,
+          "transferBytes": 1178832
+        }
+      }
+    ]
+  },
+  "cleanup": {
+    "ownedHaloStopped": true,
+    "port": 18271,
+    "listening": false,
+    "ownedBrowsersClosed": true
+  },
+  "acceptedReleaseLimitations": [
+    {
+      "id": "default-light-header-contrast",
+      "date": "2026-10-06",
+      "authority": "Explicit maintainer instruction in this task",
+      "maintainerInstruction": "保留样式，将其明确列为 alpha 已知限制",
+      "disposition": "accepted-alpha-limitation-preserve-default-style",
+      "releaseBlocking": false,
+      "scope": "Current alpha: measured light-mode navigation, site brand and home title contrast on bright/white header images with default mask enabled",
+      "evidenceStatus": "Original contrast failures and independent finding retained; not an accessibility or 1.0 pass",
+      "mitigation": "Choose header images with darker areas behind text and check actual readability",
+      "decisionDocument": "docs/validation/2026-10-06/alpha3-final-acceptance.md"
+    }
+  ],
+  "publicationAuthorized": false,
+  "independentReleaseApproval": {
+    "reviewer": "/root/review_site",
+    "reviewedSourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
+    "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+    "decision": "approved",
+    "scope": "Four bounded alpha technical gates, with explicit #313/#338/default-light-header-contrast limitations; no publication authorization or 1.0 approval",
+    "gates": {
+      "realHalo": "passed",
+      "installUpgradeRollback": "passed",
+      "resourcesAndLicenses": "passed",
+      "sourceRebuild": "passed"
+    }
+  }
+}

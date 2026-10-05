@@ -1,11 +1,11 @@
 {
   "tag": "v0.1.0-alpha.3",
-  "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+  "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
   "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
-  "decision": "blocked",
-  "reviewer": "independent review_site preparation audit; NOT release approval",
+  "decision": "approved",
+  "reviewer": "/root/review_site: independent bounded alpha technical approval for source 8e53148 and package c0c73ded; see alpha3-final-acceptance evidence. Publication authorization separate.",
   "gates": {
-    "realHalo": "pending",
+    "realHalo": "passed",
     "installUpgradeRollback": "passed",
     "resourcesAndLicenses": "passed",
     "sourceRebuild": "passed"
@@ -13,13 +13,10 @@
   "knownLimitations": [
     "Approved public alpha exception only: SearchWidget 1.7.1 close does not restore focus (#313).",
     "Maintainer accepted Halo upstream limitation #338 for current alpha: native resource hangs may affect CSS/JS/images and readiness. Original failures remain failed; no root-cause/fix claim. See docs/RESOURCE-LOADING-DECISION.md.",
+    "Maintainer accepted default light header contrast limitation for current alpha: preserve default styles; navigation/site brand/home title may fail contrast on bright or white images even with the mask enabled. Original failures remain failed; no accessibility or 1.0 pass. Choose darker text-area backgrounds and inspect readability.",
     "Other advanced features, real devices, Safari, screen readers and full performance/1.0 scope remain unverified; see version notes."
   ],
-  "blockers": [
-    "current header contrast manual review and remaining bounded alpha acceptance",
-    "final release candidate independent approval and maintainer publication authorization",
-    "published asset download verification and first real release-to-demo chain"
-  ],
+  "blockers": [],
   "evidence": [
     {
       "path": "docs/validation/2026-10-06/alpha3-release-prep.json",
@@ -40,13 +37,21 @@
     {
       "path": "docs/validation/2026-10-06/lazyload-license.json",
       "sha256": "7f7e46469c35e5911d1106f9492630fe92f62e05b3405f54f2edc37faf9a4a6b"
+    },
+    {
+      "path": "docs/validation/2026-10-06/alpha3-final-acceptance.md",
+      "sha256": "56077c7b13e888cf43c15e5bdc3c627ac7c9308201831c281394d4f28bb1c9f2"
+    },
+    {
+      "path": "docs/validation/2026-10-06/alpha3-final-acceptance.json",
+      "sha256": "606b4a933c57f8ad3f1f586df89ca6357f4ed4d29ffa81fbe9e3b35584f72e6e"
     }
   ],
   "gateNotes": {
-    "realHalo": "#338 no longer blocks alpha; remaining candidate/core/header validation is pending, not a passed-all declaration",
+    "realHalo": "Passed bounded alpha gate with explicit maintainer exceptions for #313, #338 and default light header contrast. Original failures/incomplete results retained; not full accessibility, performance or 1.0 acceptance.",
     "resourcesAndLicenses": "Independent bounded review of eb06db9 source archive and c0c73ded package passed; historical package findings retained",
-    "installUpgradeRollback": "Reuses 1951fef/ad051bff evidence by exact equality of all 127 existing package files; only two license files added, no new live installation run",
-    "sourceRebuild": "Exact eb06db9 git archive rebuilt to c0c73ded"
+    "installUpgradeRollback": "Reuses 1951fef/ad051bff evidence by exact equality of all 127 existing package files; only two license files added. No new full upgrade/rollback rerun; fresh installation separately verified this round.",
+    "sourceRebuild": "Exact 8e53148 git archive rebuilt to c0c73ded"
   },
   "acceptedReleaseLimitations": [
     {
@@ -58,6 +63,26 @@
       "scope": "Current alpha release: documented native resource hangs and their direct readiness timeouts only",
       "evidenceStatus": "Original failed results retained; not fixed or officially root-caused by Halo",
       "decisionDocument": "docs/RESOURCE-LOADING-DECISION.md"
+    },
+    {
+      "id": "default-light-header-contrast",
+      "date": "2026-10-06",
+      "authority": "Explicit maintainer instruction in this task",
+      "maintainerInstruction": "保留样式，将其明确列为 alpha 已知限制",
+      "disposition": "accepted-alpha-limitation-preserve-default-style",
+      "releaseBlocking": false,
+      "scope": "Current alpha: measured light-mode navigation, site brand and home title contrast on bright/white header images with default mask enabled",
+      "evidenceStatus": "Original contrast failures and independent finding retained; not an accessibility or 1.0 pass",
+      "mitigation": "Choose header images with darker areas behind text and check actual readability",
+      "decisionDocument": "docs/validation/2026-10-06/alpha3-final-acceptance.md"
     }
+  ],
+  "postPublicationChecks": [
+    "published asset download and installation verification",
+    "first real Release to GHCR to hk demo chain"
+  ],
+  "publicationAuthorized": false,
+  "pendingActions": [
+    "Maintainer authorization before creating a tag or Release"
   ]
 }
