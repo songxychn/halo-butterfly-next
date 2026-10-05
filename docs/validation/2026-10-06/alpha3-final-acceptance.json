@@ -3,7 +3,7 @@
   "date": "2026-10-06",
   "sourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
   "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
-  "decision": "blocked",
+  "decision": "approved",
   "scope": "Final bounded alpha acceptance; no product changes, tag, Release or production deployment",
   "build": {
     "verifyTests": 578,
@@ -388,7 +388,7 @@
     "navigationColor": "#eeeeee",
     "titleColor": "#ffffff",
     "conclusion": "The measured light-mode combination follows upstream defaults; this is a theme readability limitation, separate from Halo resource hangs. Current upstream demo was not independently measured.",
-    "maintainerDecision": "pending; asking who owns the problem is not acceptance authorization"
+    "maintainerDecision": "Explicitly accepted for current alpha; preserve default style and disclose limitation."
   },
   "linuxClassification": {
     "runId": 37347534176,
@@ -559,8 +559,7 @@
     "boundary": "Old Linux and plugin reports retain original identities and failed results. New photo fixture backgrounds are covered only by this round of current-site measurements."
   },
   "outstanding": [
-    "Default light header contrast needs a repair or an explicit maintainer alpha disposition; no approval inferred from clarification request.",
-    "Independent final release approval and maintainer publication authorization."
+    "Maintainer publication authorization; then published-asset and demo-chain checks."
   ],
   "postPublicationChecks": [
     "Download published assets and verify digests",
@@ -842,5 +841,33 @@
     "port": 18271,
     "listening": false,
     "ownedBrowsersClosed": true
+  },
+  "acceptedReleaseLimitations": [
+    {
+      "id": "default-light-header-contrast",
+      "date": "2026-10-06",
+      "authority": "Explicit maintainer instruction in this task",
+      "maintainerInstruction": "保留样式，将其明确列为 alpha 已知限制",
+      "disposition": "accepted-alpha-limitation-preserve-default-style",
+      "releaseBlocking": false,
+      "scope": "Current alpha: measured light-mode navigation, site brand and home title contrast on bright/white header images with default mask enabled",
+      "evidenceStatus": "Original contrast failures and independent finding retained; not an accessibility or 1.0 pass",
+      "mitigation": "Choose header images with darker areas behind text and check actual readability",
+      "decisionDocument": "docs/validation/2026-10-06/alpha3-final-acceptance.md"
+    }
+  ],
+  "publicationAuthorized": false,
+  "independentReleaseApproval": {
+    "reviewer": "/root/review_site",
+    "reviewedSourceSha": "8e53148a8c84996d091e2792e8a4651522690a0a",
+    "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+    "decision": "approved",
+    "scope": "Four bounded alpha technical gates, with explicit #313/#338/default-light-header-contrast limitations; no publication authorization or 1.0 approval",
+    "gates": {
+      "realHalo": "passed",
+      "installUpgradeRollback": "passed",
+      "resourcesAndLicenses": "passed",
+      "sourceRebuild": "passed"
+    }
   }
 }
