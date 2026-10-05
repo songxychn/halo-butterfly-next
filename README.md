@@ -2,21 +2,25 @@
 
 Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https://github.com/dhjddcn/halo-theme-butterfly)，分阶段对齐 [Hexo Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)。这是独立维护项目，不代表 Halo 或 Butterfly 官方。
 
-**0.1.0-alpha.3 公开测试版正在准备；当前项目仍为私有预览，尚未公开发行。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。最终包身份与验证状态集中记录在[发行说明](docs/RELEASE-alpha.3.md)，当前尚无正式公开的 alpha.3 附件。
+[在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示导览](https://butterfly.baizhukui.com/archives/demo-guide)
+
+**文档与演示站已上线；0.1.0-alpha.3 主题安装包仍在准备，尚未公开发行。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。最终包身份与验证状态集中记录在[发行说明](docs/RELEASE-alpha.3.md)，当前尚无正式公开的 alpha.3 附件。
 
 原项目及本维护项目的完整开发历史保留在私有维护仓库。拟公开仓库只包含经过资源与敏感信息检查的当前源码快照，同时保留上游署名、许可证及来源说明；公开快照不携带旧资源的 Git 历史。此方案仍待维护者确认。
 
 ## 页面预览
 
-以下为候选 `776958ad` 在合成 Halo 2.26.1 测试站的实际截图；使用默认配色，图片与文字为测试夹具。
+以下截图采自 [在线演示站](https://butterfly.baizhukui.com/)（2026-10-05，Halo 2.26.1），展示默认全屏首页、摄影封面卡片及正文的亮暗配色。
 
-![首页，桌面亮色](docs/images/alpha3/home-desktop-light.png)
+![在线演示站首页，桌面亮色](docs/images/demo/home-desktop-light.jpg)
+
+![在线演示站文章卡片与侧栏，桌面亮色](docs/images/demo/cards-desktop-light.jpg)
 
 | 文章桌面暗色 | 文章手机宽度亮色 |
 | --- | --- |
-| ![文章桌面暗色](docs/images/alpha3/article-desktop-dark.png) | ![文章手机宽度亮色](docs/images/alpha3/article-mobile-light.png) |
+| <img src="docs/images/demo/article-desktop-dark.jpg" alt="正文排版演示，桌面暗色" width="720"> | <img src="docs/images/demo/article-mobile-light.jpg" alt="正文排版演示，手机宽度亮色" width="240"> |
 
-截图不代表真实手机或完整兼容性验收。对应包身份与检查边界见[候选验收记录](docs/ALPHA3-VERIFICATION.md)。
+截图使用独立无头 Chromium；手机宽度预览不代表实机验收。站点沿用此前验收的 demo 主题包，可能与最新源码存在差异；部署版本、验证范围与已知限制见[站点部署说明](site/deploy/README.md)。主题安装包的发行验收仍见[候选验收记录](docs/ALPHA3-VERIFICATION.md)。
 
 ## 安装与支持范围
 
