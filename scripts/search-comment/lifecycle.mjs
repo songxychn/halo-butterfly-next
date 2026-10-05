@@ -44,6 +44,12 @@ const authPath = path.join(runtime, "plugin-auth.private.json");
 assert.equal((await stat(authPath)).mode & 0o077, 0);
 const auth = await read(authPath),
   lock = await read(path.join(REPO, "fixtures/search-comment/versions.json"));
+const content = await read(path.join(REPO, "fixtures/comparison/content.json"));
+const coverPaths = new Set([
+  ...Object.values(content.images),
+  ...content.posts.map(post => post.cover),
+  ...content.pages.map(page => page.cover),
+].filter(Boolean));
 const output = path.resolve(options["--output"]);
 await mkdir(path.dirname(output), { recursive: true });
 await mkdir(output);
@@ -227,7 +233,7 @@ async function view(
     const u = new URL(r.request().url());
     if (u.origin !== base) return r.abort();
     requests.push(u.pathname);
-    if (whiteCover && u.pathname === "/lab/cover.svg") {
+    if (whiteCover && coverPaths.has(u.pathname)) {
       whiteCoverRequests++;
       return r.fulfill({
         status: 200,
