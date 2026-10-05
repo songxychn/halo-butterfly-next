@@ -30,9 +30,9 @@ export function renderMatrix(matrix) {
     for (const item of matrix.items.filter(item => item.kind === kind)) {
       const source = item.sources[0];
       const link = `${matrix.upstream.repository}/blob/${matrix.upstream.commit}/${source.file}#L${source.line}`;
-      const current = item.halo.settings.length ? `设置：${item.halo.settings.join(', ')}` : item.halo.finding;
+      const current = [item.halo.settings.length ? `设置：${item.halo.settings.join(', ')}` : '', item.halo.finding].filter(Boolean).map(escape).join('<br>');
       const evidence = item.evidence.length ? item.evidence.map(e => e.path).join(', ') : '无验收证据';
-      lines.push(`| <a id="${escape(item.id.replace(/[^\w-]/g, '-'))}"></a>\`${escape(item.id)}\`<br>${escape(item.title)} | [${escape(source.file)}:${source.line}](${link})${source.key || source.symbol ? `<br>\`${escape(source.key || source.symbol)}\`` : ''} | ${escape(current)}<br>${escape(item.halo.strategy)} | ${escape(item.acceptance.contractScenarios.join(', '))}<br>${escape(item.acceptance.cases.join('；'))} | ${statusLabels[item.status]}<br>${escape(evidence)} |`);
+      lines.push(`| <a id="${escape(item.id.replace(/[^\w-]/g, '-'))}"></a>\`${escape(item.id)}\`<br>${escape(item.title)} | [${escape(source.file)}:${source.line}](${link})${source.key || source.symbol ? `<br>\`${escape(source.key || source.symbol)}\`` : ''} | ${current}<br>${escape(item.halo.strategy)} | ${escape(item.acceptance.contractScenarios.join(', '))}<br>${escape(item.acceptance.cases.join('；'))} | ${statusLabels[item.status]}<br>${escape(evidence)} |`);
     }
     lines.push('');
   }

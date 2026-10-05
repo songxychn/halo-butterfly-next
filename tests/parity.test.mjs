@@ -3,10 +3,23 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { checkParity, checkMatrix, checkRequiredScenarios, checkEvidenceManifest, contractScenarioIds } from '../scripts/check-parity.mjs';
 import { yamlLeaves, defaultLeaves, requiredEntries, UPSTREAM_COMMIT } from '../scripts/parity-inventory.mjs';
+import { renderMatrix } from '../scripts/parity-render.mjs';
 
 const matrix = JSON.parse(await readFile(new URL('../docs/parity/matrix.json', import.meta.url), 'utf8'));
 const inventory = JSON.parse(await readFile(new URL('../docs/parity/upstream-5.7.0.json', import.meta.url), 'utf8'));
 const required = JSON.parse(await readFile(new URL('../docs/parity/required-scenarios.json', import.meta.url), 'utf8'));
+
+test('可读矩阵同时保留设置入口与实现缺口，不因已配置而隐藏待办', () => {
+  const item = structuredClone(matrix.items[0]);
+  item.halo.settings = ['example.enable'];
+  item.halo.finding = '已有入口；剩余：手机 | 键盘\n尚未验收';
+  const rendered = renderMatrix({ ...matrix, items: [item] });
+  assert(rendered.includes('设置：example.enable<br>已有入口；剩余：手机 \\| 键盘 尚未验收'));
+  item.halo.settings = [];
+  const withoutSettings = renderMatrix({ ...matrix, items: [item] });
+  assert(withoutSettings.includes('已有入口；剩余：手机 \\| 键盘 尚未验收'));
+  assert(!withoutSettings.includes('设置：'));
+});
 
 test('完整离线门禁随 bun run verify 检查生成文档、实际代码/配置、合同与证据引用', async () => {
   const result = await checkParity();

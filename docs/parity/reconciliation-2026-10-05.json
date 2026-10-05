@@ -1,0 +1,1110 @@
+{
+  "schemaVersion": 1,
+  "kind": "implementation-reconciliation",
+  "recordedAt": "2026-10-05T13:44:30.577467+00:00",
+  "actor": "/root",
+  "sourceSha": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
+  "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "result": "partial; implementation and failures reconciled, no full 1.0 acceptance claim",
+  "scope": "Targeted stale article/reading entries and latest master failed page routes; not a fresh audit of all 897 entries. No new browser runtime executed for this documentation change.",
+  "identityBoundaries": {
+    "inspectedRepositorySha": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
+    "masterRuntimeSourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+    "readingRuntimeSourceSha": "224691f391b189c66d4408bee153751c0ce8344d",
+    "artifactSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "policy": "Historical sources, actors, CI and package identities remain in their original reports; this reconciliation is not runtime/review/ci evidence for verified."
+  },
+  "counts": {
+    "total": 897,
+    "before": {
+      "implemented-unverified": 280,
+      "gap": 361,
+      "blocked": 12,
+      "mapping-required": 108,
+      "not-applicable": 135,
+      "verification-failed": 1
+    },
+    "after": {
+      "implemented-unverified": 280,
+      "gap": 356,
+      "blocked": 12,
+      "mapping-required": 108,
+      "not-applicable": 135,
+      "verification-failed": 6
+    },
+    "reconciled": 35,
+    "statusChanged": 10
+  },
+  "supportingReports": [
+    {
+      "path": "docs/validation/2026-10-05/reading-options.json",
+      "sha256": "fb52c3eaa8ed4a84e226b7e3ab7ebcef4432d5a23c503686ee51d8d48d75c0f4",
+      "kind": "bounded-reading-options-validation",
+      "sourceSha": "224691f391b189c66d4408bee153751c0ce8344d",
+      "result": "passed-with-stated-scope"
+    },
+    {
+      "path": "docs/validation/2026-10-05/master-acceptance.json",
+      "sha256": "54735860364ab23fef1907153863ff2ea1c7e18b8c64d6f73e0e327dc928c622",
+      "kind": "latest-master-bounded-acceptance",
+      "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+      "result": "blocked-by-native-resource-stalls"
+    },
+    {
+      "path": "docs/validation/2026-09-08/notice-outdate-review.json",
+      "sha256": "9f0e401778f023af07cf6d1013bc2eb1dd3354ce3014db9250bd0506199af185",
+      "kind": "exact-sha-merge-record",
+      "sourceSha": "03cc8104cc80469fb7cb4b32e5eb5ea96c2b9e86",
+      "result": "historical merge record; see original limitations"
+    },
+    {
+      "path": "docs/validation/2026-09-08/post-pagination-review.json",
+      "sha256": "75f35a35cc0fedcd5357b6c643695e0332bee717c2c934811dae1f73272b33d9",
+      "kind": "exact-sha-merge-record",
+      "sourceSha": "d60ce9f13477c92d02fa4ea43db1a0e9c39806ad",
+      "result": "historical merge record; see original limitations"
+    },
+    {
+      "path": "docs/validation/2026-09-08/reward-review.json",
+      "sha256": "37795e01596c854ce8cda32cf831d827ef9b3653b216182be3105f9502bca05b",
+      "kind": "exact-sha-merge-record",
+      "sourceSha": "f432ee5294d5d198c29a104a9936b3d2f51586f5",
+      "result": "historical merge record; see original limitations"
+    },
+    {
+      "path": "docs/validation/2026-09-08/related-post-review.json",
+      "sha256": "0fd5776f8b19273a1b9e488eaafeeef02d821a9ac5fa75b879c2a9566de1e29d",
+      "kind": "exact-sha-merge-record",
+      "sourceSha": "08005387ec0144d62e0d5772a3317537d2d6985c",
+      "result": "historical merge record; see original limitations"
+    }
+  ],
+  "items": [
+    {
+      "id": "config:toc.post",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "文章目录默认开启，单篇 toc 字符串覆盖；关闭后不创建目录按钮。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "文章目录默认开启，单篇 toc 字符串覆盖；关闭后不创建目录按钮。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "toc.post"
+        ],
+        "code": [
+          "src/js/modules/Render.ts",
+          "src/html/views/aside.html",
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "config:toc.page",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "自定义页面目录默认关闭，可全局或单页开启。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "自定义页面目录默认关闭，可全局或单页开启。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "toc.page"
+        ],
+        "code": [
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "config:toc.number",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "文章和单页目录编号支持全局与 toc_number 三态覆盖。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "文章和单页目录编号支持全局与 toc_number 三态覆盖。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "toc.number"
+        ],
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "annotation-setting.yaml",
+          "src/html/page.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "config:toc.expand",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "文章和单页目录展开支持全局与 toc_expand 三态覆盖。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "文章和单页目录展开支持全局与 toc_expand 三态覆盖。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "toc.expand"
+        ],
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "annotation-setting.yaml",
+          "src/html/page.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "config:toc.style_simple",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "文章简洁侧栏支持 toc_style_simple 三态覆盖；单页显式开启为扩展，继承默认关闭。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "文章简洁侧栏支持 toc_style_simple 三态覆盖；单页显式开启为扩展，继承默认关闭。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "toc.style_simple"
+        ],
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/aside.html",
+          "src/js/core/toc.ts",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "annotation-setting.yaml",
+          "src/html/page.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "config:rightside_item_order.enable",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已接入工具栏分组排序开关，默认关闭；只处理本地已有且启用的按钮。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已接入工具栏分组排序开关，默认关闭；只处理本地已有且启用的按钮。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "rightside.item_order.enable"
+        ],
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
+          "src/scss/modules/components.scss",
+          "settings.yaml",
+          "src/js/core/rightside.ts",
+          "src/scss/core/rightside.scss",
+          "src/html/views/config.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "reading-options.runtime.responsiveGroups：六组响应式分组；该历史 Chromium 检查不代替三引擎及真机工具栏合同。"
+    },
+    {
+      "id": "config:rightside_item_order.hide",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "展开组按白名单顺序排列，空值沿用默认；去重并忽略未知项。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "展开组按白名单顺序排列，空值沿用默认；去重并忽略未知项。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "rightside.item_order.hide"
+        ],
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
+          "src/scss/modules/components.scss",
+          "settings.yaml",
+          "src/js/core/rightside.ts",
+          "src/scss/core/rightside.scss",
+          "src/html/views/config.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "reading-options.runtime.responsiveGroups：六组响应式分组；该历史 Chromium 检查不代替三引擎及真机工具栏合同。"
+    },
+    {
+      "id": "config:rightside_item_order.show",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "常驻组排序，返回顶部固定末尾；chat/comment 暂无按钮，不声明接入。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "常驻组排序，返回顶部固定末尾；chat/comment 暂无按钮，不声明接入。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "rightside.item_order.show"
+        ],
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
+          "src/scss/modules/components.scss",
+          "settings.yaml",
+          "src/js/core/rightside.ts",
+          "src/scss/core/rightside.scss",
+          "src/html/views/config.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "reading-options.runtime.responsiveGroups：六组响应式分组；该历史 Chromium 检查不代替三引擎及真机工具栏合同。"
+    },
+    {
+      "id": "config:rightside_config_animation",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "齿轮旋转可关闭，遵守减少动态效果。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "齿轮旋转可关闭，遵守减少动态效果。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "rightside.config_animation"
+        ],
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
+          "src/scss/modules/components.scss",
+          "settings.yaml",
+          "src/js/core/rightside.ts",
+          "src/scss/core/rightside.scss",
+          "src/html/views/config.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "reading-options.runtime.responsiveGroups：六组响应式分组；该历史 Chromium 检查不代替三引擎及真机工具栏合同。"
+    },
+    {
+      "id": "config:anchor.auto_update",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "可选滚动更新章节 hash，不增加历史；保留作者 ID 和查询参数。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "可选滚动更新章节 hash，不增加历史；保留作者 ID 和查询参数。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "anchor.auto_update"
+        ],
+        "code": [
+          "src/js/modules/Render.ts",
+          "src/html/views/aside.html",
+          "src/scss/core/aside.scss",
+          "src/js/core/article-anchor.ts",
+          "src/html/post.html",
+          "src/html/page.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.anchorPost/anchorPage 与 master.local：点击、焦点、查询参数、后退、刷新、滚动历史；完整跨引擎合同待验收。"
+    },
+    {
+      "id": "config:anchor.click_to_scroll",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "可选标题链接与键盘定位；目录支持 hash、历史和直接定位。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "可选标题链接与键盘定位；目录支持 hash、历史和直接定位。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "anchor.click_to_scroll"
+        ],
+        "code": [
+          "src/js/modules/Render.ts",
+          "src/html/views/aside.html",
+          "src/scss/core/aside.scss",
+          "src/js/core/article-anchor.ts",
+          "src/html/post.html",
+          "src/html/page.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.anchorPost/anchorPage 与 master.local：点击、焦点、查询参数、后退、刷新、滚动历史；完整跨引擎合同待验收。"
+    },
+    {
+      "id": "config:photofigcaption",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "默认关闭，正文图片 title 优先 alt 后备；已有图注不重复，保留节点与链接。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "默认关闭，正文图片 title 优先 alt 后备；已有图注不重复，保留节点与链接。 见 docs/READING-OPTIONS.md；仍待完整上游对照、真机及合同验收。",
+        "settings": [
+          "post.photofigcaption"
+        ],
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/_lazyLoad.ts",
+          "src/js/modules/AmplifyImg.ts",
+          "src/scss/core/header.scss",
+          "src/js/core/photofigcaption.ts",
+          "src/js/modules/Render.ts",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/scss/modules/render.scss"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "历史阅读检查及 master.local 的文章/单页章节、图注和布局检查；仅所列合成正文边界。"
+    },
+    {
+      "id": "page-data:copyright",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。",
+        "settings": [],
+        "code": [
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "page-data:noticeOutdate",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。",
+        "settings": [],
+        "code": [
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "page-data:toc",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。",
+        "settings": [],
+        "code": [
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "page-data:toc_expand",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。",
+        "settings": [],
+        "code": [
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "page-data:toc_number",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。",
+        "settings": [],
+        "code": [
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "page-data:toc_style_simple",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已通过 Halo 注解提供 inherit / true / false 三态覆盖；见 docs/READING-OPTIONS.md。保留上游对照和完整合同验收。",
+        "settings": [],
+        "code": [
+          "annotation-setting.yaml",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/html/views/aside.html",
+          "src/html/views/components.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "reading-options.runtime.templateOverrides：八组覆盖检查；master.local 补充旧配置缺字段回退，不代表每个选项全组合通过。"
+    },
+    {
+      "id": "interaction:tool-order",
+      "before": {
+        "status": "gap",
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已接入 rightside 分组排序、去重、白名单过滤、空组默认值、齿轮动画和 Escape 收起焦点返回；隐藏组不可 Tab 进入，返回顶部固定保留。历史 Chromium 六组响应式检查通过；chat/comment 尚无主题按钮。剩余：完整上游对照、右下角距离组合、三引擎与真机合同。",
+        "settings": [
+          "rightside.item_order.enable",
+          "rightside.item_order.hide",
+          "rightside.item_order.show",
+          "rightside.config_animation",
+          "rightside.bottom"
+        ],
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/theme.ts",
+          "src/js/core/scroll.ts",
+          "src/scss/modules/components.scss",
+          "src/js/core/rightside.ts",
+          "src/html/views/config.html",
+          "src/scss/core/rightside.scss"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "源码确认实际接线，历史 bounded-reading-options-validation 的 responsiveGroups 提供局部证据。"
+    },
+    {
+      "id": "interaction:toc-anchor",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "tocbot 已建立目录链接与点击滚动，但当前 onClick preventDefault，尚未实现或证明滚动更新 URL 锚点、手动深链接及浏览器前进后退完整语义。 剩余：必须分别核对手动链接、点击标题、滚动更新 URL、前进后退；不可将目录可滚动视为锚点合同通过。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "bindArticleAnchors 已接入文章和单页：保留作者 ID、补齐唯一 ID，目录/可选标题链接定位，保留查询参数与焦点，支持 hashchange/popstate 和可选滚动 replaceState。历史及本轮 Chromium 文章/单页各七项检查通过。剩余：前进、完整手动深链接组合、固定上游对照、跨引擎及真机合同；Linux 页面资源失败另见 page:*。",
+        "settings": [],
+        "code": [
+          "src/js/modules/Render.ts",
+          "src/html/views/aside.html",
+          "src/scss/core/aside.scss",
+          "src/js/core/article-anchor.ts",
+          "src/html/post.html",
+          "src/html/page.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "替换旧 onClick preventDefault/尚无历史语义的陈旧说明。"
+    },
+    {
+      "id": "interaction:toc-scroll",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已使用 tocbot 对正文 h1-h6 构建目录并平滑滚动、活动项高亮；含 20px 偏移、长文进度及移动端目录按钮。 剩余：仍缺重复/中文/跳级标题、深链接、固定导航遮挡和移动目录焦点的完整验收；anchor 自动更新配置不随之宣告完成。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "tocbot 构建 h1-h6 目录、活动项高亮、编号、展开和阅读百分比；章节滚动交给 article-anchor（默认预留 80px），文章/单页支持全局及注解覆盖，保留移动目录按钮。已有 Chromium 章节与覆盖局部证据。剩余：完整标题域、固定导航遮挡、移动目录焦点、三引擎和真机合同。",
+        "settings": [],
+        "code": [
+          "src/js/modules/Render.ts",
+          "src/html/views/aside.html",
+          "src/scss/core/aside.scss",
+          "src/js/core/toc.ts",
+          "src/js/core/article-anchor.ts",
+          "src/html/post.html",
+          "src/html/page.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json",
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "不把已有局部通过推广到全部 toc-scroll 专属断言。"
+    },
+    {
+      "id": "config:rightside_bottom",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已映射为 Halo rightside.bottom，默认空字符串，等价上游 var.styl 空值回退 40px。非空写入 --rightside-bottom（须带单位）。不复用作者卡片 aside.button。不做 item_order / readmode。rightside.styl 其余仍 gap。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已映射为 Halo rightside.bottom，默认空字符串，等价上游 var.styl 空值回退 40px。非空写入 --rightside-bottom（须带单位）。不复用作者卡片 aside.button。item_order 已另行实现，见 interaction:tool-order；其状态与距离配置分别验收。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。",
+        "settings": [
+          "rightside.bottom"
+        ],
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/html/views/config.html",
+          "src/scss/core/common.scss",
+          "src/scss/core/rightside.scss",
+          "tests/rightside-bottom.test.mjs"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "只纠正相关功能仍缺失的陈旧交叉说明；阅读报告未重新验证 bottom 或 scroll_percent 全参数域。"
+    },
+    {
+      "id": "config:rightside_scroll_percent",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已映射为 Halo rightside.scroll_percent，默认 false，仅显式 true 在 #go-up 显示 .scroll-percent（小于 95%）。关闭不渲染该 span。数字走 textContent。不做 rightside_bottom / item_order / readmode。rightside.styl 其余仍 gap。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已映射为 Halo rightside.scroll_percent，默认 false，仅显式 true 在 #go-up 显示 .scroll-percent（小于 95%）。关闭不渲染该 span。数字走 textContent。rightside_bottom 与 item_order 已另行实现，各自独立验收。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。",
+        "settings": [
+          "rightside.scroll_percent"
+        ],
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/html/views/config.html",
+          "src/js/core/rightside.ts",
+          "src/js/core/scroll.ts",
+          "src/scss/core/rightside.scss",
+          "tests/rightside-scroll-percent.test.mjs"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "只纠正相关功能仍缺失的陈旧交叉说明；阅读报告未重新验证 bottom 或 scroll_percent 全参数域。"
+    },
+    {
+      "id": "interaction:outdated",
+      "before": {
+        "status": "gap",
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已在文章正文前/后接入过期提醒，支持开关、阈值、simple/flat、top/bottom、自定义文案和单篇 noticeOutdate 三态覆盖。模板按更新时间（缺省发布日期）计算天数；仍未显式 floor，SSR 时钟与上游客户端语义差异保留。剩余：固定时钟阈值前/等于/后、缺日期及完整双站对照，不以 TS 辅助函数测试代替模板运行。",
+        "settings": [
+          "post.noticeOutdate.enable",
+          "post.noticeOutdate.style",
+          "post.noticeOutdate.limit_day",
+          "post.noticeOutdate.position",
+          "post.noticeOutdate.message_prev",
+          "post.noticeOutdate.message_next"
+        ],
+        "code": [
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.ts",
+          "annotation-setting.yaml"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/notice-outdate-review.json",
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "模板真实接线与单篇覆盖；旧报告的未实现逐页覆盖是历史事实，当前由 #356 补齐。"
+    },
+    {
+      "id": "template:includes/post/outdate-notice",
+      "before": {
+        "status": "gap",
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已在文章正文前/后接入过期提醒，支持开关、阈值、simple/flat、top/bottom、自定义文案和单篇 noticeOutdate 三态覆盖。模板按更新时间（缺省发布日期）计算天数；仍未显式 floor，SSR 时钟与上游客户端语义差异保留。剩余：固定时钟阈值前/等于/后、缺日期及完整双站对照，不以 TS 辅助函数测试代替模板运行。",
+        "settings": [
+          "post.noticeOutdate.enable",
+          "post.noticeOutdate.style",
+          "post.noticeOutdate.limit_day",
+          "post.noticeOutdate.position",
+          "post.noticeOutdate.message_prev",
+          "post.noticeOutdate.message_next"
+        ],
+        "code": [
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "src/html/views/components.html",
+          "src/js/core/notice-outdate.ts",
+          "annotation-setting.yaml"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/notice-outdate-review.json",
+        "docs/validation/2026-10-05/reading-options.json"
+      ],
+      "scope": "模板真实接线与单篇覆盖；旧报告的未实现逐页覆盖是历史事实，当前由 #356 补齐。"
+    },
+    {
+      "id": "interaction:post-pagination",
+      "before": {
+        "status": "gap",
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "文章模板已调用 Halo postFinder.cursor，按 1/2 切换上下篇方向，false 隐藏；处理缺邻居、封面回退及标题/链接，悬停摘要复用 index_post_content。剩余：首尾、缺封面、模式全域与摘要方法/长度的固定上游对照及浏览器合同。",
+        "settings": [
+          "post.post_pagination"
+        ],
+        "code": [
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "src/html/views/components.html",
+          "src/js/core/post-pagination.ts",
+          "src/scss/core/pagination.scss"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/post-pagination-review.json"
+      ],
+      "scope": "当前模板与历史局部独立审查提供实现依据，不声称当前 SHA 完整运行验收。"
+    },
+    {
+      "id": "interaction:reward",
+      "before": {
+        "status": "gap",
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+      },
+      "after": {
+        "status": "gap",
+        "finding": "已有文章打赏配置、二维码列表、链接/文字和 CSS hover 弹层；过滤无图片项，但外层仍按原始列表非空决定是否显示。按钮为 div，尚无明确键盘或触屏开关/关闭事件。剩余：补齐可操作控件及手机开关，再验证空项、多个二维码、失败图片与完整合同。",
+        "settings": [
+          "post.reward.enable",
+          "post.reward.text",
+          "post.reward.QR_code"
+        ],
+        "code": [
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "src/html/views/components.html",
+          "src/js/core/reward.ts",
+          "src/scss/core/reward.scss"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/reward-review.json"
+      ],
+      "scope": "模板已有接入；interaction 仍缺手机/键盘操作，保留 gap，不因 CSS 存在提升交互状态。"
+    },
+    {
+      "id": "template:includes/post/reward",
+      "before": {
+        "status": "gap",
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+      },
+      "after": {
+        "status": "implemented-unverified",
+        "finding": "已有文章打赏配置、二维码列表、链接/文字和 CSS hover 弹层；过滤无图片项，但外层仍按原始列表非空决定是否显示。按钮为 div，尚无明确键盘或触屏开关/关闭事件。剩余：补齐可操作控件及手机开关，再验证空项、多个二维码、失败图片与完整合同。",
+        "settings": [
+          "post.reward.enable",
+          "post.reward.text",
+          "post.reward.QR_code"
+        ],
+        "code": [
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "src/html/views/components.html",
+          "src/js/core/reward.ts",
+          "src/scss/core/reward.scss"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/reward-review.json"
+      ],
+      "scope": "模板已有接入；interaction 仍缺手机/键盘操作，保留 gap，不因 CSS 存在提升交互状态。"
+    },
+    {
+      "id": "interaction:related",
+      "before": {
+        "status": "gap",
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+      },
+      "after": {
+        "status": "gap",
+        "finding": "已有按标签查询候选、排除当前文章、客户端去重/截断、日期字段显示；Render 实际调用 capRelatedPosts，未接入 rankRelatedPosts 的标签交集加权和同权重随机排序，不能把孤立函数当成实际排序。剩余：补齐上游排序语义，验证多标签/无标签、数量和日期规则及完整合同。",
+        "settings": [
+          "post.related_post.enable",
+          "post.related_post.limit",
+          "post.related_post.date_type"
+        ],
+        "code": [
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/modules/Render.ts",
+          "src/scss/modules/render.scss",
+          "src/html/views/components.html",
+          "src/js/core/related-post.ts"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/related-post-review.json"
+      ],
+      "scope": "保留 gap，明确已实现列表与尚缺排序的边界。"
+    },
+    {
+      "id": "helper:related_posts",
+      "before": {
+        "status": "gap",
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+      },
+      "after": {
+        "status": "gap",
+        "finding": "已有按标签查询候选、排除当前文章、客户端去重/截断、日期字段显示；Render 实际调用 capRelatedPosts，未接入 rankRelatedPosts 的标签交集加权和同权重随机排序，不能把孤立函数当成实际排序。剩余：补齐上游排序语义，验证多标签/无标签、数量和日期规则及完整合同。",
+        "settings": [
+          "post.related_post.enable",
+          "post.related_post.limit",
+          "post.related_post.date_type"
+        ],
+        "code": [
+          "src/html/views/layout.html",
+          "src/html/views/components.html",
+          "src/html/post.html",
+          "src/js/core/related-post.ts",
+          "src/js/modules/Render.ts"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-09-08/related-post-review.json"
+      ],
+      "scope": "保留 gap，明确已实现列表与尚缺排序的边界。"
+    },
+    {
+      "id": "page:home",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+      },
+      "after": {
+        "status": "verification-failed",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：firefox /page/2/ 1440px light（pending-resources,navigation-timeout）；firefox / 390px light（pending-resources）；firefox / 390px dark（pending-resources,readiness-visible-images）；webkit /page/2/ 1440px light（pending-resources,screenshot-timeout）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。",
+        "settings": [],
+        "code": [
+          "src/html/index.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "按实际失败路由映射页面类型；只表示该候选页面运行失败，不推断所有相关功能/配置失败。",
+      "failedPages": [
+        {
+          "engine": "firefox",
+          "path": "/page/2/",
+          "width": 1440,
+          "mode": "light",
+          "categories": [
+            "pending-resources",
+            "navigation-timeout"
+          ]
+        },
+        {
+          "engine": "firefox",
+          "path": "/",
+          "width": 390,
+          "mode": "light",
+          "categories": [
+            "pending-resources"
+          ]
+        },
+        {
+          "engine": "firefox",
+          "path": "/",
+          "width": 390,
+          "mode": "dark",
+          "categories": [
+            "pending-resources",
+            "readiness-visible-images"
+          ]
+        },
+        {
+          "engine": "webkit",
+          "path": "/page/2/",
+          "width": 1440,
+          "mode": "light",
+          "categories": [
+            "pending-resources",
+            "screenshot-timeout"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page:post",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+      },
+      "after": {
+        "status": "verification-failed",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：firefox /archives/preview-2/ 1440px dark（pending-resources,readiness-visible-images）；firefox /archives/preview-2/ 390px light（pending-resources,navigation-timeout）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。",
+        "settings": [],
+        "code": [
+          "src/html/post.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "按实际失败路由映射页面类型；只表示该候选页面运行失败，不推断所有相关功能/配置失败。",
+      "failedPages": [
+        {
+          "engine": "firefox",
+          "path": "/archives/preview-2/",
+          "width": 1440,
+          "mode": "dark",
+          "categories": [
+            "pending-resources",
+            "readiness-visible-images"
+          ]
+        },
+        {
+          "engine": "firefox",
+          "path": "/archives/preview-2/",
+          "width": 390,
+          "mode": "light",
+          "categories": [
+            "pending-resources",
+            "navigation-timeout"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page:page",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+      },
+      "after": {
+        "status": "verification-failed",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：firefox /about-preview/ 1440px light（pending-resources,navigation-timeout）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。",
+        "settings": [],
+        "code": [
+          "src/html/page.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "按实际失败路由映射页面类型；只表示该候选页面运行失败，不推断所有相关功能/配置失败。",
+      "failedPages": [
+        {
+          "engine": "firefox",
+          "path": "/about-preview/",
+          "width": 1440,
+          "mode": "light",
+          "categories": [
+            "pending-resources",
+            "navigation-timeout"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page:archive",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+      },
+      "after": {
+        "status": "verification-failed",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：webkit /archives/ 1440px light（pending-resources,readiness-visible-images）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。",
+        "settings": [],
+        "code": [
+          "src/html/archives.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "按实际失败路由映射页面类型；只表示该候选页面运行失败，不推断所有相关功能/配置失败。",
+      "failedPages": [
+        {
+          "engine": "webkit",
+          "path": "/archives/",
+          "width": 1440,
+          "mode": "light",
+          "categories": [
+            "pending-resources",
+            "readiness-visible-images"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page:tag",
+      "before": {
+        "status": "implemented-unverified",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+      },
+      "after": {
+        "status": "verification-failed",
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：firefox /tags/butterfly/ 390px dark（pending-resources）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。",
+        "settings": [],
+        "code": [
+          "src/html/tag.html"
+        ]
+      },
+      "supportingReports": [
+        "docs/validation/2026-10-05/master-acceptance.json"
+      ],
+      "scope": "按实际失败路由映射页面类型；只表示该候选页面运行失败，不推断所有相关功能/配置失败。",
+      "failedPages": [
+        {
+          "engine": "firefox",
+          "path": "/tags/butterfly/",
+          "width": 390,
+          "mode": "dark",
+          "categories": [
+            "pending-resources"
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "No item promoted to verified; full fixed-upstream comparison, runtime, non-author review and exact-SHA CI remain required.",
+    "Five page types retain observed Linux failures; no assertion of common root cause.",
+    "Related ranking and reward phone/keyboard interaction remain implementation gaps.",
+    "Unchanged gaps, mapping decisions, exclusions and deferred series are not newly audited.",
+    "No acceptance cases, contract scenarios, fixed inventory, decisions or blockers are removed or weakened.",
+    "This reconciliation awaits independent review; author source checks are not independent review."
+  ]
+}
