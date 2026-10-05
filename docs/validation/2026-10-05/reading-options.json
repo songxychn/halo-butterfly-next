@@ -1,0 +1,598 @@
+{
+  "kind": "bounded-reading-options-validation",
+  "sourceSha": "224691f391b189c66d4408bee153751c0ce8344d",
+  "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "issue": "https://github.com/songxychn/halo-butterfly-next/issues/354",
+  "result": "passed-with-stated-scope",
+  "environment": {
+    "halo": "2.26.1",
+    "freshDatabase": true,
+    "origin": "http://127.0.0.1:18365",
+    "browser": "HeadlessChrome/152.0.0.0",
+    "driver": "agent-browser 0.35.0",
+    "platform": "macOS",
+    "optionalPlugins": "disabled by fresh comparison fixture; no search/comment acceptance"
+  },
+  "package": {
+    "source": "224691f391b189c66d4408bee153751c0ce8344d",
+    "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "files": 127
+  },
+  "engineering": {
+    "command": "bun run verify",
+    "testsPassed": 559,
+    "testsFailed": 0,
+    "packageFiles": 127,
+    "repeatedBuildSameBytes": true
+  },
+  "runtime": {
+    "anchorPost": {
+      "target": "http://127.0.0.1:18365/archives/reading-post/?chapter-test=kept",
+      "checks": [
+        "unique heading IDs and enabled anchor config",
+        "TOC click updates URL and focuses heading",
+        "heading link navigates and preserves query",
+        "browser back restores previous chapter",
+        "reload preserves chapter IDs and URL",
+        "scroll updates chapter without adding history entries",
+        "external links not hijacked, captions block, clean TOC labels"
+      ],
+      "status": "passed"
+    },
+    "anchorPage": {
+      "target": "http://127.0.0.1:18365/reading-page/?chapter-test=kept",
+      "checks": [
+        "unique heading IDs and enabled anchor config",
+        "TOC click updates URL and focuses heading",
+        "heading link navigates and preserves query",
+        "browser back restores previous chapter",
+        "reload preserves chapter IDs and URL",
+        "scroll updates chapter without adding history entries",
+        "external links not hijacked, captions block, clean TOC labels"
+      ],
+      "status": "passed"
+    },
+    "layouts": [
+      {
+        "status": "passed",
+        "authored": [
+          "已有图注"
+        ],
+        "caption": [
+          {
+            "display": "block",
+            "text": "标题优先"
+          },
+          {
+            "display": "block",
+            "text": "链接图片"
+          }
+        ],
+        "gear": true,
+        "hideAside": false,
+        "mobileToc": true,
+        "mode": "light",
+        "overflow": false,
+        "panelInert": true,
+        "show": [
+          "rightside-config",
+          "darkmode",
+          "mobile-toc-button",
+          "go-up"
+        ],
+        "width": 390
+      },
+      {
+        "status": "passed",
+        "authored": [
+          "已有图注"
+        ],
+        "caption": [
+          {
+            "display": "block",
+            "text": "标题优先"
+          },
+          {
+            "display": "block",
+            "text": "链接图片"
+          }
+        ],
+        "gear": true,
+        "hideAside": false,
+        "mobileToc": true,
+        "mode": "dark",
+        "overflow": false,
+        "panelInert": true,
+        "show": [
+          "rightside-config",
+          "darkmode",
+          "mobile-toc-button",
+          "go-up"
+        ],
+        "width": 390
+      },
+      {
+        "status": "passed",
+        "authored": [
+          "已有图注"
+        ],
+        "caption": [
+          {
+            "display": "block",
+            "text": "标题优先"
+          },
+          {
+            "display": "block",
+            "text": "链接图片"
+          }
+        ],
+        "gear": true,
+        "hideAside": true,
+        "mobileToc": true,
+        "mode": "light",
+        "overflow": false,
+        "panelInert": true,
+        "show": [
+          "rightside-config",
+          "darkmode",
+          "mobile-toc-button",
+          "go-up"
+        ],
+        "width": 1000
+      },
+      {
+        "status": "passed",
+        "authored": [
+          "已有图注"
+        ],
+        "caption": [
+          {
+            "display": "block",
+            "text": "标题优先"
+          },
+          {
+            "display": "block",
+            "text": "链接图片"
+          }
+        ],
+        "gear": true,
+        "hideAside": true,
+        "mobileToc": true,
+        "mode": "dark",
+        "overflow": false,
+        "panelInert": true,
+        "show": [
+          "rightside-config",
+          "darkmode",
+          "mobile-toc-button",
+          "go-up"
+        ],
+        "width": 1000
+      },
+      {
+        "status": "passed",
+        "authored": [
+          "已有图注"
+        ],
+        "caption": [
+          {
+            "display": "block",
+            "text": "标题优先"
+          },
+          {
+            "display": "block",
+            "text": "链接图片"
+          }
+        ],
+        "gear": true,
+        "hideAside": true,
+        "mobileToc": false,
+        "mode": "light",
+        "overflow": false,
+        "panelInert": true,
+        "show": [
+          "rightside-config",
+          "darkmode",
+          "mobile-toc-button",
+          "go-up"
+        ],
+        "width": 1440
+      },
+      {
+        "status": "passed",
+        "authored": [
+          "已有图注"
+        ],
+        "caption": [
+          {
+            "display": "block",
+            "text": "标题优先"
+          },
+          {
+            "display": "block",
+            "text": "链接图片"
+          }
+        ],
+        "gear": true,
+        "hideAside": true,
+        "mobileToc": false,
+        "mode": "dark",
+        "overflow": false,
+        "panelInert": true,
+        "show": [
+          "rightside-config",
+          "darkmode",
+          "mobile-toc-button",
+          "go-up"
+        ],
+        "width": 1440
+      }
+    ],
+    "responsiveGroups": [
+      {
+        "hide": "toc",
+        "width": 1440,
+        "actual": {
+          "gear": false,
+          "spinning": false,
+          "tocOmitted": false,
+          "topLast": true
+        },
+        "status": "passed"
+      },
+      {
+        "hide": "toc",
+        "width": 1000,
+        "actual": {
+          "gear": true,
+          "spinning": false,
+          "tocOmitted": false,
+          "topLast": true
+        },
+        "status": "passed"
+      },
+      {
+        "hide": "toc",
+        "width": 390,
+        "actual": {
+          "gear": true,
+          "spinning": false,
+          "tocOmitted": false,
+          "topLast": true
+        },
+        "status": "passed"
+      },
+      {
+        "hide": "hideAside",
+        "width": 390,
+        "actual": {
+          "gear": false,
+          "spinning": false,
+          "tocOmitted": true,
+          "topLast": true
+        },
+        "status": "passed"
+      },
+      {
+        "hide": "hideAside",
+        "width": 1440,
+        "actual": {
+          "gear": true,
+          "spinning": false,
+          "tocOmitted": true,
+          "topLast": true
+        },
+        "status": "passed"
+      },
+      {
+        "hide": "unknown",
+        "width": 1440,
+        "actual": {
+          "gear": false,
+          "spinning": false,
+          "tocOmitted": true,
+          "topLast": true
+        },
+        "status": "passed"
+      }
+    ],
+    "templateOverrides": [
+      {
+        "kind": "post",
+        "annotations": {
+          "toc": "true",
+          "toc_number": "false",
+          "toc_expand": "true",
+          "toc_style_simple": "true",
+          "copyright": "true",
+          "noticeOutdate": "true"
+        },
+        "expected": {
+          "toc": true,
+          "ordinary": false,
+          "number": false,
+          "expand": true,
+          "copyright": true,
+          "notice": true
+        },
+        "actual": {
+          "toc": true,
+          "ordinary": false,
+          "copyright": true,
+          "notice": true,
+          "number": false,
+          "expand": true
+        }
+      },
+      {
+        "kind": "post",
+        "annotations": {
+          "toc": "false",
+          "toc_number": "true",
+          "toc_expand": "false",
+          "toc_style_simple": "true",
+          "copyright": "false",
+          "noticeOutdate": "false"
+        },
+        "expected": {
+          "toc": false,
+          "ordinary": true,
+          "number": true,
+          "expand": false,
+          "copyright": false,
+          "notice": false
+        },
+        "actual": {
+          "toc": false,
+          "ordinary": true,
+          "copyright": false,
+          "notice": false,
+          "number": true,
+          "expand": false
+        }
+      },
+      {
+        "kind": "post",
+        "annotations": {
+          "toc": "inherit",
+          "toc_number": "inherit",
+          "toc_expand": "inherit",
+          "toc_style_simple": "inherit",
+          "copyright": "inherit",
+          "noticeOutdate": "inherit"
+        },
+        "expected": {
+          "toc": true,
+          "ordinary": false,
+          "number": false,
+          "expand": true,
+          "copyright": true,
+          "notice": true
+        },
+        "actual": {
+          "toc": true,
+          "ordinary": false,
+          "copyright": true,
+          "notice": true,
+          "number": false,
+          "expand": true
+        }
+      },
+      {
+        "kind": "post",
+        "annotations": {
+          "toc": "inherit",
+          "toc_number": "inherit",
+          "toc_expand": "inherit",
+          "toc_style_simple": "inherit",
+          "copyright": "inherit",
+          "noticeOutdate": "inherit"
+        },
+        "expected": {
+          "toc": false,
+          "ordinary": true
+        },
+        "actual": {
+          "toc": false,
+          "ordinary": true,
+          "copyright": true,
+          "notice": true,
+          "number": false,
+          "expand": true
+        }
+      },
+      {
+        "kind": "page",
+        "annotations": {
+          "toc": "true",
+          "toc_number": "false",
+          "toc_expand": "true",
+          "toc_style_simple": "true",
+          "copyright": "true",
+          "noticeOutdate": "true"
+        },
+        "expected": {
+          "toc": true,
+          "ordinary": false,
+          "number": false,
+          "expand": true,
+          "copyright": false,
+          "notice": false
+        },
+        "actual": {
+          "toc": true,
+          "ordinary": false,
+          "copyright": false,
+          "notice": false,
+          "number": false,
+          "expand": true
+        }
+      },
+      {
+        "kind": "page",
+        "annotations": {
+          "toc": "false",
+          "toc_number": "true",
+          "toc_expand": "false",
+          "toc_style_simple": "true",
+          "copyright": "false",
+          "noticeOutdate": "false"
+        },
+        "expected": {
+          "toc": false,
+          "ordinary": true,
+          "number": true,
+          "expand": false,
+          "copyright": false,
+          "notice": false
+        },
+        "actual": {
+          "toc": false,
+          "ordinary": true,
+          "copyright": false,
+          "notice": false,
+          "number": true,
+          "expand": false
+        }
+      },
+      {
+        "kind": "page",
+        "annotations": {
+          "toc": "inherit",
+          "toc_number": "inherit",
+          "toc_expand": "inherit",
+          "toc_style_simple": "inherit",
+          "copyright": "inherit",
+          "noticeOutdate": "inherit"
+        },
+        "expected": {
+          "toc": true,
+          "ordinary": true,
+          "number": false,
+          "expand": true,
+          "copyright": false,
+          "notice": false
+        },
+        "actual": {
+          "toc": true,
+          "ordinary": true,
+          "copyright": false,
+          "notice": false,
+          "number": false,
+          "expand": true
+        }
+      },
+      {
+        "kind": "page",
+        "annotations": {
+          "toc": "inherit",
+          "toc_number": "inherit",
+          "toc_expand": "inherit",
+          "toc_style_simple": "inherit",
+          "copyright": "inherit",
+          "noticeOutdate": "inherit"
+        },
+        "expected": {
+          "toc": false,
+          "ordinary": true
+        },
+        "actual": {
+          "toc": false,
+          "ordinary": true,
+          "copyright": false,
+          "notice": false,
+          "number": false,
+          "expand": true
+        }
+      }
+    ]
+  },
+  "independentReview": [
+    {
+      "actor": "/root/toolbar",
+      "sourceSha": "224691f391b189c66d4408bee153751c0ce8344d",
+      "result": "PASS",
+      "scope": "TOC, anchors, annotations, captions and root integration/docs; excludes own toolbar",
+      "focusedTestsPassed": 28
+    },
+    {
+      "actor": "/root/captions",
+      "sourceSha": "224691f391b189c66d4408bee153751c0ce8344d",
+      "result": "PASS",
+      "scope": "toolbar, responsive fixes, runner and docs; excludes own captions",
+      "focusedTestsPassed": 12
+    },
+    {
+      "actor": "/root/toc_overrides",
+      "sourceSha": "224691f391b189c66d4408bee153751c0ce8344d",
+      "result": "PASS",
+      "scope": "root CSS/settings, captions and root runner amendments; excludes own TOC/anchors",
+      "focusedTestsPassed": 5
+    }
+  ],
+  "resolvedFindings": [
+    "Toolbar CSS specificity and responsive empty gear fixed; live 390/1000/1440 checks passed.",
+    "Heading permalink inherited invisible underline styles; explicit pseudo-element reset and visible-width browser assertion passed.",
+    "Initial pointer test clicked during toolbar entrance transition; harness now waits for completed transition, then checks same behavior."
+  ],
+  "localEvidence": [
+    {
+      "path": ".evidence/reading-settings/after-1000-dark.png",
+      "sha256": "dde068fd16fb2c6b9426f7b8025131ef735a9f344a1ba1151c2eebcee8a58c14"
+    },
+    {
+      "path": ".evidence/reading-settings/after-1000-light.png",
+      "sha256": "ff7e89754d90f41607cb9ab9428c189138f8455e1d08452099dbdc3218fab367"
+    },
+    {
+      "path": ".evidence/reading-settings/after-1440-dark.png",
+      "sha256": "ceed42733aa408b31981b3bde21199529254f562e25fb9ebcf2e1923807e0d62"
+    },
+    {
+      "path": ".evidence/reading-settings/after-1440-light.png",
+      "sha256": "f560aa5cd1a0a9bec69066f83ec9ac6bc60ca92bcdfbdb0af0f484ca42c6fea2"
+    },
+    {
+      "path": ".evidence/reading-settings/after-390-dark.png",
+      "sha256": "a1a825280d1bffe1a94a31b23e1f7f6c6797ef98f4efffe80e0be7d1cea8b88f"
+    },
+    {
+      "path": ".evidence/reading-settings/after-390-light.png",
+      "sha256": "de94a848f2e1a9a74ad8dbd219e5eefbd533b95976af9ce707e19c23a756af9b"
+    },
+    {
+      "path": ".evidence/reading-settings/anchors-page.json",
+      "sha256": "67654240eeee783712e72b4570a0c5d187fb08477062e11b0551c3b19293321e"
+    },
+    {
+      "path": ".evidence/reading-settings/anchors-post.json",
+      "sha256": "7dd0a12e490ef51bc5fc7bae631aca549d510b73c74e12d0eddebaf075d4c54d"
+    },
+    {
+      "path": ".evidence/reading-settings/before-desktop.png",
+      "sha256": "c83a23455229d92d9706b031b10903b91e794005a46e67bb8f668245f3eed8fe"
+    },
+    {
+      "path": ".evidence/reading-settings/before-mobile.png",
+      "sha256": "96f9e0ceebdd90c42f8fb25a05ecbcf1f14c7751a5b134d8ff57455c8c51f68d"
+    },
+    {
+      "path": ".evidence/reading-settings/browser-layout.json",
+      "sha256": "b13a6bacd0320cf36efece01c039d0589db7674b9c46caf5937c8004e2a2ab3b"
+    },
+    {
+      "path": ".evidence/reading-settings/template-overrides.json",
+      "sha256": "88c2da0b9b6bf566b66f4ba0abec4fa5c6795d2d0ccbfadff8e17e9009fe1ea2"
+    },
+    {
+      "path": ".evidence/reading-settings/toolbar-responsive.json",
+      "sha256": "5d52a4fd7c01fd11292576d6c478dfc1b4c171272524c7b3c1a8136ec864b0ea"
+    }
+  ],
+  "limitations": [
+    "Bounded headless Chromium checks only; no new Firefox/WebKit, actual Safari or physical-device acceptance.",
+    "Existing resource-loading blocker and search-focus exception are unchanged; this is not public alpha or full 1.0 acceptance.",
+    "Runtime captured exact implementation source and installed ZIP; later evidence-only commits do not change theme bytes.",
+    "No matrix entry promoted to verified."
+  ]
+}
