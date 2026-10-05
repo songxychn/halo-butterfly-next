@@ -82,6 +82,6 @@ node --test tests/site-content.test.mjs tests/site-publish.test.mjs
 bun run verify
 ```
 
-本地实测覆盖重复同步、后台冲突阻断与恢复、19 项发布内容、导航和常用归档、桌面/手机视口及图片灯箱。具体包身份、命令结果、截图路径和未测范围见[本次样站记录](../docs/validation/2026-10-05/site-local.json)。无头浏览器结果不等于真机或全面无障碍验收。
+本地实测覆盖重复同步、后台冲突阻断与恢复、19 项发布内容、导航和常用归档、桌面/手机视口及图片灯箱。初始样站检查见[样站记录](../docs/validation/2026-10-05/site-local.json)；当前搜索、重复同步及审查修复记录见[搜索交付记录](../docs/validation/2026-10-05/site-search.json)。无头浏览器结果不等于真机或全面无障碍验收。
 
 同步台账 `sync-state.json`、操作报告、配置写入前备份和 `halo.log` 位于独立运行目录。遇到冲突先保留文件并核对后台修改，再决定如何合并；工具不提供强制覆盖、删除或远程部署开关。
