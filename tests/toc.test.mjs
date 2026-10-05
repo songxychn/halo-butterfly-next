@@ -55,12 +55,10 @@ test('默认对齐上游 SHA：number true、expand false、style_simple false�
   assert.deepEqual(field('style_simple').options.map(option => option.value), [true, false]);
   assert.equal(field('scroll_percent').value, true);
   assert.deepEqual(field('scroll_percent').options.map(option => option.value), [true, false]);
-  assert.match(String(field('number').help), /toc\.number/);
-  assert.match(String(field('expand').help), /toc\.expand/);
-  assert.match(String(field('style_simple').help), /toc\.style_simple/);
   assert.match(String(field('scroll_percent').help), /toc\.scroll_percent/);
-  assert.match(String(field('number').help), /不做 toc\.post/);
-  assert.match(String(field('style_simple').help), /不做 related_post/);
+  assert.equal(defaults.toc.post, true);
+  assert.equal(defaults.toc.page, false);
+
   assert.match(String(field('scroll_percent').help), /rightside\.scroll_percent/);
   assert.equal(resolveNumber(defaults.toc.number), true);
   assert.equal(resolveExpand(defaults.toc.expand), false);
@@ -113,31 +111,21 @@ test('序号形如 1. / 1.1.；getScrollPercent 对齐 btf 并夹在 0–100', (
   assert.equal(getScrollPercent(10, null, viewport), 0);
 });
 
-test('文章页注入 conf；单页不注入；style_simple 仅文章侧栏', () => {
-  assert.match(postHtml, /toc_number: \/\*\[\[\$\{theme\.config\.toc\.number\}\]\]\*\/ true/);
-  assert.match(postHtml, /toc_expand: \/\*\[\[\$\{theme\.config\.toc\.expand\}\]\]\*\/ false/);
-  assert.match(postHtml, /toc_scroll_percent: \/\*\[\[\$\{theme\.config\.toc\.scroll_percent\}\]\]\*\/ true/);
-  assert.doesNotMatch(pageHtml, /toc_number/);
-  assert.doesNotMatch(pageHtml, /theme\.config\.toc/);
-  assert.doesNotMatch(pageHtml, /aside-toc/);
-  assert.doesNotMatch(postHtml, /anchor\.auto_update/);
-  assert.doesNotMatch(postHtml, /anchor\.click_to_scroll/);
-
-  const postAside = fragment(aside, 'post');
-  assert.match(postAside, /toc-percentage/);
-  assert.match(postAside, /th:if="\$\{tocPercent\}"/);
-  assert.match(postAside, /is-numbered/);
-  assert.match(postAside, /is-expand/);
-  assert.match(postAside, /th:unless="\$\{tocSimple\}"/);
-  assert.match(postAside, /::recentPost/);
-  assert.doesNotMatch(postAside, /th:utext/);
-  assert.doesNotMatch(postAside, /related_post/);
-  assert.doesNotMatch(postAside, /anchor/);
-
-  const common = fragment(aside, 'common', 'th:fragment="post"');
-  assert.match(common, /::recentPost/);
-  assert.doesNotMatch(common, /tocSimple/);
-  assert.doesNotMatch(common, /aside-toc/);
+test('文章和独立页接入继承目录配置，目录关闭不留下空简洁侧栏', () => {
+  for (const html of [postHtml, pageHtml]) {
+    assert.match(html, /tocNumberOverride == 'false' \? false/);
+    assert.match(html, /tocExpandOverride == 'false' \? false/);
+    assert.match(html, /anchor_auto_update:/);
+    assert.match(html, /anchor_click_to_scroll:/);
+  }
+  assert.match(pageHtml, /views\/aside::single/);
+  const articleAside = fragment(aside, 'article(content, postPage)');
+  assert.match(articleAside, /tocEnabled = .*tocOverride == 'false' \? false/);
+  assert.match(articleAside, /tocSimple = .*tocEnabled and/);
+  assert.match(articleAside, /tocSimpleDefault = .*postPage and/);
+  assert.match(articleAside, /th:if="\$\{tocEnabled\}"/);
+  assert.match(articleAside, /toc-percentage/);
+  assert.doesNotMatch(articleAside, /th:unless="[^"\n]+" th:replace=/, 'conditions wrap fragment replacements');
 });
 
 test('Render 接线 number / expand / scroll_percent；百分比 textContent 非 HTML', () => {

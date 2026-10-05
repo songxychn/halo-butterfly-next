@@ -74,8 +74,7 @@ test('默认对齐上游 SHA：enable false、style flat、limit_day 365、posit
   assert.equal(child('message_next').value, DEFAULTS.message_next);
   assert.match(String(group.help), /noticeOutdate/);
   assert.match(String(group.help), /outdate-notice\.pug/);
-  assert.match(String(group.help), /不做 related_post/);
-  assert.match(String(group.help), /逐页覆盖/);
+  assert.match(String(group.help), /单篇元数据.*优先于全局/);
 });
 
 test('resolveEnable：仅 true 开启；其余关闭', () => {
@@ -156,7 +155,8 @@ test('文章页在正文前后插入；单页不插入；enable 与超限由 th:
 
   const block = fragment(components, 'noticeOutdate(slot)', 'th:fragment="postPagination"');
   assert.match(block, /id="post-outdate-notice"/);
-  assert.match(block, /noticeEnabled = \$\{cfg != null and \(cfg\.enable == true or cfg\.enable == 'true'\)\}/);
+  assert.match(block, /noticeEnabled = .*noticeOverride == 'true' \? true : \(noticeOverride == 'false' \? false/);
+  assert.match(block, /cfg\.enable == true or cfg\.enable == 'true'/);
   assert.match(block, /noticeDiffDay >= noticeLimit/);
   assert.match(block, /noticePosition == slot/);
   assert.match(block, /lastModifyTime != null \? post\.status\.lastModifyTime : post\.spec\.publishTime/);

@@ -5,7 +5,7 @@ import { getScrollPercent } from './toc.ts';
  *
  * 齿轮 #rightside-config 切换 #rightside-config-hide.show。
  * rightside_scroll_percent 默认 false；仅显式 true 在 #go-up 显示百分比。
- * readmode 默认 true；仅显式 false 不渲染。仅文章页。繁简见 translate.mjs。不做 chat / comment / item_order。
+ * readmode 默认 true；仅显式 false 不渲染。仅文章页。繁简见 translate.ts。
  * 不复用作者卡片 aside.button。不把 footer 模板升 verified。
  */
 
@@ -15,13 +15,87 @@ export function toggleRightsideConfigHide(hideEl: Element | null) {
   return hideEl.classList.contains('show');
 }
 
+const RIGHTSIDE_ITEMS = {
+  readmode: 'readmode',
+  translate: 'translateLink',
+  darkmode: 'darkmode',
+  hideAside: 'hide-aside-btn',
+  toc: 'mobile-toc-button',
+} as const;
+
+type RightsideItem = keyof typeof RIGHTSIDE_ITEMS;
+
+const DEFAULT_HIDE: RightsideItem[] = ['readmode', 'translate', 'darkmode', 'hideAside'];
+const DEFAULT_SHOW: RightsideItem[] = ['toc'];
+
+/** Empty groups use upstream defaults; unsupported names are ignored, first occurrence wins. */
+export function resolveRightsideItemOrder(enabled: unknown, hide: unknown, show: unknown) {
+  const seen = new Set<RightsideItem>();
+  const parse = (value: unknown, fallback: RightsideItem[]) => {
+    const names = isExplicitTrue(enabled) && typeof value === 'string' && value.trim()
+      ? value.split(',').map(name => name.trim())
+      : fallback;
+    return names.filter((name): name is RightsideItem => {
+      if (!Object.hasOwn(RIGHTSIDE_ITEMS, name) || seen.has(name as RightsideItem)) return false;
+      seen.add(name as RightsideItem);
+      return true;
+    });
+  };
+  return { hide: parse(hide, DEFAULT_HIDE), show: parse(show, DEFAULT_SHOW) };
+}
+
+/** Move only feature-gated, existing buttons. Reapply when Render adds the mobile TOC. */
+export function applyRightsideItemOrder(root: Document = document) {
+  const toolbar = root.getElementById('rightside');
+  const hide = root.getElementById('rightside-config-hide');
+  const show = root.getElementById('rightside-config-show');
+  const gear = root.getElementById('rightside-config');
+  const goUp = root.getElementById('go-up');
+  if (!toolbar || !hide || !show || !goUp) return;
+  const order = resolveRightsideItemOrder(toolbar.dataset.itemOrderEnable, toolbar.dataset.itemOrderHide, toolbar.dataset.itemOrderShow);
+  const selected = new Set([...order.hide, ...order.show]);
+  for (const [name, id] of Object.entries(RIGHTSIDE_ITEMS)) {
+    const button = toolbar.querySelector<HTMLElement>(`#${id}`);
+    if (button) {
+      button.hidden = !selected.has(name as RightsideItem);
+      button.inert = button.hidden;
+    }
+  }
+  for (const name of order.hide) {
+    const button = toolbar.querySelector<HTMLElement>(`#${RIGHTSIDE_ITEMS[name]}`);
+    if (button) hide.appendChild(button);
+  }
+  for (const name of order.show) {
+    const button = toolbar.querySelector<HTMLElement>(`#${RIGHTSIDE_ITEMS[name]}`);
+    if (button) show.insertBefore(button, goUp);
+  }
+  const hasHiddenItems = order.hide.some(name => hide.querySelector(`#${RIGHTSIDE_ITEMS[name]}`));
+  if (gear) {
+    gear.hidden = !hasHiddenItems;
+    if (!hasHiddenItems) hide.classList.remove('show');
+    gear.setAttribute('aria-expanded', String(hasHiddenItems && hide.classList.contains('show')));
+  }
+  hide.inert = !hasHiddenItems || !hide.classList.contains('show');
+}
+
 export function bindRightsideConfig(root = typeof document !== 'undefined' ? document : null) {
   if (!root || typeof root.getElementById !== 'function') return;
+  applyRightsideItemOrder(root);
   const btn = root.getElementById('rightside-config');
   const hide = root.getElementById('rightside-config-hide');
   if (!btn || !hide) return;
+  hide.inert = !hide.classList.contains('show');
   btn.addEventListener('click', () => {
-    toggleRightsideConfigHide(hide);
+    const expanded = toggleRightsideConfigHide(hide);
+    hide.inert = !expanded;
+    btn.setAttribute('aria-expanded', String(expanded));
+  });
+  hide.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !hide.classList.contains('show')) return;
+    hide.classList.remove('show');
+    hide.inert = true;
+    btn.setAttribute('aria-expanded', 'false');
+    btn.focus();
   });
 }
 

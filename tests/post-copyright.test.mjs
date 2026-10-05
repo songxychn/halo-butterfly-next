@@ -62,8 +62,8 @@ test('默认对齐上游 SHA：enable true、decode false、author_href 空、li
   assert.equal(DEFAULTS.enable, true);
   assert.equal(DEFAULTS.decode, false);
   assert.match(String(copyrightGroup().help), /post-copyright\.pug/);
-  assert.match(String(copyrightGroup().help), /不做 footer\.nav/);
-  assert.match(String(child('enable').help), /post_copyright\.enable/);
+  assert.match(String(copyrightGroup().help), /单篇元数据.*覆盖/);
+  assert.match(String(child('enable').help), /单篇元数据.*覆盖/);
   assert.match(String(child('decode').help), /post_copyright\.decode/);
   assert.match(String(child('author_href').help), /th:href/);
   assert.match(String(child('license').help), /th:text/);

@@ -7,7 +7,7 @@
  * 定位/滚动显隐：上游 rightside-show；Halo JS 同时加 .active 与 .rightside-show。
  * 距底仍用 --rightside-bottom（空值 40px）。按钮 35px / --btn-bg。
  * 深色 token 仍走 html[data-color-scheme='dark']，不改 data-theme。
- * 不做 item_order、snackbar、改 settings.yaml。
+ * item_order 使用现有按钮，隐藏项不可聚焦；不做 snackbar。
  */
 #rightside {
   position: fixed;
@@ -74,22 +74,39 @@
 
   #rightside-config-hide,
   #rightside-config-show {
-    > button,
-    > a {
-      display: block;
+    > [hidden] {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #rightside-config .fa-spin {
+      animation: none;
     }
   }
 
   #mobile-toc-button {
     display: none;
 
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       display: block;
     }
   }
 
   @media (max-width: 900px) {
     #hide-aside-btn {
+      display: none;
+    }
+
+    // A group containing only the desktop aside control has nothing to expand.
+    #rightside-config-hide:not(:has(> :not([hidden]):not(#hide-aside-btn))) + #rightside-config-show > #rightside-config {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1101px) {
+    // TOC remains a mobile-only control, even when placed in the hidden group.
+    #rightside-config-hide:not(:has(> :not([hidden]):not(#mobile-toc-button))) + #rightside-config-show > #rightside-config {
       display: none;
     }
   }

@@ -7,6 +7,9 @@
 import $ from 'jquery';
 import {useDelay} from '../core/_util.ts';
 import tocBot from 'tocbot';
+import { bindArticleAnchors } from '../core/article-anchor.ts';
+import { applyRightsideItemOrder } from '../core/rightside.ts';
+import { applyPhotoFigcaptions } from '../core/photofigcaption.ts';
 import {
   applyTocNumbers,
   getScrollPercent,
@@ -34,6 +37,12 @@ export default class Render {
 
   constructor() {
     this.#h();
+    const article = document.querySelector<HTMLElement>('article.render');
+    if (article) applyPhotoFigcaptions(article, this.#conf.photofigcaption);
+    if (article) bindArticleAnchors(article, {
+      autoUpdate: this.#conf.anchor_auto_update,
+      clickToScroll: this.#conf.anchor_click_to_scroll,
+    });
     this.#domObserver();
     this.#tocBotH5();
     this.#copyRight();
@@ -78,7 +87,8 @@ export default class Render {
       tocSelector: '.aside-toc > .toc',
       headingSelector: 'h1,h2,h3,h4,h5,h6',
       hasInnerContainers: true,
-      scrollSmooth: true,
+      // Chapter navigation is shared with heading links and preserves browser history.
+      scrollSmooth: false,
       includeTitleTags: true,
       scrollSmoothDuration: 280,
       throttleTimeout: 30,
@@ -86,9 +96,6 @@ export default class Render {
       headingsOffset: 20, // 目录中高亮的偏移值，和scrollSmoothOffset有关联
       scrollSmoothOffset: -20, // 屏幕滚动的偏移值（这里和导航条固定也有关联）
       fixedSidebarOffset: 'auto',
-      onClick: (e) => e.preventDefault(),
-      scrollEndCallback: function(e) {
-      },
     });
 
     const article = document.querySelector<HTMLElement>('article.render');
@@ -138,6 +145,7 @@ export default class Render {
 
       adeToc.css('display') === 'none' && adeToc.attr('style', '');
     });
+    applyRightsideItemOrder(document);
   }
 
   /**

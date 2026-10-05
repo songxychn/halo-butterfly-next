@@ -999,6 +999,11 @@ spec:
     - group: post
       label: 文章设置
       formSchema:
+        - $formkit: checkbox
+          name: photofigcaption
+          label: 正文图片说明
+          value: false
+          help: 文章和自定义页面的正文图片下显示说明，优先使用 title，其次使用 alt。已有图注会保留，不重复添加。
         - $formkit: radio
           name: enable_above
           label: 启用第一屏
@@ -1098,7 +1103,7 @@ spec:
         - $formkit: group
           name: noticeOutdate
           label: 文章过期提醒
-          help: 对应上游 Butterfly noticeOutdate（_config.yml / outdate-notice.pug / main.js addPostOutdateNotice，5.7.0 f223b188）。默认关闭。enable 关闭不渲染；天数 Math.floor((now - 更新时间) / 86400000) ≥ limit_day 才显示；更新时间取 status.lastModifyTime，无则 spec.publishTime。position top 在正文前、bottom 在正文后。style simple / flat（该 SHA 默认 flat）。文案前后缀与天数用 th:text 拼接。仅文章页；不做 related_post、wordcount、逐页覆盖。
+          help: 对应上游 Butterfly noticeOutdate（_config.yml / outdate-notice.pug / main.js addPostOutdateNotice，5.7.0 f223b188）。默认关闭。enable 关闭不渲染；天数 Math.floor((now - 更新时间) / 86400000) ≥ limit_day 才显示；更新时间取 status.lastModifyTime，无则 spec.publishTime。position top 在正文前、bottom 在正文后。style simple / flat（该 SHA 默认 flat）。文案前后缀与天数用 th:text 拼接。仅文章页；单篇元数据中的过期提醒开关优先于全局开关。
           value:
             enable: false
             style: flat
@@ -1110,7 +1115,7 @@ spec:
             - $formkit: radio
               name: enable
               label: 启用过期提醒
-              help: 对应上游 noticeOutdate.enable（默认 false）。关闭不渲染提醒。
+              help: 默认关闭；单篇元数据可覆盖此开关，提醒仍需达到过期天数。
               value: false
               options:
                 - label: 启用
@@ -1191,7 +1196,7 @@ spec:
         - $formkit: group
           name: post_copyright
           label: 文章版权
-          help: 对应上游 Butterfly post_copyright（_config.yml / layout/includes/post/post-copyright.pug，5.7.0 f223b188）。默认 enable true、decode false、author_href 空、license CC BY-NC-SA 4.0、license_url 知识共享 4.0 链接。仅显式关闭 enable 才不渲染。空 author_href 回退站点 URL。可见文本 th:text，无新增 th:utext。仅文章页。不做 footer.nav、footer_img、reward 交互、逐页覆盖。
+          help: 对应上游 Butterfly post_copyright（_config.yml / layout/includes/post/post-copyright.pug，5.7.0 f223b188）。默认 enable true、decode false、author_href 空、license CC BY-NC-SA 4.0、license_url 知识共享 4.0 链接。仅显式关闭 enable 才不渲染。空 author_href 回退站点 URL。可见文本 th:text，无新增 th:utext。仅文章页。可在单篇元数据中覆盖版权开关。
           value:
             enable: true
             decode: false
@@ -1202,7 +1207,7 @@ spec:
             - $formkit: radio
               name: enable
               label: 显示版权块
-              help: 对应上游 post_copyright.enable（默认 true）。仅显式 false 关闭。关闭不渲染版权块。
+              help: 默认开启；单篇元数据可覆盖此开关。
               value: true
               options:
                 - label: 显示
@@ -1343,9 +1348,29 @@ spec:
       label: 文章目录
       formSchema:
         - $formkit: radio
+          name: post
+          label: 文章目录
+          help: 文章默认显示目录。可在单篇文章的元数据中覆盖；没有标题时显示空目录提示。
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: radio
+          name: page
+          label: 自定义页面目录
+          help: 自定义页面默认不显示目录。可在单页元数据中单独开启。
+          value: false
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: radio
           name: number
           label: 目录序号
-          help: 对应上游 Butterfly toc.number（_config.yml / card_post_toc.pug list_number，5.7.0 f223b188）。默认开启。关闭后目录项不带 1. / 1.1. 序号。不做 toc.post / toc.page、逐页 toc_number。
+          help: 开启后目录项显示 1. / 1.1. 等序号。文章和自定义页面均可在元数据中覆盖。
           value: true
           options:
             - label: 显示
@@ -1355,7 +1380,7 @@ spec:
         - $formkit: radio
           name: expand
           label: 默认展开
-          help: 对应上游 toc.expand（默认关闭）。开启后目录加 is-expand、子级全部展开；关闭时仅当前项父级展开。不做逐页 toc_expand。
+          help: 开启后展开全部目录层级；关闭时仅展开当前章节。可在单篇元数据中覆盖。
           value: false
           options:
             - label: 展开
@@ -1365,7 +1390,7 @@ spec:
         - $formkit: radio
           name: style_simple
           label: 简洁侧栏
-          help: 对应上游 toc.style_simple（默认关闭，仅文章页）。开启后文章侧栏只保留目录，不渲染最近文章等其它卡片。不做 related_post。
+          help: 开启后文章侧栏只保留目录。自定义页面默认保留其它卡片，也可在单页元数据中单独启用简洁侧栏。
           value: false
           options:
             - label: 仅目录
@@ -1381,6 +1406,29 @@ spec:
             - label: 显示
               value: true
             - label: 隐藏
+              value: false
+    - group: anchor
+      label: 章节定位
+      formSchema:
+        - $formkit: radio
+          name: auto_update
+          label: 滚动时更新章节链接
+          help: 阅读到不同章节时更新网址中的锚点，方便复制链接。不会为每次滚动增加浏览器历史记录。
+          value: false
+          options:
+            - label: 开启
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: radio
+          name: click_to_scroll
+          label: 点击标题定位章节
+          help: 为正文标题提供章节链接入口，支持键盘操作与直接打开章节链接。
+          value: false
+          options:
+            - label: 开启
+              value: true
+            - label: 关闭
               value: false
     #归档设置
     - group: archives
@@ -1759,10 +1807,33 @@ spec:
     - group: rightside
       label: 右下角按钮
       formSchema:
+        - $formkit: group
+          name: item_order
+          label: 按钮排序与分组
+          children:
+            - $formkit: checkbox
+              name: enable
+              label: 自定义按钮排列
+              value: false
+            - $formkit: text
+              name: hide
+              label: 展开后显示的按钮
+              value: "readmode,translate,darkmode,hideAside"
+              help: "按顺序填写英文标识，以逗号分隔：readmode 阅读模式、translate 繁简转换、darkmode 深色模式、hideAside 侧栏、toc 手机目录。留空使用默认分组。"
+            - $formkit: text
+              name: show
+              label: 常驻按钮
+              value: "toc,chat,comment"
+              help: "使用相同标识。仅显示已启用且当前页面可用的功能；chat/comment 暂未接入，会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。"
+        - $formkit: checkbox
+          name: config_animation
+          label: 齿轮旋转动画
+          value: true
+          help: 系统启用减少动态效果时停止旋转。
         - $formkit: radio
           name: scroll_percent
           label: 回到顶部阅读百分比
-          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。距底偏移见 rightside.bottom。阅读模式见 rightside.readmode。不做 item_order。禁止复用作者卡片 aside.button。"
+          help: "对应上游 Butterfly rightside_scroll_percent（_config.yml / layout/includes/rightside.pug #go-up / source/js/main.js，5.7.0 f223b188）。默认 false。仅显式 true 时在回到顶部按钮显示阅读百分比（小于 95%）。关闭不渲染 .scroll-percent。距底偏移见 rightside.bottom。阅读模式见 rightside.readmode。按钮排序见右下角按钮排列设置。禁止复用作者卡片 aside.button。"
           value: false
           options:
             - label: 显示
@@ -1774,11 +1845,11 @@ spec:
           label: 距底偏移
           placeholder: 例如 40px、80px、10%
           value: ""
-          help: "对应上游 Butterfly rightside_bottom（_config.yml / source/css/var.styl $rightside-bottom / source/css/_layout/rightside.styl #rightside，5.7.0 f223b188）。默认空，等价 40px。非空写入 CSS 变量 --rightside-bottom（须带单位）。阅读模式见 rightside.readmode。不做 item_order / 完整 rightside.styl。禁止复用作者卡片 aside.button。"
+          help: "对应上游 Butterfly rightside_bottom（_config.yml / source/css/var.styl $rightside-bottom / source/css/_layout/rightside.styl #rightside，5.7.0 f223b188）。默认空，等价 40px。非空写入 CSS 变量 --rightside-bottom（须带单位）。阅读模式见 rightside.readmode。按钮排序见本组排列设置。禁止复用作者卡片 aside.button。"
         - $formkit: radio
           name: readmode
           label: 阅读模式
-          help: "对应上游 Butterfly readmode（_config.yml / layout/includes/rightside.pug #readmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 不渲染阅读模式按钮。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode。禁止复用作者卡片 aside.button。繁简见 translate.enable。不做 item_order。"
+          help: "对应上游 Butterfly readmode（_config.yml / layout/includes/rightside.pug #readmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 不渲染阅读模式按钮。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode。禁止复用作者卡片 aside.button。繁简见 translate.enable。按钮排序见右下角按钮排列设置。"
           value: true
           options:
             - label: 开启
@@ -1791,7 +1862,7 @@ spec:
         - $formkit: radio
           name: enable
           label: 繁简转换按钮
-          help: "对应上游 Butterfly translate.enable（_config.yml / layout/includes/rightside.pug #translateLink / source/js/tw_cn.js，5.7.0 f223b188）。默认 false。仅显式 true 时渲染 #translateLink。关闭不渲染。按钮文案见 translate.default。禁止复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置 / item_order。"
+          help: "对应上游 Butterfly translate.enable（_config.yml / layout/includes/rightside.pug #translateLink / source/js/tw_cn.js，5.7.0 f223b188）。默认 false。仅显式 true 时渲染 #translateLink。关闭不渲染。按钮文案见 translate.default。禁止复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置。"
           value: false
           options:
             - label: 开启
@@ -1809,7 +1880,7 @@ spec:
         - $formkit: radio
           name: enable
           label: 深色模式
-          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。自动切换见 autoChangeMode。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / item_order / snackbar。"
+          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。自动切换见 autoChangeMode。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / snackbar。"
           value: true
           options:
             - label: 开启
@@ -1819,7 +1890,7 @@ spec:
         - $formkit: radio
           name: button
           label: 右下角切换按钮
-          help: "对应上游 Butterfly darkmode.button。默认 true。须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。禁止复用作者卡片 aside.button。不做 item_order。"
+          help: "对应上游 Butterfly darkmode.button。默认 true。须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。禁止复用作者卡片 aside.button。按钮排序见右下角按钮排列设置。"
           value: true
           options:
             - label: 显示
@@ -1829,7 +1900,7 @@ spec:
         - $formkit: select
           name: autoChangeMode
           label: 自动切换
-          help: "对应上游 Butterfly darkmode.autoChangeMode（默认 false）。false 仅恢复已存主题；1 跟随 prefers-color-scheme（无系统偏好时回退小时窗口）；2 按小时。style.mode 的 light/dark 仍强制。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / item_order / snackbar。"
+          help: "对应上游 Butterfly darkmode.autoChangeMode（默认 false）。false 仅恢复已存主题；1 跟随 prefers-color-scheme（无系统偏好时回退小时窗口）；2 按小时。style.mode 的 light/dark 仍强制。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / snackbar。"
           value: false
           options:
             - label: 关闭（false）

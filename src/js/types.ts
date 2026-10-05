@@ -33,6 +33,9 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   toc_number?: SettingValue;
   toc_expand?: SettingValue;
   toc_scroll_percent?: SettingValue;
+  anchor_auto_update?: SettingValue;
+  anchor_click_to_scroll?: SettingValue;
+  photofigcaption?: SettingValue;
   related_post_limit?: SettingValue;
   post_copyright_decode?: SettingValue;
   enable_code?: SettingValue;
