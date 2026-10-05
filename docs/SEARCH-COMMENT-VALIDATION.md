@@ -33,7 +33,7 @@ bun add --cwd .runtime/plugin-a11y --exact --ignore-scripts axe-core@4.12.1
 python3 scripts/search-comment/auth.py --lab-runtime .runtime/release-readiness
 BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/check.mjs \
   --lab-runtime .runtime/release-readiness \
-  --theme-package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
+  --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
   --theme-source-sha "$(git rev-parse HEAD)" \
   --output .evidence/search-comment/run-new \
   --allow-synthetic-writes yes
@@ -67,7 +67,7 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/a11y.mjs \
 ```sh
 BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/lifecycle.mjs \
   --lab-runtime .runtime/release-readiness \
-  --theme-package dist/halo-butterfly-next-0.1.0-alpha.2.zip \
+  --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
   --theme-source-sha "$(git rev-parse HEAD)" \
   --output .evidence/search-comment/lifecycle-new \
   --allow-synthetic-writes yes
