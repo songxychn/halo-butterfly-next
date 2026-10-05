@@ -27,7 +27,7 @@
 
 ## 内容与导航
 
-置顶“第一次使用 Halo Butterfly Next”和“功能演示导览”，检查它们在实际首页的顺序。顶栏提供首页、文档、演示与预览说明；公开日志与 GitHub 渠道就绪后再补全入口。
+置顶“第一次使用 Halo Butterfly Next”和“功能演示导览”，检查它们在实际首页的顺序。顶栏提供首页、文档、演示、预览说明与 GitHub；页脚提供问题反馈入口。有实际发行日志后再补充日志入口。
 
 侧栏作者按钮指向文档总览，公告提供版本和预览状态。页脚放置下载说明、常见问题和关于项目，保留主题与框架署名。
 
@@ -35,7 +35,7 @@
 
 ## 图片来源
 
-首页大图、文章封面和演示正文使用之前 demo 中的 Pexels 摄影图片。图片以 WebP 保存在样站本地，浏览页面不会向外部图片服务请求素材。
+首页大图、文章封面和演示正文使用有来源记录的 Pexels 摄影图片，14 篇文章分别使用不同的封面。图片以 WebP 保存在样站本地，浏览页面不会向外部图片服务请求素材。
 
 - [首页山湖](https://www.pexels.com/photo/scenic-mountain-lake-in-a-serene-landscape-36328259/) — Jacob Postuma
 - [湖畔群山](https://www.pexels.com/photo/serene-mountain-lake-in-banff-national-park-36328290/) — Jacob Postuma

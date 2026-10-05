@@ -1,0 +1,78 @@
+name: halo-butterfly-next
+services:
+  halo-butterfly-next:
+    image: docker-mirror.infra.baizhukui.com/halohub/halo:2.26.1@sha256:bfe89bf70c44ea94a7dd33f8ec98e8e59088adfb7a9fb7b6f013f82391c33bee
+    container_name: halo-butterfly-next
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:18142:8090'
+    networks:
+      - backend
+      - reverse-proxy
+    volumes:
+      - ./halo2:/root/.halo2
+    environment:
+      JVM_OPTS: '-Xms128m -Xmx512m -Duser.timezone=Asia/Shanghai'
+      SPRING_R2DBC_URL: r2dbc:pool:postgresql://database:5432/halo
+      SPRING_R2DBC_USERNAME: halo
+      SPRING_R2DBC_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in a protected .env file}
+      SPRING_SQL_INIT_PLATFORM: postgresql
+    command:
+      - --halo.external-url=https://butterfly.baizhukui.com
+      - --halo.attachment.resource-mappings[0].path-pattern=/site-assets/**
+      - --halo.attachment.resource-mappings[0].locations[0]=site-assets
+      - --springdoc.api-docs.enabled=false
+    healthcheck:
+      test: ['CMD', 'curl', '-fsS', 'http://localhost:8090/actuator/health/readiness']
+      interval: 20s
+      timeout: 5s
+      retries: 6
+      start_period: 90s
+    mem_limit: 896m
+    cpus: 1.5
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      com.centurylinklabs.watchtower.enable: 'false'
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+  database:
+    image: docker-mirror.infra.baizhukui.com/library/postgres:16.10-alpine@sha256:029660641a0cfc575b14f336ba448fb8a75fd595d42e1fa316b9fb4378742297
+    container_name: halo-butterfly-next-db
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: halo
+      POSTGRES_DB: halo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in a protected .env file}
+    command: ['postgres', '-c', 'shared_buffers=64MB', '-c', 'max_connections=40']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U halo -d halo']
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    mem_limit: 384m
+    cpus: 0.75
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      com.centurylinklabs.watchtower.enable: 'false'
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+networks:
+  backend:
+    internal: true
+  reverse-proxy:
+    external: true
