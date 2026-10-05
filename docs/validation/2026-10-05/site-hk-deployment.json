@@ -1,0 +1,714 @@
+{
+  "kind": "hk-docs-demo-deployment",
+  "recordedAt": "2026-10-05T08:21:33.497632+00:00",
+  "issue": "https://github.com/songxychn/halo-butterfly-next/issues/360",
+  "site": "https://butterfly.baizhukui.com",
+  "sourceBase": "947a7a4396b499c16968a6815aecef00653c7db2",
+  "scope": "Deploy the previously accepted docs/demo into a fresh isolated Halo instance; no theme source changes or public package release.",
+  "deployment": {
+    "host": "hk",
+    "root": "/root/docker/app/halo-butterfly-next",
+    "composeProject": "halo-butterfly-next",
+    "halo": "2.26.1",
+    "postgres": "16.10",
+    "loopback": "127.0.0.1:18142",
+    "databasePublicPort": false,
+    "freshServerCredentials": true,
+    "localDatabaseOrCredentialsTransferred": false,
+    "credentialsMode": "0600",
+    "dns": "Cloudflare proxied",
+    "publicHttps": 200,
+    "originHttpsCertificateVerified": true,
+    "caddyReloaded": true,
+    "existingServicesRecreated": false
+  },
+  "deployedTheme": {
+    "package": "halo-butterfly-next-0.1.0-alpha.3.zip",
+    "sha256": "4d76eec6be5ee53d639fef73bf10a5a14b63bde2cb8078738f02ea2b38ec515a",
+    "version": "0.1.0-alpha.3"
+  },
+  "currentHeadBuild": {
+    "sha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "deployed": false,
+    "note": "Current master additionally contains PR #356 reading settings. This deployment preserves the accepted demo package; these two archive hashes are intentionally different."
+  },
+  "plugin": {
+    "name": "PluginSearchWidget",
+    "version": "1.7.1",
+    "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b"
+  },
+  "content": {
+    "published": 19,
+    "posts": 14,
+    "singlePages": 5,
+    "distinctArticleCovers": 14,
+    "heroHeight": "theme default 100vh",
+    "subtitle": "Hexo Butterfly 主题在 Halo 的移植版本",
+    "commentsEnabled": false
+  },
+  "verification": {
+    "command": "bun run verify",
+    "passed": 572,
+    "failed": 0,
+    "skipped": 0,
+    "http": {
+      "pages": [
+        {
+          "path": "/",
+          "status": 200,
+          "bytes": 36268,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/page/2",
+          "status": 200,
+          "bytes": 28492,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives",
+          "status": 200,
+          "bytes": 95659,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/categories",
+          "status": 200,
+          "bytes": 25904,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/tags",
+          "status": 200,
+          "bytes": 23333,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/getting-started",
+          "status": 200,
+          "bytes": 26658,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/homepage",
+          "status": 200,
+          "bytes": 27534,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/navigation",
+          "status": 200,
+          "bytes": 26794,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/sidebar",
+          "status": 200,
+          "bytes": 28323,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/reading",
+          "status": 200,
+          "bytes": 28094,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/code-blocks",
+          "status": 200,
+          "bytes": 27375,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/images",
+          "status": 200,
+          "bytes": 27931,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/search-comments",
+          "status": 200,
+          "bytes": 25770,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/upgrade",
+          "status": 200,
+          "bytes": 28316,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/migration",
+          "status": 200,
+          "bytes": 27395,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/demo-guide",
+          "status": 200,
+          "bytes": 27638,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/demo-typography",
+          "status": 200,
+          "bytes": 32160,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/demo-code",
+          "status": 200,
+          "bytes": 27783,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/archives/demo-images",
+          "status": 200,
+          "bytes": 26427,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/docs",
+          "status": 200,
+          "bytes": 26223,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/download",
+          "status": 200,
+          "bytes": 25863,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/about-project",
+          "status": 200,
+          "bytes": 25739,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/faq",
+          "status": 200,
+          "bytes": 27358,
+          "noLocalhostUrl": true
+        },
+        {
+          "path": "/site-setup",
+          "status": 200,
+          "bytes": 28604,
+          "noLocalhostUrl": true
+        }
+      ],
+      "internalEndpoints": [
+        {
+          "path": "/actuator/health",
+          "status": 404
+        },
+        {
+          "path": "/v3/api-docs",
+          "status": 404
+        },
+        {
+          "path": "/swagger-ui/index.html",
+          "status": 404
+        }
+      ],
+      "passed": true
+    },
+    "covers": {
+      "base": "https://butterfly.baizhukui.com",
+      "posts": 14,
+      "uniqueCovers": 14,
+      "cases": [
+        {
+          "width": 1440,
+          "route": "/",
+          "images": [
+            {
+              "height": 1067,
+              "path": "/archives/getting-started",
+              "src": "/site-assets/lake-8da3684f419bd3c2.webp",
+              "width": 1600
+            },
+            {
+              "height": 853,
+              "path": "/archives/demo-guide",
+              "src": "/site-assets/balloons-807d31bee184a8c5.webp",
+              "width": 1280
+            },
+            {
+              "height": 853,
+              "path": "/archives/demo-images",
+              "src": "/site-assets/fjord-440d311ce2045561.webp",
+              "width": 1280
+            },
+            {
+              "height": 854,
+              "path": "/archives/demo-code",
+              "src": "/site-assets/terraces-557b755dc1ce0a5b.webp",
+              "width": 1280
+            },
+            {
+              "height": 1920,
+              "path": "/archives/demo-typography",
+              "src": "/site-assets/lavender-0d9503f101e612aa.webp",
+              "width": 1280
+            },
+            {
+              "height": 853,
+              "path": "/archives/migration",
+              "src": "/site-assets/autumn-road-1b1837cb497bd2dd.webp",
+              "width": 1280
+            },
+            {
+              "height": 720,
+              "path": "/archives/upgrade",
+              "src": "/site-assets/lighthouse-0eafd070b7a612a1.webp",
+              "width": 1280
+            },
+            {
+              "height": 960,
+              "path": "/archives/search-comments",
+              "src": "/site-assets/waterfall-1222cf09fb8266cc.webp",
+              "width": 1280
+            },
+            {
+              "height": 853,
+              "path": "/archives/images",
+              "src": "/site-assets/dunes-5af82d69a602a787.webp",
+              "width": 1280
+            },
+            {
+              "height": 1067,
+              "path": "/archives/code-blocks",
+              "src": "/site-assets/night-dcf845ca987f6a1a.webp",
+              "width": 1600
+            }
+          ],
+          "screenshot": "/Users/baizhukui/.codex/worktrees/a3e9/halo-butterfly-next/.runtime/hk-deployment/screenshots/covers-after-1440-1.png",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1440,
+          "route": "/page/2",
+          "images": [
+            {
+              "height": 1067,
+              "path": "/archives/reading",
+              "src": "/site-assets/golden-942a9abf5780ca41.webp",
+              "width": 1600
+            },
+            {
+              "height": 900,
+              "path": "/archives/sidebar",
+              "src": "/site-assets/forest-b36141a0b9d0ec7f.webp",
+              "width": 1600
+            },
+            {
+              "height": 900,
+              "path": "/archives/navigation",
+              "src": "/site-assets/coast-b37e7cbaa0972c3d.webp",
+              "width": 1600
+            },
+            {
+              "height": 1067,
+              "path": "/archives/homepage",
+              "src": "/site-assets/cover-e6c021bef4b65619.webp",
+              "width": 1600
+            }
+          ],
+          "screenshot": "/Users/baizhukui/.codex/worktrees/a3e9/halo-butterfly-next/.runtime/hk-deployment/screenshots/covers-after-1440-2.png",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 390,
+          "route": "/",
+          "images": [
+            {
+              "height": 1067,
+              "path": "/archives/getting-started",
+              "src": "/site-assets/lake-8da3684f419bd3c2.webp",
+              "width": 1600
+            },
+            {
+              "height": 853,
+              "path": "/archives/demo-guide",
+              "src": "/site-assets/balloons-807d31bee184a8c5.webp",
+              "width": 1280
+            },
+            {
+              "height": 853,
+              "path": "/archives/demo-images",
+              "src": "/site-assets/fjord-440d311ce2045561.webp",
+              "width": 1280
+            },
+            {
+              "height": 854,
+              "path": "/archives/demo-code",
+              "src": "/site-assets/terraces-557b755dc1ce0a5b.webp",
+              "width": 1280
+            },
+            {
+              "height": 1920,
+              "path": "/archives/demo-typography",
+              "src": "/site-assets/lavender-0d9503f101e612aa.webp",
+              "width": 1280
+            },
+            {
+              "height": 853,
+              "path": "/archives/migration",
+              "src": "/site-assets/autumn-road-1b1837cb497bd2dd.webp",
+              "width": 1280
+            },
+            {
+              "height": 720,
+              "path": "/archives/upgrade",
+              "src": "/site-assets/lighthouse-0eafd070b7a612a1.webp",
+              "width": 1280
+            },
+            {
+              "height": 960,
+              "path": "/archives/search-comments",
+              "src": "/site-assets/waterfall-1222cf09fb8266cc.webp",
+              "width": 1280
+            },
+            {
+              "height": 853,
+              "path": "/archives/images",
+              "src": "/site-assets/dunes-5af82d69a602a787.webp",
+              "width": 1280
+            },
+            {
+              "height": 1067,
+              "path": "/archives/code-blocks",
+              "src": "/site-assets/night-dcf845ca987f6a1a.webp",
+              "width": 1600
+            }
+          ],
+          "screenshot": "/Users/baizhukui/.codex/worktrees/a3e9/halo-butterfly-next/.runtime/hk-deployment/screenshots/covers-after-390-1.png",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 390,
+          "route": "/page/2",
+          "images": [
+            {
+              "height": 1067,
+              "path": "/archives/reading",
+              "src": "/site-assets/golden-942a9abf5780ca41.webp",
+              "width": 1600
+            },
+            {
+              "height": 900,
+              "path": "/archives/sidebar",
+              "src": "/site-assets/forest-b36141a0b9d0ec7f.webp",
+              "width": 1600
+            },
+            {
+              "height": 900,
+              "path": "/archives/navigation",
+              "src": "/site-assets/coast-b37e7cbaa0972c3d.webp",
+              "width": 1600
+            },
+            {
+              "height": 1067,
+              "path": "/archives/homepage",
+              "src": "/site-assets/cover-e6c021bef4b65619.webp",
+              "width": 1600
+            }
+          ],
+          "screenshot": "/Users/baizhukui/.codex/worktrees/a3e9/halo-butterfly-next/.runtime/hk-deployment/screenshots/covers-after-390-2.png",
+          "noHorizontalOverflow": true
+        }
+      ],
+      "assets": [
+        {
+          "id": "cover",
+          "status": 200,
+          "sha256": "e6c021bef4b65619189205fb1f2554a0bb24a7faa0b7dc939e974f55d4056f17"
+        },
+        {
+          "id": "lake",
+          "status": 200,
+          "sha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+        },
+        {
+          "id": "forest",
+          "status": 200,
+          "sha256": "b36141a0b9d0ec7f6eaa144d2561316a00dac2cc577259349a6dc943375c5051"
+        },
+        {
+          "id": "night",
+          "status": 200,
+          "sha256": "dcf845ca987f6a1a977d4703d6a6184e23ac8c280f2b5a9e8ddd12f7d2b8538a"
+        },
+        {
+          "id": "coast",
+          "status": 200,
+          "sha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1"
+        },
+        {
+          "id": "golden",
+          "status": 200,
+          "sha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+        },
+        {
+          "id": "dunes",
+          "status": 200,
+          "sha256": "5af82d69a602a787997245000ea13c234e026efe444086de61085ed9ee571615"
+        },
+        {
+          "id": "waterfall",
+          "status": 200,
+          "sha256": "1222cf09fb8266ccdd81b2212926cfca1570a19075e96e1546b599dfc390896d"
+        },
+        {
+          "id": "lighthouse",
+          "status": 200,
+          "sha256": "0eafd070b7a612a1649ab31a7eef08872d3f5a6636faf076b18d02d48e9b7fc6"
+        },
+        {
+          "id": "autumn-road",
+          "status": 200,
+          "sha256": "1b1837cb497bd2ddab32ba80e15129d8d40416b09de72172356ca5af1016485a"
+        },
+        {
+          "id": "balloons",
+          "status": 200,
+          "sha256": "807d31bee184a8c5b325c85be6c3ef5c4fa7257841201c9155bfe76b6f231aa7"
+        },
+        {
+          "id": "lavender",
+          "status": 200,
+          "sha256": "0d9503f101e612aa61c607778343e28cd64470b0a9c5d7e2dfb618fa8f5f7149"
+        },
+        {
+          "id": "terraces",
+          "status": 200,
+          "sha256": "557b755dc1ce0a5b3ede6e1e91637a0302eee6f79fe5d12ff0c726e18a76c469"
+        },
+        {
+          "id": "fjord",
+          "status": 200,
+          "sha256": "440d311ce204556163d0e701a99d112e5f11a20e61766346ccd272e957cb03cb"
+        }
+      ],
+      "finishedAt": "2026-10-05T08:14:26.009Z",
+      "passed": true
+    },
+    "search": {
+      "base": "https://butterfly.baizhukui.com",
+      "theme": {
+        "package": "halo-butterfly-next-0.1.0-alpha.3.zip",
+        "sha256": "4d76eec6be5ee53d639fef73bf10a5a14b63bde2cb8078738f02ea2b38ec515a",
+        "version": "0.1.0-alpha.3"
+      },
+      "plugin": {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b"
+      },
+      "cases": [
+        {
+          "label": "search-1440-light",
+          "width": 1440,
+          "mode": "light",
+          "keyboardOpen": true,
+          "chineseTitles": [
+            "第一次使用 Halo Butterfly Next",
+            "配置搜索与评论",
+            "升级主题与回退",
+            "功能演示导览",
+            "代码展示与交互",
+            "设置导航和页面入口",
+            "配置首页大图与项目入口",
+            "从旧 Butterfly 主题迁移"
+          ],
+          "englishQuery": true,
+          "emptyQuery": true,
+          "escape": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "backdrop": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "keyboardResultNavigation": true,
+          "destination": "/archives/getting-started",
+          "result": "functional-passed-with-focus-limit"
+        },
+        {
+          "label": "search-1440-dark",
+          "width": 1440,
+          "mode": "dark",
+          "keyboardOpen": true,
+          "chineseTitles": [
+            "第一次使用 Halo Butterfly Next",
+            "配置搜索与评论",
+            "升级主题与回退",
+            "功能演示导览",
+            "代码展示与交互",
+            "设置导航和页面入口",
+            "配置首页大图与项目入口",
+            "从旧 Butterfly 主题迁移"
+          ],
+          "englishQuery": true,
+          "emptyQuery": true,
+          "escape": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "backdrop": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "keyboardResultNavigation": true,
+          "destination": "/archives/getting-started",
+          "result": "functional-passed-with-focus-limit"
+        },
+        {
+          "label": "search-390-light",
+          "width": 390,
+          "mode": "light",
+          "keyboardOpen": true,
+          "chineseTitles": [
+            "第一次使用 Halo Butterfly Next",
+            "配置搜索与评论",
+            "升级主题与回退",
+            "功能演示导览",
+            "代码展示与交互",
+            "设置导航和页面入口",
+            "配置首页大图与项目入口",
+            "从旧 Butterfly 主题迁移"
+          ],
+          "englishQuery": true,
+          "emptyQuery": true,
+          "escape": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "backdrop": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "keyboardResultNavigation": true,
+          "destination": "/archives/getting-started",
+          "result": "functional-passed-with-focus-limit"
+        },
+        {
+          "label": "search-390-dark",
+          "width": 390,
+          "mode": "dark",
+          "keyboardOpen": true,
+          "chineseTitles": [
+            "第一次使用 Halo Butterfly Next",
+            "配置搜索与评论",
+            "升级主题与回退",
+            "功能演示导览",
+            "代码展示与交互",
+            "设置导航和页面入口",
+            "配置首页大图与项目入口",
+            "从旧 Butterfly 主题迁移"
+          ],
+          "englishQuery": true,
+          "emptyQuery": true,
+          "escape": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "backdrop": {
+            "active": "BODY",
+            "closed": true,
+            "focusReturned": false
+          },
+          "keyboardResultNavigation": true,
+          "destination": "/archives/getting-started",
+          "result": "functional-passed-with-focus-limit"
+        }
+      ],
+      "failures": [
+        {
+          "name": "search-1440-light-escape-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-1440-light-backdrop-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-1440-dark-escape-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-1440-dark-backdrop-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-390-light-escape-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-390-light-backdrop-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-390-dark-escape-focus-return",
+          "knownIssue": 313
+        },
+        {
+          "name": "search-390-dark-backdrop-focus-return",
+          "knownIssue": 313
+        }
+      ],
+      "scope": "independent headless Chromium; no real-device or full accessibility acceptance",
+      "finishedAt": "2026-10-05T08:12:13.724Z",
+      "functionalPassed": true,
+      "fullAcceptance": false
+    }
+  },
+  "backup": {
+    "directory": "/root/docker/app/halo-butterfly-next/backups/20261005T080826Z",
+    "databaseDumpReadable": true,
+    "fileArchiveReadable": true,
+    "haloRestartHealthy": true,
+    "scheduled": false,
+    "offsite": false,
+    "restoreRehearsed": false,
+    "caddyOriginalSha256": "6157126e489502db9af14dfad1507c74dcf719936332edafa65a400cb9964dd2",
+    "caddyAppliedSha256": "849fa235646c1ab45cabbc8dad7cbe9d361a80fcc9fbb6258e1a6fe36ed44fcb"
+  },
+  "limitations": [
+    "SearchWidget focus restoration has 8 existing failures tracked by #313; functional search passed, full accessibility acceptance did not.",
+    "No real-device or full accessibility acceptance.",
+    "Backup is manual and server-local; independent restore is not rehearsed."
+  ],
+  "retainedFailures": [
+    {
+      "check": "initial site-content publication fixture",
+      "resolution": "Set repositoryUrl explicitly null in negative fixture now that real repository navigation is enabled; rerun passed."
+    },
+    {
+      "check": "first public cover network fetch",
+      "resolution": "Node resolver returned ENOTFOUND while curl and browser worked; final HTTP and browser checks passed using curl."
+    },
+    {
+      "check": "initial full-backup upload proposal",
+      "resolution": "Automatic approval rejected transfer before execution; replaced with public-only source export and fresh credentials generated on hk. No local database or credentials transferred."
+    }
+  ],
+  "sourceSha256": {
+    "site/deploy/initialize.py": "4eeb44ca41613d4c6d364de58fd483f10ffd0248efe5125c2338114ca2a89f56",
+    "site/deploy/docker-compose.yml": "f7c88188bb12f74c0b6c15f4fe0e21a65e43bfbce2dbe1b7d186fe98803a90e7",
+    "site/deploy/backup.sh": "1c7a13a74e7b2feb21a88933881ef5929dc401fed4c937e3069ca555e971ad96",
+    "site/deploy/export.mjs": "845a2bd59e8a5a13c74635b138d02c4a3d0c680fb8ef37455a7f8b5d5fa3628f",
+    "site/deploy/Caddyfile": "f96c01946118c16a560529cae9d1cb5f038c7858dd9540ce3f58b2c163a1a9bf"
+  },
+  "localEvidenceDirectory": ".runtime/hk-deployment"
+}

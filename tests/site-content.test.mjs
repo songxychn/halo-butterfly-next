@@ -66,6 +66,7 @@ test('site check catches changed media provenance and unknown theme fields', asy
 test('site check rejects downloads and enabled public links before publication', async t => {
   const site = await fixture(t, site => changeJson(site, 'manifest.json', manifest => {
     manifest.publication.downloadUrl = 'https://example.com/unreleased.zip';
+    manifest.publication.repositoryUrl = null;
     manifest.navigation.find(item => item.label === 'GitHub').enabled = true;
   }));
   await assert.rejects(checkSite(site), error => {

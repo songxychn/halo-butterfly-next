@@ -1,0 +1,6 @@
+butterfly.baizhukui.com {
+    encode zstd gzip
+    @internal path /actuator /actuator/* /v3/api-docs /v3/api-docs/* /swagger-ui /swagger-ui/*
+    respond @internal 404
+    reverse_proxy halo-butterfly-next:8090
+}
