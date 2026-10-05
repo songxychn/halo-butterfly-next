@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-10-06",
+  "component": "vanilla-lazyload",
+  "author": "Andrea Verlicchi",
+  "licenseIdentifier": "MIT",
+  "local": {
+    "path": "src/vendor/lazyload.js",
+    "sha256": "3cc48f446e07188a623a39b1633d16a38bb0d39f3d9e5a07b95224a296354614"
+  },
+  "inherited": {
+    "repository": "https://github.com/dhjddcn/halo-theme-butterfly",
+    "commit": "3af8a6d694922310df6bd05eb3804c7b55b1f48c",
+    "path": "src/js/core/_lazyLoad.js",
+    "exactRelease": null,
+    "note": "Identical to inherited file; factory matches both 17.3.0 and 17.3.1 after scope-aware binding renaming. Exact inherited release cannot be uniquely identified."
+  },
+  "reference": {
+    "version": "17.3.1",
+    "commit": "3b6132e8a7de990c1197d3098de4959577d7b50a",
+    "tarball": "https://registry.npmjs.org/vanilla-lazyload/-/vanilla-lazyload-17.3.1.tgz",
+    "integrity": "sha512-9cag1j3ImrmP0VYbqOIT79qit34nV2SijuCgQucv4RhZs5Ln5xfZSqMSWeWgoBBVFp4AIIVSjpkMxmSoW3WiJQ==",
+    "tarballSha256": "613bc62c75142858985c4c5a324636774c00b34664c17fbbb602245c018bf3a5",
+    "distributionPath": "package/dist/lazyload.min.js",
+    "distributionSha256": "e6a23e6a3399b52a5576c28b2236b48953949793fc17f2c733d35b084d7a0085"
+  },
+  "license": {
+    "path": "third-party-licenses/vanilla-lazyload-LICENSE.txt",
+    "sha256": "c7d094b1fa2bd1097d50191c0a4a6c9e482ff6263bc5329e364e23db7b1a28a7",
+    "url": "https://raw.githubusercontent.com/verlok/vanilla-lazyload/3b6132e8a7de990c1197d3098de4959577d7b50a/LICENSE",
+    "npmPath": "package/LICENSE",
+    "npmAndGitHubBytesEqual": true
+  },
+  "modifications": [
+    "Inherited UMD wrapper replaced with const LazyLoad=factory; export default LazyLoad().",
+    "Minified local binding names differ; normalized factory structure matches official 17.3.0/17.3.1.",
+    "Next moved inherited implementation unchanged into src/vendor during TypeScript migration.",
+    "This license completion leaves runtime implementation bytes unchanged."
+  ],
+  "reproduction": "node scripts/licenses/compare-lazyload.mjs /path/to/official/dist/lazyload.min.js"
+}
