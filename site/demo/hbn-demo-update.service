@@ -1,0 +1,9 @@
+[Unit]
+Description=Update Halo Butterfly demo from published release image
+After=docker.service network-online.target
+Requires=docker.service
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 /root/docker/app/halo-butterfly-next/h2/tools/hk-update.py poll
+TimeoutStartSec=1200

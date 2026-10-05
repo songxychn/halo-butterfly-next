@@ -2,7 +2,7 @@
 
 真实 Halo 2.26.1 上运行的文档演示一体站，包含 10 篇教程、4 篇演示、5 个单页及 14 张 Pexels 摄影图片。采用主题现有导航、置顶文章和侧栏入口，不新增首屏双按钮。实施背景见[方案](../docs/DEMO-DOCS-SITE.md)。
 
-文档与演示预览站已部署至 <https://butterfly.baizhukui.com/>，部署与恢复说明见 [hk 部署](deploy/README.md)。本地样站默认地址仍为 `http://127.0.0.1:18141`；`site/local.py` 只管理自己的本地实例，不支持远程 URL，也不发布主题安装包。已启用固定版本的官方搜索插件；评论保持关闭。搜索关闭后的焦点恢复限制仍保留，不宣告公共 alpha 或完整插件验收通过。
+文档与演示预览站已部署至 <https://butterfly.baizhukui.com/>，Release 驱动的 H2 更新机制见 [demo 部署](demo/README.md)，首次 PostgreSQL 部署资料见 [hk 部署](deploy/README.md)。本地样站默认地址仍为 `http://127.0.0.1:18141`；`site/local.py` 只管理自己的本地实例，不支持远程 URL，也不发布主题安装包。已启用固定版本的官方搜索插件；评论保持关闭。搜索关闭后的焦点恢复限制仍保留，不宣告公共 alpha 或完整插件验收通过。
 
 ## 文件职责
 

@@ -1,4 +1,6 @@
-# hk 文档与演示站
+# hk 文档与演示站（首次 PostgreSQL 部署记录）
+
+后续 Release 驱动的 H2 整站机制见 [H2 demo](../demo/README.md)。本页保留首次导入与旧站恢复资料；`initialize.py` 的原 hk 入口不用于 H2 日常更新。
 
 站点：<https://butterfly.baizhukui.com/>。这是主题的文档与演示预览，不代表主题安装包已公开发行。
 

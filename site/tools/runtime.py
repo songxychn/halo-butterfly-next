@@ -176,7 +176,7 @@ class Client:
             parser.feed(response.read().decode())
             if urllib.parse.urlparse(response.url).path == '/system/setup' and parser.csrf:
                 payload = {**self.auth, '_csrf': parser.csrf, 'email': 'site@example.invalid',
-                           'siteTitle': 'Halo Butterfly Next', 'language': 'zh-CN', 'externalUrl': runtime.base}
+                           'siteTitle': 'Halo Butterfly Next', 'language': 'zh-CN', 'externalUrl': getattr(runtime, 'external_url', runtime.base)}
                 self.opener.open(urllib.request.Request(runtime.base + '/system/setup', data=urllib.parse.urlencode(payload).encode()), timeout=60).read()
                 self.initialized_now = True
         page = self.opener.open(runtime.base + '/login', timeout=30).read().decode()
