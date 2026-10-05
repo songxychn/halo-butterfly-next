@@ -5,17 +5,17 @@
   "decision": "blocked",
   "reviewer": "independent review_site preparation audit; NOT release approval",
   "gates": {
-    "realHalo": "blocked",
+    "realHalo": "pending",
     "installUpgradeRollback": "passed",
     "resourcesAndLicenses": "blocked",
     "sourceRebuild": "passed"
   },
   "knownLimitations": [
     "Approved public alpha exception only: SearchWidget 1.7.1 close does not restore focus (#313).",
+    "Maintainer accepted Halo upstream limitation #338 for current alpha: native resource hangs may affect CSS/JS/images and readiness. Original failures remain failed; no root-cause/fix claim. See docs/RESOURCE-LOADING-DECISION.md.",
     "Other advanced features, real devices, Safari, screen readers and full performance/1.0 scope remain unverified; see version notes."
   ],
   "blockers": [
-    "#338 native resource loading failures",
     "inherited lazyload provenance and license",
     "current header contrast manual review and remaining bounded alpha acceptance",
     "final release candidate independent approval and maintainer publication authorization",
@@ -24,11 +24,30 @@
   "evidence": [
     {
       "path": "docs/validation/2026-10-06/alpha3-release-prep.json",
-      "sha256": "c6550e1c2604cec69ec0e835a7d060300144c50e9325226ffd730122b2602db9"
+      "sha256": "f012e57e54774636938596713da689fc956b5f99271337e55ef892856b384f76"
     },
     {
       "path": "docs/validation/2026-10-06/alpha3-release-prep.md",
-      "sha256": "494ae18760ad997910126ed702e13d78527f144d7776808fb597fa8c4b94d4b8"
+      "sha256": "48b4ef5bf249b76e2eaebfa1b3c2b82cd3dbcccd64182cb551abb22f0688a361"
+    },
+    {
+      "path": "docs/RESOURCE-LOADING-DECISION.md",
+      "sha256": "c8644c8f423e3f9ac3226c68b2a4d6e9278217f9e851103579b9a8467ea805d2"
+    }
+  ],
+  "gateNotes": {
+    "realHalo": "#338 no longer blocks alpha; remaining candidate/core/header validation is pending, not a passed-all declaration"
+  },
+  "acceptedReleaseLimitations": [
+    {
+      "issue": "#338",
+      "date": "2026-10-06",
+      "authority": "Explicit maintainer instruction in this task",
+      "disposition": "accepted-upstream-limitation",
+      "releaseBlocking": false,
+      "scope": "Current alpha release: documented native resource hangs and their direct readiness timeouts only",
+      "evidenceStatus": "Original failed results retained; not fixed or officially root-caused by Halo",
+      "decisionDocument": "docs/RESOURCE-LOADING-DECISION.md"
     }
   ]
 }

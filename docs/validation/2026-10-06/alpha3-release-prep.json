@@ -538,7 +538,8 @@
         ]
       }
     ],
-    "diagnosticAttribution": "Unchanged native workflow; first run retained, no retry-to-green or forced connection close"
+    "diagnosticAttribution": "Unchanged native workflow; first run retained, no retry-to-green or forced connection close",
+    "releaseDisposition": "Known #338 hangs accepted by maintainer; overall run remains failed and other request failures are not automatically waived"
   },
   "resourcesAndLicenses": {
     "decision": "blocked",
@@ -579,7 +580,6 @@
     ]
   },
   "outstanding": [
-    "#338 native resource loading failures",
     "inherited lazyload provenance and license",
     "current header contrast manual review and remaining bounded alpha acceptance",
     "final release candidate independent approval and maintainer publication authorization",
@@ -635,5 +635,17 @@
     "ownedHaloStopped": true,
     "loopbackPort": 18261,
     "listening": false
-  }
+  },
+  "acceptedReleaseLimitations": [
+    {
+      "issue": "#338",
+      "date": "2026-10-06",
+      "authority": "Explicit maintainer instruction in this task",
+      "disposition": "accepted-upstream-limitation",
+      "releaseBlocking": false,
+      "scope": "Current alpha release: documented native resource hangs and their direct readiness timeouts only",
+      "evidenceStatus": "Original failed results retained; not fixed or officially root-caused by Halo",
+      "decisionDocument": "docs/RESOURCE-LOADING-DECISION.md"
+    }
+  ]
 }

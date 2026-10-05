@@ -22,7 +22,7 @@
 
 以 `b0ead077f5929b941f69c0b9ee763e7dd9a606f2` 为本轮基线，572 项本地测试、127 文件包检查通过；当前构建、精确源码独立重建与实际下载 Linux CI 包字节相同。全新合成 Halo 的安装、原始 alpha.2 升级回退、配置/正文保留及新增阅读字段缺省检查通过。文章和专用单页各 7 项章节交互、8 组亮暗/宽度布局通过；自动无障碍违规为 0，40 个对比度节点待人工判断。
 
-[Linux 原生运行](https://github.com/songxychn/halo-butterfly-next/actions/runs/37302153352)实际执行 120 页，Chromium 40/40、Firefox 33/40、WebKit 38/40，共 111/120。9 个失败页面有 27 个未收到响应的资源请求，保留导航/图片就绪/截图超时；原生资源加载仍阻塞公开 alpha。此前 PR #352 的 HTTP 409 发生在插件准备阶段，不能记作浏览器执行失败页。详见[本轮验收记录](validation/2026-10-05/master-acceptance.md)及[摘要](validation/2026-10-05/master-acceptance.json)。本轮证据独立审查待完成；未发布、未修改线上站点或提升矩阵状态。
+[Linux 原生运行](https://github.com/songxychn/halo-butterfly-next/actions/runs/37302153352)实际执行 120 页，Chromium 40/40、Firefox 33/40、WebKit 38/40，共 111/120。9 个失败页面有 27 个未收到响应的资源请求，保留导航/图片就绪/截图超时；当时原生资源加载仍阻塞公开 alpha；2026-10-06 维护者已[裁定其为不阻塞本次 alpha 的上游限制](RESOURCE-LOADING-DECISION.md)，原始失败保持不变。此前 PR #352 的 HTTP 409 发生在插件准备阶段，不能记作浏览器执行失败页。详见[本轮验收记录](validation/2026-10-05/master-acceptance.md)及[摘要](validation/2026-10-05/master-acceptance.json)。本轮证据独立审查待完成；未发布、未修改线上站点或提升矩阵状态。
 
 ## 2026-10-05：文章阅读配置首批
 
