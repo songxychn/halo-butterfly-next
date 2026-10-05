@@ -59,6 +59,27 @@ with tempfile.TemporaryDirectory() as tmp:
  try:m.recover()
  except RuntimeError:pass
  else:raise AssertionError('Overwrote unrelated Caddy edits')
+ # Rollback intent survives death after committing the route/state, before stopping the candidate.
+ (m.ROOT/'pending.json').unlink();m.CADDY.write_text(result)
+ current={'container':'hbn-demo-123456789abc','previous':before}
+ m.write(m.ROOT/'state.json',current)
+ def interrupt_stop(*args,**kwargs):
+  assert m.read(m.ROOT/'paused.json')
+  assert m.read(m.ROOT/'state.json')==before
+  assert not (m.ROOT/'pending.json').exists()
+  raise KeyboardInterrupt('simulated process death')
+ with patch.object(m,'start_deployment'),patch.object(m,'check_container',return_value={'State':{'Health':{'Status':'healthy'}}}),patch.object(m,'apply_caddy',side_effect=lambda text,expected:m.CADDY.write_text(text)),patch.object(m,'run',side_effect=interrupt_stop):
+  try:m.rollback()
+  except KeyboardInterrupt:pass
+  else:raise AssertionError('Missing simulated interruption')
+ assert m.read(m.ROOT/'paused.json') and m.CADDY.read_text()==config
+ # A failure while starting the previous deployment must also leave polling paused.
+ m.write(m.ROOT/'state.json',current);(m.ROOT/'paused.json').unlink()
+ with patch.object(m,'start_deployment',side_effect=RuntimeError('cannot start old version')):
+  try:m.rollback()
+  except RuntimeError:pass
+  else:raise AssertionError('Missing start failure')
+ assert m.read(m.ROOT/'paused.json')
 `], {stdio:'pipe'});
 });
 

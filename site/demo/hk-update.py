@@ -14,7 +14,13 @@ def run(*args, data=None):
     return subprocess.check_output(args,input=data,text=True).strip()
 def read(path,default=None): return json.loads(path.read_text()) if path.exists() else default
 def write(path,value):
-    temporary=path.with_suffix('.tmp');temporary.write_text(json.dumps(value,indent=2)+'\n');temporary.chmod(0o600);temporary.replace(path)
+    temporary=path.with_suffix('.tmp')
+    with temporary.open('w') as stream:
+        os.fchmod(stream.fileno(),0o600);stream.write(json.dumps(value,indent=2)+'\n');stream.flush();os.fsync(stream.fileno())
+    temporary.replace(path)
+    directory=os.open(path.parent,os.O_RDONLY)
+    try:os.fsync(directory)
+    finally:os.close(directory)
 def sha(value): return hashlib.sha256(value.encode()).hexdigest()
 def inspect(name): return json.loads(run('docker','inspect',name))[0]
 def check_container(name):
@@ -115,7 +121,9 @@ def deploy(image,bootstrap=False,retry=False):
             '--network','reverse-proxy','-p','127.0.0.1::8090','--mount','type=bind,src='+str(directory)+',dst=/root/.halo2',image_id)
     try:
         healthy(name,identity)
-        before=CADDY.read_text();after=candidate_config(before,name)
+        before=CADDY.read_text()
+        if candidate_config(before,current['container'])!=before: raise RuntimeError('Active route differs from deployment state')
+        after=candidate_config(before,name)
         check_container(current['container'])
         write(ROOT/'pending.json',{'beforeText':before,'beforeState':current,'afterSha':sha(after),'candidate':name})
         apply_caddy(after,sha(before))
@@ -144,6 +152,8 @@ def deploy(image,bootstrap=False,retry=False):
 def rollback():
     state=read(ROOT/'state.json');old=state.get('previous')
     if not old:raise RuntimeError('No previous deployment')
+    # Persist operator intent first: interruption must never re-enable the bad release.
+    write(ROOT/'paused.json',{'reason':'explicit rollback; resume only after investigation'})
     start_deployment(old)
     if old.get('identity'):healthy(old['container'],old['identity'])
     else:
@@ -151,13 +161,14 @@ def rollback():
             if check_container(old['container'])['State'].get('Health',{}).get('Status')=='healthy':break
             time.sleep(3)
         else:raise RuntimeError('Legacy Halo did not become healthy')
-    before=CADDY.read_text();after=candidate_config(before,old['container'])
+    before=CADDY.read_text()
+    if candidate_config(before,state['container'])!=before:raise RuntimeError('Active route differs from deployment state')
+    after=candidate_config(before,old['container'])
     write(ROOT/'pending.json',{'beforeText':before,'beforeState':state,'afterSha':sha(after),'candidate':old['container']})
     try:
         apply_caddy(after,sha(before))
         if old.get('identity') and not expected_receipt(receipt('https://'+DOMAIN),old['identity']):raise RuntimeError('Rollback public identity mismatch')
         write(ROOT/'state.json',old);(ROOT/'pending.json').unlink()
-        write(ROOT/'paused.json',{'reason':'explicit rollback; resume only after investigation'})
         run('docker','stop','-t','60',state['container'])
     except BaseException:recover();raise
 
@@ -174,6 +185,15 @@ def main():
             if not args.image or not re.fullmatch(r'halo-butterfly-demo:rehearsal-[a-z0-9-]+',args.image):raise RuntimeError('Only local rehearsal bootstrap images are allowed')
             if read(ROOT/'state.json').get('identity',{}).get('published'):raise RuntimeError('Cannot bootstrap over a released demo')
             return deploy(args.image,bootstrap=True,retry=args.retry)
+        # Before the first managed release there is no package/channel to pull.
+        with HTTP.open('https://api.github.com/repos/songxychn/halo-butterfly-next/releases?per_page=100',timeout=20) as response: releases=json.load(response)
+        managed=[]
+        for item in releases:
+            if item['draft'] or 'SHA256SUMS' not in {a['name'] for a in item.get('assets',[])}: continue
+            try: version_key(item['tag_name'])
+            except ValueError: continue
+            managed.append(item['tag_name'])
+        if not managed: print('No managed Release yet; keeping current demo');return
         run('docker','pull',IMAGE+':demo')
         value=json.loads(run('docker','image','inspect',IMAGE+':demo'))[0]
         pinned=next(x for x in value['RepoDigests'] if x.startswith(IMAGE+'@sha256:'))
