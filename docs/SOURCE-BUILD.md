@@ -1,8 +1,8 @@
 # 对应源码与构建（alpha.3 草稿）
 
-安装 ZIP 与对应源码一起提供。实际运行候选源 SHA 已记录；公开快照提交及最终对应源码归档摘要待发布材料冻结后填写，见[发行身份](RELEASE-alpha.3.md)。不要将私有开发候选包误认作最终发行物。
+安装 ZIP 与对应源码一起提供。实际运行候选源 SHA 已记录；最终发行源提交及对应源码归档摘要待发布材料冻结后填写，见[发行身份](RELEASE-alpha.3.md)。[本仓库](https://github.com/songxychn/halo-butterfly-next)已公开并保留完整 Git 历史，开发候选包仍不等同于最终发行物。
 
-源码归档需包含当前完整 `src/`、主题/设置元数据、`package.json`、`bun.lock`、构建与检查脚本、相关测试/夹具、`LICENSE`、`third-party-licenses/` 和第三方来源说明。它不包含 `.git` 历史、凭据、数据库、运行缓存或 `node_modules`。保留已有作者及改写署名。安装包的 `templates/`、`dist/` 是生成物，由这些源码和锁定依赖生成。
+源码归档需包含当前完整 `src/`、主题/设置元数据、`package.json`、`bun.lock`、构建与检查脚本、相关测试/夹具、`LICENSE`、`third-party-licenses/` 和第三方来源说明。它不包含 `.git` 历史、凭据、数据库、运行缓存或 `node_modules`。这是发行附件的归档范围，仓库中的 Git 历史仍完整保留。保留已有作者及改写署名。安装包的 `templates/`、`dist/` 是生成物，由这些源码和锁定依赖生成。
 
 准备 Node.js 24、Bun 1.4.0 和 Python 3；记录实际版本。解压对应源码，在源码根目录执行：
 

@@ -40,9 +40,9 @@ HTTP 路由：`/`、`/page/2`、`/archives`、`/categories`、`/categories/devel
 - 友链、图库、瞬间插件集成与 Halo 2.26 插件页面公共布局。
 - Safari、Firefox、触屏真机、无障碍和性能的完整检查。
 - 所有旧配置组合及原主题完整并行安装的用户场景；当前测试覆盖配置隔离和指定迁移样例。
-- 公开发行包及真实社区反馈。私有仓库的远程构建结果见 [GitHub Actions](https://github.com/songxychn/halo-butterfly-next/actions/workflows/verify.yml)，上述浏览器及 Halo 安装验收来自本地测试站。
+- 公开发行包及真实社区反馈。仓库的远程构建结果见 [GitHub Actions](https://github.com/songxychn/halo-butterfly-next/actions/workflows/verify.yml)，上述浏览器及 Halo 安装验收来自本地测试站。
 
-私有仓库保留完整上游历史，其中仍含原资源。转为公开仓库前，应决定是否以清理后的源码快照开始公开主分支，并将完整上游历史留作私有参考。
+仓库状态更正（2026-10-05）：本仓库已公开，保留公开上游及后续维护的完整 Git 历史，不采用另建无历史源码快照仓库的方案。本记录的测试结果仍对应 2026-09-06 的候选，仓库公开不代表安装包通过发行验收。
 
 ## 公开发布前更名复验
 
