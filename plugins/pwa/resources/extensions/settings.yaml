@@ -1,0 +1,37 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: butterfly-pwa-settings
+spec:
+  forms:
+    - group: basic
+      label: 应用设置
+      formSchema:
+        - $formkit: checkbox
+          name: enabled
+          label: 启用桌面入口与离线提示
+          value: false
+          help: 需要 HTTPS（本地 localhost 除外）。关闭后，已安装的浏览器再次联网访问时清理本插件缓存和注册；断网设备不能立即收到关闭指令。请勿同时启用其他 PWA 插件。
+        - $formkit: text
+          name: name
+          label: 应用名称
+          value: 我的博客
+          validation: required
+        - $formkit: text
+          name: shortName
+          label: 桌面短名称
+          value: 博客
+          validation: required
+        - $formkit: attachment
+          name: icon192
+          label: 应用图标（192 × 192 PNG）
+          help: 可选，留空使用内置图标。使用同站点 / 开头路径或 HTTPS 地址；建议使用本地附件。
+        - $formkit: attachment
+          name: icon512
+          label: 应用图标（512 × 512 PNG）
+          help: 可选，留空使用内置图标。升级时保持应用身份与启动地址不变。
+        - $formkit: text
+          name: themeColor
+          label: 应用窗口主题色
+          value: '#185d85'
+          help: 六位十六进制颜色。首期窗口颜色固定，页面本身仍跟随主题明暗模式。

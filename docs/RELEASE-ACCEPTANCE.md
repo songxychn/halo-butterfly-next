@@ -191,7 +191,7 @@ Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plu
 | --- | --- | --- |
 | DEC-01 | 上游三种搜索与各评论提供方是否逐个保留，或允许 Halo 搜索/评论插件提供语义等效替代；双评论系统、统计与懒加载如何对应 | **已裁定（2026-09-15，选项 2 平台替代，[#46](https://github.com/songxychn/halo-butterfly-next/issues/46)）**：1.0 主题支持面仅为官方 `PluginSearchWidget` / `PluginCommentWidget`。Algolia、DocSearch、本地搜索引擎配置、12 家评论 SDK、双评论及各家第三方资源标 `not-applicable`。保留入口开/关、查询、挂载、逐篇开关、Halo 计数、懒加载、侧栏最新评论（Halo 数据）与说说评论身份。PLG-02/03 按新成功条件执行；插件版本未锁定前这两项未完成。不得再用“已记录限制”缩减上述保留项 |
 | DEC-02 | Hexo `{% %}` 是否原文兼容导入，或采用 Halo 编辑器/插件等效内容；系列与扩展元数据如何保持用户能力 | **已裁定（2026-09-15，[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)）**：不对齐 Hexo 标签语法；1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS。`tag:*` 不标 `not-applicable`。详见下文 |
-| DEC-03 | PWA/离线、RSS/站点地图等生成器能力，以及 PJAX/资源 CDN 策略哪些由 Halo/插件承担，是否接受配置与操作差异 | 裁定前：保留用户能力与恢复/缓存语义；主题缺少生成步骤本身不足以删项 |
+| DEC-03 | PWA/离线、RSS/站点地图等生成器能力，以及 PJAX/资源 CDN 策略哪些由 Halo/插件承担，是否接受配置与操作差异 | **PWA 子项已裁定（2026-10-05，[#357](https://github.com/songxychn/halo-butterfly-next/issues/357)）**：首期桌面入口、独立窗口与离线提示，接受插件负责 manifest/Service Worker、主题负责接入与界面；完整文章离线阅读保留后续范围，具体版本未定，不从完整目标删除。其他子项仍待裁定。详见 [PWA 分工与验收](PWA.md) |
 | DEC-04 | 分析、广告、聊天、第三方字幕/播放器等外部服务的完整提供方接入，需要哪些测试账号、专用测试站与真实联调 | 裁定前：用合成数据完成本地契约与失败回退；不向正式外部服务发送测试数据，也不将 mock 通过记为真实联调通过 |
 | DEC-05 | 如某个浏览器/真实设备无法获得，是否调整支持声明或验收范围 | 裁定前：保留 BROWSER/DEVICE 未完成状态；没有维护者决定前不降低本合同 |
 | DEC-06 | 公开社区反馈、历史资源授权处理、仓库开放方式与正式 1.0 时间 | 裁定前：继续保持仓库私有及完整历史；只交付授权的私有预览，工程 RC 不替维护者完成上述决策 |

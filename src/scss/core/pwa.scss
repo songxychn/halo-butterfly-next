@@ -1,0 +1,21 @@
+.pwa-entry {
+  margin: 1rem auto;
+  max-width: 36rem;
+  padding: 0 1rem;
+  font: inherit;
+  text-align: center;
+
+  [hidden] { display: none !important; }
+  button, summary { cursor: pointer; }
+  button {
+    padding: .5rem 1rem;
+    border: 1px solid currentColor;
+    border-radius: .6rem;
+    color: inherit;
+    background: transparent;
+    font: inherit;
+  }
+  :is(button, summary):focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+  p { margin: .5rem 0; font-size: .9rem; }
+  [role='status']:empty { display: none; }
+}

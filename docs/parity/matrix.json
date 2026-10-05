@@ -23646,13 +23646,15 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "DEC-03 PWA 子项：配套 Halo 插件负责 manifest 与 Service Worker，主题负责安装入口与冲突/清理接入。首期离线提示，完整文章离线阅读保留后续。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+          "plugins/pwa/src/main/java/org/halobutterfly/pwa/PwaPlugin.java",
+          "plugins/pwa/src/worker.ts",
+          "src/js/core/pwa.ts",
+          "docs/PWA.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "首期候选：插件开关、动态 manifest、192/512 图标、Apple Touch 图标复用、安装入口与独立离线提示。配置在插件中，主题不提供重复配置；未等价支持自定义 manifest URL/独立 Apple 图标。完整上游对照、系统安装/真机、独立审查及最终提交 CI 尚未闭环，完整离线阅读保留后续。"
       },
       "dependencies": [
         "dual-site",
@@ -23675,12 +23677,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/357"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:pwa.manifest",
@@ -23703,13 +23706,15 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "DEC-03 PWA 子项：配套 Halo 插件负责 manifest 与 Service Worker，主题负责安装入口与冲突/清理接入。首期离线提示，完整文章离线阅读保留后续。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+          "plugins/pwa/src/main/java/org/halobutterfly/pwa/PwaPlugin.java",
+          "plugins/pwa/src/worker.ts",
+          "src/js/core/pwa.ts",
+          "docs/PWA.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "首期候选：插件开关、动态 manifest、192/512 图标、Apple Touch 图标复用、安装入口与独立离线提示。配置在插件中，主题不提供重复配置；未等价支持自定义 manifest URL/独立 Apple 图标。完整上游对照、系统安装/真机、独立审查及最终提交 CI 尚未闭环，完整离线阅读保留后续。"
       },
       "dependencies": [
         "dual-site",
@@ -23732,12 +23737,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/357"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:pwa.apple_touch_icon",
@@ -23760,13 +23766,15 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "DEC-03 PWA 子项：配套 Halo 插件负责 manifest 与 Service Worker，主题负责安装入口与冲突/清理接入。首期离线提示，完整文章离线阅读保留后续。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+          "plugins/pwa/src/main/java/org/halobutterfly/pwa/PwaPlugin.java",
+          "plugins/pwa/src/worker.ts",
+          "src/js/core/pwa.ts",
+          "docs/PWA.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "首期候选：插件开关、动态 manifest、192/512 图标、Apple Touch 图标复用、安装入口与独立离线提示。配置在插件中，主题不提供重复配置；未等价支持自定义 manifest URL/独立 Apple 图标。完整上游对照、系统安装/真机、独立审查及最终提交 CI 尚未闭环，完整离线阅读保留后续。"
       },
       "dependencies": [
         "dual-site",
@@ -23789,12 +23797,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/357"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:pwa.favicon_32_32",
@@ -29277,13 +29286,15 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "DEC-03 PWA 子项：配套 Halo 插件负责 manifest 与 Service Worker，主题负责安装入口与冲突/清理接入。首期离线提示，完整文章离线阅读保留后续。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+          "plugins/pwa/src/main/java/org/halobutterfly/pwa/PwaPlugin.java",
+          "plugins/pwa/src/worker.ts",
+          "src/js/core/pwa.ts",
+          "docs/PWA.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "首期候选：插件开关、动态 manifest、192/512 图标、Apple Touch 图标复用、安装入口与独立离线提示。配置在插件中，主题不提供重复配置；未等价支持自定义 manifest URL/独立 Apple 图标。完整上游对照、系统安装/真机、独立审查及最终提交 CI 尚未闭环，完整离线阅读保留后续。"
       },
       "dependencies": [
         "dual-site",
@@ -29305,12 +29316,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/357"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head/site_verification",
@@ -50784,13 +50796,15 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "DEC-03 PWA 子项：配套 Halo 插件负责 manifest 与 Service Worker，主题负责安装入口与冲突/清理接入。首期离线提示，完整文章离线阅读保留后续。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+          "plugins/pwa/src/main/java/org/halobutterfly/pwa/PwaPlugin.java",
+          "plugins/pwa/src/worker.ts",
+          "src/js/core/pwa.ts",
+          "docs/PWA.md"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "首期候选：插件开关、动态 manifest、192/512 图标、Apple Touch 图标复用、安装入口与独立离线提示。配置在插件中，主题不提供重复配置；未等价支持自定义 manifest URL/独立 Apple 图标。完整上游对照、系统安装/真机、独立审查及最终提交 CI 尚未闭环，完整离线阅读保留后续。"
       },
       "dependencies": [
         "dual-site",
@@ -50811,12 +50825,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/357"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:data-safe",

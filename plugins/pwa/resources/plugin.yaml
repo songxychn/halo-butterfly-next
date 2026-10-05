@@ -1,0 +1,17 @@
+apiVersion: plugin.halo.run/v1alpha1
+kind: Plugin
+metadata:
+  name: butterfly-pwa
+spec:
+  enabled: false
+  requires: ">=2.26.1 & <2.27.0"
+  version: 0.1.0
+  displayName: Butterfly PWA
+  description: 桌面应用入口与独立离线提示页，不缓存文章或登录内容。
+  author:
+    name: Halo Butterfly Next contributors
+  settingName: butterfly-pwa-settings
+  configMapName: butterfly-pwa-config
+  license:
+    - name: GPL-3.0
+      url: https://www.gnu.org/licenses/gpl-3.0.html

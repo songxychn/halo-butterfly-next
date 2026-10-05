@@ -26,8 +26,9 @@
     "lab": "python3 scripts/lab/lab.py",
     "site:check": "node site/check.mjs",
     "migrate": "node scripts/migrate-config.mjs",
-    "typecheck": "tsc --noEmit",
-    "site:local": "python3 -B site/local.py"
+    "typecheck": "tsc --noEmit && tsc -p plugins/pwa/tsconfig.json",
+    "site:local": "python3 -B site/local.py",
+    "pwa:build": "node scripts/pwa/build.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

@@ -37,6 +37,25 @@ jobs:
       - name: Verify inventory against fixed upstream source
         run: bun run parity:check --upstream .runtime/upstream-butterfly
       - run: bun run verify
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/cache@v4
+        with:
+          path: .runtime/pwa-deps/halo-2.26.1.jar
+          key: pwa-halo-2.26.1-7a1d6ea0800e8940
+      - name: Build optional PWA plugin and verify reproducibility
+        shell: bash
+        run: |
+          mkdir -p .runtime/pwa-deps
+          if [ ! -f .runtime/pwa-deps/halo-2.26.1.jar ]; then
+            curl --fail --location --retry 2 https://github.com/halo-dev/halo/releases/download/v2.26.1/halo-2.26.1.jar -o .runtime/pwa-deps/halo-2.26.1.jar
+          fi
+          bun run pwa:build .runtime/pwa-deps/halo-2.26.1.jar
+          sha256sum dist/butterfly-pwa-0.1.0.jar > pwa.sha256
+          bun run pwa:build .runtime/pwa-deps/halo-2.26.1.jar
+          sha256sum --check pwa.sha256
       - name: Rebuild and compare archive
         shell: bash
         run: |
@@ -48,6 +67,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: halo-butterfly-next-preview
-          path: dist/*.zip
+          path: |
+            dist/*.zip
+            dist/butterfly-pwa-*.jar
           if-no-files-found: error
           retention-days: 7

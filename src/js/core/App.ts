@@ -10,6 +10,7 @@ import Message from './_message.ts';
 import Theme from './theme.ts';
 import Scroll from './scroll.ts';
 import Common from './common.ts';
+import { initializePwa } from './pwa.ts';
 /**
  * @desc: 注册应用
  * @returns function(*): *
@@ -40,6 +41,7 @@ export default function App(modules: (new () => import('../types.ts').ThemeModul
     }
 
     useClearPage();
+    void initializePwa().catch(() => {});
 
     return ins;
   };
