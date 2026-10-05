@@ -1,11 +1,21 @@
 #!/usr/bin/env python3
 """Publish only staged, checked assets. Existing public bytes are never overwritten."""
-import json, os, subprocess, sys, tempfile
+import subprocess, sys, tempfile
 from pathlib import Path
-from common import REPO,digest,gh,run,version_key
+from common import REPO,digest,gh,version_key
+
+def release_record(tag):
+    # The tag endpoint excludes drafts, including drafts just created by this publisher.
+    for page in range(1,101):
+        rows=gh('releases?per_page=100&page='+str(page))
+        record=next((r for r in rows if r['tag_name']==tag),None)
+        if record is not None: return record
+        if len(rows)<100: return None
+    raise RuntimeError('Release pagination exceeded bound')
 
 def verify(tag,expected):
-    record=gh('releases/tags/'+tag)
+    record=release_record(tag)
+    if record is None: raise RuntimeError('Release not found: '+tag)
     assets={a['name']:a for a in record['assets']}
     if set(assets)!={p.name for p in expected.iterdir()}: raise RuntimeError('Release asset inventory mismatch')
     with tempfile.TemporaryDirectory() as directory:
@@ -17,15 +27,15 @@ def verify(tag,expected):
 def main():
     tag=sys.argv[1];version_key(tag)
     expected=Path('.runtime/release-assets')
-    known=json.loads(run('gh','release','list','--repo',REPO,'--limit','1000','--json','tagName,isDraft'))
-    existing=next((r for r in known if r['tagName']==tag),None)
-    if not existing:
+    current=release_record(tag)
+    if current is None:
         cmd=['gh','release','create',tag,'--repo',REPO,'--verify-tag','--draft','--title',tag,'--notes-file','releases/'+tag+'.md']
         if '-' in tag: cmd.append('--prerelease')
         subprocess.run(cmd,check=True)
-        existing={'isDraft':True}
-    current=gh('releases/tags/'+tag);names={a['name'] for a in current['assets']}
-    if existing['isDraft']:
+        current=release_record(tag)
+    if current is None: raise RuntimeError('Created release not found: '+tag)
+    names={a['name'] for a in current['assets']}
+    if current['draft']:
         # Resume missing uploads; existing attachments must already match.
         for file in expected.iterdir():
             if file.name not in names:

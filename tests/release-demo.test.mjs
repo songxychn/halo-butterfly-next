@@ -188,3 +188,71 @@ for status,body in [(s,b'{"errors":[{"code":"MANIFEST_UNKNOWN"}]}') for s in [40
  else:raise AssertionError('Accepted uncertain manifest absence')
 `],{stdio:'pipe'});
 });
+
+test('release publisher handles drafts and preserves download verification before publication',()=>{
+ execFileSync('python3',['-B','-c',String.raw`
+import sys,tempfile,os,copy,subprocess
+from pathlib import Path
+from unittest.mock import patch
+sys.path.insert(0,str(Path('scripts/release').resolve()))
+import publish
+tag='v1.2.3-alpha.1'
+draft={'id':42,'tag_name':tag,'draft':True,'assets':[],'html_url':'https://example.test/release'}
+with patch.object(publish,'gh',side_effect=[[{'tag_name':'other'}]*100,[draft]]) as api:
+ assert publish.release_record(tag)==draft
+ assert api.call_args_list[1].args==('releases?per_page=100&page=2',)
+with patch.object(publish,'gh',side_effect=subprocess.CalledProcessError(1,'gh')):
+ try:publish.release_record(tag)
+ except subprocess.CalledProcessError:pass
+ else:raise AssertionError('API failure treated as absent release')
+original=Path.cwd()
+with tempfile.TemporaryDirectory() as tmp:
+ os.chdir(tmp)
+ try:
+  expected=Path('.runtime/release-assets');expected.mkdir(parents=True)
+  (expected/'package.zip').write_bytes(b'verified theme')
+  (expected/'SHA256SUMS').write_bytes(b'verified sums')
+  def scenario(initial,corrupt=False):
+   state=copy.deepcopy(initial);downloads=[];mutations=[]
+   def api(path):
+    assert path=='releases?per_page=100&page=1',path
+    return [] if state is None else [copy.deepcopy(state)]
+   def command(args,check):
+    nonlocal state
+    assert check
+    operation=args[2]
+    assert args[:2]==['gh','release'] and args[3]==tag
+    if operation=='create':
+     assert state is None and '--draft' in args and '--prerelease' in args
+     state=copy.deepcopy(draft);mutations.append('create')
+    elif operation=='upload':
+     assert state['draft'] and '--clobber' not in args
+     name=Path(args[4]).name
+     assert name not in [a['name'] for a in state['assets']]
+     state['assets'].append({'name':name});mutations.append('upload')
+    elif operation=='download':
+     downloads.append(state['draft'])
+     directory=Path(args[args.index('--dir')+1])
+     for f in expected.iterdir():
+      (directory/f.name).write_bytes(b'corrupt' if corrupt else f.read_bytes())
+    elif operation=='edit':
+     assert downloads==[True] and '--draft=false' in args
+     state['draft']=False;mutations.append('publish')
+    else:raise AssertionError(args)
+   with patch.object(publish,'gh',side_effect=api),patch.object(publish.subprocess,'run',side_effect=command),patch.object(sys,'argv',['publish.py',tag]):
+    if corrupt:
+     try:publish.main()
+     except RuntimeError as e:assert 'attachment differs' in str(e)
+     else:raise AssertionError('Published mismatched draft')
+     assert state['draft'] and 'publish' not in mutations
+    else:publish.main()
+   return downloads,mutations
+  assert scenario(None)==([True,False],['create','upload','upload','publish'])
+  resumed=copy.deepcopy(draft);resumed['assets']=[{'name':'package.zip'}]
+  assert scenario(resumed)==([True,False],['upload','publish'])
+  public=copy.deepcopy(draft);public['draft']=False;public['assets']=[{'name':f.name} for f in expected.iterdir()]
+  assert scenario(public)==([False,False],[])
+  scenario(resumed,corrupt=True)
+ finally:os.chdir(original)
+`],{stdio:'pipe'});
+});
