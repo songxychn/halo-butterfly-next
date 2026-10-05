@@ -1,0 +1,937 @@
+{
+  "kind": "latest-master-bounded-acceptance",
+  "date": "2026-10-05",
+  "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+  "overall": "blocked-by-native-resource-stalls",
+  "scope": "Public alpha follow-up: engineering, installation/upgrade, reading options and Linux core browser matrix; not full release acceptance",
+  "package": {
+    "name": "halo-butterfly-next-0.1.0-alpha.3.zip",
+    "sha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "bytes": 2796504,
+    "files": 127,
+    "localArchiveBuildAndDownloadedCIIdentical": true
+  },
+  "engineering": {
+    "node": "24.11.0",
+    "bun": "1.4.0",
+    "command": "bun run verify",
+    "testsPassed": 572,
+    "testsFailed": 0,
+    "packageFiles": 127,
+    "masterCI": {
+      "run": 37300232062,
+      "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+      "result": "success"
+    },
+    "independentBuild": {
+      "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+      "export": "git archive of exact source SHA; fresh dependency install with frozen lock and ignore-scripts",
+      "sha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+      "bytes": 2796504,
+      "identical": true
+    }
+  },
+  "local": {
+    "environment": {
+      "node": "v24.11.0",
+      "bun": "1.4.0",
+      "macOS": "26.6.2",
+      "agentBrowser": "agent-browser 0.35.0",
+      "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+      "cleanup": "Owned local Halo process stopped through lab CLI; task browser sessions closed by their runners",
+      "cleanupIncident": "Initial local controller called nonexistent lab.stop; replaced by the existing ownership-checking CLI stop action"
+    },
+    "freshInstall": {
+      "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+      "freshDatabase": true,
+      "fixtureSha256": "3cbaf71bff886733fd58a4f9f451c194970e1475adf9146e4425f4f1a0df92ba",
+      "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+      "package": {
+        "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "filesMatch": 127,
+        "extraFiles": 0
+      },
+      "contentValidated": true,
+      "configValidated": true,
+      "optionalPlugins": "disabled by baseline seed",
+      "base": "http://127.0.0.1:18251"
+    },
+    "lifecycle": {
+      "upgrade-current": {
+        "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+        "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "filesMatch": 127,
+        "extraFiles": 0,
+        "configurationAndContentPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "categories": 1,
+          "tags": 1,
+          "snapshots": 17
+        }
+      },
+      "rollback-alpha2": {
+        "sourceSha": "3e603fa64ef2076449dbb9a38e2873fc49d4f35c",
+        "packageSha256": "a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42",
+        "filesMatch": 120,
+        "extraFiles": 0,
+        "configurationAndContentPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "categories": 1,
+          "tags": 1,
+          "snapshots": 17
+        }
+      },
+      "reupgrade-current": {
+        "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+        "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "filesMatch": 127,
+        "extraFiles": 0,
+        "configurationAndContentPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "categories": 1,
+          "tags": 1,
+          "snapshots": 17
+        }
+      }
+    },
+    "oldReleaseIdentity": {
+      "tag": "v0.1.0-alpha.2",
+      "tagCommit": "3e603fa64ef2076449dbb9a38e2873fc49d4f35c",
+      "packageSha256": "a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42",
+      "originalRuntimeSource": "e575b0b4eda1bc8b6169ef759d53b5d344dad8ea",
+      "originalReviewHead": "3e659f609f0eb887ba7a8cda736b25803b237c6b",
+      "attributionNote": "Raw rollback report sourceSha is the release tag commit, not a new proof of the original build source. Original release manifest attribution retained; relevant product files have no diff between originalRuntimeSource and tagCommit."
+    },
+    "lifecycleLimits": "Only synthetic comparison content, snapshots and theme config; optional plugins disabled; no comment submission or full plugin lifecycle acceptance",
+    "configComparison": {
+      "initialAssertion": "raw ConfigMap JSON strings differed",
+      "originalFailureRetained": true,
+      "normalizedOnly": "decode JSON strings in each ConfigMap data value; retain all keys and values",
+      "reorderedGroups": [
+        "nav",
+        "aside",
+        "index",
+        "cover",
+        "post",
+        "comments",
+        "wordcount",
+        "toc",
+        "render",
+        "rightside",
+        "darkmode",
+        "footer"
+      ],
+      "semanticStateEqual": true,
+      "beforeSha256": "cf9e2e65971ed6a0c880766fcc20a0a7f1ec406e1cf38229df6a5f696e179f91",
+      "afterSha256": "c6d2bad84515639f43fe19ca66d255feef5d38d27b02d0609cd58855d459d107"
+    },
+    "missingNewFields": {
+      "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+      "removedFields": [
+        "anchor.auto_update",
+        "anchor.click_to_scroll",
+        "toc.post",
+        "toc.page",
+        "post.photofigcaption",
+        "rightside.config_animation"
+      ],
+      "oldConfigFieldsPreserved": true,
+      "addedDefaults": {
+        "post": {
+          "photofigcaption": false
+        },
+        "toc": {
+          "post": true,
+          "page": false
+        },
+        "anchor": {
+          "auto_update": false,
+          "click_to_scroll": false
+        },
+        "rightside": {
+          "config_animation": true
+        }
+      },
+      "package": {
+        "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "filesMatch": 127,
+        "extraFiles": 0
+      }
+    },
+    "effectiveDefaults": [
+      {
+        "route": "archives/preview-1",
+        "state": {
+          "anchorAuto": false,
+          "anchorClick": false,
+          "anchors": 0,
+          "captions": 0,
+          "titles": [
+            {
+              "color": "rgba(255, 255, 255, 0.9)",
+              "opacity": "1",
+              "text": "Butterfly 对照：排版与交互"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "Fixture Maintainer"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "\n    \n    公告\n  "
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "\n        \n        目录\n        \n      "
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "\n    \n    最新文章\n  "
+            }
+          ],
+          "toc": true,
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36"
+        }
+      },
+      {
+        "route": "acceptance-reading-page",
+        "state": {
+          "anchorAuto": false,
+          "anchorClick": false,
+          "anchors": 0,
+          "captions": 0,
+          "titles": [
+            {
+              "color": "rgba(255, 255, 255, 0.9)",
+              "opacity": "1",
+              "text": "阅读验收单页"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "Fixture Maintainer"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "\n    \n    公告\n  "
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "\n    \n    最新文章\n  "
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "分类›"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "标签›"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "归档›"
+            },
+            {
+              "color": "rgba(255, 255, 255, 0.7)",
+              "opacity": "1",
+              "text": "\n    \n    网站信息\n  "
+            }
+          ],
+          "toc": false,
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36"
+        }
+      }
+    ],
+    "httpSmoke": {
+      "oldReleaseRoutes": 10,
+      "currentRoutesAfterReupgrade": 10,
+      "scope": "Theme HTML and referenced theme assets; not browser or plugin acceptance"
+    },
+    "reading": {
+      "post": {
+        "target": "http://127.0.0.1:18251/archives/preview-1/?chapter-test=kept",
+        "checks": [
+          "unique heading IDs and enabled anchor config",
+          "TOC click updates URL and focuses heading",
+          "heading link navigates and preserves query",
+          "browser back restores previous chapter",
+          "reload preserves chapter IDs and URL",
+          "scroll updates chapter without adding history entries",
+          "external links not hijacked, captions block, clean TOC labels"
+        ],
+        "status": "passed"
+      },
+      "page": {
+        "target": "http://127.0.0.1:18251/acceptance-reading-page/?chapter-test=kept",
+        "checks": [
+          "unique heading IDs and enabled anchor config",
+          "TOC click updates URL and focuses heading",
+          "heading link navigates and preserves query",
+          "browser back restores previous chapter",
+          "reload preserves chapter IDs and URL",
+          "scroll updates chapter without adding history entries",
+          "external links not hijacked, captions block, clean TOC labels"
+        ],
+        "status": "passed"
+      },
+      "additionalFixture": {
+        "name": "acceptance-reading-page",
+        "bodySha256": "6d2ba29a891b727f6ad680da8571fb01783aeade95fe95e4b95b186fa30de709",
+        "source": "fixtures/comparison/article.html",
+        "createdAfterLifecycleChecks": true,
+        "path": "/acceptance-reading-page/"
+      },
+      "layoutCases": [
+        {
+          "id": "archives-preview-1-1440-light",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 9
+        },
+        {
+          "id": "archives-preview-1-1440-dark",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 9
+        },
+        {
+          "id": "archives-preview-1-390-light",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 5
+        },
+        {
+          "id": "archives-preview-1-390-dark",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 5
+        },
+        {
+          "id": "acceptance-reading-page-1440-light",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 5
+        },
+        {
+          "id": "acceptance-reading-page-1440-dark",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 5
+        },
+        {
+          "id": "acceptance-reading-page-390-light",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 1
+        },
+        {
+          "id": "acceptance-reading-page-390-dark",
+          "status": "passed-layout",
+          "jsErrorCount": 0,
+          "violations": 0,
+          "incompleteNodes": 1
+        }
+      ],
+      "axeVersion": "4.12.1",
+      "automaticViolations": 0,
+      "incompleteContrastNodes": 40,
+      "manualContrastVerdict": "not completed; zero automatic violations is not full WCAG acceptance",
+      "screenshotsAtRest": [
+        "default-archives-preview-1-dark.png",
+        "default-acceptance-reading-page-dark.png"
+      ],
+      "screenshotBoundary": "Initial reading captures did not wait for finite entrance animations; final default captures did, and title visibility was rechecked. Screenshots are local-only."
+    }
+  },
+  "linux": {
+    "run": 37302153352,
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37302153352",
+    "sourceSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+    "harnessSha": "b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+    "result": "failed",
+    "platform": {
+      "type": "Linux",
+      "release": "6.17.0-1022-azure",
+      "version": "#22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026",
+      "arch": "x64",
+      "node": "v24.21.0"
+    },
+    "plugins": [
+      {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "enabled": true,
+        "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b"
+      },
+      {
+        "name": "PluginCommentWidget",
+        "version": "3.3.2",
+        "enabled": true,
+        "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f"
+      }
+    ],
+    "observed": 120,
+    "passed": 111,
+    "failed": 9,
+    "engines": {
+      "chromium": {
+        "version": "153.0.8010.12",
+        "observed": 40,
+        "passed": 40
+      },
+      "firefox": {
+        "version": "155.0",
+        "observed": 40,
+        "passed": 33
+      },
+      "webkit": {
+        "version": "26.6",
+        "observed": 40,
+        "passed": 38
+      }
+    },
+    "failureCategories": {
+      "pending-resources": 9,
+      "navigation-timeout": 3,
+      "readiness-visible-images": 3,
+      "screenshot-timeout": 1
+    },
+    "pendingRequests": 27,
+    "allPendingResponsesMissing": true,
+    "failures": [
+      {
+        "engine": "firefox",
+        "path": "/page/2/",
+        "width": 1440,
+        "mode": "light",
+        "categories": [
+          "pending-resources",
+          "navigation-timeout"
+        ],
+        "pending": [
+          {
+            "requestId": 10,
+            "url": "http://127.0.0.1:18141/lab/cover-sand-dunes.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 11,
+            "url": "http://127.0.0.1:18141/themes/halo-butterfly-next/assets/css/index.min.css?v=0.1.0-alpha.3",
+            "method": "GET",
+            "type": "stylesheet",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 12,
+            "url": "http://127.0.0.1:18141/lab/cover-sunset-lake.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 13,
+            "url": "http://127.0.0.1:18141/themes/halo-butterfly-next/assets/images/above.svg?v=0.1.0-alpha.3",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 14,
+            "url": "http://127.0.0.1:18141/lab/cover-mountain-lake.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 15,
+            "url": "http://127.0.0.1:18141/lab/cover-architecture.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 16,
+            "url": "http://127.0.0.1:18141/lab/cover-golden-mountain.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 17,
+            "url": "http://127.0.0.1:18141/lab/cover-misty-forest.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 18,
+            "url": "http://127.0.0.1:18141/lab/cover-turquoise-coast.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 20,
+            "url": "http://127.0.0.1:18141/lab/avatar.svg",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "firefox",
+        "path": "/about-preview/",
+        "width": 1440,
+        "mode": "light",
+        "categories": [
+          "pending-resources",
+          "navigation-timeout"
+        ],
+        "pending": [
+          {
+            "requestId": 20,
+            "url": "http://127.0.0.1:18141/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-dark.css",
+            "method": "GET",
+            "type": "stylesheet",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 22,
+            "url": "http://127.0.0.1:18141/lab/avatar.svg",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "firefox",
+        "path": "/archives/preview-2/",
+        "width": 1440,
+        "mode": "dark",
+        "categories": [
+          "pending-resources",
+          "readiness-visible-images"
+        ],
+        "pending": [
+          {
+            "requestId": 10,
+            "url": "http://127.0.0.1:18141/lab/cover-golden-mountain.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "firefox",
+        "path": "/",
+        "width": 390,
+        "mode": "light",
+        "categories": [
+          "pending-resources"
+        ],
+        "pending": [
+          {
+            "requestId": 35,
+            "url": "http://127.0.0.1:18141/lab/cover-architecture.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 2,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "firefox",
+        "path": "/archives/preview-2/",
+        "width": 390,
+        "mode": "light",
+        "categories": [
+          "pending-resources",
+          "navigation-timeout"
+        ],
+        "pending": [
+          {
+            "requestId": 9,
+            "url": "http://127.0.0.1:18141/themes/halo-butterfly-next/assets/plugins/cursor/simple.min.css?v=0.1.0-alpha.3",
+            "method": "GET",
+            "type": "stylesheet",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 10,
+            "url": "http://127.0.0.1:18141/lab/cover-golden-mountain.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 11,
+            "url": "http://127.0.0.1:18141/lab/cover-mountain-lake.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 13,
+            "url": "http://127.0.0.1:18141/lab/cover-misty-forest.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 14,
+            "url": "http://127.0.0.1:18141/lab/cover-turquoise-coast.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 15,
+            "url": "http://127.0.0.1:18141/lab/cover-misty-mountain.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 16,
+            "url": "http://127.0.0.1:18141/lab/cover-blue-ocean.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 17,
+            "url": "http://127.0.0.1:18141/themes/halo-butterfly-next/assets/images/above.svg?v=0.1.0-alpha.3",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          },
+          {
+            "requestId": 18,
+            "url": "http://127.0.0.1:18141/lab/cover-architecture.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "firefox",
+        "path": "/",
+        "width": 390,
+        "mode": "dark",
+        "categories": [
+          "pending-resources",
+          "readiness-visible-images"
+        ],
+        "pending": [
+          {
+            "requestId": 13,
+            "url": "http://127.0.0.1:18141/lab/cover-turquoise-coast.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "firefox",
+        "path": "/tags/butterfly/",
+        "width": 390,
+        "mode": "dark",
+        "categories": [
+          "pending-resources"
+        ],
+        "pending": [
+          {
+            "requestId": 13,
+            "url": "http://127.0.0.1:18141/lab/cover-turquoise-coast.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "webkit",
+        "path": "/page/2/",
+        "width": 1440,
+        "mode": "light",
+        "categories": [
+          "pending-resources",
+          "screenshot-timeout"
+        ],
+        "pending": [
+          {
+            "requestId": 11,
+            "url": "http://127.0.0.1:18141/themes/halo-butterfly-next/assets/images/above.svg?v=0.1.0-alpha.3",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      },
+      {
+        "engine": "webkit",
+        "path": "/archives/",
+        "width": 1440,
+        "mode": "light",
+        "categories": [
+          "pending-resources",
+          "readiness-visible-images"
+        ],
+        "pending": [
+          {
+            "requestId": 9,
+            "url": "http://127.0.0.1:18141/lab/cover-mountain-lake.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "jsErrorCount": 0
+      }
+    ],
+    "ownedServicesStopped": true,
+    "artifact": [
+      {
+        "digest": "sha256:c12418dcb9830f6c2cb3dbff1f0cedf6248a442bca64a90feacd08a29d1c1303",
+        "expired": false,
+        "id": 11342925801,
+        "name": "linux-halo-b0ead077f5929b941f69c0b9ee763e7dd9a606f2",
+        "size_in_bytes": 53170160
+      }
+    ],
+    "interpretation": "All 9 failed observations retain unfinished requests. This does not establish a common root cause or resolve issue #338; no retry replaces failed observations."
+  },
+  "previousLinuxAttempt": {
+    "run": 37274461230,
+    "sourceSha": "a1ec9f1cc678012980ef8590422ab54099d6e559",
+    "result": "setup failure: PluginSearchWidget plugin-state HTTP 409",
+    "browserPages": 0,
+    "originalEvidence": {
+      "path": ".evidence/master-acceptance-20261005/pr352-linux/linux-halo-a1ec9f1cc678012980ef8590422ab54099d6e559/summary.json",
+      "sha256": "4035e7302cd9c3d7a274894d3d1f8ebbcdcd7ae0096cb93f52e46da8bff9a865"
+    }
+  },
+  "testHarnessIncidents": [
+    "Initial lifecycle comparator compared JSON strings; raw snapshots prove only object key order changed. Decode all ConfigMap JSON values before semantic comparison; no keys or values excluded.",
+    "One local login failed before reading configuration; a later attempt succeeded. Not classified as a theme defect.",
+    "First synthetic page create used singlePage instead of the console API page field and returned HTTP 500; preparation was corrected. The premature page check failed and is retained separately.",
+    "Initial local stop helper called nonexistent lab.stop; existing ownership-checking CLI performed actual cleanup."
+  ],
+  "review": {
+    "currentRun": "self-collected evidence, independent review pending",
+    "historicalReadingSource": "224691f391b189c66d4408bee153751c0ce8344d",
+    "historicalReadingEvidence": "reading-options.json",
+    "packageMatchesHistoricalReadingEvidence": true,
+    "productDiffFromHistoricalReadingSource": [],
+    "boundary": "Same package and no diff in src/settings/annotations/theme/build script link prior bounded reading reviews; they do not certify this complete master or the newly collected evidence."
+  },
+  "remaining": [
+    "Native resource-loading blocker #338",
+    "Current full search/comment and plugin lifecycle interaction evidence; search-focus alpha-only exception remains",
+    "40 contrast nodes requiring manual evaluation",
+    "Physical devices, actual Safari and screen readers",
+    "Full fixed-baseline performance matrix",
+    "Final source/license/publication materials and independent review"
+  ],
+  "evidence": [
+    {
+      "path": ".evidence/master-acceptance-20261005/master-linux/linux-halo-b0ead077f5929b941f69c0b9ee763e7dd9a606f2/summary.json",
+      "sha256": "3391deffcf846f8fcf8de952a0766ead23bdf3c462f16f2eefefd10e249caba9"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/master-linux/linux-halo-b0ead077f5929b941f69c0b9ee763e7dd9a606f2/browser/2026-10-05T11-21-43-157Z-15087d9f/report.json",
+      "sha256": "41742d0e0ed0db41d083f2c1cd425fadea40fb90cc45422a07bd2d1cfa152066"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/verify.log",
+      "sha256": "e4ac4274ecf12f4af084bffd18230f4c17b2de155deceb07a4ebe874c9a63c25"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reading-layout.json",
+      "sha256": "ab545a284bdfc494210c74fad3b82a6361f5c2173c2f5ef840edba87d37bd702"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reading-post.json",
+      "sha256": "962fa95a5c345b441e80fb47fdf58c496942c90fa6f2011713fc148a4026848f"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reading-page.json",
+      "sha256": "352d3bada567572be67ea643e85ad57e57a2c59a3d30b2146542713b7d51aa8f"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reading-page-prepared.json",
+      "sha256": "f7eb4d2398f519f7feac38071162ed146b9c44b379b2986e8a3a7fdddef41eec"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/lab-control-v1.py",
+      "sha256": "71b8db863ebb4d2830accf206bea7f0002c55409e802fa99ddb97e8080b46c3a"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/lab-control.py",
+      "sha256": "0e6488b4222f202ed6df1205487428e09695d066a777453c9530a4e48c42b9c2"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/missing-defaults.py",
+      "sha256": "63a313b365de7ec51e9c40e845227c7765ba3eb0e5128f05af7337234193a5b6"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/default-probe.mjs",
+      "sha256": "c2b68141c4d58ee28b42d257434175da4ae0ff18ade7abbc5e748531083389c6"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/capture-reading.mjs",
+      "sha256": "3c48c38bea92360cfd97e713b0e1f790d35040644713f8318a9b6bbc0a8b0ea8"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reading-layout.mjs",
+      "sha256": "8d733d716719eba316b78eebcb2679dec7130e83c182507e61b65ed2c1d3cdf1"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/alpha2/release-validation.json",
+      "sha256": "c55e313de67b4d21fb52d3e1d20a84588a8abfe728d33fc6394ec816090ca110"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/alpha2/halo-butterfly-next-0.1.0-alpha.2.zip.sha256",
+      "sha256": "4be999050267eaf52413c5c5bb9236038771d7497b9735057e5960d18b9b11d5"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/screenshots.json",
+      "sha256": "9af1d6a1f09fc0ceb7149e13877b7b253c992b6728b8bb708b997486686e3d49"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/default-probe.json",
+      "sha256": "fd9944a4e49394cfa2d23529983168c58a56b927814af1c605aaf55f503461e2"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/missing-defaults.json",
+      "sha256": "8c65237cec51793397c57821331ad150c60729808857a5cc689d90fa3c4a475b"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/independent-build.json",
+      "sha256": "46636d8d667898dd7e232fcae1cc60ba1224335a302cd70ce62336d1d3384918"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/fresh-install.json",
+      "sha256": "bc4cacabde1261d8f7af9b595a2cef1fa7f5f707d095b4add9710265757bcda0"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/master-linux-artifacts.json",
+      "sha256": "c2a3c4433faac781c2f8dfd37b327271b33f99b56b9aabc9ce24cec10a318b25"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/initial-rollback-interpretation.json",
+      "sha256": "3f51be94d9f0a094d17f075b40d8a115d18690a5ddf696e9e9d70d58680a2f77"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reading-fixture.json",
+      "sha256": "a21fcd05f4e1dd8aab524ff539f3daa6e1561ce99e80b57ebf0b8b142b226032"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/upgrade-current.json",
+      "sha256": "5b65386d9ef021877a86f17b6513859ac4f5d6e9cd9571b9d0da6a158be8128f"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/rollback-alpha2.json",
+      "sha256": "2327f7e297df1ee809fd3be12e4f23f761c78115a570031e8d99d9eeaa7ac236"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/environment.json",
+      "sha256": "d1c19f8a5775341cc7532f41889c7071e523799172bfb12fb4a701502faa8cc3"
+    },
+    {
+      "path": ".evidence/master-acceptance-20261005/reupgrade-current.json",
+      "sha256": "5b65386d9ef021877a86f17b6513859ac4f5d6e9cd9571b9d0da6a158be8128f"
+    }
+  ]
+}
