@@ -557,7 +557,17 @@
       {
         "path": "fixtures/comparison/assets/wallpaper.webp",
         "sha256": "8f3a132baa3249b7e2845bbc79ea166ba80bea3050f28256519ad8c159bcfd9e",
-        "issue": "source archive includes image with only user-provided provenance; redistribution permission evidence missing, not an infringement finding"
+        "issue": "source archive includes image with only user-provided provenance; redistribution permission evidence missing, not an infringement finding",
+        "resolution": {
+          "status": "removed-from-current-source",
+          "authorization": "User explicitly requested deletion",
+          "replacementImages": {
+            "archive": "/lab/cover-golden-mountain.webp",
+            "tag": "/lab/cover-misty-forest.webp",
+            "category": "/lab/cover-turquoise-coast.webp"
+          },
+          "evidenceBoundary": "Original finding and browser evidence belong to 1951fef; updated fixture backgrounds are not newly browser-certified. Theme ZIP bytes unchanged."
+        }
       },
       {
         "path": "src/vendor/lazyload.js",
@@ -570,7 +580,6 @@
   },
   "outstanding": [
     "#338 native resource loading failures",
-    "wallpaper source redistribution evidence",
     "inherited lazyload provenance and license",
     "current header contrast manual review and remaining bounded alpha acceptance",
     "final release candidate independent approval and maintainer publication authorization",

@@ -25,7 +25,7 @@ class LabTests(unittest.TestCase):
                 asset = lab.FIXTURES / 'assets' / url.removeprefix('/lab/')
                 self.assertTrue(asset.is_file())
                 self.assertLessEqual(asset.stat().st_size, 250_000)
-                self.assertIn(asset.name, sources['photos'] if asset.name != 'wallpaper.webp' else sources)
+                self.assertIn(asset.name, sources['photos'])
 
     def test_halo_only_start_does_not_launch_or_probe_hexo(self):
         with tempfile.TemporaryDirectory() as directory:
