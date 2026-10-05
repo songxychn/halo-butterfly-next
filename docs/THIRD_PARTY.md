@@ -10,6 +10,7 @@
 | Prism Themes 扩展配色 | `src/plugins/prism/themes/` 的 36 个继承/改写主题，与核心独立归属 | MIT，Copyright (c) 2015 PrismJS；[官方固定许可原文](../src/plugins/prism/themes/LICENSE)随源码和 ZIP 保留；[固定来源与文件比对](../third-party-licenses/prism-themes-source.json) |
 | Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
 | jQuery、Clipboard、Tocbot、Typed.js | DOM、复制、目录、打字机 | MIT；许可证随包分发 |
+| vanilla-lazyload 继承实现 | 图片懒加载；工厂体与官方 17.3.0/17.3.1 在局部绑定重命名后结构一致，准确继承版本无法唯一确定 | MIT，Copyright (c) 2015 Andrea Verlicchi；以官方 17.3.1 为固定许可参照，许可与改写说明随包分发 |
 | ECharts | 原分类统计页面 | Apache-2.0；许可证随包分发 |
 | Animate.css | 原有动画 | MIT；许可证随包分发 |
 | `src/images/above.svg` | Halo Butterfly Next 原创装饰图 | GPL-3.0，同本主题 |
@@ -30,4 +31,6 @@
 
 Prism Themes 来源核对固定官方提交 `447479fc7b2be2051fe27e561aceed7cc87a589f`：20 个配色文件字节一致，16 个为继承旧变体或 Halo 改写，不能声称所有文件直接来自这一提交；保留各文件作者/移植署名，Next 对默认 One Light/One Dark 的对比度修改亦保留注释。其 MIT 原文与 Prism 核心许可分别保存在安装包 `templates/assets/plugins/prism/themes/LICENSE` 和 `templates/assets/plugins/prism/LICENSE`。
 
-`src/vendor/lazyload.js` 从原 `src/js/core/_lazyLoad.js` 原样移动，第三方压缩实现保持字节一致；`lazyload.d.ts` 描述主题使用的 API，`src/js/core/_lazyLoad.ts` 作为类型入口。Prism 的第三方 JS 同样保留原格式。
+`src/vendor/lazyload.js` 从原 `src/js/core/_lazyLoad.js` 原样移动，第三方压缩实现保持字节一致；`lazyload.d.ts` 描述主题使用的 API，`src/js/core/_lazyLoad.ts` 作为类型入口。2026-10-06 补核查：它来自 vanilla-lazyload，继承的模块包装与压缩局部变量名不同于官方发布文件，不能称为官方 17.3.1 原样副本；工厂结构与 17.3.0/17.3.1 均一致。固定来源、继承提交、文件摘要见 [来源清单](../third-party-licenses/vanilla-lazyload-source.json)，[MIT 原文](../third-party-licenses/vanilla-lazyload-LICENSE.txt)与[本项目归属说明](../third-party-licenses/vanilla-lazyload-NOTICE.txt)进入 ZIP 的 `templates/assets/licenses/`。本次不修改运行代码。Prism 的第三方 JS 同样保留原格式。
+
+来源比对可复现：从清单中固定的 npm 官方 tarball 提取 `package/dist/lazyload.min.js`（校验 tarball integrity），执行 `node scripts/licenses/compare-lazyload.mjs /path/to/lazyload.min.js`。脚本先核对原始文件摘要，再隔离工厂函数、按作用域声明顺序统一局部绑定名称并比较结构；模块包装差异另行披露。此步骤只用于来源核对，不替代功能验收。

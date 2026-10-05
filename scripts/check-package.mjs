@@ -12,6 +12,14 @@ const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${them
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
+const lazyloadSource = JSON.parse(await readFile(path.join(root, 'third-party-licenses/vanilla-lazyload-source.json'), 'utf8'));
+for (const record of [lazyloadSource.local, lazyloadSource.license]) {
+  if (createHash('sha256').update(await readFile(path.join(root, record.path))).digest('hex') !== record.sha256) throw new Error('LazyLoad 来源或许可字节改变，需重新核查');
+}
+for (const file of ['vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt']) {
+  const entry = zip.file(`templates/assets/licenses/${file}`);
+  if (!entry || !(await entry.async('nodebuffer')).equals(await readFile(path.join(root, 'third-party-licenses', file)))) throw new Error(`LazyLoad 许可或署名缺失/不一致：${file}`);
+}
 const prismThemes = JSON.parse(await readFile(path.join(root, 'third-party-licenses/prism-themes-source.json'), 'utf8'));
 const prismThemesLicense = await readFile(path.join(root, prismThemes.license.path));
 if (createHash('sha256').update(prismThemesLicense).digest('hex') !== prismThemes.license.sha256) throw new Error('Prism Themes 许可正文与固定官方摘要不符');

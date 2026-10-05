@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+  "baseSha": "5e7c3d95faa704c0cce012c70d115111bdb329a4",
+  "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+  "scope": "License/provenance completion only; runtime unchanged; no release publication",
+  "packageDelta": {
+    "baselineSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+    "files": 129,
+    "bytes": 2798306,
+    "unchangedFiles": 127,
+    "added": [
+      "templates/assets/licenses/vanilla-lazyload-LICENSE.txt",
+      "templates/assets/licenses/vanilla-lazyload-NOTICE.txt"
+    ],
+    "removed": [],
+    "changed": [],
+    "runtimeBytesUnchanged": true
+  },
+  "sourceRebuild": {
+    "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+    "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+    "rebuiltSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
+    "method": "git archive exact source; bun install --frozen-lockfile --ignore-scripts; bun run build",
+    "passed": true
+  },
+  "factoryComparison": {
+    "referenceVersion": "17.3.1",
+    "equal": true,
+    "bindingCount": 277,
+    "normalizedSha256": "41a6f3a4805f69960361e983e664d7cc175566ae97220500ad6137f669e72c9c",
+    "scope": "Factory only; module wrapper differs; exact inherited release is not uniquely identified"
+  },
+  "packageGuardNegativeChecks": {
+    "rows": [
+      {
+        "name": "vanilla-lazyload-LICENSE.txt",
+        "mutation": "remove",
+        "rejected": true
+      },
+      {
+        "name": "vanilla-lazyload-LICENSE.txt",
+        "mutation": "alter",
+        "rejected": true
+      },
+      {
+        "name": "vanilla-lazyload-NOTICE.txt",
+        "mutation": "remove",
+        "rejected": true
+      },
+      {
+        "name": "vanilla-lazyload-NOTICE.txt",
+        "mutation": "alter",
+        "rejected": true
+      }
+    ],
+    "originalRestored": true,
+    "intactPackagePasses": true
+  },
+  "verify": {
+    "tests": 578,
+    "passed": 578,
+    "failed": 0,
+    "skipped": 0,
+    "packageFiles": 129
+  },
+  "independentImplementationReview": {
+    "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+    "reviewer": "review_site",
+    "decision": "passed for lazyload provenance/license increment",
+    "releaseApproval": false
+  },
+  "runtimeEvidenceReuse": {
+    "sourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+    "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "all127ExistingPackageFilesIdentical": true,
+    "noNewLiveHaloRuns": true,
+    "originalBrowserFailuresRetained": true,
+    "reference": "docs/validation/2026-10-06/alpha3-release-prep.json"
+  },
+  "rawEvidence": [
+    {
+      "path": ".runtime/lazyload-license/verify.log",
+      "sha256": "8fcc1a3e6421cdc3201333b71f3fce3c7720bac2429c47b20a8a8a50a3a2a8f0"
+    },
+    {
+      "path": ".runtime/lazyload-license/package-delta.json",
+      "sha256": "b1e97bfe316cfb9bdfc4207a46543826a91fddf3bca59adc89b503c61122bff1"
+    },
+    {
+      "path": ".runtime/lazyload-license/factory-comparison.json",
+      "sha256": "419eee578158b8cb5727da0bb425f508717bd755cf8e574c4d4d88ad8ae9fd56"
+    },
+    {
+      "path": ".runtime/lazyload-license/negative-package-checks.json",
+      "sha256": "f9005f859f43b6643d93fa6e536a1b0edd5381a9afaf5fadc6b3b35627593dd5"
+    },
+    {
+      "path": ".runtime/lazyload-license/source-rebuild.json",
+      "sha256": "36e48a935106181f66424043d606c927360a9e63e5084b89c17abd3eb1d24152"
+    }
+  ],
+  "resourcesAndLicenses": {
+    "decision": "passed",
+    "reviewer": "review_site",
+    "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+    "sourceArchiveSha256": "bd1427401bd6edb3f39a000a537815c0d948851cc6044eda98fd8bf4de9b6c36",
+    "sourceFiles": 705,
+    "utf8TextFiles": 669,
+    "binaryFiles": 36,
+    "newOrChangedBinaryFilesSince1951fef": 0,
+    "removedBinary": "fixtures/comparison/assets/wallpaper.webp",
+    "preservedResourceSourcePaths": 77,
+    "sitePhotosVerified": 14,
+    "fontsVerified": 8,
+    "zipLicenseAndAttributionFiles": 25,
+    "secretPatternHits": 6,
+    "secretHitDisposition": "Existing synthetic tests only; expanded scan includes quoted JSON token keys. This is a different scan definition from historical five-hit report, not a correction to it.",
+    "scopeLimit": "Current tracked source and package; not full Git history or overall release approval"
+  }
+}

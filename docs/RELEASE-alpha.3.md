@@ -1,6 +1,6 @@
 # alpha.3 发行准备
 
-当前发行说明统一维护在 [releases/v0.1.0-alpha.3.md](../releases/v0.1.0-alpha.3.md)，供发布工作流读取。alpha.3 尚未发布；[#338 已按维护者裁定作为上游限制，不再阻塞本次 alpha 发行](RESOURCE-LOADING-DECISION.md)，其他许可材料及候选收口项仍待完成。
+当前发行说明统一维护在 [releases/v0.1.0-alpha.3.md](../releases/v0.1.0-alpha.3.md)，供发布工作流读取。alpha.3 尚未发布；[#338 已按维护者裁定作为上游限制，不再阻塞本次 alpha 发行](RESOURCE-LOADING-DECISION.md)。[lazyload 来源与许可已补齐](validation/2026-10-06/lazyload-license.md)，其余候选收口及最终发布确认仍待完成。
 
 - [当前源码及实际 ZIP 的验收记录](validation/2026-10-06/alpha3-release-prep.md)
 - [机器放行记录](../releases/v0.1.0-alpha.3.json)

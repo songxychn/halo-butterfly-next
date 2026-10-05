@@ -1,13 +1,13 @@
 {
   "tag": "v0.1.0-alpha.3",
-  "sourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
-  "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+  "sourceSha": "eb06db995608ac817468a22e5627b4e8caf7813c",
+  "themeSha256": "c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2",
   "decision": "blocked",
   "reviewer": "independent review_site preparation audit; NOT release approval",
   "gates": {
     "realHalo": "pending",
     "installUpgradeRollback": "passed",
-    "resourcesAndLicenses": "blocked",
+    "resourcesAndLicenses": "passed",
     "sourceRebuild": "passed"
   },
   "knownLimitations": [
@@ -16,7 +16,6 @@
     "Other advanced features, real devices, Safari, screen readers and full performance/1.0 scope remain unverified; see version notes."
   ],
   "blockers": [
-    "inherited lazyload provenance and license",
     "current header contrast manual review and remaining bounded alpha acceptance",
     "final release candidate independent approval and maintainer publication authorization",
     "published asset download verification and first real release-to-demo chain"
@@ -24,19 +23,30 @@
   "evidence": [
     {
       "path": "docs/validation/2026-10-06/alpha3-release-prep.json",
-      "sha256": "f012e57e54774636938596713da689fc956b5f99271337e55ef892856b384f76"
+      "sha256": "24cba4ce0876535083d8d749c7d78baceba2e0c0bbff30d6c8fde5e43b5c45ea"
     },
     {
       "path": "docs/validation/2026-10-06/alpha3-release-prep.md",
-      "sha256": "48b4ef5bf249b76e2eaebfa1b3c2b82cd3dbcccd64182cb551abb22f0688a361"
+      "sha256": "0a0e4efa243478b19e9ff619ccd31b976bf066f52bc58029dbfe0f8d11d6501c"
     },
     {
       "path": "docs/RESOURCE-LOADING-DECISION.md",
       "sha256": "c8644c8f423e3f9ac3226c68b2a4d6e9278217f9e851103579b9a8467ea805d2"
+    },
+    {
+      "path": "docs/validation/2026-10-06/lazyload-license.md",
+      "sha256": "8d4d2f3579cb681fb176feb258216b4fd49afd222ef42a061f11e681126225e9"
+    },
+    {
+      "path": "docs/validation/2026-10-06/lazyload-license.json",
+      "sha256": "7f7e46469c35e5911d1106f9492630fe92f62e05b3405f54f2edc37faf9a4a6b"
     }
   ],
   "gateNotes": {
-    "realHalo": "#338 no longer blocks alpha; remaining candidate/core/header validation is pending, not a passed-all declaration"
+    "realHalo": "#338 no longer blocks alpha; remaining candidate/core/header validation is pending, not a passed-all declaration",
+    "resourcesAndLicenses": "Independent bounded review of eb06db9 source archive and c0c73ded package passed; historical package findings retained",
+    "installUpgradeRollback": "Reuses 1951fef/ad051bff evidence by exact equality of all 127 existing package files; only two license files added, no new live installation run",
+    "sourceRebuild": "Exact eb06db9 git archive rebuilt to c0c73ded"
   },
   "acceptedReleaseLimitations": [
     {
