@@ -61,8 +61,30 @@ def verify_content(obj, spec):
         raise RuntimeError('Content fields differ from public bundle')
 
 
-def main():
-    runtime = Deployment()
+def set_plugin_enabled(client, name, enabled):
+    path = '/apis/plugin.halo.run/v1alpha1/plugins/' + name
+    original = client.api(path)
+    expected = {k: v for k, v in original['spec'].items() if k != 'enabled'}
+    for _ in range(30):
+        current = client.api(path)
+        if {k: v for k, v in current['spec'].items() if k != 'enabled'} != expected:
+            raise RuntimeError('Plugin specification changed during initial setup')
+        if current['spec'].get('enabled') == enabled:
+            return
+        current['spec']['enabled'] = enabled
+        try:
+            client.api(path, 'PUT', current)
+            return
+        except ApiError as error:
+            if error.status != 409:
+                raise
+            time.sleep(.5)
+    raise RuntimeError('Plugin reconciliation did not stabilize')
+
+
+def import_public(runtime, bundle, data_root, public_url):
+    # Reused by the isolated image runtime; the legacy hk adapter stays strict.
+    BUNDLE = bundle
     runtime.check()
     checksums = read_json(BUNDLE / 'checksums.json')
     for name, expected in checksums.items():
@@ -89,14 +111,13 @@ def main():
                 client.api(CONSOLE + 'posts/' + post['metadata']['name'] + '/unpublish', 'PUT')
         for plugin in client.api('/apis/plugin.halo.run/v1alpha1/plugins?size=100')['items']:
             if plugin['spec'].get('enabled'):
-                plugin['spec']['enabled'] = False
-                client.api('/apis/plugin.halo.run/v1alpha1/plugins/' + plugin['metadata']['name'], 'PUT', plugin)
+                set_plugin_enabled(client, plugin['metadata']['name'], False)
         write_json(runtime.root / 'initial-prepared.json', {'freshDefaultsPrepared': True})
     elif not (runtime.root / 'initial-prepared.json').exists():
         raise RuntimeError('Interrupted initial preparation requires manual inspection; no global cleanup on resume')
-    client.install(BUNDLE / 'halo-butterfly-next-0.1.0-alpha.3.zip')
+    client.install(BUNDLE / ('halo-butterfly-next-' + manifest['baseline']['themeVersion'] + '.zip'))
     urls = {}
-    target = ROOT / 'halo2/attachments/site-assets'
+    target = data_root / 'attachments/site-assets'
     target.mkdir(parents=True, exist_ok=True)
     for asset in assets:
         filename = asset['id'] + '-' + asset['sha256'][:16] + '.webp'
@@ -197,11 +218,10 @@ def main():
         system['data'][group] = json.dumps(merge(json.loads(system['data'].get(group, '{}')), patch), ensure_ascii=False)
     client.api('/api/v1alpha1/configmaps/system', 'PUT', system)
     search = client.api('/apis/plugin.halo.run/v1alpha1/plugins/PluginSearchWidget')
-    jar = ROOT / 'halo2/plugins/PluginSearchWidget-1.7.1.jar'
+    jar = data_root / 'plugins/PluginSearchWidget-1.7.1.jar'
     if search['spec']['version'] != '1.7.1' or hashlib.sha256(jar.read_bytes()).hexdigest() != '1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b':
         raise RuntimeError('Search plugin does not match verified artifact')
-    search['spec']['enabled'] = True
-    client.api('/apis/plugin.halo.run/v1alpha1/plugins/PluginSearchWidget', 'PUT', search)
+    set_plugin_enabled(client, 'PluginSearchWidget', True)
     for _ in range(60):
         state = client.api('/apis/plugin.halo.run/v1alpha1/plugins/PluginSearchWidget')
         if state.get('status', {}).get('phase') == 'STARTED':
@@ -215,8 +235,11 @@ def main():
         released = client.api(CONSOLE + plural + '/' + item['id'] + '/release-content')
         if not actual['spec']['publish'] or released['content'] != rendered[item['id']]:
             raise RuntimeError('Published content readback mismatch: ' + item['id'])
-    write_json(runtime.root / 'import-complete.json', {'content': len(manifest['content']), 'assets': len(assets), 'source': checksums, 'publicUrl': 'https://butterfly.baizhukui.com'})
-    print('Imported 19 source documents, 14 photos, theme and search configuration; fresh admin credentials remain on hk')
+    write_json(runtime.root / 'import-complete.json', {'content': len(manifest['content']), 'assets': len(assets), 'source': checksums, 'publicUrl': public_url})
+    print('Imported public content, photos, theme and search; credentials remain in the instance data directory')
+
+def main():
+    import_public(Deployment(), BUNDLE, ROOT / 'halo2', 'https://butterfly.baizhukui.com')
 
 if __name__ == '__main__':
     with (ROOT / 'operations/import.lock').open('a') as lock:

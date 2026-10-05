@@ -1,0 +1,68 @@
+name: Deploy released demo
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Newest published version tag to deploy again'
+        required: true
+        type: string
+permissions:
+  contents: read
+  packages: write
+concurrency:
+  group: demo-promotion
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TAG: ${{ inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+      DEMO_RELEASE: 'true'
+      IMAGE: ghcr.io/songxychn/halo-butterfly-next/demo
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.0'
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - name: Download verified released theme
+        run: python3 scripts/release/download.py "$TAG"
+      - name: Prepare public demo image context
+        run: |
+          node site/demo/bundle.mjs ".runtime/published/halo-butterfly-next-${TAG#v}.zip" .runtime/demo-bundle
+          cp .runtime/published/release-identity.json .runtime/demo-bundle/release-identity.json
+          python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
+      - name: Build runnable H2 demo
+        run: docker build -t demo-candidate .runtime/demo-context
+      - name: Fresh H2 initialization and restart smoke
+        run: python3 site/demo/smoke.py demo-candidate
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Promote only newest immutable release image
+        run: python3 scripts/release/promote.py "$TAG" "$IMAGE"
+      - name: Verify hk deployment receipt
+        run: python3 scripts/release/await-demo.py "$TAG"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: demo-deployment-result
+          path: .runtime/demo-*.json
+          if-no-files-found: ignore
+          retention-days: 14

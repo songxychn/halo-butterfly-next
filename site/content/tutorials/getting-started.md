@@ -6,7 +6,7 @@ Halo Butterfly Next 是用于 Halo 的博客主题。文章仍在 Halo 中管理
 
 ## 准备安装包
 
-先阅读[下载与预览说明](../pages/download.md)。当前 alpha.3 尚未公开发行；拿不到正式安装附件时，不要把 GitHub 自动生成的 Source code 压缩包当作主题包上传。
+先阅读[下载与预览说明](../pages/download.md)。确认该版本是否已提供安装附件，不要把 GitHub 自动生成的 Source code 压缩包当作主题包上传。
 
 拿到经维护者确认的主题包后，核对版本、来源和发行说明中的 SHA-256。安装附件的命名形式为 `halo-butterfly-next-0.1.0-alpha.3.zip`，相同文件名并不能证明内容相同。
 

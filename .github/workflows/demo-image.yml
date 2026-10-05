@@ -1,0 +1,43 @@
+name: Verify H2 demo image
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'scripts/release/**'
+      - '.github/workflows/*demo*.yml'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: demo-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.0'
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun run build
+      - name: Prepare isolated demo
+        run: |
+          package=$(find dist -maxdepth 1 -name 'halo-butterfly-next-*.zip' -print -quit)
+          node site/demo/bundle.mjs "$package" .runtime/demo-bundle
+          python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
+          docker build -t demo-candidate .runtime/demo-context
+      - run: python3 site/demo/smoke.py demo-candidate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: h2-demo-smoke
+          path: .runtime/demo-smoke.json
+          if-no-files-found: ignore
