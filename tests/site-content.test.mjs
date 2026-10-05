@@ -27,7 +27,7 @@ async function changeJson(site, relative, change) {
 test('site content is complete and remains an unpublished preview', async () => {
   const report = await checkSite();
   assert.equal(report.content, 19);
-  assert.equal(report.assets, 6);
+  assert.equal(report.assets, 14);
   assert.equal(report.publication, 'private-preview');
 });
 
