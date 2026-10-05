@@ -1,0 +1,100 @@
+{
+  "recordedAt": "2026-10-05T07:23:17.971802+00:00",
+  "scope": "Local site synchronization follow-up to site-search.json; no theme source or public deployment changes",
+  "previousHead": "dd0f3a772e3e79e0b2a127287df9e973c161074f",
+  "independentReview": {
+    "previousHeadVerdict": "failed",
+    "finding": "Snapshot version refreshed after guard could overwrite concurrent edits to an unpublished head",
+    "fix": "Read body between stable snapshot versions and resource versions; carry checked snapshot version to update; never refresh version after guard or retry a write conflict",
+    "workingTreeVerdict": "No remaining blocker; final SHA verdict belongs to PR checks"
+  },
+  "regressionTests": {
+    "resources": [
+      "Post",
+      "SinglePage"
+    ],
+    "cases": [
+      "Reject unstable snapshot/body read baseline",
+      "Retain checked version after guard and stop on simulated HTTP 409"
+    ],
+    "note": "The mock does not assert Halo always responds 409 on snapshot version mismatch; Halo may fork a head snapshot."
+  },
+  "liveDraftUpdate": {
+    "cases": [
+      {
+        "kind": "Post",
+        "id": "hbn-site-search-comments",
+        "sameUnpublishedHeadUpdated": true,
+        "checkedVersion": 0,
+        "updatedVersion": 1
+      },
+      {
+        "kind": "SinglePage",
+        "id": "hbn-site-faq",
+        "sameUnpublishedHeadUpdated": true,
+        "checkedVersion": 0,
+        "updatedVersion": 1
+      }
+    ],
+    "publication": {
+      "command": "publish",
+      "base": "http://127.0.0.1:18141",
+      "counts": {
+        "created": 0,
+        "updated": 4,
+        "unchanged": 17,
+        "published": 2
+      },
+      "permalinks": {
+        "hbn-site-getting-started": "/archives/getting-started",
+        "hbn-site-homepage": "/archives/homepage",
+        "hbn-site-navigation": "/archives/navigation",
+        "hbn-site-sidebar": "/archives/sidebar",
+        "hbn-site-reading": "/archives/reading",
+        "hbn-site-code-blocks": "/archives/code-blocks",
+        "hbn-site-images": "/archives/images",
+        "hbn-site-search-comments": "/archives/search-comments",
+        "hbn-site-upgrade": "/archives/upgrade",
+        "hbn-site-migration": "/archives/migration",
+        "hbn-site-demo-guide": "/archives/demo-guide",
+        "hbn-site-demo-typography": "/archives/demo-typography",
+        "hbn-site-demo-code": "/archives/demo-code",
+        "hbn-site-demo-images": "/archives/demo-images",
+        "hbn-site-docs": "/docs",
+        "hbn-site-download": "/download",
+        "hbn-site-about": "/about-project",
+        "hbn-site-faq": "/faq",
+        "hbn-site-site-setup": "/site-setup"
+      },
+      "contentDigest": "67cc55c322eddf6e1f6a6dc968fcf0ae422e9d06c86a675b2090225cea95d053",
+      "recordedAt": "2026-10-05T07:22:28.535192+00:00",
+      "publicDeployment": false
+    },
+    "temporaryCommentPublished": false
+  },
+  "verification": {
+    "command": "bun run verify",
+    "exitCode": 0,
+    "tests": 559,
+    "passed": 559,
+    "failed": 0,
+    "skipped": 0,
+    "log": ".runtime/docs-site/verify-version-binding.log",
+    "finalShaChecks": "Recorded in PR after commit"
+  },
+  "retainedAttempt": {
+    "result": "Stopped on unstable read while Halo reconciled the draft",
+    "resolution": "Bounded baseline read retries, followed by successful sync/publish and same-head update for both resource kinds"
+  },
+  "sourceSha256": {
+    "site/tools/publish.py": "c6a0751831c9e33b9e0de07b0e53e3103615445b830ac76621cac87a9a1ec005",
+    "site/tools/test_publish.py": "766d3025480628d02e5ba5de1f09b2ff0134776f32e331e66abdcd2ee0793423",
+    "site/README.md": "33eb35e5c25668b6d1d64b2d7786c95681cfdc52fe6a6dd6f7575ea006d72583",
+    "site/content/pages/faq.md": "23647ded74b7b70ba5f805e86b5341839b44bafe148ef5e8353fdf367b5b5f36",
+    "site/content/tutorials/search-comments.md": "d1ceb0fd9eacaabd3f7b5ab9087010ae72d53ac77a80b9b586ecef193a6aa46f"
+  },
+  "limitations": [
+    "Read-only baseline retries do not make multi-object publication transactional",
+    "Search focus restoration remains a known failure; see site-search.json"
+  ]
+}

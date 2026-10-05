@@ -88,11 +88,30 @@ class Publisher:
     def collection(self, item):
         return 'posts' if item['kind'] == 'Post' else 'singlepages'
 
-    def read_content(self, item):
+    def read_content(self, item, with_version=False):
         plural = self.collection(item)
-        obj = self.client.maybe(RESOURCE + plural + '/' + item['id'])
-        body = self.client.api(CONSOLE + plural + '/' + item['id'] + '/head-content') if obj else None
-        return obj, post_snapshot(obj, body) if obj else None
+        endpoint = RESOURCE + plural + '/' + item['id']
+        # Retry only the read baseline (e.g. while Halo finishes reconciliation),
+        # never refresh the snapshot version after the ownership/content guard.
+        for attempt in range(5):
+            obj = self.client.maybe(endpoint)
+            head = (obj['spec'].get('headSnapshot') or obj['spec'].get('baseSnapshot')) if obj else None
+            before = self.client.api(RESOURCE + 'snapshots/' + head) if with_version and head else None
+            body = self.client.api(CONSOLE + plural + '/' + item['id'] + '/head-content') if obj else None
+            version = None
+            if with_version and obj:
+                if not head or before['metadata'].get('version') is None or body.get('snapshotName') != head:
+                    raise RuntimeError('Cannot bind content to a checked snapshot version')
+                after = self.client.api(RESOURCE + 'snapshots/' + head)
+                latest = self.client.api(endpoint)
+                if before['metadata']['version'] != after['metadata']['version'] or latest['metadata']['version'] != obj['metadata']['version']:
+                    if attempt < 4:
+                        time.sleep(.1)
+                        continue
+                    raise RuntimeError('Content changed while reading; preserving backend edits')
+                version = before['metadata']['version']
+            result = (obj, post_snapshot(obj, body) if obj else None)
+            return (*result, version) if with_version else result
 
     def guard(self, key, obj, snapshot, expected=None, recover=False):
         decision = classify(self.state['objects'].get(key), snapshot, annotation_owned(obj) if obj else False, expected)
@@ -187,7 +206,7 @@ class Publisher:
         return result
 
     def upsert_content(self, item, rendered):
-        obj, snapshot = self.read_content(item)
+        obj, snapshot, checked_version = self.read_content(item, with_version=True)
         body = {'content': rendered, 'raw': rendered, 'rawType': 'HTML'}
         spec = self.spec(item)
         if not obj:
@@ -204,9 +223,8 @@ class Publisher:
         self.save()
         value = copy.deepcopy(obj) if obj else {'apiVersion': 'content.halo.run/v1alpha1', 'kind': item['kind'], 'metadata': self.metadata(item['id'])}
         value['spec'] = deep_merge(value.get('spec', {}), spec)
-        if obj and obj['spec'].get('headSnapshot'):
-            snap = self.client.api(RESOURCE + 'snapshots/' + obj['spec']['headSnapshot'])
-            body['version'] = snap['metadata']['version']
+        if obj:
+            body['version'] = checked_version
         key = 'post' if item['kind'] == 'Post' else 'page'
         endpoint = CONSOLE + self.collection(item) + ('/' + item['id'] if obj else '')
         self.client.api(endpoint, 'PUT' if obj else 'POST', {key: value, 'content': body})

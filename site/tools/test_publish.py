@@ -65,6 +65,55 @@ class ConflictTests(unittest.TestCase):
         self.assertFalse(matches(result, {'aside': {'unknown': False}}))
 
 
+class SyncConcurrencyTests(unittest.TestCase):
+    def test_read_rejects_snapshot_changed_while_body_is_read(self):
+        for kind, plural in [('Post', 'posts'), ('SinglePage', 'singlepages')]:
+            obj = {'metadata': {'name': 'owned', 'version': 4},
+                   'spec': {'headSnapshot': 'draft', 'baseSnapshot': 'base'}}
+            class RacingClient:
+                reads = 0
+                def maybe(self, path): return obj
+                def api(self, path):
+                    if '/snapshots/' in path:
+                        self.reads += 1
+                        return {'metadata': {'version': self.reads}}
+                    if path.endswith('/head-content'):
+                        return {'snapshotName': 'draft', 'raw': 'backend', 'content': 'backend', 'rawType': 'HTML'}
+                    return obj
+            publisher = Publisher.__new__(Publisher)
+            publisher.client = RacingClient()
+            with self.assertRaisesRegex(RuntimeError, 'Content changed while reading'):
+                publisher.read_content({'kind': kind, 'id': 'owned'}, with_version=True)
+
+    def test_update_never_refreshes_snapshot_version_after_guard(self):
+        for kind in ['Post', 'SinglePage']:
+            obj = {'metadata': {'name': 'owned', 'version': 4},
+                   'spec': {'headSnapshot': 'draft', 'releaseSnapshot': 'old', 'baseSnapshot': 'base', 'title': 'old'}}
+            snapshot = post_snapshot(obj, {'raw': 'old', 'content': 'old', 'rawType': 'HTML'})
+            calls = []
+            class RacingClient:
+                def api(self, path, method=None, data=None):
+                    calls.append((path, method, data))
+                    if method is None:
+                        raise AssertionError('Refreshed snapshot version after validation')
+                    # Actual snapshot has advanced to version 8; the checked 7
+                    # must remain attached to the request; simulate a 409 response.
+                    if data['content']['version'] != 7:
+                        raise AssertionError('Did not preserve checked version')
+                    raise ApiError(method, path, 409)
+            publisher = Publisher.__new__(Publisher)
+            publisher.client = RacingClient()
+            publisher.state = {'objects': {}}
+            publisher.read_content = lambda item, with_version=False: (obj, snapshot, 7)
+            publisher.guard = lambda *args, **kwargs: 'update'
+            publisher.spec = lambda item: {'title': 'new'}
+            publisher.save = lambda: None
+            with self.assertRaises(ApiError):
+                publisher.upsert_content({'id': 'owned', 'kind': kind}, 'new')
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(calls[0][1], 'PUT')
+
+
 class PublicationTests(unittest.TestCase):
     def test_publish_binds_version_and_snapshot_without_retrying_newer_head(self):
         for kind in ['Post', 'SinglePage']:
