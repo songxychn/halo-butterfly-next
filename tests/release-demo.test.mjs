@@ -159,3 +159,32 @@ with tempfile.TemporaryDirectory() as d:
  else:raise AssertionError('Accepted modified release attachment')
 `],{stdio:'pipe'});
 });
+
+test('GHCR absence requires authenticated HTTP 404 with a registry missing-manifest code',()=>{
+ execFileSync('python3',['-B','-c',String.raw`
+import sys,io,json,urllib.error
+sys.path.insert(0,'scripts/release')
+from promote import manifest_exists
+class Response(io.BytesIO):
+ status=200
+def probe(status,body):
+ calls=[]
+ def open_request(request,timeout):
+  calls.append(request)
+  if len(calls)==1:
+   assert request.full_url.startswith('https://ghcr.io/token?') and request.get_header('Authorization').startswith('Basic ')
+   return Response(b'{"token":"test-bearer"}')
+  assert request.full_url=='https://ghcr.io/v2/songxychn/halo-butterfly-next/demo/manifests/v1.0.0'
+  assert request.get_header('Authorization')=='Bearer test-bearer'
+  if status==200:return Response(b'{}')
+  raise urllib.error.HTTPError(request.full_url,status,'failure',{},io.BytesIO(body))
+ return manifest_exists('ghcr.io/songxychn/halo-butterfly-next/demo','v1.0.0','test-actor','test-password',open_request)
+assert probe(200,b'')
+for code in ['MANIFEST_UNKNOWN','NAME_UNKNOWN']:
+ assert probe(404,json.dumps({'errors':[{'code':code}]}).encode()) is False
+for status,body in [(s,b'{"errors":[{"code":"MANIFEST_UNKNOWN"}]}') for s in [401,403,429,500]]+[(404,b'no such manifest'),(404,b'{"errors":[]}'),(404,b'{"errors":[{"code":"UNAUTHORIZED"}]}'),(404,b'{"errors":[{"code":"NAME_UNKNOWN"},{"code":"DENIED"}]}')]:
+ try:probe(status,body)
+ except RuntimeError:pass
+ else:raise AssertionError('Accepted uncertain manifest absence')
+`],{stdio:'pipe'});
+});
