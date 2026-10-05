@@ -1,0 +1,132 @@
+{
+  "testedAt": "2026-10-05T07:59:35.373Z",
+  "result": "passed",
+  "cases": [
+    "manifest, PNG dimensions, root scope and active worker",
+    "real article and plugin-provided public layouts have one manifest and install entry",
+    "desktop/mobile light/dark entry, no horizontal overflow",
+    "offline new tab shows 503 fallback; login stays native; network recovery",
+    "config off unregisters worker, clears only owned caches and removes entry",
+    "plugin disable removes injected manifest and cleans installed worker",
+    "plugin uninstall cleans installed worker and preserves foreign cache",
+    "no page JavaScript errors",
+    "full browser restart while offline retains fallback; reconnect loads current page"
+  ],
+  "limitations": [
+    "Headless Chromium validates browser contracts; native OS installation and real iOS/Android devices are not exercised.",
+    "This first stage does not provide offline article reading."
+  ],
+  "themeSha256": "94dba0cae007f31ff1dea55a26e296bca4138d3f1fe4451ed52fa96ded11071d",
+  "pluginSha256": "70545f85600f97b19ffea4fd21e3db4bd82a362fcab7759e46b9261e04995ac7",
+  "browser": "153.0.8010.12",
+  "installability": {
+    "installabilityErrors": []
+  },
+  "schema": 1,
+  "kind": "pwa-first-stage-author-validation",
+  "sourceSha": "f8ef954dd2ee414b3b5f5dfe4c55e7eda9d91f2e",
+  "haloVersion": "2.26.1",
+  "pluginVersion": "0.1.0",
+  "issue": "https://github.com/songxychn/halo-butterfly-next/issues/357",
+  "offlineReadingIssue": "https://github.com/songxychn/halo-butterfly-next/issues/358",
+  "verify": {
+    "command": "bun run verify",
+    "passed": true,
+    "tests": 578
+  },
+  "pluginBuild": {
+    "command": "bun run pwa:build <verified Halo 2.26.1 JAR>",
+    "repeatIdentical": true,
+    "compiler": "javac 25",
+    "release": 21
+  },
+  "review": "pending independent review",
+  "ci": "pending PR check",
+  "runtimeManifest": ".runtime/pwa-lab/pwa-owner.json",
+  "screenshots": [
+    {
+      "path": ".runtime/pwa-lab/browser/entry-1440-dark.png",
+      "sha256": "6b55417de4c5582101cb04ed66775c8e12636a70c536caa630373583e4b5eda8"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/entry-1440-light.png",
+      "sha256": "d3a7a389e1f9da903df439f68288607763deeca543499b8361e3b6c0f7e298a1"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/entry-390-dark.png",
+      "sha256": "28de02518f8cef7ee4a0e0dac1bc2aa2972fc52855f8638a2692be1a2e0fa3ac"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/entry-390-light.png",
+      "sha256": "7acabf395df7597a8fed112c5054f81782d6180d3c2d88d8c125966b4989137a"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/entry-disabled.png",
+      "sha256": "c26958d31f5e5074bfbd0b088849bb018b082168865fa0fb1d84a1e130b47848"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/offline-desktop-light.png",
+      "sha256": "384eab9b771dde24f2158a391e9d1485f0dfc3848a7db4a3c763674bd12a6edb"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/offline-firefox.png",
+      "sha256": "27123508de3e227433d027c48fd45d188fdd8ac4aa8119946d438217370ee1ad"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/offline-mobile-dark.png",
+      "sha256": "47a5c361c49d2586d631f565c25ddd43b93647a57f9a98eb0061cbeb486cbb37"
+    },
+    {
+      "path": ".runtime/pwa-lab/browser/offline-webkit.png",
+      "sha256": "49086b1b55fbe81db021da3b330aa7ec750f893ed261fb478e1302f9cc7125d5"
+    }
+  ],
+  "sourceAttribution": "Product and package inputs were built/tested at sourceSha. Follow-up changes are documentation/evidence and the additional-browser test transport; no product, build or unit-test inputs change.",
+  "additionalEngines": {
+    "testedAt": "2026-10-05T08:02:20.137Z",
+    "transport": "loopback HTTP proxy; offline phase closes connections instead of browser network emulation",
+    "cases": [
+      {
+        "engine": "firefox",
+        "result": "passed",
+        "version": "155.0"
+      },
+      {
+        "engine": "webkit",
+        "result": "passed",
+        "version": "26.6"
+      }
+    ],
+    "limitations": [
+      "Automation engines are not native Safari or physical devices; OS installation is not tested."
+    ]
+  },
+  "priorAttempts": {
+    "directTransport": {
+      "testedAt": "2026-10-05T07:55:00.782Z",
+      "cases": [
+        {
+          "engine": "firefox",
+          "result": "failed",
+          "version": "155.0",
+          "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:18097/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        },
+        {
+          "engine": "webkit",
+          "result": "failed",
+          "version": "26.6",
+          "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:18097/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        }
+      ],
+      "limitations": [
+        "Automation engines are not native Safari or physical devices; OS installation is not tested."
+      ]
+    },
+    "browserOfflineEmulation": {
+      "testedAt": "2026-10-05T08:00:28.747Z",
+      "firefox": "Navigation returned server 404 instead of offline 503 while context.setOffline(true).",
+      "webkit": "Offline navigation produced a WebKit internal error.",
+      "interpretation": "These are failed emulated-network observations, not passed cases. Subsequent loopback connection-cut test is separately recorded."
+    }
+  }
+}

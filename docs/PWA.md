@@ -52,10 +52,13 @@ bun run pwa:build /path/to/halo-2.26.1.jar
 python3 scripts/pwa/lab.py start --halo-jar /path/to/halo-2.26.1.jar
 node scripts/browser/install.mjs
 node scripts/pwa/browser.mjs
+node scripts/pwa/browser-engines.mjs
 python3 scripts/pwa/lab.py stop
 ```
 
 浏览器脚本使用独立持久化 Chromium 档案（隐私窗口不支持正常安装条件），执行 manifest/图标、桌面/手机明暗、仅缓存离线页、离线新页面、浏览器重启后离线访问、恢复网络，以及配置关闭/插件停用/卸载。报告和前后截图保留在 `.runtime/pwa-lab/browser/`。原生系统安装、iOS/Android 真机、Safari 和完整插件组合在取得实际证据前仍未验收；模拟安装事件或浏览器能力检查不等于系统安装完成。
+
+2026-10-05 的首期作者验证见 [PWA 验收记录](validation/2026-10-05/pwa-author.json)：578 项测试与打包检查通过，Chromium 完整生命周期通过。Firefox/WebKit 的浏览器级断网模拟分别出现仍返回网络 404 和内部错误；改用仅转发本任务 Halo 的临时回环代理、断开真实连接后，两引擎的离线回退与恢复均通过。报告保留原始失败观察，不将其改为通过；这组受控检查不等于原生 Safari 或真机验收。
 
 ## 保留的后续范围
 

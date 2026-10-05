@@ -1,5 +1,13 @@
 # 持续对齐进度
 
+## 2026-10-05：PWA 首期候选
+
+[#357](https://github.com/songxychn/halo-butterfly-next/issues/357) 按维护者确认的 DEC-03 PWA 子项新增可选 `butterfly-pwa` 插件（独立 JAR）与主题页脚入口。插件负责 manifest、图标、站点 Worker 与离线提示，主题负责安装入口、冲突避让与清理。完整文章离线阅读保留为 [#358](https://github.com/songxychn/halo-butterfly-next/issues/358)；独立 favicon/mask icon 等未覆盖选项继续保留，不将首期等同完整上游验收。
+
+实现源码 `f8ef954dd2ee414b3b5f5dfe4c55e7eda9d91f2e` 基于当时 master `947a7a4396b499c16968a6815aecef00653c7db2`。`bun run verify` 的 578 项测试和 127 文件主题包检查通过；插件相同 Java 工具链重建一致。真实 Halo 2.26.1 的 Chromium 153 完成文章/公共布局、四种视口配色、断网新页及浏览器重启、恢复网络、配置关闭、多标签页重新启用、插件停用/卸载清理；缓存只有离线提示页，保留外部缓存。
+
+Firefox 155 / WebKit 26.6 先有首页超时及浏览器断网模拟异常；通过回环代理断开实际连接，两者的安装入口、离线回退与恢复检查通过。分别保留失败观察与受控通过结果。后续提交只调整文档、证据和补充浏览器测试传输方式，产品/构建/单元测试输入不变。证据见 [pwa-author.json](validation/2026-10-05/pwa-author.json)，安装与退出策略见 [PWA 文档](PWA.md)。独立审查、当前 PR CI、原生系统安装与真机验收仍需分别确认，矩阵不升 `verified`。没有修改生产站或外部插件仓库。
+
 ## 2026-10-05：文章阅读配置首批
 
 [#354](https://github.com/songxychn/halo-butterfly-next/issues/354) 的实现提交 `224691f391b189c66d4408bee153751c0ce8344d` 补齐目录与章节定位、单篇三态覆盖、正文图片说明、右侧按钮排列与分组。三名子 agent 分工实现并交叉审查，各自排除本人代码；根任务负责集成和真实 Halo 验证。设置与回退规则见[文章与阅读配置](READING-OPTIONS.md)。
