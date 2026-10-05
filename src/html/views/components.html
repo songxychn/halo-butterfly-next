@@ -383,11 +383,12 @@
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="relatedPosts"
   class="relatedPosts"
+  hidden
   th:if="${theme.config.post.related_post?.enable != false and theme.config.post.related_post?.enable != 'false' and not #lists.isEmpty(post.tags)}"
   th:with="
     rpCfg = ${theme.config.post.related_post},
     rpLimit = ${rpCfg.limit == null or rpCfg.limit == 0 or rpCfg.limit == '0' ? 6 : rpCfg.limit},
-    rpUpdated = ${rpCfg.date_type != 'created'},
+    rpUpdated = ${not #strings.isEmpty(rpCfg.date_type) and rpCfg.date_type != 'created'},
     ipcMethod = ${theme.config.index.index_post_content?.method},
     ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
   "
@@ -400,8 +401,11 @@
     class="relatedPosts-list"
     th:attr="data-limit=${rpLimit},data-current-post=${post.metadata.name}"
   >
-    <th:block th:each="tag : ${post.tags}">
-      <th:block th:with="listed = ${postFinder.listByTag(1, rpLimit + 1, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
+    <template th:each="tag : ${post.tags}" th:attr="data-related-tag=${tag.metadata.name}"
+      th:with="firstPage = ${postFinder.listByTag(1, 100, tag.metadata.name)}">
+      <th:block th:if="${firstPage != null and firstPage.total > 0}">
+      <th:block th:each="pageNumber : ${#numbers.sequence(1, firstPage.totalPages)}"
+        th:with="listed = ${pageNumber == 1 ? firstPage : postFinder.listByTag(pageNumber, 100, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
         <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
           <a
             class="pagination-related"
@@ -446,7 +450,8 @@
           </a>
         </th:block>
       </th:block>
-    </th:block>
+      </th:block>
+    </template>
   </div>
 </div>
 
@@ -509,34 +514,41 @@
 
 <!--/* 打赏。对齐 Butterfly 5.7.0 layout/includes/post/reward.pug + post.pug
      （theme.reward.enable && theme.reward.QR_code）。仅文章页。可见文本 th:text。 */-->
-<div
+<th:block
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="postReward"
-  class="post-reward"
-  th:if="${(theme.config.post.reward?.enable == true or theme.config.post.reward?.enable == 'true') and not #lists.isEmpty(theme.config.post.reward?.QR_code)}"
-  th:with="rewardText = ${#strings.isEmpty(theme.config.post.reward?.text) ? '打赏' : theme.config.post.reward.text}"
+  th:with="rewardItems = ${theme.config.post.reward?.QR_code == null ? {} : theme.config.post.reward.QR_code.?[#this != null and not #strings.isEmpty(#strings.trim(img))]}, rewardText = ${#strings.isEmpty(#strings.trim(theme.config.post.reward?.text)) ? '打赏' : theme.config.post.reward.text}"
 >
-  <div class="reward-button">
-    <i class="fa-solid fa-qrcode"></i>
+<div
+  class="post-reward"
+  data-no-lightbox
+  th:if="${(theme.config.post.reward?.enable == true or theme.config.post.reward?.enable == 'true') and not #lists.isEmpty(rewardItems)}"
+>
+  <button class="reward-button" type="button" aria-expanded="false" aria-controls="post-reward-panel">
+    <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
     <span th:text="${rewardText}"></span>
-  </div>
-  <div class="reward-main">
+  </button>
+  <div class="reward-main" id="post-reward-panel" role="region" th:aria-label="${rewardText}">
+    <div class="reward-pop">
+    <button class="reward-close" type="button" aria-label="关闭打赏二维码"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
     <ul class="reward-all">
       <li
         class="reward-item"
-        th:each="item : ${theme.config.post.reward.QR_code}"
-        th:if="${item != null and not #strings.isEmpty(item.img)}"
+        th:each="item : ${rewardItems}"
       >
         <a
           target="_blank"
           rel="noopener noreferrer"
-          th:href="${not #strings.isEmpty(item.link) ? item.link : item.img}"
+          th:href="${not #strings.isEmpty(#strings.trim(item.link)) ? item.link : item.img}"
           th:title="${item.text}"
         >
-          <img class="post-qr-code-img" th:src="${item.img}" th:alt="${item.text}"/>
+          <img class="post-qr-code-img" th:src="${item.img}" th:alt="${#strings.isEmpty(item.text) ? '打赏二维码' : item.text}"/>
+          <span class="reward-image-error" hidden>图片加载失败，点击打开打赏链接或原图</span>
         </a>
         <div class="post-qr-code-desc" th:text="${item.text}"></div>
       </li>
     </ul>
+    </div>
   </div>
 </div>
+</th:block>
