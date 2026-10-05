@@ -1,0 +1,630 @@
+{
+  "schema": 1,
+  "date": "2026-10-06",
+  "decision": "blocked",
+  "themeSourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+  "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+  "scope": "release preparation; no tag, publication, production change or full 1.0 acceptance",
+  "build": {
+    "tests": 578,
+    "passed": 578,
+    "skipped": 0,
+    "packageFiles": 127,
+    "sourceRebuild": {
+      "sourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+      "archiveCommand": "git archive HEAD",
+      "installCommand": "bun install --frozen-lockfile --ignore-scripts",
+      "buildCommand": "bun run build",
+      "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+      "rebuiltSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+      "bytes": 2796504,
+      "passed": true,
+      "node": "v24.11.0",
+      "bun": "1.4.0"
+    },
+    "masterCi": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37346778662"
+  },
+  "installUpgradeRollback": {
+    "sourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+    "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+    "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "freshDatabase": true,
+    "profile": "synthetic comparison fixtures; optional plugins disabled",
+    "steps": [
+      {
+        "name": "fresh-candidate-install",
+        "filesMatch": 127,
+        "routes": [
+          {
+            "path": "/",
+            "status": 200
+          },
+          {
+            "path": "/page/2/",
+            "status": 200
+          },
+          {
+            "path": "/archives/",
+            "status": 200
+          },
+          {
+            "path": "/categories/",
+            "status": 200
+          },
+          {
+            "path": "/categories/development/",
+            "status": 200
+          },
+          {
+            "path": "/tags/",
+            "status": 200
+          },
+          {
+            "path": "/tags/butterfly/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-1/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-2/",
+            "status": 200
+          },
+          {
+            "path": "/about-preview/",
+            "status": 200
+          }
+        ]
+      },
+      {
+        "name": "alpha2-baseline",
+        "packageSha256": "a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42",
+        "filesMatch": 120,
+        "contentAndFullConfigPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "snapshots": 17,
+          "categories": 1,
+          "tags": 1
+        },
+        "routes": [
+          {
+            "path": "/",
+            "status": 200
+          },
+          {
+            "path": "/page/2/",
+            "status": 200
+          },
+          {
+            "path": "/archives/",
+            "status": 200
+          },
+          {
+            "path": "/categories/",
+            "status": 200
+          },
+          {
+            "path": "/categories/development/",
+            "status": 200
+          },
+          {
+            "path": "/tags/",
+            "status": 200
+          },
+          {
+            "path": "/tags/butterfly/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-1/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-2/",
+            "status": 200
+          },
+          {
+            "path": "/about-preview/",
+            "status": 200
+          }
+        ]
+      },
+      {
+        "name": "upgrade-candidate",
+        "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "filesMatch": 127,
+        "contentAndFullConfigPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "snapshots": 17,
+          "categories": 1,
+          "tags": 1
+        },
+        "routes": [
+          {
+            "path": "/",
+            "status": 200
+          },
+          {
+            "path": "/page/2/",
+            "status": 200
+          },
+          {
+            "path": "/archives/",
+            "status": 200
+          },
+          {
+            "path": "/categories/",
+            "status": 200
+          },
+          {
+            "path": "/categories/development/",
+            "status": 200
+          },
+          {
+            "path": "/tags/",
+            "status": 200
+          },
+          {
+            "path": "/tags/butterfly/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-1/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-2/",
+            "status": 200
+          },
+          {
+            "path": "/about-preview/",
+            "status": 200
+          }
+        ]
+      },
+      {
+        "name": "rollback-alpha2",
+        "packageSha256": "a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42",
+        "filesMatch": 120,
+        "contentAndFullConfigPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "snapshots": 17,
+          "categories": 1,
+          "tags": 1
+        },
+        "routes": [
+          {
+            "path": "/",
+            "status": 200
+          },
+          {
+            "path": "/page/2/",
+            "status": 200
+          },
+          {
+            "path": "/archives/",
+            "status": 200
+          },
+          {
+            "path": "/categories/",
+            "status": 200
+          },
+          {
+            "path": "/categories/development/",
+            "status": 200
+          },
+          {
+            "path": "/tags/",
+            "status": 200
+          },
+          {
+            "path": "/tags/butterfly/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-1/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-2/",
+            "status": 200
+          },
+          {
+            "path": "/about-preview/",
+            "status": 200
+          }
+        ]
+      },
+      {
+        "name": "restore-candidate",
+        "packageSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "filesMatch": 127,
+        "contentAndFullConfigPreserved": true,
+        "counts": {
+          "posts": 13,
+          "singlepages": 4,
+          "snapshots": 17,
+          "categories": 1,
+          "tags": 1
+        },
+        "routes": [
+          {
+            "path": "/",
+            "status": 200
+          },
+          {
+            "path": "/page/2/",
+            "status": 200
+          },
+          {
+            "path": "/archives/",
+            "status": 200
+          },
+          {
+            "path": "/categories/",
+            "status": 200
+          },
+          {
+            "path": "/categories/development/",
+            "status": 200
+          },
+          {
+            "path": "/tags/",
+            "status": 200
+          },
+          {
+            "path": "/tags/butterfly/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-1/",
+            "status": 200
+          },
+          {
+            "path": "/archives/preview-2/",
+            "status": 200
+          },
+          {
+            "path": "/about-preview/",
+            "status": 200
+          }
+        ]
+      }
+    ],
+    "status": "passed"
+  },
+  "searchComment": {
+    "browser": "153.0.8010.12",
+    "checks": 26,
+    "passed": 18,
+    "result": "failed",
+    "failures": [
+      {
+        "name": "search-1440-light-escape-focus-return",
+        "error": "Escape focus did not return to search trigger"
+      },
+      {
+        "name": "search-1440-light-backdrop-focus-return",
+        "error": "Backdrop focus did not return to search trigger"
+      },
+      {
+        "name": "search-1440-dark-escape-focus-return",
+        "error": "Escape focus did not return to search trigger"
+      },
+      {
+        "name": "search-1440-dark-backdrop-focus-return",
+        "error": "Backdrop focus did not return to search trigger"
+      },
+      {
+        "name": "search-390-light-escape-focus-return",
+        "error": "Escape focus did not return to search trigger"
+      },
+      {
+        "name": "search-390-light-backdrop-focus-return",
+        "error": "Backdrop focus did not return to search trigger"
+      },
+      {
+        "name": "search-390-dark-escape-focus-return",
+        "error": "Escape focus did not return to search trigger"
+      },
+      {
+        "name": "search-390-dark-backdrop-focus-return",
+        "error": "Backdrop focus did not return to search trigger"
+      }
+    ],
+    "restoreErrors": [],
+    "acceptedException": "Only #313 focus restoration, public alpha decision; not resource timeouts"
+  },
+  "pluginLifecycle": {
+    "original": {
+      "result": "failed",
+      "passed": 16,
+      "failed": 1,
+      "error": "White cover fixture was not requested",
+      "runnerFileSha256": "79ca3960e3c021adcca4173809b08bf7386750059a90344e2baf58d500533060",
+      "restoreErrors": []
+    },
+    "currentCovers": {
+      "result": "needs-manual-review",
+      "passed": 16,
+      "needsManualReview": 1,
+      "runnerFileSha256": "00cb70f56cb3ca8e7bd3788b7bd30782e6cc48fda19d27af29002a41b5d39921",
+      "runnerAttribution": "lifecycle.mjs corrected in this preparation PR; theme bytes remain from 1951fef",
+      "restoreErrors": []
+    },
+    "manualReview": {
+      "reviewer": "independent review_site agent",
+      "decision": "passed",
+      "scope": "24 comment-count color-contrast incomplete results only; 48 total states have zero automatic violations",
+      "reportSha256": "11de1443d4e03f4c701573f5b07b69541ad97237d340ab2f02ba7d86c441ae23",
+      "contrastRatio": 12.635,
+      "foreground": "#ffffff",
+      "opaqueBackground": "#333333",
+      "ancestorEffects": [],
+      "screenshotsReviewed": "all 24 article link crops and mobile white-cover light/dark focus full screenshots",
+      "limitations": "Not full-page a11y, real devices or release approval"
+    },
+    "versionFixtureLimit": "Unsupported plugin version rejection uses isolated JAR manifest fixtures, not real old plugin releases"
+  },
+  "commentA11y": {
+    "axe": "4.12.1",
+    "browser": "153.0.8010.12",
+    "combinations": 4,
+    "states": 12,
+    "violations": 0,
+    "incomplete": 0,
+    "scope": "comment region only"
+  },
+  "linux": {
+    "run": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37347534176",
+    "runnerSourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+    "themeSourceSha": "1951fef51f5f79ea2b6285c44e120a6a692072fd",
+    "result": "failed",
+    "pages": 120,
+    "passed": 108,
+    "engines": [
+      {
+        "name": "chromium",
+        "version": "153.0.8010.12",
+        "pages": 40,
+        "passed": 38,
+        "failures": [
+          {
+            "path": "/archives/",
+            "width": 390,
+            "mode": "light",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/tags/",
+            "width": 390,
+            "mode": "light",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          }
+        ]
+      },
+      {
+        "name": "firefox",
+        "version": "155.0",
+        "pages": 40,
+        "passed": 32,
+        "failures": [
+          {
+            "path": "/tags/butterfly/",
+            "width": 1440,
+            "mode": "light",
+            "assertions": [
+              "page.waitForFunction: Timeout 15000ms exceeded.",
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/archives/preview-1/",
+            "width": 1440,
+            "mode": "light",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/archives/preview-2/",
+            "width": 1440,
+            "mode": "light",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/page/2/",
+            "width": 1440,
+            "mode": "dark",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/tags/butterfly/",
+            "width": 390,
+            "mode": "light",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/categories/development/",
+            "width": 390,
+            "mode": "dark",
+            "assertions": [
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/tags/butterfly/",
+            "width": 390,
+            "mode": "dark",
+            "assertions": [
+              "page.waitForFunction: Timeout 15000ms exceeded.",
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/about-preview/",
+            "width": 390,
+            "mode": "dark",
+            "assertions": [
+              "page.waitForFunction: Timeout 15000ms exceeded.",
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          }
+        ]
+      },
+      {
+        "name": "webkit",
+        "version": "26.6",
+        "pages": 40,
+        "passed": 38,
+        "failures": [
+          {
+            "path": "/",
+            "width": 1440,
+            "mode": "dark",
+            "assertions": [
+              "Blocked or failed requests"
+            ],
+            "pageErrors": []
+          },
+          {
+            "path": "/about-preview/",
+            "width": 1440,
+            "mode": "dark",
+            "assertions": [
+              "page.screenshot: Timeout 15000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n",
+              "Resource completion before close: Resource completion before close exceeded 5000ms",
+              "Unfinished resource requests before context close"
+            ],
+            "pageErrors": []
+          }
+        ]
+      }
+    ],
+    "diagnosticAttribution": "Unchanged native workflow; first run retained, no retry-to-green or forced connection close"
+  },
+  "resourcesAndLicenses": {
+    "decision": "blocked",
+    "reviewer": "independent review_site agent",
+    "sourceFiles": 697,
+    "sourceTextFiles": 660,
+    "sourceBinaryFiles": 37,
+    "zipFiles": 127,
+    "licenseAndAttributionFiles": 23,
+    "fontFilesVerified": 8,
+    "sitePhotoFilesVerified": 14,
+    "secretPatternHits": 5,
+    "secretHitsDisposition": "synthetic inputs for protection/redaction tests; no actual credential identified",
+    "scopeLimit": "current tracked source and ZIP; not full Git history, steganography or complete binary semantic audit",
+    "findings": [
+      {
+        "path": "fixtures/comparison/assets/wallpaper.webp",
+        "sha256": "8f3a132baa3249b7e2845bbc79ea166ba80bea3050f28256519ad8c159bcfd9e",
+        "issue": "source archive includes image with only user-provided provenance; redistribution permission evidence missing, not an infringement finding"
+      },
+      {
+        "path": "src/vendor/lazyload.js",
+        "sha256": "3cc48f446e07188a623a39b1633d16a38bb0d39f3d9e5a07b95224a296354614",
+        "issue": "inherited third-party implementation lacks confirmed provenance and corresponding copyright/license in source and ZIP; exact upstream version unconfirmed",
+        "referencePackage": "https://registry.npmjs.org/vanilla-lazyload/-/vanilla-lazyload-17.3.1.tgz",
+        "referenceLicenseSha256": "c7d094b1fa2bd1097d50191c0a4a6c9e482ff6263bc5329e364e23db7b1a28a7"
+      }
+    ]
+  },
+  "outstanding": [
+    "#338 native resource loading failures",
+    "wallpaper source redistribution evidence",
+    "inherited lazyload provenance and license",
+    "current header contrast manual review and remaining bounded alpha acceptance",
+    "final release candidate independent approval and maintainer publication authorization",
+    "published asset download verification and first real release-to-demo chain"
+  ],
+  "rawEvidence": [
+    {
+      "path": ".runtime/alpha3-prep/accept.py",
+      "sha256": "388d8bc915b63156003df992cb2350b17d6b047095198ef3cdbd80c9d3d36942"
+    },
+    {
+      "path": ".runtime/alpha3-prep/install-upgrade.json",
+      "sha256": "3ede2d01cbad21ebd72b894d32687677206f478fae3bbd26352fffecbeadcf00"
+    },
+    {
+      "path": ".runtime/alpha3-prep/source-rebuild.json",
+      "sha256": "f32c34f0e02ae88dc7f231b822a9b58a1e330af79af3cecdb8e4da978ff31204"
+    },
+    {
+      "path": ".runtime/alpha3-prep/verify.log",
+      "sha256": "5d77a219aa3ec51c2a71dc04e6ed0698253f22e4bf8bed959a3f9f70db36d469"
+    },
+    {
+      "path": ".runtime/alpha3-prep/verify-final.log",
+      "sha256": "53143971efee28792f757e4cc44001757c0d5938ef7dc66e00d06697b8042937"
+    },
+    {
+      "path": ".runtime/alpha3-prep/search-comment/report.json",
+      "sha256": "e59e096212d5a26c249b5803fd29efecedcf6c4329ec1b5fac297822c9290d42"
+    },
+    {
+      "path": ".runtime/alpha3-prep/lifecycle/report.json",
+      "sha256": "203eb76340313334c0add73767743dba56353f7067e036b2129d17ae0e29b778"
+    },
+    {
+      "path": ".runtime/alpha3-prep/lifecycle-current-covers/report.json",
+      "sha256": "11de1443d4e03f4c701573f5b07b69541ad97237d340ab2f02ba7d86c441ae23"
+    },
+    {
+      "path": ".runtime/alpha3-prep/comment-a11y/a11y.json",
+      "sha256": "47b92a55786f7a06ec6dc4418914662c171fb9834de14c651a0645a890f94904"
+    },
+    {
+      "path": ".runtime/alpha3-prep/linux-matrix-classification.json",
+      "sha256": "08a8dd221b81759a924204e704251811c13b7f458800f2f4942dfbb865eaabf4"
+    },
+    {
+      "path": ".runtime/alpha3-prep/cleanup.json",
+      "sha256": "5a1de5fe0cf8ef79aaea437681fd1ac787fb3e64524439a1ccb68e8b6ef6a386"
+    }
+  ],
+  "cleanup": {
+    "ownedHaloStopped": true,
+    "loopbackPort": 18261,
+    "listening": false
+  }
+}
