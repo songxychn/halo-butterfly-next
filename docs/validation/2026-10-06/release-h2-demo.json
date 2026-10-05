@@ -224,12 +224,10 @@
     "skipped": 0,
     "packageFiles": 127
   },
-  "pending": [
-    "Image CI requires shared mirror DNS correction"
-  ],
+  "pending": [],
   "observedFailures": [
     "Clean runner lacked .runtime parent: fixed and regression tested",
-    "Mirror Cloudflare TLS handshake failure: origin certificate verified; DNS-only requested",
+    "Mirror Cloudflare TLS handshake failure: origin certificate verified; DNS-only requested; resolved by maintainer DNS-only change, both registry HTTPS endpoints and image CI passed",
     "Python default User-Agent returned Cloudflare 1010: identified application request returned 200; controller and CI verifier fixed",
     "Two failed public-receipt attempts automatically restored the old route and stopped the candidate",
     "Browser received old cached index.min.js for unchanged alpha.3 query version; cache-busted response matched current ZIP",
@@ -272,6 +270,50 @@
     "reviewer": "/root/review_site",
     "sourceSha": "fb8f9de1a5df272eaa7cb30dc0339e033ea253ee",
     "decision": "code-approved",
-    "scope": "code review and six focused offline tests; excludes outstanding mirror DNS and image CI"
+    "scope": "code review and six focused offline tests; CI results recorded separately"
+  },
+  "ciVerification": {
+    "headSha": "7bf29b54208be372c1f3d8d7c2cf980b9f7177bf",
+    "theme": {
+      "conclusion": "success",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37344836555"
+    },
+    "image": {
+      "attempt": 2,
+      "conclusion": "success",
+      "headSha": "7bf29b54208be372c1f3d8d7c2cf980b9f7177bf",
+      "status": "completed",
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37344836570"
+    },
+    "imageSmoke": {
+      "passed": true,
+      "restartPreservedCredentials": true,
+      "receipt": {
+        "schema": 1,
+        "version": "0.1.0-alpha.3",
+        "tag": "v0.1.0-alpha.3",
+        "sourceSha": "00e012b1722fc805195f226dacf8a75a0bdcc6e7",
+        "themeSha256": "ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1",
+        "published": false,
+        "contentCount": 19,
+        "database": "h2",
+        "ready": true
+      }
+    },
+    "checkoutNote": "GitHub pull_request CI checks the synthetic merge commit shown in imageSmoke.receipt.sourceSha; the workflow head is recorded separately."
+  },
+  "mirrorDnsResolution": {
+    "resolved": true,
+    "changedBy": "maintainer",
+    "mode": "DNS only",
+    "domains": [
+      "docker-mirror.infra.baizhukui.com",
+      "ghcr-mirror.infra.baizhukui.com"
+    ],
+    "cname": "infra.baizhukui.com",
+    "address": "38.207.178.237",
+    "registryV2HttpsStatus": 200,
+    "tlsVerificationEnabled": true,
+    "ciBuildAndInitializationPassed": true
   }
 }
