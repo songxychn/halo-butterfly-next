@@ -2,7 +2,7 @@
 
 目标是完整保留 Butterfly **5.7.0** 的能力，逐项证明 Halo 适配达到 [1.0 工程验收合同](../RELEASE-ACCEPTANCE.md)。本目录完成需求盘点和可追踪检查，初始 **已验收为 0**。原 M0 证据不自动提升任何条目状态。
 
-最近一次[功能矩阵与近期成果对账（2026-09-24）](RECONCILIATION-2026-09-24.md)核对了 87 条记录，纠正 29 条陈旧状态。`verified` 仍为 0，表示尚未完成逐条完整合同的证据闭环，不表示没有可用功能；其余未对账条目也不因本次工作获得新的实现或缺失结论。机器可读来源、逐项差异及剩余验收见 [reconciliation-2026-09-24.json](reconciliation-2026-09-24.json)。
+最近一次[功能矩阵与近期成果对账（2026-10-05）](RECONCILIATION-2026-10-05.md)核对 35 条记录，纠正 10 条状态：5 条已有实现转为待验收，5 类页面记录最新 Linux 验证失败，并补齐阅读配置等局部证据。`verified` 仍为 0。机器可读逐项差异及剩余验收见 [reconciliation-2026-10-05.json](reconciliation-2026-10-05.json)；此前 [2026-09-24 对账](RECONCILIATION-2026-09-24.md)作为历史记录保留。本轮没有重新审计全部 897 条，`gap` 可能包含部分实现，应结合 `halo.finding` 判断缺口，不能简单当作完全没有开发。
 
 ## 文件与覆盖边界
 
@@ -52,6 +52,8 @@ node --test tests/parity.test.mjs
 node scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 ```
 
+每次实现或验收落档时，同步核对相关配置、模板、交互、页面条目，把局部通过和失败写入 `halo.finding` 与 `evidence`；不必等完整合同通过才更新矩阵。先编辑 `matrix.json`，再生成 `MATRIX.md`，并在进度记录中链接本次对账。
+
 修改某项时先关联单功能 issue/PR，补充具体 Halo 设置/模型、依赖版本和专属断言，再开发和验证。`halo.code` 是当前代码或预期适配入口，`halo.finding` 说明已知差异；文件存在本身不表示相应功能已实现。未来添加的新设置只在实现后写入 `halo.settings`，检查器会验证它真实存在。
 
 共享 `acceptanceProfiles` 描述合成夹具、空值/失败状态和跨页面条件；每项 `acceptance.cases` 给出自身断言，`contractScenarios` 绑定合同 ID。已列出枚举域的配置另有 `acceptance.values`，需逐值执行；执行时发现更详细的参数域或组合，应补充现有条目，不能只测试默认值。
@@ -98,7 +100,7 @@ DEC-02（[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)）：
 - 通用：`kind`、`sourceSha`、`upstreamSha`、`result: "passed"`、`actor`、`testedAt`、`matrixIds`、`commandsAndReports`、`limitations`。
 - 运行：`artifactSha256`、`fixtureSha`、`haloVersion: "2.26.1"`、可定位的 `runtimeManifest`，以及覆盖该条目全部合同 ID 的 `scenarioIds`。
 - 独立审查：`reviewedSha` 等于被验收提交，`actor` 与条目 `author` 不同。
-- CI：`headSha` 等于被验收提交、`conclusion: "success"` 和本私有仓库的实际 `runUrl`。
+- CI：`headSha` 等于被验收提交、`conclusion: "success"` 和本仓库的实际 `runUrl`。
 
 这些结构检查只验证证据的完整性和关联，不能证明作者填写的内容真实。集成负责人及独立审查者仍须读取报告、复核实际 GitHub CI 与运行结果；无断言、失败报告或过期 SHA 不能被人工改成通过。大截图/trace 留在私有附件，清单记录哈希和持久位置，遵循合同的脱敏要求。
 
