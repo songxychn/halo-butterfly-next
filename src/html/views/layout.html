@@ -36,11 +36,19 @@
     </th:block>
     <th:block th:replace="~{views/config}"/>
     <th:block th:replace="${pin}"/>
+    <script id="aboveScript">/* @theme-above-background */</script>
     <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/' + page + '.min.css?v=' + theme.spec.version}">
+    <noscript><style>.loading #Butterfly { display: block; }</style></noscript>
   </head>
 
   <body th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
-  <script type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
+  <th:block th:switch="${theme.config.loading.type}">
+    <script th:case="'circle'">/* @theme-loading-circle */</script>
+    <script th:case="'cross_line'">/* @theme-loading-cross_line */</script>
+    <script th:case="'dot'">/* @theme-loading-dot */</script>
+    <script th:case="'hourglass'">/* @theme-loading-hourglass */</script>
+    <script th:case="*" type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
+  </th:block>
 
   <div
     id="Butterfly"
@@ -55,6 +63,9 @@
 
     <th:block th:replace="~{views/components::side}"/>
   </div>
+
+  <!-- The rendered body is complete; deferred enhancements can initialize afterwards. -->
+  <script id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
   </body>
 

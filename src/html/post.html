@@ -10,6 +10,11 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
+    <th:block th:with="coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link : '')}">
+      <link rel="preload" as="image" fetchpriority="high"
+            th:if="${theme.config.post.enable_above and not #strings.isEmpty(coverSrc)}"
+            th:href="${coverSrc}">
+    </th:block>
     <style
       id="pageStyle"
       xmlns:th="https://www.thymeleaf.org"

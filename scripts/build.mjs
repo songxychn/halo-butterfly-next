@@ -35,7 +35,7 @@ async function bundle(input, outputDir, write = true) {
     define: { 'process.env.NODE_ENV': JSON.stringify('production') },
     build: {
       write, outDir: outputDir, emptyOutDir: false, target: 'es2022',
-      lib: { entry: input, name: `HaloButterflyNext_${name}`, formats: ['iife'], fileName: () => `${name}.min.js` },
+      lib: { entry: input, name: `HaloButterflyNext_${name.replaceAll('-', '_')}`, formats: ['iife'], fileName: () => `${name}.min.js` },
     },
   });
 }
@@ -55,6 +55,13 @@ async function build() {
   const config = await readFile(configFile, 'utf8');
   if (!startupCode || !config.includes('/* @theme-bootstrap */')) throw new Error('Missing TypeScript bootstrap or template insertion point');
   await writeFile(configFile, config.replace('/* @theme-bootstrap */', () => startupCode));
+
+  const above = await bundle(path.join(root, 'src/js/above-background.ts'), assets, false);
+  const aboveCode = (Array.isArray(above) ? above[0] : above).output.find(file => file.type === 'chunk')?.code;
+  const layoutFile = path.join(stage, 'views/layout.html');
+  const layout = await readFile(layoutFile, 'utf8');
+  if (!aboveCode || !layout.includes('/* @theme-above-background */')) throw new Error('Missing early background insertion point');
+  await writeFile(layoutFile, layout.replace('/* @theme-above-background */', () => aboveCode));
 
   await cp(path.join(root, 'src/plugins'), path.join(assets, 'plugins'), {
     recursive: true, filter: source => !source.startsWith(path.join(root, 'src/plugins/loading')),
@@ -121,6 +128,16 @@ async function build() {
   for (const file of (await readdir(path.join(root, 'src/plugins/loading'))).sort()) {
     if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/plugins/loading', file), path.join(assets, 'plugins/loading'));
   }
+  // Inline only the selected small Loading implementation in rendered HTML.
+  // Retain the standalone files for the public layout and existing consumers.
+  let loadingLayout = await readFile(layoutFile, 'utf8');
+  for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) {
+    const marker = `/* @theme-loading-${name} */`;
+    if (!loadingLayout.includes(marker)) throw new Error(`Missing inline Loading insertion point: ${name}`);
+    const code = await readFile(path.join(assets, 'plugins/loading', `${name}.min.js`), 'utf8');
+    loadingLayout = loadingLayout.replace(marker, () => code);
+  }
+  await writeFile(layoutFile, loadingLayout);
   await rm(path.join(root, 'templates'), { recursive: true, force: true });
   await rename(stage, path.join(root, 'templates'));
   const zip = new JSZip();

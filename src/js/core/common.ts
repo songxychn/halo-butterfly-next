@@ -17,8 +17,6 @@ import { bindDarkmode } from './darkmode.ts';
 export default class Common {
 
   constructor() {
-    if(window.MainApp.conf.enable_above && window.MainApp.conf.above_background) this.#loadAboveBackgroundImg(); //第一屏图片预加载 
-
     this.#createSingleAction(); //创建单一行为事件
     this.#bindScrollDown();
 
@@ -81,18 +79,6 @@ export default class Common {
     });
   }
 
-  //第一屏图片预加载
-  #loadAboveBackgroundImg() {
-    const img = new Image();
-    img.src = window.MainApp.conf.above_background || '';
-    img.onload = () => {
-      const above = document.querySelector<HTMLElement>('.header > .above');
-      if (above) above.style.backgroundImage = `url(${img.src})`;
-    };
-    img.onerror = () => {
-      console.error('第一屏图片预加载失败');
-    };
-  }
 }
  
  

@@ -60,6 +60,9 @@
   .loading #Butterfly {
     display: none;
   }
+
+  /* The default cursor rules are small enough to avoid a blocking request. */
+  body { cursor: var(--cursor-default); }
+  body a, body button { cursor: var(--cursor-pointer); }
 </style>
 <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/fontawesome/css/all.min.css'}">
-<link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/cursor/' + 'simple' + '.min.css?v=' + theme.spec.version}">
