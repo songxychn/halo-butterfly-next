@@ -22,3 +22,26 @@ for (const readyState of ['interactive', 'complete']) {
     assert.equal(calls, 1);
   });
 }
+
+test('SSR body completion releases Loading before deferred bundles, exactly once', () => {
+  const doc = new EventTarget();
+  doc.readyState = 'loading';
+  let calls = 0;
+  whenContentReady(() => calls++, doc);
+  assert.equal(calls, 0);
+  doc.dispatchEvent(new Event('halo-butterfly-next:content-ready'));
+  assert.equal(calls, 1);
+  doc.dispatchEvent(new Event('DOMContentLoaded'));
+  doc.dispatchEvent(new Event('halo-butterfly-next:content-ready'));
+  assert.equal(calls, 1);
+});
+
+test('Late Loading sees the completed body marker even before DOMContentLoaded', () => {
+  let calls = 0;
+  whenContentReady(() => calls++, {
+    readyState: 'loading',
+    getElementById: id => id === 'theme-content-ready' ? {} : null,
+    addEventListener() { assert.fail('body already complete'); },
+  });
+  assert.equal(calls, 1);
+});

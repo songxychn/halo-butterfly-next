@@ -5,6 +5,8 @@
     onerror="this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='"
     th:alt="${contributor?.displayName ?: site.title}"
     class="avatar"
+    loading="lazy"
+    decoding="async"
   >
 
   <h1 class="name" th:text="${contributor?.displayName ?: site.title}"></h1>
