@@ -39,7 +39,7 @@ test('上游打赏：margin-top 80px、pointer-events、按钮配色、弹层 --
   assert.match(rewardScss, /var\(--reward-pop,\s*#f5f5f5\)/);
   assert.match(rewardScss, /bottom:\s*50px/);
   assert.match(rewardScss, /z-index:\s*100/);
-  assert.match(rewardScss, /&:hover > \.reward-main/);
+  assert.match(rewardScss, /&:not\(\[data-reward-bound\]\):hover > \.reward-main/);
   assert.match(rewardScss, /border-top:\s*13px solid var\(--reward-pop/);
   assert.match(rewardScss, /width:\s*130px/);
   assert.match(rewardScss, /height:\s*130px/);

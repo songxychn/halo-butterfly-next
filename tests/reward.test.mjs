@@ -73,6 +73,8 @@ test('resolveEnable：仅显式 true 开启；空 text 回退打赏', () => {
   assert.equal(shouldRender(true, [{ img: '/a.png' }]), true);
   assert.equal(shouldRender(true, []), false);
   assert.equal(shouldRender(false, [{ img: '/a.png' }]), false);
+  assert.equal(shouldRender(true, [null, { img: '   ' }, {}]), false);
+  assert.equal(resolveClickTo({img: '/a.png', link: '  '}), '/a.png');
 });
 
 test('文章页插入 postReward；单页不插入；enable 与空列表由 th:if 约束', () => {
@@ -82,10 +84,13 @@ test('文章页插入 postReward；单页不插入；enable 与空列表由 th:i
   assert.doesNotMatch(pageHtml, /postReward/);
   const reward = fragment(components, 'postReward');
   assert.match(reward, /reward\?\.enable == true or theme\.config\.post\.reward\?\.enable == 'true'/);
-  assert.match(reward, /not #lists\.isEmpty\(theme\.config\.post\.reward\?\.QR_code\)/);
+  assert.match(reward, /not #lists\.isEmpty\(rewardItems\)/);
+  assert.match(reward, /#strings\.trim\(img\)/);
+  assert.match(reward, /<button class="reward-button" type="button" aria-expanded="false" aria-controls="post-reward-panel"/);
+  assert.match(reward, /class="reward-close" type="button"/);
   assert.match(reward, /th:text="\$\{rewardText\}"/);
   assert.match(reward, /th:text="\$\{item\.text\}"/);
-  assert.match(reward, /th:alt="\$\{item\.text\}"/);
+  assert.match(reward, /th:alt="\$\{#strings\.isEmpty\(item\.text\) \? '打赏二维码' : item\.text\}"/);
   assert.doesNotMatch(reward, /th:utext/);
 });
 
@@ -93,5 +98,6 @@ test('390 不横向溢出：anywhere 折行、二维码限宽', () => {
   assert.match(scss, /\.post-reward[\s\S]*overflow-wrap:\s*anywhere/);
   assert.match(scss, /\.post-reward[\s\S]*max-width:\s*100%/);
   assert.match(scss, /\.post-qr-code-img[\s\S]*max-width:\s*100%/);
-  assert.match(scss, /&:hover > \.reward-main/);
+  assert.match(scss, /&:not\(\[data-reward-bound\]\):hover > \.reward-main/);
+  assert.match(scss, /&\[data-reward-bound\] > \.reward-main:not\(\[hidden\]\)/);
 });

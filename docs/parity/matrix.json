@@ -4808,9 +4808,10 @@
           "src/html/views/components.html",
           "src/js/core/reward.ts",
           "src/scss/page/post.scss",
-          "tests/reward.test.mjs"
+          "tests/reward.test.mjs",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已映射 reward.enable（默认 false）到 post.reward.enable。仅显式 true 且 QR_code 非空才渲染（对齐 post.pug 的 enable && QR_code）。仅文章页，插在版权块之后、上下篇之前。单页 page.html 不插入。不做 footer、related_post helper、逐页覆盖。尚未双站对照验收，禁止 verified。"
+        "finding": "默认 false，仅显式开启且过滤后有有效二维码时显示；false、null 项、空图片及仅空项不出现按钮。真实 Halo 作者本地验证通过，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -4839,7 +4840,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/101"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -4873,9 +4884,10 @@
           "src/html/views/components.html",
           "src/js/core/reward.ts",
           "src/scss/page/post.scss",
-          "tests/reward.test.mjs"
+          "tests/reward.test.mjs",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已映射 reward.text（默认空）到 post.reward.text。空时按钮显示「打赏」（上游 _p('donate')）。可见文本 th:text，不做 HTML。尚未双站对照验收，禁止 verified。"
+        "finding": "空或仅空白按钮文字回退「打赏」；自定义文字及二维码说明由 th:text 输出纯文本。真实 Halo 作者本地验证通过，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -4904,7 +4916,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/101"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -4938,9 +4960,10 @@
           "src/html/views/components.html",
           "src/js/core/reward.ts",
           "src/scss/page/post.scss",
-          "tests/reward.test.mjs"
+          "tests/reward.test.mjs",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已映射 reward.QR_code（默认空列表）到 post.reward.QR_code（repeater：img/link/text）。img 为空不输出该项；link 空则用 img。图片 th:src，说明 th:text/th:alt。不把 data-schema:reward-items 标 verified。尚未双站对照验收，禁止 verified。"
+        "finding": "img/link/text 映射保留，先过滤 null、空图片项；缺字段和空白 link 回退、坏图片链接提示、8 项手机滚动作者本地通过。完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -4969,7 +4992,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/101"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -5119,9 +5152,10 @@
           "src/html/views/components.html",
           "src/js/core/related-post.ts",
           "src/js/modules/Render.ts",
-          "src/scss/page/post.scss"
+          "src/scss/page/post.scss",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已映射 related_post.enable（默认 true）到 post.related_post.enable。关闭不渲染。无标签不渲染。仅文章页，插在上下篇之后、评论之前。单页 page.html 不插入。不做 footer、reward、逐页覆盖。尚未双站对照验收，禁止 verified。"
+        "finding": "默认 true，显式 false 关闭；无标签或无候选隐藏，单页不插入。真实 Halo 作者本地验证通过，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -5150,7 +5184,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/93"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -5184,9 +5228,10 @@
           "src/html/views/components.html",
           "src/js/core/related-post.ts",
           "src/js/modules/Render.ts",
-          "src/scss/page/post.scss"
+          "src/scss/page/post.scss",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已映射 related_post.limit（默认 6）到 post.related_post.limit。对齐 helper 的 limit || 6，非正数回退 6。模板按标签 listByTag 收集候选，客户端去重截断到 limit。尚未双站对照验收，禁止 verified。"
+        "finding": "默认 6，非正或无效数值回退 6，正数向下取整且至少 1。实际页面在标签加权/同权重随机排序后按 limit 截断；3 条、0.5 及 helper 默认回退已有作者本地证据，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -5215,7 +5260,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/93"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -5249,9 +5304,10 @@
           "src/html/views/components.html",
           "src/js/core/related-post.ts",
           "src/js/modules/Render.ts",
-          "src/scss/page/post.scss"
+          "src/scss/page/post.scss",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已映射 related_post.date_type（created / updated，默认 created）到 post.related_post.date_type。created 显示 spec.publishTime，其余显示 status.lastModifyTime（无则发布时间）。尚未双站对照验收，禁止 verified。"
+        "finding": "默认 created；缺失/空日期回退发布时间，其余显示更新时间（缺更新时间回退发布时间）。实际模板及真实 Halo updated 场景作者本地通过，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -5284,7 +5340,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/93"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -30834,9 +30900,10 @@
           "src/scss/modules/render.scss",
           "src/html/views/components.html",
           "src/js/core/reward.ts",
-          "src/scss/core/reward.scss"
+          "src/scss/core/reward.scss",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已有文章打赏配置、二维码列表、链接/文字和 CSS hover 弹层；过滤无图片项，但外层仍按原始列表非空决定是否显示。按钮为 div，尚无明确键盘或触屏开关/关闭事件。剩余：补齐可操作控件及手机开关，再验证空项、多个二维码、失败图片与完整合同。"
+        "finding": "已接入原生打赏按钮与弹层：鼠标悬停预览、点击/触摸/Enter/Space 切换、关闭按钮/Escape 和焦点恢复、外部点击及焦点离开关闭；aria-expanded 与可见状态同步。先过滤无图片项，空列表不显示按钮；空文字/链接回退、纯文本说明、坏图提示、多二维码滚动及上下空间定位。仅文章页。真实 Halo 三引擎 12 项及配置边界 22 项作者本地通过；独立审查、远端 CI 与完整双站合同仍待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -30873,6 +30940,15 @@
           "commit": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
           "actor": "/root",
           "outcome": "partial: source, bounded checks and failures reconciled; full contract remains open"
+        },
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
         }
       ],
       "status": "implemented-unverified"
@@ -37015,9 +37091,10 @@
           "src/html/views/components.html",
           "src/html/post.html",
           "src/js/core/related-post.ts",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已有按标签查询候选、排除当前文章、客户端去重/截断、日期字段显示；Render 实际调用 capRelatedPosts，未接入 rankRelatedPosts 的标签交集加权和同权重随机排序，不能把孤立函数当成实际排序。剩余：补齐上游排序语义，验证多标签/无标签、数量和日期规则及完整合同。"
+        "finding": "Render 已实际调用 renderRelatedPosts/rankRelatedPosts，按共同标签数加权，同权重随机，排除当前文章及重复项，排序后截断。逐标签查询完整分页，惰性模板仅挂载选中卡片。默认开启/6 条/发布时间，空日期回退 created，其余显示更新时间；非正数数量回退 6、正小数至少 1。关闭/无标签/无候选隐藏，仅文章页。真实 Halo 多标签、超过 100 候选、标签顺序、数量/日期/封面回退及草稿/私密排除作者本地通过；完整双站合同、独立审查与远端 CI 待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -37053,9 +37130,18 @@
           "commit": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
           "actor": "/root",
           "outcome": "partial: source, bounded checks and failures reconciled; full contract remains open"
+        },
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:safeJSON",
@@ -41677,9 +41763,10 @@
         "code": [
           "src/scss/core/relatedposts.scss",
           "src/scss/page/post.scss",
-          "tests/relatedposts-style.test.mjs"
+          "tests/relatedposts-style.test.mjs",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已新增 src/scss/core/relatedposts.scss 对齐 relatedposts.styl 相关文章网格。选择器并列 .relatedPosts 与列表 > a / a.pagination-related，不改 data-theme。补齐 margin-top 40px、headline 1.43em、三列 33.333%-6px/200px、768 两列 50%-4px/150px、600 单列、标题 clamp 2 / 摘要 clamp 3。不把 config:related_post.* / helper:related_posts、已落地 post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 reward.styl 全文、打赏弹层、snackbar。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。"
+        "finding": "保留三列/两列/单列网格、日期、标题/摘要截断及封面回退；未排序区域 hidden，只有选中卡片挂载后显示。桌面/手机亮暗作者本地通过，完整双站视觉验收待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -41706,7 +41793,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/176"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -41728,9 +41825,10 @@
         "code": [
           "src/scss/core/reward.scss",
           "src/scss/page/post.scss",
-          "tests/reward-style.test.mjs"
+          "tests/reward-style.test.mjs",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已新增 src/scss/core/reward.scss 对齐 reward.styl 打赏按钮与弹层。选择器并列 .post-reward 与 img / img.post-qr-code-img，不改 data-theme。补齐 margin-top 80px、pointer-events、按钮 --btn-bg/--btn-color/--btn-hover-color（btn-effects 内联到按钮）、弹层 --reward-pop（浅色 #f5f5f5）与箭头、二维码 130px。不把 config:reward.* / template:includes/post/reward / interaction:reward、已落地 relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。"
+        "finding": "保留按钮配色、130px 二维码、弹层箭头及亮暗样式；增加原生按钮焦点样式、关闭控件、绑定后 hidden 状态、按可用空间向上/向下展开与高度限制滚动。桌面/手机亮暗及 8 张二维码作者本地通过，完整双站视觉验收待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -41757,7 +41855,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/179"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -47559,12 +47667,18 @@
       "upstreamInventory": "siteConfiguration",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "post.related_post.date_type"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/components.html",
+          "src/js/core/related-post.ts",
+          "src/js/modules/Render.ts",
+          "scripts/engagement/check-browser.mjs"
+        ],
+        "finding": "Hexo 的 config.related_post.date_type 映射为主题 post.related_post.date_type，实际模板显示发布时间或更新时间。缺失/空回退 created；updated 场景作者本地通过，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -47590,8 +47704,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "site-config:related_post.limit",
@@ -47608,12 +47732,18 @@
       "upstreamInventory": "siteConfiguration",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "post.related_post.limit"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/post.html",
+          "src/html/views/components.html",
+          "src/js/core/related-post.ts",
+          "src/js/modules/Render.ts",
+          "scripts/engagement/check-browser.mjs"
+        ],
+        "finding": "Hexo 的 config.related_post.limit 映射为主题 post.related_post.limit，实际 Render 在标签加权排序后截断。默认 6，非正/无效回退 6，正小数至少 1；数量场景作者本地通过，完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -47639,8 +47769,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "site-config:root",
@@ -50356,9 +50496,10 @@
           "src/scss/modules/render.scss",
           "src/html/views/components.html",
           "src/js/core/reward.ts",
-          "src/scss/core/reward.scss"
+          "src/scss/core/reward.scss",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已有文章打赏配置、二维码列表、链接/文字和 CSS hover 弹层；过滤无图片项，但外层仍按原始列表非空决定是否显示。按钮为 div，尚无明确键盘或触屏开关/关闭事件。剩余：补齐可操作控件及手机开关，再验证空项、多个二维码、失败图片与完整合同。"
+        "finding": "已接入原生打赏按钮与弹层：鼠标悬停预览、点击/触摸/Enter/Space 切换、关闭按钮/Escape 和焦点恢复、外部点击及焦点离开关闭；aria-expanded 与可见状态同步。先过滤无图片项，空列表不显示按钮；空文字/链接回退、纯文本说明、坏图提示、多二维码滚动及上下空间定位。仅文章页。真实 Halo 三引擎 12 项及配置边界 22 项作者本地通过；独立审查、远端 CI 与完整双站合同仍待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -50394,9 +50535,18 @@
           "commit": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
           "actor": "/root",
           "outcome": "partial: source, bounded checks and failures reconciled; full contract remains open"
+        },
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:related",
@@ -50424,9 +50574,10 @@
           "src/js/modules/Render.ts",
           "src/scss/modules/render.scss",
           "src/html/views/components.html",
-          "src/js/core/related-post.ts"
+          "src/js/core/related-post.ts",
+          "scripts/engagement/check-browser.mjs"
         ],
-        "finding": "已有按标签查询候选、排除当前文章、客户端去重/截断、日期字段显示；Render 实际调用 capRelatedPosts，未接入 rankRelatedPosts 的标签交集加权和同权重随机排序，不能把孤立函数当成实际排序。剩余：补齐上游排序语义，验证多标签/无标签、数量和日期规则及完整合同。"
+        "finding": "Render 已实际调用 renderRelatedPosts/rankRelatedPosts，按共同标签数加权，同权重随机，排除当前文章及重复项，排序后截断。逐标签查询完整分页，惰性模板仅挂载选中卡片。默认开启/6 条/发布时间，空日期回退 created，其余显示更新时间；非正数数量回退 6、正小数至少 1。关闭/无标签/无候选隐藏，仅文章页。真实 Halo 多标签、超过 100 候选、标签顺序、数量/日期/封面回退及草稿/私密排除作者本地通过；完整双站合同、独立审查与远端 CI 待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -50462,9 +50613,18 @@
           "commit": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
           "actor": "/root",
           "outcome": "partial: source, bounded checks and failures reconciled; full contract remains open"
+        },
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:post-pagination",
@@ -51636,14 +51796,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts",
-          "src/scss/modules/render.scss"
+        "settings": [
+          "post.reward.QR_code"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/components.html",
+          "src/js/core/reward.ts",
+          "src/scss/core/reward.scss",
+          "tests/reward.test.mjs",
+          "scripts/engagement/check-browser.mjs"
+        ],
+        "finding": "已映射到 post.reward.QR_code 条目 img/link/text：null、空或仅空白图片项过滤，过滤后为空不显示按钮；缺省 link 打开 img、缺省 text 提供打赏二维码替代文本。链接保留原生浏览器语义且不被灯箱接管，说明纯文本，坏图片保留链接提示。真实 Halo 多条目、缺字段、空值及坏图片作者本地通过，完整合同/独立审查/CI 待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -51667,8 +51831,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "bounded-engagement-validation",
+          "path": "docs/validation/2026-10-06/reward-related.json",
+          "sha256": "8c45ef05f8059a87876c6e29e004fb67af6aefe7f602c893f3961d6b9f6c6ba6",
+          "date": "2026-10-06T00:00:00+08:00",
+          "commit": "ce549db199962a7dae141c92c5161c76399fdd0f",
+          "actor": "/root (implementation author)",
+          "outcome": "partial: author local checks passed; independent review, remote CI and full contract remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:verification-items",

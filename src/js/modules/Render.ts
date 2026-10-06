@@ -19,12 +19,13 @@ import {
   resolveScrollPercent,
 } from '../core/toc.ts';
 import {
-  capRelatedPosts,
+  renderRelatedPosts,
   resolveLimit,
 } from '../core/related-post.ts';
 import {
   formatPermalinkText,
 } from '../core/post-copyright.ts';
+import { bindRewards } from '../core/reward.ts';
 
 export default class Render {
   name = 'Render';
@@ -47,6 +48,7 @@ export default class Render {
     this.#tocBotH5();
     this.#copyRight();
     this.#relatedPosts();
+    bindRewards();
   }
 
   /**
@@ -160,12 +162,12 @@ export default class Render {
   }
 
   /**
-   * 相关文章：按 data-post-name 去重并截断到 related_post.limit。
+   * 相关文章：按共享标签数加权，同权重随机，再截断到配置数量。
    */
   #relatedPosts() {
     const list = document.querySelector('.relatedPosts-list');
     if (!list) return;
-    capRelatedPosts(list, resolveLimit(this.#conf.related_post_limit), list.getAttribute('data-current-post'));
+    renderRelatedPosts(list, resolveLimit(this.#conf.related_post_limit));
   }
 
 }

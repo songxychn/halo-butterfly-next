@@ -49,3 +49,130 @@ export function visibleQrItems(items: unknown) {
   if (!Array.isArray(items)) return [];
   return items.filter(item => item && String(item.img ?? '').trim() !== '');
 }
+
+const boundRewards = new WeakMap<HTMLElement, () => void>();
+
+/** Native disclosure: click/Enter/Space pin it open; mouse hover is temporary.
+ * Escape/close return focus to the trigger; outside pointer/focus dismissal
+ * leaves the user's new target alone. No focus trap for this non-modal panel.
+ */
+export function bindReward(root: HTMLElement) {
+  const existing = boundRewards.get(root);
+  if (existing) return existing;
+  const button = root.querySelector<HTMLButtonElement>('.reward-button');
+  const panel = root.querySelector<HTMLElement>('.reward-main');
+  const closeButton = root.querySelector<HTMLButtonElement>('.reward-close');
+  if (!button || !panel || !closeButton) return () => {};
+  const doc = root.ownerDocument;
+  let pinned = false;
+  let pointerInside = false;
+  let pointerTimer: ReturnType<typeof setTimeout> | undefined;
+  let leaveTimer: ReturnType<typeof setTimeout> | undefined;
+  const clearLeave = () => clearTimeout(leaveTimer);
+  const show = (open: boolean) => {
+    panel.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    if (open && doc.defaultView) {
+      const rect = button.getBoundingClientRect();
+      // Leave room for the arrow, panel padding and the trigger's hover transform.
+      const above = Math.max(0, rect.top - 40);
+      const below = Math.max(0, doc.defaultView.innerHeight - rect.bottom - 40);
+      const placeAbove = above >= below;
+      panel.setAttribute('data-placement', placeAbove ? 'above' : 'below');
+      panel.style.setProperty('--reward-max-height', `${Math.max(48, (placeAbove ? above : below) - 15)}px`);
+    }
+  };
+  const close = (restore = false) => {
+    clearLeave();
+    pinned = false;
+    show(false);
+    if (restore) button.focus();
+  };
+  const toggle = () => {
+    clearLeave();
+    if (pinned) close(true);
+    else { pinned = true; show(true); }
+  };
+  const onEnter = (event: PointerEvent) => {
+    clearLeave();
+    if (event.pointerType === 'mouse') show(true);
+  };
+  const onLeave = (event: PointerEvent) => {
+    if (event.pointerType !== 'mouse') return;
+    clearLeave();
+    leaveTimer = setTimeout(() => {
+      if (!pinned && !root.contains(doc.activeElement)) close();
+    }, 120);
+  };
+  const onEscape = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape' || panel.hidden) return;
+    event.preventDefault();
+    event.stopPropagation();
+    close(pinned || root.contains(doc.activeElement));
+  };
+  const onOutside = (event: PointerEvent) => {
+    pointerInside = event.target instanceof Node && root.contains(event.target);
+    if (!pointerInside) close();
+  };
+  const finishPointer = () => { pointerInside = false; };
+  const onPointerUp = () => {
+    clearTimeout(pointerTimer);
+    pointerTimer = setTimeout(finishPointer, 0);
+  };
+  const onFocusOut = (event: FocusEvent) => {
+    // Safari can blur the trigger to BODY on mouse-down without focusing the
+    // clicked button. Keep internal controls alive until their click runs.
+    if (!event.relatedTarget && pointerInside) return;
+    if (!(event.relatedTarget instanceof Node) || !root.contains(event.relatedTarget)) close();
+  };
+  const onClose = () => close(true);
+  const onResize = () => close(panel.contains(doc.activeElement));
+  root.setAttribute('data-reward-bound', 'true');
+  show(false);
+  button.addEventListener('click', toggle);
+  closeButton.addEventListener('click', onClose);
+  root.addEventListener('pointerenter', onEnter);
+  root.addEventListener('pointerleave', onLeave);
+  doc.addEventListener('keydown', onEscape);
+  root.addEventListener('focusout', onFocusOut);
+  doc.addEventListener('pointerdown', onOutside);
+  doc.addEventListener('pointerup', onPointerUp);
+  doc.addEventListener('pointercancel', finishPointer);
+  doc.addEventListener('click', finishPointer);
+  doc.defaultView?.addEventListener('resize', onResize);
+  const imageCleanups = [...panel.querySelectorAll<HTMLImageElement>('img.post-qr-code-img')].map(img => {
+    const onError = () => {
+      img.hidden = true;
+      const message = img.nextElementSibling;
+      if (message instanceof HTMLElement) message.hidden = false;
+    };
+    img.addEventListener('error', onError);
+    if (img.complete && img.naturalWidth === 0) onError();
+    return () => img.removeEventListener('error', onError);
+  });
+  const cleanup = () => {
+    close();
+    clearTimeout(pointerTimer);
+    button.removeEventListener('click', toggle);
+    closeButton.removeEventListener('click', onClose);
+    root.removeEventListener('pointerenter', onEnter);
+    root.removeEventListener('pointerleave', onLeave);
+    doc.removeEventListener('keydown', onEscape);
+    root.removeEventListener('focusout', onFocusOut);
+    doc.removeEventListener('pointerdown', onOutside);
+    doc.removeEventListener('pointerup', onPointerUp);
+    doc.removeEventListener('pointercancel', finishPointer);
+    doc.removeEventListener('click', finishPointer);
+    doc.defaultView?.removeEventListener('resize', onResize);
+    imageCleanups.forEach(fn => fn());
+    root.removeAttribute('data-reward-bound');
+    panel.hidden = false;
+    boundRewards.delete(root);
+  };
+  boundRewards.set(root, cleanup);
+  return cleanup;
+}
+
+export function bindRewards(root: Document | Element = document) {
+  return [...root.querySelectorAll<HTMLElement>('.post-reward')].map(bindReward);
+}

@@ -1,5 +1,7 @@
 # 文章与阅读配置
 
+打赏二维码及按共同标签排序的相关推荐见 [打赏与相关文章](REWARD-RELATED.md)。
+
 本批补齐目录与章节定位、单篇设置覆盖、正文图片说明、右侧工具栏排列。固定参考为 Hexo Butterfly 5.7.0（`f223b1888b42b2b336068e6c959ed90a3cd7c8f3`）的 `_config.yml`、`source/js/main.js`、`layout/includes/widget/card_post_toc.pug` 和 `layout/includes/rightside.pug`；使用 Halo 的[模型元数据](https://docs.halo.run/developer-guide/theme/annotations)表达逐篇覆盖。
 
 ## 目录和单篇覆盖
