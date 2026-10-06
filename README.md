@@ -4,7 +4,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 [在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示导览](https://butterfly.baizhukui.com/archives/demo-guide)
 
-**文档与演示站已上线；0.1.0-alpha.3 主题安装包仍在准备，尚未公开发行。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。最终包身份与验证状态集中记录在[发行说明](docs/RELEASE-alpha.3.md)，当前尚无正式公开的 alpha.3 附件。
+**[0.1.0-alpha.3 已公开发布](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)，文档与演示站已同步该版本。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。安装包、对应源码、校验摘要及已知限制见[发行说明](docs/RELEASE-alpha.3.md)。
 
 ## 页面预览
 
@@ -18,17 +18,17 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 | --- | --- |
 | <img src="docs/images/demo/article-desktop-dark.jpg" alt="正文排版演示，桌面暗色" width="720"> | <img src="docs/images/demo/article-mobile-light.jpg" alt="正文排版演示，手机宽度亮色" width="240"> |
 
-截图使用独立无头 Chromium；手机宽度预览不代表实机验收。站点沿用此前验收的 demo 主题包，可能与最新源码存在差异；部署版本、验证范围与已知限制见[站点部署说明](site/deploy/README.md)。主题安装包的发行验收仍见[候选验收记录](docs/ALPHA3-VERIFICATION.md)。
+截图保留 2026-10-05 预览站的采集时间，使用独立无头 Chromium；手机宽度预览不代表实机验收。当前站点按 Release 更新，与 master 开发源码可能不同；机制见[H2 演示站说明](site/demo/README.md)，alpha.3 的实际发行包与部署核验见[发布完成记录](docs/validation/2026-10-06/alpha3-publication.md)。
 
 ## 安装与支持范围
 
 实际验证平台为 **Halo 2.26.1**。主题元数据声明 `>=2.26.1 & <2.27.0`，不代表其中所有版本已经测试。搜索入口最低基线为官方 **SearchWidget 1.7.1**，评论入口最低基线为官方 **CommentWidget 3.3.2**；固定实测也是这两个版本，未承诺未来版本组合。插件缺失、停用或低于基线时隐藏对应入口。文章及卡片评论数默认关闭。
 
-发布后，在发行页下载 `halo-butterfly-next-0.1.0-alpha.3.zip`，核对 SHA-256 后通过 Halo 控制台主题管理上传、配置并启用。主题 ID 保持 `halo-butterfly-next`。GitHub 自动生成的 Source code 压缩包是构建源码，不能直接作为主题 ZIP 安装。
+在 [alpha.3 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)下载 `halo-butterfly-next-0.1.0-alpha.3.zip`，核对 SHA-256 后通过 Halo 控制台主题管理上传、配置并启用。主题 ID 保持 `halo-butterfly-next`。GitHub 自动生成的 Source code 压缩包是构建源码，不能直接作为主题 ZIP 安装。
 
 - [安装、备份、同 ID 升级及回退](docs/INSTALL-UPGRADE.md)
 - [从原 theme-butterfly 迁移](docs/MIGRATION.md)
-- [alpha.3 发行说明草稿](docs/RELEASE-alpha.3.md)
+- [alpha.3 发行说明](docs/RELEASE-alpha.3.md)
 - [应用市场上架差距与派生说明](docs/APP-STORE-READINESS.md)（准备中，尚不具备提交条件）
 
 版本发行与发布后 demo 更新流程见[发布说明](releases/README.md)和[H2 演示站机制](site/demo/README.md)。
@@ -38,9 +38,9 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 ## 已知限制
 
 - SearchWidget 1.7.1 通过 Escape 或遮罩关闭后，焦点不会返回搜索入口，键盘用户需重新使用 Tab 导航。用户已允许公开 alpha 明示此限制后放行；缺陷没有修复，原检查继续记录失败，完整无障碍和 1.0 门禁不豁免。详见[搜索焦点裁定](docs/SEARCH-FOCUS-DECISION.md)。
-- 关闭 `mask.header` 时，明亮顶图上的导航和大标题仍可能对比不足。文章元信息的局部底板不覆盖导航和大标题。建议保留顶图遮罩，或选择与文字有足够对比度的封面；不宣称任意图片/遮罩组合均符合可访问性要求。
+- 默认开启 `mask.header` 时，明亮或白色顶图上的导航、站名和首页大标题仍可能对比不足；关闭遮罩也不能保证可读性。维护者已决定保留 Butterfly 默认样式，作为本次 alpha 已知限制披露。建议选择文字区域较暗的封面并检查可读性；不宣称任意图片/遮罩组合均符合可访问性要求。
 - Halo 2.26.1 的原生连接测试仍出现静态资源无响应和页面就绪超时，涉及 macOS Firefox、插件导航及 Linux 浏览器测试，可能影响页面加载。维护者已将 #338 作为 Halo 上游已知限制接受，不再阻塞本次 alpha 发行；原始失败继续保留，详见[资源加载裁定](docs/RESOURCE-LOADING-DECISION.md)。
-- 移动长文章的单次 Lighthouse 模拟结果在本轮优化后 LCP 仍约 4.65 秒；这不是实机等待时间或性能达标声明，完整性能合同仍未完成。
+- 最终候选 Lighthouse 模拟手机首页、长文的 LCP 中位数分别为 6.95 秒、4.66 秒，每组 5 次冷浏览器测量；均未达到 2.5 秒目标。这不是实机等待时间或性能达标声明，完整性能合同仍未完成。
 - 自定义 CSS、第三方代码高亮主题和用户额外注入代码可能改变颜色、焦点或布局，不包含在默认配色的通过范围中。
 - 友链、图库、瞬间和正文扩展，以及完整插件生态仍按各自证据标注实验性或未验证；有模板不等于已经通过端到端验收。Hexo 的 `{% %}` 标签不能直接在 Halo 中解析。
 - 无头 Chromium/Firefox/WebKit 与手机宽度测试不能替代实际 Safari、真机触摸/软键盘或屏幕阅读器。真实 Safari、真实手机、完整性能合同和完整 1.0 验收尚未完成。

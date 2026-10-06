@@ -1,6 +1,6 @@
-# 安装、升级与回退（alpha.3 草稿）
+# 安装、升级与回退（alpha.3）
 
-本文针对 Halo 2.26.1、主题 ID `halo-butterfly-next`。alpha.3 尚未公开发行，安装升级回退演练已完成，资源加载超时仍未解决；下载与摘要以发行说明为准。旧 `theme-butterfly` 迁移是另一条流程，见[迁移说明](MIGRATION.md)。
+本文针对 Halo 2.26.1、主题 ID `halo-butterfly-next`。[alpha.3 已公开发行](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)，主题 ZIP 与 `SHA256SUMS` 均可从发行页下载。安装升级回退的证据范围见[最终验收](validation/2026-10-06/alpha3-final-acceptance.md)；资源加载超时等已知限制仍保留，详见[发行说明](RELEASE-alpha.3.md)。旧 `theme-butterfly` 迁移是另一条流程，见[迁移说明](MIGRATION.md)。
 
 ## 安装前保存恢复材料
 
@@ -32,4 +32,4 @@
 
 真实原始 alpha.2 ZIP 摘要为 `a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42`。这是本轮演练使用的原始发行附件；[alpha.2 Release](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.2) 及安装附件现已公开，2026-10-05 匿名请求附件返回 HTTP 200。该旧版仍有上述限制，不能把它当作 alpha.3 候选或最新推荐安装包；回退前应核对包摘要、资源说明及配置适用范围。
 
-候选 `776958ad`（ZIP SHA-256 `c6fae909b8d74b23c39bdcc6b85b6ae46e4d95a305f7d7f4f8e3a9eb834d6944`）已完成真正全新数据库安装，以及上述原始 alpha.2 → 候选 → alpha.2 → 候选演练；配置、13 篇文章、4 个单页、29 条评论和 16 条回复保留。升级克隆中的插件停用，此结果只覆盖安装和数据保留；搜索/评论交互另行验收。完整边界见[候选验收记录](ALPHA3-VERIFICATION.md)，不表示当前已公开或整体门禁通过。
+候选 `776958ad`（ZIP SHA-256 `c6fae909b8d74b23c39bdcc6b85b6ae46e4d95a305f7d7f4f8e3a9eb834d6944`）已完成真正全新数据库安装，以及上述原始 alpha.2 → 候选 → alpha.2 → 候选演练；配置、13 篇文章、4 个单页、29 条评论和 16 条回复保留。升级克隆中的插件停用，此结果只覆盖安装和数据保留；搜索/评论交互另行验收。完整边界见[历史候选验收记录](ALPHA3-VERIFICATION.md)。最终包的复用关系与全新安装检查另见[最终验收](validation/2026-10-06/alpha3-final-acceptance.md)，实际公开状态见[发布完成记录](validation/2026-10-06/alpha3-publication.md)；历史候选通过不等于当前包所有场景均重新执行。

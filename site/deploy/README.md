@@ -2,11 +2,11 @@
 
 后续 Release 驱动的 H2 整站机制见 [H2 demo](../demo/README.md)。本页保留首次导入与旧站恢复资料；`initialize.py` 的原 hk 入口不用于 H2 日常更新。
 
-站点：<https://butterfly.baizhukui.com/>。这是主题的文档与演示预览，不代表主题安装包已公开发行。
+站点：<https://butterfly.baizhukui.com/>。本页记录 2026-10-05 首次 PostgreSQL 预览部署；当前站点已改用已发布 alpha.3 的 H2 镜像，详见[发布完成记录](../../docs/validation/2026-10-06/alpha3-publication.md)。
 
 2026-10-05 首次 PostgreSQL 部署使用安装包 `4d76eec6be5ee53d639fef73bf10a5a14b63bde2cb8078738f02ea2b38ec515a`。2026-10-06 H2 迁移已改用包含阅读设置 PR #356 的安装包 `ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1`；旧 PostgreSQL 部署保留并停止，仅用于回退。以下命令记录首次部署，不是活动 H2 站点的更新或备份入口。
 
-## 实际部署边界
+## 首次 PostgreSQL 部署边界
 
 - hk：`100.86.130.83`，部署根目录 `/root/docker/app/halo-butterfly-next/`。
 - 独立 Compose 项目与数据目录；旧 `/root/docker/app/halo/` 未使用。
@@ -14,7 +14,7 @@
 - Halo 仅映射回环 `127.0.0.1:18142`；数据库无宿主机端口。经现有 `reverse-proxy` 网络进入 Caddy。
 - 域名使用 Cloudflare 代理；Caddy 自动申请源站证书。`/actuator` 和 API 文档不对公网开放。
 - 两个新容器禁用 Watchtower，配置内存/CPU限制与日志轮转。
-- 当前只做首次导入。初始化与停止/备份命令都不是通用远程管理接口，不接受任意目标服务器。
+- 该工具只做首次导入。初始化与停止/备份命令都不是通用远程管理接口，不接受任意目标服务器。
 
 ## 初次安装与公开内容导入
 

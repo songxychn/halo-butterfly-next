@@ -1,6 +1,6 @@
-# 对应源码与构建（alpha.3 草稿）
+# 对应源码与构建（alpha.3）
 
-安装 ZIP 与对应源码一起提供。实际运行候选源 SHA 已记录；最终发行源提交及对应源码归档摘要待发布材料冻结后填写，见[发行身份](RELEASE-alpha.3.md)。[本仓库](https://github.com/songxychn/halo-butterfly-next)已公开并保留完整 Git 历史，开发候选包仍不等同于最终发行物。
+安装 ZIP 与对应源码已在 [alpha.3 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)一起提供。发行 tag 对应提交 `7fc8d49a9069d44c4740eac4daaa59b843f87567`；实际产品验收源码为 `8e53148a8c84996d091e2792e8a4651522690a0a`，后续发行材料提交未改变已验 ZIP。附件身份与全部摘要见[发布完成记录](validation/2026-10-06/alpha3-publication.md)。[本仓库](https://github.com/songxychn/halo-butterfly-next)保留完整 Git 历史；复现已发布版本应使用该 tag 的源码附件，不能以最新 master 代替。
 
 源码归档需包含当前完整 `src/`、主题/设置元数据、`package.json`、`bun.lock`、构建与检查脚本、相关测试/夹具、`LICENSE`、`third-party-licenses/` 和第三方来源说明。它不包含 `.git` 历史、凭据、数据库、运行缓存或 `node_modules`。这是发行附件的归档范围，仓库中的 Git 历史仍完整保留。保留已有作者及改写署名。安装包的 `templates/`、`dist/` 是生成物，由这些源码和锁定依赖生成。
 
@@ -17,7 +17,7 @@ shasum -a 256 dist/halo-butterfly-next-0.1.0-alpha.3.zip
 
 首次安装依赖需要能访问锁文件指定的包源。`bun run verify` 执行 TypeScript 严格类型检查、矩阵一致性、测试、构建和包检查；不启动 Halo。仅需构建可运行 `bun run build`。`bun run dev` 只监听重建，不启动服务器，也不自动安装主题。
 
-最终发行前在干净源码目录执行两次构建，对比 ZIP 字节及 SHA-256，并在公开对应源码上独立重建。如果不一致，保留差异并排查，不用版本号相同代替内容一致。安装到 Halo 后再次逐文件核对 ZIP 和主题目录，下载发行附件后再核对摘要。具体冻结结果待填，不预先宣称可重复构建已通过。
+alpha.3 发布工作流已完成重复构建，并从实际分发的源码归档独立重建，ZIP SHA-256 均为 `c0c73dedbf7b2c98d1936991470d5f80a38319cbe31a5815a217e3d071dc2be2`。公开附件回下载也已核验一致；最终候选全新 Halo 安装的 129 个文件已逐字节检查。复现时仍应比对摘要；若不一致，保留差异并排查，不用版本号相同代替内容一致。
 
 运行验收记录绑定生成该 ZIP 的精确源码提交。后续只补证据或截图的文档提交可以具有不同 SHA；若对应源码归档使用较后的文档提交，须另外记录其 SHA 并独立重建，证明 ZIP 字节与已验候选一致。不能把报告中的源码 SHA 改成尚未运行过的新提交，也不要求把提交自身的 SHA 写进同一个提交。
 
