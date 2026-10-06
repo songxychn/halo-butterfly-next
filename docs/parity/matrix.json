@@ -1489,9 +1489,10 @@
           "index.above_background"
         ],
         "code": [
-          "src/html/index.html"
+          "src/html/index.html",
+          "src/js/above-background.ts"
         ],
-        "finding": "已有首页首屏背景设置，待核对值类型和回退。"
+        "finding": "首页背景在实际配置之后通过 CSSOM 提前设置，启用且 URL 非空时输出预加载；限定照片夹具与空/禁用配置检查通过。上游值类型、全局/逐页优先级及全部合同场景仍待对照。"
       },
       "dependencies": [
         "dual-site",
@@ -1517,7 +1518,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-06/mobile-performance.json",
+          "sha256": "6c061c049f7b23e8999a422f2dc8c0cc06eb760aac4b15494b38a6d8c79dcf3b",
+          "date": "2026-10-05T19:52:08.210Z",
+          "commit": "16664c9ee9aa594ac8dde85c7dbdf45c151bbd12",
+          "actor": "/root",
+          "outcome": "partial: measured pre-commit source snapshot bound by product file hashes; scoped performance and browser checks only; full contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -51203,9 +51214,10 @@
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
-          "src/js/core/common.ts"
+          "src/js/core/common.ts",
+          "src/html/views/aside.html"
         ],
-        "finding": "已有 LazyLoad img/data-lazy-src 路径；默认图片有真实 src，部分内容由浏览器直接加载。上游 site/post、native、blur、占位和全局开关尚未逐项完成等价证明。 剩余：原生/库、site/post、占位/模糊和未入视口图片全场景未完成；不修改各配置条目的 gap。"
+        "finding": "已有 LazyLoad img/data-lazy-src；共享封面/侧栏及头像新增原生 lazy/async，保留真实 src 与失败回退。限定手机首页/长文冷导航减少离屏资源；不改写任意作者正文。原生/库、site/post、占位/模糊、全局开关及全部配置仍未逐项完成等价证明，配置 gap 保持。"
       },
       "dependencies": [
         "dual-site",
@@ -51238,6 +51250,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-06/mobile-performance.json",
+          "sha256": "6c061c049f7b23e8999a422f2dc8c0cc06eb760aac4b15494b38a6d8c79dcf3b",
+          "date": "2026-10-05T19:52:08.210Z",
+          "commit": "16664c9ee9aa594ac8dde85c7dbdf45c151bbd12",
+          "actor": "/root",
+          "outcome": "partial: measured pre-commit source snapshot bound by product file hashes; scoped performance and browser checks only; full contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -51268,9 +51289,10 @@
           "src/plugins/loading/circle.ts",
           "src/plugins/loading/dot.ts",
           "src/plugins/loading/hourglass.ts",
-          "src/plugins/loading/cross_line.ts"
+          "src/plugins/loading/cross_line.ts",
+          "scripts/build.mjs"
         ],
-        "finding": "四种继承 Loading 使用 whenContentReady 在 DOMContentLoaded 结束，不再等待所有可选图片 load；alpha.3 已有四样式生命周期局部检查。它不解决阻塞 DOMContentLoaded 的资源无响应；上游 fullpage/pace 等价与完整失败注入未验收。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
+        "finding": "四种 Loading 在核心布局内联，并在服务端正文末尾的主题事件结束，保留 DOMContentLoaded 回退和晚加载识别；页面增强包延迟时可先阅读，无 JS 有正文回退。三引擎局部检查及四样式/禁用变体通过。插件公共布局保留独立脚本；上游 fullpage/pace、真实第三方失效及全部合同场景、最终集成验收仍待完成。"
       },
       "dependencies": [
         "dual-site",
@@ -51307,6 +51329,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-06/mobile-performance.json",
+          "sha256": "6c061c049f7b23e8999a422f2dc8c0cc06eb760aac4b15494b38a6d8c79dcf3b",
+          "date": "2026-10-05T19:52:08.210Z",
+          "commit": "16664c9ee9aa594ac8dde85c7dbdf45c151bbd12",
+          "actor": "/root",
+          "outcome": "partial: measured pre-commit source snapshot bound by product file hashes; scoped performance and browser checks only; full contract remains open"
         }
       ],
       "status": "implemented-unverified"

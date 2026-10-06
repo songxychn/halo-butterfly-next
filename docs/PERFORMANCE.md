@@ -84,3 +84,9 @@ node scripts/perf/compare.mjs \
 输出分别包含`budgetResult`和各PERF场景状态。合同 PERF-03 同时包含主题首屏 JS/CSS 体积预算、按需组件不全站加载、以及失效第三方不无限阻塞 Loading。体积条款已由比较器检查：超预算时 `scenarios.PERF-03` 为 `failed`，不能因为按需/故障注入尚未执行就写成 `incomplete` 从而掩盖体积失败。体积通过时 PERF-03 仍为 `incomplete`，因为按需组件与失效提供商 Loading 恢复不能靠网络体积推导。后续实际故障/按需验证应以独立可审查报告接入，不能手填 true。运行器保存完整样本返回 0、样本未完成返回 2；比较器预算失败返回 1、尚缺完整合同证据返回 2。不存在以 Lighthouse 总分替代合同通过的路径。
 
 工程测试由默认`bun run verify`执行。真实Lighthouse采样目前按显式CPU窗口执行；正式RC前仍须按原合同把可自动化性能门禁接入固定执行机的CI。共享随机负载机器上的分数不视为固定性能基线。
+
+## 2026-10-06 的限定移动端优化
+
+[本轮报告](validation/2026-10-06/mobile-performance.md)采用同一个专属 Halo 的 comparison 照片配置与固定长文，基线/候选 × 首页/长文 × 手机/桌面 × 5 次，共 40 个有效样本。手机首页/长文 LCP 分别降低 25.6% / 37.1%，但仍超过 2.5 秒预算。输入/包/原始报告摘要、内联代码体积、工具 locale 兼容说明及验证限制均保存于[机器记录](validation/2026-10-06/mobile-performance.json)。这不替代上方正式默认/推荐组合的 160 样本、合同范围或提交 CI。
+
+可用 `node scripts/perf/core-browser.mjs --base http://127.0.0.1:<owned-port> --output <new-local-report.json>` 对已安装夹具执行 30 个核心 headless 检查。依赖由 `scripts/browser/install.mjs` 按既有固定流程准备；只启动独立浏览器，不接入用户浏览器。检查菜单/目录/复制/灯箱、亮暗和顶图、延迟页面增强包时的正文显示，以及无 JS 阅读；不证明推荐插件、实际 Safari 或真机通过。

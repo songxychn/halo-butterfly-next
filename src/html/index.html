@@ -11,6 +11,9 @@
 
   <!--/* pin */-->
   <th:block th:fragment="pin">
+    <link rel="preload" as="image" fetchpriority="high"
+          th:if="${theme.config.index.enable_above and not #strings.isEmpty(theme.config.index.above_background)}"
+          th:href="${theme.config.index.above_background}">
     <script id="pageScript" th:inline="javascript">
       Object.assign(window.MainApp.conf, {
         //第一屏

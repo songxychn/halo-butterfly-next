@@ -58,6 +58,7 @@
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-image: var(--above-background, none);
     backface-visibility: hidden;
     transition: .35s;
     max-width: 100%;
@@ -127,6 +128,10 @@
 
       @media (min-width: 768px) {
         font-size: 2.85em;
+      }
+
+      @media (max-width: 767px) {
+        animation-duration: .2s;
       }
     }
 
