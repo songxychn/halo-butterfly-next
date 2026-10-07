@@ -1,0 +1,1321 @@
+{
+  "schema": 1,
+  "timestamp": "2026-10-07T14:55:47.749833+00:00",
+  "requires": ">=2.26.0",
+  "minimumVerifiedStableVersion": "2.26.0",
+  "productSourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+  "package": {
+    "name": "halo-butterfly-next-0.1.0-alpha.3.zip",
+    "version": "0.1.0-alpha.3",
+    "sha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+    "published": false,
+    "description": "Local compatibility candidate; published alpha.3 assets remain immutable."
+  },
+  "scope": "Core fresh-install/configuration/restart/HTTP/browser compatibility plus pinned search/comment integration smoke; not complete release acceptance.",
+  "engineering": {
+    "command": "bun run verify",
+    "node": "24.11.0",
+    "bun": "1.4.0",
+    "tests": 583,
+    "failed": 0,
+    "zipFiles": 129,
+    "log": ".evidence/halo-compatibility-20261007/verify.log"
+  },
+  "environment": {
+    "os": "macOS arm64",
+    "java": "Amazon Corretto 21.0.8",
+    "database": "H2, independent fresh directory per official Halo version",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "optionalPlugins": [
+      {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "url": "https://github.com/halo-dev/plugin-search-widget/releases/download/v1.7.1/plugin-search-widget-1.7.1.jar",
+        "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b",
+        "release": "https://github.com/halo-dev/plugin-search-widget/releases/tag/v1.7.1",
+        "requiresHalo": ">=2.17.0",
+        "themeMinimumVersion": "1.7.1"
+      },
+      {
+        "name": "PluginCommentWidget",
+        "version": "3.3.2",
+        "url": "https://github.com/halo-dev/plugin-comment-widget/releases/download/v3.3.2/plugin-comment-widget-3.3.2.jar",
+        "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+        "release": "https://github.com/halo-dev/plugin-comment-widget/releases/tag/v3.3.2",
+        "requiresHalo": ">=2.26.0",
+        "themeMinimumVersion": "3.3.2"
+      }
+    ]
+  },
+  "versions": [
+    {
+      "version": "2.26.0",
+      "channel": "stable",
+      "result": "passed-scoped-compatibility",
+      "core": {
+        "schema": 1,
+        "version": "2.26.0",
+        "jarSha256": "c71b9e5dc6e1c325c1a657c73884ca87d2f45eec5bd8a3d99eb2c6d69bb7d509",
+        "sourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+        "packageSha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+        "baseUrl": "http://127.0.0.1:18410",
+        "java": "Corretto 21.0.8",
+        "database": "fresh isolated H2",
+        "checks": [
+          {
+            "name": "official-artifact",
+            "result": "pass",
+            "details": {
+              "sha256": "c71b9e5dc6e1c325c1a657c73884ca87d2f45eec5bd8a3d99eb2c6d69bb7d509",
+              "url": "https://github.com/halo-dev/halo/releases/download/v2.26.0/halo-2.26.0.jar"
+            }
+          },
+          {
+            "name": "startup",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "fresh-install-and-fixtures",
+            "result": "pass",
+            "details": {
+              "themeVersion": "0.1.0-alpha.3",
+              "posts": 12,
+              "pages": 1,
+              "fixtureSha256": "6cbc417b141bbe6d508a9b9777d5230c81599f0baad11b0175cbe960c941b7b5"
+            }
+          },
+          {
+            "name": "installed-byte-equality",
+            "result": "pass",
+            "details": {
+              "files": 129
+            }
+          },
+          {
+            "name": "minimum-and-page-layout",
+            "result": "pass",
+            "details": {
+              "requires": ">=2.26.0",
+              "pageLayout": {
+                "message": "templates/layout.html declares html(head, content).",
+                "reason": "LayoutTemplateSupported",
+                "state": "SUPPORTED",
+                "template": "templates/layout.html"
+              }
+            }
+          },
+          {
+            "name": "http-smoke",
+            "result": "pass",
+            "details": {
+              "routes": [
+                "/",
+                "/page/2",
+                "/archives",
+                "/archives/2026/08",
+                "/categories",
+                "/categories/development",
+                "/tags",
+                "/tags/butterfly",
+                "/archives/preview-1",
+                "/about-preview"
+              ],
+              "output": "PASS /\nPASS /page/2\nPASS /archives\nPASS /archives/2026/08\nPASS /categories\nPASS /categories/development\nPASS /tags\nPASS /tags/butterfly\nPASS /archives/preview-1\nPASS /about-preview\n已验证 21 个主题资源 URL。此检查不替代浏览器视觉及交互验收。\n"
+            }
+          },
+          {
+            "name": "configuration-save",
+            "result": "pass",
+            "details": {
+              "sha256": "699beb4fa1a423ed0f96a6d7294a7eef794fb09cc9e85dd1b511afcb2a733550",
+              "highlight": "hopscotch light/dark"
+            }
+          },
+          {
+            "name": "browser-core",
+            "result": "pass",
+            "details": {
+              "cases": 4,
+              "pages": 8,
+              "clipboard": "success UI only; clipboard bytes not read"
+            }
+          },
+          {
+            "name": "restart",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "restart-persistence",
+            "result": "pass",
+            "details": {
+              "configSha256": "699beb4fa1a423ed0f96a6d7294a7eef794fb09cc9e85dd1b511afcb2a733550",
+              "posts": 12,
+              "pages": 1,
+              "activeTheme": "halo-butterfly-next"
+            }
+          }
+        ],
+        "failures": [],
+        "browserVersion": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+        "result": "pass"
+      },
+      "coreBrowser": [
+        {
+          "label": "desktop-light",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "mode": "light",
+          "home": {
+            "bodyWidth": 1440,
+            "links": 28,
+            "mode": "light",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 1440
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "light",
+            "styles": [
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "desktop-dark",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "mode": "dark",
+          "home": {
+            "bodyWidth": 1440,
+            "links": 28,
+            "mode": "dark",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 1440
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "dark",
+            "styles": [
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-light",
+          "viewport": [
+            390,
+            844
+          ],
+          "mode": "light",
+          "home": {
+            "bodyWidth": 390,
+            "links": 28,
+            "mode": "light",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 390
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "light",
+            "styles": [
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-dark",
+          "viewport": [
+            390,
+            844
+          ],
+          "mode": "dark",
+          "home": {
+            "bodyWidth": 390,
+            "links": 28,
+            "mode": "dark",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 390
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "dark",
+            "styles": [
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        }
+      ],
+      "pluginIntegration": {
+        "schema": 1,
+        "version": "2.26.0",
+        "jarSha256": "c71b9e5dc6e1c325c1a657c73884ca87d2f45eec5bd8a3d99eb2c6d69bb7d509",
+        "sourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+        "packageSha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+        "baseUrl": "http://127.0.0.1:18410",
+        "java": "Corretto 21.0.8",
+        "database": "fresh isolated H2",
+        "checks": [
+          {
+            "name": "restart-owned-runtime",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "plugin-PluginSearchWidget",
+            "result": "pass",
+            "details": {
+              "name": "PluginSearchWidget",
+              "version": "1.7.1",
+              "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b",
+              "phase": "STARTED"
+            }
+          },
+          {
+            "name": "plugin-PluginCommentWidget",
+            "result": "pass",
+            "details": {
+              "name": "PluginCommentWidget",
+              "version": "3.3.2",
+              "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+              "phase": "STARTED"
+            }
+          },
+          {
+            "name": "enable-comment-system-setting",
+            "result": "pass",
+            "details": {
+              "enable": true,
+              "systemUserOnly": false,
+              "requireReviewForNew": false
+            }
+          },
+          {
+            "name": "disabled-plugin-guards",
+            "result": "pass",
+            "details": {
+              "search": false,
+              "comment": false
+            }
+          },
+          {
+            "name": "restore-comment-system-setting",
+            "result": "pass",
+            "details": true
+          }
+        ],
+        "failures": [],
+        "coreResultSha256": "a064aaf0d22663a1b301e73182b40be120a23f1980359f3f802fd926e5d440c1",
+        "initialCommentSetting": {
+          "enable": true,
+          "systemUserOnly": false,
+          "requireReviewForNew": false
+        },
+        "result": "pass"
+      },
+      "pluginBrowser": [
+        {
+          "label": "desktop-light",
+          "home": {
+            "loading": false,
+            "mode": "light",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18410/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "desktop-dark",
+          "home": {
+            "loading": false,
+            "mode": "dark",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18410/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-light",
+          "home": {
+            "loading": false,
+            "mode": "light",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18410/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-dark",
+          "home": {
+            "loading": false,
+            "mode": "dark",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18410/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18410/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        }
+      ],
+      "rawDirectory": ".evidence/halo-compatibility-20261007/2.26.0-attempt2"
+    },
+    {
+      "version": "2.26.1",
+      "channel": "stable",
+      "result": "passed-scoped-compatibility",
+      "core": {
+        "schema": 1,
+        "version": "2.26.1",
+        "jarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "sourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+        "packageSha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+        "baseUrl": "http://127.0.0.1:18411",
+        "java": "Corretto 21.0.8",
+        "database": "fresh isolated H2",
+        "checks": [
+          {
+            "name": "official-artifact",
+            "result": "pass",
+            "details": {
+              "sha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+              "url": "https://github.com/halo-dev/halo/releases/download/v2.26.1/halo-2.26.1.jar"
+            }
+          },
+          {
+            "name": "startup",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "fresh-install-and-fixtures",
+            "result": "pass",
+            "details": {
+              "themeVersion": "0.1.0-alpha.3",
+              "posts": 12,
+              "pages": 1,
+              "fixtureSha256": "6cbc417b141bbe6d508a9b9777d5230c81599f0baad11b0175cbe960c941b7b5"
+            }
+          },
+          {
+            "name": "installed-byte-equality",
+            "result": "pass",
+            "details": {
+              "files": 129
+            }
+          },
+          {
+            "name": "minimum-and-page-layout",
+            "result": "pass",
+            "details": {
+              "requires": ">=2.26.0",
+              "pageLayout": {
+                "message": "templates/layout.html declares html(head, content).",
+                "reason": "LayoutTemplateSupported",
+                "state": "SUPPORTED",
+                "template": "templates/layout.html"
+              }
+            }
+          },
+          {
+            "name": "http-smoke",
+            "result": "pass",
+            "details": {
+              "routes": [
+                "/",
+                "/page/2",
+                "/archives",
+                "/archives/2026/08",
+                "/categories",
+                "/categories/development",
+                "/tags",
+                "/tags/butterfly",
+                "/archives/preview-1",
+                "/about-preview"
+              ],
+              "output": "PASS /\nPASS /page/2\nPASS /archives\nPASS /archives/2026/08\nPASS /categories\nPASS /categories/development\nPASS /tags\nPASS /tags/butterfly\nPASS /archives/preview-1\nPASS /about-preview\n已验证 21 个主题资源 URL。此检查不替代浏览器视觉及交互验收。\n"
+            }
+          },
+          {
+            "name": "configuration-save",
+            "result": "pass",
+            "details": {
+              "sha256": "699beb4fa1a423ed0f96a6d7294a7eef794fb09cc9e85dd1b511afcb2a733550",
+              "highlight": "hopscotch light/dark"
+            }
+          },
+          {
+            "name": "browser-core",
+            "result": "pass",
+            "details": {
+              "cases": 4,
+              "pages": 8,
+              "clipboard": "success UI only; clipboard bytes not read"
+            }
+          },
+          {
+            "name": "restart",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "restart-persistence",
+            "result": "pass",
+            "details": {
+              "configSha256": "699beb4fa1a423ed0f96a6d7294a7eef794fb09cc9e85dd1b511afcb2a733550",
+              "posts": 12,
+              "pages": 1,
+              "activeTheme": "halo-butterfly-next"
+            }
+          }
+        ],
+        "failures": [],
+        "browserVersion": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+        "result": "pass"
+      },
+      "coreBrowser": [
+        {
+          "label": "desktop-light",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "mode": "light",
+          "home": {
+            "bodyWidth": 1440,
+            "links": 28,
+            "mode": "light",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 1440
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "light",
+            "styles": [
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "desktop-dark",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "mode": "dark",
+          "home": {
+            "bodyWidth": 1440,
+            "links": 28,
+            "mode": "dark",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 1440
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "dark",
+            "styles": [
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-light",
+          "viewport": [
+            390,
+            844
+          ],
+          "mode": "light",
+          "home": {
+            "bodyWidth": 390,
+            "links": 28,
+            "mode": "light",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 390
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "light",
+            "styles": [
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-dark",
+          "viewport": [
+            390,
+            844
+          ],
+          "mode": "dark",
+          "home": {
+            "bodyWidth": 390,
+            "links": 28,
+            "mode": "dark",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 390
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "dark",
+            "styles": [
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        }
+      ],
+      "pluginIntegration": {
+        "schema": 1,
+        "version": "2.26.1",
+        "jarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "sourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+        "packageSha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+        "baseUrl": "http://127.0.0.1:18411",
+        "java": "Corretto 21.0.8",
+        "database": "fresh isolated H2",
+        "checks": [
+          {
+            "name": "restart-owned-runtime",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "plugin-PluginSearchWidget",
+            "result": "pass",
+            "details": {
+              "name": "PluginSearchWidget",
+              "version": "1.7.1",
+              "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b",
+              "phase": "STARTED"
+            }
+          },
+          {
+            "name": "plugin-PluginCommentWidget",
+            "result": "pass",
+            "details": {
+              "name": "PluginCommentWidget",
+              "version": "3.3.2",
+              "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+              "phase": "STARTED"
+            }
+          },
+          {
+            "name": "enable-comment-system-setting",
+            "result": "pass",
+            "details": {
+              "enable": true,
+              "systemUserOnly": false,
+              "requireReviewForNew": false
+            }
+          },
+          {
+            "name": "disabled-plugin-guards",
+            "result": "pass",
+            "details": {
+              "search": false,
+              "comment": false
+            }
+          },
+          {
+            "name": "restore-comment-system-setting",
+            "result": "pass",
+            "details": true
+          }
+        ],
+        "failures": [],
+        "coreResultSha256": "5727db6e21a3237b9934ba4bce3ea306b536e571755e446f2d1814b05a05f149",
+        "initialCommentSetting": {
+          "enable": true,
+          "systemUserOnly": false,
+          "requireReviewForNew": false
+        },
+        "result": "pass"
+      },
+      "pluginBrowser": [
+        {
+          "label": "desktop-light",
+          "home": {
+            "loading": false,
+            "mode": "light",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18411/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "desktop-dark",
+          "home": {
+            "loading": false,
+            "mode": "dark",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18411/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-light",
+          "home": {
+            "loading": false,
+            "mode": "light",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18411/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-dark",
+          "home": {
+            "loading": false,
+            "mode": "dark",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18411/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18411/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        }
+      ],
+      "rawDirectory": ".evidence/halo-compatibility-20261007/2.26.1-attempt2"
+    },
+    {
+      "version": "2.27.0-beta.1",
+      "channel": "prerelease",
+      "result": "passed-scoped-compatibility",
+      "core": {
+        "schema": 1,
+        "version": "2.27.0-beta.1",
+        "jarSha256": "3d9eeb4485d5799543cc3dd0c5080e9418eb6f2c3d9d8acd7bb1bfa1b60175c6",
+        "sourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+        "packageSha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+        "baseUrl": "http://127.0.0.1:18412",
+        "java": "Corretto 21.0.8",
+        "database": "fresh isolated H2",
+        "checks": [
+          {
+            "name": "official-artifact",
+            "result": "pass",
+            "details": {
+              "sha256": "3d9eeb4485d5799543cc3dd0c5080e9418eb6f2c3d9d8acd7bb1bfa1b60175c6",
+              "url": "https://github.com/halo-dev/halo/releases/download/v2.27.0-beta.1/halo-2.27.0-beta.1.jar"
+            }
+          },
+          {
+            "name": "startup",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "fresh-install-and-fixtures",
+            "result": "pass",
+            "details": {
+              "themeVersion": "0.1.0-alpha.3",
+              "posts": 12,
+              "pages": 1,
+              "fixtureSha256": "6cbc417b141bbe6d508a9b9777d5230c81599f0baad11b0175cbe960c941b7b5"
+            }
+          },
+          {
+            "name": "installed-byte-equality",
+            "result": "pass",
+            "details": {
+              "files": 129
+            }
+          },
+          {
+            "name": "minimum-and-page-layout",
+            "result": "pass",
+            "details": {
+              "requires": ">=2.26.0",
+              "pageLayout": {
+                "message": "templates/layout.html declares html(head, content).",
+                "reason": "LayoutTemplateSupported",
+                "state": "SUPPORTED",
+                "template": "templates/layout.html"
+              }
+            }
+          },
+          {
+            "name": "http-smoke",
+            "result": "pass",
+            "details": {
+              "routes": [
+                "/",
+                "/page/2",
+                "/archives",
+                "/archives/2026/08",
+                "/categories",
+                "/categories/development",
+                "/tags",
+                "/tags/butterfly",
+                "/archives/preview-1",
+                "/about-preview"
+              ],
+              "output": "PASS /\nPASS /page/2\nPASS /archives\nPASS /archives/2026/08\nPASS /categories\nPASS /categories/development\nPASS /tags\nPASS /tags/butterfly\nPASS /archives/preview-1\nPASS /about-preview\n已验证 21 个主题资源 URL。此检查不替代浏览器视觉及交互验收。\n"
+            }
+          },
+          {
+            "name": "configuration-save",
+            "result": "pass",
+            "details": {
+              "sha256": "699beb4fa1a423ed0f96a6d7294a7eef794fb09cc9e85dd1b511afcb2a733550",
+              "highlight": "hopscotch light/dark"
+            }
+          },
+          {
+            "name": "browser-core",
+            "result": "pass",
+            "details": {
+              "cases": 4,
+              "pages": 8,
+              "clipboard": "success UI only; clipboard bytes not read"
+            }
+          },
+          {
+            "name": "restart",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "restart-persistence",
+            "result": "pass",
+            "details": {
+              "configSha256": "699beb4fa1a423ed0f96a6d7294a7eef794fb09cc9e85dd1b511afcb2a733550",
+              "posts": 12,
+              "pages": 1,
+              "activeTheme": "halo-butterfly-next"
+            }
+          }
+        ],
+        "failures": [],
+        "browserVersion": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+        "result": "pass"
+      },
+      "coreBrowser": [
+        {
+          "label": "desktop-light",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "mode": "light",
+          "home": {
+            "bodyWidth": 1440,
+            "links": 28,
+            "mode": "light",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 1440
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "light",
+            "styles": [
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "desktop-dark",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "mode": "dark",
+          "home": {
+            "bodyWidth": 1440,
+            "links": 28,
+            "mode": "dark",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 1440
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "dark",
+            "styles": [
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-light",
+          "viewport": [
+            390,
+            844
+          ],
+          "mode": "light",
+          "home": {
+            "bodyWidth": 390,
+            "links": 28,
+            "mode": "light",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 390
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "light",
+            "styles": [
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-dark",
+          "viewport": [
+            390,
+            844
+          ],
+          "mode": "dark",
+          "home": {
+            "bodyWidth": 390,
+            "links": 28,
+            "mode": "dark",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验",
+            "viewport": 390
+          },
+          "article": {
+            "font": "Menlo, Monaco, \"Lucida Console\", \"Courier New\", Courier, monospace",
+            "google": [],
+            "highlighted": true,
+            "mode": "dark",
+            "styles": [
+              {
+                "disabled": true,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              },
+              {
+                "disabled": false,
+                "href": "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css"
+              }
+            ],
+            "copyFeedback": [
+              "复制成功~"
+            ],
+            "foldReopen": true
+          },
+          "result": "pass"
+        }
+      ],
+      "pluginIntegration": {
+        "schema": 1,
+        "version": "2.27.0-beta.1",
+        "jarSha256": "3d9eeb4485d5799543cc3dd0c5080e9418eb6f2c3d9d8acd7bb1bfa1b60175c6",
+        "sourceCommit": "51b5307bae4cc4bb5a67c31d11d7ab75d10da97b",
+        "packageSha256": "6c5366db2539317566ac14f3091f7f5d8ef8472cc14bfd538084b946f130f921",
+        "baseUrl": "http://127.0.0.1:18412",
+        "java": "Corretto 21.0.8",
+        "database": "fresh isolated H2",
+        "checks": [
+          {
+            "name": "restart-owned-runtime",
+            "result": "pass",
+            "details": {
+              "status": "UP"
+            }
+          },
+          {
+            "name": "plugin-PluginSearchWidget",
+            "result": "pass",
+            "details": {
+              "name": "PluginSearchWidget",
+              "version": "1.7.1",
+              "sha256": "1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b",
+              "phase": "STARTED"
+            }
+          },
+          {
+            "name": "plugin-PluginCommentWidget",
+            "result": "pass",
+            "details": {
+              "name": "PluginCommentWidget",
+              "version": "3.3.2",
+              "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+              "phase": "STARTED"
+            }
+          },
+          {
+            "name": "enable-comment-system-setting",
+            "result": "pass",
+            "details": {
+              "enable": true,
+              "systemUserOnly": false,
+              "requireReviewForNew": false
+            }
+          },
+          {
+            "name": "disabled-plugin-guards",
+            "result": "pass",
+            "details": {
+              "search": false,
+              "comment": false
+            }
+          },
+          {
+            "name": "restore-comment-system-setting",
+            "result": "pass",
+            "details": true
+          }
+        ],
+        "failures": [],
+        "coreResultSha256": "c28296a82052dbda0ad19b12bfa3da834cfbd5b9e2786ebb8565cf2c40e68707",
+        "initialCommentSetting": {
+          "enable": true,
+          "systemUserOnly": false,
+          "requireReviewForNew": false
+        },
+        "result": "pass"
+      },
+      "pluginBrowser": [
+        {
+          "label": "desktop-light",
+          "home": {
+            "loading": false,
+            "mode": "light",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18412/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "desktop-dark",
+          "home": {
+            "loading": false,
+            "mode": "dark",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18412/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-light",
+          "home": {
+            "loading": false,
+            "mode": "light",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18412/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        },
+        {
+          "label": "mobile-dark",
+          "home": {
+            "loading": false,
+            "mode": "dark",
+            "readyState": "complete",
+            "search": "function",
+            "title": "Butterfly 对照实验室 - 固定夹具，持续核验"
+          },
+          "comment": {
+            "editor": true,
+            "scripts": [
+              "http://127.0.0.1:18412/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=1.7.1",
+              "http://127.0.0.1:18412/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+            ]
+          },
+          "result": "pass"
+        }
+      ],
+      "rawDirectory": ".evidence/halo-compatibility-20261007/2.27.0-beta.1"
+    }
+  ],
+  "harnessCorrections": [
+    {
+      "attempt": "core initial",
+      "cause": "Harness used nonexistent code config group; actual group is render. No theme code changed.",
+      "retainedResults": [
+        ".evidence/halo-compatibility-20261007/2.26.0/results.json",
+        ".evidence/halo-compatibility-20261007/2.26.1/results.json"
+      ]
+    },
+    {
+      "attempt": "plugins initial",
+      "cause": "SearchWidget input is in Shadow DOM; ordinary document query cannot find it.",
+      "retainedDirectoryPattern": "*/plugins"
+    },
+    {
+      "attempt": "plugins attempts 2/3 and diagnostics",
+      "cause": "CommentWidget 3.3.2 init uses IntersectionObserver; runner waited before scrolling. Editor lives inside nested Shadow DOM. Corrected by scrolling to #post-comment before waiting and querying nested roots. Initial system comment enable was already true; toggling it was not the fix. No plugin or theme code changed.",
+      "retainedDirectoryPattern": "*/plugins-attempt2, */plugins-attempt3, */plugins-diagnostics"
+    }
+  ],
+  "limitations": [
+    "No complete 1.0/store-release acceptance; known #338 resource-loading and #313 search-focus gates remain open. This bounded Chromium run does not establish their resolution.",
+    "Search integration covers real opening and input mount, not search results, focus return, all keyboard paths or pagination.",
+    "Comments cover scroll-triggered real editor mount and plugin availability guards, not submit/reply/moderation/roles.",
+    "Copy checks success UI only; clipboard bytes were not read.",
+    "PageLayout SUPPORTED resource state checked; synthetic layout-probe lifecycle and real ecosystem plugin pages were not exercised.",
+    "No Android/iOS devices, Firefox/WebKit, multi-OS, performance, upgrade/rollback or exhaustive configuration matrix in this run.",
+    "2.27.0-beta.1 is a prerelease, not a tested formal 2.27.0 release; future versions are not verified by the lower-bound declaration.",
+    "Halo versions below 2.26.0 were not tested; theme public layout and pinned CommentWidget require Halo 2.26.0.",
+    "Market backend compatibility field was neither read nor changed; maintainer must synchronize it with the final submitted package."
+  ]
+}

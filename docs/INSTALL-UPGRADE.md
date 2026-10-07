@@ -2,6 +2,8 @@
 
 本文针对 Halo 2.26.1、主题 ID `halo-butterfly-next`。[alpha.3 已公开发行](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)，主题 ZIP 与 `SHA256SUMS` 均可从发行页下载。安装升级回退的证据范围见[最终验收](validation/2026-10-06/alpha3-final-acceptance.md)；资源加载超时等已知限制仍保留，详见[发行说明](RELEASE-alpha.3.md)。旧 `theme-butterfly` 迁移是另一条流程，见[迁移说明](MIGRATION.md)。
 
+当前开发源码的最低 Halo 版本已改为 `>=2.26.0`，不设上限；本轮官方版本的全新安装、配置与重启检查见[兼容记录](validation/2026-10-07/halo-minimum-compatibility.md)。已发布 alpha.3 安装包及上述升级回退证据不因此改变，后续正式候选仍须重新执行生命周期验收。
+
 ## 安装前保存恢复材料
 
 1. 在测试站先演练。按自己的 Halo 部署方式创建并下载可恢复的站点备份，确认数据库、附件及配置的覆盖范围；保留运行中的 Halo 和插件版本信息。只有主题 ZIP 不能恢复整站内容。

@@ -2,6 +2,8 @@
 
 ## 未发布
 
+- Halo 兼容声明改为最低版本 `>=2.26.0`，移除上限；包检查只接受最低正式版本格式。官方 2.26.0、2.26.1 和 2.27.0-beta.1 的实际检查范围、预发布身份及限制见[兼容记录](docs/validation/2026-10-07/halo-minimum-compatibility.md)。已发布 alpha.3 安装包保持原样。
+
 - 移除 hopscotch 代码配色的 Google Fonts 在线导入，改用系统等宽字体；安装包检查拒绝主题 CSS 中的 Google Fonts 域名。按首次上架审核意见更新[整改清单](docs/APP-STORE-READINESS.md)和[首发范围及验收项](docs/APP-STORE-FIRST-RELEASE.md)，正式候选、兼容范围和实际界面截图仍须在最终包上验收。
 
 - 打赏改为可用鼠标、触摸和键盘操作的按钮与弹层，支持关闭及焦点恢复、空二维码过滤、坏图片提示和多二维码滚动显示。
