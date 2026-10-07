@@ -46,6 +46,7 @@ for (const name of Object.keys(zip.files).filter(name => /^templates\/assets\/(?
   if (/\bprocess\.env\.NODE_ENV\b/.test(await zip.file(name).async('string'))) throw new Error(`浏览器脚本残留未解析的构建环境引用：${name}`);
 }
 for (const name of Object.keys(zip.files)) {
+  if (name.endsWith('.css') && /fonts\.(?:googleapis|gstatic)\.com/i.test(await zip.file(name).async('string'))) throw new Error(`主题 CSS 不应依赖 Google Fonts：${name}`);
   if (/fancyapps/i.test(name)) throw new Error(`旧灯箱许可文件不应进入安装包：${name}`);
   if (/\.(js|css)$/.test(name) && /@fancyapps|fancyapps\.com|--f-spinner-width/.test(await zip.file(name).async('string'))) throw new Error(`旧灯箱实现不应进入安装包：${name}`);
   if (!name.startsWith('templates/') && !required.includes(name)) throw new Error(`不允许打包 ${name}`);
