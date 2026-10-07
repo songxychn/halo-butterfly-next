@@ -6,6 +6,7 @@ import { defaultsFromSettings } from '../scripts/config-migration.mjs';
 import {
   capRelatedPosts,
   rankRelatedPosts,
+  renderRelatedPosts,
   resolveDateType,
   resolveEnable,
   resolveLimit,
@@ -100,6 +101,8 @@ test('resolveEnable：仅显式 false 关闭；limit 非正数回退 6；date_ty
   assert.equal(resolveLimit(3), 3);
   assert.equal(resolveLimit('8'), 8);
   assert.equal(resolveLimit(-1), 6);
+  assert.equal(resolveLimit(0.5), 1);
+  assert.equal(resolveLimit('NaN'), 6);
   assert.equal(resolveDateType('created'), 'created');
   assert.equal(resolveDateType('updated'), 'updated');
   assert.equal(resolveDateType(null), 'created');
@@ -130,6 +133,38 @@ test('rankRelatedPosts 按标签交集加权，同权重随 random，截断 limi
   assert.equal(rankRelatedPosts('/self/', null).length, 0);
 });
 
+test('ranking counts distinct shared tags, excludes invalid/current posts and does not bias by group order', () => {
+  const a = [{path: 'one'}, {path: 'one'}, {path: 'both'}, {path: 'self'}, {path: ''}];
+  const b = [{path: 'both'}, {path: 'other'}];
+  for (const groups of [[a, b], [b, a]]) {
+    const result = rankRelatedPosts('self', groups, {limit: 6, random: () => 0.5});
+    assert.equal(result[0].path, 'both');
+    assert.equal(result[0].weight, 2);
+    assert.equal(result.find(p => p.path === 'one').weight, 1);
+    assert.equal(result.length, 3);
+  }
+});
+
+test('actual template rendering ranks before limiting, groups repeated tags once and mounts only winners', () => {
+  const widget = {hidden: true, removed: false, remove() {this.removed = true;}};
+  const node = name => ({getAttribute: () => name});
+  const template = (tag, names) => ({getAttribute: () => tag, content: {querySelectorAll: () => names.map(node)}});
+  const root = {
+    querySelectorAll: () => [template('a', ['early', 'both']), template('b', ['later', 'both']), template('a', ['early', 'both'])],
+    getAttribute: key => key === 'data-current-post' ? 'self' : null,
+    setAttribute() {},
+    replaceChildren(...nodes) {this.children = nodes;},
+    closest: () => widget,
+  };
+  assert.equal(renderRelatedPosts(root, 1, () => 0.5), 1);
+  assert.equal(root.children[0].getAttribute(), 'both');
+  assert.equal(widget.hidden, false);
+  root.querySelectorAll = () => [template('a', ['self'])];
+  assert.equal(renderRelatedPosts(root, 6), 0);
+  assert.equal(widget.removed, true);
+  assert.equal(renderRelatedPosts(null, 6), 0);
+});
+
 test('capRelatedPosts 去重、去掉当前文、截断 limit；空则移除容器', () => {
   const { list, widget } = makeList(['self', 'a', 'a', 'b', 'c']);
   assert.equal(capRelatedPosts(list, 2, 'self'), 2);
@@ -157,7 +192,10 @@ test('文章页插入 relatedPosts；单页不插入；enable 与无标签由 th
   assert.doesNotMatch(related, /th:utext/);
   assert.doesNotMatch(related, /innerHTML/);
   assert.match(renderJs, /from '\.\.\/core\/related-post\.ts'/);
-  assert.match(renderJs, /capRelatedPosts/);
+  assert.match(renderJs, /renderRelatedPosts/);
+  assert.match(related, /<template[\s\S]*data-related-tag/);
+  assert.match(related, /firstPage\.totalPages/);
+  assert.match(related, /postFinder\.listByTag\(pageNumber, 100, tag\.metadata\.name\)/);
 });
 
 test('窄屏不横向溢出；三列到单列网格', () => {

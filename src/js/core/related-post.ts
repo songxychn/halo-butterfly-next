@@ -37,7 +37,7 @@ export function resolveEnable(value: unknown) {
 export function resolveLimit(value: unknown) {
   const n = Number(value);
   if (!Number.isFinite(n) || n <= 0) return DEFAULTS.limit;
-  return Math.floor(n);
+  return Math.max(1, Math.floor(n));
 }
 
 /** 仅 created 用发布日期；其余用更新日期。对齐 helper 的 === 'created' / else。 */
@@ -51,8 +51,10 @@ export function rankRelatedPosts<T extends {path: string}>(currentPath: string, 
   const related = new Map<string, T & {weight: number; random: number}>();
   const rng = typeof options.random === 'function' ? options.random : Math.random;
   for (const posts of tagPostLists || []) {
+    const seen = new Set<string>();
     for (const post of posts || []) {
-      if (!post || post.path === currentPath) continue;
+      if (!post || !post.path || post.path === currentPath || seen.has(post.path)) continue;
+      seen.add(post.path);
       if (related.has(post.path)) {
         related.get(post.path)!.weight += 1;
       } else {
@@ -70,6 +72,32 @@ export function rankRelatedPosts<T extends {path: string}>(currentPath: string, 
     if (b.weight !== a.weight) return b.weight - a.weight;
     return b.random - a.random;
   }).slice(0, cap);
+}
+
+/** Rank the complete per-tag candidates emitted by Halo, then mount only the winners.
+ * Inert templates keep discarded covers out of the resource/lazy-loading pipeline.
+ */
+export function renderRelatedPosts(root: Element | null, limit: unknown, random = Math.random) {
+  if (!root) return 0;
+  if (root.getAttribute('data-related-rendered') === 'true') return root.querySelectorAll(':scope > a[data-post-name]').length;
+  const groups = new Map<string, {path: string; node: HTMLAnchorElement}[]>();
+  for (const template of root.querySelectorAll<HTMLTemplateElement>(':scope > template[data-related-tag]')) {
+    const tag = template.getAttribute('data-related-tag');
+    if (!tag) continue;
+    const posts = groups.get(tag) || [];
+    for (const node of template.content.querySelectorAll<HTMLAnchorElement>('a[data-post-name]')) {
+      const path = node.getAttribute('data-post-name');
+      if (path) posts.push({path, node});
+    }
+    groups.set(tag, posts);
+  }
+  const ranked = rankRelatedPosts(root.getAttribute('data-current-post') || '', [...groups.values()], {limit, random});
+  root.replaceChildren(...ranked.map(post => post.node));
+  root.setAttribute('data-related-rendered', 'true');
+  const widget = root.closest<HTMLElement>('.relatedPosts');
+  if (!ranked.length) widget?.remove();
+  else if (widget) widget.hidden = false;
+  return ranked.length;
 }
 
 /**
