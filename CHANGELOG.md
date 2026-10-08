@@ -2,6 +2,8 @@
 
 ## 未发布
 
+- 搜索集成验收固定官方 SearchWidget 1.8.0，验证 Escape/遮罩关闭后焦点返回入口；主题继续使用 `SearchWidget.open()`，入口兼容仍为 >=1.7.1。三引擎焦点及边界回归 96/96、搜索/评论/权限流程 26/26 通过；建议升级插件，完整真机与 1.0 范围见[验收记录](docs/validation/2026-10-08/search-widget-1.8.md)。
+
 - 移除 hopscotch 代码配色的 Google Fonts 在线导入，改用系统等宽字体；安装包检查拒绝主题 CSS 中的 Google Fonts 域名。按首次上架审核意见更新[整改清单](docs/APP-STORE-READINESS.md)和[首发范围及验收项](docs/APP-STORE-FIRST-RELEASE.md)，正式候选、兼容范围和实际界面截图仍须在最终包上验收。
 
 - 打赏改为可用鼠标、触摸和键盘操作的按钮与弹层，支持关闭及焦点恢复、空二维码过滤、坏图片提示和多二维码滚动显示。

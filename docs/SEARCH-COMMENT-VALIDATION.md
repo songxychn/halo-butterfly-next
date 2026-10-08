@@ -1,13 +1,13 @@
 # 官方搜索与评论验收
 
-本轮固定 Halo 2.26.1；版本和 JAR SHA-256 见 [`fixtures/search-comment/versions.json`](../fixtures/search-comment/versions.json)。主题入口的支持基线为 SearchWidget >=1.7.1、CommentWidget >=3.3.2；低于基线、停用或未安装时不显示对应入口/挂载及评论计数。搜索 1.7.1 是本项目选定的已测支持基线，不代表已证明更早版本技术上不兼容；评论 3.3.2 提供已验证的编辑器可访问名称修复。此范围不表示所有更高版本已实测。
+当前开发版验收固定 Halo 2.26.1、SearchWidget 1.8.0、CommentWidget 3.3.2；版本和 JAR SHA-256 见 [`fixtures/search-comment/versions.json`](../fixtures/search-comment/versions.json)。主题入口的兼容基线仍为 SearchWidget >=1.7.1、CommentWidget >=3.3.2；低于基线、停用或未安装时不显示对应入口/挂载及评论计数。搜索 1.7.1 有关闭焦点缺陷，保留入口兼容不代表完整搜索验收通过，也不代表已证明更早版本技术上不兼容。搜索 1.8.0 要求 Halo >=2.26.0；评论 3.3.2 提供已验证的编辑器可访问名称修复。此范围不表示所有更高版本已实测。
 
 | 插件 | 实测版本 | 插件最低 Halo 要求 | 结论 |
 | --- | --- | --- | --- |
-| PluginSearchWidget | 1.7.1 | >=2.17.0 | 中文/英文、无结果、鼠标打开、键盘打开/命中、Escape 与遮罩关闭可用；关闭焦点恢复失败，见 [#313](https://github.com/songxychn/halo-butterfly-next/issues/313) |
+| PluginSearchWidget | 1.8.0 | >=2.26.0 | 三引擎 × 桌面/手机视口 × 亮暗的焦点与边界回归 96/96 通过；历史 1.7.1 失败保留。证据见 [1.8.0 验收](validation/2026-10-08/search-widget-1.8.md) |
 | PluginCommentWidget | 3.3.2 | >=2.26.0 | 合成访客与登录维护者的文章/单页提交、回复、审核、错误提示和挂载开关已测；完整 PLG-03 仍未全部验收 |
 
-2026-09-21 用户裁定：公开 alpha 可以披露搜索关闭后焦点不恢复的已知限制后放行；键盘用户关闭后需重新用 Tab 导航定位搜索入口。此例外只适用于公开 alpha，完整真实流程仍如实记录 `failed`，矩阵及 1.0 失败门禁不变。最终候选必须绑定实际报告，不能将此裁定记为修复证据。详见 [搜索焦点决策材料](SEARCH-FOCUS-DECISION.md)。
+2026-09-21 用户裁定：公开 alpha 可以披露搜索关闭后焦点不恢复的已知限制后放行；键盘用户关闭后需重新用 Tab 导航定位搜索入口。此例外只适用于公开 alpha，历史 1.7.1 的完整真实流程仍如实记录 `failed`，不能因当前 1.8.0 通过而改写历史报告或豁免完整 1.0 门禁。最终候选必须绑定实际报告，不能将此裁定记为修复证据。详见 [搜索焦点决策材料](SEARCH-FOCUS-DECISION.md)。
 
 ## 评论适配与升级
 
@@ -45,7 +45,19 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/a11y.mjs \
 
 `check.mjs` 会写入带“合成验收/合成回复”标记的测试评论，记录资源 ID，临时改变评论权限、文章/单页的 `allowComment` 和插件开关，在 `finally` 中恢复原值。测试评论留在合成站供追溯。测试前两个插件必须启用；不要在运行期间改变该站配置或安装包。
 
-每个输出目录只对应一次运行，使用新目录保留失败证据。`check.mjs` 如有任意失败会返回非零；当前固定搜索插件的焦点缺陷会使完整流程结果为 `failed`，不能删掉断言使总结果变绿。Escape 和遮罩关闭分别记录焦点断言，四组合合计八项，关闭本身成功不能代替焦点恢复。a11y 脚本有任何违规同样返回非零。脚本不进入默认无服务 CI；`bun run verify` 通过并不等于这些真实场景通过。
+每个输出目录只对应一次运行，使用新目录保留失败证据。`check.mjs` 如有任意失败会返回非零；历史固定 1.7.1 的焦点缺陷使完整流程结果为 `failed`，当前 1.8.0 的结果以新报告为准，不能删掉断言使总结果变绿。Escape 和遮罩关闭分别记录焦点断言，四组合合计八项，关闭本身成功不能代替焦点恢复。a11y 脚本有任何违规同样返回非零。脚本不进入默认无服务 CI；`bun run verify` 通过并不等于这些真实场景通过。
+
+焦点专项使用同一固定主题包和已安装插件的合成站，不修改服务器配置或内容：
+
+```sh
+BASE_URL=http://127.0.0.1:18261 node scripts/search-comment/focus.mjs \
+  --lab-runtime .runtime/search-1.8-lab \
+  --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
+  --theme-source-sha "$(git rev-parse HEAD)" \
+  --output .evidence/search-comment/focus-new
+```
+
+实际端口必须匹配 lab 的 owner 标记；先使用 `auth.py` 导出私有合成会话用于只读插件状态核对。专项固定 Playwright 1.63.0 的三种无头引擎，覆盖主题入口、遮罩、重复开关、多个入口、同批次关闭再打开、隐藏/移除入口与结果跳转。先断言焦点进入 Shadow DOM 内的输入框，再检查关闭后返回实际入口，并等待插件 DOM 更新。这不是完整 Tab 焦点约束或真机验收。
 
 ## 场景范围
 
@@ -87,7 +99,7 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/lifecycle.mjs \
 
 ## 未完成与下一步
 
-- [#313](https://github.com/songxychn/halo-butterfly-next/issues/313)：SearchWidget 1.7.1 的 `close()` 仅改变 `open`，未恢复触发焦点，也没有主题可订阅的稳定关闭事件。2026-09-21 核查官方最新 release 仍为 1.7.1，当前主分支同样没有修复；本仓库 issue 以 `NOT_PLANNED` 关闭不代表验收通过。证据、公开 alpha 阻塞判断及待批准替代方案见 [SEARCH-FOCUS-DECISION.md](SEARCH-FOCUS-DECISION.md)。没有向上游自动发送 issue/PR，没有修改私有 Shadow DOM 或插件原型。
+- [#313](https://github.com/songxychn/halo-butterfly-next/issues/313)：上游 [PR #66](https://github.com/halo-dev/plugin-search-widget/pull/66) 已合并并随 1.8.0 正式发布；本轮主题焦点专项 96/96、搜索/评论/权限集成流程 26/26 通过。精确身份及独立审查见 [验收记录](validation/2026-10-08/search-widget-1.8.md)。1.7.1 的历史失败和 alpha 例外保留，不改写为通过。主题代码未新增私有 Shadow DOM/内部状态监听或组件原型补丁；验收脚本仅观察组件状态与焦点。
 - 真机软键盘、真实 Safari、完整 Tab 焦点约束、屏幕阅读器及所有用户角色未验证。390px 无头视口不能替代手机设备。
 - 生命周期脚本覆盖卸载重装、低版本契约、主题切换与列表计数；以对应提交的运行报告为通过依据。实际旧版兼容、所有用户角色、完整推荐插件组合仍未完成；不声称 PLG-01/02/03/06 全部通过。
 - 矩阵记录精确依赖和已发现失败，不因此提升为 `verified`。完整合同仍见 [RELEASE-ACCEPTANCE.md](RELEASE-ACCEPTANCE.md)。

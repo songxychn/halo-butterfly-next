@@ -32,7 +32,7 @@
     "plugin-contract": "记录插件确切版本、启用、停用和缺失状态。",
     "asset-license": "资源来源、版本、分发许可和第三方声明核验。",
     "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；其余 DEC 在裁定前不减范围。",
-    "official-search": "PluginSearchWidget 1.7.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；焦点恢复失败见 #313。",
+    "official-search": "PluginSearchWidget 1.8.0（Halo >=2.26.0）；JAR SHA-256 固定在 fixtures/search-comment/versions.json；入口兼容 >=1.7.1，旧版焦点缺陷保留；2026-10-08 焦点专项通过，完整合同未验收。",
     "official-comments": "PluginCommentWidget 3.3.2 / Halo 2.26.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；完整验收范围见 docs/SEARCH-COMMENT-VALIDATION.md。"
   },
   "acceptanceProfiles": {
@@ -11933,7 +11933,7 @@
           "src/html/views/nav.html",
           "src/js/core/common.ts"
         ],
-        "finding": "锁定 SearchWidget 1.7.1；主题最低版本检查、启停/卸载重装及本地 manifest 低版本拒绝契约有局部证据。Escape/遮罩关闭后焦点恢复失败仍存在；alpha 例外不是修复，完整 PLG-01/02、真机软键盘与屏幕阅读器未通过。 剩余：关闭焦点恢复；完整 PLG-01/02/真机"
+        "finding": "固定 SearchWidget 1.8.0 / Halo 2.26.1；主题仍使用官方 SearchWidget.open()，入口兼容 >=1.7.1。2026-10-08 三引擎 × 桌面/手机视口 × 亮暗焦点及边界回归 96/96、搜索/评论/权限集成 26/26 通过，关闭焦点缺陷已在此范围修复；1.7.1 历史失败与首轮脚本错误/Firefox 资源超时原样保留。剩余：完整 PLG-01/02、完整 Tab 焦点约束、真机软键盘、真实 Safari 和屏幕阅读器；既有资源加载问题另行跟踪。"
       },
       "dependencies": [
         "dual-site",
@@ -11974,6 +11974,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-08/search-widget-1.8.json",
+          "sha256": "8591bf04c8752856f9ef527708fbe39d0f76d29899fe74643da321098db60dad",
+          "date": "2026-10-08T13:31:44.562Z",
+          "commit": "559b3a18c2258011702d37baa3f01b323db3e3e1",
+          "actor": "/root",
+          "outcome": "passed-bounded-focus-and-integration; full contract incomplete"
         }
       ],
       "status": "implemented-unverified"
@@ -50714,7 +50723,7 @@
           "src/html/views/layout.html",
           "src/js/core/common.ts"
         ],
-        "finding": "官方 SearchWidget 1.7.1 的 Escape/遮罩关闭后焦点未回入口；alpha.3 固定报告有 8 项焦点失败，另有独立资源超时，不混为同一故障。维护者仅批准公开 alpha 披露例外，1.0 verification-failed 保留；完整键盘/真机软键盘仍未完成。 剩余：关闭焦点恢复；完整键盘和真机软键盘"
+        "finding": "固定 SearchWidget 1.8.0 / Halo 2.26.1；主题仍使用官方 SearchWidget.open()，入口兼容 >=1.7.1。2026-10-08 三引擎 × 桌面/手机视口 × 亮暗焦点及边界回归 96/96、搜索/评论/权限集成 26/26 通过，关闭焦点缺陷已在此范围修复；1.7.1 历史失败与首轮脚本错误/Firefox 资源超时原样保留。剩余：完整 PLG-01/02、完整 Tab 焦点约束、真机软键盘、真实 Safari 和屏幕阅读器；既有资源加载问题另行跟踪。"
       },
       "dependencies": [
         "dual-site",
@@ -50753,9 +50762,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-08/search-widget-1.8.json",
+          "sha256": "8591bf04c8752856f9ef527708fbe39d0f76d29899fe74643da321098db60dad",
+          "date": "2026-10-08T13:31:44.562Z",
+          "commit": "559b3a18c2258011702d37baa3f01b323db3e3e1",
+          "actor": "/root",
+          "outcome": "passed-bounded-focus-and-integration; full contract incomplete"
         }
       ],
-      "status": "verification-failed"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:dual-comments",

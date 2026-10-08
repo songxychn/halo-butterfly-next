@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-search-reconciliation",
+  "recordedAt": "2026-10-08T13:31:44.562Z",
+  "actor": "/root",
+  "sourceSha": "559b3a18c2258011702d37baa3f01b323db3e3e1",
+  "summary": {
+    "path": "docs/validation/2026-10-08/search-widget-1.8.json",
+    "sha256": "8591bf04c8752856f9ef527708fbe39d0f76d29899fe74643da321098db60dad"
+  },
+  "previousDependency": "PluginSearchWidget 1.7.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；焦点恢复失败见 #313。",
+  "dependency": "PluginSearchWidget 1.8.0（Halo >=2.26.0）；JAR SHA-256 固定在 fixtures/search-comment/versions.json；入口兼容 >=1.7.1，旧版焦点缺陷保留；2026-10-08 焦点专项通过，完整合同未验收。",
+  "items": [
+    {
+      "id": "config:search.use",
+      "previousStatus": "implemented-unverified",
+      "previousFinding": "锁定 SearchWidget 1.7.1；主题最低版本检查、启停/卸载重装及本地 manifest 低版本拒绝契约有局部证据。Escape/遮罩关闭后焦点恢复失败仍存在；alpha 例外不是修复，完整 PLG-01/02、真机软键盘与屏幕阅读器未通过。 剩余：关闭焦点恢复；完整 PLG-01/02/真机",
+      "status": "implemented-unverified",
+      "finding": "固定 SearchWidget 1.8.0 / Halo 2.26.1；主题仍使用官方 SearchWidget.open()，入口兼容 >=1.7.1。2026-10-08 三引擎 × 桌面/手机视口 × 亮暗焦点及边界回归 96/96、搜索/评论/权限集成 26/26 通过，关闭焦点缺陷已在此范围修复；1.7.1 历史失败与首轮脚本错误/Firefox 资源超时原样保留。剩余：完整 PLG-01/02、完整 Tab 焦点约束、真机软键盘、真实 Safari 和屏幕阅读器；既有资源加载问题另行跟踪。"
+    },
+    {
+      "id": "interaction:search-popup",
+      "previousStatus": "verification-failed",
+      "previousFinding": "官方 SearchWidget 1.7.1 的 Escape/遮罩关闭后焦点未回入口；alpha.3 固定报告有 8 项焦点失败，另有独立资源超时，不混为同一故障。维护者仅批准公开 alpha 披露例外，1.0 verification-failed 保留；完整键盘/真机软键盘仍未完成。 剩余：关闭焦点恢复；完整键盘和真机软键盘",
+      "status": "implemented-unverified",
+      "finding": "固定 SearchWidget 1.8.0 / Halo 2.26.1；主题仍使用官方 SearchWidget.open()，入口兼容 >=1.7.1。2026-10-08 三引擎 × 桌面/手机视口 × 亮暗焦点及边界回归 96/96、搜索/评论/权限集成 26/26 通过，关闭焦点缺陷已在此范围修复；1.7.1 历史失败与首轮脚本错误/Firefox 资源超时原样保留。剩余：完整 PLG-01/02、完整 Tab 焦点约束、真机软键盘、真实 Safari 和屏幕阅读器；既有资源加载问题另行跟踪。"
+    }
+  ],
+  "verifiedCount": 0,
+  "policy": "Only the fixed 1.8.0 focus defect is resolved. No historical report modified and no item promoted to verified."
+}

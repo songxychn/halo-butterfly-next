@@ -87,6 +87,12 @@ try {
         try {
           await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
           await page.waitForFunction(expected => document.documentElement.dataset.colorScheme === expected && typeof window.SearchWidget?.open === 'function', mode);
+          await page.locator('.nav').evaluate(async element => {
+            getComputedStyle(element).opacity;
+            await Promise.all(element.getAnimations({ subtree: true })
+              .filter(animation => Number.isFinite(animation.effect.getComputedTiming().endTime))
+              .map(animation => animation.finished.catch(() => {})));
+          });
           const trigger = page.locator('.nav a[title="搜索"]');
           const input = page.getByPlaceholder('输入关键词以搜索');
           const opened = async () => {
