@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-09T00:10:27.500774+08:00",
+  "reviewer": "Independent Codex agent /root/review_alpha4",
+  "decision": "approved",
+  "tag": "v0.1.0-alpha.4",
+  "sourceSha": "3c1d1e3e9bddf73e3653d1ed75ac2830af0709f3",
+  "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+  "previousReviewedSourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+  "originalReviewSha256": "08d481dc6019b46d3ce35e3e4fbb65ad0d8d47ebf7cc7dda6d5750222058ef8e",
+  "scope": "Supplemental independent source review: 3c1d1e3 one-line demo tutorial correction plus preceding allowlisted release/validation materials. No replay or reassignment of old actual tests.",
+  "gates": {
+    "realHalo": "passed-by-identical-theme-bytes",
+    "installUpgradeRollback": "passed-by-identical-theme-bytes",
+    "resourcesAndLicenses": "passed-by-identical-theme-bytes",
+    "sourceRebuild": "passed"
+  },
+  "changesReviewed": [
+    "site/content/tutorials/reading.md first paragraph removes stale alpha.3/undeployed reading settings claim and describes alpha.4 included settings.",
+    "No src, theme metadata, settings, plugin fixtures, build scripts, workflow or runtime importer change from 4dd8e1a; other differences are recorded release/validation materials."
+  ],
+  "verification": {
+    "siteCheck": {
+      "command": "bun run site:check",
+      "independentlyRun": true,
+      "content": 19,
+      "assets": 14,
+      "links": 89,
+      "result": "passed"
+    },
+    "diffCheck": "git diff --check 4dd8e1a..3c1d1e3 passed",
+    "exactSourceRebuild": {
+      "sourceSha": "3c1d1e3e9bddf73e3653d1ed75ac2830af0709f3",
+      "trackedFilesByteComparedToGit": true,
+      "mismatches": [],
+      "rebuiltZipSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+      "log": ".runtime/alpha4/reading-rebuild.log",
+      "logSha256": "669e5b109467bc3acdbb7db5f1acd80227f536d0900a57ce10250bd9a917f2c0"
+    },
+    "originalReviewPreserved": true,
+    "themeBuildInputsUnchanged": true
+  },
+  "actualTestProvenance": {
+    "realHaloInstallUpgradeRollbackBrowserResources": "Original actual test source remains 4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5 with identical ZIP 389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953. Equivalence reviewed; those records are not claimed as reruns on new source.",
+    "priorH2Receipt": "Previous final candidate H2 synthetic merge 5d4307cb813d4dfe397da47fcf3b48fd8cc2c2d4 remains tied to workflow head 4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5. Demo content changed; cannot count that receipt as new demo content acceptance."
+  },
+  "ciAtReview": {
+    "headSha": "3c1d1e3e9bddf73e3653d1ed75ac2830af0709f3",
+    "themeRun": 37806537385,
+    "themeStatus": "in_progress",
+    "h2Run": 37806537380,
+    "h2Status": "in_progress",
+    "result": "pending; this report does not claim new-head CI success"
+  },
+  "findings": [],
+  "blockers": [],
+  "publicationConditions": [
+    "Wait for new 3c1d1e3 H2/demo and theme CI success, record new workflow-head and synthetic merge receipt separately.",
+    "Preserve original 4dd8e1a raw tests, old H2 receipts and failures. Update qualification to this separately reviewed source and cite both original and addendum.",
+    "Final release-material commits require own CI; source must be tag ancestor, ZIP must remain identical, release assets and live demo require final verification."
+  ],
+  "knownLimitations": "All original independent-review limitations remain; no expansion to full 1.0, accessibility, performance, device, ecosystem or market approval."
+}

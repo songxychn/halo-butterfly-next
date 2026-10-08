@@ -1,9 +1,9 @@
 {
   "tag": "v0.1.0-alpha.4",
-  "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+  "sourceSha": "3c1d1e3e9bddf73e3653d1ed75ac2830af0709f3",
   "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
   "decision": "approved",
-  "reviewer": "/root/review_alpha4: independent bounded alpha approval of source 4dd8e1a and ZIP 389f78ad; see docs/validation/2026-10-08/alpha4-independent-review.json",
+  "reviewer": "/root/review_alpha4: original four bounded gates plus independent doc-only addendum for source 3c1d1e3 and unchanged ZIP 389f78ad",
   "gates": {
     "realHalo": "passed",
     "installUpgradeRollback": "passed",
@@ -30,6 +30,14 @@
     {
       "path": "docs/validation/2026-10-08/alpha4-independent-review.json",
       "sha256": "08d481dc6019b46d3ce35e3e4fbb65ad0d8d47ebf7cc7dda6d5750222058ef8e"
+    },
+    {
+      "path": "docs/validation/2026-10-08/alpha4-independent-review-addendum.json",
+      "sha256": "9bb33e4049d86d4c7088dfc9e446b34ef1c94c576d05127f282261f5f6130b8f"
+    },
+    {
+      "path": "docs/validation/2026-10-08/alpha4-final-materials.json",
+      "sha256": "43b3682cb880ffd6d41781560d3a1b3baba5c745e634747c304a5d75d795bf8b"
     }
   ],
   "publicationAuthorized": true,
@@ -37,5 +45,9 @@
     "instruction": "发布新版本并更新 demo",
     "scope": "Publish the next public alpha and verify its release-driven demo"
   },
-  "blockers": []
+  "blockers": [],
+  "gateNotes": {
+    "productTests": "Actual 4dd8e1a tests retain their identity. 3c1d1e3 changes one demo paragraph and release evidence only; same ZIP independently rebuilt and reviewed. New demo profile/content H2 CI separately passed on 3c1d1e3.",
+    "publication": "Maintainer authorized public alpha.4 and demo update; full 1.0, market, a11y and performance not approved."
+  }
 }
