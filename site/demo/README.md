@@ -6,7 +6,7 @@
 
 ## 镜像与运行
 
-镜像基于固定摘要的 Halo 2.26.1，自带 H2、Python 初始化器、SearchWidget 1.7.1、主题 ZIP、19 篇内容和14张许可照片。只导出公开材料，不复制任何已运行实例的数据库、凭据、Cookie 或密钥。
+镜像基于固定摘要的 Halo 2.26.1，自带 H2、Python 初始化器、SearchWidget 1.8.0、主题 ZIP、19 篇内容和14张许可照片。只导出公开材料，不复制任何已运行实例的数据库、凭据、Cookie 或密钥。
 
 启动时在 `/root/.halo2` 独立可写目录生成 H2 与管理员 `site-maintainer`。凭据保存在 `demo-operations/credentials.json`（0600）。同版本重启保留数据库与凭据；目录中的版本/源码/主题摘要不匹配时拒绝启动。初始化未完成时不报告健康，既有未完成导入按归属与快照核验恢复，否则停止等待检查。不要通过删除归属记录强制复用目录。
 
@@ -50,7 +50,7 @@ python3 /root/docker/app/halo-butterfly-next/h2/tools/hk-update.py rollback
 
 ```sh
 bun run verify
-bun site/demo/bundle.mjs dist/halo-butterfly-next-0.1.0-alpha.3.zip .runtime/demo-bundle
+bun site/demo/bundle.mjs dist/halo-butterfly-next-0.1.0-alpha.4.zip .runtime/demo-bundle
 python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
 docker build -t demo-candidate .runtime/demo-context
 python3 site/demo/smoke.py demo-candidate

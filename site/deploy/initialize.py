@@ -217,9 +217,28 @@ def import_public(runtime, bundle, data_root, public_url):
     for group, patch in {'basic': {'title': manifest['title'], 'subtitle': ''}, 'seo': {'description': manifest['description']}, 'menu': {'primary': 'hbn-site-menu'}, 'post': {'pageSize': 10}}.items():
         system['data'][group] = json.dumps(merge(json.loads(system['data'].get(group, '{}')), patch), ensure_ascii=False)
     client.api('/api/v1alpha1/configmaps/system', 'PUT', system)
-    search = client.api('/apis/plugin.halo.run/v1alpha1/plugins/PluginSearchWidget')
-    jar = data_root / 'plugins/PluginSearchWidget-1.7.1.jar'
-    if search['spec']['version'] != '1.7.1' or hashlib.sha256(jar.read_bytes()).hexdigest() != '1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b':
+    # Halo first-setup installs its bundled 1.7.1 even when a newer JAR is staged.
+    # Upgrade through the supported API before enabling the pinned official artifact.
+    jar = data_root / 'plugins/PluginSearchWidget-1.8.0.jar'
+    expected_search_sha = '4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d'
+    if hashlib.sha256(jar.read_bytes()).hexdigest() != expected_search_sha:
+        raise RuntimeError('Staged search plugin does not match verified artifact')
+    search_path = '/apis/plugin.halo.run/v1alpha1/plugins/PluginSearchWidget'
+    search = client.api(search_path)
+    if search['spec']['version'] != '1.8.0':
+        set_plugin_enabled(client, 'PluginSearchWidget', False)
+        for _ in range(60):
+            if client.api(search_path).get('status', {}).get('phase') == 'DISABLED':
+                break
+            time.sleep(.5)
+        else:
+            raise RuntimeError('Bundled search plugin did not stop')
+        boundary = 'demo-search-upgrade'
+        body = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{jar.name}"\r\nContent-Type: application/java-archive\r\n\r\n'.encode()
+                + jar.read_bytes() + f'\r\n--{boundary}--\r\n'.encode())
+        client.api(CONSOLE + 'plugins/PluginSearchWidget/upgrade', 'POST', body, 'multipart/form-data; boundary=' + boundary)
+    search = client.api(search_path)
+    if search['spec']['version'] != '1.8.0' or hashlib.sha256(jar.read_bytes()).hexdigest() != expected_search_sha:
         raise RuntimeError('Search plugin does not match verified artifact')
     set_plugin_enabled(client, 'PluginSearchWidget', True)
     for _ in range(60):

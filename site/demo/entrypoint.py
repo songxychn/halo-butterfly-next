@@ -54,7 +54,7 @@ def main():
     ready.unlink(missing_ok=True)
     if not (operations/'import-started.json').exists():
         (DATA/'plugins').mkdir(exist_ok=True)
-        shutil.copyfile('/opt/demo/search.jar',DATA/'plugins/PluginSearchWidget-1.7.1.jar')
+        shutil.copyfile('/opt/demo/search.jar',DATA/'plugins/PluginSearchWidget-1.8.0.jar')
     public_url=os.environ.get('HALO_EXTERNAL_URL','https://butterfly.baizhukui.com')
     if public_url!='https://butterfly.baizhukui.com': raise RuntimeError('Unexpected demo public URL')
     # No inherited external database configuration is allowed.

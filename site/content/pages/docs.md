@@ -1,6 +1,6 @@
 # 使用文档
 
-这组文档面向 Halo Butterfly Next 0.1.0-alpha.3 预览，平台验证基线为 Halo 2.26.1。当前版本尚未公开发行，先阅读[下载与预览说明](download.md)，了解安装包和已知限制。
+这组文档面向 Halo Butterfly Next 0.1.0-alpha.4 测试版，平台验证基线为 Halo 2.26.1。版本下载与验证范围请阅读[下载与预览说明](download.md)，了解安装包和已知限制。
 
 ## 第一次使用
 

@@ -1,6 +1,6 @@
 # 从旧 Butterfly 主题迁移
 
-适用：原 Halo Butterfly 2.0.5 或源码结构 2.0.7 的配置，迁移目标为 Halo Butterfly Next 0.1.0-alpha.3 预览。本文不处理 Hexo 内容导入。
+适用：原 Halo Butterfly 2.0.5 或源码结构 2.0.7 的配置，迁移目标为 Halo Butterfly Next 0.1.0-alpha.4 测试版。本文不处理 Hexo 内容导入。
 
 原主题 ID 为 `theme-butterfly`，Next 为 `halo-butterfly-next`。两个主题的设置分别保存。先安装 Next 并在测试站核对结果，再决定是否切换正式站点。
 

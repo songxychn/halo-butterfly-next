@@ -1,4 +1,12 @@
-# 安装、升级与回退（alpha.3）
+# 安装、升级与回退
+
+alpha.4 的主题 ID 为 `halo-butterfly-next`，最低声明 Halo ≥2.20.2，不设上限；真实升级回退基线为 Halo 2.26.1。获取[alpha.4 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)中的 `halo-butterfly-next-0.1.0-alpha.4.zip`，按 `SHA256SUMS` 校验。安装、升级和回退均在控制台主题管理中上传构建 ZIP；源码归档不能直接安装。
+
+升级前备份数据库、附件与完整主题配置，并保留当前可用的旧包。先在测试站更新同 ID 主题；出现问题时上传原版本并重新启用，检查页面、配置和内容。alpha.4 本轮在真实 Halo 2.26.1 演练了 alpha.3 → alpha.4 → alpha.3 → alpha.4，129 文件核对、配置及内容保留通过，见[当前验收记录](validation/2026-10-08/alpha4-acceptance.json)。搜索与评论插件版本单独管理；退回主题不会自动降低插件版本。
+
+[alpha.4 已知限制与平台范围](../releases/v0.1.0-alpha.4.md)。旧 `theme-butterfly` 迁移见[迁移说明](MIGRATION.md)。下文保留 alpha.3 的实际发行与历史回退证据，不归给 alpha.4。
+
+## alpha.3 历史安装与回退
 
 本文针对 Halo 2.26.1、主题 ID `halo-butterfly-next`。[alpha.3 已公开发行](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)，主题 ZIP 与 `SHA256SUMS` 均可从发行页下载。安装升级回退的证据范围见[最终验收](validation/2026-10-06/alpha3-final-acceptance.md)；资源加载超时等已知限制仍保留，详见[发行说明](RELEASE-alpha.3.md)。旧 `theme-butterfly` 迁移是另一条流程，见[迁移说明](MIGRATION.md)。
 
