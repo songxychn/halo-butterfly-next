@@ -1,6 +1,6 @@
 # Butterfly 5.7.0 功能矩阵
 
-> 此文件由 `node scripts/parity-render.mjs` 生成。只编辑 `matrix.json`；覆盖检查不代表功能验收。
+> 此文件由 `bun scripts/parity-render.mjs` 生成。只编辑 `matrix.json`；覆盖检查不代表功能验收。
 
 固定上游：5.7.0 / `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`。首次 Halo 源码盘点：`bbc1ebe5c5726cf36f52949455e1a97120637cac`。
 

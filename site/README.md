@@ -20,7 +20,7 @@
 
 ## 建立样站
 
-需要项目要求的 Node.js 24、Bun 1.4.0、Python 3、Java 21+、OpenSSL。先准备可信来源的 Halo 2.26.1 JAR；工具会按 `fixtures/comparison/versions.json` 固定 SHA-256 校验，不自动下载。
+需要项目要求的 Bun 1.4.0、Python 3、Java 21+、OpenSSL。先准备可信来源的 Halo 2.26.1 JAR；工具会按 `fixtures/comparison/versions.json` 固定 SHA-256 校验，不自动下载。
 
 在仓库根目录运行：
 
@@ -80,7 +80,7 @@ bun run site:local start
 ## 验证与记录
 
 ```sh
-node --test tests/site-content.test.mjs tests/site-publish.test.mjs
+bun test --isolate --timeout 30000 tests/site-content.test.mjs tests/site-publish.test.mjs
 bun run verify
 ```
 

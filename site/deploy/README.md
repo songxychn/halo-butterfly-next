@@ -26,7 +26,7 @@
 
 ```sh
 bun run verify
-node site/deploy/export.mjs .runtime/docs-site/permalinks.json
+bun site/deploy/export.mjs .runtime/docs-site/permalinks.json
 tar -C .runtime/hk-public-export -czf .runtime/hk-public-export.tar.gz .
 ```
 

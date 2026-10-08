@@ -14,7 +14,7 @@ BASE_URL=http://127.0.0.1:18121 \
 LAB_RUNTIME=/absolute/path/to/.runtime/release-readiness \
 BROWSER_RUNTIME=/absolute/path/to/.runtime/browser-matrix \
 FOOTER_AXE_PATH=/absolute/path/to/axe-core/axe.min.js \
-node scripts/footer/check.mjs .evidence/footer/run-new
+bun scripts/footer/check.mjs .evidence/footer/run-new
 ```
 
 脚本校验 loopback 与 lab owner 标识，只读取 Halo 首页 HTML；把候选 ZIP 的 index CSS 替换到自己的无头 Chromium 响应中，不安装候选、不修改服务端配置。纯白图片、导航、自定义文字和备案是浏览器内夹具，不能冒称持久化设置已经验收。输出记录站点实际安装包、候选包和 CSS 摘要、源码 SHA、runner 摘要与工作树状态。

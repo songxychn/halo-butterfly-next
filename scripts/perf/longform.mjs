@@ -14,4 +14,4 @@ export async function longform(directory=path.join(FIXTURE,'longform')){
  assert((await readdir(path.join(directory,'assets'))).length===12,'Unexpected asset count');
  return {meta,body,fixtureSha256:digestObject(meta)};
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){assert(process.argv.length===3&&process.argv[2]==='--check','Usage: node scripts/perf/longform.mjs --check');const f=await longform();console.log(JSON.stringify({name:f.meta.name,bytes:Buffer.byteLength(f.body),fixtureSha256:f.fixtureSha256,counts:f.meta.counts}));}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){assert(process.argv.length===3&&process.argv[2]==='--check','Usage: bun scripts/perf/longform.mjs --check');const f=await longform();console.log(JSON.stringify({name:f.meta.name,bytes:Buffer.byteLength(f.body),fixtureSha256:f.fixtureSha256,counts:f.meta.counts}));}

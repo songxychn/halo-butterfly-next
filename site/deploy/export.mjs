@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // Export only source-authored public materials. Never read runtime credentials or databases.
 import {mkdir, readFile, writeFile, copyFile, readdir} from 'node:fs/promises';
 import {resolve, join, relative} from 'node:path';
@@ -7,7 +7,7 @@ import {createHash} from 'node:crypto';
 import {compile} from '../render.mjs';
 const repo = fileURLToPath(new URL('../../', import.meta.url));
 const mappingFile = process.argv[2];
-if (!mappingFile) throw new Error('Usage: node site/deploy/export.mjs <verified-permalinks.json> [new-output-directory]');
+if (!mappingFile) throw new Error('Usage: bun site/deploy/export.mjs <verified-permalinks.json> [new-output-directory]');
 const output = resolve(process.argv[3] || join(repo, '.runtime/hk-public-export'));
 if (!output.startsWith(join(repo, '.runtime') + '/')) throw new Error('Export must stay in this checkout .runtime');
 // mkdir without recursive prevents reusing an existing directory or symlink.

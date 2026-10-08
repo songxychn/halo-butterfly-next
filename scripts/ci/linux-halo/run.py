@@ -90,6 +90,20 @@ def poll(predicate, message):
     raise RuntimeError(message)
 
 
+def set_plugin_enabled(lab, client, name, enabled):
+    """Retry only optimistic state conflicts in this freshly owned CI lab."""
+    endpoint = '/apis/api.console.halo.run/v1alpha1/plugins/' + name + '/plugin-state'
+    for attempt in range(4):
+        try:
+            client.api(endpoint, 'PUT', {'enable': enabled, 'async': False})
+            return
+        except lab.ApiError as error:
+            if error.status != 409 or attempt == 3:
+                raise
+            print(f'Plugin {name}: state conflict; retry {attempt + 1}/3', flush=True)
+            time.sleep(0.1 * 2 ** attempt)
+
+
 def install_plugins(lab, client, runtime, lock):
     resource = '/apis/plugin.halo.run/v1alpha1/plugins/'
     console = '/apis/api.console.halo.run/v1alpha1/plugins'
@@ -106,14 +120,14 @@ def install_plugins(lab, client, runtime, lock):
                 return None
         if current():
             # Fresh lab only. Replace bundled artifacts with the exact official lock.
-            client.api(console + '/' + plugin['name'] + '/plugin-state', 'PUT', {'enable': False, 'async': False})
+            set_plugin_enabled(lab, client, plugin['name'], False)
             client.api(resource + plugin['name'], 'DELETE')
             poll(lambda: current() is None, 'Bundled plugin removal did not settle')
         boundary = 'linux-ci-' + secrets.token_hex(12)
         body = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{jar.name}"\r\nContent-Type: application/java-archive\r\n\r\n'.encode() + jar.read_bytes() + f'\r\n--{boundary}--\r\n'.encode())
         client.api(console + '/install', 'POST', body, 'multipart/form-data; boundary=' + boundary)
         poll(lambda: current() is not None, 'Pinned plugin installation did not settle')
-        client.api(console + '/' + plugin['name'] + '/plugin-state', 'PUT', {'enable': True, 'async': False})
+        set_plugin_enabled(lab, client, plugin['name'], True)
         poll(lambda: current()['spec'].get('enabled') is True and current().get('status', {}).get('phase') == 'STARTED', 'Pinned plugin did not start')
         state = current()
         if state['spec']['version'] != plugin['version']:
@@ -224,7 +238,7 @@ def main():
         shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')
         # Fail early with useful stderr before starting Halo or spending a full matrix.
         preflight_path = output / 'chromium-preflight.json'
-        preflight = subprocess.Popen(['node', str(HARNESS / 'scripts/ci/linux-halo/preflight.mjs'), str(preflight_path)], start_new_session=True)
+        preflight = subprocess.Popen(['bun', str(HARNESS / 'scripts/ci/linux-halo/preflight.mjs'), str(preflight_path)], start_new_session=True)
         try:
             preflight_status = preflight.wait(timeout=60)
         finally:
@@ -262,7 +276,7 @@ def main():
             raise RuntimeError('Global comment configuration did not persist')
         report['globalCommentEnabled'] = True
         report['installedPackage'] = json_file(runtime / 'installed-package.json')
-        matrix = subprocess.Popen(['node', str(HARNESS / 'scripts/browser/run.mjs'), '--lab-runtime', str(runtime), '--theme-package', str(package), '--theme-source-sha', args.source_sha], env={**os.environ, 'BASE_URL': lab.BASE['halo']}, start_new_session=True)
+        matrix = subprocess.Popen(['bun', str(HARNESS / 'scripts/browser/run.mjs'), '--lab-runtime', str(runtime), '--theme-package', str(package), '--theme-source-sha', args.source_sha], env={**os.environ, 'BASE_URL': lab.BASE['halo']}, start_new_session=True)
         status = matrix.wait(timeout=1500)
         report['matrixExitCode'] = status
         reports = list((HARNESS / '.runtime/browser-matrix/runs').glob('*/report.json'))

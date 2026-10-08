@@ -70,7 +70,7 @@ class Publisher:
         self.manifest = read_json(REPO / 'site/manifest.json')
         self.profile = read_json(REPO / 'site' / self.manifest['themeProfile'])
         self.assets = read_json(REPO / 'site' / self.manifest['assetsManifest'])['assets']
-        subprocess.run(['node', 'site/check.mjs'], cwd=REPO, check=True, capture_output=True)
+        subprocess.run(['bun', 'site/check.mjs'], cwd=REPO, check=True, capture_output=True)
         self.file = self.root / 'sync-state.json'
         self.state = read_json(self.file) if self.file.exists() else {'owner': OWNER, 'base': self.runtime.base, 'objects': {}, 'settings': {}}
         if self.state['owner'] != OWNER or self.state['base'] != self.runtime.base:
@@ -260,7 +260,7 @@ class Publisher:
     def compile(self, mapping):
         file = self.root / 'permalinks.json'
         write_json(file, mapping)
-        result = subprocess.run(['node', 'site/render.mjs', str(file)], cwd=REPO, check=True, capture_output=True, text=True)
+        result = subprocess.run(['bun', 'site/render.mjs', str(file)], cwd=REPO, check=True, capture_output=True, text=True)
         return {item['id']: item['html'] for item in json.loads(result.stdout)['content']}
 
     def sync(self):

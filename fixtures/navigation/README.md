@@ -42,9 +42,9 @@ Hexo 在单独目录复制合成source及配置，改独立URL与本夹具menu�
 
 ```sh
 bun run verify
-node scripts/navigation/check-browser.mjs http://127.0.0.1:18090 .evidence/navigation/two-level
+bun scripts/navigation/check-browser.mjs http://127.0.0.1:18090 .evidence/navigation/two-level
 # 激活 empty.json 后：
-node scripts/navigation/check-browser.mjs http://127.0.0.1:18090 .evidence/navigation/empty --empty
+bun scripts/navigation/check-browser.mjs http://127.0.0.1:18090 .evidence/navigation/empty --empty
 ```
 
 真实浏览器运行器要求 PATH 提供 `agent-browser`，以工作树与进程独有会话启动headless Chromium；不会连接用户GUI或默认会话。该命令是有浏览器环境时的显式验收，当前CI的 `bun run verify` 只自动跑夹具映射/拒绝无效输入等离线测试，不应误称CI已执行真实浏览器回归。

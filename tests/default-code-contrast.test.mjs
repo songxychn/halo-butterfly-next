@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import test from 'node:test';
+import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 
 function luminance(hex) {

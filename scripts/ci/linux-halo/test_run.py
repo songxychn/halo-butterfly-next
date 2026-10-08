@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 spec = importlib.util.spec_from_file_location('linux_halo_ci', Path(__file__).with_name('run.py'))
 ci = importlib.util.module_from_spec(spec)
@@ -13,6 +13,42 @@ spec.loader.exec_module(ci)
 
 
 class Guards(unittest.TestCase):
+    def test_plugin_state_conflicts_retry_without_replaying_a_resource(self):
+        lab = ci.load_lab()
+        endpoint = '/apis/api.console.halo.run/v1alpha1/plugins/PluginSearchWidget/plugin-state'
+        for enabled in (False, True):
+            with self.subTest(enabled=enabled), patch.object(ci.time, 'sleep') as sleep:
+                client = Mock()
+                client.api.side_effect = [lab.ApiError('PUT', endpoint, 409),
+                                          lab.ApiError('PUT', endpoint, 409), None]
+                ci.set_plugin_enabled(lab, client, 'PluginSearchWidget', enabled)
+                self.assertEqual(client.api.call_count, 3)
+                for call in client.api.call_args_list:
+                    self.assertEqual(call.args, (endpoint, 'PUT', {'enable': enabled, 'async': False}))
+                self.assertEqual(sleep.call_count, 2)
+
+    def test_plugin_state_conflicts_exhaust_the_budget_and_still_fail(self):
+        lab = ci.load_lab()
+        client = Mock()
+        client.api.side_effect = lab.ApiError('PUT', '/plugin-state', 409)
+        with patch.object(ci.time, 'sleep') as sleep, self.assertRaises(lab.ApiError):
+            ci.set_plugin_enabled(lab, client, 'PluginSearchWidget', True)
+        self.assertEqual(client.api.call_count, 4)
+        self.assertEqual(sleep.call_count, 3)
+
+    def test_plugin_state_other_errors_are_never_retried(self):
+        lab = ci.load_lab()
+        for error in (lab.ApiError('PUT', '/plugin-state', 401),
+                      lab.ApiError('PUT', '/plugin-state', 404),
+                      lab.ApiError('PUT', '/plugin-state', 500), RuntimeError('transport')):
+            with self.subTest(error=str(error)), patch.object(ci.time, 'sleep') as sleep:
+                client = Mock()
+                client.api.side_effect = error
+                with self.assertRaises(type(error)):
+                    ci.set_plugin_enabled(lab, client, 'PluginSearchWidget', False)
+                self.assertEqual(client.api.call_count, 1)
+                sleep.assert_not_called()
+
     def test_matrix_summary_does_not_export_storage_headers_or_runtime_config(self):
         result = {'platform': {'type': 'Linux'}, 'headers': {'secret': 'never'}, 'engines': [
             {'name': 'firefox', 'status': 'failed', 'pages': [{'path': '/', 'viewport': {'width': 390}, 'mode': 'dark', 'status': 'failed', 'failures': ['timeout'], 'jsErrors': [], 'storage': {'secret': 'never'}, 'diagnostics': {'failure': {'readyState': 'loading', 'pending': []}}}]}]}

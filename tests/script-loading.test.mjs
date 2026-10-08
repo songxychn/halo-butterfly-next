@@ -1,5 +1,5 @@
 const bootstrapSource = await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8');
-import test from 'node:test';
+import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';

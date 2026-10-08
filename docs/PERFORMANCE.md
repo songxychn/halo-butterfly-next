@@ -4,11 +4,11 @@ Issue #35 实现 PERF-01/02/03 的测量工具，不改变[工程验收合同](R
 
 ## 固定工具和环境
 
-包管理器或锁文件变更后须重新安装，并重新采集双方性能数据。独立依赖是 Lighthouse13.4.1，锁文件在 `fixtures/performance/`。运行使用Node24与Bun 1.4.0；Chrome固定为现有Playwright1.63.0缓存中的Chrome for Testing153.0.8010.12（revision1243，macOS arm64）。安装器要求明确传入该应用路径，核对可执行文件版本、固定 SHA256，以及仓库冻结的完整应用树 `treeSha256`；采样和比较再次核验，不能只用 install 自记录。官方 mac-arm64 Chrome for Testing 包的可执行文件与 Playwright 1.63.0 revision 1243 的 pin 一致。没有下载或选择最新浏览器的回退逻辑，不自动寻找用户 Chrome，也不连接其 profile/CDP。此固定引擎用于性能实验，不代替 BROWSER 稳定 Safari/Firefox 或真机验收。
+运行时、包管理器或锁文件变更后须重新安装，并重新采集双方性能数据。独立依赖是 Lighthouse13.4.1，锁文件在 `fixtures/performance/`。运行使用Bun 1.4.0；Chrome固定为现有Playwright1.63.0缓存中的Chrome for Testing153.0.8010.12（revision1243，macOS arm64）。安装器要求明确传入该应用路径，核对可执行文件版本、固定 SHA256，以及仓库冻结的完整应用树 `treeSha256`；采样和比较再次核验，不能只用 install 自记录。官方 mac-arm64 Chrome for Testing 包的可执行文件与 Playwright 1.63.0 revision 1243 的 pin 一致。没有下载或选择最新浏览器的回退逻辑，不自动寻找用户 Chrome，也不连接其 profile/CDP。此固定引擎用于性能实验，不代替 BROWSER 稳定 Safari/Firefox 或真机验收。
 
 ```sh
-node scripts/perf/install.mjs --chrome-app '/explicit/cache/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app'
-node scripts/perf/longform.mjs --check
+bun scripts/perf/install.mjs --chrome-app '/explicit/cache/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app'
+bun scripts/perf/longform.mjs --check
 ```
 
 `--chrome-app`是调用者提供的实际缓存位置；仓库未写入某人的绝对路径作为默认依赖。工具和依赖安装在本worktree `.runtime/performance`，运行目录有独立所有权标记，依赖不进入主题ZIP。Chrome应用更新、锁文件变更或硬件/系统变化后，应重新安装并重测基线和候选两侧。
@@ -52,12 +52,12 @@ python3 scripts/perf/station.py seed-longform --lab-runtime /absolute/owned/perf
 
 ```sh
 # 将CPU窗口名称替换为集成负责人实际安排的窗口；这不是自动申请或抢占CPU。
-node scripts/perf/collect.mjs --lab-runtime /absolute/owned/performance-lab \
+bun scripts/perf/collect.mjs --lab-runtime /absolute/owned/performance-lab \
   --package /absolute/frozen/theme.zip --profile default --route home \
   --cohort baseline-SHA --cpu-window assigned-window --limit 1
 
 # 正式集合用全新cohort目录并省略limit；每一路由固定10份。
-node scripts/perf/collect.mjs --lab-runtime /absolute/owned/performance-lab \
+bun scripts/perf/collect.mjs --lab-runtime /absolute/owned/performance-lab \
   --package /absolute/frozen/theme.zip --profile default --route home \
   --cohort baseline-full-SHA --cpu-window assigned-window
 ```
@@ -71,7 +71,7 @@ node scripts/perf/collect.mjs --lab-runtime /absolute/owned/performance-lab \
 ## 比较结果和退出码
 
 ```sh
-node scripts/perf/compare.mjs \
+bun scripts/perf/compare.mjs \
   .runtime/performance/runs/baseline-full-SHA \
   .runtime/performance/runs/candidate-full-SHA \
   .runtime/performance/comparison.json
@@ -89,4 +89,4 @@ node scripts/perf/compare.mjs \
 
 [本轮报告](validation/2026-10-06/mobile-performance.md)采用同一个专属 Halo 的 comparison 照片配置与固定长文，基线/候选 × 首页/长文 × 手机/桌面 × 5 次，共 40 个有效样本。手机首页/长文 LCP 分别降低 25.6% / 37.1%，但仍超过 2.5 秒预算。输入/包/原始报告摘要、内联代码体积、工具 locale 兼容说明及验证限制均保存于[机器记录](validation/2026-10-06/mobile-performance.json)。这不替代上方正式默认/推荐组合的 160 样本、合同范围或提交 CI。
 
-可用 `node scripts/perf/core-browser.mjs --base http://127.0.0.1:<owned-port> --output <new-local-report.json>` 对已安装夹具执行 30 个核心 headless 检查。依赖由 `scripts/browser/install.mjs` 按既有固定流程准备；只启动独立浏览器，不接入用户浏览器。检查菜单/目录/复制/灯箱、亮暗和顶图、延迟页面增强包时的正文显示，以及无 JS 阅读；不证明推荐插件、实际 Safari 或真机通过。
+可用 `bun scripts/perf/core-browser.mjs --base http://127.0.0.1:<owned-port> --output <new-local-report.json>` 对已安装夹具执行 30 个核心 headless 检查。依赖由 `scripts/browser/install.mjs` 按既有固定流程准备；只启动独立浏览器，不接入用户浏览器。检查菜单/目录/复制/灯箱、亮暗和顶图、延迟页面增强包时的正文显示，以及无 JS 阅读；不证明推荐插件、实际 Safari 或真机通过。
