@@ -218,8 +218,8 @@ def import_public(runtime, bundle, data_root, public_url):
         system['data'][group] = json.dumps(merge(json.loads(system['data'].get(group, '{}')), patch), ensure_ascii=False)
     client.api('/api/v1alpha1/configmaps/system', 'PUT', system)
     search = client.api('/apis/plugin.halo.run/v1alpha1/plugins/PluginSearchWidget')
-    jar = data_root / 'plugins/PluginSearchWidget-1.7.1.jar'
-    if search['spec']['version'] != '1.7.1' or hashlib.sha256(jar.read_bytes()).hexdigest() != '1c7da1a954e4d6af12e95be10eec35c518d436acb578933b66e53c911395193b':
+    jar = data_root / 'plugins/PluginSearchWidget-1.8.0.jar'
+    if search['spec']['version'] != '1.8.0' or hashlib.sha256(jar.read_bytes()).hexdigest() != '4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d':
         raise RuntimeError('Search plugin does not match verified artifact')
     set_plugin_enabled(client, 'PluginSearchWidget', True)
     for _ in range(60):

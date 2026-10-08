@@ -61,4 +61,4 @@ def set_search(client, enabled):
     write_json(record, {'identity': identity, 'state': {'uid': actual['metadata'].get('uid'), 'spec': actual['spec']}})
     return {'command': 'search-enable' if enabled else 'search-disable', 'base': client.runtime.base,
             'plugin': identity, 'enabled': enabled, 'phase': target_phase, 'changed': changed,
-            'knownLimit': 'SearchWidget 1.7.1 does not restore trigger focus on Escape/backdrop close'}
+            'knownLimit': 'Legacy SearchWidget 1.7.1 does not restore trigger focus; fixed in the pinned 1.8.0 baseline'}
