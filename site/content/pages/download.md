@@ -1,6 +1,6 @@
 # 下载与预览说明
 
-Halo Butterfly Next 0.1.0-alpha.4 是公开 alpha 测试版，面向测试站试用，不是稳定 1.0。安装附件及实际发布状态以 [alpha.4 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)为准。
+本文件是 Halo Butterfly Next 0.1.0-alpha.4 的发行准备内容，候选尚未公开发行；公开后面向测试站试用，不是稳定 1.0。安装附件及实际发布状态以 [alpha.4 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)为准。
 
 下载 `halo-butterfly-next-0.1.0-alpha.4.zip`，按 `SHA256SUMS` 校验；发行页同时提供对应源码和验证记录。GitHub 自动生成的 Source code 压缩包不能直接安装为主题。
 
