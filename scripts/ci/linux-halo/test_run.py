@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import Mock, patch
+from types import SimpleNamespace
 
 spec = importlib.util.spec_from_file_location('linux_halo_ci', Path(__file__).with_name('run.py'))
 ci = importlib.util.module_from_spec(spec)
@@ -13,41 +14,74 @@ spec.loader.exec_module(ci)
 
 
 class Guards(unittest.TestCase):
-    def test_plugin_state_conflicts_retry_without_replaying_a_resource(self):
-        lab = ci.load_lab()
-        endpoint = '/apis/api.console.halo.run/v1alpha1/plugins/PluginSearchWidget/plugin-state'
-        for enabled in (False, True):
-            with self.subTest(enabled=enabled), patch.object(ci.time, 'sleep') as sleep:
-                client = Mock()
-                client.api.side_effect = [lab.ApiError('PUT', endpoint, 409),
-                                          lab.ApiError('PUT', endpoint, 409), None]
-                ci.set_plugin_enabled(lab, client, 'PluginSearchWidget', enabled)
-                self.assertEqual(client.api.call_count, 3)
-                for call in client.api.call_args_list:
-                    self.assertEqual(call.args, (endpoint, 'PUT', {'enable': enabled, 'async': False}))
-                self.assertEqual(sleep.call_count, 2)
+    def test_matching_state_waits_for_phase_without_duplicate_put(self):
+        for enabled, phases in [(True, ['RESOLVED', 'RESOLVED', 'STARTED']),
+                                (False, ['DISABLING', 'DISABLING', 'DISABLED'])]:
+            states = iter([{'spec': {'enabled': enabled}, 'status': {'phase': phase}} for phase in phases])
+            class Client:
+                def api(self, path, method='GET', data=None):
+                    if method != 'GET':
+                        raise AssertionError('Matching enabled state must not be mutated')
+                    return next(states)
+            with patch.object(ci.time, 'sleep'):
+                ci.set_plugin_enabled(SimpleNamespace(), Client(), 'search', enabled)
 
-    def test_plugin_state_conflicts_exhaust_the_budget_and_still_fail(self):
-        lab = ci.load_lab()
-        client = Mock()
-        client.api.side_effect = lab.ApiError('PUT', '/plugin-state', 409)
-        with patch.object(ci.time, 'sleep') as sleep, self.assertRaises(lab.ApiError):
-            ci.set_plugin_enabled(lab, client, 'PluginSearchWidget', True)
-        self.assertEqual(client.api.call_count, 4)
-        self.assertEqual(sleep.call_count, 3)
+    def test_state_conflict_rereads_before_deciding_whether_to_retry(self):
+        class ApiError(Exception):
+            status = 409
+        class Client:
+            reads = 0
+            writes = 0
+            def api(self, path, method='GET', data=None):
+                if method == 'PUT':
+                    self.writes += 1
+                    raise ApiError()
+                self.reads += 1
+                return {'spec': {'enabled': self.reads > 1}, 'status': {'phase': 'STARTED'}}
+        client = Client()
+        with patch.object(ci.time, 'sleep'):
+            ci.set_plugin_enabled(SimpleNamespace(ApiError=ApiError), client, 'search', True)
+        self.assertEqual(client.writes, 1)
+        self.assertEqual(client.reads, 3)
 
-    def test_plugin_state_other_errors_are_never_retried(self):
+    def test_state_conflicts_are_bounded_and_other_errors_are_not_retried(self):
         lab = ci.load_lab()
-        for error in (lab.ApiError('PUT', '/plugin-state', 401),
-                      lab.ApiError('PUT', '/plugin-state', 404),
-                      lab.ApiError('PUT', '/plugin-state', 500), RuntimeError('transport')):
+        errors = [(lab.ApiError('PUT', '/plugin-state', status), 5 if status == 409 else 1)
+                  for status in (409, 401, 404, 500, 503)]
+        errors.append((RuntimeError('transport'), 1))
+        for error, expected in errors:
             with self.subTest(error=str(error)), patch.object(ci.time, 'sleep') as sleep:
                 client = Mock()
-                client.api.side_effect = error
+                def response(path, method='GET', data=None):
+                    if method == 'PUT':
+                        raise error
+                    return {'spec': {'enabled': False}, 'status': {'phase': 'RESOLVED'}}
+                client.api.side_effect = response
                 with self.assertRaises(type(error)):
-                    ci.set_plugin_enabled(lab, client, 'PluginSearchWidget', False)
-                self.assertEqual(client.api.call_count, 1)
-                sleep.assert_not_called()
+                    ci.set_plugin_enabled(lab, client, 'search', True)
+                writes = [call for call in client.api.call_args_list if len(call.args) > 1 and call.args[1] == 'PUT']
+                self.assertEqual(len(writes), expected)
+                for call in writes:
+                    self.assertEqual(call.args, ('/apis/api.console.halo.run/v1alpha1/plugins/search/plugin-state',
+                                                'PUT', {'enable': True, 'async': False}))
+                self.assertEqual(sleep.call_count, expected - 1)
+
+    def test_matching_enabled_flag_does_not_hide_startup_timeout(self):
+        class Client:
+            def api(self, path, method='GET', data=None):
+                if method != 'GET': raise AssertionError('Unexpected write')
+                return {'spec': {'enabled': True}, 'status': {'phase': 'RESOLVED'}}
+        with patch.object(ci.time, 'sleep'), self.assertRaisesRegex(RuntimeError, 'did not settle'):
+            ci.set_plugin_enabled(SimpleNamespace(), Client(), 'search', True)
+
+    def test_disable_requires_disabled_phase_not_failure_or_unknown_state(self):
+        for phase in ['FAILED', 'UNKNOWN', 'DISABLING', 'STARTING', None]:
+            class Client:
+                def api(self, path, method='GET', data=None):
+                    if method != 'GET': raise AssertionError('Unexpected duplicate disable write')
+                    return {'spec': {'enabled': False}, 'status': {'phase': phase}}
+            with patch.object(ci.time, 'sleep'), self.assertRaisesRegex(RuntimeError, 'did not settle'):
+                ci.set_plugin_enabled(SimpleNamespace(), Client(), 'search', False)
 
     def test_matrix_summary_does_not_export_storage_headers_or_runtime_config(self):
         result = {'platform': {'type': 'Linux'}, 'headers': {'secret': 'never'}, 'engines': [

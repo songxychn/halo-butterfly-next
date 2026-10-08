@@ -68,7 +68,7 @@ const report = {
   comments: [],
   limitations: [
     "Headless Chromium, not real mobile keyboard or Safari.",
-    "SearchWidget 1.7.1 has no result pagination (limit 20).",
+    `SearchWidget ${lock.plugins.find(p => p.name === "PluginSearchWidget").version} has no result pagination (limit 20).`,
     "Synthetic logged-in user is the fixture maintainer; no claim about every user role.",
     "External avatar requests are blocked; no external integration acceptance.",
   ],
