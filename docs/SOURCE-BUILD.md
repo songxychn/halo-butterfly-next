@@ -1,4 +1,16 @@
-# 对应源码与构建（alpha.3）
+# 对应源码与构建
+
+alpha.4 使用 **Bun 1.4.0 + Python 3**。从[对应发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)取得源码附件，在源码根目录执行：
+
+```sh
+bun install --frozen-lockfile --ignore-scripts
+bun run verify
+shasum -a 256 dist/halo-butterfly-next-0.1.0-alpha.4.zip
+```
+
+核对随版 `SHA256SUMS` 和 `release-validation.json` 的源码与包身份。alpha.4 实测新包 SHA-256 为 `389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953`；独立源码归档重建一致。源码归档不能直接作为主题安装包上传。完整门禁范围见[alpha.4 验收](validation/2026-10-08/alpha4-acceptance.json)。
+
+## alpha.3 历史源码复现
 
 安装 ZIP 与对应源码已在 [alpha.3 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)一起提供。发行 tag 对应提交 `7fc8d49a9069d44c4740eac4daaa59b843f87567`；实际产品验收源码为 `8e53148a8c84996d091e2792e8a4651522690a0a`，后续发行材料提交未改变已验 ZIP。附件身份与全部摘要见[发布完成记录](validation/2026-10-06/alpha3-publication.md)。[本仓库](https://github.com/songxychn/halo-butterfly-next)保留完整 Git 历史；复现已发布版本应使用该 tag 的源码附件，不能以最新 master 代替。
 
