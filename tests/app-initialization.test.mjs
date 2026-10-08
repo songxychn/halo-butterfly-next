@@ -1,10 +1,11 @@
-import test from 'node:test';
+import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {stripTypeScriptTypes} from 'node:module';
 import vm from 'node:vm';
 
-const source = stripTypeScriptTypes(await readFile(new URL('../src/js/core/App.ts', import.meta.url), 'utf8'))
+const transpiler = new Bun.Transpiler({loader: 'ts', target: 'browser'});
+
+const source = transpiler.transformSync(await readFile(new URL('../src/js/core/App.ts', import.meta.url), 'utf8'))
   .replace(/^import .*;$/gm, '').replace('export default ', '');
 
 test('page initialization retains service, run method, module and cleanup order', () => {

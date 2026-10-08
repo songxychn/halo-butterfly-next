@@ -1,0 +1,55 @@
+{
+  "baseCommit": "6dc64a6d1491c98b741a04959b2b9151663c6539",
+  "workingTreeClean": false,
+  "inputSnapshotSha256": "a3084b01df2c69f662ebcea0ae8212cfdc9c9ba3ce417b0ff06c1460805478ae",
+  "snapshotNote": "tracked files and bunfig.toml before adding this validation narrative; not a commit or release acceptance",
+  "versions": {
+    "nodeBaseline": "v24.11.0",
+    "bun": "1.4.0"
+  },
+  "tests": {
+    "node": 583,
+    "bun": 583,
+    "sameNames": true,
+    "nodeSeconds": 14.170479416,
+    "bunFinalSeconds": 10.43,
+    "bunEarlierSeconds": 6.96,
+    "timingNote": "single observations; final run overlaps browser validation, not a controlled performance benchmark"
+  },
+  "package": {
+    "name": "halo-butterfly-next-0.1.0-alpha.3.zip",
+    "sha256": "abdae98d37799f616cd36d215b632dd177491123d3c889b6344769e052518998",
+    "bytes": 2805341,
+    "files": 129,
+    "nodeAndBunBytesEqual": true,
+    "bunRepeatedBuildEqual": true,
+    "zipCrc": "passed"
+  },
+  "browserSmoke": {
+    "checks": 78,
+    "engines": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "result": "passed",
+    "source": ".runtime/ts-migration/browser-smoke.json",
+    "runtime": "Bun 1.4.0",
+    "cacheNote": "copied pinned binaries from local owned lab cache after CDN connection interruptions; compared Playwright 1.63.0 browsers.json and ran Bun installer against copied cache"
+  },
+  "lighthouse": {
+    "version": "13.4.1",
+    "cliUnderBun": "passed",
+    "chromeExecutableAndTreePins": "passed",
+    "measurementsRun": false
+  },
+  "nodeBlockedVerify": "passed (PATH node shim exits 97; dependency Node shebangs are redirected to Bun)",
+  "siteCheck": "passed",
+  "frozenInstall": "passed",
+  "limitations": [
+    "uncommitted local work; no remote CI or independent review",
+    "synthetic browser documents, no fresh real Halo installation",
+    "browser CDN download interrupted; cached distribution path verified",
+    "no physical devices, performance acceptance or published release"
+  ]
+}

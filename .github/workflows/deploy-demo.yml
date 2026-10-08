@@ -32,18 +32,22 @@ jobs:
           ref: ${{ inputs.tag }}
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.0'
+      - name: Select historical source runtime
+        id: source-runtime
+        run: bun -p "'needs-node=' + Boolean(require('./package.json').engines?.node)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        if: steps.source-runtime.outputs.needs-node == 'true'
+        with:
+          node-version: '24'
       - run: bun install --frozen-lockfile --ignore-scripts
       - name: Download verified released theme
         run: python3 scripts/release/download.py "$TAG"
       - name: Prepare public demo image context
         run: |
-          node site/demo/bundle.mjs ".runtime/published/halo-butterfly-next-${TAG#v}.zip" .runtime/demo-bundle
+          bun site/demo/bundle.mjs ".runtime/published/halo-butterfly-next-${TAG#v}.zip" .runtime/demo-bundle
           cp .runtime/published/release-identity.json .runtime/demo-bundle/release-identity.json
           python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
       - name: Build runnable H2 demo

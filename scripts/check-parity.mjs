@@ -153,7 +153,7 @@ export async function checkParity({ root = ROOT, upstream } = {}) {
     else try { await access(path.join(root, file)); } catch { errors.push(`Halo code file does not exist: ${file}`); }
   }
   const rendered = await readFile(path.join(root, 'docs/parity/MATRIX.md'), 'utf8');
-  if (rendered !== renderMatrix(matrix)) errors.push('MATRIX.md is stale; run node scripts/parity-render.mjs');
+  if (rendered !== renderMatrix(matrix)) errors.push('MATRIX.md is stale; run bun scripts/parity-render.mjs');
   if (errors.length) throw new Error(errors.join('\n'));
   return { total: matrix.items.length, required: requiredEntries(inventory).length + required.items.length, yamlLeaves: inventory.configuration.length,
     verified: matrix.items.filter(item => item.status === 'verified').length,
@@ -162,6 +162,6 @@ export async function checkParity({ root = ROOT, upstream } = {}) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = process.argv.slice(2);
-  if (args.length && (args.length !== 2 || args[0] !== '--upstream')) throw new Error('Usage: node scripts/check-parity.mjs [--upstream /path/to/hexo-theme-butterfly]');
+  if (args.length && (args.length !== 2 || args[0] !== '--upstream')) throw new Error('Usage: bun scripts/check-parity.mjs [--upstream /path/to/hexo-theme-butterfly]');
   console.log(JSON.stringify(await checkParity({ upstream: args[1] }), null, 2));
 }

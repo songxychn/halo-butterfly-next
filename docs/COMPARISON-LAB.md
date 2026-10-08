@@ -4,7 +4,7 @@
 
 ## 初始化与运行
 
-需要 Python 3.9+、Java 21+（本机实测 Corretto 25）、Node.js 24、Bun 1.4.0、Git、curl、OpenSSL。工具必须在 PATH 中；脚本没有个人目录默认值。首次联网获取依赖，之后可使用本地缓存。两个站点只监听 loopback，默认 Halo `18091`、Hexo `14000`；已被其他进程占用时拒绝启动。
+需要 Python 3.9+、Java 21+（本机实测 Corretto 25）、Bun 1.4.0、Git、curl、OpenSSL。工具必须在 PATH 中；脚本没有个人目录默认值。首次联网获取依赖，之后可使用本地缓存。两个站点只监听 loopback，默认 Halo `18091`、Hexo `14000`；已被其他进程占用时拒绝启动。
 
 在要验收的主题 checkout 中构建；`--source-sha` 必须来自实际构建 checkout，不能填运行脚本所在 worktree 的其他 SHA。它是调用方声明，主题包字节由 SHA-256 单独标识。未提交的主题修改应先提交后用于正式证据。
 

@@ -33,6 +33,6 @@
 
 `src/vendor/lazyload.js` 从原 `src/js/core/_lazyLoad.js` 原样移动，第三方压缩实现保持字节一致；`lazyload.d.ts` 描述主题使用的 API，`src/js/core/_lazyLoad.ts` 作为类型入口。2026-10-06 补核查：它来自 vanilla-lazyload，继承的模块包装与压缩局部变量名不同于官方发布文件，不能称为官方 17.3.1 原样副本；工厂结构与 17.3.0/17.3.1 均一致。固定来源、继承提交、文件摘要见 [来源清单](../third-party-licenses/vanilla-lazyload-source.json)，[MIT 原文](../third-party-licenses/vanilla-lazyload-LICENSE.txt)与[本项目归属说明](../third-party-licenses/vanilla-lazyload-NOTICE.txt)进入 ZIP 的 `templates/assets/licenses/`。本次不修改运行代码。Prism 的第三方 JS 同样保留原格式。
 
-来源比对可复现：从清单中固定的 npm 官方 tarball 提取 `package/dist/lazyload.min.js`（校验 tarball integrity），执行 `node scripts/licenses/compare-lazyload.mjs /path/to/lazyload.min.js`。脚本先核对原始文件摘要，再隔离工厂函数、按作用域声明顺序统一局部绑定名称并比较结构；模块包装差异另行披露。此步骤只用于来源核对，不替代功能验收。
+来源比对可复现：从清单中固定的 npm 官方 tarball 提取 `package/dist/lazyload.min.js`（校验 tarball integrity），执行 `bun scripts/licenses/compare-lazyload.mjs /path/to/lazyload.min.js`。脚本先核对原始文件摘要，再隔离工厂函数、按作用域声明顺序统一局部绑定名称并比较结构；模块包装差异另行披露。此步骤只用于来源核对，不替代功能验收。
 
 2026-10-07 上架整改：hopscotch 移除 Google Fonts 在线导入与 Fira Mono 声明，使用系统等宽字体，不分发额外字体。原作者及 CC0 注释保留；修改摘要登记在来源清单的 `subsequentModifications`，`files` 保留 9 月 22 日核对快照。当前文件与固定参考的字节一致数量相应由 20 降为 19，不改写历史核对结论。安装包检查拒绝 CSS 中的 Google Fonts 域名。

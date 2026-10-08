@@ -56,6 +56,6 @@ export async function compare(baseline,candidate){
  report.result=report.failures.length?'failed':'incomplete';return report;
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- assert(process.argv.length===5,'Usage: node scripts/perf/compare.mjs baseline-cohort-dir candidate-cohort-dir output.json');
+ assert(process.argv.length===5,'Usage: bun scripts/perf/compare.mjs baseline-cohort-dir candidate-cohort-dir output.json');
  const result=await compare(path.resolve(process.argv[2]),path.resolve(process.argv[3]));await writeJson(path.resolve(process.argv[4]),result);console.log(JSON.stringify({result:result.result,budgetResult:result.budgetResult,cases:result.cases.length,failures:result.failures,incomplete:result.incomplete}));process.exitCode=result.result==='failed'?1:2;
 }

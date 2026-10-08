@@ -20,7 +20,7 @@ Butterfly 的参考映射直接使用固定 5.7.0 的 `type: link` + `_data/link
 
 当前构建示例使用 0.1.0-alpha.3。首轮保留站实际产品仍为 `703d3992a9eb30d0560bd0dfee9388c61376d12a`、0.1.0-alpha.1，ZIP SHA-256 `ca913cab4faedb4bacdd53a11ab4058263dc2b01370eaff2e6701c29afdc3465`；检查器合入新 master 不等于站点升级，既有证据继续按实际旧包归因。
 
-需要基础实验工具的 Python 3.9+、Java 21+、Node 24、Bun 1.4.0。先按 `docs/COMPARISON-LAB.md` 构建实际要测的主题。以下端口仅供本任务，不能复用其他维护者的站点或数据库。脚本只认已初始化且匹配的 lab.json、两个仍运行的所属进程、完整 seed.json；首轮认领时三个插件必须全部未安装。
+需要基础实验工具的 Python 3.9+、Java 21+、Bun 1.4.0。先按 `docs/COMPARISON-LAB.md` 构建实际要测的主题。以下端口仅供本任务，不能复用其他维护者的站点或数据库。脚本只认已初始化且匹配的 lab.json、两个仍运行的所属进程、完整 seed.json；首轮认领时三个插件必须全部未安装。
 
 ```sh
 bun install --frozen-lockfile --ignore-scripts
@@ -82,8 +82,8 @@ python3 -B scripts/plugins/lab.py exercise \
 ```
 
 ```sh
-node scripts/browser/install.mjs
-node scripts/plugins/diagnose.mjs \
+bun scripts/browser/install.mjs
+bun scripts/plugins/diagnose.mjs \
   --lab-runtime "$PWD/.runtime/plugin-lab" \
   --browser-runtime "$PWD/.runtime/browser-matrix" \
   --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
@@ -109,4 +109,4 @@ node scripts/plugins/diagnose.mjs \
 - PLG-06：评论、高亮、灯箱、SEO 内容处理组合全部待测。三个内容插件同时启用不能冒称这些组合已通过。
 - 浏览器：这里只使用 Playwright Chromium 与视口模拟，不代表 Safari/Firefox 稳定版或真机；全站导航可访问性和视觉一致性仍由独立任务验收。
 
-保护测试：`node --test tests/plugin-guards.test.mjs`（包含 10 项 Python 边界测试）。主题产品缺陷应单独建 issue 与证据，不修改夹具或覆盖主题样式掩盖。
+保护测试：`bun test --isolate --timeout 30000 tests/plugin-guards.test.mjs`（包含 10 项 Python 边界测试）。主题产品缺陷应单独建 issue 与证据，不修改夹具或覆盖主题样式掩盖。

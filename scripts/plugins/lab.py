@@ -382,7 +382,7 @@ def exercise(lab, client, state, args):
     if proof['themePackage']['sourceCommit'] != args.source_sha or proof['themePackage']['sha256'] != sha(args.package.read_bytes()):
         raise RuntimeError('Exercise package/source differs from installed theme record')
     def diagnose(stage, profile='smoke'):
-        command = ['node', str(REPO / 'scripts/plugins/diagnose.mjs'), '--lab-runtime', str(lab.RUNTIME),
+        command = ['bun', str(REPO / 'scripts/plugins/diagnose.mjs'), '--lab-runtime', str(lab.RUNTIME),
                    '--browser-runtime', str(args.browser_runtime.resolve()), '--theme-package', str(args.package.resolve()),
                    '--theme-source-sha', args.source_sha, '--stage', stage, '--profile', profile]
         subprocess.run(command, check=True)

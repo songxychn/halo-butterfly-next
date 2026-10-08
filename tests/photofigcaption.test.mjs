@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {test} from 'bun:test';
 import { applyPhotoFigcaptions, photoCaptionText, resolvePhotoFigcaption } from '../src/js/core/photofigcaption.ts';
 
 // Minimal DOM fixture: assertions concern retained nodes and caption placement,

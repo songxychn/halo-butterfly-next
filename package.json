@@ -15,18 +15,18 @@
   ],
   "packageManager": "bun@1.4.0",
   "engines": {
-    "node": ">=24 <25"
+    "bun": "1.4.0"
   },
   "scripts": {
-    "dev": "node scripts/build.mjs --watch",
-    "build": "node scripts/build.mjs",
-    "check": "node --test tests/*.test.mjs",
-    "verify": "bun run typecheck && bun run parity:check && bun run check && bun run build && node scripts/check-package.mjs",
-    "parity:check": "node scripts/check-parity.mjs",
+    "dev": "bun scripts/build.mjs --watch",
+    "build": "bun scripts/build.mjs",
+    "check": "bun test --parallel=4 --isolate --timeout 30000 ./tests",
+    "verify": "bun run typecheck && bun run parity:check && bun run check && bun run build && bun scripts/check-package.mjs",
+    "parity:check": "bun scripts/check-parity.mjs",
     "lab": "python3 scripts/lab/lab.py",
-    "site:check": "node site/check.mjs",
-    "migrate": "node scripts/migrate-config.mjs",
-    "typecheck": "tsc --noEmit",
+    "site:check": "bun site/check.mjs",
+    "migrate": "bun scripts/migrate-config.mjs",
+    "typecheck": "bun run --bun tsc --noEmit",
     "site:local": "python3 -B site/local.py"
   },
   "devDependencies": {

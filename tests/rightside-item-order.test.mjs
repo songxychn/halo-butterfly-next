@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {test} from 'bun:test';
 import { applyRightsideItemOrder, bindRightsideConfig, resolveRightsideItemOrder } from '../src/js/core/rightside.ts';
 
 test('order defaults and blank-group fallback match upstream; whitespace, duplicates and unsupported names are safe', () => {

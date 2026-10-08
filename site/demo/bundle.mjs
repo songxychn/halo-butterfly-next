@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // CI exports only tracked public source and a verified release ZIP, never a live database.
 import {readFile, writeFile, mkdir, copyFile, readdir} from 'node:fs/promises';
 import {resolve, join, basename, dirname} from 'node:path';

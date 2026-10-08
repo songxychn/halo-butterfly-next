@@ -8,10 +8,10 @@ Playwright **1.63.0** 与 `playwright-core` 的精确版本、包完整性由 `f
 
 ## 安装
 
-在本项目 worktree 中执行，确保 `node` 和精确版本 `bun` 已在 PATH：
+在本项目 worktree 中执行，确保精确版本 `bun` 已在 PATH：
 
 ```sh
-node scripts/browser/install.mjs
+bun scripts/browser/install.mjs
 ```
 
 依赖、Bun 缓存、下载引擎、临时配置与报告全部放在当前 worktree 的 `.runtime/browser-matrix/`。脚本强制 `PLAYWRIGHT_BROWSERS_PATH` 指向其中的 `browsers/`，拒绝外部覆盖和 `SELENIUM_REMOTE_URL` 隐式连接；不安装系统依赖、全局浏览器，不连接已有 Chrome/Safari，不读取用户浏览器配置。缓存存在但无所属标识、所属标识不符或目录指向外部时拒绝认领。重复安装复用下载缓存。包管理器迁移后需重新运行安装器生成与 `bun.lock` 匹配的安装记录。
@@ -23,7 +23,7 @@ node scripts/browser/install.mjs
 先按 [双站文档](COMPARISON-LAB.md)建立合成实验站并安装主题包。以下三个参数必须指向实际所属实验目录、被安装 ZIP、完整源码提交；ZIP 摘要和源码声明必须与该实验目录的 `installed-package.json` 一致。源码声明与构建的因果证明仍由构建证据提供，运行器不会把自己的 HEAD 当作主题源码。
 
 ```sh
-BASE_URL=http://127.0.0.1:18091 node scripts/browser/run.mjs \
+BASE_URL=http://127.0.0.1:18091 bun scripts/browser/run.mjs \
   --lab-runtime /absolute/path/to/owned/lab \
   --theme-package /absolute/path/to/installed-theme.zip \
   --theme-source-sha 0123456789abcdef0123456789abcdef01234567
@@ -56,7 +56,7 @@ BASE_URL=http://127.0.0.1:18091 node scripts/browser/run.mjs \
 离线保护测试无需浏览器或独立依赖：
 
 ```sh
-node --test tests/browser-guards.test.mjs tests/browser-reload.test.mjs tests/browser-completion.test.mjs tests/search-diagnostics.test.mjs
+bun test --isolate --timeout 30000 tests/browser-guards.test.mjs tests/browser-reload.test.mjs tests/browser-completion.test.mjs tests/search-diagnostics.test.mjs
 ```
 
 首次实跑若发现基线主题缺陷，保留失败结果，交对应功能包修复后用其真实安装包重跑，不能放宽运行器规则制造通过。

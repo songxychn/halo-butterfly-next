@@ -1,4 +1,4 @@
-import test from 'node:test';
+import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { checkParity, checkMatrix, checkRequiredScenarios, checkEvidenceManifest, contractScenarioIds } from '../scripts/check-parity.mjs';

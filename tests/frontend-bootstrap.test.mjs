@@ -1,10 +1,11 @@
-import test from 'node:test';
+import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import {readFile, readdir} from 'node:fs/promises';
-import {stripTypeScriptTypes} from 'node:module';
 import vm from 'node:vm';
 
-const bootstrap = stripTypeScriptTypes(await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8'));
+const transpiler = new Bun.Transpiler({loader: 'ts', target: 'browser'});
+
+const bootstrap = transpiler.transformSync(await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8'));
 function initialize(conf, saved = {}, blocked = false) {
   const classes = new Set();
   const listeners = new Map();

@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import test from 'node:test';
+import {test} from 'bun:test';
 import vm from 'node:vm';
-import {stripTypeScriptTypes} from 'node:module';
+
+const transpiler = new Bun.Transpiler({loader: 'ts', target: 'browser'});
 
 // Execute the page method with only its external browser/chart dependencies mocked.
-const source = stripTypeScriptTypes(await readFile(new URL('../src/js/page/categories.ts', import.meta.url), 'utf8'))
+const source = transpiler.transformSync(await readFile(new URL('../src/js/page/categories.ts', import.meta.url), 'utf8'))
   .replace(/^import .*;$/gm, '')
   .replace('App([])(Categories);', '');
 

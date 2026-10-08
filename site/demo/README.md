@@ -50,7 +50,7 @@ python3 /root/docker/app/halo-butterfly-next/h2/tools/hk-update.py rollback
 
 ```sh
 bun run verify
-node site/demo/bundle.mjs dist/halo-butterfly-next-0.1.0-alpha.3.zip .runtime/demo-bundle
+bun site/demo/bundle.mjs dist/halo-butterfly-next-0.1.0-alpha.3.zip .runtime/demo-bundle
 python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
 docker build -t demo-candidate .runtime/demo-context
 python3 site/demo/smoke.py demo-candidate
