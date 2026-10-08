@@ -4,7 +4,7 @@
 
 | 项目 | 首轮基准 | 用途 |
 | --- | --- | --- |
-| Halo | 2.26.1 | 首轮固定对照环境；当前最低版本为 2.22.14，不设上限，具体实测见[兼容记录](validation/2026-10-07/halo-lower-compatibility.md) |
+| Halo | 2.26.1 | 首轮固定对照环境；当前最低版本为 2.20.2，不设上限，具体实测见[兼容记录](validation/2026-10-08/halo-earlier-compatibility.md) |
 | Halo Butterfly 源码 | `de9046b47a8e04c3db85170e356dde9e68f26d77`（源码标记 2.0.7） | 保留完整 Git 历史的维护起点 |
 | Halo Butterfly 已发布版 | 2.0.5 | 旧用户配置迁移入口 |
 | Hexo Butterfly | 5.7.0，`f223b1888b42b2b336068e6c959ed90a3cd7c8f3` | 首轮外观与功能对齐目标 |
