@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fixed-version, loopback-only comparison lab. Requires Python 3.9+, Java 21+, Node 24, Bun 1.4.0."""
+"""Fixed-version, loopback-only comparison lab. Requires Python 3.9+, Java 21+, Bun 1.4.0."""
 import argparse
 import base64
 import hashlib
@@ -149,8 +149,8 @@ def render_hexo():
     write_json(site / '_config.yml', cfg)
     theme = {'menu': {x['title']: x['path'] + ' || ' + x['icon'] for x in CONTENT['menu']}, 'avatar': {'img': '/lab/avatar.svg', 'effect': False}, 'favicon': '/lab/avatar.svg', 'default_top_img': CONTENT['images']['default'], 'index_img': CONTENT['images']['home'], 'archive_img': CONTENT['images']['archive'], 'tag_img': CONTENT['images']['tag'], 'category_img': CONTENT['images']['category'], 'cover': {'default_cover': [CONTENT['images']['default']]}, 'subtitle': {'enable': False, 'effect': False, 'source': False, 'sub': []}, 'social': {}, 'aside': {'card_author': {'description': CONTENT['site']['description'], 'button': {'enable': True, 'text': '关于对照实验室', 'link': '/about-preview/', 'icon': 'fas fa-heart'}}, 'card_announcement': {'content': '共用合成内容；验收结果以证据记录为准。'}}, 'busuanzi': {'site_uv': False, 'site_pv': False, 'page_pv': False}, 'comments': {'use': []}, 'share': {'use': False}, 'CDN': {'internal_provider': 'local', 'third_party_provider': 'local', 'version': True}, 'darkmode': {'enable': True, 'autoChangeMode': False}, 'lazyload': {'enable': False}}
     write_json(site / '_config.butterfly.yml', theme)
-    run(['bun', 'run', '--no-install', 'hexo', 'clean', '--silent'], cwd=site)
-    run(['bun', 'run', '--no-install', 'hexo', 'generate', '--silent'], cwd=site)
+    run(['bun', 'run', '--bun', '--no-install', 'hexo', 'clean', '--silent'], cwd=site)
+    run(['bun', 'run', '--bun', '--no-install', 'hexo', 'generate', '--silent'], cwd=site)
     if not (site / 'public/index.html').is_file():
         raise RuntimeError('Hexo did not generate an index page')
 

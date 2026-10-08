@@ -35,7 +35,7 @@
 
 ## 升级与验收边界
 
-章节浏览器回归使用独立无头 agent-browser：在合成测试站准备含至少两级标题的文章/单页，开启目录及两个章节定位选项，然后运行 `node scripts/reading/check-browser.mjs http://127.0.0.1:<端口>/<路径>/ .evidence/reading/anchors.json`。脚本检查章节 ID、点击、焦点、历史、刷新和滚动更新，并输出 JSON 与截图；它不修改服务端配置，不代替完整浏览器矩阵。
+章节浏览器回归使用独立无头 agent-browser：在合成测试站准备含至少两级标题的文章/单页，开启目录及两个章节定位选项，然后运行 `bun scripts/reading/check-browser.mjs http://127.0.0.1:<端口>/<路径>/ .evidence/reading/anchors.json`。脚本检查章节 ID、点击、焦点、历史、刷新和滚动更新，并输出 JSON 与截图；它不修改服务端配置，不代替完整浏览器矩阵。
 
 旧配置缺新增字段时采用上述默认值；自定义页面目录默认关闭，可通过 `toc.page` 或单页元数据开启。原代码复制注解保持不变。回退旧包后新增字段不再使用，不需要删除文章正文或配置。
 

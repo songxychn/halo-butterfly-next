@@ -67,9 +67,6 @@ jobs:
           git clone --no-hardlinks --no-checkout harness "$RUNNER_TEMP/h"
           git -C "$RUNNER_TEMP/h" checkout --detach "$harness_sha"
           test "$(git -C "$RUNNER_TEMP/h" rev-parse HEAD)" = "$harness_sha"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.0'
@@ -77,13 +74,18 @@ jobs:
         id: theme-manager
         working-directory: theme-source
         run: |
-          manager=$(node -p "JSON.parse(require('node:fs').readFileSync('package.json', 'utf8')).packageManager")
+          manager=$(bun -p "JSON.parse(require('node:fs').readFileSync('package.json', 'utf8')).packageManager")
           case "$manager" in
             pnpm@11.19.0) test -f pnpm-lock.yaml ;;
             bun@1.4.0) test -f bun.lock ;;
             *) echo "Unsupported source package manager: $manager" >&2; exit 1 ;;
           esac
           printf 'manager=%s\n' "$manager" >> "$GITHUB_OUTPUT"
+          bun -p "'needs-node=' + Boolean(require('./package.json').engines?.node)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        if: steps.theme-manager.outputs.needs-node == 'true'
+        with:
+          node-version: '24'
       - uses: pnpm/action-setup@v4
         if: steps.theme-manager.outputs.manager == 'pnpm@11.19.0'
         with:
@@ -117,9 +119,9 @@ jobs:
         run: git -C "$RUNNER_TEMP/h" fetch --no-tags "$GITHUB_WORKSPACE/theme-source" "$SOURCE_SHA"
       - name: Install fixed independent Playwright engines
         working-directory: ${{ runner.temp }}/h
-        run: node scripts/browser/install.mjs
+        run: bun scripts/browser/install.mjs
       - name: Install Ubuntu dependencies using the pinned Playwright CLI
-        run: node "$RUNNER_TEMP/h/.runtime/browser-matrix/deps/node_modules/playwright/cli.js" install-deps chromium firefox webkit
+        run: bun "$RUNNER_TEMP/h/.runtime/browser-matrix/deps/node_modules/playwright/cli.js" install-deps chromium firefox webkit
       - name: Run real Halo and anonymous 120-page matrix
         env:
           SOURCE_SHA: ${{ steps.source.outputs.sha }}

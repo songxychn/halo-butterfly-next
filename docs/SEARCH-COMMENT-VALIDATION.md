@@ -28,16 +28,16 @@
 只允许操作本仓库 comparison lab 生成、已播种合成内容的隔离站。不要对生产站执行。先按 [COMPARISON-LAB.md](COMPARISON-LAB.md) 构建安装主题，再安装并启用锁文件中的两个官方 JAR。使用独立浏览器运行目录和固定 Playwright：
 
 ```sh
-node scripts/browser/install.mjs
+bun scripts/browser/install.mjs
 bun add --cwd .runtime/plugin-a11y --exact --ignore-scripts axe-core@4.12.1
 python3 scripts/search-comment/auth.py --lab-runtime .runtime/release-readiness
-BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/check.mjs \
+BASE_URL=http://127.0.0.1:18121 bun scripts/search-comment/check.mjs \
   --lab-runtime .runtime/release-readiness \
   --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
   --theme-source-sha "$(git rev-parse HEAD)" \
   --output .evidence/search-comment/run-new \
   --allow-synthetic-writes yes
-BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/a11y.mjs \
+BASE_URL=http://127.0.0.1:18121 bun scripts/search-comment/a11y.mjs \
   .runtime/release-readiness .evidence/search-comment/a11y-new
 ```
 
@@ -50,7 +50,7 @@ BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/a11y.mjs \
 焦点专项使用同一固定主题包和已安装插件的合成站，不修改服务器配置或内容：
 
 ```sh
-BASE_URL=http://127.0.0.1:18261 node scripts/search-comment/focus.mjs \
+BASE_URL=http://127.0.0.1:18261 bun scripts/search-comment/focus.mjs \
   --lab-runtime .runtime/search-1.8-lab \
   --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
   --theme-source-sha "$(git rev-parse HEAD)" \
@@ -77,7 +77,7 @@ BASE_URL=http://127.0.0.1:18261 node scripts/search-comment/focus.mjs \
 ## 生命周期验收
 
 ```sh
-BASE_URL=http://127.0.0.1:18121 node scripts/search-comment/lifecycle.mjs \
+BASE_URL=http://127.0.0.1:18121 bun scripts/search-comment/lifecycle.mjs \
   --lab-runtime .runtime/release-readiness \
   --theme-package dist/halo-butterfly-next-0.1.0-alpha.3.zip \
   --theme-source-sha "$(git rev-parse HEAD)" \

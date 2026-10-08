@@ -49,7 +49,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 ## 源码与构建
 
-需要 Node.js 24、Bun 1.4.0，以及 Python 3（本地守卫检查）。Bun 负责依赖管理和脚本入口，构建与测试仍由 Node 24 执行。使用 `bun run build`，避免与 Bun 自带的 `bun build` 打包命令混淆。
+需要 Bun 1.4.0，以及 Python 3（本地守卫检查）。Bun 负责依赖管理、脚本执行和测试运行；当前源码不要求安装 Node.js。使用 `bun run build`，避免与 Bun 自带的 `bun build` 打包命令混淆。
 
 ```sh
 bun install --frozen-lockfile --ignore-scripts
@@ -64,4 +64,4 @@ bun run verify
 
 [公开 alpha 计划](docs/PUBLIC-ALPHA.md)、[完整功能矩阵](docs/parity/MATRIX.md)和[1.0 验收合同](docs/RELEASE-ACCEPTANCE.md)继续保留各项未完成状态。
 
-自维护浏览器代码统一使用 TypeScript（`src/js/**/*.ts`、`src/plugins/loading/*.ts`），运行 `bun run typecheck` 做严格类型检查；`bun run verify` 已包含此步骤。Node 24 直接加载测试引用的可擦除 TS 语法，测试脚本仍使用 `node:test`。第三方压缩库保留 JS，使用声明文件描述调用边界。模板只注入 Halo 数据，首屏逻辑由 `src/js/bootstrap.ts` 构建后同步内联，页面资源仍输出原有 `.min.js` 文件名。
+自维护浏览器代码统一使用 TypeScript（`src/js/**/*.ts`、`src/plugins/loading/*.ts`），运行 `bun run typecheck` 做严格类型检查；`bun run verify` 已包含此步骤。Bun 直接执行测试引用的 TypeScript，测试使用 `bun:test` 并隔离各文件的全局环境；类型检查仍由 `tsc --noEmit` 独立完成。第三方压缩库保留 JS，使用声明文件描述调用边界。模板只注入 Halo 数据，首屏逻辑由 `src/js/bootstrap.ts` 构建后同步内联，页面资源仍输出原有 `.min.js` 文件名。

@@ -39,9 +39,9 @@
 
 ```sh
 bun install --frozen-lockfile --ignore-scripts
-node scripts/parity-render.mjs
-node scripts/check-parity.mjs
-node --test tests/parity.test.mjs
+bun scripts/parity-render.mjs
+bun scripts/check-parity.mjs
+bun test --isolate --timeout 30000 tests/parity.test.mjs
 ```
 
 检查器会拒绝漏掉任何固定清单条目、重复 ID、无效源码行号、已删除的 Halo 设置或代码文件、失效的合同场景 ID，以及未同步的 Markdown。默认检查使用入库的固定索引，可离线在 CI 运行；它不声称重新访问了上游。
@@ -49,7 +49,7 @@ node --test tests/parity.test.mjs
 如已有固定提交的干净源码 checkout，可同时校验索引确实对应其源码；不允许以新 tag 或 dirty checkout 悄悄改变基准：
 
 ```sh
-node scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
+bun scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 ```
 
 每次实现或验收落档时，同步核对相关配置、模板、交互、页面条目，把局部通过和失败写入 `halo.finding` 与 `evidence`；不必等完整合同通过才更新矩阵。先编辑 `matrix.json`，再生成 `MATRIX.md`，并在进度记录中链接本次对账。

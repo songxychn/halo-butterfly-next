@@ -152,7 +152,7 @@ async function main() {
     schema: 1, runId: id, startedAt: new Date().toISOString(),
     runner: { sourceCommit: git('rev-parse', 'HEAD'), workingTreeClean: !git('status', '--porcelain'), playwright: actual.version, packageManager: fixture.packageManager, lockSha256: installation.lockSha256, browserRegistry: installation.engines },
     theme: { sourceCommit: options['--theme-source-sha'], packageSha256: packageHash, packageName: path.basename(packagePath), attribution: 'Caller declaration matched to local lab installation record; source-to-build proof remains separate' },
-    platform: { type: os.type(), release: os.release(), version: os.version(), arch: os.arch(), node: process.version, ...(process.platform === 'darwin' ? { macOS: execFileSync('sw_vers', ['-productVersion'], { encoding: 'utf8' }).trim() } : {}) },
+    platform: { type: os.type(), release: os.release(), version: os.version(), arch: os.arch(), runtime: { name: process.versions.bun ? 'bun' : 'node', version: process.versions.bun || process.version }, ...(process.platform === 'darwin' ? { macOS: execFileSync('sw_vers', ['-productVersion'], { encoding: 'utf8' }).trim() } : {}) },
     target: { baseUrl: base, fixtureProfile: 'comparison lab core routes; plugin profile not certified', allowedWrite: { method: 'POST', path: COUNTER_PATH, purpose: 'Normal public page visit count in the owned synthetic lab; counts may increase' } },
     engines: [], expectedPagesPerEngine: ROUTES.length * 4, omittedEngines: ENGINES.filter(name => !engines.includes(name)), contractAcceptance: false,
     limitations: [

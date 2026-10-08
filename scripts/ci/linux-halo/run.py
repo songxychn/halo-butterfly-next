@@ -247,7 +247,7 @@ def main():
         shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')
         # Fail early with useful stderr before starting Halo or spending a full matrix.
         preflight_path = output / 'chromium-preflight.json'
-        preflight = subprocess.Popen(['node', str(HARNESS / 'scripts/ci/linux-halo/preflight.mjs'), str(preflight_path)], start_new_session=True)
+        preflight = subprocess.Popen(['bun', str(HARNESS / 'scripts/ci/linux-halo/preflight.mjs'), str(preflight_path)], start_new_session=True)
         try:
             preflight_status = preflight.wait(timeout=60)
         finally:
@@ -285,7 +285,7 @@ def main():
             raise RuntimeError('Global comment configuration did not persist')
         report['globalCommentEnabled'] = True
         report['installedPackage'] = json_file(runtime / 'installed-package.json')
-        matrix = subprocess.Popen(['node', str(HARNESS / 'scripts/browser/run.mjs'), '--lab-runtime', str(runtime), '--theme-package', str(package), '--theme-source-sha', args.source_sha], env={**os.environ, 'BASE_URL': lab.BASE['halo']}, start_new_session=True)
+        matrix = subprocess.Popen(['bun', str(HARNESS / 'scripts/browser/run.mjs'), '--lab-runtime', str(runtime), '--theme-package', str(package), '--theme-source-sha', args.source_sha], env={**os.environ, 'BASE_URL': lab.BASE['halo']}, start_new_session=True)
         status = matrix.wait(timeout=1500)
         report['matrixExitCode'] = status
         reports = list((HARNESS / '.runtime/browser-matrix/runs').glob('*/report.json'))

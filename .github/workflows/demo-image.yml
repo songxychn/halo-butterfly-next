@@ -20,9 +20,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.0'
@@ -31,7 +28,7 @@ jobs:
       - name: Prepare isolated demo
         run: |
           package=$(find dist -maxdepth 1 -name 'halo-butterfly-next-*.zip' -print -quit)
-          node site/demo/bundle.mjs "$package" .runtime/demo-bundle
+          bun site/demo/bundle.mjs "$package" .runtime/demo-bundle
           python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
           docker build -t demo-candidate .runtime/demo-context
       - run: python3 site/demo/smoke.py demo-candidate

@@ -1,4 +1,4 @@
-import test from 'node:test';
+import {test} from 'bun:test';
 import {execFileSync} from 'node:child_process';
 
 test('initial deployment rejects changed publication ownership and metadata', () => {

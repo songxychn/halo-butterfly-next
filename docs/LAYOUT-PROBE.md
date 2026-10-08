@@ -63,7 +63,7 @@ python3 -B scripts/lab/layout-probe.py exercise --expect-layout supported
 离线检查随 `bun run check` 执行，也可单独运行：
 
 ```sh
-node --test tests/layout-probe.test.mjs
+bun test --isolate --timeout 30000 tests/layout-probe.test.mjs
 ```
 
 保护场景包括确定性 JAR、路径越界、错误官方摘要不执行编译器/不覆盖旧产物、实验目录和端口归属、未播种环境、错误 HTML、主题覆盖模板、重复 head/正文。离线通过不表示已经实际安装、启停或卸载；实际结果单独附在运行证据和后续验收记录中。

@@ -2,9 +2,11 @@
 
 `Linux Halo browser comparison` 工作流支持公开或私有仓库，用于对照 macOS 的 Firefox 资源停滞调查（#338）。它不改变主题资源顺序、网络请求头或断言，不对失败页面重试后改绿；Linux 成功也不能直接证明 macOS 问题已修复。
 
-仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Node 24、Java 21、Bun 1.4.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.8.0 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
+仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Java 21、Bun 1.4.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.8.0 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
 
 安装后的插件可能已由 Halo 自动启用并正在协调。准备流程先读取状态，目标启用值已满足时不再提交重复 PUT，仍等待插件到达 STARTED；停用后必须到达 DISABLED 才移除，不接受 DISABLING、FAILED 或未知阶段。仅状态 PUT 的 HTTP 409 做最多 5 次、每次重新读取资源的有限重试；其他错误及状态等待超时仍失败。这不重试或改绿浏览器页面的失败结果。
+
+当前 harness 使用 Bun 执行 JS。被测历史源码仍按自己的 `packageManager` 和 `engines.node` 声明选择固定 pnpm/Bun，并仅在声明 Node 时安装 Node 24；旧源码的构建命令不改写。夹具身份检查仍保持严格匹配。
 
 ## 触发与包归属
 

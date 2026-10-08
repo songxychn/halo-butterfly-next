@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from types import SimpleNamespace
 
 spec = importlib.util.spec_from_file_location('linux_halo_ci', Path(__file__).with_name('run.py'))
@@ -45,20 +45,26 @@ class Guards(unittest.TestCase):
         self.assertEqual(client.reads, 3)
 
     def test_state_conflicts_are_bounded_and_other_errors_are_not_retried(self):
-        class ApiError(Exception):
-            def __init__(self, status): self.status = status
-        for status, expected in [(409, 5), (503, 1)]:
-            class Client:
-                writes = 0
-                def api(self, path, method='GET', data=None):
+        lab = ci.load_lab()
+        errors = [(lab.ApiError('PUT', '/plugin-state', status), 5 if status == 409 else 1)
+                  for status in (409, 401, 404, 500, 503)]
+        errors.append((RuntimeError('transport'), 1))
+        for error, expected in errors:
+            with self.subTest(error=str(error)), patch.object(ci.time, 'sleep') as sleep:
+                client = Mock()
+                def response(path, method='GET', data=None):
                     if method == 'PUT':
-                        self.writes += 1
-                        raise ApiError(status)
+                        raise error
                     return {'spec': {'enabled': False}, 'status': {'phase': 'RESOLVED'}}
-            client = Client()
-            with patch.object(ci.time, 'sleep'), self.assertRaises(ApiError):
-                ci.set_plugin_enabled(SimpleNamespace(ApiError=ApiError), client, 'search', True)
-            self.assertEqual(client.writes, expected)
+                client.api.side_effect = response
+                with self.assertRaises(type(error)):
+                    ci.set_plugin_enabled(lab, client, 'search', True)
+                writes = [call for call in client.api.call_args_list if len(call.args) > 1 and call.args[1] == 'PUT']
+                self.assertEqual(len(writes), expected)
+                for call in writes:
+                    self.assertEqual(call.args, ('/apis/api.console.halo.run/v1alpha1/plugins/search/plugin-state',
+                                                'PUT', {'enable': True, 'async': False}))
+                self.assertEqual(sleep.call_count, expected - 1)
 
     def test_matching_enabled_flag_does_not_hide_startup_timeout(self):
         class Client:

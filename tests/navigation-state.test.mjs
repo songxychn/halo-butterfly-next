@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {test} from 'bun:test';
 import { isCurrentMenuLink } from '../src/js/core/navigation-state.ts';
 
 test('当前菜单匹配同源页面、尾斜杠和带过滤参数的链接', () => {

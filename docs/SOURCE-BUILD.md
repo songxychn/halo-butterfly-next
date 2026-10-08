@@ -4,7 +4,7 @@
 
 源码归档需包含当前完整 `src/`、主题/设置元数据、`package.json`、`bun.lock`、构建与检查脚本、相关测试/夹具、`LICENSE`、`third-party-licenses/` 和第三方来源说明。它不包含 `.git` 历史、凭据、数据库、运行缓存或 `node_modules`。这是发行附件的归档范围，仓库中的 Git 历史仍完整保留。保留已有作者及改写署名。安装包的 `templates/`、`dist/` 是生成物，由这些源码和锁定依赖生成。
 
-准备 Node.js 24、Bun 1.4.0 和 Python 3；记录实际版本。解压对应源码，在源码根目录执行：
+复现已发布 alpha.3 源码需准备 Node.js 24、Bun 1.4.0 和 Python 3；记录实际版本。解压对应源码，在源码根目录执行：
 
 ```sh
 node --version
@@ -14,6 +14,8 @@ bun install --frozen-lockfile --ignore-scripts
 bun run verify
 shasum -a 256 dist/halo-butterfly-next-0.1.0-alpha.3.zip
 ```
+
+当前开发源码已将 JS 运行时迁移到 Bun 1.4.0，只需 Bun 与 Python 3 执行安装和验证命令（省略 `node --version`）；Node 24 是已发布 alpha.3 源码的历史要求。当前源码生成的 ZIP 应绑定当前源码及实测摘要，不沿用下方发布包摘要。
 
 首次安装依赖需要能访问锁文件指定的包源。`bun run verify` 执行 TypeScript 严格类型检查、矩阵一致性、测试、构建和包检查；不启动 Halo。仅需构建可运行 `bun run build`。`bun run dev` 只监听重建，不启动服务器，也不自动安装主题。
 

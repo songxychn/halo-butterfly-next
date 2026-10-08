@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {test} from 'bun:test';
 import { readFile } from 'node:fs/promises';
 import { parseAllDocuments } from 'yaml';
 import { headingSlug, ensureHeadingIds, hashId, localAnchorId } from '../src/js/core/article-anchor.ts';

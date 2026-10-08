@@ -1,4 +1,4 @@
-import test from "node:test";
+import {test} from 'bun:test';
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { diagnosticUrl, observeSearchPage } from "../scripts/search-comment/diagnostics.mjs";

@@ -12,7 +12,7 @@
 
 ## 本地转换
 
-在与目标版本对应的源码目录中，按构建说明准备 Node.js 24、Bun 1.4.0 和依赖，然后执行：
+在与目标版本对应的源码目录中，按构建说明准备 Bun 1.4.0 和依赖，然后执行：
 
 ```bash
 bun run migrate --input old.json --from 2.0.5 --output next.json

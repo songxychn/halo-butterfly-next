@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {test} from 'bun:test';
 import {spawnSync} from 'node:child_process';
 
 test('Linux CI only exports anonymous allowlisted artifacts and respects runtime ownership', () => {

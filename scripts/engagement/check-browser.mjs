@@ -7,7 +7,7 @@ import {execFileSync} from 'node:child_process';
 import {browserEnvironment, RUNTIME, validateBaseUrl, validatePackage, sha256} from '../browser/support.mjs';
 
 const [baseInput, labInput, outputInput, firstId = 'engagement-both'] = process.argv.slice(2);
-if (!labInput || !outputInput) throw new Error('Usage: node scripts/engagement/check-browser.mjs BASE LAB_RUNTIME OUTPUT [highest-ranked-post-name]');
+if (!labInput || !outputInput) throw new Error('Usage: bun scripts/engagement/check-browser.mjs BASE LAB_RUNTIME OUTPUT [highest-ranked-post-name]');
 const lab = resolve(labInput), output = resolve(outputInput);
 const identity = JSON.parse(await readFile(join(lab, 'lab.json'), 'utf8'));
 const base = validateBaseUrl(baseInput, identity);

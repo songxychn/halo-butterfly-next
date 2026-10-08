@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {test} from 'bun:test';
 import {tagCloudColors} from '../src/js/core/tag-cloud-colors.ts';
 
 function luminance(hex) {

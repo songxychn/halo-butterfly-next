@@ -16,8 +16,8 @@
 ```sh
 bun install --frozen-lockfile --ignore-scripts
 bun run verify
-node scripts/browser/install.mjs
-node scripts/lightbox/check.mjs .evidence/lightbox/run-new
+bun scripts/browser/install.mjs
+bun scripts/lightbox/check.mjs .evidence/lightbox/run-new
 ```
 
 可选局部 WCAG A/AA 扫描：提供 `LIGHTBOX_AXE_PATH=/absolute/path/to/axe-core/axe.min.js`（本轮使用 4.12.1）。脚本保存各组合的完整 axe 原始结果与版本；违规返回 1，`incomplete` 保留为待人工判断并返回 2，不作为通过。未设置该变量时没有 axe 通过声明。
