@@ -1,6 +1,6 @@
 # 使用代码高亮与代码工具栏
 
-适用：Halo Butterfly Next 0.1.0-alpha.3 预览内容。可同时打开[代码演示](../demos/demo-code.md)查看效果。
+适用：Halo Butterfly Next 0.1.0-alpha.4 测试版内容。可同时打开[代码演示](../demos/demo-code.md)查看效果。
 
 主题可以为代码块增加语言标题、行号、复制和折叠等操作。最终效果同时取决于正文生成的代码结构和主题配置。
 

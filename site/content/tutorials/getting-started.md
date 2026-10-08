@@ -1,6 +1,6 @@
 # 第一次使用 Halo Butterfly Next
 
-适用：Halo Butterfly Next 0.1.0-alpha.3 预览内容，平台验证基线为 Halo 2.26.1。
+适用：Halo Butterfly Next 0.1.0-alpha.4 测试版内容，平台验证基线为 Halo 2.26.1。
 
 Halo Butterfly Next 是用于 Halo 的博客主题。文章仍在 Halo 中管理，主题负责展示首页、正文、导航与侧栏。它不是可以单独启动的网站程序，也不解析 Hexo 的主题配置。
 
@@ -8,7 +8,7 @@ Halo Butterfly Next 是用于 Halo 的博客主题。文章仍在 Halo 中管理
 
 先阅读[下载与预览说明](../pages/download.md)。确认该版本是否已提供安装附件，不要把 GitHub 自动生成的 Source code 压缩包当作主题包上传。
 
-拿到经维护者确认的主题包后，核对版本、来源和发行说明中的 SHA-256。安装附件的命名形式为 `halo-butterfly-next-0.1.0-alpha.3.zip`，相同文件名并不能证明内容相同。
+拿到经维护者确认的主题包后，核对版本、来源和发行说明中的 SHA-256。安装附件的命名形式为 `halo-butterfly-next-0.1.0-alpha.4.zip`，相同文件名并不能证明内容相同。
 
 已有站点请先备份数据库、附件与配置，保存当前主题包。第一次试用建议选择独立测试站；主题包本身不包含整站备份。
 

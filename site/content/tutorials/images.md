@@ -1,6 +1,6 @@
 # 使用图片与灯箱
 
-适用：Halo Butterfly Next 0.1.0-alpha.3 预览内容，内置灯箱使用 Viewer.js 1.14.0。
+适用：Halo Butterfly Next 0.1.0-alpha.4 测试版内容，内置灯箱使用 Viewer.js 1.14.0。
 
 先打开[图片演示](../demos/demo-images.md)，体验风景照片的缩放和多图切换。文章封面用于卡片或顶图；正文中的图片用于阅读与灯箱查看，两者应分别配置。
 

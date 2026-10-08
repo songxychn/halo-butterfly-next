@@ -1,6 +1,6 @@
 # 升级主题与回退
 
-适用：主题 ID 为 `halo-butterfly-next` 的同 ID 升级。当前 alpha.3 仍处于预览准备阶段，下载与版本状态见[预览说明](../pages/download.md)。
+适用：主题 ID 为 `halo-butterfly-next` 的同 ID 升级。当前版本为 alpha.4，下载与版本状态见[预览说明](../pages/download.md)。
 
 升级主题会更换模板和静态资源。它不是整站备份，也不保证所有自定义配置在任意旧版本之间都兼容。
 
