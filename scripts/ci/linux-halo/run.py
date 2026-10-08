@@ -90,6 +90,20 @@ def poll(predicate, message):
     raise RuntimeError(message)
 
 
+def set_plugin_enabled(lab, client, name, enabled):
+    """Retry only optimistic state conflicts in this freshly owned CI lab."""
+    endpoint = '/apis/api.console.halo.run/v1alpha1/plugins/' + name + '/plugin-state'
+    for attempt in range(4):
+        try:
+            client.api(endpoint, 'PUT', {'enable': enabled, 'async': False})
+            return
+        except lab.ApiError as error:
+            if error.status != 409 or attempt == 3:
+                raise
+            print(f'Plugin {name}: state conflict; retry {attempt + 1}/3', flush=True)
+            time.sleep(0.1 * 2 ** attempt)
+
+
 def install_plugins(lab, client, runtime, lock):
     resource = '/apis/plugin.halo.run/v1alpha1/plugins/'
     console = '/apis/api.console.halo.run/v1alpha1/plugins'
@@ -106,14 +120,14 @@ def install_plugins(lab, client, runtime, lock):
                 return None
         if current():
             # Fresh lab only. Replace bundled artifacts with the exact official lock.
-            client.api(console + '/' + plugin['name'] + '/plugin-state', 'PUT', {'enable': False, 'async': False})
+            set_plugin_enabled(lab, client, plugin['name'], False)
             client.api(resource + plugin['name'], 'DELETE')
             poll(lambda: current() is None, 'Bundled plugin removal did not settle')
         boundary = 'linux-ci-' + secrets.token_hex(12)
         body = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{jar.name}"\r\nContent-Type: application/java-archive\r\n\r\n'.encode() + jar.read_bytes() + f'\r\n--{boundary}--\r\n'.encode())
         client.api(console + '/install', 'POST', body, 'multipart/form-data; boundary=' + boundary)
         poll(lambda: current() is not None, 'Pinned plugin installation did not settle')
-        client.api(console + '/' + plugin['name'] + '/plugin-state', 'PUT', {'enable': True, 'async': False})
+        set_plugin_enabled(lab, client, plugin['name'], True)
         poll(lambda: current()['spec'].get('enabled') is True and current().get('status', {}).get('phase') == 'STARTED', 'Pinned plugin did not start')
         state = current()
         if state['spec']['version'] != plugin['version']:
