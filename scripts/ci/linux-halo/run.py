@@ -90,6 +90,30 @@ def poll(predicate, message):
     raise RuntimeError(message)
 
 
+def set_plugin_enabled(lab, client, name, enabled):
+    """Wait for reconciliation; never replay an unnecessary state mutation."""
+    resource = '/apis/plugin.halo.run/v1alpha1/plugins/' + name
+    console = '/apis/api.console.halo.run/v1alpha1/plugins/' + name + '/plugin-state'
+    for attempt in range(5):
+        current = client.api(resource)
+        if current['spec'].get('enabled') is enabled:
+            break
+        try:
+            client.api(console, 'PUT', {'enable': enabled, 'async': False})
+            break
+        except lab.ApiError as error:
+            if error.status != 409 or attempt == 4:
+                raise
+            time.sleep(0.25)
+
+    def settled():
+        current = client.api(resource)
+        phase = current.get('status', {}).get('phase')
+        return current['spec'].get('enabled') is enabled and phase == ('STARTED' if enabled else 'DISABLED')
+
+    poll(settled, 'Pinned plugin state did not settle: ' + name)
+
+
 def install_plugins(lab, client, runtime, lock):
     resource = '/apis/plugin.halo.run/v1alpha1/plugins/'
     console = '/apis/api.console.halo.run/v1alpha1/plugins'
@@ -106,15 +130,14 @@ def install_plugins(lab, client, runtime, lock):
                 return None
         if current():
             # Fresh lab only. Replace bundled artifacts with the exact official lock.
-            client.api(console + '/' + plugin['name'] + '/plugin-state', 'PUT', {'enable': False, 'async': False})
+            set_plugin_enabled(lab, client, plugin['name'], False)
             client.api(resource + plugin['name'], 'DELETE')
             poll(lambda: current() is None, 'Bundled plugin removal did not settle')
         boundary = 'linux-ci-' + secrets.token_hex(12)
         body = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{jar.name}"\r\nContent-Type: application/java-archive\r\n\r\n'.encode() + jar.read_bytes() + f'\r\n--{boundary}--\r\n'.encode())
         client.api(console + '/install', 'POST', body, 'multipart/form-data; boundary=' + boundary)
         poll(lambda: current() is not None, 'Pinned plugin installation did not settle')
-        client.api(console + '/' + plugin['name'] + '/plugin-state', 'PUT', {'enable': True, 'async': False})
-        poll(lambda: current()['spec'].get('enabled') is True and current().get('status', {}).get('phase') == 'STARTED', 'Pinned plugin did not start')
+        set_plugin_enabled(lab, client, plugin['name'], True)
         state = current()
         if state['spec']['version'] != plugin['version']:
             raise RuntimeError('Pinned plugin version differs')

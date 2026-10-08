@@ -35,3 +35,11 @@
 矩阵只更新 `config:search.use`、`interaction:search-popup` 和官方搜索依赖，见 [对账记录](../../parity/reconciliation-2026-10-08-search.json)。搜索交互从 verification-failed 转为 implemented-unverified；完整合同仍未完成，0 条提升为 verified。
 
 实际 Safari、真实手机软键盘、完整 Tab 焦点约束、屏幕阅读器、全部角色/生命周期组合、Linux 原生资源加载及完整 1.0 未获本轮通过声明。#313 的缺陷关闭范围只涵盖固定正式插件的焦点恢复集成；最终首发候选和 #338 的资源问题另行验收。没有发布主题、部署站点或改写历史 alpha.3 发行记录。
+
+## Linux 准备阶段冲突与后续修正
+
+`d4f48973f0e2e596a24611e9f40f9267bd8231e3` 的 [构建 CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/37785826290) 和重复构建通过；该提交另有新焦点 96/96、集成 26/26 报告及独立审查，本地 `final-head.json` 保留其身份。
+
+同 SHA 的 [Linux 对照 37785826360](https://github.com/songxychn/halo-butterfly-next/actions/runs/37785826360) 在插件准备阶段失败：安装后重复提交启用请求，与 Halo 协调器产生 HTTP 409。Chromium preflight 通过，129 个安装文件与 ZIP 相符，但没有启动 120 页浏览器矩阵，不能写为页面失败或资源超时。脱敏原始摘要见 [linux-preparation-failure.json](linux-preparation-failure.json)，原失败运行永久保留。
+
+随后只修正 CI 插件状态准备：先读取目标状态，已启用则等待 STARTED；需要状态写入时，仅对 409 做有限重读重试，其他错误与启动超时仍失败。离线测试覆盖重复写入规避、冲突后重新读取、有限重试、非 409 错误和阶段等待。未来修正提交必须生成自己的 CI 和回归证据，不能把上述通过结果转移到新 SHA；主题构建输入与搜索断言未因这项准备修正改变。

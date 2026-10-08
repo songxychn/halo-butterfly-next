@@ -4,6 +4,8 @@
 
 仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Node 24、Java 21、Bun 1.4.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.8.0 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
 
+安装后的插件可能已由 Halo 自动启用并正在协调。准备流程先读取状态，目标启用值已满足时不再提交重复 PUT，仍等待插件到达 STARTED；停用后必须到达 DISABLED 才移除，不接受 DISABLING、FAILED 或未知阶段。仅状态 PUT 的 HTTP 409 做最多 5 次、每次重新读取资源的有限重试；其他错误及状态等待超时仍失败。这不重试或改绿浏览器页面的失败结果。
+
 ## 触发与包归属
 
 手动 `workflow_dispatch` 必须传 `source_sha` 完整小写40位提交SHA。PR只在本工作流或 `scripts/ci/linux-halo/` 路径变更时触发，并限制同仓库的PR，外部fork的PR跳过；PR默认验证精确head SHA，不以合成merge ref冒充源版本。仓库可见性不参与运行条件，也不启用 `pull_request_target`。

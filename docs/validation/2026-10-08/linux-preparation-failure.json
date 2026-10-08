@@ -1,0 +1,62 @@
+{
+  "status": "failed",
+  "runnerSha": "d4f48973f0e2e596a24611e9f40f9267bd8231e3",
+  "themeSourceSha": "d4f48973f0e2e596a24611e9f40f9267bd8231e3",
+  "profile": "comparison fixtures; only official SearchWidget 1.8.0 and CommentWidget 3.3.2 enabled; explicit comment overrides listed below",
+  "commentProfile": {
+    "basic": {
+      "withReplies": false,
+      "showCommenterDevice": false,
+      "showPrivateCommentBadge": true,
+      "enablePrivateComment": false,
+      "size": 20,
+      "replySize": 10,
+      "withReplySize": 5
+    },
+    "avatar": {
+      "enable": false,
+      "policy": "anonymousUser",
+      "provider": "gravatar"
+    },
+    "editor": {
+      "enableEmoji": true,
+      "enableUpload": false
+    },
+    "security": {
+      "captcha": {
+        "enable": false,
+        "type": "ALPHANUMERIC",
+        "audience": "ANONYMOUS",
+        "roles": []
+      }
+    }
+  },
+  "comparisonDifference": "Linux explicitly sets system comment.enable=true; macOS comparison had no system comment keys and used Halo defaults. Other plugin settings are not claimed fully identical.",
+  "hexoReference": "not started or checked; not a product gate",
+  "publication": "anonymous diagnostic CI, not release acceptance",
+  "limitations": [
+    "120 anonymous core page checks, not search/comment interaction acceptance",
+    "Linux Playwright engines are not macOS, actual Safari or physical devices"
+  ],
+  "package": {
+    "name": "halo-butterfly-next-0.1.0-alpha.3.zip",
+    "sha256": "abdae98d37799f616cd36d215b632dd177491123d3c889b6344769e052518998"
+  },
+  "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+  "fixtureSha256": "6cbc417b141bbe6d508a9b9777d5230c81599f0baad11b0175cbe960c941b7b5",
+  "chromiumPreflight": {
+    "engine": "chromium",
+    "status": "passed",
+    "platform": {
+      "type": "Linux",
+      "release": "6.17.0-1022-azure",
+      "arch": "x64"
+    },
+    "executableSha256": "8c599d43aec53f2460a31ae2f4af6bd863f8258b34ff519564bc5d4726bfaa1e",
+    "version": "153.0.8010.12"
+  },
+  "installedFilesMatch": 129,
+  "error": "PUT /apis/api.console.halo.run/v1alpha1/plugins/PluginSearchWidget/plugin-state: HTTP 409",
+  "ownedServicesStopped": true,
+  "exportedBrowserFiles": 0
+}
