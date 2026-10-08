@@ -4,7 +4,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 [在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示导览](https://butterfly.baizhukui.com/archives/demo-guide)
 
-**[0.1.0-alpha.4 发行入口](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。安装包、对应源码、校验摘要及已知限制见[发行说明](releases/v0.1.0-alpha.4.md)。
+**[0.1.0-alpha.4 已公开，demo 已同步](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。安装包、对应源码、校验摘要及已知限制见[发行说明](releases/v0.1.0-alpha.4.md)。
 
 ## 页面预览
 
@@ -18,7 +18,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 | --- | --- |
 | <img src="docs/images/demo/article-desktop-dark.jpg" alt="正文排版演示，桌面暗色" width="720"> | <img src="docs/images/demo/article-mobile-light.jpg" alt="正文排版演示，手机宽度亮色" width="240"> |
 
-截图保留 2026-10-05 预览站的采集时间，使用独立无头 Chromium；手机宽度预览不代表实机验收。当前站点按 Release 更新，与 master 开发源码可能不同；机制见[H2 演示站说明](site/demo/README.md)，alpha.3 的实际发行包与部署核验见[发布完成记录](docs/validation/2026-10-06/alpha3-publication.md)。
+截图保留 2026-10-05 预览站的采集时间，使用独立无头 Chromium；手机宽度预览不代表实机验收。当前站点按 Release 更新，与 master 开发源码可能不同；机制见[H2 演示站说明](site/demo/README.md)，当前 alpha.4 的实际发行包与部署核验见[发布完成记录](docs/validation/2026-10-09/alpha4-publication.md)。
 
 ## 安装与支持范围
 

@@ -2,6 +2,8 @@
 
 目标站点为 https://butterfly.baizhukui.com。`release.yml` 发布并核验主题附件后调用 `deploy-demo.yml`，后者下载同一 ZIP、打包同 tag 内容、构建并演练镜像，最后推送 GHCR。master 合并不触发发布或线上更新。发行门禁见 [releases](../../releases/README.md)。
 
+2026-10-09 alpha.4 已公开并同步 demo，实际发行提交、ZIP 摘要、镜像 digest 及公网 24 页 / 70 个主题资源核验见[发布完成记录](../../docs/validation/2026-10-09/alpha4-publication.md)。当前 SearchWidget 为 1.8.0；旧 alpha.3 容器及数据保留供回退。
+
 2026-10-06 已完成 alpha.3 首次 Release → GHCR → hk 更新，部署回执为 `published:true`、`ready:true`，发行提交和主题 ZIP 摘要与公开附件一致；五分钟检查已启用。身份与公网检查见[发布完成记录](../../docs/validation/2026-10-06/alpha3-publication.md)。此前 H2 首次切换、回退旧 PostgreSQL、暂停与重新上线演练见[历史迁移记录](../../docs/validation/2026-10-06/release-h2-demo.json)；其中 `published:false` 描述的是当时的预览镜像。
 
 ## 镜像与运行

@@ -1,0 +1,722 @@
+{
+  "release": {
+    "schema": 1,
+    "tag": "v0.1.0-alpha.4",
+    "sourceSha": "307582a58f0eb6b4cf7561ee400d6df527cb9e1e",
+    "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "sourceArchiveSha256": "4455acfb2fa13841ec3f2a7a91b43ae932e0456dbc2d90d4dc3902e2cec1cb57",
+    "acceptance": {
+      "tag": "v0.1.0-alpha.4",
+      "sourceSha": "3c1d1e3e9bddf73e3653d1ed75ac2830af0709f3",
+      "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+      "decision": "approved",
+      "reviewer": "/root/review_alpha4: original four bounded gates plus independent doc-only addendum for source 3c1d1e3 and unchanged ZIP 389f78ad",
+      "gates": {
+        "realHalo": "passed",
+        "installUpgradeRollback": "passed",
+        "resourcesAndLicenses": "passed",
+        "sourceRebuild": "passed"
+      },
+      "knownLimitations": [
+        "Halo 2.26.1 native resource requests may hang (#338); historical Linux 117/120 results retain their own identity.",
+        "Default bright header text contrast may be insufficient; choose darker text-area backgrounds.",
+        "SearchWidget 1.7.1 focus defect retained; 1.8.0 bounded regression is not full accessibility certification.",
+        "Mobile LCP target remains unmet; no new performance claim.",
+        "Physical devices, Safari, screen readers, full plugin ecosystem, market approval and 1.0 are incomplete.",
+        "Local browser scope: 8 routes, 2 viewports and 2 modes in headless Chromium; direct modal close plus one separately observed keyboard Escape, not full keyboard/a11y matrix."
+      ],
+      "evidence": [
+        {
+          "path": "docs/validation/2026-10-08/alpha4-acceptance.json",
+          "sha256": "6a96c566621d1b60fac91edf3742b349457304c80d80a5cd2a92bf988975c6fc"
+        },
+        {
+          "path": "docs/validation/2026-10-08/alpha4-acceptance.md",
+          "sha256": "eb2bc7400baf794abae07b8ebdaae421916222e42b9189d28dac2afda638dd11"
+        },
+        {
+          "path": "docs/validation/2026-10-08/alpha4-independent-review.json",
+          "sha256": "08d481dc6019b46d3ce35e3e4fbb65ad0d8d47ebf7cc7dda6d5750222058ef8e"
+        },
+        {
+          "path": "docs/validation/2026-10-08/alpha4-independent-review-addendum.json",
+          "sha256": "9bb33e4049d86d4c7088dfc9e446b34ef1c94c576d05127f282261f5f6130b8f"
+        },
+        {
+          "path": "docs/validation/2026-10-08/alpha4-final-materials.json",
+          "sha256": "43b3682cb880ffd6d41781560d3a1b3baba5c745e634747c304a5d75d795bf8b"
+        }
+      ],
+      "publicationAuthorized": true,
+      "publicationAuthorization": {
+        "instruction": "发布新版本并更新 demo",
+        "scope": "Publish the next public alpha and verify its release-driven demo"
+      },
+      "blockers": [],
+      "gateNotes": {
+        "productTests": "Actual 4dd8e1a tests retain their identity. 3c1d1e3 changes one demo paragraph and release evidence only; same ZIP independently rebuilt and reviewed. New demo profile/content H2 CI separately passed on 3c1d1e3.",
+        "publication": "Maintainer authorized public alpha.4 and demo update; full 1.0, market, a11y and performance not approved."
+      }
+    }
+  },
+  "receipt": {
+    "schema": 1,
+    "version": "0.1.0-alpha.4",
+    "tag": "v0.1.0-alpha.4",
+    "sourceSha": "307582a58f0eb6b4cf7561ee400d6df527cb9e1e",
+    "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "published": true,
+    "releaseId": 407034870,
+    "themeAssetId": 622349299,
+    "contentCount": 19,
+    "database": "h2",
+    "ready": true
+  },
+  "checks": [
+    {
+      "kind": "page",
+      "path": "/",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/page/2",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/categories",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/tags",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/getting-started",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/homepage",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/navigation",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/sidebar",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/reading",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/code-blocks",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/images",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/search-comments",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/upgrade",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/migration",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/demo-guide",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/demo-typography",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/demo-code",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/archives/demo-images",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/docs",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/download",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/about-project",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/faq",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/site-setup",
+      "status": 200
+    },
+    {
+      "kind": "404-or-internal",
+      "path": "/hbn-release-nonexistent-alpha4",
+      "status": 404
+    },
+    {
+      "kind": "404-or-internal",
+      "path": "/actuator/health",
+      "status": 404
+    },
+    {
+      "kind": "404-or-internal",
+      "path": "/v3/api-docs",
+      "status": 404
+    },
+    {
+      "kind": "404-or-internal",
+      "path": "/swagger-ui/index.html",
+      "status": 404
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/archives.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/categories.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/category.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/error404.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/index.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/links.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/moments.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/photos.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/plugin.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/post.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/single.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/tag.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/css/tags.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/archives.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/categories.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/category.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/error404.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/links.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/moments.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/photos.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/plugin.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/single.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/tag.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/js/tags.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/cursor/simple.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/loading/circle.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/loading/cross_line.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/loading/dot.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/loading/hourglass.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/prism.min.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-a11y-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-atom-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-base16-ateliersulphurpool.light.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-cb.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-coldark-cold.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-coldark-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-coy-without-shadows.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-darcula.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-dracula.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-duotone-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-duotone-earth.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-duotone-forest.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-duotone-light.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-duotone-sea.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-duotone-space.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-ghcolors.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-gruvbox-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-gruvbox-light.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-holi-theme.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-hopscotch.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-lucario.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-material-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-material-light.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-material-oceanic.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-night-owl.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-nord.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-dark.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-light.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-pojoaque.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-shades-of-purple.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-solarized-dark-atom.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-synthwave84.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-vs.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-vsc-dark-plus.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-xonokai.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "theme-resource",
+      "path": "/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-z-touch.css?v=0.1.0-alpha.4",
+      "status": 200,
+      "matchesZip": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/cover-e6c021bef4b65619.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/lake-8da3684f419bd3c2.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/forest-b36141a0b9d0ec7f.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/night-dcf845ca987f6a1a.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/coast-b37e7cbaa0972c3d.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/golden-942a9abf5780ca41.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/dunes-5af82d69a602a787.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/waterfall-1222cf09fb8266cc.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/lighthouse-0eafd070b7a612a1.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/autumn-road-1b1837cb497bd2dd.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/balloons-807d31bee184a8c5.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/lavender-0d9503f101e612aa.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/terraces-557b755dc1ce0a5b.webp",
+      "status": 200,
+      "matchesManifest": true
+    },
+    {
+      "kind": "photo",
+      "path": "/site-assets/fjord-440d311ce2045561.webp",
+      "status": 200,
+      "matchesManifest": true
+    }
+  ],
+  "result": "passed"
+}

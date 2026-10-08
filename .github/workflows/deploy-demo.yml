@@ -67,6 +67,10 @@ jobs:
         if: always()
         with:
           name: demo-deployment-result
-          path: .runtime/demo-*.json
-          if-no-files-found: ignore
+          path: |
+            .runtime/demo-smoke.json
+            .runtime/demo-promotion.json
+            .runtime/demo-public.json
+          include-hidden-files: true
+          if-no-files-found: warn
           retention-days: 14
