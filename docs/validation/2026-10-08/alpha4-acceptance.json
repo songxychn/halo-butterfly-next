@@ -1,0 +1,1212 @@
+{
+  "schema": 1,
+  "preparedAt": "2026-10-09T00:02:12.117389+08:00",
+  "tag": "v0.1.0-alpha.4",
+  "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+  "baseSha": "0090b6ec62be971a7dc615fcf10f98596aa506cb",
+  "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+  "scope": "Bounded public alpha candidate; no full 1.0, market, accessibility or performance approval",
+  "status": "approved-bounded-alpha",
+  "publicationAuthorized": true,
+  "publicationAuthorization": {
+    "instruction": "发布新版本并更新 demo",
+    "scope": "Publish the next public alpha and verify its release-driven demo"
+  },
+  "gates": {
+    "realHalo": "passed",
+    "installUpgradeRollback": "passed",
+    "resourcesAndLicenses": "passed",
+    "sourceRebuild": "passed"
+  },
+  "localVerification": {
+    "command": "bun run verify",
+    "testsPassed": 583,
+    "testsFailed": 0,
+    "packageFiles": 129,
+    "logSha256": "97f10abfe36150974263d0818462806ceb06bec7fb18647e6dd829c5741dcd1e"
+  },
+  "siteCheck": {
+    "managedContent": 19,
+    "assets": 14,
+    "links": 89,
+    "passed": true
+  },
+  "installUpgradeRollback": {
+    "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+    "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "haloVersion": "2.26.1",
+    "jarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "steps": [
+      {
+        "stage": "fresh-alpha4",
+        "files": 129,
+        "version": "0.1.0-alpha.4"
+      },
+      {
+        "stage": "rollback-alpha3",
+        "version": "0.1.0-alpha.3",
+        "files": 129,
+        "configPreserved": true,
+        "contentPreserved": true
+      },
+      {
+        "stage": "upgrade-alpha4",
+        "version": "0.1.0-alpha.4",
+        "files": 129,
+        "configPreserved": true,
+        "contentPreserved": true
+      },
+      {
+        "stage": "rollback-alpha3-again",
+        "version": "0.1.0-alpha.3",
+        "files": 129,
+        "configPreserved": true,
+        "contentPreserved": true
+      },
+      {
+        "stage": "restore-alpha4",
+        "version": "0.1.0-alpha.4",
+        "files": 129,
+        "configPreserved": true,
+        "contentPreserved": true
+      },
+      {
+        "stage": "PluginSearchWidget",
+        "version": "1.8.0",
+        "sha256": "4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d",
+        "phase": "STARTED"
+      },
+      {
+        "stage": "PluginCommentWidget",
+        "version": "3.3.2",
+        "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+        "phase": "STARTED"
+      }
+    ],
+    "result": "passed",
+    "managedContentCount": 19,
+    "contentCountIncludingDefaults": 23,
+    "configDigest": "71bf02a06023989e009108ef07aa32fcd10f91c1baf6add12f6089b44a9661ac"
+  },
+  "browser": {
+    "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+    "checks": [
+      {
+        "name": "1440-light-_",
+        "result": "passed",
+        "detail": {
+          "links": 72,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_page_2",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_archives",
+        "result": "passed",
+        "detail": {
+          "links": 62,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/archives.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 归档"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_categories",
+        "result": "passed",
+        "detail": {
+          "links": 39,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/categories.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 分类"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_tags",
+        "result": "passed",
+        "detail": {
+          "links": 48,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/tags.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 标签"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_docs",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/single.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "使用文档 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_archives_demo-code",
+        "result": "passed",
+        "detail": {
+          "links": 41,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js",
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "代码展示与交互 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-light-_archives_demo-images",
+        "result": "passed",
+        "detail": {
+          "links": 40,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "图片阅读与灯箱 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_",
+        "result": "passed",
+        "detail": {
+          "links": 72,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_page_2",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_archives",
+        "result": "passed",
+        "detail": {
+          "links": 62,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/archives.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 归档"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_categories",
+        "result": "passed",
+        "detail": {
+          "links": 39,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/categories.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 分类"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_tags",
+        "result": "passed",
+        "detail": {
+          "links": 48,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/tags.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 标签"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_docs",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/single.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "使用文档 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_archives_demo-code",
+        "result": "passed",
+        "detail": {
+          "links": 41,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "代码展示与交互 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "1440-dark-_archives_demo-images",
+        "result": "passed",
+        "detail": {
+          "links": 40,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "图片阅读与灯箱 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_",
+        "result": "passed",
+        "detail": {
+          "links": 72,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_page_2",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_archives",
+        "result": "passed",
+        "detail": {
+          "links": 62,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/archives.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 归档"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_categories",
+        "result": "passed",
+        "detail": {
+          "links": 39,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/categories.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 分类"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_tags",
+        "result": "passed",
+        "detail": {
+          "links": 48,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/tags.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 标签"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_docs",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/single.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "使用文档 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_archives_demo-code",
+        "result": "passed",
+        "detail": {
+          "links": 35,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "代码展示与交互 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-light-_archives_demo-images",
+        "result": "passed",
+        "detail": {
+          "links": 40,
+          "mode": "light",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "图片阅读与灯箱 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_",
+        "result": "passed",
+        "detail": {
+          "links": 72,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_page_2",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_archives",
+        "result": "passed",
+        "detail": {
+          "links": 62,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/archives.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 归档"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_categories",
+        "result": "passed",
+        "detail": {
+          "links": 39,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/categories.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 分类"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_tags",
+        "result": "passed",
+        "detail": {
+          "links": 48,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/tags.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "Halo Butterfly Next - 标签"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_docs",
+        "result": "passed",
+        "detail": {
+          "links": 54,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/single.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "使用文档 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_archives_demo-code",
+        "result": "passed",
+        "detail": {
+          "links": 41,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js",
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "代码展示与交互 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      },
+      {
+        "name": "390-dark-_archives_demo-images",
+        "result": "passed",
+        "detail": {
+          "links": 40,
+          "mode": "dark",
+          "overflow": false,
+          "ready": true,
+          "themeScripts": [
+            "http://127.0.0.1:18341/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4"
+          ],
+          "title": "图片阅读与灯箱 - Halo Butterfly Next"
+        },
+        "search": {
+          "closed": true,
+          "returned": true
+        }
+      }
+    ],
+    "limitations": [
+      "Headless Chromium and bounded page/search checks only; not physical devices, complete keyboard, a11y, performance or 1.0 acceptance."
+    ]
+  },
+  "sourceRebuild": {
+    "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+    "command": "git archive HEAD; bun install --frozen-lockfile --ignore-scripts; bun run build",
+    "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "matches": true
+  },
+  "licenseIncrement": {
+    "files": 25,
+    "allBytesEqualAlpha3": true,
+    "removedFiles": []
+  },
+  "ci": {
+    "previousProductHead": "0e0b965105c4061c22a2b034d7999bfcc912de82",
+    "theme": {
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37804771123",
+      "conclusion": "success"
+    },
+    "h2": {
+      "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37804771259",
+      "conclusion": "success",
+      "syntheticMergeSourceSha": "5280afee4eba8e3d91ea117c47862a198dba0538",
+      "receipt": {
+        "passed": true,
+        "restartPreservedCredentials": true,
+        "receipt": {
+          "schema": 1,
+          "version": "0.1.0-alpha.4",
+          "tag": "v0.1.0-alpha.4",
+          "sourceSha": "5280afee4eba8e3d91ea117c47862a198dba0538",
+          "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+          "published": false,
+          "contentCount": 19,
+          "database": "h2",
+          "ready": true
+        }
+      }
+    },
+    "finalHead": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+    "finalThemeRun": 37805279565,
+    "finalImageRun": 37805279400,
+    "finalStatus": "success",
+    "finalThemeUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37805279565",
+    "finalImageUrl": "https://github.com/songxychn/halo-butterfly-next/actions/runs/37805279400",
+    "finalH2Receipt": {
+      "passed": true,
+      "restartPreservedCredentials": true,
+      "receipt": {
+        "schema": 1,
+        "version": "0.1.0-alpha.4",
+        "tag": "v0.1.0-alpha.4",
+        "sourceSha": "5d4307cb813d4dfe397da47fcf3b48fd8cc2c2d4",
+        "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+        "published": false,
+        "contentCount": 19,
+        "database": "h2",
+        "ready": true
+      }
+    }
+  },
+  "observedFailures": [
+    {
+      "scope": "first local setup attempt",
+      "result": "failed",
+      "reason": "Started before build completed; package absent. Later installation separately passed."
+    },
+    {
+      "scope": "first local plugin preparation",
+      "result": "failed",
+      "reason": "Halo first setup bundled search 1.7.1. Upgraded via supported API; subsequent plugin checks passed."
+    },
+    {
+      "scope": "first H2 CI",
+      "run": 37804255752,
+      "sourceSha": "121ed36fd1edc16a7fbb4a22e104ff0e827aa3ac",
+      "result": "failed",
+      "reason": "Bundled search 1.7.1 persisted despite staged 1.8.0; fixed initialization API upgrade."
+    },
+    {
+      "scope": "first bounded browser report",
+      "result": "30/32 passed",
+      "reason": "Runner incorrectly demanded a version query on dynamically loaded third-party Prism URL; no product failure. Original report retained by digest. Corrected independent run 32/32 passed.",
+      "reportSha256": "4ee44e99b89e522090c9ee59d5ebe4501d860d5336bc22cd1592d98e25f73ec0"
+    },
+    {
+      "scope": "local sample profile",
+      "result": "not-applied",
+      "reason": "First configure ran before publication; second refused backend conflict. Local browser and upgrade checks use actual default config. CI H2 importer independently applies release demo profile and verifies its own pages."
+    }
+  ],
+  "knownLimitations": [
+    "Halo 2.26.1 native resource requests may hang (#338); historical Linux 117/120 results retain their own identity.",
+    "Default bright header text contrast may be insufficient; choose darker text-area backgrounds.",
+    "SearchWidget 1.7.1 focus defect retained; 1.8.0 bounded regression is not full accessibility certification.",
+    "Mobile LCP target remains unmet; no new performance claim.",
+    "Physical devices, Safari, screen readers, full plugin ecosystem, market approval and 1.0 are incomplete.",
+    "Local browser scope: 8 routes, 2 viewports and 2 modes in headless Chromium; direct modal close plus one separately observed keyboard Escape, not full keyboard/a11y matrix."
+  ],
+  "independentReview": {
+    "status": "approved",
+    "reviewer": "/root/review_alpha4",
+    "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+    "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "report": "docs/validation/2026-10-08/alpha4-independent-review.json",
+    "reportSha256": "08d481dc6019b46d3ce35e3e4fbb65ad0d8d47ebf7cc7dda6d5750222058ef8e",
+    "authorizationGranted": true,
+    "authorizationInstruction": "授权独立 agent 审查并继续发布"
+  },
+  "publicRelease": false,
+  "demoUpdated": false,
+  "resourceReadback": {
+    "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+    "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "checks": [
+      {
+        "file": "templates/assets/css/archives.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/categories.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/category.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/error404.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/index.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/links.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/moments.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/photos.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/plugin.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/post.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/single.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/tag.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/css/tags.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/archives.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/categories.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/category.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/error404.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/index.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/links.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/moments.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/photos.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/plugin.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/post.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/single.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/tag.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/js/tags.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/cursor/simple.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/fontawesome/css/all.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/loading/circle.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/loading/cross_line.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/loading/dot.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/loading/hourglass.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/prism.min.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/prism.min.js",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-a11y-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-atom-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-base16-ateliersulphurpool.light.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-cb.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-coldark-cold.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-coldark-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-coy-without-shadows.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-darcula.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-dracula.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-duotone-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-duotone-earth.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-duotone-forest.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-duotone-light.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-duotone-sea.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-duotone-space.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-ghcolors.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-gruvbox-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-gruvbox-light.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-holi-theme.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-hopscotch.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-lucario.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-material-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-material-light.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-material-oceanic.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-night-owl.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-nord.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-one-dark.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-one-light.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-pojoaque.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-shades-of-purple.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-solarized-dark-atom.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-synthwave84.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-vs.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-vsc-dark-plus.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-xonokai.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      },
+      {
+        "file": "templates/assets/plugins/prism/themes/prism-z-touch.css",
+        "status": 200,
+        "matchesZip": true,
+        "result": "passed"
+      }
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-09T00:06:20.316227+08:00",
+  "reviewer": "Independent Codex agent /root/review_alpha4, separate from candidate author",
+  "decision": "approved",
+  "tag": "v0.1.0-alpha.4",
+  "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+  "baseSha": "0090b6ec62be971a7dc615fcf10f98596aa506cb",
+  "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+  "scope": "Four bounded public-alpha release gates only; source diff PR #382 versus base, release notes and candidate records, raw local evidence and final CI receipts. Read-only review except this report.",
+  "gates": {
+    "realHalo": "passed",
+    "installUpgradeRollback": "passed",
+    "resourcesAndLicenses": "passed",
+    "sourceRebuild": "passed"
+  },
+  "findings": [],
+  "blockers": [],
+  "verification": {
+    "realHalo": "Halo JAR digest 7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc; installed 129 files independently compared byte-for-byte with candidate ZIP, no mismatch. 32 bounded browser checks at reviewed source; local default configuration retained.",
+    "installUpgradeRollback": "Reviewed accept.py and candidate-bound actual JSON/log: installed alpha.4, rollback alpha.3, upgrade alpha.4, rollback alpha.3, restore alpha.4; all 129 file matches and configuration/content equality asserted. 23 total documents include defaults; 19 managed documents. No claim of full comment-flow rerun.",
+    "resourcesAndLicenses": "Reviewer independently requested all 70 CSS/JS from owned real Halo over HTTP: 70 status 200 and byte-equal to ZIP. Sandbox first denied requests; controlled unsandboxed read-only retry succeeded. 25 LICENSE/NOTICE/attribution files byte-equal to previous published alpha.3 ZIP; zero package deletions.",
+    "sourceRebuild": "All tracked files in .runtime/alpha4/rebuild independently byte-compared with git 4dd8e1ab source. Both candidate and rebuilt ZIPs SHA256 match. Bun 1.4.0 frozen lock installation and final rebuild logs reviewed; final-head CI independently rebuilds archive and passes. Reviewer did not rerun an additional build.",
+    "demoSearchUpgrade": "Official pinned SearchWidget 1.8.0 JAR 4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d independently hashed. Context downloads official URL and checks digest. Initializer validates staged bytes, disables bundled 1.7.1 and waits DISABLED, upgrades using supported API, rechecks 1.8.0 and bytes then waits STARTED. Fresh H2 image CI plus restart passed after original failure; changed initializer does not adopt arbitrary existing data.",
+    "localVerification": "Final verify log independently hashed to 97f10abfe36150974263d0818462806ceb06bec7fb18647e6dd829c5741dcd1e: 583 pass, 0 fail and 129 package files; site check 19 managed content, 14 assets, 89 links.",
+    "ci": {
+      "workflowHead": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+      "themeRun": 37805279565,
+      "themeConclusion": "success",
+      "h2Run": 37805279400,
+      "h2Conclusion": "success",
+      "h2ReceiptSyntheticMergeSha": "5d4307cb813d4dfe397da47fcf3b48fd8cc2c2d4",
+      "h2ThemeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+      "h2ManagedContent": 19,
+      "h2RestartPreservedCredentials": true,
+      "checkedVia": "Live gh PR and Actions APIs; receipt file reviewed. Workflow head and synthetic merge identity kept separate."
+    },
+    "releaseNotesCorrection": "Original notes used ../docs/ relative links that publish.py would copy into Release body. Author converted all to fixed https://github.com/songxychn/halo-butterfly-next/blob/v0.1.0-alpha.4/docs/ links during review; reviewer checked the material-only diff. No product change."
+  },
+  "preservedFailures": [
+    "Initial local package absence and plugin bundled 1.7.1 preparation failure remain separate from successful subsequent installation.",
+    "First H2 CI run 37804255752 at 121ed36fd1edc16a7fbb4a22e104ff0e827aa3ac failed; original image-failure.log retained. Not relabeled passed.",
+    "Original browser first report at 0e0b965105c4061c22a2b034d7999bfcc912de82 remains 30/32 with digest 4ee44e99b89e522090c9ee59d5ebe4501d860d5336bc22cd1592d98e25f73ec0. Two code-page errors show unversioned third-party Prism URL. Corrected assertion limits version requirement to owned assets/js; subsequent 4dd8e1a report is separately 32/32.",
+    "Local profile not applied: first configuration before publication and second backend content conflict remain failures. Local default-config checks do not substitute demo-profile checks; fresh H2 importer CI independently applies demo profile.",
+    "Historical Linux 117/120, old SearchWidget focus defect, compatibility, comment and performance evidence retain original identities; no transfer to this candidate."
+  ],
+  "knownLimitations": [
+    "Halo 2.26.1 native resource hangs #338 remain accepted alpha limitation; HTTP 70/70 does not prove repeated connection stability or erase historical failures.",
+    "Default bright header contrast remains insufficient in some images; full accessibility approval not granted.",
+    "Bounded headless Chromium: 8 routes x 2 viewports x 2 modes, direct modal close; one separately observed Escape is not full keyboard/a11y matrix.",
+    "SearchWidget 1.7.1 failure retained; 1.8.0 tests do not approve all plugins or future combinations. CommentWidget 3.3.2 STARTED only in this run, not complete comment interactions.",
+    "Mobile LCP target, physical devices, actual Safari, screen readers, full ecosystem, market and stable 1.0 gates remain incomplete.",
+    "This review approves candidate gates, not a completed publication/deployment. Release asset download verification and online demo promotion/readback must still complete."
+  ],
+  "publicationConditions": [
+    "Commit approved release materials with exact evidence hashes; sourceSha continues to identify reviewed product 4dd8e1a. Only allowlisted release/validation documents may change afterward.",
+    "Run final material-head CI; tag must retain reviewed source as ancestor and produce identical ZIP. Do not reuse old CI as final-tag success.",
+    "Preserve original failures and scope; complete draft/public asset download/hash verification and live demo version/asset checks after authorized publication."
+  ],
+  "evidenceSnapshot": [
+    {
+      "path": ".runtime/alpha4/final-verify.log",
+      "sha256": "97f10abfe36150974263d0818462806ceb06bec7fb18647e6dd829c5741dcd1e"
+    },
+    {
+      "path": ".runtime/alpha4/final-rebuild.log",
+      "sha256": "4f05490ef35c2be9ed45172e6f3fff96a55f659dac1ce89ea8199fc740cb7538"
+    },
+    {
+      "path": ".runtime/alpha4/rebuild-install.log",
+      "sha256": "8302a36b4aba2f0b5c5fdd2209d7c265be552790f9f8cb893dfd88b3e39bbd1b"
+    },
+    {
+      "path": ".runtime/alpha4/accept-final.log",
+      "sha256": "b66b01c664f7d9bcac141a5e43aff7e766fd6b19768279e02e79d6f6e8e34bdb"
+    },
+    {
+      "path": ".runtime/alpha4/install-upgrade-rollback.json",
+      "sha256": "b66b01c664f7d9bcac141a5e43aff7e766fd6b19768279e02e79d6f6e8e34bdb"
+    },
+    {
+      "path": ".runtime/alpha4/browser-check.json",
+      "sha256": "9fd0a6d30abe99e6d471fd0edb7e37b73f01caa70477925b2fd5c5371f8098cf"
+    },
+    {
+      "path": ".runtime/alpha4/browser-check-first.json",
+      "sha256": "4ee44e99b89e522090c9ee59d5ebe4501d860d5336bc22cd1592d98e25f73ec0"
+    },
+    {
+      "path": ".runtime/alpha4/resources.json",
+      "sha256": "e7440cccbccdb21a020dc0b1d33408cf5349eb2d982721da8e7875844af7376f"
+    },
+    {
+      "path": ".runtime/alpha4/image-failure.log",
+      "sha256": "f02d5d750e70b285c934e4bcbff60387ee066f26a97cf11f04f74194ffb63d06"
+    },
+    {
+      "path": ".runtime/alpha4/h2-ci/demo-smoke.json",
+      "sha256": "10bf813ea607e6fbb6635379af5600441691fe882629214184d9a3697913b225"
+    },
+    {
+      "path": ".runtime/alpha4/h2-final-ci/demo-smoke.json",
+      "sha256": "7b46a031f372a2498c2b108472bda3548f2c50440ff65027254ddd75f755c1b5"
+    },
+    {
+      "path": "docs/validation/2026-10-08/alpha4-acceptance.json",
+      "sha256": "d7cf63c91cecbf097fe48ec28bbd9e6d928565422105eba9696ec29d6c784a60"
+    },
+    {
+      "path": "docs/validation/2026-10-08/alpha4-acceptance.md",
+      "sha256": "e96ea0014f2b2609a7aa0940b9f01bb7980b6309e252fcc270f7a1dd0129504b"
+    },
+    {
+      "path": "releases/v0.1.0-alpha.4.md",
+      "sha256": "037c0fc021383984c18b7a0c1af10b1e69138ee3e0e1a81bc5c8698f1796d01d"
+    }
+  ]
+}

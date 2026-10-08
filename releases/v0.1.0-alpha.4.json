@@ -1,0 +1,41 @@
+{
+  "tag": "v0.1.0-alpha.4",
+  "sourceSha": "4dd8e1ab51ea71e9ee73fcffeca813dae086e3f5",
+  "themeSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+  "decision": "approved",
+  "reviewer": "/root/review_alpha4: independent bounded alpha approval of source 4dd8e1a and ZIP 389f78ad; see docs/validation/2026-10-08/alpha4-independent-review.json",
+  "gates": {
+    "realHalo": "passed",
+    "installUpgradeRollback": "passed",
+    "resourcesAndLicenses": "passed",
+    "sourceRebuild": "passed"
+  },
+  "knownLimitations": [
+    "Halo 2.26.1 native resource requests may hang (#338); historical Linux 117/120 results retain their own identity.",
+    "Default bright header text contrast may be insufficient; choose darker text-area backgrounds.",
+    "SearchWidget 1.7.1 focus defect retained; 1.8.0 bounded regression is not full accessibility certification.",
+    "Mobile LCP target remains unmet; no new performance claim.",
+    "Physical devices, Safari, screen readers, full plugin ecosystem, market approval and 1.0 are incomplete.",
+    "Local browser scope: 8 routes, 2 viewports and 2 modes in headless Chromium; direct modal close plus one separately observed keyboard Escape, not full keyboard/a11y matrix."
+  ],
+  "evidence": [
+    {
+      "path": "docs/validation/2026-10-08/alpha4-acceptance.json",
+      "sha256": "6a96c566621d1b60fac91edf3742b349457304c80d80a5cd2a92bf988975c6fc"
+    },
+    {
+      "path": "docs/validation/2026-10-08/alpha4-acceptance.md",
+      "sha256": "eb2bc7400baf794abae07b8ebdaae421916222e42b9189d28dac2afda638dd11"
+    },
+    {
+      "path": "docs/validation/2026-10-08/alpha4-independent-review.json",
+      "sha256": "08d481dc6019b46d3ce35e3e4fbb65ad0d8d47ebf7cc7dda6d5750222058ef8e"
+    }
+  ],
+  "publicationAuthorized": true,
+  "publicationAuthorization": {
+    "instruction": "发布新版本并更新 demo",
+    "scope": "Publish the next public alpha and verify its release-driven demo"
+  },
+  "blockers": []
+}
