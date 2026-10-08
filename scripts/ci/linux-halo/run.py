@@ -196,7 +196,7 @@ def main():
     output.mkdir(mode=0o700)
     write(runtime / 'linux-ci-owner.json', {'runId': os.environ['GITHUB_RUN_ID'], 'repository': os.environ['GITHUB_REPOSITORY']})
     lab = load_lab()
-    report = {'status': 'incomplete', 'runnerSha': git(HARNESS, 'rev-parse', 'HEAD'), 'themeSourceSha': args.source_sha, 'profile': 'comparison fixtures; only official SearchWidget 1.7.1 and CommentWidget 3.3.2 enabled; explicit comment overrides listed below', 'commentProfile': COMMENT_PROFILE, 'comparisonDifference': 'Linux explicitly sets system comment.enable=true; macOS comparison had no system comment keys and used Halo defaults. Other plugin settings are not claimed fully identical.', 'hexoReference': 'not started or checked; not a product gate', 'publication': 'anonymous diagnostic CI, not release acceptance', 'limitations': ['120 anonymous core page checks, not search/comment interaction acceptance', 'Linux Playwright engines are not macOS, actual Safari or physical devices']}
+    report = {'status': 'incomplete', 'runnerSha': git(HARNESS, 'rev-parse', 'HEAD'), 'themeSourceSha': args.source_sha, 'profile': 'comparison fixtures; only official SearchWidget 1.8.0 and CommentWidget 3.3.2 enabled; explicit comment overrides listed below', 'commentProfile': COMMENT_PROFILE, 'comparisonDifference': 'Linux explicitly sets system comment.enable=true; macOS comparison had no system comment keys and used Halo defaults. Other plugin settings are not claimed fully identical.', 'hexoReference': 'not started or checked; not a product gate', 'publication': 'anonymous diagnostic CI, not release acceptance', 'limitations': ['120 anonymous core page checks, not search/comment interaction acceptance', 'Linux Playwright engines are not macOS, actual Safari or physical devices']}
     matrix = None
     try:
         for fixture in ('fixtures/comparison', 'fixtures/search-comment', 'fixtures/browser'):
@@ -206,7 +206,7 @@ def main():
                     if not other.is_file() or digest(other) != digest(file):
                         raise RuntimeError('Theme and harness fixture profiles differ: ' + str(file.relative_to(HARNESS)))
         lock = json_file(HARNESS / 'fixtures/search-comment/versions.json')
-        if lab.VERSIONS['halo']['version'] != '2.26.1' or lock['halo'] != '2.26.1' or [(p['name'], p['version']) for p in lock['plugins']] != [('PluginSearchWidget', '1.7.1'), ('PluginCommentWidget', '3.3.2')]:
+        if lab.VERSIONS['halo']['version'] != '2.26.1' or lock['halo'] != '2.26.1' or [(p['name'], p['version']) for p in lock['plugins']] != [('PluginSearchWidget', '1.8.0'), ('PluginCommentWidget', '3.3.2')]:
             raise RuntimeError('Unexpected Halo/plugin lock versions')
         if json_file(HARNESS / 'fixtures/browser/package.json')['dependencies']['playwright'] != '1.63.0':
             raise RuntimeError('Unexpected Playwright fixture version')

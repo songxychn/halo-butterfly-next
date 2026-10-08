@@ -2,7 +2,7 @@
 
 `Linux Halo browser comparison` 工作流支持公开或私有仓库，用于对照 macOS 的 Firefox 资源停滞调查（#338）。它不改变主题资源顺序、网络请求头或断言，不对失败页面重试后改绿；Linux 成功也不能直接证明 macOS 问题已修复。
 
-仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Node 24、Java 21、Bun 1.4.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.7.1 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
+仅运行于 GitHub 临时 Ubuntu 24.04 runner，权限 `contents: read`，无生产地址或凭据。固定 Node 24、Java 21、Bun 1.4.0、Playwright 1.63.0、Halo 2.26.1、官方 SearchWidget 1.8.0 与 CommentWidget 3.3.2。Halo/插件下载 URL 与 SHA-256 复用版本夹具；下载和安装后的 JAR 均核对，错误直接失败。Ubuntu 系统库显式通过固定 Playwright CLI 的 `install-deps chromium firefox webkit` 安装。
 
 ## 触发与包归属
 
