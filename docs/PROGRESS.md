@@ -1,5 +1,11 @@
 # 持续对齐进度
 
+## 2026-10-09：alpha.4 已发布并同步 demo
+
+[v0.1.0-alpha.4](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4) 已公开，发行源码 `307582a`、ZIP `389f78ad`；真实 Halo 安装、alpha.3 升级回退、配置/正文保留、资源许可与重建证据经独立审查，583 项工程检查通过。四份公开附件回下载校验，demo 当前容器健康，SearchWidget 1.8.0；公网 24 页、70 个主题 CSS/JS 和 14 张照片核验通过，旧容器与数据保留供回退。
+
+[发布完成记录](validation/2026-10-09/alpha4-publication.md)分别保存候选、发行提交及各次 CI 身份，保留首轮失败和部署 artifact 缺失事实。本次 0 项矩阵提升为 verified，matrix.json / MATRIX.md 保持状态；#338、明亮顶图对比度、手机性能预算及完整 1.0 门禁继续保留。下方“未发布/未升级”是各历史阶段当时状态。
+
 ## 2026-10-08：官方搜索关闭焦点修复集成
 
 官方 SearchWidget 1.8.0 已发布，固定 JAR SHA-256 `4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d`，最低 Halo >=2.26.0；本轮使用 Halo 2.26.1。主题入口继续调用 `SearchWidget.open()`，保留 >=1.7.1 兼容，旧版焦点限制明示保留。
