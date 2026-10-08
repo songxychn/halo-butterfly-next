@@ -28,7 +28,6 @@ const auth = await readJson(authPath);
 await ownRuntime();
 Object.assign(process.env, browserEnvironment());
 const playwright = await import(pathToFileURL(path.join(RUNTIME, 'deps/node_modules/playwright/index.mjs')));
-const { expect } = playwright;
 assert.equal((await readJson(path.join(RUNTIME, 'deps/node_modules/playwright/package.json'))).version, '1.63.0');
 const output = path.resolve(options['--output']);
 await mkdir(path.dirname(output), { recursive: true });
@@ -58,7 +57,7 @@ async function settled(page, open) {
   await page.locator('search-modal').evaluate(element => element.updateComplete);
 }
 async function returned(trigger) {
-  await expect.poll(() => trigger.evaluate(element => document.activeElement === element)).toBe(true);
+  await trigger.page().waitForFunction(element => document.activeElement === element, await trigger.elementHandle(), { timeout: 5000 });
 }
 try {
   for (const engine of ENGINES) {
@@ -90,7 +89,11 @@ try {
           await page.waitForFunction(expected => document.documentElement.dataset.colorScheme === expected && typeof window.SearchWidget?.open === 'function', mode);
           const trigger = page.locator('.nav a[title="搜索"]');
           const input = page.getByPlaceholder('输入关键词以搜索');
-          const open = async () => { await trigger.focus(); await page.keyboard.press('Enter'); await input.waitFor(); await settled(page, true); };
+          const opened = async () => {
+            await input.waitFor(); await settled(page, true);
+            await page.waitForFunction(element => element.getRootNode().activeElement === element, await input.elementHandle(), { timeout: 5000 });
+          };
+          const open = async () => { await trigger.focus(); await page.keyboard.press('Enter'); await opened(); };
           await check(name + '-escape-focus-return', async () => {
             await open(); await page.keyboard.press('Escape'); await settled(page, false); await returned(trigger);
             await page.screenshot({ path: path.join(output, name + '-focus.png') });
@@ -109,18 +112,18 @@ try {
               button.onclick = () => window.SearchWidget.open(); document.body.prepend(button);
             });
             const other = page.locator('#focus-fixture');
-            await other.focus(); await page.keyboard.press('Enter'); await input.waitFor(); await page.keyboard.press('Escape'); await settled(page, false); await returned(other);
+            await other.focus(); await page.keyboard.press('Enter'); await opened(); await page.keyboard.press('Escape'); await settled(page, false); await returned(other);
             await open(); await page.keyboard.press('Escape'); await settled(page, false); await returned(trigger);
           }, diagnostics);
           await check(name + '-batched-close-reopen', async () => {
             await open();
             await page.evaluate(() => { document.querySelector('search-modal').close(); window.SearchWidget.open(); });
-            await settled(page, true); await input.waitFor();
+            await opened();
             await page.keyboard.press('Escape'); await settled(page, false); await returned(trigger);
           }, diagnostics);
           for (const unavailable of ['hidden', 'removed']) await check(name + '-trigger-' + unavailable, async () => {
             const other = page.locator('#focus-fixture');
-            await other.focus(); await page.keyboard.press('Enter'); await input.waitFor();
+            await other.focus(); await page.keyboard.press('Enter'); await opened();
             await other.evaluate((element, state) => state === 'removed' ? element.remove() : element.hidden = true, unavailable);
             await page.keyboard.press('Escape'); await settled(page, false);
             assert(await page.evaluate(() => document.activeElement?.id !== 'focus-fixture'), 'Focus restored to unavailable trigger');
