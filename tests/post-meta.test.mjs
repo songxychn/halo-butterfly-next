@@ -54,7 +54,7 @@ test('模板按 post_meta 开关读取分类/标签/日期/前缀/对齐，且�
   assert.match(post, /views\/components :: postMeta/);
   assert.match(post, /post_meta\?\.position/);
   assert.match(post, /id="post-info"/);
-  assert.match(post, /not theme\.config\.post\.enable_above/);
+  assert.match(post, /not aboveEnabled/);
   assert.doesNotMatch(post, /字数总计 --/);
   assert.doesNotMatch(post, /阅读时长 --/);
   assert.equal((post.match(/views\/components :: postMeta/g) || []).length, 2);
