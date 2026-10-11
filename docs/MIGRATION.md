@@ -43,6 +43,8 @@ bun run migrate --input old.json --from 2.0.5 --output next.json
 
 没有对应项的选项会标记 `unsupported`；类型不符标记 `type-mismatch`，需要手动解析的内容标记 `manual-review`。例如原版打赏、过期提示、部分颜色/宽度、自定义标题没有直接对应项。`needsReview: true` 时必须逐项检查，不能将输出视为无损迁移。即使报告没有这些项，也要检查外链、图标、自定义 HTML 和默认值变化。
 
+评论增强新增 `aside.card_newest_comments`，缺字段或旧配置时默认关闭；`comments.jump` 默认开启，仅在文章/单页实际挂载官方评论时显示原生跳转链接。`comments.text` 默认开启，三种提示文案默认留空、按纯文本显示。缓存使用当前标签页的 sessionStorage，0 分钟关闭缓存；回退旧包后新增字段不再使用，评论数据由 Halo 保存。详见[评论增强](COMMENT-ENHANCEMENTS.md)。
+
 ## 切换与回退
 
 新增顶图配置默认不关闭顶图、默认图为空；原生文章封面继续兼作顶图，旧页面类型开关及无图回退保留。分类/标签若已有原生封面，详情页会改为优先使用该封面；清空它可恢复页面类型背景。单篇新增显示三态只控制显示，不新增图片字段。具体规则见[顶图配置](IMAGE-OPTIONS.md)。回退旧包时，新配置会被忽略，无需改写文章数据。

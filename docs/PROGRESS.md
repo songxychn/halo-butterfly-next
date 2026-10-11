@@ -8,6 +8,12 @@ KaTeX 3.0.0 的主题适配已加入：原生 MathML、局部滚动、TeX 复制
 
 首次公开创建被自动审批拒绝后，维护者明确授权，裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已按审阅草稿公开并核对正文一致。10 条提供方/资源供应项附完整 `decision` 转为不适用并移除 `pendingDecision`；897 个 ID、原失败及历史证据保留，0 条提升为已验收。边界见 [裁定记录](MATH-RENDERING-DECISION.md)，已发布内容见 [issue 正文存档](parity/DEC-07-ISSUE.md)。
 
+## 2026-10-11：评论增强首批
+
+[#386](https://github.com/songxychn/halo-butterfly-next/issues/386) 补充默认关闭的最新评论侧栏、可配置纯文本提示，以及文章/单页的原生评论跳转。公开内容清单与匿名 API 按评论时间汇总，旧文章新评论不会被发布时间过滤；当前标签页缓存、重试、键盘焦点及工具栏排序一起处理。
+
+[使用和边界](COMMENT-ENHANCEMENTS.md)记录配置与冷加载成本；10 条对应矩阵改为 implemented-unverified，整项评论数据、组件懒挂载和 Moment 主体仍保留缺口，0 条提升 verified。[限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复及提交/包身份；独立审查及完整双站合同仍须另行完成。未发布主题或部署线上。
+
 ## 2026-10-11：顶图开关、默认回退与原生分类标签封面
 
 [#385](https://github.com/songxychn/halo-butterfly-next/issues/385) 保留文章顶图复用原生封面，新增全局关闭、默认顶图及文章/单页显示三态；分类/标签详情消费原生封面并显示实际名称。关闭顶图保留内容区标题，坏图尝试默认图后保留纯色。未配置新选项时保留旧行为，已有分类/标签封面优先显示的变化另在迁移文档明示。

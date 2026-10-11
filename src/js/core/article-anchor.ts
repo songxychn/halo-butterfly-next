@@ -108,6 +108,12 @@ export function bindArticleAnchors(article: HTMLElement, options: AnchorOptions 
     frame = win.requestAnimationFrame(() => {
       frame = 0;
       if (navigating) return;
+      // Once a comment link is followed, chapter tracking must not replace its
+      // destination with the last article heading while the comments are read.
+      const comments = doc.getElementById('post-comment');
+      // On a short page the browser cannot align the region to the nav offset.
+      // Keep the fragment while comments are in view, including late widget layout.
+      if (win.location.hash === '#post-comment' && comments && (comments.dataset.commentJumpNavigating === 'true' || comments.getBoundingClientRect().top < win.innerHeight)) return;
       let current: HTMLElement | undefined;
       for (const heading of headings) {
         if (heading.getBoundingClientRect().top > offset + 1) break;
@@ -116,6 +122,18 @@ export function bindArticleAnchors(article: HTMLElement, options: AnchorOptions 
       if (current) updateUrl(current.id, false);
     });
   };
+  const onManualScroll = (event: Event) => {
+    if (event instanceof KeyboardEvent && (!['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key) ||
+        (event.target instanceof Element && event.target.closest('input,textarea,select,[contenteditable]')))) return;
+    // Browser history restores scroll asynchronously. Resume chapter tracking
+    // only after reader input, not during that restoration of a comment link.
+    const comments = doc.getElementById('post-comment');
+    if (comments) delete comments.dataset.commentJumpNavigating;
+  };
+  doc.addEventListener('wheel', onManualScroll, { passive: true });
+  doc.addEventListener('touchmove', onManualScroll, { passive: true });
+  doc.addEventListener('pointerdown', onManualScroll, { passive: true });
+  doc.addEventListener('keydown', onManualScroll);
   doc.addEventListener('click', onClick);
   win.addEventListener('scroll', onScroll, { passive: true });
   win.addEventListener('hashchange', followHash);
@@ -124,6 +142,10 @@ export function bindArticleAnchors(article: HTMLElement, options: AnchorOptions 
   // IDs generated at runtime do not exist during the browser's initial fragment lookup.
   followHash();
   return () => {
+    doc.removeEventListener('wheel', onManualScroll);
+    doc.removeEventListener('touchmove', onManualScroll);
+    doc.removeEventListener('pointerdown', onManualScroll);
+    doc.removeEventListener('keydown', onManualScroll);
     doc.removeEventListener('click', onClick);
     win.removeEventListener('scroll', onScroll);
     win.removeEventListener('hashchange', followHash);
