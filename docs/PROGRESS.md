@@ -4,7 +4,7 @@
 
 [#386](https://github.com/songxychn/halo-butterfly-next/issues/386) 补充默认关闭的最新评论侧栏、可配置纯文本提示，以及文章/单页的原生评论跳转。公开内容清单与匿名 API 按评论时间汇总，旧文章新评论不会被发布时间过滤；当前标签页缓存、重试、键盘焦点及工具栏排序一起处理。
 
-[使用和边界](COMMENT-ENHANCEMENTS.md)记录配置与冷加载成本；10 条对应矩阵改为 implemented-unverified，整项评论数据、组件懒挂载和 Moment 主体仍保留缺口，0 条提升 verified。真实合成站、工程检查和提交/包身份在本轮验证材料中记录；独立审查及完整双站合同仍须另行完成。未发布主题或部署线上。
+[使用和边界](COMMENT-ENHANCEMENTS.md)记录配置与冷加载成本；10 条对应矩阵改为 implemented-unverified，整项评论数据、组件懒挂载和 Moment 主体仍保留缺口，0 条提升 verified。[限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复及提交/包身份；独立审查及完整双站合同仍须另行完成。未发布主题或部署线上。
 
 ## 2026-10-11：顶图开关、默认回退与原生分类标签封面
 
