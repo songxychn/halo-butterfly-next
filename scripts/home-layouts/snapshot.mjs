@@ -59,6 +59,8 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       const style = (element, pseudo) => { const css = getComputedStyle(element, pseudo); return { position: css.position, order: css.order, fontSize: css.fontSize, lineHeight: css.lineHeight, padding: css.padding, color: css.color, background: css.backgroundColor, filter: css.backdropFilter, transform: css.transform, clamp: css.webkitLineClamp }; };
       return { className: root.className, layout: root.dataset.indexLayout, root: rect(root), overflow: document.documentElement.scrollWidth - innerWidth,
         mode: halo ? document.documentElement.dataset.colorScheme : document.documentElement.dataset.theme,
+        topImage: !!document.querySelector('.header .above'),
+        contentTitle: !!document.querySelector('section.content > .page-title'),
         masonryScript: performance.getEntriesByType('resource').some(entry => new URL(entry.name).pathname.endsWith('/js/masonry.min.js')),
         cards: [...root.querySelectorAll(halo ? ':scope > .item' : ':scope > .recent-post-item')].map(card => {
           const cover = card.querySelector(halo ? ':scope > .cover' : ':scope > .post_cover');
@@ -77,6 +79,7 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       assert(metrics.masonryScript === [6, 7].includes(manifest.expectedLayout), 'Conditional masonry script differs');
       assert(metrics.cards.every(card => !!card.excerpt === !manifest.noExcerpt), 'Excerpt compatibility differs');
       assert(metrics.cards.every(card => !!card.cover === !manifest.noCover), 'Cover switch differs');
+      if (manifest.noTopImage) assert(!metrics.topImage && metrics.contentTitle, 'Global top-image closure did not retain the homepage title');
       assert(metrics.cards.every(card => new URL(card.href).origin === target), 'Article link left the local lab');
       if ([6, 7].includes(manifest.expectedLayout)) assert(metrics.cards.every(card => card.style.position === 'absolute' && card.style.transform !== 'none'), 'Masonry engine did not position cards');
     }

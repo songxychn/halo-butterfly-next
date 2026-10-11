@@ -50,7 +50,8 @@ def main():
     cases = ([('legacy-list', '', 'list', 3), ('legacy-tile', '', 'tile', 6)] if args.baseline else
              [(f'layout-{n}', str(n), 'list', n) for n in range(1, 8)] +
              [('legacy-list', '', 'list', 3), ('legacy-tile', '', 'tile', 6), ('invalid-tile', 'invalid', 'tile', 6),
-              ('no-cover-5', '5', 'list', 5), ('no-cover-7', '7', 'list', 7), ('no-excerpt-6', '6', 'list', 6)])
+              ('no-cover-5', '5', 'list', 5), ('no-cover-7', '7', 'list', 7), ('no-excerpt-6', '6', 'list', 6),
+              ('no-top-6', '6', 'list', 6)])
     if args.cases:
         names = args.cases.split(',')
         if any(name not in [case[0] for case in cases] for name in names):
@@ -76,12 +77,16 @@ def main():
                 value['cover']['index_enable'] = False
             if name.startswith('no-excerpt'):
                 value['index']['index_post_content']['method'] = 'false'
+            if name.startswith('no-top'):
+                value.setdefault('image', {})['disable_top_img'] = True
             client.api(api, 'PUT', value)
             reference = copy.deepcopy(cfg)
             reference['index_layout'] = expected
             reference['index_post_content'] = {'method': False if name.startswith('no-excerpt') else 3, 'length': 500}
             if name.startswith('no-cover'):
                 reference.setdefault('cover', {})['index_enable'] = False
+            if name.startswith('no-top'):
+                reference['disable_top_img'] = True
             if not args.baseline:
                 reference.setdefault('CDN', {}).setdefault('option', {})['egjs_infinitegrid'] = '/pluginsSrc/infinitegrid.min.js'
             cfg_file.write_text(json.dumps(reference, ensure_ascii=False, indent=2) + '\n')
@@ -91,6 +96,7 @@ def main():
             manifest = {**base, 'name': name, 'expectedLayout': expected, 'baseline': args.baseline,
                         'engines': engines, 'halo': lab.BASE['halo'], 'hexo': lab.BASE['hexo'],
                         'noCover': name.startswith('no-cover'), 'noExcerpt': name.startswith('no-excerpt') or legacy == 'tile' and not layout.isdigit(),
+                        'noTopImage': name.startswith('no-top'),
                         'output': str(case_output)}
             manifest_file = case_output / 'manifest.json'
             manifest_file.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
