@@ -52,7 +52,7 @@ export function publicComment(value: unknown, subject: CommentSubject, origin: s
   const { metadata, spec, owner } = value as Record<string, any>;
   const ref = spec?.subjectRef;
   if (!metadata || metadata.deletionTimestamp || typeof metadata.name !== 'string' ||
-      spec?.approved !== true || spec.hidden !== false || ref?.group !== GROUP ||
+      spec?.approved !== true || spec.hidden !== false || spec.parentRef || ref?.group !== GROUP ||
       ref?.kind !== subject.kind || ref?.name !== subject.name) return null;
   const date = typeof spec.creationTime === 'string' ? spec.creationTime : metadata.creationTimestamp;
   if (typeof date !== 'string' || !Number.isFinite(Date.parse(date))) return null;

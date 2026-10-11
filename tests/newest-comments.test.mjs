@@ -26,7 +26,7 @@ test('only exact, approved, unhidden subjects enter the public projection; no em
   const comment = item('one','2026-10-10T10:00:00Z');
   assert.equal(comment.excerpt,'你好 [图片] [代码][链接]');
   assert.deepEqual(Object.keys(comment),['id','subject','nickname','excerpt','date','avatar']);
-  for(const patch of [{approved:false},{hidden:true},{subjectRef:{group:'content.halo.run',kind:'SinglePage',name:subject.name}},{creationTime:'bad'}]) assert.equal(publicComment(raw('x','2026-10-10T10:00:00Z',patch),subject,origin),null);
+  for(const patch of [{approved:false},{hidden:true},{parentRef:'top-comment'},{subjectRef:{group:'content.halo.run',kind:'SinglePage',name:subject.name}},{creationTime:'bad'}]) assert.equal(publicComment(raw('x','2026-10-10T10:00:00Z',patch),subject,origin),null);
   const deleted=raw('deleted','2026-10-10T10:00:00Z');deleted.metadata.deletionTimestamp='2026-10-10';
   assert.equal(publicComment(deleted,subject,origin),null);
 });
