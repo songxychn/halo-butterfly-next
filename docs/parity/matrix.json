@@ -31,9 +31,10 @@
     "editor-contract": "DEC-02：主题消费已渲染 HTML，不解析 Hexo `{% %}`。编辑器写入与 Butterfly 生成结果一致的 DOM；Hexo 源经离线转换。",
     "plugin-contract": "记录插件确切版本、启用、停用和缺失状态。",
     "asset-license": "资源来源、版本、分发许可和第三方声明核验。",
-    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；其余 DEC 在裁定前不减范围。",
+    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；DEC-07（#387）已裁定数学公式采用 Halo KaTeX 插件平台替代；仅 10 条明列的提供方/资源供应项不适用，7 条公式能力仍待映射。其余 DEC 在裁定前不减范围。见 docs/MATH-RENDERING-DECISION.md。",
     "official-search": "PluginSearchWidget 1.8.0（Halo >=2.26.0）；JAR SHA-256 固定在 fixtures/search-comment/versions.json；入口兼容 >=1.7.1，旧版焦点缺陷保留；2026-10-08 焦点专项通过，完整合同未验收。",
-    "official-comments": "PluginCommentWidget 3.3.2 / Halo 2.26.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；完整验收范围见 docs/SEARCH-COMMENT-VALIDATION.md。"
+    "official-comments": "PluginCommentWidget 3.3.2 / Halo 2.26.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；完整验收范围见 docs/SEARCH-COMMENT-VALIDATION.md。",
+    "official-math": "DEC-07：1.0 数学公式采用 Halo KaTeX 插件；插件 metadata.name、固定版本、JAR SHA-256、最低 Halo 版本与编辑器输出契约尚待联调锁定。主题适配阅读布局与必要交互，不重复渲染。docs/MATH-RENDERING-DECISION.md；公开裁定：https://github.com/songxychn/halo-butterfly-next/issues/387。"
   },
   "acceptanceProfiles": {
     "navigation": {
@@ -127,9 +128,9 @@
     "math": {
       "title": "数学和图表",
       "scenarios": [
-        "行内/块公式、编号、复制、长公式和无公式页对照；渲染失败不破坏正文。",
+        "DEC-07：公式由 Halo KaTeX 插件提供，验收行内/块级、显式编号展示、复制 TeX、长公式局部滚动、无公式页、全局/逐页控制与语法支持边界；失败不破坏正文。不再验收 MathJax 引擎、右键菜单或自动编号策略。",
         "图表与 Mermaid 在亮暗、手机、放大缩小、平移、打开新页和再次进入时验证。",
-        "插件启停与资源失败分别验证，不重复加载同一渲染器。"
+        "插件未安装、停用、满足/不满足版本、恢复与资源失败分别验证；保留辅助 MathML 与可恢复内容。同一公式不重复渲染；锁定插件及编辑器输出版本，完成实际运行、独立审查和对应提交 CI。"
       ]
     },
     "search": {
@@ -11683,31 +11684,38 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "math.use：逐值执行 null / \"mathjax\" / \"katex\"。",
-          "保持同组其他设置不变；验证 math.use 与全局/逐页覆盖的优先级。"
+          "DEC-07：Halo 验收域为关闭 / KaTeX 插件；上游 MathJax 枚举保留来源，不要求引擎选择。验证插件未安装、停用、启用、版本不满足及恢复。",
+          "使用插件明确支持的编辑器输出与行内/块级夹具验证渲染，记录语法边界；无公式页不重复加载或渲染。"
         ],
         "values": [
           null,
-          "mathjax",
           "katex"
         ],
         "contractScenarios": [
@@ -11720,12 +11728,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.per_page",
@@ -11748,27 +11757,35 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "math.per_page：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 math.per_page 与全局/逐页覆盖的优先级。"
+          "保留全局与逐页控制需求，映射为插件配置或主题注解并记录优先级；默认、启用、关闭、清空、刷新及跨页分别验证。",
+          "按实际契约验证文章与单页按需资源；平台未满足的控制保持未完成。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -11780,12 +11797,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.hide_scrollbar",
@@ -11808,27 +11826,35 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.hide_scrollbar"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "math.hide_scrollbar：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 math.hide_scrollbar 与全局/逐页覆盖的优先级。"
+          "验证长公式在桌面/手机容器内滚动，不造成页面横向溢出；滚动条显示/隐藏策略须有可操作且可访问的映射。",
+          "亮暗、键盘及触摸操作均能阅读完整公式，隐藏滚动条不能截断内容或移除滚动能力。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -11840,12 +11866,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.mathjax.enableMenu",
@@ -11868,27 +11895,28 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-07（#387）：MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "math.mathjax.enableMenu：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 math.mathjax.enableMenu 与全局/逐页覆盖的优先级。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -11900,12 +11928,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "config:math.mathjax.tags",
@@ -11928,32 +11965,28 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-07（#387）：MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "math.mathjax.tags：逐值执行 \"all\" / \"ams\" / \"none\"。",
-          "保持同组其他设置不变；验证 math.mathjax.tags 与全局/逐页覆盖的优先级。"
-        ],
-        "values": [
-          "all",
-          "ams",
-          "none"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -11965,12 +11998,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "config:math.katex.copy_tex",
@@ -11993,27 +12035,35 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.copy_tex"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "math.katex.copy_tex：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 math.katex.copy_tex 与全局/逐页覆盖的优先级。"
+          "保留复制 TeX 与开关需求；按所选插件与主题的实际契约验证行内/块级、矩阵、编号和转义内容，剪贴板与原始 TeX 对照。",
+          "保留可访问 MathML；主题不为复制功能引入第二套渲染器，插件未提供的能力保持待实现。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -12025,12 +12075,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:search.use",
@@ -27844,25 +27895,26 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "DEC-07（#387）：KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.katex：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.katex 与全局/逐页覆盖的优先级。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27874,12 +27926,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "config:CDN.option.katex_copytex",
@@ -27896,25 +27957,26 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "DEC-07（#387）：KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.katex_copytex：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.katex_copytex 与全局/逐页覆盖的优先级。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27926,12 +27988,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "config:CDN.option.lazyload",
@@ -28166,25 +28237,26 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "DEC-07（#387）：MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.mathjax：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.mathjax 与全局/逐页覆盖的优先级。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -28196,12 +28268,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "config:CDN.option.medium_zoom",
@@ -33049,27 +33130,35 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "includes/third-party/math/index：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/math/index.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "DEC-07：公式分支只接入 Halo KaTeX 插件；MathJax 不加载，Mermaid/Chart.js 仍按各自矩阵场景验收。",
+          "文章与单页验证公式插件四种状态、全局/逐页控制、资源失败和恢复；模板存在不视为已支持。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33080,12 +33169,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/math/katex",
@@ -33101,27 +33191,37 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.enable",
+          "math.copy_tex",
+          "math.hide_scrollbar"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "includes/third-party/math/katex：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/math/katex.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "使用锁定 KaTeX 插件的真实编辑器输出，验证行内/块级、显式编号展示、中文混排、长公式、非法输入和无公式页。",
+          "主题适配字号、行距、亮暗和滚动，不重复渲染、不隐藏辅助 MathML；复制、插件生命周期及完整合同门禁另须通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33132,12 +33232,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/math/mathjax",
@@ -33153,27 +33254,28 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/js/modules/Render.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-07（#387）：MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
         "editor-contract",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "math",
         "cases": [
-          "includes/third-party/math/mathjax：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/math/mathjax.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33184,12 +33286,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "template:includes/third-party/math/mermaid",
@@ -39319,25 +39430,26 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "DEC-07（#387）：KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "katex：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39348,12 +39460,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "resource:katex_copytex",
@@ -39368,25 +39489,26 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "DEC-07（#387）：KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "katex_copytex：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39397,12 +39519,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "KaTeX/CopyTeX 的库、字体和 CDN 供应由插件负责；公式展示与复制能力由保留项验收，不取消。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "resource:lazyload",
@@ -39479,25 +39610,26 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "DEC-07（#387）：MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
-        "asset-license"
+        "asset-license",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "mathjax：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39508,12 +39640,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "resource:medium_zoom",
@@ -45022,26 +45163,34 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
-        "settings": [],
+        "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
-        "editor-contract"
+        "editor-contract",
+        "official-math",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "katex：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/math/index.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "记录公式逐页元数据到 Halo 注解或插件设置的映射，验证默认/启用/关闭、文章与单页、全局优先级和刷新。",
+          "离线转换只承诺锁定 KaTeX 版本可支持的内容；不兼容命令须明确报告，不声称 MathJax 内容无损迁移。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -45051,12 +45200,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:lang",
@@ -45272,26 +45422,27 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "DEC-07 已裁定为平台替代；本条不作为 1.0 主题自带引擎、资源供应或配置面。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/html/archives.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "DEC-07（#387）：MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。 保留上游来源；本项不作为已实现或已验收。详见 docs/MATH-RENDERING-DECISION.md。"
       },
       "dependencies": [
         "dual-site",
         "halo-core",
         "plugin-contract",
-        "editor-contract"
+        "editor-contract",
+        "scope-decision"
       ],
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "mathjax：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/math/index.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "DEC-07 已裁定本项不作为 1.0 主题能力；保留上游来源，取消本条专属引擎/配置/主题资源供应验收。",
+          "替代能力按 7 条公式保留项、EXT-02 和 PLG-01/06 验收；不得用本条不适用状态宣称 KaTeX 已安装、已适配或已通过。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -45301,12 +45452,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/387"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-07",
+        "option": "platform-substitute",
+        "reason": "MathJax 专属能力不进入 1.0，公式能力由 Halo KaTeX 插件替代。",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/387",
+        "date": "2026-10-11T12:21:44+08:00",
+        "replacement": "Halo KaTeX 插件；公式展示/复制/逐页控制由保留的 7 条公式能力及 EXT-02、PLG-01/06 验收，具体插件版本与运行证据仍待锁定。"
+      }
     },
     {
       "id": "page-data:month",

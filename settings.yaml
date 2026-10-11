@@ -1567,6 +1567,24 @@ spec:
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
           help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #渲染设置
+    - group: math
+      label: 数学公式
+      formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 显示公式
+          value: true
+          help: 配合 Halo KaTeX 插件使用。关闭时有 TeX 源码的公式显示为源码；文章/单页的 katex 元数据优先。此开关不控制插件全站资源加载。默认编辑器请关闭插件的前台渲染，避免重复渲染。
+        - $formkit: checkbox
+          name: copy_tex
+          label: 复制 TeX
+          value: true
+          help: 为带 TeX 源码的公式提供复制按钮；完整选中单个公式复制时输出 TeX，部分选中沿用浏览器行为。
+        - $formkit: checkbox
+          name: hide_scrollbar
+          label: 隐藏长公式滚动条
+          value: false
+          help: 长公式仍可横向滚动；溢出容器支持键盘聚焦和方向键。
     - group: render
       label: 渲染设置
       formSchema:
