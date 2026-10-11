@@ -66,6 +66,47 @@ try {
     report.checks.push('Enter opens the correct real editor and preserves the reading tab');
     command(['tab', tabs.find(tab => tab.url === target.href).tabId]);
   }
+  // Optional cover regression checks. White/long-title variants only alter this
+  // isolated browser DOM, after checking the real article's editor identity.
+  if (process.env.POST_COVER_CHECK === '1' && evaluate("!!document.querySelector('.post .header .above')")) {
+    report.cover = evaluate(`(() => {
+      const above=document.querySelector('.post .header .above'), info=above.querySelector('.above-info'),
+        title=info.querySelector('.post-title'), meta=info.querySelector('.post-meta');
+      const white=${process.env.POST_COVER_WHITE === '1'}, long=${process.env.POST_COVER_LONG === '1'};
+      if(white){above.style.setProperty('background-image','none','important');above.style.backgroundColor='#fff';}
+      if(long) title.textContent='用于检查手机换行的长文章标题：中英文排版 Butterfly '.repeat(5);
+      const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom};};
+      const m=getComputedStyle(meta),t=getComputedStyle(title),g=getComputedStyle(info,'::before'),mask=getComputedStyle(above,'::before');
+      return {white,long,above:rect(above),info:rect(info),title:rect(title),meta:rect(meta),
+        nav:rect(document.querySelector('.header .nav')),maskEnabled:document.querySelector('#Butterfly').classList.contains('mask-header'),
+        metadataBackground:m.backgroundColor,metadataPadding:m.padding,metadataRadius:m.borderRadius,metadataColor:m.color,titleColor:t.color,
+        fade:g.backgroundImage,fadeInset:g.inset,fadeZIndex:g.zIndex,fadePointerEvents:g.pointerEvents,maskColor:mask.backgroundColor,
+        alignment:getComputedStyle(info).textAlign,overflow:document.documentElement.scrollWidth>innerWidth};
+    })()`);
+    const c = report.cover;
+    assert.equal(c.metadataBackground, 'rgba(0, 0, 0, 0)');
+    assert.equal(c.metadataPadding, '0px');
+    assert.equal(c.metadataRadius, '0px');
+    assert.ok(Math.abs(c.above.bottom-c.info.bottom-30)<1, 'info stays 30px above cover bottom');
+    assert.ok(c.info.y>=c.nav.bottom, 'wrapped text must not overlap navigation');
+    assert.equal(c.info.width,c.above.width, 'fade spans the full cover width');
+    assert.ok(c.title.y>=c.info.y && c.meta.bottom<=c.info.bottom);
+    assert.equal(c.overflow,false);
+    if(c.maskEnabled){
+      assert.match(c.fade,/linear-gradient/);
+      assert.equal(c.fadeInset,'-100px 0px -30px');
+      assert.equal(c.fadePointerEvents,'none');
+      assert.equal(c.fadeZIndex,'-1');
+      assert.equal(c.metadataColor,'rgb(255, 255, 255)');
+      assert.equal(c.titleColor,'rgb(255, 255, 255)');
+      const alpha=value=>Number(value.match(/rgba\([^)]*,\s*([\d.]+)\)/)[1]);
+      const fadeAlpha=alpha(c.fade.match(/rgba\([^)]*\)/)[0]),maskAlpha=alpha(c.maskColor);
+      const channel=(1-fadeAlpha)*(1-maskAlpha), linear=channel<=.04045?channel/12.92:((channel+.055)/1.055)**2.4;
+      c.whiteCoverContrast=1.05/(linear+.05);
+      assert.ok(c.whiteCoverContrast>=4.5);
+    } else assert.equal(c.fade,'none', 'mask switch disables the added fade');
+    report.checks.push('no metadata badge, bottom layout, full-width fade, wrapped text/viewport bounds, enabled-mask white-cover contrast');
+  }
   report.screenshot = output.replace(/\.json$/, '.png');
   command(['screenshot', report.screenshot]);
   report.status = 'passed';

@@ -18,8 +18,25 @@
 .post {
   .header .above {
     &-info {
-      padding: 0 8%;
+      bottom: 30px;
+      padding: 0 max(15px, calc((100% - 1200px) / 2 + 15px));
       transition: bottom .3s, padding .3s;
+
+      // The upstream 30% header mask alone is too light over a white cover.
+      // Fade across the full cover width, reaching 35% before the first line.
+      // The gradient grows with wrapped titles/metadata; it is not a text badge.
+      @at-root #Butterfly.post.mask-header .header .above-info::before {
+        content: '';
+        position: absolute;
+        inset: -100px 0 -30px;
+        z-index: -1;
+        pointer-events: none;
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .35) 100px, rgba(0, 0, 0, .45));
+      }
+
+      @media (min-width: 768px) and (max-width: 1300px) {
+        padding: 0 30px;
+      }
 
       &.left {
         text-align: left;
@@ -30,14 +47,13 @@
       }
 
       @include util.useResponsive(util.$w-md) {
-        bottom: 22px;
-        padding: 0 22px;
+        padding: 0 15px;
       }
     }
   }
 
   @include util.useThemeVar((
-    post-title-color: (#ffffff, rgba(255, 255, 255, 0.9)),
+    post-title-color: (#ffffff, #ffffff),
     post-meta-color: (#eeeeee, rgba(255, 255, 255, 0.7)),
     post-info-title-color: (#1f2d3d, rgba(255, 255, 255, 0.9)),
     post-info-meta-color: (#4c4948, rgba(255, 255, 255, 0.7)),
@@ -125,16 +141,9 @@
     }
   }
 
-  // A local surface keeps small metadata readable even when the optional
-  // full-header mask is off. 65% black over white is the brightest backdrop;
-  // opaque white text still has 6.98:1 contrast in either color scheme.
+  // Text sits directly on the cover, as in Butterfly's #post-info / #post-meta.
   .header .above .post-meta {
     --post-meta-color: #fff;
-    display: inline-block;
-    box-sizing: border-box;
-    padding: .35em .65em;
-    border-radius: .35em;
-    background-color: rgba(0, 0, 0, .65);
     color: var(--post-meta-color);
 
     a {
