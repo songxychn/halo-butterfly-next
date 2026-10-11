@@ -79,8 +79,8 @@ for (const engine of (args.engine ? [args.engine] : ['chromium','firefox','webki
    assert.ok((await page.locator('#math-fraction').locator('../..').locator('[role=status]').textContent()).includes('复制失败'));
    const selection=await page.evaluate(()=>{
     const node=document.querySelector('#math-inline'),r=document.createRange();r.selectNodeContents(node);getSelection().removeAllRanges();getSelection().addRange(r);
-    let written='';const data=new DataTransfer();Object.defineProperty(data,'setData',{value:(type,value)=>{if(type==='text/plain')written=value;}});
-    const event=new ClipboardEvent('copy',{bubbles:true,cancelable:true,clipboardData:data});node.dispatchEvent(event);
+    let written='';
+    const event=new ClipboardEvent('copy',{bubbles:true,cancelable:true});Object.defineProperty(event,'clipboardData',{value:{setData:(type,value)=>{if(type==='text/plain')written=value;}}});node.dispatchEvent(event);
     return {text:written,prevented:event.defaultPrevented};
    });
    assert.deepEqual(selection,{text:fixtures[0].tex,prevented:true});

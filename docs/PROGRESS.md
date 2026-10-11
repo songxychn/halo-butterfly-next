@@ -6,7 +6,13 @@ KaTeX 3.0.0 的主题适配已加入：原生 MathML、局部滚动、TeX 复制
 
 维护者确认 1.0 数学公式采用 Halo KaTeX 插件，主题提供完整阅读适配；取消 MathJax 专属要求及主题内数学库/CDN 供应配置。合同更新为 v1.3，路线图与 7 条公式保留项同步插件职责及成功条件。行内/块级、长公式、编号展示、复制、逐页控制、资源失败、插件生命周期、无障碍与设备门禁保留。
 
-首次公开创建被自动审批拒绝后，维护者明确授权，裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已按审阅草稿公开并核对正文一致。10 条提供方/资源供应项附完整 `decision` 转为不适用并移除 `pendingDecision`；897 个 ID、原失败及历史证据保留，0 条提升为已验收。状态合计：待对照验收 287、待实现 345、待映射 103、验证失败 5、延期阻塞 12、不适用 145、完整已验收 0。实际插件版本未锁定，未安装插件或修改主题运行代码；下一批继续实际适配与真实 Halo 联调。边界见 [裁定记录](MATH-RENDERING-DECISION.md)，已发布内容见 [issue 正文存档](parity/DEC-07-ISSUE.md)。
+首次公开创建被自动审批拒绝后，维护者明确授权，裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已按审阅草稿公开并核对正文一致。10 条提供方/资源供应项附完整 `decision` 转为不适用并移除 `pendingDecision`；897 个 ID、原失败及历史证据保留，0 条提升为已验收。边界见 [裁定记录](MATH-RENDERING-DECISION.md)，已发布内容见 [issue 正文存档](parity/DEC-07-ISSUE.md)。
+
+## 2026-10-11：顶图开关、默认回退与原生分类标签封面
+
+[#385](https://github.com/songxychn/halo-butterfly-next/issues/385) 保留文章顶图复用原生封面，新增全局关闭、默认顶图及文章/单页显示三态；分类/标签详情消费原生封面并显示实际名称。关闭顶图保留内容区标题，坏图尝试默认图后保留纯色。未配置新选项时保留旧行为，已有分类/标签封面优先显示的变化另在迁移文档明示。
+
+[限定验收](validation/2026-10-11/top-images.md)绑定实现提交和 ZIP：588 项测试、129 个安装文件比对、真实 Halo 2.26.1 无头 Chromium 桌面/手机亮暗 104 项及补充 12 项通过，配置恢复完成。原参考站失败和补充准备 HTTP 409 保留；独立审查、完整双站和 1.0 门禁仍待完成。同步 11 条矩阵，4 条 gap 改为 implemented-unverified，0 条 verified；既有资源失败和待映射状态保留。未发布或部署。
 
 ## 2026-10-09：alpha.4 已发布并同步 demo
 

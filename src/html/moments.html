@@ -12,20 +12,20 @@
     <script id="pageScript" th:inline="javascript">
       Object.assign(window.MainApp.conf, {
         //第一屏
-        enable_above: /*[[${theme.config.index.enable_above}]]*/ '',
-        above_background: /*[[${theme.config.index.above_background}]]*/ '',
+        enable_above: /*[[${aboveEnabled}]]*/ '',
+        above_background: /*[[${aboveBackground}]]*/ '',
       });
     </script>
   </th:block>
 
   <!--/* header */-->
   <th:block th:fragment="header">
-    <header th:class="${not theme.config.index.enable_above ? 'header dp' : 'header'}">
+    <header th:class="${not aboveEnabled ? 'header dp' : 'header'}">
       <!--/* 导航栏 */-->
       <th:block th:replace="~{views/nav}"/>
 
       <!--第一屏内容-->
-      <section class="above" th:if="${theme.config.index.enable_above}">
+      <section class="above" th:if="${aboveEnabled}">
         <div class="above-info">
           <h1 class="above-title">瞬间</h1>
         </div>
@@ -38,6 +38,7 @@
   <th:block th:fragment="main">
 
     <section class="content card animate__animated animate__fadeIn" th:with="noData = ${not #lists.isEmpty(moments.items)}"  th:style="${ noData ?  '' : 'min-height: auto'}">
+      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'瞬间'}"></h1>
       <ul class="list" th:if="${noData}">
         <li class="item" th:each="moment : ${moments.items}" th:with="content=${moment.spec.content}">
           <div class="h" th:if="${not #strings.isEmpty(content.html)}" th:utext="${content.html}"></div>

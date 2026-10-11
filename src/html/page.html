@@ -9,11 +9,11 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script id="pageScript" th:inline="javascript" th:with="above_background = ${ #strings.isEmpty(singlePage.spec.cover) ? theme.config.index.above_background : singlePage.spec.cover}, tocNumberOverride = ${#annotations.getOrDefault(singlePage, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(singlePage, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(singlePage, 'katex', 'inherit')}">
+    <script id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(singlePage, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(singlePage, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(singlePage, 'katex', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         //第一屏
-        enable_above: /*[[${theme.config.index.enable_above}]]*/ '',
-        above_background: /*[[${above_background}]]*/ '',
+        enable_above: /*[[${aboveEnabled}]]*/ '',
+        above_background: /*[[${aboveBackground}]]*/ '',
         enable_h_icon: /*[[${theme.config.render.enable_h_icon}]]*/ true,
         toc_number: /*[[${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)}]]*/ true,
         toc_expand: /*[[${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)}]]*/ false,
@@ -32,12 +32,12 @@
 
   <!--/* header */-->
   <th:block th:fragment="header">
-    <header th:class="${not theme.config.index.enable_above ? 'header dp' : 'header'}">
+    <header th:class="${not aboveEnabled ? 'header dp' : 'header'}">
       <!--/* 导航栏 */-->
       <th:block th:replace="~{views/nav}"/>
 
       <!--第一屏内容-->
-      <section class="above" th:if="${theme.config.index.enable_above}">
+      <section class="above" th:if="${aboveEnabled}">
         <div class="above-info">
           <h1 class="above-title" th:text="${singlePage.spec.title}"></h1>
         </div>
@@ -49,6 +49,7 @@
   <!--/* 內容 */-->
   <th:block th:fragment="main">
     <section class="content card">
+      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${singlePage.spec.title}"></h1>
       <article class="render" th:utext="${singlePage.content.content}"></article>
       <div
         id="post-comment"
