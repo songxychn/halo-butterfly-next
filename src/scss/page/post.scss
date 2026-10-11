@@ -69,6 +69,21 @@
     overflow-wrap: anywhere;
     word-break: break-word;
 
+    .post-edit-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .3em;
+      min-height: 24px;
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: .15em;
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+      }
+    }
+
     &.left {
       text-align: left;
 

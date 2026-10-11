@@ -5026,15 +5026,17 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts",
-          "src/scss/modules/render.scss"
+        "strategy": "2026-10-11 维护者选择 Halo 后台快捷编辑；post_edit.url 适配为固定后台路由，不设置外部源文件 URL，决定见 docs/POST-EDIT.md。",
+        "settings": [
+          "post.post_edit.enable"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/components.html",
+          "src/js/core/post-edit.ts",
+          "src/js/page/post.ts",
+          "src/scss/page/post.scss"
+        ],
+        "finding": "已实现全局开关（默认关闭）、登录身份服务端门禁及官方后台 UI 权限检查；有文章查看和管理权限才显示，固定文章 ID 路由在新标签页打开，失败和超时隐藏。Halo 平台适配与验证边界见 docs/POST-EDIT.md。剩余：固定双站、真实 Safari/实体设备、独立审查及完整 1.0 合同；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5043,8 +5045,10 @@
       "acceptance": {
         "profile": "post",
         "cases": [
-          "post_edit.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 post_edit.enable 与全局/逐页覆盖的优先级。"
+          "全局关闭/缺字段不输出入口；启用后匿名用户不输出模板，不请求权限。",
+          "普通用户与仅查看角色隐藏；具备查看及管理权限/通配权限时显示；检查新标签页、键盘焦点及当前文章 ID。",
+          "权限接口拒绝、过期会话、重定向、无效响应及超时保持隐藏；刷新后重新判断，不持久化权限。",
+          "顶图开关、亮暗模式和桌面/手机下检查位置、可读性及无占位；首页、单页和其他文章互不串链。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -5061,7 +5065,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:post_edit.url",
@@ -5084,15 +5088,15 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
+        "strategy": "2026-10-11 维护者选择 Halo 后台快捷编辑；post_edit.url 适配为固定后台路由，不设置外部源文件 URL，决定见 docs/POST-EDIT.md。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts",
-          "src/scss/modules/render.scss"
+          "src/html/views/components.html",
+          "src/js/core/post-edit.ts",
+          "src/js/page/post.ts",
+          "src/scss/page/post.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现全局开关（默认关闭）、登录身份服务端门禁及官方后台 UI 权限检查；有文章查看和管理权限才显示，固定文章 ID 路由在新标签页打开，失败和超时隐藏。Halo 平台适配与验证边界见 docs/POST-EDIT.md。剩余：固定双站、真实 Safari/实体设备、独立审查及完整 1.0 合同；不提升 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -5101,8 +5105,10 @@
       "acceptance": {
         "profile": "post",
         "cases": [
-          "post_edit.url：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 post_edit.url 与全局/逐页覆盖的优先级。"
+          "全局关闭/缺字段不输出入口；启用后匿名用户不输出模板，不请求权限。",
+          "普通用户与仅查看角色隐藏；具备查看及管理权限/通配权限时显示；检查新标签页、键盘焦点及当前文章 ID。",
+          "权限接口拒绝、过期会话、重定向、无效响应及超时保持隐藏；刷新后重新判断，不持久化权限。",
+          "顶图开关、亮暗模式和桌面/手机下检查位置、可读性及无占位；首页、单页和其他文章互不串链。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -5119,7 +5125,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:related_post.enable",
@@ -29931,7 +29937,7 @@
           "src/html/views/components.html",
           "src/scss/page/post.scss"
         ],
-        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。"
+        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。 2026-10-11：文章日期旁加入可选的 Halo 后台编辑入口（服务端登录门禁 + 客户端官方权限检查）；未授权时无入口，见 docs/POST-EDIT.md。"
       },
       "dependencies": [
         "dual-site",

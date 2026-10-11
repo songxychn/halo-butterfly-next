@@ -999,6 +999,15 @@ spec:
     - group: post
       label: 文章设置
       formSchema:
+        - $formkit: group
+          name: post_edit
+          label: 后台编辑入口
+          children:
+            - $formkit: checkbox
+              name: enable
+              label: 显示“编辑本文”快捷入口
+              value: false
+              help: 登录且拥有文章查看和管理权限时，在文章元信息旁显示编辑入口，新标签页打开当前文章的 Halo 后台编辑页。
         - $formkit: checkbox
           name: photofigcaption
           label: 正文图片说明

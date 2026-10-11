@@ -49,7 +49,7 @@
     </span>
   </li>
 
-  <li class="row">
+  <li class="row" data-post-edit-target>
     <span class="wp publishTime" th:if="${dateType != 'updated'}">
       <i class="fa-solid fa-calendar-days"></i>
       <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? '发布于 ' : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
@@ -78,6 +78,20 @@
       <a href="#post-comment" th:text="'评论 ' + ${post.stats.comment}"></a>
     </span>
   </li>
+
+  <!--/* Server authentication gate; mount only after the console permission check. */-->
+  <template xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+            sec:authorize="isAuthenticated()"
+            th:if="${theme.config.post.post_edit?.enable == true or theme.config.post.post_edit?.enable == 'true'}"
+            data-post-edit>
+    <span class="wp post-edit">
+      <a class="lk post-edit-link" th:href="@{/console/posts/editor(name=${post.metadata.name})}"
+         target="_blank" rel="noopener noreferrer" aria-label="编辑本文（在新标签页打开）">
+        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+        <span>编辑</span>
+      </a>
+    </span>
+  </template>
 </ul>
 
 <!--/* 文章列表。封面受 cover.index_enable / cover.default_cover 控制；日期/分类/标签受 index.post_meta（上游 post_meta.page，tags 默认 false）控制；摘要受 index.index_post_content 控制。评论数由 comments.card_post_count 控制，默认关闭；不输出点赞/预览数。 */-->
