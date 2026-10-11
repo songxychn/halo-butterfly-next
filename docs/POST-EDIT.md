@@ -23,3 +23,5 @@ Halo 的服务端安全方言先检查登录身份：匿名页面不输出入口
 离线测试运行 `bun test --isolate tests/post-edit.test.mjs`，工程门禁运行 `bun run verify`。实际合成 Halo、身份组合、布局、跳转和原始失败记录见[限定验收记录](validation/2026-10-11/post-edit.md)。矩阵只更新为 `implemented-unverified`，固定双站、真实 Safari、实体设备、独立审查及完整 1.0 合同仍需分别完成。
 
 合成会话的无头浏览器复测命令和权限角色说明也见上述验收记录；可运行的入口为 `scripts/post-edit/check-browser.mjs`。
+
+封面布局随后按维护者要求去掉元信息底板并移到底部，“编辑”仍紧邻日期；布局与渐变说明见[文章与阅读配置](READING-OPTIONS.md)。旧截图和验收记录保留其原提交身份，新的候选包需按[封面布局复核](validation/2026-10-11/post-cover.md)判断。

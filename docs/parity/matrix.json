@@ -13238,7 +13238,7 @@
           "scripts/search-comment/lifecycle.mjs",
           "src/scss/core/common.scss"
         ],
-        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线、不透明深色底板和焦点框。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
+        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线和焦点框；2026-10-11 文章顶图元信息去掉独立底板，改为底部全宽渐变（随 mask.header 开关）。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
       },
       "dependencies": [
         "dual-site",
@@ -13314,7 +13314,7 @@
           "scripts/search-comment/lifecycle.mjs",
           "src/scss/core/common.scss"
         ],
-        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线、不透明深色底板和焦点框。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
+        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线和焦点框；2026-10-11 文章顶图元信息去掉独立底板，改为底部全宽渐变（随 mask.header 开关）。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
       },
       "dependencies": [
         "dual-site",
@@ -18977,7 +18977,7 @@
           "src/scss/core/header.scss",
           "tests/mask-header.test.mjs"
         ],
-        "finding": "保留 mask.header 默认开启及无顶图不加遮罩的映射；近期增加导航局部渐隐与文章元信息底板。alpha.3 默认遮罩范围有人工对比度证据，关闭遮罩的明亮顶图导航/大标题仍有已披露限制。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
+        "finding": "保留 mask.header 默认开启及无顶图不加遮罩的映射；近期增加导航局部渐隐；文章标题与元信息移到底部，移除独立底板并补全宽柔和渐变（随 mask.header 开关）。alpha.3 默认遮罩范围有人工对比度证据，关闭遮罩的明亮顶图导航/大标题仍有已披露限制。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。"
       },
       "dependencies": [
         "dual-site",
@@ -19016,6 +19016,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-11/post-cover.json",
+          "sha256": "339a6e09d2a3d1a5a8738c1241bc6edfabe0db88fc08c2065a22bd5664aff786",
+          "date": "2026-10-11T04:52:51.749907+00:00",
+          "commit": "6beb98251e0b2d1b2232cfb26bb89ccb61720d0c",
+          "actor": "/root",
+          "outcome": "partial: 18 bounded Chromium cases, installed package files and content retention checked; full contract and independent review pending"
         }
       ],
       "status": "implemented-unverified"
@@ -29957,7 +29966,7 @@
           "src/html/views/components.html",
           "src/scss/page/post.scss"
         ],
-        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。 2026-10-11：文章日期旁加入可选的 Halo 后台编辑入口（服务端登录门禁 + 客户端官方权限检查）；未授权时无入口，见 docs/POST-EDIT.md。"
+        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。 2026-10-11：文章日期旁加入可选的 Halo 后台编辑入口（服务端登录门禁 + 客户端官方权限检查）；未授权时无入口，见 docs/POST-EDIT.md。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。"
       },
       "dependencies": [
         "dual-site",
@@ -30004,6 +30013,15 @@
           "commit": "259e0291d1cd2096cd348ac939663629063baeca",
           "actor": "/root",
           "outcome": "partial: 590 engineering tests and 16 bounded Chromium cases; exact-commit install and admin/anonymous rechecks passed; full contract and independent review pending"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-11/post-cover.json",
+          "sha256": "339a6e09d2a3d1a5a8738c1241bc6edfabe0db88fc08c2065a22bd5664aff786",
+          "date": "2026-10-11T04:52:51.749907+00:00",
+          "commit": "6beb98251e0b2d1b2232cfb26bb89ccb61720d0c",
+          "actor": "/root",
+          "outcome": "partial: 18 bounded Chromium cases, installed package files and content retention checked; full contract and independent review pending"
         }
       ],
       "status": "implemented-unverified"
@@ -31448,7 +31466,7 @@
           "scripts/search-comment/lifecycle.mjs",
           "src/scss/core/common.scss"
         ],
-        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线、不透明深色底板和焦点框。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
+        "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线和焦点框；2026-10-11 文章顶图元信息去掉独立底板，改为底部全宽渐变（随 mask.header 开关）。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
       },
       "dependencies": [
         "dual-site",
@@ -41570,7 +41588,7 @@
           "src/scss/core/nav.scss",
           "tests/header-style.test.mjs"
         ],
-        "finding": "页头/导航已有样式适配，近期增加导航渐隐遮罩、元信息底板及可见链接/焦点；默认遮罩 alpha.3 局部检查已记录。关闭遮罩亮图仍不在通过范围，不能声明所有上游配置对照完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。"
+        "finding": "页头/导航已有样式适配，近期增加导航渐隐遮罩及可见链接/焦点；文章标题与元信息移到底部，独立底板改为随 mask.header 开关的全宽柔和渐变；默认遮罩 alpha.3 局部检查已记录。关闭遮罩亮图仍不在通过范围，不能声明所有上游配置对照完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。"
       },
       "dependencies": [
         "dual-site",
@@ -41608,6 +41626,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-11/post-cover.json",
+          "sha256": "339a6e09d2a3d1a5a8738c1241bc6edfabe0db88fc08c2065a22bd5664aff786",
+          "date": "2026-10-11T04:52:51.749907+00:00",
+          "commit": "6beb98251e0b2d1b2232cfb26bb89ccb61720d0c",
+          "actor": "/root",
+          "outcome": "partial: 18 bounded Chromium cases, installed package files and content retention checked; full contract and independent review pending"
         }
       ],
       "status": "implemented-unverified"
