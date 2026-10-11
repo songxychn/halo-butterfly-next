@@ -854,10 +854,33 @@ spec:
           label: 随机文案api取值格式
           value: ''
           help: 如果使用的随机文案API返回格式不是TEXT格式，Json请自定义取值格式，如：data.content
+        - $formkit: select
+          name: index_layout
+          id: index_layout
+          label: 首页文章布局
+          placeholder: 沿用旧布局（新安装默认左右交替）
+          help: 对齐 Butterfly 5.7.0 的七种首页文章布局。留空时沿用下方旧布局；显式选择后使用首页列表摘要设置。手机收敛为单列，5/7 保留图上叠字。
+          value: ''
+          options:
+            - label: '1 · 固定左图'
+              value: '1'
+            - label: '2 · 固定右图'
+              value: '2'
+            - label: '3 · 左右交替'
+              value: '3'
+            - label: '4 · 单列上图下文'
+              value: '4'
+            - label: '5 · 单列图上叠字'
+              value: '5'
+            - label: '6 · 瀑布流上图下文'
+              value: '6'
+            - label: '7 · 瀑布流图上叠字'
+              value: '7'
         - $formkit: radio
           name: post_layout
-          label: 文章布局方式
-          help: 文章布局方式 提供（列表、平铺）两种，仅首页生效
+          label: 旧布局（升级兼容）
+          if: $get(index_layout).value == ''
+          help: 仅在首页文章布局留空时生效。列表对应布局 3；平铺对应布局 6，并保留旧版不显示摘要的行为。选择上方七种布局后本项不参与渲染。
           value: list
           options:
             - label: 列表

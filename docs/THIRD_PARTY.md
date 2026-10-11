@@ -9,6 +9,7 @@
 | Prism 1.29.0 核心 | 原主题 vendored JS/CSS，高亮核心 | MIT，Copyright (c) 2012 Lea Verou；包内保留核心 LICENSE |
 | Prism Themes 扩展配色 | `src/plugins/prism/themes/` 的 36 个继承/改写主题，与核心独立归属 | MIT，Copyright (c) 2015 PrismJS；[官方固定许可原文](../src/plugins/prism/themes/LICENSE)随源码和 ZIP 保留；[固定来源与文件比对](../third-party-licenses/prism-themes-source.json) |
 | Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
+| InfiniteGrid 4.13.0 | 首页布局 6/7；与固定 Butterfly 5.7.0 相同的瀑布流引擎，仅这两种首页布局加载 | MIT；本地打包，直接与间接依赖的许可随 ZIP 分发 |
 | jQuery、Clipboard、Tocbot、Typed.js | DOM、复制、目录、打字机 | MIT；许可证随包分发 |
 | vanilla-lazyload 继承实现 | 图片懒加载；工厂体与官方 17.3.0/17.3.1 在局部绑定重命名后结构一致，准确继承版本无法唯一确定 | MIT，Copyright (c) 2015 Andrea Verlicchi；以官方 17.3.1 为固定许可参照，许可与改写说明随包分发 |
 | ECharts | 原分类统计页面 | Apache-2.0；许可证随包分发 |
@@ -36,3 +37,5 @@
 来源比对可复现：从清单中固定的 npm 官方 tarball 提取 `package/dist/lazyload.min.js`（校验 tarball integrity），执行 `bun scripts/licenses/compare-lazyload.mjs /path/to/lazyload.min.js`。脚本先核对原始文件摘要，再隔离工厂函数、按作用域声明顺序统一局部绑定名称并比较结构；模块包装差异另行披露。此步骤只用于来源核对，不替代功能验收。
 
 2026-10-07 上架整改：hopscotch 移除 Google Fonts 在线导入与 Fira Mono 声明，使用系统等宽字体，不分发额外字体。原作者及 CC0 注释保留；修改摘要登记在来源清单的 `subsequentModifications`，`files` 保留 9 月 22 日核对快照。当前文件与固定参考的字节一致数量相应由 20 降为 19，不改写历史核对结论。安装包检查拒绝 CSS 中的 Google Fonts 域名。
+
+2026-10-11 首页瀑布流随包新增 InfiniteGrid 4.13.0。部分间接依赖的 npm tarball 没有独立 LICENSE：component 3.0.5 的完整 MIT 原文取自该包 README，imready 1.4.2 取自 npm gitHead；cfcs 早期 npm gitHead 已不可获取，使用官方固定后继提交的 MIT 许可参照，并明确不声称它是该发行包的原始文件。逐文件 URL、来源边界及 SHA-256 见 [来源清单](../third-party-licenses/infinitegrid-sources.json)。构建递归保留所有依赖的原始许可声明，补齐完整 MIT 正文与 imready/cfcs 的 NOTICE；包检查核对登记字节。
