@@ -1,5 +1,11 @@
 # 持续对齐进度
 
+## 2026-10-11：七种首页文章布局与真实瀑布流
+
+[草稿 PR #392](https://github.com/songxychn/halo-butterfly-next/pull/392) 跟踪 [#384](https://github.com/songxychn/halo-butterfly-next/issues/384)，实现固定 Butterfly 5.7.0 的七种首页排列；6/7 本地使用 InfiniteGrid 4.13.0。默认继承旧 list→3、tile→6，旧平铺继续无摘要，后台切换隐藏旧选项时仍保留其值。分类/标签保持共享列表。普通 merge 接入最新 master 的顶图改动，补充全局关闭顶图与瀑布流交叉检查。
+
+[限定验收](validation/2026-10-11/home-layouts.md)逐轮保留源码/ZIP：初始三引擎双站 317/318，文章返回等待修正后专项 30/30；合并后 Chromium 78/78、Firefox/WebKit 80/80、实际旧包回退升级 4/4、真实后台提交数据检查通过。最后兼容修正仅改 settings 保留属性，模板/资产与前包字节相同。最终实现 590 项测试、141 安装文件与 ZIP 全比对通过。完整 1.0、#338、真机、性能及独立审阅仍保留；瀑布流资源从 gap 改为 implemented-unverified，0 条 verified。未发布或部署。
+
 ## 2026-10-11：顶图开关、默认回退与原生分类标签封面
 
 [#385](https://github.com/songxychn/halo-butterfly-next/issues/385) 保留文章顶图复用原生封面，新增全局关闭、默认顶图及文章/单页显示三态；分类/标签详情消费原生封面并显示实际名称。关闭顶图保留内容区标题，坏图尝试默认图后保留纯色。未配置新选项时保留旧行为，已有分类/标签封面优先显示的变化另在迁移文档明示。
