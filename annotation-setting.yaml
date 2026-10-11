@@ -31,6 +31,18 @@ spec:
     group: content.halo.run
     kind: Post
   formSchema:
+    - $formkit: radio
+      name: top_img_enable
+      label: 显示顶图
+      help: 顶图复用文章封面；跟随全局时使用文章第一屏设置。全局关闭顶图时此项不能重新开启。
+      value: inherit
+      options:
+        - label: 跟随全局
+          value: inherit
+        - label: 显示
+          value: "true"
+        - label: 隐藏
+          value: "false"
     - $formkit: "radio"
       name: "enable_code_copy"
       label: "启用代码复制"
@@ -124,6 +136,18 @@ spec:
     group: content.halo.run
     kind: SinglePage
   formSchema:
+    - $formkit: radio
+      name: top_img_enable
+      label: 显示顶图
+      help: 顶图复用页面封面；跟随全局时使用首页第一屏设置。全局关闭顶图时此项不能重新开启。
+      value: inherit
+      options:
+        - label: 跟随全局
+          value: inherit
+        - label: 显示
+          value: "true"
+        - label: 隐藏
+          value: "false"
     - $formkit: "radio"
       name: "toc"
       label: "显示目录"
