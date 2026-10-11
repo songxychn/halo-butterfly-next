@@ -1,6 +1,13 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:with="
+     topImgConfig = ${theme.config[(page == 'category' or page == 'categories') ? 'categories' : ((page == 'tag' or page == 'tags') ? 'tags' : (page == 'archives' ? 'archives' : (page == 'post' ? 'post' : 'index')))]},
+     topImgOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'top_img_enable', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'top_img_enable', 'inherit') : 'inherit')},
+     aboveEnabled = ${theme.config.image?.disable_top_img != true and theme.config.image?.disable_top_img != 'true' and (topImgOverride == 'true' or (topImgOverride != 'false' and topImgConfig.enable_above != false and topImgConfig.enable_above != 'false'))},
+     defaultTopImg = ${theme.config.image?.default_top_img ?: ''},
+     nativeTopImg = ${page == 'post' ? post.spec.cover : (page == 'single' ? singlePage.spec.cover : (page == 'category' ? category.spec.cover : (page == 'tag' ? tag.spec.cover : '')))},
+     legacyTopImg = ${page == 'post' ? (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link : '') : (topImgConfig.above_background ?: '')},
+     aboveBackground = ${not #strings.isEmpty(nativeTopImg) ? nativeTopImg : (((page == 'post' or page == 'single') and not #strings.isEmpty(defaultTopImg)) ? defaultTopImg : (not #strings.isEmpty(legacyTopImg) ? legacyTopImg : defaultTopImg))},
      asideDisplay = ${theme.config.aside.display},
      asidePageVisible = ${(page != 'archives' or asideDisplay?.archive != false) and ((page != 'tag' and page != 'tags') or asideDisplay?.tag != false) and ((page != 'category' and page != 'categories') or asideDisplay?.category != false)},
      asideEnabled = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible},

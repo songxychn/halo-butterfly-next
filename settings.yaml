@@ -68,6 +68,25 @@ spec:
           help: 颜色值 默认值：#f7f9fe
           validation: required
     #加载设置
+    - group: image
+      label: 顶图
+      formSchema:
+        - $formkit: radio
+          name: disable_top_img
+          label: 全局关闭顶图
+          value: false
+          help: 关闭所有主题页面的页头顶图区域；标题保留在内容区。优先于页面类型设置和单篇设置，不影响列表封面。
+          options:
+            - label: 保留顶图
+              value: false
+            - label: 全局关闭
+              value: true
+        - $formkit: attachment
+          name: default_top_img
+          label: 默认顶图
+          value: ""
+          help: 可选。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空保留旧回退规则。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
+
     - group: loading
       label: 加载设置
       formSchema:
@@ -769,8 +788,7 @@ spec:
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 如果全局背景图设置为图片链接，则此处背景图将不生效
-          validation: required
+          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
         - $formkit: text
           name: top_img_height
           label: 首页第一屏高度
@@ -1473,8 +1491,7 @@ spec:
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 如果全局背景图设置为图片链接，则此处背景图将不生效
-          validation: required
+          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #标签设置
     - group: tags
       label: 标签设置
@@ -1494,8 +1511,7 @@ spec:
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 如果全局背景图设置为图片链接，则此处背景图将不生效
-          validation: required
+          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #分类设置
     - group: categories
       label: 分类设置
@@ -1515,8 +1531,7 @@ spec:
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 如果全局背景图设置为图片链接，则此处背景图将不生效
-          validation: required
+          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #渲染设置
     - group: render
       label: 渲染设置

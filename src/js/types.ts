@@ -29,6 +29,7 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   rightside_scroll_percent?: SettingValue;
   enable_above?: SettingValue;
   above_background?: string;
+  above_background_fallback?: string;
   enable_h_icon?: SettingValue;
   toc_number?: SettingValue;
   toc_expand?: SettingValue;
