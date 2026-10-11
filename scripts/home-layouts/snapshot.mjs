@@ -89,6 +89,11 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       const href = metrics.cards[0].href;
       await page.locator('.essay > .item .title').first().click();
       await page.waitForURL(href, { timeout: 15000 });
+      await page.waitForLoadState('load', { timeout: 30000 });
+      // The fixture article deliberately defers Prism until after its first paint.
+      // Wait for real enhancement before returning, rather than cancelling that
+      // article request and misclassifying it as an unfinished homepage resource.
+      await page.locator('.code-toolbar .toolbar').first().waitFor({ state: 'attached', timeout: 15000 });
       await page.goBack({ waitUntil: 'load', timeout: 30000 });
       await page.waitForFunction(() => [...document.querySelectorAll('.home-layout.masonry > .item')].every(card => getComputedStyle(card).position === 'absolute'), null, { timeout: 15000 });
     }
@@ -139,6 +144,13 @@ for (const engine of manifest.engines) {
           const first = observation.metrics.cards[0];
           const columns = observation.metrics.cards.filter(c => Math.abs(c.rect.y - first.rect.y) <= 1).length;
           if (columns !== (width <= 768 ? 1 : width >= 2000 ? 3 : 2)) { observation.failures.push(`Unexpected ${columns} columns at ${width}px`); observation.result = 'failed'; }
+          if (width === 2000) {
+            const [a, b, , next] = observation.metrics.cards.map(card => card.rect);
+            if (!next || Math.abs(a.height - b.height) < 10 || Math.abs(next.x - b.x) > 1 || Math.abs(next.y - b.y - b.height - 20) > 1) {
+              observation.failures.push('Unequal-height cards did not pack into the shorter column with the upstream vertical gap');
+              observation.result = 'failed';
+            }
+          }
         }
         observations.push(observation);
       }
