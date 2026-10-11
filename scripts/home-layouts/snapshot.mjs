@@ -43,7 +43,7 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
     const response = await page.goto(target + route, { waitUntil: 'load', timeout: 30000 });
     assert(response.status() === 200, `Document HTTP ${response.status()}`);
     await page.waitForFunction(() => document.fonts.status === 'loaded' && !document.body.classList.contains('loading'), null, { timeout: 15000 });
-    const selector = target === manifest.halo ? '.essay' : '#recent-posts';
+    const selector = target === manifest.halo ? '.essay' : '#recent-posts > .recent-post-items';
     await page.locator(selector).evaluate(root => window.scrollTo(0, root.getBoundingClientRect().top + window.scrollY - 70));
     await page.waitForFunction(selector => [...document.querySelectorAll(`${selector} img`)].every(img => {
       const box = img.getBoundingClientRect();
@@ -55,7 +55,7 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       const style = (element, pseudo) => { const css = getComputedStyle(element, pseudo); return { position: css.position, order: css.order, fontSize: css.fontSize, lineHeight: css.lineHeight, padding: css.padding, color: css.color, background: css.backgroundColor, filter: css.backdropFilter, transform: css.transform, clamp: css.webkitLineClamp }; };
       return { className: root.className, layout: root.dataset.indexLayout, root: rect(root), overflow: document.documentElement.scrollWidth - innerWidth,
         mode: halo ? document.documentElement.dataset.colorScheme : document.documentElement.dataset.theme,
-        masonryScript: !!document.querySelector('#masonryScript'),
+        masonryScript: performance.getEntriesByType('resource').some(entry => new URL(entry.name).pathname.endsWith('/js/masonry.min.js')),
         cards: [...root.querySelectorAll(halo ? ':scope > .item' : ':scope > .recent-post-item')].map(card => {
           const cover = card.querySelector(halo ? ':scope > .cover' : ':scope > .post_cover');
           const info = card.querySelector(halo ? ':scope > .info' : ':scope > .recent-post-info');
@@ -97,7 +97,7 @@ for (const engine of manifest.engines) {
         const hexo = await inspect(browser, manifest.hexo, viewport, mode, `${engine}-${size}-${mode}-hexo`);
         hexo.engine = engine;
         observations.push(hexo);
-        if (halo.metrics && hexo.metrics) {
+        if (halo.metrics?.cards.length && hexo.metrics?.cards.length) {
           try {
             const a = halo.metrics.cards[0], b = hexo.metrics.cards[0];
             if (a.cover && b.cover) {
