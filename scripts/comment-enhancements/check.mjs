@@ -345,6 +345,15 @@ try {
             });
             await go(p);
             const text = await expected(p);
+            assert.equal(
+              await p.locator(".newest-comment-link img").count(),
+              3,
+            );
+            await p.waitForFunction(() =>
+              [...document.querySelectorAll(".newest-comment-link img")].every(
+                (img) => img.complete && img.naturalWidth > 0,
+              ),
+            );
             assert(requests.length >= 3);
             assert(requests.every((x) => !x.cookie));
             assert(
@@ -430,6 +439,17 @@ try {
                 await p.waitForFunction(
                   () => document.activeElement?.id === "comment-title",
                 );
+                if (route.includes("archives")) {
+                  const heading = p.locator("article.render h2").first();
+                  const delta = await heading.evaluate(
+                    (el) => el.getBoundingClientRect().top - 79,
+                  );
+                  await p.mouse.wheel(0, delta);
+                  await p.waitForFunction(
+                    () => location.hash !== "#post-comment",
+                  );
+                  assert.equal(new URL(p.url()).hash, "#fixture");
+                }
                 return {
                   route,
                   hashPreserved: true,

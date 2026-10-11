@@ -71,10 +71,16 @@ defs = [
     ('comment-fixture-draft-comment', 'Post', 'comment-fixture-draft', '2026-10-11T12:00:00Z', True, False, False, '<p>不应公开的草稿评论</p>'),
 ]
 for name, kind, subject, date, approved, hidden, top, text in defs:
+    owner = {'kind': 'User', 'name': client.auth['username']}
+    if approved and not hidden and subject in ['preview-1', 'preview-12', 'about-preview']:
+        # User avatars are derived from Attachment annotations by Halo. Use its
+        # official anonymous owner/avatar contract without creating attachments.
+        owner = {'kind': 'Email', 'name': 'avatar-fixture@example.invalid', 'displayName': '合成读者',
+                 'annotations': {'avatar': lab.BASE['halo'] + '/lab/avatar.svg'}}
     client.api(collection, 'POST', {'apiVersion': 'content.halo.run/v1alpha1', 'kind': 'Comment',
         'metadata': {'name': name, 'labels': {'comment-enhancements-fixture': 'true'}},
         'spec': {'subjectRef': {'group': 'content.halo.run', 'version': 'v1alpha1', 'kind': kind, 'name': subject},
-                 'owner': {'kind': 'User', 'name': client.auth['username']}, 'raw': text, 'content': text,
+                 'owner': owner, 'raw': text, 'content': text,
                  'approved': approved, 'hidden': hidden, 'top': top, 'priority': 0, 'allowNotification': False, 'creationTime': date}})
 
 system = client.api('/api/v1alpha1/configmaps/system')

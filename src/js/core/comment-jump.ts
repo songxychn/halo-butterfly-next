@@ -8,6 +8,7 @@ export function bindCommentJump(root: Document = document) {
   target.dataset.commentJumpBound = 'true';
   const focus = () => {
     if (win.location.hash !== '#post-comment') return;
+    target.dataset.commentJumpNavigating = 'true';
     heading.focus({ preventScroll: true });
     target.scrollIntoView({ block: 'start', behavior: 'instant' });
   };
