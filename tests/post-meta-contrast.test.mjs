@@ -29,14 +29,23 @@ function luminance(channels) {
   }).reduce((sum, v, i) => sum + v * [.2126, .7152, .0722][i], 0);
 }
 
-test('compiled article metadata surface meets 4.5:1 over white with header mask on or off in both modes', () => {
+test('full-width cover fade protects opaque title/metadata over white with the header mask enabled', () => {
   const surface = declarations(scope);
   const foreground = rgb(surface['--post-meta-color']);
-  const background = rgb(surface['background-color']);
+  const fade = declarations('#Butterfly.post.mask-header .header .above-info::before');
+  assert.equal(fade.inset, '-100px 0 -30px');
+  assert.equal(fade['pointer-events'], 'none');
+  const stops = [...fade.background.matchAll(/rgba\([^)]*\)/g)].map(x => rgb(x[0]));
+  assert.equal(stops.length, 2);
+  const background = stops[0];
+  assert.match(fade.background, /transparent.*100px/);
+  assert.equal(surface['background-color'], undefined, 'metadata has no separate dark surface');
+  assert.equal(surface.padding, undefined);
+  assert.equal(surface['border-radius'], undefined);
   assert.equal(foreground[3], 1, 'small metadata must not inherit translucent dark-mode text');
-  const masks = [0];
+  const masks = [];
   css.walkDecls('--above-mask-color', decl => masks.push(rgb(decl.value)[3]));
-  assert(masks.length >= 3, 'must exercise light and dark mask tokens plus disabled mask');
+  assert(masks.length >= 2, 'must exercise both color schemes');
   for (const maskAlpha of masks) {
     const backdrop = composite(background, composite([0, 0, 0, maskAlpha], [255, 255, 255]));
     const ratio = (luminance(foreground.slice(0, 3)) + .05) / (luminance(backdrop) + .05);
@@ -44,9 +53,10 @@ test('compiled article metadata surface meets 4.5:1 over white with header mask 
   }
 });
 
-test('metadata links retain readable hover and visible keyboard focus; surface is confined to article cover', () => {
-  assert.equal(declarations(scope).display, 'inline-block');
-  assert.equal(declarations(scope)['box-sizing'], 'border-box');
+test('cover text stays at the bottom; links retain visible focus and no-cover cards stay unmasked', () => {
+  assert.equal(declarations('.post .header .above-info').bottom, '30px');
+  assert.equal(declarations('.post .header .above-info::before').background, undefined, 'mask off has no added fade');
+  css.walkDecls('--post-title-color', decl => assert.equal(decl.value, '#ffffff'));
   assert.equal(declarations('.post-meta')['max-width'], '100%');
   assert.equal(declarations(scope + ' a').color, 'var(--post-meta-color)');
   assert.equal(declarations(scope + ' .lk')['text-decoration'], 'underline');

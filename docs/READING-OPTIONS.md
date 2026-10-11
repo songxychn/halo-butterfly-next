@@ -2,6 +2,10 @@
 
 打赏二维码及按共同标签排序的相关推荐见 [打赏与相关文章](REWARD-RELATED.md)。
 
+登录管理员在文章页进入 Halo 后台的快捷入口见 [后台编辑快捷入口](POST-EDIT.md)。
+
+文章顶图的标题与元信息位于封面底部，默认左对齐；显式居中设置仍保留水平居中。日期区域没有独立背景、内边距或圆角。开启 `mask.header` 时，沿用整图遮罩，并在文字区域添加横贯封面的柔和渐变，覆盖范围随长标题和元信息换行扩展；关闭该开关同时关闭渐变。无顶图时仍使用文章卡片内的元信息，不添加遮罩。浅色封面在关闭遮罩时仍需作者自行选择能读清白字的图片。
+
 本批补齐目录与章节定位、单篇设置覆盖、正文图片说明、右侧工具栏排列。固定参考为 Hexo Butterfly 5.7.0（`f223b1888b42b2b336068e6c959ed90a3cd7c8f3`）的 `_config.yml`、`source/js/main.js`、`layout/includes/widget/card_post_toc.pug` 和 `layout/includes/rightside.pug`；使用 Halo 的[模型元数据](https://docs.halo.run/developer-guide/theme/annotations)表达逐篇覆盖。
 
 ## 目录和单篇覆盖
