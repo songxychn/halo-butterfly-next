@@ -2,7 +2,7 @@
 
 ## 裁定与依据
 
-2026-10-11（Asia/Shanghai），维护者在本任务中先选择“安装推荐插件，主题提供完整适配”，随后确认“按你的建议来，开干”：1.0 数学公式以 Halo KaTeX 插件提供能力，取消 MathJax 专属验收要求。本地裁定记录为本文；公开 DEC-07 issue 尚待发布授权，现有[总目标 #1](https://github.com/songxychn/halo-butterfly-next/issues/1)仅作为项目背景，不冒充已登记的 DEC-07。
+2026-10-11（Asia/Shanghai），维护者在本任务中先选择“安装推荐插件，主题提供完整适配”，随后确认“按你的建议来，开干”：1.0 数学公式以 Halo KaTeX 插件提供能力，取消 MathJax 专属验收要求。维护者随后明确允许将已审阅的草稿公开创建为裁定 issue：[DEC-07 / #387](https://github.com/songxychn/halo-butterfly-next/issues/387)。
 
 原要求来自完整对齐 Butterfly 5.7.0 的盘点：`math.use` 包含关闭、MathJax、KaTeX，并保留 MathJax 菜单与公式编号配置。此处将数学提供方改为平台替代；没有把缺少实现或缺少证据当作通过。
 
@@ -19,7 +19,7 @@
 
 ## 矩阵变更边界
 
-以下 6 条 MathJax 专属条目拟在公开裁定 issue 登记后转为 `not-applicable`，保留来源并附 DEC-07：
+以下 6 条 MathJax 专属条目已随公开裁定登记转为 `not-applicable`，保留来源并附 DEC-07：
 
 - `config:math.mathjax.enableMenu`
 - `config:math.mathjax.tags`
@@ -28,7 +28,7 @@
 - `resource:mathjax`
 - `page-data:mathjax`
 
-以下 4 条主题自带 KaTeX/CopyTeX 资源及 CDN 覆盖条目拟在公开裁定 issue 登记后同样按平台替代转为 `not-applicable`。这是资源供应职责迁移到插件，公式渲染与复制能力仍由下列保留项验收：
+以下 4 条主题自带 KaTeX/CopyTeX 资源及 CDN 覆盖条目已随公开裁定登记按平台替代转为 `not-applicable`。这是资源供应职责迁移到插件，公式渲染与复制能力仍由下列保留项验收：
 
 - `config:CDN.option.katex`
 - `config:CDN.option.katex_copytex`
@@ -41,8 +41,8 @@ Mermaid、Chart.js、ABC 乐谱及其他提供方不在本裁定中删减或改�
 
 ## 本次交付与剩余工作
 
-本次交付是合同、路线图、矩阵及进度的范围同步，不包含主题运行代码变更。897 个 ID 和固定上游清单保留。按矩阵维护规则，公开 DEC issue 与合同同步前不得转为 `not-applicable`：本次 10 条保留原状态，以 `pendingDecision` 和实现说明记录已获维护者确认、尚待公开登记的范围调整；7 条保留项更新成功条件，0 条提升为已验收。原实现、失败和历史验收证据保留。
+本次交付是合同、路线图、矩阵及进度的范围同步，不包含主题运行代码变更。897 个 ID 和固定上游清单保留。公开 DEC issue 与合同已同步，10 条附完整 `decision` 后转为 `not-applicable` 并移除 `pendingDecision`；7 条保留项更新成功条件，0 条提升为已验收。原实现、失败和历史验收证据保留。
 
-公开 issue 创建被自动审批拒绝，理由是未明确授权公开目的地与完整发布内容。拟公开正文见 [issue 草稿](parity/DEC-07-ISSUE-DRAFT.md)。取得发布授权并登记真实 URL 后，再给 10 条写入完整 `decision`、关联 issue、转为 `not-applicable`、移除 `pendingDecision` 并重新生成矩阵及运行门禁。
+首次公开 issue 创建被自动审批拒绝；维护者随后明确授权，已按原审阅内容创建 #387 并核对正文一致。原发布正文保留在 [issue 正文存档](parity/DEC-07-ISSUE.md)。状态总计为待对照验收 287、待实现 345、待映射 103、验证失败 5、延期阻塞 12、不适用 145、完整已验收 0。
 
 下一批实际适配须先固定插件版本与输出契约，再实现主题样式及必要交互、配置映射、失败回退和真实 Halo 联调；本裁定不构成安装或运行验收通过记录。
