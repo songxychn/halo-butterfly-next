@@ -7552,12 +7552,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.card_newest_comments.enable"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前侧栏无最新评论卡片实现。"
+        "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/core/comment-jump.ts"
+        ],
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -7580,12 +7586,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_newest_comments.sort_order",
@@ -7609,12 +7616,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.card_newest_comments.sort_order"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前侧栏无最新评论卡片实现。"
+        "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/core/comment-jump.ts"
+        ],
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -7637,12 +7650,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_newest_comments.limit",
@@ -7666,12 +7680,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.card_newest_comments.limit"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前侧栏无最新评论卡片实现。"
+        "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/core/comment-jump.ts"
+        ],
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -7694,12 +7714,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_newest_comments.storage",
@@ -7723,12 +7744,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.card_newest_comments.storage"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前侧栏无最新评论卡片实现。"
+        "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/core/comment-jump.ts"
+        ],
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -7751,12 +7778,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_newest_comments.avatar",
@@ -7780,12 +7808,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.card_newest_comments.avatar"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前侧栏无最新评论卡片实现。"
+        "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/core/comment-jump.ts"
+        ],
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -7808,12 +7842,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_categories.enable",
@@ -13175,13 +13210,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "主题可提供评论关闭或懒加载前置文案；文案不绑定上游某一家 SDK。",
-        "settings": [],
+        "settings": [
+          "comments.text"
+        ],
         "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/js/core/comment-jump.ts"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前无主题侧评论提示文案实现。"
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -13206,12 +13246,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:comments.lazyload",
@@ -33279,13 +33320,20 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "最新评论卡片共用结构改为消费 Halo 评论数据。",
-        "settings": [],
+        "settings": [
+          "aside.card_newest_comments.enable",
+          "comments.text",
+          "comments.jump"
+        ],
         "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/js/core/comment-jump.ts"
         ],
-        "finding": "DEC-01 已裁定本项仍适用，尚未实现。"
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -33309,12 +33357,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/newest-comments/disqus-comment",
@@ -33453,13 +33502,20 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "最新评论入口改为 Halo 数据源选择，不再按 comments.use 分发各家模板。",
-        "settings": [],
+        "settings": [
+          "aside.card_newest_comments.enable",
+          "comments.text",
+          "comments.jump"
+        ],
         "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/js/core/comment-jump.ts"
         ],
-        "finding": "DEC-01 已裁定本项仍适用，尚未实现。"
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -33483,12 +33539,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/newest-comments/remark42",
@@ -34719,12 +34776,20 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "侧栏最新评论卡片保留为 Halo 实现。",
-        "settings": [],
-        "code": [
-          "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+        "settings": [
+          "aside.card_newest_comments.enable",
+          "comments.text",
+          "comments.jump"
         ],
-        "finding": "DEC-01 已裁定本项仍适用，尚未实现。"
+        "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
+          "src/html/post.html",
+          "src/html/page.html",
+          "src/js/core/comment-jump.ts"
+        ],
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -34746,12 +34811,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_post_series",
@@ -44097,7 +44163,7 @@
           "src/html/page.html",
           "src/html/archives.html"
         ],
-        "finding": "DEC-01 已裁定映射方向；字段级对照仍待实现。"
+        "finding": "文章和单页既有官方评论挂载/计数已实现，首批追加公开最新评论聚合及提示/跳转；Moment 主体和组件懒挂载仍缺，整项保持 gap。"
       },
       "dependencies": [
         "dual-site",
@@ -51026,13 +51092,20 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "侧栏最新评论改为 Halo 评论数据；不保留各家 newest-comments 拉取脚本。",
-        "settings": [],
+        "settings": [
+          "aside.card_newest_comments.enable",
+          "comments.text",
+          "comments.jump"
+        ],
         "code": [
+          "src/html/views/newest-comments.html",
+          "src/js/core/newest-comments.ts",
+          "src/scss/core/comments.scss",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/js/core/comment-jump.ts"
         ],
-        "finding": "DEC-01 已裁定本项仍适用，尚未实现。"
+        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
       },
       "dependencies": [
         "dual-site",
@@ -51056,12 +51129,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/386"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:gallery",

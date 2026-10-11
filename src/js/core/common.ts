@@ -13,6 +13,8 @@ import { bindHideAsideButton } from './aside-hide-button.ts';
 import { bindRightsideConfig, bindReadmode } from './rightside.ts';
 import { bindTranslate } from './translate.ts';
 import { bindDarkmode } from './darkmode.ts';
+import { initializeNewestComments } from './newest-comments.ts';
+import { bindCommentJump } from './comment-jump.ts';
 
 export default class Common {
 
@@ -29,6 +31,8 @@ export default class Common {
     bindReadmode();
     bindTranslate();
     bindDarkmode();
+    initializeNewestComments();
+    bindCommentJump();
 
   }
 
