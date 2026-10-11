@@ -899,6 +899,7 @@ spec:
           name: post_layout
           label: 旧布局（升级兼容）
           if: $get(index_layout).value == ''
+          preserve: true
           help: 仅在首页文章布局留空时生效。列表对应布局 3；平铺对应布局 6，并保留旧版不显示摘要的行为。选择上方七种布局后本项不参与渲染。
           value: list
           options:
