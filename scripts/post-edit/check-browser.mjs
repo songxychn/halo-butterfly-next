@@ -100,7 +100,7 @@ try {
       assert.equal(c.metadataColor,'rgb(255, 255, 255)');
       assert.equal(c.titleColor,'rgb(255, 255, 255)');
       const alpha=value=>Number(value.match(/rgba\([^)]*,\s*([\d.]+)\)/)[1]);
-      const fadeAlpha=alpha(c.fade.match(/rgba\([^)]*\)/)[0]),maskAlpha=alpha(c.maskColor);
+      const fadeAlpha=Math.min(...[...c.fade.matchAll(/rgba\([^)]*\)/g)].map(x=>alpha(x[0])).filter(x=>x>0)),maskAlpha=alpha(c.maskColor);
       const channel=(1-fadeAlpha)*(1-maskAlpha), linear=channel<=.04045?channel/12.92:((channel+.055)/1.055)**2.4;
       c.whiteCoverContrast=1.05/(linear+.05);
       assert.ok(c.whiteCoverContrast>=4.5);
