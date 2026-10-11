@@ -444,8 +444,13 @@ try {
                   // reader input resumes chapter tracking. A single relative
                   // wheel can leave comments visible after late widget layout.
                   await p.mouse.move(100, 200);
-                  await p.mouse.wheel(0, -10000);
-                  await p.waitForFunction(() => scrollY < 5);
+                  await poll(async () => {
+                    const remaining = await p.evaluate(() => scrollY);
+                    if (remaining < 5) return true;
+                    await p.mouse.wheel(0, -Math.max(1000, remaining));
+                    await p.waitForTimeout(200);
+                    return await p.evaluate(() => scrollY < 5);
+                  }, "Reader wheel did not reach page top");
                   const heading = p.locator("article.render h2").first();
                   // Opposite wheel directions can be coalesced by the engine.
                   // Check the actual destination and retry a remaining delta.
