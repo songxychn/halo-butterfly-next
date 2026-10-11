@@ -17,6 +17,10 @@ const assert = (condition, message) => { if (!condition) throw new Error(message
 
 async function inspect(browser, target, viewport, mode, label, route = '/') {
   const failures = [], requests = new Set(), errors = [];
+  const drainRequests = async () => {
+    const deadline = Date.now() + 5000;
+    while (requests.size && Date.now() < deadline) await new Promise(resolve => setTimeout(resolve, 20));
+  };
   const context = await browser.newContext({ viewport, colorScheme: mode });
   await context.route('**/*', async intercepted => {
     const request = intercepted.request();
@@ -97,12 +101,22 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       // Wait for real enhancement before returning, rather than cancelling that
       // article request and misclassifying it as an unfinished homepage resource.
       await page.locator('.code-toolbar .toolbar').first().waitFor({ state: 'attached', timeout: 15000 });
+      await drainRequests();
+      assert(!requests.size, 'Article resource completion exceeded 5000ms before returning');
       await page.goBack({ waitUntil: 'load', timeout: 30000 });
       await page.waitForFunction(() => [...document.querySelectorAll('.home-layout.masonry > .item')].every(card => getComputedStyle(card).position === 'absolute'), null, { timeout: 15000 });
+      await page.waitForFunction(() => document.fonts.status === 'loaded' && !document.body.classList.contains('loading') &&
+        [...document.querySelectorAll('.home-layout img')].every(img => {
+          const box = img.getBoundingClientRect();
+          return box.bottom <= 0 || box.top >= innerHeight || img.complete && img.naturalWidth > 0;
+        }), null, { timeout: 15000 });
     }
     assert(!errors.length, `JavaScript errors: ${errors.join('; ')}`);
   } catch (error) { failures.push(String(error.message)); }
-  if (requests.size) failures.push(`Pending before close: ${[...requests].map(r => r.url()).join(', ')}`);
+  // Match the existing browser harness's bounded resource-completion stage.
+  // An instantaneous snapshot can misclassify normal late/lazy image requests.
+  await drainRequests();
+  if (requests.size) failures.push(`Pending after 5000ms before close: ${[...requests].map(r => r.url()).join(', ')}`);
   await context.close();
   return { target: target === manifest.halo ? 'halo' : 'hexo', route, viewport, mode, metrics, failures, result: failures.length ? 'failed' : 'passed' };
 }
