@@ -11559,13 +11559,19 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -11602,7 +11608,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.per_page",
@@ -11626,13 +11632,19 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -11665,7 +11677,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.hide_scrollbar",
@@ -11689,13 +11701,19 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.hide_scrollbar"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -11728,7 +11746,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.mathjax.enableMenu",
@@ -11892,13 +11910,19 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.copy_tex"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -11931,7 +11955,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:search.use",
@@ -32975,13 +32999,19 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -33013,7 +33043,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/math/katex",
@@ -33030,13 +33060,21 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.enable",
+          "math.copy_tex",
+          "math.hide_scrollbar"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -33068,7 +33106,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/math/mathjax",
@@ -44969,13 +45007,19 @@
       "upstreamInventory": "pageProperties",
       "halo": {
         "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
-        "settings": [],
+        "settings": [
+          "math.enable"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/js/core/math.ts",
+          "src/scss/core/math.scss",
+          "annotation-setting.yaml",
+          "fixtures/math/versions.json"
         ],
-        "finding": "维护者已确认采用 KaTeX 插件；实际插件版本、name/JAR 哈希、最低 Halo 版本、编辑器输出及主题适配尚待锁定与实现。状态仍为待平台映射；MathJax 不进入此保留项的成功条件。见 docs/MATH-RENDERING-DECISION.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -45005,7 +45049,7 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:lang",

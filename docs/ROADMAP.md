@@ -35,7 +35,7 @@
 | 手机菜单、主题模式 | 基础行为修复 | 待完整布局比对 |
 | 分类、标签、归档、自定义页面 | 保留 Halo 页面 | 待逐项比对 |
 | 搜索、评论 | Halo 官方 `PluginSearchWidget` / `PluginCommentWidget` 接入与停用回退（DEC-01） | 待按修订后的 PLG-02/03 验收；Algolia/DocSearch/12 家评论 SDK 不在 1.0 主题范围 |
-| 数学公式 | DEC-07：采用 Halo KaTeX 插件，主题负责阅读体验适配；MathJax 专属要求退出 1.0 | 方案已确认，插件版本/输出契约及实际适配待完成；裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记，10 条提供方/资源供应项不适用，公式能力仍待验收。见 [裁定](MATH-RENDERING-DECISION.md) |
+| 数学公式 | DEC-07：采用 Halo KaTeX 插件，主题负责阅读体验适配；MathJax 专属要求退出 1.0 | 已固定 KaTeX 3.0.0，完成 MathML 阅读适配、复制、滚动和显示控制；实际验证与剩余门禁见 [数学公式](MATH.md)。裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记，10 条提供方/资源供应项不适用，公式能力仍待验收。见 [裁定](MATH-RENDERING-DECISION.md) |
 | 友链、图库、瞬间 | 保留原有模板 | 未做插件集成验收 |
 | Halo 2.26 插件公共布局 | 已提供 html(head, content)，合成插件自有模板、生命周期和共享资源通过 | 真实生态插件组合与完整跨浏览器验收继续推进 |
 | 正文标签扩展（note/tabs/hide 等） | DEC-02：等效 HTML + 主题 CSS/JS，不解析 `{% %}`；series/flink 活数据延期 1.1 | 映射已定，待实现 |

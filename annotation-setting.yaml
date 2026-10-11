@@ -32,6 +32,18 @@ spec:
     kind: Post
   formSchema:
     - $formkit: "radio"
+      name: "katex"
+      label: "显示公式"
+      help: "优先于全局数学公式设置；关闭时显示可提取的 TeX 源码，不关闭插件资源。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
+    - $formkit: "radio"
       name: "enable_code_copy"
       label: "启用代码复制"
       help: "本篇文章代码块复制按钮"
@@ -124,6 +136,18 @@ spec:
     group: content.halo.run
     kind: SinglePage
   formSchema:
+    - $formkit: "radio"
+      name: "katex"
+      label: "显示公式"
+      help: "优先于全局数学公式设置；关闭时显示可提取的 TeX 源码，不关闭插件资源。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 开启
+          value: "true"
+        - label: 关闭
+          value: "false"
     - $formkit: "radio"
       name: "toc"
       label: "显示目录"

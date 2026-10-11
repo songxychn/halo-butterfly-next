@@ -6,7 +6,7 @@
 
 原要求来自完整对齐 Butterfly 5.7.0 的盘点：`math.use` 包含关闭、MathJax、KaTeX，并保留 MathJax 菜单与公式编号配置。此处将数学提供方改为平台替代；没有把缺少实现或缺少证据当作通过。
 
-依据：[Halo KaTeX 插件](https://github.com/halo-sigs/plugin-katex)支持默认编辑器的行内/块级公式，也可按选择器处理其他编辑器输出；[KaTeX 支持表](https://katex.org/docs/support_table.html)用于确定实际语法边界。版本、`metadata.name`、JAR SHA-256、最低 Halo 版本和具体编辑器输出必须在实际联调时固定。当前尚未锁定或安装验证，不能据项目名称推断整个 Halo 兼容区间已通过。
+依据：[Halo KaTeX 插件](https://github.com/halo-sigs/plugin-katex)支持默认编辑器的行内/块级公式，也可按选择器处理其他编辑器输出；[KaTeX 支持表](https://katex.org/docs/support_table.html)用于确定实际语法边界。版本、`metadata.name`、JAR SHA-256、最低 Halo 版本和具体编辑器输出必须在实际联调时固定。实际适配已锁定 KaTeX 3.0.0（内置 0.16.25，Halo >=2.22.2），版本与职责边界见 [数学公式](MATH.md)；不能据项目名称推断整个 Halo 兼容区间已通过。
 
 ## 1.0 成功条件
 
@@ -39,10 +39,8 @@
 
 Mermaid、Chart.js、ABC 乐谱及其他提供方不在本裁定中删减或改为已支持。MathJax 不作为默认后续版本承诺；如有实际需求，另行立项和验收。
 
-## 本次交付与剩余工作
+## 交付与剩余工作
 
-本次交付是合同、路线图、矩阵及进度的范围同步，不包含主题运行代码变更。897 个 ID 和固定上游清单保留。公开 DEC issue 与合同已同步，10 条附完整 `decision` 后转为 `not-applicable` 并移除 `pendingDecision`；7 条保留项更新成功条件，0 条提升为已验收。原实现、失败和历史验收证据保留。
+公开裁定正文保留在 [issue 正文存档](parity/DEC-07-ISSUE.md)。897 个 ID、固定上游来源和原有证据保留，10 条提供方/资源供应项为 `not-applicable`。后续实际适配将 7 条公式保留项更新为 `implemented-unverified`，0 条提升为完整已验收。
 
-首次公开 issue 创建被自动审批拒绝；维护者随后明确授权，已按原审阅内容创建 #387 并核对正文一致。原发布正文保留在 [issue 正文存档](parity/DEC-07-ISSUE.md)。状态总计为待对照验收 287、待实现 345、待映射 103、验证失败 5、延期阻塞 12、不适用 145、完整已验收 0。
-
-下一批实际适配须先固定插件版本与输出契约，再实现主题样式及必要交互、配置映射、失败回退和真实 Halo 联调；本裁定不构成安装或运行验收通过记录。
+主题现已实现保留 MathML 的布局、滚动、复制和全局/逐篇显示控制，见 [使用说明](MATH.md)与[验证记录](validation/2026-10-11/katex.md)。显示开关只切换公式/TeX 阅读表示，不关闭插件资源。插件 3.0.0 的全站 CSS 注入、前台渲染模式的全站 JS 注入仍不满足按需加载要求；编辑器 UI、多编辑器、最低版本拒绝、真实设备/辅助技术及独立审查等成功条件保留。

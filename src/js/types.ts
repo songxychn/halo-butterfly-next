@@ -30,6 +30,9 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   enable_above?: SettingValue;
   above_background?: string;
   enable_h_icon?: SettingValue;
+  math_enabled?: SettingValue;
+  math_copy_tex?: SettingValue;
+  math_hide_scrollbar?: SettingValue;
   toc_number?: SettingValue;
   toc_expand?: SettingValue;
   toc_scroll_percent?: SettingValue;

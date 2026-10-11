@@ -22,7 +22,7 @@
     >
 
     </style>
-    <script id="pageScript" th:inline="javascript" th:with="above_background = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link  : ''  )}, tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}">
+    <script id="pageScript" th:inline="javascript" th:with="above_background = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link  : ''  )}, tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         // 第一屏
         enable_above: /*[[${theme.config.post.enable_above}]]*/ '',
@@ -33,6 +33,9 @@
         toc_number: /*[[${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)}]]*/ true,
         toc_expand: /*[[${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)}]]*/ false,
         toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
+        math_enabled: /*[[${mathOverride == 'true' ? true : (mathOverride == 'false' ? false : (theme.config.math?.enable != false and theme.config.math?.enable != 'false'))}]]*/ true,
+        math_copy_tex: /*[[${theme.config.math?.copy_tex != false and theme.config.math?.copy_tex != 'false'}]]*/ true,
+        math_hide_scrollbar: /*[[${theme.config.math?.hide_scrollbar == true or theme.config.math?.hide_scrollbar == 'true'}]]*/ false,
         anchor_auto_update: /*[[${theme.config.anchor?.auto_update}]]*/ false,
         anchor_click_to_scroll: /*[[${theme.config.anchor?.click_to_scroll}]]*/ false,
         photofigcaption: /*[[${theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'}]]*/ false,
