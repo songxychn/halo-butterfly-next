@@ -73,7 +73,7 @@ try {
       const above=document.querySelector('.post .header .above'), info=above.querySelector('.above-info'),
         title=info.querySelector('.post-title'), meta=info.querySelector('.post-meta');
       const white=${process.env.POST_COVER_WHITE === '1'}, long=${process.env.POST_COVER_LONG === '1'};
-      if(white){above.style.setProperty('background-image','none','important');above.style.backgroundColor='#fff';}
+      if(white){above.style.setProperty('transition','none','important');above.style.setProperty('background-image','none','important');above.style.backgroundColor='#fff';}
       if(long) title.textContent='用于检查手机换行的长文章标题：中英文排版 Butterfly '.repeat(5);
       const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom};};
       const m=getComputedStyle(meta),t=getComputedStyle(title),g=getComputedStyle(info,'::before'),mask=getComputedStyle(above,'::before');
@@ -81,9 +81,11 @@ try {
         nav:rect(document.querySelector('.header .nav')),maskEnabled:document.querySelector('#Butterfly').classList.contains('mask-header'),
         metadataBackground:m.backgroundColor,metadataPadding:m.padding,metadataRadius:m.borderRadius,metadataColor:m.color,titleColor:t.color,
         fade:g.backgroundImage,fadeInset:g.inset,fadeZIndex:g.zIndex,fadePointerEvents:g.pointerEvents,maskColor:mask.backgroundColor,
+        backdropColor:getComputedStyle(above).backgroundColor,backdropImage:getComputedStyle(above).backgroundImage,
         alignment:getComputedStyle(info).textAlign,overflow:document.documentElement.scrollWidth>innerWidth};
     })()`);
     const c = report.cover;
+    if(c.white){assert.equal(c.backdropColor,'rgb(255, 255, 255)');assert.equal(c.backdropImage,'none');}
     assert.equal(c.metadataBackground, 'rgba(0, 0, 0, 0)');
     assert.equal(c.metadataPadding, '0px');
     assert.equal(c.metadataRadius, '0px');
