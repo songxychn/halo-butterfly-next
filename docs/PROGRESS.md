@@ -1,5 +1,11 @@
 # 持续对齐进度
 
+## 2026-10-11：七种首页文章布局与真实瀑布流
+
+[草稿 PR #392](https://github.com/songxychn/halo-butterfly-next/pull/392) 跟踪 [#384](https://github.com/songxychn/halo-butterfly-next/issues/384)，实现固定 Butterfly 5.7.0 的七种首页排列；6/7 本地使用 InfiniteGrid 4.13.0。默认继承旧 list→3、tile→6，旧平铺继续无摘要，后台切换隐藏旧选项时仍保留其值。分类/标签保持共享列表。普通 merge 接入最新 master 的顶图改动，补充全局关闭顶图与瀑布流交叉检查。
+
+[限定验收](validation/2026-10-11/home-layouts.md)逐轮保留源码/ZIP：初始三引擎双站 317/318，文章返回等待修正后专项 30/30；合并后 Chromium 78/78、Firefox/WebKit 80/80、实际旧包回退升级 4/4、真实后台提交数据检查通过。最后兼容修正仅改 settings 保留属性，模板/资产与前包字节相同。最终实现 590 项测试、141 安装文件与 ZIP 全比对通过。完整 1.0、#338、真机、性能及独立审阅仍保留；瀑布流资源从 gap 改为 implemented-unverified，0 条 verified。未发布或部署。
+
 ## 2026-10-11：数学公式平台替代裁定已登记
 
 KaTeX 3.0.0 的主题适配已加入：原生 MathML、局部滚动、TeX 复制和全局/文章/单页公式与源码显示。7 条公式保留项改为待验收，0 条完整已验收；按需加载及剩余门禁见 [数学说明](MATH.md)与[验证记录](validation/2026-10-11/katex.md)。

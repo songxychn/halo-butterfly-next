@@ -74,10 +74,19 @@ async function build() {
   await cp(path.join(icons, 'LICENSE.txt'), path.join(assets, 'plugins/fontawesome/LICENSE.txt'));
   await mkdir(path.join(assets, 'licenses'), { recursive: true });
   // Adapted upstream sources are not npm dependencies, so collect their notices explicitly.
-  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt']) {
+  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt']) {
     await cp(path.join(root, 'third-party-licenses', file), path.join(assets, 'licenses', file));
   }
   const licensed = new Set();
+  // These exact npm releases omit a standalone license file. Fixed upstream
+  // texts and their provenance are recorded in infinitegrid-sources.json.
+  const upstreamLicenses = {
+    '@egjs-infinitegrid-4.13.0': 'egjs-infinitegrid-4.13.0-LICENSE.txt',
+    '@egjs-component-3.0.5': 'egjs-component-3.0.5-LICENSE.txt',
+    '@egjs-imready-1.4.2': 'egjs-imready-1.4.2-LICENSE.txt',
+    '@cfcs-core-0.0.5': 'cfcs-core-LICENSE.txt',
+    '@cfcs-core-0.0.24': 'cfcs-core-LICENSE.txt',
+  };
   const readmeLicenses = new Set(['good-listener-1.2.2', 'delegate-3.2.0', 'select-1.1.2']);
   async function collectLicenses(dir) {
     dir = await realpath(dir);
@@ -87,11 +96,17 @@ async function build() {
     licensed.add(name);
     const entries = await readdir(dir);
     const files = entries.filter(file => /^(licen[sc]e|notice|copying)(?:\.|$)/i.test(file));
+    const suppliedLicense = !files.length && upstreamLicenses[name] && pkg.license === 'MIT';
+    if (suppliedLicense) {
+      const text = await readFile(path.join(root, 'third-party-licenses', upstreamLicenses[name]), 'utf8');
+      if (!text.includes('Copyright') || !text.includes('Permission is hereby granted')) throw new Error(`无效的依赖许可：${name}`);
+      await cp(path.join(root, 'third-party-licenses', upstreamLicenses[name]), path.join(assets, 'licenses', upstreamLicenses[name]));
+    }
     if (!files.length && readmeLicenses.has(name) && pkg.license === 'MIT') {
       files.push(entries.find(file => /^readme/i.test(file)));
       await cp(path.join(root, 'third-party-licenses/zenorocha-MIT.txt'), path.join(assets, 'licenses/zenorocha-MIT.txt'));
     }
-    if (!files.length || files.includes(undefined)) throw new Error(`依赖缺少许可证：${name}`);
+    if ((!files.length && !suppliedLicense) || files.includes(undefined)) throw new Error(`依赖缺少许可证：${name}`);
     for (const file of files) await cp(path.join(dir, file), path.join(assets, 'licenses', name + '-' + file));
     if (entries.includes('licenses')) await cp(path.join(dir, 'licenses'), path.join(assets, 'licenses', name + '-additional'), { recursive: true });
     const require = createRequire(path.join(dir, 'package.json'));
@@ -110,7 +125,7 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
   for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
     if (!file.endsWith('.scss')) continue;

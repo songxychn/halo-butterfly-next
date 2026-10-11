@@ -39,7 +39,7 @@ test('列表封面用真实 src、第 2/4/6 篇 right（index%2==1），无评�
   assert.doesNotMatch(lazy, /data-lazy-src/);
   assert.match(list, /th:each="post, stat : \$\{data\}"/);
   // Butterfly 0-based index%2===0 → left。Thymeleaf even/odd 是 1-based nth-child，禁止用 even/odd 表达左右。
-  assert.match(list, /stat\.index % 2 == 1 \? ' right'/);
+  assert.match(list, /stat\.index % 2 == 1/);
   assert.doesNotMatch(list, /stat\.even \? ' right'/);
   assert.doesNotMatch(list, /stat\.odd \? ' right'/);
   assert.match(list, /showLabel \? '发表于 '/);

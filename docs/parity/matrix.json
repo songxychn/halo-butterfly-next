@@ -3904,12 +3904,16 @@
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
         "settings": [
+          "index.index_layout",
           "index.post_layout"
         ],
         "code": [
-          "src/html/index.html"
+          "src/html/index.html",
+          "src/html/views/components.html",
+          "src/js/page/masonry.ts",
+          "src/scss/core/homepage.scss"
         ],
-        "finding": "现有 list/grid 两种布局；上游 1 至 7 尚未逐一实现。"
+        "finding": "首页提供上游 1–7 逐值选择，留空/无效值继承旧 list→3、tile→6；旧 tile 继续隐藏摘要。默认仍为 3。已实现，完整 1.0 合同尚未验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -3940,11 +3944,24 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/384"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/392"
+        ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-11/home-layouts.json",
+          "sha256": "b825c68b0924e8fb92ecc8f61f97e11fabbf4889e43452b4049dc8849c1c48c0",
+          "date": "2026-10-11T05:04:17.876553+00:00",
+          "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
+          "actor": "/root",
+          "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -3978,7 +3995,7 @@
           "src/scss/modules/components.scss",
           "settings.yaml"
         ],
-        "finding": "已映射 index_post_content.method（false / 1 / 2 / 3，默认 3）到 index.index_post_content.method。false 不渲染列表摘要；1 仅手动摘要 spec.excerpt.raw；2 优先手动摘要否则按 length 截断正文；3（及未识别值）截断正文。正文来自 postFinder.content，去标签后按 hexo-util truncate（省略号计入 length）。可见文本 th:text。不做逐页覆盖。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射 index_post_content.method（false / 1 / 2 / 3，默认 3）到 index.index_post_content.method。false 不渲染列表摘要；1 仅手动摘要 spec.excerpt.raw；2 优先手动摘要否则按 length 截断正文；3（及未识别值）截断正文。正文来自 postFinder.content，去标签后按 hexo-util truncate（省略号计入 length）。可见文本 th:text。不做逐页覆盖。显式首页 1–7 服从此配置，沿用旧 tile 继续无摘要；本轮仅补充 method=3 / false 的布局交叉检查，完整摘要及截断边界合同仍待完成，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4007,13 +4024,25 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/79"
+          "https://github.com/songxychn/halo-butterfly-next/issues/79",
+          "https://github.com/songxychn/halo-butterfly-next/issues/384"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/81"
+          "https://github.com/songxychn/halo-butterfly-next/pull/81",
+          "https://github.com/songxychn/halo-butterfly-next/pull/392"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-11/home-layouts.json",
+          "sha256": "b825c68b0924e8fb92ecc8f61f97e11fabbf4889e43452b4049dc8849c1c48c0",
+          "date": "2026-10-11T05:04:17.876553+00:00",
+          "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
+          "actor": "/root",
+          "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -4047,7 +4076,7 @@
           "src/scss/modules/components.scss",
           "settings.yaml"
         ],
-        "finding": "已映射 index_post_content.length（默认 500）到 index.index_post_content.length。仅 method 为 2（无手动摘要时）或 3 时生效；method 1 / false 不截断。截断对齐 hexo-util truncate：不足 length 原样，否则 length-3 字符加 ...。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射 index_post_content.length（默认 500）到 index.index_post_content.length。仅 method 为 2（无手动摘要时）或 3 时生效；method 1 / false 不截断。截断对齐 hexo-util truncate：不足 length 原样，否则 length-3 字符加 ...。显式首页 1–7 服从此配置，沿用旧 tile 继续无摘要；本轮仅补充 method=3 / false 的布局交叉检查，完整摘要及截断边界合同仍待完成，禁止 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -4070,13 +4099,25 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/79"
+          "https://github.com/songxychn/halo-butterfly-next/issues/79",
+          "https://github.com/songxychn/halo-butterfly-next/issues/384"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/81"
+          "https://github.com/songxychn/halo-butterfly-next/pull/81",
+          "https://github.com/songxychn/halo-butterfly-next/pull/392"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-11/home-layouts.json",
+          "sha256": "b825c68b0924e8fb92ecc8f61f97e11fabbf4889e43452b4049dc8849c1c48c0",
+          "date": "2026-10-11T05:04:17.876553+00:00",
+          "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
+          "actor": "/root",
+          "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -30532,9 +30573,10 @@
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.ts",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/page/masonry.ts"
         ],
-        "finding": "列表卡片已有 list/tile 分支、封面回退、元信息、摘要策略及分页入口；当前 config:index_layout 明确保留上游 1-7 未全实现差距。 剩余：补齐或裁定 1-7 布局及正常/空/多页、配置组合后再评估完整实现状态。"
+        "finding": "首页已接入七种排列、封面回退、标题置顶图标、摘要策略及分页。分类/标签保持旧共享列表。完整空数据/失败及跨平台合同仍待验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -30555,9 +30597,12 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/384"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/392"
+        ]
       },
       "evidence": [
         {
@@ -30568,6 +30613,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-11/home-layouts.json",
+          "sha256": "b825c68b0924e8fb92ecc8f61f97e11fabbf4889e43452b4049dc8849c1c48c0",
+          "date": "2026-10-11T05:04:17.876553+00:00",
+          "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
+          "actor": "/root",
+          "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -38981,9 +39035,11 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/page/masonry.ts",
+          "third-party-licenses/infinitegrid-sources.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "按固定上游 plugins.yml 使用 InfiniteGrid 4.13.0，随 ZIP 本地分发，仅首页 6/7（含旧 tile）加载。完整许可证、NOTICE 及来源哈希随包检查；CDN 覆盖配置未实现，完整资源合同仍待验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -39005,12 +39061,25 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/384"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/392"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-11/home-layouts.json",
+          "sha256": "b825c68b0924e8fb92ecc8f61f97e11fabbf4889e43452b4049dc8849c1c48c0",
+          "date": "2026-10-11T05:04:17.876553+00:00",
+          "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
+          "actor": "/root",
+          "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:fancybox",
@@ -42705,14 +42774,19 @@
       "upstreamInventory": "styles",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "index.index_layout"
+        ],
         "code": [
           "src/scss/core/homepage.scss",
           "src/scss/core/index.scss",
           "src/scss/modules/components.scss",
-          "tests/homepage-style.test.mjs"
+          "tests/homepage-style.test.mjs",
+          "src/js/page/masonry.ts",
+          "scripts/home-layouts/check.py",
+          "scripts/home-layouts/snapshot.mjs"
         ],
-        "finding": "已新增 src/scss/core/homepage.scss 对齐 homepage.styl 首页列表样式。选择器并列 #recent-posts / .recent-post-item 与 Halo .essay.list / .essay.tile。list 对齐 index_layout 1–3（16.8em、封面 42%/230px、hover scale）；tile 对齐 layout 6（两列 calc(50% - 8px)，2000px 三列）。layout 4/5/7 仅 .layout-N 空操作。不改 data-theme。不输出 relative 的 time{display:none}。不把 config:index_layout / cover.index_enable、已落地 common.styl / third-party/loading/comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。"
+        "finding": "首页 layout-1..7 均已接入实际 DOM；1–3 固定左/右/交替，4 单列上图下文，5 单列叠字，6/7 InfiniteGrid 瀑布流。保持上游尺寸、断点、遮罩和间距；完整视觉合同仍待验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -42733,13 +42807,25 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/198"
+          "https://github.com/songxychn/halo-butterfly-next/issues/198",
+          "https://github.com/songxychn/halo-butterfly-next/issues/384"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/200"
+          "https://github.com/songxychn/halo-butterfly-next/pull/200",
+          "https://github.com/songxychn/halo-butterfly-next/pull/392"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-11/home-layouts.json",
+          "sha256": "b825c68b0924e8fb92ecc8f61f97e11fabbf4889e43452b4049dc8849c1c48c0",
+          "date": "2026-10-11T05:04:17.876553+00:00",
+          "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
+          "actor": "/root",
+          "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
