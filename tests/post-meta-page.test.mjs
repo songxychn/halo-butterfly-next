@@ -70,7 +70,7 @@ test('首页/分类/标签页共用 list fragment', async () => {
   const index = await readFile(new URL('../src/html/index.html', import.meta.url), 'utf8');
   const category = await readFile(new URL('../src/html/category.html', import.meta.url), 'utf8');
   const tag = await readFile(new URL('../src/html/tag.html', import.meta.url), 'utf8');
-  assert.match(index, /views\/components:: list\(\$\{posts\.items\},\$\{theme\.config\.index\.post_layout\}\)/);
+  assert.match(index, /views\/components:: list\(\$\{posts\.items\},\$\{homeLayout\}\)/);
   assert.match(category, /views\/components:: list\(\$\{posts\.items\},'list'\)/);
   assert.match(tag, /views\/components:: list\(\$\{posts\.items\},'list'\)/);
 });

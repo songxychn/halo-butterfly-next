@@ -1,3 +1,5 @@
+<th:block xmlns:th="https://www.thymeleaf.org"
+          th:with="selectedLayout = ${#strings.toString(theme.config.index.index_layout)}, homeLayout = ${#lists.contains({'1','2','3','4','5','6','7'}, selectedLayout) ? selectedLayout : (theme.config.index.post_layout == 'tile' ? 'tile' : 'list')}">
 <layout
   th:replace="~{views/layout :: layout (
   page = 'index',
@@ -11,6 +13,8 @@
 
   <!--/* pin */-->
   <th:block th:fragment="pin">
+    <script defer id="masonryScript" th:if="${homeLayout == '6' or homeLayout == '7' or homeLayout == 'tile'}"
+            th:src="${assets_link + 'js/masonry.min.js?v=' + theme.spec.version}"></script>
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
           th:href="${aboveBackground}">
@@ -70,8 +74,9 @@
   <th:block th:fragment="main">
     <section class="content">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${site.title}"></h1>
-      <th:block th:replace="~{views/components:: list(${posts.items},${theme.config.index.post_layout})}"/>
+      <th:block th:replace="~{views/components:: list(${posts.items},${homeLayout})}"/>
     </section>
     <th:block th:replace="~{views/aside::common}"/>
   </th:block>
 </layout>
+</th:block>

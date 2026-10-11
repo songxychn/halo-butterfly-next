@@ -31,9 +31,9 @@
 
 ## 工具栏
 
-`rightside.item_order.enable` 默认关闭。开启后，`hide` 为展开后显示组，`show` 为常驻组，按英文逗号分隔按钮标识。支持 `readmode`、`translate`、`darkmode`、`hideAside`、`toc`；功能本身关闭或当前页面不适用时不会因排序而创建入口。重复项以展开组首次出现为准，未知项忽略，未列出的按钮隐藏，返回顶部始终保留。
+`rightside.item_order.enable` 默认关闭。开启后，`hide` 为展开后显示组，`show` 为常驻组，按英文逗号分隔按钮标识。支持 `readmode`、`translate`、`darkmode`、`hideAside`、`toc`、`comment`；功能本身关闭或当前页面不适用时不会因排序而创建入口。重复项以展开组首次出现为准，未知项忽略，未列出的按钮隐藏，返回顶部始终保留。
 
-空组沿用上游默认：展开组 `readmode,translate,darkmode,hideAside`，常驻组 `toc,chat,comment`；其中 `chat` 和 `comment` 尚无主题按钮，不因本批配置而接入。只保留当前视口不可用按钮的展开组不显示空齿轮。手机目录沿用 1100px 断点，侧栏按钮沿用 900px 断点。
+空组沿用上游默认：展开组 `readmode,translate,darkmode,hideAside`，常驻组 `toc,chat,comment`；其中 `comment` 在文章/单页实际挂载官方评论时提供跳转入口；`chat` 尚无主题按钮。只保留当前视口不可用按钮的展开组不显示空齿轮。手机目录沿用 1100px 断点，侧栏按钮沿用 900px 断点。
 
 `rightside.config_animation` 默认开启，控制齿轮旋转；减少动态效果时关闭动画。展开组收起后不可 Tab 进入，组内按 Escape 收起并将焦点返回齿轮。
 

@@ -12,6 +12,14 @@ const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${them
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
+required.push('templates/assets/js/masonry.min.js');
+const masonrySources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/infinitegrid-sources.json'), 'utf8'));
+for (const source of masonrySources.sources) {
+  const bytes = await readFile(path.join(root, 'third-party-licenses', source.file));
+  if (createHash('sha256').update(bytes).digest('hex') !== source.sha256) throw new Error(`瀑布流许可与固定摘要不符：${source.file}`);
+  const entry = zip.file(`templates/assets/licenses/${source.file}`);
+  if (!entry || !(await entry.async('nodebuffer')).equals(bytes)) throw new Error(`安装包缺少或改写了瀑布流许可：${source.file}`);
+}
 const lazyloadSource = JSON.parse(await readFile(path.join(root, 'third-party-licenses/vanilla-lazyload-source.json'), 'utf8'));
 for (const record of [lazyloadSource.local, lazyloadSource.license]) {
   if (createHash('sha256').update(await readFile(path.join(root, record.path))).digest('hex') !== record.sha256) throw new Error('LazyLoad 来源或许可字节改变，需重新核查');

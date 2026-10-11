@@ -1,0 +1,27 @@
+<!--/* DEC-01: public Halo Post/SinglePage comments only. No comment payload in the inventory. */-->
+<section xmlns:th="https://www.thymeleaf.org" th:fragment="card"
+  th:if="${theme.config.aside.card_newest_comments?.enable == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled}"
+  id="card-newest-comments" class="aside-newest-comments card" data-newest-comments
+  th:attr="data-card-order=${theme.config.aside.card_newest_comments?.sort_order ?: 25},data-limit=${theme.config.aside.card_newest_comments?.limit ?: 6},data-storage=${theme.config.aside.card_newest_comments?.storage},data-avatar=${theme.config.aside.card_newest_comments?.avatar}"
+>
+  <h1 class="title"><i class="fas fa-comments" aria-hidden="true"></i><span class="name">最新评论</span></h1>
+  <ul class="newest-comments-list" data-comments-list></ul>
+  <p class="newest-comments-status" data-comments-status role="status">正在准备最新评论…</p>
+  <button type="button" class="newest-comments-retry" data-comments-retry hidden>重试</button>
+  <noscript><p>启用 JavaScript 后可查看最新评论。</p></noscript>
+  <template data-comment-subjects>
+    <th:block th:replace="~{::subjects('Post', 1)}"/>
+    <th:block th:replace="~{::subjects('SinglePage', 1)}"/>
+  </template>
+</section>
+
+<!--/* Iterate every page, not just recent posts. An older post can have the newest comment. */-->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="subjects(kind, pageNumber)"
+  th:with="result=${kind == 'Post' ? postFinder.list({page: pageNumber, size: 1000}) : singlePageFinder.list(pageNumber, 1000)}">
+  <th:block th:each="subject : ${result.items}">
+    <a th:if="${subject.spec.visible != null and subject.spec.visible.toString() == 'PUBLIC' and subject.spec.deleted != true and subject.metadata.deletionTimestamp == null and subject.metadata.labels != null and subject.metadata.labels['content.halo.run/published'] == 'true' and subject.spec.allowComment == true and subject.stats != null and subject.stats.comment > 0}"
+      th:href="${subject.status.permalink}"
+      th:attr="data-comment-kind=${kind},data-comment-name=${subject.metadata.name},data-comment-revision=${subject.stats.comment + ':' + subject.spec.releaseSnapshot + ':' + subject.spec.allowComment}"></a>
+  </th:block>
+  <th:block th:if="${result.hasNext}"><th:block th:replace="~{::subjects(${kind}, ${pageNumber + 1})}"/></th:block>
+</th:block>

@@ -10,6 +10,26 @@
 
 实现提交 `259e029` 的候选包完成实际安装 129 文件比对；590 项工程测试、16 个合成 Halo 无头浏览器场景及精确提交安装后的管理员/匿名复核通过，测试配置与正文保留。原 Hexo 准备失败、默认快照失败、合成登录限流和初始编辑器断言失败分别保留，见[限定验收](validation/2026-10-11/post-edit.md)。2 条编辑配置改为 `implemented-unverified`，模板说明同步，0 条提升为 verified；完整 1.0、实际 Safari/真机及独立审查另行完成。未发行或部署，远端 CI 由 PR 当前 head 跟踪。
 
+## 2026-10-11：七种首页文章布局与真实瀑布流
+
+[草稿 PR #392](https://github.com/songxychn/halo-butterfly-next/pull/392) 跟踪 [#384](https://github.com/songxychn/halo-butterfly-next/issues/384)，实现固定 Butterfly 5.7.0 的七种首页排列；6/7 本地使用 InfiniteGrid 4.13.0。默认继承旧 list→3、tile→6，旧平铺继续无摘要，后台切换隐藏旧选项时仍保留其值。分类/标签保持共享列表。普通 merge 接入最新 master 的顶图改动，补充全局关闭顶图与瀑布流交叉检查。
+
+[限定验收](validation/2026-10-11/home-layouts.md)逐轮保留源码/ZIP：初始三引擎双站 317/318，文章返回等待修正后专项 30/30；合并后 Chromium 78/78、Firefox/WebKit 80/80、实际旧包回退升级 4/4、真实后台提交数据检查通过。最后兼容修正仅改 settings 保留属性，模板/资产与前包字节相同。最终实现 590 项测试、141 安装文件与 ZIP 全比对通过。完整 1.0、#338、真机、性能及独立审阅仍保留；瀑布流资源从 gap 改为 implemented-unverified，0 条 verified。未发布或部署。
+
+## 2026-10-11：数学公式平台替代裁定已登记
+
+KaTeX 3.0.0 的主题适配已加入：原生 MathML、局部滚动、TeX 复制和全局/文章/单页公式与源码显示。7 条公式保留项改为待验收，0 条完整已验收；按需加载及剩余门禁见 [数学说明](MATH.md)与[验证记录](validation/2026-10-11/katex.md)。
+
+维护者确认 1.0 数学公式采用 Halo KaTeX 插件，主题提供完整阅读适配；取消 MathJax 专属要求及主题内数学库/CDN 供应配置。合同更新为 v1.3，路线图与 7 条公式保留项同步插件职责及成功条件。行内/块级、长公式、编号展示、复制、逐页控制、资源失败、插件生命周期、无障碍与设备门禁保留。
+
+首次公开创建被自动审批拒绝后，维护者明确授权，裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已按审阅草稿公开并核对正文一致。10 条提供方/资源供应项附完整 `decision` 转为不适用并移除 `pendingDecision`；897 个 ID、原失败及历史证据保留，0 条提升为已验收。边界见 [裁定记录](MATH-RENDERING-DECISION.md)，已发布内容见 [issue 正文存档](parity/DEC-07-ISSUE.md)。
+
+## 2026-10-11：评论增强首批
+
+[#386](https://github.com/songxychn/halo-butterfly-next/issues/386) 补充默认关闭的最新评论侧栏、可配置纯文本提示，以及文章/单页的原生评论跳转。公开内容清单与匿名 API 按评论时间汇总，旧文章新评论不会被发布时间过滤；当前标签页缓存、重试、键盘焦点及工具栏排序一起处理。
+
+[使用和边界](COMMENT-ENHANCEMENTS.md)记录配置与冷加载成本；10 条对应矩阵改为 implemented-unverified，整项评论数据、组件懒挂载和 Moment 主体仍保留缺口，0 条提升 verified。[限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复及提交/包身份；独立审查及完整双站合同仍须另行完成。未发布主题或部署线上。
+
 ## 2026-10-11：顶图开关、默认回退与原生分类标签封面
 
 [#385](https://github.com/songxychn/halo-butterfly-next/issues/385) 保留文章顶图复用原生封面，新增全局关闭、默认顶图及文章/单页显示三态；分类/标签详情消费原生封面并显示实际名称。关闭顶图保留内容区标题，坏图尝试默认图后保留纯色。未配置新选项时保留旧行为，已有分类/标签封面优先显示的变化另在迁移文档明示。

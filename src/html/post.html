@@ -13,7 +13,7 @@
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
           th:href="${aboveBackground}">
-    <script id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}">
+    <script id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         // 第一屏
         enable_above: /*[[${aboveEnabled}]]*/ '',
@@ -24,6 +24,9 @@
         toc_number: /*[[${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)}]]*/ true,
         toc_expand: /*[[${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)}]]*/ false,
         toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
+        math_enabled: /*[[${mathOverride == 'true' ? true : (mathOverride == 'false' ? false : (theme.config.math?.enable != false and theme.config.math?.enable != 'false'))}]]*/ true,
+        math_copy_tex: /*[[${theme.config.math?.copy_tex != false and theme.config.math?.copy_tex != 'false'}]]*/ true,
+        math_hide_scrollbar: /*[[${theme.config.math?.hide_scrollbar == true or theme.config.math?.hide_scrollbar == 'true'}]]*/ false,
         anchor_auto_update: /*[[${theme.config.anchor?.auto_update}]]*/ false,
         anchor_click_to_scroll: /*[[${theme.config.anchor?.click_to_scroll}]]*/ false,
         photofigcaption: /*[[${theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'}]]*/ false,
@@ -79,14 +82,16 @@
 
       <div
         id="post-comment"
+        role="region" aria-labelledby="comment-title"
         th:if="${pluginFinder.available('PluginCommentWidget', '>=3.3.2') && haloCommentEnabled && post.spec.allowComment}"
       >
         <div class="comment-head">
-          <div class="comment-headline">
+          <h2 class="comment-headline" id="comment-title" tabindex="-1">
             <i class="fa-solid fa-comments fa-fw" aria-hidden="true"></i>
             <span th:text="'评论'"></span>
-          </div>
+          </h2>
         </div>
+        <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
           <div>
             <halo:comment
@@ -97,6 +102,9 @@
           </div>
         </div>
       </div>
+      <p class="comment-notice comment-unavailable"
+        th:if="${theme.config.comments?.text != false and ((site.comment.enable != true or post.spec.allowComment != true) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : ((not pluginFinder.available('PluginCommentWidget', '>=3.3.2') or not haloCommentEnabled) and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
+        th:text="${(site.comment.enable != true or post.spec.allowComment != true) ? theme.config.comments.closed_notice : theme.config.comments.unavailable_notice}"></p>
     </section>
     <th:block th:replace="~{views/aside::post}"/>
   </th:block>

@@ -495,6 +495,39 @@ spec:
               value: 20
               help: "数值越小越靠前；相同数值保持原顺序。"
               min: 0
+        - $formkit: group
+          name: card_newest_comments
+          label: 最新评论
+          help: 汇总公开文章与单页的已审核顶层评论，按评论发布时间倒序；接近视区时查询。站点规模越大，首次查询越多。瞬间评论不在本卡片范围。
+          children:
+            - $formkit: checkbox
+              name: enable
+              label: 显示最新评论卡片
+              value: false
+              help: 默认关闭。需要官方评论组件 3.3.2 或更新版本及全局评论启用。
+            - $formkit: number
+              name: limit
+              label: 显示数量
+              value: 6
+              min: 1
+              max: 20
+            - $formkit: number
+              name: sort_order
+              label: 卡片顺序
+              value: 25
+              min: 0
+              help: 数值越小越靠前；相同数值保持原顺序。
+            - $formkit: checkbox
+              name: avatar
+              label: 显示头像
+              value: true
+            - $formkit: number
+              name: storage
+              label: 缓存分钟数
+              value: 10
+              min: 0
+              max: 60
+              help: 同一标签页缓存公开评论摘要，0 为禁用。新增评论导致计数变化时刷新；审核隐藏或正文修改后的摘要可能在缓存到期后更新。每次导航重新核对公开内容清单；浏览器拒绝缓存时直接查询。
         - $formkit: radio
           name: enable_category
           label: 启用侧边栏分类
@@ -872,10 +905,35 @@ spec:
           label: 随机文案api取值格式
           value: ''
           help: 如果使用的随机文案API返回格式不是TEXT格式，Json请自定义取值格式，如：data.content
+        - $formkit: select
+          name: index_layout
+          id: index_layout
+          label: 首页文章布局
+          help: 对齐 Butterfly 5.7.0 的七种首页文章布局。留空时沿用下方旧布局；显式选择后使用首页列表摘要设置。手机收敛为单列，5/7 保留图上叠字。
+          value: ''
+          options:
+            - label: 沿用旧布局（新安装默认左右交替）
+              value: ''
+            - label: '1 · 固定左图'
+              value: '1'
+            - label: '2 · 固定右图'
+              value: '2'
+            - label: '3 · 左右交替'
+              value: '3'
+            - label: '4 · 单列上图下文'
+              value: '4'
+            - label: '5 · 单列图上叠字'
+              value: '5'
+            - label: '6 · 瀑布流上图下文'
+              value: '6'
+            - label: '7 · 瀑布流图上叠字'
+              value: '7'
         - $formkit: radio
           name: post_layout
-          label: 文章布局方式
-          help: 文章布局方式 提供（列表、平铺）两种，仅首页生效
+          label: 旧布局（升级兼容）
+          if: $get(index_layout).value == ''
+          preserve: true
+          help: 仅在首页文章布局留空时生效。列表对应布局 3；平铺对应布局 6，并保留旧版不显示摘要的行为。选择上方七种布局后本项不参与渲染。
           value: list
           options:
             - label: 列表
@@ -1315,6 +1373,31 @@ spec:
       label: 评论
       formSchema:
         - $formkit: checkbox
+          name: text
+          label: 显示评论说明和状态提示
+          value: true
+          help: 对应 DEC-01 保留的 comments.text；所有文案按纯文本显示，留空不显示。
+        - $formkit: textarea
+          name: notice
+          label: 评论区说明
+          value: ""
+          placeholder: 例如：评论审核后显示，请文明交流。
+        - $formkit: textarea
+          name: closed_notice
+          label: 评论关闭时提示
+          value: ""
+          help: 全局评论关闭或该文章/单页禁止评论时显示；留空延续原来的隐藏行为。
+        - $formkit: textarea
+          name: unavailable_notice
+          label: 评论组件不可用时提示
+          value: ""
+          help: 官方评论组件未安装、停用或版本不足时显示；留空不显示。
+        - $formkit: checkbox
+          name: jump
+          label: 显示跳到评论入口
+          value: true
+          help: 仅在当前文章或单页实际挂载评论时显示，可通过右侧按钮排序的 comment 标识调整位置。
+        - $formkit: checkbox
           name: count
           label: 显示文章评论数
           value: false
@@ -1518,6 +1601,24 @@ spec:
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
           help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #渲染设置
+    - group: math
+      label: 数学公式
+      formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 显示公式
+          value: true
+          help: 配合 Halo KaTeX 插件使用。关闭时有 TeX 源码的公式显示为源码；文章/单页的 katex 元数据优先。此开关不控制插件全站资源加载。默认编辑器请关闭插件的前台渲染，避免重复渲染。
+        - $formkit: checkbox
+          name: copy_tex
+          label: 复制 TeX
+          value: true
+          help: 为带 TeX 源码的公式提供复制按钮；完整选中单个公式复制时输出 TeX，部分选中沿用浏览器行为。
+        - $formkit: checkbox
+          name: hide_scrollbar
+          label: 隐藏长公式滚动条
+          value: false
+          help: 长公式仍可横向滚动；溢出容器支持键盘聚焦和方向键。
     - group: render
       label: 渲染设置
       formSchema:
@@ -1848,7 +1949,7 @@ spec:
               name: show
               label: 常驻按钮
               value: "toc,chat,comment"
-              help: "使用相同标识。仅显示已启用且当前页面可用的功能；chat/comment 暂未接入，会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。"
+              help: "使用相同标识。仅显示已启用且当前页面可用的功能；comment 对应跳到评论，chat 暂未接入会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。"
         - $formkit: checkbox
           name: config_animation
           label: 齿轮旋转动画

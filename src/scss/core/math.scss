@@ -1,0 +1,51 @@
+// Plugin output remains native MathML / KaTeX; controls inherit the article palette.
+article.render {
+  .theme-math-block {
+    display: block;
+    position: relative;
+    min-width: 0;
+    max-width: 100%;
+    margin: 1em 0;
+    &.has-math-copy { padding-top: 1.7em; }
+    .theme-math-scroll { display: block; overflow-x: auto; padding: .4em .2em; }
+    .theme-math-copy { position: absolute; right: .2em; top: 0; }
+    .theme-math-status { display: block; font-size: .8em; }
+    .katex-display { overflow: visible; max-width: none; padding: 0; }
+  }
+  .theme-math-inline { display: inline; }
+  .theme-math-inline .theme-math-scroll { display: inline-block; overflow-x: auto; vertical-align: middle; }
+  .theme-math-scroll { max-width: 100%; color: inherit; }
+  .theme-math-scroll:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  .hide-math-scrollbar .theme-math-scroll {
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+  [data-math-source-view] { display: none !important; }
+  .theme-math-source { font-family: monospace; white-space: pre; }
+  .theme-math-inline .theme-math-source { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .theme-math-copy {
+    display: inline-block;
+    cursor: pointer;
+    font: inherit;
+    font-size: .7em;
+    line-height: 1.5;
+    color: inherit;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: .3em;
+    padding: 0 .35em;
+    margin-left: .3em;
+    vertical-align: middle;
+    min-height: 24px;
+    min-width: 24px;
+    opacity: 1;
+    &:hover, &:focus-visible { opacity: 1; }
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  }
+  .theme-math-status { font-size: .8em; }
+  .katex-inline, .katex-block, .math-inline, .math-display, math {
+    color: inherit;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+}
