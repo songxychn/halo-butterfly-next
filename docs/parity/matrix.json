@@ -19068,7 +19068,7 @@
           "src/scss/core/header.scss",
           "tests/mask-header.test.mjs"
         ],
-        "finding": "保留 mask.header 默认开启及无顶图不加遮罩的映射；近期增加导航局部渐隐；文章标题与元信息移到底部，移除独立底板并补全宽柔和渐变（随 mask.header 开关）。alpha.3 默认遮罩范围有人工对比度证据，关闭遮罩的明亮顶图导航/大标题仍有已披露限制。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。"
+        "finding": "保留 mask.header 默认开启及无顶图不加遮罩的映射；近期增加导航局部渐隐；文章标题与元信息移到底部，移除独立底板并补全宽柔和渐变（随 mask.header 开关）。alpha.3 默认遮罩范围有人工对比度证据，关闭遮罩的明亮顶图导航/大标题仍有已披露限制。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。 随后普通合并顶图功能主分支，合并提交 cd2609f 完整重跑 20 项（补全局顶图开关），595 项工程测试通过；见 post-cover-merge.json，原记录保留。"
       },
       "dependencies": [
         "dual-site",
@@ -19116,6 +19116,15 @@
           "commit": "6beb98251e0b2d1b2232cfb26bb89ccb61720d0c",
           "actor": "/root",
           "outcome": "partial: 18 bounded Chromium cases, installed package files and content retention checked; full contract and independent review pending"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-11/post-cover-merge.json",
+          "sha256": "e968e60f590fcd77d5d08ba1497f85a1648476a7bc1acc6ef7e27afda7adf1a3",
+          "date": "2026-10-11T04:59:09.612701+00:00",
+          "commit": "cd2609f27e6a5d411f1fd6387522956e0d8a5b6b",
+          "actor": "/root",
+          "outcome": "partial: merge-commit 595 engineering tests and 20 bounded Chromium cases; full contract and independent review pending"
         }
       ],
       "status": "implemented-unverified"
@@ -30057,7 +30066,7 @@
           "src/html/views/components.html",
           "src/scss/page/post.scss"
         ],
-        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。 2026-10-11：文章日期旁加入可选的 Halo 后台编辑入口（服务端登录门禁 + 客户端官方权限检查）；未授权时无入口，见 docs/POST-EDIT.md。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。"
+        "finding": "postMeta 已集中输出日期/分类/标签/统计与评论计数；关闭顶图移到文章卡片顶部，开启时位于首屏，避免重复；近期补充图片背景对比度。 剩余：完整配置/缺失作者/长文本/元信息平台差异仍需逐项对照；遮罩关闭亮图不属于默认对比度通过范围。 2026-10-11：文章日期旁加入可选的 Halo 后台编辑入口（服务端登录门禁 + 客户端官方权限检查）；未授权时无入口，见 docs/POST-EDIT.md。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。 随后普通合并顶图功能主分支，合并提交 cd2609f 完整重跑 20 项（补全局顶图开关），595 项工程测试通过；见 post-cover-merge.json，原记录保留。"
       },
       "dependencies": [
         "dual-site",
@@ -30113,6 +30122,15 @@
           "commit": "6beb98251e0b2d1b2232cfb26bb89ccb61720d0c",
           "actor": "/root",
           "outcome": "partial: 18 bounded Chromium cases, installed package files and content retention checked; full contract and independent review pending"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-11/post-cover-merge.json",
+          "sha256": "e968e60f590fcd77d5d08ba1497f85a1648476a7bc1acc6ef7e27afda7adf1a3",
+          "date": "2026-10-11T04:59:09.612701+00:00",
+          "commit": "cd2609f27e6a5d411f1fd6387522956e0d8a5b6b",
+          "actor": "/root",
+          "outcome": "partial: merge-commit 595 engineering tests and 20 bounded Chromium cases; full contract and independent review pending"
         }
       ],
       "status": "implemented-unverified"
@@ -41679,7 +41697,7 @@
           "src/scss/core/nav.scss",
           "tests/header-style.test.mjs"
         ],
-        "finding": "页头/导航已有样式适配，近期增加导航渐隐遮罩及可见链接/焦点；文章标题与元信息移到底部，独立底板改为随 mask.header 开关的全宽柔和渐变；默认遮罩 alpha.3 局部检查已记录。关闭遮罩亮图仍不在通过范围，不能声明所有上游配置对照完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。"
+        "finding": "页头/导航已有样式适配，近期增加导航渐隐遮罩及可见链接/焦点；文章标题与元信息移到底部，独立底板改为随 mask.header 开关的全宽柔和渐变；默认遮罩 alpha.3 局部检查已记录。关闭遮罩亮图仍不在通过范围，不能声明所有上游配置对照完成。 剩余：缺固定 Hexo 5.7.0 同状态视觉对照、完整配置组合及对应合同场景；不提升 verified。 2026-10-11 封面调整完成 18 个合成 Chromium 场景，开启遮罩的文章标题/元信息白底对比度保守下界约 4.67:1；旧 alpha.3 底板记录保留原提交身份，导航和遮罩关闭亮图不纳入本次通过范围。见 docs/validation/2026-10-11/post-cover.md。 随后普通合并顶图功能主分支，合并提交 cd2609f 完整重跑 20 项（补全局顶图开关），595 项工程测试通过；见 post-cover-merge.json，原记录保留。"
       },
       "dependencies": [
         "dual-site",
@@ -41726,6 +41744,15 @@
           "commit": "6beb98251e0b2d1b2232cfb26bb89ccb61720d0c",
           "actor": "/root",
           "outcome": "partial: 18 bounded Chromium cases, installed package files and content retention checked; full contract and independent review pending"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-11/post-cover-merge.json",
+          "sha256": "e968e60f590fcd77d5d08ba1497f85a1648476a7bc1acc6ef7e27afda7adf1a3",
+          "date": "2026-10-11T04:59:09.612701+00:00",
+          "commit": "cd2609f27e6a5d411f1fd6387522956e0d8a5b6b",
+          "actor": "/root",
+          "outcome": "partial: merge-commit 595 engineering tests and 20 bounded Chromium cases; full contract and independent review pending"
         }
       ],
       "status": "implemented-unverified"
