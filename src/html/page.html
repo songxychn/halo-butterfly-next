@@ -70,8 +70,8 @@
         </div>
       </div>
       <p class="comment-notice comment-unavailable"
-        th:if="${theme.config.comments?.text != false and ((not haloCommentEnabled or not singlePage.spec.allowComment) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : (not pluginFinder.available('PluginCommentWidget', '>=3.3.2') and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
-        th:text="${(not haloCommentEnabled or not singlePage.spec.allowComment) ? theme.config.comments.closed_notice : theme.config.comments.unavailable_notice}"></p>
+        th:if="${theme.config.comments?.text != false and ((site.comment.enable != true or singlePage.spec.allowComment != true) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : ((not pluginFinder.available('PluginCommentWidget', '>=3.3.2') or not haloCommentEnabled) and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
+        th:text="${(site.comment.enable != true or singlePage.spec.allowComment != true) ? theme.config.comments.closed_notice : theme.config.comments.unavailable_notice}"></p>
     </section>
     <th:block th:replace="~{views/aside::single}"/>
   </th:block>

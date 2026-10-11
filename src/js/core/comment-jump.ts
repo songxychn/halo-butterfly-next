@@ -28,8 +28,14 @@ export function bindCommentJump(root: Document = document) {
     if (win.location.hash !== '#post-comment') win.history.pushState(win.history.state, '', url.pathname + url.search + url.hash);
     focus();
   });
-  win.addEventListener('hashchange', focus);
-  win.addEventListener('popstate', focus);
+  const followNavigation = () => {
+    focus();
+    // History traversal can restore focus/scroll after dispatching popstate.
+    // Reapply after that browser restoration, still guarded by the current hash.
+    win.requestAnimationFrame(focus);
+  };
+  win.addEventListener('hashchange', followNavigation);
+  win.addEventListener('popstate', followNavigation);
   win.addEventListener('load', focus, { once: true });
   focus();
 }

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Synthetic comments only; requires this task's explicitly owned comparison lab."""
 import argparse
-import copy
 import hashlib
 import importlib.util
 import json
@@ -86,9 +85,11 @@ config = client.api(config_path)
 config.setdefault('comments', {}).update({'count': True, 'card_post_count': True})
 client.api(config_path, 'PUT', config)
 for _ in range(60):
-    post = client.api('/apis/content.halo.run/v1alpha1/posts/preview-12')
-    if post.get('status', {}).get('commentsCount', 0) > 0: break
+    post = client.api('/apis/api.content.halo.run/v1alpha1/posts/preview-12')
+    if post.get('stats', {}).get('comment', 0) > 0: break
     time.sleep(.25)
+else:
+    raise RuntimeError('Synthetic public comment statistics did not become ready')
 lab.write_json(runtime / 'comment-enhancements-fixture.json', {'owner': 'halo-butterfly-next-comment-enhancements', 'schema': 1,
     'sourceSha': a.source_sha, 'widget': widget, 'comments': [item[0] for item in defs],
     'config': config, 'systemComment': json.loads(system['data']['comment'])})

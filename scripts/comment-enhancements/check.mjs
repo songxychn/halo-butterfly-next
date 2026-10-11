@@ -83,11 +83,27 @@ async function check(name, fn) {
     report.checks.push({ name, result: "passed", detail: await fn() });
     console.log("PASS", name);
   } catch (e) {
+    let diagnostic;
+    try {
+      diagnostic = await context?.pages()[0]?.evaluate(() => ({
+        url: location.href,
+        activeElement: document.activeElement?.id,
+        hash: location.hash,
+        bound:
+          document.getElementById("post-comment")?.dataset.commentJumpBound,
+        commentTop: document
+          .getElementById("post-comment")
+          ?.getBoundingClientRect().top,
+        scrollY,
+        viewportHeight: innerHeight,
+      }));
+    } catch {}
     report.checks.push({
       name,
       result: "failed",
       error: e.message,
       stack: e.stack?.slice(0, 2500),
+      diagnostic,
     });
     console.log("FAIL", name, e.message.slice(0, 300));
   } finally {
@@ -126,6 +142,9 @@ const configPath =
 const originalConfig = await api(configPath),
   originalSystem = await api(systemPath),
   originalPost = await api(postPath),
+  originalPage = await api(
+    "/apis/content.halo.run/v1alpha1/singlepages/about-preview",
+  ),
   originalPlugin = await api(
     "/apis/plugin.halo.run/v1alpha1/plugins/PluginCommentWidget",
   );
@@ -139,6 +158,14 @@ await writeFile(
   }),
   { mode: 0o600, flag: "wx" },
 );
+function commentHref(subject) {
+  const url = new URL(subject.status.permalink, base);
+  assert.equal(url.origin, base);
+  url.hash = "post-comment";
+  return url.pathname + url.search + url.hash;
+}
+const expectedPostHref = commentHref(originalPost),
+  expectedPageHref = commentHref(originalPage);
 const configured = structuredClone(originalConfig);
 configured.aside = {
   ...configured.aside,
@@ -258,15 +285,9 @@ async function expected(page, n = 3) {
   await loaded(page);
   const links = page.locator(".newest-comment-link");
   assert.equal(await links.count(), n);
-  assert.equal(
-    await links.nth(0).getAttribute("href"),
-    "/about-preview#post-comment",
-  );
+  assert.equal(await links.nth(0).getAttribute("href"), expectedPageHref);
   if (n > 1)
-    assert.equal(
-      await links.nth(1).getAttribute("href"),
-      "/archives/preview-12/#post-comment",
-    );
+    assert.equal(await links.nth(1).getAttribute("href"), expectedPostHref);
   const text = await links.allTextContents();
   assert(!text.join("").match(/不应公开/));
   assert.equal(
@@ -496,6 +517,7 @@ try {
         limit: 1,
         avatar: false,
         storage: 0,
+        sort_order: -1,
       });
       await api(configPath, "PUT", cfg);
       await poll(
@@ -510,12 +532,35 @@ try {
       await expected(p, 1);
       assert.equal(await p.locator(".newest-comment-link img").count(), 0);
       assert.equal(
+        await p.locator("aside > [data-card-order]").first().getAttribute("id"),
+        "card-newest-comments",
+      );
+      assert.equal(
         await p.evaluate((k) => sessionStorage.getItem(k), key),
         null,
       );
       return { limit: 1, avatar: false, storage: 0 };
     });
     await api(configPath, "PUT", configured);
+    await check("api-empty-comments-state", async () => {
+      const p = await fresh(chromium, 1440, "light");
+      await context.route("**/apis/api.halo.run/v1alpha1/comments?**", (r) =>
+        r.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({ items: [], total: 0, page: 1, size: 3 }),
+        }),
+      );
+      await go(p);
+      await loaded(p);
+      assert.equal(await p.locator(".newest-comment-link").count(), 0);
+      assert.equal(
+        await p.locator("[data-comments-status]").textContent(),
+        "暂无评论",
+      );
+      assert.equal(await p.locator("[data-comments-retry]").isVisible(), false);
+      return { emptyApiFixture: true };
+    });
     await check("private-transition-removes-warm-cache", async () => {
       const p = await fresh(chromium, 1440, "light", true);
       await go(p);
@@ -534,9 +579,7 @@ try {
       await loaded(p);
       assert.equal(
         await p
-          .locator(
-            '.newest-comment-link[href="/archives/preview-12/#post-comment"]',
-          )
+          .locator(`.newest-comment-link[href="${expectedPostHref}"]`)
           .count(),
         0,
       );
@@ -576,9 +619,7 @@ try {
       await loaded(p);
       assert(
         !(await p
-          .locator(
-            '.newest-comment-link[href="/archives/preview-12/#post-comment"]',
-          )
+          .locator(`.newest-comment-link[href="${expectedPostHref}"]`)
           .count()),
       );
       await go(p, "/archives/preview-12/");
@@ -622,6 +663,13 @@ try {
     const system = await api(systemPath);
     system.data.comment = originalSystem.data.comment;
     await api(systemPath, "PUT", system);
+    await poll(
+      async () =>
+        (
+          await (await admin.request.get(base + "/about-preview/")).text()
+        ).includes('id="post-comment"'),
+      "Global comments not restored",
+    );
     await check("widget-unavailable", async () => {
       await api(
         "/apis/api.console.halo.run/v1alpha1/plugins/PluginCommentWidget/plugin-state",
