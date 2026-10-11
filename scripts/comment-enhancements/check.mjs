@@ -447,10 +447,19 @@ try {
                   await p.mouse.wheel(0, -10000);
                   await p.waitForFunction(() => scrollY < 5);
                   const heading = p.locator("article.render h2").first();
-                  const delta = await heading.evaluate(
-                    (el) => el.getBoundingClientRect().top - 79,
-                  );
-                  await p.mouse.wheel(0, delta);
+                  // Opposite wheel directions can be coalesced by the engine.
+                  // Check the actual destination and retry a remaining delta.
+                  await poll(async () => {
+                    const delta = await heading.evaluate(
+                      (el) => el.getBoundingClientRect().top - 79,
+                    );
+                    if (delta <= 1) return true;
+                    await p.mouse.wheel(0, delta);
+                    await p.waitForTimeout(200);
+                    return await heading.evaluate(
+                      (el) => el.getBoundingClientRect().top <= 80,
+                    );
+                  }, "Reader wheel did not reach chapter");
                   await p.waitForFunction(
                     () => location.hash !== "#post-comment",
                   );
