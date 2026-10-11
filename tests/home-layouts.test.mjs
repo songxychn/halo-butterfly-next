@@ -10,7 +10,7 @@ const defaults = defaultsFromSettings(settings);
 test('seven explicit layouts coexist with the legacy fallback without overwriting a saved tile selection', () => {
   const index = settings.spec.forms.find(form => form.group === 'index');
   const layout = index.formSchema.find(field => field.name === 'index_layout');
-  assert.deepEqual(layout.options.map(option => option.value), ['1', '2', '3', '4', '5', '6', '7']);
+  assert.deepEqual(layout.options.map(option => option.value), ['', '1', '2', '3', '4', '5', '6', '7']);
   assert.equal(defaults.index.index_layout, '');
   assert.equal(defaults.index.post_layout, 'list');
   for (const from of ['2.0.5', '2.0.7']) {

@@ -399,3 +399,16 @@
     padding: 35px 30px;
   }
 }
+
+// Stylus emits the upstream mobile rules after its layout-specific declarations.
+// Keep the same cascade for every actual Halo homepage layout.
+@media screen and (max-width: 768px) {
+  #Butterfly .essay.home-layout > .item > .info {
+    padding: 20px 20px 30px;
+    width: 100%;
+  }
+
+  #Butterfly .essay.home-layout > .item.no-cover > .info {
+    padding: 30px 20px;
+  }
+}

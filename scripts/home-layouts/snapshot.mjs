@@ -49,6 +49,10 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       const box = img.getBoundingClientRect();
       return box.bottom <= 0 || box.top >= innerHeight || img.complete && img.naturalWidth > 0;
     }), selector, { timeout: 15000 });
+    await page.waitForFunction(() => document.getAnimations().every(animation => {
+      const timing = animation.effect?.getComputedTiming();
+      return timing?.iterations === Infinity || animation.playState === 'finished' || animation.playState === 'idle';
+    }), null, { timeout: 15000 });
     await page.waitForTimeout(300); // Real card/loading transitions and ResizeObserver layout.
     metrics = await page.locator(selector).evaluate((root, halo) => {
       const rect = element => { const box = element.getBoundingClientRect(); return { x: box.x, y: box.y, width: box.width, height: box.height }; };
@@ -73,12 +77,21 @@ async function inspect(browser, target, viewport, mode, label, route = '/') {
       assert(metrics.masonryScript === [6, 7].includes(manifest.expectedLayout), 'Conditional masonry script differs');
       assert(metrics.cards.every(card => !!card.excerpt === !manifest.noExcerpt), 'Excerpt compatibility differs');
       assert(metrics.cards.every(card => !!card.cover === !manifest.noCover), 'Cover switch differs');
+      assert(metrics.cards.every(card => new URL(card.href).origin === target), 'Article link left the local lab');
+      if ([6, 7].includes(manifest.expectedLayout)) assert(metrics.cards.every(card => card.style.position === 'absolute' && card.style.transform !== 'none'), 'Masonry engine did not position cards');
     }
     for (let i = 0; i < metrics.cards.length; i++) for (let j = i + 1; j < metrics.cards.length; j++) {
       const a = metrics.cards[i].rect, b = metrics.cards[j].rect;
       assert(!(Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x) > 1 && Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y) > 1), `Cards ${i}/${j} overlap`);
     }
     await page.screenshot({ path: path.join(manifest.output, `${label}.png`) });
+    if (target === manifest.halo && manifest.name === 'layout-6' && label === 'chromium-desktop-light-halo' && !manifest.baseline) {
+      const href = metrics.cards[0].href;
+      await page.locator('.essay > .item .title').first().click();
+      await page.waitForURL(href, { timeout: 15000 });
+      await page.goBack({ waitUntil: 'load', timeout: 30000 });
+      await page.waitForFunction(() => [...document.querySelectorAll('.home-layout.masonry > .item')].every(card => getComputedStyle(card).position === 'absolute'), null, { timeout: 15000 });
+    }
     assert(!errors.length, `JavaScript errors: ${errors.join('; ')}`);
   } catch (error) { failures.push(String(error.message)); }
   if (requests.size) failures.push(`Pending before close: ${[...requests].map(r => r.url()).join(', ')}`);
@@ -100,11 +113,17 @@ for (const engine of manifest.engines) {
         if (halo.metrics?.cards.length && hexo.metrics?.cards.length) {
           try {
             const a = halo.metrics.cards[0], b = hexo.metrics.cards[0];
+            assert(a.info.style.position === b.info.style.position, 'Upstream information positioning differs');
+            assert(a.info.style.padding === b.info.style.padding, `Upstream padding ${b.info.style.padding}, Halo ${a.info.style.padding}`);
+            for (let index = 0; index < Math.min(halo.metrics.cards.length, hexo.metrics.cards.length); index++) {
+              const left = halo.metrics.cards[index], right = hexo.metrics.cards[index];
+              assert(left.title === right.title, `Article order differs at ${index}`);
+              if (left.cover && right.cover) assert(left.cover.style.order === right.cover.style.order, `Cover order differs at ${index}`);
+            }
+            if ([6, 7].includes(manifest.expectedLayout)) assert(Math.abs(a.rect.width / halo.metrics.root.width - b.rect.width / hexo.metrics.root.width) <= .01, 'Upstream masonry card proportion differs');
             if (a.cover && b.cover) {
               assert(Math.abs(a.cover.rect.height - b.cover.rect.height) <= 1, `Upstream cover height ${b.cover.rect.height}, Halo ${a.cover.rect.height}`);
               assert(Math.abs(a.cover.rect.width / a.rect.width - b.cover.rect.width / b.rect.width) <= .01, 'Upstream cover proportion differs');
-              assert(a.info.style.position === b.info.style.position, 'Upstream information positioning differs');
-              assert(a.info.style.padding === b.info.style.padding, `Upstream padding ${b.info.style.padding}, Halo ${a.info.style.padding}`);
               assert(a.titleStyle.fontSize === b.titleStyle.fontSize && a.titleStyle.lineHeight === b.titleStyle.lineHeight, 'Upstream title typography differs');
               if ([5, 7].includes(manifest.expectedLayout)) assert(a.cover.overlay.background === b.cover.overlay.background && a.cover.overlay.filter === b.cover.overlay.filter, 'Upstream overlay differs');
             }
@@ -131,7 +150,8 @@ for (const engine of manifest.engines) {
       }
     }
   } finally { await browser.close(); }
+  for (const observation of observations.filter(item => item.engine === engine)) observation.browserVersion = browser.version();
 }
-await writeFile(path.join(manifest.output, 'report.json'), JSON.stringify({ ...manifest, observations }, null, 2) + '\n', { flag: 'wx' });
+await writeFile(path.join(manifest.output, 'report.json'), JSON.stringify({ ...manifest, platform: process.platform, arch: process.arch, bunVersion: Bun.version, observations }, null, 2) + '\n', { flag: 'wx' });
 console.log(JSON.stringify({ case: manifest.name, observations: observations.length, failures: observations.filter(x => x.result !== 'passed').map(x => ({ engine: x.engine, target: x.target, viewport: x.viewport, mode: x.mode, failures: x.failures })) }));
 if (observations.some(x => x.result !== 'passed')) process.exitCode = 1;
