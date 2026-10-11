@@ -10,23 +10,14 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <th:block th:with="coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link : '')}">
-      <link rel="preload" as="image" fetchpriority="high"
-            th:if="${theme.config.post.enable_above and not #strings.isEmpty(coverSrc)}"
-            th:href="${coverSrc}">
-    </th:block>
-    <style
-      id="pageStyle"
-      xmlns:th="https://www.thymeleaf.org"
-      th:inline="css"
-    >
-
-    </style>
-    <script id="pageScript" th:inline="javascript" th:with="above_background = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (theme.config.loading.img.random_enable ? theme.config.loading.img.random_link  : ''  )}, tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}">
+    <link rel="preload" as="image" fetchpriority="high"
+          th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
+          th:href="${aboveBackground}">
+    <script id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         // 第一屏
-        enable_above: /*[[${theme.config.post.enable_above}]]*/ '',
-        above_background: /*[[${above_background}]]*/ '',
+        enable_above: /*[[${aboveEnabled}]]*/ '',
+        above_background: /*[[${aboveBackground}]]*/ '',
         // 渲染
         enable_h_icon: /*[[${theme.config.render.enable_h_icon}]]*/ true,
         // 目录：单篇显式 true / false 优先，否则继承全局
@@ -48,12 +39,12 @@
   </th:block>
 
   <th:block th:fragment="header">
-    <header th:class="${not theme.config.post.enable_above ? 'header dp' : 'header'}">
+    <header th:class="${not aboveEnabled ? 'header dp' : 'header'}">
       <!--/* 导航栏 */-->
       <th:block th:replace="~{views/nav}"/>
 
       <!--第一屏：标题 + 元信息；关闭第一屏时元信息改到文章卡片顶部，避免两处重复 -->
-      <section class="above" th:if="${theme.config.post.enable_above}">
+      <section class="above" th:if="${aboveEnabled}">
         <div class="above-info" th:classappend="${theme.config.post.post_meta?.position == 'center' ? ' center' : ' left'}">
           <h1 class="post-title" th:text="${post.spec.title}"></h1>
           <th:block th:replace="~{views/components :: postMeta}"/>
@@ -68,7 +59,7 @@
       <div
         id="post-info"
         class="post-info"
-        th:if="${not theme.config.post.enable_above}"
+        th:if="${not aboveEnabled}"
         th:classappend="${theme.config.post.post_meta?.position == 'center' ? ' center' : ' left'}"
       >
         <h1 class="post-title" th:text="${post.spec.title}"></h1>

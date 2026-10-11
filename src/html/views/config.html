@@ -2,6 +2,7 @@
 <script id="baseScript" th:inline="javascript">
   window.MainApp = {
     conf: {
+      above_background_fallback: /*[[${theme.config.image?.default_top_img ?: ''}]]*/ '',
       restore_aside: /*[[${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'}]]*/ true,
       style_mode: /*[[${theme.config.style.mode}]]*/ null,
       darkmode_autoChangeMode: /*[[${theme.config.darkmode?.autoChangeMode}]]*/ false,
