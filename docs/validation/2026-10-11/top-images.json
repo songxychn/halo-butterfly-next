@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-top-image-validation",
+  "testedAt": "2026-10-11T12:28:12+0800",
+  "sourceSha": "073789ba14335dcae36f0579ef8e4a312bc6e531",
+  "baseSha": "350c379e6f09ae945144df4d0377e94419afec70",
+  "artifactSha256": "3ef32b7cf69aff42a24eb3260722bba82328c151e560ee99570f8898f006a1a3",
+  "artifactVersion": "0.1.0-alpha.4",
+  "artifactStatus": "unreleased development build; not the published alpha.4 artifact",
+  "installedFiles": 129,
+  "installedFileMismatches": 0,
+  "environment": {
+    "halo": "2.26.1",
+    "java": "Corretto 25.0.0.36.2",
+    "os": "macOS 26.6.2 arm64",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "viewports": [
+      "1440x1000",
+      "390x844"
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ]
+  },
+  "fullRun": {
+    "passed": 104,
+    "total": 104,
+    "restored": true,
+    "runnerSha256": "f6157f63492fba4db3e10976666220a8891c5c215480f397df9fad4d2d43caaf"
+  },
+  "supplementalRun": {
+    "passed": 12,
+    "total": 12,
+    "restored": true,
+    "runnerSha256": "7acc4af1cb2edd38f1796d0b25e26ae415460a5daa6f68bad53f11f829493408",
+    "purpose": "explicit native-category fixture setup and single post-metadata assertion; bounded re-read only for HTTP 409"
+  },
+  "commands": [
+    "bun run verify",
+    "LAB_RUNTIME=<owned-lab> HALO_PORT=18117 HEXO_PORT=14117 python3 scripts/images/validate.py",
+    "LAB_RUNTIME=<owned-lab> HALO_PORT=18117 HEXO_PORT=14117 python3 scripts/images/validate.py --only native-category native-post post-hidden"
+  ],
+  "scenarios": [
+    {
+      "name": "native-category",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "native-tag",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "native-post",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "post-default",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "single-default",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "post-empty-legacy",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "single-home-legacy",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "post-random-legacy",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "home-default",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "broken-cover-fallback",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "broken-both-pure-color",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "post-hidden",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "post-show-override",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "post-inherit-disabled",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "single-hidden",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "single-show-override",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-archives",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-categories",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-categories-development",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-tags",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-tags-butterfly",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-archives-preview-1",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-about-preview",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "global-off-string",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "legacy-missing-group",
+      "passed": 4,
+      "total": 4
+    }
+  ],
+  "postMetadataCounts": [
+    1
+  ],
+  "screenshots": [
+    {
+      "name": "before-category.png",
+      "sha256": "8343e1572519b78ee111588ea056ed617c70e6934c7ac9ba191397b5bdfad1dd",
+      "storage": "local ignored runtime; synthetic content only"
+    },
+    {
+      "name": "after-category.png",
+      "sha256": "6ee2f285c9423c9b06ac011fc8929387ad6afba989919374c5ac33e74da2c3ba",
+      "storage": "local ignored runtime; synthetic content only"
+    },
+    {
+      "name": "before-post.png",
+      "sha256": "c652509a0ae70022a77755c8e3e3c7311da795cea64de370249db5fb6f553d8a",
+      "storage": "local ignored runtime; synthetic content only"
+    },
+    {
+      "name": "after-post.png",
+      "sha256": "c652509a0ae70022a77755c8e3e3c7311da795cea64de370249db5fb6f553d8a",
+      "storage": "local ignored runtime; synthetic content only"
+    },
+    {
+      "name": "post-hidden-390-light.png",
+      "sha256": "97e6cc5a84f53708fef72a3c2305afddac5d66d8a0d31413923e9a85b65b4888",
+      "storage": "local ignored runtime; synthetic content only"
+    },
+    {
+      "name": "post-hidden-1440-dark.png",
+      "sha256": "70276ac5c3d94c3b81b59c4ac98fef0932b5c7fe5cfc804c043a47b5c18e504c",
+      "storage": "local ignored runtime; synthetic content only"
+    }
+  ],
+  "retainedFirstFailures": [
+    "Initial Hexo clean command exited 2 before shared fixture assets were copied; Halo-only initialization followed. Incomplete-fixture screenshots retained locally, then assets copied and baseline recaptured with zero image errors.",
+    "First verify failed the frozen performance-default settings hash; fixture updated for the two new default settings, then all 588 tests and package check passed.",
+    "First supplemental run completed 12 page assertions and restored configuration but exited on content PUT HTTP 409. Log/report retained; only preparation/restore got bounded 409 re-read, no product assertions removed."
+  ],
+  "limitations": [
+    "Only bounded author validation; independent review remains pending.",
+    "No full fixed Hexo 5.7.0 dual-site acceptance, stable Safari, physical devices, screen reader or full performance contract.",
+    "Existing #338 failures are retained; no item promoted to verified.",
+    "Halo 2.20.2 native cover fields confirmed in official source only; runtime acceptance here is Halo 2.26.1."
+  ]
+}

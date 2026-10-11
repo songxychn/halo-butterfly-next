@@ -34,3 +34,5 @@
 回退旧包后，旧包忽略新分组和元数据，文章、单页及分类标签数据无需迁移。请保留升级前的主题包与配置。
 
 固定上游依据为 Butterfly 5.7.0 `layout/includes/header/index.pug`。文章原生封面复用和旧 Halo 行为按本项目适配保留，不把 Hexo 的独立 `page.top_img` 图片字段搬入 Halo。完整双站、Safari、真机及 1.0 合同仍须另外验收。
+
+在独立合成实验室安装候选后，可用 `LAB_RUNTIME=/绝对路径/实验室 HALO_PORT=实验室端口 HEXO_PORT=参考端口 python3 scripts/images/validate.py` 重跑限定场景。需要 agent-browser；脚本只启动自己的无头会话，先核验实验室所有权，保存原始配置，最后恢复配置和内容覆盖字段。结果写在实验室上级的 `top-image-validation/`，凭据及原始配置不入库。`--only native-category native-post post-hidden` 可复核这三组场景；没有执行任何匹配场景时返回失败。

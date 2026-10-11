@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-top-image-reconciliation",
+  "sourceSha": "073789ba14335dcae36f0579ef8e4a312bc6e531",
+  "summary": {
+    "kind": "bounded-top-image-validation",
+    "path": "docs/validation/2026-10-11/top-images.json",
+    "sha256": "2a77cdb07cd01cacacfca419a30f2de4432ba5aa26b84e2bfa25442d2b428117",
+    "date": "2026-10-11T12:28:12+0800",
+    "commit": "073789ba14335dcae36f0579ef8e4a312bc6e531",
+    "actor": "/root",
+    "outcome": "partial: 104 main + 12 supplemental Chromium cases passed; full contract and independent review remain open"
+  },
+  "items": [
+    {
+      "id": "config:disable_top_img",
+      "previousStatus": "gap",
+      "previousFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "status": "implemented-unverified",
+      "finding": "新增 image.disable_top_img，默认 false；全局关闭优先于页面类型及文章/单页三态，保留内容区标题和唯一文章元信息。不影响列表封面。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:default_top_img",
+      "previousStatus": "gap",
+      "previousFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "status": "implemented-unverified",
+      "finding": "新增 image.default_top_img，默认空；文章/单页原生封面优先，无封面时默认顶图优先于旧回退；其他页面背景为空时使用默认图。坏顶图尝试默认图，去重后均失败时保留纯色和标题。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:index_img",
+      "previousStatus": "implemented-unverified",
+      "previousFinding": "首页背景在实际配置之后通过 CSSOM 提前设置，启用且 URL 非空时输出预加载；限定照片夹具与空/禁用配置检查通过。上游值类型、全局/逐页优先级及全部合同场景仍待对照。",
+      "status": "implemented-unverified",
+      "finding": "首页背景在实际配置之后通过 CSSOM 提前设置，启用且 URL 非空时输出预加载；限定照片夹具与空/禁用配置检查通过。上游值类型、全局/逐页优先级及全部合同场景仍待对照。 2026-10-11 限定实现：统一选图、预加载与全局关闭；首页背景可清空继承默认顶图；未配置新选项时保留原图及高度。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:archive_img",
+      "previousStatus": "implemented-unverified",
+      "previousFinding": "已有归档背景设置，待对照。",
+      "status": "implemented-unverified",
+      "finding": "已有归档背景设置，待对照。 2026-10-11 限定实现：归档背景可清空继承默认顶图，统一遵守全局关闭并保留内容区标题。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:tag_img",
+      "previousStatus": "implemented-unverified",
+      "previousFinding": "已有标签相关背景设置，须核对 tag 与 tags 独立语义。",
+      "status": "implemented-unverified",
+      "finding": "已有标签相关背景设置，须核对 tag 与 tags 独立语义。 2026-10-11 限定实现：标签总览继续使用类型背景，详情优先原生标签封面，清空类型背景时使用默认顶图。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:tag_per_img",
+      "previousStatus": "gap",
+      "previousFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "status": "implemented-unverified",
+      "finding": "以 Halo 原生 tag.spec.cover 表达每个标签的顶图，详情页优先于 tags.above_background；总览仍使用类型背景。未新增图片注解。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:category_img",
+      "previousStatus": "implemented-unverified",
+      "previousFinding": "已有分类相关背景设置，须核对 category 与 categories 独立语义。",
+      "status": "implemented-unverified",
+      "finding": "已有分类相关背景设置，须核对 category 与 categories 独立语义。 2026-10-11 限定实现：分类总览继续使用类型背景，详情优先原生分类封面，清空类型背景时使用默认顶图。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "config:category_per_img",
+      "previousStatus": "gap",
+      "previousFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "status": "implemented-unverified",
+      "finding": "以 Halo 原生 category.spec.cover 表达每个分类的顶图，详情页优先于 categories.above_background；总览仍使用类型背景。未新增图片注解。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "page-data:top_img",
+      "previousStatus": "mapping-required",
+      "previousFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "status": "mapping-required",
+      "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。 2026-10-11 限定实现：维护者确认文章顶图继续复用原生封面，不新增独立顶图字段；文章/单页 top_img_enable 三态只控制显示。原生封面、默认图与旧回退已接入，未声明独立 URL front-matter 全域等价。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "page:category",
+      "previousStatus": "implemented-unverified",
+      "previousFinding": "已有相关模板或行为，尚未进行固定双站对照。",
+      "status": "implemented-unverified",
+      "finding": "已有相关模板或行为，尚未进行固定双站对照。 2026-10-11 限定实现：本批详情读取原生分类封面并显示分类名称，全局关闭时内容区保留标题；限定 Chromium 配置组合通过。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    },
+    {
+      "id": "page:tag",
+      "previousStatus": "verification-failed",
+      "previousFinding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：firefox /tags/butterfly/ 390px dark（pending-resources）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。",
+      "status": "verification-failed",
+      "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：firefox /tags/butterfly/ 390px dark（pending-resources）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。 2026-10-11 限定实现：本批详情读取原生标签封面并显示标签名称，全局关闭时内容区保留标题；限定 Chromium 配置组合通过，不解除既有 Linux 资源失败。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+    }
+  ],
+  "verifiedCount": 0,
+  "statusCounts": {
+    "implemented-unverified": 291,
+    "gap": 347,
+    "blocked": 12,
+    "mapping-required": 107,
+    "not-applicable": 135,
+    "verification-failed": 5
+  },
+  "policy": "Four gap entries become implemented-unverified. Existing verification-failed and mapping-required states remain; no full 1.0 acceptance claimed."
+}
