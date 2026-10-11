@@ -12,8 +12,8 @@
     <script id="pageScript" th:inline="javascript">
       Object.assign(window.MainApp.conf, {
         //第一屏
-        enable_above: /*[[${theme.config.tags.enable_above}]]*/ '',
-        above_background: /*[[${theme.config.tags.above_background}]]*/ '',
+        enable_above: /*[[${aboveEnabled}]]*/ '',
+        above_background: /*[[${aboveBackground}]]*/ '',
       });
     </script>
   </th:block>
@@ -21,12 +21,12 @@
 
   <!--/* header */-->
   <th:block th:fragment="header">
-    <header th:class="${not theme.config.tags.enable_above ? 'header dp' : 'header'}">
+    <header th:class="${not aboveEnabled ? 'header dp' : 'header'}">
       <!--/* 导航栏 */-->
       <th:block th:replace="~{views/nav}"/>
 
       <!--第一屏内容-->
-      <section class="above" th:if="${theme.config.tags.enable_above}">
+      <section class="above" th:if="${aboveEnabled}">
         <div class="above-info">
           <h1 class="above-title">标签</h1>
         </div>
@@ -38,6 +38,7 @@
   <!--/* 內容 */-->
   <th:block th:fragment="main">
     <section class="content card" th:with="noData = ${not #lists.isEmpty(tags)}">
+      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'标签'}"></h1>
       <th:block th:if="${noData}">
         <div class="chart"></div>
 

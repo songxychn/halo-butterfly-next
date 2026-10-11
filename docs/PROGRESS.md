@@ -6,6 +6,12 @@
 
 [使用和边界](COMMENT-ENHANCEMENTS.md)记录配置与冷加载成本；10 条对应矩阵改为 implemented-unverified，整项评论数据、组件懒挂载和 Moment 主体仍保留缺口，0 条提升 verified。真实合成站、工程检查和提交/包身份在本轮验证材料中记录；独立审查及完整双站合同仍须另行完成。未发布主题或部署线上。
 
+## 2026-10-11：顶图开关、默认回退与原生分类标签封面
+
+[#385](https://github.com/songxychn/halo-butterfly-next/issues/385) 保留文章顶图复用原生封面，新增全局关闭、默认顶图及文章/单页显示三态；分类/标签详情消费原生封面并显示实际名称。关闭顶图保留内容区标题，坏图尝试默认图后保留纯色。未配置新选项时保留旧行为，已有分类/标签封面优先显示的变化另在迁移文档明示。
+
+[限定验收](validation/2026-10-11/top-images.md)绑定实现提交和 ZIP：588 项测试、129 个安装文件比对、真实 Halo 2.26.1 无头 Chromium 桌面/手机亮暗 104 项及补充 12 项通过，配置恢复完成。原参考站失败和补充准备 HTTP 409 保留；独立审查、完整双站和 1.0 门禁仍待完成。同步 11 条矩阵，4 条 gap 改为 implemented-unverified，0 条 verified；既有资源失败和待映射状态保留。未发布或部署。
+
 ## 2026-10-09：alpha.4 已发布并同步 demo
 
 [v0.1.0-alpha.4](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4) 已公开，发行源码 `307582a`、ZIP `389f78ad`；真实 Halo 安装、alpha.3 升级回退、配置/正文保留、资源许可与重建证据经独立审查，583 项工程检查通过。四份公开附件回下载校验，demo 当前容器健康，SearchWidget 1.8.0；公网 24 页、70 个主题 CSS/JS 和 14 张照片核验通过，旧容器与数据保留供回退。
