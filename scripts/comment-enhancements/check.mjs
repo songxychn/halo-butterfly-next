@@ -440,6 +440,12 @@ try {
                   () => document.activeElement?.id === "comment-title",
                 );
                 if (route.includes("archives")) {
+                  // Leave the comment region completely before checking that
+                  // reader input resumes chapter tracking. A single relative
+                  // wheel can leave comments visible after late widget layout.
+                  await p.mouse.move(100, 200);
+                  await p.mouse.wheel(0, -10000);
+                  await p.waitForFunction(() => scrollY < 5);
                   const heading = p.locator("article.render h2").first();
                   const delta = await heading.evaluate(
                     (el) => el.getBoundingClientRect().top - 79,
