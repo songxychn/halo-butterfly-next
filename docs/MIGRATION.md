@@ -43,6 +43,8 @@ bun run migrate --input old.json --from 2.0.5 --output next.json
 
 没有对应项的选项会标记 `unsupported`；类型不符标记 `type-mismatch`，需要手动解析的内容标记 `manual-review`。例如原版打赏、过期提示、部分颜色/宽度、自定义标题没有直接对应项。`needsReview: true` 时必须逐项检查，不能将输出视为无损迁移。即使报告没有这些项，也要检查外链、图标、自定义 HTML 和默认值变化。
 
+评论增强新增 `aside.card_newest_comments`，缺字段或旧配置时默认关闭；`comments.jump` 默认开启，仅在文章/单页实际挂载官方评论时显示原生跳转链接。`comments.text` 默认开启，三种提示文案默认留空、按纯文本显示。缓存使用当前标签页的 sessionStorage，0 分钟关闭缓存；回退旧包后新增字段不再使用，评论数据由 Halo 保存。详见[评论增强](COMMENT-ENHANCEMENTS.md)。
+
 ## 切换与回退
 
 在 Next 中核对首页、文章、自定义页面、菜单和手机视图，检查原主题保留的配置仍可读取。随后在主题管理中切换。需要回退时重新启用原主题；不要把 Next 配置写到原主题的 ConfigMap。当前迁移仅覆盖 2.0.5 与 2.0.7 的配置结构，不处理文章内容或 Hexo 配置。

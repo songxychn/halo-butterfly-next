@@ -108,6 +108,10 @@ export function bindArticleAnchors(article: HTMLElement, options: AnchorOptions 
     frame = win.requestAnimationFrame(() => {
       frame = 0;
       if (navigating) return;
+      // Once a comment link is followed, chapter tracking must not replace its
+      // destination with the last article heading while the comments are read.
+      const comments = doc.getElementById('post-comment');
+      if (win.location.hash === '#post-comment' && comments && comments.getBoundingClientRect().top <= offset + 11) return;
       let current: HTMLElement | undefined;
       for (const heading of headings) {
         if (heading.getBoundingClientRect().top > offset + 1) break;

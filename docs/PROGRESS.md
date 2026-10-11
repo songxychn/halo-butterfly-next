@@ -1,5 +1,11 @@
 # 持续对齐进度
 
+## 2026-10-11：评论增强首批
+
+[#386](https://github.com/songxychn/halo-butterfly-next/issues/386) 补充默认关闭的最新评论侧栏、可配置纯文本提示，以及文章/单页的原生评论跳转。公开内容清单与匿名 API 按评论时间汇总，旧文章新评论不会被发布时间过滤；当前标签页缓存、重试、键盘焦点及工具栏排序一起处理。
+
+[使用和边界](COMMENT-ENHANCEMENTS.md)记录配置与冷加载成本；10 条对应矩阵改为 implemented-unverified，整项评论数据、组件懒挂载和 Moment 主体仍保留缺口，0 条提升 verified。真实合成站、工程检查和提交/包身份在本轮验证材料中记录；独立审查及完整双站合同仍须另行完成。未发布主题或部署线上。
+
 ## 2026-10-09：alpha.4 已发布并同步 demo
 
 [v0.1.0-alpha.4](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4) 已公开，发行源码 `307582a`、ZIP `389f78ad`；真实 Halo 安装、alpha.3 升级回退、配置/正文保留、资源许可与重建证据经独立审查，583 项工程检查通过。四份公开附件回下载校验，demo 当前容器健康，SearchWidget 1.8.0；公网 24 页、70 个主题 CSS/JS 和 14 张照片核验通过，旧容器与数据保留供回退。

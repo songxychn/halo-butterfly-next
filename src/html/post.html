@@ -88,14 +88,16 @@
 
       <div
         id="post-comment"
+        role="region" aria-labelledby="comment-title"
         th:if="${pluginFinder.available('PluginCommentWidget', '>=3.3.2') && haloCommentEnabled && post.spec.allowComment}"
       >
         <div class="comment-head">
-          <div class="comment-headline">
+          <h2 class="comment-headline" id="comment-title" tabindex="-1">
             <i class="fa-solid fa-comments fa-fw" aria-hidden="true"></i>
             <span th:text="'评论'"></span>
-          </div>
+          </h2>
         </div>
+        <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
           <div>
             <halo:comment
@@ -106,6 +108,9 @@
           </div>
         </div>
       </div>
+      <p class="comment-notice comment-unavailable"
+        th:if="${theme.config.comments?.text != false and ((not haloCommentEnabled or not post.spec.allowComment) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : (not pluginFinder.available('PluginCommentWidget', '>=3.3.2') and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
+        th:text="${(not haloCommentEnabled or not post.spec.allowComment) ? theme.config.comments.closed_notice : theme.config.comments.unavailable_notice}"></p>
     </section>
     <th:block th:replace="~{views/aside::post}"/>
   </th:block>

@@ -212,7 +212,7 @@
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
        距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
        translate.enable 默认 false。darkmode.enable/button 默认 true。autoChangeMode 默认 false。
-       item_order 仅移动已启用的按钮；chat/comment 暂无接入。 */-->
+       item_order 仅移动已启用的按钮；chat 暂无接入。comment 只在实际评论挂载页提供。 */-->
   <div
     id="rightside"
     class="side-btn"
@@ -222,7 +222,8 @@
       darkBtnOn = ${theme.config.darkmode?.enable != false and theme.config.darkmode?.enable != 'false' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
       percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
       readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
-      translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'}
+      translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'},
+      commentOn = ${theme.config.comments?.jump != false and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and (page == 'post' ? post.spec.allowComment : (page == 'single' ? singlePage.spec.allowComment : false))}
     "
   >
     <div id="rightside-config-hide" inert>
@@ -263,6 +264,9 @@
       </button>
     </div>
     <div id="rightside-config-show">
+      <a id="jump-comment" class="button" href="#post-comment" title="跳到评论" aria-label="跳到评论" th:if="${commentOn}">
+        <i class="fas fa-comments" aria-hidden="true"></i>
+      </a>
       <button
         id="rightside-config"
         class="button"
