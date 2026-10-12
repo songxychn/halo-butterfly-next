@@ -6,6 +6,16 @@ const TTL = 5 * 60 * 1000;
 type RequestJson = (url: string) => Promise<unknown>;
 interface PostList { items: {metadata: {name: string}}[]; total: number; hasNext: boolean }
 
+/** Provider-specific IDs exist only when a Busuanzi counter is actually rendered. */
+export function initializeVisitCounters(root = document) {
+  if (!root.querySelector('#busuanzi_value_page_pv, #busuanzi_value_site_pv, #busuanzi_value_site_uv') || root.querySelector('script[data-visit-counter]')) return;
+  const script = root.createElement('script');
+  script.dataset.visitCounter = 'busuanzi';
+  script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+  script.async = true;
+  root.head.append(script);
+}
+
 /** Read only the anonymous, published Post API. */
 export async function countPublishedWords(requestJson: RequestJson) {
   const names = new Set<string>();

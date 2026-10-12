@@ -33,6 +33,7 @@ try {
   if(preset==='off') {
     assert.equal(meta.word,undefined);assert.equal(meta.share,undefined);assert.equal(meta.translate,false);
     assert.equal(evaluate("document.querySelectorAll('[data-site-wordcount],#busuanzi_value_site_pv,#busuanzi_value_site_uv').length"),0);
+    assert.equal(evaluate("document.querySelectorAll('script[data-visit-counter],script[src*=addtoany],script[src*=social-share]').length"),0);
     report.checks.push('disabled settings remove wordcount/share/translation/statistic nodes');
   } else {
     const response=await fetch(new URL('/apis/api.content.halo.run/v1alpha1/posts/reading-sharing-fixture',target));
@@ -65,6 +66,7 @@ try {
       assert.equal(evaluate("document.querySelectorAll('[data-share-provider] a').length"),4);
       report.checks.push('blocked AddToAny keeps service links and manual copy fallback');
     } else if(preset==='busuanzi') {
+      assert.equal(evaluate("document.querySelectorAll('script[data-visit-counter]').length"),1);
       assert.equal(evaluate("document.querySelectorAll('#busuanzi_value_page_pv').length"),1);
       assert.equal(evaluate("document.getElementById('busuanzi_value_page_pv').textContent"),'暂不可用');
       report.checks.push('explicit Busuanzi emits PV/UV nodes; blocked service leaves unavailable text');
