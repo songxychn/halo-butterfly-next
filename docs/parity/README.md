@@ -4,6 +4,8 @@
 
 最近一次[功能矩阵与近期成果对账（2026-10-05）](RECONCILIATION-2026-10-05.md)核对 35 条记录，纠正 10 条状态：5 条已有实现转为待验收，5 类页面记录最新 Linux 验证失败，并补齐阅读配置等局部证据。`verified` 仍为 0。机器可读逐项差异及剩余验收见 [reconciliation-2026-10-05.json](reconciliation-2026-10-05.json)；此前 [2026-09-24 对账](RECONCILIATION-2026-09-24.md)作为历史记录保留。本轮没有重新审计全部 897 条，`gap` 可能包含部分实现，应结合 `halo.finding` 判断缺口，不能简单当作完全没有开发。
 
+2026-10-13 [导航与加载限定实现](../NAVIGATION-LOADING.md)更新 12 项配置为 `implemented-unverified`，同步记录列表 PJAX、图片配置及清理协议。文章/插件 PJAX 和任意作者 HTML 图片过滤器仍保留 `gap`；[限定验证](../validation/2026-10-13/navigation-loading.md)不替代 1.0 完整合同。
+
 ## 文件与覆盖边界
 
 | 文件 | 职责 |

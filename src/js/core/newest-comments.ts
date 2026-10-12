@@ -1,3 +1,4 @@
+import { onPageCleanup } from './page-lifecycle.ts';
 /** Halo public comments, merged across the public Post/SinglePage inventory.
  * The public API requires an exact subject. Never use console APIs or cookies.
  */
@@ -96,6 +97,7 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
   const cache = minutes > 0 ? readCommentCache(options.storage ?? null, subjects, limit, now, options.origin) : new Map<string, CacheEntry>();
   const request = options.fetch ?? fetch;
   const controller = new AbortController();
+  onPageCleanup(() => controller.abort());
   const items: RecentComment[] = [];
   let cursor = 0;
   try {
@@ -212,4 +214,5 @@ export function initializeNewestComments(root: Document = document) {
     if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); void load(); }
   }, { rootMargin: '200px' });
   observer.observe(card);
+  onPageCleanup(() => observer.disconnect());
 }
