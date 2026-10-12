@@ -1,6 +1,6 @@
 # 第三方接入与资源配置
 
-本批以 Hexo Butterfly 5.7.0 固定源码为参考，跟踪 [#397](https://github.com/songxychn/halo-butterfly-next/issues/397)。分析、聊天和 AdSense 默认关闭；填写公开 ID 或启用服务后才加载独立的 `integrations.min.js`。管理员配置的广告 HTML 独立显示，无需启用分析服务。
+本批以 Hexo Butterfly 5.7.0 固定源码为参考，跟踪 [#397](https://github.com/songxychn/halo-butterfly-next/issues/397)，实现见 [PR #402](https://github.com/songxychn/halo-butterfly-next/pull/402)。分析、聊天和 AdSense 默认关闭；填写公开 ID 或启用服务后才加载独立的 `integrations.min.js`。管理员配置的广告 HTML 独立显示，无需启用分析服务。
 
 ## 分析统计
 
