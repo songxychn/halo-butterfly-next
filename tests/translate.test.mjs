@@ -77,9 +77,11 @@ test('默认对齐上游 SHA：enable false；仅显式 true 开启；default �
   assert.equal(resolveTranslateDefault('简'), '简');
 });
 
-test('YAML help 含 #translateLink 已加引号；仅显式 true 渲染；无新增 th:utext', () => {
-  assert.match(settingsText, /help: "对应上游 Butterfly translate.enable/);
-  assert.match(String(field('enable').help), /#translateLink/);
+test('新增繁简配置有默认值，按钮仅显式 true 渲染；无新增 th:utext', () => {
+  assert.equal(defaults.translate.defaultEncoding, 2);
+  assert.equal(defaults.translate.translateDelay, 0);
+  assert.equal(defaults.translate.msgToTraditionalChinese, '繁');
+  assert.equal(defaults.translate.msgToSimplifiedChinese, '簡');
   assert.match(componentsHtml, /id="translateLink"/);
   assert.match(componentsHtml, /translateOn/);
   assert.match(componentsHtml, /theme.config.translate\?\.enable == true/);

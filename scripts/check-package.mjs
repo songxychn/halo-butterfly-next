@@ -14,6 +14,13 @@ required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fon
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
 required.push('templates/assets/js/masonry.min.js');
 const masonrySources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/infinitegrid-sources.json'), 'utf8'));
+const shareSources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/sharejs-source.json'), 'utf8'));
+for (const source of shareSources.files) {
+  const bytes = await readFile(path.join(root, source.path));
+  if (createHash('sha256').update(bytes).digest('hex') !== source.sha256) throw new Error(`Share.js 来源摘要不符：${source.path}`);
+  const packaged = source.path.startsWith('src/plugins/') ? source.path.replace('src/plugins/', 'templates/assets/plugins/') : source.path.replace('third-party-licenses/', 'templates/assets/licenses/');
+  if (!zip.file(packaged) || !(await zip.file(packaged).async('nodebuffer')).equals(bytes)) throw new Error(`Share.js 资源/许可缺失：${source.path}`);
+}
 for (const source of masonrySources.sources) {
   const bytes = await readFile(path.join(root, 'third-party-licenses', source.file));
   if (createHash('sha256').update(bytes).digest('hex') !== source.sha256) throw new Error(`瀑布流许可与固定摘要不符：${source.file}`);

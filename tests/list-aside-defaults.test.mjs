@@ -141,7 +141,7 @@ test('归档卡月份计数取该桶全部文章，archives() 的 size 不是行
   assert.doesNotMatch(scss, /nth-child\(n \+ 9\)/);
 });
 
-test('网站信息保留文章数目与最后更新时间，无文章点赞和总访问量', async () => {
+test('网站信息保留文章数目与最后更新时间，访问量按来源与开关显示', async () => {
   const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
   const webInfo = webInfoFragment(aside);
   assert.match(webInfo, /<span class="name">网站信息<\/span>/);
@@ -152,9 +152,10 @@ test('网站信息保留文章数目与最后更新时间，无文章点赞和�
   assert.match(webInfo, /spec\.publishTime,desc/);
   assert.match(webInfo, /data-relative-date="true"/);
   assert.doesNotMatch(webInfo, /文章点赞/);
-  assert.doesNotMatch(webInfo, /总访问量/);
+  assert.match(webInfo, /theme.config.busuanzi\?\.site_pv/);
+  assert.match(webInfo, /文章总阅读量/);
   assert.doesNotMatch(webInfo, /stats\.upvote/);
-  assert.doesNotMatch(webInfo, /stats\.visit/);
+  assert.match(webInfo, /stats\.visit/);
   const now = Date.parse('2026-09-10T13:00:00Z');
   const nodes = [
     { getAttribute: () => '2026-09-10T12:50:00Z', textContent: '2026-09-10 20:50' },

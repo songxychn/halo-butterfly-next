@@ -12,6 +12,10 @@
      asideDisplay = ${theme.config.aside.display},
      asidePageVisible = ${(page != 'archives' or asideDisplay?.archive != false) and ((page != 'tag' and page != 'tags') or asideDisplay?.tag != false) and ((page != 'category' and page != 'categories') or asideDisplay?.category != false)},
      asideEnabled = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible},
+     canonicalBase = ${#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : #strings.toString(site.url)},
+     canonicalOrigin = ${#strings.substringBefore(canonicalBase, '://') + '://' + #strings.substringBefore(#strings.substringAfter(canonicalBase + '/', '://'), '/')},
+     canonicalPath = ${page == 'post' ? post.status.permalink : (page == 'single' ? singlePage.status.permalink : #ctx.getExchange().getRequest().getRequestPath())},
+     canonical = ${#strings.startsWith(canonicalPath, 'http://') or #strings.startsWith(canonicalPath, 'https://') ? canonicalPath : canonicalOrigin + canonicalPath},
      assets_link = ${#theme.assets('/') + '/'},
      param_prefix = ${#strings.containsIgnoreCase(theme.config.loading.img.random_link,'?') ? '&' : '?'}
   "
