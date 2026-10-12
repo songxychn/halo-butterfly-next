@@ -21,7 +21,7 @@ export function navigationURL(href: string, current: string, exclude: unknown = 
 }
 
 const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism']);
-const inert = (script: HTMLScriptElement) => !!script.type && !/^(?:text\/javascript|application\/javascript|module)$/i.test(script.type);
+const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
   if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;

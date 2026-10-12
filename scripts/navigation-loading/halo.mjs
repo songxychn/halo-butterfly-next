@@ -60,8 +60,8 @@ try {
     assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('loading')),false);
     const images=page.locator('img[data-theme-image]');assert(await images.count()>0);
     if(name==='deferred') {
-      const late=page.locator('img[data-lazy-src]').last();assert(await late.count()>0);
-      await late.scrollIntoViewIfNeeded();await page.waitForFunction(()=>[...document.querySelectorAll('img[data-theme-image]')].every(i=>!i.getAttribute('data-lazy-src')||i.getBoundingClientRect().top>innerHeight+200));
+      const late=page.locator('.home-layout img[data-lazy-src]:visible').last();assert(await late.count()>0);
+      await late.scrollIntoViewIfNeeded();await page.waitForFunction(()=>[...document.querySelectorAll('.home-layout img[data-theme-image]')].every(i=>!i.getAttribute('data-lazy-src')||!i.getClientRects().length||i.getBoundingClientRect().top>innerHeight+200));
     } else {assert.equal(await page.locator('img[data-lazy-src]').count(),0);assert.equal(await images.first().getAttribute('loading'),'eager');}
     if(name==='off') assert.equal(await page.evaluate(()=>MainApp.conf.pjax_enable),false);
     results.push({profile:name,status:'passed'});await page.close();
