@@ -52,8 +52,19 @@ export function initializeShare(root = document) {
         link.setAttribute('aria-label', `分享到${LABELS[name ?? ''] ?? name ?? '平台'}`);
         link.rel = 'noopener noreferrer';
         if (name === 'wechat') {
-          link.href = '#'; link.addEventListener('click', e => {e.preventDefault(); link.classList.toggle('wechat-open');});
-          link.addEventListener('keydown', e => {if (e.key === 'Escape') link.classList.remove('wechat-open');});
+          link.href = '#';
+          link.addEventListener('focus', () => link.classList.remove('wechat-dismissed'));
+          link.addEventListener('click', e => {
+            e.preventDefault();
+            const open = link.classList.toggle('wechat-open');
+            link.classList.toggle('wechat-dismissed', !open);
+          });
+          link.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+              link.classList.remove('wechat-open');
+              link.classList.add('wechat-dismissed');
+            }
+          });
         } else if (link.href.startsWith('http:')) link.href = link.href.replace(/^http:/, 'https:');
       });
     }).catch(() => { if (status) status.textContent = '分享组件暂不可用，可复制链接'; });

@@ -54,9 +54,11 @@ try {
       const links=evaluate("[...document.querySelectorAll('[data-share-provider] a')].map(a=>({url:a.href,label:a.getAttribute('aria-label'),rel:a.rel}))");
       assert.ok(links.every(link=>link.label&&link.rel.includes('noopener')));
       assert.ok(links.filter(link=>link.url.startsWith('http') && new URL(link.url).origin!==target.origin).every(link=>link.url.startsWith('https:')));
-      evaluate("document.querySelector('.icon-wechat').click()");
+      evaluate("document.querySelector('.icon-wechat').focus();document.querySelector('.icon-wechat').click()");
       assert.equal(evaluate("getComputedStyle(document.querySelector('.wechat-qrcode')).display"),'block');
       evaluate("document.querySelector('.icon-wechat').dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))");
+      assert.equal(evaluate("getComputedStyle(document.querySelector('.wechat-qrcode')).display"),'none');
+      assert.equal(evaluate("document.activeElement.classList.contains('icon-wechat')"),true);
       report.checks.push('5 configured Share.js links, accessible names, HTTPS, local WeChat QR click/Escape');
     } else if(preset==='addtoany') {
       wait("document.querySelector('[data-share-status]').textContent.includes('暂不可用')");
