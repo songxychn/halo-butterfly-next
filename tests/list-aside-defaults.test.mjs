@@ -48,7 +48,7 @@ test('列表封面用真实 src、第 2/4/6 篇 right（index%2==1），无评�
   assert.doesNotMatch(list, /class="wp comment"/);
   assert.doesNotMatch(list, /'点赞 '/);
   assert.doesNotMatch(list, /'预览 '/);
-  assert.match(list, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : theme\.config\.cover\.default_cover\}/);
+  assert.match(list, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : \(not #lists\.isEmpty\(coverCandidates\) \? coverCandidates\[.*?\]\.url : theme\.config\.cover\.default_cover\)\}/);
 });
 
 test('作者卡与手机抽屉统计为文章/标签/分类，不用点赞', async () => {

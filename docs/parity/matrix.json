@@ -1312,14 +1312,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "appearance.avatar_effect"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.avatar_effect。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -1341,12 +1345,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:disable_top_img",
@@ -2319,14 +2343,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "image.flink_error"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 image.flink_error。友链与普通坏图独立回退；移除旧 srcset，只尝试一次，回退仍坏则隐藏图片并保留链接。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -2348,12 +2376,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:error_img.post_page",
@@ -6960,12 +7008,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.description"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 aside.card_author.description。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -6986,12 +7038,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.button.enable",
@@ -7015,12 +7087,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.button.enable"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 aside.card_author.button.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -7041,12 +7117,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.button.icon",
@@ -7070,12 +7166,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.button.icon"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 aside.card_author.button.icon。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -7096,12 +7196,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.button.text",
@@ -8363,12 +8483,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.color"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 aside.card_tags.color。循环亮暗颜色对，过滤无效 CSS 色；侧栏彩色开关默认关闭，标签页保留原配色回退。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -8389,12 +8513,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.custom_colors",
@@ -8418,12 +8562,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.custom_colors"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 aside.card_tags.custom_colors。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -8444,12 +8592,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.orderby",
@@ -19634,14 +19802,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "appearance.category_ui"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.ts",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.category_ui。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19668,12 +19840,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:tag_ui",
@@ -19697,14 +19889,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "appearance.tag_ui"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.ts",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.tag_ui。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19731,12 +19927,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rounded_corners_ui",
@@ -19816,13 +20032,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.text_align_justify"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.text_align_justify。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19843,12 +20063,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mask.header",
@@ -20267,13 +20507,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.enter_transitions"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.enter_transitions。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20294,12 +20538,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:display_mode",
@@ -20385,13 +20649,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.beautify.enable"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.beautify.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20412,12 +20680,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:beautify.field",
@@ -20441,13 +20729,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.beautify.field"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.beautify.field。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20472,12 +20764,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:beautify.title_prefix_icon",
@@ -20502,12 +20814,15 @@
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [
-          "render.enable_h_icon"
+          "render.enable_h_icon",
+          "appearance.beautify.title_prefix_icon"
         ],
         "code": [
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "当前只支持标题图标开关，缺少自定义图标。"
+        "finding": "2026-10-13：已接入 appearance.beautify.title_prefix_icon。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20528,11 +20843,31 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20557,13 +20892,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.beautify.title_prefix_icon_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.beautify.title_prefix_icon_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20584,12 +20923,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:font.global_font_size",
@@ -20613,13 +20972,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.font.global_font_size"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.font.global_font_size。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20640,12 +21003,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:font.code_font_size",
@@ -20669,13 +21052,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.font.code_font_size"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.font.code_font_size。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20696,12 +21083,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:font.font_family",
@@ -20726,12 +21133,15 @@
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [
-          "style.font_family"
+          "style.font_family",
+          "appearance.font.font_family"
         ],
         "code": [
-          "src/scss/core/_base.scss"
+          "src/scss/core/_base.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "当前仅系统字体选项，自定义字体能力待实现。"
+        "finding": "2026-10-13：已接入 appearance.font.font_family。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20752,11 +21162,31 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20781,13 +21211,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.font.code_font_family"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.font.code_font_family。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20808,12 +21242,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:blog_title_font.font_link",
@@ -20837,13 +21291,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.blog_title_font.font_link"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.blog_title_font.font_link。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20864,12 +21322,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:blog_title_font.font_family",
@@ -20893,13 +21371,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.blog_title_font.font_family"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.blog_title_font.font_family。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20920,12 +21402,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:hr_icon.enable",
@@ -20949,13 +21451,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.hr_icon.enable"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.hr_icon.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20976,12 +21482,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:hr_icon.icon",
@@ -21005,13 +21531,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.hr_icon.icon"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.hr_icon.icon。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21032,12 +21562,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:hr_icon.icon_top",
@@ -21061,13 +21611,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.hr_icon.icon_top"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.hr_icon.icon_top。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21088,12 +21642,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.enable",
@@ -21117,12 +21691,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21145,12 +21723,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.colorful",
@@ -21174,12 +21772,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.colorful"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.colorful。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21202,12 +21804,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.shake",
@@ -21231,12 +21853,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.shake"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.shake。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21259,12 +21885,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.mobile",
@@ -21288,12 +21934,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21316,12 +21966,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.enable",
@@ -21345,12 +22015,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21373,12 +22047,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.size",
@@ -21402,12 +22096,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.size"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.size。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21430,12 +22128,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.alpha",
@@ -21459,12 +22177,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.alpha"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.alpha。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21487,12 +22209,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.zIndex",
@@ -21516,12 +22258,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.zIndex"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.zIndex。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21544,12 +22290,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.click_to_change",
@@ -21573,12 +22339,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.click_to_change"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.click_to_change。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21601,12 +22371,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.mobile",
@@ -21630,12 +22420,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21658,12 +22452,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_fluttering_ribbon.enable",
@@ -21687,12 +22501,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_fluttering_ribbon.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_fluttering_ribbon.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21715,12 +22533,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_fluttering_ribbon.mobile",
@@ -21744,12 +22582,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_fluttering_ribbon.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_fluttering_ribbon.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21772,12 +22614,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.enable",
@@ -21801,12 +22663,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21829,12 +22695,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.color",
@@ -21858,12 +22744,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.color"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.color。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21886,12 +22776,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.opacity",
@@ -21915,12 +22825,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.opacity"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.opacity。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21943,12 +22857,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.zIndex",
@@ -21972,12 +22906,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.zIndex"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.zIndex。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22000,12 +22938,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.count",
@@ -22029,12 +22987,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.count"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.count。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22057,12 +23019,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.mobile",
@@ -22086,12 +23068,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22114,12 +23100,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:fireworks.enable",
@@ -22143,12 +23149,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.fireworks.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.fireworks.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22171,12 +23181,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:fireworks.zIndex",
@@ -22200,12 +23230,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.fireworks.zIndex"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.fireworks.zIndex。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22228,12 +23262,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:fireworks.mobile",
@@ -22257,12 +23311,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.fireworks.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.fireworks.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22285,12 +23343,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:click_heart.enable",
@@ -22314,12 +23392,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.click_heart.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.click_heart.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22342,12 +23424,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:click_heart.mobile",
@@ -22371,12 +23473,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.click_heart.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.click_heart.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22399,12 +23505,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.enable",
@@ -22428,12 +23554,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22456,12 +23586,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.text",
@@ -22485,12 +23635,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.text"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.text。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22513,12 +23667,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.fontSize",
@@ -22542,12 +23716,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.fontSize"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.fontSize。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22570,12 +23748,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.random",
@@ -22599,12 +23797,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.random"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.random。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22627,12 +23829,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.mobile",
@@ -22656,12 +23878,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22684,12 +23910,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:lightbox",
@@ -26455,13 +27701,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.enable"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26482,12 +27732,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.main",
@@ -26505,13 +27775,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.main"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.main。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26532,12 +27806,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.paginator",
@@ -26555,13 +27849,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.paginator"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.paginator。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26582,12 +27880,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.button_hover",
@@ -26605,13 +27923,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.button_hover"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.button_hover。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26632,12 +27954,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.text_selection",
@@ -26655,13 +27997,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.text_selection"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.text_selection。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26682,12 +28028,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.link_color",
@@ -26705,13 +28071,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.link_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.link_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26732,12 +28102,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.meta_color",
@@ -26755,13 +28145,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.meta_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.meta_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26782,12 +28176,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.hr_color",
@@ -26805,13 +28219,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.hr_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.hr_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26832,12 +28250,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.code_foreground",
@@ -26855,13 +28293,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.code_foreground"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.code_foreground。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26882,12 +28324,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.code_background",
@@ -26905,13 +28367,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.code_background"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.code_background。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26932,12 +28398,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.toc_color",
@@ -26955,13 +28441,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.toc_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.toc_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26982,12 +28472,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.blockquote_padding_color",
@@ -27005,13 +28515,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.blockquote_padding_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.blockquote_padding_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -27032,12 +28546,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.blockquote_background_color",
@@ -27055,13 +28589,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.blockquote_background_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.blockquote_background_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -27082,12 +28620,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.scrollbar_color",
@@ -27105,13 +28663,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.scrollbar_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.scrollbar_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -27132,12 +28694,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.meta_theme_color_light",
@@ -27155,13 +28737,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.meta_theme_color_light"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.meta_theme_color_light。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -27182,12 +28768,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.meta_theme_color_dark",
@@ -27205,13 +28811,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.meta_theme_color_dark"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.meta_theme_color_dark。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -27232,12 +28842,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.twitter_card",
@@ -53974,14 +55604,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "cover.default_cover_list"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "2026-10-13：已接入 cover.default_cover_list。原生封面优先；URL/颜色候选过滤空项后按文章 ID 稳定选择，跨共享列表一致，清空回退原单张默认封面。未声明生成期随机算法全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -54001,12 +55635,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:reward-items",
@@ -54321,12 +55975,16 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.custom_cards"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "2026-10-13：已接入 aside.custom_cards。支持顶部/底部、位置内排序、标题/图标/类/ID/可信作者 HTML；跟随侧栏和简洁目录开关。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -54346,12 +56004,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:gallery-data",
@@ -54428,12 +56106,16 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "appearance.tag_custom_colors"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "2026-10-13：已接入 appearance.tag_custom_colors。循环亮暗颜色对，过滤无效 CSS 色；侧栏彩色开关默认关闭，标签页保留原配色回退。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -54453,12 +56135,32 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        },
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-merge.json",
+          "sha256": "ed933266eed03b1c78432f083ef95fe8738f1c1c5f198b8f186574412e5e7331",
+          "date": "2026-10-13T00:52:52+0800",
+          "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
+          "actor": "/root",
+          "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:cdn-overrides",

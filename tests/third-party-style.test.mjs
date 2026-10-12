@@ -56,7 +56,7 @@ test('本刀不接入第三方提供方、不改 hide_button、不改文章上�
   assert.doesNotMatch(settingsText, /name:\s*mermaid/);
   assert.doesNotMatch(settingsText, /name:\s*artalk/);
   assert.doesNotMatch(settingsText, /name:\s*waline/);
-  assert.doesNotMatch(settingsText, /name:\s*fireworks/);
+  assert.match(settingsText, /name:\s*fireworks/);
   assert.match(componentsHtml, /id="hide-aside-btn"/);
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button/);
   assert.match(settingsText, /name: hide_button/);

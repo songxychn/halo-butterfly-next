@@ -8,7 +8,7 @@
 import App from '../core/App.ts';
 import * as echarts from 'echarts/core';
 import {useChart} from '../core/_util.ts';
-import {tagCloudColors} from '../core/tag-cloud-colors.ts';
+import {applyTagColors, tagCloudColors} from '../core/tag-cloud-colors.ts';
 
 import {LineChart, GaugeChart, BarChart} from 'echarts/charts';
 import {TitleComponent, TooltipComponent, GridComponent, DataZoomComponent, DatasetComponent, TransformComponent, MarkPointComponent, MarkLineComponent} from 'echarts/components';
@@ -40,6 +40,7 @@ class Tags {
       source.push([dom.innerText, count]);
     }
 
+    applyTagColors([...items], MainApp.conf.appearance?.tag_custom_colors, true, MainApp.conf.appearance?.tag_ui === 'cloud');
     this.chart(source);
   }
 

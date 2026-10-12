@@ -1,6 +1,7 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:with="
+     coverCandidates = ${theme.config.cover?.default_cover_list == null ? {} : theme.config.cover.default_cover_list.?[#this != null and not #strings.isEmpty(#strings.trim(url))]},
      topImgConfig = ${theme.config[(page == 'category' or page == 'categories') ? 'categories' : ((page == 'tag' or page == 'tags') ? 'tags' : (page == 'archives' ? 'archives' : (page == 'post' ? 'post' : 'index')))]},
      topImgOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'top_img_enable', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'top_img_enable', 'inherit') : 'inherit')},
      aboveEnabled = ${theme.config.image?.disable_top_img != true and theme.config.image?.disable_top_img != 'true' and (topImgOverride == 'true' or (topImgOverride != 'false' and topImgConfig.enable_above != false and topImgConfig.enable_above != 'false'))},
