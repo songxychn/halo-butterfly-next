@@ -16,6 +16,17 @@ export interface PaginationConfig {
   nextUrl: string;
 }
 export interface ThemeConfig extends Partial<PaginationConfig> {
+  pjax_enable?: SettingValue;
+  pjax_exclude?: string | string[];
+  instantpage?: SettingValue;
+  snackbar_enable?: SettingValue;
+  snackbar_position?: string;
+  snackbar_bg_light?: string;
+  snackbar_bg_dark?: string;
+  lazyload_enable?: SettingValue;
+  lazyload_native?: SettingValue;
+  lazyload_field?: string;
+  lazyload_blur?: SettingValue;
   restore_aside?: boolean;
   style_mode?: SettingValue;
   darkmode_autoChangeMode?: SettingValue;

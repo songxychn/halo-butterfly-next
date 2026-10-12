@@ -19,6 +19,7 @@
   <!DOCTYPE html>
   <html
     th:lang="${#locale.toLanguageTag()}"
+    data-theme-navigation="1"
     data-color-scheme="light"
     th:classappend="${(theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (theme.config.aside.enable and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
     th:with="isDev = ${true ? #dates.createNow().time : ''} "
@@ -33,19 +34,19 @@
     <th:block th:replace="~{views/seo :: metadata(${page},${title})}"/>
     <th:block th:replace="~{views/config}"/>
     <th:block th:replace="${pin}"/>
-    <script id="aboveScript">/* @theme-above-background */</script>
+    <script data-theme-script="above" id="aboveScript">/* @theme-above-background */</script>
     <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/' + page + '.min.css?v=' + theme.spec.version}">
-    <noscript><style>.loading #Butterfly { display: block; }</style></noscript>
+    <noscript><style>.loading #Butterfly { display: block; } img[data-lazy-src] { display: none; }</style></noscript>
     <th:block th:replace="~{views/inject :: head}"/>
   </head>
 
-  <body th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
-  <th:block th:switch="${theme.config.loading.type}">
-    <script th:case="'circle'">/* @theme-loading-circle */</script>
-    <script th:case="'cross_line'">/* @theme-loading-cross_line */</script>
-    <script th:case="'dot'">/* @theme-loading-dot */</script>
-    <script th:case="'hourglass'">/* @theme-loading-hourglass */</script>
-    <script th:case="*" type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
+  <body th:classappend="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
+  <th:block th:if="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false'}" th:switch="${theme.config.loading.type}">
+    <script data-theme-script="loading" th:case="'circle'">/* @theme-loading-circle */</script>
+    <script data-theme-script="loading" th:case="'cross_line'">/* @theme-loading-cross_line */</script>
+    <script data-theme-script="loading" th:case="'dot'">/* @theme-loading-dot */</script>
+    <script data-theme-script="loading" th:case="'hourglass'">/* @theme-loading-hourglass */</script>
+    <script data-theme-script="loading" th:case="*" type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
   </th:block>
 
   <div
@@ -63,9 +64,9 @@
   </div>
 
   <!-- The rendered body is complete; deferred enhancements can initialize afterwards. -->
-  <script id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
+  <script data-theme-script="ready" id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
-  <script defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
+  <script data-theme-script="entry" defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
   <th:block th:replace="~{views/integrations::scripts}"/>
   <th:block th:replace="~{views/inject :: bottom}"/>
   </body>

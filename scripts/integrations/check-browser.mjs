@@ -121,6 +121,12 @@ try {
       if(engine==='chromium' && mode==='light' && ['disabled','all'].includes(variant)) {
        const screenshot=join(lab,`${variant}-${width}.png`);await page.screenshot({path:screenshot,fullPage:true});result.screenshot=screenshot;
       }
+      if(variant==='all' && width===1440 && mode==='light') {
+       await page.evaluate(()=>{window.integrationDocument='old';const a=document.createElement('a');a.href='/archives/';a.id='integration-navigation';a.textContent='Archive';document.body.append(a);});
+       await Promise.all([page.waitForURL(base+'/archives/'),page.locator('#integration-navigation').click()]);
+       await page.waitForFunction(()=>window.integrationLoads?.length===8);
+       assert.equal(await page.evaluate(()=>window.integrationDocument),undefined);result.checks.push('enabled PJAX retains full navigation for SDK lifecycle');
+      }
       assert.deepEqual(result.errors,[]);assert.deepEqual(result.blockedExternal,[]);result.status='passed';
      } catch(error){result.status='failed';result.error=error.message;throw error;} finally {await context.close();}
     }

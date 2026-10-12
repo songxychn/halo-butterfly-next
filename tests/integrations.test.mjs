@@ -4,12 +4,20 @@ import {safeResourceUrl, resolveResource, loadExternalScript} from '../src/js/co
 import {buildAnalyticsPlan, initializeAnalytics, initializeAdsense, updatePublicStats, initializeIntegrations} from '../src/js/core/integrations.ts';
 import {chatPlan, initializeChat} from '../src/js/core/integration-chat.ts';
 import {configureResourceTags} from '../scripts/resource-templates.mjs';
+import {supportsPartialNavigation} from '../src/js/core/navigation-loading.ts';
 import {readFile} from 'node:fs/promises';
 
 const site = '12345678-1234-1234-1234-123456789abc';
 const config = {baidu_analytics:'a'.repeat(32),google_analytics:'G-TEST123',cloudflare_analytics:'test-public-token',microsoft_clarity:'test123',google_tag_manager:{tag_id:'GTM-TEST'},umami_analytics:{enable:true,website_id:site}};
 const root = (nodes = {}) => ({baseURI:'https://site.test/post?x=1',title:'Test',readyState:'complete',getElementById:()=>null,querySelectorAll:selector=>nodes[selector] || [],addEventListener(){},removeEventListener(){}});
 const win = document => ({document,location:new URL(document.baseURI)});
+
+test('optional SDK pages retain a full document lifecycle when PJAX is enabled',async()=>{
+  const doc={documentElement:{dataset:{themeNavigation:'1'}},querySelector:()=>null,querySelectorAll:()=>[],scripts:[{type:'',dataset:{themeScript:'entry'}},{type:'',dataset:{}}]};
+  assert.equal(supportsPartialNavigation(doc),false);
+  doc.scripts.pop();assert.equal(supportsPartialNavigation(doc),true);
+  assert.match(await readFile(new URL('../src/html/views/integrations.html',import.meta.url),'utf8'),/script data-no-pjax/);
+});
 
 test('only HTTPS and site-root resources are accepted; credentials and executable URL forms are rejected', () => {
   for (const url of ['javascript:alert(1)','data:text/javascript,x','//evil.test/x.js','http://evil.test/x.js','https://user:pass@host.test/x.js','https://host.test/a b.js','/\\evil/x','/x<y']) assert.equal(safeResourceUrl(url), '');

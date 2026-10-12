@@ -12,7 +12,7 @@ test('page initialization retains service, run method, module and cleanup order'
   const calls = [];
   const window = {MainApp: {modules: {}}};
   const service = name => class {constructor() {calls.push(name);}};
-  const context = {window, Theme: service('theme'), Common: service('common'), Scroll: service('scroll'), Message: service('message'), useClearPage() {calls.push('cleanup');}};
+  const context = {window, document: { body: {}, dispatchEvent() { calls.push('ready'); } }, Event, pageScope() {}, onPageCleanup() {}, initializeNavigationLoading() { calls.push('navigation'); }, Theme: service('theme'), Common: service('common'), Scroll: service('scroll'), Message: service('message'), useClearPage() {calls.push('cleanup');}};
   vm.runInNewContext(source + '\nglobalThis.initializePage = App;', context);
   class Page {
     constructor() {calls.push('page');}
@@ -25,5 +25,5 @@ test('page initialization retains service, run method, module and cleanup order'
   const instance = context.initializePage([Module])(Page);
   assert(instance instanceof Page);
   assert(window.MainApp.modules.module instanceof Module);
-  assert.deepEqual(calls, ['theme', 'common', 'scroll', 'message', 'page', 'run_first', 'run_second', 'module', 'cleanup']);
+  assert.deepEqual(calls, ['theme', 'common', 'scroll', 'message', 'page', 'run_first', 'run_second', 'module', 'cleanup', 'navigation', 'ready']);
 });

@@ -23,6 +23,7 @@ def configure(name):
  if name!='restore':
   config['analytics']={};config['chat']={'use':''};config['google_adsense']={'enable':False};config['ad']={};config['CDN']={'internal_provider':'local','third_party_provider':'local','version':True,'option':{}}
   if name=='all':
+   config['pjax']={'enable':True}
    config['analytics']={'baidu_analytics':'a'*32,'google_analytics':'G-TEST123','cloudflare_analytics':'test-token','microsoft_clarity':'test123','google_tag_manager':{'tag_id':'GTM-TEST'},'umami_analytics':{'enable':True,'website_id':'12345678-1234-1234-1234-123456789abc','option':'{"data-domains":"127.0.0.1","data-tag":"synthetic"}','UV_PV':{'site_uv':True,'site_pv':True,'page_pv':True,'stats_url':'/integration-stats','token':'synthetic-token-must-not-render'}}}
    config['google_adsense']={'enable':True,'auto_ads':True,'enable_page_level_ads':False,'client':'ca-pub-1234567890123456'}
    config['ad']={key:'<ins class="adsbygoogle" data-ad-slot="synthetic-'+key+'"></ins><span data-ad-text>'+key+'</span>' for key in ['index','aside','post']}

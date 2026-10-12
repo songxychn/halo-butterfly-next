@@ -1,3 +1,4 @@
+import { pageListen } from './page-lifecycle.ts';
 /**
  * @date: 2024/2/23
  * @author: 小红
@@ -22,7 +23,7 @@ export default class Scroll {
   constructor() {
     this.#fixed = isNavAlwaysPinned(window.MainApp?.conf?.nav_fixed);
     this.#goUpPercent = bindRightsideScrollPercent();
-    window.addEventListener('scroll', useThrottle(() => {
+    pageListen(window, 'scroll', useThrottle(() => {
       let scrollTop = window.scrollY || document.documentElement.scrollTop;
 
       // 激活头部导航栏

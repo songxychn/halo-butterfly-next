@@ -28,6 +28,7 @@ export function loadPrismAfterPaint({source, domReady, document = globalThis.doc
         const script = document.createElement('script');
         script.async = true;
         script.setAttribute('data-manual', '');
+        script.setAttribute('data-theme-script', 'prism');
         script.addEventListener('load', () => resolve(true), {once: true});
         script.addEventListener('error', () => {
           if (fallback) request(source, false);

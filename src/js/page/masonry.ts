@@ -1,3 +1,4 @@
+import { onPageCleanup, pageListen } from '../core/page-lifecycle.ts';
 /**
  * Butterfly 5.7.0 source/js/main.js justifiedIndexPostUI, adapted to Halo.
  * Same InfiniteGrid 4.13.0 engine and gaps; loaded only for home layouts 6/7.
@@ -23,11 +24,13 @@ initialize();
 // Loading can initially hide the content; font/visibility changes need a fresh
 // measurement. ResizeObserver also follows sidebar and viewport width changes.
 document.fonts.ready.then(() => grid?.renderItems());
-window.addEventListener('load', () => grid?.renderItems(), { once: true });
-window.addEventListener('pagehide', () => {
+pageListen(window, 'load', () => grid?.renderItems(), { once: true });
+pageListen(window, 'pagehide', () => {
   grid?.destroy();
   grid = null;
 });
-window.addEventListener('pageshow', event => {
+pageListen(window, 'pageshow', event => {
   if (event.persisted) initialize();
 });
+
+onPageCleanup(() => { grid?.destroy(); grid = null; });

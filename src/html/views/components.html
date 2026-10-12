@@ -1,14 +1,16 @@
 <!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
-<img
+<th:block
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:with="resolvedSrc = ${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random) ? (theme.config.loading.img.random_link + parma) : src}"
-  th:src="${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload}"
-  th:attr="onerror='this.src='+${'`'+theme.config.loading.img.err+'`'}"
-  th:alt="${alt}"
-  th:class="${class}"
-  loading="lazy"
-  decoding="async"
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.loading.img.random_enable and random) ? (theme.config.loading.img.random_link + parma) : src},
+    imageSrc = ${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload},
+    lazyOn = ${theme.config.lazyload?.enable != false and theme.config.lazyload?.enable != 'false' and theme.config.lazyload?.field != 'post'},
+    lazyDeferred = ${lazyOn and (theme.config.lazyload?.native == false or theme.config.lazyload?.native == 'false')}"
 >
+  <img data-theme-image th:src="${lazyDeferred ? theme.config.loading.img.preload : imageSrc}"
+    th:data-lazy-src="${lazyDeferred ? imageSrc : null}" th:data-theme-image-fallback="${theme.config.loading.img.err}"
+    th:alt="${alt}" th:class="${class}" th:loading="${lazyOn ? 'lazy' : 'eager'}" decoding="async">
+  <noscript th:if="${lazyDeferred}"><img th:src="${imageSrc}" th:alt="${alt}" th:class="${class}"></noscript>
+</th:block>
 
 <!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数/时长受 wordcount.enable（默认关，对齐 hexo-wordcount 未装）；阅读量受 busuanzi.page_pv（实验室关）。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
 <ul
@@ -493,7 +495,7 @@
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="codeBlockPin"
 >
-  <script id="codeBlockScript" th:inline="javascript">
+  <script data-theme-script="code-config" id="codeBlockScript" th:inline="javascript">
     window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
     Object.assign(window.MainApp.conf, {
       enable_code: /*[[${theme.config.render.enable_code}]]*/ true,

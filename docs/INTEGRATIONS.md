@@ -6,7 +6,7 @@
 
 “分析统计”组提供百度统计 ID、GA4 `G-…`、Cloudflare Web Analytics 公开 token、Clarity 项目 ID、GTM `GTM-…` 容器 ID 和 Umami。多个分析服务可以并存；与 Halo 全局注入或其他插件重复配置同一追踪脚本会重复统计，应只在一个入口配置。
 
-Umami 支持 Cloud 或自托管服务、脚本名、网站 UUID 和 JSON 追踪选项。允许 `data-host-url`、`data-domains`、`data-tag`、`data-do-not-track`、`data-exclude-search`、`data-exclude-hash`；网站 ID 由配置固定，主题设 `data-auto-track=false` 并在 SDK 到达后记录当前页面一次。本批未增加 PJAX。
+Umami 支持 Cloud 或自托管服务、脚本名、网站 UUID 和 JSON 追踪选项。允许 `data-host-url`、`data-domains`、`data-tag`、`data-do-not-track`、`data-exclude-search`、`data-exclude-hash`；网站 ID 由配置固定，主题设 `data-auto-track=false` 并在 SDK 到达后记录当前页面一次。第三方 SDK 尚无统一的无刷新销毁协议，启用分析、聊天或 AdSense 的页面使用完整导航，与 [PJAX 兼容边界](NAVIGATION-LOADING.md)一致；默认关闭的页面保留 PJAX 能力。
 
 PV/UV 使用可选的**公开只读统计接口**，由站点自己的插件或后台提供：
 

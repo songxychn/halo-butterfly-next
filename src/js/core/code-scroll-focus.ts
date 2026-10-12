@@ -1,3 +1,4 @@
+import { onPageCleanup } from './page-lifecycle.ts';
 function isScrollable(element: Element) {
   const style = getComputedStyle(element);
   return element.clientWidth > 0 && element.clientHeight > 0 && (
@@ -19,6 +20,7 @@ export function bindCodeScrollFocus(root: HTMLElement | null | undefined) {
   };
   const observer = new ResizeObserver(update);
   codes.forEach(code => observer.observe(code));
+  onPageCleanup(() => observer.disconnect());
   document.fonts?.ready.then(update);
   update();
   return update;

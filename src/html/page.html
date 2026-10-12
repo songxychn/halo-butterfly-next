@@ -9,7 +9,7 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(singlePage, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(singlePage, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(singlePage, 'katex', 'inherit')}">
+    <script data-theme-script="page-config" id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(singlePage, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(singlePage, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(singlePage, 'katex', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         //第一屏
         enable_above: /*[[${aboveEnabled}]]*/ '',
