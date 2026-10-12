@@ -78,7 +78,7 @@ async function build() {
   await cp(path.join(icons, 'LICENSE.txt'), path.join(assets, 'plugins/fontawesome/LICENSE.txt'));
   await mkdir(path.join(assets, 'licenses'), { recursive: true });
   // Adapted upstream sources are not npm dependencies, so collect their notices explicitly.
-  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt']) {
+  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt', 'butterfly-extsrc-1.1.6-LICENSE.txt', 'sharejs-MIT-LICENSE.txt', 'qrcodejs-MIT-LICENSE.txt']) {
     await cp(path.join(root, 'third-party-licenses', file), path.join(assets, 'licenses', file));
   }
   const licensed = new Set();

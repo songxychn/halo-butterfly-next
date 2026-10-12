@@ -1,6 +1,7 @@
 # 文章与阅读配置
 
 打赏二维码及按共同标签排序的相关推荐见 [打赏与相关文章](REWARD-RELATED.md)。
+正文复制版权、繁简配置、分享与字数/PV/UV 见 [阅读、分享和统计](READING-SHARING-STATISTICS.md)。
 
 登录管理员在文章页进入 Halo 后台的快捷入口见 [后台编辑快捷入口](POST-EDIT.md)。
 

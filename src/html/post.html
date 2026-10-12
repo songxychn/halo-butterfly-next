@@ -68,13 +68,15 @@
         <h1 class="post-title" th:text="${post.spec.title}"></h1>
         <th:block th:replace="~{views/components :: postMeta}"/>
       </div>
-      <article class="render">
+      <article class="render"
+        th:attr="data-copy-enabled=${theme.config.copy?.enable != false and theme.config.copy?.enable != 'false'},data-copy-copyright=${theme.config.copy?.copyright?.enable == true or theme.config.copy?.copyright?.enable == 'true'},data-copy-limit=${theme.config.copy?.copyright?.limit_count != null ? theme.config.copy.copyright.limit_count : 150},data-copy-author=${post.owner?.displayName ?: site.title},data-copy-url=${canonical ?: post.status.permalink},data-copy-site=${site.title},data-copy-license=${theme.config.post.post_copyright?.license ?: 'CC BY-NC-SA 4.0'}">
         <th:block th:replace="~{views/components :: noticeOutdate('top')}"/>
         <th:block th:utext="${post.content.content}"/>
         <th:block th:replace="~{views/components :: noticeOutdate('bottom')}"/>
       </article>
 
       <th:block th:replace="~{views/components :: postCopyright}"/>
+      <th:block th:replace="~{views/share :: postShare}"/>
 
       <th:block th:replace="~{views/components :: postReward}"/>
       <section class="theme-ad ad-post" aria-label="广告" th:if="${not #strings.isEmpty(theme.config.ad?.post)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.post})}"/></section>

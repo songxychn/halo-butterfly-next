@@ -9,10 +9,13 @@ import App from '../core/App.ts';
 import codeBlock from '../modules/CodeBlock.ts';
 import Render from '../modules/Render.ts';
 import AmplifyImg from '../modules/AmplifyImg.ts';
+import { initializeShare } from '../core/share.ts';
 import { initializePostEdit } from '../core/post-edit.ts';
 
 class Post {
-  // 字数/时长由服务端 postMeta fragment 渲染，避免客户端覆盖。
+  run_reading() {
+    initializeShare();
+  }
   run_postEdit() {
     void initializePostEdit();
   }

@@ -16,6 +16,8 @@ import { bindTranslate } from './translate.ts';
 import { bindDarkmode } from './darkmode.ts';
 import { initializeNewestComments } from './newest-comments.ts';
 import { bindCommentJump } from './comment-jump.ts';
+import { initializeSiteWordcount, initializeVisitCounters } from './site-statistics.ts';
+import { bindCopyAttribution } from './copy-attribution.ts';
 
 export default class Common {
 
@@ -42,6 +44,9 @@ export default class Common {
     bindDarkmode();
     initializeNewestComments();
     bindCommentJump();
+    initializeVisitCounters();
+    initializeSiteWordcount();
+    bindCopyAttribution();
 
   }
 

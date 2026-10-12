@@ -24,6 +24,9 @@ def configure(name):
   config['analytics']={};config['chat']={'use':''};config['google_adsense']={'enable':False};config['ad']={};config['CDN']={'internal_provider':'local','third_party_provider':'local','version':True,'option':{}}
   if name=='all':
    config['pjax']={'enable':True}
+   config['share']={'use':'sharejs','sharejs':{'sites':'facebook,x,wechat,weibo,qq'}}
+   config['wordcount']={'enable':True,'post_wordcount':True,'min2read':True}
+   config['busuanzi']={'provider':'halo','page_pv':True,'site_pv':True,'site_uv':True}
    config.setdefault('aside',{})['custom_cards']=[{'position':'top','name':'Integration top','id_name':'integration-top','html':'<p>Top fixture</p>','order':1},{'position':'bottom','name':'Integration bottom','id_name':'integration-bottom','html':'<p>Bottom fixture</p>','order':1}]
    config['analytics']={'baidu_analytics':'a'*32,'google_analytics':'G-TEST123','cloudflare_analytics':'test-token','microsoft_clarity':'test123','google_tag_manager':{'tag_id':'GTM-TEST'},'umami_analytics':{'enable':True,'website_id':'12345678-1234-1234-1234-123456789abc','option':'{"data-domains":"127.0.0.1","data-tag":"synthetic"}','UV_PV':{'site_uv':True,'site_pv':True,'page_pv':True,'stats_url':'/integration-stats','token':'synthetic-token-must-not-render'}}}
    config['google_adsense']={'enable':True,'auto_ads':True,'enable_page_level_ads':False,'client':'ca-pub-1234567890123456'}

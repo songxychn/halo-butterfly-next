@@ -90,10 +90,18 @@ try {
         assert.equal(await page.evaluate(()=>document.querySelector('#integration-bottom').parentElement.lastElementChild.id),'integration-bottom');result.checks.push('article custom sidebar cards coexist with ads');
         assert.equal((await page.content()).includes('synthetic-token-must-not-render'),false);
         assert.equal(await page.evaluate(()=>window.adsbygoogle.length),3);result.checks.push('all analytics, public stats, ads and token exclusion');
+        await page.waitForFunction(()=>document.querySelectorAll('[data-share-provider] a').length===5);
+        assert.match(await page.locator('[data-post-wordcount]').textContent(),/\d/);assert.match(await page.locator('[data-post-minutes]').textContent(),/\d/);
+        const shareUrl=await page.locator('[data-share-url]').inputValue();assert.equal(shareUrl,await page.locator('link[rel=canonical]').getAttribute('href'));
+        await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.integrationCopiedShare=text}});document.querySelector('[data-share-copy]').click();});
+        await page.waitForFunction(()=>document.querySelector('[data-share-status]').textContent==='链接已复制');assert.equal(await page.evaluate(()=>window.integrationCopiedShare),shareUrl);
+        const wechat=page.locator('.icon-wechat');await wechat.focus();await page.keyboard.press('Enter');assert.equal(await wechat.evaluate(node=>node.classList.contains('wechat-open')),true);
+        await page.keyboard.press('Escape');assert.equal(await wechat.evaluate(node=>node.classList.contains('wechat-dismissed')),true);result.checks.push('Share.js keyboard QR and canonical copy coexist with integrations and reading metrics');
         // Let Halo's own visit-counter fetch finish before intentionally leaving the article.
         await page.waitForLoadState('networkidle');
         await page.goto(base+'/');await page.waitForFunction(()=>window.integrationLoads?.length===8);
         assert.equal(await page.locator('.ad-aside').count(),1);assert.equal(await page.locator('#integration-top').count(),1);
+        assert.equal(await page.locator('[data-post-share]').count(),0);assert.equal(await page.locator('#busuanzi_value_site_uv').count(),0);
         assert.equal(await page.evaluate(()=>document.querySelector('#integration-bottom').parentElement.lastElementChild.id),'integration-bottom');result.checks.push('home custom sidebar cards coexist with ads');
         assert.equal(await page.locator('.ad-index').count(),Math.floor(await page.locator('.essay.home-layout > li.item').count()/3));assert.equal(await page.locator('.ad-post').count(),0);assert.equal(await page.locator('.theme-ad ins').count(),await page.locator('.ad-index').count()+1);await page.waitForFunction(()=>document.querySelector('[data-umami-stat="site_uv"]')?.textContent==='12');result.checks.push('home ad every three posts and site counters');
         await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});

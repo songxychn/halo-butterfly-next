@@ -2170,7 +2170,7 @@ spec:
         - $formkit: radio
           name: enable
           label: 启用字数与阅读时长
-          help: 对应上游 Butterfly wordcount.enable（依赖 hexo-wordcount，_config.yml 默认 false）。关闭时文章页不渲染字数总计与阅读时长。不做 total_wordcount、页脚字数。
+          help: 统计中文字符和其他语言单词；阅读时长按中文 350 字/分钟、其他语言 160 词/分钟估算。关闭时不显示字数与时长。
           value: false
           options:
             - label: 启用
@@ -2197,13 +2197,94 @@ spec:
               value: true
             - label: 隐藏
               value: false
+        - $formkit: checkbox
+          name: total_wordcount
+          label: 显示全站字数
+          value: false
+          help: 网站信息卡片进入视区后读取公开已发布文章，使用同一字数算法；当前标签页缓存 5 分钟。大型站点请求较多，可保持关闭。
+    - group: copy
+      label: 正文复制
+      formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 允许复制正文
+          value: true
+          help: 关闭后阻止文章正文的普通选择复制；代码工具栏与表单保持原有行为。
+        - $formkit: group
+          name: copyright
+          label: 复制时附带版权
+          children:
+            - $formkit: checkbox
+              name: enable
+              label: 追加作者、链接与许可
+              value: false
+            - $formkit: number
+              name: limit_count
+              label: 追加版权的字符阈值
+              value: 150
+              min: 0
+              help: 选中文字的字符数超过此值才追加。0 表示复制非空正文时追加；短选区保持原始复制。
+    - group: share
+      label: 文章分享
+      formSchema:
+        - $formkit: select
+          name: use
+          label: 分享方式
+          value: ''
+          options:
+            - label: 关闭
+              value: ''
+            - label: 系统分享与复制链接
+              value: native
+            - label: Share.js
+              value: sharejs
+            - label: AddToAny
+              value: addtoany
+          help: Share.js 随主题分发；AddToAny 开启时加载其在线服务。各方式均提供手动复制链接回退。
+        - $formkit: group
+          name: sharejs
+          label: Share.js 平台
+          children:
+            - $formkit: text
+              name: sites
+              label: 平台列表
+              value: facebook,x,wechat,weibo,qq
+              help: 以英文逗号分隔，支持 facebook、x、twitter、wechat、weibo、qq、qzone、linkedin；空列表不显示平台按钮。
+        - $formkit: group
+          name: addtoany
+          label: AddToAny 平台
+          children:
+            - $formkit: text
+              name: item
+              label: 平台列表
+              value: facebook,x,wechat,sina_weibo,facebook_messenger,email,copy_link
+              help: 使用 AddToAny 服务标识，以英文逗号分隔；空列表不加载服务。
     - group: busuanzi
       label: 访问统计
       formSchema:
+        - $formkit: select
+          name: provider
+          label: 统计来源
+          value: halo
+          options:
+            - label: Halo 原生阅读量
+              value: halo
+            - label: 不蒜子 PV / UV
+              value: busuanzi
+          help: Halo 提供文章及文章累计阅读量；独立访客数仅在选择不蒜子时显示。启用不蒜子后向其在线服务发送访问请求，两种来源的统计口径不同。
+        - $formkit: checkbox
+          name: site_pv
+          label: 显示累计访问量
+          value: false
+        - $formkit: checkbox
+          name: site_uv
+          label: 显示独立访客数
+          value: false
+          help: 仅不蒜子来源支持，在网站信息卡片中显示。
         - $formkit: radio
           name: page_pv
           label: 显示文章阅读量
-          help: 对应上游 Butterfly busuanzi.page_pv。实验室对照关闭，本主题默认关闭以免文章页多出阅读量。不做 site_uv / site_pv（网站信息另票）。
+          help: 在文章元信息显示阅读量，使用本组选择的统计来源。
           value: false
           options:
             - label: 显示
@@ -2744,7 +2825,7 @@ spec:
         - $formkit: radio
           name: enable
           label: 繁简转换按钮
-          help: "对应上游 Butterfly translate.enable（_config.yml / layout/includes/rightside.pug #translateLink / source/js/tw_cn.js，5.7.0 f223b188）。默认 false。仅显式 true 时渲染 #translateLink。关闭不渲染。按钮文案见 translate.default。禁止复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置。"
+          help: 开启后提供繁简转换按钮；代码、脚本、表单输入与 translate=no 的内容保持原文。
           value: false
           options:
             - label: 开启
@@ -2756,6 +2837,29 @@ spec:
           label: 按钮文案
           help: "对应上游 Butterfly translate.default（默认 繁）。显示在 #translateLink 上。enable 关闭时不渲染该按钮。空值回退为 繁。禁止复用作者卡片 aside.button。"
           value: "繁"
+        - $formkit: select
+          name: defaultEncoding
+          label: 正文原始编码
+          value: 2
+          options:
+            - label: 简体中文
+              value: 2
+            - label: 繁体中文
+              value: 1
+        - $formkit: number
+          name: translateDelay
+          label: 恢复已保存转换的延迟（毫秒）
+          value: 0
+          min: 0
+          max: 60000
+        - $formkit: text
+          name: msgToTraditionalChinese
+          label: 转为繁体的按钮文案
+          value: 繁
+        - $formkit: text
+          name: msgToSimplifiedChinese
+          label: 转为简体的按钮文案
+          value: 簡
     - group: darkmode
       label: 深色模式
       formSchema:

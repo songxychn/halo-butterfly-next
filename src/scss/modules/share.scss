@@ -1,0 +1,24 @@
+.post-share {
+  margin: 24px 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--theme);
+  h2 { font-size: 1.1rem; margin-bottom: 12px; }
+  .share-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  button, input { border: 1px solid var(--theme); border-radius: 6px; padding: 8px 12px; background: transparent; color: inherit; font: inherit; }
+  button { cursor: pointer; }
+  button[hidden] { display: none; }
+  label { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; max-width: 100%; }
+  input { width: 240px; max-width: 100%; box-sizing: border-box; }
+  :focus-visible { outline: 2px solid var(--theme); outline-offset: 3px; }
+  [data-share-status] { min-height: 1.5em; overflow-wrap: anywhere; }
+  .a2a_kit { display: flex; flex-wrap: wrap; gap: 8px; }
+  .social-share .icon-wechat:focus .wechat-qrcode,
+  .social-share .icon-wechat.wechat-open .wechat-qrcode { display: block; }
+  .social-share .icon-wechat.wechat-dismissed .wechat-qrcode { display: none; }
+  .social-share .wechat-qrcode { left: 0; }
+}
+html[data-color-scheme='dark'] .post-share .social-share .icon-x {
+  color: #ddd;
+  border-color: #ddd;
+  &:hover { color: #111; background: #ddd; }
+}

@@ -15,7 +15,7 @@
   <noscript th:if="${not colorCover and lazyDeferred}"><img th:src="${imageSrc}" th:alt="${alt}" th:class="${class}"></noscript>
 </th:block>
 
-<!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数/时长受 wordcount.enable（默认关，对齐 hexo-wordcount 未装）；阅读量受 busuanzi.page_pv（实验室关）。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
+<!--/* 中文按字、其他语言按词；去除脚本/样式/标签并解码常用实体。与 core/post-meta.ts 使用同一口径。 */-->
 <ul
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="postMeta"
@@ -29,10 +29,12 @@
     showMin2read = ${wordcountOn and theme.config.wordcount?.min2read != false},
     showPagePv = ${theme.config.busuanzi?.page_pv == true or theme.config.busuanzi?.page_pv == 'true'},
     showCommentCount = ${theme.config.comments?.count == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and post.spec.allowComment},
-    rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
-    plain = ${rawHtml.replaceAll('(?s)<[^>]+>', '')},
-    wordLen = ${#strings.length(plain)},
-    readMin = ${(wordLen + 499) / 500}
+    rawHtml = ${wordcountOn and post.content != null ? #strings.defaultString(post.content.content, '') : ''},
+    plain = ${T(org.unbescape.html.HtmlEscape).unescapeHtml(rawHtml.replaceAll('(?is)<!--.*?-->|<(script|style|template|svg)\b[^>]*>.*?</\1\s*>', '').replaceAll('(?s)<[^>]+>', ' '))},
+    chinese = ${#strings.length(plain.replaceAll('[^\p{IsHan}]', '').replaceAll('\p{IsHan}', 'x'))},
+    words = ${#strings.length(plain.replaceAll('\p{IsHan}', ' ').replaceAll('[\p{L}\p{N}]+(?:[''’][\p{L}\p{N}]+)*', 'x').replaceAll('[^x]', ''))},
+    wordLen = ${chinese + words},
+    readMin = ${(chinese * 160 + words * 350 + 55999) / 56000}
   "
 >
   <li class="row" th:if="${(theme.config.post.post_meta?.categories != false and not #lists.isEmpty(post.categories)) or (theme.config.post.post_meta?.tags != false and not #lists.isEmpty(post.tags))}">
@@ -68,15 +70,16 @@
   <li class="row" th:if="${showWordcount or showMin2read or showPagePv or showCommentCount or ((theme.config.analytics?.umami_analytics?.enable == true or theme.config.analytics?.umami_analytics?.enable == 'true') and (theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == true or theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == 'true') and not #strings.isEmpty(theme.config.analytics?.umami_analytics?.UV_PV?.stats_url))}">
     <span class="wp wordCount" th:if="${showWordcount}">
       <i class="fa-solid fa-list-ol"></i>
-      <span th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
+      <span data-post-wordcount th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
     </span>
     <span class="wp clock" th:if="${showMin2read}">
       <i class="fa-regular fa-clock"></i>
-      <span th:text="'阅读时长 ' + ${readMin} + ' 分钟'"></span>
+      <span data-post-minutes th:text="'阅读时长 ' + ${readMin} + ' 分钟'"></span>
     </span>
     <span class="wp visit" th:if="${showPagePv}">
       <i class="far fa-eye fa-fw"></i>
-      <span th:text="'阅读量 ' + ${post.stats.visit}"></span>
+      <span th:if="${theme.config.busuanzi?.provider != 'busuanzi'}" th:text="'阅读量 ' + ${post.stats.visit}"></span>
+      <span th:if="${theme.config.busuanzi?.provider == 'busuanzi'}" id="busuanzi_container_page_pv">阅读量 <span id="busuanzi_value_page_pv">暂不可用</span></span>
     </span>
     <span class="wp visit" th:if="${(theme.config.analytics?.umami_analytics?.enable == true or theme.config.analytics?.umami_analytics?.enable == 'true') and (theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == true or theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == 'true') and not #strings.isEmpty(theme.config.analytics?.umami_analytics?.UV_PV?.stats_url)}">
       <i class="far fa-eye fa-fw" aria-hidden="true"></i><span>访问量 </span><span data-umami-stat="page_pv">—</span>
@@ -266,6 +269,7 @@
       </button>
       <button
         id="translateLink"
+        th:attr="data-default-encoding=${theme.config.translate?.defaultEncoding ?: 2},data-translate-delay=${theme.config.translate?.translateDelay ?: 0},data-msg-traditional=${theme.config.translate?.msgToTraditionalChinese ?: '繁'},data-msg-simplified=${theme.config.translate?.msgToSimplifiedChinese ?: '簡'}"
         class="button"
         type="button"
         title="简繁转换"
