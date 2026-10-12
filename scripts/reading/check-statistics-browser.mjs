@@ -19,12 +19,16 @@ const evaluate=script=>command(['eval','--stdin'],script).result;
 const wait=expression=>command(['wait','--fn',expression]);
 const report={target:target.href,preset,checks:[],layouts:[],limitations:['Chromium headless only; external providers blocked or stubbed; no actual account sharing or third-party counter acceptance.']};
 try {
-  command(['open']);
+  if(preset==='native') {
+    const initScript=output.replace(/\.json$/, '-native-init.js');
+    writeFileSync(initScript,"Object.defineProperty(navigator,'share',{configurable:true,value:async data=>{window.__shared=data;window.__shareCount=(window.__shareCount||0)+1;if(window.__shareError)throw new DOMException('Test rejection',window.__shareError)}})");
+    command(['--init-script',initScript,'open']);
+  } else command(['open']);
   command(['network','route','https://busuanzi.ibruce.info/**','--abort']);
   command(['network','route','**/menu/page.js','--abort']);
-  if(preset==='native') command(['addinitscript',"Object.defineProperty(navigator,'share',{configurable:true,value:async data=>{window.__shared=data;window.__shareCount=(window.__shareCount||0)+1;if(window.__shareError)throw new DOMException('Test rejection',window.__shareError)}})"]);
   command(['open',target.href]);
   wait("!!MainApp.useCommon && document.querySelector('article.render')");
+  report.browser=evaluate('navigator.userAgent');
   const meta=evaluate(`(() => ({word:document.querySelector('[data-post-wordcount]')?.textContent,minutes:document.querySelector('[data-post-minutes]')?.textContent,share:document.querySelector('[data-post-share]')?.dataset.postShare,translate:!!document.getElementById('translateLink'),url:document.querySelector('[data-share-url]')?.value,code:document.querySelector('article.render code')?.textContent}))()`);
   if(preset==='off') {
     assert.equal(meta.word,undefined);assert.equal(meta.share,undefined);assert.equal(meta.translate,false);
