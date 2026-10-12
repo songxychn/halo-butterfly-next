@@ -1,6 +1,10 @@
 # 侧栏、图片与外观配置：限定验证
 
-当前产品对应普通合并提交 `078cd40836c4db5f51bb290229133ace31bb2547`，主题 `0.1.0-alpha.4`，ZIP SHA-256 `9d73c43f0111417b1bc8820ea6dd1919bafd1b2e97f69257744087f5a6f48d0c`。接入 master `329463a` 的 SEO/代码注入功能后，重生成设置默认值与矩阵，`bun run verify` 的 613 项测试和 146 文件包检查通过；真实 Halo 2.26.1（18143）实际安装逐文件一致，84 项外观配置检查全部重跑通过。另执行 SEO 检查器的 36 项 HTTP/模板检查通过，配置、系统设置及页面恢复。见[合并浏览器记录](appearance-merge.json)、[SEO 交叉检查](appearance-merge-seo.json)。后续文档提交不改变构建输入；PR 当前 head 的 CI 单独跟踪。
+当前产品对应普通合并提交 `1b4df00c76e4830920a47d457619371cc5887dcc`，合并 master `2105dc38e9e561f9d7b3814fad0f37cb02146709` 的导航/加载功能。ZIP SHA-256 `41d4c6c46ec1e9e2230f255f2f21d71a00971e997bad3424589332bd0845fb43`，146 个实际安装文件与包一致。共同图片片段保留颜色封面与 deferred/noscript 输出；坏图处理统一到懒加载模块，清除旧 srcset、回退一次，并覆盖缓存坏图及关闭/仅文章加载。
+
+`bun run verify` 通过 617 项测试及完整门禁。[真实 Halo 84 项配置复验](appearance-navigation-merge.json)全部通过；[20 项交叉复验](appearance-navigation-cross.json)覆盖 native/deferred/post/off 四种加载模式的友链回退（桌面/手机明暗共 16 项），以及每种尺寸/明暗连续 4 次首页与分类页局部导航（4 项），窗口标记保持，字体、主题色和单个 theme-color meta 正常。配置与文章封面均恢复。启用独立特效脚本的页面沿用导航模块的未知脚本保护，使用完整页面导航；本次未扩大局部导航支持范围。后续文档提交不改变构建输入，CI 绑定最终 head。
+
+此前产品对应普通合并提交 `078cd40836c4db5f51bb290229133ace31bb2547`，主题 `0.1.0-alpha.4`，ZIP SHA-256 `9d73c43f0111417b1bc8820ea6dd1919bafd1b2e97f69257744087f5a6f48d0c`。接入 master `329463a` 的 SEO/代码注入功能后，重生成设置默认值与矩阵，`bun run verify` 的 613 项测试和 146 文件包检查通过；真实 Halo 2.26.1（18143）实际安装逐文件一致，84 项外观配置检查全部重跑通过。另执行 SEO 检查器的 36 项 HTTP/模板检查通过，配置、系统设置及页面恢复。见[合并浏览器记录](appearance-merge.json)、[SEO 交叉检查](appearance-merge-seo.json)。后续文档提交不改变构建输入；PR 当前 head 的 CI 单独跟踪。
 
 以下保留合并前产品提交 `6ce0dfd054f607b0419be052a9242334c77b5c5a`，ZIP SHA-256 `61bf5bbdf47b773a1a23d59cf00b0c0e5bf9d543ca5e27da69e5b25f219fcc3e` 的原始限定检查及截图；当时实际安装 143 个文件与 ZIP 一致。旧报告不能替代上方合并包的检查。
 
