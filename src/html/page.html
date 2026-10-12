@@ -50,7 +50,8 @@
   <th:block th:fragment="main">
     <section class="content card">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${singlePage.spec.title}"></h1>
-      <article class="render" th:utext="${singlePage.content.content}"></article>
+      <article class="render" th:utext="${singlePage.content.content}"
+        th:attr="data-copy-enabled=${theme.config.copy?.enable != false and theme.config.copy?.enable != 'false'},data-copy-copyright=${theme.config.copy?.copyright?.enable == true or theme.config.copy?.copyright?.enable == 'true'},data-copy-limit=${theme.config.copy?.copyright?.limit_count != null ? theme.config.copy.copyright.limit_count : 150},data-copy-author=${singlePage.owner?.displayName ?: site.title},data-copy-url=${canonical ?: singlePage.status.permalink},data-copy-site=${site.title},data-copy-license=${theme.config.post.post_copyright?.license ?: 'CC BY-NC-SA 4.0'}"></article>
       <div
         id="post-comment"
         role="region" aria-labelledby="comment-title"

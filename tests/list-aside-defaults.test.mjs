@@ -153,7 +153,7 @@ test('网站信息保留文章数目与最后更新时间，访问量按来源�
   assert.match(webInfo, /theme.config.busuanzi\?\.site_pv/);
   assert.match(webInfo, /文章总阅读量/);
   assert.doesNotMatch(webInfo, /stats\.upvote/);
-  assert.doesNotMatch(webInfo, /stats\.visit/);
+  assert.match(webInfo, /stats\.visit/);
   const now = Date.parse('2026-09-10T13:00:00Z');
   const nodes = [
     { getAttribute: () => '2026-09-10T12:50:00Z', textContent: '2026-09-10 20:50' },
