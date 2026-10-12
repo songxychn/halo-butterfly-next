@@ -36,3 +36,9 @@ python3 scripts/reading/statistics-lab.py restore --runtime .runtime/reading-sta
 ```
 
 可分别替换 preset 为 `native`、`addtoany`、`busuanzi`、`off`；端口须使用自己 runtime 的端口。配置脚本只接受带所有权标记且进程属于该 runtime 的本地实验室，只创建专用合成文章。
+
+## 合并最新 master 后的回归
+
+PR #400 创建时，`master` 已合并 SEO/代码注入 PR #398。普通合并 `329463a0088a5c5ed2066a169ea9b6a93952ba44`，保留两边历史；变更记录保留两项功能，默认配置和矩阵从合并源重新生成。共享布局补充绝对规范链接变量，供正文版权复制和分享使用；SEO 关闭也保留这些链接。
+
+新源码 `ac8e017ce6f8b5f73fe0e1dea5cf538444a53c75` 的安装包和回归见[独立合并记录](reading-sharing-statistics-merged.json)。`bun run verify` 再次通过 612 项测试及 154 文件包检查；五种阅读配置重跑通过 36 项检查、20 组布局，另外关闭 SEO 的系统分享配置通过 8 项检查、4 组布局。受共享布局影响的 SEO/注入 runner 通过 52 项检查并恢复全部合成配置。新结果有自己的包摘要，原 151 文件包与旧报告保持原身份。
