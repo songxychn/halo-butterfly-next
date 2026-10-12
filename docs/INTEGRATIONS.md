@@ -58,6 +58,8 @@ https://assets.example.com/${name}/${version}/${file}
 
 ## 复验
 
+当前限定验证：622 项测试、三引擎 204 场景和合并后 36 项 SEO/注入回归，见 [验收记录](validation/2026-10-13/third-party-resources.md)。
+
 ```bash
 bun run verify
 bun scripts/browser/install.mjs
