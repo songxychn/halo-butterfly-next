@@ -19347,15 +19347,22 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "loading.enable"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "settings.yaml",
-          "src/js/core/loading-ready.ts"
+          "src/js/core/loading-ready.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html"
         ],
-        "finding": "模板按 loading.type 是否为字符串 null 控制加载，设置面目前只有四种动画且无启用开关；不能用内部 null 分支声明上游 preloader.enable 已映射。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
+        "finding": "loading.enable 新增独立开关并保留四种原有动画；旧 loading.type=null 仍关闭。缺省 true 延续原主题行为，与上游默认 false 不同；无 JS 时正文可读。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -19378,7 +19385,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/314",
@@ -19394,9 +19402,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:preloader.source",
@@ -23500,13 +23517,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "pjax.enable"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23529,12 +23554,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:pjax.exclude",
@@ -23558,13 +23594,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "pjax.exclude"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23587,12 +23631,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:snackbar.enable",
@@ -23616,13 +23671,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "snackbar.enable"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23645,12 +23708,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:snackbar.position",
@@ -23674,13 +23748,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "snackbar.position"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23711,12 +23793,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:snackbar.bg_light",
@@ -23740,13 +23833,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "snackbar.bg_light"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23769,12 +23870,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:snackbar.bg_dark",
@@ -23798,13 +23910,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "snackbar.bg_dark"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23827,12 +23947,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:instantpage",
@@ -23856,13 +23987,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "loading.instantpage"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "loading.instantpage 默认关闭；主题列表/分页或显式 opt-in 链接聚焦/经过时最多预取 8 条，同源排除规则、省流量/2G 与查询参数限制生效；浏览器可以忽略标准 prefetch 提示。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23885,12 +24024,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:lazyload.enable",
@@ -23914,13 +24064,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "lazyload.enable"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -23943,12 +24101,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:lazyload.native",
@@ -23972,13 +24141,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "lazyload.native"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -24001,12 +24178,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:lazyload.field",
@@ -24030,13 +24218,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "lazyload.field"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -24063,12 +24259,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:lazyload.placeholder",
@@ -24150,13 +24357,21 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
+        "settings": [
+          "lazyload.blur"
+        ],
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -24179,12 +24394,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:pwa.enable",
@@ -34046,9 +34272,15 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -34070,11 +34302,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -37993,9 +38236,15 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38017,11 +38266,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -38042,9 +38302,15 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -38066,11 +38332,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -51873,9 +52150,15 @@
         "code": [
           "src/html/views/layout.html",
           "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts"
+          "src/js/core/_lazyLoad.ts",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "src/html/views/components.html",
+          "settings.yaml"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -51896,11 +52179,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -51925,9 +52219,14 @@
           "src/js/modules/AmplifyImg.ts",
           "src/scss/core/header.scss",
           "src/js/core/common.ts",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/js/core/page-lifecycle.ts",
+          "src/js/core/navigation-loading.ts",
+          "src/js/core/image-loading.ts",
+          "src/js/core/_message.ts",
+          "settings.yaml"
         ],
-        "finding": "已有 LazyLoad img/data-lazy-src；共享封面/侧栏及头像新增原生 lazy/async，保留真实 src 与失败回退。限定手机首页/长文冷导航减少离屏资源；不改写任意作者正文。原生/库、site/post、占位/模糊、全局开关及全部配置仍未逐项完成等价证明，配置 gap 保持。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -51947,7 +52246,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/393"
         ],
         "pullRequests": []
       },
@@ -51969,6 +52269,15 @@
           "commit": "16664c9ee9aa594ac8dde85c7dbdf45c151bbd12",
           "actor": "/root",
           "outcome": "partial: measured pre-commit source snapshot bound by product file hashes; scoped performance and browser checks only; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-13/navigation-loading.json",
+          "sha256": "d7f6ade077c634d4a637faeee08ff4e9621d378a22698ba0126a09678655c2b6",
+          "date": "2026-10-12T16:44:50.046315+00:00",
+          "commit": "d085f389a207cc39fef4a132ada7b661e080d2e9",
+          "actor": "Codex author",
+          "outcome": "partial: scoped Halo and browser checks passed; full contract and independent review remain open"
         }
       ],
       "status": "implemented-unverified"
