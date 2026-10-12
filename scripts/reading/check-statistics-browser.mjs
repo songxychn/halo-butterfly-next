@@ -19,9 +19,10 @@ const evaluate=script=>command(['eval','--stdin'],script).result;
 const wait=expression=>command(['wait','--fn',expression]);
 const report={target:target.href,preset,checks:[],layouts:[],limitations:['Chromium headless only; external providers blocked or stubbed; no actual account sharing or third-party counter acceptance.']};
 try {
-  command(['open',target.origin]);
-  command(['network','route','**/busuanzi/**','--abort']);
+  command(['open']);
+  command(['network','route','https://busuanzi.ibruce.info/**','--abort']);
   command(['network','route','**/menu/page.js','--abort']);
+  if(preset==='native') command(['addinitscript',"Object.defineProperty(navigator,'share',{configurable:true,value:async data=>{window.__shared=data;window.__shareCount=(window.__shareCount||0)+1;if(window.__shareError)throw new DOMException('Test rejection',window.__shareError)}})"]);
   command(['open',target.href]);
   wait("!!MainApp.useCommon && document.querySelector('article.render')");
   const meta=evaluate(`(() => ({word:document.querySelector('[data-post-wordcount]')?.textContent,minutes:document.querySelector('[data-post-minutes]')?.textContent,share:document.querySelector('[data-post-share]')?.dataset.postShare,translate:!!document.getElementById('translateLink'),url:document.querySelector('[data-share-url]')?.value,code:document.querySelector('article.render code')?.textContent}))()`);
@@ -34,8 +35,17 @@ try {
     assert.ok(response.ok);const post=await response.json();const metrics=readingMetrics(post.content.content);
     assert.equal(meta.word,`字数总计 ${metrics.count} 字`);assert.equal(meta.minutes,`阅读时长 ${metrics.minutes} 分钟`);
     assert.ok(meta.url.includes('/archives/reading-sharing-fixture'));
+    assert.equal(evaluate("document.querySelector('[data-post-share]').dataset.title"),'阅读 & Share <b>标题</b>');
     report.checks.push('real Halo server wordcount and mixed reading time match published body; title escaped');
-    if(preset==='sharejs') {
+    if(preset==='native') {
+      assert.equal(evaluate("document.querySelector('[data-share-system]').hidden"),false);
+      evaluate("document.querySelector('[data-share-system]').click()");wait('window.__shareCount===1');
+      assert.deepEqual(evaluate('window.__shared'),{title:'阅读 & Share <b>标题</b>',url:meta.url});
+      evaluate("window.__shareError='AbortError';document.querySelector('[data-share-status]').textContent='';document.querySelector('[data-share-system]').click()");wait('window.__shareCount===2');
+      assert.equal(evaluate("document.querySelector('[data-share-status]').textContent"),'');
+      evaluate("window.__shareError='NotAllowedError';document.querySelector('[data-share-system]').click()");wait("document.querySelector('[data-share-status]').textContent==='请使用下方链接分享'");
+      report.checks.push('stubbed Web Share receives canonical title/URL; cancel quiet; denial keeps fallback');
+    } else if(preset==='sharejs') {
       wait("document.querySelectorAll('[data-share-provider] a').length === 5");
       const links=evaluate("[...document.querySelectorAll('[data-share-provider] a')].map(a=>({url:a.href,label:a.getAttribute('aria-label'),rel:a.rel}))");
       assert.ok(links.every(link=>link.label&&link.rel.includes('noopener')));
@@ -73,6 +83,15 @@ try {
     const total=evaluate("document.querySelector('[data-site-wordcount]').textContent");
     assert.match(total,/^\d+ 字$/);report.totalWordcount=total;
     report.checks.push('real anonymous public post aggregation completes');
+    evaluate('sessionStorage.clear()');
+    command(['network','route','**/apis/api.content.halo.run/v1alpha1/posts*','--abort']);
+    command(['open',target.origin]);
+    wait("!!MainApp.useCommon && !!document.querySelector('[data-site-wordcount]')");
+    evaluate("document.querySelector('[data-site-wordcount]').scrollIntoView()");
+    wait("document.querySelector('[data-site-wordcount]').dataset.state==='failed'");
+    assert.equal(evaluate("document.querySelector('[data-site-wordcount]').textContent"),'暂不可用');
+    command(['network','unroute','**/apis/api.content.halo.run/v1alpha1/posts*']);
+    report.checks.push('blocked public aggregation shows unavailable instead of partial total');
     command(['open',target.href]);
     wait("!!MainApp.useCommon && document.querySelector('article.render')");
   }
@@ -89,6 +108,13 @@ try {
     command(['screenshot',output.replace(/\.json$/,`-${width}-${mode}.png`)]);
   }
   report.checks.push('desktop/mobile light/dark have no document horizontal overflow');
+  if(preset==='sharejs') {
+    command(['network','route','**/plugins/sharejs/js/social-share.min.js','--abort']);
+    command(['open',target.href]);wait("document.querySelector('[data-share-status]')?.textContent.includes('暂不可用')");
+    assert.equal(evaluate("document.querySelectorAll('[data-share-provider] a').length"),0);
+    assert.equal(evaluate("document.querySelector('[data-share-url]').value"),meta.url);
+    report.checks.push('blocked local Share.js keeps manual canonical link');
+  }
   report.result='passed';
 } catch(error) {report.result='failed';report.error=String(error);process.exitCode=1;}
 finally {try{command(['close']);}catch(error){report.cleanupError=String(error);process.exitCode=1;}writeFileSync(output,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));}
