@@ -40,7 +40,7 @@ spec:
           name: site_verification
           label: 站点验证
           value: []
-          help: 多个验证标签按顺序输出，与主题 SEO 总开关独立。相同 name 最终由 Halo 保留最后一个；避免与全局注入重复配置。
+          help: 多个验证标签按顺序输出，与主题 SEO 总开关独立。列表中相同 name 取最后一条；避免与 Halo 全局注入或插件重复配置。
           children:
             - $formkit: text
               name: name

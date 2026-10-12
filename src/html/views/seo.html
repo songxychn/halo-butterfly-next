@@ -1,7 +1,8 @@
 <!-- Butterfly 5.7.0: Open_Graph.pug / structured_data.pug / site_verification.pug. -->
-<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="verification">
-  <meta th:each="item : ${theme.config.seo?.site_verification}"
-        th:if="${item != null and not #strings.isEmpty(#strings.trim(item.name)) and not #strings.isEmpty(#strings.trim(item.content))}"
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="verification"
+  th:with="verificationItems = ${(theme.config.seo?.site_verification ?: {}).?[#this != null and not #strings.isEmpty(#strings.trim(name)) and not #strings.isEmpty(#strings.trim(content))]}, verificationNames = ${verificationItems.![#strings.trim(name)]}">
+  <meta th:each="item, state : ${verificationItems}"
+        th:if="${state.index == verificationNames.lastIndexOf(#strings.trim(item.name))}"
         th:name="${#strings.trim(item.name)}" th:content="${item.content}">
 </th:block>
 

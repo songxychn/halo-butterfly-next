@@ -160,7 +160,7 @@ def main():
         post_ld = heads['/archives/preview-1/'].jsonld[0]
         check('BlogPosting dates author and image', lambda: require(isinstance(post_ld['datePublished'], str) and 'T' in post_ld['dateModified'] and post_ld['author'][0]['name'] == lab.CONTENT['site']['author'] and post_ld['image'].startswith(lab.BASE['halo'] + '/lab/')))
         check('WebSite aliases include subtitle and hostname', lambda: require(heads['/'].jsonld[0]['alternateName'] == ['实验站', lab.CONTENT['site']['subtitle'], '127.0.0.1']))
-        check('multiple verification platforms and same-name Halo deduplication', lambda: require(heads['/'].values('seo-verification-2') == ['second-platform'] and heads['/'].values('seo-duplicate') == ['new']))
+        check('multiple verification platforms and last same-name entry wins', lambda: require(heads['/'].values('seo-verification-2') == ['second-platform'] and heads['/'].values('seo-duplicate') == ['new']))
         check('query excluded from canonical', lambda: require(Head(html('/page/2/?utm_source=seo-test')).canonicals == [lab.BASE['halo'] + '/page/2']))
         check('404 has no canonical or JSON-LD', lambda: require(not Head(html('/seo-not-found', 404)).canonicals and not Head(html('/seo-not-found', 404)).jsonld))
         check('injected HTML not evaluated as Thymeleaf', lambda: require(Head(html('/')).values('seo-literal-template') == ['literal']))

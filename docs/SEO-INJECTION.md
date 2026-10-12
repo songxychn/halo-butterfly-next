@@ -16,7 +16,7 @@ JSON-LD 通过 Thymeleaf 自带的 unbescape Unicode 字符串转义构建纯 JS
 
 ## 站点验证与代码注入
 
-- `seo.site_verification` 是 `{name, content}` 列表；忽略空项和空名称/值。与 SEO 总开关独立。Halo 对同名 `meta[name]` 保留最后一个，配置多个不同验证平台时使用各自 name。
+- `seo.site_verification` 是 `{name, content}` 列表；忽略空项和空名称/值，与 SEO 总开关独立。主题列表自行按 name 保留最后一条；多个验证平台使用各自 name。Halo 的重复标签处理不保证在主题表达式展开后再去重，因此避免与平台全局注入或插件重复配置。
 - `inject.head` 和 `inject.bottom` 是 `{html}` 列表。保持非空条目的顺序，默认均为空；无需从 Halo 旧版全局注入复制代码。
 - 代码由管理员填写并原样输出，可以包含 HTML、CSS、脚本；不解析注入内容里的 Thymeleaf 表达式。只把可信代码放在这里。
 - head 列表在主题/页面 head 之后输出；随后 Halo 追加自身全局 head、内容 head、插件资源并按平台规则处理重复 `meta[name]`。
