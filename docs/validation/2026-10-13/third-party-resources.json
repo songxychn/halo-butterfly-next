@@ -1,6 +1,6 @@
 {
-  "sourceSha": "1fcb1345f182d470e829551d3dddd6746fdbd124",
-  "artifactSha256": "e04c1551f41781a16f6f274ee67606bf05b397b7f0d40914b2f0c0e02144217c",
+  "sourceSha": "fb34119973ae8d9355bdaa7355cacd85b660ec2d",
+  "artifactSha256": "c96d3d0ab2cc6782127f3287591f76d408f70ec85e9d962af69a52150fe1088f",
   "haloVersion": "2.26.1",
   "playwright": "1.63.0",
   "cases": [
@@ -18,7 +18,7 @@
       "blockedExternal": [],
       "screenshot": ".runtime/third-party-halo/disabled-1440.png",
       "status": "passed",
-      "screenshotSha256": "2507b13f831cf4b1072bcca72ab3f9dab35a98277c57386f15a538f2c635e436"
+      "screenshotSha256": "2c89bc1ac07ffda1687d4a62225d5c33e226999257895981ae80a0ab8048a9c7"
     },
     {
       "engine": "chromium",
@@ -48,7 +48,7 @@
       "blockedExternal": [],
       "screenshot": ".runtime/third-party-halo/disabled-390.png",
       "status": "passed",
-      "screenshotSha256": "2501ac41403de0789fdd0d318c754bf32ec840812967bc7118bf288b69621836"
+      "screenshotSha256": "219f5f63b73746b07d6c6ff8b4e0ad96317a1c507539bd16b0f44cc3621d699d"
     },
     {
       "engine": "chromium",
@@ -74,14 +74,15 @@
         "chat keyboard toggle",
         "all analytics, public stats, ads and token exclusion",
         "home ad every three posts and site counters",
-        "ad cards have width and do not overlap posts"
+        "ad cards have width and do not overlap posts",
+        "enabled PJAX retains full navigation for SDK lifecycle"
       ],
       "errors": [],
       "requestFailures": [],
       "blockedExternal": [],
       "screenshot": ".runtime/third-party-halo/all-1440.png",
       "status": "passed",
-      "screenshotSha256": "6dc5a414753ad74475aec7bc6b58bb3df8c05d894538ed5e603cc81192c7d96c"
+      "screenshotSha256": "1355851ca46f10f916871439be5b8a58dadbcefc545e5eca160855eb7f62f99a"
     },
     {
       "engine": "chromium",
@@ -117,7 +118,7 @@
       "blockedExternal": [],
       "screenshot": ".runtime/third-party-halo/all-390.png",
       "status": "passed",
-      "screenshotSha256": "2cc1449cddc1bfcf8a7065d36891bd85910923a7c5b9a7e9ff409fa07eb8045a"
+      "screenshotSha256": "959907c90e65e090052d77382d1c6b99be748d0eb333b876d295d881f09729cd"
     },
     {
       "engine": "chromium",
@@ -535,19 +536,19 @@
       "errors": [],
       "requestFailures": [
         {
-          "path": "/theme-mirror/webfonts/fa-solid-900.woff2",
-          "error": "net::ERR_ABORTED"
-        },
-        {
           "path": "/theme-mirror/webfonts/fa-regular-400.woff2",
           "error": "net::ERR_ABORTED"
         },
         {
-          "path": "/theme-mirror/webfonts/fa-solid-900.ttf",
+          "path": "/theme-mirror/webfonts/fa-solid-900.woff2",
           "error": "net::ERR_ABORTED"
         },
         {
           "path": "/theme-mirror/webfonts/fa-regular-400.ttf",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "path": "/theme-mirror/webfonts/fa-solid-900.ttf",
           "error": "net::ERR_ABORTED"
         }
       ],
@@ -558,37 +559,6 @@
       "engine": "chromium",
       "width": 390,
       "mode": "light",
-      "profile": "resources",
-      "checks": [
-        "rendered core and mode",
-        "custom file and version resolve with bundled Prism"
-      ],
-      "errors": [],
-      "requestFailures": [
-        {
-          "path": "/theme-mirror/webfonts/fa-solid-900.woff2",
-          "error": "net::ERR_ABORTED"
-        },
-        {
-          "path": "/theme-mirror/webfonts/fa-regular-400.woff2",
-          "error": "net::ERR_ABORTED"
-        },
-        {
-          "path": "/theme-mirror/webfonts/fa-solid-900.ttf",
-          "error": "net::ERR_ABORTED"
-        },
-        {
-          "path": "/theme-mirror/webfonts/fa-regular-400.ttf",
-          "error": "net::ERR_ABORTED"
-        }
-      ],
-      "blockedExternal": [],
-      "status": "passed"
-    },
-    {
-      "engine": "chromium",
-      "width": 390,
-      "mode": "dark",
       "profile": "resources",
       "checks": [
         "rendered core and mode",
@@ -618,6 +588,37 @@
     },
     {
       "engine": "chromium",
+      "width": 390,
+      "mode": "dark",
+      "profile": "resources",
+      "checks": [
+        "rendered core and mode",
+        "custom file and version resolve with bundled Prism"
+      ],
+      "errors": [],
+      "requestFailures": [
+        {
+          "path": "/theme-mirror/webfonts/fa-solid-900.woff2",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "path": "/theme-mirror/webfonts/fa-regular-400.woff2",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "path": "/theme-mirror/webfonts/fa-solid-900.ttf",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "path": "/theme-mirror/webfonts/fa-regular-400.ttf",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "blockedExternal": [],
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
       "width": 1440,
       "mode": "light",
       "profile": "bad-resources",
@@ -1270,7 +1271,8 @@
         "chat keyboard toggle",
         "all analytics, public stats, ads and token exclusion",
         "home ad every three posts and site counters",
-        "ad cards have width and do not overlap posts"
+        "ad cards have width and do not overlap posts",
+        "enabled PJAX retains full navigation for SDK lifecycle"
       ],
       "errors": [],
       "requestFailures": [],
@@ -2258,7 +2260,8 @@
         "chat keyboard toggle",
         "all analytics, public stats, ads and token exclusion",
         "home ad every three posts and site counters",
-        "ad cards have width and do not overlap posts"
+        "ad cards have width and do not overlap posts",
+        "enabled PJAX retains full navigation for SDK lifecycle"
       ],
       "errors": [],
       "requestFailures": [],
@@ -3391,16 +3394,17 @@
     "Optional Hexo reference failed to start; no dual-site parity claim.",
     "Author-run bounded evidence; independent review, CI and full 1.0 contract not certified by this file.",
     "Umami private API token backend mapping remains required; no backend proxy was developed.",
-    "Screenshots are local ignored artifacts identified by digest; they are not GitHub attachments."
+    "Screenshots are local ignored artifacts identified by digest; they are not GitHub attachments.",
+    "SDK pages retain full navigation with PJAX enabled; SDK teardown for partial navigation is not implemented."
   ],
-  "startedAt": "2026-10-12T16:57:12.022Z",
+  "startedAt": "2026-10-12T17:06:24.615Z",
   "engines": {
     "chromium": "153.0.8010.12",
     "firefox": "155.0",
     "webkit": "26.6"
   },
   "configurationRestored": true,
-  "finishedAt": "2026-10-12T16:59:02.895Z",
+  "finishedAt": "2026-10-12T17:08:22.241Z",
   "schema": 1,
   "kind": "bounded-third-party-resources-validation",
   "actor": "codex-author",
@@ -3409,12 +3413,12 @@
   "engineering": {
     "command": "bun run verify",
     "result": "passed",
-    "tests": 622,
-    "testFiles": 121,
+    "tests": 626,
+    "testFiles": 122,
     "packageFiles": 149,
-    "logSha256": "feaa9e5141d97e7ed5038eead5c078c52f1ffe9d35ebe3fdcbdc2047fc5be888"
+    "logSha256": "4e50ba803bf62c708b106ea2f7e5ed1830de50405adf3226da59e4ee583fd527"
   },
-  "runnerSha256": "84f3055726c54525d055e7f8f7ea098aaf5e8ee652977f87c87d66160d256f42",
+  "runnerSha256": "ea14e7b9fe34ea7a2fc5356348fd2ecce170fc826ba4fd0c16094c5e136eec3b",
   "sourceCommitAttribution": "caller-supplied; package bytes separately identified by SHA-256",
   "seoMergeRegression": {
     "result": "passed",
