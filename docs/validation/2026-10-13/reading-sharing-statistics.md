@@ -42,3 +42,7 @@ python3 scripts/reading/statistics-lab.py restore --runtime .runtime/reading-sta
 PR #400 创建时，`master` 已合并 SEO/代码注入 PR #398。普通合并 `329463a0088a5c5ed2066a169ea9b6a93952ba44`，保留两边历史；变更记录保留两项功能，默认配置和矩阵从合并源重新生成。共享布局补充绝对规范链接变量，供正文版权复制和分享使用；SEO 关闭也保留这些链接。
 
 新源码 `ac8e017ce6f8b5f73fe0e1dea5cf538444a53c75` 的安装包和回归见[独立合并记录](reading-sharing-statistics-merged.json)。`bun run verify` 再次通过 612 项测试及 154 文件包检查；五种阅读配置重跑通过 36 项检查、20 组布局，另外关闭 SEO 的系统分享配置通过 8 项检查、4 组布局。受共享布局影响的 SEO/注入 runner 通过 52 项检查并恢复全部合成配置。新结果有自己的包摘要，原 151 文件包与旧报告保持原身份。
+
+随后普通合并导航加载 PR #399 的固定主分支 `2105dc38e9e561f9d7b3814fad0f37cb02146709`。复制监听、繁简恢复延迟和字数请求接入页面清理，增加旧文档监听移除及在途请求取消的回归。源码 `0a08d4b071472b0276d9b00078393d906399f84c` 通过 617 项测试、154 文件包检查及对应 CI；五种阅读配置、SEO 关闭分享配置和 52 项 SEO/注入检查均重新通过。身份和报告摘要见[最终代码记录](reading-sharing-statistics-final.json)。第三方执行脚本仍可能按导航能力检查回退普通跳转，本轮未宣称全部分享组件支持局部导航。
+
+SEO runner 的旧固定输出位置 `seo-report.json` 被后续运行覆盖，先前来源、摘要与结果保持历史记录；当前原始 SEO 报告已另存 `navigation-seo-report.json`。其余本轮独立命名的阅读报告和截图保留在 runtime 中。
