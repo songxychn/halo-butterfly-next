@@ -1,12 +1,12 @@
 import {spawnSync} from 'node:child_process';
 import assert from 'node:assert/strict';
 import {mkdirSync, writeFileSync} from 'node:fs';
-import {dirname} from 'node:path';
+import {dirname, resolve} from 'node:path';
 import {readingMetrics} from '../../src/js/core/post-meta.ts';
 
 const target = new URL(process.argv[2]);
 const preset = process.argv[3] || 'sharejs';
-const output = process.argv[4] || '.runtime/reading-statistics/browser.json';
+const output = resolve(process.argv[4] || '.runtime/reading-statistics/browser.json');
 assert.ok(['127.0.0.1','localhost'].includes(target.hostname), 'Only owned local lab URLs');
 mkdirSync(dirname(output),{recursive:true});
 const session = `reading-${preset}-${process.pid}`;
@@ -39,7 +39,7 @@ try {
       wait("document.querySelectorAll('[data-share-provider] a').length === 5");
       const links=evaluate("[...document.querySelectorAll('[data-share-provider] a')].map(a=>({url:a.href,label:a.getAttribute('aria-label'),rel:a.rel}))");
       assert.ok(links.every(link=>link.label&&link.rel.includes('noopener')));
-      assert.ok(links.filter(link=>link.url.startsWith('http')).every(link=>link.url.startsWith('https:')));
+      assert.ok(links.filter(link=>link.url.startsWith('http') && new URL(link.url).origin!==target.origin).every(link=>link.url.startsWith('https:')));
       evaluate("document.querySelector('.icon-wechat').click()");
       assert.equal(evaluate("getComputedStyle(document.querySelector('.wechat-qrcode')).display"),'block');
       evaluate("document.querySelector('.icon-wechat').dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))");
@@ -49,8 +49,8 @@ try {
       assert.equal(evaluate("document.querySelectorAll('[data-share-provider] a').length"),4);
       report.checks.push('blocked AddToAny keeps service links and manual copy fallback');
     } else if(preset==='busuanzi') {
-      assert.equal(evaluate("document.querySelectorAll('#busuanzi_value_site_uv,#busuanzi_value_site_pv,#busuanzi_value_page_pv').length"),3);
-      assert.equal(evaluate("document.getElementById('busuanzi_value_site_uv').textContent"),'暂不可用');
+      assert.equal(evaluate("document.querySelectorAll('#busuanzi_value_page_pv').length"),1);
+      assert.equal(evaluate("document.getElementById('busuanzi_value_page_pv').textContent"),'暂不可用');
       report.checks.push('explicit Busuanzi emits PV/UV nodes; blocked service leaves unavailable text');
     }
     evaluate("Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.__copiedShare=text}}});document.querySelector('[data-share-copy]').click()");
@@ -65,11 +65,16 @@ try {
     assert.equal(translation.lang,'zh-TW');assert.equal(translation.label,'转简');assert.equal(translation.code,'简体代码');assert.equal(translation.protected,'简体原文');assert.ok(translation.json.includes('不计入统计'));
     evaluate("document.getElementById('translateLink').click()");
     report.checks.push('configured translation switches lang/label and preserves code/protected/script content');
+    command(['open',target.origin]);
+    wait("!!MainApp.useCommon && !!document.querySelector('[data-site-wordcount]')");
+    if(preset==='busuanzi') assert.equal(evaluate("document.querySelectorAll('#busuanzi_value_site_uv,#busuanzi_value_site_pv').length"),2);
     evaluate("document.querySelector('[data-site-wordcount]').scrollIntoView()");
     wait("document.querySelector('[data-site-wordcount]').dataset.state==='ready'");
     const total=evaluate("document.querySelector('[data-site-wordcount]').textContent");
     assert.match(total,/^\d+ 字$/);report.totalWordcount=total;
     report.checks.push('real anonymous public post aggregation completes');
+    command(['open',target.href]);
+    wait("!!MainApp.useCommon && document.querySelector('article.render')");
   }
   const copy=evaluate(`(() => { const p=document.getElementById('reading-copy');const selection=getSelection();const range=document.createRange();range.selectNodeContents(p);selection.removeAllRanges();selection.addRange(range);const clipboard=new DataTransfer();const event=new ClipboardEvent('copy',{bubbles:true,cancelable:true,clipboardData:clipboard});p.dispatchEvent(event);selection.removeAllRanges();return {prevented:event.defaultPrevented,text:clipboard.getData('text/plain')}; })()`);
   assert.equal(copy.prevented,true);

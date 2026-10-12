@@ -24,7 +24,7 @@
     showMin2read = ${wordcountOn and theme.config.wordcount?.min2read != false},
     showPagePv = ${theme.config.busuanzi?.page_pv == true or theme.config.busuanzi?.page_pv == 'true'},
     showCommentCount = ${theme.config.comments?.count == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and post.spec.allowComment},
-    rawHtml = ${post.content != null ? #strings.defaultString(post.content.content, '') : ''},
+    rawHtml = ${wordcountOn and post.content != null ? #strings.defaultString(post.content.content, '') : ''},
     plain = ${T(org.unbescape.html.HtmlEscape).unescapeHtml(rawHtml.replaceAll('(?is)<!--.*?-->|<(script|style|template|svg)\b[^>]*>.*?</\1\s*>', '').replaceAll('(?s)<[^>]+>', ' '))},
     chinese = ${#strings.length(plain.replaceAll('[^\p{IsHan}]', '').replaceAll('\p{IsHan}', 'x'))},
     words = ${#strings.length(plain.replaceAll('\p{IsHan}', ' ').replaceAll('[\p{L}\p{N}]+(?:[''’][\p{L}\p{N}]+)*', 'x').replaceAll('[^x]', ''))},

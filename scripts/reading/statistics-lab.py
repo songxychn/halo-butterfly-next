@@ -39,7 +39,7 @@ else:
     posts = client.api('/apis/content.halo.run/v1alpha1/posts?size=100')['items']
     if not any(post['metadata']['name'] == name for post in posts):
         html = '<h2>阅读分享测试</h2><p id="reading-copy">中文 hello world &#20013; &#x6587; &nbsp; &amp; don\'t!</p><pre><code>简体代码</code></pre><p translate="no">简体原文</p><script type="application/json">{"text":"不计入统计"}</script>'
-        post = {'apiVersion':'content.halo.run/v1alpha1','kind':'Post','metadata':{'name':name},'spec':{'title':'阅读 & Share <b>标题</b>', 'slug':name,'owner':client.auth['username'],'visible':'PUBLIC','deleted':False,'publish':False,'pinned':False,'priority':0,'allowComment':False,'categories':[],'tags':[],'publishTime':'2026-09-01T12:00:00Z'}}
+        post = {'apiVersion':'content.halo.run/v1alpha1','kind':'Post','metadata':{'name':name},'spec':{'title':'阅读 & Share <b>标题</b>', 'slug':name,'owner':client.auth['username'],'visible':'PUBLIC','deleted':False,'publish':False,'pinned':False,'priority':0,'allowComment':False,'excerpt':{'autoGenerate':True},'cover':'','categories':[],'tags':[],'publishTime':'2026-09-01T12:00:00Z'}}
         client.api(path, 'POST', {'post':post,'content':{'content':html,'raw':html,'rawType':'HTML'}})
         client.api(path+'/'+name+'/publish', 'PUT')
 print('Applied local reading preset:', args.preset)

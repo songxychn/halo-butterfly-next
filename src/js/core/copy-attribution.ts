@@ -9,6 +9,7 @@ export function bindCopyAttribution(root = document) {
   article.dataset.copyBound = 'true';
   root.addEventListener('copy', (event: ClipboardEvent) => {
     if (event.defaultPrevented) return;
+    if (event.target instanceof Element && event.target.closest('input,textarea,[contenteditable="true"]')) return;
     const selection = root.getSelection();
     if (!selection || selection.isCollapsed || !selection.anchorNode || !selection.focusNode) return;
     const selectedElement = selection.anchorNode.parentElement;
