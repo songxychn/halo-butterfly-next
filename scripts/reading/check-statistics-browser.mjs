@@ -40,6 +40,9 @@ try {
     assert.ok(response.ok);const post=await response.json();const metrics=readingMetrics(post.content.content);
     assert.equal(meta.word,`字数总计 ${metrics.count} 字`);assert.equal(meta.minutes,`阅读时长 ${metrics.minutes} 分钟`);
     assert.ok(meta.url.includes('/archives/reading-sharing-fixture'));
+    assert.equal(evaluate("document.querySelector('article.render').dataset.copyUrl"),meta.url);
+    const canonical=evaluate("document.querySelector('link[rel=canonical]')?.href");
+    if(canonical) assert.equal(meta.url,canonical);
     assert.equal(evaluate("document.querySelector('[data-post-share]').dataset.title"),'阅读 & Share <b>标题</b>');
     report.checks.push('real Halo server wordcount and mixed reading time match published body; title escaped');
     if(preset==='native') {

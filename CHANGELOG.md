@@ -4,6 +4,8 @@
 
 - 补齐正文复制版权、繁简转换参数、中英文字数与阅读时长，以及默认关闭的全站字数、PV/UV 和文章分享。支持本地 Share.js、AddToAny、系统分享与复制链接，资源按配置加载；统计口径、迁移和服务失败回退见 [阅读、分享与统计](docs/READING-SHARING-STATISTICS.md)。
 
+- 补齐核心路由及分页 canonical、OG 图片与 Twitter/Facebook 扩展、站点验证和可选 WebSite/BlogPosting 结构化数据；新增保序 head/bottom 代码注入，兼容公共布局与 Halo 全局注入。保留原 SEO 总开关，旧配置默认无注入、结构化数据关闭；说明与限定验收见 [SEO 与代码注入](docs/SEO-INJECTION.md)。
+
 - 首页新增固定 Butterfly 5.7.0 的七种文章排列，布局 6/7 使用同版 InfiniteGrid 4.13.0 本地瀑布流；保留旧 list/tile 默认与摘要行为。配置、移动端断点及回退见 [首页文章布局](docs/HOMEPAGE-LAYOUTS.md)，完整 1.0 验收状态仍以矩阵为准。
 
 - 按 DEC-07 采用 Halo KaTeX 插件：保留原生 MathML，补齐长公式局部滚动、TeX 复制、亮暗布局及全局/文章/单页公式与源码显示控制。版本、迁移及插件全站资源加载限制见 [数学公式](docs/MATH.md)。
