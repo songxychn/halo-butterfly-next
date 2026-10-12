@@ -1,4 +1,5 @@
 import { readingMetrics } from './post-meta.ts';
+import { onPageCleanup } from './page-lifecycle.ts';
 
 const API = '/apis/api.content.halo.run/v1alpha1/posts';
 const CACHE_KEY = 'halo-butterfly-next:total-words:v1';
@@ -14,6 +15,7 @@ export function initializeVisitCounters(root = document) {
   script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
   script.async = true;
   root.head.append(script);
+  onPageCleanup(() => script.remove());
 }
 
 /** Read only the anonymous, published Post API. */
@@ -51,7 +53,12 @@ export function initializeSiteWordcount(root = document) {
   const output = root.querySelector<HTMLElement>('[data-site-wordcount]');
   if (!output || output.dataset.started) return;
   output.dataset.started = 'true';
+  let active = true;
+  let controller: AbortController | undefined;
+  let observer: IntersectionObserver | undefined;
+  onPageCleanup(() => { active = false; observer?.disconnect(); controller?.abort(); });
   const run = async () => {
+    if (!active) return;
     output.textContent = '统计中…';
     const signature = output.dataset.siteWordcount ?? '';
     try {
@@ -61,23 +68,25 @@ export function initializeSiteWordcount(root = document) {
           output.textContent = `${saved.count} 字`; output.dataset.state = 'ready'; return;
         }
       } catch { /* Storage is optional. */ }
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 60000);
+      const request = new AbortController();
+      controller = request;
+      const timer = setTimeout(() => request.abort(), 60000);
       let count;
       try {
         count = await countPublishedWords(async url => {
-          const response = await fetch(url, {credentials: 'omit', signal: controller.signal});
+          const response = await fetch(url, {credentials: 'omit', signal: request.signal});
           if (!response.ok) throw new Error('Statistics unavailable');
           return response.json();
         });
-      } finally { clearTimeout(timer); controller.abort(); }
+      } finally { clearTimeout(timer); request.abort(); }
+      if (!active) return;
       output.textContent = `${count} 字`; output.dataset.state = 'ready';
       try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({signature, count, at: Date.now()})); } catch { /* Optional cache. */ }
-    } catch { output.textContent = '暂不可用'; output.dataset.state = 'failed'; }
+    } catch { if (active) { output.textContent = '暂不可用'; output.dataset.state = 'failed'; } }
   };
   if (typeof IntersectionObserver === 'undefined') { void run(); return; }
-  const observer = new IntersectionObserver(entries => {
-    if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); void run(); }
+  observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) { observer!.disconnect(); void run(); }
   }, {rootMargin: '100px'});
   observer.observe(output);
 }

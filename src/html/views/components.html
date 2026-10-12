@@ -1,14 +1,16 @@
 <!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
-<img
+<th:block
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:with="resolvedSrc = ${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random) ? (theme.config.loading.img.random_link + parma) : src}"
-  th:src="${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload}"
-  th:attr="onerror='this.src='+${'`'+theme.config.loading.img.err+'`'}"
-  th:alt="${alt}"
-  th:class="${class}"
-  loading="lazy"
-  decoding="async"
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.loading.img.random_enable and random) ? (theme.config.loading.img.random_link + parma) : src},
+    imageSrc = ${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload},
+    lazyOn = ${theme.config.lazyload?.enable != false and theme.config.lazyload?.enable != 'false' and theme.config.lazyload?.field != 'post'},
+    lazyDeferred = ${lazyOn and (theme.config.lazyload?.native == false or theme.config.lazyload?.native == 'false')}"
 >
+  <img data-theme-image th:src="${lazyDeferred ? theme.config.loading.img.preload : imageSrc}"
+    th:data-lazy-src="${lazyDeferred ? imageSrc : null}" th:data-theme-image-fallback="${theme.config.loading.img.err}"
+    th:alt="${alt}" th:class="${class}" th:loading="${lazyOn ? 'lazy' : 'eager'}" decoding="async">
+  <noscript th:if="${lazyDeferred}"><img th:src="${imageSrc}" th:alt="${alt}" th:class="${class}"></noscript>
+</th:block>
 
 <!--/* 中文按字、其他语言按词；去除脚本/样式/标签并解码常用实体。与 core/post-meta.ts 使用同一口径。 */-->
 <ul
@@ -488,7 +490,7 @@
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="codeBlockPin"
 >
-  <script id="codeBlockScript" th:inline="javascript">
+  <script data-theme-script="code-config" id="codeBlockScript" th:inline="javascript">
     window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
     Object.assign(window.MainApp.conf, {
       enable_code: /*[[${theme.config.render.enable_code}]]*/ true,

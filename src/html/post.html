@@ -13,7 +13,7 @@
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
           th:href="${aboveBackground}">
-    <script id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')}">
+    <script data-theme-script="page-config" id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')}">
       Object.assign(window.MainApp.conf, {
         // 第一屏
         enable_above: /*[[${aboveEnabled}]]*/ '',

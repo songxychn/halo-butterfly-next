@@ -1,3 +1,4 @@
+import { pageListen } from './page-lifecycle.ts';
 /**
  * @date: 2024/2/23
  * @author: 小红
@@ -40,7 +41,7 @@ export default class Theme {
       saved,
     })) {
       try {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        pageListen(window.matchMedia('(prefers-color-scheme: dark)'), 'change', event => {
           try {
             const chosen = localStorage.getItem(this.#LOCALSTORAGE_KEY);
             if (chosen === 'light' || chosen === 'dark') return;

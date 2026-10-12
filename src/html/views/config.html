@@ -1,7 +1,18 @@
 <!--/* 基础配置 */-->
-<script id="baseScript" th:inline="javascript">
+<script data-theme-script="config" id="baseScript" th:inline="javascript">
   window.MainApp = {
     conf: {
+      pjax_enable: /*[[${theme.config.pjax?.enable == true}]]*/ false,
+      pjax_exclude: /*[[${theme.config.pjax?.exclude ?: ''}]]*/ '',
+      instantpage: /*[[${theme.config.loading?.instantpage == true}]]*/ false,
+      snackbar_enable: /*[[${theme.config.snackbar?.enable == true}]]*/ false,
+      snackbar_position: /*[[${theme.config.snackbar?.position ?: 'bottom-left'}]]*/ 'bottom-left',
+      snackbar_bg_light: /*[[${theme.config.snackbar?.bg_light ?: '#1f2937'}]]*/ '#1f2937',
+      snackbar_bg_dark: /*[[${theme.config.snackbar?.bg_dark ?: '#374151'}]]*/ '#374151',
+      lazyload_enable: /*[[${theme.config.lazyload?.enable != false and theme.config.lazyload?.enable != 'false'}]]*/ true,
+      lazyload_native: /*[[${theme.config.lazyload?.native != false and theme.config.lazyload?.native != 'false'}]]*/ true,
+      lazyload_field: /*[[${theme.config.lazyload?.field ?: 'site'}]]*/ 'site',
+      lazyload_blur: /*[[${theme.config.lazyload?.blur == true}]]*/ false,
       above_background_fallback: /*[[${theme.config.image?.default_top_img ?: ''}]]*/ '',
       restore_aside: /*[[${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'}]]*/ true,
       style_mode: /*[[${theme.config.style.mode}]]*/ null,

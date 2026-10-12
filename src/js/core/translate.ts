@@ -6,9 +6,10 @@
  * Halo 新组 translate.enable 默认 false；仅显式 true 渲染 #translateLink。
  * defaultEncoding / translateDelay / 两套 msg 由按钮 data 属性传入。
  * 点击用 textContent 切按钮文案并转换页面文本，不走 innerHTML。
- * 不复用作者卡片 aside.button。不做 item_order / snackbar / pjax。
+ * 页面离开时清理延迟恢复与按钮监听。
  */
 import { JTPYStr, FTPYStr } from './translate-maps.ts';
+import { onPageCleanup, pageListen } from './page-lifecycle.ts';
 
 export const TRANSLATE_ENABLE_DEFAULT = false;
 export const TRANSLATE_DEFAULT_TEXT = '繁';
@@ -222,8 +223,10 @@ export function bindTranslate(root = typeof document !== 'undefined' ? document 
   let initialized = false;
   const initialize = () => { if (!initialized) { initializeTranslate(state); initialized = true; } };
   const timer = setTimeout(initialize, delay);
-  button.addEventListener('click', () => {
+  onPageCleanup(() => clearTimeout(timer));
+  pageListen(button, 'click', () => {
     clearTimeout(timer); initialize();
     translatePage(state);
+    if (typeof MainApp !== 'undefined' && (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true')) MainApp.useMessage?.info('已切换繁简显示');
   });
 }

@@ -1,4 +1,5 @@
 /** Butterfly 5.7.0 copy.copyright adapted to Halo article bodies. */
+import { pageListen } from './page-lifecycle.ts';
 export function appendAttribution(text: string, limit: number, author: string, url: string, site: string, license: string) {
   return text.length > limit ? `${text}\n\n作者：${author}\n链接：${url}\n来源：${site}\n著作权归作者所有。${license}` : text;
 }
@@ -7,7 +8,7 @@ export function bindCopyAttribution(root = document) {
   const article = root.querySelector<HTMLElement>('article.render[data-copy-enabled]');
   if (!article || article.dataset.copyBound) return;
   article.dataset.copyBound = 'true';
-  root.addEventListener('copy', (event: ClipboardEvent) => {
+  pageListen(root, 'copy', (event: ClipboardEvent) => {
     if (event.defaultPrevented) return;
     if (event.target instanceof Element && event.target.closest('input,textarea,[contenteditable="true"]')) return;
     const selection = root.getSelection();
