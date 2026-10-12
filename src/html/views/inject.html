@@ -1,0 +1,7 @@
+<!-- Administrator HTML is emitted as text, never reprocessed as a template. -->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="head">
+  <th:block th:each="item : ${theme.config.inject?.head}" th:if="${item != null and not #strings.isEmpty(#strings.trim(item.html))}" th:utext="${item.html}"/>
+</th:block>
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="bottom">
+  <th:block th:each="item : ${theme.config.inject?.bottom}" th:if="${item != null and not #strings.isEmpty(#strings.trim(item.html))}" th:utext="${item.html}"/>
+</th:block>

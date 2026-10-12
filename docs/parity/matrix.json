@@ -19102,12 +19102,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.site_verification"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19130,12 +19136,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:category_ui",
@@ -24760,9 +24777,14 @@
           "base.enable_seo"
         ],
         "code": [
-          "src/html/views/layout.html"
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
         ],
-        "finding": "已有 OG/canonical 总开关，具体字段和页面范围待比对。"
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -24785,11 +24807,22 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -24814,12 +24847,24 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.twitter_card",
+          "seo.twitter_image",
+          "seo.twitter_id",
+          "seo.twitter_site",
+          "seo.google_plus",
+          "seo.fb_admins",
+          "seo.fb_app_id"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -24842,12 +24887,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:structured_data.enable",
@@ -24871,12 +24927,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.structured_data"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -24899,12 +24961,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:structured_data.alternate_name",
@@ -24928,12 +25001,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.alternate_name"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -24956,12 +25035,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:css_prefix",
@@ -25041,12 +25131,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "inject.head"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25069,12 +25165,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:inject.bottom",
@@ -25098,12 +25205,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "inject.bottom"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25126,12 +25239,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.internal_provider",
@@ -26346,12 +26470,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.twitter_card"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26374,12 +26504,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.twitter_image",
@@ -26397,12 +26538,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.twitter_image"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26425,12 +26572,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.twitter_id",
@@ -26448,12 +26606,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.twitter_id"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26476,12 +26640,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.twitter_site",
@@ -26499,12 +26674,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.twitter_site"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26527,12 +26708,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.google_plus",
@@ -26550,12 +26742,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.google_plus"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26578,12 +26776,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.fb_admins",
@@ -26601,12 +26810,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.fb_admins"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26629,12 +26844,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.fb_app_id",
@@ -26652,12 +26878,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.fb_app_id"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26680,12 +26912,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.abcjs_basic_js",
@@ -29834,12 +30077,18 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "base.enable_seo"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -29861,12 +30110,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head/analytics",
@@ -30189,12 +30449,18 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.site_verification"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -30216,12 +30482,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head/structured_data",
@@ -30238,12 +30515,19 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.structured_data",
+          "seo.alternate_name"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -30265,12 +30549,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/header/index",
@@ -37641,12 +37936,19 @@
       "upstreamInventory": "helpers",
       "halo": {
         "strategy": "将上游 helper 的输入输出语义移植到 Halo 模板/Finder 或构建逻辑。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "inject.head",
+          "inject.bottom"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -37666,12 +37968,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:md5",
@@ -37860,7 +38173,7 @@
           "src/html/views/layout.html",
           "src/html/views/components.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批 JSON-LD 使用严格 Unicode 字符串转义，覆盖 HTML script tokenizer、特殊字符与嵌套作者/别名数据；见 docs/SEO-INJECTION.md。其他脚本中的通用嵌入数据仍未逐项审计，本条不据局部安全结果完成全域实现。"
       },
       "dependencies": [
         "dual-site",
@@ -37880,7 +38193,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
@@ -52419,7 +52733,7 @@
           "src/html/views/layout.html",
           "src/html/views/components.html"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批 JSON-LD 使用严格 Unicode 字符串转义，覆盖 HTML script tokenizer、特殊字符与嵌套作者/别名数据；见 docs/SEO-INJECTION.md。其他脚本中的通用嵌入数据仍未逐项审计，本条不据局部安全结果完成全域实现。"
       },
       "dependencies": [
         "dual-site",
@@ -52438,7 +52752,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
@@ -52708,12 +53023,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.site_verification"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -52734,12 +53055,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:flink-data",
@@ -53129,12 +53461,19 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "inject.head",
+          "inject.bottom"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -53155,12 +53494,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:structured-alternate",
@@ -53177,12 +53527,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "settings": [
+          "seo.alternate_name"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/seo.html",
+          "src/html/views/seo-json.html",
+          "src/html/views/inject.html",
+          "src/html/views/layout.html",
+          "src/html/layout.html"
+        ],
+        "finding": "2026-10-13：新增核心路由与分页 canonical、OG/Twitter/Facebook 字段、站点验证、可选 WebSite/BlogPosting 和保序 head/bottom 注入；保留 SEO 总开关、Halo 描述职责与插件自有 head。旧配置空值回退；JSON Unicode/属性转义。配置映射及限定真实 Halo 回归见 docs/SEO-INJECTION.md。固定双站、真实 SEO 插件组合、最低 Halo 版本、独立审查及完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -53203,12 +53559,23 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/396"
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/seo-injection.json",
+          "sha256": "1b04389b67a694eb0e1cc6d6e0436e1b4c9740b031169b4a49474ae13c7bc131",
+          "commit": "4322a2ed167be16d9deda19ddb10436b6e1e4c1e",
+          "date": "2026-10-13T00:36:17+0800",
+          "actor": "codex-author",
+          "outcome": "passed"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "content:headings",
