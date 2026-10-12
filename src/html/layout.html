@@ -16,6 +16,8 @@
       <th:block th:replace="${head}"/>
     </th:block>
     <noscript><style>.loading #Butterfly { display: block; } img[data-lazy-src] { display: none; }</style></noscript>
+    <th:block th:replace="~{views/seo :: verification}"/>
+    <th:block th:replace="~{views/inject :: head}"/>
   </head>
 
   <body
@@ -39,5 +41,6 @@
       <th:block th:replace="~{views/components :: side}"/>
     </div>
     <script th:src="${assets_link + 'js/plugin.min.js?v=' + theme.spec.version}"></script>
+    <th:block th:replace="~{views/inject :: bottom}"/>
   </body>
 </html>

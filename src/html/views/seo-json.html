@@ -1,0 +1,19 @@
+<!-- JSON strings use Thymeleaf's bundled unbescape with JSON-compatible Unicode escapes.
+     Explicitly encode angle brackets to prevent the HTML script tokenizer's double-escaped state. -->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="structured"
+  th:if="${page == 'post' or (page == 'index' and posts.page == 1 and seoBase == seoOrigin)}"
+  th:with="
+    authorRaw = ${theme.config.post.post_copyright?.author_href ?: (seoBase + '/')},
+    authorUrl = ${#strings.startsWith(authorRaw, 'http://') or #strings.startsWith(authorRaw, 'https://') ? authorRaw : (#strings.startsWith(authorRaw, '//') ? #strings.substringBefore(seoBase, ':') + ':' + authorRaw : (#strings.startsWith(authorRaw, '/') ? seoOrigin + authorRaw : seoBase + '/' + authorRaw))},
+    fields = ${page == 'post' ? {seoTitle, seoUrl, imageUrl, post.spec.publishTime, (post.status.lastModifyTime ?: post.spec.publishTime), (seoAuthor?.displayName ?: site.title), authorUrl} : {site.title, seoBase + '/'}},
+    aliases = ${(theme.config.seo?.alternate_name ?: {}).?[#this != null and not #strings.isEmpty(#strings.trim(name))].![#strings.trim(name)]},
+    withAliases = ${page == 'index' ? fields.addAll(aliases) : false},
+    withSubtitle = ${page == 'index' and not #strings.isEmpty(site.subtitle) ? fields.add(site.subtitle) : false},
+    withDomain = ${page == 'index' ? fields.add(seoHost) : false},
+    encoded = ${fields.!['&quot;' + T(org.unbescape.javascript.JavaScriptEscape).escapeJavaScript(#strings.toString(#this ?: ''), T(org.unbescape.javascript.JavaScriptEscapeType).UHEXA, T(org.unbescape.javascript.JavaScriptEscapeLevel).LEVEL_3_ALL_NON_ALPHANUMERIC) + '&quot;']}
+  ">
+  <script type="application/ld+json" th:if="${page == 'post'}"
+    th:utext="${'{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;headline&quot;:' + encoded[0] + ',&quot;url&quot;:' + encoded[1] + ',&quot;image&quot;:' + encoded[2] + ',&quot;datePublished&quot;:' + encoded[3] + ',&quot;dateModified&quot;:' + encoded[4] + ',&quot;author&quot;:[{&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:' + encoded[5] + ',&quot;url&quot;:' + encoded[6] + '}]}'}"></script>
+  <script type="application/ld+json" th:if="${page == 'index'}"
+    th:utext="${'{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:' + encoded[0] + ',&quot;url&quot;:' + encoded[1] + ',&quot;alternateName&quot;:[' + #strings.listJoin(encoded.subList(2, encoded.size()), ',') + ']}'}"></script>
+</th:block>

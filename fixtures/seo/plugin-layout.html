@@ -1,0 +1,8 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:replace="~{layout :: html(~{::probeHead}, ~{::probeContent})}">
+  <th:block th:fragment="probeHead">
+    <title>SEO 插件公共布局夹具</title>
+    <meta property="og:title" content="插件自有 OG">
+    <link rel="canonical" href="https://plugin.example.invalid/owned-page">
+  </th:block>
+  <section th:fragment="probeContent" id="seo-plugin-probe">独立页面 head 与内容</section>
+</th:block>
