@@ -34,13 +34,13 @@ test('cover 组为 index_enable、default_cover、aside_enable、archives_enable
   const cover = settings.spec.forms.find(form => form.group === 'cover');
   assert.ok(cover);
   const names = cover.formSchema.map(node => node.name);
-  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable']);
+  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable', 'default_cover_list']);
 });
 
 test('archives.html：false 不输出封面 img；有 default_cover 回退；无图时 no-cover', async () => {
   const source = await readFile(new URL('../src/html/archives.html', import.meta.url), 'utf8');
   assert.match(source, /theme\.config\.cover\.archives_enable != false/);
-  assert.match(source, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : theme\.config\.cover\.default_cover\}/);
+  assert.match(source, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : \(not #lists\.isEmpty\(coverCandidates\) \? coverCandidates\[.*?\]\.url : theme\.config\.cover\.default_cover\)\}/);
   assert.match(source, /showCover = \$\{theme\.config\.cover\.archives_enable != false and \(not #strings\.isEmpty\(coverSrc\) or theme\.config\.loading\.img\.random_enable\)\}/);
   assert.match(source, /th:if="\$\{showCover\}"/);
   assert.match(source, /class="cover"/);

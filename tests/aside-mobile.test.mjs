@@ -104,8 +104,8 @@ test('布局：aside.enable 且 mobile 为 false 时 html 加 aside-mobile-off�
   assert.match(layoutHtml, /hide-aside/);
   assert.doesNotMatch(layoutHtml, /th:utext/);
   assert.match(settingsText, /name: mobile/);
-  const mobileIdx = settingsText.indexOf('name: mobile');
-  const buttonIdx = settingsText.indexOf('name: button');
+  const mobileIdx = settingsText.indexOf('name: mobile', settingsText.indexOf('group: aside'));
+  const buttonIdx = settingsText.indexOf('name: button', settingsText.indexOf('group: aside'));
   const hideIdx = settingsText.indexOf('name: hide');
   assert.ok(hideIdx > 0 && mobileIdx > hideIdx && buttonIdx > mobileIdx);
 });

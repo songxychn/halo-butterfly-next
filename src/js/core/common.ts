@@ -5,6 +5,7 @@
  * @Description:common
  */
 import $ from 'jquery';
+import {initializeAppearance, enabled} from './appearance.ts';
 import Navigation from './navigation.ts';
 import { initializeAsideOptions } from './aside-options.ts';
 import { initializeImageLoading } from './image-loading.ts';
@@ -24,7 +25,15 @@ export default class Common {
 
     if(MainApp.conf.enable_aside && MainApp.conf.enable_webInfo) this.#runDay(); //站点运行时间
 
-    initializeAsideOptions();
+    initializeAsideOptions(document, MainApp.conf.aside_tag_colors);
+    initializeAppearance(MainApp.conf.appearance);
+    const effects = MainApp.conf.effects;
+    if (effects && Object.values(effects).some(value => value && typeof value === 'object' && enabled((value as Record<string, unknown>).enable)) && !document.getElementById('appearance-effects') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const script = document.createElement('script');
+      script.id = 'appearance-effects'; script.defer = true;
+      script.src = MainApp.conf.assets_link + 'js/effects.min.js';
+      document.body.append(script);
+    }
     applyRelativeDates();
     bindHideAsideButton();
     bindRightsideConfig();
