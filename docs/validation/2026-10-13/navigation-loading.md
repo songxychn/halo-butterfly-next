@@ -1,6 +1,6 @@
 # 导航与加载限定验证
 
-产品源码为 `d085f389a207cc39fef4a132ada7b661e080d2e9`，主题版本仍为 `0.1.0-alpha.4`。安装包 SHA-256 为 `e041e0410be4c6d90b8956469b5961dc41b9587fa6dde8155a615831d05b644c`；后续修改仅涉及验收脚本、文档和矩阵，完整 verify 重建包已与安装包比对一致。结构化结果、执行脚本和截图哈希见 [JSON](navigation-loading.json)。
+产品源码为 `d085f389a207cc39fef4a132ada7b661e080d2e9`，主题版本仍为 `0.1.0-alpha.4`。安装包 SHA-256 为 `e041e0410be4c6d90b8956469b5961dc41b9587fa6dde8155a615831d05b644c`；初次验收后的首轮修改只涉及验收脚本、文档和矩阵，重建包已与安装包比对一致；随后合并 master 的结果见下节。结构化结果、执行脚本和截图哈希见 [JSON](navigation-loading.json)。
 
 Bun 1.4.0 的 `bun run verify` 通过：610 个测试、121 个测试文件，包含严格类型检查、897 项矩阵一致性、构建及 142 文件安装包检查。合成页面使用生成后的真实主题 bundle，在 Chromium 153.0.8010.12、Firefox 155.0、WebKit 26.6 的 1440×900 / 390×900 视口通过六次往返、代码工具栏初始化、移动菜单、单次明暗切换、标题及 meta 更新、历史滚动、排除路径、未知脚本（含 ECMAScript MIME）、HTTP/CSS 失败回退、请求竞争、图片开关和预取断言。
 
@@ -27,3 +27,9 @@ BASE_URL=http://127.0.0.1:19491 bun scripts/navigation-loading/halo.mjs
 ```
 
 真实 Halo 脚本会核对独占 lab 标识、安装提交和 ZIP 哈希；必须先构建并按实验室流程安装对应提交。仅重跑图片配置可设置 `NAV_PROFILES_ONLY=1`，报告单独保存，不覆盖完整报告。
+
+## 合并 master 后复验
+
+普通合并 SEO/注入更新 `1d3d8de` 后，产品提交为 `d63f5214be4042f586ccab7f5fc9fc07cd0e24e1`，包 SHA-256 为 `20d59b942a9589b13099037465f630164839242da5cf02825fb13a2f943bb2b8`。保留双方配置、SEO 元数据、head/bottom 顺序、PJAX 脚本标记和无 JS 图片回退；默认快照从合并设置重新生成。
+
+完整 verify 再次通过 610 测试 / 121 文件，安装包增至 145 文件。三引擎合成回归 6 组、真实 Halo 导航 12 组和图片/无 JS 4 组再次通过；受冲突影响的 SEO/注入另通过 36 项 HTTP 检查，配置恢复读回为 true。[合并复验 JSON](navigation-loading-merge.json)记录新提交与包身份。GitHub 当前 PR 的独立 CI 结果以 PR checks 为准，不据此升级完整功能矩阵验收。
