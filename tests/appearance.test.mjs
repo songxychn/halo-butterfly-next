@@ -5,6 +5,13 @@ import {parse} from 'yaml';
 import {defaultsFromSettings} from '../scripts/config-migration.mjs';
 import {cssValue,iconCharacter,applyAppearance} from '../src/js/core/appearance.ts';
 import {normalizeTagColors,tagFontSize} from '../src/js/core/tag-cloud-colors.ts';
+import {haloSetting} from '../src/js/core/halo-settings.ts';
+
+test('Halo ConfigMap wrappers normalize groups and repeater rows before browser use',()=>{
+  assert.deepEqual(haloSetting({realNode:{font:{global_font_size:'18px'},colors:[{realNode:{light:'#123456'}}]}}),{font:{global_font_size:'18px'},colors:[{light:'#123456'}]});
+  assert.equal(haloSetting(false),false);
+  assert.deepEqual(haloSetting({realNode:'a',other:'b'}),{realNode:'a',other:'b'});
+});
 
 test('CSS values reject stylesheet delimiters and executable/resource constructs',()=>{
   const supports=(prop,value)=>prop==='color'?/^(#[0-9a-f]{6}|red)$/.test(value):value==='18px';
@@ -42,12 +49,17 @@ test('defaults keep legacy cards, covers, charts and system fonts while effects 
 test('disabled custom palette does not override theme variables and explicit appearance settings toggle independently',()=>{
   globalThis.CSS={supports:(_,v)=>/^#|px$|serif$/.test(v)};
   const properties=new Map(), classes=new Set();
-  const root={style:{setProperty:(key,value)=>properties.set(key,value)},classList:{toggle:(key,on)=>on?classes.add(key):classes.delete(key)}};
+  const root={style:{setProperty:(key,value)=>properties.set(key,value),removeProperty:key=>properties.delete(key)},classList:{toggle:(key,on)=>on?classes.add(key):classes.delete(key)}};
   applyAppearance({font:{global_font_size:'18px',font_family:'serif'},avatar_effect:false,hr_icon:{enable:false},theme_color:{enable:false,main:'#123456'},beautify:{enable:true,field:'post'}},root);
   assert.equal(properties.get('--global-font-size'),'18px');
   assert.equal(properties.has('--theme'),false);
   assert.equal(classes.has('appearance-avatar'),false);
   assert.equal(classes.has('appearance-no-hr-icon'),true);
   assert.equal(classes.has('appearance-beautify-post'),true);
+  applyAppearance({theme_color:{enable:true,main:'#123456'}},root);
+  assert.equal(properties.get('--theme'),'#123456');
+  applyAppearance({},root);
+  assert.equal(properties.has('--theme'),false);
+  assert.equal(properties.has('--global-font-size'),false);
   delete globalThis.CSS;
 });

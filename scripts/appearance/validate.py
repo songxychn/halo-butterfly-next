@@ -26,7 +26,7 @@ SCRIPT=r'''async()=>{
  return {title:document.title,scheme:root.dataset.colorScheme,classes:root.className,font:style(document.body,'font-size'),family:style(document.body,'font-family'),theme:style(root,'--theme').trim(),
   desc:author?.querySelector('.desc')?.textContent,button:!!author?.querySelector('a.button'),buttonIcon:author?.querySelector('a.button i')?.className,
   cards:[...document.querySelectorAll('.main > .aside > .card')].map(e=>({id:e.id,name:e.querySelector('.name')?.textContent,position:e.dataset.cardPosition})),
-  customText:document.querySelector('.aside-custom')?.textContent,tagColors:[...document.querySelectorAll('.aside-tags a')].map(e=>({color:style(e,'color'),size:style(e,'font-size')})),
+  customText:document.querySelector('.aside-custom')?.textContent,tagColors:[...document.querySelectorAll('.aside-tags [data-aside-tags] a')].map(e=>({color:style(e,'color'),size:style(e,'font-size')})),
   chart:!!document.querySelector('.content > .chart'),categoryLinks:document.querySelectorAll('.content .category-list a').length,
   cloudColors:[...document.querySelectorAll('.tags .equinox a')].map(e=>style(e,'color')),
   align:style(article,'text-align'),headingIcon:article?.querySelector('h2')?getComputedStyle(article.querySelector('h2'),'::before').content:null,
@@ -34,8 +34,9 @@ SCRIPT=r'''async()=>{
   codeSize:style(article?.querySelector('code'),'font-size'),meta:document.querySelector('meta[name="theme-color"]')?.content,
   colors:[...document.querySelectorAll('.cover-color')].map(e=>({color:style(e,'background-color'),parent:e.parentElement.className})),
   covers:[...document.querySelectorAll('.essay .cover img,.aside-recent-post .thumbnail img,.archives .cover img')].map(e=>e.getAttribute('src')),
-  logos:[...document.querySelectorAll('.links img.logo')].map(e=>({src:e.getAttribute('src'),failed:e.classList.contains('image-failed'),attempt:e.dataset.fallbackTried})),
+  logos:[...document.querySelectorAll('.links img.logo')].map(e=>({src:e.getAttribute('src'),failed:e.classList.contains('image-failed'),attempt:e.dataset.fallbackTried,width:e.naturalWidth})),
   effects:!!document.getElementById('appearance-effects'),canvas:document.querySelectorAll('[data-appearance-effect]').length,
+  effectLabels:[...document.querySelectorAll('.appearance-click')].map(e=>e.textContent),width:innerWidth,titleFont:!!document.getElementById('appearance-title-font'),
   overflow:root.scrollWidth>innerWidth,loading:document.body.classList.contains('loading'),ready:!!window.MainApp?.useCommon};
 }'''
 
@@ -46,6 +47,10 @@ def main():
     originals={path:client.api(path) for path in [CONFIG,POST]}
     lab.write_json(OUT/'originals.json',originals,private=True)
     results=[]
+    font_asset=lab.RUNTIME/'halo/data/attachments/lab/appearance-font.css'
+    font_original=font_asset.read_bytes() if font_asset.exists() else None
+    font_asset.parent.mkdir(parents=True,exist_ok=True)
+    font_asset.write_text('/* Synthetic same-origin font stylesheet; no remote font dependency. */\n')
     def config(groups):
         value=copy.deepcopy(originals[CONFIG])
         for group,fields in groups.items(): value.setdefault(group,{}).update(fields)
@@ -57,7 +62,7 @@ def main():
             except lab.ApiError as error:
                 if error.status!=409 or attempt==3: raise
                 time.sleep(.1*2**attempt)
-    def check(name,route,assertion,groups=None,screenshot=False):
+    def check(name,route,assertion,groups=None,screenshot=False,action=None):
         config(groups or {})
         for width,height in [(1440,1000),(390,844)]:
             browser('set','viewport',str(width),str(height))
@@ -66,6 +71,7 @@ def main():
                 try:
                     browser('eval','localStorage.setItem("halo-butterfly-next.color-scheme",'+json.dumps(mode)+')')
                     browser('open',lab.BASE['halo']+route)
+                    if action: action()
                     actual=browser('eval','('+SCRIPT+')()')
                     entry['actual']=actual
                     assert actual['ready'] and not actual['loading'] and actual['scheme']==mode,actual
@@ -80,9 +86,11 @@ def main():
                 print(name,width,mode,entry['status'],flush=True)
     try:
         browser('open',lab.BASE['halo'])
-        check('legacy-defaults','/',lambda a,m:a['font']=='14px' and a['button'] and not a['effects'])
+        check('legacy-defaults','/',lambda a,m:a['font']=='14px' and a['button'] and not a['effects'],screenshot=True)
         cards=[{'position':'top','name':'自定义 <b>标题</b>','id_name':'appearance-top','class_name':'wide-card','html':'<p>合成自定义内容</p>','order':2},{'position':'bottom','name':'底部卡片','id_name':'appearance-bottom','html':'<p>底部内容</p>','order':1}]
         check('author-and-custom','/',lambda a,m:a['desc']=='配置作者描述' and not a['button'] and a['cards'][0]['id']=='appearance-top' and a['cards'][-1]['id']=='appearance-bottom',{'aside':{'card_author':{'enable':True,'description':'配置作者描述','button':{'enable':False}},'custom_cards':cards}},True)
+        check('article-custom','/archives/preview-1/',lambda a,m:a['cards'][0]['id']=='appearance-top' and a['cards'][-1]['id']=='appearance-bottom',{'aside':{'custom_cards':cards}})
+        check('aside-disabled','/',lambda a,m:len(a['cards'])==0,{'aside':{'enable':False,'custom_cards':cards}})
         check('author-icon','/',lambda a,m:a['buttonIcon']=='fa-brands fa-github',{'aside':{'card_author':{'enable':True,'button':{'enable':True,'icon':'fa-brands fa-github'}}}})
         check('aside-colors','/',lambda a,m:len(a['tagColors'])>0 and a['tagColors'][0]['color']==('rgb(18, 52, 86)' if m=='light' else 'rgb(171, 205, 239)'),{'aside':{'card_tags':{'limit':0,'color':True,'orderby':'name','order':1,'custom_colors':[{'light':'#123456','dark':'#abcdef'}]}}})
         check('category-list','/categories/',lambda a,m:not a['chart'] and a['categoryLinks']>0,{'appearance':{'category_ui':'list'}})
@@ -95,12 +103,20 @@ def main():
         check('cover-candidate-image','/',lambda a,m:'/lab/cover.svg' in a['covers'],{'cover':{'default_cover_list':[{'url':'/lab/cover.svg'}]}})
         check('cover-empty-candidates','/',lambda a,m:'/lab/cover.svg' not in a['covers'],{'cover':{'default_cover_list':[{'url':''},None]}})
         cover(originals[POST]['spec'].get('cover',''))
-        check('link-fallback','/links',lambda a,m:len(a['logos'])>0 and all(x['src']=='/lab/avatar.svg' and x['attempt']=='true' for x in a['logos']),{'image':{'flink_error':'/lab/avatar.svg'}})
+        check('link-fallback','/links',lambda a,m:len(a['logos'])>0 and all((x['src'] or '').endswith('/lab/avatar.svg') and x['attempt']=='true' and x['width']>0 for x in a['logos']),{'image':{'flink_error':'/lab/avatar.svg'}})
         check('link-double-failure','/links',lambda a,m:len(a['logos'])>0 and all(x['failed'] and x['src'] is None for x in a['logos']),{'image':{'flink_error':'/lab/missing-fallback.png'}})
         check('effects-enabled','/',lambda a,m:a['effects'] and a['canvas']==1,{'effects':{'canvas_ribbon':{'enable':True,'mobile':True,'size':150,'alpha':.6,'zIndex':1,'click_to_change':True}}},True)
+        check('effects-mobile-disabled','/',lambda a,m:a['canvas']==(0 if a['width']<768 else 1),{'effects':{'canvas_fluttering_ribbon':{'enable':True,'mobile':False}}})
+        check('effects-nest','/',lambda a,m:a['effects'] and a['canvas']==1,{'effects':{'canvas_nest':{'enable':True,'mobile':True,'count':99,'color':'0,0,255','opacity':.7}}})
+        def click_effect():
+            browser('eval','new Promise((resolve,reject)=>{const deadline=Date.now()+5000;const ready=()=>{if(!document.querySelector("canvas.appearance-effect")){if(Date.now()>deadline){reject(new Error("Effect did not initialize"));return;}setTimeout(ready,30);return;}const div=document.createElement("div");div.dataset.appearanceTest="true";div.textContent="合成点击区域";div.style.cssText="position:fixed;left:20px;top:200px;width:150px;height:60px;z-index:101;background:white";document.body.append(div);resolve(true);};ready();})')
+            browser('click','[data-appearance-test]')
+        check('effects-click','/',lambda a,m:a['canvas']==1 and '♥' in a['effectLabels'] and '<b>合成文字</b>' in a['effectLabels'],{'effects':{'fireworks':{'enable':True,'mobile':True},'click_heart':{'enable':True,'mobile':True},'clickShowText':{'enable':True,'mobile':True,'text':[{'value':'<b>合成文字</b>'}],'fontSize':'15px'}}},False,click_effect)
         browser('set','media','light','reduced-motion')
         check('effects-reduced','/',lambda a,m:not a['effects'] and a['canvas']==0,{'effects':{'canvas_ribbon':{'enable':True,'mobile':True}}})
     finally:
+        if font_original is None: font_asset.unlink(missing_ok=True)
+        else: font_asset.write_bytes(font_original)
         restore=[]
         for path,original in originals.items():
             try:

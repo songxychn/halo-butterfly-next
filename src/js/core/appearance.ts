@@ -15,7 +15,7 @@ export function applyAppearance(input: unknown, root = document.documentElement)
   const conf = record(input), font = record(conf.font), title = record(conf.blog_title_font), hr = record(conf.hr_icon), beautify = record(conf.beautify);
   const set = (variable: string, property: string, value: unknown) => {
     const valid = cssValue(property, value);
-    if (valid) root.style.setProperty(variable, valid);
+    if (valid) root.style.setProperty(variable, valid); else root.style.removeProperty(variable);
   };
   set('--global-font-size', 'font-size', font.global_font_size);
   set('--global-font-family', 'font-family', font.font_family);
@@ -35,16 +35,16 @@ export function applyAppearance(input: unknown, root = document.documentElement)
   root.classList.toggle('appearance-beautify-post', enabled(beautify.enable) && beautify.field !== 'site');
   root.classList.toggle('appearance-beautify-site', enabled(beautify.enable) && beautify.field === 'site');
   const color = record(conf.theme_color);
-  if (enabled(color.enable)) {
-    const variables: Record<string, string> = {
+  const variables: Record<string, string> = {
       main: '--theme', paginator: '--paginator-color', button_hover: '--btn-hover-color', text_selection: '--selection-color',
       link_color: '--article-link-color', meta_color: '--card-meta', hr_color: '--hr-color',
       code_foreground: '--code-color', code_background: '--code-background-color', toc_color: '--toc-active-color',
       blockquote_padding_color: '--blockquote-border-color', blockquote_background_color: '--blockquote-background-color', scrollbar_color: '--scrollbar-color',
-    };
-    for (const [key, variable] of Object.entries(variables)) set(variable, 'color', color[key]);
-  }
+  };
+  for (const [key, variable] of Object.entries(variables)) set(variable, 'color', enabled(color.enable) ? color[key] : '');
 }
+
+const metaObservers = new WeakMap<Document, MutationObserver>();
 
 export function initializeAppearance(conf: unknown, root = document) {
   const appearance = record(conf), title = record(appearance.blog_title_font);
@@ -60,6 +60,7 @@ export function initializeAppearance(conf: unknown, root = document) {
     } catch { /* Empty/invalid URLs retain system fonts. */ }
   }
   const color = record(appearance.theme_color);
+  metaObservers.get(root)?.disconnect();
   if (enabled(color.enable)) {
     let meta = root.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
     if (!meta) { meta = root.createElement('meta'); meta.name = 'theme-color'; root.head.append(meta); }
@@ -67,7 +68,10 @@ export function initializeAppearance(conf: unknown, root = document) {
       const value = cssValue('color', color[root.documentElement.dataset.colorScheme === 'dark' ? 'meta_theme_color_dark' : 'meta_theme_color_light']);
       if (value) meta!.content = value; else meta!.removeAttribute('content');
     };
-    update(); new MutationObserver(update).observe(root.documentElement, {attributes: true, attributeFilter:['data-color-scheme']});
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(root.documentElement, {attributes: true, attributeFilter:['data-color-scheme']});
+    metaObservers.set(root, observer);
   }
   for (const element of root.querySelectorAll<HTMLElement>('[data-cover-color]')) {
     const value = cssValue('color', element.dataset.coverColor);
@@ -77,6 +81,8 @@ export function initializeAppearance(conf: unknown, root = document) {
     if (image.dataset.fallbackBound) continue;
     image.dataset.fallbackBound = 'true';
     const failed = () => {
+      // Halo may add srcset for attachment resizing; it must not override the fallback.
+      image.removeAttribute('srcset'); image.removeAttribute('sizes');
       const fallback = image.dataset.imageFallback;
       let alternate = '';
       try {

@@ -80,16 +80,17 @@ function start() {
     if (fireworks) burst(event.clientX,event.clientY);
     const heart=active('click_heart'), text=active('clickShowText');
     if ((!heart && !text) || labels.size>=20) return;
-    const label=document.createElement('span');label.className='appearance-click';label.setAttribute('aria-hidden','true');
     const values = Array.isArray(text?.text) ? text.text : [];
     const strings=values.map(v=>typeof v==='string'?v:String((v as Options)?.value || '')).filter(Boolean);
     const index=text && enabled(text.random)?Math.floor(Math.random()*strings.length):textIndex++%strings.length;
-    label.textContent=heart?'♥':strings[index] || '';
-    if (!label.textContent) return;
-    label.style.left=event.clientX+'px';label.style.top=event.clientY+'px';label.style.zIndex='100';label.style.color=`hsl(${Math.random()*360} 80% 50%)`;
-    label.style.fontSize=cssValue('font-size',text?.fontSize)||'20px';
-    document.body.append(label);labels.add(label);
-    const remove=()=>{labels.delete(label);label.remove();};label.addEventListener('animationend',remove,{once:true});setTimeout(remove,1500);
+    for (const content of [heart?'♥':'',text?strings[index] || '':'']) {
+      if (!content || labels.size>=20) continue;
+      const label=document.createElement('span');label.className='appearance-click';label.setAttribute('aria-hidden','true');label.textContent=content;
+      label.style.left=event.clientX+'px';label.style.top=event.clientY+'px';label.style.zIndex='100';label.style.color=`hsl(${Math.random()*360} 80% 50%)`;
+      label.style.fontSize=cssValue('font-size',text?.fontSize)||'20px';
+      document.body.append(label);labels.add(label);
+      const remove=()=>{labels.delete(label);label.remove();};label.addEventListener('animationend',remove,{once:true});setTimeout(remove,1500);
+    }
   }) as EventListener);
   if(power) listen('input',((event: Event)=>{
     const target=event.target;

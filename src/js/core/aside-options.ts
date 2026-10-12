@@ -35,12 +35,17 @@ export function formatArchiveDate(year: unknown, month: unknown, pattern: unknow
 }
 
 export function initializeAsideOptions(root = document, colors?: unknown) {
-  for (const aside of root.querySelectorAll<HTMLElement>('[data-aside-sort]')) {
-    const cards = (Array.from(aside.children) as HTMLElement[]).filter(node => node.hasAttribute('data-card-order'));
+  for (const aside of root.querySelectorAll<HTMLElement>('[data-aside-sort], [data-aside-custom-sort]')) {
+    const cards = (Array.from(aside.children) as HTMLElement[]).filter(node => node.hasAttribute('data-card-order') && (!aside.hasAttribute('data-aside-custom-sort') || node.hasAttribute('data-card-position')));
+    const slots = cards.map(card => {
+      const slot = root.createComment('card');
+      card.replaceWith(slot);
+      return slot;
+    });
     cards.sort((a, b) => {
       const rank = (card: HTMLElement) => card.dataset.cardPosition === 'top' ? -1 : card.dataset.cardPosition === 'bottom' ? 1 : 0;
       return rank(a) - rank(b) || Number(a.dataset.cardOrder) - Number(b.dataset.cardOrder);
-    }).forEach(card => aside.append(card));
+    }).forEach((card,index) => slots[index].replaceWith(card));
   }
   for (const container of root.querySelectorAll<HTMLElement>('[data-aside-tags]')) {
     const template = container.querySelector<HTMLTemplateElement>('template[data-tag-list]');

@@ -224,6 +224,7 @@
   th:fragment="article(content, postPage)"
   th:if="${asideEnabled}"
   class="aside"
+  data-aside-custom-sort
   th:with="
     tocCfg = ${theme.config.toc},
     tocOverride = ${#annotations.getOrDefault(content, 'toc', 'inherit')},

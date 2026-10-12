@@ -382,7 +382,7 @@
     autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
     excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
     hasDesc = ${not #strings.isEmpty(excerptText)},
-    coverSrc = ${not #strings.isEmpty(target.spec.cover) ? target.spec.cover : theme.config.cover.default_cover},
+    coverSrc = ${not #strings.isEmpty(target.spec.cover) ? target.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(target.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
     hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable}
   "
   th:classappend="${(hasOther ? '' : 'full-width ') + (hasDesc ? '' : 'no-desc')}"
