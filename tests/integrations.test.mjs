@@ -141,6 +141,11 @@ test('template generation resolves only real theme resources, adds fallback, and
   assert.match(html,/data-resource-key='main'/);assert.match(html,/data-resource-key='fontawesome'/);
   assert.match(html,/s\.src=this\.dataset\.localResource;this\.replaceWith\(s\)/);assert.match(html,/this\.href=this\.dataset\.localResource/);
   assert.match(html,/@fortawesome\/fontawesome-free/);assert.doesNotMatch(html,/hexo-theme-butterfly@/);
+  const allowed=new RegExp('^('+html.match(/candidateResource\.matches\('([^']+)'\)/)[1].replaceAll('&amp;','&')+')$');
+  assert(allowed.test('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css'));
+  assert(allowed.test('/theme/js/post.min.js?v=1'));
+  assert.equal(allowed.test('https://user:pass@host.test/file.js'),false);
+  assert.match(html,/#strings\.startsWith\(candidateResource, '\/\/'\)/);
   assert.match(configureResourceTags('<script th:src="${assets_link + \'js/integrations.min.js?v=\' + theme.spec.version}"></script>'),/data-resource-key='integrations'/);
 });
 
