@@ -8,7 +8,7 @@ import $ from 'jquery';
 import {initializeAppearance, enabled} from './appearance.ts';
 import Navigation from './navigation.ts';
 import { initializeAsideOptions } from './aside-options.ts';
-import LazyLoad from './_lazyLoad.ts';
+import { initializeImageLoading } from './image-loading.ts';
 import { applyRelativeDates } from './relative-date.ts';
 import { bindHideAsideButton } from './aside-hide-button.ts';
 import { bindRightsideConfig, bindReadmode } from './rightside.ts';
@@ -69,9 +69,7 @@ export default class Common {
    */
   #createSingleAction() {
     //图片懒加载
-    new LazyLoad({
-      elements_selector: 'img', threshold: 0, data_src: 'lazy-src',
-    });
+    initializeImageLoading(MainApp.conf);
 
     new Navigation();
   }

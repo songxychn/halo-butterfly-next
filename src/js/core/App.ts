@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import { pageScope, onPageCleanup } from './page-lifecycle.ts';
+import { initializeNavigationLoading } from './navigation-loading.ts';
 /**
  * @date: 2024/3/30
  * @author: 小红
@@ -17,6 +20,9 @@ import Common from './common.ts';
  */
 export default function App(modules: (new () => import('../types.ts').ThemeModule)[] = []) {
   return function<T extends object>(target: new () => T) {
+    pageScope();
+    const body = document.body;
+    onPageCleanup(() => { $(body).find('*').addBack().off(); $(body).find('*').stop(true); $.cleanData($(body).find('*').get()); });
     Object.assign(window.MainApp, {
       useTheme: new Theme(), //主题
       useCommon: new Common(), // 公用逻辑
@@ -40,6 +46,8 @@ export default function App(modules: (new () => import('../types.ts').ThemeModul
     }
 
     useClearPage();
+    initializeNavigationLoading();
+    document.dispatchEvent(new Event('halo-butterfly-next:page-ready'));
 
     return ins;
   };

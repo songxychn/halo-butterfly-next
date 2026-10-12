@@ -7,6 +7,7 @@ if (conf.enable_above === true) {
   const candidates = [...new Set([primary, fallback].filter(Boolean))];
   const rootStyle = document.documentElement.style;
   const apply = (index: number): void => {
+    if (window.MainApp.conf !== conf) return;
     const url = candidates[index];
     if (!url) {
       rootStyle.removeProperty('--above-background');

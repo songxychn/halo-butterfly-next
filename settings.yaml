@@ -676,6 +676,16 @@ spec:
     - group: loading
       label: 加载设置
       formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 启用页面加载动画
+          value: true
+          help: 关闭后直接显示页面。旧配置未设置时保持开启；正文就绪后结束，不等待第三方资源。
+        - $formkit: checkbox
+          name: instantpage
+          label: 预取站内内容链接
+          value: false
+          help: 鼠标经过或键盘聚焦列表、分页链接时提示浏览器预取。每页最多 8 个，省流量/慢速网络和带查询参数的链接跳过。
         - $formkit: radio
           name: type
           label: 页面加载（Loading）
@@ -732,6 +742,71 @@ spec:
               value: ''
               help: 自定义随机图API，用于填充没有设置封面的 ，免费 API 不会一直可用，请知悉
               validation: url
+    - group: pjax
+      label: 无刷新导航
+      formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 启用 PJAX
+          value: false
+          help: 主题页面之间无刷新跳转。外链、下载、后台、插件自有页和未知脚本使用普通导航；加载失败自动回退。
+        - $formkit: textarea
+          name: exclude
+          label: 排除地址
+          value: ''
+          help: 每行一个路径或完整 URL。路径末尾 * 表示前缀，例如 /photos*。同时影响页面预取。
+    - group: snackbar
+      label: 消息提示
+      formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 启用 Snackbar
+          value: false
+          help: 开启后提供主题模式/繁简切换提示，并将通用消息放到指定位置；关闭时保留必要操作反馈。
+        - $formkit: select
+          name: position
+          label: 提示位置
+          value: bottom-left
+          options:
+            - {label: 左上, value: top-left}
+            - {label: 顶部居中, value: top-center}
+            - {label: 右上, value: top-right}
+            - {label: 左下, value: bottom-left}
+            - {label: 底部居中, value: bottom-center}
+            - {label: 右下, value: bottom-right}
+        - $formkit: color
+          name: bg_light
+          label: 浅色模式背景
+          value: '#1f2937'
+        - $formkit: color
+          name: bg_dark
+          label: 深色模式背景
+          value: '#374151'
+    - group: lazyload
+      label: 图片懒加载
+      formSchema:
+        - $formkit: checkbox
+          name: enable
+          label: 启用图片懒加载
+          value: true
+          help: 保持旧版主题默认的按需加载。关闭后主题图片立即加载，正文显式指定的 loading 属性保留。
+        - $formkit: checkbox
+          name: native
+          label: 使用浏览器原生懒加载
+          value: true
+          help: 关闭后主题卡片图片和正文 data-lazy-src 图片由进入视口检测加载。正文已有 src 的图片不会被替换成占位图。
+        - $formkit: select
+          name: field
+          label: 作用范围
+          value: site
+          options:
+            - {label: 全站, value: site}
+            - {label: 仅文章正文, value: post}
+        - $formkit: checkbox
+          name: blur
+          label: 图片加载前模糊
+          value: false
+          help: 只在启用范围内应用；加载成功或失败后解除。占位图沿用“加载设置”中的预加载图。
     #导航设置
     - group: nav
       label: 导航设置
@@ -2687,7 +2762,7 @@ spec:
         - $formkit: radio
           name: enable
           label: 深色模式
-          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。自动切换见 autoChangeMode。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / snackbar。"
+          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。自动切换见 autoChangeMode。禁止复用作者卡片 aside.button。提示位置与配色见“消息提示”。"
           value: true
           options:
             - label: 开启
@@ -2707,7 +2782,7 @@ spec:
         - $formkit: select
           name: autoChangeMode
           label: 自动切换
-          help: "对应上游 Butterfly darkmode.autoChangeMode（默认 false）。false 仅恢复已存主题；1 跟随 prefers-color-scheme（无系统偏好时回退小时窗口）；2 按小时。style.mode 的 light/dark 仍强制。禁止复用作者卡片 aside.button。不做完整 darkmode.styl / snackbar。"
+          help: "对应上游 Butterfly darkmode.autoChangeMode（默认 false）。false 仅恢复已存主题；1 跟随 prefers-color-scheme（无系统偏好时回退小时窗口）；2 按小时。style.mode 的 light/dark 仍强制。禁止复用作者卡片 aside.button。提示位置与配色见“消息提示”。"
           value: false
           options:
             - label: 关闭（false）

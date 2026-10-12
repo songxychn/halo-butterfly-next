@@ -52,5 +52,6 @@ try {
 
 // Capture readiness before deferred page bundles execute.
 window.MainApp.codeDomReady = new Promise(resolve => {
-  document.addEventListener('DOMContentLoaded', resolve, {once: true});
+  if (document.readyState === 'interactive' || document.readyState === 'complete') resolve(undefined);
+  else document.addEventListener('DOMContentLoaded', resolve, {once: true});
 });

@@ -1,3 +1,4 @@
+import { onPageCleanup, pageScope, pageListen } from '../core/page-lifecycle.ts';
 /**
  * @date: 2024/2/25
  * @author: 小红
@@ -21,6 +22,7 @@ export default class codeBlock {
   #attrs = MainApp.attrs;
 
   constructor() {
+    const scope = pageScope();
     // Mode/navigation initialize with the page, independently of the optional highlighter.
     this.#codeTheme(MainApp.useTheme.getMode());
     MainApp.useTheme.change((mode) => this.#codeTheme(mode));
@@ -36,6 +38,7 @@ export default class codeBlock {
       ready: MainApp.prismReady,
       getPrism: () => window.Prism,
       enhance: (prism) => {
+        if (!scope.active) return;
         const restoreReadingFocus = preserveCodeReadingFocus(this.#renderDom[0], pre => {
           const wrap = $(pre).parent('.code-toolbar');
           // Do not hide the block a keyboard reader entered while Prism loaded.
@@ -228,7 +231,7 @@ export default class codeBlock {
 
   #bindEsc() {
     if (this.#escBound) return;
-    document.addEventListener('keydown', this.#onFullpageKeydown);
+    pageListen(document, 'keydown', this.#onFullpageKeydown);
     this.#escBound = true;
   }
 
@@ -249,6 +252,7 @@ export default class codeBlock {
 
   #clipboardJs(text: string, button: HTMLElement, event: JQuery.ClickEvent, finish: (ok: boolean) => void) {
     const clipboard = new Clipboard(button, {text: () => text});
+    onPageCleanup(() => clipboard.destroy());
     clipboard.on('success', () => {
       clipboard.destroy();
       finish(true);

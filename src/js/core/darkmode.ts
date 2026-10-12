@@ -45,7 +45,8 @@ export function bindDarkmode(root = typeof document !== 'undefined' ? document :
   if (!btn) return;
   btn.addEventListener('click', () => {
     try {
-      toggleColorScheme(typeof MainApp !== 'undefined' ? MainApp.useTheme : null);
+      const mode = toggleColorScheme(typeof MainApp !== 'undefined' ? MainApp.useTheme : null);
+      if (typeof MainApp !== 'undefined' && (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true')) MainApp.useMessage?.info(mode === 'dark' ? '已切换到深色模式' : '已切换到浅色模式');
     } catch {}
   });
 }

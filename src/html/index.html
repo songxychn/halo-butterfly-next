@@ -13,12 +13,12 @@
 
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script defer id="masonryScript" th:if="${homeLayout == '6' or homeLayout == '7' or homeLayout == 'tile'}"
+    <script defer data-theme-script="masonry" id="masonryScript" th:if="${homeLayout == '6' or homeLayout == '7' or homeLayout == 'tile'}"
             th:src="${assets_link + 'js/masonry.min.js?v=' + theme.spec.version}"></script>
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
           th:href="${aboveBackground}">
-    <script id="pageScript" th:inline="javascript">
+    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
       Object.assign(window.MainApp.conf, {
         //第一屏
         enable_above: /*[[${aboveEnabled}]]*/ '',

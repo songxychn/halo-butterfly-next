@@ -77,23 +77,4 @@ export function initializeAppearance(conf: unknown, root = document) {
     const value = cssValue('color', element.dataset.coverColor);
     if (value) element.style.backgroundColor = value;
   }
-  for (const image of root.querySelectorAll<HTMLImageElement>('img[data-image-fallback]')) {
-    if (image.dataset.fallbackBound) continue;
-    image.dataset.fallbackBound = 'true';
-    const failed = () => {
-      // Halo may add srcset for attachment resizing; it must not override the fallback.
-      image.removeAttribute('srcset'); image.removeAttribute('sizes');
-      const fallback = image.dataset.imageFallback;
-      let alternate = '';
-      try {
-        const url = new URL(fallback || '', root.baseURI);
-        if (fallback && ['http:', 'https:', 'data:'].includes(url.protocol)) alternate = url.href;
-      } catch {}
-      if (alternate && image.dataset.fallbackTried !== 'true' && alternate !== image.src) {
-        image.dataset.fallbackTried = 'true'; image.src = alternate;
-      } else { image.removeAttribute('src'); image.classList.add('image-failed'); }
-    };
-    image.addEventListener('error', failed);
-    if (image.complete && image.naturalWidth === 0) failed();
-  }
 }

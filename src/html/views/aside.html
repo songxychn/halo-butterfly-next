@@ -5,7 +5,8 @@
     onerror="this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='"
     th:alt="${contributor?.displayName ?: site.title}"
     class="avatar"
-    loading="lazy"
+    data-theme-image
+    th:loading="${theme.config.lazyload?.enable != false and theme.config.lazyload?.enable != 'false' and theme.config.lazyload?.field != 'post' ? 'lazy' : 'eager'}"
     decoding="async"
   >
 
