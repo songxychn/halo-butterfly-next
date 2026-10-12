@@ -13,15 +13,13 @@
      asidePageVisible = ${(page != 'archives' or asideDisplay?.archive != false) and ((page != 'tag' and page != 'tags') or asideDisplay?.tag != false) and ((page != 'category' and page != 'categories') or asideDisplay?.category != false)},
      asideEnabled = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible},
      assets_link = ${#theme.assets('/') + '/'},
-     canonicalPath = ${post != null ? post.status.permalink : (singlePage != null ? singlePage.status.permalink : (page == 'index' and posts.page == 1 ? '/' : null))},
-     canonical = ${canonicalPath == null ? null : (#strings.startsWith(canonicalPath, 'http') ? canonicalPath : (#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : site.url) + canonicalPath)},
      param_prefix = ${#strings.containsIgnoreCase(theme.config.loading.img.random_link,'?') ? '&' : '?'}
   "
   th:fragment="layout (page,title,pin,header,main)"
 >
   <!DOCTYPE html>
   <html
-    lang="zh-CN"
+    th:lang="${#locale.toLanguageTag()}"
     data-color-scheme="light"
     th:classappend="${(theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (theme.config.aside.enable and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
     th:with="isDev = ${true ? #dates.createNow().time : ''} "
@@ -33,20 +31,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
     <meta name="author" th:content="${site.title}">
     <meta name="site" th:content="${site.url}">
-    <th:block th:if="${theme.config.base.enable_seo}">
-    <meta property="og:description" th:content="${post != null ? post.status.excerpt : site.subtitle}">
-    <meta property="og:site_name" th:content="${site.title}">
-    <meta property="og:url" th:if="${canonical != null}" th:content="${canonical}">
-    <meta property="og:title" th:content="${title}">
-    <meta property="og:locale" content="zh_CN">
-    <meta property="og:type" th:content="${post != null ? 'article' : 'website'}">
-    <link rel="canonical" th:if="${canonical != null}" th:href="${canonical}">
-    </th:block>
+    <th:block th:replace="~{views/seo :: metadata(${page},${title})}"/>
     <th:block th:replace="~{views/config}"/>
     <th:block th:replace="${pin}"/>
     <script id="aboveScript">/* @theme-above-background */</script>
     <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/' + page + '.min.css?v=' + theme.spec.version}">
     <noscript><style>.loading #Butterfly { display: block; }</style></noscript>
+    <th:block th:replace="~{views/inject :: head}"/>
   </head>
 
   <body th:classappend="${theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
@@ -75,9 +66,9 @@
   <!-- The rendered body is complete; deferred enhancements can initialize afterwards. -->
   <script id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
-  </body>
-
   <script defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
+  <th:block th:replace="~{views/inject :: bottom}"/>
+  </body>
 
   </html>
 </th:block>
