@@ -11,7 +11,7 @@ spec:
           name: enable_seo
           label: 输出主题分享元数据与规范链接
           value: true
-          help: 输出 Open Graph 及文章、自定义页面、首页第一页的 canonical。使用其他 SEO 插件时可关闭；描述和关键词由 Halo 提供。
+          help: 输出核心页面及分页的 canonical、Open Graph、Twitter/Facebook 和可选结构化数据。由 SEO 插件接管时关闭；描述和关键词仍由 Halo 提供。
         - $formkit: text
           name: metadata_name
           label: 作者用户名
@@ -33,6 +33,97 @@ spec:
           label: 建站时间
           placeholder: 示例 2022-01-01 00:00
           help: 自定义博客的起始时间/安装时间，作为计算博客运行时间的参照值，不选择不显示
+    - group: seo
+      label: SEO 与站点验证
+      formSchema:
+        - $formkit: repeater
+          name: site_verification
+          label: 站点验证
+          value: []
+          help: 多个验证标签按顺序输出，与主题 SEO 总开关独立。列表中相同 name 取最后一条；避免与 Halo 全局注入或插件重复配置。
+          children:
+            - $formkit: text
+              name: name
+              label: 验证标签名称
+              value: ""
+            - $formkit: text
+              name: content
+              label: 验证值
+              value: ""
+        - $formkit: select
+          name: twitter_card
+          label: Twitter 卡片类型
+          value: summary_large_image
+          options:
+            - label: 大图摘要
+              value: summary_large_image
+            - label: 摘要
+              value: summary
+        - $formkit: attachment
+          name: twitter_image
+          label: Twitter 默认图片
+          value: ""
+          help: 留空复用 OG 图片。OG 图片优先原生文章/单页封面，然后使用作者头像或站点 Logo。
+        - $formkit: text
+          name: twitter_id
+          label: Twitter 作者账号
+          value: ""
+          help: 可带 @，留空不输出 twitter:creator。
+        - $formkit: text
+          name: twitter_site
+          label: Twitter 站点账号
+          value: ""
+        - $formkit: text
+          name: google_plus
+          label: Google+ 发布者链接（上游兼容字段）
+          value: ""
+          help: Google+ 已停止服务；仅在配置时输出原上游 link rel=publisher，不默认启用。
+        - $formkit: text
+          name: fb_admins
+          label: Facebook 管理员 ID
+          value: ""
+        - $formkit: text
+          name: fb_app_id
+          label: Facebook 应用 ID
+          value: ""
+        - $formkit: checkbox
+          name: structured_data
+          label: 输出结构化数据
+          value: false
+          help: 同时受基本设置中的 SEO 总开关控制。输出文章 BlogPosting 与域名根首页第一页 WebSite；SEO 插件已输出时请关闭。
+        - $formkit: repeater
+          name: alternate_name
+          label: 站点别名
+          value: []
+          children:
+            - $formkit: text
+              name: name
+              label: 别名
+              value: ""
+    - group: inject
+      label: 代码注入
+      formSchema:
+        - $formkit: repeater
+          name: head
+          label: head 末尾注入
+          value: []
+          help: 管理员 HTML/脚本按列表顺序原样输出，不处理模板表达式。随后 Halo 追加全局和内容 head、插件资源；不要重复添加已有 SEO 标签。
+          children:
+            - $formkit: textarea
+              name: html
+              label: HTML 代码
+              value: ""
+        - $formkit: repeater
+          name: bottom
+          label: body 末尾注入
+          value: []
+          help: 在主题脚本之后按列表顺序原样输出。Halo 全局页脚仍在站点页脚位置输出；注入只配置可信代码。
+          children:
+            - $formkit: textarea
+              name: html
+              label: HTML 代码
+              value: ""
+
     #主题设置
     - group: style
       label: 主题设置
