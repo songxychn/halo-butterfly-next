@@ -42,7 +42,7 @@ export function initializeImageLoading(config: ThemeConfig) {
       if (image.hasAttribute('data-theme-image')) image.loading = 'eager';
       reveal(image); finish(); return;
     }
-    if (options.blur && !(image.complete && image.naturalWidth > 0)) image.classList.add('theme-image-pending');
+    if (options.blur && (image.dataset.lazySrc || !(image.complete && image.naturalWidth > 0))) image.classList.add('theme-image-pending');
     if (options.native || !observer) {
       if (!authorEager) image.loading = 'lazy';
       reveal(image);

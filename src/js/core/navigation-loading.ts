@@ -31,7 +31,7 @@ export function supportsPartialNavigation(doc: Document) {
 }
 
 const key = Symbol.for('halo-butterfly-next.navigation-loading');
-interface NavigatorState { active?: AbortController; installed: boolean; url: string; busy: boolean }
+interface NavigatorState { active?: AbortController; installed: boolean; url: string; busy: boolean; canNavigate: boolean }
 declare global { interface Window { [key]?: NavigatorState } }
 const stateKey = 'butterflyNavigation';
 function historyData() {
@@ -126,6 +126,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
       await execute(script, document.head, request.signal);
     }
     await execute(entry, document.body, request.signal);
+    if (!window.MainApp.useCommon) throw new Error('Page initialization failed');
     for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await execute(script, document.body, request.signal);
     document.body.classList.remove('loading', 'read-mode');
     const main = document.querySelector<HTMLElement>('main');
@@ -155,10 +156,11 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
 
 export function initializeNavigationLoading() {
   const config = window.MainApp.conf;
-  if (enabled(config.pjax_enable)) history.scrollRestoration = 'manual';
+  const canNavigate = enabled(config.pjax_enable) && supportsPartialNavigation(document);
+  history.scrollRestoration = canNavigate ? 'manual' : 'auto';
   initializePrefetch(config);
-  if (window[key]?.installed) return;
-  const state: NavigatorState = { installed: true, url: location.href, busy: false };
+  if (window[key]?.installed) { window[key].canNavigate = canNavigate; return; }
+  const state: NavigatorState = { installed: true, url: location.href, busy: false, canNavigate };
   window[key] = state;
   // Keep these two document-level handlers for the document lifetime, not one page.
   document.addEventListener('click', event => {
@@ -186,7 +188,7 @@ export function initializeNavigationLoading() {
     void navigate(current, true, event.state?.[stateKey], state);
   });
   // Record scrolling before traversal, including browsers that restore after popstate.
-  window.addEventListener('scroll', () => { if (!state.busy && !state.active && enabled(window.MainApp.conf.pjax_enable)) saveScroll(); }, { passive: true });
+  window.addEventListener('scroll', () => { if (!state.busy && !state.active && state.canNavigate) saveScroll(); }, { passive: true });
 }
 function initializePrefetch(config: ThemeConfig) {
   if (!enabled(config.instantpage)) return;
