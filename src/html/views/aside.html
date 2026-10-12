@@ -11,7 +11,7 @@
 
   <h1 class="name" th:text="${contributor?.displayName ?: site.title}"></h1>
 
-  <div class="desc" th:text="${contributor?.bio ?: site.subtitle}"></div>
+  <div class="desc" th:text="${not #strings.isEmpty(theme.config.aside.card_author?.description) ? theme.config.aside.card_author.description : (contributor?.bio ?: site.subtitle)}"></div>
 
   <div class="data w-100">
     <a class="item" title="文章" href="/archives">
@@ -28,8 +28,10 @@
     </a>
   </div>
 
-  <a class="button" target="_blank" th:href="${theme.config.aside.button.link}"
-     th:utext="${theme.config.aside.button.name}"></a>
+  <a class="button" target="_blank" rel="noopener noreferrer" th:if="${theme.config.aside.card_author?.button?.enable != false and theme.config.aside.card_author?.button?.enable != 'false' and not #strings.isEmpty(theme.config.aside.button?.link)}" th:href="${theme.config.aside.button.link}">
+    <i th:if="${not #strings.isEmpty(theme.config.aside.card_author?.button?.icon)}" th:class="${theme.config.aside.card_author.button.icon}" aria-hidden="true"></i>
+    <span th:utext="${theme.config.aside.button.name}"></span>
+  </a>
 
   <div class="social" th:with="social = ${not #lists.isEmpty(theme.config.aside.social)}">
     <a th:each="item : ${theme.config.aside.social}" class="link" target="_blank" th:title="${item.name}" th:href="${item.link}" th:utext="${item.icon}"></a>
@@ -77,7 +79,7 @@
         th:href="${post.status.permalink}"
         th:title="${post.spec.title}"
         th:with="
-          coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+          coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
           showCover = ${theme.config.cover.aside_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
         "
         th:classappend="${showCover ? '' : ' no-cover'}"
@@ -125,7 +127,7 @@
   <h1 class="title"><i class="fa-solid fa-tags"></i><span class="name">标签</span><a class="card-more-btn" href="/tags" aria-label="查看全部标签">›</a></h1>
   <div class="content" data-aside-tags
     th:with="tags = ${tagFinder.listAll().?[status.visiblePostCount > 0]}, tagLimit = ${theme.config.aside.card_tags?.limit == null ? 25 : theme.config.aside.card_tags.limit}"
-    th:attr="data-limit=${tagLimit},data-orderby=${theme.config.aside.card_tags?.orderby ?: 'random'},data-order=${theme.config.aside.card_tags?.order ?: 1}">
+    th:attr="data-limit=${tagLimit},data-orderby=${theme.config.aside.card_tags?.orderby ?: 'random'},data-order=${theme.config.aside.card_tags?.order ?: 1},data-color=${theme.config.aside.card_tags?.color}">
     <a class="link" th:each="tag, status : ${tags}" th:if="${tagLimit == 0 or status.index < tagLimit}" th:href="${tag.status.permalink}"><span class="name" th:text="${tag.spec.displayName}"></span><span class="num" th:text="${'（' + tag.status.visiblePostCount + '）'}"></span></a>
     <template data-tag-list><a class="link" th:each="tag : ${tags}" th:href="${tag.status.permalink}" th:attr="data-name=${tag.spec.displayName},data-count=${tag.status.visiblePostCount}"><span class="name" th:text="${tag.spec.displayName}"></span><span class="num" th:text="${'（' + tag.status.visiblePostCount + '）'}"></span></a></template>
     <th:block th:if="${#lists.isEmpty(tags)}" th:insert="~{views/components:: emptyData(false)}"></th:block>
@@ -186,8 +188,19 @@
   </div>
 </section>
 
+<!--/* Author-controlled HTML follows the same trust boundary as the existing announcement. */-->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="custom(position)">
+  <section th:each="item : ${theme.config.aside.custom_cards}" th:if="${(item.position ?: 'bottom') == position}" class="aside-custom card"
+    th:id="${#strings.isEmpty(item.id_name) ? null : item.id_name}" th:classappend="${item.class_name}"
+    th:attr="data-card-position=${position},data-card-order=${item.order ?: 0}">
+    <h1 class="title" th:if="${not #strings.isEmpty(item.name)}"><i th:if="${not #strings.isEmpty(item.icon)}" th:class="${item.icon}" aria-hidden="true"></i><span class="name" th:text="${item.name}"></span></h1>
+    <div class="custom-card-content" th:utext="${item.html}"></div>
+  </section>
+</th:block>
+
 <!--/* 侧边栏 */-->
 <aside xmlns:th="https://www.thymeleaf.org" th:fragment="common" th:if="${asideEnabled}" class="aside" data-aside-sort>
+  <th:block th:replace="~{::custom('top')}"/>
   <th:block th:replace="~{::user}"/>
   <th:block th:replace="~{::notice}"/>
   <th:block th:replace="~{::recentPost}"/>
@@ -196,6 +209,7 @@
   <th:block th:replace="~{::tags}"/>
   <th:block th:replace="~{::archives}"/>
   <th:block th:replace="~{::webInfo}"/>
+  <th:block th:replace="~{::custom('bottom')}"/>
 </aside>
 
 <!--/* 阅读侧栏。SinglePage 的简洁目录是可选扩展，默认仍保留普通侧栏。 */-->
@@ -226,6 +240,7 @@
   "
 >
   <th:block th:unless="${tocSimple}">
+    <th:block th:replace="~{::custom('top')}"/>
     <th:block th:replace="~{::user}"/>
     <th:block th:replace="~{::notice}"/>
   </th:block>
@@ -248,5 +263,6 @@
       <th:block th:replace="~{::archives}"/>
       <th:block th:replace="~{::webInfo}"/>
     </th:block>
+    <th:block th:replace="~{::custom('bottom')}"/>
   </th:block>
 </aside>

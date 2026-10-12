@@ -25,14 +25,14 @@ test('settings 暴露 cover 组四项（含 archives_enable）；list 仍不读 
   const cover = settings.spec.forms.find(form => form.group === 'cover');
   assert.ok(cover);
   const names = cover.formSchema.map(node => node.name);
-  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable']);
+  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable', 'default_cover_list']);
 });
 
 test('list fragment：index_enable=false 不渲染封面；无文章封面时用 default_cover', async () => {
   const source = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
   const list = listFragment(source);
   assert.match(list, /theme\.config\.cover\.index_enable != false/);
-  assert.match(list, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : theme\.config\.cover\.default_cover\}/);
+  assert.match(list, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : \(not #lists\.isEmpty\(coverCandidates\) \? coverCandidates\[.*?\]\.url : theme\.config\.cover\.default_cover\)\}/);
   assert.match(list, /showCover = \$\{indexCoverEnable and \(not #strings\.isEmpty\(coverSrc\) or theme\.config\.loading\.img\.random_enable\)\}/);
   assert.match(list, /th:if="\$\{showCover\}"/);
   assert.match(list, /lazyLoadImg\(\$\{coverSrc\}/);

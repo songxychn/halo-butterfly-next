@@ -16,6 +16,9 @@ export interface PaginationConfig {
   nextUrl: string;
 }
 export interface ThemeConfig extends Partial<PaginationConfig> {
+  aside_tag_colors?: unknown;
+  appearance?: Record<string, unknown>;
+  effects?: Record<string, unknown>;
   restore_aside?: boolean;
   style_mode?: SettingValue;
   darkmode_autoChangeMode?: SettingValue;

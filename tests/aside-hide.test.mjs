@@ -54,7 +54,7 @@ test('布局：aside.enable 且 hide 为 true 时 html 加 hide-aside；无新�
   assert.doesNotMatch(layoutHtml, /th:utext/);
   assert.match(settingsText, /name: hide/);
   const hideIdx = settingsText.indexOf('name: hide');
-  const buttonIdx = settingsText.indexOf('name: button');
+  const buttonIdx = settingsText.indexOf('name: button', settingsText.indexOf('group: aside'));
   assert.ok(hideIdx > 0 && buttonIdx > hideIdx);
 });
 

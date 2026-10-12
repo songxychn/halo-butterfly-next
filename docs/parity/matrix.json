@@ -1312,14 +1312,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "appearance.avatar_effect"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.avatar_effect；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -1341,12 +1345,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:disable_top_img",
@@ -2319,14 +2324,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "image.flink_error"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 image.flink_error；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -2348,12 +2357,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:error_img.post_page",
@@ -6960,12 +6970,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.description"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_author.description；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -6986,12 +7000,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.button.enable",
@@ -7015,12 +7030,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.button.enable"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_author.button.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -7041,12 +7060,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.button.icon",
@@ -7070,12 +7090,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_author.button.icon"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_author.button.icon；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -7096,12 +7120,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_author.button.text",
@@ -8363,12 +8388,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.color"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_tags.color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -8389,12 +8418,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.custom_colors",
@@ -8418,12 +8448,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.card_tags.custom_colors"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_tags.custom_colors；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -8444,12 +8478,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:aside.card_tags.orderby",
@@ -18953,14 +18988,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "appearance.category_ui"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.ts",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.category_ui；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18987,12 +19026,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:tag_ui",
@@ -19016,14 +19056,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [],
+        "settings": [
+          "appearance.tag_ui"
+        ],
         "code": [
           "src/html/index.html",
           "src/html/views/components.html",
           "src/js/page/index.ts",
-          "src/scss/page/index.scss"
+          "src/scss/page/index.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.tag_ui；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19050,12 +19094,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:rounded_corners_ui",
@@ -19135,13 +19180,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.text_align_justify"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.text_align_justify；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19162,12 +19211,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mask.header",
@@ -19559,13 +19609,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.enter_transitions"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.enter_transitions；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19586,12 +19640,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:display_mode",
@@ -19677,13 +19732,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.beautify.enable"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.beautify.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19704,12 +19763,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:beautify.field",
@@ -19733,13 +19793,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.beautify.field"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.beautify.field；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19764,12 +19828,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:beautify.title_prefix_icon",
@@ -19794,12 +19859,15 @@
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [
-          "render.enable_h_icon"
+          "render.enable_h_icon",
+          "appearance.beautify.title_prefix_icon"
         ],
         "code": [
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "当前只支持标题图标开关，缺少自定义图标。"
+        "finding": "当前只支持标题图标开关，缺少自定义图标。 2026-10-13：本批已接入 appearance.beautify.title_prefix_icon；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19820,7 +19888,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
@@ -19849,13 +19918,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.beautify.title_prefix_icon_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.beautify.title_prefix_icon_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19876,12 +19949,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:font.global_font_size",
@@ -19905,13 +19979,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.font.global_font_size"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.font.global_font_size；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19932,12 +20010,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:font.code_font_size",
@@ -19961,13 +20040,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.font.code_font_size"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.font.code_font_size；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19988,12 +20071,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:font.font_family",
@@ -20018,12 +20102,15 @@
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
         "settings": [
-          "style.font_family"
+          "style.font_family",
+          "appearance.font.font_family"
         ],
         "code": [
-          "src/scss/core/_base.scss"
+          "src/scss/core/_base.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "当前仅系统字体选项，自定义字体能力待实现。"
+        "finding": "当前仅系统字体选项，自定义字体能力待实现。 2026-10-13：本批已接入 appearance.font.font_family；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20044,7 +20131,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
@@ -20073,13 +20161,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.font.code_font_family"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.font.code_font_family；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20100,12 +20192,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:blog_title_font.font_link",
@@ -20129,13 +20222,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.blog_title_font.font_link"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.blog_title_font.font_link；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20156,12 +20253,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:blog_title_font.font_family",
@@ -20185,13 +20283,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.blog_title_font.font_family"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.blog_title_font.font_family；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20212,12 +20314,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:hr_icon.enable",
@@ -20241,13 +20344,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.hr_icon.enable"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.hr_icon.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20268,12 +20375,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:hr_icon.icon",
@@ -20297,13 +20405,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.hr_icon.icon"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.hr_icon.icon；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20324,12 +20436,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:hr_icon.icon_top",
@@ -20353,13 +20466,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.hr_icon.icon_top"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.hr_icon.icon_top；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20380,12 +20497,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.enable",
@@ -20409,12 +20527,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20437,12 +20559,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.colorful",
@@ -20466,12 +20589,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.colorful"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.colorful；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20494,12 +20621,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.shake",
@@ -20523,12 +20651,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.shake"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.shake；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20551,12 +20683,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:activate_power_mode.mobile",
@@ -20580,12 +20713,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.activate_power_mode.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20608,12 +20745,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.enable",
@@ -20637,12 +20775,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20665,12 +20807,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.size",
@@ -20694,12 +20837,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.size"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.size；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20722,12 +20869,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.alpha",
@@ -20751,12 +20899,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.alpha"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.alpha；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20779,12 +20931,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.zIndex",
@@ -20808,12 +20961,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.zIndex"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.zIndex；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20836,12 +20993,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.click_to_change",
@@ -20865,12 +21023,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.click_to_change"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.click_to_change；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20893,12 +21055,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_ribbon.mobile",
@@ -20922,12 +21085,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_ribbon.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20950,12 +21117,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_fluttering_ribbon.enable",
@@ -20979,12 +21147,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_fluttering_ribbon.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_fluttering_ribbon.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21007,12 +21179,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_fluttering_ribbon.mobile",
@@ -21036,12 +21209,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_fluttering_ribbon.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_fluttering_ribbon.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21064,12 +21241,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.enable",
@@ -21093,12 +21271,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21121,12 +21303,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.color",
@@ -21150,12 +21333,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.color"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21178,12 +21365,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.opacity",
@@ -21207,12 +21395,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.opacity"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.opacity；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21235,12 +21427,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.zIndex",
@@ -21264,12 +21457,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.zIndex"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.zIndex；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21292,12 +21489,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.count",
@@ -21321,12 +21519,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.count"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.count；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21349,12 +21551,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:canvas_nest.mobile",
@@ -21378,12 +21581,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.canvas_nest.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21406,12 +21613,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:fireworks.enable",
@@ -21435,12 +21643,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.fireworks.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.fireworks.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21463,12 +21675,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:fireworks.zIndex",
@@ -21492,12 +21705,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.fireworks.zIndex"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.fireworks.zIndex；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21520,12 +21737,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:fireworks.mobile",
@@ -21549,12 +21767,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.fireworks.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.fireworks.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21577,12 +21799,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:click_heart.enable",
@@ -21606,12 +21829,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.click_heart.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.click_heart.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21634,12 +21861,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:click_heart.mobile",
@@ -21663,12 +21891,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.click_heart.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.click_heart.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21691,12 +21923,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.enable",
@@ -21720,12 +21953,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.enable"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21748,12 +21985,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.text",
@@ -21777,12 +22015,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.text"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.text；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21805,12 +22047,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.fontSize",
@@ -21834,12 +22077,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.fontSize"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.fontSize；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21862,12 +22109,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.random",
@@ -21891,12 +22139,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.random"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.random；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21919,12 +22171,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:clickShowText.mobile",
@@ -21948,12 +22201,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "逐种实现可选上游效果和移动开关，保持按需加载和关闭后的资源清理。",
-        "settings": [],
+        "settings": [
+          "effects.clickShowText.mobile"
+        ],
         "code": [
           "src/js/core/_universe.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -21976,12 +22233,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:lightbox",
@@ -25310,13 +25568,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.enable"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25337,12 +25599,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.main",
@@ -25360,13 +25623,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.main"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.main；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25387,12 +25654,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.paginator",
@@ -25410,13 +25678,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.paginator"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.paginator；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25437,12 +25709,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.button_hover",
@@ -25460,13 +25733,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.button_hover"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.button_hover；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25487,12 +25764,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.text_selection",
@@ -25510,13 +25788,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.text_selection"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.text_selection；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25537,12 +25819,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.link_color",
@@ -25560,13 +25843,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.link_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.link_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25587,12 +25874,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.meta_color",
@@ -25610,13 +25898,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.meta_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.meta_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25637,12 +25929,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.hr_color",
@@ -25660,13 +25953,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.hr_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.hr_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25687,12 +25984,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.code_foreground",
@@ -25710,13 +26008,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.code_foreground"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.code_foreground；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25737,12 +26039,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.code_background",
@@ -25760,13 +26063,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.code_background"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.code_background；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25787,12 +26094,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.toc_color",
@@ -25810,13 +26118,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.toc_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.toc_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25837,12 +26149,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.blockquote_padding_color",
@@ -25860,13 +26173,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.blockquote_padding_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.blockquote_padding_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25887,12 +26204,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.blockquote_background_color",
@@ -25910,13 +26228,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.blockquote_background_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.blockquote_background_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25937,12 +26259,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.scrollbar_color",
@@ -25960,13 +26283,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.scrollbar_color"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.scrollbar_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -25987,12 +26314,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.meta_theme_color_light",
@@ -26010,13 +26338,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.meta_theme_color_light"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.meta_theme_color_light；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26037,12 +26369,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:theme_color.meta_theme_color_dark",
@@ -26060,13 +26393,17 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
+        "settings": [
+          "appearance.theme_color.meta_theme_color_dark"
+        ],
         "code": [
           "src/html/views/config.html",
           "src/scss/core/_base.scss",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.meta_theme_color_dark；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -26087,12 +26424,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:Open_Graph_meta.option.twitter_card",
@@ -52297,14 +52635,18 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
-        "settings": [],
+        "settings": [
+          "cover.default_cover_list"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/scss/core/header.scss"
+          "src/scss/core/header.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批已接入 cover.default_cover_list；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -52324,12 +52666,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:reward-items",
@@ -52627,12 +52970,16 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "aside.custom_cards"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批已接入 aside.custom_cards；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -52652,12 +52999,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:gallery-data",
@@ -52734,12 +53082,16 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
-        "settings": [],
+        "settings": [
+          "appearance.tag_custom_colors"
+        ],
         "code": [
           "src/html/views/aside.html",
-          "src/scss/core/aside.scss"
+          "src/scss/core/aside.scss",
+          "src/js/core/appearance.ts",
+          "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批已接入 appearance.tag_custom_colors；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -52759,12 +53111,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/394"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:cdn-overrides",

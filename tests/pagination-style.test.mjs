@@ -25,7 +25,7 @@ test('上游列表分页：2.5em、6px、current、btn-hover、归档 30px；不
   assert.match(paginationScss, /width:\s*2\.5em/);
   assert.match(paginationScss, /height:\s*2\.5em/);
   assert.match(paginationScss, /margin:\s*6px/);
-  assert.match(paginationScss, /background:\s*var\(--theme\)/);
+  assert.match(paginationScss, /background:\s*var\(--paginator-color, var\(--theme\)\)/);
   assert.match(paginationScss, /--btn-hover-color/);
   assert.match(paginationScss, /\.page-number\.current/);
   assert.match(paginationScss, /#archive \.pagination/);

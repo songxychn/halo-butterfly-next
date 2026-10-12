@@ -1,3 +1,5 @@
+import {applyAppearance} from './core/appearance.ts';
+try { applyAppearance(window.MainApp.conf.appearance); } catch {}
 // Inlined by the build before first paint; Halo expressions stay in the template.
 try {
   const conf = window.MainApp.conf;

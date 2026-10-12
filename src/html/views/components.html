@@ -1,14 +1,15 @@
 <!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
-<img
+<th:block
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:with="resolvedSrc = ${(#strings.isEmpty(src) && theme.config.loading.img.random_enable && random) ? (theme.config.loading.img.random_link + parma) : src}"
-  th:src="${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload}"
-  th:attr="onerror='this.src='+${'`'+theme.config.loading.img.err+'`'}"
-  th:alt="${alt}"
-  th:class="${class}"
-  loading="lazy"
-  decoding="async"
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.loading.img.random_enable and random) ? (theme.config.loading.img.random_link + parma) : src}, colorCover = ${not #strings.isEmpty(src) and (#strings.startsWith(src, '#') or #strings.startsWith(src, 'rgb') or #strings.startsWith(src, 'hsl'))}"
 >
+  <span th:if="${colorCover}" class="cover-color" th:classappend="${class}" th:attr="data-cover-color=${src}" aria-hidden="true"></span>
+  <img th:unless="${colorCover}"
+    th:src="${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload}"
+    th:attr="data-image-fallback=${class == 'logo' and not #strings.isEmpty(theme.config.image?.flink_error) ? theme.config.image.flink_error : theme.config.loading.img.err}"
+    th:alt="${alt}" th:class="${class}" loading="lazy" decoding="async"
+  >
+</th:block>
 
 <!--/* 文章页元信息：第一屏与无第一屏的卡片顶部共用。字数/时长受 wordcount.enable（默认关，对齐 hexo-wordcount 未装）；阅读量受 busuanzi.page_pv（实验室关）。字数规则见 src/js/core/post-meta.mjs（去标签后长度/500 向上取整，非 hexo-wordcount） */-->
 <ul
@@ -118,7 +119,7 @@
       class="item card"
       th:each="post, stat : ${data}"
       th:with="
-        coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+        coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
         showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
       "
       th:classappend="${showCover ? '' : ' no-cover'}"
@@ -449,7 +450,7 @@
               autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
               excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
               hasDesc = ${not #strings.isEmpty(excerptText)},
-              coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : theme.config.cover.default_cover},
+              coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(item.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
               hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable},
               showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
             "

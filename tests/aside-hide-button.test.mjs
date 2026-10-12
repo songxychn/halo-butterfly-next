@@ -89,8 +89,8 @@ test('布局：#hide-aside-btn 在 #rightside-config-hide；无新增 th:utext�
   assert.match(commonJs, /bindHideAsideButton/);
   assert.match(asideHtml, /theme\.config\.aside\.button\.name/);
   const hideBtnIdx = settingsText.indexOf('name: hide_button');
-  const authorBtnIdx = settingsText.indexOf('name: button');
-  const mobileIdx = settingsText.indexOf('name: mobile');
+  const authorBtnIdx = settingsText.indexOf('name: button', settingsText.indexOf('group: aside'));
+  const mobileIdx = settingsText.indexOf('name: mobile', settingsText.indexOf('group: aside'));
   assert.ok(mobileIdx > 0 && hideBtnIdx > mobileIdx && authorBtnIdx > hideBtnIdx);
 });
 

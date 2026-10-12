@@ -65,7 +65,7 @@
               <li class="axis-list--item "
                   th:each="post : ${months.posts}"
                   th:with="
-                    coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : theme.config.cover.default_cover},
+                    coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
                     showCover = ${theme.config.cover.archives_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
                   "
                   th:classappend="${showCover ? '' : ' no-cover'}">
