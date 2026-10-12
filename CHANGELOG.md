@@ -2,6 +2,8 @@
 
 ## 未发布
 
+- 增加默认关闭的 PJAX、站内内容预取与 Snackbar；补齐 Loading 开关、图片懒加载模式/范围/模糊配置与页面组件清理。未知插件脚本和失败请求回退普通导航，旧配置默认保持；适配边界见 [导航与加载](docs/NAVIGATION-LOADING.md)。
+
 - 首页新增固定 Butterfly 5.7.0 的七种文章排列，布局 6/7 使用同版 InfiniteGrid 4.13.0 本地瀑布流；保留旧 list/tile 默认与摘要行为。配置、移动端断点及回退见 [首页文章布局](docs/HOMEPAGE-LAYOUTS.md)，完整 1.0 验收状态仍以矩阵为准。
 
 - 按 DEC-07 采用 Halo KaTeX 插件：保留原生 MathML，补齐长公式局部滚动、TeX 复制、亮暗布局及全局/文章/单页公式与源码显示控制。版本、迁移及插件全站资源加载限制见 [数学公式](docs/MATH.md)。

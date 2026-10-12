@@ -213,5 +213,6 @@ export function bindTranslate(root = typeof document !== 'undefined' ? document 
   initializeTranslate(state);
   button.addEventListener('click', () => {
     translatePage(state);
+    if (typeof MainApp !== 'undefined' && (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true')) MainApp.useMessage?.info('已切换繁简显示');
   });
 }

@@ -1,3 +1,4 @@
+import { onPageCleanup } from '../core/page-lifecycle.ts';
 /**
  * @date: 2024/2/25
  * @author: 小红
@@ -40,21 +41,22 @@ export default class Render {
   constructor() {
     this.#h();
     const article = document.querySelector<HTMLElement>('article.render');
-    if (article) enhanceMath(article, {
+    if (article) onPageCleanup(enhanceMath(article, {
       enabled: this.#conf.math_enabled,
       copyTex: this.#conf.math_copy_tex,
       hideScrollbar: this.#conf.math_hide_scrollbar,
-    });
+    }));
     if (article) applyPhotoFigcaptions(article, this.#conf.photofigcaption);
-    if (article) bindArticleAnchors(article, {
+    if (article) onPageCleanup(bindArticleAnchors(article, {
       autoUpdate: this.#conf.anchor_auto_update,
       clickToScroll: this.#conf.anchor_click_to_scroll,
-    });
+    }));
     this.#domObserver();
     this.#tocBotH5();
     this.#copyRight();
     this.#relatedPosts();
-    bindRewards();
+    bindRewards().forEach(onPageCleanup);
+    onPageCleanup(() => tocBot.destroy());
   }
 
   /**
@@ -77,6 +79,7 @@ export default class Render {
       }
     });
     observer.observe(renderDom);
+    onPageCleanup(() => observer.disconnect());
   }
 
   /**
