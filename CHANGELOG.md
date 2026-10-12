@@ -2,6 +2,8 @@
 
 ## 未发布
 
+- 增加作者描述/按钮、自定义侧栏卡片、标签亮暗配色、分类列表、默认封面候选和独立友链坏图回退；新增字体、主题配色、正文美化、分割线与按需动效设置。旧默认保留，特效默认关闭并尊重减少动态效果；配置和回退见[侧栏、图片与外观](docs/APPEARANCE-OPTIONS.md)。
+
 - 补齐核心路由及分页 canonical、OG 图片与 Twitter/Facebook 扩展、站点验证和可选 WebSite/BlogPosting 结构化数据；新增保序 head/bottom 代码注入，兼容公共布局与 Halo 全局注入。保留原 SEO 总开关，旧配置默认无注入、结构化数据关闭；说明与限定验收见 [SEO 与代码注入](docs/SEO-INJECTION.md)。
 
 - 首页新增固定 Butterfly 5.7.0 的七种文章排列，布局 6/7 使用同版 InfiniteGrid 4.13.0 本地瀑布流；保留旧 list/tile 默认与摘要行为。配置、移动端断点及回退见 [首页文章布局](docs/HOMEPAGE-LAYOUTS.md)，完整 1.0 验收状态仍以矩阵为准。

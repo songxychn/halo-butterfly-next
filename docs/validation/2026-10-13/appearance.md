@@ -1,6 +1,8 @@
 # 侧栏、图片与外观配置：限定验证
 
-产品提交 `6ce0dfd054f607b0419be052a9242334c77b5c5a`，主题 `0.1.0-alpha.4`，ZIP SHA-256 `61bf5bbdf47b773a1a23d59cf00b0c0e5bf9d543ca5e27da69e5b25f219fcc3e`。使用独立本地 Halo 2.26.1（18143）与合成内容，实际安装的 143 个文件逐一与 ZIP 一致。后续文档提交不改变构建输入；PR 当前 head 的 CI 单独跟踪。
+当前产品对应普通合并提交 `078cd40836c4db5f51bb290229133ace31bb2547`，主题 `0.1.0-alpha.4`，ZIP SHA-256 `9d73c43f0111417b1bc8820ea6dd1919bafd1b2e97f69257744087f5a6f48d0c`。接入 master `329463a` 的 SEO/代码注入功能后，重生成设置默认值与矩阵，`bun run verify` 的 613 项测试和 146 文件包检查通过；真实 Halo 2.26.1（18143）实际安装逐文件一致，84 项外观配置检查全部重跑通过。另执行 SEO 检查器的 36 项 HTTP/模板检查通过，配置、系统设置及页面恢复。见[合并浏览器记录](appearance-merge.json)、[SEO 交叉检查](appearance-merge-seo.json)。后续文档提交不改变构建输入；PR 当前 head 的 CI 单独跟踪。
+
+以下保留合并前产品提交 `6ce0dfd054f607b0419be052a9242334c77b5c5a`，ZIP SHA-256 `61bf5bbdf47b773a1a23d59cf00b0c0e5bf9d543ca5e27da69e5b25f219fcc3e` 的原始限定检查及截图；当时实际安装 143 个文件与 ZIP 一致。旧报告不能替代上方合并包的检查。
 
 `bun run verify` 通过类型检查、矩阵检查、613 项工程测试、构建与 143 文件安装包检查。限定真实页面检查 84 项通过：21 组场景分别运行 1440×1000、390×844，浅色/深色；每项检查初始化完成、Loading 释放及无水平溢出。详见[机器报告](appearance-browser.json)和[身份摘要](appearance-summary.json)。
 
