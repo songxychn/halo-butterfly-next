@@ -43,7 +43,7 @@ try {
    for(const variant of ['disabled','all','chatra','tidio','crisp','knocket','native','failed','resources','bad-resources','invalid-resources','versionless','layout6','layout7','jsdelivr','unpkg','cdnjs']) {
     await profile(variant);console.log(engine+': '+variant);
     for(const width of [1440,390]) for(const mode of ['light','dark']) {
-     const result={engine,width,mode,profile:variant,checks:[],errors:[],blockedExternal:[]};report.cases.push(result);
+     const result={engine,width,mode,profile:variant,checks:[],errors:[],requestFailures:[],blockedExternal:[]};report.cases.push(result);
      const context=await browser.newContext({viewport:{width,height:900},locale:'zh-CN',timezoneId:'Asia/Shanghai'});
      await context.addInitScript(mode=>localStorage.setItem('halo-butterfly-next.color-scheme',mode),mode);
      const requested=[];
@@ -68,7 +68,8 @@ try {
       }
       result.blockedExternal.push(url.origin);return route.abort();
      });
-     const page=await context.newPage();page.on('pageerror',e=>result.errors.push(e.message));
+     const page=await context.newPage();page.on('pageerror',e=>result.errors.push(e.stack||e.message));
+     page.on('requestfailed',request=>result.requestFailures.push({path:new URL(request.url()).pathname,error:request.failure()?.errorText}));
      try {
       const path=['all','layout6','layout7','resources','bad-resources','invalid-resources','versionless'].includes(variant)?'/archives/preview-1/':'/';
       const response=await page.goto(base+path,{waitUntil:'domcontentloaded',timeout:45000});assert.equal(response.status(),200);
@@ -87,6 +88,8 @@ try {
         assert.equal(await page.locator('.ad-post').count(),1);assert.equal(await page.locator('.ad-aside').count(),1);assert.equal(await page.locator('.ad-index').count(),0);
         assert.equal((await page.content()).includes('synthetic-token-must-not-render'),false);
         assert.equal(await page.evaluate(()=>window.adsbygoogle.length),3);result.checks.push('all analytics, public stats, ads and token exclusion');
+        // Let Halo's own visit-counter fetch finish before intentionally leaving the article.
+        await page.waitForLoadState('networkidle');
         await page.goto(base+'/');await page.waitForFunction(()=>window.integrationLoads?.length===8);
         assert.equal(await page.locator('.ad-index').count(),Math.floor(await page.locator('.essay.home-layout > li.item').count()/3));assert.equal(await page.locator('.ad-post').count(),0);assert.equal(await page.locator('.theme-ad ins').count(),await page.locator('.ad-index').count()+1);await page.waitForFunction(()=>document.querySelector('[data-umami-stat="site_uv"]')?.textContent==='12');result.checks.push('home ad every three posts and site counters');
         await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});
