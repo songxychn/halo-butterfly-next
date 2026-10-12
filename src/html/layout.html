@@ -41,6 +41,7 @@
       <th:block th:replace="~{views/components :: side}"/>
     </div>
     <script th:src="${assets_link + 'js/plugin.min.js?v=' + theme.spec.version}"></script>
+    <th:block th:replace="~{views/integrations::scripts}"/>
     <th:block th:replace="~{views/inject :: bottom}"/>
   </body>
 </html>

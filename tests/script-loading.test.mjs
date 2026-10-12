@@ -89,6 +89,22 @@ test('one manual async request starts only after DOM readiness and two frame opp
   }
 });
 
+test('external Prism failure waits for the local fallback before resolving enhancement', async () => {
+  const previous = globalThis.window;
+  globalThis.window = {MainApp:{resources:{option:{prismjs_js:'https://cdn.test/prism.js'}}}};
+  try {
+    const scripts=[],frames=[];
+    const document={createElement:()=>({events:{},setAttribute(){},addEventListener(k,fn){this.events[k]=fn;}}),head:{append:s=>scripts.push(s)}};
+    const ready=loadPrismAfterPaint({source:'/local-prism.js',document,requestFrame:fn=>frames.push(fn)});
+    await Promise.resolve();frames.shift()();frames.shift()();
+    const script=scripts[0];assert.equal(script.src,'https://cdn.test/prism.js');
+    let settled=false;ready.then(()=>settled=true);
+    script.events.error();await Promise.resolve();assert.equal(settled,false);
+    assert.equal(scripts.length,2);assert.equal(scripts[1].src,'/local-prism.js');
+    scripts[1].events.load();assert.equal(await ready,true);
+  } finally {globalThis.window=previous;}
+});
+
 test('empty source and rejected DOM-ready gate keep raw code without requesting a script', async () => {
   for (const options of [{source: '', domReady: Promise.resolve()}, {source: '/prism.js', domReady: Promise.reject(Error('unavailable'))}]) {
     assert.equal(await loadPrismAfterPaint({...options, document: {}, requestFrame: () => {throw Error('Unexpected frame');}}), false);

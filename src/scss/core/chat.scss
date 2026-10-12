@@ -1,22 +1,21 @@
 // Adapted from Hexo Butterfly 5.7.0 (Apache-2.0); modified for Halo (SCSS, selectors and settings).
 // Source and license: third-party-licenses/UPSTREAM-ATTRIBUTION.txt; detailed changes are noted below.
-/**
- * 对齐 Butterfly 5.7.0 source/css/_layout/chat.styl
- * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
- *
- * 上游仅在 chat.rightside_button == true 且 chat.use == 'chatra' 时
- * 隐藏未展开的 #chatra（visibility/width/height/opacity/pointer-events）。
- * 本刀不接入 Chatra/Crisp/Tidio/Knocket，不改 settings.yaml，
- * config:chat.* 与 chat 模板仍 mapping-required。
- * Halo 尚无 #chatra DOM 时这些规则是空操作。
- * 深色仍 data-color-scheme，不改 data-theme。
- * 不改 #pagination.pagination-post 的 150px。
- * 不复用作者卡片 aside.button。#hide-aside-btn 仍走 hide_button。
- */
-#chatra:not(.chatra--expanded) {
+// Hide Chatra's native launcher only when the site selects the theme button.
+html[data-chat-button="chatra"] #chatra:not(.chatra--expanded) {
   visibility: hidden !important;
   width: 1px !important;
   height: 1px !important;
   opacity: 0 !important;
   pointer-events: none;
 }
+
+.theme-ad { overflow-wrap: anywhere; max-width: 100%; }
+.theme-ad img, .theme-ad iframe { max-width: 100%; }
+.ad-index { grid-column: 1 / -1; list-style: none; padding: 1rem; margin-block: 20px; }
+#Butterfly .essay.masonry > .ad-index {
+  width: calc(100% / 2 - 8px);
+  @media screen and (max-width: 768px) { width: 100%; }
+  @media screen and (min-width: 2000px) { width: calc(100% / 3 - 8px); }
+}
+.ad-aside { padding: 1rem; }
+.ad-post { margin-block: 1.5rem; }

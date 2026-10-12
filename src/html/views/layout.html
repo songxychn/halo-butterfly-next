@@ -72,6 +72,7 @@
   <script data-theme-script="ready" id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
   <script data-theme-script="entry" defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
+  <th:block th:replace="~{views/integrations::scripts}"/>
   <th:block th:replace="~{views/inject :: bottom}"/>
   </body>
 

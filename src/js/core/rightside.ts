@@ -21,13 +21,14 @@ const RIGHTSIDE_ITEMS = {
   darkmode: 'darkmode',
   hideAside: 'hide-aside-btn',
   toc: 'mobile-toc-button',
+  chat: 'chat-btn',
   comment: 'jump-comment',
 } as const;
 
 type RightsideItem = keyof typeof RIGHTSIDE_ITEMS;
 
 const DEFAULT_HIDE: RightsideItem[] = ['readmode', 'translate', 'darkmode', 'hideAside'];
-const DEFAULT_SHOW: RightsideItem[] = ['toc', 'comment'];
+const DEFAULT_SHOW: RightsideItem[] = ['toc', 'chat', 'comment'];
 
 /** Empty groups use upstream defaults; unsupported names are ignored, first occurrence wins. */
 export function resolveRightsideItemOrder(enabled: unknown, hide: unknown, show: unknown) {

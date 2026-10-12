@@ -18197,12 +18197,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.use"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18232,12 +18237,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chat.rightside_button",
@@ -18261,12 +18280,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.rightside_button"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18289,12 +18313,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chat.button_hide_show",
@@ -18318,12 +18356,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.button_hide_show"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18346,12 +18389,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chatra.id",
@@ -18375,12 +18432,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.chatra.id"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18403,12 +18465,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:tidio.public_key",
@@ -18432,12 +18508,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.tidio.public_key"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18460,12 +18541,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:crisp.website_id",
@@ -18489,12 +18584,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.crisp.website_id"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18517,12 +18617,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:knocket.identifier",
@@ -18546,12 +18660,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+        "settings": [
+          "chat.knocket.identifier"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
+        ],
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18574,12 +18693,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:baidu_analytics",
@@ -18603,11 +18736,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.baidu_analytics"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18630,12 +18769,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_analytics",
@@ -18659,11 +18812,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.google_analytics"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18686,12 +18845,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:cloudflare_analytics",
@@ -18715,11 +18888,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.cloudflare_analytics"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18742,12 +18921,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:microsoft_clarity",
@@ -18771,11 +18964,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.microsoft_clarity"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18798,12 +18997,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.enable",
@@ -18827,11 +19040,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.enable"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18854,12 +19073,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.serverURL",
@@ -18883,11 +19116,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.serverURL"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18910,12 +19149,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.script_name",
@@ -18939,11 +19192,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.script_name"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -18966,12 +19225,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.website_id",
@@ -18995,11 +19268,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.website_id"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19022,12 +19301,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.option",
@@ -19051,11 +19344,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.option"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19078,12 +19377,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.UV_PV.site_uv",
@@ -19107,11 +19420,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.UV_PV.site_uv"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19134,12 +19453,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.UV_PV.site_pv",
@@ -19163,11 +19496,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.UV_PV.site_pv"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19190,12 +19529,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.UV_PV.page_pv",
@@ -19219,11 +19572,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.umami_analytics.UV_PV.page_pv"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19246,12 +19605,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:umami_analytics.UV_PV.token",
@@ -19277,9 +19650,10 @@
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html"
+          "src/html/views/config.html",
+          "docs/INTEGRATIONS.md"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "主题不向页面输出私有 API token；站点后端须持有凭据并提供公开只读统计接口。后端代理未提供，本字段仍待映射，未裁定不适用。"
       },
       "dependencies": [
         "dual-site",
@@ -19302,7 +19676,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
         "pullRequests": []
       },
@@ -19331,11 +19706,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.google_tag_manager.tag_id"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19358,12 +19739,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_tag_manager.domain",
@@ -19387,11 +19782,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html"
+        "settings": [
+          "analytics.google_tag_manager.domain"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
+        ],
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19414,12 +19815,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_adsense.enable",
@@ -19443,13 +19858,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "google_adsense.enable"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19471,12 +19893,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_adsense.auto_ads",
@@ -19500,13 +19936,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "google_adsense.auto_ads"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19528,12 +19971,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_adsense.js",
@@ -19557,13 +20014,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "google_adsense.js"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19585,12 +20049,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_adsense.client",
@@ -19614,13 +20092,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "google_adsense.client"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19642,12 +20127,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:google_adsense.enable_page_level_ads",
@@ -19671,13 +20170,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "google_adsense.enable_page_level_ads"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19699,12 +20205,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:ad.index",
@@ -19728,13 +20248,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "ad.index"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19756,12 +20283,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:ad.aside",
@@ -19785,13 +20326,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "ad.aside"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19813,12 +20361,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:ad.post",
@@ -19842,13 +20404,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
+        "settings": [
+          "ad.post"
+        ],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19870,12 +20439,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:site_verification",
@@ -27511,13 +28094,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.internal_provider"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -27547,12 +28135,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.third_party_provider",
@@ -27576,13 +28178,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.third_party_provider"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -27612,12 +28219,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.version",
@@ -27641,13 +28262,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.version"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -27670,12 +28296,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.custom_format",
@@ -27699,13 +28339,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.custom_format"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -27728,12 +28373,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option",
@@ -27757,13 +28416,18 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.option"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -27786,12 +28450,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:artalk.vote",
@@ -30756,13 +31434,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.option.fontawesome"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -30785,12 +31468,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.gitalk",
@@ -31284,13 +31981,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.option.main"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -31313,12 +32015,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.main_css",
@@ -31336,13 +32052,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.option.main_css"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -31365,12 +32086,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.mathjax",
@@ -31606,13 +32341,18 @@
       "upstreamInventory": "documented",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "settings": [
+          "CDN.option.prismjs_js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
+        ],
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -31635,12 +32375,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.prismjs_lineNumber_js",
@@ -32707,9 +33461,13 @@
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -32732,12 +33490,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head/config",
@@ -32854,11 +33626,16 @@
         "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
         "settings": [],
         "code": [
-          "src/html/index.html",
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-ads.html",
+          "src/html/views/components.html",
           "src/html/post.html",
           "src/html/views/aside.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -32880,12 +33657,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head/preconnect",
@@ -35174,10 +35965,13 @@
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -35200,12 +35994,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/chat/crisp",
@@ -35224,10 +36032,13 @@
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -35250,12 +36061,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/chat/index",
@@ -35274,10 +36099,13 @@
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -35300,12 +36128,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/chat/knocket",
@@ -35324,10 +36166,13 @@
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -35350,12 +36195,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/chat/tidio",
@@ -35374,10 +36233,13 @@
         "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integration-chat.ts",
+          "src/js/core/rightside.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -35400,12 +36262,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/comments/artalk",
@@ -37897,9 +38773,13 @@
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "src/js/core/integrations.ts",
+          "src/html/views/integration-stats.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -37922,12 +38802,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/widget/card_ad",
@@ -42692,12 +43586,14 @@
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
         "settings": [],
         "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "package.json"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
         ],
-        "finding": "当前构建从锁定 Font Awesome Free 6.7.2 复制 CSS、8 个字体及许可；alpha.3 源码/ZIP 审查已核对，继承 Pro 字体已移除。尚未逐消费页面完成上游图标对应、缺失与失败回退对照。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -42719,11 +43615,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/325",
-          "https://github.com/songxychn/halo-butterfly-next/pull/328"
+          "https://github.com/songxychn/halo-butterfly-next/pull/328",
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
         ]
       },
       "evidence": [
@@ -42735,6 +43633,16 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
       "status": "implemented-unverified"
@@ -43483,15 +44391,14 @@
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
         "settings": [],
         "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "src/plugins/prism/prism.min.js",
-          "src/js/core/prism-ready.ts",
-          "src/js/modules/CodeBlock.ts",
-          "src/html/views/components.html"
+          "src/html/views/config.html",
+          "src/html/views/integrations.html",
+          "docs/INTEGRATIONS.md",
+          "scripts/resource-templates.mjs",
+          "src/js/core/external-resource.ts",
+          "src/js/core/prism-ready.ts"
         ],
-        "finding": "随包分发 Prism 1.29.0；代码增强在 DOMContentLoaded 后两帧请求脚本，失败保持原文，重复初始化按文档去重。alpha.3 有延迟/失败及阅读焦点局部证据；原生 CSS 无响应仍保留，不能记完整资源加载通过。 剩余：仍需固定 Hexo 5.7.0 对照、条目全部合同场景和最终候选集成验收。"
+        "finding": "已实现 Next 实际随包资源的本地/自定义来源、Font Awesome三家CDN、版本格式、单项覆盖和原生错误回退；未开发资源及已捆绑库的独立覆盖继续缺口。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
       },
       "dependencies": [
         "dual-site",
@@ -43513,12 +44420,14 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/397"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/329",
           "https://github.com/songxychn/halo-butterfly-next/pull/335",
-          "https://github.com/songxychn/halo-butterfly-next/pull/337"
+          "https://github.com/songxychn/halo-butterfly-next/pull/337",
+          "https://github.com/songxychn/halo-butterfly-next/pull/402"
         ]
       },
       "evidence": [
@@ -43530,6 +44439,16 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "runtime",
+          "path": "docs/validation/2026-10-13/third-party-resources.json",
+          "commit": "fd1d2f98f4d42478c3a1086ebf4c5d6405b84d25",
+          "sha256": "ce406c101a2785e34395ff2fe0ba7497e32fb4ffe239a8958f8ca5242d14b1de",
+          "date": "2026-10-12T17:29:05.126Z",
+          "actor": "codex-author",
+          "outcome": "passed",
+          "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
       "status": "implemented-unverified"
@@ -56408,7 +57327,7 @@
           "scripts/check-package.mjs",
           "docs/THIRD_PARTY.md"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已提供当前实际资源与服务 SDK 的结构化白名单覆盖；上游未开发能力和已捆绑库的独立覆盖仍缺口，全量结构映射未完成。见 docs/INTEGRATIONS.md / #397。"
       },
       "dependencies": [
         "dual-site",

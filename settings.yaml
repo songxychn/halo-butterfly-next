@@ -2998,3 +2998,359 @@ spec:
           label: 404 配图
           value: ''
           help: 留空使用首页第一屏背景；图片加载失败时回退到首页背景及主题内置插图。
+    - group: analytics
+      label: 分析统计
+      formSchema:
+      - $formkit: text
+        name: baidu_analytics
+        label: 百度统计 ID
+        value: ''
+        help: 填统计脚本 hm.js? 后的 32 位 ID；留空关闭。
+      - $formkit: text
+        name: google_analytics
+        label: Google Analytics 4 测量 ID
+        value: ''
+        help: G- 开头的测量 ID；留空关闭。
+      - $formkit: text
+        name: cloudflare_analytics
+        label: Cloudflare Web Analytics token
+        value: ''
+        help: 公开追踪 token；留空关闭。
+      - $formkit: text
+        name: microsoft_clarity
+        label: Microsoft Clarity 项目 ID
+        value: ''
+      - $formkit: group
+        name: google_tag_manager
+        label: Google Tag Manager
+        value:
+          tag_id: ''
+          domain: ''
+        children:
+        - $formkit: text
+          name: tag_id
+          label: 容器 ID
+          value: ''
+          help: GTM- 开头；留空关闭。
+        - $formkit: text
+          name: domain
+          label: 服务地址
+          value: ''
+          help: 可选 HTTPS 地址，留空使用 Google 官方地址。
+      - $formkit: group
+        name: umami_analytics
+        label: Umami
+        value:
+          enable: false
+          website_id: ''
+          serverURL: ''
+          script_name: script.js
+          option: '{}'
+          UV_PV: &id001
+            stats_url: ''
+            site_uv: false
+            site_pv: false
+            page_pv: false
+        children:
+        - $formkit: checkbox
+          name: enable
+          label: 启用 Umami
+          value: false
+        - $formkit: text
+          name: website_id
+          label: 网站 ID
+          value: ''
+        - $formkit: text
+          name: serverURL
+          label: 服务地址
+          value: ''
+          help: 留空使用 Umami Cloud；自托管填写 HTTPS 地址或本站路径。
+        - $formkit: text
+          name: script_name
+          label: 追踪脚本文件名
+          value: script.js
+        - $formkit: textarea
+          name: option
+          label: 追踪选项
+          value: '{}'
+          help: JSON 对象，支持 data-domains、data-tag、data-do-not-track、data-exclude-search、data-exclude-hash、data-host-url。
+        - $formkit: group
+          name: UV_PV
+          label: 公开访问统计
+          value: *id001
+          children:
+          - $formkit: text
+            name: stats_url
+            label: 公开只读统计接口
+            value: ''
+            help: 返回 site_uv、site_pv、page_pv 数值；文章请求附加 path。后台凭据由接口服务保管，只填写公开 URL。
+          - $formkit: checkbox
+            name: site_uv
+            label: 显示站点访客数
+            value: false
+          - $formkit: checkbox
+            name: site_pv
+            label: 显示站点访问量
+            value: false
+          - $formkit: checkbox
+            name: page_pv
+            label: 显示文章访问量
+            value: false
+    - group: chat
+      label: 在线聊天
+      formSchema:
+      - $formkit: select
+        name: use
+        label: 聊天服务
+        value: ''
+        options:
+        - label: 关闭
+          value: ''
+        - label: Chatra
+          value: chatra
+        - label: Tidio
+          value: tidio
+        - label: Crisp
+          value: crisp
+        - label: Knocket
+          value: knocket
+      - $formkit: checkbox
+        name: rightside_button
+        label: 使用主题聊天按钮
+        value: false
+        help: 替代服务原有的浮动入口；Knocket 切换其联系面板的显示。加载失败时不显示按钮。
+      - $formkit: checkbox
+        name: button_hide_show
+        label: 滚动时显示或隐藏原生入口
+        value: false
+        help: 向上滚动显示，向下滚动隐藏；使用主题按钮时不生效。
+      - $formkit: group
+        name: chatra
+        label: Chatra
+        value:
+          id: ''
+        children:
+        - $formkit: text
+          name: id
+          label: 站点 ID
+          value: ''
+      - $formkit: group
+        name: tidio
+        label: Tidio
+        value:
+          public_key: ''
+        children:
+        - $formkit: text
+          name: public_key
+          label: Public Key
+          value: ''
+      - $formkit: group
+        name: crisp
+        label: Crisp
+        value:
+          website_id: ''
+        children:
+        - $formkit: text
+          name: website_id
+          label: Website ID
+          value: ''
+      - $formkit: group
+        name: knocket
+        label: Knocket
+        value:
+          identifier: ''
+        children:
+        - $formkit: text
+          name: identifier
+          label: Identifier
+          value: ''
+    - group: google_adsense
+      label: Google AdSense
+      formSchema:
+      - $formkit: checkbox
+        name: enable
+        label: 启用 AdSense
+        value: false
+      - $formkit: text
+        name: client
+        label: 发布商 ID
+        value: ''
+        help: ca-pub- 开头的 16 位 ID。
+      - $formkit: text
+        name: js
+        label: 脚本地址
+        value: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+      - $formkit: checkbox
+        name: auto_ads
+        label: 自动广告
+        value: true
+      - $formkit: checkbox
+        name: enable_page_level_ads
+        label: 页面级广告
+        value: true
+    - group: ad
+      label: 广告位
+      formSchema:
+      - $formkit: textarea
+        name: index
+        label: 首页广告 HTML
+        value: ''
+        help: 每三篇文章后插入一次；只在首页列表显示。
+      - $formkit: textarea
+        name: aside
+        label: 侧栏广告 HTML
+        value: ''
+        help: 在普通侧栏和非简洁阅读侧栏显示。
+      - $formkit: textarea
+        name: post
+        label: 文章广告 HTML
+        value: ''
+        help: 放在文章上下篇导航之前。广告位内容由站点管理员提供；留空不输出。
+    - group: CDN
+      label: 资源来源
+      formSchema:
+      - $formkit: select
+        name: internal_provider
+        label: 主题资源来源
+        value: local
+        help: 默认随安装包分发；自定义来源需托管当前主题生成的完整 assets 目录。
+        options:
+        - label: 主题安装包
+          value: local
+        - label: 自定义地址格式
+          value: custom
+      - $formkit: select
+        name: third_party_provider
+        label: 独立第三方资源来源
+        value: local
+        help: 当前支持 Font Awesome Free。Prism 与其他已合入页面脚本的库继续使用主题资源，避免丢失适配。
+        options:
+        - label: 主题安装包
+          value: local
+        - label: jsDelivr
+          value: jsdelivr
+        - label: unpkg
+          value: unpkg
+        - label: cdnjs
+          value: cdnjs
+        - label: 自定义地址格式
+          value: custom
+      - $formkit: checkbox
+        name: version
+        label: 资源 URL 使用版本号
+        value: true
+      - $formkit: text
+        name: custom_format
+        label: 自定义地址格式
+        value: ''
+        help: 使用 ${file}、${version}、${name}。例如 https://assets.example.com/${name}/${version}/${file}；失败时现有主题资源回退到安装包。
+      - $formkit: group
+        name: option
+        label: 单项地址覆盖
+        value: {}
+        children:
+        - $formkit: text
+          name: main
+          label: 页面脚本
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: main_css
+          label: 页面样式
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: integrations
+          label: 第三方接入脚本
+          value: ''
+          help: 留空继承主题资源来源。
+        - $formkit: text
+          name: masonry
+          label: 首页瀑布流脚本
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: loading
+          label: Loading 脚本
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: fontawesome
+          label: 图标样式
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: prismjs_js
+          label: Prism 脚本
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: prismjs_css
+          label: Prism 基础样式
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: code_light
+          label: 浅色代码配色
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: code_dark
+          label: 深色代码配色
+          value: ''
+          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: baidu_analytics
+          label: 百度统计
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: google_analytics
+          label: Google Analytics
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: cloudflare_analytics
+          label: Cloudflare Web Analytics
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: microsoft_clarity
+          label: Microsoft Clarity
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: google_tag_manager
+          label: Google Tag Manager
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: umami_analytics
+          label: Umami
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: google_adsense
+          label: AdSense
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: chat_chatra
+          label: Chatra
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: chat_tidio
+          label: Tidio
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: chat_crisp
+          label: Crisp
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
+        - $formkit: text
+          name: chat_knocket
+          label: Knocket
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。

@@ -67,7 +67,7 @@
     </span>
   </li>
 
-  <li class="row" th:if="${showWordcount or showMin2read or showPagePv or showCommentCount}">
+  <li class="row" th:if="${showWordcount or showMin2read or showPagePv or showCommentCount or ((theme.config.analytics?.umami_analytics?.enable == true or theme.config.analytics?.umami_analytics?.enable == 'true') and (theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == true or theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == 'true') and not #strings.isEmpty(theme.config.analytics?.umami_analytics?.UV_PV?.stats_url))}">
     <span class="wp wordCount" th:if="${showWordcount}">
       <i class="fa-solid fa-list-ol"></i>
       <span data-post-wordcount th:text="'字数总计 ' + ${wordLen} + ' 字'"></span>
@@ -80,6 +80,9 @@
       <i class="far fa-eye fa-fw"></i>
       <span th:if="${theme.config.busuanzi?.provider != 'busuanzi'}" th:text="'阅读量 ' + ${post.stats.visit}"></span>
       <span th:if="${theme.config.busuanzi?.provider == 'busuanzi'}" id="busuanzi_container_page_pv">阅读量 <span id="busuanzi_value_page_pv">暂不可用</span></span>
+    </span>
+    <span class="wp visit" th:if="${(theme.config.analytics?.umami_analytics?.enable == true or theme.config.analytics?.umami_analytics?.enable == 'true') and (theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == true or theme.config.analytics?.umami_analytics?.UV_PV?.page_pv == 'true') and not #strings.isEmpty(theme.config.analytics?.umami_analytics?.UV_PV?.stats_url)}">
+      <i class="far fa-eye fa-fw" aria-hidden="true"></i><span>访问量 </span><span data-umami-stat="page_pv">—</span>
     </span>
     <span class="wp comment-count" th:if="${showCommentCount}">
       <i class="far fa-comments fa-fw" aria-hidden="true"></i>
@@ -122,9 +125,9 @@
   "
 >
   <th:block th:if="${noData}">
+    <th:block th:each="post, stat : ${data}">
     <li
       class="item card"
-      th:each="post, stat : ${data}"
       th:with="
         coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
         showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
@@ -189,6 +192,8 @@
         </th:block>
       </div>
     </li>
+    <li class="theme-ad ad-index card" aria-label="广告" th:if="${homePage and stat.count % 3 == 0 and not #strings.isEmpty(theme.config.ad?.index)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.index})}"/></li>
+    </th:block>
   </th:block>
 
   <th:block th:unless="${noData}" th:insert="~{:: emptyData(true)}"></th:block>
@@ -238,7 +243,7 @@
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
        距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
        translate.enable 默认 false。darkmode.enable/button 默认 true。autoChangeMode 默认 false。
-       item_order 仅移动已启用的按钮；chat 暂无接入。comment 只在实际评论挂载页提供。 */-->
+       item_order 仅移动已启用的按钮；chat 等待 SDK 就绪。comment 只在实际评论挂载页提供。 */-->
   <div
     id="rightside"
     class="side-btn"
@@ -291,6 +296,10 @@
       </button>
     </div>
     <div id="rightside-config-show">
+      <button id="chat-btn" class="button" type="button" title="在线聊天" aria-label="在线聊天" aria-expanded="false" disabled
+              th:if="${(theme.config.chat?.rightside_button == true or theme.config.chat?.rightside_button == 'true') and #lists.contains({'chatra','tidio','crisp','knocket'}, theme.config.chat?.use)}">
+        <i class="fas fa-comment-dots" aria-hidden="true"></i>
+      </button>
       <a id="jump-comment" class="button" href="#post-comment" title="跳到评论" aria-label="跳到评论" th:if="${commentOn}">
         <i class="fas fa-comments" aria-hidden="true"></i>
       </a>
