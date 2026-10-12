@@ -32,7 +32,9 @@ function start() {
       width=innerWidth; height=innerHeight;
       if (canvas && ctx) { const dpr=Math.min(devicePixelRatio || 1,2); canvas.width=width*dpr;canvas.height=height*dpr;canvas.style.width=width+'px';canvas.style.height=height+'px';ctx.setTransform(dpr,0,0,dpr,0,0); }
     };
-    resize(); window.addEventListener('resize',resize); instances.push(()=>window.removeEventListener('resize',resize));
+    resize();
+    const onResize = () => { resize(); resume(); };
+    window.addEventListener('resize',onResize); instances.push(()=>window.removeEventListener('resize',onResize));
     if (canvas) instances.push(()=>canvas?.remove());
   }
   const burst = (x:number,y:number,colorful=true) => {
