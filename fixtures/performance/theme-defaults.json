@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "settingsSha256": "1a0c6aba854f986249d8dd7e0e81ffdc9a3079172b29797feff37e2048cc77f3",
+  "settingsSha256": "2864fee713af5d625490f8f1068610667526f9fa6544023a69c2bf4270f1784a",
   "config": {
     "base": {
       "enable_seo": true,
@@ -229,9 +229,29 @@
     "wordcount": {
       "enable": false,
       "post_wordcount": true,
-      "min2read": true
+      "min2read": true,
+      "total_wordcount": false
+    },
+    "copy": {
+      "enable": true,
+      "copyright": {
+        "enable": false,
+        "limit_count": 150
+      }
+    },
+    "share": {
+      "use": "",
+      "sharejs": {
+        "sites": "facebook,x,wechat,weibo,qq"
+      },
+      "addtoany": {
+        "item": "facebook,x,wechat,sina_weibo,facebook_messenger,email,copy_link"
+      }
     },
     "busuanzi": {
+      "provider": "halo",
+      "site_pv": false,
+      "site_uv": false,
       "page_pv": false
     },
     "toc": {
@@ -295,7 +315,11 @@
     },
     "translate": {
       "enable": false,
-      "default": "繁"
+      "default": "繁",
+      "defaultEncoding": 2,
+      "translateDelay": 0,
+      "msgToTraditionalChinese": "繁",
+      "msgToSimplifiedChinese": "簡"
     },
     "darkmode": {
       "enable": true,

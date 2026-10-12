@@ -4,8 +4,7 @@
  * f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
  *
  * Halo 新组 translate.enable 默认 false；仅显式 true 渲染 #translateLink。
- * translate.default 默认「繁」，作按钮初始文案。defaultEncoding / translateDelay /
- * 两套 msg 本刀不进设置，沿用上游默认 2 / 0 / 繁 / 簡。
+ * defaultEncoding / translateDelay / 两套 msg 由按钮 data 属性传入。
  * 点击用 textContent 切按钮文案并转换页面文本，不走 innerHTML。
  * 不复用作者卡片 aside.button。不做 item_order / snackbar / pjax。
  */
@@ -87,7 +86,9 @@ export function setDocumentLang(html: HTMLElement | null | undefined, targetEnco
 }
 
 function skipNode(node: Node, button: HTMLElement | null | undefined) {
-  return ['BR', 'HR'].includes((node as Element).tagName) || node === button;
+  const element = node as HTMLElement;
+  return ['BR', 'HR', 'SCRIPT', 'STYLE', 'PRE', 'CODE', 'TEXTAREA', 'INPUT', 'SVG', 'TEMPLATE', 'NOSCRIPT'].includes(element.tagName) || node === button ||
+    element.isContentEditable || element.getAttribute?.('translate') === 'no';
 }
 
 export function translateBody(fobj: Node | null | undefined, button: HTMLElement | null | undefined, currentEncoding: number, targetEncoding: number) {
@@ -114,9 +115,9 @@ export function translateBody(fobj: Node | null | undefined, button: HTMLElement
 
 export function readSavedEncoding(storage: Storage | null | undefined) {
   if (!storage || typeof storage.getItem !== 'function') return undefined;
-  const itemStr = storage.getItem(TRANSLATE_STORAGE_KEY);
-  if (!itemStr) return undefined;
   try {
+    const itemStr = storage.getItem(TRANSLATE_STORAGE_KEY);
+    if (!itemStr) return undefined;
     const data = JSON.parse(itemStr);
     if (data.expiry && Date.now() > data.expiry) {
       storage.removeItem(TRANSLATE_STORAGE_KEY);
@@ -125,7 +126,7 @@ export function readSavedEncoding(storage: Storage | null | undefined) {
     const n = Number(data.value);
     return n === 1 || n === 2 ? n : undefined;
   } catch {
-    storage.removeItem(TRANSLATE_STORAGE_KEY);
+    try { storage.removeItem(TRANSLATE_STORAGE_KEY); } catch { /* Optional storage. */ }
     return undefined;
   }
 }
@@ -134,7 +135,7 @@ export function writeSavedEncoding(value: unknown, storage: Storage | null | und
   if (!storage || typeof storage.setItem !== 'function') return;
   const data: {value: unknown; expiry?: number} = { value };
   if (ttlDays != null) data.expiry = now + ttlDays * 86400000;
-  storage.setItem(TRANSLATE_STORAGE_KEY, JSON.stringify(data));
+  try { storage.setItem(TRANSLATE_STORAGE_KEY, JSON.stringify(data)); } catch { /* Current-page conversion still works. */ }
 }
 
 interface TranslateOptions {
@@ -175,6 +176,7 @@ function applyButtonLabel(state: TranslateState) {
 
 export function initializeTranslate(state: TranslateState) {
   if (!state?.button) return state;
+  setDocumentLang(state.html, state.targetEncoding);
   if (state.currentEncoding !== state.targetEncoding) {
     applyButtonLabel(state);
     setDocumentLang(state.html, state.targetEncoding);
@@ -204,14 +206,24 @@ export function translatePage(state: TranslateState) {
 export function bindTranslate(root = typeof document !== 'undefined' ? document : null) {
   if (!root || typeof root.getElementById !== 'function') return;
   const button = root.getElementById('translateLink');
-  if (!button) return;
+  if (!button || button.dataset.translateBound) return;
+  button.dataset.translateBound = 'true';
   const body = root.body || (typeof document !== 'undefined' ? document.body : null);
   const html = root.documentElement || (typeof document !== 'undefined' ? document.documentElement : null);
   let storage = null;
   try { storage = typeof localStorage !== 'undefined' ? localStorage : null; } catch { storage = null; }
-  const state = createTranslateState({ button, body, html, storage });
-  initializeTranslate(state);
+  const state = createTranslateState({ button, body, html, storage,
+    defaultEncoding: Number(button.dataset.defaultEncoding) === 1 ? 1 : 2,
+    msgToTraditionalChinese: button.dataset.msgTraditional || MSG_TO_TRADITIONAL,
+    msgToSimplifiedChinese: button.dataset.msgSimplified || MSG_TO_SIMPLIFIED,
+  });
+  const rawDelay = Number(button.dataset.translateDelay ?? 0);
+  const delay = Number.isFinite(rawDelay) ? Math.max(0, Math.min(60000, rawDelay)) : 0;
+  let initialized = false;
+  const initialize = () => { if (!initialized) { initializeTranslate(state); initialized = true; } };
+  const timer = setTimeout(initialize, delay);
   button.addEventListener('click', () => {
+    clearTimeout(timer); initialize();
     translatePage(state);
   });
 }

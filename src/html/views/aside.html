@@ -179,6 +179,19 @@
       <span>运行时间：</span>
       <span class="run-day" th:data-date="${theme.config.base.site_birthday}">... 天</span>
     </div>
+    <div class="item" th:if="${(theme.config.wordcount?.enable == true or theme.config.wordcount?.enable == 'true') and (theme.config.wordcount?.total_wordcount == true or theme.config.wordcount?.total_wordcount == 'true')}">
+      <span>全站字数：</span>
+      <span th:attr="data-site-wordcount=${stats.post + ':' + (lastPush ?: '')}" aria-live="polite">需启用 JavaScript</span>
+    </div>
+    <div class="item" th:if="${theme.config.busuanzi?.site_pv == true or theme.config.busuanzi?.site_pv == 'true'}">
+      <span th:text="${theme.config.busuanzi?.provider == 'busuanzi' ? '总访问量：' : '文章总阅读量：'}"></span>
+      <span th:if="${theme.config.busuanzi?.provider != 'busuanzi'}" th:text="${stats.visit}"></span>
+      <span th:if="${theme.config.busuanzi?.provider == 'busuanzi'}" id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">暂不可用</span></span>
+    </div>
+    <div class="item" th:if="${theme.config.busuanzi?.provider == 'busuanzi' and (theme.config.busuanzi?.site_uv == true or theme.config.busuanzi?.site_uv == 'true')}">
+      <span>访客数：</span>
+      <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">暂不可用</span></span>
+    </div>
     <div class="item" th:if="${theme.config.aside.card_webinfo?.last_push_date != false and lastPush != null}">
       <span>最后更新时间：</span>
       <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>

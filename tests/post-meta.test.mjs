@@ -3,7 +3,7 @@ import {test} from 'bun:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
-import { CHARS_PER_MINUTE, countPostChars, minutesToRead, stripHtmlToText } from '../src/js/core/post-meta.ts';
+import { CHARS_PER_MINUTE, WORDS_PER_MINUTE, readingMetrics, countPostChars, minutesToRead, stripHtmlToText } from '../src/js/core/post-meta.ts';
 
 const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
 
@@ -39,7 +39,7 @@ test('模板按 post_meta 开关读取分类/标签/日期/前缀/对齐，且�
   assert.match(fragment, /showLabel \? '发布于 '/);
   assert.match(fragment, /showLabel \? '更新于 '/);
   assert.match(fragment, /replaceAll\('\(\?s\)<\[\^>\]\+>'/);
-  assert.match(fragment, /\(wordLen \+ 499\) \/ 500/);
+  assert.match(fragment, /chinese \* 160 \+ words \* 350 \+ 55999/);
   assert.match(fragment, /wordcount\?\.enable == true/);
   assert.match(fragment, /busuanzi\?\.page_pv == true/);
   assert.match(fragment, /showWordcount or showMin2read or showPagePv/);
@@ -85,19 +85,21 @@ test('列表卡元信息不输出字数/时长/阅读量（index.post_meta 不�
   assert.doesNotMatch(list, /theme\.config\.busuanzi/);
 });
 
-test('字数/时长纯函数：空串、短文、去标签，且与 500 字/分钟一致', () => {
-  assert.equal(CHARS_PER_MINUTE, 500);
-  assert.equal(stripHtmlToText(''), '');
-  assert.equal(countPostChars(''), 0);
-  assert.equal(minutesToRead(''), 0);
-  assert.equal(countPostChars('你好'), 2);
-  assert.equal(minutesToRead('你好'), 1);
-  assert.equal(countPostChars('<p>你好</p>'), 2);
-  assert.equal(countPostChars('<p>ab</p><span>cd</span>'), 4);
-  assert.equal(stripHtmlToText('<div class="x">正文<em>加粗</em></div>'), '正文加粗');
-  assert.equal(countPostChars('<script>ignore</script><p>字</p>'.replace(/<script[\s\S]*?<\/script>/i, '<script>ignore</script>')), countPostChars('<script>ignore</script><p>字</p>'));
-  assert.equal(minutesToRead('a'.repeat(500)), 1);
-  assert.equal(minutesToRead('a'.repeat(501)), 2);
+test('中文按字、英文按词，忽略标签、脚本、标点与空白；使用混合阅读速率', () => {
+  assert.equal(CHARS_PER_MINUTE, 350);
+  assert.equal(WORDS_PER_MINUTE, 160);
+  assert.deepEqual(readingMetrics(''), {chinese: 0, words: 0, count: 0, minutes: 0});
+  assert.equal(countPostChars('<p>你好 world!</p>'), 3);
+  assert.equal(countPostChars('<p>ab</p><span>cd</span>'), 2);
+  assert.equal(stripHtmlToText('<script>ignore</script><p>字</p>'), '字');
+  assert.equal(countPostChars(' &#20013; &#x6587; &nbsp; &amp; '), 2);
+  assert.equal(countPostChars('𠀀 文 🎵'), 2);
+  assert.equal(minutesToRead('中'.repeat(350)), 1);
+  assert.equal(minutesToRead('中'.repeat(351)), 2);
+  assert.equal(minutesToRead('hello '.repeat(160)), 1);
+  assert.equal(minutesToRead('hello '.repeat(161)), 2);
+  assert.equal(minutesToRead('中'.repeat(175) + ' hello'.repeat(80)), 1);
+  assert.equal(countPostChars('  !!! -- 😀  '), 0);
 });
 
 test('客户端不再用 run_meta 覆盖服务端字数', async () => {

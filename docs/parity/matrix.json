@@ -9799,7 +9799,7 @@
           "src/js/core/translate-maps.ts",
           "tests/translate.test.mjs"
         ],
-        "finding": "已映射为 Halo translate.enable，默认 false，仅显式 true 渲染 #translateLink。不复用作者卡片 aside.button。不做 defaultEncoding / translateDelay / 两套 msg 设置 / item_order。不把 rightside/footer 模板或已落地 config 升 verified。尚未双站对照验收，禁止 verified。"
+        "finding": "已补原始编码、保存偏好恢复延迟和两套按钮文案；转换跳过代码/脚本/表单/translate=no，存储失败仍可当前页切换。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -9823,7 +9823,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/141"
+          "https://github.com/songxychn/halo-butterfly-next/issues/141",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/143"
@@ -9864,7 +9865,7 @@
           "src/js/core/translate.ts",
           "tests/translate.test.mjs"
         ],
-        "finding": "已映射为 Halo translate.default，默认 繁，作 #translateLink 初始文案；空值回退 繁。enable 关闭时不渲染按钮。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
+        "finding": "已补原始编码、保存偏好恢复延迟和两套按钮文案；转换跳过代码/脚本/表单/translate=no，存储失败仍可当前页切换。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -9888,7 +9889,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/141"
+          "https://github.com/songxychn/halo-butterfly-next/issues/141",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/143"
@@ -9919,14 +9921,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "translate.defaultEncoding"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
-          "src/scss/modules/components.scss"
+          "src/scss/modules/components.scss",
+          "src/js/core/translate.ts"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补原始编码、保存偏好恢复延迟和两套按钮文案；转换跳过代码/脚本/表单/translate=no，存储失败仍可当前页切换。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -9953,12 +9958,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:translate.translateDelay",
@@ -9982,14 +9988,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "translate.translateDelay"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
-          "src/scss/modules/components.scss"
+          "src/scss/modules/components.scss",
+          "src/js/core/translate.ts"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补原始编码、保存偏好恢复延迟和两套按钮文案；转换跳过代码/脚本/表单/translate=no，存储失败仍可当前页切换。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -10012,12 +10021,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:translate.msgToTraditionalChinese",
@@ -10041,14 +10051,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "translate.msgToTraditionalChinese"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
-          "src/scss/modules/components.scss"
+          "src/scss/modules/components.scss",
+          "src/js/core/translate.ts"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补原始编码、保存偏好恢复延迟和两套按钮文案；转换跳过代码/脚本/表单/translate=no，存储失败仍可当前页切换。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -10071,12 +10084,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:translate.msgToSimplifiedChinese",
@@ -10100,14 +10114,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
-        "settings": [],
+        "settings": [
+          "translate.msgToSimplifiedChinese"
+        ],
         "code": [
           "src/html/views/components.html",
           "src/js/core/theme.ts",
           "src/js/core/scroll.ts",
-          "src/scss/modules/components.scss"
+          "src/scss/modules/components.scss",
+          "src/js/core/translate.ts"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已补原始编码、保存偏好恢复延迟和两套按钮文案；转换跳过代码/脚本/表单/translate=no，存储失败仍可当前页切换。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -10130,12 +10147,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:readmode",
@@ -11189,13 +11207,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
-        "settings": [],
+        "settings": [
+          "copy.enable"
+        ],
         "code": [
           "src/js/core/common.ts",
           "src/js/modules/Render.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/copy-attribution.ts",
+          "src/html/post.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供正文复制开关、超阈值纯文本版权追加与剪贴板拒绝回退；代码和表单不受正文拦截。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11217,12 +11239,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:copy.copyright.enable",
@@ -11246,13 +11269,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
-        "settings": [],
+        "settings": [
+          "copy.copyright.enable"
+        ],
         "code": [
           "src/js/core/common.ts",
           "src/js/modules/Render.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/copy-attribution.ts",
+          "src/html/post.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供正文复制开关、超阈值纯文本版权追加与剪贴板拒绝回退；代码和表单不受正文拦截。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11274,12 +11301,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:copy.copyright.limit_count",
@@ -11303,13 +11331,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "在 Halo 公共布局中实现全局选项，并处理事件解绑和页面生命周期。",
-        "settings": [],
+        "settings": [
+          "copy.copyright.limit_count"
+        ],
         "code": [
           "src/js/core/common.ts",
           "src/js/modules/Render.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/copy-attribution.ts",
+          "src/html/post.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供正文复制开关、超阈值纯文本版权追加与剪贴板拒绝回退；代码和表单不受正文拦截。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11331,12 +11363,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:wordcount.enable",
@@ -11360,12 +11393,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "wordcount.enable"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/js/core/post-meta.ts",
+          "src/js/core/site-statistics.ts",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11387,12 +11425,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:wordcount.post_wordcount",
@@ -11416,12 +11455,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "wordcount.post_wordcount"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/js/core/post-meta.ts",
+          "src/js/core/site-statistics.ts",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11443,12 +11487,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:wordcount.min2read",
@@ -11472,12 +11517,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "wordcount.min2read"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/js/core/post-meta.ts",
+          "src/js/core/site-statistics.ts",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11499,12 +11549,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:wordcount.total_wordcount",
@@ -11528,12 +11579,17 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "wordcount.total_wordcount"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/js/core/post-meta.ts",
+          "src/js/core/site-statistics.ts",
+          "src/html/views/components.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11555,12 +11611,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:busuanzi.site_uv",
@@ -11584,12 +11641,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "busuanzi.site_uv"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html",
+          "src/html/views/footer.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "PV 默认映射 Halo 原生文章/文章累计阅读量；选择不蒜子后可选 site_pv/site_uv/page_pv，异步官方脚本只在存在显示项时加载。真实第三方数据联调仍待验收，PV 不冒充 UV。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11611,12 +11672,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:busuanzi.site_pv",
@@ -11640,12 +11702,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "busuanzi.site_pv"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html",
+          "src/html/views/footer.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "PV 默认映射 Halo 原生文章/文章累计阅读量；选择不蒜子后可选 site_pv/site_uv/page_pv，异步官方脚本只在存在显示项时加载。真实第三方数据联调仍待验收，PV 不冒充 UV。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11667,12 +11733,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:busuanzi.page_pv",
@@ -11696,12 +11763,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [],
+        "settings": [
+          "busuanzi.page_pv"
+        ],
         "code": [
           "src/html/post.html",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/components.html",
+          "src/html/views/footer.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "PV 默认映射 Halo 原生文章/文章累计阅读量；选择不蒜子后可选 site_pv/site_uv/page_pv，异步官方脚本只在存在显示项时加载。真实第三方数据联调仍待验收，PV 不冒充 UV。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -11723,12 +11794,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:math.use",
@@ -13081,11 +13153,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html"
+        "settings": [
+          "share.use"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/post.html",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
+        ],
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -13113,12 +13190,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:share.sharejs.sites",
@@ -13142,11 +13220,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html"
+        "settings": [
+          "share.sharejs.sites"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/post.html",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
+        ],
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -13169,12 +13252,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:share.addtoany.item",
@@ -13198,11 +13282,16 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html"
+        "settings": [
+          "share.addtoany.item"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/post.html",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
+        ],
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -13225,12 +13314,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:comments.use",
@@ -34395,9 +34485,12 @@
         "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
         "settings": [],
         "code": [
-          "src/html/post.html"
+          "src/html/post.html",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -34419,12 +34512,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/share/index",
@@ -34443,9 +34537,12 @@
         "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
         "settings": [],
         "code": [
-          "src/html/post.html"
+          "src/html/post.html",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -34467,12 +34564,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/share/share-js",
@@ -34491,9 +34589,12 @@
         "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
         "settings": [],
         "code": [
-          "src/html/post.html"
+          "src/html/post.html",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -34515,12 +34616,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/subtitle",
@@ -40267,9 +40369,12 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -40291,12 +40396,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:sharejs_css",
@@ -40316,9 +40422,12 @@
         "code": [
           "scripts/build.mjs",
           "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "docs/THIRD_PARTY.md",
+          "src/js/core/share.ts",
+          "src/html/views/share.html",
+          "third-party-licenses/sharejs-source.json"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -40340,12 +40449,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:snackbar",
@@ -50816,9 +50926,11 @@
         "code": [
           "src/js/core/common.ts",
           "src/js/modules/Render.ts",
-          "src/html/views/layout.html"
+          "src/html/views/layout.html",
+          "src/js/core/copy-attribution.ts",
+          "src/html/post.html"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已提供正文复制开关、超阈值纯文本版权追加与剪贴板拒绝回退；代码和表单不受正文拦截。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
       },
       "dependencies": [
         "dual-site",
@@ -50838,12 +50950,13 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/395"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:subtitle",
