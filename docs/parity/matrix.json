@@ -1323,7 +1323,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.avatar_effect；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.avatar_effect。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -1350,7 +1350,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -2335,7 +2345,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 image.flink_error；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 image.flink_error。友链与普通坏图独立回退；移除旧 srcset，只尝试一次，回退仍坏则隐藏图片并保留链接。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -2362,7 +2372,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -6979,7 +6999,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_author.description；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 aside.card_author.description。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -7005,7 +7025,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -7039,7 +7069,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_author.button.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 aside.card_author.button.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -7065,7 +7095,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -7099,7 +7139,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_author.button.icon；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 aside.card_author.button.icon。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -7125,7 +7165,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -8397,7 +8447,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_tags.color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 aside.card_tags.color。循环亮暗颜色对，过滤无效 CSS 色；侧栏彩色开关默认关闭，标签页保留原配色回退。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -8423,7 +8473,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -8457,7 +8517,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 aside.card_tags.custom_colors；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 aside.card_tags.custom_colors。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -8483,7 +8543,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -18999,7 +19069,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.category_ui；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.category_ui。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19031,7 +19101,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19067,7 +19147,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.tag_ui；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.tag_ui。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19099,7 +19179,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19190,7 +19280,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.text_align_justify；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.text_align_justify。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19216,7 +19306,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19619,7 +19719,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.enter_transitions；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.enter_transitions。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19645,7 +19745,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19742,7 +19852,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.beautify.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.beautify.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19768,7 +19878,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19803,7 +19923,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.beautify.field；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.beautify.field。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19833,7 +19953,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19867,7 +19997,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "当前只支持标题图标开关，缺少自定义图标。 2026-10-13：本批已接入 appearance.beautify.title_prefix_icon；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.beautify.title_prefix_icon。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19893,7 +20023,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19928,7 +20068,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.beautify.title_prefix_icon_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.beautify.title_prefix_icon_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -19954,7 +20094,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -19989,7 +20139,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.font.global_font_size；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.font.global_font_size。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20015,7 +20165,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20050,7 +20210,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.font.code_font_size；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.font.code_font_size。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20076,7 +20236,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20110,7 +20280,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "当前仅系统字体选项，自定义字体能力待实现。 2026-10-13：本批已接入 appearance.font.font_family；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.font.font_family。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20136,7 +20306,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20171,7 +20351,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.font.code_font_family；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.font.code_font_family。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20197,7 +20377,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20232,7 +20422,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.blog_title_font.font_link；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.blog_title_font.font_link。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20258,7 +20448,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20293,7 +20493,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.blog_title_font.font_family；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.blog_title_font.font_family。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20319,7 +20519,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20354,7 +20564,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.hr_icon.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.hr_icon.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20380,7 +20590,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20415,7 +20635,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.hr_icon.icon；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.hr_icon.icon。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20441,7 +20661,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20476,7 +20706,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.hr_icon.icon_top；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.hr_icon.icon_top。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20502,7 +20732,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20536,7 +20776,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20564,7 +20804,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20598,7 +20848,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.colorful；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.colorful。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20626,7 +20876,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20660,7 +20920,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.shake；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.shake。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20688,7 +20948,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20722,7 +20992,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.activate_power_mode.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.activate_power_mode.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20750,7 +21020,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20784,7 +21064,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20812,7 +21092,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20846,7 +21136,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.size；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.size。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20874,7 +21164,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20908,7 +21208,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.alpha；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.alpha。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20936,7 +21236,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -20970,7 +21280,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.zIndex；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.zIndex。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -20998,7 +21308,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21032,7 +21352,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.click_to_change；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.click_to_change。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21060,7 +21380,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21094,7 +21424,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_ribbon.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_ribbon.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21122,7 +21452,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21156,7 +21496,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_fluttering_ribbon.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_fluttering_ribbon.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21184,7 +21524,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21218,7 +21568,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_fluttering_ribbon.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_fluttering_ribbon.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21246,7 +21596,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21280,7 +21640,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21308,7 +21668,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21342,7 +21712,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.color。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21370,7 +21740,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21404,7 +21784,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.opacity；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.opacity。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21432,7 +21812,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21466,7 +21856,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.zIndex；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.zIndex。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21494,7 +21884,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21528,7 +21928,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.count；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.count。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21556,7 +21956,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21590,7 +22000,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.canvas_nest.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.canvas_nest.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21618,7 +22028,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21652,7 +22072,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.fireworks.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.fireworks.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21680,7 +22100,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21714,7 +22144,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.fireworks.zIndex；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.fireworks.zIndex。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21742,7 +22172,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21776,7 +22216,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.fireworks.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.fireworks.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21804,7 +22244,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21838,7 +22288,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.click_heart.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.click_heart.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21866,7 +22316,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21900,7 +22360,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.click_heart.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.click_heart.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21928,7 +22388,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -21962,7 +22432,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.enable。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -21990,7 +22460,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -22024,7 +22504,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.text；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.text。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22052,7 +22532,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -22086,7 +22576,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.fontSize；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.fontSize。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22114,7 +22604,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -22148,7 +22648,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.random；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.random。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22176,7 +22676,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -22210,7 +22720,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 effects.clickShowText.mobile；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 effects.clickShowText.mobile。默认关闭并按需加载自维护效果；手机逐项控制、减少动态效果优先。未声明上游第三方 SDK 全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -22238,7 +22748,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25578,7 +26098,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.enable；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.enable。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25604,7 +26124,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25633,7 +26163,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.main；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.main。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25659,7 +26189,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25688,7 +26228,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.paginator；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.paginator。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25714,7 +26254,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25743,7 +26293,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.button_hover；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.button_hover。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25769,7 +26319,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25798,7 +26358,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.text_selection；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.text_selection。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25824,7 +26384,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25853,7 +26423,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.link_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.link_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25879,7 +26449,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25908,7 +26488,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.meta_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.meta_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25934,7 +26514,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -25963,7 +26553,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.hr_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.hr_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -25989,7 +26579,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26018,7 +26618,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.code_foreground；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.code_foreground。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26044,7 +26644,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26073,7 +26683,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.code_background；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.code_background。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26099,7 +26709,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26128,7 +26748,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.toc_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.toc_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26154,7 +26774,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26183,7 +26813,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.blockquote_padding_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.blockquote_padding_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26209,7 +26839,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26238,7 +26878,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.blockquote_background_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.blockquote_background_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26264,7 +26904,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26293,7 +26943,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.scrollbar_color；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.scrollbar_color。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26319,7 +26969,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26348,7 +27008,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.meta_theme_color_light；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.meta_theme_color_light。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26374,7 +27034,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -26403,7 +27073,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批已接入 appearance.theme_color.meta_theme_color_dark；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.theme_color.meta_theme_color_dark。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -26429,7 +27099,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -52646,7 +53326,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批已接入 cover.default_cover_list；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 cover.default_cover_list。原生封面优先；URL/颜色候选过滤空项后按文章 ID 稳定选择，跨共享列表一致，清空回退原单张默认封面。未声明生成期随机算法全等。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -52671,7 +53351,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -52979,7 +53669,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批已接入 aside.custom_cards；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 aside.custom_cards。支持顶部/底部、位置内排序、标题/图标/类/ID/可信作者 HTML；跟随侧栏和简洁目录开关。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -53004,7 +53694,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -53091,7 +53791,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批已接入 appearance.tag_custom_colors；用法和旧配置回退见 docs/APPEARANCE-OPTIONS.md。自维护特效与稳定封面选择为 Halo 行为适配；不据此宣称第三方 SDK/生成期随机算法全等。作者限定配置验证与完整 1.0 合同分开，固定双站及全部条目场景仍待验收。"
+        "finding": "2026-10-13：已接入 appearance.tag_custom_colors。循环亮暗颜色对，过滤无效 CSS 色；侧栏彩色开关默认关闭，标签页保留原配色回退。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
       },
       "dependencies": [
         "dual-site",
@@ -53116,7 +53816,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/appearance-browser.json",
+          "sha256": "d8e8f0a7df941125d4aa75bbb27b3fc057546bf6cb41f9a89d272aea5380f37d",
+          "date": "2026-10-13T00:42:48+0800",
+          "commit": "6ce0dfd054f607b0419be052a9242334c77b5c5a",
+          "actor": "/root",
+          "outcome": "partial: 84 bounded configuration checks passed; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {

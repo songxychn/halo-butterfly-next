@@ -33,6 +33,7 @@
 | 首页首屏、导航、列表、分页 | 继承 Halo 版，修正资源和默认配置 | 待视觉比对 |
 | 文章、标题、目录、代码工具栏 | 继承 Halo 版并修复基础行为 | 待逐项比对 |
 | 手机菜单、主题模式 | 基础行为修复 | 待完整布局比对 |
+| 侧栏、图片与外观配置 | 作者/自定义卡片、标签配色、封面候选与坏图、字体配色和按需动效已接入，旧默认保留 | [84 项限定 Halo 检查](validation/2026-10-13/appearance.md)通过；完整双站与 1.0 合同待验收，配置见[使用说明](APPEARANCE-OPTIONS.md) |
 | 分类、标签、归档、自定义页面 | 保留 Halo 页面 | 待逐项比对 |
 | 搜索、评论 | Halo 官方 `PluginSearchWidget` / `PluginCommentWidget` 接入与停用回退（DEC-01） | 待按修订后的 PLG-02/03 验收；Algolia/DocSearch/12 家评论 SDK 不在 1.0 主题范围 |
 | 数学公式 | DEC-07：采用 Halo KaTeX 插件，主题负责阅读体验适配；MathJax 专属要求退出 1.0 | 已固定 KaTeX 3.0.0，完成 MathML 阅读适配、复制、滚动和显示控制；实际验证与剩余门禁见 [数学公式](MATH.md)。裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记，10 条提供方/资源供应项不适用，公式能力仍待验收。见 [裁定](MATH-RENDERING-DECISION.md) |
