@@ -52,3 +52,5 @@ bun run migrate --input old.json --from 2.0.5 --output next.json
 在 Next 中核对首页、文章、自定义页面、菜单和手机视图，检查原主题保留的配置仍可读取。随后在主题管理中切换。需要回退时重新启用原主题；不要把 Next 配置写到原主题的 ConfigMap。当前迁移仅覆盖 2.0.5 与 2.0.7 的配置结构，不处理文章内容或 Hexo 配置。
 
 Hexo Butterfly 的 `{% %}` 是生成期语法，主题运行时不解析（[DEC-02](https://github.com/songxychn/halo-butterfly-next/issues/45)）。1.0 计划另提供离线转换，把标签源变成与 Butterfly 生成结果一致的 HTML，在 EXT-01 验收；该能力尚未实现，不能把现有 `bun run migrate` 当成内容迁移。
+
+第三方接入配置默认关闭，新增组 `analytics`、`chat`、`google_adsense`、`ad`、`CDN`，见 [第三方接入与资源配置](INTEGRATIONS.md)。升级现有 Next 时无需改变原页面资源配置；省略新字段仍使用随包资源。旧 `loading.source` / `other` 的原主题资源地址仍由迁移工具重置到安装包，不能自动套用到 Next 的不同构建入口。旧的账号配置、原始广告 HTML 与 Umami token 需按报告人工核对，不自动向外部服务激活或公开认证凭据。回退时关闭新增服务组并恢复升级前保存的配置。

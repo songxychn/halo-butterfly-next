@@ -75,6 +75,9 @@ export interface ThemeApp {
   codeDomReady?: Promise<unknown>;
   prismSource?: string;
   prismReady?: Promise<boolean>;
+  resources?: import('./core/external-resource.ts').ResourceConfig;
+  version?: string;
+  integrations?: import('./core/integrations.ts').IntegrationConfig;
 }
 export interface ArchiveYear { year: number; months: { month: number; posts: unknown[] }[] }
 export interface Category { postCount: number; spec: { displayName: string } }

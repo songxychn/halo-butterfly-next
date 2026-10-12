@@ -9,6 +9,7 @@ import postcssImport from 'postcss-import';
 import autoprefixer from 'autoprefixer';
 import JSZip from 'jszip';
 import { parse } from 'yaml';
+import { configureResourceTags } from './resource-templates.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 const stage = path.join(root, '.build/templates');
@@ -48,6 +49,9 @@ async function build() {
   await mkdir(assets, { recursive: true });
   // Thymeleaf 的内联表达式包含注释。模板保持原文，不经过 HTML/JS 压缩器。
   await cp(path.join(root, 'src/html'), stage, { recursive: true });
+  for (const file of await filesUnder(stage)) {
+    if (file.endsWith('.html')) await writeFile(file, configureResourceTags(await readFile(file, 'utf8')));
+  }
   // Keep startup synchronous and inline so color/aside restoration precedes paint.
   const startup = await bundle(path.join(root, 'src/js/bootstrap.ts'), assets, false);
   const startupCode = (Array.isArray(startup) ? startup[0] : startup).output.find(file => file.type === 'chunk')?.code;

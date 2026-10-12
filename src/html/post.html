@@ -77,6 +77,7 @@
       <th:block th:replace="~{views/components :: postCopyright}"/>
 
       <th:block th:replace="~{views/components :: postReward}"/>
+      <section class="theme-ad ad-post" aria-label="广告" th:if="${not #strings.isEmpty(theme.config.ad?.post)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.post})}"/></section>
       <th:block th:replace="~{views/components :: postPagination}"/>
       <th:block th:replace="~{views/components :: relatedPosts}"/>
 

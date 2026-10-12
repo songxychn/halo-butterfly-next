@@ -24,9 +24,10 @@ test('chat.scss 挂在 #chatra:not(.chatra--expanded)，选择器不使用 data-
   assert.doesNotMatch(rules, /aside\.button/);
 });
 
-test('本刀不接入聊天提供方、不改 hide_button、不改文章上下篇 150px、无新增 th:utext', () => {
-  assert.doesNotMatch(settingsText, /name:\s*chatra/);
-  assert.doesNotMatch(settingsText, /rightside_button/);
+test('聊天接入具有单独配置并保留侧栏开关与文章上下篇布局', () => {
+  assert.match(settingsText, /name:\s*chatra/);
+  assert.match(settingsText, /rightside_button/);
+  assert.match(rules, /html\[data-chat-button="chatra"\]/);
   assert.doesNotMatch(chatScss, /chatra\.io/);
   assert.doesNotMatch(componentsHtml, /id="chatra"/);
   assert.match(componentsHtml, /id="hide-aside-btn"/);
@@ -37,7 +38,7 @@ test('本刀不接入聊天提供方、不改 hide_button、不改文章上下�
   assert.match(pagePostScss, /#pagination\.pagination-post/);
   assert.match(pagePostScss, /height:\s*150px/);
   assert.doesNotMatch(rules, /aside\.button/);
-  assert.doesNotMatch(postHtml.replace(/th:utext="\$\{post\.content\.content\}"/, ''), /th:utext/);
+  assert.match(postHtml, /class="theme-ad ad-post"/);
 });
 
 test('编译后选择器挂在 #chatra，无 data-theme，不把文章上下篇压掉', () => {

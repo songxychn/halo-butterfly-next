@@ -183,6 +183,7 @@
       <span>最后更新时间：</span>
       <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>
     </div>
+    <th:block th:replace="~{views/integration-stats::site}"/>
   </div>
 </section>
 
@@ -196,6 +197,7 @@
   <th:block th:replace="~{::tags}"/>
   <th:block th:replace="~{::archives}"/>
   <th:block th:replace="~{::webInfo}"/>
+  <section class="theme-ad ad-aside card" aria-label="广告" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
 </aside>
 
 <!--/* 阅读侧栏。SinglePage 的简洁目录是可选扩展，默认仍保留普通侧栏。 */-->
@@ -241,6 +243,7 @@
   </div>
   <th:block th:unless="${tocSimple}">
     <th:block th:replace="~{::recentPost}"/>
+    <section class="theme-ad ad-aside card" aria-label="广告" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
     <th:block th:replace="~{views/newest-comments::card}"/>
     <th:block th:unless="${postPage}">
       <th:block th:replace="~{::category}"/>

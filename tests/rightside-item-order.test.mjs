@@ -3,11 +3,11 @@ import {test} from 'bun:test';
 import { applyRightsideItemOrder, bindRightsideConfig, resolveRightsideItemOrder } from '../src/js/core/rightside.ts';
 
 test('order defaults and blank-group fallback match upstream; whitespace, duplicates and unsupported names are safe', () => {
-  const defaults = { hide: ['readmode', 'translate', 'darkmode', 'hideAside'], show: ['toc', 'comment'] };
+  const defaults = { hide: ['readmode', 'translate', 'darkmode', 'hideAside'], show: ['toc', 'chat', 'comment'] };
   assert.deepEqual(resolveRightsideItemOrder(false, 'toc', 'darkmode'), defaults);
   assert.deepEqual(resolveRightsideItemOrder(true, '', '  '), defaults);
   assert.deepEqual(resolveRightsideItemOrder('true', ' toc, darkmode,toc,constructor,__proto__ ', 'darkmode,translate,chat,comment,<button>'), {
-    hide: ['toc', 'darkmode'], show: ['translate', 'comment'],
+    hide: ['toc', 'darkmode'], show: ['translate', 'chat', 'comment'],
   });
   assert.deepEqual(resolveRightsideItemOrder(true, 'unknown', 'unknown'), { hide: [], show: [] });
 });
