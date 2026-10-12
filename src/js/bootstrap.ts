@@ -1,3 +1,12 @@
+import {applyAppearance} from './core/appearance.ts';
+import {haloSetting} from './core/halo-settings.ts';
+try {
+  const conf = window.MainApp.conf;
+  conf.appearance = haloSetting(conf.appearance) as Record<string, unknown>;
+  conf.effects = haloSetting(conf.effects) as Record<string, unknown>;
+  conf.aside_tag_colors = haloSetting(conf.aside_tag_colors);
+  applyAppearance(conf.appearance);
+} catch {}
 // Inlined by the build before first paint; Halo expressions stay in the template.
 try {
   const conf = window.MainApp.conf;

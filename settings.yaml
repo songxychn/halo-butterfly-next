@@ -158,9 +158,498 @@ spec:
           value: '#f7f9fe'
           help: 颜色值 默认值：#f7f9fe
           validation: required
+    - group: appearance
+      label: 外观
+      formSchema:
+        - $formkit: radio
+          name: text_align_justify
+          label: 正文两端对齐
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: radio
+          name: enter_transitions
+          label: 页面入场动画
+          value: false
+          options:
+            - label: 启用
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: radio
+          name: avatar_effect
+          label: 头像旋转
+          value: true
+          help: 关闭后作者卡片和移动导航的头像不旋转。默认保留旧版效果。
+          options:
+            - label: 启用
+              value: true
+            - label: 关闭
+              value: false
+        - $formkit: select
+          name: category_ui
+          label: 分类展示
+          value: chart
+          options:
+            - value: chart
+              label: 统计图（旧版）
+            - value: list
+              label: 分类列表
+        - $formkit: select
+          name: tag_ui
+          label: 标签展示
+          value: chart
+          options:
+            - value: chart
+              label: 统计图和标签云（旧版）
+            - value: cloud
+              label: 标签云
+        - $formkit: repeater
+          name: tag_custom_colors
+          label: 标签页自定义颜色
+          value: []
+          children:
+            - $formkit: text
+              name: light
+              label: 浅色颜色
+            - $formkit: text
+              name: dark
+              label: 深色颜色
+              help: 留空复用浅色；请核对亮暗可读性。
+        - $formkit: group
+          name: beautify
+          label: 正文美化
+          children:
+            - $formkit: radio
+              name: enable
+              label: 启用美化
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: select
+              name: field
+              label: 作用范围
+              value: post
+              options:
+                - value: post
+                  label: 仅文章
+                - value: site
+                  label: 文章、单页和插件正文
+            - $formkit: text
+              name: title_prefix_icon
+              label: 标题图标 Unicode
+              value: \f0c1
+            - $formkit: text
+              name: title_prefix_icon_color
+              label: 标题图标颜色
+              value: ""
+        - $formkit: group
+          name: font
+          label: 字体
+          children:
+            - $formkit: text
+              name: global_font_size
+              label: 全局字号
+              value: ""
+              help: 如 14px、1rem。留空使用默认。
+            - $formkit: text
+              name: code_font_size
+              label: 代码字号
+              value: ""
+            - $formkit: text
+              name: font_family
+              label: 正文字体
+              value: ""
+              help: 填写字体族名称，不附带下载；留空使用系统字体。
+            - $formkit: text
+              name: code_font_family
+              label: 代码字体
+              value: ""
+        - $formkit: group
+          name: blog_title_font
+          label: 站点标题字体
+          children:
+            - $formkit: text
+              name: font_link
+              label: 字体样式表 URL
+              value: ""
+              help: 可选 HTTPS 或站内 URL；仅显式填写时请求。
+            - $formkit: text
+              name: font_family
+              label: 字体族
+              value: ""
+        - $formkit: group
+          name: hr_icon
+          label: 分割线图标
+          children:
+            - $formkit: radio
+              name: enable
+              label: 显示图标
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: text
+              name: icon
+              label: 图标 Unicode
+              value: \f2dc
+            - $formkit: text
+              name: icon_top
+              label: 图标垂直位置
+              value: -10px
+        - $formkit: group
+          name: theme_color
+          label: 主题配色
+          children:
+            - $formkit: radio
+              name: enable
+              label: 启用自定义配色
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: text
+              name: main
+              label: 主题主色
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: paginator
+              label: 分页当前页
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: button_hover
+              label: 按钮悬停
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: text_selection
+              label: 选中文字背景
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: link_color
+              label: 正文链接
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: meta_color
+              label: 文章元信息
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: hr_color
+              label: 分割线
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: code_foreground
+              label: 行内代码文字
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: code_background
+              label: 行内代码背景
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: toc_color
+              label: 目录选中项
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: blockquote_padding_color
+              label: 引用边框
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: blockquote_background_color
+              label: 引用背景
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: scrollbar_color
+              label: 滚动条
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: meta_theme_color_light
+              label: 浏览器主题色（浅色）
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+            - $formkit: text
+              name: meta_theme_color_dark
+              label: 浏览器主题色（深色）
+              value: ""
+              help: 留空使用原配色，接受 CSS 颜色值。
+    - group: effects
+      label: 动画特效
+      formSchema:
+        - $formkit: static
+          value: 特效默认关闭，按需加载。不响应密码输入；系统要求减少动态效果时全部停用。手机需要单独开启。
+        - $formkit: group
+          name: activate_power_mode
+          label: 输入粒子
+          children:
+            - $formkit: radio
+              name: enable
+              label: 输入效果
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: colorful
+              label: 彩色粒子
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: shake
+              label: 输入框震动
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+        - $formkit: group
+          name: canvas_ribbon
+          label: 静态彩带
+          children:
+            - $formkit: radio
+              name: enable
+              label: 彩带背景
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: number
+              name: size
+              label: 尺寸
+              value: 150
+              min: 20
+              max: 500
+            - $formkit: number
+              name: alpha
+              label: 透明度
+              value: 0.6
+              min: 0
+              max: 1
+            - $formkit: number
+              name: zIndex
+              label: 层级
+              value: -1
+              min: -1
+              max: 10
+            - $formkit: radio
+              name: click_to_change
+              label: 点击更换彩带
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+        - $formkit: group
+          name: canvas_fluttering_ribbon
+          label: 飘动彩带
+          children:
+            - $formkit: radio
+              name: enable
+              label: 飘动彩带
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+        - $formkit: group
+          name: canvas_nest
+          label: 连线背景
+          children:
+            - $formkit: radio
+              name: enable
+              label: 连线背景
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: text
+              name: color
+              label: RGB 颜色
+              value: 0,0,255
+            - $formkit: number
+              name: opacity
+              label: 透明度
+              value: 0.7
+              min: 0
+              max: 1
+            - $formkit: number
+              name: zIndex
+              label: 层级
+              value: -1
+              min: -1
+              max: 10
+            - $formkit: number
+              name: count
+              label: 粒子数
+              value: 99
+              min: 1
+              max: 150
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+        - $formkit: group
+          name: fireworks
+          label: 点击烟花
+          children:
+            - $formkit: radio
+              name: enable
+              label: 点击烟花
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: number
+              name: zIndex
+              label: 层级
+              value: 10
+              min: -1
+              max: 100
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+        - $formkit: group
+          name: click_heart
+          label: 点击爱心
+          children:
+            - $formkit: radio
+              name: enable
+              label: 点击爱心
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+        - $formkit: group
+          name: clickShowText
+          label: 点击文字
+          children:
+            - $formkit: radio
+              name: enable
+              label: 点击文字
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: repeater
+              name: text
+              label: 文字列表
+              value: []
+              children:
+                - $formkit: text
+                  name: value
+                  label: 文字
+                  value: ""
+            - $formkit: text
+              name: fontSize
+              label: 字号
+              value: 15px
+            - $formkit: radio
+              name: random
+              label: 随机文字
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: radio
+              name: mobile
+              label: 手机启用
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
     #加载设置
     - group: image
-      label: 顶图
+      label: 图片
       formSchema:
         - $formkit: radio
           name: disable_top_img
@@ -177,6 +666,12 @@ spec:
           label: 默认顶图
           value: ""
           help: 可选。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空保留旧回退规则。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
+
+        - $formkit: attachment
+          name: flink_error
+          label: 友链失败图片
+          value: ""
+          help: 留空继续使用图片加载中的失败图；失败图也不可用时保留文字与链接。
 
     - group: loading
       label: 加载设置
@@ -779,6 +1274,29 @@ spec:
           name: card_author
           label: 作者卡片
           children:
+            - $formkit: text
+              name: description
+              label: 描述覆盖
+              value: ""
+              help: 留空使用作者简介或站点副标题。
+            - $formkit: group
+              name: button
+              label: 作者按钮
+              children:
+                - $formkit: radio
+                  name: enable
+                  label: 显示按钮
+                  value: true
+                  options:
+                    - label: 启用
+                      value: true
+                    - label: 关闭
+                      value: false
+                - $formkit: text
+                  name: icon
+                  label: 图标 CSS 类
+                  value: ""
+                  help: 例如 fa-brands fa-github；按钮文字和链接继续使用原侧边栏按钮配置。
             - $formkit: radio
               name: enable
               label: 显示作者卡片
@@ -843,6 +1361,29 @@ spec:
           label: 标签选项
           help: "排序在完整标签集合上进行，再应用数量限制；关闭脚本时采用 Halo 原顺序。"
           children:
+            - $formkit: radio
+              name: color
+              label: 彩色标签
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 关闭
+                  value: false
+            - $formkit: repeater
+              name: custom_colors
+              label: 自定义颜色
+              value: []
+              children:
+                - $formkit: text
+                  name: light
+                  label: 浅色颜色
+                  value: ""
+                - $formkit: text
+                  name: dark
+                  label: 深色颜色
+                  value: ""
+                  help: 留空复用浅色；请核对亮暗可读性。
             - $formkit: number
               name: limit
               label: 标签数量
@@ -951,6 +1492,46 @@ spec:
               value: 60
               min: 0
     #卡片设置
+        - $formkit: repeater
+          name: custom_cards
+          label: 自定义侧栏卡片
+          value: []
+          children:
+            - $formkit: select
+              name: position
+              label: 位置
+              value: bottom
+              options:
+                - value: top
+                  label: 顶部
+                - value: bottom
+                  label: 底部
+            - $formkit: text
+              name: class_name
+              label: 附加 CSS 类
+              value: ""
+            - $formkit: text
+              name: id_name
+              label: 元素 ID
+              value: ""
+            - $formkit: text
+              name: name
+              label: 标题
+              value: ""
+            - $formkit: text
+              name: icon
+              label: 标题图标 CSS 类
+              value: ""
+            - $formkit: textarea
+              name: html
+              label: 内容 HTML
+              value: ""
+              help: 仅填写自己信任的 HTML；与原公告一致，原样渲染。
+            - $formkit: number
+              name: order
+              label: 同位置顺序
+              value: 0
+              min: 0
     - group: card
       label: 卡片设置
       formSchema:
@@ -1216,7 +1797,7 @@ spec:
           label: 默认封面
           placeholder: 可选，文章未设置封面时使用
           value: ""
-          help: 对应上游 cover.default_cover。留空对齐上游 null。上游可为 URL 数组并由 random_cover.js 去重随机；Halo 此项为单张附件/URL。优先级：文章封面 > 本默认封面 > loading.img.random_enable。
+          help: 对应上游 cover.default_cover。留空对齐上游 null。多张候选在下方默认封面候选列表配置；本项仍支持单张附件/URL。优先级：文章封面 > 本默认封面 > loading.img.random_enable。
         - $formkit: radio
           name: aside_enable
           label: 侧栏最近文章显示封面
@@ -1237,6 +1818,16 @@ spec:
               value: true
             - label: 禁用
               value: false
+        - $formkit: repeater
+          name: default_cover_list
+          label: 默认封面候选列表
+          value: []
+          help: "候选优先于单张默认封面；按文章 ID 稳定选取，跨列表/侧栏/归档一致。支持图片 URL 或 #/rgb/hsl 颜色。"
+          children:
+            - $formkit: text
+              name: url
+              label: 图片或颜色
+              value: ""
     #文章设置
     - group: post
       label: 文章设置

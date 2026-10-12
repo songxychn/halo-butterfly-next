@@ -10,7 +10,7 @@
 hr {
   position: relative;
   margin: 30px auto;
-  border: 1px dashed var(--theme);
+  border: 1px dashed var(--hr-color, var(--theme));
   width: calc(100% - 5px);
   height: 0;
   overflow: visible;
@@ -25,11 +25,11 @@ hr {
     line-height: 1;
     text-rendering: auto;
     position: absolute;
-    top: -10px;
+    top: var(--hr-icon-top, -10px);
     left: 5%;
     z-index: 1;
     color: var(--theme);
-    content: "\f2dc";
+    content: var(--hr-icon-content, "\f2dc");
     font-size: 18px;
     transition: 1s ease-in-out;
   }

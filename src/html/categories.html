@@ -41,7 +41,9 @@
     <section class="content card" th:with="noData = ${not #lists.isEmpty(categories)}">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'分类'}"></h1>
       <th:block th:if="${noData}">
-        <div class="chart"></div>
+        <div class="chart" th:if="${theme.config.appearance?.category_ui != 'list'}"></div>
+        <th:block th:if="${theme.config.appearance?.category_ui == 'list'}"><th:block th:replace="~{::categoryList(${categoryFinder.listAsTree()})}"/></th:block>
+        <noscript th:unless="${theme.config.appearance?.category_ui == 'list'}"><th:block th:replace="~{::categoryList(${categoryFinder.listAsTree()})}"/></noscript>
       </th:block>
 
       <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>
@@ -49,3 +51,9 @@
     <th:block th:replace="~{views/aside::common}"/>
   </th:block>
 </layout>
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="categoryList(nodes)">
+  <ul class="category-list"><li th:each="node : ${nodes}" th:if="${node.postCount > 0}">
+    <a th:href="${node.status.permalink}"><span th:text="${node.spec.displayName}"></span><span th:text="${node.postCount}"></span></a>
+    <th:block th:if="${not #lists.isEmpty(node.children)}" th:replace="~{::categoryList(${node.children})}"/>
+  </li></ul>
+</th:block>

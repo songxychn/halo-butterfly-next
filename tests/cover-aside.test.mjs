@@ -32,7 +32,7 @@ test('cover 组为 index_enable、default_cover、aside_enable、archives_enable
   const cover = settings.spec.forms.find(form => form.group === 'cover');
   assert.ok(cover);
   const names = cover.formSchema.map(node => node.name);
-  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable']);
+  assert.deepEqual(names, ['index_enable', 'default_cover', 'aside_enable', 'archives_enable', 'default_cover_list']);
 });
 
 test('aside.card_recent_post 使用上游嵌套名，支持 sort_order', async () => {
@@ -74,7 +74,7 @@ test('模板：enable=false 不渲染卡片；aside_enable=false 无 thumbnail /
   assert.match(recent, /spec\.publishTime,desc/);
   assert.match(recent, /postFinder\.list\(\{page: 1, size: recentLimit, sort: \{'status\.lastModifyTime,desc'\}\}\)/);
   assert.match(recent, /postFinder\.list\(\{page: 1, size: recentLimit, sort: \{'spec\.publishTime,desc'\}\}\)/);
-  assert.match(recent, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : theme\.config\.cover\.default_cover\}/);
+  assert.match(recent, /coverSrc = \$\{not #strings\.isEmpty\(post\.spec\.cover\) \? post\.spec\.cover : \(not #lists\.isEmpty\(coverCandidates\) \? coverCandidates\[.*?\]\.url : theme\.config\.cover\.default_cover\)\}/);
   assert.match(recent, /showCover = \$\{theme\.config\.cover\.aside_enable != false and \(not #strings\.isEmpty\(coverSrc\) or theme\.config\.loading\.img\.random_enable\)\}/);
   assert.match(recent, /th:if="\$\{showCover\}"/);
   assert.match(recent, /class="thumbnail"/);

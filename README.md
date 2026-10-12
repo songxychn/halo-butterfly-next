@@ -32,6 +32,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 - [从原 theme-butterfly 迁移](docs/MIGRATION.md)
 - [数学公式与 KaTeX 插件适配（开发源码）](docs/MATH.md)
 - [SEO、站点验证与代码注入（开发源码）](docs/SEO-INJECTION.md)
+- [侧栏、图片与外观配置（开发源码）](docs/APPEARANCE-OPTIONS.md)
 - [alpha.4 发行说明](releases/v0.1.0-alpha.4.md)
 - [应用市场上架差距与派生说明](docs/APP-STORE-READINESS.md)（首次审核暂未通过，整改中，尚不具备重新提交条件）
 

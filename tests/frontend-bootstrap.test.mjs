@@ -5,7 +5,9 @@ import vm from 'node:vm';
 
 const transpiler = new Bun.Transpiler({loader: 'ts', target: 'browser'});
 
-const bootstrap = transpiler.transformSync(await readFile(new URL('../src/js/bootstrap.ts', import.meta.url), 'utf8'));
+const bundled = await Bun.build({entrypoints: [new URL('../src/js/bootstrap.ts', import.meta.url).pathname], target: 'browser', format: 'iife'});
+if (!bundled.success) throw new Error('Bootstrap bundle failed');
+const bootstrap = await bundled.outputs[0].text();
 function initialize(conf, saved = {}, blocked = false) {
   const classes = new Set();
   const listeners = new Map();

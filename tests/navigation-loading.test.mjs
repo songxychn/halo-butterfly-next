@@ -1,7 +1,7 @@
 import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import { navigationURL } from '../src/js/core/navigation-loading.ts';
-import { imageLoadingOptions } from '../src/js/core/image-loading.ts';
+import { imageLoadingOptions, initializeImageLoading } from '../src/js/core/image-loading.ts';
 import { snackbarPosition } from '../src/js/core/_message.ts';
 import {beginPage, disposePage, onPageCleanup, pageListen, pageScope} from '../src/js/core/page-lifecycle.ts';
 
@@ -35,4 +35,27 @@ test('page disposal removes global handlers exactly once across repeated entries
     }
     assert.equal(cleanups,6);
   } finally {globalThis.window=old;}
+});
+
+test('cached shared bad images fall back once in native, disabled and post-only loading modes',()=>{
+  const oldWindow=globalThis.window, oldDocument=globalThis.document;
+  try {
+    for(const config of [{},{lazyload_enable:false},{lazyload_field:'post'}]) {
+      globalThis.window={};
+      const attrs=new Map([['src','/missing.svg'],['srcset','/missing.svg 1x'],['sizes','100vw'],['data-theme-image',''],['data-theme-image-fallback','/fallback.svg']]);
+      const classes=new Set(); let replacements=0;
+      const image=new EventTarget();
+      Object.assign(image,{dataset:{themeImageFallback:'/fallback.svg'},loading:'lazy',complete:true,naturalWidth:0,
+        classList:{remove:k=>classes.delete(k),add:k=>classes.add(k)},closest:()=>null,
+        hasAttribute:k=>attrs.has(k),removeAttribute:k=>attrs.delete(k)});
+      Object.defineProperty(image,'src',{get:()=>new URL(attrs.get('src')||'', 'https://example.test/').href,set:value=>{attrs.set('src',value);replacements++}});
+      globalThis.document={baseURI:'https://example.test/',querySelectorAll:()=>[image]};
+      initializeImageLoading(config);initializeImageLoading(config);
+      assert.equal(replacements,1);assert.equal(image.src,'https://example.test/fallback.svg');
+      assert.equal(attrs.has('srcset'),false);assert.equal(attrs.has('sizes'),false);
+      image.dispatchEvent(new Event('error'));image.dispatchEvent(new Event('error'));
+      assert.equal(replacements,1);assert.equal(attrs.has('src'),false);assert.equal(classes.has('image-failed'),true);
+      disposePage();assert.equal(image.dataset.fallbackBound,undefined);
+    }
+  } finally {globalThis.window=oldWindow;globalThis.document=oldDocument;}
 });

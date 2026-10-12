@@ -1,3 +1,4 @@
+import {applyTagColors} from './tag-cloud-colors.ts';
 /** Progressive enhancement for Halo sidebar options. No network requests or HTML injection. */
 export function limitItems<T>(items: T[], limit: unknown) {
   const count = Number(limit);
@@ -33,16 +34,28 @@ export function formatArchiveDate(year: unknown, month: unknown, pattern: unknow
   return String(pattern || 'YYYY年MM月').replace(/\[[^\]]*\]|YYYY|MMMM|MMM|YY|MM|M/g, token => token.startsWith('[') ? token.slice(1, -1) : tokens[token]);
 }
 
-export function initializeAsideOptions(root = document) {
-  for (const aside of root.querySelectorAll<HTMLElement>('[data-aside-sort]')) {
-    const cards = (Array.from(aside.children) as HTMLElement[]).filter(node => node.hasAttribute('data-card-order'));
-    cards.sort((a, b) => Number(a.dataset.cardOrder) - Number(b.dataset.cardOrder)).forEach(card => aside.append(card));
+export function initializeAsideOptions(root = document, colors?: unknown) {
+  for (const aside of root.querySelectorAll<HTMLElement>('[data-aside-sort], [data-aside-custom-sort]')) {
+    const cards = (Array.from(aside.children) as HTMLElement[]).filter(node => node.hasAttribute('data-card-order') && (!aside.hasAttribute('data-aside-custom-sort') || node.hasAttribute('data-card-position')));
+    const slots = cards.map(card => {
+      const slot = root.createComment('card');
+      card.replaceWith(slot);
+      return slot;
+    });
+    cards.sort((a, b) => {
+      const rank = (card: HTMLElement) => card.dataset.cardPosition === 'top' ? -1 : card.dataset.cardPosition === 'bottom' ? 1 : 0;
+      return rank(a) - rank(b) || Number(a.dataset.cardOrder) - Number(b.dataset.cardOrder);
+    }).forEach((card,index) => slots[index].replaceWith(card));
   }
   for (const container of root.querySelectorAll<HTMLElement>('[data-aside-tags]')) {
     const template = container.querySelector<HTMLTemplateElement>('template[data-tag-list]');
     if (!template) continue;
     const tags = [...template.content.querySelectorAll('a')].map(node => node.cloneNode(true) as HTMLAnchorElement);
-    if (tags.length) container.replaceChildren(...limitItems(sortTags(tags, container.dataset.orderby, container.dataset.order), container.dataset.limit));
+    if (tags.length) {
+      const selected = limitItems(sortTags(tags, container.dataset.orderby, container.dataset.order), container.dataset.limit);
+      if (container.dataset.color === 'true') applyTagColors(selected, colors, true, true);
+      container.replaceChildren(...selected);
+    }
   }
   for (const container of root.querySelectorAll<HTMLElement>('[data-aside-categories]')) {
     const template = container.querySelector<HTMLTemplateElement>('template[data-category-tree]');

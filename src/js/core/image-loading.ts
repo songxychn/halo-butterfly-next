@@ -25,22 +25,36 @@ export function initializeImageLoading(config: ThemeConfig) {
     }, { rootMargin: '200px' });
   }
   document.querySelectorAll<HTMLImageElement>('#Butterfly img').forEach(image => {
+    if (image.dataset.fallbackBound) return;
+    image.dataset.fallbackBound = 'true';
     const included = options.enabled && (options.field === 'site' || !!image.closest('article.render'));
     const finish = () => image.classList.remove('theme-image-pending');
     const error = () => {
       finish();
+      if (image.dataset.lazySrc) return; // A failed placeholder must not replace a deferred real image.
       const fallback = image.dataset.themeImageFallback;
-      if (fallback && image.getAttribute('src') !== fallback) {
-        image.removeAttribute('srcset'); delete image.dataset.lazySrc; delete image.dataset.lazySrcset;
-        image.src = fallback;
+      if (!image.hasAttribute('data-theme-image-fallback')) return;
+      image.removeAttribute('srcset'); image.removeAttribute('sizes');
+      delete image.dataset.lazySrc; delete image.dataset.lazySrcset;
+      let alternate = '';
+      try {
+        const url = new URL(fallback || '', document.baseURI);
+        if (fallback && ['http:', 'https:', 'data:'].includes(url.protocol)) alternate = url.href;
+      } catch {}
+      if (alternate && image.dataset.fallbackTried !== 'true' && alternate !== image.src) {
+        image.dataset.fallbackTried = 'true'; image.src = alternate;
+      } else {
+        image.removeAttribute('src'); image.classList.add('image-failed');
       }
     };
     image.addEventListener('load', finish); image.addEventListener('error', error);
-    cleanups.push(() => { image.removeEventListener('load', finish); image.removeEventListener('error', error); });
+    cleanups.push(() => { image.removeEventListener('load', finish); image.removeEventListener('error', error); delete image.dataset.fallbackBound; });
     const authorEager = image.loading === 'eager' && !image.hasAttribute('data-theme-image');
     if (!included || authorEager) {
       if (image.hasAttribute('data-theme-image')) image.loading = 'eager';
-      reveal(image); finish(); return;
+      reveal(image); finish();
+      if (image.complete && image.naturalWidth === 0 && !image.dataset.lazySrc) error();
+      return;
     }
     if (options.blur && (image.dataset.lazySrc || !(image.complete && image.naturalWidth > 0))) image.classList.add('theme-image-pending');
     if (options.native || !observer) {
