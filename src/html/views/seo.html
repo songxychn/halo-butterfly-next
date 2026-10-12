@@ -1,0 +1,50 @@
+<!-- Butterfly 5.7.0: Open_Graph.pug / structured_data.pug / site_verification.pug. -->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="verification">
+  <meta th:each="item : ${theme.config.seo?.site_verification}"
+        th:if="${item != null and not #strings.isEmpty(#strings.trim(item.name)) and not #strings.isEmpty(#strings.trim(item.content))}"
+        th:name="${#strings.trim(item.name)}" th:content="${item.content}">
+</th:block>
+
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="metadata(page,title)"
+  th:with="
+    entity = ${page == 'post' ? post : (page == 'single' ? singlePage : null)},
+    seoBase = ${#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : #strings.toString(site.url)},
+    seoOrigin = ${#strings.substringBefore(seoBase, '://') + '://' + #strings.substringBefore(#strings.substringAfter(seoBase + '/', '://'), '/')},
+    seoAuthority = ${#strings.substringAfter(seoOrigin, '://')},
+    seoHost = ${#strings.startsWith(seoAuthority, '[') ? #strings.substringBefore(seoAuthority, ']') + ']' : #strings.substringBefore(seoAuthority + ':', ':')},
+    seoPath = ${entity != null ? entity.status.permalink : #ctx.getExchange().getRequest().getRequestPath()},
+    seoUrl = ${#strings.startsWith(seoPath, 'http://') or #strings.startsWith(seoPath, 'https://') ? seoPath : seoOrigin + seoPath},
+    seoTitle = ${entity != null ? entity.spec.title : title},
+    seoDescription = ${entity != null ? (entity.status.excerpt ?: (site.seo.description ?: site.subtitle)) : (site.seo.description ?: site.subtitle)},
+    seoAuthor = ${entity != null and not #lists.isEmpty(entity.contributors) ? entity.contributors[0] : null},
+    imageRaw = ${#strings.trim(entity != null and not #strings.isEmpty(#strings.trim(entity.spec.cover)) ? entity.spec.cover : (seoAuthor?.avatar ?: site.logo))},
+    imageUrl = ${#strings.isEmpty(imageRaw) ? '' : (#strings.startsWith(imageRaw, '//') ? #strings.substringBefore(seoBase, ':') + ':' + imageRaw : (#strings.startsWith(imageRaw, 'https://') or #strings.startsWith(imageRaw, 'http://') ? imageRaw : (#strings.startsWith(imageRaw, '/') ? seoOrigin + imageRaw : seoBase + '/' + imageRaw)))},
+    twitterRaw = ${#strings.isEmpty(#strings.trim(theme.config.seo?.twitter_image)) ? imageUrl : #strings.trim(theme.config.seo.twitter_image)},
+    twitterImage = ${#strings.isEmpty(twitterRaw) ? '' : (#strings.startsWith(twitterRaw, '//') ? #strings.substringBefore(seoBase, ':') + ':' + twitterRaw : (#strings.startsWith(twitterRaw, 'https://') or #strings.startsWith(twitterRaw, 'http://') ? twitterRaw : (#strings.startsWith(twitterRaw, '/') ? seoOrigin + twitterRaw : seoBase + '/' + twitterRaw)))}
+  ">
+  <th:block th:replace="~{views/seo :: verification}"/>
+  <th:block th:if="${theme.config.base.enable_seo != false and theme.config.base.enable_seo != 'false' and page != 'error404'}">
+    <link rel="canonical" th:href="${seoUrl}">
+    <meta property="og:title" th:content="${seoTitle}">
+    <meta property="og:description" th:if="${not #strings.isEmpty(seoDescription)}" th:content="${seoDescription}">
+    <meta property="og:site_name" th:content="${site.title}">
+    <meta property="og:url" th:content="${seoUrl}">
+    <meta property="og:locale" th:content="${#strings.replace(#locale.toLanguageTag(), '-', '_')}">
+    <meta property="og:type" th:content="${page == 'post' ? 'article' : 'website'}">
+    <meta property="og:image" th:if="${not #strings.isEmpty(imageUrl)}" th:content="${imageUrl}">
+    <meta property="article:published_time" th:if="${page == 'post' and post.spec.publishTime != null}" th:content="${post.spec.publishTime}">
+    <meta property="article:modified_time" th:if="${page == 'post' and post.status.lastModifyTime != null}" th:content="${post.status.lastModifyTime}">
+    <meta name="twitter:card" th:content="${theme.config.seo?.twitter_card == 'summary' ? 'summary' : 'summary_large_image'}">
+    <meta name="twitter:title" th:content="${seoTitle}">
+    <meta name="twitter:description" th:if="${not #strings.isEmpty(seoDescription)}" th:content="${seoDescription}">
+    <meta name="twitter:image" th:if="${not #strings.isEmpty(twitterImage)}" th:content="${twitterImage}">
+    <meta name="twitter:creator" th:if="${not #strings.isEmpty(theme.config.seo?.twitter_id)}" th:content="${theme.config.seo.twitter_id}">
+    <meta name="twitter:site" th:if="${not #strings.isEmpty(theme.config.seo?.twitter_site)}" th:content="${theme.config.seo.twitter_site}">
+    <meta property="fb:admins" th:if="${not #strings.isEmpty(theme.config.seo?.fb_admins)}" th:content="${theme.config.seo.fb_admins}">
+    <meta property="fb:app_id" th:if="${not #strings.isEmpty(theme.config.seo?.fb_app_id)}" th:content="${theme.config.seo.fb_app_id}">
+    <link rel="publisher" th:if="${not #strings.isEmpty(theme.config.seo?.google_plus)}" th:href="${theme.config.seo.google_plus}">
+    <th:block th:if="${theme.config.seo?.structured_data == true or theme.config.seo?.structured_data == 'true'}">
+      <th:block th:replace="~{views/seo-json :: structured}"/>
+    </th:block>
+  </th:block>
+</th:block>
