@@ -1,0 +1,358 @@
+{
+  "date": "2026-10-14",
+  "result": "scoped-fix-verified-performance-contract-incomplete",
+  "contractAcceptance": false,
+  "productCommits": [
+    "ec900463a92bec5f3fbf9ef0812dcccdedf73c3f",
+    "9a27dc3b89ce0543cad8dfd266f3ae7f048f799d"
+  ],
+  "verify": {
+    "passed": 722,
+    "failed": 0,
+    "packageFiles": 264
+  },
+  "scope": "Header title and home subtitle animation disabled for CSS viewport max-width 767px; desktop entry animation remains. No settings, fonts, images, scripts, or thresholds changed.",
+  "independentReview": {
+    "agent": "/root/pjax",
+    "finding": "P3 subtitle 768 inclusive breakpoint inconsistent with heading 767; fixed by 9a27dc3",
+    "blockers": []
+  },
+  "browser": {
+    "report": {
+      "path": ".runtime/integrated/mobile-title-check.json",
+      "sha256": "ddade65c81e1cac7c59a007629889911bd534a440c277c57db8af4bdea6d2e6e"
+    },
+    "script": {
+      "path": ".runtime/integrated/mobile-title-check.mjs",
+      "sha256": "76a095dd45bc5fc23439113fe7684b25377453a6fb5202c03ccdd135cd679633"
+    },
+    "cases": 27,
+    "passed": 27,
+    "engines": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "widths": [
+      390,
+      767,
+      768,
+      1440
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "noJavaScriptCases": 3,
+    "actualCssMediaQueriesUsed": true,
+    "scope": "Home title/subtitle visibility, matching animation behavior, overflow and JS errors; no real Safari/device claim"
+  },
+  "causalProbe": {
+    "script": {
+      "path": ".runtime/integrated/title-paint-probe-controlled.mjs",
+      "sha256": "034b0ae15754fe63f7dfdf5a31718e06e5c07df6c828debcf3ea536ab01b97c7"
+    },
+    "report": {
+      "path": ".runtime/integrated/title-paint-probe-controlled.json",
+      "sha256": "d467f55336c6f1d497951cd14462c03ee59e9fd926fb8ff9196daa8ac07b9231"
+    },
+    "baselineCss": {
+      "path": ".runtime/integrated/baseline-index.css",
+      "sha256": "9b7b0383ae3fc5ff085d685c4dc01ee03d5921e99619454272cfd77fecea05d6"
+    },
+    "baselineFcpToTitleLcpMs": [
+      220,
+      232,
+      232
+    ],
+    "animationNoneFcpToTitleLcpMs": [
+      0,
+      0,
+      0
+    ],
+    "method": "Same original baseline CSS response interception on all six navigations; only animation:none intervention differs. 1200ms settle after networkidle; fresh isolated headless Chromium contexts. Not formal score samples."
+  },
+  "offlineReplay": {
+    "script": {
+      "path": ".runtime/integrated/lantern-diagnosis.mjs",
+      "sha256": "82c0dcd8c519fb4ed99085bc44330b8d24cbc94f0368d778dafa236db44ced37"
+    },
+    "report": {
+      "path": ".runtime/integrated/lantern-diagnosis.json",
+      "sha256": "751ff9b049a51a7998c2dd75e946dd073cbe6738948bba68751e11caf22bf13b"
+    },
+    "home": {
+      "observedFcp": 150,
+      "observedLcp": 360,
+      "simulatedOptimistic": 3754.743,
+      "simulatedPessimistic": 8436.324,
+      "simulatedLcp": 6095.5335,
+      "lcpElement": ".above-title"
+    },
+    "longform": {
+      "observedFcp": 163,
+      "observedLcp": 163,
+      "simulatedOptimistic": 2703.918,
+      "simulatedPessimistic": 2853.918,
+      "simulatedLcp": 2778.918,
+      "lcpElement": "article.render > article > p"
+    }
+  },
+  "lighthouse": [
+    {
+      "label": "before",
+      "route": "home",
+      "report": {
+        "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/report.json",
+        "sha256": "1c0484bb3265466a5c5a9d19a2de39f5ffce5756ae5f218a428d2111f4fc549e"
+      },
+      "result": "incomplete",
+      "identity": {
+        "sourceSha": "34c9e8958eb1be30fe33b9acf4b6793efda49b3a",
+        "packageSha256": "2a6694d70cf61ecdfaab014908f0f87043cca6861d14f47b4b9c0e2dd2d54e44",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "configSha256": "2dab8c6366a9b417a91a02f3cddc003d37de6530c6a21c15b4266f8a6a2e0289",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9"
+      },
+      "stationUnchanged": true,
+      "runner": {
+        "sourceSha": "91d3238211af6de13f76475b8cd62913528ea573",
+        "workingTreeClean": true
+      },
+      "samples": [
+        {
+          "status": "passed",
+          "metrics": {
+            "lcp": 6095.5335000000005,
+            "tbt": 0,
+            "cls": 0,
+            "themeJsBytes": 232833,
+            "themeCssBytes": 291885,
+            "requests": 19,
+            "transferBytes": 1270977,
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "observedFcp": 150,
+          "observedLcp": 360,
+          "lhr": {
+            "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/home-mobile-0/lhr.json",
+            "sha256": "80e7663f0e18673913775cd2075baafbbbf54f78ac8fadd4642f75c61f388040"
+          },
+          "trace": {
+            "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/home-mobile-0/lhr-0.trace.json",
+            "sha256": "afbaebcc459ae4b9cbae11dd8d1a5de68095a51cc51377cdd84a784e3f2477e1"
+          },
+          "devtoolsLog": {
+            "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/home-mobile-0/lhr-0.devtoolslog.json",
+            "sha256": "dc9f7bec70c160075fc9967155571a62285374ef653079993e09e57cb8ecd6fa"
+          }
+        }
+      ]
+    },
+    {
+      "label": "before",
+      "route": "longform",
+      "report": {
+        "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/report.json",
+        "sha256": "c389359269aba870f4731d730e1fc3278077f6ddd31d6c10e966f3e9a4ae0574"
+      },
+      "result": "incomplete",
+      "identity": {
+        "sourceSha": "34c9e8958eb1be30fe33b9acf4b6793efda49b3a",
+        "packageSha256": "2a6694d70cf61ecdfaab014908f0f87043cca6861d14f47b4b9c0e2dd2d54e44",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "configSha256": "2dab8c6366a9b417a91a02f3cddc003d37de6530c6a21c15b4266f8a6a2e0289",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9"
+      },
+      "stationUnchanged": true,
+      "runner": {
+        "sourceSha": "91d3238211af6de13f76475b8cd62913528ea573",
+        "workingTreeClean": true
+      },
+      "samples": [
+        {
+          "status": "passed",
+          "metrics": {
+            "lcp": 2778.918,
+            "tbt": 60.5,
+            "cls": 0.0008469425837072566,
+            "themeJsBytes": 947244,
+            "themeCssBytes": 341187,
+            "requests": 27,
+            "transferBytes": 758288,
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "observedFcp": 163,
+          "observedLcp": 163,
+          "lhr": {
+            "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/longform-mobile-0/lhr.json",
+            "sha256": "df1d1b170e469d8684c12dfd390a1a3c01f5fa6dc12c29cb705c6cb2be63999a"
+          },
+          "trace": {
+            "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/longform-mobile-0/lhr-0.trace.json",
+            "sha256": "608253f20783e8e6082256fdc6aec8469605128921ed82ea72194a111d9314c3"
+          },
+          "devtoolsLog": {
+            "path": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/longform-mobile-0/lhr-0.devtoolslog.json",
+            "sha256": "91c2ad12fa7130ddbe6f3f9eb719bcdec7ef274cb5435317d59c159ce7b69bd7"
+          }
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "route": "home",
+      "report": {
+        "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/report.json",
+        "sha256": "8453d1504eb55c65cfd2c6801284c34c715b375e6ef76eef284b6e5e927348ed"
+      },
+      "result": "incomplete",
+      "identity": {
+        "sourceSha": "9a27dc3b89ce0543cad8dfd266f3ae7f048f799d",
+        "packageSha256": "56e9e6561e94c82fb945de88868c019dbc74ed85f1bb46b25b335049ecdf0679",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "configSha256": "2dab8c6366a9b417a91a02f3cddc003d37de6530c6a21c15b4266f8a6a2e0289",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9"
+      },
+      "stationUnchanged": true,
+      "runner": {
+        "sourceSha": "9a27dc3b89ce0543cad8dfd266f3ae7f048f799d",
+        "workingTreeClean": true
+      },
+      "samples": [
+        {
+          "status": "passed",
+          "metrics": {
+            "lcp": 4653.996,
+            "tbt": 0,
+            "cls": 0,
+            "themeJsBytes": 232833,
+            "themeCssBytes": 291926,
+            "requests": 19,
+            "transferBytes": 1270955,
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "observedFcp": 149,
+          "observedLcp": 149,
+          "lhr": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/home-mobile-0/lhr.json",
+            "sha256": "2ea01d994fc7891c69596e99f5adc15633b56c0f91237a3f6955aecf7fdd58d1"
+          },
+          "trace": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/home-mobile-0/lhr-0.trace.json",
+            "sha256": "9d80fcf58b0f911b52011d187d7aa946751f8ba1b359939fdc50cce414c8147a"
+          },
+          "devtoolsLog": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/home-mobile-0/lhr-0.devtoolslog.json",
+            "sha256": "b31245765d89f0724198075dd789d51e65974dfa780d97265256ebde8937a8a7"
+          }
+        },
+        {
+          "status": "passed",
+          "metrics": {
+            "lcp": 4654.5,
+            "tbt": 0,
+            "cls": 0,
+            "themeJsBytes": 232833,
+            "themeCssBytes": 291926,
+            "requests": 19,
+            "transferBytes": 1270955,
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "observedFcp": 146,
+          "observedLcp": 146,
+          "lhr": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/home-mobile-1/lhr.json",
+            "sha256": "77d076097c71d051c7770eb8dab42c38834865d848f1e62fd5656a09890bfe08"
+          },
+          "trace": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/home-mobile-1/lhr-0.trace.json",
+            "sha256": "e730d3faf74605805ec44aeeb3afbdaeef9bfbdde6417289c6010a1721eccc5c"
+          },
+          "devtoolsLog": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/home/home-mobile-1/lhr-0.devtoolslog.json",
+            "sha256": "73e404de531207b0549f236beb261f2d87603c40c0cc6cfb5278f2c019a0eb81"
+          }
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "route": "longform",
+      "report": {
+        "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/longform/report.json",
+        "sha256": "e69ead3d6b575675aa63d1e5e0dceacc93a80e20c73a893b625fc39086d38860"
+      },
+      "result": "incomplete",
+      "identity": {
+        "sourceSha": "9a27dc3b89ce0543cad8dfd266f3ae7f048f799d",
+        "packageSha256": "56e9e6561e94c82fb945de88868c019dbc74ed85f1bb46b25b335049ecdf0679",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "configSha256": "2dab8c6366a9b417a91a02f3cddc003d37de6530c6a21c15b4266f8a6a2e0289",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9"
+      },
+      "stationUnchanged": false,
+      "runner": {
+        "sourceSha": "9a27dc3b89ce0543cad8dfd266f3ae7f048f799d",
+        "workingTreeClean": false
+      },
+      "samples": [
+        {
+          "status": "passed",
+          "metrics": {
+            "lcp": 2778.456,
+            "tbt": 62.5,
+            "cls": 0.0008469425837072566,
+            "themeJsBytes": 947244,
+            "themeCssBytes": 341179,
+            "requests": 27,
+            "transferBytes": 758277,
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "observedFcp": 149,
+          "observedLcp": 149,
+          "lhr": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/longform/longform-mobile-0/lhr.json",
+            "sha256": "6631c60ccdacee81e3a97242fa598a67d71b60803d2c114f7c6f5c8e5e3905a5"
+          },
+          "trace": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/longform/longform-mobile-0/lhr-0.trace.json",
+            "sha256": "8abd964306c67bb037aa2c1126ff1b7927d31c3200a152f4a426b7850d211096"
+          },
+          "devtoolsLog": {
+            "path": ".runtime/performance/runs/candidate-9a27dc3-mobile-paint/default/longform/longform-mobile-0/lhr-0.devtoolslog.json",
+            "sha256": "b5eedbba46344cb5d94522aaa926ed32c8bf881c9a3c474d6dd51019872b241b"
+          }
+        }
+      ],
+      "error": "Post-sample station inspect: Local Halo login failed; original collector report retained incomplete."
+    }
+  ],
+  "limitations": [
+    "No five-run median, desktop, baseline master cohort, recommended plugin profile, or complete performance contract.",
+    "Original core 119/120 stall failure remains separate and is not erased by this scoped fix.",
+    "Only local isolated Halo 2.26.1; old merged root33c6b15 candidate lineage excludes newer root A01/PJAX changes.",
+    "Initial bounded probe and harness failures retained; final harness waits for real finite desktop animations and uses actual CSS media query at WebKit 768."
+  ],
+  "laterStation": {
+    "report": {
+      "path": ".runtime/integrated/mobile-paint-later-station.json",
+      "sha256": "bcb8d396549f9ee3d98593c4263f55c9cf3356fcbb224f9879b91f82065618a6"
+    },
+    "equalToFailedRunPreflight": true,
+    "doesNotRewriteOriginalRun": true,
+    "loginRootCause": "Not established; later read-only snapshot succeeds."
+  },
+  "comparableInputs": {
+    "home": true,
+    "longform": true
+  }
+}
