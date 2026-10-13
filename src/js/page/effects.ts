@@ -2,9 +2,10 @@
 import {enabled, cssValue} from '../core/appearance.ts';
 type Options = Record<string, unknown>;
 declare global { interface Window { ThemeEffects?: (config: Record<string, unknown>) => () => void } }
-window.ThemeEffects = function initializeEffects(config) {
+// Reuse document media queries across page factories; listeners remain page scoped.
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const mobile = matchMedia('(max-width: 768px)');
+window.ThemeEffects = function initializeEffects(config) {
 const active = (name: string) => {
   const value = config[name] as Options | undefined;
   return value && enabled(value.enable) && (!mobile.matches || enabled(value.mobile)) && !reduced.matches ? value : null;
