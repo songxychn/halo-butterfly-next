@@ -25,7 +25,7 @@ for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split(','))
   const page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',e=>row.errors.push(e.message));page.on('console',m=>{if(['error','debug'].includes(m.type()))row.console.push(m.text().slice(0,1000));});page.on('request',r=>row.requests.push({url:r.url(),status:'pending'}));page.on('requestfinished',r=>{const x=row.requests.find(x=>x.url===r.url()&&x.status==='pending');if(x)x.status='finished';});page.on('requestfailed',r=>{const x=row.requests.find(x=>x.url===r.url()&&x.status==='pending');if(x)x.status=r.failure()?.errorText||'failed';});
   const navigate=async route=>{row.stage=route;
    await page.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove();},route);
-   await page.waitForFunction(route=>location.pathname+location.search===route&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,route,{timeout:30000});
+   await page.waitForFunction(route=>location.pathname+location.search===route&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,route,{timeout:30000,polling:100});
    assert.equal(await page.evaluate(()=>window.combinationSentinel),'retained','Expected scoped navigation to '+route);
    assert.equal(await page.locator('html').getAttribute('data-color-scheme'),color);
   };
