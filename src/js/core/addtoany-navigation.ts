@@ -13,7 +13,8 @@ interface AddToAnyWindow extends Window {
   a2a?: { main?: HTMLElement };
   a2a_config?: Record<string, unknown>;
 }
-function state() { return (window as AddToAnyWindow)[key]; }
+function normalizedItems(value: string) { return [...new Set(value.split(',').map(item => item.trim().toLowerCase()).filter(item => /^[a-z][a-z0-9_]*$/.test(item)))].join(','); }
+function state() { return (globalThis.window as AddToAnyWindow | undefined)?.[key]; }
 function menuOpen(s: AddToAnyState) {
   return [...s.main.querySelectorAll<HTMLElement>('.a2a_menu, #a2a_modal, #a2a_overlay')]
     .some(node => node.getClientRects().length > 0 && getComputedStyle(node).visibility !== 'hidden');
@@ -25,7 +26,7 @@ export function addToAnyCanNavigate(doc: Document) {
       s.frame?.src !== utilityURL || !s.main.contains(s.frame) || menuOpen(s)) return false;
   const region = doc.querySelector<HTMLElement>('[data-post-share]');
   return !region || (region.dataset.postShare === 'addtoany' &&
-    (region.dataset.items || '').split(',').map(item => item.trim().toLowerCase()).filter(Boolean).join(',') === s.items);
+    normalizedItems(region.dataset.items || '') === s.items);
 }
 export function isOwnedAddToAnyNode(node: Element) {
   const s = state();
@@ -54,12 +55,15 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
     host.replaceWith(s.kit);
     return;
   }
-  // An independently injected instance has no theme-owned lifecycle contract.
-  if (win.a2a || win.a2a_config || document.getElementById('a2a_menu_container')) throw new Error('Unmanaged AddToAny instance');
+  // Preserve the legacy custom configuration path, without claiming its lifecycle.
+  if (win.a2a || win.a2a_config || document.getElementById('a2a_menu_container')) {
+    const legacy = document.createElement('script'); legacy.src = loaderURL; legacy.async = true;
+    document.body.append(legacy); return;
+  }
   const main = document.createElement('div'); main.id = 'a2a_menu_container';
   const parking = document.createElement('div'); parking.hidden = true;
   const loader = document.createElement('script'); loader.src = loaderURL; loader.async = true;
-  // Moving page.js is fail-closed; its audited content selects the immutable core filename above.
+  // Moving page.js is fail-closed; its audited content selects the versioned core filename above.
   loader.integrity = 'sha384-sh2U6Mq80dAQd/AdTRL4UEAG9JZOG4KwZyqEiRlncEGpKT29DFI7wXqp4zmJFbBT';
   loader.crossOrigin = 'anonymous';
   s = win[key] = {kit: host, main, parking, loader, items: items.join(','), ready: false, url, title};

@@ -9,10 +9,10 @@ const lab=path.join(REPO,'.runtime/comparison'),base=validateBaseUrl(process.env
 const installed=JSON.parse(await readFile(path.join(lab,'installed-package.json')));
 validatePackage(installed,execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sha256(await readFile(path.join(REPO,'dist',installed.name))));
 Object.assign(process.env,browserEnvironment());const pw=await import(pathToFileURL(path.join(RUNTIME,'deps/node_modules/playwright/index.mjs')));
-const files=[['/menu/page.js','/tmp/pjax-addtoany.js','46bfe099d913a7ecb4bc106e638d734abc31ba0f9a5bfc2f55b0636978cc9ff6'],['/menu/modules/core.iho16r34.js','/tmp/pjax-addtoany-core.js','44fd58c7f24a00b6f1293debb9b0713d3808bd031886d76515c139ec956bb5e2'],['/menu/sm.25.html','/tmp/pjax-addtoany-utility.html',null],['/menu/locale/zh-CN.js','/tmp/pjax-addtoany-locale.js',null]];
-const sdk=new Map();for(const [url,file,digest] of files){const body=await readFile(file);if(digest)assert.equal(sha256(body),digest);sdk.set(url,body)}
+const files=JSON.parse(await readFile(new URL('./addtoany-sdk.json',import.meta.url)));
+const sdk=new Map();for(const row of files){const body=await readFile(path.join(REPO,'.runtime/navigation-loading/addtoany-sdk',row.file));assert.equal(sha256(body),row.sha256);sdk.set(row.path,body)}
 const output=path.join(REPO,'.runtime/navigation-loading');await mkdir(output,{recursive:true});
-const report={theme:installed,results:[],sdk:files.map(([url,,digest])=>({url,digest})),limitations:['Official pinned SDK executed with all outbound sharing and service traffic intercepted. Physical browsers/devices not covered.']};
+const report={theme:installed,results:[],sdk:files,limitations:['Official pinned SDK executed with all outbound sharing and service traffic intercepted. Physical browsers/devices not covered.']};
 let browser;const save=()=>writeFile(path.join(output,'addtoany.json'),JSON.stringify(report,null,2)+'\n');
 try{for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split(',')){
  browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{channel:'chromium'}:{})});
@@ -35,8 +35,40 @@ try{for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split('
    await visit('/archives/');
    assert(await p.evaluate(()=>document.body===window.addToAnyOriginalBody&&window.addToAnyOriginalFrame.isConnected&&window.addToAnyOriginalFrame.contentWindow===window.addToAnyFrameWindow&&!window.addToAnyDetached));
   }
+  await visit('/archives/preview-1/');
+  await p.evaluate(()=>document.getElementById('post-comment').dispatchEvent(new Event('theme:load-comments')));
+  const editor=p.locator('comment-widget [contenteditable="true"]').first();await editor.click();await editor.pressSequentially('AddToAny pending draft',{delay:5});
+  await p.waitForFunction(()=>Object.keys(localStorage).some(k=>(localStorage.getItem(k)||'').includes('AddToAny pending draft')),null,{polling:100});
+  const pending=p.waitForEvent('dialog');await p.evaluate(()=>history.back());const dialog=await pending;assert.equal(dialog.type(),'beforeunload');await dialog.dismiss();
+  await p.waitForFunction(()=>location.pathname==='/archives/preview-1/',null,{polling:100});assert.match(await editor.innerText(),/AddToAny pending draft/);
+  assert(await p.evaluate(()=>window.addToAnySentinel==='keep'&&window.addToAnyOriginalFrame.contentWindow===window.addToAnyFrameWindow));
+  await editor.press('ControlOrMeta+A');await editor.press('Backspace');await p.waitForFunction(()=>!Object.keys(localStorage).some(k=>(localStorage.getItem(k)||'').includes('AddToAny pending draft')),null,{polling:100});
+  await p.goBack();await p.waitForFunction(()=>location.pathname==='/archives/'&&!document.documentElement.classList.contains('theme-navigating'),null,{polling:100});assert.equal(await p.evaluate(()=>window.addToAnySentinel),'keep');
   assert.equal(requests.filter(url=>url.endsWith('/menu/page.js')).length,1);assert.equal(requests.filter(url=>url.endsWith('/menu/modules/core.iho16r34.js')).length,1);assert.equal(requests.filter(url=>url.includes('/menu/sm.25.html')).length,1);
-  assert.deepEqual(errors,[]);report.results.push({engine,width,mode,cycles:4,result:'passed'});await save();console.log('PASS',engine,width,mode);await context.close();
+  assert.deepEqual(errors,[]);
+  await visit('/archives/preview-2/');
+  await p.locator('.a2a_button_copy_link').click();await p.waitForSelector('#a2a_copy_link_text',{state:'visible'});
+  await p.evaluate(()=>{const a=document.createElement('a');a.href='/archives/';document.body.append(a);a.click()});
+  await p.waitForFunction(()=>location.pathname==='/archives/'&&!!window.MainApp?.useCommon,null,{polling:100});assert.equal(await p.evaluate(()=>window.addToAnySentinel),undefined,'An open SDK modal retains native navigation');
+  report.results.push({engine,width,mode,cycles:4,result:'passed'});await save();console.log('PASS',engine,width,mode);await context.close();
+ }
+ for(const scenario of ['unknown-iframe','failed-loader','delayed-loader']){
+  const context=await browser.newContext({locale:'zh-CN'});
+  await context.route('**/*',async route=>{
+   const url=new URL(route.request().url());if(url.origin===base)return route.continue();
+   if(url.pathname==='/menu/page.js'&&scenario==='failed-loader')return route.abort();
+   if(url.pathname==='/menu/page.js'&&scenario==='delayed-loader')await new Promise(resolve=>setTimeout(resolve,1000));
+   if(url.origin==='https://static.addtoany.com'&&sdk.has(url.pathname)){try{return await route.fulfill({contentType:url.pathname.endsWith('.html')?'text/html':'application/javascript',headers:{'access-control-allow-origin':'*'},body:sdk.get(url.pathname)})}catch{return}}
+   return route.abort();
+  });
+  const p=await context.newPage();await p.goto(base+'/archives/preview-1/',{waitUntil:'domcontentloaded'});
+  await p.waitForFunction(()=>!!window[Symbol.for('halo-butterfly-next.addtoany')],null,{polling:50});
+  if(scenario==='unknown-iframe'){await p.waitForFunction(()=>window[Symbol.for('halo-butterfly-next.addtoany')]?.ready,null,{polling:100});await p.evaluate(()=>{const frame=document.createElement('iframe');frame.src='about:blank';document.body.append(frame)})}
+  await p.evaluate(()=>{window.fallbackSentinel=true;const a=document.createElement('a');a.href='/archives/';document.body.append(a);a.click()});
+  await p.waitForFunction(()=>location.pathname==='/archives/'&&!!window.MainApp?.useCommon,null,{polling:100});
+  assert.equal(await p.evaluate(()=>window.fallbackSentinel),undefined);
+  await p.waitForTimeout(1200);assert.equal(await p.locator('#a2a_menu_container').count(),0,'A late old document SDK cannot mount on the native target');
+  report.results.push({engine,scenario,result:'passed'});await save();await context.close();console.log('PASS',engine,scenario);
  }
  await browser.close();browser=null;
 }}catch(error){report.failure=error.stack;throw error}finally{await browser?.close();await save()}
