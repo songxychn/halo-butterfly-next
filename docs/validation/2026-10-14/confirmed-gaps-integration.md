@@ -38,3 +38,16 @@
 | `adda323` / [正文计数修复](confirmed-content-counter-fixed.json) | `9cdcc28`消费成功响应body后，真实和路由探针均requestfinished，正文27/27通过。见[前后探针](confirmed-counter-response-probes.json)。没有重试统计请求或放宽验收。 |
 
 [首页布局当前候选](home-layouts-candidate.md)的固定双站318次观察保留317通过/1张图pending；日历图标修复及坏图/备用图失败定向48/48。[手机首屏性能](mobile-title-performance.md)记录标题动画取消后的实际LCP改善，但首页仍超过预算，长文样本后置身份校验失败仍为error/incomplete；均不升级完整门禁。
+
+## 最终开发候选与复验
+
+最终产品提交`26cb42dbfe47ceda5c7fa51b51d5f118f03b85a0`，安装包SHA-256 `e19ddac447b75460812be241144c16ab901c89ddd5392f2464e8c5c2288f09c5`。Bun1.4.0完整verify **740/740**，独立类型检查、parity、构建与264文件包检查通过。后续提交仅归档证据/文档；远端CI另按最终PR提交判断。
+
+- [再次跨功能组合](confirmed-navigation-candidate.json)：候选`ea33ed1`、12/12通过，包含最新评论及AddToAny代码整合后的默认组合；后续最低版本tracker保护由下面实际探针覆盖，不冒充整批在更晚候选重跑。
+- [最新评论语言](confirmed-comment-locale-complete.json)：最终产品三引擎各执行en→ja→ja→en→旧缓存刷新，文案、匿名昵称、实际日期格式均正确；每引擎请求累计2/4/4/6/8证明同语言命中、跨语言失效和旧格式刷新。首次[夹具失败](confirmed-comment-locale-fixture-failure.json)因实验室storage=0未满足缓存前提，保留记录；明确改成10分钟并新增前置断言后执行新一轮，未放宽缓存断言。
+- [最低Halo核心](minimum-halo-current.md)：2.20.2核心模板/语言/安全数据24 HTTP＋24真实Chromium＋4优先级通过；官方语言选择机制的版本差异已说明。
+- [最低Halo统计](minimum-halo-tracker.md)：旧版不消费SKIP_TRACKER，曾有原生与主题双上报风险；最终产品识别原生owner后，PJAX开/关两种模式各5步均正确，内容页一次、列表零次、旧版内容保持native回退。[新版统计探针](confirmed-counter-minimum-guard.json)确认2.26.1真实/路由请求仍各一次HTTP200并完成。首次探针缺少隔离浏览器路径，启动阶段报错未运行页面；设置已有runtime路径后重跑，未更改产品/断言。
+- [最终AddToAny组合](confirmed-addtoany-complete.json)：最终产品27/27通过；每个正常组合还切换en/ja/ko，直接核对复用按钮的当前URL、文本与ARIA。两个实际加载点的preconnect及国际化提示保留；默认服务、单kit/body/iframe身份、草稿取消、打开弹窗native、未知/迟到iframe、错误/超时后迟到SDK均保持边界。所有分享外发被拦截，未向他人发送内容。
+- [最终独立审查](final-integration-review.md)分列各lane、精确候选、已修问题和证据边界；没有把作者本人复核替代独立审查。
+
+验收后已恢复本任务实验室配置并回读比较，停止本任务独占服务；不停止历史实验室，不发布、部署或合并主线。完整1.0仍未通过：核心/首页请求停滞、性能预算和不完整采样、真实设备/屏幕阅读器/外部账户及安装升级回退等条件继续保留。平台工作提案见[集中决定清单](../../parity/PLATFORM-WORK-PROPOSAL.md)。

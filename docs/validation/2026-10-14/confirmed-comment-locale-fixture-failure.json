@@ -1,0 +1,32 @@
+{
+  "installed": {
+    "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+    "sha256": "eb4eb4f46af4fa87077113db0182941df0b710b37e0a77128400b86af4b6108c",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "ea33ed1b7e2539b228b874fa854b321c4ea878ed",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "cases": [
+    {
+      "engine": "chromium",
+      "requests": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "checks": [
+        "en translated excerpt, Guest and date",
+        "ja translated excerpt, Guest and date",
+        "ja translated excerpt, Guest and date",
+        "en translated excerpt, Guest and date"
+      ],
+      "pass": false,
+      "error": "evaluate: TypeError: Cannot convert undefined or null to object\n    at Object.values (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:3:40)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /Users/baizhukui/.codex/worktrees/e7a8/halo-butterfly-next/scripts/confirmed-gaps/check-comment-locale.mjs:36:26\n    at processTicksAndRejections (native:7:39)",
+      "url": "http://127.0.0.1:18911/archives/?language=en&probe=3"
+    }
+  ],
+  "limitations": [
+    "Synthetic public comment responses; real theme, Halo routes and headless browser engines. No service/device acceptance."
+  ]
+}
