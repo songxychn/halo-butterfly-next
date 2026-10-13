@@ -5,7 +5,7 @@ test('script data use platform JSON serialization before HTML boundary escaping'
  const s=safeInlineData('<script th:inline="javascript">const data=/*[[${model}]]*/ {};</script>');
  assert.match(s,/th:with="scriptJsonMapper=\$\{T\(run.halo.app.infra.utils.JsonUtils\).mapper\(\)\}"/);
  assert.match(s,/scriptJsonMapper.writeValueAsString\(\(model\)\)/);for(const code of ['\\u003C','\\u003E','\\u2028','\\u2029'])assert(s.includes(code));assert(!s.includes('/*[['));
- assert.equal(s.indexOf('eval('),-1);
+ assert.equal(s.indexOf('eval('),-1);assert(s.includes("'JSON.parse(' +"));assert(s.includes('writeValueAsString(scriptJsonMapper.writeValueAsString('));
 });
 test('binding retains preexisting script scope and quoted greater-than attributes; messages use same protection',()=>{
  const s=safeInlineData('<script data-test="a > b" th:inline="javascript" th:with="local=${value}">const label=/*[[#{ui.label}]]*/ "label";const x=/*[[${local ?: {}}]]*/ {};</script>');

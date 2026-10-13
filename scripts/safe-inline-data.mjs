@@ -13,11 +13,13 @@ export function safeInlineData(html) {
         if (!/^[a-zA-Z0-9_.-]+$/.test(value)) throw new Error('Use an explicit #messages.msg expression for parameterized script messages');
         value = `#messages.msg('${value}')`;
       }
-      let json = `scriptJsonMapper.writeValueAsString((${value}))`;
+      // An encoded JSON string envelope keeps own __proto__ keys as data; a JS
+      // object literal would treat them as prototype setters before normalization.
+      let json = `scriptJsonMapper.writeValueAsString(scriptJsonMapper.writeValueAsString((${value})))`;
       for (const [character, escaped] of [['<', '\\u003C'], ['>', '\\u003E'], ['\u2028', '\\u2028'], ['\u2029', '\\u2029']]) {
         json = `#strings.replace(${json}, '${character}', '${escaped}')`;
       }
-      return '/*[(${' + json + '})]*/';
+      return "/*[(${'JSON.parse(' + " + json + " + ')'})]*/";
     });
     if (/\[\[|\[\(/.test(body.replace(/\/\*\[\[([\$#])\{([\s\S]*?)\}\]\]\*\//g, ''))) throw new Error('Unsupported raw inline script data expression');
     return open + safe + close;

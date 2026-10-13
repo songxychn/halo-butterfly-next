@@ -6,9 +6,9 @@
 
 源码中的自然模板表达式仍使用 `/*[[${...}]]*/`；消息可用 `/*[[#{ui.key}]]*/`。构建器 `scripts/safe-inline-data.mjs` 只处理 `th:inline="javascript"` 的 script：
 
-1. 在 `th:with` 绑定 Halo `JsonUtils.mapper()`，使用平台 JSON 编码器处理原值。
-2. 对**编码后的 JSON**将 `<`、`>`、U+2028、U+2029 替换为 JSON Unicode 转义。
-3. 输出编码结果，不使用 eval，不先对原值转义，因此保留对象、数组、布尔、null、数字、原始反斜杠与 Unicode。
+1. 在 `th:with` 绑定 Halo `JsonUtils.mapper()`，使用平台 JSON 编码器处理原值，再用同一编码器把该 JSON 文本封装为字符串。
+2. 对**已编码的字符串封装**将 `<`、`>`、U+2028、U+2029 替换为 JSON Unicode 转义。
+3. 输出 `JSON.parse(封装字符串)`，由 JSON 解析恢复数据；不使用 eval，不先对原值转义，保留对象、数组、布尔、null、数字、原始反斜杠与 Unicode。字符串封装也确保合法 JSON 的自有 `__proto__` 键不会被 JavaScript 对象字面量误当作原型设置。
 
 仅转义 `</script>` 中的斜杠还不够：`<!--<script>` 可以使 HTML tokenizer 进入 double-escaped 状态，吞掉真实 script 结束标签及后续页面。必须防止编码结果出现字面 `<`。本次使用 Halo 已有 JSON mapper，没有另写 JSON 序列化器。
 
