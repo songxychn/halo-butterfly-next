@@ -32,5 +32,10 @@ export function trackContentView(root: Document = document) {
     body: JSON.stringify({ group, plural, name, hostname: win.location.hostname,
       screen: `${win.screen.width}x${win.screen.height}`, language: win.navigator.language,
       url: win.location.pathname + win.location.search, referrer }),
+  }).then(response => {
+    if (!response.ok) throw new Error(`Counter HTTP ${response.status}`);
+    // Consume the small Halo response so Chromium does not cancel an unread
+    // keepalive body after headers, producing a spurious ERR_ABORTED request.
+    return response.arrayBuffer();
   }).catch(error => console.debug('Theme content counter unavailable', error));
 }

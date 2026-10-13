@@ -5,7 +5,8 @@ import { beginPage } from '../src/js/core/page-lifecycle.ts';
 
 test('committed pages report current content identity once, and list pages never count the old post', async () => {
   const previous = globalThis.window, requests = [];
-  const win = {location:new URL('https://blog.test/first/'), screen:{width:1440,height:1000},navigator:{language:'zh-CN'},localStorage:{getItem:()=>null},fetch:async(url,init)=>{requests.push({url,...JSON.parse(init.body)});return {};}};
+  let consumed = 0;
+  const win = {location:new URL('https://blog.test/first/'), screen:{width:1440,height:1000},navigator:{language:'zh-CN'},localStorage:{getItem:()=>null},fetch:async(url,init)=>{requests.push({url,...JSON.parse(init.body)});return {ok:true,arrayBuffer:async()=>{consumed++;return new ArrayBuffer(0);}};}};
   globalThis.window=win;
   let subject={dataset:{group:'content.halo.run',plural:'posts',name:'post-one',endpoint:'/apis/api.halo.run/v1alpha1/trackers/counter'}};
   const root={defaultView:win,referrer:'https://referrer.test/',querySelector:()=>subject};
@@ -20,5 +21,7 @@ test('committed pages report current content identity once, and list pages never
     win.localStorage.getItem=()=> 'true';beginPage();trackContentView(root);assert.equal(requests.length,2);
     win.localStorage.getItem=()=>null;subject.dataset.endpoint='https://other.test/apis/api.halo.run/v1alpha1/trackers/counter';beginPage();trackContentView(root);assert.equal(requests.length,2);
     subject.dataset.endpoint='/apis/api.halo.run/v1alpha1/trackers/counter';subject.dataset.plural='secrets';beginPage();trackContentView(root);assert.equal(requests.length,2);
+    await Promise.resolve();
+    assert.equal(consumed,2,'Every committed request drains its response once without retry');
   } finally {globalThis.window=previous;}
 });
