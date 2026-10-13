@@ -18,6 +18,17 @@ export function trackContentView(root: Document = document) {
   if (!subject) return;
   const { group, plural, name, endpoint } = subject.dataset;
   if (group !== 'content.halo.run' || !['posts', 'singlepages'].includes(plural || '') || !name || !endpoint) return;
+  // Older Halo releases do not consume SKIP_TRACKER. Their native script also
+  // keeps content navigation on the conservative full-document fallback path.
+  // Let that existing owner count the page; never send a second theme request.
+  if ([...root.scripts].some(script => {
+    try {
+      const source = new URL(script.src, win.location.href);
+      return source.origin === win.location.origin && source.pathname.endsWith('/halo-tracker.js') &&
+        script.dataset.group === group && script.dataset.plural === plural && script.dataset.name === name;
+    } catch { return false; }
+  })) return;
+
   let target: URL;
   try {
     target = new URL(endpoint, win.location.href);

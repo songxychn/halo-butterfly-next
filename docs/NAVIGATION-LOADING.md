@@ -28,7 +28,7 @@
 
 切换前销毁主题页面作用域：全局事件、导航/图片/代码/公式观察器、图表、目录、Typed、灯箱、剪贴板及请求取消。新页面重新执行标记的主题配置与页面入口；第三方库的普通 DOM 事件由对应实例销毁或旧节点清理。`pjax:send`、`pjax:complete`、`pjax:error` 和 `halo-butterfly-next:before-replace/page-ready` 提供可观察事件。
 
-启用 PJAX 时，文章/单页通过 Halo 2.26.1 的 `HaloTrackerProcessor.SKIP_TRACKER` 服务端标记停用绑定旧身份的原生 history 包装器，改由主题向官方 counter API 每个已初始化页面作用域上报一次；文章、单页和历史遍历使用各自的服务端身份，列表不继承旧文章身份。保留 `haloTracker.disabled` 停用约定，计数失败不重试、不阻塞正文。关闭 PJAX 继续由原生 `/halo-tracker.js` 计数。
+启用 PJAX 时，文章/单页通过 Halo 2.26.1 的 `HaloTrackerProcessor.SKIP_TRACKER` 服务端标记停用绑定旧身份的原生 history 包装器，改由主题向官方 counter API 每个已初始化页面作用域上报一次；文章、单页和历史遍历使用各自的服务端身份，列表不继承旧文章身份。保留 `haloTracker.disabled` 停用约定，计数失败不重试、不阻塞正文。关闭 PJAX 继续由原生 `/halo-tracker.js` 计数。 Halo 2.20.2不支持该服务端停用标记：主题检测到当前内容的原生tracker时不再重复上报，内容页保留完整导航；因此最低版本的基本浏览兼容不等于其支持当前内容PJAX生命周期。
 
 官方 CommentWidget 3.3.2 使用新的组件实例与目标内容身份；非懒加载配置立即挂载，懒加载继续按可见性触发。旧 body 替换时组件、其 shadow DOM 和主题挂载产生的 toast host 一并断开，插件的 disconnectedCallback 清理编辑器和全局监听。尚未提交的评论触发 beforeunload veto 时交给浏览器完整导航及原生离开提醒，避免绕过草稿保护；等待 HTML/CSS 期间开始编辑同样重新检查。
 
