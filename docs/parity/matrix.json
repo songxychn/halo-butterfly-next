@@ -19485,7 +19485,8 @@
       "halo": {
         "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
         "settings": [
-          "analytics.google_analytics"
+          "analytics.google_analytics",
+          "analytics.google_analytics_manual_pageviews"
         ],
         "code": [
           "src/html/views/config.html",
@@ -19494,7 +19495,7 @@
           "src/js/core/integrations.ts",
           "src/html/views/integration-stats.html"
         ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。 本轮新增默认关闭的GA4手动页面统计适配；启用前必须关闭服务后台增强型历史浏览量。合成协议含草稿历史取消零PV，真实DebugView待账户验收。"
       },
       "dependencies": [
         "dual-site",
@@ -19534,6 +19535,15 @@
           "actor": "codex-author",
           "outcome": "passed",
           "scope": "bounded synthetic SDK integration; not full contract"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-optional.json",
+          "sha256": "81d2afebccc6038105188c3cac3e78a788bf95cee07eac42fe032e57297c6d3f",
+          "date": "2026-10-14T03:24:38.282148+08:00",
+          "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -27665,9 +27675,12 @@
           "settings.yaml",
           "src/js/core/content-tracker.ts",
           "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts"
+          "src/js/core/body-renderers.ts",
+          "src/js/core/busuanzi.ts",
+          "src/js/core/effects-loader.ts",
+          "src/js/core/analytics-navigation.ts"
         ],
-        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
+        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -27724,6 +27737,15 @@
           "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-optional.json",
+          "sha256": "81d2afebccc6038105188c3cac3e78a788bf95cee07eac42fe032e57297c6d3f",
+          "date": "2026-10-14T03:24:38.282148+08:00",
+          "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -27765,9 +27787,12 @@
           "settings.yaml",
           "src/js/core/content-tracker.ts",
           "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts"
+          "src/js/core/body-renderers.ts",
+          "src/js/core/busuanzi.ts",
+          "src/js/core/effects-loader.ts",
+          "src/js/core/analytics-navigation.ts"
         ],
-        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
+        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -27822,6 +27847,15 @@
           "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
           "date": "2026-10-14T02:53:45.980718+08:00",
           "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-optional.json",
+          "sha256": "81d2afebccc6038105188c3cac3e78a788bf95cee07eac42fe032e57297c6d3f",
+          "date": "2026-10-14T03:24:38.282148+08:00",
+          "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
@@ -41316,9 +41350,12 @@
           "docs/NAVIGATION-LOADING.md",
           "src/js/core/content-tracker.ts",
           "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts"
+          "src/js/core/body-renderers.ts",
+          "src/js/core/busuanzi.ts",
+          "src/js/core/effects-loader.ts",
+          "src/js/core/analytics-navigation.ts"
         ],
-        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
+        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -41410,6 +41447,15 @@
           "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
           "date": "2026-10-14T02:53:45.980718+08:00",
           "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-optional.json",
+          "sha256": "81d2afebccc6038105188c3cac3e78a788bf95cee07eac42fe032e57297c6d3f",
+          "date": "2026-10-14T03:24:38.282148+08:00",
+          "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
@@ -63290,9 +63336,12 @@
           "docs/NAVIGATION-LOADING.md",
           "src/js/core/content-tracker.ts",
           "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts"
+          "src/js/core/body-renderers.ts",
+          "src/js/core/busuanzi.ts",
+          "src/js/core/effects-loader.ts",
+          "src/js/core/analytics-navigation.ts"
         ],
-        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
+        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -63364,6 +63413,15 @@
           "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
           "date": "2026-10-14T02:53:45.980718+08:00",
           "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-optional.json",
+          "sha256": "81d2afebccc6038105188c3cac3e78a788bf95cee07eac42fe032e57297c6d3f",
+          "date": "2026-10-14T03:24:38.282148+08:00",
+          "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
