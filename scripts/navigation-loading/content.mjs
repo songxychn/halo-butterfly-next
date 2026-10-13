@@ -5,7 +5,7 @@ import {execFileSync} from 'node:child_process';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {REPO,RUNTIME,browserEnvironment,validateBaseUrl,validatePackage,sha256} from '../browser/support.mjs';
-const lab=path.join(REPO,'.runtime/comparison');
+const lab=path.resolve(process.env.LAB_RUNTIME || path.join(REPO,'.runtime/comparison'));
 const identity=JSON.parse(await readFile(path.join(lab,'lab.json')));
 const base=validateBaseUrl(process.env.BASE_URL,identity);
 const installed=JSON.parse(await readFile(path.join(lab,'installed-package.json')));

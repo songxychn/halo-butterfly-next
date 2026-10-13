@@ -7,9 +7,12 @@ import lab
 
 if json.loads((lab.RUNTIME / 'lab.json').read_text()) != {'schema': 1, 'ports': lab.PORTS, 'owner': 'halo-butterfly-next-comparison'}:
     raise RuntimeError('Owned lab identity required')
-if not (lab.RUNTIME / 'comment-enhancements-fixture.json').exists():
-    raise RuntimeError('Prepare the pinned official comment fixture first')
+if not (lab.RUNTIME / 'seed.json').exists():
+    raise RuntimeError('Prepare the owned synthetic content fixture first')
 client = lab.Client()
+widget = client.api('/apis/plugin.halo.run/v1alpha1/plugins/PluginCommentWidget')
+if widget['spec']['version'] != '3.3.2' or widget.get('status', {}).get('phase') != 'STARTED':
+    raise RuntimeError('Prepare the pinned official CommentWidget 3.3.2 first')
 route = f'/apis/api.console.halo.run/v1alpha1/themes/{lab.THEME}/json-config'
 config = client.api(route)
 config['pjax'] = {'enable': True, 'exclude': ''}
