@@ -86,3 +86,7 @@ bun run migrate --input old.json --from 0.1.0-alpha.4 --output next.json
 ## 界面语言
 
 主题控件从固定中文改为跟随 Halo 访问者 locale，未知语言回退英文。自定义内容保留原文；文章和单页新增可选 `language` 正文语言注解，设置后控制正文 lang 与 OG locale，界面语言仍由访问者选择。详见[国际化](INTERNATIONALIZATION.md)。
+
+## 逐篇与列表配置
+
+新增 `aside`、`highlight_shrink` 注解默认继承；版权详细字段默认空，原有全局配置继续生效。新增 `tags.cloud` 默认保持原顺序和字号，归档默认仅按年显示，`base.date_format` 为空保持现有日期格式。详见[逐篇覆盖与列表参数](AUTHOR-LISTING-OPTIONS.md)。

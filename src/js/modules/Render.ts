@@ -175,7 +175,7 @@ export default class Render {
   #copyRight() {
     const a = $('.copy-right a.permalink');
     if (!a.length) return;
-    const href = window.location.href;
+    const href = a.attr('href') || document.querySelector<HTMLLinkElement>('link[rel=canonical]')?.href || window.location.href;
     a.attr('href', href);
     a.text(formatPermalinkText(href, this.#conf.post_copyright_decode));
   }

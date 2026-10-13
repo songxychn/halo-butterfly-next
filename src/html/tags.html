@@ -42,7 +42,7 @@
       <th:block th:if="${noData}">
         <div class="chart" th:if="${theme.config.appearance?.tag_ui == 'chart'}"></div>
 
-        <div class="equinox">
+        <div class="equinox" data-tag-cloud th:attr="data-orderby=${theme.config.tags.cloud?.orderby ?: 'native'},data-order=${theme.config.tags.cloud?.order ?: 1},data-amount=${theme.config.tags.cloud?.amount ?: 0},data-min-font=${theme.config.tags.cloud?.min_font ?: 12},data-max-font=${theme.config.tags.cloud?.max_font ?: 21},data-unit=${theme.config.tags.cloud?.unit ?: 'px'}">
           <a class="link "
              th:each="tag : ${tags}"
              th:text="${tag.spec.displayName}"

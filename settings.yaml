@@ -7,6 +7,11 @@ spec:
     - group: base
       label: 基本设置
       formSchema:
+        - $formkit: text
+          name: date_format
+          label: 日期显示格式
+          value: ""
+          help: 留空保留各页面默认。支持 Java 日期格式，例如 yyyy/MM/dd、dd MMM yyyy、yyyy年MM月dd日 HH:mm；支持 yyyy yy MMMM MMM MM M dd d EEEE EEE HH H hh h mm m ss s a XXX Z 和常用日期分隔符。非法或超过80字回退默认，relative模式保持相对时间。
         - $formkit: checkbox
           name: enable_seo
           label: 输出主题分享元数据与规范链接
@@ -2393,6 +2398,29 @@ spec:
     - group: archives
       label: 归档设置
       formSchema:
+        - $formkit: text
+          name: title
+          label: 归档列表标题
+          value: ""
+          help: 留空使用本地化归档标题；脚本会读取导航内同站归档菜单的名称。年份/月路由始终使用对应年月标题。
+        - $formkit: radio
+          name: year
+          label: 显示年份分组
+          value: true
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
+        - $formkit: radio
+          name: month
+          label: 显示月份分组
+          value: false
+          options:
+            - label: 显示
+              value: true
+            - label: 隐藏
+              value: false
         - $formkit: radio
           name: enable_above
           label: 启用第一屏
@@ -2413,6 +2441,57 @@ spec:
     - group: tags
       label: 标签设置
       formSchema:
+        - $formkit: group
+          name: cloud
+          label: 标签云
+          children:
+            - $formkit: select
+              name: orderby
+              label: 排序方式
+              value: native
+              options:
+                - label: Halo 原有顺序
+                  value: native
+                - label: 名称
+                  value: name
+                - label: 文章数量
+                  value: length
+                - label: 随机
+                  value: random
+            - $formkit: select
+              name: order
+              label: 顺序
+              value: 1
+              options:
+                - label: 升序
+                  value: 1
+                - label: 降序
+                  value: -1
+            - $formkit: number
+              name: amount
+              label: 显示数量
+              value: 0
+              min: 0
+              help: 0 显示全部；有脚本时先排序再截断，无脚本保留全部可访问链接。
+            - $formkit: number
+              name: min_font
+              label: 最小字号
+              value: 12
+            - $formkit: number
+              name: max_font
+              label: 最大字号
+              value: 21
+            - $formkit: select
+              name: unit
+              label: 字号单位
+              value: px
+              options:
+                - label: px
+                  value: px
+                - label: em
+                  value: em
+                - label: rem
+                  value: rem
         - $formkit: radio
           name: enable_above
           label: 启用第一屏

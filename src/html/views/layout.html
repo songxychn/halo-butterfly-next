@@ -16,7 +16,10 @@
      aboveBackground = ${not #strings.isEmpty(nativeTopImg) ? nativeTopImg : (not #strings.isEmpty(pageTopImg) ? pageTopImg : defaultTopImg)},
      asideDisplay = ${theme.config.aside.display},
      asidePageVisible = ${(page != 'archives' or asideDisplay?.archive != false) and ((page != 'tag' and page != 'tags') or asideDisplay?.tag != false) and ((page != 'category' and page != 'categories') or asideDisplay?.category != false)},
-     asideEnabled = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible},
+     asideOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'aside', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'aside', 'inherit') : 'inherit')},
+     asideEnabled = ${asideOverride == 'true' or (asideOverride != 'false' and theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible)},
+     datePatternRaw = ${theme.config.base?.date_format ?: ''},
+     datePattern = ${#strings.length(datePatternRaw) <= 80 and (datePatternRaw matches '(?!.*XXXX)(yyyy|yy|MMMM|MMM|MM|M|dd|d|EEEE|EEE|HH|H|hh|h|mm|m|ss|s|a|XXX|Z|[-/ :.,年月日])+') ? datePatternRaw : ''},
      canonicalBase = ${#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : #strings.toString(site.url)},
      canonicalOrigin = ${#strings.substringBefore(canonicalBase, '://') + '://' + #strings.substringBefore(#strings.substringAfter(canonicalBase + '/', '://'), '/')},
      canonicalPath = ${page == 'post' ? post.status.permalink : (page == 'single' ? singlePage.status.permalink : #ctx.getExchange().getRequest().getRequestPath())},
@@ -31,7 +34,7 @@
     th:lang="${uiLanguage}"
     data-theme-navigation="1"
     data-color-scheme="light"
-    th:classappend="${(theme.config.aside.enable and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (theme.config.aside.enable and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
+    th:classappend="${(asideEnabled and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (asideEnabled and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
     th:with="isDev = ${true ? #dates.createNow().time : ''} "
   >
   <head>

@@ -16,6 +16,8 @@ export interface PaginationConfig {
   nextUrl: string;
 }
 export interface ThemeConfig extends Partial<PaginationConfig> {
+  archive_title?: string;
+  archive_dated?: boolean;
   body_renderers?: import('./core/body-renderer-data.ts').BodyRendererConfig;
   aside_tag_colors?: unknown;
   appearance?: Record<string, unknown>;

@@ -1,4 +1,5 @@
 import { t } from './i18n';
+import { initializeArchiveTitle } from './listing-options.ts';
 /**
  * @date: 2024/3/2
  * @author: 小红
@@ -41,6 +42,7 @@ export default class Common {
         {attributes: {id: 'appearance-effects'}});
     }
     applyRelativeDates();
+    initializeArchiveTitle();
     bindHideAsideButton();
     bindRightsideConfig();
     bindReadmode();

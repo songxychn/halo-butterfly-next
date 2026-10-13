@@ -59,6 +59,6 @@ test('translating mixed content preserves share input and copyright links', asyn
   const share = await readFile(new URL('src/html/views/share.html', root), 'utf8');
   const components = await readFile(new URL('src/html/views/components.html', root), 'utf8');
   assert.match(share, /<label><span th:text="#\{ui\.postLink\}">[^<]+<\/span> <input/);
-  assert.match(components, /<span class="text"><span th:text="#\{ui\.copyrightBefore\}">/);
+  assert.match(components, /<span class="text"[^>]*><span th:text="#\{ui\.copyrightBefore\}">/);
   assert.doesNotMatch(components, /<span class="text" th:text="#\{ui\.copyrightBefore\}">/);
 });

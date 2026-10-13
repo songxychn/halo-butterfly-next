@@ -1,0 +1,164 @@
+{
+  "date": "2026-10-14",
+  "halo": "2.26.1",
+  "bun": "1.4.0",
+  "baseCommit": "8a1c50cadf0e9de57f4c9683dd9089ee55dc717c",
+  "package": "dist/halo-butterfly-next-0.1.0-alpha.4.zip",
+  "packageSha256": "f4fe625ca3d306199a7b36756ee3320403ed16dddd53ebf293d37ef9d5570545",
+  "verification": {
+    "command": "bun run verify",
+    "tests": 698,
+    "failures": 0,
+    "packageFiles": 261
+  },
+  "browserReports": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "cases": 47,
+      "status": "passed",
+      "rawReport": ".runtime/author-options/chromium/report.json",
+      "sha256": "84588c36d38ab0ab05bae9c5b19ad3b1e082873fcaa3812777202a0ea3294d86",
+      "candidateScope": "candidate before final chart-default preservation and timezone-pattern guard; these final changes were separately checked in Chromium and WebKit"
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "cases": 47,
+      "status": "passed",
+      "rawReport": ".runtime/author-options/firefox/report.json",
+      "sha256": "ef4ef9ee3378c74af9d8edcafff5b78b7cf7ff53f7c934c8d425783b01518a96",
+      "candidateScope": "candidate before final chart-default preservation and timezone-pattern guard; these final changes were separately checked in Chromium and WebKit"
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "cases": 47,
+      "status": "passed",
+      "rawReport": ".runtime/author-options/webkit/report.json",
+      "sha256": "fe30372ba1d536e06856a248f3ab72f0422ee8e52838c896a0b4bd04cbbd5132",
+      "candidateScope": "final candidate including timezone-pattern guard"
+    }
+  ],
+  "profiles": [
+    "configured: explicit aside=true over global=false, collapsed code, custom copyright text/links, custom date",
+    "inherit: global aside=true, expanded code, native contributor/canonical copyright fallback",
+    "unsafe: aside=false, disabled fold, javascript/data/protocol-relative links rejected, invalid date fallback"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "scheme": "light"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "scheme": "light"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "scheme": "dark"
+    }
+  ],
+  "routes": [
+    "/archives/preview-1",
+    "/about-preview",
+    "/tags",
+    "/archives",
+    "/archives/2026/08"
+  ],
+  "javascriptDisabled": [
+    "dated archive SSR title",
+    "all real tag links before progressive sort/limit"
+  ],
+  "focusedDefaultChart": {
+    "engine": "chromium",
+    "version": "153.0.8010.12",
+    "defaultChartUnscaled": true,
+    "tagCount": 3
+  },
+  "observations": [
+    "No pageerror or horizontal overflow in the 135 scripted page cases.",
+    "Final WebKit validates XXXXXX is rejected before SimpleDateFormat, avoiding a page error. Earlier Chromium/Firefox tested BAD[date] fallback.",
+    "First WebKit attempt passed 30 cases then local lab authentication failed while applying unsafe profile; complete retry passed 47 cases.",
+    "No additional plugins installed; external browser requests blocked; local fixture images are served."
+  ],
+  "limitations": [
+    "Native Halo archive routes/pagination retain platform ownership; archive_dir/archive_generator not implemented as theme routing.",
+    "Automatic archive menu naming and tag sorting/amount/font parameters require JavaScript. Explicit archive title and date title are SSR; no-JS tag links stay complete.",
+    "Date formats support documented Java SimpleDateFormat subset, not Moment syntax.",
+    "Copyright info is plain text; no Hexo-specific/raw template compatibility.",
+    "Headless engines on macOS, not physical devices or Safari app. No full 1.0 readiness or performance benchmark claim.",
+    "Independent review and integration regression remain separate gates."
+  ],
+  "matrixDelta": [
+    {
+      "id": "helper:cloudTags",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "helper:findArchivesTitle",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:aside",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:copyright_author",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:copyright_author_href",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:copyright_info",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:copyright_url",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:highlight_shrink",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:order",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "page-data:orderby",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    },
+    {
+      "id": "site-config:date_format",
+      "status": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/author-listing-options.md"
+    }
+  ],
+  "retainStatus": [
+    "helper:getArchiveLength",
+    "site-config:archive_dir",
+    "site-config:archive_generator"
+  ],
+  "additionalEvidence": [
+    "page-data:month",
+    "page-data:year",
+    "page:archive-year",
+    "page:archive-month"
+  ]
+}

@@ -60,7 +60,7 @@ test('tags.scss 挂在 .tag-cloud / .tags，选择器不使用 data-theme', () =
   assert.match(tagsHtml, /class="chart"/);
   assert.match(tagsHtml, /class="equinox"/);
   assert.match(tagsHtml, /class="link /);
-  assert.doesNotMatch(tagsHtml, /tag-cloud/);
+  assert.doesNotMatch(tagsHtml, /class="tag-cloud/);
   assert.doesNotMatch(tagHtml, /tag-cloud/);
   assert.doesNotMatch(rules, /\[data-theme/);
   assert.doesNotMatch(pageRules, /\[data-theme/);
@@ -116,7 +116,7 @@ test('Halo 图表页保留 360px，不用 #Butterfly 压 zoom / 2.57em；详情�
   assert.doesNotMatch(haloBlock, /#Butterfly/);
   assert.doesNotMatch(pageRules, /#Butterfly/);
   assert.doesNotMatch(rules, /#Butterfly/);
-  assert.doesNotMatch(tagsHtml, /tag-cloud/);
+  assert.doesNotMatch(tagsHtml, /class="tag-cloud/);
   assert.match(pageTagsScss, /\.chart \{[\s\S]*height:\s*360px/);
   assert.match(tagPageScss, /components\.essayList/);
   assert.doesNotMatch(tagPageScss, /tag-cloud/);

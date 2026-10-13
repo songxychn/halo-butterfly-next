@@ -35,7 +35,7 @@ test('settings.yaml 以字符串三态表达 shrink，且仍映射 code_shrink',
   assert.match(String(field.help), /完整代码/);
   assert.doesNotMatch(String(field.help), /旧版布尔/);
   assert.match(fragment, /theme\.config\.render\.code_shrink/);
-  assert.match(fragment, /code_shrink: \/\*\[\[\$\{theme\.config\.render\.code_shrink\}\]\]\*\/ 'expanded'/);
+  assert.match(fragment, /code_shrink: \/\*\[\[\$\{codeShrink\}\]\]\*\/ 'expanded'/);
 });
 
 test('三态源码：none 无按钮不 closed；false 有按钮展开；true 有按钮初始 closed', () => {

@@ -91,8 +91,8 @@
         </span>
         <span class="info">
           <span class="name" th:text="${post.spec.title}"></span>
-          <time th:if="${sortUpdated}" th:datetime="${post.status.lastModifyTime}" th:text="${#dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
-          <time th:unless="${sortUpdated}" th:datetime="${post.spec.publishTime}" th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+          <time th:if="${sortUpdated}" th:datetime="${post.status.lastModifyTime}" th:text="${#dates.format(post.status.lastModifyTime, datePattern ?: 'yyyy-MM-dd')}"></time>
+          <time th:unless="${sortUpdated}" th:datetime="${post.spec.publishTime}" th:text="${#dates.format(post.spec.publishTime, datePattern ?: 'yyyy-MM-dd')}"></time>
         </span>
       </a>
     </th:block>
@@ -198,7 +198,7 @@
     </div>
     <div class="item" th:if="${theme.config.aside.card_webinfo?.last_push_date != false and lastPush != null}">
       <span th:text="#{ui.lastUpdated}">最后更新时间：</span>
-      <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>
+      <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, datePattern ?: 'yyyy-MM-dd HH:mm')}"></time>
     </div>
     <th:block th:replace="~{views/integration-stats::site}"/>
   </div>

@@ -59,11 +59,11 @@
   <li class="row" data-post-edit-target>
     <span class="wp publishTime" th:if="${dateType != 'updated'}">
       <i class="fa-solid fa-calendar-days"></i>
-      <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.published') : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+      <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.published') : '') + #dates.format(post.spec.publishTime, datePattern ?: 'yyyy-MM-dd')}"></time>
     </span>
     <span class="wp lastModifyTime" th:if="${dateType != 'created'}">
       <i class="fas fa-history fa-fw"></i>
-      <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.updated') : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+      <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.updated') : '') + #dates.format(post.status.lastModifyTime, datePattern ?: 'yyyy-MM-dd')}"></time>
     </span>
   </li>
 
@@ -149,11 +149,11 @@
             </span>
             <span class="wp publishTime" th:if="${dateType != 'updated'}">
               <i class="far fa-calendar-alt fa-bolt"></i>
-              <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.publishedAlt') : '') + #dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+              <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.publishedAlt') : '') + #dates.format(post.spec.publishTime, datePattern ?: 'yyyy-MM-dd')}"></time>
             </span>
             <span class="wp lastModifyTime" th:if="${dateType == 'updated' or dateType == 'both'}">
               <i class="fas fa-history fa-fw"></i>
-              <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.updated') : '') + #dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
+              <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.updated') : '') + #dates.format(post.status.lastModifyTime, datePattern ?: 'yyyy-MM-dd')}"></time>
             </span>
             <span class="wp category" th:if="${theme.config.index.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
               <i class="fas fa-inbox"></i>
@@ -249,7 +249,7 @@
     class="side-btn"
     th:attr="data-item-order-enable=${theme.config.rightside?.item_order?.enable},data-item-order-hide=${theme.config.rightside?.item_order?.hide},data-item-order-show=${theme.config.rightside?.item_order?.show}"
     th:with="
-      hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
+      hideBtnOn = ${asideEnabled and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
       darkBtnOn = ${theme.config.style?.mode != 'light' and theme.config.style?.mode != 'dark' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
       percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
       readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
@@ -484,7 +484,7 @@
               <div class="info-1">
                 <div class="info-item-1">
                   <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
-                  <time th:datetime="${showTime}" th:text="${#dates.format(showTime, 'yyyy-MM-dd')}"></time>
+                  <time th:datetime="${showTime}" th:text="${#dates.format(showTime, datePattern ?: 'yyyy-MM-dd')}"></time>
                 </div>
                 <div class="info-item-2" th:text="${item.spec.title}"></div>
               </div>
@@ -504,13 +504,14 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="codeBlockPin"
+  th:with="shrinkOverride = ${post != null ? #annotations.getOrDefault(post, 'highlight_shrink', 'inherit') : (singlePage != null ? #annotations.getOrDefault(singlePage, 'highlight_shrink', 'inherit') : 'inherit')}, codeShrink = ${#lists.contains({'expanded', 'collapsed', 'disabled'}, shrinkOverride) ? shrinkOverride : theme.config.render.code_shrink}"
 >
   <script data-theme-script="code-config" id="codeBlockScript" th:inline="javascript">
     window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
     Object.assign(window.MainApp.conf, {
       enable_code: /*[[${theme.config.render.enable_code}]]*/ true,
       enable_code_copy: /*[[${theme.config.render.enable_code_copy}]]*/ true,
-      code_shrink: /*[[${theme.config.render.code_shrink}]]*/ 'expanded',
+      code_shrink: /*[[${codeShrink}]]*/ 'expanded',
       enable_code_title: /*[[${theme.config.render.enable_code_title}]]*/ true,
       enable_code_hr: /*[[${theme.config.render.enable_code_hr}]]*/ true,
       enable_code_line: /*[[${theme.config.render.enable_code_line}]]*/ true,
@@ -535,25 +536,37 @@
   th:if="${#annotations.getOrDefault(post, 'copyright', 'inherit') == 'true' or (#annotations.getOrDefault(post, 'copyright', 'inherit') != 'false' and theme.config.post.post_copyright?.enable != false and theme.config.post.post_copyright?.enable != 'false')}"
   th:with="
     pc = ${theme.config.post.post_copyright},
-    pcLicense = ${#strings.isEmpty(pc?.license) ? 'CC BY-NC-SA 4.0' : pc.license},
-    pcLicenseUrl = ${#strings.isEmpty(pc?.license_url) ? 'https://creativecommons.org/licenses/by-nc-sa/4.0/' : pc.license_url},
-    pcAuthorHref = ${#strings.isEmpty(pc?.author_href) ? (#strings.isEmpty(site.url) ? '/' : site.url) : pc.author_href}
+    pcAuthor = ${#annotations.getOrDefault(post, 'copyright_author', '')},
+    pcAuthor = ${#strings.isEmpty(#strings.trim(pcAuthor)) ? (contributor?.displayName ?: site.title) : pcAuthor},
+    pcInfo = ${#annotations.getOrDefault(post, 'copyright_info', '')},
+    pcLicense = ${#annotations.getOrDefault(post, 'copyright_license', '')},
+    pcLicense = ${#strings.isEmpty(#strings.trim(pcLicense)) ? (pc?.license ?: 'CC BY-NC-SA 4.0') : pcLicense},
+    pcLicenseUrl = ${#annotations.getOrDefault(post, 'copyright_license_url', '')},
+    pcLicenseUrl = ${#strings.isEmpty(#strings.trim(pcLicenseUrl)) ? (pc?.license_url ?: 'https://creativecommons.org/licenses/by-nc-sa/4.0/') : #strings.trim(pcLicenseUrl)},
+    pcAuthorHref = ${#annotations.getOrDefault(post, 'copyright_author_href', '')},
+    pcAuthorHref = ${#strings.isEmpty(#strings.trim(pcAuthorHref)) ? (pc?.author_href ?: site.url) : #strings.trim(pcAuthorHref)},
+    pcUrl = ${#strings.trim(#annotations.getOrDefault(post, 'copyright_url', ''))},
+    pcUrl = ${#strings.isEmpty(pcUrl) ? canonical : pcUrl},
+    pcAuthorHref = ${(pcAuthorHref matches '(?i)https?://[^\s]+|/(?!/)[^\s]*') ? pcAuthorHref : '/'},
+    pcLicenseUrl = ${(pcLicenseUrl matches '(?i)https?://[^\s]+|/(?!/)[^\s]*') ? pcLicenseUrl : 'https://creativecommons.org/licenses/by-nc-sa/4.0/'},
+    pcUrl = ${(pcUrl matches '(?i)https?://[^\s]+|/(?!/)[^\s]*') ? pcUrl : canonical}
   "
 >
   <i class="fa-solid fa-copyright"></i>
   <div class="author">
     <span class="name" th:text="#{ui.author}">文章作者：</span>
     <span class="text">
-      <a target="_blank" rel="noopener noreferrer" th:href="${pcAuthorHref}" th:text="${contributor?.displayName ?: site.title}"></a>
+      <a target="_blank" rel="noopener noreferrer" th:href="${pcAuthorHref}" th:text="${pcAuthor}"></a>
     </span>
   </div>
   <div class="url">
     <span class="name" th:text="#{ui.postUrl}">文章链接：</span>
-    <span class="text"><a class="permalink" target="_blank" rel="noopener noreferrer"></a></span>
+    <span class="text"><a class="permalink" target="_blank" rel="noopener noreferrer" th:href="${pcUrl}" th:text="${pcUrl}"></a></span>
   </div>
   <div class="declaration">
     <span class="name" th:text="#{ui.copyright}">版权声明：</span>
-    <span class="text"><span th:text="#{ui.copyrightBefore}">本博客所有文章除特别声明外，均采用</span> <a target="_blank" rel="noopener noreferrer" th:href="${pcLicenseUrl}" th:text="${pcLicense}"></a> <span th:text="#{ui.copyrightAfter}">许可协议。转载请注明来源</span> <a target="_blank" rel="noopener noreferrer" th:href="${#strings.isEmpty(site.url) ? '/' : site.url}" th:text="${site.title}"></a>！</span>
+    <span class="text" th:if="${not #strings.isEmpty(#strings.trim(pcInfo))}" th:text="${pcInfo}"></span>
+    <span class="text" th:unless="${not #strings.isEmpty(#strings.trim(pcInfo))}"><span th:text="#{ui.copyrightBefore}">本博客所有文章除特别声明外，均采用</span> <a target="_blank" rel="noopener noreferrer" th:href="${pcLicenseUrl}" th:text="${pcLicense}"></a> <span th:text="#{ui.copyrightAfter}">许可协议。转载请注明来源</span> <a target="_blank" rel="noopener noreferrer" th:href="${#strings.isEmpty(site.url) ? '/' : site.url}" th:text="${site.title}"></a>！</span>
   </div>
 </div>
 

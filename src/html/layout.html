@@ -4,7 +4,7 @@
   th:lang="${#lists.contains({'en', 'ja', 'ko', 'zh'}, #locale.language) ? #locale.toLanguageTag() : 'en'}"
   data-color-scheme="light"
   th:fragment="html (head, content)"
-  th:with="assets_link = ${#theme.assets('/') + '/'}"
+  th:with="assets_link = ${#theme.assets('/') + '/'}, asideEnabled = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false'}, datePattern = ${''}"
 >
   <head>
     <meta charset="UTF-8"/>
