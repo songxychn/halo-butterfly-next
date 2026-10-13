@@ -8,8 +8,10 @@ import {preconnectResource} from './core/resource-hints.ts';
 try {
   const app = window.MainApp, page = String(app.conf.resource_page || '');
   if (/^[a-z0-9_-]+$/.test(page)) {
-    for (const [key, file] of [['main_css', `css/${page}.min.css`], ['main', `js/${page}.min.js`],
-      ['fontawesome', 'plugins/fontawesome/css/all.min.css']]) {
+    // Avoid nested array literals: [[...]] is a Thymeleaf inline expression delimiter.
+    const files = {main_css: `css/${page}.min.css`, main: `js/${page}.min.js`,
+      fontawesome: 'plugins/fontawesome/css/all.min.css'};
+    for (const [key, file] of Object.entries(files)) {
       const url = resolveResource(key, app.conf.assets_link + file, app.resources, app.version, file);
       preconnectResource(url);
       // Font files use CORS, unlike the CSS file that discovers them.
