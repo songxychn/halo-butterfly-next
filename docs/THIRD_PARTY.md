@@ -9,9 +9,11 @@
 | Prism 1.29.0 核心 | 原主题 vendored JS/CSS，高亮核心 | MIT，Copyright (c) 2012 Lea Verou；包内保留核心 LICENSE |
 | Prism Themes 扩展配色 | `src/plugins/prism/themes/` 的 36 个继承/改写主题，与核心独立归属 | MIT，Copyright (c) 2015 PrismJS；[官方固定许可原文](../src/plugins/prism/themes/LICENSE)随源码和 ZIP 保留；[固定来源与文件比对](../third-party-licenses/prism-themes-source.json) |
 | Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
-| InfiniteGrid 4.13.0 | 首页布局 6/7；与固定 Butterfly 5.7.0 相同的瀑布流引擎，仅这两种首页布局加载 | MIT；本地打包，直接与间接依赖的许可随 ZIP 分发 |
+| InfiniteGrid 4.13.0 | 首页布局 6/7 和正文图库；与固定 Butterfly 5.7.0 相同的排版引擎，分别按页面能力加载 | MIT；本地打包，直接与间接依赖的许可随 ZIP 分发 |
 | jQuery、Clipboard、Tocbot、Typed.js | DOM、复制、目录、打字机 | MIT；许可证随包分发 |
 | vanilla-lazyload 继承实现 | 图片懒加载；工厂体与官方 17.3.0/17.3.1 在局部绑定重命名后结构一致，准确继承版本无法唯一确定 | MIT，Copyright (c) 2015 Andrea Verlicchi；以官方 17.3.1 为固定许可参照，许可与改写说明随包分发 |
+| Mermaid 11.16.0、Chart.js 4.5.1、ABCJS 6.6.4 | 正文图表与 ABC 乐谱；与固定 Butterfly 5.7.0 的供应版本一致，独立按内容加载 | MIT；直接及间接依赖的 LICENSE/NOTICE 随 ZIP 分发 |
+| DOMPurify 3.4.12 | 清理正文 Mermaid/ABC SVG 输出 | Apache-2.0 OR MPL-2.0；包内保留双许可原文 |
 | ECharts | 原分类统计页面 | Apache-2.0；许可证随包分发 |
 | Animate.css | 原有动画 | MIT；许可证随包分发 |
 | `src/images/above.svg` | Halo Butterfly Next 原创装饰图 | GPL-3.0，同本主题 |
