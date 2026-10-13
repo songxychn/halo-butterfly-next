@@ -1167,12 +1167,24 @@
       "halo": {
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
         "settings": [
-          "aside.social"
+          "aside.social",
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
         ],
         "code": [
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "已有名称、图标 HTML 与链接，尚无上游逐项色彩映射。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -1197,7 +1209,17 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -2043,9 +2065,11 @@
           "src/html/views/footer.html",
           "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
-          "tests/footer.test.mjs"
+          "tests/footer.test.mjs",
+          "src/js/core/decorative-background.ts",
+          "src/js/above-background.ts"
         ],
-        "finding": "2026-10-14 主线对账：页脚支持图片 URL、关闭和 mask.footer 遮罩；true 复用页头背景、纯色/CSS 背景尚未实现。删除“未做 mask.footer”的旧描述，保留实际值域缺口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "CSSOM 已支持颜色、渐变、background 简写与安全图片 URL；footer_img=true 复用当前页顶图并保留遮罩。16 组真实 Halo 背景值域/亮暗/视口检查通过；图片浏览器预扫描前处理仍是独立缺口，完整验收未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -2088,6 +2112,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/backgrounds.json",
+          "sha256": "5cba0ccc5c3b1fe72d8a41e20f0215dd9cc532484de2da23bd523077612d809d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -6418,16 +6451,27 @@
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
         "settings": [
-          "footer.nav"
+          "footer.nav",
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
         ],
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
           "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
-          "tests/footer.test.mjs"
+          "tests/footer.test.mjs",
+          "src/html/views/social.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "2026-10-14 主线对账：页脚已有扁平 title/url 导航、作者年份、主题版权/版本、图片与遮罩及自定义纯文本。嵌套列、width/html 子项和 custom_text HTML 尚未支持，不因页脚存在而关闭这些参数差异。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -6465,6 +6509,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -6766,16 +6819,27 @@
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
         "settings": [
-          "footer.custom_text"
+          "footer.custom_text",
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
         ],
         "code": [
           "settings.yaml",
           "src/html/views/footer.html",
           "src/js/core/footer.ts",
           "src/scss/core/footer.scss",
-          "tests/footer.test.mjs"
+          "tests/footer.test.mjs",
+          "src/html/views/social.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "2026-10-14 主线对账：footer.custom_text 当前通过 th:text 输出纯文本；上游 HTML 输入能力尚未等效接入或裁定。保留实现状态和差异，不能把支持纯文本当成支持任意 HTML。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -6812,6 +6876,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -27589,9 +27662,12 @@
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/js/core/content-tracker.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/body-renderers.ts"
         ],
-        "finding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
       },
       "dependencies": [
         "dual-site",
@@ -27639,6 +27715,15 @@
           "commit": "d63f5214be4042f586ccab7f5fc9fc07cd0e24e1",
           "actor": "Codex author",
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-completion.json",
+          "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -27677,9 +27762,12 @@
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/js/core/content-tracker.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/body-renderers.ts"
         ],
-        "finding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
       },
       "dependencies": [
         "dual-site",
@@ -27727,6 +27815,15 @@
           "commit": "d63f5214be4042f586ccab7f5fc9fc07cd0e24e1",
           "actor": "Codex author",
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-completion.json",
+          "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -35934,14 +36031,28 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "将版权、起始年、导航和自定义内容映射为 Halo 页脚配置。",
-        "settings": [],
-        "code": [
-          "src/html/views/footer.html",
-          "src/scss/core/footer.scss",
-          "src/js/core/footer.ts",
-          "tests/footer.test.mjs"
+        "settings": [
+          "footer.nav",
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
         ],
-        "finding": "2026-10-14 主线对账：页脚已有扁平 title/url 导航、作者年份、主题版权/版本、图片与遮罩及自定义纯文本。嵌套列、width/html 子项和 custom_text HTML 尚未支持，不因页脚存在而关闭这些参数差异。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "code": [
+          "settings.yaml",
+          "src/html/views/footer.html",
+          "src/js/core/footer.ts",
+          "src/scss/core/footer.scss",
+          "tests/footer.test.mjs",
+          "src/html/views/social.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
+        ],
+        "finding": "footer.columns/sections/items/width 与 custom_html 实现列分组、宽度与净化 HTML；保留旧纯文本字段，不要求旧 Hexo 数据原样兼容。 D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -35979,6 +36090,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -36403,9 +36523,13 @@
           "src/html/views/layout.html",
           "theme.yaml",
           "src/html/layout.html",
-          "src/html/views/config.html"
+          "src/html/views/config.html",
+          "src/js/core/resource-hints.ts",
+          "src/js/core/prism-ready.ts",
+          "src/js/core/share.ts",
+          "src/js/core/common.ts"
         ],
-        "finding": "2026-10-14 主线对账：当前 head 无统一 rel=preconnect 输出。资源按需加载、prefetch 与 preconnect 不是同一能力；需要明确按实际外部资源主机生成连接提示的条件，不能以预取实现关闭。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "按已选择的实际 HTTPS 资源创建连接提示，拒绝凭据和非法地址、跳过同源、按 origin/CORS 去重并限制六个主机；bootstrap、管理资源、Prism、AddToAny 和标题字体入口均接入。12 组真实 Halo 资源配置检查及独立审查通过，非完整性能或 1.0 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -36440,9 +36564,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/resource-hints.json",
+          "sha256": "d9e2212807e3b796749be043aa91bd385fab9ecc98fa78c40245bbc20cbae773",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/head/pwa",
@@ -36938,15 +37071,28 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
+        "settings": [
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
+        ],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml",
           "src/html/views/aside.html",
           "src/html/views/header.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "2026-10-14 主线对账：侧栏已支持名称、图标 HTML 和链接，社交入口并非完全不存在；上游 header 社交位置与逐项颜色尚未完整映射，保留缺口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -36981,9 +37127,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/layout",
@@ -37629,7 +37784,16 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
@@ -37637,9 +37801,12 @@
           "src/scss/modules/render.scss",
           "src/html/links.html",
           "src/js/page/links.ts",
-          "src/scss/core/flink.scss"
+          "src/scss/core/flink.scss",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "已有 PluginLinks groups/link.spec 的友链分组模板、卡片名称/描述/图片与空状态；P+ 具备固定 Links 2.3.0 的局部双站证据。上游完整分组描述、正文、头像失败和外链等价仍未全部验收。此为独立友链页，不等于 DEC-02 的正文 tag:flink。 剩余：上游分组描述/正文映射；损坏头像及完整外链交互"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -37676,6 +37843,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -37695,7 +37871,14 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "从 Halo 正文、文章注解和主题设置适配文章功能，保留上游数据优先级。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
@@ -37703,9 +37886,14 @@
           "src/scss/modules/render.scss",
           "src/html/moments.html",
           "src/html/views/plugin-pagination.html",
-          "src/js/page/moments.ts"
+          "src/js/page/moments.ts",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "已有 PluginMoments moments.items 模板，消费 content.html/medium，输出图片/音视频、空状态及原生服务端分页；#39 补齐上一页/下一页。日期/作者/标签的展示、逐条评论、上游数据限制等能力仍未完成映射与完整验收。 剩余：日期/作者/标签展示；逐条评论；上游数据限制和详情/媒体完整验收"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -37741,6 +37929,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -41116,9 +41313,12 @@
           "docs/parity/DEC-03-RESOURCES-DRAFT.md",
           "docs/parity/DEC-03-PACE-MD5.md",
           "src/js/core/pace.ts",
-          "docs/NAVIGATION-LOADING.md"
+          "docs/NAVIGATION-LOADING.md",
+          "src/js/core/content-tracker.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/body-renderers.ts"
         ],
-        "finding": "2026-10-14 主线对账：已实现列表 PJAX、清理协议、head/页面入口更新、历史滚动、精确统一资源地址识别及 Pace 导航进度。仍缺文章/单页 tracker 和插件/第三方 SDK 的完整无刷新生命周期适配；相关页面保留完整导航。图表资源供应已由 #406/#411 完成，不能与 PJAX 剩余兼容性混为一项。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
       },
       "dependencies": [
         "dual-site",
@@ -41203,6 +41403,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-completion.json",
+          "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "gap"
@@ -44885,9 +45094,13 @@
           "src/html/tags.html",
           "src/js/page/tags.ts",
           "src/js/core/tag-cloud-colors.ts",
-          "src/html/views/aside.html"
+          "src/html/views/aside.html",
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/archives.html"
         ],
-        "finding": "2026-10-14 主线对账：标签页已有标签链接、数量和亮暗自定义颜色，侧栏也有标签卡；上游 helper 的全部字号/排序/参数域未逐项映射。不能写成没有标签云，也不能仅凭页面存在关闭完整 helper。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -44920,9 +45133,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:findArchivesTitle",
@@ -44943,9 +45165,12 @@
           "src/html/views/layout.html",
           "src/html/views/components.html",
           "src/html/archives.html",
-          "src/html/views/header.html"
+          "src/html/views/header.html",
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts"
         ],
-        "finding": "2026-10-14 主线对账：当前归档标题固定为“归档”。固定上游 helper 会优先格式化 page.year/month，并从菜单递归查找归档入口名称；该动态标题逻辑未完整实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -44978,9 +45203,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:getArchiveLength",
@@ -45047,9 +45281,12 @@
         "code": [
           "src/html/views/layout.html",
           "src/html/views/components.html",
-          "src/js/above-background.ts"
+          "src/js/above-background.ts",
+          "src/js/core/decorative-background.ts",
+          "src/js/core/footer.ts",
+          "src/html/views/footer.html"
         ],
-        "finding": "2026-10-14 主线对账：背景 URL 解析与图片失败回退已有实现，但 above-background.ts 将所有值写为 backgroundImage=url(...)；固定上游还支持颜色值与普通 CSS background。纯色/渐变等完整输入域尚未接入，保持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "CSSOM 已支持颜色、渐变、background 简写与安全图片 URL；footer_img=true 复用当前页顶图并保留遮罩。16 组真实 Halo 背景值域/亮暗/视口检查通过；图片浏览器预扫描前处理仍是独立缺口，完整验收未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -45085,9 +45322,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/backgrounds.json",
+          "sha256": "5cba0ccc5c3b1fe72d8a41e20f0215dd9cc532484de2da23bd523077612d809d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:getPageType",
@@ -45671,12 +45917,25 @@
       "upstreamInventory": "helpers",
       "halo": {
         "strategy": "将上游 helper 的输入输出语义移植到 Halo 模板/Finder 或构建逻辑。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/views/layout.html",
-          "src/html/views/components.html"
+          "src/html/views/components.html",
+          "src/html/moments.html",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -45700,8 +45959,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:truncate",
@@ -53525,9 +53794,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53560,9 +53833,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:en",
@@ -53585,9 +53867,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53620,9 +53906,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:ja",
@@ -53645,9 +53940,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53680,9 +53979,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:ko",
@@ -53705,9 +54013,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53740,9 +54052,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:zh-CN",
@@ -53765,9 +54086,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53800,9 +54125,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:zh-HK",
@@ -53825,9 +54159,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53860,9 +54198,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "language:zh-TW",
@@ -53885,9 +54232,13 @@
           "src/html/views/components.html",
           "src/html/archives.html",
           "src/js/page/tags.ts",
-          "src/js/core/translate.ts"
+          "src/js/core/translate.ts",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html",
+          "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -53920,9 +54271,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:abcjs",
@@ -54094,9 +54454,12 @@
           "src/html/archives.html",
           "src/html/views/layout.html",
           "src/html/views/aside.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/components.html"
         ],
-        "finding": "2026-10-14 主线对账：全局 aside.enable、页面类型显示条件、移动端开关及阅读侧栏已实现；annotation-setting.yaml 尚无逐篇 aside 显示覆盖。需明确上游逐篇输入与 Halo 的映射，不能重复开发已有全局开关。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -54131,9 +54494,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:categories",
@@ -54475,9 +54847,12 @@
           "src/html/archives.html",
           "src/html/views/components.html",
           "src/html/views/seo-json.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html"
         ],
-        "finding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -54512,9 +54887,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:copyright_author_href",
@@ -54538,9 +54922,12 @@
           "src/html/archives.html",
           "src/html/views/components.html",
           "src/html/views/seo-json.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html"
         ],
-        "finding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -54575,9 +54962,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:copyright_info",
@@ -54601,9 +54997,12 @@
           "src/html/archives.html",
           "src/html/views/components.html",
           "src/html/views/seo-json.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html"
         ],
-        "finding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -54638,9 +55037,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:copyright_url",
@@ -54664,9 +55072,12 @@
           "src/html/archives.html",
           "src/html/views/components.html",
           "src/html/views/seo-json.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html"
         ],
-        "finding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -54701,9 +55112,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:cover",
@@ -55136,13 +55556,26 @@
       "upstreamInventory": "pageProperties",
       "halo": {
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
-        "settings": [],
+        "settings": [
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -55168,8 +55601,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:full_source",
@@ -55244,9 +55687,12 @@
           "src/js/modules/CodeBlock.ts",
           "src/js/core/code-shrink.ts",
           "src/html/views/components.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html"
         ],
-        "finding": "2026-10-14 主线对账：代码块已有全局 enable_code_expander 三态和手动开合，但 annotation-setting.yaml 未声明逐篇 highlight_shrink；不能把全局/阅读状态保留当成作者逐篇覆盖。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -55281,9 +55727,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:katex",
@@ -55368,7 +55823,7 @@
           "src/html/views/seo.html",
           "annotation-setting.yaml"
         ],
-        "finding": "2026-10-14 主线对账：布局 lang 与 OG locale 已来自 Halo #locale；主题固定文案尚未国际化，也无作者逐页语言覆盖配置。需分别确定平台 locale、逐页语言与七套消息键的职责。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已用文章/单页 language 注解设置正文 lang 与 OG locale；界面仍按 Halo 请求 locale，不强制改变访问者语言。逐页 UI 语言合同仍待映射，不能据正文标记关闭整个条目。"
       },
       "dependencies": [
         "dual-site",
@@ -55403,6 +55858,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "mapping-required"
@@ -55429,9 +55893,12 @@
           "src/html/archives.html",
           "src/html/views/layout.html",
           "src/html/views/seo.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html"
         ],
-        "finding": "2026-10-14 主线对账：布局 lang 与 OG locale 已来自 Halo #locale；主题固定文案尚未国际化，也无作者逐页语言覆盖配置。需分别确定平台 locale、逐页语言与七套消息键的职责。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已用文章/单页 language 注解设置正文 lang 与 OG locale；界面仍按 Halo 请求 locale，不强制改变访问者语言。逐页 UI 语言合同仍待映射，不能据正文标记关闭整个条目。"
       },
       "dependencies": [
         "dual-site",
@@ -55466,6 +55933,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "mapping-required"
@@ -55547,13 +56023,27 @@
       "upstreamInventory": "pageProperties",
       "halo": {
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/html/moments.html",
+          "src/html/views/plugin-pagination.html",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "原上游说说 num/date 过滤映射为独立 JSON 源 moments.limit/since，原生 Moments 每页数量仍由插件管理。 原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -55579,8 +56069,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:mathjax",
@@ -55854,9 +56354,13 @@
           "src/html/tags.html",
           "src/js/page/tags.ts",
           "src/js/core/tag-cloud-colors.ts",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html",
+          "src/html/views/components.html"
         ],
-        "finding": "2026-10-14 主线对账：标签页消费 Halo tags 并着色，图表内部按文章数量排序；未暴露上游标签云页面 order/orderby 对链接集合的作者配置。需要补排序映射/实现，不能把图表内部排序等同完整标签列表排序。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -55891,9 +56395,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:orderby",
@@ -55918,9 +56431,13 @@
           "src/html/tags.html",
           "src/js/page/tags.ts",
           "src/js/core/tag-cloud-colors.ts",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "settings.yaml",
+          "src/js/core/listing-options.ts",
+          "src/html/views/layout.html",
+          "src/html/views/components.html"
         ],
-        "finding": "2026-10-14 主线对账：标签页消费 Halo tags 并着色，图表内部按文章数量排序；未暴露上游标签云页面 order/orderby 对链接集合的作者配置。需要补排序映射/实现，不能把图表内部排序等同完整标签列表排序。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -55955,9 +56472,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:origin",
@@ -56271,14 +56797,28 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
-        "settings": [],
+        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "settings": [
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/scss/modules/render.scss",
+          "src/html/links.html",
+          "docs/CONTENT-EXTENSIONS.md",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "links.random_order 对原生及远端每组分别随机排列；不改变组归属。 D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -56304,8 +56844,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:series",
@@ -56379,13 +56929,26 @@
       "upstreamInventory": "pageProperties",
       "halo": {
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/html/moments.html",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -56411,8 +56974,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:source",
@@ -57813,9 +58386,11 @@
           "theme.yaml",
           "src/html/views/components.html",
           "src/html/archives.html",
-          "settings.yaml"
+          "settings.yaml",
+          "annotation-setting.yaml",
+          "src/js/core/listing-options.ts"
         ],
-        "finding": "2026-10-14 主线对账：文章/列表已有 date/relative 两种模式，归档使用固定日期格式；未提供任意 Hexo date_format 格式串的完整映射。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 已实现逐篇侧栏/代码折叠/版权详细字段、标签云排序数量字号、归档年月及菜单标题、受控 Java 日期格式。非法值安全回退，无脚本保留可读内容；141 组实际 Halo 限定检查与独立审查见记录，完整双站/设备/1.0 验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -57850,9 +58425,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/author-listing-options.md",
+          "sha256": "6edc51e3a6a4a29a88eefe2ee087f5742b08990b62b172f69e6a497f89d68601",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "site-config:description",
@@ -58084,9 +58668,12 @@
           "src/html/views/layout.html",
           "theme.yaml",
           "src/html/views/seo.html",
-          "annotation-setting.yaml"
+          "annotation-setting.yaml",
+          "i18n",
+          "src/js/core/i18n.ts",
+          "src/html/views/config.html"
         ],
-        "finding": "2026-10-14 主线对账：布局 lang 与 OG locale 已来自 Halo #locale；主题固定文案尚未国际化，也无作者逐页语言覆盖配置。需分别确定平台 locale、逐页语言与七套消息键的职责。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已接入 Halo 原生消息目录，覆盖七套语言及地区回退；实际顺序为 query→cookie→站点 basic.language→Accept-Language。主题静态文案和浏览器交互均使用消息键，新增瞬间/友链状态已补翻译；限定三引擎检查见记录，母语审校/完整合同待验。"
       },
       "dependencies": [
         "dual-site",
@@ -58121,9 +58708,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/i18n-completion.json",
+          "sha256": "f2e35b088f7741acea29a45e12c263a277ae363dd7e943a572a869441ed531e9",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "site-config:page_pv",
@@ -59943,13 +60539,25 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "用官方 PluginMoments 的 moments 分页对象映射说说正文和媒体；逐条评论与上游数据限制另行实现。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/moments.html",
           "src/html/views/plugin-pagination.html",
-          "src/js/page/moments.ts"
+          "src/js/page/moments.ts",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "已有 Moments 1.18.0 的正文/媒体、空状态及服务端分页；#39 有固定双站与筛选分页局部证据。日期/作者/标签展示、逐条评论、详情页/音视频和所有错误状态仍未全面完成；不能将 P+ 通过等同完整 PLG-03/04。 剩余：逐条评论；详情页/音视频；完整日期排序/标签/错误态"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -59987,6 +60595,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -62469,16 +63086,28 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "以 PluginMoments 服务端分页映射上一页/下一页，使用插件原生 URL 保留页码和 tag；输入跳页及上游固定每页 8 条仍需单独处理。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/layout.html",
           "src/html/moments.html",
           "src/html/views/plugin-pagination.html",
-          "src/scss/modules/plugin-pagination.scss"
+          "src/scss/modules/plugin-pagination.scss",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "PR #39 已接入 PluginMoments 的 prevUrl/nextUrl、首末页、可见页状态与原生键盘跳转，并保留 tag 参数；有固定合成分页场景证据。当前没有上游输入跳页控件，每页数量遵循插件设置，并非固定 8 条；这两项及超界/空值完整等价仍待实现或明确映射。 剩余：输入跳页未实现；每页 8 条上游边界映射；全部超界/空值场景"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -62515,6 +63144,15 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "implemented-unverified"
@@ -62534,16 +63172,27 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "说说/瞬间评论身份随 Halo 瞬间与评论插件契约，不绑定上游 shuoshuo 各家 SDK。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/layout.html",
           "src/html/moments.html",
           "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts"
+          "src/js/core/newest-comments.ts",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts"
         ],
-        "finding": "2026-10-14 主线对账：moments.html 只输出内容/媒体与分页，没有 Moment 评论主体挂载；最新评论聚合仍仅 Post/SinglePage。需要补 Moment 身份、开关、计数/跳转及官方评论组合。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -62580,9 +63229,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:pjax",
@@ -62615,9 +63273,12 @@
           "src/html/views/config.html",
           "docs/RESOURCE-SOURCES.md",
           "src/js/core/pace.ts",
-          "docs/NAVIGATION-LOADING.md"
+          "docs/NAVIGATION-LOADING.md",
+          "src/js/core/content-tracker.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/body-renderers.ts"
         ],
-        "finding": "2026-10-14 主线对账：已实现列表 PJAX、清理协议、head/页面入口更新、历史滚动、精确统一资源地址识别及 Pace 导航进度。仍缺文章/单页 tracker 和插件/第三方 SDK 的完整无刷新生命周期适配；相关页面保留完整导航。图表资源供应已由 #406/#411 完成，不能与 PJAX 剩余兼容性混为一项。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "已支持 Post/SinglePage tracker 内容身份、官方评论实例清理、草稿离页与历史取消恢复、三种正文渲染器/图库和无外部脚本插件公共布局。12 组真实 Halo 与 6 组合成导航通过；未知 SDK/嵌入与无重入协议特效仍完整导航，D02 全生态保持 gap。"
       },
       "dependencies": [
         "dual-site",
@@ -62682,6 +63343,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/pjax-completion.json",
+          "sha256": "103e2799c613ae4312b9061436b9ac3afef27aa3b85662265206b1c230ed0699",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
       "status": "gap"
@@ -63071,7 +63741,16 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "映射 Halo 主菜单、菜单注解及主题导航设置，按上游补齐显示与滚动状态。",
-        "settings": [],
+        "settings": [
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
+        ],
         "code": [
           "src/html/views/nav.html",
           "src/html/views/components.html",
@@ -63079,9 +63758,13 @@
           "src/js/core/scroll.ts",
           "src/html/views/aside.html",
           "src/html/views/header.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/html/links.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "2026-10-14 主线对账：侧栏已支持名称、图标 HTML 和链接，社交入口并非完全不存在；上游 header 社交位置与逐项颜色尚未完整映射，保留缺口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -63115,9 +63798,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:cover-list",
@@ -63335,15 +64027,27 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
-        "settings": [],
+        "settings": [
+          "aside.social_position",
+          "aside.social.color",
+          "aside.social.dark_color",
+          "footer.columns",
+          "footer.custom_html",
+          "links.group_descriptions",
+          "links.source",
+          "links.random_order"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/html/links.html",
-          "docs/CONTENT-EXTENSIONS.md"
+          "docs/CONTENT-EXTENSIONS.md",
+          "src/html/views/social.html",
+          "src/html/views/footer.html",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "2026-10-14 主线对账：Links 页面已消费 group.spec.displayName 与 link 的名称/链接/logo/说明；正文另有静态卡片。上游组说明、完整字段、远端数据与随机顺序仍需映射；不能用基础 Links 页或静态卡片关闭完整数据项。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "D07新增首页/侧栏社交位置与逐项亮暗色、页脚嵌套列/宽度/净化HTML、原生友链组说明、独立JSON输入及组内随机排序。保留原生字段及失败回退；703项测试、固定Halo/Links2.3三引擎29项限定验收通过，完整合同/双站/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -63386,9 +64090,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/site-content-completion.json",
+          "sha256": "87adce37d6db84525626cd1f186660fa9940ecffbc68d2c37e4b56d372923348",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:shuoshuo-data",
@@ -63405,15 +64118,27 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "现有 CommentWidget 是候选集成点；每个上游 provider 的展示、计数、懒加载和双评论切换仍需映射。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/layout.html",
           "src/html/moments.html",
-          "src/html/views/plugin-pagination.html"
+          "src/html/views/plugin-pagination.html",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "2026-10-14 主线对账：Moments 当前消费 spec.content.html/medium 与原生分页；author/avatar/date/tags/key、远端 JSON 与 num/date 限制尚未完整映射。数量按插件分页，主题没有复刻上游说说过滤器。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -63457,9 +64182,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:shuoshuo-limit",
@@ -63476,15 +64210,27 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
-        "settings": [],
+        "settings": [
+          "moments.source",
+          "moments.title",
+          "moments.timezone",
+          "moments.limit",
+          "moments.since",
+          "moments.page_size"
+        ],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/html/archives.html",
           "src/html/moments.html",
-          "src/html/views/plugin-pagination.html"
+          "src/html/views/plugin-pagination.html",
+          "src/html/moment.html",
+          "src/html/views/moment-feed.html",
+          "src/js/core/moments.ts",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/newest-comments.ts"
         ],
-        "finding": "2026-10-14 主线对账：Moments 当前消费 spec.content.html/medium 与原生分页；author/avatar/date/tags/key、远端 JSON 与 num/date 限制尚未完整映射。数量按插件分页，主题没有复刻上游说说过滤器。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "原生Moments作者/头像/日期/标签/key、详情评论与统计/锚点/最新评论、标签保留跳页已实现；独立JSON源以匿名安全读取、num/date过滤及真实分页映射远端数据能力，时区范围限瞬间/动态。698测试及固定Halo/插件三引擎33项限定验收通过；仍不代表完整双站/设备/1.0验收。"
       },
       "dependencies": [
         "dual-site",
@@ -63518,9 +64264,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/moments-completion.json",
+          "sha256": "a0585d76e1de338c772c605039e2e44cb028b0415829813f3fc8b8b47324604d",
+          "date": "2026-10-14T02:53:45.980718+08:00",
+          "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:aside-custom",

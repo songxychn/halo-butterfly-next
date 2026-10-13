@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "kind": "development-backlog-snapshot",
-  "sourceSha": "362beb61d61ad3910719af52edd79f0b323a1354",
-  "matrixSha256": "7816e23ef4b584c1e3f17eebfe3d47e48f1a0e518ab6afb06f1c0cc3249c8e71",
-  "reconciliation": "portable-content-reconciliation-2026-10-14.json",
-  "note": "Derived planning snapshot after PR #413 and user-confirmed portable-content scope correction; matrix.json is the only status source. Original reconciliation remains historical. No new runtime acceptance.",
+  "sourceSha": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
+  "matrixSha256": "65c3528c5afdddd2ddcdb6df6bfc934721cf8817e441c4d9c034e659d7ba2d1b",
+  "reconciliation": "confirmed-gap-reconciliation-2026-10-14.json",
+  "note": "Development branch implementation and scoped acceptance; not merged/published, no verified promotion; matrix.json remains authoritative.",
   "groups": [
     {
       "id": "D01",
@@ -46,8 +46,8 @@
         "interaction:pjax",
         "template:includes/third-party/pjax"
       ],
-      "current": "列表 PJAX、预取、清理、历史、资源地址及 Pace 已实现。",
-      "remaining": "补 Halo tracker 的内容身份/清理协议和插件/第三方 SDK 生命周期；当前这些页面完整导航是明确回退，不是完整 PJAX 已完成。"
+      "current": "文章/单页统计身份、官方评论清理及草稿保护、正文图表/图库与公共布局导航已接入。",
+      "remaining": "继续收敛已知分享/统计 SDK 和外观特效的重入；未知 SDK、嵌入和缺少清理协议的插件仍完整导航，不能视为全部生态 PJAX。"
     },
     {
       "id": "D03",
@@ -59,13 +59,13 @@
         "helper:getBgPath",
         "config:footer_img"
       ],
-      "current": "主题图片与显式 data-lazy-src 延迟加载可用，URL 背景及错误回退可用，页脚遮罩已接入。",
-      "remaining": "任意作者 HTML 的 src/srcset 在脚本前可能发请求；补内容处理映射。背景仍缺完整颜色/CSS 输入，footer_img=true 尚不复用顶图。候选封面支持颜色不等于所有背景入口支持。"
+      "current": "CSS 颜色/渐变/background 简写、安全图片 URL 及 footer_img=true 继承已实现；16 组真实 Halo 检查通过。",
+      "remaining": "任意作者 HTML 的 src/srcset 在浏览器解析前处理仍缺平台内容处理映射；不得以 JS 后改属性或隐藏正文冒充预扫描前延迟。"
     },
     {
       "id": "D04",
       "title": "瞬间评论与说说数据",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "interaction:shuoshuo-comments",
         "interaction:shuoshuo-pagination",
@@ -76,8 +76,8 @@
         "data-schema:shuoshuo-data",
         "data-schema:shuoshuo-limit"
       ],
-      "current": "Moments 内容、媒体、原生分页可用；文章/单页评论与懒挂载已完成接入。",
-      "remaining": "补 Moment 评论主体、计数/跳转与最新评论覆盖；补说说 author/avatar/date/tags/key、远端输入、num/date 限制和时区映射；输入跳页尚无，上游每页数量与插件设置的差异需确定。"
+      "current": "原生 Moment 评论主体/计数/跳转/最新评论、作者/头像/时间/标签、输入跳页和独立 JSON 动态源已实现；过滤后分页、时区、错误重试和安全输入已限定验收。",
+      "remaining": "完整插件组合/设备验收待执行；全站 timezone 与原生插件每页数量仍保留平台职责，不因动态源参数支持而关闭。"
     },
     {
       "id": "D05",
@@ -95,13 +95,13 @@
         "page-data:language",
         "site-config:language"
       ],
-      "current": "html lang/OG locale 读取 Halo locale，简繁转换可用。",
-      "remaining": "主题仍有固定中文文案，缺完整消息键/七套语言映射；逐页语言覆盖尚未接入。不能把字形转换当成日/韩/英语等国际化。"
+      "current": "七套消息目录及地区回退、模板/浏览器文案与正文语言注解已接入；Halo locale 优先级已有实际证据。",
+      "remaining": "界面保持请求 locale，逐页强制 UI 语言仍待合同映射；新增 Moment/友链文案需组合验收，母语审校和真机/完整合同未完成。"
     },
     {
       "id": "D06",
       "title": "作者逐篇覆盖与列表参数",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "page-data:aside",
         "page-data:highlight_shrink",
@@ -115,13 +115,13 @@
         "helper:findArchivesTitle",
         "site-config:date_format"
       ],
-      "current": "已有全局侧栏、全局代码折叠、逐篇版权/过期提醒开关、全局版权详细配置、标签颜色/字号及 date/relative 模式。",
-      "remaining": "缺逐篇 aside/highlight_shrink、逐篇版权详细字段；标签云完整排序/数量/字号参数还需映射，归档年/月/菜单标题尚无，任意站点日期格式未接入。"
+      "current": "逐篇侧栏/代码折叠/版权详细字段、标签排序数量字号、归档年月及菜单标题、受控日期格式已实现；141 项实际 Halo 验收和独立审查通过。",
+      "remaining": "最终组合回归、完整双站/设备/无障碍与性能门禁仍待；不实现 Hexo 路由生成器。"
     },
     {
       "id": "D07",
       "title": "社交、页脚与友链输入",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "config:social",
         "template:includes/header/social",
@@ -133,18 +133,18 @@
         "page-data:flink_url",
         "page-data:random"
       ],
-      "current": "社交名称/图标/链接、扁平页脚导航、页脚纯文本、Links 基础组/卡片与正文静态卡片可用。",
-      "remaining": "缺完整 header 社交位置/逐项颜色、页脚嵌套列/宽度/HTML、友链完整组说明/远端输入/随机顺序。不得从基础卡片存在推断完整上游数据模型完成。"
+      "current": "首页/侧栏社交位置与亮暗色、页脚分组列/宽度/净化 HTML、原生友链组说明及独立远端 JSON/组内随机已实现；29 项实际 Halo 检查通过，相对链接审查问题已修复。",
+      "remaining": "与国际化/PJAX 组合的重入、待完成请求离页及完整验收继续；不保证旧 Hexo 配置原样兼容或任意 HTML 执行。"
     },
     {
       "id": "D08",
       "title": "外部资源连接提示",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "template:includes/head/preconnect"
       ],
-      "current": "按需脚本、资源覆盖和 prefetch 可用。",
-      "remaining": "head 尚无按实际资源主机输出的统一 preconnect；需确定连接提示条件，prefetch 不替代此能力。"
+      "current": "实际所选 HTTPS 资源的 preconnect 已接入 bootstrap、管理资源、Prism、AddToAny 和标题字体，含同源跳过、凭据拒绝、CORS 去重与数量上限。",
+      "remaining": "限定真实 Halo 资源配置及独立审查通过；最终组合性能预算仍待，连接提示不代替资源按需加载。"
     },
     {
       "id": "P01",
@@ -264,19 +264,13 @@
     "config:pwa.mask_icon",
     "config:CDN.custom_format",
     "template:includes/additional-js",
-    "template:includes/head/preconnect",
     "template:includes/head/pwa",
-    "template:includes/header/social",
     "template:includes/third-party/pjax",
     "tag:inlineImg",
     "tag:label",
-    "helper:cloudTags",
-    "helper:findArchivesTitle",
     "helper:getArchiveLength",
-    "helper:getBgPath",
     "helper:groupPosts",
     "helper:safeJSON",
-    "helper:shuoshuoFN",
     "helper:urlNoIndex",
     "lifecycle-hook:scripts/events/404.js#generator:404",
     "lifecycle-hook:scripts/events/init.js#filter:before_generate",
@@ -292,42 +286,21 @@
     "asset:source/img/friend_404.gif",
     "asset:source/js/main.js",
     "asset:source/js/utils.js",
-    "language:default",
-    "language:en",
-    "language:ja",
-    "language:ko",
-    "language:zh-CN",
-    "language:zh-HK",
-    "language:zh-TW",
-    "page-data:aside",
-    "page-data:copyright_author",
-    "page-data:copyright_author_href",
-    "page-data:copyright_info",
-    "page-data:copyright_url",
     "page-data:cover_type",
     "page-data:encrypt",
-    "page-data:flink_url",
     "page-data:full_source",
-    "page-data:highlight_shrink",
     "page-data:lang",
     "page-data:language",
-    "page-data:limit",
-    "page-data:order",
-    "page-data:orderby",
     "page-data:origin",
-    "page-data:random",
-    "page-data:shuoshuo_url",
     "page-data:source",
     "page-data:top_img",
     "site-config:archive_dir",
     "site-config:archive_generator",
     "site-config:category_dir",
     "site-config:copyright",
-    "site-config:date_format",
     "site-config:email",
     "site-config:favicon",
     "site-config:highlight.enable",
-    "site-config:language",
     "site-config:post_asset_folder",
     "site-config:pretty_urls.trailing_html",
     "site-config:pretty_urls.trailing_index",
@@ -339,14 +312,9 @@
     "site-config:theme",
     "site-config:timezone",
     "site-config:token",
-    "interaction:shuoshuo-comments",
     "interaction:pjax",
     "interaction:pwa",
-    "interaction:data-safe",
-    "data-schema:social-items",
-    "data-schema:flink-data",
-    "data-schema:shuoshuo-data",
-    "data-schema:shuoshuo-limit"
+    "interaction:data-safe"
   ],
   "verificationFailedIds": [
     "page:home",
@@ -369,32 +337,32 @@
     "lifecycle-hook:scripts/tag/series.js#filter:before_post_render",
     "page-data:series"
   ],
-  "previousReconciliation": "reconciliation-2026-10-14.json",
+  "previousReconciliation": "portable-content-reconciliation-2026-10-14.json",
   "largestGaps": [
     {
       "rank": 1,
-      "group": "D02",
-      "reason": "跨页面导航需要统一统计身份、评论/图表及插件和外部 SDK 生命周期，跨模块复杂度最高。"
+      "group": "P01",
+      "reason": "PWA安装、离线缓存和更新恢复尚无完整平台方案。"
     },
     {
       "rank": 2,
-      "group": "P01",
-      "reason": "PWA 安装、manifest/图标、缓存、断网与更新恢复尚未完整交付；先明确平台职责，RSS/站点地图单列映射。"
+      "group": "P03",
+      "reason": "插件head预加载和全站数学资源注入不受主题挂载开关控制。"
     },
     {
       "rank": 3,
-      "group": "D05",
-      "reason": "完整消息键、七套语言与逐页覆盖尚未接入，涉及全部页面和交互文案。"
+      "group": "D02",
+      "reason": "继续收敛已知分享/统计 SDK 和外观特效的重入；未知 SDK、嵌入和缺少清理协议的插件仍完整导航，不能视为全部生态 PJAX。"
     },
     {
       "rank": 4,
-      "group": "D04",
-      "reason": "Moment 评论主体、计数/跳转/最新评论以及说说数据、远端输入、限制和时区尚不完整。"
+      "group": "D03",
+      "reason": "任意作者 HTML 的 src/srcset 在浏览器解析前处理仍缺平台内容处理映射；不得以 JS 后改属性或隐藏正文冒充预扫描前延迟。"
     },
     {
       "rank": 5,
-      "group": "P03",
-      "reason": "评论 head 预加载与 KaTeX 全站注入需要插件配合；已有懒挂载/显示控制不能满足按需资源目标。"
+      "group": "P02",
+      "reason": "私有凭据代理缺服务端承载；公开只读接口不能替代。"
     }
   ]
 }
