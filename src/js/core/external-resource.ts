@@ -18,6 +18,7 @@ export interface ResourceConfig {
   third_party_provider?: unknown;
   version?: unknown;
   custom_format?: unknown;
+  asset_base?: unknown;
   option?: Record<string, unknown>;
 }
 
@@ -28,11 +29,69 @@ export function resolveResource(key: string, local: string, config?: ResourceCon
   const override = expanded.includes('${') ? '' : safeResourceUrl(expanded);
   if (override) return override;
   if (config?.internal_provider === 'custom' && file) {
+    const base = text(config.asset_base).replaceAll('${version}', version).replaceAll('${name}', 'halo-butterfly-next');
+    if (base) {
+      const url = safeResourceUrl(base.replace(/\/+$/, '') + '/' + file);
+      if (url && !/[?#]/.test(base) && !base.includes('${')) return url;
+      return safeResourceUrl(local) ? local : '';
+    }
     const custom = expand(config.custom_format);
     const url = safeResourceUrl(custom);
     if (url && !custom.includes('${')) return url;
   }
   return safeResourceUrl(local) ? local : '';
+}
+
+/** Only exact configured theme files are trusted during partial navigation. */
+export function isThemeScriptSource(source: string, file: string, key: string, localRoot: string, config?: ResourceConfig, version = '', base = globalThis.location?.href || 'https://example.invalid/') {
+  if (!['main', 'masonry', 'loading'].includes(key) ||
+      !/^(?:js\/[a-z0-9_-]+\.min\.js|plugins\/loading\/[a-z0-9_-]+\.min\.js)$/.test(file)) return false;
+  if (key === 'loading' ? !file.startsWith('plugins/loading/') : !file.startsWith('js/')) return false;
+  const local = localRoot + file + (config?.version === false || config?.version === 'false' ? '' : '?v=' + version);
+  const selected = resolveResource(key, local, config, version, file);
+  try {
+    const canonical = (value: string) => new URL(value, base).href;
+    return canonical(source) === canonical(local) || Boolean(selected) && canonical(source) === canonical(selected);
+  } catch { return false; }
+}
+
+const managed = new WeakMap<Document, Map<string, Promise<boolean>>>();
+/** A timeout can leave executable bytes in flight: only a native error retries locally. */
+export function loadManagedResource(source: string, local: string, {document = globalThis.document, kind = 'script', attributes = {}, timeout = 8000, valid}: {
+  document?: Document; kind?: 'script' | 'style'; attributes?: Record<string, string>; timeout?: number; valid?: () => boolean;
+} = {}) {
+  const selected = safeResourceUrl(source, document.baseURI), fallback = safeResourceUrl(local, document.baseURI);
+  if (!selected) return Promise.resolve(false);
+  let cache = managed.get(document);
+  if (!cache) { cache = new Map(); managed.set(document, cache); }
+  const key = kind + ':' + selected + ':' + fallback;
+  const previous = cache.get(key);
+  if (previous) return previous;
+  let settle!: (success: boolean) => void;
+  const result = new Promise<boolean>(resolve => { settle = resolve; });
+  cache.set(key, result);
+  const request = (url: string, retry: boolean) => {
+    const node = document.createElement(kind === 'style' ? 'link' : 'script');
+    if (kind === 'style') (node as HTMLLinkElement).rel = 'stylesheet';
+    else (node as HTMLScriptElement).async = true;
+    for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
+    let done = false;
+    const finish = (success: boolean, canRetry = false) => {
+      if (done) return;
+      done = true; clearTimeout(timer); node.onload = node.onerror = null;
+      if (!success) node.remove();
+      if (!success && retry && canRetry) request(fallback, false);
+      else settle(success);
+    };
+    const timer = setTimeout(() => finish(false), timeout);
+    node.onload = () => { try { finish(!valid || valid(), true); } catch { finish(false, true); } };
+    node.onerror = () => finish(false, true);
+    if (kind === 'style') (node as HTMLLinkElement).href = url;
+    else (node as HTMLScriptElement).src = url;
+    document.head.append(node);
+  };
+  request(selected, Boolean(fallback) && fallback !== selected);
+  return result;
 }
 
 const requests = new WeakMap<Document, Map<string, Promise<boolean>>>();

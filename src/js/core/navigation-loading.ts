@@ -1,5 +1,7 @@
 import { beginPage, disposePage, onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
+import { beginPaceNavigation } from './pace.ts';
+import { isThemeScriptSource } from './external-resource.ts';
 
 export const enabled = (value: unknown) => value === true || value === 'true';
 const forbidden = /^\/(?:console|uc|login|logout|signup|oauth2?|apis|actuator|themes|upload)(?:\/|$)/i;
@@ -20,7 +22,7 @@ export function navigationURL(href: string, current: string, exclude: unknown = 
   } catch { return null; }
 }
 
-const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism']);
+const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'pace', 'pace-bootstrap']);
 const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
@@ -52,19 +54,33 @@ function scriptCopy(old: HTMLScriptElement) {
   script.textContent = old.textContent;
   return script;
 }
-function execute(script: HTMLScriptElement, parent: HTMLElement, signal: AbortSignal) {
+export function executeNavigationScript(script: HTMLScriptElement, parent: HTMLElement, signal: AbortSignal) {
   return new Promise<void>((resolve, reject) => {
     if (signal.aborted) return reject(new Error('Navigation cancelled'));
-    const next = scriptCopy(script);
+    let next = scriptCopy(script), done = false;
+    next.removeAttribute('onerror');
     const timer = setTimeout(() => finish(new Error('Script timed out')), 8000);
     const abort = () => finish(new Error('Navigation cancelled'));
     const finish = (error?: Error) => {
+      if (done) return;
+      done = true; next.onload = next.onerror = null;
       clearTimeout(timer); signal.removeEventListener('abort', abort);
       if (error) { next.remove(); reject(error); } else resolve();
     };
     signal.addEventListener('abort', abort, { once: true });
-    next.onload = () => finish();
-    next.onerror = () => finish(new Error('Script failed'));
+    const bind = (retry: boolean) => {
+      const node = next;
+      node.onload = () => { if (node === next) finish(); };
+      node.onerror = () => {
+        if (done || signal.aborted || node !== next) return;
+        const local = script.dataset.localResource;
+        if (retry && local && new URL(local, location.href).href !== next.src) {
+          next.onload = next.onerror = null; next.remove(); next = scriptCopy(script); next.removeAttribute('onerror');
+          next.src = local; bind(false); parent.append(next);
+        } else finish(new Error('Script failed'));
+      };
+    };
+    bind(true);
     parent.append(next);
     if (!next.src) finish();
   });
@@ -73,6 +89,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
   state.active?.abort();
   const request = new AbortController();
   state.active = request;
+  const progress = beginPaceNavigation(request.signal);
   const timer = setTimeout(() => request.abort(), 10000);
   let committing = false;
   document.documentElement.classList.add('theme-navigating');
@@ -80,17 +97,23 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
   try {
     const response = await fetch(url.href, { signal: request.signal, credentials: 'same-origin', headers: { Accept: 'text/html' } });
     if (!response.ok || response.redirected || !/^text\/html(?:;|$)/i.test(response.headers.get('content-type') || '')) throw new Error('Full navigation required');
+    progress.advance(20);
     const html = await response.text();
+    progress.advance(55);
     if (html.length > 2_000_000) throw new Error('Document too large');
     const next = new DOMParser().parseFromString(html, 'text/html');
     const entry = next.querySelector<HTMLScriptElement>('script[data-theme-script="entry"]');
     if (!supportsPartialNavigation(next) || !entry?.src || !next.getElementById('baseScript') || !next.getElementById('Butterfly')) throw new Error('Full navigation required');
-    // Never execute a newly fetched external script outside this theme's asset root.
+    // Trust exact files resolved from the CURRENT configuration, never a whole CDN host.
     const assets = new URL(window.MainApp.conf.assets_link || '/themes/halo-butterfly-next/assets/', location.href);
     for (const script of next.scripts) {
       if (!script.hasAttribute('src')) continue;
       const source = new URL(script.getAttribute('src')!, url);
-      if (source.origin !== assets.origin || !source.pathname.startsWith(assets.pathname)) throw new Error('Foreign page script');
+      const file = script.dataset.resourceFile || (source.origin === assets.origin && source.pathname.startsWith(assets.pathname) ? source.pathname.slice(assets.pathname.length) : '');
+      const key = script.dataset.resourceKey || (script.dataset.themeScript === 'loading' ? 'loading' : script.dataset.themeScript === 'masonry' ? 'masonry' : 'main');
+      if (!isThemeScriptSource(source.href, file, key, assets.href, window.MainApp.resources, window.MainApp.version, location.href)) throw new Error('Foreign page script');
+      // The response cannot declare an unrelated fallback script.
+      script.dataset.localResource = assets.href + file + (window.MainApp.resources?.version === false || window.MainApp.resources?.version === 'false' ? '' : '?v=' + window.MainApp.version);
     }
     // Load target styles before replacement so failed CSS leaves a normal navigation.
     const styles: HTMLLinkElement[] = [];
@@ -101,12 +124,18 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
         clone.media = 'not all';
         const timeout = setTimeout(() => reject(new Error('Stylesheet timed out')), 8000);
         clone.onload = () => { clearTimeout(timeout); resolve(); };
-        clone.onerror = () => { clearTimeout(timeout); reject(new Error('Stylesheet failed')); };
+        let retried = false;
+        clone.onerror = () => {
+          if (!retried && clone.dataset.localResource && clone.href !== new URL(clone.dataset.localResource, url).href) {
+            retried = true; clone.href = new URL(clone.dataset.localResource, url).href;
+          } else { clearTimeout(timeout); reject(new Error('Stylesheet failed')); }
+        };
         document.head.append(clone); styles.push(clone);
       })));
     } finally { styles.forEach(style => style.remove()); }
     if (request.signal.aborted) throw new Error('Navigation cancelled');
     clearTimeout(timer);
+    progress.advance(75);
     state.busy = committing = true;
     if (!pop) saveScroll();
     disposePage();
@@ -122,12 +151,13 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
     document.documentElement.classList.add('theme-navigating');
     if (!pop) history.pushState({ [stateKey]: { x: 0, y: 0 } }, '', url.href);
     state.url = url.href;
-    for (const script of scripts.filter(s => ['config', 'page-config', 'above', 'code-config'].includes(s.dataset.themeScript || ''))) {
-      await execute(script, document.head, request.signal);
+    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config'].includes(s.dataset.themeScript || ''))) {
+      await executeNavigationScript(script, document.head, request.signal);
     }
-    await execute(entry, document.body, request.signal);
+    progress.advance(85);
+    await executeNavigationScript(entry, document.body, request.signal);
     if (!window.MainApp.useCommon) throw new Error('Page initialization failed');
-    for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await execute(script, document.body, request.signal);
+    for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await executeNavigationScript(script, document.body, request.signal);
     document.body.classList.remove('loading', 'read-mode');
     const main = document.querySelector<HTMLElement>('main');
     main?.setAttribute('tabindex', '-1'); main?.focus({ preventScroll: true });
@@ -136,8 +166,10 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
     if (pop && restore && Number.isFinite(restore.x) && Number.isFinite(restore.y)) window.scrollTo({ left: restore.x, top: restore.y, behavior: 'instant' });
     else if (target) target.scrollIntoView();
     else window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    progress.finish();
     document.dispatchEvent(new Event('pjax:complete'));
   } catch (error) {
+    progress.finish(true);
     console.debug('Theme navigation fallback', error);
     // A newer click owns navigation now. A timeout/error for the current one reloads normally.
     if (state.active === request) {

@@ -678,9 +678,23 @@ spec:
       formSchema:
         - $formkit: checkbox
           name: enable
-          label: 启用页面加载动画
+          label: 启用加载提示
           value: true
-          help: 关闭后直接显示页面。旧配置未设置时保持开启；正文就绪后结束，不等待第三方资源。
+          help: 默认显示 Pace 进度条，正文直接可读；也可主动选择页面动画。关闭后不加载两种提示资源。
+        - $formkit: select
+          name: mode
+          id: loading_mode
+          label: 加载提示样式
+          value: pace
+          options:
+            - {label: Pace 进度条, value: pace}
+            - {label: Loading 动画, value: animation}
+        - $formkit: text
+          if: $get(loading_mode).value == 'pace'
+          name: pace_css_url
+          label: Pace 自定义样式地址
+          value: ''
+          help: 留空使用内置蓝色顶部进度条。可填写 HTTPS 或本站绝对路径；加载失败回退内置样式。
         - $formkit: checkbox
           name: instantpage
           label: 预取站内内容链接
@@ -688,6 +702,7 @@ spec:
           help: 鼠标经过或键盘聚焦列表、分页链接时提示浏览器预取。每页最多 8 个，省流量/慢速网络和带查询参数的链接跳过。
         - $formkit: radio
           name: type
+          if: $get(loading_mode).value == 'animation'
           label: 页面加载（Loading）
           help: 内置多种加载样式
           value: 'circle'
@@ -3387,9 +3402,11 @@ spec:
       - $formkit: select
         name: third_party_provider
         label: 独立第三方资源来源
-        value: local
-        help: 当前支持 Font Awesome Free。Prism 与其他已合入页面脚本的库继续使用主题资源，避免丢失适配。
+        value: inherit
+        help: 当前支持 Font Awesome Free。默认跟随统一主题地址；选择安装包或其他来源可单独覆盖。Prism 和已打包库跟随其承载文件。
         options:
+        - label: 跟随主题资源来源
+          value: inherit
         - label: 主题安装包
           value: local
         - label: jsDelivr
@@ -3402,8 +3419,14 @@ spec:
           value: custom
       - $formkit: checkbox
         name: version
-        label: 资源 URL 使用版本号
+        label: 本地资源附加版本缓存参数
         value: true
+        help: 关闭仅移除本地 URL 的缓存参数；依赖 CDN 地址仍固定版本，不自动使用最新版。
+      - $formkit: text
+        name: asset_base
+        label: 统一主题资源地址
+        value: ''
+        help: 选择自定义来源时生效。填写完整 assets 目录的 HTTPS 地址或本站路径；可用 ${version}、${name}。留空兼容原地址格式。
       - $formkit: text
         name: custom_format
         label: 自定义地址格式
@@ -3459,6 +3482,36 @@ spec:
           label: Loading 脚本
           value: ''
           help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: pace_js
+          label: Pace 脚本
+          value: ''
+          help: 留空继承主题资源来源；替换脚本须提供 Pace 1.2.4 接口。
+        - $formkit: text
+          name: pace_default_css
+          label: Pace 默认样式
+          value: ''
+          help: 留空继承主题资源来源；加载设置中的自定义样式优先。
+        - $formkit: text
+          name: effects
+          label: 特效脚本
+          value: ''
+          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: sharejs
+          label: Share.js 脚本
+          value: ''
+          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: sharejs_css
+          label: Share.js 样式
+          value: ''
+          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: busuanzi
+          label: 不蒜子脚本
+          value: ''
+          help: 可选 HTTPS 或本站路径；留空使用官方服务脚本。统一主题地址不改写统计服务。
         - $formkit: text
           name: fontawesome
           label: 图标样式

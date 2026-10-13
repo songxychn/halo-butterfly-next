@@ -45,13 +45,13 @@
     <th:block th:replace="~{views/inject :: head}"/>
   </head>
 
-  <body th:classappend="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading.type != 'null' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
-  <th:block th:if="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false'}" th:switch="${theme.config.loading.type}">
+  <body th:classappend="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading?.mode == 'animation' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
+  <th:block th:if="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading?.mode == 'animation'}" th:switch="${theme.config.loading?.type}">
     <script data-theme-script="loading" th:case="'circle'">/* @theme-loading-circle */</script>
     <script data-theme-script="loading" th:case="'cross_line'">/* @theme-loading-cross_line */</script>
     <script data-theme-script="loading" th:case="'dot'">/* @theme-loading-dot */</script>
     <script data-theme-script="loading" th:case="'hourglass'">/* @theme-loading-hourglass */</script>
-    <script data-theme-script="loading" th:case="*" type="text/javascript" th:if="${theme.config.loading.type != 'null'}" th:src="${assets_link + 'plugins/loading/' + theme.config.loading.type + '.min.js?v=' + theme.spec.version}"></script>
+    <script data-theme-script="loading" th:case="*">/* @theme-loading-fallback */</script>
   </th:block>
 
   <div

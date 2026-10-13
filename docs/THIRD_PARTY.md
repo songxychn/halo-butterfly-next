@@ -43,3 +43,5 @@
 2026-10-11 首页瀑布流随包新增 InfiniteGrid 4.13.0。部分间接依赖的 npm tarball 没有独立 LICENSE：component 3.0.5 的完整 MIT 原文取自该包 README，imready 1.4.2 取自 npm gitHead；cfcs 早期 npm gitHead 已不可获取，使用官方固定后继提交的 MIT 许可参照，并明确不声称它是该发行包的原始文件。逐文件 URL、来源边界及 SHA-256 见 [来源清单](../third-party-licenses/infinitegrid-sources.json)。构建递归保留所有依赖的原始许可声明，补齐完整 MIT 正文与 imready/cfcs 的 NOTICE；包检查核对登记字节。
 
 第三方服务接入（2026-10-13）：主题的分析/聊天/广告适配器为本项目维护的 TypeScript，不复制或随包分发服务商 SDK。仅在管理员配置后从服务官方端点或其显式覆盖地址加载；SDK 属于服务商在线发布物，没有由主题锁定的 npm 版本或内容哈希。固定参考源码、官方 API、加载和本地回退范围见 [接入说明](INTEGRATIONS.md)。因此本地契约通过不代表 SUPPLY-03 或真实账号联调通过。默认随包资源来源及许可证继续按本清单保持；可选 CDN Font Awesome 明确固定 6.7.2（关闭版本段为用户自选配置）。
+
+Pace **1.2.4**（MIT）通过精确依赖 `pace-js` 供应，原样打包 `pace.min.js` 与蓝色 minimal CSS，许可原样随包。包和文件摘要见 [固定来源](../third-party-licenses/pace-source.json)，安装包检查验证字节一致性。CSS/JS 可独立覆盖，使用者提供的外部文件需保持 Pace 接口契约。

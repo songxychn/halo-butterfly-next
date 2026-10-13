@@ -1,4 +1,4 @@
-html.theme-navigating::before {
+html.theme-navigating:not(.theme-pace-active)::before {
   content: ''; position: fixed; inset: 0 0 auto; height: 3px;
   background: #49b1f5; z-index: 100000; pointer-events: none;
 }
@@ -18,4 +18,9 @@ html.theme-navigating::before {
   html[data-color-scheme='dark'] & { background: var(--notice-dark, #374151); }
   button { flex: none; min-width: 44px; min-height: 44px; color: inherit; background: transparent; border: 1px solid currentColor; border-radius: 4px; }
   button:focus-visible { outline: 3px solid #49b1f5; outline-offset: 2px; }
+}
+
+html .pace .pace-progress { z-index: 100000; }
+@media (prefers-reduced-motion: reduce) {
+  .pace *, .loading-container * { animation: none !important; transition: none !important; }
 }

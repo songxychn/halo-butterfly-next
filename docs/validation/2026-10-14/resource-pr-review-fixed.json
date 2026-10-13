@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "reviewType": "independent-fix-re-review",
+  "checkout": "/private/tmp/halo-resource-pr-9417",
+  "base": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+  "head": "17ddb987f273b5bd97c57626610511ddfa435490",
+  "previousReviewedHead": "213ac9bcd8b0fb755bfe05c0f7e473274e48544b",
+  "previousReport": "/private/tmp/halo-resource-pr-review-213ac9b.json",
+  "scope": "Re-review all four files changed after the initial independent review: navigation executor fix, three regressions and two archived original evidence JSONs. Original 45-file review and its boundaries remain applicable to unchanged code.",
+  "conclusion": "no_remaining_confirmed_P0_P1_P2_findings",
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "R1",
+      "priority": "P2",
+      "path": "src/js/core/navigation-loading.ts",
+      "status": "resolved",
+      "resolution": "executeNavigationScript now has a once-only done guard. finish removes handlers before settlement. Retry checks done/signal.aborted and callback node identity. Failed remote node handlers are detached before local fallback. Old node load/error cannot finish or restart the current fallback.",
+      "independentNativeProof": {
+        "fixture": "/private/tmp/halo-review-native-17ddb98.mjs",
+        "results": "/private/tmp/halo-review-native-17ddb98-results.json",
+        "cancelAfter100msNative404After600ms": {"settled": "Navigation cancelled", "fallbackExecutions": 0, "lateFallbackNode": false},
+        "timeoutAt8000msNative404After8500ms": {"settled": "Script timed out", "fallbackExecutions": 0, "lateFallbackNode": false},
+        "normalNative404Control": {"settled": "resolved", "fallbackExecutions": 1}
+      }
+    }
+  ],
+  "checks": [
+    {"name": "exact identity and clean checkout", "result": "pass", "detail": "git rev-parse HEAD origin/master matches the full SHA values above; git status --short empty. Reviewer did not edit checkout files."},
+    {"name": "incremental static review", "result": "pass", "detail": "Checked executor call-site rename, settled/cancelled guards, handler cleanup and node identity; reviewed the three new regressions and archive attribution."},
+    {"name": "focused regression tests", "command": "bun test --isolate --timeout 30000 tests/navigation-script.test.mjs tests/pace.test.mjs tests/resource-loading.test.mjs", "result": "pass", "tests": 13, "failures": 0, "durationSeconds": 8.04},
+    {"name": "TypeScript", "command": "bun run typecheck", "result": "pass"},
+    {"name": "diff whitespace", "command": "git diff --check origin/master...HEAD", "result": "pass"},
+    {"name": "real native HTTP race on exact source", "command": "bun /private/tmp/halo-review-native-17ddb98.mjs", "result": "pass", "detail": "Fixture reads git show of exact 17ddb987 SHA, not mutable working files; uses same delayed native 404 conditions as original reproduction and independent headless Chrome temporary profile."}
+  ],
+  "initialCommandFailure": {
+    "command": "bun test --isolate tests/navigation-script.test.mjs tests/pace.test.mjs tests/resource-loading.test.mjs",
+    "result": "12 pass, 1 runner timeout",
+    "cause": "The reviewer initially omitted the project's --timeout 30000. The intentional real 8-second resource timeout test exceeded Bun's default 5-second test budget.",
+    "followUp": "Repeated with the existing package.json test policy's 30-second budget, without changing the product's 8-second timeout or weakening assertions; all 13 tests passed."
+  },
+  "boundaries": [
+    "Original full independent review at 213ac9b covered 675 tests/typecheck/parity/Pace hashes. This focused re-review addresses the incremental executor fix and its tests; author-reported 678-test full verify and 252-file package result were not used as independent evidence.",
+    "Native reproduction proves the private executor's real cancellation/timeout/native-error behavior on exact committed source. It does not constitute complete Halo end-to-end route or device/service acceptance.",
+    "No source/generated file changes, Git commits, GitHub comments, Halo mutations, existing browser connections or GUI automation by reviewer.",
+    "Subsequent documentation-only commits require identity and diff confirmation before attributing this conclusion to their final SHA."
+  ]
+}

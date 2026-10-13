@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "reviewType": "fresh-independent-read-only",
+  "checkout": "/private/tmp/halo-resource-pr-9417",
+  "base": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+  "head": "213ac9bcd8b0fb755bfe05c0f7e473274e48544b",
+  "scope": "git diff origin/master...HEAD: 45 files and related call chains; excluded all user changes in original 9417 working tree",
+  "conclusion": "changes_requested",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P2",
+      "title": "Prevent a settled PJAX script request from starting its local fallback",
+      "path": "src/js/core/navigation-loading.ts",
+      "lineStart": 71,
+      "lineEnd": 75,
+      "relatedLines": "finish at 64-66; popstate cancellation at 209-212",
+      "trigger": "A CDN entry/masonry script is still in flight when execute is cancelled or its 8-second timeout rejects. The removed script subsequently emits a native loading error (delayed HTTP 404 reproduces this in Chromium).",
+      "actual": "finish removes the node and rejects the Promise but leaves its onerror callback installed. That callback does not check a settled flag or signal.aborted, so it creates and appends the local script after execute already failed. The fallback executes once on the surviving document.",
+      "expected": "A completed/cancelled/expired script job must never start any new fallback request or initialize the page afterwards. Native errors before settlement must still retry locally once.",
+      "impact": "Late local page entry or masonry code can initialize a cancelled navigation after its owner has settled, create obsolete page modules/listeners, and interfere with the surviving page. Removing an in-flight script does not reliably suppress its eventual native error, so this is observable browser behavior rather than a synthetic-only event sequence. Timeout normally starts a full navigation, but the unwanted fallback can execute while that full navigation is still pending; same-page history cancellation can leave the current document alive.",
+      "reproduction": [
+        "Run bun /private/tmp/halo-review-native.mjs outside the network sandbox. It extracts and TypeScript-transpiles the exact scriptCopy/execute functions from this HEAD without altering them, serves a private loopback HTTP fixture, and launches an independent headless Chrome with its own temporary profile.",
+        "Cancellation case: start the remote script, abort after 100 ms, then return native HTTP 404 after 600 ms. execute rejects Navigation cancelled, the script list is empty at settlement, but the local fallback is then fetched/appended/executed: fallbackExecutions=1.",
+        "Timeout case: return remote HTTP 404 after 8500 ms. execute rejects Script timed out at 8000 ms with no script node remaining; the local fallback is subsequently fetched/appended/executed: fallbackExecutions=1.",
+        "Control: a native HTTP 404 after 100 ms without cancellation retries the local script once and resolves successfully."
+      ],
+      "evidence": "/private/tmp/halo-review-native-results.json",
+      "fixture": "/private/tmp/halo-review-native.mjs",
+      "suggestion": "Add a once-only settled/done flag in execute. finish must set it and clear the current node's onload/onerror callbacks. Check settled and signal.aborted before fallback creation, and detach handlers from the failed remote node before replacing it. Keep the existing no-retry-on-timeout behavior. Add a regression using real delayed native failure or explicit saved-handler replay after abort/timeout."
+    }
+  ],
+  "checks": [
+    {
+      "name": "identity and cleanliness",
+      "result": "pass",
+      "detail": "Full base/head SHAs independently confirmed. Checkout was clean for source review and all tests. At report completion, parent had begun the acknowledged R1 fix (modified navigation-loading.ts and new navigation-script.test.mjs); those edits are excluded from this original-SHA review. Reviewer made no checkout edits."
+    },
+    {
+      "name": "local instructions",
+      "result": "pass",
+      "detail": "Read clean checkout AGENTS.md. No GUI, user browser connection, commits, GitHub comments, or repo edits."
+    },
+    {
+      "name": "diff whitespace",
+      "command": "git diff --check origin/master...HEAD",
+      "result": "pass"
+    },
+    {
+      "name": "focused unit tests",
+      "command": "bun test --isolate tests/pace.test.mjs tests/resource-loading.test.mjs tests/integrations.test.mjs tests/navigation-loading.test.mjs tests/loading-style.test.mjs",
+      "result": "pass",
+      "tests": 35
+    },
+    {
+      "name": "full unit/guard suite",
+      "command": "bun run check",
+      "result": "pass",
+      "tests": 675,
+      "failures": 0,
+      "files": 130
+    },
+    {
+      "name": "TypeScript",
+      "command": "bun run typecheck",
+      "result": "pass"
+    },
+    {
+      "name": "parity consistency",
+      "command": "bun run parity:check",
+      "result": "pass",
+      "total": 897,
+      "verified": 0,
+      "notApplicable": 184
+    },
+    {
+      "name": "matrix comparison",
+      "result": "pass",
+      "detail": "No item IDs added or removed. 64 records changed; 39 gap -> not-applicable, 7 gap -> implemented-unverified, 15 implemented-unverified retained, 2 gap retained, 1 mapping-required retained. All six Mermaid/Chart.js/ABCJS config/resource records retain implemented-unverified. No verified promotion."
+    },
+    {
+      "name": "Pace fixed inputs",
+      "result": "pass",
+      "detail": "Installed package.json, pace.js, pace.min.js, minimal CSS and LICENSE independently match every corresponding SHA-256 in third-party-licenses/pace-source.json. package/bun lock pins Pace 1.2.4; reviewed build copy and packaged-byte/license checks."
+    },
+    {
+      "name": "real native event race",
+      "result": "finding",
+      "detail": "Delayed HTTP 404 on a removed script still emits error in isolated headless Chrome. Both cancellation and timeout launch fallback after rejection; ordinary native-error fallback control succeeds.",
+      "evidence": "/private/tmp/halo-review-native-results.json"
+    },
+    {
+      "name": "Pace lifecycle code",
+      "result": "no additional confirmed finding",
+      "detail": "Checked default/disabled/animation conditions, singleton navigation progress ownership, API validity guard, JS/CSS readiness, body/head replacement and style reattachment, ghost hide handler, abort finishing, and 30-second watchdog. Permanent disable until full refresh is documented behavior, not reported as a bug."
+    },
+    {
+      "name": "resource call chains",
+      "result": "no additional confirmed finding",
+      "detail": "Read server template resolver and browser resolver; checked override/unified/local selection, Font Awesome inherited/fixed providers, local image fallback, Share.js, effects, official Busuanzi exception, and existing body renderer loader integration. Known timeout semantics in the pre-existing body renderer loader were not attributed to this diff."
+    }
+  ],
+  "boundaries": [
+    "This is an independent source review plus repository tests and a dedicated native HTTP/browser race reproduction. It is not the author's real-Halo test run.",
+    "Did not rebuild or modify generated templates/dist in the clean checkout; did not independently run ZIP packaging/install checks or start Halo. Package SHA/install acceptance remains a separate author's gate.",
+    "Native reproduction uses extracted, unmodified execute/scriptCopy from the reviewed SHA rather than a full Halo end-to-end route. It proves executable late fallback and cancellation/timeout ordering, while the full page state corruption impact follows from entry/masonry initialization call chains.",
+    "No physical devices, Safari/Firefox, live third-party services, public CDN mirrors, plugin ecosystem combinations or complete 1.0 acceptance.",
+    "Initial fixture launch was blocked by loopback sandbox; authorized sandbox-external launch succeeded. Playwright's nominal bundled executables were missing; used installed Google Chrome with headless=true and an independent temporary profile. No user browser attachment occurred.",
+    "Author-reported CI, repeated ZIP and 22+8 Halo regression results were received but did not replace independently performed checks.",
+    "Parent began fixing R1 before final report save; all original finding evidence and test conclusions refer to 213ac9b as reviewed before those edits. A separate committed SHA requires a focused re-review."
+  ]
+}

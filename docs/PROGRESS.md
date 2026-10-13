@@ -1,5 +1,27 @@
 # 持续对齐进度
 
+## 2026-10-14：资源 / Pace 草稿 PR 交付
+
+[草稿 PR #411](https://github.com/songxychn/halo-butterfly-next/pull/411) 提交资源配置和 Pace，普通合并最新 master 后保留双方功能；原工作区已有正文扩展文件不变。独立审查确认并修复迟到 PJAX 错误触发回退的 P2。产品提交 `17ddb987` 完整 verify 678 项 / 252 文件、真实 Halo 22 组 Pace + 8 组资源以及全部安装字节比对通过；独立复审没有剩余已确认问题。后续仅证据文档提交，最终 SHA 审查与 CI 随 PR 登记。详见[限定验证](validation/2026-10-14/resource-pr.md)，不转移历史包证据、不提升矩阵 verified，未合并/发布。
+
+## 2026-10-14：默认 Pace 与 DEC-03 资源裁定
+
+已按维护者授权实施默认 Pace 1.2.4、四种 Loading 显式可选、无旧配置兼容；主题 fetch 导航使用当前请求进度源，资源失败/超时保持正文可读和导航回退。blueimp-md5 与 Node helper 的唯一消费方分别为已退出的 Valine / Gitalk，三个专属条目明确不适用。
+
+[DEC-03 #410](https://github.com/songxychn/halo-butterfly-next/issues/410) 与 [裁定](parity/DEC-03-RESOURCES-DECISION.md)、合同 v1.4、897 项矩阵同步：39 原独立供应/专属依赖 ID 不适用，6 个 Pace ID 为已实现待验，3 个相关记录补充映射；原 ID/来源/历史证据保留，verified 仍为 0。
+
+当前未提交工作区通过 652 项测试、162 文件包检查/真实安装逐字节比对；真实 Halo 2.26.1 的 22 组 Pace 与 8 组资源回归通过。[验证](validation/2026-10-14/dec03-pace.md)绑定输入快照和包哈希，记录初始 500、构建及夹具认证失败与修复边界，不归属 HEAD 单独或最终 CI。独立审查、固定双站、真实 SDK、插件组合及物理设备仍未完成。下文 2026-10-13 记录为实施前历史快照，当前结果以本节为准。
+
+## 2026-10-13：统一资源地址与 DEC-03 草案
+
+按维护者选择补齐完整 assets 根地址、动态效果、Share.js JS/CSS、不蒜子单项覆盖及 PJAX 精确地址识别。已打包的库通过承载文件迁移，Font Awesome 默认可继承主题来源，三家独立 CDN 固定 6.7.2；本地缓存参数开关不取消依赖版本。原生加载错误回退一次，超时不重复执行；默认插图保留本地回退。使用和迁移说明见[统一资源地址](RESOURCE-SOURCES.md)。
+
+后续维护者确认导航、特效、灯箱与 Prism 方案，供给方式按承载包、Viewer.js 和 Prism 整包延迟加载处理。固定上游 217 文件哈希一致，Pace 1.2.4 与正文就绪 Loading 的进度/请求/导航/样式差异已核对；blueimp-md5 仅供 Valine 最新评论头像，Node md5 helper 另供 Gitalk ID。维护者随后明确正式版前以效果为先：默认 Pace，四种动画显式可选，缺省模式统一 Pace，不保留旧默认兼容分支。两类已退出评论消费方的 MD5 不适用依据仍待裁定。已保存 [对照与审计](parity/DEC-03-PACE-MD5.md)、[Prism 固定标识清单](parity/DEC-03-PRISM-LANGUAGES.json)，5 项现有 Loading 回归通过；40 条矩阵只补说明/证据，状态不变，未接入 Pace 或新增源码/依赖。
+
+当前未提交工作区通过 648 项测试、159 文件包检查和实际安装比对；隔离 Halo 2.26.1 检查统一脚本/样式/插图、字体、5 轮 PJAX 往返、Share.js、不蒜子合成入口、动态特效、无效根地址及原生错误回退。包包含任务开始前已有的正文扩展改动，来源以输入快照及包哈希标识，不能只归属 HEAD。初始快照、模板、夹具、字体断言和头像回退失败及修复边界见[限定验证](validation/2026-10-13/resource-sources.md)。
+
+同步 18 个矩阵记录，3 项新增覆盖由 gap 转为 `implemented-unverified`；全量 CDN 映射和完整 PJAX 缺口保留，0 条提升为 verified。Mermaid/Chart.js/ABCJS 随功能开发；其余供应替代见 [DEC-03 本地草案](parity/DEC-03-RESOURCES-DRAFT.md)。草案未公开裁定，不据此改为不适用；固定双站、真实 SDK、独立审查和最终候选 CI 未完成。
+
 ## 2026-10-13：文章/单页评论懒加载
 
 [#407](https://github.com/songxychn/halo-butterfly-next/issues/407) 新增默认关闭的评论懒挂载，邻近 300px、跳转/直接锚点触发，模块超时重试和输入保留。工作区候选的 647 项工程测试、真实 Halo 2.26.1 / CommentWidget 3.3.2 三引擎 81 项和 160 文件安装比对通过；主题/系统配置恢复。旧 Firefox 资源超时及测试准备失败保留。官方 head 预加载资源仍保留，三条矩阵仅改为 implemented-unverified，0 条 verified；Moment、首屏零评论资源下载及完整 1.0 未完成。见[限定验收](validation/2026-10-13/comment-lazy.md)及[使用说明](COMMENT-ENHANCEMENTS.md)。评论独立提交 `c79b558` 排除了工作区正文扩展；普通合并最新 master 后产品提交 `d5705e1` 完整验证 659 项、真实 Halo 三引擎 81 项与 249 文件安装比对通过。原五个工作区文件保持原样，相对 master 只包含评论 20 个文件。[草稿 PR #409](https://github.com/songxychn/halo-butterfly-next/pull/409) 创建期间 master 又合入正文扩展，再普通合并后产品提交 `95cb290` 验证 663 项、真实 Halo 81 项和 249 文件安装比对通过，相对当前 master 仍只含评论 20 个文件。首次工作区候选身份保留在机器记录，未发布或部署。

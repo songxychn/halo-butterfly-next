@@ -32,13 +32,15 @@ AdSense 使用 `ca-pub-` 加 16 位数字的公开发布商 ID，支持脚本地
 
 ## 资源来源
 
+统一地址、Share.js/特效/不蒜子覆盖、固定依赖版本和 PJAX 地址识别的后续补齐见 [统一主题资源地址](RESOURCE-SOURCES.md)。新字段 `CDN.asset_base` 提供完整 assets 根地址；Font Awesome 新默认 `inherit` 跟随主题来源，旧显式 `local` 保持本地。
+
 默认使用完整随包资源，原有配置缺少新字段时继续使用安装包。
 
 | 设置 | 当前映射 |
 | --- | --- |
 | `CDN.internal_provider` | `local` 或 `custom`；目标是 Next 实际生成的 assets，不能用 Hexo npm 脚本替换 Halo 入口 |
 | `CDN.third_party_provider` | 当前独立资源为 Font Awesome Free 6.7.2：local/jsdelivr/unpkg/cdnjs/custom |
-| `CDN.version` | 本地缓存参数与可用 npm URL 的版本段；cdnjs 固定使用 6.7.2 |
+| `CDN.version` | 本地缓存参数；Font Awesome 的三种公共 CDN 均始终固定 6.7.2 |
 | `CDN.custom_format` | `${name}`、`${version}`、`${file}`；主题 name 为 `halo-butterfly-next`，字体包为 `@fortawesome/fontawesome-free` |
 | `CDN.option` | 单项覆盖优先于来源设置；HTTPS 或本站根路径，无效值回到安装包/官方地址 |
 
@@ -48,7 +50,7 @@ AdSense 使用 `ca-pub-` 加 16 位数字的公开发布商 ID，支持脚本地
 https://assets.example.com/${name}/${version}/${file}
 ```
 
-主题资源覆盖项：`main`（各页面脚本）、`main_css`、`integrations`、`masonry`、`loading`、`fontawesome`、`prismjs_js`、`prismjs_css`、`code_light`、`code_dark`。页面脚本和样式覆盖使用 `${file}`，避免所有页面收到同一入口。Prism 和已合入页面包的 Typed/LazyLoad/Viewer/InfiniteGrid 等保留当前构建适配；修改内部来源会一起改变其承载文件的地址，不单独下载不兼容的上游库。
+主题资源覆盖项：`main`（各页面脚本）、`main_css`、`integrations`、`masonry`、`loading`、`effects`、`sharejs`、`sharejs_css`、`fontawesome`、`prismjs_js`、`prismjs_css`、`code_light`、`code_dark`。页面脚本和样式覆盖使用 `${file}`，避免所有页面收到同一入口。Prism 和已合入页面包的 Typed/LazyLoad/Viewer/InfiniteGrid 等保留当前构建适配；修改内部来源会一起改变其承载文件的地址，不单独下载不兼容的上游库。不蒜子入口另支持 `busuanzi` 覆盖，留空用官方脚本。
 
 分析、聊天、AdSense 也有单项脚本地址覆盖，服务脚本的 ID 初始化保持原配置。服务来源覆盖不会自动改写 SDK 内部的二次请求或接收数据的端点。
 

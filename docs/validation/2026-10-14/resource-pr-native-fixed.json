@@ -1,0 +1,75 @@
+{
+  "head": "17ddb987f273b5bd97c57626610511ddfa435490",
+  "cases": [
+    {
+      "name": "cancel-then-native-error",
+      "settled": "Navigation cancelled",
+      "aborted": true,
+      "nodesWhenSettled": [],
+      "nodesAfterLateError": [],
+      "fallbackExecutions": 0
+    },
+    {
+      "name": "timeout-then-native-error",
+      "settled": "Script timed out",
+      "aborted": false,
+      "nodesWhenSettled": [],
+      "nodesAfterLateError": [],
+      "fallbackExecutions": 0
+    },
+    {
+      "name": "normal-native-error",
+      "settled": "resolved",
+      "aborted": false,
+      "nodesWhenSettled": [
+        "http://127.0.0.1:54150/fallback.js"
+      ],
+      "nodesAfterLateError": [
+        "http://127.0.0.1:54150/fallback.js"
+      ],
+      "fallbackExecutions": 1
+    }
+  ],
+  "hits": [
+    {
+      "path": "/",
+      "at": 1791910196355
+    },
+    {
+      "path": "/favicon.ico",
+      "at": 1791910196404
+    },
+    {
+      "path": "/late-error.js",
+      "at": 1791910196430
+    },
+    {
+      "path": "/",
+      "at": 1791910197522
+    },
+    {
+      "path": "/favicon.ico",
+      "at": 1791910197532
+    },
+    {
+      "path": "/late-error.js",
+      "at": 1791910197537
+    },
+    {
+      "path": "/",
+      "at": 1791910214421
+    },
+    {
+      "path": "/favicon.ico",
+      "at": 1791910214429
+    },
+    {
+      "path": "/late-error.js",
+      "at": 1791910214430
+    },
+    {
+      "path": "/fallback.js",
+      "at": 1791910214535
+    }
+  ]
+}

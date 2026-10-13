@@ -9,7 +9,9 @@
 | `pjax.enable` | false | 同源主题页面无刷新导航；更新整页内容、标题、canonical 与其他 head 元数据 |
 | `pjax.exclude` | 空 | 每行一个路径/完整 URL；路径末尾 `*` 匹配前缀。预取也遵守该列表 |
 | `loading.instantpage` | false | 对主题列表/分页或显式 `data-theme-prefetch` 链接，在鼠标经过、键盘聚焦时生成浏览器预取提示 |
-| `loading.enable` | true | 独立控制四种已有 Loading 动画；关闭后直接显示正文 |
+| `loading.enable` | true | 控制加载提示；关闭后不加载 Pace 或 Loading 动画 |
+| `loading.mode` | pace | 默认 Pace 非阻塞进度；animation 显式选择四种动画，与 Pace 互斥 |
+| `loading.pace_css_url` | 空 | 自定义 Pace CSS 优先于 CDN 选项，失败回退内置 minimal 样式 |
 | `snackbar.enable` | false | 模式、繁简切换消息及通用操作反馈使用指定位置；关闭时仍保留必要操作反馈 |
 | `snackbar.position` | bottom-left | top/bottom × left/center/right 共六种位置 |
 | `snackbar.bg_light` / `bg_dark` | #1f2937 / #374151 | 明暗模式消息背景，自定义时需保证白字可读 |
@@ -18,7 +20,7 @@
 | `lazyload.field` | site | site 全站，post 仅正文；post 模式下侧栏及列表封面立即加载 |
 | `lazyload.blur` | false | 选定范围内未完成图片模糊；成功/失败均解除 |
 
-原有 `loading.type`、`loading.img.preload/err` 与随机封面设置继续使用。旧配置缺少新字段时维持原生图片懒加载及现有 Loading。原保存的 `loading.type: 'null'` 仍表示关闭。无 JS 时正文可读，非原生延迟的主题卡片提供 noscript 图片。
+`loading.type` 仅在显式 animation 模式使用；缺少 mode 一律 Pace，历史 type 不推断动画或关闭。四种可选类型外的值回落 circle，关闭须使用 enable。`loading.img.preload/err`、随机封面与原生图片懒加载继续独立生效。无 JS 时正文可读，非原生延迟的主题卡片提供 noscript 图片。
 
 ## 导航生命周期
 
@@ -41,3 +43,5 @@ Halo 文章/单页的 `/halo-tracker.js` 包装 history 且绑定内容身份，
 运行 `bun run verify`。独立合成页面回归为 `bun scripts/navigation-loading/check.mjs`，依赖按仓库 `scripts/browser/install.mjs` 准备的隔离浏览器。检查三引擎桌面/手机连续六次切页、代码初始化、移动抽屉、明暗切换单次响应、标题/meta、前进后退、排除/未知脚本/HTTP 与 CSS 失败、请求竞争、懒加载开关及预取。真实 Halo 记录见 `docs/validation/2026-10-13/navigation-loading.md`。
 
 作者回归不替代固定双站的全部配置组合、插件生态、Safari 真机及完整 1.0 工程验收。
+
+2026-10-14 的 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)新增 Pace 1.2.4 默认进度，通过当前请求的阶段来源跟踪主题 fetch；普通 fetch 不自动被 Pace 跟踪。首屏与请求进度为估算，资源失败或连续进度超过 30 秒回落原导航提示，正文保持可读。验证见 [Pace 限定记录](validation/2026-10-14/dec03-pace.md)。
