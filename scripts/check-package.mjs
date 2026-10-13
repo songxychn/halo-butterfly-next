@@ -93,5 +93,13 @@ if (!layout.includes('#theme.assets')) throw new Error('资源必须由当前主
 const publicLayout = await zip.file('templates/layout.html').async('string');
 if (!/th:fragment="html\s*\(\s*head\s*,\s*content\s*\)"/.test(publicLayout)) throw new Error('公共布局必须提供 html(head, content) 契约');
 if (!publicLayout.includes('#theme.assets')) throw new Error('公共布局资源必须由当前主题解析');
-if (!(await zip.file('templates/views/config.html').async('string')).includes('/*[[')) throw new Error('Thymeleaf 内联表达式丢失');
+const protectedConfig = await zip.file('templates/views/config.html').async('string');
+if (!protectedConfig.includes('scriptJsonMapper.writeValueAsString') || !protectedConfig.includes('\\u003C')) throw new Error('安全 Thymeleaf 内联数据包装丢失');
+for (const file of Object.values(zip.files).filter(file => !file.dir && file.name.endsWith('.html'))) {
+  const html = await file.async('string');
+  for (const [script] of html.matchAll(/<script\b(?:"[^"]*"|'[^']*'|[^'">])*?>[\s\S]*?<\/script\s*>/gi)) {
+    if (!/\bth:inline=(["'])javascript\1/i.test(script)) continue;
+    if (!script.includes('scriptJsonMapper=${T(run.halo.app.infra.utils.JsonUtils).mapper()}') || script.includes('/*[[')) throw new Error(`脚本数据未经过安全包装：${file.name}`);
+  }
+}
 console.log(`安装包检查通过：${Object.keys(zip.files).length} 个文件，所有页面和 Loading 资源齐全`);

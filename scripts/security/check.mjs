@@ -1,0 +1,60 @@
+/** A01 boundaries on an owned loopback Halo; restores every changed theme setting. */
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir,realpath,stat} from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {RUNTIME,browserEnvironment,validateBaseUrl,sha256} from '../browser/support.mjs';
+const args={};for(let i=2;i<process.argv.length;i+=2)args[process.argv[i]]=process.argv[i+1];
+for(const key of ['--runtime','--package','--output'])assert(args[key]);assert.equal(args['--allow-synthetic-writes'],'yes');
+const read=async p=>JSON.parse(await readFile(p,'utf8'));const runtime=await realpath(args['--runtime']);assert(!path.relative(path.resolve('.runtime'),runtime).startsWith('..'));
+const base=validateBaseUrl(process.env.BASE_URL,await read(path.join(runtime,'lab.json')));const installed=await read(path.join(runtime,'installed-package.json'));assert.equal(installed.sha256,sha256(await readFile(args['--package'])));
+const authPath=path.join(runtime,'security-auth.private.json');assert.equal((await stat(authPath)).mode&0o077,0);const auth=await read(authPath);
+Object.assign(process.env,browserEnvironment());const pw=await import(pathToFileURL(path.join(RUNTIME,'deps/node_modules/playwright/index.mjs')).href);
+const admin=await pw.request.newContext({baseURL:base,storageState:{cookies:auth.cookies,origins:[]},extraHTTPHeaders:{'X-CSRF-TOKEN':auth.csrf}});
+const configPath='/apis/api.console.halo.run/v1alpha1/themes/halo-butterfly-next/json-config';
+async function api(method,data){const r=await admin[method](configPath,data?{data}:{});assert(r.ok(),String(r.status()));const body=await r.text();return body?JSON.parse(body):null;}
+const resources=[];for(const [url,key] of [['/apis/content.halo.run/v1alpha1/categories/development','displayName'],['/apis/content.halo.run/v1alpha1/posts/preview-1','title']]){const r=await admin.get(url);assert(r.ok());const value=await r.json();resources.push({url,key,spec:value.spec});}
+async function setResource(item,value){const r=await admin.get(item.url);assert(r.ok());const current=await r.json();current.spec=value;const put=await admin.put(item.url,{data:current});assert(put.ok());}
+const saved=await api('get'),cfg=structuredClone(saved),out=path.resolve(args['--output']);await mkdir(out,{recursive:true});
+const report={schema:1,installed,startedAt:new Date().toISOString(),checks:[],restored:false};
+async function check(name,fn){const row={name};report.checks.push(row);try{await fn();row.pass=true;}catch(e){row.pass=false;row.error=String(e.stack||e);throw e;}finally{await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');}}
+const payload='<!--<script>"\\\u2028\u2029</script></style><script id="a01-probe">window.__a01Probe=1</script><style> & \" \' ';
+const hostileHtml='<p><strong>safe text</strong></p>'+payload+'<svg onload="window.__a01Probe=2"><a xlink:href="javascript:alert(1)">x</a></svg><img src="x" onerror="window.__a01Probe=3"><a href="java&#x73;cript:alert(1)">bad</a><iframe srcdoc="<script>window.__a01Probe=4</script>"></iframe>';
+function styleValues(value){cfg.card.radius=value;cfg.card.shadow=value;cfg.rightside.bottom=value;cfg.style.body_background=value;for(const k of ['font_color','active_font_color','active_hover_font_color','active_background_color','active_shadow','dropdown_background_color','dropdown_font_color','dropdown_hover_font_color'])cfg.nav[k]={light:value,dark:value};}
+styleValues(payload);cfg.base.enable_seo=true;cfg.seo={...cfg.seo,structured_data:true,alternate_name:[{name:payload}],site_verification:[{name:'a01-meta',content:payload}]};cfg.pjax={...cfg.pjax,enable:false,exclude:payload};cfg.index={...cfg.index,enable_subtitle:false,typewriter_custom_text:payload,subtitle_typed_option:payload};cfg.appearance={...cfg.appearance,font:{...cfg.appearance?.font,font_family:payload},audit:{values:[true,false,null,42,0.5,{text:payload}],unicode:'🦋'}};cfg.aside.card_tags={...cfg.aside.card_tags,custom_colors:[{light:payload,dark:payload}]};cfg.mermaid={...cfg.mermaid,enable:false,theme:{light:payload,dark:payload}};cfg.chartjs={...cfg.chartjs,enable:false,fontColor:payload};cfg.render.code_shrink=payload;
+cfg.footer.custom_html=hostileHtml;cfg.aside.social_position='both';cfg.aside.social=[{name:payload,link:'javascript:window.__a01Probe=5',icon:hostileHtml,color:payload}];cfg.moments={...cfg.moments,source:'/lab/a01-feed.json',since:'',limit:10,page_size:3};cfg.links={...cfg.links,source:'/lab/a01-links.json'};
+try{
+ await api('put',cfg);for(const item of resources)await setResource(item,{...item.spec,[item.key]:payload});
+ for(const engine of ['chromium','firefox','webkit']){
+  const browser=await pw[engine].launch({headless:true,env:browserEnvironment(),...(engine==='chromium'?{channel:'chromium'}:{})});
+  try{
+   const ctx=await browser.newContext();await ctx.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());
+   await ctx.route('**/lab/a01-feed.json',r=>r.fulfill({json:[{key:'a01',author:payload,avatar:'javascript:x',date:'2026-10-14T00:00:00Z',tags:[payload],html:hostileHtml}]}));
+   await ctx.route('**/lab/a01-links.json',r=>r.fulfill({json:[{name:payload,description:hostileHtml,links:[{name:payload,url:'/about-preview',logo:'javascript:x',description:hostileHtml}]}]}));
+   const p=await ctx.newPage();const errors=[];p.on('pageerror',e=>errors.push(String(e)));
+   for(const route of ['/','/archives/preview-1','/about-preview','/moments','/links','/categories','/archives'])await check(engine+' hostile serialized config, HTML tokenizer, JSON-LD and data consumers '+route,async()=>{
+    const response=await p.goto(base+route,{waitUntil:'networkidle'});assert.equal(response.status(),200);try{await p.waitForFunction(()=>!!window.MainApp?.useCommon,{},{timeout:10000});}catch(e){await writeFile(path.join(out,'failed-page.html'),await p.content());throw new Error(String(e)+'; pageerrors='+JSON.stringify(errors));}
+    assert.equal(await p.locator('script#a01-probe').count(),0);assert.equal(await p.evaluate(()=>window.__a01Probe||0),0);assert.deepEqual(errors,[]);
+    assert.equal(await p.evaluate(()=>window.MainApp.conf.pjax_exclude),payload);assert.equal(await p.evaluate(()=>window.MainApp.conf.pjax_enable),false);assert.deepEqual(await p.evaluate(()=>window.MainApp.conf.appearance.audit),{values:[true,false,null,42,0.5,{text:payload}],unicode:'🦋'});assert.equal(await p.evaluate(()=>window.MainApp.conf.appearance.font.font_family),payload);
+    assert.equal(await p.locator('meta[name=a01-meta]').getAttribute('content'),payload);
+    assert.equal((await p.locator('html').evaluate(el=>getComputedStyle(el).getPropertyValue('--card-border-radius'))).trim(),'24px');
+    for(const text of await p.locator('script[type="application/ld+json"]').allTextContents()){assert(!/[<>\u2028\u2029]/.test(text));JSON.parse(text);}
+    if(route==='/'){const ld=JSON.parse(await p.locator('script[type="application/ld+json"]').textContent());assert.equal(ld.alternateName[0],payload.trim());assert.equal(await p.evaluate(()=>window.MainApp.conf.typewriter_custom_text),payload);}
+    if(route==='/archives/preview-1'){assert.equal(await p.evaluate(()=>window.MainApp.conf.body_renderers.mermaid.theme.light),payload);assert.equal(await p.evaluate(()=>window.MainApp.conf.code_shrink),payload);}
+    assert.equal(await p.locator('[data-site-html] strong').textContent(),'safe text');assert.equal(await p.locator('[data-site-html] script,[data-site-html] iframe,[data-site-html] svg,[data-site-html] [onerror],[data-site-html] a[href^="javascript:"]').count(),0);
+    if(route==='/moments'){await p.waitForSelector('[data-feed-items] .item');assert.equal(await p.locator('[data-feed-items] strong').textContent(),'safe text');assert.equal(await p.locator('[data-feed-items] script,[data-feed-items] svg,[data-feed-items] [onerror],[data-feed-items] a[href^="javascript:"]').count(),0);}
+    if(route==='/categories'){const data=await p.evaluate(()=>window.MainApp.data);assert(Array.isArray(data));assert(data.some(x=>x.spec.displayName===payload));assert(data.every(x=>typeof x.postCount==='number'));}
+    if(route==='/archives'){const data=await p.evaluate(()=>window.MainApp.data);assert(Array.isArray(data));assert(data.every(x=>Array.isArray(x.months)));const posts=data.flatMap(x=>x.months.flatMap(m=>m.posts));assert(posts.some(x=>x.spec.title===payload));assert(posts.every(x=>typeof x.spec.publishTime==='string'));}
+    if(route==='/links'){await p.waitForSelector('[data-links-state="loaded"]');assert.equal(await p.locator('[data-links-items] script,[data-links-items] svg').count(),0);assert.equal(await p.locator('[data-links-items] .n').textContent(),payload);}
+   });await ctx.close();
+  }finally{await browser.close();}
+ }
+ const cssBrowser=await pw.chromium.launch({headless:true,channel:'chromium',env:browserEnvironment()});
+ try{const ctx=await cssBrowser.newContext({javaScriptEnabled:false});await ctx.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());const page=await ctx.newPage();
+ for(const [label,value] of [['declaration','red;position:fixed'],['block','red}body{display:none'],['comment','red/*x*/'],['control','red\u0007'],['escape','red\\31'],['length','x'.repeat(201)],['type',42],['null',null]])await check('SSR CSS rejects '+label,async()=>{styleValues(value);await api('put',cfg);const response=await page.goto(base,{waitUntil:'networkidle'});assert.equal(response.status(),200);assert.deepEqual(await page.locator('html').evaluate(el=>['--card-border-radius','--rightside-bottom','--nav-font-color'].map(k=>getComputedStyle(el).getPropertyValue(k).trim())),['24px','40px','transparent']);});await ctx.close();}finally{await cssBrowser.close();}
+ // Valid values still reach their intended CSS property, in both color schemes.
+ styleValues('#112233');cfg.card.radius='21px';cfg.card.shadow='0 1px 2px rgba(0,0,0,.2)';cfg.rightside.bottom='63px';cfg.nav.font_color.dark='#aabbcc';cfg.nav.active_shadow={light:'0 1px 2px rgba(0,0,0,.2)',dark:'none'};await api('put',cfg);
+ const browser=await pw.chromium.launch({headless:true,channel:'chromium',env:browserEnvironment()});
+ try{for(const javaScriptEnabled of [true,false])for(const scheme of ['light','dark'])await check('valid CSS values and mode '+scheme+' js='+javaScriptEnabled,async()=>{const ctx=await browser.newContext({colorScheme:scheme,javaScriptEnabled});await ctx.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());const p=await ctx.newPage();await p.addInitScript(s=>localStorage.setItem('halo-butterfly-next.color-scheme',s),scheme);await p.goto(base,{waitUntil:'networkidle'});if(javaScriptEnabled)assert.equal(await p.locator('html').getAttribute('data-color-scheme'),scheme);else await p.locator('html').evaluate((el,s)=>el.setAttribute('data-color-scheme',s),scheme);const css=await p.locator('html').evaluate(el=>{const s=getComputedStyle(el);return ['--card-border-radius','--rightside-bottom','--nav-font-color','--card-box-shadow'].map(k=>s.getPropertyValue(k).trim());});assert.deepEqual(css,['21px','63px',scheme==='light'?'#112233':'#aabbcc','0 1px 2px rgba(0,0,0,.2)']);await ctx.close();});}finally{await browser.close();}
+}finally{for(const item of resources)await setResource(item,item.spec);await api('put',saved);report.restored=JSON.stringify(await api('get'))===JSON.stringify(saved);await admin.dispose();report.finishedAt=new Date().toISOString();await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');}
+assert(report.restored);console.log(JSON.stringify({checks:report.checks.length,failed:report.checks.filter(x=>!x.pass).length,restored:report.restored,out}));

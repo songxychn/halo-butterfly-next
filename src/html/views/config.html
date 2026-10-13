@@ -356,13 +356,36 @@
 </script>
 
 <!--/* style */-->
-<style th:inline="css">
+<style th:inline="css" th:with="
+    cssInputs = ${ {theme.config.card.radius,
+      theme.config.card.shadow,
+      #strings.isEmpty(theme.config.rightside?.bottom) ? '40px' : theme.config.rightside.bottom,
+      theme.config.style.body_background,
+      theme.config.nav.font_color.light,
+      theme.config.nav.active_font_color.light,
+      theme.config.nav.active_hover_font_color.light,
+      theme.config.nav.active_background_color.light,
+      theme.config.nav.active_shadow.light,
+      theme.config.nav.dropdown_background_color.light,
+      theme.config.nav.dropdown_font_color.light,
+      theme.config.nav.dropdown_hover_font_color.light,
+      theme.config.nav.font_color.dark,
+      theme.config.nav.active_font_color.dark,
+      theme.config.nav.active_hover_font_color.dark,
+      theme.config.nav.active_background_color.dark,
+      theme.config.nav.active_shadow.dark,
+      theme.config.nav.dropdown_background_color.dark,
+      theme.config.nav.dropdown_font_color.dark,
+      theme.config.nav.dropdown_hover_font_color.dark} },
+    cssStrings = ${cssInputs.![#this instanceof T(java.lang.String) ? #this : '']},
+    cssSafe = ${cssStrings.![#strings.length(#this) &lt;= 200 and (#this matches '[^&lt;&gt;;{}\p{Cntrl}\\]*') and not #strings.contains(#this, '/*') and not #strings.contains(#this, '*/') ? #strings.trim(#this) : '']}
+  ">
   :root {
     --message-pinned: "[[#{ui.pinned}]]";
     --message-gallery-js: "[[#{ui.galleryJs}]]";
-    --card-border-radius: /*[(${theme.config.card.radius})]*/ 24px;
-    --card-box-shadow: /*[(${theme.config.card.shadow})]*/ transparent;
-    --rightside-bottom: /*[(${#strings.isEmpty(theme.config.rightside?.bottom) ? '40px' : theme.config.rightside.bottom})]*/ 40px;
+    --card-border-radius: /*[(${#strings.isEmpty(cssSafe[0]) ? '24px' : cssSafe[0]})]*/ 24px;
+    --card-box-shadow: /*[(${#strings.isEmpty(cssSafe[1]) ? 'transparent' : cssSafe[1]})]*/ transparent;
+    --rightside-bottom: /*[(${#strings.isEmpty(cssSafe[2]) ? '40px' : cssSafe[2]})]*/ 40px;
     --link-hover-color: var(--theme);
     --cursor-default: auto;
     --cursor-pointer: pointer;
@@ -370,28 +393,28 @@
 
   html {
     --theme: #49b1f5;
-    --body-background: /*[(${theme.config.style.body_background})]*/ transparent;
-    --nav-font-color: /*[(${theme.config.nav.font_color.light})]*/ transparent;
-    --nav-active-font-color: /*[(${theme.config.nav.active_font_color.light})]*/ transparent;
-    --nav-active-hover-font-color: /*[(${theme.config.nav.active_hover_font_color.light})]*/ transparent;
-    --nav-active-background-color: /*[(${theme.config.nav.active_background_color.light})]*/ transparent;
-    --nav-active-shadow: /*[(${theme.config.nav.active_shadow.light})]*/ transparent;
-    --nav-dropdown-background-color: /*[(${theme.config.nav.dropdown_background_color.light})]*/ transparent;
-    --nav-dropdown-font-color: /*[(${theme.config.nav.dropdown_font_color.light})]*/ transparent;
-    --nav-dropdown-hover-font-color: /*[(${theme.config.nav.dropdown_hover_font_color.light})]*/ transparent;
+    --body-background: /*[(${#strings.isEmpty(cssSafe[3]) ? 'transparent' : cssSafe[3]})]*/ transparent;
+    --nav-font-color: /*[(${#strings.isEmpty(cssSafe[4]) ? 'transparent' : cssSafe[4]})]*/ transparent;
+    --nav-active-font-color: /*[(${#strings.isEmpty(cssSafe[5]) ? 'transparent' : cssSafe[5]})]*/ transparent;
+    --nav-active-hover-font-color: /*[(${#strings.isEmpty(cssSafe[6]) ? 'transparent' : cssSafe[6]})]*/ transparent;
+    --nav-active-background-color: /*[(${#strings.isEmpty(cssSafe[7]) ? 'transparent' : cssSafe[7]})]*/ transparent;
+    --nav-active-shadow: /*[(${#strings.isEmpty(cssSafe[8]) ? 'transparent' : cssSafe[8]})]*/ transparent;
+    --nav-dropdown-background-color: /*[(${#strings.isEmpty(cssSafe[9]) ? 'transparent' : cssSafe[9]})]*/ transparent;
+    --nav-dropdown-font-color: /*[(${#strings.isEmpty(cssSafe[10]) ? 'transparent' : cssSafe[10]})]*/ transparent;
+    --nav-dropdown-hover-font-color: /*[(${#strings.isEmpty(cssSafe[11]) ? 'transparent' : cssSafe[11]})]*/ transparent;
   }
 
   html[data-color-scheme=dark] {
     --theme: #49b1f5;
     --body-background: rgb(15, 23, 42);
-    --nav-font-color: /*[(${theme.config.nav.font_color.dark})]*/ transparent;
-    --nav-active-font-color: /*[(${theme.config.nav.active_font_color.dark})]*/ transparent;
-    --nav-active-hover-font-color: /*[(${theme.config.nav.active_hover_font_color.dark})]*/ transparent;
-    --nav-active-background-color: /*[(${theme.config.nav.active_background_color.dark})]*/ transparent;
-    --nav-active-shadow: /*[(${theme.config.nav.active_shadow.dark})]*/ transparent;
-    --nav-dropdown-background-color: /*[(${theme.config.nav.dropdown_background_color.dark})]*/ transparent;
-    --nav-dropdown-font-color: /*[(${theme.config.nav.dropdown_font_color.dark})]*/ transparent;
-    --nav-dropdown-hover-font-color: /*[(${theme.config.nav.dropdown_hover_font_color.dark})]*/ transparent;
+    --nav-font-color: /*[(${#strings.isEmpty(cssSafe[12]) ? 'transparent' : cssSafe[12]})]*/ transparent;
+    --nav-active-font-color: /*[(${#strings.isEmpty(cssSafe[13]) ? 'transparent' : cssSafe[13]})]*/ transparent;
+    --nav-active-hover-font-color: /*[(${#strings.isEmpty(cssSafe[14]) ? 'transparent' : cssSafe[14]})]*/ transparent;
+    --nav-active-background-color: /*[(${#strings.isEmpty(cssSafe[15]) ? 'transparent' : cssSafe[15]})]*/ transparent;
+    --nav-active-shadow: /*[(${#strings.isEmpty(cssSafe[16]) ? 'transparent' : cssSafe[16]})]*/ transparent;
+    --nav-dropdown-background-color: /*[(${#strings.isEmpty(cssSafe[17]) ? 'transparent' : cssSafe[17]})]*/ transparent;
+    --nav-dropdown-font-color: /*[(${#strings.isEmpty(cssSafe[18]) ? 'transparent' : cssSafe[18]})]*/ transparent;
+    --nav-dropdown-hover-font-color: /*[(${#strings.isEmpty(cssSafe[19]) ? 'transparent' : cssSafe[19]})]*/ transparent;
   }
 
   .loading #Butterfly {
