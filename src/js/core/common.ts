@@ -5,6 +5,7 @@
  * @Description:common
  */
 import $ from 'jquery';
+import { initializeFooterBackground } from './decorative-background.ts';
 import {initializeAppearance, enabled} from './appearance.ts';
 import Navigation from './navigation.ts';
 import { initializeAsideOptions } from './aside-options.ts';
@@ -31,6 +32,7 @@ export default class Common {
 
     initializeAsideOptions(document, MainApp.conf.aside_tag_colors);
     initializeAppearance(MainApp.conf.appearance);
+    initializeFooterBackground();
     const effects = MainApp.conf.effects;
     if (effects && Object.values(effects).some(value => value && typeof value === 'object' && enabled((value as Record<string, unknown>).enable)) && !document.getElementById('appearance-effects') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const file = 'js/effects.min.js', local = MainApp.conf.assets_link + file;

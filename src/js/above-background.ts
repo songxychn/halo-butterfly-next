@@ -1,3 +1,4 @@
+import { decorativeBackground } from './core/decorative-background.ts';
 // Inlined after the page configuration, before styles and deferred page bundles.
 // Setting a property through CSSOM keeps configurable URLs out of CSS/HTML source.
 const conf = window.MainApp.conf;
@@ -11,16 +12,22 @@ if (conf.enable_above === true) {
     const url = candidates[index];
     if (!url) {
       rootStyle.removeProperty('--above-background');
+      rootStyle.removeProperty('--above-background-style');
       return;
     }
+    const background = decorativeBackground(url);
+    if (!background) { apply(index + 1); return; }
+    rootStyle.setProperty('--above-background-style', background.css);
+    if (!background.image) { rootStyle.removeProperty('--above-background'); return; }
     const style = document.createElement('span').style;
-    style.backgroundImage = `url(${JSON.stringify(url)})`;
+    style.backgroundImage = `url(${JSON.stringify(background.image)})`;
     rootStyle.setProperty('--above-background', style.backgroundImage);
     // Share the background/preload cache; a failed decorative image must not hide
     // the title or keep retrying the same URL indefinitely.
     const image = new Image();
     image.onerror = () => apply(index + 1);
-    image.src = url;
+    image.fetchPriority = 'high';
+    image.src = background.image;
   };
   apply(0);
 }

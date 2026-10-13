@@ -660,11 +660,11 @@ spec:
               value: false
             - label: 全局关闭
               value: true
-        - $formkit: attachment
+        - $formkit: text
           name: default_top_img
           label: 默认顶图
           value: ""
-          help: 可选。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空使用纯色，不继承列表随机图或首页背景。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
+          help: 支持图片 URL、CSS 颜色、渐变和 background 简写。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空使用纯色，不继承列表随机图或首页背景。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
 
         - $formkit: checkbox
           name: other_pages_above
@@ -1590,12 +1590,12 @@ spec:
               value: true
             - label: 禁用
               value: false
-        - $formkit: attachment
+        - $formkit: text
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
+          help: 支持图片 URL、CSS 颜色、渐变和 background 简写。留空使用默认顶图；分类/标签详情优先使用各自原生封面
         - $formkit: text
           name: top_img_height
           label: 首页第一屏高度
@@ -2403,12 +2403,12 @@ spec:
               value: true
             - label: 禁用
               value: false
-        - $formkit: attachment
+        - $formkit: text
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
+          help: 支持图片 URL、CSS 颜色、渐变和 background 简写。留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #标签设置
     - group: tags
       label: 标签设置
@@ -2423,12 +2423,12 @@ spec:
               value: true
             - label: 禁用
               value: false
-        - $formkit: attachment
+        - $formkit: text
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
+          help: 支持图片 URL、CSS 颜色、渐变和 background 简写。留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #分类设置
     - group: categories
       label: 分类设置
@@ -2443,12 +2443,12 @@ spec:
               value: true
             - label: 禁用
               value: false
-        - $formkit: attachment
+        - $formkit: text
           name: above_background
           label: 第一屏背景图
           placeholder: 请填写 第一屏背景图
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
-          help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
+          help: 支持图片 URL、CSS 颜色、渐变和 background 简写。留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #渲染设置
     - group: mermaid
       label: Mermaid 图表
@@ -3135,10 +3135,10 @@ spec:
           label: 自定义文案
           help: 对应上游 footer.custom_text（默认空）。有内容才渲染。可见文本 th:text，不做 HTML。
           value: ""
-        - $formkit: attachment
+        - $formkit: text
           name: footer_img
           label: 页脚背景
-          help: 对应上游 Butterfly footer_img（_config.yml 顶层，5.7.0 f223b188）。默认 false。Halo 放在页脚组，空字符串视为 false，不套背景。非空为附件/URL，写入 background-image（th:style，无 th:utext）。不做 true=复用页头 top_img、颜色值与 background 简写。遮罩见 mask.footer。
+          help: 对应上游 Butterfly footer_img（_config.yml 顶层，5.7.0 f223b188）。默认 false。Halo 放在页脚组，空字符串视为 false，不套背景。支持图片 URL、CSS 颜色、渐变或 background 简写；true 复用当前页顶图（无顶图时使用默认顶图）。背景值通过 CSSOM 设置。遮罩见 mask.footer。
           value: ""
     - group: error404
       label: 404 页面

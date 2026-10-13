@@ -16,7 +16,7 @@
     <script defer data-theme-script="masonry" id="masonryScript" th:if="${homeLayout == '6' or homeLayout == '7'}"
             th:src="${assets_link + 'js/masonry.min.js?v=' + theme.spec.version}"></script>
     <link rel="preload" as="image" fetchpriority="high"
-          th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
+          th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground) and (#strings.startsWith(aboveBackground, '/') or #strings.startsWith(aboveBackground, 'https://') or #strings.startsWith(aboveBackground, 'http://'))}"
           th:href="${aboveBackground}">
     <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
       Object.assign(window.MainApp.conf, {

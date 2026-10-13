@@ -1,12 +1,7 @@
 <footer
   class="footer"
-  th:with="
-    footerImg = ${theme.config.footer?.footer_img},
-    footerImgOn = ${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'},
-    footerMaskOn = ${theme.config.mask?.footer != false and theme.config.mask?.footer != 'false'}
-  "
-  th:classappend="${footerImgOn} ? (${footerMaskOn} ? ' footer--bg footer--mask' : ' footer--bg') : ''"
-  th:style="${footerImgOn} ? |background-image: url('${footerImg}');| : ''"
+  th:data-footer-background="${theme.config.footer?.footer_img}"
+  th:data-footer-mask="${theme.config.mask?.footer != false and theme.config.mask?.footer != 'false'}"
 >
   <div
     class="footer-flex"
