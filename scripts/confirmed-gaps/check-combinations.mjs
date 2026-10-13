@@ -18,12 +18,12 @@ const save=()=>writeFile(path.join(out,'report.json'),JSON.stringify(report,null
 for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split(',')){
  const browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{channel:'chromium'}:{})});
  try{for(const width of [1440,390])for(const color of ['light','dark']){
-  const row={engine,version:browser.version(),width,color,checks:[],errors:[]};report.cases.push(row);
+  const row={engine,version:browser.version(),width,color,checks:[],errors:[],requests:[],console:[]};report.cases.push(row);
   const context=await browser.newContext({viewport:{width,height:width===390?844:1000},locale:'en',colorScheme:color});
   await context.addInitScript(color=>localStorage.setItem('halo-butterfly-next.color-scheme',color),color);
   await context.route('**/*',route=>new URL(route.request().url()).origin===base?route.continue():route.abort());
-  const page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',e=>row.errors.push(e.message));
-  const navigate=async route=>{
+  const page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',e=>row.errors.push(e.message));page.on('console',m=>{if(['error','debug'].includes(m.type()))row.console.push(m.text().slice(0,1000));});page.on('request',r=>row.requests.push({url:r.url(),status:'pending'}));page.on('requestfinished',r=>{const x=row.requests.find(x=>x.url===r.url()&&x.status==='pending');if(x)x.status='finished';});page.on('requestfailed',r=>{const x=row.requests.find(x=>x.url===r.url()&&x.status==='pending');if(x)x.status=r.failure()?.errorText||'failed';});
+  const navigate=async route=>{row.stage=route;
    await page.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove();},route);
    await page.waitForFunction(route=>location.pathname+location.search===route&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,route,{timeout:30000});
    assert.equal(await page.evaluate(()=>window.combinationSentinel),'retained','Expected scoped navigation to '+route);
@@ -46,7 +46,7 @@ for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split(','))
    assert.equal(await page.evaluate(()=>window.oldLinks.isConnected),false);assert.notEqual(await page.evaluate(()=>window.oldLinks.dataset.linksState),'loaded');assert.equal(await page.locator('[data-links-items]').count(),0);
    await navigate('/links?language=en');await page.waitForSelector('[data-links-state="loaded"]');assert.equal(await page.locator('[data-links-items] .link').count(),3);row.checks.push('Pending remote request cannot mutate detached page; reentry succeeds');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);assert.deepEqual(row.errors,[]);row.pass=true;
-  }catch(error){row.pass=false;row.error=String(error.stack||error);throw error;}
+  }catch(error){row.pass=false;row.error=String(error.stack||error);row.url=page.url();try{row.state=await Promise.race([page.evaluate(()=>({ready:!!window.MainApp?.useCommon,classes:document.documentElement.className,lang:document.documentElement.lang,sentinel:window.combinationSentinel,scripts:[...document.scripts].map(x=>({src:x.src,kind:x.dataset.themeScript})),custom:[...document.querySelectorAll('*')].filter(x=>x.localName.includes('-')).map(x=>x.localName)})),new Promise((_,reject)=>setTimeout(()=>reject(Error('snapshot timeout')),2000))]);}catch{}throw error;}
   finally{await context.close();await save();console.log(engine,width,color,row.pass?'passed':'failed');}
  }}finally{await browser.close();}
 }
