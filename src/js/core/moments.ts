@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import DOMPurify from 'dompurify';
 import { onPageCleanup, pageListen } from './page-lifecycle.ts';
 
@@ -47,7 +48,7 @@ export function parseMomentFeed(value: unknown, options: { origin: string; limit
     const html = typeof x.html === 'string', content = html ? x.html : x.content;
     if (typeof content !== 'string' || content.length > 100000) throw new Error('Invalid feed content');
     keys.add(x.key);
-    return { key: x.key, date: x.date as string, author: typeof x.author === 'string' ? x.author.slice(0, 200) : '访客',
+    return { key: x.key, date: x.date as string, author: typeof x.author === 'string' ? x.author.slice(0, 200) : t('ui.guest'),
       avatar: typeof x.avatar === 'string' ? feedUrl(x.avatar, options.origin) || '' : '',
       tags: Array.isArray(x.tags) ? x.tags.filter((tag): tag is string => typeof tag === 'string').slice(0, 20).map(tag => tag.slice(0, 100)) : [], content, html };
   });
@@ -133,15 +134,15 @@ export function initializeMoments(root: Document = document) {
     }
     list.replaceChildren(fragment); pager.hidden = total <= 1;
     input.value = String(page); input.max = String(total); previous.disabled = page === 1; next.disabled = page === total;
-    pager.querySelector<HTMLElement>('[data-feed-total]')!.textContent = `共 ${total} 页`;
-    status.textContent = items.length ? `共 ${items.length} 条动态，第 ${page} / ${total} 页` : '暂无动态';
+    pager.querySelector<HTMLElement>('[data-feed-total]')!.textContent = t('ui.momentTotal', total);
+    status.textContent = items.length ? t('ui.momentStatus', items.length, page, total) : t('ui.momentEmpty');
   };
   pageListen(previous, 'click', () => { page--; show(); });
   pageListen(next, 'click', () => { page++; show(); });
   pageListen(pager, 'submit', event => { event.preventDefault(); if (input.reportValidity()) { page = Number(input.value); show(); } });
   const load = async () => {
     if (running || !active) return;
-    running = true; retry.hidden = true; status.textContent = '正在加载动态…'; feed.setAttribute('aria-busy', 'true');
+    running = true; retry.hidden = true; status.textContent = t('ui.momentLoading'); feed.setAttribute('aria-busy', 'true');
     const attempt = new AbortController();
     const abort = () => attempt.abort();
     controller.signal.addEventListener('abort', abort, { once: true });
@@ -153,7 +154,7 @@ export function initializeMoments(root: Document = document) {
       items = parseMomentFeed(await readMomentFeed(response), { origin: win.location.origin, limit: feed.dataset.limit, since: feed.dataset.since });
       if (active) { feed.dataset.feedState = 'loaded'; page = 1; show(); }
     } catch {
-      if (active) { feed.dataset.feedState = 'failed'; status.textContent = '外部动态暂时无法加载，本地瞬间不受影响。'; retry.hidden = false; }
+      if (active) { feed.dataset.feedState = 'failed'; status.textContent = t('ui.momentError'); retry.hidden = false; }
     } finally { win.clearTimeout(timeout); controller.signal.removeEventListener('abort', abort); running = false; if (active) feed.setAttribute('aria-busy', 'false'); }
   };
   pageListen(retry, 'click', () => { void load(); });

@@ -47,8 +47,8 @@
       <th:block th:replace="~{views/plugin-pagination :: pagination(${moments}, #{ui.momentPagination})}"/>
       <form class="moment-page-jump" data-moment-page-jump hidden th:if="${moments.totalPages > 1 and moments.page <= moments.totalPages}"
         th:attr="data-total-pages=${moments.totalPages}">
-        <label>跳到第 <input type="number" name="page" min="1" th:max="${moments.totalPages}" th:value="${moments.page}" required aria-label="瞬间页码"/> 页</label>
-        <button type="submit">跳转</button>
+        <label><span th:text="#{ui.momentPage}">页码</span> <input type="number" name="page" min="1" th:max="${moments.totalPages}" th:value="${moments.page}" required aria-label="瞬间页码" th:aria-label="#{ui.momentPage}"/></label>
+        <button type="submit" th:text="#{ui.momentJump}">跳转</button>
       </form>
     </section>
     <th:block th:replace="~{views/aside::common}"/>
@@ -65,7 +65,7 @@
 
           <div class="medium">
             <th:block th:if="${not #lists.isEmpty(content.medium)}" th:each="momentItem : ${content.medium}">
-              <img alt="瞬间图片" loading="lazy" th:if="${momentItem.type.name == 'PHOTO'}" th:src="${momentItem.url}"/>
+              <img alt="瞬间图片" th:alt="#{ui.image}" loading="lazy" th:if="${momentItem.type.name == 'PHOTO'}" th:src="${momentItem.url}"/>
               <video controls preload="metadata" th:if="${momentItem.type.name == 'VIDEO'}" th:src="${momentItem.url}"></video>
               <audio controls preload="none" th:if="${momentItem.type.name == 'AUDIO'}" th:src="${momentItem.url}"></audio>
             </th:block>
