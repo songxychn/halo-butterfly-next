@@ -1,0 +1,355 @@
+{
+  "date": "2026-10-14",
+  "haloVersion": "2.20.2",
+  "officialJarSha256": "521e2a1492fb70c27e3759f36a058849cbab38008ddab109cb7f3ba78cb18179",
+  "candidate": {
+    "sourceCommit": "26cb42dbfe47ceda5c7fa51b51d5f118f03b85a0",
+    "sha256": "e19ddac447b75460812be241144c16ab901c89ddd5392f2464e8c5c2288f09c5"
+  },
+  "scope": "Chromium mobile; native tracker compatibility only; PJAX enabled and disabled, no optional plugins",
+  "sourceInspection": {
+    "url": "https://github.com/halo-dev/halo/blob/v2.20.2/application/src/main/java/run/halo/app/theme/dialect/HaloTrackerProcessor.java",
+    "skipTrackerSupported": false,
+    "javapConfirmed": true,
+    "sourceSha256": "76f78855254fcb981b2071c28a7d7509a298df8e83b4ae335dde05d4171c40f8"
+  },
+  "runs": [
+    {
+      "mode": "on",
+      "source": {
+        "sourceCommit": "26cb42dbfe47ceda5c7fa51b51d5f118f03b85a0",
+        "sha256": "e19ddac447b75460812be241144c16ab901c89ddd5392f2464e8c5c2288f09c5"
+      },
+      "engine": "chromium",
+      "rows": [
+        {
+          "route": "/archives/minimum-compatibility",
+          "expectedIdentity": "minimum-compatibility",
+          "expectedPlural": "posts",
+          "actual": {
+            "pjax": true,
+            "nativeScripts": [
+              {
+                "src": "http://127.0.0.1:18125/halo-tracker.js",
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility"
+              }
+            ],
+            "themeTracker": true,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [
+            {
+              "payload": {
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility",
+                "hostname": "127.0.0.1",
+                "screen": "390x844",
+                "language": "en",
+                "url": "/archives/minimum-compatibility",
+                "referrer": "/archives/minimum-compatibility"
+              },
+              "response": 200
+            }
+          ],
+          "documentRequests": [
+            "http://127.0.0.1:18125/archives/minimum-compatibility"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/archives",
+          "expectedIdentity": null,
+          "expectedPlural": null,
+          "actual": {
+            "pjax": true,
+            "nativeScripts": [],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": true
+          },
+          "counters": [],
+          "documentRequests": [
+            "http://127.0.0.1:18125/archives"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/minimum-tracker-page",
+          "expectedIdentity": "minimum-tracker-page",
+          "expectedPlural": "singlepages",
+          "actual": {
+            "pjax": true,
+            "nativeScripts": [
+              {
+                "src": "http://127.0.0.1:18125/halo-tracker.js",
+                "group": "content.halo.run",
+                "plural": "singlepages",
+                "name": "minimum-tracker-page"
+              }
+            ],
+            "themeTracker": true,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [
+            {
+              "payload": {
+                "group": "content.halo.run",
+                "plural": "singlepages",
+                "name": "minimum-tracker-page",
+                "hostname": "127.0.0.1",
+                "screen": "390x844",
+                "language": "en",
+                "url": "/minimum-tracker-page",
+                "referrer": "/minimum-tracker-page"
+              },
+              "response": 200
+            }
+          ],
+          "documentRequests": [
+            "http://127.0.0.1:18125/minimum-tracker-page"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/",
+          "expectedIdentity": null,
+          "expectedPlural": null,
+          "actual": {
+            "pjax": true,
+            "nativeScripts": [],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": true
+          },
+          "counters": [],
+          "documentRequests": [
+            "http://127.0.0.1:18125/"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/archives/minimum-compatibility",
+          "expectedIdentity": "minimum-compatibility",
+          "expectedPlural": "posts",
+          "actual": {
+            "pjax": true,
+            "nativeScripts": [
+              {
+                "src": "http://127.0.0.1:18125/halo-tracker.js",
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility"
+              }
+            ],
+            "themeTracker": true,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [
+            {
+              "payload": {
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility",
+                "hostname": "127.0.0.1",
+                "screen": "390x844",
+                "language": "en",
+                "url": "/archives/minimum-compatibility",
+                "referrer": "/archives/minimum-compatibility"
+              },
+              "response": 200
+            }
+          ],
+          "documentRequests": [
+            "http://127.0.0.1:18125/archives/minimum-compatibility"
+          ],
+          "errors": [],
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "mode": "off",
+      "source": {
+        "sourceCommit": "26cb42dbfe47ceda5c7fa51b51d5f118f03b85a0",
+        "sha256": "e19ddac447b75460812be241144c16ab901c89ddd5392f2464e8c5c2288f09c5"
+      },
+      "engine": "chromium",
+      "rows": [
+        {
+          "route": "/archives/minimum-compatibility",
+          "expectedIdentity": "minimum-compatibility",
+          "expectedPlural": "posts",
+          "actual": {
+            "pjax": false,
+            "nativeScripts": [
+              {
+                "src": "http://127.0.0.1:18125/halo-tracker.js",
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility"
+              }
+            ],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [
+            {
+              "payload": {
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility",
+                "hostname": "127.0.0.1",
+                "screen": "390x844",
+                "language": "en",
+                "url": "/archives/minimum-compatibility",
+                "referrer": "/archives/minimum-compatibility"
+              },
+              "response": 200
+            }
+          ],
+          "documentRequests": [
+            "http://127.0.0.1:18125/archives/minimum-compatibility"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/archives",
+          "expectedIdentity": null,
+          "expectedPlural": null,
+          "actual": {
+            "pjax": false,
+            "nativeScripts": [],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [],
+          "documentRequests": [
+            "http://127.0.0.1:18125/archives"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/minimum-tracker-page",
+          "expectedIdentity": "minimum-tracker-page",
+          "expectedPlural": "singlepages",
+          "actual": {
+            "pjax": false,
+            "nativeScripts": [
+              {
+                "src": "http://127.0.0.1:18125/halo-tracker.js",
+                "group": "content.halo.run",
+                "plural": "singlepages",
+                "name": "minimum-tracker-page"
+              }
+            ],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [
+            {
+              "payload": {
+                "group": "content.halo.run",
+                "plural": "singlepages",
+                "name": "minimum-tracker-page",
+                "hostname": "127.0.0.1",
+                "screen": "390x844",
+                "language": "en",
+                "url": "/minimum-tracker-page",
+                "referrer": "/minimum-tracker-page"
+              },
+              "response": 200
+            }
+          ],
+          "documentRequests": [
+            "http://127.0.0.1:18125/minimum-tracker-page"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/",
+          "expectedIdentity": null,
+          "expectedPlural": null,
+          "actual": {
+            "pjax": false,
+            "nativeScripts": [],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [],
+          "documentRequests": [
+            "http://127.0.0.1:18125/"
+          ],
+          "errors": [],
+          "status": "passed"
+        },
+        {
+          "route": "/archives/minimum-compatibility",
+          "expectedIdentity": "minimum-compatibility",
+          "expectedPlural": "posts",
+          "actual": {
+            "pjax": false,
+            "nativeScripts": [
+              {
+                "src": "http://127.0.0.1:18125/halo-tracker.js",
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility"
+              }
+            ],
+            "themeTracker": false,
+            "priorDocument": false,
+            "partialAllowed": false
+          },
+          "counters": [
+            {
+              "payload": {
+                "group": "content.halo.run",
+                "plural": "posts",
+                "name": "minimum-compatibility",
+                "hostname": "127.0.0.1",
+                "screen": "390x844",
+                "language": "en",
+                "url": "/archives/minimum-compatibility",
+                "referrer": "/archives/minimum-compatibility"
+              },
+              "response": 200
+            }
+          ],
+          "documentRequests": [
+            "http://127.0.0.1:18125/archives/minimum-compatibility"
+          ],
+          "errors": [],
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "configRestored": true,
+  "ownedServiceStopped": {
+    "pid": 52286,
+    "port": 18125,
+    "ownerCommandVerified": true
+  },
+  "harness": {
+    "path": ".runtime/minimum-halo/tracker-check.mjs",
+    "sha256": "0926075bb62a428d4a6f5452ce556fe06905d36cfb026a29f08ca433ff5c8fdd"
+  },
+  "setupCorrection": "First install attempt rejected short 7-character SHA before mutation; mistaken subsequent check correctly failed old PJAX=false. Full 40-character SHA used for install, package digest unchanged. Initial setup-failed report retained separately."
+}
