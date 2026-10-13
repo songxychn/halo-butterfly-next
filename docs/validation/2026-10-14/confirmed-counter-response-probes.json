@@ -1,0 +1,126 @@
+{
+  "before": [
+    {
+      "routed": false,
+      "requests": [
+        {
+          "event": "request",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+        },
+        {
+          "event": "response",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter",
+          "status": 200
+        },
+        {
+          "event": "requestfailed",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter",
+          "failure": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        }
+      ],
+      "state": {
+        "counterTrace": [
+          {
+            "status": 200,
+            "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+          }
+        ],
+        "tracker": "<meta data-theme-tracker=\"\" data-group=\"content.halo.run\" data-plural=\"posts\" data-name=\"portable-content\" data-endpoint=\"/apis/api.halo.run/v1alpha1/trackers/counter\">",
+        "url": "http://127.0.0.1:18911/archives/portable-content/"
+      }
+    },
+    {
+      "routed": true,
+      "requests": [
+        {
+          "event": "request",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+        },
+        {
+          "event": "response",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter",
+          "status": 200
+        },
+        {
+          "event": "requestfailed",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter",
+          "failure": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        }
+      ],
+      "state": {
+        "counterTrace": [
+          {
+            "status": 200,
+            "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+          }
+        ],
+        "tracker": "<meta data-theme-tracker=\"\" data-group=\"content.halo.run\" data-plural=\"posts\" data-name=\"portable-content\" data-endpoint=\"/apis/api.halo.run/v1alpha1/trackers/counter\">",
+        "url": "http://127.0.0.1:18911/archives/portable-content/"
+      }
+    }
+  ],
+  "after": [
+    {
+      "routed": false,
+      "requests": [
+        {
+          "event": "request",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+        },
+        {
+          "event": "response",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter",
+          "status": 200
+        },
+        {
+          "event": "requestfinished",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+        }
+      ],
+      "state": {
+        "counterTrace": [
+          {
+            "status": 200,
+            "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+          }
+        ],
+        "tracker": "<meta data-theme-tracker=\"\" data-group=\"content.halo.run\" data-plural=\"posts\" data-name=\"portable-content\" data-endpoint=\"/apis/api.halo.run/v1alpha1/trackers/counter\">",
+        "url": "http://127.0.0.1:18911/archives/portable-content/"
+      }
+    },
+    {
+      "routed": true,
+      "requests": [
+        {
+          "event": "request",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+        },
+        {
+          "event": "response",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter",
+          "status": 200
+        },
+        {
+          "event": "requestfinished",
+          "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+        }
+      ],
+      "state": {
+        "counterTrace": [
+          {
+            "status": 200,
+            "url": "http://127.0.0.1:18911/apis/api.halo.run/v1alpha1/trackers/counter"
+          }
+        ],
+        "tracker": "<meta data-theme-tracker=\"\" data-group=\"content.halo.run\" data-plural=\"posts\" data-name=\"portable-content\" data-endpoint=\"/apis/api.halo.run/v1alpha1/trackers/counter\">",
+        "url": "http://127.0.0.1:18911/archives/portable-content/"
+      }
+    }
+  ],
+  "fix": "9cdcc28",
+  "scope": "Single Chromium page, real and routed HTTP200 response, no navigation; response body consumed before request cleanup; no request retry."
+}

@@ -25,3 +25,16 @@
 ## 仍保留的门禁
 
 固定双站逐项能力、真实Safari/移动设备/屏幕阅读器、外部服务账户、完整性能/生命周期、精确候选CI与维护者发行决定仍是独立条件。核心页面曾有5类失败状态保持；自动化无头WebKit不代替Safari应用，局部运行不升级矩阵verified。
+
+## 后续组合与保留失败
+
+| 候选 / 证据 | 结果与边界 |
+| --- | --- |
+| `63683a1` / [带请求诊断的安全运行](confirmed-security-request-failure.json) | Firefox单页等待networkidle超时；[ledger](confirmed-security-request-ledger.json)显示同源官方CommentWidget的`a.ff4cd3aa.js`仍pending，无响应、页面或控制台异常。配置恢复，未确定网络栈根因，不归因#338。 |
+| `59fee48` / [完整安全收集](confirmed-security-complete.json) | 36/36通过且配置恢复。收集器遇错继续独立案例，最终仍断言全通过；未更改等待阈值或增加自动重试。该通过不抹去前述请求停滞。 |
+| `59fee48` / [组合导航原记录](confirmed-navigation-polling-failure.json) | 10/12；两条Chromium等待rAF轮询超时，失败快照中的URL、locale、ready及window身份已满足谓词，无pending/error。其余Firefox/WebKit全部通过。 |
+| `adda323` / [组合导航定时轮询](confirmed-navigation-complete.json) | 同谓词、同30秒阈值，轮询改100ms后12/12；三引擎、两视口、亮暗，包含文案切换、Moment/Post评论身份与旧编辑器清理、Tabs/友链重入及未完成远端请求离页。此更改是验收收集器修正，不宣称消除了浏览器所有rAF问题。 |
+| `59fee48` / [正文计数原记录](confirmed-content-counter-failure.json) | 19/27；Chromium八项收到统计HTTP200后请求ERR_ABORTED，独立无导航探针在真实和路由响应上均复现。 |
+| `adda323` / [正文计数修复](confirmed-content-counter-fixed.json) | `9cdcc28`消费成功响应body后，真实和路由探针均requestfinished，正文27/27通过。见[前后探针](confirmed-counter-response-probes.json)。没有重试统计请求或放宽验收。 |
+
+[首页布局当前候选](home-layouts-candidate.md)的固定双站318次观察保留317通过/1张图pending；日历图标修复及坏图/备用图失败定向48/48。[手机首屏性能](mobile-title-performance.md)记录标题动画取消后的实际LCP改善，但首页仍超过预算，长文样本后置身份校验失败仍为error/incomplete；均不升级完整门禁。
