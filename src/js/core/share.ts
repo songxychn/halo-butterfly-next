@@ -1,3 +1,4 @@
+import { preconnectResource } from './resource-hints.ts';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
 interface ShareWindow extends Window { socialShare?: (element: HTMLElement, options?: unknown) => void; a2a_config?: Record<string, unknown> }
 const LABELS: Record<string, string> = {facebook: 'Facebook', x: 'X', twitter: 'Twitter', wechat: '微信', weibo: '微博', qq: 'QQ', qzone: 'QQ 空间', linkedin: 'LinkedIn', sina_weibo: '微博', facebook_messenger: 'Messenger', email: '邮件', copy_link: '复制链接'};
@@ -9,6 +10,7 @@ export function safeShareUrl(value: string, base: string) {
 }
 function loadScript(url: string) {
   return new Promise<void>((resolve, reject) => {
+    preconnectResource(url);
     const script = document.createElement('script');
     const timeout = setTimeout(() => { script.remove(); reject(new Error('Share service timed out')); }, 10000);
     script.src = url; script.async = true;

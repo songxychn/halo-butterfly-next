@@ -1,0 +1,74 @@
+{
+  "sourceSha": "bd914e4f057f6df0aa4a4a4f0936cc0175cf5b35",
+  "fixture": {
+    "sha256": "4625c06d59f4362ec576fac2e6c37fd8dda6623a891b4b62b6f1928cf50155bf",
+    "input": "HTML through authenticated Halo content API; no GUI editor roundtrip",
+    "routes": [
+      "/archives/portable-content/",
+      "/portable-content-page/"
+    ]
+  },
+  "theme": "theme-earth",
+  "themeVersion": "1.15.3",
+  "checks": [
+    {
+      "engine": "chromium",
+      "route": "/archives/portable-content/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "route": "/portable-content-page/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "route": "/archives/portable-content/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "route": "/portable-content-page/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "route": "/archives/portable-content/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "route": "/portable-content-page/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "Bundled Earth theme only; no assertion that every theme/editor preserves HTML."
+  ],
+  "status": "passed",
+  "restoredCandidate": true
+}
