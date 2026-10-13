@@ -1,6 +1,6 @@
 import {test} from 'bun:test';
 import assert from 'node:assert/strict';
-import { navigationURL } from '../src/js/core/navigation-loading.ts';
+import { navigationURL, allowsPartialPageExit } from '../src/js/core/navigation-loading.ts';
 import { imageLoadingOptions, initializeImageLoading } from '../src/js/core/image-loading.ts';
 import { snackbarPosition } from '../src/js/core/_message.ts';
 import {beginPage, disposePage, onPageCleanup, pageListen, pageScope} from '../src/js/core/page-lifecycle.ts';
@@ -13,6 +13,15 @@ test('navigation retains native anchors, external/download/admin destinations an
   assert.equal(navigationURL('/private/x',base,'/private/*'),null);
   assert.equal(navigationURL('/about/',base,['/about/']),null);
   assert.equal(navigationURL('/about-more/',base,'/about/').pathname,'/about-more/');
+});
+test('unsaved editor beforeunload veto retains native leave-page confirmation', () => {
+  const target = new EventTarget();
+  assert.equal(allowsPartialPageExit(target),true);
+  const veto = event => event.preventDefault();
+  target.addEventListener('beforeunload',veto);
+  assert.equal(allowsPartialPageExit(target),false);
+  target.removeEventListener('beforeunload',veto);
+  assert.equal(allowsPartialPageExit(target),true);
 });
 test('legacy image configuration stays native/site/unblurred; explicit false and post scope work', () => {
   assert.deepEqual(imageLoadingOptions({}),{enabled:true,native:true,field:'site',blur:false});

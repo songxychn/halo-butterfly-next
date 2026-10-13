@@ -50,6 +50,13 @@ function linkFor(event: Event) {
   if (!anchor || anchor.hasAttribute('download') || anchor.target && anchor.target !== '_self' || anchor.closest('[data-no-pjax], [data-no-prefetch], [contenteditable], .theme-lightbox-trigger') || /external/i.test(anchor.rel)) return null;
   return anchor;
 }
+/** Preserve native leave-page protection (for example an unfinished comment).
+ * An untrusted event never opens a dialog. A veto leaves the actual navigation
+ * to the browser, which runs the trusted beforeunload and owns confirmation.
+ */
+export function allowsPartialPageExit(target: EventTarget = window) {
+  return target.dispatchEvent(new Event('beforeunload', { cancelable: true }));
+}
 function scriptCopy(old: HTMLScriptElement) {
   const script = document.createElement('script');
   for (const attr of old.attributes) if (!['async', 'defer'].includes(attr.name)) script.setAttribute(attr.name, attr.value);
@@ -136,6 +143,8 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
       })));
     } finally { styles.forEach(style => style.remove()); }
     if (request.signal.aborted) throw new Error('Navigation cancelled');
+    // Editing may begin while HTML/styles are in flight.
+    if (!allowsPartialPageExit()) throw new Error('Page exit requires native navigation');
     clearTimeout(timer);
     progress.advance(75);
     state.busy = committing = true;
@@ -207,6 +216,11 @@ export function initializeNavigationLoading() {
       return;
     }
     if (state.busy) { event.preventDefault(); return; }
+    if (!allowsPartialPageExit()) {
+      state.active?.abort(); state.active = undefined;
+      document.documentElement.classList.remove('theme-navigating');
+      return;
+    }
     event.preventDefault();
     void navigate(url, false, undefined, state);
   });
@@ -218,7 +232,7 @@ export function initializeNavigationLoading() {
       document.documentElement.classList.remove('theme-navigating');
       return;
     }
-    if (state.busy || !enabled(window.MainApp.conf.pjax_enable) || !supportsPartialNavigation(document) || !navigationURL(current.href, old.href, window.MainApp.conf.pjax_exclude)) { location.reload(); return; }
+    if (state.busy || !enabled(window.MainApp.conf.pjax_enable) || !supportsPartialNavigation(document) || !navigationURL(current.href, old.href, window.MainApp.conf.pjax_exclude) || !allowsPartialPageExit()) { location.reload(); return; }
     void navigate(current, true, event.state?.[stateKey], state);
   });
   // Record scrolling before traversal, including browsers that restore after popstate.
