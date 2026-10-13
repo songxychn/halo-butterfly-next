@@ -136,7 +136,10 @@ HALO_JAR_SOURCE=/path/to/official/halo-2.26.1.jar \
   --package dist/halo-butterfly-next-0.1.0-alpha.4.zip \
   --source-sha "$(git rev-parse HEAD)"
 bun scripts/content/check-halo.mjs
+bun scripts/content/check-portability.mjs
 python3 -B scripts/content/lab.py stop
 ```
 
 正式安装证据要求实现已提交且当前源码干净；运行时记录安装包摘要和内容夹具摘要。默认端口 Halo `18531` / 保留 Hexo `14531`，但仅启动 Halo。端口冲突时必须使用全新 `LAB_RUNTIME` 并同时指定 `HALO_PORT` / `HEXO_PORT`，不停止或复用其他站点。`CONTENT_BROWSER_RUNTIME` 可显式指定已安装的固定 Playwright 三引擎缓存，浏览器 profile 与输出仍隔离在本次任务目录。已有内容实验站升级包使用 `lab.py install`，不会重播内容。
+
+本次真实 Halo 与切换 Earth 主题的限定验证见[验收记录](validation/2026-10-13/content-extensions.md)。

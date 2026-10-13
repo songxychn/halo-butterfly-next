@@ -35,6 +35,8 @@ def start():
         (runtime / 'halo').mkdir()
         shutil.copyfile(source, runtime / 'halo/halo-2.26.1.jar')
         shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')
+    if lab.digest(runtime / 'halo/halo-2.26.1.jar') != lab.VERSIONS['halo']['sha256']:
+        raise RuntimeError('Halo JAR differs from the pinned official digest')
     lab.start(halo_only=True)
 
 
@@ -52,12 +54,17 @@ def seed_content(client):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['start', 'bootstrap', 'install', 'stop'])
+    parser.add_argument('command', choices=['start', 'bootstrap', 'install', 'stop', 'theme-earth', 'theme-current'])
     parser.add_argument('--package', type=Path)
     parser.add_argument('--source-sha')
     args = parser.parse_args()
     if args.command in ['bootstrap', 'install'] and (not args.package or not args.source_sha):
         parser.error('--package and --source-sha are required')
+    if args.command not in ['start', 'bootstrap']:
+        marker = {'schema': 1, 'ports': lab.PORTS, 'owner': 'halo-butterfly-next-comparison'}
+        path = lab.RUNTIME / 'lab.json'
+        if not path.exists() or json.loads(path.read_text()) != marker:
+            raise RuntimeError('Content lab ownership/ports differ')
     if args.command == 'stop':
         pid = lab.owned_process('halo')
         if pid:
@@ -73,6 +80,10 @@ def main():
         start()
     elif args.command == 'install':
         lab.install(lab.Client(), args.package, args.source_sha)
+    elif args.command in ['theme-earth', 'theme-current']:
+        name = 'theme-earth' if args.command == 'theme-earth' else lab.THEME
+        lab.Client().api('/apis/api.console.halo.run/v1alpha1/themes/' + name + '/activation', 'PUT')
+        print('Activated owned lab theme:', name)
     else:
         start()
         if (lab.RUNTIME / 'seed.json').exists():

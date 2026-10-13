@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import {test} from 'bun:test';
-import {readFile} from 'node:fs/promises';
+import {readFile, mkdtemp, writeFile, rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
 import * as sass from 'sass';
 import {contentTabIndex} from '../src/js/core/content-extensions.ts';
 
@@ -26,4 +29,19 @@ test('uninitialized groups remain visible; only ready groups hide, while print r
   assert.match(css, /@media print/);
   assert.match(css, /section\[hidden\][^{]*\{\s*display: block !important/);
   assert.doesNotMatch(css, /\.container|\.nav-tabs|\.tab-item-content|#Butterfly/);
+});
+
+test('content lab rejects missing ownership and mismatched ports before any theme activation', async () => {
+  const runtime = await mkdtemp(join(tmpdir(), 'content-lab-guard-'));
+  try {
+    for (const marker of [null, {schema:1, owner:'another-task', ports:{halo:18531,hexo:14531}},
+      {schema:1, owner:'halo-butterfly-next-comparison', ports:{halo:18541,hexo:14541}}]) {
+      if (marker) await writeFile(join(runtime, 'lab.json'), JSON.stringify(marker));
+      const result = spawnSync('python3', ['-B', 'scripts/content/lab.py', 'theme-earth'], {
+        encoding:'utf8', env:{...process.env,LAB_RUNTIME:runtime,HALO_PORT:'18531',HEXO_PORT:'14531'},
+      });
+      assert.equal(result.status, 1);
+      assert.match(result.stderr, /Content lab ownership\/ports differ/);
+    }
+  } finally { await rm(runtime, {recursive:true,force:true}); }
 });

@@ -82,7 +82,7 @@ try{
    await page.evaluate(()=>{window.disposeContent();const el=document.getElementById('deploy-tabs');const prepend=el.prepend;el.prepend=()=>{throw Error('fixture initialization failure')};window.initializeContent();el.prepend=prepend});
    assert.equal(await tabs.count(),0);assert.equal(await page.locator('#docker-panel').isVisible(),true);assert.equal(await page.locator('#local-panel').isVisible(),true);
    await page.evaluate(()=>{window.disposeContent();window.initializeContent()});
-   await page.locator('#content-tabs').scrollIntoViewIfNeeded();await page.screenshot({path:join(output,`${engine}-${viewport.name}-${color}.png`)});
+   await page.locator('#content-tabs').evaluate(e=>e.scrollIntoView({block:'start'}));await page.screenshot({path:join(output,`${engine}-${viewport.name}-${color}.png`)});
    assert.deepEqual(errors,[]);report.checks.push({engine,viewport:viewport.name,color,status:'passed'});await context.close();
   }
   // Direct fragments and browser history must reveal nested inactive content before scrolling.

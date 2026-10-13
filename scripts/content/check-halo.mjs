@@ -53,7 +53,7 @@ try{
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1));
     const photo=page.locator('#photo-gallery figure').first().locator('a');await photo.click();await page.locator('.theme-image-viewer').waitFor({state:'visible'});
     assert.equal(await page.locator('.viewer-list > li').count(),2);await page.keyboard.press('Escape');await page.locator('.theme-image-viewer').waitFor({state:'detached'});
-    await page.locator('#content-tabs').scrollIntoViewIfNeeded();await page.screenshot({path:join(output,name+'.png')});
+    await page.locator('#content-tabs').evaluate(e=>e.scrollIntoView({block:'start'}));await page.screenshot({path:join(output,name+'.png')});
     assert.deepEqual(result.errors,[]);assert.deepEqual(result.requestFailures,[]);result.status='passed';
    }catch(error){result.status='failed';result.error=String(error.stack||error);failures.push(name);}
    finally{await context.close();report.checks.push(result);await writeFile(join(output,'progress.json'),JSON.stringify(report,null,2)+'\n');console.log(name+': '+result.status);}
