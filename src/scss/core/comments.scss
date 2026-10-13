@@ -142,6 +142,22 @@
   white-space: pre-line;
 }
 
+#post-comment .comment-lazy {
+  min-height: 100px;
+  .comment-lazy-status { margin: 0 0 12px; }
+  .comment-lazy-status:empty { display: none; }
+  .comment-lazy-retry {
+    padding: 6px 12px;
+    color: var(--font-color);
+    background: var(--sidebar-bg, #f6f8fa);
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    cursor: pointer;
+    &:focus-visible { outline: 2px solid var(--font-color); outline-offset: 3px; }
+    &[hidden] { display: none; }
+  }
+}
+
 #comment-title {
   margin: 0;
   &:focus-visible { outline: 2px solid var(--font-color); outline-offset: 4px; }

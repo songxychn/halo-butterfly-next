@@ -14397,13 +14397,20 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "主题可用 IntersectionObserver 延迟挂载 CommentWidget，与评论提供方无关。",
-        "settings": [],
+        "settings": [
+          "comments.lazyload"
+        ],
         "code": [
+          "settings.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/html/views/comment-lazy.html",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/comment-jump.ts",
+          "src/js/core/common.ts",
+          "src/scss/core/comments.scss"
         ],
-        "finding": "DEC-01 已裁定本项仍适用。当前文章页直接挂载 halo:comment，尚未实现懒加载。"
+        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -14428,12 +14435,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/407"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:comments.count",
@@ -36729,13 +36737,20 @@
       "upstreamInventory": "templates",
       "halo": {
         "strategy": "若保留懒加载，由主题脚本包裹 CommentWidget，不加载上游各家评论 JS。",
-        "settings": [],
+        "settings": [
+          "comments.lazyload"
+        ],
         "code": [
+          "settings.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/html/views/comment-lazy.html",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/comment-jump.ts",
+          "src/js/core/common.ts",
+          "src/scss/core/comments.scss"
         ],
-        "finding": "DEC-01 已裁定本项仍适用，尚未实现懒加载脚本。"
+        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -36759,12 +36774,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/407"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/comments/livere",
@@ -55771,13 +55787,20 @@
       "upstreamInventory": "manual",
       "halo": {
         "strategy": "主题侧懒加载 CommentWidget，不实现上游各家 IntersectionObserver 脚本。",
-        "settings": [],
+        "settings": [
+          "comments.lazyload"
+        ],
         "code": [
+          "settings.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/layout.html"
+          "src/html/views/comment-lazy.html",
+          "src/js/core/comment-lazy.ts",
+          "src/js/core/comment-jump.ts",
+          "src/js/core/common.ts",
+          "src/scss/core/comments.scss"
         ],
-        "finding": "DEC-01 已裁定本项仍适用，尚未实现。"
+        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -55801,12 +55824,13 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/46"
+          "https://github.com/songxychn/halo-butterfly-next/issues/46",
+          "https://github.com/songxychn/halo-butterfly-next/issues/407"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:newest-comments",

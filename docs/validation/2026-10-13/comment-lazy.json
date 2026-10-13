@@ -1,0 +1,552 @@
+{
+  "schema": 1,
+  "scope": "comments.lazyload on Post/SinglePage only",
+  "issue": "https://github.com/songxychn/halo-butterfly-next/issues/407",
+  "testedAt": "2026-10-13T15:15:58.180Z",
+  "sourceBaseSha": "5622798dd06306c8b56b519581d807cd4f473b70",
+  "sourceState": "working-tree candidate; not the unchanged sourceBaseSha",
+  "sourceTreeSha256": "d58d8d699405d22e5e789499d572a517c2c20e4d347dbd43c34316b68f473d87",
+  "sourceDigests": {
+    "settings.yaml": "56676f4a0f1f96317d0e17d86a25cde7237270b9e40b2ddd0d18f6e0111286b1",
+    "src/html/post.html": "fcb663280f5b9af6dc93621dce49d98f148ef9d562d582ff654baf403221e30f",
+    "src/html/page.html": "c7dda8b3c817a9ab401b8f4d5fb1c86496312b75faecad7f7deb451db296001b",
+    "src/html/views/comment-lazy.html": "1033fbf87b81e058c48a9e58e34bb280f82ef408c2c69223b96d19f292df68e4",
+    "src/js/core/comment-lazy.ts": "cd5a270ab14366fb2badc75da2810a7a8742a439543d299fec6987f59d738684",
+    "src/js/core/comment-jump.ts": "6f73f032adce773c9e06cded204cd1ebff89bcf40bd835c34904a894715534ff",
+    "src/js/core/common.ts": "f5f134aa22e9f099d06e4f34ebf95be2d29acc5a4c748435e1f4a9a1232f7076",
+    "src/scss/core/comments.scss": "c49eea17848dcc785552ff14be9c8145738422e7529e340b308a68b55bb59c24"
+  },
+  "preExistingEdits": [
+    "src/js/modules/AmplifyImg.ts",
+    "src/js/modules/Render.ts",
+    "src/scss/modules/render.scss",
+    "src/js/core/content-extensions.ts",
+    "src/scss/modules/content-extensions.scss"
+  ],
+  "haloVersion": "2.26.1",
+  "widget": {
+    "name": "PluginCommentWidget",
+    "version": "3.3.2",
+    "url": "https://github.com/halo-dev/plugin-comment-widget/releases/download/v3.3.2/plugin-comment-widget-3.3.2.jar",
+    "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+    "release": "https://github.com/halo-dev/plugin-comment-widget/releases/tag/v3.3.2",
+    "requiresHalo": ">=2.26.0",
+    "themeMinimumVersion": "3.3.2"
+  },
+  "artifactSha256": "3d32b90b0a40380719c525b194cca29be4329fc17d17ac026b41552e6b5d33c0",
+  "installedFileCount": 160,
+  "engineering": {
+    "command": "bun run verify",
+    "passedTests": 647,
+    "failedTests": 0,
+    "packageCheckFiles": 160
+  },
+  "browser": {
+    "result": "passed",
+    "checks": [
+      {
+        "name": "chromium-1440-light-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-1440-light-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-light-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-light-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-1440-light-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-light-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-dark-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-1440-dark-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-dark-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-dark-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-1440-dark-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-1440-dark-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-light-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-390-light-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-light-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-light-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-390-light-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-light-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-dark-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-390-dark-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-dark-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-dark-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "chromium-390-dark-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-390-dark-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-module-failure-retry",
+        "result": "passed"
+      },
+      {
+        "name": "chromium-missing-observer-fallback",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-light-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-1440-light-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-light-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-light-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-1440-light-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-light-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-dark-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-1440-dark-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-dark-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-dark-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-1440-dark-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-1440-dark-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-light-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-390-light-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-light-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-light-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-390-light-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-light-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-dark-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-390-dark-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-dark-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-dark-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "firefox-390-dark-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-390-dark-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-module-failure-retry",
+        "result": "passed"
+      },
+      {
+        "name": "firefox-missing-observer-fallback",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-light-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-1440-light-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-light-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-light-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-1440-light-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-light-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-dark-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-1440-dark-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-dark-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-dark-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-1440-dark-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-1440-dark-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-light-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-390-light-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-light-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-light-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-390-light-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-light-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-dark-Post-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-390-dark-Post-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-dark-Post-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-dark-SinglePage-auto",
+        "result": "passed",
+        "detail": {
+          "noInitialCommentRequests": true,
+          "mountedOutsideViewport": true,
+          "inputPreserved": true
+        }
+      },
+      {
+        "name": "webkit-390-dark-SinglePage-jump",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-390-dark-SinglePage-fragment",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-module-failure-retry",
+        "result": "passed"
+      },
+      {
+        "name": "webkit-missing-observer-fallback",
+        "result": "passed"
+      },
+      {
+        "name": "eager-false",
+        "result": "passed"
+      },
+      {
+        "name": "eager-undefined",
+        "result": "passed"
+      },
+      {
+        "name": "global-comments-off",
+        "result": "passed"
+      }
+    ],
+    "restoreErrors": [],
+    "engineVersions": [
+      "Playwright 1.63.0 chromium-1243",
+      "Playwright 1.63.0 firefox-1543",
+      "Playwright 1.63.0 webkit-2359"
+    ],
+    "viewportWidths": [
+      1440,
+      390
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ]
+  },
+  "priorAttempts": [
+    {
+      "attempt": "initial",
+      "outcome": "setup-failed",
+      "reason": "No headless shell installed; installer uses --no-shell. Fixed launch to channel chromium."
+    },
+    {
+      "attempt": "second",
+      "outcome": "setup-failed",
+      "reason": "WebKit executable not ready. Original runner incorrectly printed passed with 0 checks; invalid and not acceptance evidence. Launch/setup error and exit code 1 preserved."
+    },
+    {
+      "attempt": "third",
+      "outcome": "failed",
+      "passed": 77,
+      "total": 81,
+      "failures": [
+        {
+          "name": "chromium-module-failure-retry",
+          "error": "click: Timeout 30000ms exceeded."
+        },
+        {
+          "name": "firefox-1440-light-Post-fragment",
+          "error": "goto: Timeout 30000ms exceeded."
+        },
+        {
+          "name": "firefox-module-failure-retry",
+          "error": "click: Timeout 30000ms exceeded."
+        },
+        {
+          "name": "webkit-module-failure-retry",
+          "error": "click: Timeout 30000ms exceeded."
+        }
+      ],
+      "restoreErrors": []
+    }
+  ],
+  "limitations": [
+    "Official head modulepreload and CSS still load before mounting; initial zero comment-resource downloads not satisfied.",
+    "Mounted means component inserted; plugin-owned data/login/submission/reply errors are handled by plugin, not theme loader.",
+    "Independent review, exact committed source CI, dual-site contract, physical Safari/mobile/screen-reader and full 1.0 not completed.",
+    "Candidate includes listed pre-existing content-extension edits; those are not delivered by this task.",
+    "Earlier Firefox page/navigation resource timeout retained; later scoped success does not certify #338 fixed."
+  ],
+  "matrixVerifiedPromotions": 0
+}
