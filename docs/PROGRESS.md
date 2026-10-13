@@ -4,7 +4,7 @@
 
 [草稿 PR #406](https://github.com/songxychn/halo-butterfly-next/pull/406)对应 [#403](https://github.com/songxychn/halo-butterfly-next/issues/403)，补齐文章/单页 Mermaid、Chart.js 与 ABC 乐谱的正文渲染、按需资源、三态覆盖、亮暗重绘、图表手势和键盘、系列显隐、源码复制及 SVG 导出。兼容 Halo Shiki 的服务端容器，默认关闭并保留错误/无 JavaScript 源码。原 ECharts 统计页面保持现有能力。
 
-645 项工程测试和 247 文件包检查通过；三引擎合成与真实 Halo 限定验证、Firefox 原生 Prism 资源挂起及连接对照范围见[验证记录](validation/2026-10-13/body-renderers.md)。更新 31 项为有实现待验，更正 score 是 ABC 乐谱；完整双站、离线标签转换、真机/无障碍/性能与独立审阅仍待完成。未发布或部署。
+普通 merge master `1576bae` 的图库后，实现 `977168b` 通过 652 项工程测试和 248 文件包检查（合并前 645/247 记录保留）；三引擎合成与真实 Halo 限定验证、Firefox 原生 Prism 资源挂起及连接对照范围见[验证记录](validation/2026-10-13/body-renderers.md)。更新 31 项为有实现待验，更正 score 是 ABC 乐谱；完整双站、离线标签转换、真机/无障碍/性能与独立审阅仍待完成。未发布或部署。
 
 ## 2026-10-13：正文图库与相册分组
 

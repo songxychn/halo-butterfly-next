@@ -1,12 +1,76 @@
 {
   "schema": 1,
-  "implementationCommit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
-  "artifactSha256": "78c264f3e089a64731bf24f79bce1efa662ed0b75bd1cebe8badc46792d653bb",
+  "implementationCommit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+  "artifactSha256": "309abc05af3ece3e23906cc05913c0f44c4dcb12347b4dc3e2df7d04ca22a3b0",
   "haloVersion": "2.26.1",
   "themeVersion": "0.1.0-alpha.4 (unreleased development build)",
   "actor": "/root",
   "result": "partial: bounded implementation passed; full 1.0 remains open",
   "checks": [
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/merge-core.json",
+      "sha256": "5d80cb443beb04d808fbaca3790dd7ef6498a10f1df2366e683fd99d04d8a281",
+      "count": 60,
+      "result": "passed",
+      "transport": "native"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/merge-edges.json",
+      "sha256": "51160a3d0e7224538aa3ecfc36b4f4c1b9f2a01d908dace66901f4dbc259eb75",
+      "count": 72,
+      "result": "passed",
+      "transport": "native"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/merge-halo-native.json",
+      "sha256": "535e24e35dc0dc5f1f8cbf08593d552e4ac2b68350198c5446f8840ae5706282",
+      "count": 32,
+      "result": "passed",
+      "transport": "native"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/merge-halo-firefox.json",
+      "sha256": "317ce547aabe9e240263560f41e507272cb11ab3db88a9cfbe22a6bb4de75792",
+      "count": 16,
+      "result": "passed",
+      "transport": "diagnostic proxy with upstream Connection: close"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/overrides-merge.json",
+      "count": 18,
+      "result": "passed",
+      "transport": "diagnostic upstream Connection: close"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/gallery-merge.json",
+      "count": 30,
+      "result": "passed",
+      "transport": "synthetic generated pages"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/cross-merge.json",
+      "count": 24,
+      "result": "passed",
+      "transport": "diagnostic upstream Connection: close"
+    }
+  ],
+  "engineering": {
+    "tests": 652,
+    "packageFiles": 248,
+    "frozenInstall": "passed, same lockfile",
+    "installedByteComparison": "248 identical files"
+  },
+  "limits": [
+    "Native Firefox resource stalls were retained in an interrupted earlier run; diagnostic transport does not certify native matrix.",
+    "Raw queued/sequential Prism request controls all returned 200; this does not reproduce or prove the precise #338 root cause.",
+    "No full dual-site, all configuration domains, physical devices, screen reader, performance or independent review acceptance.",
+    "No audio synthesis/playback or offline Hexo tag conversion.",
+    "31 matrix entries implemented-unverified; 0 newly verified."
+  ],
+  "previousImplementationCommit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+  "mergedMaster": "1576bae",
+  "previousArtifactSha256": "78c264f3e089a64731bf24f79bce1efa662ed0b75bd1cebe8badc46792d653bb",
+  "previousChecks": [
     {
       "path": "docs/validation/2026-10-13/body-renderers/synthetic-6e44ebd.json",
       "sha256": "08e9625df17fcb60e177e4ea16f345ee166d10e187ed6c1c2dfa95cc99718cbc",
@@ -41,18 +105,5 @@
       "result": "passed",
       "transport": "diagnostic upstream Connection: close"
     }
-  ],
-  "engineering": {
-    "tests": 645,
-    "packageFiles": 247,
-    "frozenInstall": "passed",
-    "installedByteComparison": "247 identical files"
-  },
-  "limits": [
-    "Native Firefox resource stalls were retained in an interrupted earlier run; diagnostic transport does not certify native matrix.",
-    "Raw queued/sequential Prism request controls all returned 200; this does not reproduce or prove the precise #338 root cause.",
-    "No full dual-site, all configuration domains, physical devices, screen reader, performance or independent review acceptance.",
-    "No audio synthesis/playback or offline Hexo tag conversion.",
-    "31 matrix entries implemented-unverified; 0 newly verified."
   ]
 }

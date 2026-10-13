@@ -1,5 +1,19 @@
 # 正文图表与乐谱限定验证
 
+## 最新 master 整合复验
+
+普通 merge 保留 master `1576bae` 的正文图库功能，实现提交为 `977168b8edf091bcd85c536c933d79f707fe4d38`；合并包 SHA-256 为 `309abc05af3ece3e23906cc05913c0f44c4dcb12347b4dc3e2df7d04ca22a3b0`。设置冲突合并双方配置，更新冻结摘要并重新生成矩阵。最新材料见[机器汇总](body-renderers.json)。
+
+`bun run verify` 通过 **652 项测试、248 文件包检查**，实际安装 **248 文件逐字节一致**。合并后分别重跑[60 项正文](body-renderers/merge-core.json)、[72 项边界](body-renderers/merge-edges.json)、[32 项原生 Halo](body-renderers/merge-halo-native.json)、[16 项 Firefox 传输对照](body-renderers/merge-halo-firefox.json)、[18 项配置覆盖](body-renderers/overrides-merge.json)和[30 项图库回归](body-renderers/gallery-merge.json)，全部通过。Firefox/配置对照仍不计原生传输验收。
+
+另完成[24 项同页交叉检查](body-renderers/cross-merge.json)：三引擎、桌面/手机、明暗、文章/单页中，六个图表/乐谱和图库加载更多、两图独立灯箱、正文无溢出同时通过；使用独立连接对照。合并包本批共 **252 项浏览器检查通过**。复验命令为 `bun scripts/body-renderers/cross.mjs`；需专用 Halo 已运行且渲染器全局启用。
+
+[首轮交叉失败](body-renderers/cross-first.json)的两图灯箱只有一项，原因是夹具误用不存在的 `/lab/home.svg`（实际 404，被图库正确排除）；修正为 `/lab/cover.svg`，等待真实图片加载及灯箱绑定后通过。没有改动图库实现或放宽灯箱数量断言。
+
+以下保留合并前独立实现与失败身份；[原始机器汇总](body-renderers-initial.json)不改写为合并包的通过证明。
+
+## 合并前实现
+
 实现提交 `6e44ebd9fef18d758a947b7ad8b0b86a671a6632`，基于 master `5622798dd06306c8b56b519581d807cd4f473b70`；最终材料提交只补证据与矩阵链接。开发包版本仍为 0.1.0-alpha.4，不是新的发行物，未发布/部署。[机器汇总](body-renderers.json)与每轮原始报告分别保留包身份。
 
 ZIP SHA-256：`78c264f3e089a64731bf24f79bce1efa662ed0b75bd1cebe8badc46792d653bb`。Bun 1.4.0 的冻结安装和 `bun run verify` 通过 645 项测试、247 文件包检查；独立 Halo 2.26.1 安装的 247 文件逐字节一致。构建前后重复 ZIP 摘要一致。安装身份由调用方声明 SHA，并用包字节比对核实；不能仅凭安装记录宣称源码验收。

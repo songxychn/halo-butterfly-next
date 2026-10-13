@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "implementationCommit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+  "artifactSha256": "78c264f3e089a64731bf24f79bce1efa662ed0b75bd1cebe8badc46792d653bb",
+  "haloVersion": "2.26.1",
+  "themeVersion": "0.1.0-alpha.4 (unreleased development build)",
+  "actor": "/root",
+  "result": "partial: bounded implementation passed; full 1.0 remains open",
+  "checks": [
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/synthetic-6e44ebd.json",
+      "sha256": "08e9625df17fcb60e177e4ea16f345ee166d10e187ed6c1c2dfa95cc99718cbc",
+      "count": 60,
+      "result": "passed",
+      "transport": "native"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/edges-6e44ebd.json",
+      "sha256": "4f3a46b2c010724cf8b5613dc5d6cfdffa6adacfe5c0214d70e3b15718175ec1",
+      "count": 72,
+      "result": "passed",
+      "transport": "native"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/halo-6e44ebd-native.json",
+      "sha256": "bc3fb1b930ebf10e51daeb62d027108daf8642a9bc7eeb7d9eb260ae73d76078",
+      "count": 32,
+      "result": "passed",
+      "transport": "native"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/halo-6e44ebd-firefox.json",
+      "sha256": "56f1ba0c7f02cd9e23a33a0d7a0b5e6447c7cca8efb1bb5cc2bb70389f6915ac",
+      "count": 16,
+      "result": "passed",
+      "transport": "diagnostic proxy with upstream Connection: close"
+    },
+    {
+      "path": "docs/validation/2026-10-13/body-renderers/overrides.json",
+      "count": 18,
+      "result": "passed",
+      "transport": "diagnostic upstream Connection: close"
+    }
+  ],
+  "engineering": {
+    "tests": 645,
+    "packageFiles": 247,
+    "frozenInstall": "passed",
+    "installedByteComparison": "247 identical files"
+  },
+  "limits": [
+    "Native Firefox resource stalls were retained in an interrupted earlier run; diagnostic transport does not certify native matrix.",
+    "Raw queued/sequential Prism request controls all returned 200; this does not reproduce or prove the precise #338 root cause.",
+    "No full dual-site, all configuration domains, physical devices, screen reader, performance or independent review acceptance.",
+    "No audio synthesis/playback or offline Hexo tag conversion.",
+    "31 matrix entries implemented-unverified; 0 newly verified."
+  ]
+}
