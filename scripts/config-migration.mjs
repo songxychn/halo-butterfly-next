@@ -63,14 +63,14 @@ const legacyMappings = {
   'code.enable_hr': 'render.enable_code_hr',
   'code.enable_line': 'render.enable_code_line',
   'code.enable_copy': 'render.enable_code_copy',
-  'code.enable_expander': 'render.enable_code_expander',
+  'code.enable_expander': 'render.code_shrink',
   'code.theme_light': 'render.code_theme_light',
   'code.theme_dark': 'render.code_theme_dark',
   'post.enable_h_title': 'render.enable_h_icon',
 };
 
 export function migrateConfig(input, from, defaults) {
-  if (!['2.0.5', '2.0.7'].includes(from)) throw new Error('必须明确指定 --from 2.0.5 或 2.0.7');
+  if (!['2.0.5', '2.0.7', '0.1.0-alpha.4'].includes(from)) throw new Error('必须明确指定 --from 2.0.5、2.0.7 或 0.1.0-alpha.4');
   assertSafe(input);
   if (!isObject(input)) throw new Error('配置必须是对象');
   const config = structuredClone(defaults);
@@ -88,7 +88,118 @@ export function migrateConfig(input, from, defaults) {
     parent[parts.at(-1)] = structuredClone(value);
     report(source, action, target);
   };
+  const handled = new Set();
+  const put = (source, target, value) => { assign(source, target, value, 'converted'); handled.add(source); };
+  const discard = (key, action = 'removed-legacy-field') => { handled.add(key); report(key, action); };
+  const own = (group, key) => isObject(input[group]) && Object.hasOwn(input[group], key);
+  const index = isObject(input.index) ? input.index : {};
+  if (own('index', 'index_layout') || own('index', 'post_layout')) {
+    const current = String(index.index_layout ?? '');
+    put('index.index_layout', 'index.index_layout', /^[1-7]$/.test(current) ? current : index.post_layout === 'tile' ? '6' : '3');
+    if (own('index', 'post_layout')) discard('index.post_layout');
+    if (!/^[1-7]$/.test(current) && index.post_layout === 'tile') report('index.post_layout', 'experience-changed');
+  }
+  const style = isObject(input.style) ? input.style : {};
+  const dark = isObject(input.darkmode) ? input.darkmode : {};
+  if (own('style', 'mode') || own('darkmode', 'autoChangeMode')) {
+    const automatic = Number(dark.autoChangeMode);
+    const mode = ['light', 'dark', 'system', 'schedule'].includes(style.mode) ? style.mode
+      : automatic === 1 ? 'system' : automatic === 2 || style.mode === 'auto' ? 'schedule' : 'system';
+    put('style.mode', 'style.mode', mode);
+    if (own('darkmode', 'autoChangeMode')) discard('darkmode.autoChangeMode');
+    if (style.mode === 'user' && ![1, 2].includes(automatic)) report('style.mode', 'experience-changed');
+  }
+  if (own('darkmode', 'start') || own('darkmode', 'end')) {
+    // Legacy start<end described daylight; start>end already described night.
+    // Compare before mapping 24 to 0, so midnight endpoints retain their meaning.
+    const hour = (v, fallback) => {
+      if (v === null || v === undefined || v === '') return fallback;
+      const n = Number(v); return Number.isInteger(n) && n >= 0 && n <= 24 ? n : null;
+    };
+    const oldStart = hour(dark.start, 6), oldEnd = hour(dark.end, 18);
+    const reversed = oldStart !== null && oldEnd !== null && oldStart < oldEnd;
+    let start = (reversed ? oldEnd : oldStart), end = (reversed ? oldStart : oldEnd);
+    if (start !== null) start %= 24;
+    if (end !== null) end %= 24;
+    if (start === null || end === null || start === end) { start = 18; end = 6; report('darkmode.start/end', 'manual-review'); }
+    put(reversed ? 'darkmode.end' : 'darkmode.start', 'darkmode.night_start', start);
+    put(reversed ? 'darkmode.start' : 'darkmode.end', 'darkmode.night_end', end);
+  }
+  if (own('darkmode', 'enable')) {
+    put('darkmode.button', 'darkmode.button', dark.enable !== false && dark.enable !== 'false' && dark.button !== false && dark.button !== 'false');
+    discard('darkmode.enable');
+  }
+  for (const [group, name] of [['render', 'enable_code_expander'], ...(from === '2.0.5' ? [['code', 'enable_expander']] : [])]) {
+    if (!own(group, name)) continue;
+    const value = input[group][name];
+    const converted = value === true || value === 'false' ? 'expanded' : value === false || value === 'none' ? 'disabled' : value === 'true' ? 'collapsed' : null;
+    const key = `${group}.${name}`;
+    if (converted) put(key, 'render.code_shrink', converted);
+    else discard(key, 'manual-review');
+  }
+  if (own('index', 'subtitle_source') || own('index', 'enable_typewriter_random_text')) {
+    const aliases = {'0': 'local', '1': 'hitokoto', '2': 'yiyan', '3': 'jinrishici'};
+    const source = index.subtitle_source;
+    const converted = aliases[String(source)] || (source === 'custom' || source == null || source === ''
+      ? index.enable_typewriter_random_text === true && typeof index.typewriter_random_api === 'string' && index.typewriter_random_api.trim() ? 'custom' : 'local'
+      : ['local', 'hitokoto', 'yiyan', 'jinrishici'].includes(source) ? source : 'local');
+    put('index.subtitle_source', 'index.subtitle_source', converted);
+    if (own('index', 'enable_typewriter_random_text')) discard('index.enable_typewriter_random_text');
+  }
+  if (own('index', 'enable_above')) {
+    if (!own('single', 'enable_above')) put('single.enable_above', 'single.enable_above', index.enable_above);
+    if (!own('image', 'other_pages_above')) put('image.other_pages_above', 'image.other_pages_above', index.enable_above);
+  }
+  if (own('index', 'above_background')) report('index.above_background', 'removed-implicit-inheritance');
+  const cdn = isObject(input.CDN) ? input.CDN : {};
+  const expand = (value, name, version, file) => typeof value === 'string' ? value.replaceAll('${name}', name).replaceAll('${version}', version).replaceAll('${file}', file) : '';
+  const safe = value => {
+    if (typeof value !== 'string' || /[\s\\<>"'`$]/.test(value) || (!value.startsWith('https://') && !/^\/(?!\/)/.test(value))) return false;
+    try { const url = new URL(value, 'https://example.invalid'); return !url.username && !url.password; } catch { return false; }
+  };
+  if (Object.keys(cdn).length) {
+    const root = typeof cdn.asset_base === 'string' ? cdn.asset_base.trim() : '';
+    if (cdn.internal_provider === 'local') {
+      put('CDN.asset_base', 'CDN.asset_base', '');
+      if (root || cdn.custom_format) report('CDN.asset_base', 'reset-assets-to-package');
+    } else if (root) {
+      const concrete = expand(root, 'halo-butterfly-next', targetVersion, '');
+      if (!/\$\{(?!name\}|version\})/.test(root) && safe(concrete) && !/[?#]/.test(concrete)) put('CDN.asset_base', 'CDN.asset_base', root);
+      else discard('CDN.asset_base', 'manual-review');
+    } else if (cdn.internal_provider === 'custom' || (!cdn.internal_provider && cdn.custom_format)) {
+      const template = typeof cdn.custom_format === 'string' ? cdn.custom_format.trim() : '';
+      const prefix = template.endsWith('/${file}') ? template.slice(0, -8) : '';
+      const concrete = expand(prefix, 'halo-butterfly-next', targetVersion, '');
+      if (prefix && !/\$\{(?!name\}|version\})/.test(prefix) && safe(concrete) && !/[?#]/.test(concrete)) put('CDN.custom_format', 'CDN.asset_base', prefix);
+      else report('CDN.custom_format', 'manual-review');
+    }
+    if (own('CDN', 'internal_provider')) discard('CDN.internal_provider');
+    if (own('CDN', 'third_party_provider')) discard('CDN.third_party_provider');
+    if (own('CDN', 'custom_format')) handled.add('CDN.custom_format');
+    const font = cdn.option?.fontawesome;
+    // Old Font Awesome placeholders had npm-package meanings, independent of theme assets.
+    if (typeof font === 'string' && font.trim()) {
+      const concrete = expand(font.trim(), '@fortawesome/fontawesome-free', '6.7.2', 'css/all.min.css');
+      if (safe(concrete)) put('CDN.option.fontawesome', 'CDN.option.fontawesome', concrete);
+      else discard('CDN.option.fontawesome', 'manual-review');
+    } else {
+      const providers = {
+        local: '/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css',
+        jsdelivr: 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css',
+        unpkg: 'https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/css/all.min.css',
+        cdnjs: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css',
+      };
+      const selected = cdn.third_party_provider;
+      if (providers[selected]) put('CDN.option.fontawesome', 'CDN.option.fontawesome', providers[selected]);
+      else if (selected === 'custom') {
+        const concrete = expand(cdn.custom_format, '@fortawesome/fontawesome-free', '6.7.2', 'css/all.min.css');
+        if (safe(concrete)) put('CDN.option.fontawesome', 'CDN.option.fontawesome', concrete);
+        else report('CDN.option.fontawesome', 'manual-review');
+      }
+    }
+  }
   const visit = (value, source) => {
+    if (handled.has(source)) return;
     // 旧的资源 CDN 指向原主题。独立版本只使用自身安装包中的 JS/CSS。
     if (source === 'loading.source' || source === 'other') {
       report(source, 'reset-assets-to-package'); return;
@@ -116,10 +227,6 @@ export function migrateConfig(input, from, defaults) {
       return;
     }
     const target = from === '2.0.5' ? legacyMappings[source] || source : source;
-    if ((source === 'code.enable_expander' || source === 'render.enable_code_expander') && typeof value === 'boolean') {
-      assign(source, target, value ? 'false' : 'none', 'converted');
-      return;
-    }
     if (source === 'style.font_family' && value !== 'null') {
       assign(source, target, 'null', 'reset-system-font'); return;
     }
@@ -130,7 +237,7 @@ export function migrateConfig(input, from, defaults) {
   };
   visit(input, '');
   return { config, report: { from, targetTheme: 'halo-butterfly-next', targetVersion, changes,
-    needsReview: changes.some(item => ['unsupported', 'manual-review', 'type-mismatch'].includes(item.action)) } };
+    needsReview: changes.some(item => ['unsupported', 'manual-review', 'type-mismatch', 'experience-changed', 'removed-implicit-inheritance'].includes(item.action)) } };
 }
 
 export function asConfigMap(config) {

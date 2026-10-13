@@ -995,7 +995,7 @@
       "halo": {
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
         "settings": [
-          "render.enable_code_expander"
+          "render.code_shrink"
         ],
         "code": [
           "src/js/modules/CodeBlock.ts",
@@ -1003,9 +1003,11 @@
           "src/html/post.html",
           "src/html/page.html",
           "src/html/views/components.html",
-          "settings.yaml"
+          "settings.yaml",
+          "src/js/core/code-shrink.ts",
+          "scripts/config-migration.mjs"
         ],
-        "finding": "已映射 code_blocks.shrink 三态到 render.enable_code_expander 字符串 radio：false 有按钮且初始展开，true 有按钮且初始 closed，none 无折叠按钮。默认 false，与上游 _config.yml 一致。旧布尔 true 运行时映射为 false，旧布尔 false 映射为 none。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射 code_blocks.shrink 三态到 render.enable_code_expander 字符串 radio：false 有按钮且初始展开，true 有按钮且初始 closed，none 无折叠按钮。默认 false，与上游 _config.yml 一致。旧布尔 true 运行时映射为 false，旧布尔 false 映射为 none。尚未双站对照验收，禁止 verified。 2026-10-14 配置简化：改为 render.code_shrink 语义三态，默认 expanded；旧布尔/字符串仅在离线迁移工具转换，运行时不解释旧字段。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -1014,13 +1016,13 @@
       "acceptance": {
         "profile": "code",
         "cases": [
-          "code_blocks.shrink：逐值执行 true / false / \"none\"。",
-          "保持同组其他设置不变；验证 code_blocks.shrink 与全局/逐页覆盖的优先级。"
+          "expanded / collapsed / disabled 逐值验证折叠按钮、初始可见代码和恢复操作。",
+          "旧 enable_code_expander 布尔/字符串仅由离线工具转换；运行时旧值不影响新默认。"
         ],
         "values": [
-          true,
-          false,
-          "none"
+          "expanded",
+          "collapsed",
+          "disabled"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -1041,7 +1043,26 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/75"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -1323,7 +1344,7 @@
           "src/js/core/appearance.ts",
           "src/scss/core/appearance.scss"
         ],
-        "finding": "2026-10-13：已接入 appearance.avatar_effect。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。"
+        "finding": "2026-10-13：已接入 appearance.avatar_effect。未配置新字段保留旧默认，设置值在首次绘制前安全应用。 使用与回退见 docs/APPEARANCE-OPTIONS.md；84 项限定 Halo 配置场景见 docs/validation/2026-10-13/appearance.md，未覆盖全部叶子值及完整双站/1.0 合同，继续 implemented-unverified。 2026-10-14 配置简化：默认静止，显式 true 才旋转；保留开关和减少动态效果。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -1333,7 +1354,8 @@
         "profile": "images",
         "cases": [
           "avatar.effect：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 avatar.effect 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 avatar.effect 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：默认静止，显式 true 才旋转；保留开关和减少动态效果。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -1368,6 +1390,24 @@
           "commit": "078cd40836c4db5f51bb290229133ace31bb2547",
           "actor": "/root",
           "outcome": "partial: merged SEO/injection; 84 bounded configuration checks and 146 installed files passed; full item contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -1403,7 +1443,7 @@
           "src/html/category.html",
           "src/html/tag.html"
         ],
-        "finding": "新增 image.disable_top_img，默认 false；全局关闭优先于页面类型及文章/单页三态，保留内容区标题和唯一文章元信息。不影响列表封面。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+        "finding": "新增 image.disable_top_img，默认 false；全局关闭优先于页面类型及文章/单页三态，保留内容区标题和唯一文章元信息。不影响列表封面。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。 2026-10-14 配置简化：保留全局最高优先级；单页 single.enable_above、友链/图库/瞬间 image.other_pages_above 独立，不继承首页开关。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -1413,7 +1453,8 @@
         "profile": "images",
         "cases": [
           "disable_top_img：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 disable_top_img 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 disable_top_img 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：保留全局最高优先级；单页 single.enable_above、友链/图库/瞬间 image.other_pages_above 独立，不继承首页开关。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -1439,6 +1480,24 @@
           "commit": "073789ba14335dcae36f0579ef8e4a312bc6e531",
           "actor": "/root",
           "outcome": "partial: 104 main + 12 supplemental Chromium cases passed; full contract and independent review remain open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -1474,7 +1533,7 @@
           "src/html/category.html",
           "src/html/tag.html"
         ],
-        "finding": "新增 image.default_top_img，默认空；文章/单页原生封面优先，无封面时默认顶图优先于旧回退；其他页面背景为空时使用默认图。坏顶图尝试默认图，去重后均失败时保留纯色和标题。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+        "finding": "新增 image.default_top_img，默认空；文章/单页原生封面优先，无封面时默认顶图优先于旧回退；其他页面背景为空时使用默认图。坏顶图尝试默认图，去重后均失败时保留纯色和标题。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。 2026-10-14 配置简化：原生封面→页面类型背景→全局默认→纯色；文章无独立图片配置，文章/单页不再隐式读取列表随机图/首页背景。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -1484,7 +1543,8 @@
         "profile": "images",
         "cases": [
           "default_top_img：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 default_top_img 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 default_top_img 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：原生封面→页面类型背景→全局默认→纯色；文章无独立图片配置，文章/单页不再隐式读取列表随机图/首页背景。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -1510,6 +1570,24 @@
           "commit": "073789ba14335dcae36f0579ef8e4a312bc6e531",
           "actor": "/root",
           "outcome": "partial: 104 main + 12 supplemental Chromium cases passed; full contract and independent review remain open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -3533,7 +3611,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.ts"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：默认开启能力，空内容不输出占位；显式关闭不请求远端。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -3543,7 +3621,8 @@
         "profile": "home",
         "cases": [
           "subtitle.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 subtitle.enable 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 subtitle.enable 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：默认开启能力，空内容不输出占位；显式关闭不请求远端。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -3590,6 +3669,24 @@
           "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
           "actor": "/root",
           "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified",
@@ -3627,7 +3724,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.ts"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：保留显式打字和参数；站点副标题回退或减少动态效果时静态显示。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -3637,7 +3734,8 @@
         "profile": "home",
         "cases": [
           "subtitle.effect：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 subtitle.effect 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 subtitle.effect 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：保留显式打字和参数；站点副标题回退或减少动态效果时静态显示。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -3684,6 +3782,24 @@
           "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
           "actor": "/root",
           "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified",
@@ -3791,7 +3907,7 @@
           "src/js/modules/subtitle.ts",
           "src/html/index.html"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：改为 local/custom/hitokoto/yiyan/jinrishici，默认 local；custom 无旧随机开关，地址为空回退本地。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -3800,14 +3916,15 @@
       "acceptance": {
         "profile": "home",
         "cases": [
-          "subtitle.source：逐值执行 false / 1 / 2 / 3。",
-          "保持同组其他设置不变；验证 subtitle.source 与全局/逐页覆盖的优先级。"
+          "local/custom/hitokoto/yiyan/jinrishici 逐值；缺省不请求API，custom无第二开关。",
+          "URL为空、服务失败、页面离开、迟到响应；真实服务可用性继续单列。"
         ],
         "values": [
-          false,
-          1,
-          2,
-          3
+          "local",
+          "custom",
+          "hitokoto",
+          "yiyan",
+          "jinrishici"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -3833,6 +3950,24 @@
           "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
           "actor": "/root",
           "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -3867,7 +4002,7 @@
           "src/js/modules/subtitle.ts",
           "src/html/index.html"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：默认无主题宣传文案；本地为空静态显示 Halo site.subtitle，均空无字幕占位；保留作者文案与分隔方式。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -3877,7 +4012,8 @@
         "profile": "home",
         "cases": [
           "subtitle.sub：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 subtitle.sub 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 subtitle.sub 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：默认无主题宣传文案；本地为空静态显示 Halo site.subtitle，均空无字幕占位；保留作者文案与分隔方式。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -3924,6 +4060,24 @@
           "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
           "actor": "/root",
           "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified",
@@ -3952,8 +4106,7 @@
       "halo": {
         "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
         "settings": [
-          "index.index_layout",
-          "index.post_layout"
+          "index.index_layout"
         ],
         "code": [
           "src/html/index.html",
@@ -3961,7 +4114,7 @@
           "src/js/page/masonry.ts",
           "src/scss/core/homepage.scss"
         ],
-        "finding": "首页提供上游 1–7 逐值选择，留空/无效值继承旧 list→3、tile→6；旧 tile 继续隐藏摘要。默认仍为 3。已实现，完整 1.0 合同尚未验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。"
+        "finding": "首页提供上游 1–7 逐值选择，留空/无效值继承旧 list→3、tile→6；旧 tile 继续隐藏摘要。默认仍为 3。已实现，完整 1.0 合同尚未验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。 2026-10-14 配置简化：仅使用 index.index_layout=1～7，缺省统一为 3；删除 post_layout 和 tile 摘要例外，保留全部布局。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -3971,7 +4124,8 @@
         "profile": "home",
         "cases": [
           "index_layout：逐值执行 1 / 2 / 3 / 4 / 5 / 6 / 7。",
-          "保持同组其他设置不变；验证 index_layout 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 index_layout 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：仅使用 index.index_layout=1～7，缺省统一为 3；删除 post_layout 和 tile 摘要例外，保留全部布局。"
         ],
         "values": [
           1,
@@ -4008,6 +4162,24 @@
           "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
           "actor": "/root",
           "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -4043,7 +4215,7 @@
           "src/scss/modules/components.scss",
           "settings.yaml"
         ],
-        "finding": "已映射 index_post_content.method（false / 1 / 2 / 3，默认 3）到 index.index_post_content.method。false 不渲染列表摘要；1 仅手动摘要 spec.excerpt.raw；2 优先手动摘要否则按 length 截断正文；3（及未识别值）截断正文。正文来自 postFinder.content，去标签后按 hexo-util truncate（省略号计入 length）。可见文本 th:text。不做逐页覆盖。显式首页 1–7 服从此配置，沿用旧 tile 继续无摘要；本轮仅补充 method=3 / false 的布局交叉检查，完整摘要及截断边界合同仍待完成，禁止 verified。"
+        "finding": "已映射 index_post_content.method（false / 1 / 2 / 3，默认 3）到 index.index_post_content.method。false 不渲染列表摘要；1 仅手动摘要 spec.excerpt.raw；2 优先手动摘要否则按 length 截断正文；3（及未识别值）截断正文。正文来自 postFinder.content，去标签后按 hexo-util truncate（省略号计入 length）。可见文本 th:text。不做逐页覆盖。显式首页 1–7 服从此配置，沿用旧 tile 继续无摘要；本轮仅补充 method=3 / false 的布局交叉检查，完整摘要及截断边界合同仍待完成，禁止 verified。 2026-10-14 配置简化：所有七布局遵循摘要 method；旧 tile 不再隐式关闭摘要。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -4053,7 +4225,8 @@
         "profile": "home",
         "cases": [
           "index_post_content.method：逐值执行 false / 1 / 2 / 3。",
-          "保持同组其他设置不变；验证 index_post_content.method 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 index_post_content.method 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：所有七布局遵循摘要 method；旧 tile 不再隐式关闭摘要。"
         ],
         "values": [
           false,
@@ -4089,6 +4262,24 @@
           "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
           "actor": "/root",
           "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -4124,7 +4315,7 @@
           "src/scss/modules/components.scss",
           "settings.yaml"
         ],
-        "finding": "已映射 index_post_content.length（默认 500）到 index.index_post_content.length。仅 method 为 2（无手动摘要时）或 3 时生效；method 1 / false 不截断。截断对齐 hexo-util truncate：不足 length 原样，否则 length-3 字符加 ...。显式首页 1–7 服从此配置，沿用旧 tile 继续无摘要；本轮仅补充 method=3 / false 的布局交叉检查，完整摘要及截断边界合同仍待完成，禁止 verified。"
+        "finding": "已映射 index_post_content.length（默认 500）到 index.index_post_content.length。仅 method 为 2（无手动摘要时）或 3 时生效；method 1 / false 不截断。截断对齐 hexo-util truncate：不足 length 原样，否则 length-3 字符加 ...。显式首页 1–7 服从此配置，沿用旧 tile 继续无摘要；本轮仅补充 method=3 / false 的布局交叉检查，完整摘要及截断边界合同仍待完成，禁止 verified。 2026-10-14 配置简化：所有七布局遵循摘要长度，默认 500 不变。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -4134,7 +4325,8 @@
         "profile": "home",
         "cases": [
           "index_post_content.length：默认 500、边界值及文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 index_post_content.length 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 index_post_content.length 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：所有七布局遵循摘要长度，默认 500 不变。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -4164,6 +4356,24 @@
           "commit": "ab7bea98c0ea485b0d81238ebe93060f3a446e64",
           "actor": "/root",
           "outcome": "partial: scoped home layout checks passed after retained diagnostics; full 1.0 remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -10644,7 +10854,7 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "darkmode.enable"
+          "darkmode.button"
         ],
         "code": [
           "settings.yaml",
@@ -10652,7 +10862,7 @@
           "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
-        "finding": "已映射为 Halo darkmode.enable，默认 true；仅显式 false 时不提供右下角 #darkmode（须同时 darkmode.button）。不复用作者卡片 aside.button。不拆 style.mode。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射为 Halo darkmode.enable，默认 true；仅显式 false 时不提供右下角 #darkmode（须同时 darkmode.button）。不复用作者卡片 aside.button。不拆 style.mode。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。尚未双站对照验收，禁止 verified。 2026-10-14 配置简化：合并到 darkmode.button，隐藏入口不关闭模式策略；style.mode 固定 light/dark 不显示切换入口。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -10662,8 +10872,8 @@
       "acceptance": {
         "profile": "rightside",
         "cases": [
-          "darkmode.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 darkmode.enable 与全局/逐页覆盖的优先级。"
+          "旧 enable 不参与运行时；离线转换到 darkmode.button。",
+          "隐藏入口不关闭模式策略，固定 light/dark 不显示入口。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -10682,7 +10892,26 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/146"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -10716,7 +10945,7 @@
           "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
-        "finding": "已映射为 Halo darkmode.button，默认 true；须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。不再仅限 style.mode == user。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射为 Halo darkmode.button，默认 true；须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。不再仅限 style.mode == user。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。 2026-10-14 配置简化：唯一读者入口开关，默认 true；固定模式隐藏入口，提供独立恢复站点默认操作。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -10727,7 +10956,8 @@
         "profile": "rightside",
         "cases": [
           "darkmode.button：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 darkmode.button 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 darkmode.button 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：唯一读者入口开关，默认 true；固定模式隐藏入口，提供独立恢复站点默认操作。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -10746,7 +10976,26 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/146"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -10772,16 +11021,18 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "darkmode.autoChangeMode"
+          "style.mode"
         ],
         "code": [
           "settings.yaml",
           "src/html/views/config.html",
           "src/js/core/theme.ts",
           "src/js/core/darkmode.ts",
-          "tests/darkmode.test.mjs"
+          "tests/darkmode.test.mjs",
+          "src/js/core/color-scheme.ts",
+          "src/js/bootstrap.ts"
         ],
-        "finding": "已映射为 Halo darkmode.autoChangeMode，默认 false。1 跟随 prefers-color-scheme（无系统偏好回退小时窗口）；2 按小时。已存 light/dark 优先。style.mode 的 light/dark 仍强制；auto 在 autoChangeMode 为 false 时仍按小时。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射为 Halo darkmode.autoChangeMode，默认 false。1 跟随 prefers-color-scheme（无系统偏好回退小时窗口）；2 按小时。已存 light/dark 优先。style.mode 的 light/dark 仍强制；auto 在 autoChangeMode 为 false 时仍按小时。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。 2026-10-14 配置简化：原自动枚举映射为 style.mode=system/light/dark/schedule，缺省 system；首帧及客户端共用解析，访客选择可恢复。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -10791,13 +11042,14 @@
       "acceptance": {
         "profile": "rightside",
         "cases": [
-          "darkmode.autoChangeMode：逐值执行 false / 1 / 2。",
-          "保持同组其他设置不变；验证 darkmode.autoChangeMode 与全局/逐页覆盖的优先级。"
+          "style.mode=system / light / dark / schedule 逐值执行；缺省 system，不再读取 autoChangeMode。",
+          "验证系统变化、访客选择优先、恢复站点默认、存储失败以及固定模式隐藏按钮。"
         ],
         "values": [
-          false,
-          1,
-          2
+          "system",
+          "light",
+          "dark",
+          "schedule"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -10816,7 +11068,26 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/149"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -10842,7 +11113,7 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "darkmode.start"
+          "darkmode.night_start"
         ],
         "code": [
           "settings.yaml",
@@ -10850,7 +11121,7 @@
           "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
-        "finding": "已映射为 Halo darkmode.start，默认空字符串（对齐上游 null），回退 6。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射为 Halo darkmode.start，默认空字符串（对齐上游 null），回退 6。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。 2026-10-14 配置简化：改为 darkmode.night_start=18，夜间开始，0～23；起止相同/非法用18～6，旧白天窗口仅离线转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -10860,8 +11131,8 @@
       "acceptance": {
         "profile": "rightside",
         "cases": [
-          "darkmode.start：逐值执行 null / 0 / 6 / 24。",
-          "保持同组其他设置不变；验证 darkmode.start 与全局/逐页覆盖的优先级。"
+          "night_start 接受0～23整数；缺省18，非法/等值区间用18～6。",
+          "按访客本地时间、跨午夜及边界更新；旧 start/end 离线转换：白天窗口交换、跨午夜夜间窗口保留；午夜端点先按旧数值判断。"
         ],
         "values": [
           null,
@@ -10886,7 +11157,26 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/149"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -10912,7 +11202,7 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "darkmode.end"
+          "darkmode.night_end"
         ],
         "code": [
           "settings.yaml",
@@ -10920,7 +11210,7 @@
           "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs"
         ],
-        "finding": "已映射为 Halo darkmode.end，默认空字符串（对齐上游 null），回退 18。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。"
+        "finding": "已映射为 Halo darkmode.end，默认空字符串（对齐上游 null），回退 18。0 与 24 有效。仅 autoChangeMode 1（无系统偏好）或 2 使用。不复用作者卡片 aside.button。尚未双站对照验收，禁止 verified。 2026-10-14 配置简化：改为 darkmode.night_end=6，夜间结束，0～23；跨午夜且结束不包含，按访客本地时间更新。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -10930,8 +11220,8 @@
       "acceptance": {
         "profile": "rightside",
         "cases": [
-          "darkmode.end：逐值执行 null / 0 / 18 / 24。",
-          "保持同组其他设置不变；验证 darkmode.end 与全局/逐页覆盖的优先级。"
+          "night_end 接受0～23整数；缺省6，结束不包含。",
+          "定时边界、跨午夜、等值/非法区间、PJAX 清理及访客手动覆盖。"
         ],
         "values": [
           null,
@@ -10956,7 +11246,26 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/149"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -28677,7 +28986,6 @@
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
         "settings": [
-          "CDN.internal_provider",
           "CDN.asset_base"
         ],
         "code": [
@@ -28689,7 +28997,7 @@
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：用 CDN.asset_base 空/非空选择安装包/自定义根地址，删除重复选择器。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -28699,8 +29007,8 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.internal_provider：逐值执行 \"local\" / \"jsdelivr\" / \"unpkg\" / \"cdnjs\" / \"custom\"。",
-          "保持同组其他设置不变；验证 CDN.internal_provider 与全局/逐页覆盖的优先级。"
+          "asset_base 为空本地、填写直接生效；旧 provider 不参与运行时。",
+          "与单项覆盖组合验证，非法根地址使用安装包。"
         ],
         "values": [
           "local",
@@ -28745,6 +29053,24 @@
           "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
           "actor": "Codex author",
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -28772,7 +29098,7 @@
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
         "settings": [
-          "CDN.third_party_provider"
+          "CDN.option.fontawesome"
         ],
         "code": [
           "src/html/views/config.html",
@@ -28783,7 +29109,7 @@
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：Font Awesome 跟随统一根地址，独立供应改填完整 CDN.option.fontawesome；公共 CDN 固定 6.7.2 URL 可由离线工具转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -28793,8 +29119,8 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.third_party_provider：逐值执行 \"local\" / \"jsdelivr\" / \"unpkg\" / \"cdnjs\" / \"custom\"。",
-          "保持同组其他设置不变；验证 CDN.third_party_provider 与全局/逐页覆盖的优先级。"
+          "Font Awesome 默认跟随根地址；完整单项URL独立覆盖，旧 provider 离线展开固定6.7.2。",
+          "字体实际相对路径、资源失败、本地回退、version缓存参数不解除固定供应。"
         ],
         "values": [
           "local",
@@ -28839,6 +29165,24 @@
           "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
           "actor": "Codex author",
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -28953,7 +29297,7 @@
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
         "settings": [
-          "CDN.custom_format"
+          "CDN.asset_base"
         ],
         "code": [
           "src/html/views/config.html",
@@ -28964,7 +29308,7 @@
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：原自由模板运行时已取消，根地址和单项完整 URL 替代；CFG-05 已获本次维护者实施授权，正式 DEC-03 登记仍待完成，原模板供应要求保留 gap，不据本地方案标 N/A。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -28974,8 +29318,8 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.custom_format：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.custom_format 与全局/逐页覆盖的优先级。"
+          "原自由模板取消，按已批准草案记录差异；正式裁定登记前保留 gap。",
+          "旧格式离线转根地址或单项URL；不能表示的模板列 manual-review，不静默应用。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -29013,9 +29357,27 @@
           "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
           "actor": "Codex author",
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "gap"
     },
     {
       "id": "config:CDN.option",
@@ -29051,7 +29413,7 @@
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。 2026-10-14 配置简化：统一单项优先→根地址→安装包；新增 charts 按需图表实际覆盖，完整上游映射仍未完成。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -29062,7 +29424,8 @@
         "profile": "resources",
         "cases": [
           "CDN.option：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 CDN.option 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：统一单项优先→根地址→安装包；新增 charts 按需图表实际覆盖，完整上游映射仍未完成。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -29119,6 +29482,24 @@
           "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
           "actor": "Codex author",
           "outcome": "partial: passed scoped author worktree checks; formal decision recorded; no verified promotion"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -30924,6 +31305,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -31784,6 +32174,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -32605,7 +33004,7 @@
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：统一按主题实际路径展开占位符，不使用 npm 包 name/file 语义；旧意义仅离线转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -32616,7 +33015,8 @@
         "profile": "resources",
         "cases": [
           "CDN.option.fontawesome：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.fontawesome 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 CDN.option.fontawesome 与全局/逐页覆盖的优先级。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：统一按主题实际路径展开占位符，不使用 npm 包 name/file 语义；旧意义仅离线转换。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -32654,6 +33054,24 @@
           "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
           "actor": "Codex author",
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -33597,6 +34015,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -44663,6 +45090,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -45362,6 +45798,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -46845,6 +47290,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -54165,7 +54619,7 @@
           "src/html/page.html",
           "src/html/archives.html"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。 2026-10-11 限定实现：维护者确认文章顶图继续复用原生封面，不新增独立顶图字段；文章/单页 top_img_enable 三态只控制显示。原生封面、默认图与旧回退已接入，未声明独立 URL front-matter 全域等价。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。"
+        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。 2026-10-11 限定实现：维护者确认文章顶图继续复用原生封面，不新增独立顶图字段；文章/单页 top_img_enable 三态只控制显示。原生封面、默认图与旧回退已接入，未声明独立 URL front-matter 全域等价。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。 2026-10-14 配置简化：继续默认复用 Halo 内容原生封面，保留逐篇显示三态，不新增文章独立顶图图片字段。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -54177,7 +54631,8 @@
         "profile": "page-data",
         "cases": [
           "top_img：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/header/index.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认 layout/includes/header/index.pug 的消费页面具备对应行为及关闭/缺失回退。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：继续默认复用 Halo 内容原生封面，保留逐篇显示三态，不新增文章独立顶图图片字段。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -54201,6 +54656,24 @@
           "commit": "073789ba14335dcae36f0579ef8e4a312bc6e531",
           "actor": "/root",
           "outcome": "partial: 104 main + 12 supplemental Chromium cases passed; full contract and independent review remain open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "mapping-required"
@@ -56455,9 +56928,11 @@
         "strategy": "按上游开关和排列方式从 Halo Post 元数据与统计读取显示内容。",
         "settings": [],
         "code": [
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/js/core/chart-loader.ts",
+          "src/js/page/charts.ts"
         ],
-        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：webkit /archives/ 1440px light（pending-resources,readiness-visible-images）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。"
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 最新限定验收：源码 b0ead077 的 Linux 运行 37302153352 在本页面类型未通过资源完成门禁：webkit /archives/ 1440px light（pending-resources,readiness-visible-images）。保留失败，不归因为已确定的主题缺陷；本地 HTTP/Chromium 局部通过不抵消失败。剩余：#338 资源问题复核及该页面全部合同场景、独立审查。 2026-10-14 配置简化：归档图表接入相同按需包以移除公共工具静态 ECharts 依赖，保留归档统计与文本。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -56466,7 +56941,8 @@
       "acceptance": {
         "profile": "post-meta",
         "cases": [
-          "按年份分组、分页、文章总数、日期及封面显示。"
+          "按年份分组、分页、文章总数、日期及封面显示。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：归档图表接入相同按需包以移除公共工具静态 ECharts 依赖，保留归档统计与文本。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -56492,6 +56968,24 @@
           "commit": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
           "actor": "/root",
           "outcome": "partial: source, bounded checks and failures reconciled; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "verification-failed"
@@ -56604,9 +57098,11 @@
         "settings": [],
         "code": [
           "src/html/categories.html",
-          "src/js/page/categories.ts"
+          "src/js/page/categories.ts",
+          "src/js/core/chart-loader.ts",
+          "src/js/page/charts.ts"
         ],
-        "finding": "分类总览页已有分类卡片和统计图；PR #330 在无分类空站提前退出初始化，避免查询不存在的统计 DOM 导致异常。alpha.3 全新空站与核心分类页提供有限运行证据。 剩余：正常/空/多分类、统计值与固定 Hexo 5.7.0 的完整逐项对照仍未完成。"
+        "finding": "分类总览页已有分类卡片和统计图；PR #330 在无分类空站提前退出初始化，避免查询不存在的统计 DOM 导致异常。alpha.3 全新空站与核心分类页提供有限运行证据。 剩余：正常/空/多分类、统计值与固定 Hexo 5.7.0 的完整逐项对照仍未完成。 2026-10-14 配置简化：默认分类树列表，chart 显式可选；ECharts 独立 charts 包，失败保留可点击文本列表。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -56615,7 +57111,8 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "嵌套分类、计数、空分类和自定义页正文。"
+          "嵌套分类、计数、空分类和自定义页正文。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：默认分类树列表，chart 显式可选；ECharts 独立 charts 包，失败保留可点击文本列表。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -56641,6 +57138,24 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -56719,9 +57234,11 @@
         "strategy": "使用 Halo Finder 与统计数据实现上游卡片内容、排序、数量和页面显示条件。",
         "settings": [],
         "code": [
-          "src/html/tags.html"
+          "src/html/tags.html",
+          "src/js/core/chart-loader.ts",
+          "src/js/page/charts.ts"
         ],
-        "finding": "已有相关模板或行为，尚未进行固定双站对照。"
+        "finding": "已有相关模板或行为，尚未进行固定双站对照。 2026-10-14 配置简化：默认标签云，chart 显式可选；保留颜色和链接，非图表模式不请求 ECharts 包。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -56730,7 +57247,8 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "标签云大小、颜色、顺序、数量和自定义正文。"
+          "标签云大小、颜色、顺序、数量和自定义正文。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：默认标签云，chart 显式可选；保留颜色和链接，非图表模式不请求 ECharts 包。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -56745,7 +57263,26 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -57486,7 +58023,7 @@
       "halo": {
         "strategy": "在 Halo 正文 HTML 与 Prism/代码插件之间建立可重复初始化的工具栏和高亮适配。",
         "settings": [
-          "render.enable_code_expander"
+          "render.code_shrink"
         ],
         "code": [
           "src/js/modules/CodeBlock.ts",
@@ -57497,7 +58034,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已实现代码块折叠三态：none 不插入折叠按钮且不初始 closed；false 插入可键盘激活的 button.code-expander 且初始展开；true 同样有按钮并给包装加上游 closed。与 copy / macStyle / height_limit / word_wrap / fullpage 并存。尚未双站对照验收，禁止 verified。"
+        "finding": "已实现代码块折叠三态：none 不插入折叠按钮且不初始 closed；false 插入可键盘激活的 button.code-expander 且初始展开；true 同样有按钮并给包装加上游 closed。与 copy / macStyle / height_limit / word_wrap / fullpage 并存。尚未双站对照验收，禁止 verified。 2026-10-14：表单改为 render.code_shrink=expanded/collapsed/disabled；内部映射上游 false/true/none，仅离线工具转换旧字段。"
       },
       "dependencies": [
         "dual-site",
@@ -57506,13 +58043,19 @@
       "acceptance": {
         "profile": "code",
         "cases": [
-          "初始 true/false/none，点击展开收起与 height_limit 共同生效。"
+          "expanded 显示折叠按钮且初始展开；collapsed 显示按钮且初始折叠；disabled 不显示折叠按钮。",
+          "各布局/正文页核对焦点、点击恢复与状态；旧布尔及字符串只经离线迁移，不影响运行时新默认。"
         ],
         "contractScenarios": [
           "ENV-02",
           "PAGE-01",
           "POST-01",
           "PLG-06"
+        ],
+        "values": [
+          "expanded",
+          "collapsed",
+          "disabled"
         ]
       },
       "tracking": {
@@ -57524,7 +58067,17 @@
           "https://github.com/songxychn/halo-butterfly-next/pull/75"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        }
+      ],
       "status": "implemented-unverified"
     },
     {
@@ -57937,7 +58490,6 @@
       "halo": {
         "strategy": "按上游工具按钮集合、次序、滚动状态和储存策略扩展公共组件。",
         "settings": [
-          "darkmode.enable",
           "darkmode.button"
         ],
         "code": [
@@ -57946,9 +58498,10 @@
           "src/js/core/darkmode.ts",
           "src/js/core/theme.ts",
           "tests/darkmode.test.mjs",
-          "src/html/views/config.html"
+          "src/html/views/config.html",
+          "src/js/core/color-scheme.ts"
         ],
-        "finding": "已有模式切换按钮、autoChangeMode 1/2 与 start/end 策略；初始 head 和运行时使用相同策略，持久化键为 halo-butterfly-next.color-scheme。上游按钮及自动模式均有相关实现，完整配色、存储和系统变化组合仍待验收。 剩余：不要改动已实现配置状态；仍缺完整模式/存储/系统变化组合与所有颜色主题双站验收。"
+        "finding": "已有模式切换按钮、autoChangeMode 1/2 与 start/end 策略；初始 head 和运行时使用相同策略，持久化键为 halo-butterfly-next.color-scheme。上游按钮及自动模式均有相关实现，完整配色、存储和系统变化组合仍待验收。 剩余：不要改动已实现配置状态；仍缺完整模式/存储/系统变化组合与所有颜色主题双站验收。 2026-10-14 配置简化：统一首帧/客户端策略；自动监听、定时边界、读者覆盖/恢复、存储不可用及页面清理。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -57958,7 +58511,8 @@
       "acceptance": {
         "profile": "rightside",
         "cases": [
-          "首次/已保存/强制/系统/定时组合及系统偏好变化。"
+          "首次/已保存/强制/系统/定时组合及系统偏好变化。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：统一首帧/客户端策略；自动监听、定时边界、读者覆盖/恢复、存储不可用及页面清理。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -57987,6 +58541,24 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified"
@@ -58296,7 +58868,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.ts"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
+        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：远端响应检查页面 scope，离开页面中止请求并销毁 Typed；默认无远端请求。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -58305,7 +58877,8 @@
       "acceptance": {
         "profile": "home",
         "cases": [
-          "自定义列表、三个数据源、响应错误、effect 关闭和重新进入首页。"
+          "自定义列表、三个数据源、响应错误、effect 关闭和重新进入首页。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：远端响应检查页面 scope，离开页面中止请求并销毁 Typed；默认无远端请求。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -58351,6 +58924,24 @@
           "commit": "e5bac5f7bb4203f4641c269823165a170caa323d",
           "actor": "/root",
           "outcome": "partial: 52 bounded Chromium views and independent code review passed; full per-entry contract remains open"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "implemented-unverified",
@@ -60478,7 +61069,7 @@
           "src/html/views/config.html",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "统一根地址与实际白名单覆盖已补齐 effects/sharejs/sharejs_css/busuanzi；Mermaid/Chart.js/ABCJS 随对应功能开发，已捆绑库不拆。全量映射保留 mapping-required，其余供应替代见 docs/parity/DEC-03-RESOURCES-DRAFT.md，草案不产生不适用裁定。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。"
+        "finding": "统一根地址与实际白名单覆盖已补齐 effects/sharejs/sharejs_css/busuanzi；Mermaid/Chart.js/ABCJS 随对应功能开发，已捆绑库不拆。全量映射保留 mapping-required，其余供应替代见 docs/parity/DEC-03-RESOURCES-DRAFT.md，草案不产生不适用裁定。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。 2026-10-14 配置简化：保留完整单项覆盖，添加实际 charts 包覆盖；统一主题路径语义，旧字体模板离线展开。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
       },
       "dependencies": [
         "dual-site",
@@ -60488,7 +61079,8 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "plugins.yml 资源和内部 main/utils/translate/local_search/algolia_js/main_css 逐项覆盖。"
+          "plugins.yml 资源和内部 main/utils/translate/local_search/algolia_js/main_css 逐项覆盖。",
+          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：保留完整单项覆盖，添加实际 charts 包覆盖；统一主题路径语义，旧字体模板离线展开。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -60531,6 +61123,24 @@
           "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
           "actor": "Codex author",
           "outcome": "partial: passed scoped author worktree checks; formal decision recorded; no verified promotion"
+        },
+        {
+          "kind": "scoped-author-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults.json",
+          "sha256": "985a179db2c70b3f9627b530232d6b417fc56acadcc263d5656cad677bd7c634",
+          "date": "2026-10-13T16:36:17Z",
+          "commit": "5622798dd06306c8b56b519581d807cd4f473b70",
+          "actor": "Codex author",
+          "outcome": "partial: uncommitted worktree snapshot; 657 tests, 160 installed files, 40 Halo groups and 16 top-image cases passed; full per-item contract remains open"
+        },
+        {
+          "kind": "scoped-reviewed-worktree-validation",
+          "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+          "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+          "date": "2026-10-13T17:09:08.215116+00:00",
+          "commit": "44621d24914edea94a242350562af68870cf5b69",
+          "actor": "Codex author + independent_review",
+          "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
       "status": "mapping-required"

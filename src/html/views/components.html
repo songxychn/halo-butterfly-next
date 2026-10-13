@@ -110,11 +110,11 @@
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="list(data,layout)"
   th:class="${'essay ' + (homePage ? 'home-layout layout-' + indexLayout + ((indexLayout == '6' or indexLayout == '7') ? ' masonry' : '') : layout)}"
-  th:attr="data-index-layout=${homePage ? indexLayout : null},data-legacy-layout=${homePage and (layout == 'list' or layout == 'tile') ? layout : null}"
+  th:attr="data-index-layout=${homePage ? indexLayout : null}"
   th:with="
     homePage = ${page == 'index'},
     rawLayout = ${#strings.toString(layout)},
-    indexLayout = ${#lists.contains({'1','2','3','4','5','6','7'},rawLayout) ? rawLayout : (layout == 'tile' ? '6' : '3')},
+    indexLayout = ${#lists.contains({'1','2','3','4','5','6','7'},rawLayout) ? rawLayout : '3'},
     noData = ${not #lists.isEmpty(data)},
     dateType = ${theme.config.index.post_meta?.date_type},
     dateFormat = ${theme.config.index.post_meta?.date_format},
@@ -174,7 +174,7 @@
           </div>
         </div>
         <th:block
-          th:if="${(homePage ? layout != 'tile' : layout == 'list') and ipcMethod != false and ipcMethod != 'false'}"
+          th:if="${(homePage or layout == 'list') and ipcMethod != false and ipcMethod != 'false'}"
           th:with="
             description = ${#strings.defaultString(post.spec.excerpt.raw, '')},
             methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
@@ -242,7 +242,7 @@
        保留 .side-btn 给既有滚动 .active 与 404/plugin 选择器。
        hideAside 默认在 hide 组；齿轮仅当 hide 组有按钮时出现。
        距底偏移见 --rightside-bottom。readmode 仅文章页，默认 true。
-       translate.enable 默认 false。darkmode.enable/button 默认 true。autoChangeMode 默认 false。
+       translate.enable 默认 false。darkmode.button 默认 true；固定浅色/深色不提供切换入口。
        item_order 仅移动已启用的按钮；chat 等待 SDK 就绪。comment 只在实际评论挂载页提供。 */-->
   <div
     id="rightside"
@@ -250,7 +250,7 @@
     th:attr="data-item-order-enable=${theme.config.rightside?.item_order?.enable},data-item-order-hide=${theme.config.rightside?.item_order?.hide},data-item-order-show=${theme.config.rightside?.item_order?.show}"
     th:with="
       hideBtnOn = ${theme.config.aside.enable != false and theme.config.aside.enable != 'false' and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
-      darkBtnOn = ${theme.config.darkmode?.enable != false and theme.config.darkmode?.enable != 'false' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
+      darkBtnOn = ${theme.config.style?.mode != 'light' and theme.config.style?.mode != 'dark' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
       percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
       readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
       translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'},
@@ -284,6 +284,9 @@
         th:if="${darkBtnOn}"
       >
         <i class="fas fa-adjust" aria-hidden="true"></i>
+      </button>
+      <button th:if="${darkBtnOn}" id="darkmode-reset" type="button" class="button" aria-label="恢复站点默认主题" title="恢复站点默认主题">
+        <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
       </button>
       <button
         id="hide-aside-btn"
@@ -507,7 +510,7 @@
     Object.assign(window.MainApp.conf, {
       enable_code: /*[[${theme.config.render.enable_code}]]*/ true,
       enable_code_copy: /*[[${theme.config.render.enable_code_copy}]]*/ true,
-      enable_code_expander: /*[[${theme.config.render.enable_code_expander}]]*/ 'false',
+      code_shrink: /*[[${theme.config.render.code_shrink}]]*/ 'expanded',
       enable_code_title: /*[[${theme.config.render.enable_code_title}]]*/ true,
       enable_code_hr: /*[[${theme.config.render.enable_code_hr}]]*/ true,
       enable_code_line: /*[[${theme.config.render.enable_code_line}]]*/ true,

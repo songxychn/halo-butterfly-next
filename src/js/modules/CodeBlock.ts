@@ -73,7 +73,7 @@ export default class codeBlock {
   }
 
   #shrinkMode() {
-    return resolveCodeShrink(this.#conf?.enable_code_expander);
+    return resolveCodeShrink(this.#conf?.code_shrink);
   }
 
   #code(prism: import('../types.ts').PrismApi) {

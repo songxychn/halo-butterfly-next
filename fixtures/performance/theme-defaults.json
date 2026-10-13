@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "settingsSha256": "7c51d6ee8aa1a95f17017899dddfa5655498b9ed77aff76aeeb2de33ebe738d9",
+  "settingsSha256": "d52b1c9bcc44d8f27d0bd4bcff4593c14e5beded1582513a80fef4ef5ae26cba",
   "config": {
     "base": {
       "enable_seo": true,
@@ -26,16 +26,16 @@
       "bottom": []
     },
     "style": {
-      "mode": "user",
+      "mode": "system",
       "font_family": "null",
       "body_background": "#f7f9fe"
     },
     "appearance": {
       "text_align_justify": false,
       "enter_transitions": false,
-      "avatar_effect": true,
-      "category_ui": "chart",
-      "tag_ui": "chart",
+      "avatar_effect": false,
+      "category_ui": "list",
+      "tag_ui": "cloud",
       "tag_custom_colors": [],
       "beautify": {
         "enable": false,
@@ -124,7 +124,11 @@
     "image": {
       "disable_top_img": false,
       "default_top_img": "",
+      "other_pages_above": true,
       "flink_error": ""
+    },
+    "single": {
+      "enable_above": true
     },
     "loading": {
       "enable": true,
@@ -286,14 +290,12 @@
       "site_info_top": "",
       "enable_subtitle": true,
       "subtitle_effect": true,
-      "typewriter_custom_text": "欢迎使用Butterfly主题，一个简洁、优雅的主题~",
-      "subtitle_source": "custom",
+      "typewriter_custom_text": "",
+      "subtitle_source": "local",
       "subtitle_typed_option": "",
-      "enable_typewriter_random_text": false,
       "typewriter_random_api": "",
       "typewriter_api_value_format": "",
-      "index_layout": "",
-      "post_layout": "list",
+      "index_layout": "3",
       "index_post_content": {
         "method": "3",
         "length": 500
@@ -457,7 +459,7 @@
       "enable_code_hr": true,
       "enable_code_line": true,
       "enable_code_copy": true,
-      "enable_code_expander": "false",
+      "code_shrink": "expanded",
       "enable_code_mac_style": false,
       "code_height_limit": false,
       "enable_code_word_wrap": false,
@@ -489,11 +491,9 @@
       "msgToSimplifiedChinese": "簡"
     },
     "darkmode": {
-      "enable": true,
       "button": true,
-      "autoChangeMode": false,
-      "start": "",
-      "end": ""
+      "night_start": 18,
+      "night_end": 6
     },
     "footer": {
       "owner": {
@@ -565,11 +565,8 @@
       "post": ""
     },
     "CDN": {
-      "internal_provider": "local",
-      "third_party_provider": "inherit",
       "version": true,
       "asset_base": "",
-      "custom_format": "",
       "option": {
         "main": "",
         "main_css": "",
@@ -577,6 +574,7 @@
         "chartjs": "",
         "abcjs_basic_js": "",
         "integrations": "",
+        "charts": "",
         "masonry": "",
         "gallery": "",
         "loading": "",

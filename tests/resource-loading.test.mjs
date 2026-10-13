@@ -1,4 +1,5 @@
 import {test} from 'bun:test';
+import {loadRenderer} from '../src/js/core/body-renderers.ts';
 import assert from 'node:assert/strict';
 import {isThemeScriptSource, loadManagedResource, resolveResource} from '../src/js/core/external-resource.ts';
 
@@ -10,7 +11,7 @@ function documentFixture() {
 
 test('PJAX trusts exact configured files and local fallbacks, not other files on the CDN',()=>{
   const root='https://site.test/themes/next/assets/';
-  const config={internal_provider:'custom',asset_base:'https://cdn.test/v1/assets'};
+  const config={asset_base:'https://cdn.test/v1/assets'};
   const check=(url,file='js/index.min.js',key='main')=>isThemeScriptSource(url,file,key,root,config,'v1');
   assert(check('https://cdn.test/v1/assets/js/index.min.js'));
   assert(check(root+'js/index.min.js?v=v1'));
@@ -49,7 +50,60 @@ test('stylesheet failure loads local CSS and successful styles are cached',async
 
 test('service URLs stay official unless overridden, even with a unified theme directory',()=>{
   const official='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-  const config={internal_provider:'custom',asset_base:'https://cdn.test/assets'};
+  const config={asset_base:'https://cdn.test/assets'};
   assert.equal(resolveResource('busuanzi',official,config,'v1'),official);
   assert.equal(resolveResource('busuanzi',official,{...config,option:{busuanzi:'https://stats.test/entry.js'}},'v1'),'https://stats.test/entry.js');
+});
+
+ test('chart modules participate in PJAX only under their exact configured file',()=>{
+   assert(isThemeScriptSource('https://cdn.test/assets/js/charts.min.js','js/charts.min.js','charts','https://site.test/assets/',{asset_base:'https://cdn.test/assets'},'v1'));
+   assert.equal(isThemeScriptSource('https://cdn.test/assets/js/foreign.min.js','js/foreign.min.js','charts','https://site.test/assets/',{asset_base:'https://cdn.test/assets'},'v1'),false);
+ });
+
+
+test('all three body renderers share native-error fallback and recover after definite failure',async()=>{
+ for(const kind of ['mermaid','chartjs','abcjs']){
+  const {document,nodes}=documentFixture();
+  document.defaultView={MainApp:{conf:{assets_link:'/assets/'},resources:{asset_base:'https://cdn.test/assets'},version:'v1'},ThemeBodyRenderers:{}};
+  const first=loadRenderer(kind,document); const rejected=assert.rejects(first,/渲染器加载失败/);
+  nodes[0].onerror();nodes[1].onerror();await rejected;assert.equal(nodes.length,2);
+  const api={render(){}};const next=loadRenderer(kind,document);assert.equal(nodes.length,3);
+  document.defaultView.ThemeBodyRenderers[kind]=api;nodes[2].onload();assert.equal(await next,api);
+ }
+});
+
+test('slow body-renderer CDN never starts another script on timeout or manual retry',async()=>{
+ const timer=globalThis.setTimeout;
+ globalThis.setTimeout=(fn,ms,...args)=>timer(fn,Math.min(ms,5),...args);
+ try{
+  for(const kind of ['mermaid','chartjs','abcjs']){
+   const {document,nodes}=documentFixture();
+   document.defaultView={MainApp:{conf:{assets_link:'/assets/'},resources:{asset_base:'https://cdn.test/assets'},version:'v1'},ThemeBodyRenderers:{}};
+   await assert.rejects(loadRenderer(kind,document),/渲染器加载失败/);assert.equal(nodes.length,1);
+   await assert.rejects(loadRenderer(kind,document),/渲染器加载失败/);assert.equal(nodes.length,1);
+   const api={render(){}};document.defaultView.ThemeBodyRenderers[kind]=api;
+   assert.equal(await loadRenderer(kind,document),api);assert.equal(nodes.length,1);
+  }
+ }finally{globalThis.setTimeout=timer;}
+});
+
+
+test('slow gallery loader keeps readable failure state and never requests the local script after timeout',async()=>{
+ const {initializeArticleGallery,GALLERY_KEY}=await import('../src/js/core/article-gallery.ts');
+ const {beginPage,disposePage}=await import('../src/js/core/page-lifecycle.ts');
+ const {document,nodes}=documentFixture();const classes=new Set(),messages=[];
+ const gallery={classList:{add:value=>classes.add(value)},ownerDocument:document,append:node=>messages.push(node)};
+ const article={ownerDocument:document,querySelector:()=>gallery,querySelectorAll:()=>[gallery],isConnected:true};
+ const keys=['window','document','MainApp'];const previous=keys.map(key=>[key,Object.hasOwn(globalThis,key),globalThis[key]]);
+ const timer=globalThis.setTimeout;
+ try{
+  globalThis.document=document;globalThis.window={};
+  globalThis.MainApp={conf:{assets_link:'/assets/'},resources:{asset_base:'https://slow.test/assets'},version:'v1'};
+  globalThis.setTimeout=(fn,ms,...args)=>timer(fn,Math.min(ms,5),...args);beginPage();
+  initializeArticleGallery(article);await new Promise(resolve=>timer(resolve,25));
+  assert.equal(nodes.length,1);assert.equal(nodes[0].src,'https://slow.test/assets/js/gallery.min.js');
+  assert(classes.has('loaded'));assert.equal(messages[0].textContent,'图库增强未能加载，请刷新重试。');
+  let initialized=0;window[GALLERY_KEY]=()=>initialized++;
+  initializeArticleGallery(article);assert.equal(initialized,1);assert.equal(nodes.length,1);
+ }finally{disposePage();globalThis.setTimeout=timer;for(const [key,owned,value] of previous){if(owned)globalThis[key]=value;else delete globalThis[key];}}
 });

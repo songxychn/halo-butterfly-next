@@ -9,7 +9,7 @@ const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.
 test('代码块工具栏默认值对齐上游 Butterfly 5.7.0 code_blocks', () => {
   assert.equal(defaults.render.enable_code_copy, true);
   assert.equal(defaults.render.enable_code_title, true);
-  assert.equal(defaults.render.enable_code_expander, 'false');
+  assert.equal(defaults.render.code_shrink, 'expanded');
   assert.equal(defaults.render.enable_code_mac_style, false);
   assert.equal(defaults.render.code_height_limit, false);
   assert.equal(defaults.render.enable_code_word_wrap, false);
@@ -30,7 +30,7 @@ test('halo.settings 真实存在 copy/shrink/language/macStyle/height_limit', as
     }
   };
   visit(render.formSchema);
-  for (const name of ['enable_code_copy', 'enable_code_expander', 'enable_code_title', 'enable_code_mac_style', 'code_height_limit']) {
+  for (const name of ['enable_code_copy', 'code_shrink', 'enable_code_title', 'enable_code_mac_style', 'code_height_limit']) {
     assert.ok(names.has(name), name);
   }
 });
@@ -39,7 +39,7 @@ test('模板注入工具栏开关，页面与文章共用 codeBlockPin', async (
   const fragment = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
   assert.match(fragment, /th:fragment="codeBlockPin"/);
   assert.match(fragment, /theme\.config\.render\.enable_code_copy/);
-  assert.match(fragment, /theme\.config\.render\.enable_code_expander/);
+  assert.match(fragment, /theme\.config\.render\.code_shrink/);
   assert.match(fragment, /theme\.config\.render\.enable_code_title/);
   assert.match(fragment, /theme\.config\.render\.enable_code_mac_style/);
   assert.match(fragment, /theme\.config\.render\.code_height_limit/);

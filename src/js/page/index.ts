@@ -21,6 +21,7 @@ class Index {
     return runSubtitle({
       element: document.querySelector('.above-subtitle--text'),
       config: MainApp.conf,
+      isActive: () => scope.active,
       createTyped: (element, options) => {
         if (!scope.active) return;
         const typed = new Typed(element, options as TypedOptions);
@@ -28,7 +29,7 @@ class Index {
         return typed;
       },
       requestRandom: (url, source) => new Promise((resolve, reject) => {
-        $.ajax({
+        const request = $.ajax({
           url,
           type: 'get',
           // Treat external responses as data, including script-like content types.
@@ -38,6 +39,7 @@ class Index {
           success: (body, _status, xhr) => resolve({ body, contentType: xhr.getResponseHeader('Content-Type') || '' }),
           error: () => reject(new Error('Random subtitle request failed')),
         });
+        scope.add(() => request.abort());
       }),
     });
   }

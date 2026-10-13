@@ -49,7 +49,7 @@ def main():
     base = {'sourceSha': args.source_sha, 'artifactSha256': installed['sha256'], 'upstreamSha': lab.VERSIONS['butterfly']['commit'], 'haloVersion': lab.VERSIONS['halo']['version'], 'referenceRuntime': args.reference_runtime}
     cases = ([('legacy-list', '', 'list', 3), ('legacy-tile', '', 'tile', 6)] if args.baseline else
              [(f'layout-{n}', str(n), 'list', n) for n in range(1, 8)] +
-             [('legacy-list', '', 'list', 3), ('legacy-tile', '', 'tile', 6), ('invalid-tile', 'invalid', 'tile', 6),
+             [('missing-default', '', 'tile', 3), ('invalid-default', 'invalid', 'tile', 3),
               ('no-cover-5', '5', 'list', 5), ('no-cover-7', '7', 'list', 7), ('no-excerpt-6', '6', 'list', 6),
               ('no-top-6', '6', 'list', 6)])
     if args.cases:
@@ -95,7 +95,7 @@ def main():
             case_output.mkdir()
             manifest = {**base, 'name': name, 'expectedLayout': expected, 'baseline': args.baseline,
                         'engines': engines, 'halo': lab.BASE['halo'], 'hexo': lab.BASE['hexo'],
-                        'noCover': name.startswith('no-cover'), 'noExcerpt': name.startswith('no-excerpt') or legacy == 'tile' and not layout.isdigit(),
+                        'noCover': name.startswith('no-cover'), 'noExcerpt': name.startswith('no-excerpt') or args.baseline and legacy == 'tile' and not layout.isdigit(),
                         'noTopImage': name.startswith('no-top'),
                         'output': str(case_output)}
             manifest_file = case_output / 'manifest.json'

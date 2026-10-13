@@ -14,28 +14,28 @@ const fragment = await readFile(new URL('../src/html/views/components.html', imp
 function expanderField() {
   const render = settings.spec.forms.find(form => form.group === 'render');
   assert.ok(render);
-  const field = render.formSchema.find(node => node.name === 'enable_code_expander');
+  const field = render.formSchema.find(node => node.name === 'code_shrink');
   assert.ok(field);
   return field;
 }
 
 test('code_blocks.shrink 默认对齐上游 false', () => {
-  assert.equal(defaults.render.enable_code_expander, 'false');
-  assert.equal(typeof defaults.render.enable_code_expander, 'string');
+  assert.equal(defaults.render.code_shrink, 'expanded');
+  assert.equal(typeof defaults.render.code_shrink, 'string');
 });
 
-test('settings.yaml 以字符串三态表达 shrink，且仍映射 enable_code_expander', () => {
+test('settings.yaml 以字符串三态表达 shrink，且仍映射 code_shrink', () => {
   const field = expanderField();
   assert.equal(field.if, '$get(enable_code).value');
-  assert.equal(field.value, 'false');
+  assert.equal(field.value, 'expanded');
   const values = field.options.map(option => option.value);
-  assert.deepEqual(values, ['false', 'true', 'none']);
+  assert.deepEqual(values, ['expanded', 'collapsed', 'disabled']);
   assert.ok(values.every(value => typeof value === 'string'));
   assert.match(String(field.help), /code_blocks\.shrink/);
-  assert.match(String(field.help), /none/);
-  assert.match(String(field.help), /旧版布尔/);
-  assert.match(fragment, /theme\.config\.render\.enable_code_expander/);
-  assert.match(fragment, /enable_code_expander: \/\*\[\[\$\{theme\.config\.render\.enable_code_expander\}\]\]\*\/ 'false'/);
+  assert.match(String(field.help), /完整代码/);
+  assert.doesNotMatch(String(field.help), /旧版布尔/);
+  assert.match(fragment, /theme\.config\.render\.code_shrink/);
+  assert.match(fragment, /code_shrink: \/\*\[\[\$\{theme\.config\.render\.code_shrink\}\]\]\*\/ 'expanded'/);
 });
 
 test('三态源码：none 无按钮不 closed；false 有按钮展开；true 有按钮初始 closed', () => {
@@ -48,7 +48,7 @@ test('三态源码：none 无按钮不 closed；false 有按钮展开；true 有
   assert.match(js, /#setCodeExpanded\(wrap, expander, wrap\.hasClass\('closed'\)\)/);
   assert.match(js, /<button type="button" class="code-expander"/);
   assert.equal((js.match(/class="code-expander"/g) || []).length, 1);
-  assert.doesNotMatch(js, /#flag\('enable_code_expander'\)/);
+  assert.doesNotMatch(js, /#flag\('code_shrink'\)/);
   const noneGuard = js.indexOf("shrink !== 'none'");
   const button = js.indexOf('class="code-expander"', noneGuard);
   const closed = js.indexOf("addClass('closed')", noneGuard);
@@ -69,24 +69,16 @@ test('初始折叠视觉使用上游 closed，macStyle 旋转方向与上游一�
   assert.doesNotMatch(scss, /&\.enable-expander/);
 });
 
-test('旧布尔配置映射：true→上游 false，false→上游 none', () => {
-  assert.equal(resolveCodeShrink(true), 'false');
-  assert.equal(resolveCodeShrink(false), 'none');
-  assert.equal(resolveCodeShrink('true'), 'true');
-  assert.equal(resolveCodeShrink('false'), 'false');
-  assert.equal(resolveCodeShrink('none'), 'none');
-  assert.equal(resolveCodeShrink('TRUE'), 'true');
-  assert.equal(resolveCodeShrink(undefined), 'false');
-  assert.equal(resolveCodeShrink(null), 'false');
-  assert.equal(resolveCodeShrink(''), 'false');
+test('runtime accepts semantic states only; legacy booleans/strings use the default', () => {
+  assert.equal(resolveCodeShrink('collapsed'), 'true');
+  assert.equal(resolveCodeShrink('disabled'), 'none');
+  for (const value of ['expanded', true, false, 'true', 'false', 'none', undefined, null, '']) assert.equal(resolveCodeShrink(value), 'false');
 });
-
-test('配置迁移把旧布尔 expander 转成三态字符串', () => {
-  const expanded = migrateConfig({ code: { enable_expander: true } }, '2.0.5', defaults);
-  assert.equal(expanded.config.render.enable_code_expander, 'false');
-  assert.ok(expanded.report.changes.some(item => item.field === 'code.enable_expander' && item.action === 'converted'));
-  const hidden = migrateConfig({ render: { enable_code_expander: false } }, '2.0.7', defaults);
-  assert.equal(hidden.config.render.enable_code_expander, 'none');
-  const already = migrateConfig({ render: { enable_code_expander: 'true' } }, '2.0.7', defaults);
-  assert.equal(already.config.render.enable_code_expander, 'true');
+test('offline importer converts old boolean and string states', () => {
+  for (const [value, expected] of [[true, 'expanded'], [false, 'disabled'], ['true', 'collapsed'], ['false', 'expanded'], ['none', 'disabled']]) {
+    const migrated = migrateConfig({render:{enable_code_expander:value}}, '2.0.7', defaults);
+    assert.equal(migrated.config.render.code_shrink, expected);
+    assert.equal('enable_code_expander' in migrated.config.render, false);
+  }
+  assert.equal(migrateConfig({code:{enable_expander:true}}, '2.0.5', defaults).config.render.code_shrink, 'expanded');
 });

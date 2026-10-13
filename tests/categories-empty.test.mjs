@@ -6,13 +6,12 @@ import vm from 'node:vm';
 const transpiler = new Bun.Transpiler({loader: 'ts', target: 'browser'});
 
 // Execute the page method with only its external browser/chart dependencies mocked.
-const source = transpiler.transformSync(await readFile(new URL('../src/js/page/categories.ts', import.meta.url), 'utf8'))
-  .replace(/^import .*;$/gm, '')
-  .replace('App([])(Categories);', '');
+const charts = await readFile(new URL('../src/js/page/charts.ts', import.meta.url), 'utf8');
+const source = transpiler.transformSync(charts.slice(charts.indexOf('function renderCategories()'), charts.indexOf('function renderTags(')));
 
 function run(chartDom, MainApp, useChart) {
   const component = {};
-  vm.runInNewContext(`${source}\nnew Categories().run_chart();`, {
+  vm.runInNewContext(`${source}\nrenderCategories();`, {
     MainApp, useChart,
     document: {querySelector: () => chartDom},
     echarts: {use() {}},

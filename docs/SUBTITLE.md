@@ -9,11 +9,13 @@
 | `index.enable_subtitle` | `subtitle.enable` | `false` 时服务器不输出字幕节点，前端不创建 Typed、不请求随机文案；第一屏关闭时同样不执行 |
 | `index.subtitle_effect` | `subtitle.effect` | `false` 时用 `textContent` 显示首项，不创建 Typed；默认 `true` |
 | `index.typewriter_custom_text` | `subtitle.sub` 的本地映射 | 保留 `\|&\|` 分隔和移除换行的旧规则；静态显示第一项，即使第一项为空也不跳到后续项 |
-| `index.subtitle_source` | `subtitle.source` | `0` 对应上游 `false`（仅本地），`1` 一言 hitokoto、`2` 一言 aa1、`3` 今日诗词；额外提供默认 `custom` 保留旧配置 |
+| `index.subtitle_source` | `subtitle.source` | `local`（默认）、`custom`、`hitokoto`、`yiyan`、`jinrishici`；旧数值来源仅离线转换 |
 | `index.subtitle_typed_option` | `subtitle.typed_option` | JSON 对象，支持下述声明式参数；空值或无效 JSON 使用既有默认 |
-| `index.enable_typewriter_random_text`、`typewriter_random_api`、`typewriter_api_value_format` | 既有 Halo 自定义来源 | 仅来源为 `custom` 时生效；保留原 URL、JSON 路径和成功后替换整个本地列表的行为 |
+| `index.typewriter_random_api`、`index.typewriter_api_value_format` | 既有 Halo 自定义来源 | 选择 `custom` 直接使用 API，无第二个开关；保留 URL、JSON 路径和成功后替换整个本地列表的行为 |
 
-上游 [`_config.yml:151-169`](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/_config.yml#L151) 默认关闭字幕。本主题已有版本默认显示字幕，因此新开关默认 `true`，直接升级时缺失或为 `null` 的新增开关也按开启处理；这是有意保留的默认值兼容差异。只有显式布尔 `false` 关闭，迁移工具继续检查字段类型。原版 2.0.5/2.0.7 迁移依靠当前设置默认值补齐开关，不改变原文案转换，也不覆盖显式 `false`。
+默认能力开关为 true、本地文案为空、来源为 local；不默认请求第三方服务。文案为空时静态显示 Halo 站点副标题，两者均空不输出字幕占位。打字效果保留为可选能力，减少动态效果时使用静态文本。远端失败先回退本地，再回退站点副标题；页面离开时中止请求并拒绝迟到响应。
+
+原版 2.0.5/2.0.7 及 Next 0.1.0-alpha.4 可通过离线工具转换来源，保留作者文案。缺省来源不再根据旧随机开关推断 API。
 
 上游 [`header/index.pug:37-40`](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/header/index.pug#L37) 控制字幕节点，[`subtitle.pug:27-44`](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/third-party/subtitle.pug#L27) 区分动态与纯文本静态分支。随机来源启用时，上游静态分支仍可显示服务返回的内容；本主题同样在静态模式取远程字符串，失败后显示自定义第一项。
 

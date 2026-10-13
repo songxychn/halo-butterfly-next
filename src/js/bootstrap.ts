@@ -1,3 +1,4 @@
+import {resolveInitialColorScheme} from './core/color-scheme.ts';
 import {applyAppearance} from './core/appearance.ts';
 import {haloSetting} from './core/halo-settings.ts';
 try {
@@ -10,33 +11,14 @@ try {
 // Inlined by the build before first paint; Halo expressions stay in the template.
 try {
   const conf = window.MainApp.conf;
-  const mode = conf.style_mode;
-  const saved = localStorage.getItem('halo-butterfly-next.color-scheme');
-  const acm = conf.darkmode_autoChangeMode;
-  const autoMode = (acm === 1 || acm === '1') ? 1 : (acm === 2 || acm === '2') ? 2 : false;
-  const parseHour = (value: unknown, fallback: number) => {
-    if (value === null || value === undefined || value === '') return fallback;
-    const n = Number(value);
-    if (!Number.isFinite(n)) return fallback;
-    const h = Math.trunc(n);
-    return (h < 0 || h > 24) ? fallback : h;
-  };
-  const start = parseHour(conf.darkmode_start, 6);
-  const end = parseHour(conf.darkmode_end, 18);
-  const hour = new Date().getHours();
-  const night = start < end ? (hour < start || hour >= end) : (hour >= start || hour < end);
-  let theme = 'light';
-  if (mode === 'light' || mode === 'dark') theme = mode;
-  else if (saved === 'light' || saved === 'dark') theme = saved;
-  else {
-    const effective = autoMode !== false ? autoMode : (mode === 'auto' ? 2 : false);
-    if (effective === 1) {
-      const light = window.matchMedia('(prefers-color-scheme: light)').matches;
-      const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      theme = light ? 'light' : dark ? 'dark' : (night ? 'dark' : 'light');
-    } else if (effective === 2) theme = night ? 'dark' : 'light';
-  }
-  document.documentElement.dataset.colorScheme = theme;
+  let saved = null;
+  try { saved = localStorage.getItem('halo-butterfly-next.color-scheme'); } catch {}
+  let prefersDark = false;
+  try { prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch {}
+  document.documentElement.dataset.colorScheme = resolveInitialColorScheme({
+    styleMode: conf.style_mode, saved, prefersDark,
+    start: conf.darkmode_night_start, end: conf.darkmode_night_end,
+  });
 } catch { document.documentElement.dataset.colorScheme = 'light'; }
 try {
   const restoreAside = window.MainApp.conf.restore_aside;

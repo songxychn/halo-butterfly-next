@@ -25,7 +25,7 @@ function initialize(conf, saved = {}, blocked = false) {
 }
 
 test('startup restores system color and aside state synchronously before DOM readiness', async () => {
-  const state = initialize({style_mode: 'auto', darkmode_autoChangeMode: 1, restore_aside: true}, {
+  const state = initialize({style_mode: 'system', restore_aside: true}, {
     'aside-status': JSON.stringify({value: 'hide', expiry: Date.now() + 60_000}),
   });
   assert.equal(state.document.documentElement.dataset.colorScheme, 'dark');
@@ -50,7 +50,7 @@ test('expired aside state is removed and disabled restoration leaves it untouche
 
 test('blocked browser storage preserves startup and its DOM readiness signal', () => {
   const state = initialize({style_mode: 'dark', restore_aside: true}, {}, true);
-  assert.equal(state.document.documentElement.dataset.colorScheme, 'light');
+  assert.equal(state.document.documentElement.dataset.colorScheme, 'dark');
   assert.equal(typeof state.listeners.get('DOMContentLoaded'), 'function');
 });
 

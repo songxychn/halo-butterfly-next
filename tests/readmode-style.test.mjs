@@ -35,7 +35,7 @@ test('本刀不改 readmode 按钮语义，不复用 aside.button', () => {
   assert.match(componentsHtml, /page == 'post'/);
   assert.match(componentsHtml, /id="hide-aside-btn"/);
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button/);
-  assert.match(componentsHtml, /theme\.config\.darkmode\?\.enable != false/);
+  assert.doesNotMatch(componentsHtml, /theme\.config\.darkmode\?\.enable/);
   assert.doesNotMatch(scss, /aside\.button/);
   assert.match(settingsText, /name: hide_button/);
 });

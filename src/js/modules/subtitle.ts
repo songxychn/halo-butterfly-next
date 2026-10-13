@@ -3,7 +3,7 @@ import type { ThemeConfig } from '../types.ts';
 interface SubtitleResponse { body: unknown; contentType?: string }
 interface SubtitleSource { kind: 'custom' | 'hitokoto' | 'yiyan' | 'jinrishici'; url: string; path?: string; withCredentials?: boolean }
 export type SubtitleOptions = Omit<TypedOptions, 'contentType'> & {contentType: 'html' | null};
-// Missing switches preserve the visible subtitle of existing Halo configurations.
+// Local author content and external responses have separate markup policies.
 export function customSubtitles(value: unknown) {
   if (typeof value !== 'string') return [];
   const lines = value.replace(/[\r\n]/g, '').split('|&|');
@@ -55,15 +55,15 @@ export function subtitleTypedOptions(value: unknown): Pick<TypedOptions, 'typeSp
 
 export function subtitleSource(config: ThemeConfig): SubtitleSource | null {
   const source = config.subtitle_source;
-  if (source === undefined || source === null || source === '' || source === 'custom') {
+  if (source === 'custom') {
     const url = typeof config.typewriter_random_api === 'string' ? config.typewriter_random_api.trim() : '';
-    return config.enable_typewriter_random_text === true && url ? { kind: 'custom', url, path: config.typewriter_api_value_format } : null;
+    return url ? { kind: 'custom', url, path: config.typewriter_api_value_format } : null;
   }
   switch (String(source)) {
-    case '1': return { kind: 'hitokoto', url: 'https://v1.hitokoto.cn' };
-    case '2': return { kind: 'yiyan', url: 'https://v.api.aa1.cn/api/yiyan/index.php' };
+    case 'hitokoto': return { kind: 'hitokoto', url: 'https://v1.hitokoto.cn' };
+    case 'yiyan': return { kind: 'yiyan', url: 'https://v.api.aa1.cn/api/yiyan/index.php' };
     // The official SDK reads this JSON endpoint; do not execute a third-party script.
-    case '3': return { kind: 'jinrishici', url: 'https://v2.jinrishici.com/one.json?client=browser-sdk/1.2', withCredentials: true };
+    case 'jinrishici': return { kind: 'jinrishici', url: 'https://v2.jinrishici.com/one.json?client=browser-sdk/1.2', withCredentials: true };
     default: return null;
   }
 }
@@ -86,8 +86,9 @@ export function providerSubtitles(response: SubtitleResponse, source: SubtitleSo
 
 const escapeMarkup = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export async function runSubtitle<T>({ element, config = {}, createTyped, requestRandom }: {
+export async function runSubtitle<T>({ element, config = {}, createTyped, requestRandom, isActive = () => true }: {
   element: Element | null; config?: ThemeConfig;
+  isActive?: () => boolean;
   createTyped: (element: Element, options: SubtitleOptions) => T;
   requestRandom: (url: string, source: SubtitleSource) => Promise<SubtitleResponse>;
 }) {
@@ -96,7 +97,8 @@ export async function runSubtitle<T>({ element, config = {}, createTyped, reques
   let strings = customSubtitles(config.typewriter_custom_text);
   let contentType: 'html' | null = 'html'; // Preserve author-configured markup in the existing dynamic mode.
   const source = subtitleSource(config);
-  let staticText = strings[0] ?? '';
+  let staticText = strings[0] ?? config.site_subtitle ?? '';
+  element.textContent = staticText;
   if (source) {
     try {
       const remote = providerSubtitles(await requestRandom(source.url, source), source);
@@ -116,7 +118,13 @@ export async function runSubtitle<T>({ element, config = {}, createTyped, reques
     }
   }
 
-  if (config.subtitle_effect === false || strings.length === 0) {
+  if (!isActive()) return;
+  if (!staticText && strings.length === 0) {
+    element.parentElement?.setAttribute('hidden', '');
+    return;
+  }
+  element.parentElement?.removeAttribute('hidden');
+  if (config.subtitle_effect === false || strings.length === 0 || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
     element.textContent = staticText;
     return;
   }

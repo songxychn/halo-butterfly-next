@@ -24,8 +24,8 @@ test('only HTTPS and site-root resources are accepted; credentials and executabl
   assert.equal(safeResourceUrl('/x.js?v=1','http://127.0.0.1:1234/'), 'http://127.0.0.1:1234/x.js?v=1');
   assert.equal(resolveResource('main','/local.js',{option:{main:'javascript:bad'}}), '/local.js');
   assert.equal(resolveResource('main','/local.js',{option:{main:'https://cdn.test/${version}/${file}'}},'1.2','js/post.js'), 'https://cdn.test/1.2/js/post.js');
-  assert.equal(resolveResource('main','/local.js',{internal_provider:'custom',custom_format:'https://cdn.test/${file}'},'1.2','js/post.js'), 'https://cdn.test/js/post.js');
-  assert.equal(resolveResource('main','/local.js',{internal_provider:'custom',custom_format:'https://cdn.test/${unsupported}'},'1.2','js/post.js'), '/local.js');
+  assert.equal(resolveResource('main','/local.js',{asset_base:'https://cdn.test'},'1.2','js/post.js'), 'https://cdn.test/js/post.js');
+  assert.equal(resolveResource('main','/local.js',{asset_base:'https://cdn.test/${unsupported}'},'1.2','js/post.js'), '/local.js');
 });
 
 test('empty/invalid analytics and explicitly disabled Umami create no provider request', () => {
@@ -148,12 +148,12 @@ test('template generation resolves only real theme resources, adds fallback, and
   const html=configureResourceTags('<script defer th:src="${assets_link + \'js/post.min.js?v=\' + theme.spec.version}"></script><link rel="stylesheet" th:href="${assets_link + \'plugins/fontawesome/css/all.min.css\'}">');
   assert.match(html,/data-resource-key='main'/);assert.match(html,/data-resource-key='fontawesome'/);
   assert.match(html,/s\.src=this\.dataset\.localResource;this\.replaceWith\(s\)/);assert.match(html,/this\.href=this\.dataset\.localResource/);
-  assert.match(html,/@fortawesome\/fontawesome-free/);assert.doesNotMatch(html,/hexo-theme-butterfly@/);
-  const allowed=new RegExp('^('+html.match(/candidateResource\.matches\('([^']+)'\)/)[1].replaceAll('&amp;','&')+')$');
+  assert.match(html,/plugins\/fontawesome/);assert.doesNotMatch(html,/hexo-theme-butterfly@/);
+  const allowed=new RegExp('^('+html.match(/overrideResource\.matches\('([^']+)'\)/)[1].replaceAll('&amp;','&')+')$');
   assert(allowed.test('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css'));
   assert(allowed.test('/theme/js/post.min.js?v=1'));
   assert.equal(allowed.test('https://user:pass@host.test/file.js'),false);
-  assert.match(html,/#strings\.startsWith\(candidateResource, '\/\/'\)/);
+  assert.match(html,/#strings\.startsWith\(overrideResource, '\/\/'\)/);
   assert.match(configureResourceTags('<script th:src="${assets_link + \'js/integrations.min.js?v=\' + theme.spec.version}"></script>'),/data-resource-key='integrations'/);
 });
 
@@ -167,21 +167,21 @@ test('public config whitelist excludes any saved Umami API token and raw HTML us
 
 
 test('unified directory preserves paths and explicit overrides, rejects invalid roots', () => {
-  const config = {internal_provider:'custom', asset_base:'https://cdn.test/${name}/${version}/assets/'};
+  const config = { asset_base:'https://cdn.test/${name}/${version}/assets/'};
   for (const file of ['js/effects.min.js','plugins/sharejs/css/share.min.css','plugins/prism/prism.min.js']) {
     assert.equal(resolveResource('effects','/local/'+file,config,'1.2',file),'https://cdn.test/halo-butterfly-next/1.2/assets/'+file);
   }
   assert.equal(resolveResource('effects','/local.js',{...config,option:{effects:'/specific.js'}},'1.2','js/effects.min.js'),'https://example.invalid/specific.js');
   for (const asset_base of ['//evil.test/assets','javascript:bad','https://user:pass@cdn.test/assets','https://cdn.test/assets?x=1','https://cdn.test/assets#v','https://cdn.test/${file}']) {
-    assert.equal(resolveResource('effects','/local.js',{internal_provider:'custom',asset_base,custom_format:'https://old.test/${file}'},'1.2','js/effects.min.js'),'/local.js');
+    assert.equal(resolveResource('effects','/local.js',{asset_base,custom_format:'https://old.test/${file}'},'1.2','js/effects.min.js'),'/local.js');
   }
 });
 
 test('Font Awesome remains version pinned with either cache setting; inherited paths are actual ZIP paths', () => {
   const html=configureResourceTags('<link rel="stylesheet" th:href="${assets_link + \'plugins/fontawesome/css/all.min.css\'}">');
-  assert.match(html,/fontawesome-free@6\.7\.2/);
+  assert.match(html,/plugins\/fontawesome\/css\/all\.min\.css/);
   assert.doesNotMatch(html,/version == false \? '' : '@6\.7\.2'/);
-  assert.match(html,/third_party_provider == 'inherit'/);
+  assert.doesNotMatch(html,/third_party_provider|internal_provider|custom_format/);
   assert.match(html,/asset_base/);
   assert.match(html,/plugins\/fontawesome\/css\/all\.min\.css/);
 });

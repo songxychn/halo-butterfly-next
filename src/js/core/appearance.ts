@@ -30,7 +30,7 @@ export function applyAppearance(input: unknown, root = document.documentElement)
   root.classList.toggle('appearance-code-family', Boolean(cssValue('font-family', font.code_font_family)));
   root.classList.toggle('appearance-justify', enabled(conf.text_align_justify));
   root.classList.toggle('appearance-enter', enabled(conf.enter_transitions));
-  root.classList.toggle('appearance-avatar', conf.avatar_effect !== false && conf.avatar_effect !== 'false');
+  root.classList.toggle('appearance-avatar', enabled(conf.avatar_effect));
   root.classList.toggle('appearance-no-hr-icon', hr.enable === false || hr.enable === 'false');
   root.classList.toggle('appearance-beautify-post', enabled(beautify.enable) && beautify.field !== 'site');
   root.classList.toggle('appearance-beautify-site', enabled(beautify.enable) && beautify.field === 'site');

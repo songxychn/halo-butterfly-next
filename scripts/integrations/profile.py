@@ -21,7 +21,7 @@ def configure(name):
  layout=name[-1] if name in ['layout6','layout7'] else None
  if layout:name='all'
  if name!='restore':
-  config['analytics']={};config['chat']={'use':''};config['google_adsense']={'enable':False};config['ad']={};config['CDN']={'internal_provider':'local','third_party_provider':'local','version':True,'option':{}}
+  config['analytics']={};config['chat']={'use':''};config['google_adsense']={'enable':False};config['ad']={};config['CDN']={'asset_base':'','version':True,'option':{}}
   if name=='all':
    config['pjax']={'enable':True}
    config['share']={'use':'sharejs','sharejs':{'sites':'facebook,x,wechat,weibo,qq'}}
@@ -37,13 +37,13 @@ def configure(name):
    keys={'chatra':'id','tidio':'public_key','crisp':'website_id','knocket':'identifier'}
    config['chat']={'use':provider,'rightside_button':name!='native','button_hide_show':name=='native',provider:{keys[provider]:'synthetic-id'}}
    config['CDN']['option']['chat_'+provider]=('/integration-fail.js' if name=='failed' else '/integration-stub.js?provider='+provider)
-  if name=='resources':config['CDN'].update(internal_provider='custom',third_party_provider='custom',custom_format='/theme-mirror/${file}?version=${version}')
+  if name=='resources':config['CDN'].update(asset_base='/theme-mirror')
   if name=='bad-resources':
    config['CDN']['option']={key:'/integration-fail.js?resource='+key for key in ['main','main_css','fontawesome','prismjs_js','prismjs_css','code_light','code_dark']}
   if layout:config['index']['index_layout']=layout
   if name=='versionless':config['CDN']['version']=False
   if name=='invalid-resources':config['CDN']['option']={'main':'//evil.test/x.js','fontawesome':'javascript:bad','prismjs_js':'//evil.test/prism.js'}
-  if name in ['jsdelivr','unpkg','cdnjs']:config['CDN']['third_party_provider']=name
+  if name in ['jsdelivr','unpkg','cdnjs']:config['CDN']['option']['fontawesome']={'jsdelivr':'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css','unpkg':'https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/css/all.min.css','cdnjs':'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'}[name]
  client.api(url,'PUT',config)
  return {'profile':name,'base':lab.BASE['halo']}
 if a.profile=='serve':

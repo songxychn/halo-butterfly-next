@@ -39,10 +39,10 @@ test('defaults keep legacy cards, covers, charts and system fonts while effects 
   assert.equal(defaults.aside.card_author.description,'');
   assert.deepEqual(defaults.aside.custom_cards,[]);
   assert.deepEqual(defaults.cover.default_cover_list,[]);
-  assert.equal(defaults.appearance.category_ui,'chart');
-  assert.equal(defaults.appearance.tag_ui,'chart');
+  assert.equal(defaults.appearance.category_ui,'list');
+  assert.equal(defaults.appearance.tag_ui,'cloud');
   assert.equal(defaults.appearance.font.font_family,'');
-  assert.equal(defaults.appearance.avatar_effect,true);
+  assert.equal(defaults.appearance.avatar_effect,false);
   assert.equal(defaults.appearance.enter_transitions,false);
   for(const value of Object.values(defaults.effects)) if(value && typeof value==='object') assert.equal(value.enable,false);
 });

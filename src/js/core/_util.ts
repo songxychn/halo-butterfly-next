@@ -5,7 +5,6 @@ import { pageListen, onPageCleanup } from './page-lifecycle.ts';
  * @fileName: Utils
  * @Description:工具
  */
-import * as echarts from 'echarts/core';
 import $ from 'jquery';
 
 /**
@@ -157,41 +156,6 @@ export function useToBool(str: unknown) {
  */
 export function useDelay(time: number) {
   return new Promise<void>(resolve => setTimeout(resolve, time));
-}
-
-/**
- *  图表渲染 支持浅色暗色
- * @param dom
- * @param getOption
- */
-export function useChart(dom: HTMLElement, getOption: () => echarts.EChartsCoreOption) {
-  const options = getOption();
-
-  let es: echarts.ECharts | null = null;
-
-  const observer = new ResizeObserver(entries => {
-    for (let entry of entries) {
-      const {width} = entry.contentRect;
-      if(width > 0) {
-        es = echarts.init(dom, MainApp.useTheme.getMode());
-        es.setOption(options);
-        observer.disconnect();
-      }
-    }
-  });
-
-  observer.observe(dom);
-  onPageCleanup(() => { observer.disconnect(); es?.dispose(); });
-
-  MainApp.useTheme.change((mode) => {
-    es?.dispose();
-    es = echarts.init(dom, mode);
-    es.setOption(options);
-  });
-
-  pageListen(window, 'resize', useThrottle(() => {
-    es?.resize();
-  }, 500));
 }
 
 /**

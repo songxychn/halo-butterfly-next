@@ -131,18 +131,17 @@ spec:
         - $formkit: select
           name: mode
           label: 主题模式
-          value: 'user'
-          placeholder: 请填写主题颜色
-          help: "设置博客的主题模式（自动/用户/浅色/深色），默认用户。右下角 #darkmode 显隐见 darkmode.enable / darkmode.button。light/dark 仍强制。自动切换策略见 darkmode.autoChangeMode；小时窗口见 start / end。"
+          value: system
+          help: 跟随系统为默认；浅色和深色是站长固定模式；定时按访客当地时间切换。读者选择可通过“恢复站点默认”清除。
           options:
-            - value: 'auto'
-              label: 自动模式
-            - value: 'user'
-              label: 用户模式
-            - value: 'light'
-              label: 浅色模式
-            - value: 'dark'
-              label: 深色模式
+            - value: system
+              label: 跟随系统
+            - value: light
+              label: 固定浅色
+            - value: dark
+              label: 固定深色
+            - value: schedule
+              label: 定时切换
         - $formkit: select
           name: font_family
           label: 主题字体
@@ -182,8 +181,8 @@ spec:
         - $formkit: radio
           name: avatar_effect
           label: 头像旋转
-          value: true
-          help: 关闭后作者卡片和移动导航的头像不旋转。默认保留旧版效果。
+          value: false
+          help: 关闭后作者卡片和移动导航的头像不旋转。默认静止，明确开启后旋转。
           options:
             - label: 启用
               value: true
@@ -192,19 +191,19 @@ spec:
         - $formkit: select
           name: category_ui
           label: 分类展示
-          value: chart
+          value: list
           options:
             - value: chart
-              label: 统计图（旧版）
+              label: 统计图
             - value: list
               label: 分类列表
         - $formkit: select
           name: tag_ui
           label: 标签展示
-          value: chart
+          value: cloud
           options:
             - value: chart
-              label: 统计图和标签云（旧版）
+              label: 统计图和标签云
             - value: cloud
               label: 标签云
         - $formkit: repeater
@@ -665,14 +664,27 @@ spec:
           name: default_top_img
           label: 默认顶图
           value: ""
-          help: 可选。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空保留旧回退规则。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
+          help: 可选。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空使用纯色，不继承列表随机图或首页背景。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
 
+        - $formkit: checkbox
+          name: other_pages_above
+          label: 友链、图库、瞬间顶图区域
+          value: true
+          help: 这三类主题页面使用全局默认顶图或纯色，不继承首页图片或开关。插件公共布局不受影响。
         - $formkit: attachment
           name: flink_error
           label: 友链失败图片
           value: ""
           help: 留空继续使用图片加载中的失败图；失败图也不可用时保留文字与链接。
 
+    - group: single
+      label: 自定义页面
+      formSchema:
+        - $formkit: checkbox
+          name: enable_above
+          label: 显示页面顶图区域
+          value: true
+          help: 独立于首页；图片使用页面原生封面或全局默认顶图。单页元数据可覆盖，全局关闭顶图始终优先。
     - group: loading
       label: 加载设置
       formSchema:
@@ -1599,7 +1611,7 @@ spec:
         - $formkit: radio
           name: enable_subtitle
           label: 启用首页字幕
-          help: 关闭后不显示字幕，也不请求随机文案。默认开启以保留旧版本行为。
+          help: 关闭后不显示字幕，也不请求随机文案。默认开启；没有文案时不输出占位。
           value: true
           options:
             - label: 启用
@@ -1621,49 +1633,42 @@ spec:
           name: typewriter_custom_text
           label: 首页字幕文案
           placeholder: 请填写 首页字幕文案
-          help: 多条文案用 |&| 分隔；关闭打字效果时显示第一条。留空不显示提示文字；随机来源失败时回退到此处文案。
-          value: '欢迎使用Butterfly主题，一个简洁、优雅的主题~'
+          help: 多条文案用 |&| 分隔；关闭打字效果时显示第一条。留空静态显示站点副标题，两者均空时不输出字幕；远端失败先回退此处文案。
+          value: ''
         - $formkit: select
           name: subtitle_source
+          id: subtitle_source
           label: 字幕来源
-          value: custom
-          help: 默认沿用旧版自定义 API 开关。内置来源不受旧随机开关控制，成功后先显示远端文案，再轮播本地文案；失败回退本地。第三方服务可能不可用。
+          value: local
+          help: 默认只使用本地文案。选择自定义 API 即启用该地址，失败回退本地文案或站点副标题。
           options:
-            - label: 兼容旧版／自定义 API
+            - label: 本地文案
+              value: local
+            - label: 自定义 API
               value: custom
-            - label: 仅本地文案（上游 false）
-              value: "0"
-            - label: 一言 hitokoto.cn（上游 1）
-              value: "1"
-            - label: 一言 aa1.cn（上游 2）
-              value: "2"
-            - label: 今日诗词（上游 3）
-              value: "3"
+            - label: 一言 hitokoto.cn
+              value: hitokoto
+            - label: 一言 aa1.cn
+              value: yiyan
+            - label: 今日诗词
+              value: jinrishici
         - $formkit: textarea
           name: subtitle_typed_option
           label: 字幕打字机参数（JSON）
           rows: 5
           value: ""
           placeholder: '{"typeSpeed":150,"backDelay":1500,"loop":true}'
-          help: 留空保留旧版速度 200ms；可用 typeSpeed、startDelay、backSpeed、backDelay、smartBackspace、shuffle、fadeOut、fadeOutClass、fadeOutDelay、loop、loopCount、showCursor、cursorChar、autoInsertCss、bindInputFocusEvents。loopCount 可设数字或字符串 Infinity。光标按纯文本处理；不支持覆盖文案、HTML模式、DOM目标或回调。无效 JSON 或字段忽略；静态模式不使用这些参数。
-        - $formkit: radio
-          name: enable_typewriter_random_text
-          label: 启用随机打字机文案
-          help: 仅“兼容旧版／自定义 API”来源使用此开关；启用后显示自定义 API 文案，禁用时显示本地文案。
-          value: false
-          options:
-            - label: 启用
-              value: true
-            - label: 禁用
-              value: false
+          help: 默认速度 200ms；可用 typeSpeed、startDelay、backSpeed、backDelay、smartBackspace、shuffle、fadeOut、fadeOutClass、fadeOutDelay、loop、loopCount、showCursor、cursorChar、autoInsertCss、bindInputFocusEvents。loopCount 可设数字或字符串 Infinity。光标按纯文本处理；不支持覆盖文案、HTML模式、DOM目标或回调。无效 JSON 或字段忽略；静态模式不使用这些参数。
         - $formkit: text
           name: typewriter_random_api
+          if: $get(subtitle_source).value == custom
           label: 随机文案链接（api）
           placeholder: 请正确填写 随机文案链接（api）
           value: ''
           help: 自定义随机文案API(推荐使用一言,返回格式设置为TEXT格式，json需要配置取值格式)，免费 API 不会一直可用，请知悉
         - $formkit: text
           name: typewriter_api_value_format
+          if: $get(subtitle_source).value == custom
           label: 随机文案api取值格式
           value: ''
           help: 如果使用的随机文案API返回格式不是TEXT格式，Json请自定义取值格式，如：data.content
@@ -1671,11 +1676,9 @@ spec:
           name: index_layout
           id: index_layout
           label: 首页文章布局
-          help: 对齐 Butterfly 5.7.0 的七种首页文章布局。留空时沿用下方旧布局；显式选择后使用首页列表摘要设置。手机收敛为单列，5/7 保留图上叠字。
-          value: ''
+          help: 七种布局统一使用首页摘要设置。默认左右交替；手机收敛为单列，5/7 保留图上叠字。
+          value: '3'
           options:
-            - label: 沿用旧布局（新安装默认左右交替）
-              value: ''
             - label: '1 · 固定左图'
               value: '1'
             - label: '2 · 固定右图'
@@ -1690,18 +1693,6 @@ spec:
               value: '6'
             - label: '7 · 瀑布流图上叠字'
               value: '7'
-        - $formkit: radio
-          name: post_layout
-          label: 旧布局（升级兼容）
-          if: $get(index_layout).value == ''
-          preserve: true
-          help: 仅在首页文章布局留空时生效。列表对应布局 3；平铺对应布局 6，并保留旧版不显示摘要的行为。选择上方七种布局后本项不参与渲染。
-          value: list
-          options:
-            - label: 列表
-              value: list
-            - label: 平铺
-              value: tile
         - $formkit: group
           name: index_post_content
           label: 首页列表摘要
@@ -2707,18 +2698,18 @@ spec:
             - label: 禁用
               value: false
         - $formkit: radio
-          name: enable_code_expander
+          name: code_shrink
           if: $get(enable_code).value
           label: 代码块默认折叠
-          help: 对应上游 code_blocks.shrink（false / true / none）。false：有折叠按钮且初始展开；true：有按钮且初始折叠（closed）；none：不显示折叠按钮。默认 false，与上游一致。旧版布尔 true（有按钮、初始展开）运行时映射为 false；旧版布尔 false（无按钮）映射为 none，已有站点不会因升级变成初始折叠。
-          value: "false"
+          help: 对应上游 code_blocks.shrink 三态。默认展开；不显示按钮时保留完整代码。
+          value: expanded
           options:
-            - label: 初始展开（上游 false）
-              value: "false"
-            - label: 初始折叠（上游 true）
-              value: "true"
-            - label: 不显示按钮（上游 none）
-              value: "none"
+            - label: 初始展开
+              value: expanded
+            - label: 初始折叠
+              value: collapsed
+            - label: 不显示折叠按钮
+              value: disabled
         - $formkit: radio
           name: enable_code_mac_style
           if: $get(enable_code).value
@@ -3044,47 +3035,31 @@ spec:
       label: 深色模式
       formSchema:
         - $formkit: radio
-          name: enable
-          label: 深色模式
-          help: "对应上游 Butterfly darkmode.enable（_config.yml / layout/includes/rightside.pug #darkmode / source/js/main.js，5.7.0 f223b188）。默认 true。仅显式 false 时不提供右下角切换按钮。按钮开关见 darkmode.button。自动切换见 autoChangeMode。禁止复用作者卡片 aside.button。提示位置与配色见“消息提示”。"
-          value: true
-          options:
-            - label: 开启
-              value: true
-            - label: 关闭
-              value: false
-        - $formkit: radio
           name: button
-          label: 右下角切换按钮
-          help: "对应上游 Butterfly darkmode.button。默认 true。须 darkmode.enable 同时开启才渲染 #darkmode。仅显式 false 不渲染。禁止复用作者卡片 aside.button。按钮排序见右下角按钮排列设置。"
+          label: 读者主题切换入口
+          help: 跟随系统或定时模式下显示主题切换和恢复站点默认入口。隐藏入口不改变主题策略；固定浅色/深色模式不显示入口。
           value: true
           options:
             - label: 显示
               value: true
             - label: 隐藏
               value: false
-        - $formkit: select
-          name: autoChangeMode
-          label: 自动切换
-          help: "对应上游 Butterfly darkmode.autoChangeMode（默认 false）。false 仅恢复已存主题；1 跟随 prefers-color-scheme（无系统偏好时回退小时窗口）；2 按小时。style.mode 的 light/dark 仍强制。禁止复用作者卡片 aside.button。提示位置与配色见“消息提示”。"
-          value: false
-          options:
-            - label: 关闭（false）
-              value: false
-            - label: 跟随系统（1）
-              value: 1
-            - label: 按小时（2）
-              value: 2
-        - $formkit: text
-          name: start
+        - $formkit: number
+          name: night_start
           label: 夜间开始小时
-          help: "对应上游 Butterfly darkmode.start。空值回退 6。0 与 24 有效。仅 autoChangeMode 为 1（无系统偏好时）或 2 使用。禁止复用作者卡片 aside.button。"
-          value: ""
-        - $formkit: text
-          name: end
+          value: 18
+          min: 0
+          max: 23
+          validation: required|min:0|max:23
+          help: 仅定时模式使用，按访客当地时间；与结束小时相同或非法时采用默认夜间区间 18～6。
+        - $formkit: number
+          name: night_end
           label: 夜间结束小时
-          help: "对应上游 Butterfly darkmode.end。空值回退 18。0 与 24 有效。仅 autoChangeMode 为 1（无系统偏好时）或 2 使用。禁止复用作者卡片 aside.button。"
-          value: ""
+          value: 6
+          min: 0
+          max: 23
+          validation: required|min:0|max:23
+          help: 仅定时模式使用，开始包含、结束不包含；支持跨午夜。起止相同或非法时采用 18～6。
     - group: footer
       label: 页脚
       formSchema:
@@ -3389,34 +3364,6 @@ spec:
     - group: CDN
       label: 资源来源
       formSchema:
-      - $formkit: select
-        name: internal_provider
-        label: 主题资源来源
-        value: local
-        help: 默认随安装包分发；自定义来源需托管当前主题生成的完整 assets 目录。
-        options:
-        - label: 主题安装包
-          value: local
-        - label: 自定义地址格式
-          value: custom
-      - $formkit: select
-        name: third_party_provider
-        label: 独立第三方资源来源
-        value: inherit
-        help: 当前支持 Font Awesome Free。默认跟随统一主题地址；选择安装包或其他来源可单独覆盖。Prism 和已打包库跟随其承载文件。
-        options:
-        - label: 跟随主题资源来源
-          value: inherit
-        - label: 主题安装包
-          value: local
-        - label: jsDelivr
-          value: jsdelivr
-        - label: unpkg
-          value: unpkg
-        - label: cdnjs
-          value: cdnjs
-        - label: 自定义地址格式
-          value: custom
       - $formkit: checkbox
         name: version
         label: 本地资源附加版本缓存参数
@@ -3426,12 +3373,7 @@ spec:
         name: asset_base
         label: 统一主题资源地址
         value: ''
-        help: 选择自定义来源时生效。填写完整 assets 目录的 HTTPS 地址或本站路径；可用 ${version}、${name}。留空兼容原地址格式。
-      - $formkit: text
-        name: custom_format
-        label: 自定义地址格式
-        value: ''
-        help: 使用 ${file}、${version}、${name}。例如 https://assets.example.com/${name}/${version}/${file}；失败时现有主题资源回退到安装包。
+        help: 填写后直接生效，留空使用安装包。填写完整 assets 目录的 HTTPS 地址或本站路径；可用 ${version}、${name}，不支持查询参数。
       - $formkit: group
         name: option
         label: 单项地址覆盖
@@ -3467,6 +3409,11 @@ spec:
           label: 第三方接入脚本
           value: ''
           help: 留空继承主题资源来源。
+        - $formkit: text
+          name: charts
+          label: 分类和标签统计图脚本
+          value: ''
+          help: 仅显式统计图模式加载；留空跟随统一资源地址。
         - $formkit: text
           name: masonry
           label: 首页瀑布流脚本
