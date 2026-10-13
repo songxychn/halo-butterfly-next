@@ -65,7 +65,18 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
   s = win[key] = {kit: host, main, parking, loader, items: items.join(','), ready: false, url, title};
   const owned = s;
   win.a2a_config = {num_services: items.length, callbacks: [{
-    share: () => ({url: owned.url, title: owned.title}),
+    share: () => {
+      const url = owned.url;
+      // The audited copy_link service appends this exact one-shot inline command.
+      // Remove it after execution; never whitelist arbitrary inline SDK scripts.
+      queueMicrotask(() => {
+        const command = "a2a.copyLink('" + url.replace(/'/g, "\\'") + "')";
+        for (const script of document.head.querySelectorAll('script')) {
+          if (!script.src && script.textContent === command) script.remove();
+        }
+      });
+      return {url, title: owned.title};
+    },
     ready: () => {
       const core = [...document.scripts].find(script => script.src === coreURL);
       const frame = main.querySelector<HTMLIFrameElement>('#a2a_sm_ifr');
