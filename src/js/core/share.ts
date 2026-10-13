@@ -1,4 +1,4 @@
-import { preconnectResource } from './resource-hints.ts';
+import { mountAddToAny } from './addtoany-navigation.ts';
 import { t } from './i18n';
 import { pageScope } from './page-lifecycle.ts';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
@@ -9,17 +9,6 @@ export function parseShareItems(value: string, allowed?: string[]) {
 }
 export function safeShareUrl(value: string, base: string) {
   try { const url = new URL(value, base); return ['http:', 'https:'].includes(url.protocol) ? url.href : base; } catch { return base; }
-}
-function loadScript(url: string) {
-  return new Promise<void>((resolve, reject) => {
-    preconnectResource(url);
-    const script = document.createElement('script');
-    const timeout = setTimeout(() => { script.remove(); reject(new Error('Share service timed out')); }, 10000);
-    script.src = url; script.async = true;
-    script.onload = () => { clearTimeout(timeout); resolve(); };
-    script.onerror = () => { clearTimeout(timeout); script.remove(); reject(new Error('Share service unavailable')); };
-    document.body.append(script);
-  });
 }
 export function initializeShare(root = document) {
   const region = root.querySelector<HTMLElement>('[data-post-share]');
@@ -90,7 +79,7 @@ export function initializeShare(root = document) {
       link.textContent = LABELS[item] ?? item; link.setAttribute('aria-label', t('ui.shareTo', LABELS[item] ?? item));
       link.target = '_blank'; link.rel = 'noopener noreferrer'; host.append(link);
     }
-    win.a2a_config = {...win.a2a_config, num_services: items.length};
-    void loadScript('https://static.addtoany.com/menu/page.js').catch(() => { if (status) status.textContent = t('ui.shareError'); });
+    try { mountAddToAny(host, items, url, region.dataset.title ?? ''); }
+    catch { if (status) status.textContent = '分享组件暂不可用，可复制链接'; }
   }
 }

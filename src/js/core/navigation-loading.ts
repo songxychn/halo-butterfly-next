@@ -1,3 +1,4 @@
+import { addToAnyCanNavigate, isOwnedAddToAnyNode, replaceWithAddToAny } from './addtoany-navigation.ts';
 import { supportsAnalyticsNavigation } from './analytics-navigation.ts';
 import { beginPage, disposePage, onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
@@ -27,13 +28,13 @@ const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'b
 const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
-  if (!supportsAnalyticsNavigation(doc)) return false;
-  if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;
+  if (!supportsAnalyticsNavigation(doc) || !addToAnyCanNavigate(doc)) return false;
+  if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,object,embed,meta[http-equiv="refresh" i]') || [...doc.querySelectorAll('iframe')].some(frame => !isOwnedAddToAnyNode(frame))) return false;
   if (doc.querySelector('halo-comment, [data-no-pjax]')) return false;
   if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
     !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host], [data-comment-lazy][data-group="moment.halo.run"][data-kind="Moment"] [data-comment-host]')) &&
     !(['lit-toast-container', 'lit-toast'].includes(node.localName) && node.closest('lit-toast-container[data-theme-comment-toast]')))) return false;
-  return [...doc.scripts].every(script => inert(script) || scriptKinds.has(script.dataset.themeScript || ''));
+  return [...doc.scripts].every(script => inert(script) || isOwnedAddToAnyNode(script) || scriptKinds.has(script.dataset.themeScript || ''));
 }
 
 const key = Symbol.for('halo-butterfly-next.navigation-loading');
@@ -167,6 +168,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     } finally { styles.forEach(style => style.remove()); }
     if (request.signal.aborted) throw new Error('Navigation cancelled');
     // Editing may begin while HTML/styles are in flight.
+    if (!addToAnyCanNavigate(next)) throw new Error('AddToAny requires native navigation');
     if (!allowsPartialPageExit()) {
       if (pop) { nativeTraversal(url, state, restore?.index); return; }
       throw new Error('Page exit requires native navigation');
@@ -180,8 +182,10 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     beginPage();
     const scripts = [...next.scripts].filter(script => !inert(script));
     scripts.forEach(script => script.remove());
-    document.head.replaceChildren(...next.head.childNodes);
-    document.body.replaceWith(document.adoptNode(next.body));
+    if (!replaceWithAddToAny(next)) {
+      document.head.replaceChildren(...next.head.childNodes);
+      document.body.replaceWith(document.adoptNode(next.body));
+    }
     // Preserve the current color/aside choice; server classes include page-specific defaults.
     document.documentElement.lang = next.documentElement.lang;
     document.documentElement.className = next.documentElement.className;
