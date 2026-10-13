@@ -8,7 +8,8 @@ import { onPageCleanup } from '../core/page-lifecycle.ts';
 import $ from 'jquery';
 import {useDelay} from '../core/_util.ts';
 import tocBot from 'tocbot';
-import { bindArticleAnchors } from '../core/article-anchor.ts';
+import { bindArticleAnchors, ensureHeadingIds } from '../core/article-anchor.ts';
+import { enhanceContent } from '../core/content-extensions.ts';
 import { applyRightsideItemOrder } from '../core/rightside.ts';
 import { applyPhotoFigcaptions } from '../core/photofigcaption.ts';
 import {
@@ -47,6 +48,10 @@ export default class Render {
       hideScrollbar: this.#conf.math_hide_scrollbar,
     }));
     if (article) applyPhotoFigcaptions(article, this.#conf.photofigcaption);
+    if (article) {
+      ensureHeadingIds(article);
+      onPageCleanup(enhanceContent(article));
+    }
     if (article) onPageCleanup(bindArticleAnchors(article, {
       autoUpdate: this.#conf.anchor_auto_update,
       clickToScroll: this.#conf.anchor_click_to_scroll,
