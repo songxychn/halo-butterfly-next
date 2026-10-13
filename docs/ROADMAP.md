@@ -36,6 +36,7 @@
 | 侧栏、图片与外观配置 | 作者/自定义卡片、标签配色、封面候选与坏图、字体配色和按需动效已接入，旧默认保留 | [84 项限定 Halo 检查](validation/2026-10-13/appearance.md)通过；完整双站与 1.0 合同待验收，配置见[使用说明](APPEARANCE-OPTIONS.md) |
 | 分类、标签、归档、自定义页面 | 保留 Halo 页面 | 待逐项比对 |
 | 搜索、评论 | Halo 官方 `PluginSearchWidget` / `PluginCommentWidget` 接入与停用回退（DEC-01） | 待按修订后的 PLG-02/03 验收；Algolia/DocSearch/12 家评论 SDK 不在 1.0 主题范围 |
+| 正文图表与乐谱 | Mermaid、Chart.js、ABC 乐谱接入文章/单页，按内容加载资源并支持亮暗与阅读交互 | [#403](https://github.com/songxychn/halo-butterfly-next/issues/403)；默认关闭，源码失败回退；限定验证和传输边界见[使用说明](BODY-CHARTS-SCORE.md)，完整双站/1.0 仍待验收 |
 | 数学公式 | DEC-07：采用 Halo KaTeX 插件，主题负责阅读体验适配；MathJax 专属要求退出 1.0 | 已固定 KaTeX 3.0.0，完成 MathML 阅读适配、复制、滚动和显示控制；实际验证与剩余门禁见 [数学公式](MATH.md)。裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记，10 条提供方/资源供应项不适用，公式能力仍待验收。见 [裁定](MATH-RENDERING-DECISION.md) |
 | 友链、图库、瞬间 | 保留原有模板 | 未做插件集成验收 |
 | 第三方接入、广告、资源配置 | 六家分析、四家聊天、AdSense/广告位置和实际资源来源配置已实现，默认关闭；见 [配置说明](INTEGRATIONS.md) | 本地合成 SDK 验证；真实账户、完整双站对照、Umami 私有凭据后端映射和未开发资源继续保留未验收 |
