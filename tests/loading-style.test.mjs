@@ -49,10 +49,11 @@ test('上游全屏加载：半屏 50%、z-index 1000/1001、115px、#ffab91、.l
   assert.doesNotMatch(rules, /pace/);
 });
 
-test('本刀不接入 pace、不改 hide_button、不改文章上下篇 150px、无新增 th:utext', () => {
+test('显式 Loading 保留既有布局，Pace 有独立样式配置', () => {
   assert.doesNotMatch(settingsText, /name:\s*preloader/);
-  assert.doesNotMatch(settingsText, /pace_css_url/);
-  assert.match(layoutHtml, /theme\.config\.loading\.type/);
+  assert.match(settingsText, /pace_css_url/);
+  assert.match(layoutHtml, /theme\.config\.loading\?\.mode == 'animation'/);
+  assert.match(layoutHtml, /theme\.config\.loading\?\.type/);
   assert.match(componentsHtml, /id="hide-aside-btn"/);
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button/);
   assert.match(settingsText, /name: hide_button/);

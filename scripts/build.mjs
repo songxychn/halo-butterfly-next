@@ -58,7 +58,10 @@ async function build() {
   const configFile = path.join(stage, 'views/config.html');
   const config = await readFile(configFile, 'utf8');
   if (!startupCode || !config.includes('/* @theme-bootstrap */')) throw new Error('Missing TypeScript bootstrap or template insertion point');
-  await writeFile(configFile, config.replace('/* @theme-bootstrap */', () => startupCode));
+  const paceStartup = await bundle(path.join(root, 'src/js/pace-bootstrap.ts'), assets, false);
+  const paceStartupCode = (Array.isArray(paceStartup) ? paceStartup[0] : paceStartup).output.find(file => file.type === 'chunk')?.code;
+  if (!paceStartupCode || !config.includes('/* @theme-pace-bootstrap */')) throw new Error('Missing Pace bootstrap insertion point');
+  await writeFile(configFile, config.replace('/* @theme-bootstrap */', () => startupCode).replace('/* @theme-pace-bootstrap */', () => paceStartupCode));
 
   const above = await bundle(path.join(root, 'src/js/above-background.ts'), assets, false);
   const aboveCode = (Array.isArray(above) ? above[0] : above).output.find(file => file.type === 'chunk')?.code;
@@ -71,6 +74,9 @@ async function build() {
     recursive: true, filter: source => !source.startsWith(path.join(root, 'src/plugins/loading')),
   });
   await cp(path.join(root, 'src/images'), path.join(assets, 'images'), { recursive: true });
+  await mkdir(path.join(assets, 'plugins/pace'), { recursive: true });
+  await cp(path.join(root, 'node_modules/pace-js/pace.min.js'), path.join(assets, 'plugins/pace/pace.min.js'));
+  await cp(path.join(root, 'node_modules/pace-js/themes/blue/pace-theme-minimal.css'), path.join(assets, 'plugins/pace/pace-theme-minimal.css'));
   const icons = path.join(root, 'node_modules/@fortawesome/fontawesome-free');
   await mkdir(path.join(assets, 'plugins/fontawesome/css'), { recursive: true });
   await cp(path.join(icons, 'css/all.min.css'), path.join(assets, 'plugins/fontawesome/css/all.min.css'));
@@ -129,7 +135,7 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
   for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
     if (!file.endsWith('.scss')) continue;
@@ -156,6 +162,7 @@ async function build() {
     const code = await readFile(path.join(assets, 'plugins/loading', `${name}.min.js`), 'utf8');
     loadingLayout = loadingLayout.replace(marker, () => code);
   }
+  loadingLayout = loadingLayout.replace('/* @theme-loading-fallback */', () => loadingLayout.match(/<script data-theme-script="loading" th:case="'circle'">([\s\S]*?)<\/script>/)[1]);
   await writeFile(layoutFile, loadingLayout);
   await rm(path.join(root, 'templates'), { recursive: true, force: true });
   await rename(stage, path.join(root, 'templates'));

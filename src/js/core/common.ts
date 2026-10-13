@@ -18,6 +18,7 @@ import { initializeNewestComments } from './newest-comments.ts';
 import { bindCommentJump } from './comment-jump.ts';
 import { initializeSiteWordcount, initializeVisitCounters } from './site-statistics.ts';
 import { bindCopyAttribution } from './copy-attribution.ts';
+import { resolveResource, loadManagedResource } from './external-resource.ts';
 
 export default class Common {
 
@@ -31,10 +32,9 @@ export default class Common {
     initializeAppearance(MainApp.conf.appearance);
     const effects = MainApp.conf.effects;
     if (effects && Object.values(effects).some(value => value && typeof value === 'object' && enabled((value as Record<string, unknown>).enable)) && !document.getElementById('appearance-effects') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const script = document.createElement('script');
-      script.id = 'appearance-effects'; script.defer = true;
-      script.src = MainApp.conf.assets_link + 'js/effects.min.js';
-      document.body.append(script);
+      const file = 'js/effects.min.js', local = MainApp.conf.assets_link + file;
+      void loadManagedResource(resolveResource('effects', local, MainApp.resources, MainApp.version, file), local,
+        {attributes: {id: 'appearance-effects'}});
     }
     applyRelativeDates();
     bindHideAsideButton();

@@ -164,3 +164,24 @@ test('public config whitelist excludes any saved Umami API token and raw HTML us
   assert.match(components,/homePage and stat.count % 3 == 0/);
   assert.match(components,/views\/integration-ads::content\(\$\{theme.config.ad.index\}\)/);
 });
+
+
+test('unified directory preserves paths and explicit overrides, rejects invalid roots', () => {
+  const config = {internal_provider:'custom', asset_base:'https://cdn.test/${name}/${version}/assets/'};
+  for (const file of ['js/effects.min.js','plugins/sharejs/css/share.min.css','plugins/prism/prism.min.js']) {
+    assert.equal(resolveResource('effects','/local/'+file,config,'1.2',file),'https://cdn.test/halo-butterfly-next/1.2/assets/'+file);
+  }
+  assert.equal(resolveResource('effects','/local.js',{...config,option:{effects:'/specific.js'}},'1.2','js/effects.min.js'),'https://example.invalid/specific.js');
+  for (const asset_base of ['//evil.test/assets','javascript:bad','https://user:pass@cdn.test/assets','https://cdn.test/assets?x=1','https://cdn.test/assets#v','https://cdn.test/${file}']) {
+    assert.equal(resolveResource('effects','/local.js',{internal_provider:'custom',asset_base,custom_format:'https://old.test/${file}'},'1.2','js/effects.min.js'),'/local.js');
+  }
+});
+
+test('Font Awesome remains version pinned with either cache setting; inherited paths are actual ZIP paths', () => {
+  const html=configureResourceTags('<link rel="stylesheet" th:href="${assets_link + \'plugins/fontawesome/css/all.min.css\'}">');
+  assert.match(html,/fontawesome-free@6\.7\.2/);
+  assert.doesNotMatch(html,/version == false \? '' : '@6\.7\.2'/);
+  assert.match(html,/third_party_provider == 'inherit'/);
+  assert.match(html,/asset_base/);
+  assert.match(html,/plugins\/fontawesome\/css\/all\.min\.css/);
+});

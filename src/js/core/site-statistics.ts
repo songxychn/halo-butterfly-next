@@ -1,5 +1,6 @@
 import { readingMetrics } from './post-meta.ts';
 import { onPageCleanup } from './page-lifecycle.ts';
+import { resolveResource, loadManagedResource } from './external-resource.ts';
 
 const API = '/apis/api.content.halo.run/v1alpha1/posts';
 const CACHE_KEY = 'halo-butterfly-next:total-words:v1';
@@ -10,12 +11,9 @@ interface PostList { items: {metadata: {name: string}}[]; total: number; hasNext
 /** Provider-specific IDs exist only when a Busuanzi counter is actually rendered. */
 export function initializeVisitCounters(root = document) {
   if (!root.querySelector('#busuanzi_value_page_pv, #busuanzi_value_site_pv, #busuanzi_value_site_uv') || root.querySelector('script[data-visit-counter]')) return;
-  const script = root.createElement('script');
-  script.dataset.visitCounter = 'busuanzi';
-  script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-  script.async = true;
-  root.head.append(script);
-  onPageCleanup(() => script.remove());
+  const official = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+  const source = resolveResource('busuanzi', official, window.MainApp?.resources, window.MainApp?.version);
+  void loadManagedResource(source, official, {document: root, attributes: {'data-visit-counter': 'busuanzi'}});
 }
 
 /** Read only the anonymous, published Post API. */

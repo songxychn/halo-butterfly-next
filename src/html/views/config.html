@@ -2,6 +2,9 @@
 <script data-theme-script="config" id="baseScript" th:inline="javascript">
   window.MainApp = {
     conf: {
+      loading_enable: /*[[${theme.config.loading?.enable}]]*/ true,
+      loading_mode: /*[[${theme.config.loading?.mode}]]*/ 'pace',
+      pace_css_url: /*[[${theme.config.loading?.pace_css_url}]]*/ '',
       pjax_enable: /*[[${theme.config.pjax?.enable == true}]]*/ false,
       pjax_exclude: /*[[${theme.config.pjax?.exclude ?: ''}]]*/ '',
       instantpage: /*[[${theme.config.loading?.instantpage == true}]]*/ false,
@@ -36,12 +39,19 @@
       third_party_provider: /*[[${theme.config.CDN?.third_party_provider}]]*/ 'local',
       version: /*[[${theme.config.CDN?.version}]]*/ true,
       custom_format: /*[[${theme.config.CDN?.custom_format}]]*/ '',
+      asset_base: /*[[${theme.config.CDN?.asset_base}]]*/ '',
       option: {
         main: /*[[${theme.config.CDN?.option?.main}]]*/ '',
         main_css: /*[[${theme.config.CDN?.option?.main_css}]]*/ '',
         integrations: /*[[${theme.config.CDN?.option?.integrations}]]*/ '',
         masonry: /*[[${theme.config.CDN?.option?.masonry}]]*/ '',
         loading: /*[[${theme.config.CDN?.option?.loading}]]*/ '',
+        pace_js: /*[[${theme.config.CDN?.option?.pace_js}]]*/ '',
+        pace_default_css: /*[[${theme.config.CDN?.option?.pace_default_css}]]*/ '',
+        effects: /*[[${theme.config.CDN?.option?.effects}]]*/ '',
+        sharejs: /*[[${theme.config.CDN?.option?.sharejs}]]*/ '',
+        sharejs_css: /*[[${theme.config.CDN?.option?.sharejs_css}]]*/ '',
+        busuanzi: /*[[${theme.config.CDN?.option?.busuanzi}]]*/ '',
         fontawesome: /*[[${theme.config.CDN?.option?.fontawesome}]]*/ '',
         prismjs_js: /*[[${theme.config.CDN?.option?.prismjs_js}]]*/ '',
         prismjs_css: /*[[${theme.config.CDN?.option?.prismjs_css}]]*/ '',
@@ -152,3 +162,5 @@
   body a, body button { cursor: var(--cursor-pointer); }
 </style>
 <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/fontawesome/css/all.min.css'}">
+
+<script th:inline="none" data-theme-script="pace-bootstrap">/* @theme-pace-bootstrap */</script>

@@ -69,6 +69,15 @@ for (const name of Object.keys(zip.files)) {
   if (name.startsWith('templates/assets/font/') || name.endsWith('/above.png')) throw new Error(`旧版来源未核实的素材不应进入安装包：${name}`);
   if (!(await zip.file(name).async('nodebuffer')).equals(await readFile(path.join(root, name)))) throw new Error(`构建目录与安装包不一致：${name}`);
 }
+const paceSource = JSON.parse(await readFile(path.join(root, 'third-party-licenses/pace-source.json'), 'utf8'));
+if (JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8')).devDependencies['pace-js'] !== paceSource.version) throw new Error('Pace 版本必须精确固定');
+for (const [source, packaged] of Object.entries(paceSource.packagedFiles)) {
+  const bytes = await readFile(path.join(root, 'node_modules/pace-js', source));
+  const expected = source === 'LICENSE' ? paceSource.license.sha256 : paceSource.filesSha256[source];
+  if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error(`Pace 上游字节改变：${source}`);
+  const entry = zip.file(packaged);
+  if (!entry || !(await entry.async('nodebuffer')).equals(bytes)) throw new Error(`Pace 包内字节或许可不符：${packaged}`);
+}
 const config = parse(await zip.file('settings.yaml').async('string'));
 if (config.metadata.name !== theme.spec.settingName) throw new Error('Setting 标识不一致');
 if (theme.metadata.name !== 'halo-butterfly-next' || theme.spec.configMapName !== 'halo-butterfly-next-configMap') throw new Error('维护版必须使用独立标识');

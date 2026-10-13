@@ -1,3 +1,4 @@
+import { resolveResource, loadManagedResource } from './external-resource.ts';
 interface ShareWindow extends Window { socialShare?: (element: HTMLElement, options?: unknown) => void; a2a_config?: Record<string, unknown> }
 const LABELS: Record<string, string> = {facebook: 'Facebook', x: 'X', twitter: 'Twitter', wechat: '微信', weibo: '微博', qq: 'QQ', qzone: 'QQ 空间', linkedin: 'LinkedIn', sina_weibo: '微博', facebook_messenger: 'Messenger', email: '邮件', copy_link: '复制链接'};
 export function parseShareItems(value: string, allowed?: string[]) {
@@ -44,8 +45,13 @@ export function initializeShare(root = document) {
     host.dataset.title = region.dataset.title ?? '';
     host.dataset.url = url; host.dataset.image = region.dataset.image ? safeShareUrl(region.dataset.image, location.href) : '';
     host.dataset.sites = sites.join(',');
-    const css = root.createElement('link'); css.rel = 'stylesheet'; css.href = `${MainApp.conf.assets_link}plugins/sharejs/css/share.min.css`; root.head.append(css);
-    void loadScript(`${MainApp.conf.assets_link}plugins/sharejs/js/social-share.min.js`).then(() => {
+    const style = 'plugins/sharejs/css/share.min.css', script = 'plugins/sharejs/js/social-share.min.js';
+    const localStyle = MainApp.conf.assets_link + style, localScript = MainApp.conf.assets_link + script;
+    const styles = loadManagedResource(resolveResource('sharejs_css', localStyle, MainApp.resources, MainApp.version, style), localStyle, {document: root, kind: 'style'});
+    const scripts = loadManagedResource(resolveResource('sharejs', localScript, MainApp.resources, MainApp.version, script), localScript, {document: root, valid: () => typeof win.socialShare === 'function'});
+    void Promise.all([styles, scripts]).then(([styled, loaded]) => {
+      if (!styled || !loaded) throw new Error('Share resources unavailable');
+      if (!region.isConnected) return;
       win.socialShare?.(host, {sites, mobileSites: sites});
       host.querySelectorAll<HTMLAnchorElement>('a').forEach(link => {
         const name = sites.find(site => link.classList.contains(`icon-${site}`));

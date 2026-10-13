@@ -6,6 +6,10 @@
 
 2026-10-13 [导航与加载限定实现](../NAVIGATION-LOADING.md)更新 12 项配置为 `implemented-unverified`，同步记录列表 PJAX、图片配置及清理协议。文章/插件 PJAX 和任意作者 HTML 图片过滤器仍保留 `gap`；[限定验证](../validation/2026-10-13/navigation-loading.md)不替代 1.0 完整合同。
 
+2026-10-13 [统一资源地址](../RESOURCE-SOURCES.md)补齐实际静态/动态资源、Share.js、不蒜子覆盖及 PJAX 精确地址识别；3 个独立覆盖配置转为 `implemented-unverified`，其余相关记录同步限定结果。全量 CDN 映射仍待完成，0 条提升为 verified。[DEC-03 资源供应草案](DEC-03-RESOURCES-DRAFT.md)保留未决替代项与原 ID，尚未正式裁定。
+
+2026-10-14 [DEC-03 #410](https://github.com/songxychn/halo-butterfly-next/issues/410) 与 [资源裁定](DEC-03-RESOURCES-DECISION.md)正式登记已确认方案：导航/特效承载包、Viewer.js、Prism 整包、默认 Pace、动画显式选择及评论 MD5 消费方退出。39 个原供应/专属条目转有依据的不适用，6 个 Pace 条目具备实现；0 条提升 verified。当前工作区通过 652 项测试、162 文件包检查和实际安装比对，22 组 Pace + 8 组资源真实 Halo/Chromium 回归通过；[限定验证](../validation/2026-10-14/dec03-pace.md)保留来源与失败边界。PWA/离线、RSS/站点地图仍待裁定，Mermaid/Chart.js/ABCJS 待功能接入。先前草案、源码审计与历史验证不自动背书当前完整合同。
+
 ## 文件与覆盖边界
 
 | 文件 | 职责 |

@@ -19,6 +19,9 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   aside_tag_colors?: unknown;
   appearance?: Record<string, unknown>;
   effects?: Record<string, unknown>;
+  loading_enable?: SettingValue;
+  loading_mode?: string;
+  pace_css_url?: string;
   pjax_enable?: SettingValue;
   pjax_exclude?: string | string[];
   instantpage?: SettingValue;

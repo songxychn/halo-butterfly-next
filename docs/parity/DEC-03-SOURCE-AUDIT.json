@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "source-audit-decision-draft",
+  "auditedAt": "2026-10-13T15:36:53.511489+00:00",
+  "actor": "Codex author",
+  "result": "source-audit-completed-not-runtime-acceptance",
+  "baseCommit": "5622798dd06306c8b56b519581d807cd4f473b70",
+  "sourceAttribution": "Current uncommitted worktree; file digests below identify the inspected implementations.",
+  "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "upstreamArchiveSha256": "81ac8be5ae0993e2c764a773862868988bd0e386b053d621972aa561d00aa813",
+  "upstreamInventorySha256": "828e88b4f2b88798d9fe6f99fdea7364a52925331e481ad10d61bfc9851ba4c2",
+  "inventoryFilesCompared": 217,
+  "inventoryMismatches": [],
+  "upstreamFilesSha256": {
+    "plugins.yml": "a12c1499b0d3d5a35738e1c8b8abfca2d6e658c459ec3598966965c8a8bcbce5",
+    "_config.yml": "b79446e6ea408f40ec8a18026828f2789b5d959a1640b244754b69b4c491fe7b",
+    "scripts/common/default_config.js": "4c7ded80993317d3d36fd45754accd381b7a34fbc63b66c8beaa7171b8de3547",
+    "layout/includes/loading/index.pug": "b2a0317e956a8e1a684fce4e182d6426f72b62b9f679a3d41414056efe3305e4",
+    "layout/includes/loading/pace.pug": "979f300f70b9822786857a0d9985d375f3bbcdef2ebd301bb918baf866b564dd",
+    "layout/includes/loading/fullpage-loading.pug": "9442ba97c35be879025c8b6af75638af8c264d7c8c3cc2fd8f3ccb848b8dcf08",
+    "layout/includes/third-party/pjax.pug": "ec063fe6dfa42b9c97f03857050c05730aab66b7cf73bd52584423120977e343",
+    "layout/includes/third-party/newest-comments/index.pug": "2f262ed0917ca50a3d2e31a9e447720a0ad45c9473e891a9ce28be50e5ca2598",
+    "layout/includes/third-party/newest-comments/valine.pug": "20059a264424150789280ffa4a3c4f5115c630c4fc29b1344455d3713d15570f",
+    "layout/includes/third-party/comments/gitalk.pug": "e99ef57827e4b6ceb24e9b7076b22b112a03cc274f4c181ea0c220c8f25025e7",
+    "scripts/helpers/page.js": "28c2d0c708800db68061ccf49553141d35806554c4c3d50a364785468ede94b5"
+  },
+  "haloFilesSha256": {
+    "src/js/core/loading-ready.ts": "1fad053b6bb322848a50a410bbb66a578afe0b1a3e86e450cad1fe750b9e67de",
+    "src/plugins/loading/circle.ts": "95ea489baa3aea0df671d36482380df4532160fdee91345ebb8373e049993ace",
+    "src/plugins/loading/hourglass.ts": "35702b3cec37279af245a95928de3e4453698e822f92b11945e6bdcb0b71607b",
+    "src/plugins/loading/cross_line.ts": "3bab342a709cebdc899bb0e0316c6ecf175bc1e504219d61b96eee7a010f185b",
+    "src/plugins/loading/dot.ts": "6508042af49a6bb0f0c05dffc22ca354cdec5f9792254d561b29b600649e98d1",
+    "src/html/views/config.html": "407644b189a8d94aa9704aa25bfdcdc95e07aae7371c0a3513fdc9a2df18a753",
+    "src/html/views/layout.html": "edd0d5a887f08b7353a22dc5267212b7e472ddaad79a6ad03e69add76289d331",
+    "src/js/core/navigation-loading.ts": "380aa01ffe7cde0e9e1cf9887b7588db5fe6b043ea75518ad02f9acb430b70be",
+    "src/scss/core/navigation-loading.scss": "41368071c95e2d25d0a92fc40d76f2432a16373721e9015bbcc7e5916cf2ad43",
+    "src/js/core/newest-comments.ts": "bc313834bf6e0eb2b628857aa6e64d07e7c9a4de2b8c5fa2389183cb059028a3",
+    "src/js/core/prism-ready.ts": "ff33cdc87b57b6f65620d8975bbdb8e6cb8df9a1480ffe6b5032c8a242fc2aa6",
+    "src/plugins/prism/prism.min.js": "aa9a83323c866f139730da962cc82b5ebffac9a0394b519d326a4db706fe76f0"
+  },
+  "pacePackage": {
+    "name": "pace-js",
+    "version": "1.2.4",
+    "source": "https://registry.npmjs.org/pace-js/-/pace-js-1.2.4.tgz",
+    "packageSha256": "f4fa64170d3152b9c11264b7a5b60b91713d73df0871fe24b2caaf1e8d6bd1dc",
+    "filesSha256": {
+      "package.json": "7b57dcc4e16410090b4fda52fb4f77581ca296a725deb54fe1107d92c9903184",
+      "pace.js": "96625dc86cf29e435dbb743d0b7204226f6877e43a89a3736155accf2a917b86",
+      "pace.min.js": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+      "themes/blue/pace-theme-minimal.css": "3e16fae4203c52d34839f9d15c349407478e6a49eaf8cbaad7e258f019b7ccae"
+    },
+    "rawBytes": {
+      "pace.min.js": 12962,
+      "minimalCss": 409
+    }
+  },
+  "md5Search": {
+    "command": "rg -n -i \"blueimp|\\bmd5\\b\" <fixed-upstream-root>",
+    "matches": [
+      "scripts/helpers/page.js:88:hexo.extend.helper.register('md5', function (path) {",
+      "scripts/helpers/page.js:89:  return crypto.createHash('md5').update(decodeURI(this.url_for(path, { relative: false }))).digest('hex')",
+      "plugins.yml:21:blueimp_md5:",
+      "plugins.yml:22:  name: blueimp-md5",
+      "plugins.yml:23:  file: js/md5.min.js",
+      "_config.yml:1088:    # blueimp_md5:",
+      "layout/includes/third-party/newest-comments/valine.pug:3:script(src=url_for(theme.asset.blueimp_md5))",
+      "layout/includes/third-party/newest-comments/valine.pug:14:      let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`",
+      "layout/includes/third-party/comments/gitalk.pug:33:        id: isShuoshuo ? path : (option && option.id) || '!{md5(page.path)}'"
+    ],
+    "browserLibraryConsumers": [
+      "layout/includes/third-party/newest-comments/valine.pug:3",
+      "layout/includes/third-party/newest-comments/valine.pug:14"
+    ],
+    "buildHelperDefinition": "scripts/helpers/page.js:88-89",
+    "buildHelperConsumers": [
+      "layout/includes/third-party/comments/gitalk.pug:33"
+    ],
+    "haloFindings": "Newest comment avatar reads Halo owner.avatar directly; no theme blueimp-md5 dependency. Prism MD5 language token matches are not MD5 consumers."
+  },
+  "paceFindings": [
+    "Upstream default preloader.enable=false, source=1; Pace is source=2.",
+    "Pace 1.2.4 monitors XHR GET, WebSocket connection, document readyState, elements and event-loop lag; scaled estimate is not byte-accurate overall progress.",
+    "Upstream explicitly disables restartOnPushState and registers Pace.restart on pjaxSend.",
+    "Pace 1.2.4 has no fetch interception; current Halo PJAX uses fetch.",
+    "Current four Loading types stop at SSR body completion or DOM readiness; optional resources do not gate content.",
+    "Current PJAX busy bar is full width 3px, with no numerical progress; distinct from Pace 2px transformed progress bar."
+  ],
+  "limits": [
+    "Source audit plus existing Loading unit tests; no new dual-site or Pace-in-Halo runtime acceptance.",
+    "No Pace dependency, script or configuration installed by this task.",
+    "Blueimp recommendation does not audit internals of excluded external comment SDKs or arbitrary administrator inject code.",
+    "No matrix applicability/status changes made by the draft."
+  ],
+  "loadingRegression": {
+    "command": "bun test --isolate tests/loading-ready.test.mjs",
+    "tests": 5,
+    "failures": 0,
+    "result": "passed",
+    "localLogSha256": "f2ff45a5662afa3ed9a385b9c4724a9323d942766a77adff16fbcfbc3b23c184"
+  }
+}

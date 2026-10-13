@@ -1,5 +1,6 @@
 import { onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
+import { resolveResource } from './external-resource.ts';
 
 export function imageLoadingOptions(config: ThemeConfig) {
   return {
@@ -32,6 +33,14 @@ export function initializeImageLoading(config: ThemeConfig) {
     const error = () => {
       finish();
       if (image.dataset.lazySrc) return; // A failed placeholder must not replace a deferred real image.
+      const app = window.MainApp;
+      const localIllustration = app?.conf.assets_link ? app.conf.assets_link + 'images/above.svg' : '';
+      if (localIllustration && image.dataset.resourceFallbackTried !== 'true') {
+        const selected = resolveResource('theme_image', localIllustration, app.resources, app.version, 'images/above.svg');
+        if (selected && new URL(selected, document.baseURI).href === image.src && new URL(localIllustration, document.baseURI).href !== image.src) {
+          image.dataset.resourceFallbackTried = 'true'; image.src = localIllustration; return;
+        }
+      }
       const fallback = image.dataset.themeImageFallback;
       if (!image.hasAttribute('data-theme-image-fallback')) return;
       image.removeAttribute('srcset'); image.removeAttribute('sizes');

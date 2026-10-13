@@ -2,7 +2,8 @@
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="user" th:if="${theme.config.aside.card_author?.enable != false}" th:attr="data-card-order=${theme.config.aside.card_author?.sort_order ?: 0}" class="aside-user card">
   <img
     th:src="${contributor?.avatar ?: #theme.assets('/images/above.svg')}"
-    onerror="this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='"
+    th:data-local-theme-image="${#strings.isEmpty(contributor?.avatar) ? #theme.assets('/images/above.svg') : null}"
+    onerror="if(this.dataset.localThemeImage &amp;&amp; !this.dataset.resourceFallbackTried){this.dataset.resourceFallbackTried='true';this.src=this.dataset.localThemeImage}else{this.onerror=null;this.src='data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='}"
     th:alt="${contributor?.displayName ?: site.title}"
     class="avatar"
     data-theme-image
