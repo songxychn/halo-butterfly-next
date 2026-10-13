@@ -1,3 +1,4 @@
+import { preconnectResource } from './resource-hints.ts';
 import { pageScope } from './page-lifecycle.ts';
 
 const registryKey = Symbol.for('halo-butterfly-next.busuanzi');
@@ -45,5 +46,6 @@ export function initializeBusuanzi(root: Document = document) {
   };
   timer = setTimeout(cleanup, 8000); script.onload = script.onerror = cleanup;
   script.src = 'https://busuanzi.ibruce.info/busuanzi?jsonpCallback=__haloThemeBusuanzi.' + key;
+  preconnectResource(script.src, root);
   root.head.append(script);
 }
