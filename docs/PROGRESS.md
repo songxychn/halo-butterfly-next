@@ -2,7 +2,7 @@
 
 ## 2026-10-13：文章/单页评论懒加载
 
-[#407](https://github.com/songxychn/halo-butterfly-next/issues/407) 新增默认关闭的评论懒挂载，邻近 300px、跳转/直接锚点触发，模块超时重试和输入保留。工作区候选的 647 项工程测试、真实 Halo 2.26.1 / CommentWidget 3.3.2 三引擎 81 项和 160 文件安装比对通过；主题/系统配置恢复。旧 Firefox 资源超时及测试准备失败保留。官方 head 预加载资源仍保留，三条矩阵仅改为 implemented-unverified，0 条 verified；Moment、首屏零评论资源下载及完整 1.0 未完成。见[限定验收](validation/2026-10-13/comment-lazy.md)及[使用说明](COMMENT-ENHANCEMENTS.md)。未发布或部署，候选包含原有正文扩展工作区改动，其身份另在机器记录说明。
+[#407](https://github.com/songxychn/halo-butterfly-next/issues/407) 新增默认关闭的评论懒挂载，邻近 300px、跳转/直接锚点触发，模块超时重试和输入保留。工作区候选的 647 项工程测试、真实 Halo 2.26.1 / CommentWidget 3.3.2 三引擎 81 项和 160 文件安装比对通过；主题/系统配置恢复。旧 Firefox 资源超时及测试准备失败保留。官方 head 预加载资源仍保留，三条矩阵仅改为 implemented-unverified，0 条 verified；Moment、首屏零评论资源下载及完整 1.0 未完成。见[限定验收](validation/2026-10-13/comment-lazy.md)及[使用说明](COMMENT-ENHANCEMENTS.md)。评论独立提交 `c79b558` 排除了工作区正文扩展；普通合并最新 master 后产品提交 `d5705e1` 完整验证 659 项、真实 Halo 三引擎 81 项与 249 文件安装比对通过。原五个工作区文件保持原样，相对 master 只包含评论 20 个文件。首次工作区候选身份保留在机器记录，未发布或部署。
 
 ## 2026-10-13：正文图表与乐谱
 
