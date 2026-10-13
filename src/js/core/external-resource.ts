@@ -1,3 +1,5 @@
+import {preconnectResource} from './resource-hints.ts';
+
 /** Optional resources never participate in the theme's content-ready gate. */
 export const enabled = (value: unknown) => value === true || value === 'true';
 export const text = (value: unknown) => typeof value === 'string' ? value.trim() : '';
@@ -65,6 +67,7 @@ export function loadManagedResource(source: string, local: string, {document = g
   const result = new Promise<boolean>(resolve => { settle = resolve; });
   cache.set(key, result);
   const request = (url: string, retry: boolean) => {
+    preconnectResource(url, document, attributes.crossorigin === 'anonymous' || attributes.crossorigin === '');
     const node = document.createElement(kind === 'style' ? 'link' : 'script');
     if (kind === 'style') (node as HTMLLinkElement).rel = 'stylesheet';
     else (node as HTMLScriptElement).async = true;
@@ -106,6 +109,7 @@ export function loadExternalScript(source: string, {document = globalThis.docume
   const promise = new Promise<boolean>(resolve => { settle = resolve; });
   cache.set(url, promise);
   const script = document.createElement('script');
+  preconnectResource(url, document, attributes.crossorigin === 'anonymous' || attributes.crossorigin === '');
   script.async = true;
   for (const [name, value] of Object.entries(attributes)) {
     if (/^data-[a-z0-9-]+$/.test(name) || name === 'crossorigin') script.setAttribute(name, value);

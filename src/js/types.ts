@@ -41,6 +41,7 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   enable_aside?: SettingValue;
   enable_webInfo?: SettingValue;
   assets_link?: string;
+  resource_page?: string;
   nav_fixed?: boolean;
   nav_display_post_title?: boolean;
   rightside_scroll_percent?: SettingValue;
