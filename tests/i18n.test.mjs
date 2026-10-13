@@ -70,3 +70,10 @@ test('Moment fragment titles use a Thymeleaf message expression, not a bare util
     assert.match(html, /title = \$\{site\.title\} \+ ' - ' \+ #\{ui\.moments\}/);
   }
 });
+
+test('UI locale reads the active document on reentry and canonicalizes language tags', async () => {
+  const {uiLocale}=await import('../src/js/core/i18n.ts');
+  const root={documentElement:{lang:'zh-cn'}};
+  assert.equal(uiLocale(root),'zh-CN');root.documentElement.lang='en';assert.equal(uiLocale(root),'en');
+  for(const invalid of ['', 'not_a_locale']){root.documentElement.lang=invalid;assert.equal(uiLocale(root),'zh-CN');}
+});

@@ -240,3 +240,9 @@ export function t(key: string, ...args: Array<string | number>): string {
   const value = messages?.[key] ?? fallback[key] ?? key;
   return value.replace(/\{(\d+)\}/g, (token, index: string) => args[Number(index)] === undefined ? token : String(args[Number(index)]));
 }
+
+/** The server-rendered UI language, read again after each scoped navigation. */
+export function uiLocale(root: Pick<Document, 'documentElement'> | undefined = globalThis.document): string {
+  try { return Intl.getCanonicalLocales(root?.documentElement.lang?.trim() || 'zh-CN')[0] || 'zh-CN'; }
+  catch { return 'zh-CN'; }
+}

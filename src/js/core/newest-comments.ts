@@ -1,5 +1,5 @@
-import { t } from './i18n';
-import { onPageCleanup } from './page-lifecycle.ts';
+import { t, uiLocale } from './i18n';
+import { onPageCleanup, pageListen } from './page-lifecycle.ts';
 /** Halo public comments, merged across the public Post/SinglePage/Moment inventory.
  * The public API requires an exact subject. Never use console APIs or cookies.
  */
@@ -9,7 +9,7 @@ export interface CommentSubject {
 export interface RecentComment {
   id: string; subject: string; nickname: string; excerpt: string; date: string; avatar: string;
 }
-interface CacheEntry { expires: number; revision: string; limit: number; items: RecentComment[] }
+interface CacheEntry { locale: string; expires: number; revision: string; limit: number; items: RecentComment[] }
 const CACHE_KEY = 'halo-butterfly-next.newest-comments.v1';
 export const commentGroup = (kind: CommentSubject['kind']) => kind === 'Moment' ? 'moment.halo.run' : 'content.halo.run';
 const boundedNumber = (value: unknown, fallback: number, min: number, max: number) => {
@@ -73,7 +73,7 @@ export function rankComments(items: RecentComment[], limit: number) {
     .slice(0, limit);
 }
 
-export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subjects: CommentSubject[], limit: number, now: number, origin: string) {
+export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subjects: CommentSubject[], limit: number, now: number, origin: string, locale = uiLocale()) {
   const result = new Map<string, CacheEntry>();
   if (!storage) return result;
   try {
@@ -81,7 +81,7 @@ export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subje
     for (const subject of subjects) {
       const key = subjectKey(subject), entry = parsed[key];
       if (!entry || !Number.isFinite(entry.expires) || entry.expires <= now || entry.expires > now + 60 * 60000 ||
-          entry.revision !== subject.revision || entry.limit !== limit || !Array.isArray(entry.items) || entry.items.length > limit) continue;
+          entry.locale !== locale || entry.revision !== subject.revision || entry.limit !== limit || !Array.isArray(entry.items) || entry.items.length > limit) continue;
       const valid = entry.items.every((item: RecentComment) => item && typeof item.id === 'string' && item.subject === key &&
         typeof item.nickname === 'string' && item.nickname.length <= 200 && typeof item.excerpt === 'string' && Array.from(item.excerpt).length <= 151 &&
         typeof item.date === 'string' && Number.isFinite(Date.parse(item.date)) && typeof item.avatar === 'string' && commentAvatar(item.avatar, origin) === item.avatar);
@@ -92,10 +92,10 @@ export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subje
 }
 
 export async function fetchNewestComments(subjects: CommentSubject[], limit: number, minutes: number, options: {
-  origin: string; storage?: Storage | null; fetch?: typeof fetch; now?: number; decode?: (value: string) => string;
+  origin: string; locale?: string; storage?: Storage | null; fetch?: typeof fetch; now?: number; decode?: (value: string) => string;
 }) {
-  const now = options.now ?? Date.now();
-  const cache = minutes > 0 ? readCommentCache(options.storage ?? null, subjects, limit, now, options.origin) : new Map<string, CacheEntry>();
+  const now = options.now ?? Date.now(), locale = options.locale ?? uiLocale();
+  const cache = minutes > 0 ? readCommentCache(options.storage ?? null, subjects, limit, now, options.origin, locale) : new Map<string, CacheEntry>();
   const request = options.fetch ?? fetch;
   const controller = new AbortController();
   onPageCleanup(() => controller.abort());
@@ -117,12 +117,14 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
           if (!response.ok) throw new Error('Public comments unavailable');
           data = await response.json();
         } finally { clearTimeout(timeout); }
+        controller.signal.throwIfAborted();
         if (!Array.isArray(data.items)) throw new Error('Invalid public comments response');
         const comments = data.items.map(value => publicComment(value, subject, options.origin, options.decode)).filter((item): item is RecentComment => !!item);
         items.push(...comments);
-        cache.set(key, { expires: now + minutes * 60000, revision: subject.revision, limit, items: comments });
+        cache.set(key, { locale, expires: now + minutes * 60000, revision: subject.revision, limit, items: comments });
       }
     }));
+    controller.signal.throwIfAborted();
     if (options.storage) {
       try {
         if (minutes > 0) options.storage.setItem(CACHE_KEY, JSON.stringify(Object.fromEntries(cache)));
@@ -134,6 +136,14 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
     controller.abort();
     throw error; // Never present a partial list as the global latest comments.
   }
+}
+
+export function formatCommentDate(value: string, locale = uiLocale()) {
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return value;
+  const options: Intl.DateTimeFormatOptions = { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  try { return new Intl.DateTimeFormat(locale, options).format(date); }
+  catch { return new Intl.DateTimeFormat('zh-CN', options).format(date); }
 }
 
 export function initializeNewestComments(root: Document = document) {
@@ -164,15 +174,17 @@ export function initializeNewestComments(root: Document = document) {
     element.innerHTML = text;
     return element.value;
   };
-  let running = false;
+  let running = false, active = true;
+  onPageCleanup(() => { active = false; });
   const load = async () => {
-    if (running) return;
+    if (running || !active) return;
     running = true;
     retry.hidden = true;
     status.textContent = t('ui.recentLoading');
     card.setAttribute('aria-busy', 'true');
     try {
-      const comments = await fetchNewestComments([...subjects.values()], limit, minutes, { origin: win.location.origin, storage, decode });
+      const comments = await fetchNewestComments([...subjects.values()], limit, minutes, { origin: win.location.origin, locale: uiLocale(root), storage, decode });
+      if (!active) return;
       const fragment = root.createDocumentFragment();
       for (const comment of comments) {
         const subject = subjects.get(comment.subject);
@@ -193,7 +205,7 @@ export function initializeNewestComments(root: Document = document) {
         const byline = root.createElement('span');
         byline.className = 'newest-comment-byline';
         const time = root.createElement('time'); time.dateTime = comment.date;
-        time.textContent = new Intl.DateTimeFormat('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(comment.date));
+        time.textContent = formatCommentDate(comment.date, uiLocale(root));
         byline.append(root.createTextNode(`${comment.nickname} · `), time);
         content.append(excerpt, byline); link.append(content); item.append(link); fragment.append(item);
       }
@@ -201,15 +213,16 @@ export function initializeNewestComments(root: Document = document) {
       status.textContent = comments.length ? '' : t('ui.noComments');
       card.dataset.commentsState = 'loaded';
     } catch {
+      if (!active) return;
       status.textContent = t('ui.recentError');
       retry.hidden = false;
       card.dataset.commentsState = 'failed';
     } finally {
       running = false;
-      card.setAttribute('aria-busy', 'false');
+      if (active) card.setAttribute('aria-busy', 'false');
     }
   };
-  retry.addEventListener('click', () => { void load(); });
+  pageListen(retry, 'click', () => { void load(); });
   if (!('IntersectionObserver' in win)) { void load(); return; }
   const observer = new IntersectionObserver(entries => {
     if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); void load(); }
