@@ -13,12 +13,12 @@ const output=path.join(REPO,'.runtime/navigation-loading');await mkdir(output,{r
 const report={theme:installed,results:[],limitations:['Busuanzi remote response fixtures; no real service counters altered.','Physical Safari/devices and account-backed SDKs not accepted.']};
 let browser;const save=()=>writeFile(path.join(output,'optional.json'),JSON.stringify(report,null,2)+'\n');
 try{
- for(const engine of ['chromium','firefox','webkit']){
+ for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split(',')){
   browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{channel:'chromium'}:{})});
   for(const width of [1440,390])for(const mode of ['light','dark']){
    const context=await browser.newContext({viewport:{width,height:1000},locale:'zh-CN'});
-   await context.addInitScript(mode=>localStorage.setItem('halo-butterfly-next.color-scheme',mode),mode);
-   const counters=[],resources=[],errors=[];
+   await context.addInitScript(mode=>{localStorage.setItem('halo-butterfly-next.color-scheme',mode);window.fixtureFrames=0;const raf=window.requestAnimationFrame;window.requestAnimationFrame=fn=>raf.call(window,time=>{window.fixtureFrames++;fn(time)})},mode);
+   const counters=[],resources=[],errors=[],trace=[];
    await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
     if(url.origin===base){if(/social-share.min.js|effects.min.js/.test(url.pathname))resources.push(url.pathname);return route.continue();}
@@ -29,17 +29,17 @@ try{
     }
     return route.abort();
    });
-   const p=await context.newPage();p.setDefaultTimeout(20000);p.on('pageerror',e=>errors.push(e.message));
+   const p=await context.newPage();p.setDefaultTimeout(20000);p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='debug')trace.push({console:m.text()})});p.on('request',r=>trace.push({request:r.url()}));p.on('response',r=>trace.push({response:r.url(),status:r.status()}));
    await p.goto(base+'/archives/preview-1/',{waitUntil:'domcontentloaded'});
    await p.waitForFunction(()=>!!MainApp.useCommon);await p.evaluate(()=>window.optionalSentinel='keep');
    const visit=async route=>{
     await p.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove()},route);
-    await p.waitForFunction(route=>location.pathname===route&&!document.documentElement.classList.contains('theme-navigating')&&!!MainApp.useCommon,route);
+    try { await p.waitForFunction(route=>location.pathname===route&&!document.documentElement.classList.contains('theme-navigating')&&!!MainApp.useCommon,route,{polling:100}); } catch(error) { report.diagnostic={engine,width,mode,route,url:p.url(),state:await p.evaluate(()=>({className:document.documentElement.className,common:!!window.MainApp?.useCommon,hidden:document.hidden,sentinel:window.optionalSentinel,nav:window[Symbol.for('halo-butterfly-next.navigation-loading')]?.busy})),errors,trace:trace.slice(-40)};throw error; }
     assert.equal(await p.evaluate(()=>window.optionalSentinel),'keep');
    };
    for(let i=0;i<4;i++){
     if(i)await visit('/archives/preview-'+(i%2+1)+'/');
-    await p.waitForSelector('[data-share-provider] .icon-wechat .qrcode canvas');
+    await p.waitForSelector('[data-share-provider] .icon-wechat .qrcode canvas',{state:'attached'});
     await p.waitForSelector('canvas.appearance-effect');
     await p.waitForFunction(()=>document.getElementById('busuanzi_value_page_pv')?.textContent==='67');
     const share=await p.locator('[data-post-share]').evaluate(region=>({url:region.dataset.url,title:region.dataset.title,x:new URL(region.querySelector('.icon-x').href).searchParams.get('url'),text:new URL(region.querySelector('.icon-x').href).searchParams.get('text')}));
@@ -52,6 +52,7 @@ try{
     await visit('/archives/');await p.waitForSelector('canvas.appearance-effect');
     assert.equal(await p.evaluate(()=>window.previousEffects.isConnected||window.previousShare.isConnected),false);
     assert.equal(await p.locator('canvas.appearance-effect').count(),1);
+    const frames=await p.evaluate(()=>window.fixtureFrames);await p.waitForTimeout(150);assert((await p.evaluate(()=>window.fixtureFrames))>frames,'effects remain animated after navigation');
    }
    await p.emulateMedia({reducedMotion:'reduce'});await p.waitForFunction(()=>!document.querySelector('canvas.appearance-effect'));
    await p.emulateMedia({reducedMotion:'no-preference'});await p.waitForSelector('canvas.appearance-effect');assert.equal(await p.locator('canvas.appearance-effect').count(),1);
