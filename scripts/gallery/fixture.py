@@ -23,7 +23,7 @@ spec = importlib.util.spec_from_file_location('gallery_lab', ROOT/'scripts/lab/l
 lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
 shutil.copytree(ROOT/'fixtures/comparison/assets', runtime/'halo/data/attachments/lab', dirs_exist_ok=True)
 lab.start(halo_only=True)
-client = lab.Client(initialize=True)
+client = lab.Client(initialize=not (runtime/'seed.json').exists())
 if client.initialized_now: lab.capture_initial_content(client)
 lab.install(client, str(a.package), a.source_sha)
 # Compare every ZIP entry with Halo's extracted files, beyond API attribution.
