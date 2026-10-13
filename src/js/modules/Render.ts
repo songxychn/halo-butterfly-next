@@ -29,6 +29,7 @@ import {
 import { enhanceBodyRenderers } from '../core/body-renderers.ts';
 import { enhanceMath } from '../core/math.ts';
 import { bindRewards } from '../core/reward.ts';
+import { initializeArticleGallery } from '../core/article-gallery.ts';
 
 export default class Render {
   name = 'Render';
@@ -49,6 +50,7 @@ export default class Render {
       hideScrollbar: this.#conf.math_hide_scrollbar,
     }));
     if (article) applyPhotoFigcaptions(article, this.#conf.photofigcaption);
+    if (article) initializeArticleGallery(article);
     if (article) onPageCleanup(bindArticleAnchors(article, {
       autoUpdate: this.#conf.anchor_auto_update,
       clickToScroll: this.#conf.anchor_click_to_scroll,

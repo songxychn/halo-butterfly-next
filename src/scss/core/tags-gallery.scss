@@ -4,9 +4,8 @@
  * 对齐 Butterfly 5.7.0 source/css/_tags/gallery.styl
  * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
  *
- * 上游选择器已在 .container 下：figure.gallery-group（float / height 250px /
- * width calc(50% - 8px) / calc(100% / 3 - 8px)）、.gallery-container /
- * .loading-container 154px。Halo 无 .container 祖先，保持空操作。不要用
+ * 保留上游 .container；仅将图库规则接入 article.render 正文。figure.gallery-group
+ * 的 float / 250px / calc 宽度不会作用于主栏、按钮或代码工具栏。不要用
  * #Butterfly 把 float / 250px / calc 宽度压到主栏、活 .button 或
  * .code-toolbar（#203 P1 同类）。
  *
@@ -19,7 +18,7 @@
  * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
  */
 
-.container {
+.container, article.render {
   figure.gallery-group {
     position: relative;
     float: left;
@@ -39,7 +38,7 @@
       width: calc(100% / 3 - 8px);
     }
 
-    &:hover {
+    &:hover, &:focus-within {
       img {
         opacity: 0.4;
         transform: translate3d(0, 0, 0);
@@ -87,6 +86,8 @@
         left: 0;
         z-index: 1000;
         opacity: 0;
+
+        &:focus-visible { opacity: 1; outline: 3px solid #fff; outline-offset: -4px; }
       }
     }
 
@@ -139,7 +140,18 @@
   .gallery-container {
     margin: 0 0 20px;
     text-align: center;
-    opacity: 0;
+    opacity: 1;
+
+    &:not(.loaded)::after { content: '图库需要 JavaScript 才能显示图片。'; }
+    &:not(.loaded) .gallery-items { display: none; }
+    .gallery-items { font-size: 0; min-width: 0; }
+    .item { font-size: 1rem; overflow: hidden; }
+    .theme-lightbox-trigger { display: block; width: 100%; height: 100%; }
+    .gallery-status { margin: 8px 0; font-size: .9em; }
+    .gallery-sentinel { height: 1px; }
+    button[hidden] { display: none; }
+    button:disabled { cursor: wait; opacity: .65; }
+    button:focus-visible { outline: 3px solid var(--theme); outline-offset: 3px; }
 
     &.loaded {
       opacity: 1;
@@ -150,6 +162,7 @@
       margin: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
 
     .gallery-data {
@@ -231,6 +244,19 @@
         }
       }
     }
+  }
+}
+
+article.render {
+  // Clear group-card floats within the article, never the page's grid/flex layout.
+  &:has(figure.gallery-group) { display: flow-root; }
+  .gallery-container { clear: both; }
+  .gallery-group-name { color: #fff; }
+  .gallery-group figcaption > a::after { display: none; }
+  .gallery-items .theme-lightbox-trigger img { width: 100%; height: 100%; }
+  .gallery-container button { background: var(--theme); color: #fff; border: 0; cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) {
+    figure.gallery-group img, figure.gallery-group p, .gallery-group-name::after { transition: none; }
   }
 }
 

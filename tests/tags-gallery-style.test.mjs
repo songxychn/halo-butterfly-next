@@ -78,10 +78,11 @@ test('本刀不改 hide_button、不改文章上下篇 150px、不改 html.hide-
   assert.doesNotMatch(postHtml.replace(/th:utext="\$\{post\.content\.content\}"/, ''), /th:utext/);
 });
 
-test('不用 #Butterfly 把 float / 250px / calc 宽度压到主栏或 .button / .code-toolbar', () => {
+test('图库 float / 250px / calc 宽度只接入正文，不压主栏或 .button / .code-toolbar', () => {
   assert.doesNotMatch(rules, /#Butterfly/);
   assert.match(rules, /\.container/);
-  const live = rules.replace(/\.container\s*\{[\s\S]*$/s, '').replace(/@keyframes[\s\S]*/g, '');
+  assert.match(rules, /\.container, article\.render\s*\{/);
+  const live = rules.replace(/\.container, article\.render\s*\{[\s\S]*$/s, '').replace(/@keyframes[\s\S]*/g, '');
   assert.doesNotMatch(live, /float:\s*left/);
   assert.doesNotMatch(live, /figure\.gallery-group/);
   assert.doesNotMatch(live, /height:\s*250px/);
