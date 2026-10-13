@@ -1,0 +1,202 @@
+@use '../core/util';
+
+// Progressive HTML extensions; no author classes, hidden panels or empty
+// placeholders are required. Attribute removal keeps all semantic content.
+html {
+  @include util.useThemeVar((
+    content-border: (#dfe4ea, #5b5e65),
+    content-surface: (#f6f8fa, #292b30),
+    content-info: (#2878b6, #73bff5),
+    content-info-bg: (#eef7fd, #20313e),
+    content-success: (#287b43, #82d79b),
+    content-success-bg: (#f0f8f1, #24382a),
+    content-warning: (#956000, #f2c46c),
+    content-warning-bg: (#fff8e8, #3b3221),
+    content-danger: (#b53737, #ff9c9c),
+    content-danger-bg: (#fff0f0, #3e2628),
+  ));
+}
+
+article.render {
+  [data-content-note] {
+    --content-accent: var(--content-info);
+    --content-note-bg: var(--content-info-bg);
+    margin: 0 0 20px;
+    padding: 14px 18px;
+    border: 1px solid var(--content-border);
+    border-left: 4px solid var(--content-accent);
+    border-radius: 6px;
+    background: var(--content-note-bg);
+    color: var(--text-color);
+
+    @each $type in success, warning, danger {
+      &[data-content-note='#{$type}'] {
+        --content-accent: var(--content-#{$type});
+        --content-note-bg: var(--content-#{$type}-bg);
+      }
+    }
+
+    > :first-child { margin-top: 0; }
+    > :last-child { margin-bottom: 0; }
+  }
+
+  details {
+    margin: 0 0 20px;
+    padding: 0 18px;
+    border: 1px solid var(--content-border);
+    border-radius: 6px;
+    // Keep the native marker and summary's keyboard behavior.
+    > summary {
+      margin: 0 -18px;
+      padding: 9px 18px;
+      background: var(--content-surface);
+      color: var(--h-color);
+      cursor: pointer;
+      overflow-wrap: anywhere;
+      min-height: 44px;
+    }
+    &[open] > summary { margin-bottom: 14px; }
+    > :last-child:not(summary) { margin-bottom: 14px; }
+    > summary:focus-visible { outline: 2px solid var(--theme); outline-offset: 2px; }
+  }
+
+  [data-content-tabs] {
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 20px;
+    > section { min-width: 0; }
+  }
+
+  // No display:none selector for uninitialized author HTML.
+  [data-content-tabs-ready] {
+    border: 1px solid var(--content-border);
+    border-radius: 6px;
+    > .content-tab-list {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--content-border);
+      background: var(--content-surface);
+      > button {
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 44px;
+        padding: 8px 18px;
+        border: 0;
+        border-top: 3px solid transparent;
+        background: transparent;
+        color: var(--text-color);
+        font: inherit;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+        cursor: pointer;
+        &[aria-selected='true'] {
+          border-top-color: var(--theme);
+          background: var(--card-background-color);
+          font-weight: 600;
+        }
+        &:focus-visible { outline: 2px solid var(--theme); outline-offset: -4px; }
+      }
+    }
+    > section {
+      padding: 20px 24px;
+      > :first-child { margin-top: 0; }
+      > :last-child { margin-bottom: 0; }
+      &[hidden] { display: none; }
+      &:focus-visible { outline: 2px solid var(--theme); outline-offset: -4px; }
+    }
+  }
+
+  ol[data-content-timeline] {
+    margin: 0 0 20px 10px;
+    padding: 0 0 0 24px;
+    border-left: 2px solid var(--theme);
+    > li {
+      position: relative;
+      margin: 0 0 20px;
+      padding: 12px 16px;
+      list-style: none;
+      border-radius: 6px;
+      background: var(--content-surface);
+      &::before {
+        content: '';
+        position: absolute;
+        left: -31px;
+        top: 22px;
+        width: 12px;
+        height: 12px;
+        border: 3px solid var(--theme);
+        border-radius: 50%;
+        background: var(--card-background-color);
+      }
+      > :first-child { margin-top: 0; }
+      > :last-child { margin-bottom: 0; }
+      time { font-weight: 600; }
+    }
+  }
+
+  a[data-content-button] {
+    --content-button-color: var(--content-info);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    max-width: 100%;
+    margin: 0 6px 8px 0;
+    padding: 6px 18px;
+    border: 1px solid var(--content-button-color);
+    border-radius: 6px;
+    background: var(--content-surface);
+    color: var(--content-button-color);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    @each $type in success, warning, danger {
+      &[data-content-button='#{$type}'] { --content-button-color: var(--content-#{$type}); }
+    }
+    &::after { content: none; }
+    &:hover { text-decoration: underline; }
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  }
+
+  [data-content-gallery], [data-content-cards] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 16px;
+    margin: 0 0 20px;
+    padding: 0;
+    > figure, > li, > article, > section {
+      min-width: 0;
+      margin: 0;
+      list-style: none;
+      border: 1px solid var(--content-border);
+      border-radius: 8px;
+      padding: 12px;
+      > :first-child { margin-top: 0; }
+      > :last-child { margin-bottom: 0; }
+    }
+    figure > img, figure > a, .theme-lightbox-trigger { display: block; }
+    img { display: block; width: 100%; height: auto; margin: 0; }
+    figcaption { padding-top: 8px; overflow-wrap: anywhere; }
+  }
+
+  // Card descriptions stay visible for keyboard, touch and other themes.
+  [data-content-gallery='cards'] > figure img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  @media (max-width: 600px) {
+    [data-content-tabs-ready] > section { padding: 16px; }
+    [data-content-gallery], [data-content-cards] { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    [data-content-tabs-ready] > .content-tab-list { display: none; }
+    [data-content-tabs-ready] > section[hidden] { display: block !important; }
+    [data-content-gallery], [data-content-cards] { display: block; }
+    [data-content-note], details, [data-content-tabs-ready], [data-content-timeline] > li {
+      color: #000;
+      background: #fff;
+      break-inside: avoid;
+    }
+  }
+}

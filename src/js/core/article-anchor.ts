@@ -116,6 +116,8 @@ export function bindArticleAnchors(article: HTMLElement, options: AnchorOptions 
       if (win.location.hash === '#post-comment' && comments && (comments.dataset.commentJumpNavigating === 'true' || comments.getBoundingClientRect().top < win.innerHeight)) return;
       let current: HTMLElement | undefined;
       for (const heading of headings) {
+        // Closed details and inactive content panels must not become the current chapter.
+        if (!heading.getClientRects().length) continue;
         if (heading.getBoundingClientRect().top > offset + 1) break;
         current = heading;
       }

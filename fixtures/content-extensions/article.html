@@ -1,0 +1,59 @@
+<h2 id="content-baseline">标准 Markdown 与 HTML</h2>
+<p>普通段落、<strong>加粗</strong>、<em>强调</em>和 <mark>标记</mark>继续按正常正文显示。</p>
+<blockquote><p>这是普通引用，不会自动变成警告。</p></blockquote>
+<p><a id="jump-local" href="#local-target">跳到本地运行</a> · <a id="jump-nested" href="#nested-target">跳到嵌套分组</a> · <a id="jump-answer" href="#answer-target">跳到答案</a></p>
+<h2 id="content-notes">提示块</h2>
+<blockquote data-content-note="info"><p><strong>提示：</strong>这是标准 HTML，可以在其他主题中作为引用阅读。</p></blockquote>
+<blockquote data-content-note="warning"><p><strong>注意：</strong>标题和正文都实际保存在文章中，不依赖图标表达含义。</p></blockquote>
+<aside data-content-note="success"><p><strong>成功：</strong>保留原始文字与链接。</p></aside>
+<aside data-content-note="danger"><p><strong>风险：</strong>颜色只是辅助，文字仍然完整。</p></aside>
+<h2 id="content-details">折叠与查看答案</h2>
+<details id="native-details"><summary>查看操作步骤</summary><ol><li>创建文章并填写标题。</li><li>保存并打开预览。</li></ol></details>
+<details id="answer-details"><summary>查看答案</summary><p id="answer-target">答案：用原生 HTML 保留内容，用主题增强外观。</p></details>
+<h2 id="content-tabs">标签页</h2>
+<div id="deploy-tabs" data-content-tabs aria-label="部署方式">
+  <section id="docker-panel">
+    <h3 id="docker-title">Docker 部署</h3>
+    <p id="docker-text">使用容器启动服务，适合服务器。</p>
+    <ol><li>准备配置文件。</li><li>启动容器。</li></ol>
+    <a href="#content-notes">阅读提示</a>
+  </section>
+  <section id="local-panel">
+    <h3 id="local-title">本地运行</h3>
+    <p id="local-target">直接启动程序，适合开发调试。</p>
+    <div id="nested-tabs" data-content-tabs="2" aria-label="本地系统">
+      <section><h4>macOS</h4><p id="nested-target">macOS 的内容仍是实际正文。</p></section>
+      <section><h4>Linux</h4><p>Linux 的内容仍是实际正文。</p></section>
+    </div>
+  </section>
+</div>
+<div id="long-tabs" data-content-tabs aria-label="长标题分组">
+  <section><h3>很长的中文标题与 LongUnbrokenLabel0123456789012345678901234567890123456789</h3><p>长标题不会撑破手机正文。</p></section>
+  <section><h3><em>带格式的标题</em> &amp; 特殊字符</h3><p>按钮标题按纯文本生成，原始标题格式保留。</p></section>
+</div>
+<h2 id="content-timeline">时间线</h2>
+<ol data-content-timeline>
+  <li><time datetime="2026-10-10">10 月 10 日</time><h3>准备</h3><p>整理正文扩展需求。</p></li>
+  <li><time datetime="2026-10-13">10 月 13 日</time><h3>实现</h3><p>采用可读 HTML 与渐进增强。</p></li>
+</ol>
+<h2 id="content-buttons">正文链接按钮</h2>
+<p><a data-content-button href="#content-tabs">阅读分组</a> <a data-content-button="success" href="#content-gallery">查看图片</a> <a data-content-button="warning" href="#content-cards">查看系列</a></p>
+<h2 id="content-gallery">图库</h2>
+<div id="photo-gallery" data-content-gallery>
+  <figure><a href="/lab/cover-turquoise-coast.webp"><img src="/lab/cover-turquoise-coast.webp" alt="海岸" width="1200" height="675"></a><figcaption>海岸旅行：沿着海边散步。</figcaption></figure>
+  <figure><a href="/lab/cover-misty-forest.webp"><img src="/lab/cover-misty-forest.webp" alt="森林" width="1200" height="675"></a><figcaption>森林记忆：山间的清晨。</figcaption></figure>
+</div>
+<div id="group-gallery" data-content-gallery="cards">
+  <figure><a href="#content-timeline"><img src="/lab/cover-turquoise-coast.webp" alt="海岸旅行封面" width="1200" height="675"></a><figcaption><a href="#content-timeline">海岸旅行</a><p>分组卡片的描述始终可见。</p></figcaption></figure>
+  <figure><a href="#content-notes"><img src="/lab/cover-misty-forest.webp" alt="森林记忆封面" width="1200" height="675"></a><figcaption><a href="#content-notes">森林记忆</a><p>图片链接在其他主题中仍然可用。</p></figcaption></figure>
+</div>
+<h2 id="content-cards">系列与友链卡片</h2>
+<ul data-content-cards>
+  <li><h3><a href="#content-tabs">第一篇：部署</a></h3><p>这是普通列表里的真实链接与说明。</p></li>
+  <li><h3><a href="#content-gallery">第二篇：图片</a></h3><p>换主题后仍能顺序阅读。</p></li>
+</ul>
+<h2 id="content-invalid">不完整分组保持可读</h2>
+<div id="invalid-tabs" data-content-tabs><section><h3>仅有一组</h3><p>不生成无意义的标签页。</p></section></div>
+<div id="missing-heading" data-content-tabs><section><h3>有标题</h3><p>保留内容。</p></section><section><p>没有标题，整个分组不增强。</p></section></div>
+<div id="stray-content" data-content-tabs>容器内的额外正文不会被隐藏。<section><h3>一</h3><p>内容一。</p></section><section><h3>二</h3><p>内容二。</p></section></div>
+<pre><code>&lt;div data-content-tabs&gt;代码示例不是实际组件。&lt;/div&gt;</code></pre>
