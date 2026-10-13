@@ -88,11 +88,14 @@ export function initializeLazyComments(root: Document = document, options: Optio
     observer?.disconnect();
     region.removeEventListener(LOAD_EVENT, trigger);
     retry.removeEventListener('click', trigger);
+    // Disconnect the official Lit component before page replacement, so its
+    // reactive controllers and observers release the old subject/editor.
+    host.replaceChildren();
     delete target.dataset.commentLazyBound;
   });
   display(state, state === 'mounted' ? '' : t('ui.commentHint'));
   if (state === 'mounted') return;
-  if (win.location.hash === '#post-comment' || !('IntersectionObserver' in win)) trigger();
+  if (target.dataset.commentEager === 'true' || win.location.hash === '#post-comment' || !('IntersectionObserver' in win)) trigger();
   else {
     observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) trigger();

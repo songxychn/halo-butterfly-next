@@ -27,8 +27,9 @@ const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
   if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;
-  if (doc.querySelector('#Butterfly.plugin, halo-comment, [data-no-pjax]')) return false;
-  if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block')) return false;
+  if (doc.querySelector('halo-comment, [data-no-pjax]')) return false;
+  if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
+    !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host]')))) return false;
   return [...doc.scripts].every(script => inert(script) || scriptKinds.has(script.dataset.themeScript || ''));
 }
 
