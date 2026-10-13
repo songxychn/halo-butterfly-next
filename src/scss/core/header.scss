@@ -131,7 +131,8 @@
       }
 
       @media (max-width: 767px) {
-        animation-duration: .2s;
+        // Render mobile heading text at first paint; opacity/scale entry delays LCP.
+        animation: none;
       }
     }
 

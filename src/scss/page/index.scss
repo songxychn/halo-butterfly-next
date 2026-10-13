@@ -31,7 +31,8 @@
 
       @include util.useResponsive(util.$w-md) {
         font-size: 1.15em;
-        animation-duration: .2s;
+        // Keep mobile title and subtitle readable together at first paint.
+        animation: none;
       }
     }
 
