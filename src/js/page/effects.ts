@@ -2,9 +2,12 @@
 import {enabled, cssValue} from '../core/appearance.ts';
 type Options = Record<string, unknown>;
 declare global { interface Window { ThemeEffects?: (config: Record<string, unknown>) => () => void } }
-// Reuse document media queries across page factories; listeners remain page scoped.
+// A document singleton forwards media changes only to the active page instance.
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const mobile = matchMedia('(max-width: 768px)');
+let refresh: (() => void) | undefined;
+reduced.addEventListener('change', () => refresh?.());
+mobile.addEventListener('change', () => refresh?.());
 window.ThemeEffects = function initializeEffects(config) {
 const active = (name: string) => {
   const value = config[name] as Options | undefined;
@@ -105,10 +108,10 @@ function start() {
   }) as EventListener);
 }
 function stop() { cancelAnimationFrame(frame);frame=0;for(const timer of timers)clearTimeout(timer);timers.clear();for(const dispose of instances.splice(0))dispose(); }
-reduced.addEventListener('change',start);mobile.addEventListener('change',start);
+refresh = start;
 window.addEventListener('pagehide',stop);window.addEventListener('pageshow',start);start();
 return () => {
-  stop(); reduced.removeEventListener('change',start);mobile.removeEventListener('change',start);
+  stop(); if (refresh === start) refresh = undefined;
   window.removeEventListener('pagehide',stop);window.removeEventListener('pageshow',start);
 };
 };
