@@ -33,6 +33,13 @@ test('性能引擎冻结 Lighthouse、Chrome 可执行文件和应用树摘要',
  assert.match(PIN.chrome.treeSha256,/^[a-f0-9]{64}$/);
  assert.notEqual(PIN.chrome.executableSha256,PIN.chrome.treeSha256);
 });
+test('固定中文locale与Lighthouse解析值一致，真实locale漂移仍拒绝',()=>{
+ assert.equal(settings('mobile').locale,'zh');
+ for(const device of ['mobile','desktop']){
+  const value=lhr(device);assert.doesNotThrow(()=>validateLhr(value,{url:value.requestedUrl,device}));
+  for(const locale of ['zh-CN','en','ja']){value.configSettings.locale=locale;assert.throws(()=>validateLhr(value,{url:value.requestedUrl,device}),/Wrong Lighthouse setting: locale/);}
+ }
+});
 test('PERF预算使用5次中位数及百分比和绝对增量双条件，包括零基线',()=>{
  assert.equal(median([1000,10,20,30,40]),30);assert.throws(()=>median([1,2,3,4]));assert.throws(()=>median([1,2,3,4,NaN]));
  assert.equal(regressed(0,100,.1,100),false);assert.equal(regressed(0,100.01,.1,100),true);assert.equal(regressed(2000,2101,.1,100),false);assert.equal(regressed(1000,1101,.1,100),true);assert.equal(regressed(100000,120480,.1,20480),false);assert.equal(regressed(100000,120481,.1,20480),true);

@@ -13,7 +13,7 @@ bun scripts/perf/longform.mjs --check
 
 `--chrome-app`是调用者提供的实际缓存位置；仓库未写入某人的绝对路径作为默认依赖。工具和依赖安装在本worktree `.runtime/performance`，运行目录有独立所有权标记，依赖不进入主题ZIP。Chrome应用更新、锁文件变更或硬件/系统变化后，应重新安装并重测基线和候选两侧。
 
-实际配置继承固定版本Lighthouse默认值并导出完整解析设置。手机：390×844、DPR1、`formFactor=mobile`、模拟RTT150ms/1638.4Kbps/CPU4；桌面：1440×1000、DPR1、desktop、40ms/10240Kbps/CPU1；两者均`throttlingMethod=simulate`。`emulatedUserAgent`按两种模式固定，locale为zh-CN。审计固定选择 performance 加 errors-in-console；页面脚本异常或控制台错误即拒绝样本，不因LCP较快而通过。配置中的`rttMs`和`throughputKbps`属于模拟参数，不能换成DevTools请求限速字段。
+实际配置继承固定版本Lighthouse默认值并导出完整解析设置。手机：390×844、DPR1、`formFactor=mobile`、模拟RTT150ms/1638.4Kbps/CPU4；桌面：1440×1000、DPR1、desktop、40ms/10240Kbps/CPU1；两者均`throttlingMethod=simulate`。`emulatedUserAgent`按两种模式固定，locale为`zh`（固定Lighthouse13.4.1将`zh-CN`规范为`zh`，因此直接请求支持值，原始LHR仍严格匹配）。审计固定选择 performance 加 errors-in-console；页面脚本异常或控制台错误即拒绝样本，不因LCP较快而通过。配置中的`rttMs`和`throughputKbps`属于模拟参数，不能换成DevTools请求限速字段。
 
 来源：[Lighthouse13.4.1](https://github.com/GoogleChrome/lighthouse/releases/tag/v13.4.1)、[配置类型](https://github.com/GoogleChrome/lighthouse/blob/v13.4.1/types/lhr/settings.d.ts)、[网络记录字段](https://github.com/GoogleChrome/lighthouse/blob/v13.4.1/core/audits/network-requests.js)、[原始trace保存](https://github.com/GoogleChrome/lighthouse/blob/v13.4.1/core/lib/asset-saver.js)。
 
