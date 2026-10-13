@@ -12,11 +12,15 @@
 | 同候选 / [社交页脚友链](confirmed-site-content-integration.json) | 29项通过；位置、亮暗色、净化HTML、相对URL、原生/远端组、坏图、错误重试和无脚本回退。 |
 | 同候选 / [跨功能导航首次失败](confirmed-navigation-initial-failure.json) | 第一条跨语言导航等待超时；保留失败。随后独立探针保持window身份，完成URL/locale/消息切换；单次探针不关闭该批验收，后续组合需带完整请求诊断。 |
 
+| `8acdbe1` / [安全集成首次运行](confirmed-security-initial-failure.json) | Chromium 7/7、Firefox首页通过；Firefox文章页等待 networkidle 30s 超时，第9项失败；全部设置/资源已恢复。原脚本缺请求ledger，不能据此归因主题或平台，后续增加诊断后在新候选复验。 |
+
 ## 编辑器与独立分支证据
 
 [真实编辑器](content-editor.md)确认官方HTML块在三引擎保存重开完整17个增强属性与正文结构；普通富文本粘贴不能保留增强属性。该结论来自编辑器自身版本，与主题前台候选证明分开。
 
 [D06](author-listing-options.md)141项、[D05](i18n-completion.md)、[D02核心](pjax-completion.md)、[D03背景](backgrounds.md)、[D08](resource-hints.md)均保留各自精确版本、包哈希和范围，不把分支运行冒充最终全部代码验收。
+
+[核心组合验收](core-acceptance.md)保留119/120页面矩阵整体失败（Firefox一张图片请求pending）、TOC对比度修复后axe40页0 violations但存在人工判断项、性能行为30项通过以及两条未构成完整合同的Lighthouse诊断。
 
 ## 仍保留的门禁
 
