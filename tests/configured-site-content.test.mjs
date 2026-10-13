@@ -5,6 +5,7 @@ const origin='https://blog.test';
 test('configured URLs retain native public/contact links but reject unsafe schemes and credentials',()=>{
  for(const s of ['javascript:alert(1)','data:text/html,hi','https://u:p@blog.test/a','file:///etc/passwd'])assert.equal(siteLink(s,origin),null);
  assert.equal(siteLink('/about',origin),origin+'/about');assert.equal(siteLink('#footer',origin),origin+'/#footer');assert.equal(siteLink('mailto:a@example.com',origin),'mailto:a@example.com');assert.equal(siteLink('mailto:a@example.com',origin,false),null);
+ const page='https://blog.test/archives/post/';assert.equal(siteLink('#chapter',page),page+'#chapter');assert.equal(siteLink('image.png',page),page+'image.png');assert.equal(siteLink('../other',page),'https://blog.test/archives/other');
 });
 test('color inputs cannot escape their CSS property and width weight is bounded',()=>{
  const accepts=()=>true;

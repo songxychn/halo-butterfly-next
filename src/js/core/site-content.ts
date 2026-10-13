@@ -35,7 +35,7 @@ export function sanitizeSiteHtml(value: string, doc: Document) {
   });
   for (const node of fragment.querySelectorAll<HTMLAnchorElement | HTMLImageElement>('a[href],img[src]')) {
     const attr = node.tagName === 'A' ? 'href' : 'src';
-    const url = siteLink(node.getAttribute(attr), doc.location.origin, attr === 'href');
+    const url = siteLink(node.getAttribute(attr), doc.baseURI, attr === 'href');
     if (url) node.setAttribute(attr, url); else node.removeAttribute(attr);
     if (node.tagName === 'A') node.setAttribute('rel', 'noopener noreferrer');
     else (node as HTMLImageElement).loading = 'lazy';
@@ -44,7 +44,7 @@ export function sanitizeSiteHtml(value: string, doc: Document) {
 }
 export function initializeSiteContent(root: Document = document) {
   for (const link of root.querySelectorAll<HTMLAnchorElement>('[data-site-link]')) {
-    const url = siteLink(link.getAttribute('href'), root.location.origin);
+    const url = siteLink(link.getAttribute('href'), root.baseURI);
     if (url) link.href = url; else link.removeAttribute('href');
   }
   for (const icon of root.querySelectorAll<HTMLElement>('[data-social-icon]')) {
