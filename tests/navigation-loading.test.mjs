@@ -22,6 +22,12 @@ test('unsaved editor beforeunload veto retains native leave-page confirmation', 
   assert.equal(allowsPartialPageExit(target),false);
   target.removeEventListener('beforeunload',veto);
   assert.equal(allowsPartialPageExit(target),true);
+  const legacy = event => { event.returnValue = 'Unsaved draft'; };
+  target.addEventListener('beforeunload',legacy);
+  assert.equal(allowsPartialPageExit(target),false);
+  target.removeEventListener('beforeunload',legacy);
+  target.onbeforeunload = () => 'Unsaved draft';
+  assert.equal(allowsPartialPageExit(target),false);
 });
 test('legacy image configuration stays native/site/unblurred; explicit false and post scope work', () => {
   assert.deepEqual(imageLoadingOptions({}),{enabled:true,native:true,field:'site',blur:false});

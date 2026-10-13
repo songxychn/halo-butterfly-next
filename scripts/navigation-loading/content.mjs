@@ -23,10 +23,11 @@ try{
    const context=await browser.newContext({viewport:{width,height:1000},locale:'zh-CN',timezoneId:'Asia/Shanghai'});
    await context.addInitScript(mode=>localStorage.setItem('halo-butterfly-next.color-scheme',mode),mode);
    await context.route('**/*',route=>new URL(route.request().url()).origin===base?route.continue():route.abort('blockedbyclient'));
-   const page=await context.newPage(),errors=[],views=[];
+   const page=await context.newPage(),errors=[],views=[],counterStatuses=[];
    page.on('pageerror',e=>errors.push(e.message));
    page.on('console',m=>{if(process.env.DEBUG_NAV)console.log(engine,width,m.text());});
    page.on('request',r=>{if(r.method()==='POST'&&r.url().endsWith('/apis/api.halo.run/v1alpha1/trackers/counter'))views.push(r.postDataJSON());});
+   page.on('response',r=>{if(r.request().method()==='POST'&&r.url().endsWith('/apis/api.halo.run/v1alpha1/trackers/counter'))counterStatuses.push(r.status());});
    const navigate=async route=>{
     if(process.env.DEBUG_NAV)console.log('before',route,await page.evaluate(()=>({scripts:[...document.scripts].map(s=>({type:s.type,kind:s.dataset.themeScript,src:s.src,inline:s.src?'':s.textContent.slice(0,120)})),custom:[...document.querySelectorAll('*')].filter(n=>n.localName.includes('-')).map(n=>[n.localName,!!n.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host]')]),blocked:document.querySelector('base,iframe,object,embed,halo-comment,[data-no-pjax]')?.outerHTML})));
     await page.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove();},route);
@@ -57,9 +58,30 @@ try{
    assert.equal(views.at(-1).name,'preview-1');assert.equal(views.length,9);
    await page.goForward();await page.waitForFunction(()=>location.pathname==='/archives/'&&!document.documentElement.classList.contains('theme-navigating'));
    assert.equal(views.length,9);
+   for(let i=0;i<2;i++){
+    await navigate('/archives/pjax-rich-content/');
+    await page.waitForFunction(()=>document.querySelectorAll('[data-render-state="rendered"]').length===3,{},{timeout:30000});
+    await page.waitForFunction(()=>document.querySelector('.gallery-container')?.classList.contains('loaded'));
+    assert.equal(await page.locator('.theme-render-output canvas').count(),1);
+    assert(await page.locator('.theme-render-output svg').count()>=2);
+    await page.evaluate(()=>window.oldRenderer=document.querySelector('.theme-render-output'));
+    await navigate('/archives/');
+    assert.equal(await page.evaluate(()=>window.oldRenderer.isConnected),false);
+   }
+   await navigate('/archives/preview-1/');
+   const editor=page.locator('comment-widget [contenteditable="true"]').first();
+   await editor.click();await editor.fill('Unsubmitted PJAX fixture draft');
+   const dialogPromise=page.waitForEvent('dialog');
+   await page.evaluate(()=>{const a=document.createElement('a');a.href='/archives/';document.body.append(a);a.click();a.remove();});
+   const dialog=await dialogPromise;assert.equal(dialog.type(),'beforeunload');await dialog.dismiss();
+   assert.equal(new URL(page.url()).pathname,'/archives/preview-1/');
+   assert.equal(await page.evaluate(()=>window.contentNavigationSentinel),'persistent');
+   assert.match(await editor.innerText(),/Unsubmitted PJAX fixture draft/);
+   await editor.fill('');await navigate('/archives/');
+   assert.equal(counterStatuses.length,views.length);assert(counterStatuses.every(status=>status===200));
    await page.screenshot({path:path.join(output,`content-${engine}-${width}-${mode}.png`)});
    assert.deepEqual(errors,[]);
-   report.results.push({engine,width,mode,cycles:2,visits:views.length,identities:views.map(v=>[v.plural,v.name]),result:'passed'});await save();
+   report.results.push({engine,width,mode,cycles:2,rendererCycles:2,draftExitProtection:true,counterStatuses,visits:views.length,identities:views.map(v=>[v.plural,v.name]),result:'passed'});await save();
    await context.close();console.log('PASS',engine,width,mode);
   }
   await browser.close();browser=null;

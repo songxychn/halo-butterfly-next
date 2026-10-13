@@ -55,7 +55,15 @@ function linkFor(event: Event) {
  * to the browser, which runs the trusted beforeunload and owns confirmation.
  */
 export function allowsPartialPageExit(target: EventTarget = window) {
-  return target.dispatchEvent(new Event('beforeunload', { cancelable: true }));
+  // Property handlers can request confirmation by returning a string; only the
+  // browser's native BeforeUnloadEvent applies that legacy return convention.
+  if ('onbeforeunload' in target && target.onbeforeunload != null) return false;
+  const event = new Event('beforeunload', { cancelable: true });
+  let returnValue = '';
+  Object.defineProperty(event, 'returnValue', {
+    get: () => returnValue, set: value => { returnValue = String(value); },
+  });
+  return target.dispatchEvent(event) && returnValue === '';
 }
 function scriptCopy(old: HTMLScriptElement) {
   const script = document.createElement('script');
