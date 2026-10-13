@@ -79,13 +79,23 @@ try{
    assert.equal(new URL(page.url()).pathname,'/archives/preview-1/');
    assert.equal(await page.evaluate(()=>window.contentNavigationSentinel),'persistent');
    assert.match(await editor.innerText(),/Unsubmitted PJAX fixture draft/);
+   const beforeBackViews=views.length;
+   const backDialogPromise=page.waitForEvent('dialog');
+   await page.evaluate(()=>history.back());
+   const backDialog=await backDialogPromise;assert.equal(backDialog.type(),'beforeunload');await backDialog.dismiss();
+   await page.waitForFunction(()=>location.pathname==='/archives/preview-1/');
+   assert.equal(await page.evaluate(()=>window.contentNavigationSentinel),'persistent');
+   assert.equal(await page.locator('comment-widget').evaluate(w=>w.name),'preview-1');
+   assert.match(await editor.innerText(),/Unsubmitted PJAX fixture draft/);
+   assert.equal(views.length,beforeBackViews);
    await editor.press('ControlOrMeta+A');await editor.press('Backspace');
    await page.waitForFunction(()=>!Object.keys(localStorage).some(key=>(localStorage.getItem(key)||'').includes('Unsubmitted PJAX fixture draft')));
-   await navigate('/archives/');
+   await page.goBack();await page.waitForFunction(()=>location.pathname==='/archives/'&&!document.documentElement.classList.contains('theme-navigating'));
+   assert.equal(await page.evaluate(()=>window.contentNavigationSentinel),'persistent');
    assert.equal(counterStatuses.length,views.length);assert(counterStatuses.every(status=>status===200));
    await page.screenshot({path:path.join(output,`content-${engine}-${width}-${mode}.png`)});
    assert.deepEqual(errors,[]);
-   report.results.push({engine,width,mode,cycles:2,rendererCycles:2,draftExitProtection:'native-dialog-dismissed',counterStatuses,visits:views.length,identities:views.map(v=>[v.plural,v.name]),result:'passed'});await save();
+   report.results.push({engine,width,mode,cycles:2,rendererCycles:2,draftExitProtection:'link-and-history-dialog-dismissed',counterStatuses,visits:views.length,identities:views.map(v=>[v.plural,v.name]),result:'passed'});await save();
    await context.close();console.log('PASS',engine,width,mode);
   }
   await browser.close();browser=null;
