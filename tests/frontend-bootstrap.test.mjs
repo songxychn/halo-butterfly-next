@@ -60,3 +60,10 @@ test('all maintained browser modules are TypeScript', async () => {
     assert.deepEqual(files.filter(file => /\.(m?js|cjs)$/.test(file)), [], directory);
   }
 });
+
+// Inline JavaScript is still parsed by Thymeleaf before reaching the browser.
+test('minified startup never introduces a Thymeleaf inline-expression opener', async () => {
+  const result = await Bun.build({entrypoints: [new URL('../src/js/bootstrap.ts', import.meta.url).pathname], target: 'browser', format: 'iife', minify: true});
+  assert.equal(result.success, true);
+  assert.equal((await result.outputs[0].text()).includes('[['), false);
+});
