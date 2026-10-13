@@ -17,7 +17,11 @@ export function safeInlineData(html) {
       // object literal would treat them as prototype setters before normalization.
       let json = `scriptJsonMapper.writeValueAsString(scriptJsonMapper.writeValueAsString((${value})))`;
       for (const [character, escaped] of [['<', '\\u003C'], ['>', '\\u003E'], ['\u2028', '\\u2028'], ['\u2029', '\\u2029']]) {
-        json = `#strings.replace(${json}, '${character}', '${escaped}')`;
+        // Thymeleaf unescapes JavaScript template expressions before SpEL evaluation.
+        // Obtain a backslash from platform JSON at runtime instead of spelling a
+        // Unicode escape in the template, which would decode before replacement.
+        const replacement = `#strings.concat(#strings.substring(scriptJsonMapper.writeValueAsString('"'), 1, 2), '${escaped.slice(1)}')`;
+        json = `#strings.replace(${json}, '${character}', ${replacement})`;
       }
       return "/*[(${'JSON.parse(' + " + json + " + ')'})]*/";
     });

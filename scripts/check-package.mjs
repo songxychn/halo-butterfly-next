@@ -94,7 +94,7 @@ const publicLayout = await zip.file('templates/layout.html').async('string');
 if (!/th:fragment="html\s*\(\s*head\s*,\s*content\s*\)"/.test(publicLayout)) throw new Error('公共布局必须提供 html(head, content) 契约');
 if (!publicLayout.includes('#theme.assets')) throw new Error('公共布局资源必须由当前主题解析');
 const protectedConfig = await zip.file('templates/views/config.html').async('string');
-if (!protectedConfig.includes('scriptJsonMapper.writeValueAsString') || !protectedConfig.includes('\\u003C')) throw new Error('安全 Thymeleaf 内联数据包装丢失');
+if (!protectedConfig.includes('scriptJsonMapper.writeValueAsString') || !protectedConfig.includes("'u003C'")) throw new Error('安全 Thymeleaf 内联数据包装丢失');
 for (const file of Object.values(zip.files).filter(file => !file.dir && file.name.endsWith('.html'))) {
   const html = await file.async('string');
   for (const [script] of html.matchAll(/<script\b(?:"[^"]*"|'[^']*'|[^'">])*?>[\s\S]*?<\/script\s*>/gi)) {

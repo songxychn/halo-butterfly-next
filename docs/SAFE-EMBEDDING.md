@@ -10,7 +10,7 @@
 2. 对**已编码的字符串封装**将 `<`、`>`、U+2028、U+2029 替换为 JSON Unicode 转义。
 3. 输出 `JSON.parse(封装字符串)`，由 JSON 解析恢复数据；不使用 eval，不先对原值转义，保留对象、数组、布尔、null、数字、原始反斜杠与 Unicode。字符串封装也确保合法 JSON 的自有 `__proto__` 键不会被 JavaScript 对象字面量误当作原型设置。
 
-仅转义 `</script>` 中的斜杠还不够：`<!--<script>` 可以使 HTML tokenizer 进入 double-escaped 状态，吞掉真实 script 结束标签及后续页面。必须防止编码结果出现字面 `<`。本次使用 Halo 已有 JSON mapper，没有另写 JSON 序列化器。
+仅转义 `</script>` 中的斜杠还不够：`<!--<script>` 可以使 HTML tokenizer 进入 double-escaped 状态，吞掉真实 script 结束标签及后续页面。必须防止编码结果出现字面 `<`。本次使用 Halo 已有 JSON mapper，没有另写 JSON 序列化器。Thymeleaf 会在 SpEL 求值之前解码 JavaScript 模板表达式中的 Unicode 转义，因此不能把反斜杠加 `u003C` 直接写成替换串。实现从平台编码的双引号字符串中在运行时取得反斜杠，再拼转义码；验收同时检查原始 HTTP 响应及单独未闭合 `<!--<script>` 输入。
 
 构建器拒绝未包自然模板注释的 `[[...]]` / `[(...)]`、原始未受保护的内联数据和保留变量名 `scriptJsonMapper` 冲突。带参数的消息须使用显式 `${#messages.msg(...)}` 表达式。安装包检查逐个检查 JavaScript 内联 script 均经过保护，不能跳过构建而手写 `templates/`。
 
