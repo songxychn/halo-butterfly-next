@@ -1,5 +1,9 @@
 # 持续对齐进度
 
+## 2026-10-13：正文图库与相册分组
+
+遵循 DEC-02 为文章/单页接入 gallery/galleryGroup 等效 HTML，布局引擎按需加载，支持本地/远端 JSON、等高行混排、首批/每批数量、按钮和滚动加载、独立灯箱分组、空数据/坏图/数据重试及切页清理；图库专用离线转换不解析其他正文标签。旧配置缺字段时继续使用随包资源，新增 CDN.option.gallery。见[使用说明](ARTICLE-GALLERY.md)与[限定验证](validation/2026-10-13/article-gallery.md)。四条缺口转为 implemented-unverified，0 条 verified；Photos 插件组合、固定双站和完整 1.0 验收保留。首次公开创建因缺少明确授权被自动审批拒绝后，维护者于 2026-10-13 明确授权推送并公开，现由 [#404](https://github.com/songxychn/halo-butterfly-next/issues/404) 与[草稿 PR #405](https://github.com/songxychn/halo-butterfly-next/pull/405) 跟踪，提交和验证材料已推送；未发行主题或部署线上。
+
 ## 2026-10-13：侧栏、图片与外观配置
 
 后续普通合并 master `2105dc3`，产品提交 `1b4df00` 保留导航加载与本批外观配置，统一懒加载和坏图回退；617 项工程测试、146 文件安装比对、84 项外观复验及 20 项图片/局部导航交叉复验通过，配置恢复。见[当前合并证据](validation/2026-10-13/appearance.md)。
