@@ -1,3 +1,4 @@
+import { supportsAnalyticsNavigation } from './analytics-navigation.ts';
 import { beginPage, disposePage, onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
 import { beginPaceNavigation } from './pace.ts';
@@ -22,10 +23,11 @@ export function navigationURL(href: string, current: string, exclude: unknown = 
   } catch { return null; }
 }
 
-const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'body-renderer-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'gallery', 'body-renderer', 'effects', 'sharejs', 'busuanzi-request', 'pace', 'pace-bootstrap']);
+const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'body-renderer-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'gallery', 'body-renderer', 'effects', 'sharejs', 'analytics', 'analytics-sdk', 'busuanzi-request', 'pace', 'pace-bootstrap']);
 const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
+  if (!supportsAnalyticsNavigation(doc)) return false;
   if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;
   if (doc.querySelector('halo-comment, [data-no-pjax]')) return false;
   if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
@@ -233,6 +235,10 @@ export function initializeNavigationLoading() {
   const state: NavigatorState = { installed: true, url: location.href, busy: false, canNavigate, index: Number.isSafeInteger(initial?.index) ? initial!.index! : 0 };
   history.replaceState({ ...historyData(), [stateKey]: { index: state.index, x: scrollX, y: scrollY } }, '', location.href);
   window[key] = state;
+  document.addEventListener('halo-butterfly-next:analytics-ready', () => {
+    state.canNavigate = enabled(window.MainApp.conf.pjax_enable) && supportsPartialNavigation(document);
+    history.scrollRestoration = state.canNavigate ? 'manual' : 'auto';
+  });
   // Keep these two document-level handlers for the document lifetime, not one page.
   document.addEventListener('click', event => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;

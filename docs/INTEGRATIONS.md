@@ -6,7 +6,16 @@
 
 “分析统计”组提供百度统计 ID、GA4 `G-…`、Cloudflare Web Analytics 公开 token、Clarity 项目 ID、GTM `GTM-…` 容器 ID 和 Umami。多个分析服务可以并存；与 Halo 全局注入或其他插件重复配置同一追踪脚本会重复统计，应只在一个入口配置。
 
-Umami 支持 Cloud 或自托管服务、脚本名、网站 UUID 和 JSON 追踪选项。允许 `data-host-url`、`data-domains`、`data-tag`、`data-do-not-track`、`data-exclude-search`、`data-exclude-hash`；网站 ID 由配置固定，主题设 `data-auto-track=false` 并在 SDK 到达后记录当前页面一次。第三方 SDK 尚无统一的无刷新销毁协议，启用分析、聊天或 AdSense 的页面使用完整导航，与 [PJAX 兼容边界](NAVIGATION-LOADING.md)一致；默认关闭的页面保留 PJAX 能力。
+Umami 支持 Cloud 或自托管服务、脚本名、网站 UUID 和 JSON 追踪选项。允许 `data-host-url`、`data-domains`、`data-tag`、`data-do-not-track`、`data-exclude-search`、`data-exclude-hash`；网站 ID 由配置固定，主题设 `data-auto-track=false` 并在 SDK 到达后记录当前页面一次。第三方 SDK 尚无统一的无刷新销毁协议，除下述 GA4 显式手动模式外，启用分析、聊天或 AdSense 的页面使用完整导航，与 [PJAX 兼容边界](NAVIGATION-LOADING.md)一致；默认关闭的页面保留 PJAX 能力。
+
+### GA4 手动浏览事件与 PJAX
+
+`analytics.google_analytics_manual_pageviews` 默认 `false`，旧配置保持完整导航。启用前，在 GA4 数据流增强型衡量中关闭“基于浏览器历史事件的网页更改”。`send_page_view: false` 只能关闭 config 的首屏自动事件，不能关闭后台增强型历史事件；未完成后台设置会重复计数。参见 [GA4 官方手工 pageview 协议](https://developers.google.com/analytics/devguides/collection/ga4/views)。
+
+该模式只接受独立 GA4、官方 SDK 地址且无其他分析、聊天或 AdSense 的配置。主题一次加载 SDK、一次 config，在首次加载完成和每次 PJAX 成功提交后上报明确的 URL、标题与上一已提交页面 referrer。浏览器返回后取消草稿离开提示不产生主题 pageview。SDK 加载中、失败或目标服务 ID 变化时继续完整导航；普通页面加载也遵循同一手工事件协议。服务账户的 DebugView、增强型衡量实际配置与数据接收仍须验收，合成 SDK 只能证明主题事件生命周期。
+
+Cloudflare 官方 SDK 自动监听 History/Navigation/Soft Navigation，没有已公布的逐页手动事件接口；返回草稿时可能先观察临时 URL，故本主题不在 PJAX 中放行该入口。参见 [Cloudflare SPA 文档](https://developers.cloudflare.com/web-analytics/get-started/web-analytics-spa/)。
+
 
 PV/UV 使用可选的**公开只读统计接口**，由站点自己的插件或后台提供：
 

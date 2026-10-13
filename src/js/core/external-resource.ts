@@ -44,8 +44,9 @@ export function isThemeScriptSource(source: string, file: string, key: string, l
     const selected = resolveResource(key, local, config, version, file);
     try { return [local, selected].some(value => new URL(value, base).href === new URL(source, base).href); } catch { return false; }
   }
-  if (!['main', 'masonry', 'loading', 'charts'].includes(key) ||
+  if (!['main', 'masonry', 'loading', 'charts', 'integrations'].includes(key) ||
       !/^(?:js\/[a-z0-9_-]+\.min\.js|plugins\/loading\/[a-z0-9_-]+\.min\.js)$/.test(file)) return false;
+  if (key === 'integrations' && file !== 'js/integrations.min.js') return false;
   if (key === 'charts' && file !== 'js/charts.min.js') return false;
   if (key === 'loading' ? !file.startsWith('plugins/loading/') : !file.startsWith('js/')) return false;
   const local = localRoot + file + (config?.version === false || config?.version === 'false' ? '' : '?v=' + version);

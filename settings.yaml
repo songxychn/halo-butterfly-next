@@ -3315,6 +3315,11 @@ spec:
         label: Google Analytics 4 测量 ID
         value: ''
         help: G- 开头的测量 ID；留空关闭。
+      - $formkit: checkbox
+        name: google_analytics_manual_pageviews
+        label: 已关闭 GA4 自动历史浏览统计，交由主题逐页上报
+        value: false
+        help: 先在 GA4 数据流增强型衡量中关闭基于浏览器历史事件的网页更改；否则重复计数。仅单独启用 GA4、无聊天或广告服务且使用官方脚本时支持 PJAX。默认保留原完整导航行为。
       - $formkit: text
         name: cloudflare_analytics
         label: Cloudflare Web Analytics token
