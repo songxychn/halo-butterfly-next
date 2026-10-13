@@ -1,6 +1,6 @@
 # 社交、页脚和友链 D07 限定验收（2026-10-14）
 
-实现提交 `3e5630d57c28d15db79ab2e56f51c0bada6f46ed`。输入契约见[使用说明](../../SOCIAL-FOOTER-LINKS.md)，[机器证据](site-content-completion.json)及[矩阵 delta](site-content-completion-matrix-delta.json)交主任务统一集成；本 lane 不修改路线图/矩阵/剩余清单，不新增 verified。
+实现提交 `3e5630d57c28d15db79ab2e56f51c0bada6f46ed`；独立审查修复提交 `691853f3ae355922b6b4356e83c36d01ff461e06`，以下机器记录已更新为修复后的精确提交包。输入契约见[使用说明](../../SOCIAL-FOOTER-LINKS.md)，[机器证据](site-content-completion.json)及[矩阵 delta](site-content-completion-matrix-delta.json)交主任务统一集成；本 lane 不修改路线图/矩阵/剩余清单，不新增 verified。
 
 ## 已完成
 
@@ -17,8 +17,8 @@
 
 `scripts/site-content/check.mjs` 精确提交包验收 29 项全部通过：Chromium、Firefox、WebKit × 1440/390 × light/dark；实际主题颜色、两种社交入口和品牌颜色、净化 HTML、列宽、原生说明、随机后成员完整、远端分组与坏图、文字元数据转义、无 XSS/页面脚本错误/横向溢出。额外覆盖 JSON 空、无效地址、503、重试、社交各位置/隐藏大图、无脚本原生链接。
 
-报告/截图保存在工作树 `.runtime/site-content-check-final/`。已检查手机深色友链、桌面浅色和手机深色页脚截图；列自动换行，卡片及文本可见。外部网络在主浏览器矩阵中被拦截，资源故障不改变断言。
+报告/截图保存在工作树 `.runtime/site-content-check-review-fix/`。已检查手机深色友链、桌面浅色和手机深色页脚截图；列自动换行，卡片及文本可见。外部网络在主浏览器矩阵中被拦截，资源故障不改变断言。
 
 ## 未包含
 
-Hexo 参考站前序 bootstrap 在 Bun 1.4.0 下报 `module.require is not a function`，继续使用既有 Halo-only 实验室接口，未修改上游或放宽比较标准；没有双站截图比较证据。未覆盖真实设备、Safari 应用、屏幕阅读器、完整性能预算、任意外部 JSON 服务可用性、CI 或完整 1.0 合同。新增 HTML/图标净化进入公共脚本，其性能影响需纳入父任务全分支预算。独立审查由父任务执行。
+Hexo 参考站前序 bootstrap 在 Bun 1.4.0 下报 `module.require is not a function`，继续使用既有 Halo-only 实验室接口，未修改上游或放宽比较标准；没有双站截图比较证据。未覆盖真实设备、Safari 应用、屏幕阅读器、完整性能预算、任意外部 JSON 服务可用性、CI 或完整 1.0 合同。新增 HTML/图标净化进入公共脚本，其性能影响需纳入父任务全分支预算。独立审查由 PJAX lane 执行，发现当前页锚点/相对 URL 错用站点根目录的问题；已改用 document.baseURI，并在工具测试及三引擎真实非根页面验证。完整分支联验由父任务执行。
