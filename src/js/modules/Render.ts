@@ -26,6 +26,7 @@ import {
 import {
   formatPermalinkText,
 } from '../core/post-copyright.ts';
+import { enhanceBodyRenderers } from '../core/body-renderers.ts';
 import { enhanceMath } from '../core/math.ts';
 import { bindRewards } from '../core/reward.ts';
 import { initializeArticleGallery } from '../core/article-gallery.ts';
@@ -42,6 +43,7 @@ export default class Render {
   constructor() {
     this.#h();
     const article = document.querySelector<HTMLElement>('article.render');
+    if (article) onPageCleanup(enhanceBodyRenderers(article, this.#conf.body_renderers));
     if (article) onPageCleanup(enhanceMath(article, {
       enabled: this.#conf.math_enabled,
       copyTex: this.#conf.math_copy_tex,

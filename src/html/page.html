@@ -26,6 +26,7 @@
         photofigcaption: /*[[${theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'}]]*/ false,
       });
     </script>
+    <th:block th:replace="~{views/body-renderers :: config(${singlePage})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>
   </th:block>
 

@@ -25040,14 +25040,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "abcjs.enable"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25072,12 +25080,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402410+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128175+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:abcjs.per_page",
@@ -25100,14 +25130,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "abcjs.per_page"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25132,12 +25170,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402568+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128391+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mermaid.enable",
@@ -25160,14 +25220,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "mermaid.enable"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25193,12 +25261,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402594+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128420+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mermaid.code_write",
@@ -25221,14 +25311,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "mermaid.code_write"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25254,12 +25352,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402617+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128445+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mermaid.theme.light",
@@ -25282,14 +25402,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "mermaid.theme.light"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25321,12 +25449,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402642+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128471+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mermaid.theme.dark",
@@ -25349,14 +25499,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "mermaid.theme.dark"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25388,12 +25546,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402664+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128495+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mermaid.open_in_new_tab",
@@ -25416,14 +25596,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "mermaid.open_in_new_tab"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25449,12 +25637,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402685+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128517+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:mermaid.zoom_pan",
@@ -25477,14 +25687,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "mermaid.zoom_pan"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25510,12 +25728,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402706+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128539+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.enable",
@@ -25538,14 +25778,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.enable"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25571,12 +25819,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402726+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128560+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.fontColor.light",
@@ -25599,14 +25869,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.fontColor.light"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25632,12 +25910,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402747+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128582+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.fontColor.dark",
@@ -25660,14 +25960,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.fontColor.dark"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25693,12 +26001,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402769+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128605+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.borderColor.light",
@@ -25721,14 +26051,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.borderColor.light"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25754,12 +26092,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402790+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128627+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.borderColor.dark",
@@ -25782,14 +26142,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.borderColor.dark"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25815,12 +26183,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402811+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128648+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.scale_ticks_backdropColor.light",
@@ -25843,14 +26233,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.scale_ticks_backdropColor.light"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25876,12 +26274,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402831+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128669+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:chartjs.scale_ticks_backdropColor.dark",
@@ -25904,14 +26324,22 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "chartjs.scale_ticks_backdropColor.dark"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -25937,12 +26365,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402851+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128694+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:note.style",
@@ -30209,14 +30659,22 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "CDN.option.abcjs_basic_js"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -30239,12 +30697,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402886+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128745+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.activate_power_mode",
@@ -30821,14 +31301,22 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "CDN.option.chartjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -30851,12 +31339,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402908+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128771+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.click_heart",
@@ -32236,14 +32746,22 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "settings": [
+          "CDN.option.mermaid"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
+        ],
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -32266,12 +32784,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402934+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128802+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option.prismjs_autoloader",
@@ -35363,14 +35903,20 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -35394,12 +35940,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402966+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128845+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/abcjs/index",
@@ -35415,14 +35983,20 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -35446,12 +36020,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.402986+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128865+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/card-post-count/artalk",
@@ -37195,14 +37791,20 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -37227,12 +37829,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403014+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128898+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/math/index",
@@ -37434,14 +38058,20 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -37466,12 +38096,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403034+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128921+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "template:includes/third-party/newest-comments/artalk",
@@ -39950,15 +40602,20 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/scss/modules/render.scss",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -39982,12 +40639,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403065+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128959+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:flink",
@@ -40528,15 +41207,20 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/scss/modules/render.scss",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -40560,12 +41244,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403087+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.128984+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:note",
@@ -40643,14 +41349,20 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -40662,7 +41374,7 @@
         "cases": [
           "score：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
           "路径 B 粘贴 `{% score %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "分数展示结构，纯 CSS/HTML。"
+          "ABC 音乐记谱源码与 JSON 谱面参数；核对真实音符/休止符、响应式谱面及失败回退。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -40674,12 +41386,34 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/45"
+          "https://github.com/songxychn/halo-butterfly-next/issues/45",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403107+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129004+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:series",
@@ -42524,14 +43258,20 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -42553,12 +43293,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403135+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129040+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:activate_power_mode",
@@ -42995,14 +43757,20 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -43024,12 +43792,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403159+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129063+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:clickShowText",
@@ -44163,14 +44953,20 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -44192,12 +44988,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403228+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129095+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "resource:pace_default_css",
@@ -48628,14 +49446,20 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -48657,12 +49481,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403276+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129152+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:archive",
@@ -56133,14 +56979,20 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -56163,12 +57015,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403321+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129229+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:score",
@@ -56184,14 +57058,20 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "协调 Halo 编辑器输出、主题渲染与插件职责，保留每种上游渲染器及逐页开关需求。",
+        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/modules/Render.ts"
+          "src/html/views/body-renderers.html",
+          "src/js/core/body-renderers.ts",
+          "src/js/core/body-renderer-data.ts",
+          "src/js/core/svg-viewer.ts",
+          "src/js/renderers/mermaid.ts",
+          "src/js/renderers/chartjs.ts",
+          "src/js/renderers/abcjs.ts",
+          "src/scss/modules/body-renderers.scss",
+          "scripts/build.mjs"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
       },
       "dependencies": [
         "dual-site",
@@ -56214,12 +57094,34 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "partial-runtime",
+          "path": "docs/validation/2026-10-13/body-renderers-initial.json",
+          "sha256": "19c2c459b4be90487a31cf2e088ec04a4f8c6a61d1dcbf8b50aac33dd7224dde",
+          "date": "2026-10-13T14:52:21.403344+00:00",
+          "commit": "6e44ebd9fef18d758a947b7ad8b0b86a671a6632",
+          "actor": "/root",
+          "outcome": "partial: bounded renderer and configuration checks passed; native Firefox/full 1.0 remain open"
+        },
+        {
+          "kind": "partial-runtime-merge",
+          "path": "docs/validation/2026-10-13/body-renderers.json",
+          "sha256": "e28042d71ff1f42dbc0698d386cfd20dbcca58150ea706fee6743647dbe3aaf6",
+          "date": "2026-10-13T15:04:46.129249+00:00",
+          "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
+          "actor": "/root",
+          "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:shuoshuo-pagination",

@@ -13,6 +13,11 @@ const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LIC
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
 required.push('templates/assets/js/masonry.min.js');
+for (const name of ['mermaid', 'chartjs', 'abcjs']) required.push(`templates/assets/renderers/${name}.min.js`);
+for (const name of ['mermaid', 'chart.js', 'abcjs', 'dompurify']) {
+  const metadata = JSON.parse(await readFile(path.join(root, 'node_modules', name, 'package.json'), 'utf8'));
+  if (!Object.keys(zip.files).some(file => file.startsWith(`templates/assets/licenses/${name}-${metadata.version}-`))) throw new Error(`安装包缺少正文渲染器许可：${name}`);
+}
 const masonrySources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/infinitegrid-sources.json'), 'utf8'));
 const shareSources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/sharejs-source.json'), 'utf8'));
 for (const source of shareSources.files) {
@@ -57,7 +62,7 @@ for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags
 }
 for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) required.push(`templates/assets/plugins/loading/${name}.min.js`);
 for (const name of required) if (!zip.file(name)) throw new Error(`安装包缺少 ${name}`);
-for (const name of Object.keys(zip.files).filter(name => /^templates\/assets\/(?:js|plugins\/loading)\/.*\.js$/.test(name))) {
+for (const name of Object.keys(zip.files).filter(name => /^templates\/assets\/(?:js|renderers|plugins\/loading)\/.*\.js$/.test(name))) {
   if (/\bprocess\.env\.NODE_ENV\b/.test(await zip.file(name).async('string'))) throw new Error(`浏览器脚本残留未解析的构建环境引用：${name}`);
 }
 for (const name of Object.keys(zip.files)) {
