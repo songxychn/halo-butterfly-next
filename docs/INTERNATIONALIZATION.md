@@ -6,6 +6,8 @@
 
 Halo 2.26.1 按 `language` 查询参数、`language` Cookie、站点基本设置的 `language`、浏览器 `Accept-Language` 选择界面语言（以前者优先）。例如 `/categories?language=ja`、`/archives?language=zh-TW`。主题没有增加重复的全局语言设置。支持语言的其他地区使用语言包回退，未知语言使用英文，`html lang` 同步为英文，避免将英语界面标注为另一种语言。
 
+最低支持版本 Halo 2.20.2 的原生顺序为 `language` 查询参数、同名 Cookie、浏览器 `Accept-Language`，不读取站点基本设置语言。该差异已在真实 2.20.2 实例验证；需要跨版本稳定指定界面语言时使用查询参数或 Cookie。详见 [最低版本验收](validation/2026-10-14/minimum-halo-current.md)。
+
 JavaScript 文案由 Thymeleaf 的 JavaScript 内联转义后注入 `MainApp.messages`；组件按需读取当前快照。UI 文案只作为文本、DOM 属性或已有静态控件标注使用，不把作者内容送入翻译器。站点默认中文内容不会被自动翻译成英语。
 
 ## 逐篇正文语言
@@ -20,7 +22,7 @@ JavaScript 文案由 Thymeleaf 的 JavaScript 内联转义后注入 `MainApp.mes
 
 ## 迁移与维护
 
-未设置正文语言的旧文章继承访问者语言，不需要迁移正文或恢复旧 Hexo 标签。此前固定中文的主题控件现在遵循 Halo 语言选择；已设置简中站点语言时，英语浏览器仍默认显示简中控件，需要英语 UI 的访问者可选择 `language=en`。自定义的菜单、公告、按钮说明等不会被覆盖。
+未设置正文语言的旧文章继承访问者语言，不需要迁移正文或恢复旧 Hexo 标签。此前固定中文的主题控件现在遵循 Halo 语言选择；在 Halo 2.26.1 已设置简中站点语言时，英语浏览器仍默认显示简中控件，需要英语 UI 的访问者可选择 `language=en`。自定义的菜单、公告、按钮说明等不会被覆盖。
 
 新消息必须同步全部语言文件、按组件代码引用 `ui.*` 键。`bun run verify` 检查消息键、插值参数一致性、所有模板/脚本引用、安装包语言文件与原始字节一致性。空白值和缺失键视为错误，运行时缺失消息的 `??ui.*??` 标记不能作为通过验收。
 
