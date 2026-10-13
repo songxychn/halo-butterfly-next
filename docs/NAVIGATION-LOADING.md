@@ -32,7 +32,7 @@
 
 官方 CommentWidget 3.3.2 使用新的组件实例与目标内容身份；非懒加载配置立即挂载，懒加载继续按可见性触发。旧 body 替换时组件、其 shadow DOM 和主题挂载产生的 toast host 一并断开，插件的 disconnectedCallback 清理编辑器和全局监听。尚未提交的评论触发 beforeunload veto 时交给浏览器完整导航及原生离开提醒，避免绕过草稿保护；等待 HTML/CSS 期间开始编辑同样重新检查。
 
-文章图表、ABC 乐谱、图库及脚本为空的插件公共布局已参与页面生命周期；正文渲染配置在切页时重新执行。未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面仍使用完整导航。Share.js、官方默认 Busuanzi 与主题本地特效已按页面清理和重新初始化；GA4 仅在显式手动统计模式满足后台前置条件时支持。其他分析/聊天/广告 SDK、AddToAny、自定义 Busuanzi 脚本仍保持完整导航。不会因脚本来自某个受信任 CDN 就放行整站。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 另行跟踪。
+文章图表、ABC 乐谱、图库及脚本为空的插件公共布局已参与页面生命周期；正文渲染配置在切页时重新执行。未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面仍使用完整导航。Share.js、官方默认 Busuanzi 与主题本地特效已按页面清理和重新初始化；GA4 仅在显式手动统计模式满足后台前置条件时支持。AddToAny 的默认服务列表支持下述有界持久宿主协议；其他分析/聊天/广告 SDK、自定义 Busuanzi 脚本仍保持完整导航。不会因脚本来自某个受信任 CDN 就放行整站。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 另行跟踪。
 
 预取最多提示 8 个链接；带查询参数、后台/外部资源、省流量和 2G 网络跳过。使用浏览器标准 prefetch，不创建主题 HTML 缓存或绕过鉴权。浏览器可以忽略预取提示。
 
@@ -59,4 +59,6 @@ Share.js 复用库而每页绑定新的 URL、标题、图片与描述，二维�
 
 GA4 的 `analytics.google_analytics_manual_pageviews` 必须先关闭服务后台增强型历史事件；主题只在成功提交页面后发 pageview，详见 [集成配置](INTEGRATIONS.md)。Cloudflare 自动历史观察无法在草稿取消前撤销事件，继续完整导航。
 
-AddToAny 虽有 `a2a.init_all` 重扫新节点接口，实际 loader 还创建跨页 iframe、菜单根与全局 message 监听；当前整 body 替换会断开其持久节点，不能只重扫分享按钮。需要单独设计持久宿主并验证关闭/卸载协议，因此继续原生回退。聊天会话、GTM 任意标签与 AdSense 自动广告也没有主题可通用安全销毁的协议。
+AddToAny 复用一个已初始化的分享 kit，更新当前 URL、标题、主题按钮链接和标签，避免 `init_all` 在 SDK 私有集合里保留旧 kit。仅此已知入口保持原 body、菜单宿主、utility iframe 和 SDK 样式始终连接；新页面替换其余子节点。支持默认 facebook/x/wechat/sina_weibo/facebook_messenger/email/copy_link 及 twitter，其他服务、预注入自定义配置、未知节点或脚本、打开的菜单/复制弹窗、失败/超时及 service 配置变化继续原生导航。提交前再次检查当前文档，覆盖请求等待期间新增未知 iframe 的竞态。
+
+主题强制校验已审计 page.js 的 SRI，其内容选择 core.iho16r34.js；core、中文 locale、图标与 utility iframe 仍信任服务方同源资源，不能将审计文件 SHA256 写成运行时全链路 SRI。loader 内容更新后会安全失败并提示复制/平台链接回退，需要重新审计和更新 SRI。实际三引擎限定验收见 [AddToAny 生命周期](validation/2026-10-14/pjax-addtoany.md)。聊天会话、GTM 任意标签与 AdSense 自动广告仍没有主题可通用安全销毁的协议。

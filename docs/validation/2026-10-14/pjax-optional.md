@@ -33,3 +33,5 @@ GA4 的新 `analytics.google_analytics_manual_pageviews` 默认 false；只有�
 ## 重跑
 
 在此 checkout 的已拥有 Halo 评论夹具上，设置 `HALO_PORT=18761 HEXO_PORT=14761`，安装精确包后：先运行 `python3 scripts/navigation-loading/optional-fixture.py` 和 `BASE_URL=http://127.0.0.1:18761 bun scripts/navigation-loading/optional.mjs`；再运行 `python3 scripts/navigation-loading/analytics-fixture.py` 和同 BASE_URL 的 `analytics.mjs`。两套配置顺序执行，不共享并行变更。其他端口须与实验室身份一致。
+
+后续补充：本记录当时保留的 AddToAny 持久宿主缺口已进一步开发，新的限定范围和独立候选验收见 [pjax-addtoany.md](pjax-addtoany.md)。本文件早先结果不追加计数或升级状态。

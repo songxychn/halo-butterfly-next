@@ -52,3 +52,5 @@ PJAX 只接纳当前配置解析出的具体页面脚本及其本地回退，不
 默认 `loading.mode: pace` 提供非阻塞进度，`animation` 才使用四种 Loading；缺少 mode 同样使用 Pace，不推断旧动画。`loading.enable: false` 关闭两种资源。Pace 的脚本和 CSS 必须均成功后启动；失败保留正文与 PJAX 普通忙碌提示。裁定和验证见 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)。
 
 提交并合并最新 master 后的干净包验证、独立审查及修复证据见 [PR 验证记录](validation/2026-10-14/resource-pr.md)；最终精确提交的 CI 结果随 [草稿 PR #411](https://github.com/songxychn/halo-butterfly-next/pull/411) 登记。历史工作区报告保持原来源，不替代此 PR。
+
+AddToAny 已知 PJAX 适配单独对 page.js 使用已审计 SRI；它选择版本化 core 路径，但后续 core/locale/icon/iframe 仍不具备全链路运行时内容锁定。服务方更新 loader 后失败保留复制和平台链接；重新适配前继续整页导航。见[限定证据](validation/2026-10-14/pjax-addtoany.md)。
