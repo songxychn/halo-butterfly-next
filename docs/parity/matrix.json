@@ -59621,7 +59621,7 @@
       "id": "site-config:theme",
       "kind": "site-config",
       "key": "theme",
-      "title": "站点元数据 / theme",
+      "title": "Mermaid 块级配置 / theme（保留盘点ID）",
       "sources": [
         {
           "file": "layout/includes/third-party/math/mermaid.pug",
@@ -59631,13 +59631,17 @@
       ],
       "upstreamInventory": "siteConfiguration",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml"
+        "strategy": "通过通用正文渲染参数提供逐块Mermaid主题覆盖，并回退到站点明暗主题；不增加Hexo标签解析。",
+        "settings": [
+          "mermaid.theme.light",
+          "mermaid.theme.dark"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "code": [
+          "src/js/renderers/mermaid.ts",
+          "src/js/core/body-renderer-data.ts",
+          "docs/BODY-CHARTS-SCORE.md"
+        ],
+        "finding": "A02实际来源是mermaid.pug的局部config JSON对象，不是Hexo全站主题名。request.params.theme优先于request.theme，非法值由mermaidTheme安全回退；已有对应实现，不再当作缺少站点theme字段。完整逐值/双站合同待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -59645,16 +59649,17 @@
         "public-layout"
       ],
       "acceptance": {
-        "profile": "metadata",
+        "profile": "math",
         "cases": [
-          "theme：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/math/mermaid.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "块级theme覆盖站点明暗默认；空值/非法值保留安全回退。",
+          "在通用正文输入中验证四个已支持主题及亮暗重绘，不要求Hexo专属标签语法。"
         ],
         "contractScenarios": [
           "ENV-02",
           "PAGE-01",
-          "SEO-01",
-          "PLG-06"
+          "EXT-02",
+          "PLG-06",
+          "CFG-01"
         ]
       },
       "tracking": {
@@ -59663,8 +59668,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-mermaid-theme-reconciliation-2026-10-14.json",
+          "sha256": "3a9681beb3221a7fc9cc6fea4efb0ef430afbcf2dbbfcee46546e32ca8c3c92a",
+          "date": "2026-10-14T03:28:55.080644+08:00",
+          "commit": "22ef4562a9dbcb7c4f92af134894b5479a3c8afd",
+          "actor": "Codex",
+          "outcome": "source-reconciled-not-verified"
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "site-config:timezone",

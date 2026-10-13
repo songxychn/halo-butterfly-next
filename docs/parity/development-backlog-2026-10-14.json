@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "kind": "development-backlog-snapshot",
-  "sourceSha": "97102da878e9ecc6091605a74e2bcc5be823a5d3",
-  "matrixSha256": "5db64f89e234772a0eb8e62b5de04f9440d1385c229f2ad5ca07a6fe2c98f1da",
+  "sourceSha": "22ef4562a9dbcb7c4f92af134894b5479a3c8afd",
+  "matrixSha256": "39e20cbf66b4261ceaf878c93e9fbde2df909536b135414f5b3bd150db357932",
   "reconciliation": "confirmed-gap-reconciliation-2026-10-14.json",
   "note": "Development branch implementation and scoped acceptance; not merged/published, no verified promotion; matrix.json remains authoritative.",
   "groups": [
@@ -242,10 +242,9 @@
         "site-config:root",
         "site-config:syntax_highlighter",
         "site-config:tag_dir",
-        "site-config:theme",
         "config:CDN.custom_format"
       ],
-      "current": "已有 Halo 路由/SEO/Prism、构建入口、图片回退和组件模块；同名 Hexo 文件不存在不能直接判作缺失。",
+      "current": "已有 Halo 路由/SEO/Prism、构建入口、图片回退和组件模块；同名 Hexo 文件不存在不能直接判作缺失。 site-config:theme经核对为Mermaid局部参数，已有消费者，见a02-mermaid-theme-reconciliation-2026-10-14.json。",
       "remaining": "逐项确认 404 开关、路由/pretty URL、根路径、站点元数据、高亮提供方、封面类型/独立顶图、加密标记、源文件/目录来源、构建 hook/默认合并/资源图标等语义。尚无足够证据关闭；必须完成来源→消费者→保留用户能力映射后，才转成开发或有依据不适用。 PR #413 已取消资源自由模板并由根地址/单项 URL 替代；config:CDN.custom_format 保留 gap 等待正式裁定登记，不应重新开发旧模板。"
     }
   ],
