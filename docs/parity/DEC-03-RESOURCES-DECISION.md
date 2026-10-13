@@ -103,4 +103,6 @@ Pace 使用固定 1.2.4 + minimal CSS，精确依赖、包来源与许可摘要�
 
 Loading 只在显式 `animation` 模式启动，保留 circle/hourglass/cross_line/dot。未知类型回落 circle；正文就绪结束。缺少 mode 一律 Pace，不读取旧 type 推断模式、不加入配置迁移分支。显式关闭不加载两种资源。公开插件布局也映射相同开关，但本次限定浏览器记录不宣称已验插件网络 API 组合。
 
-[本轮验证](../validation/2026-10-14/dec03-pace.md)绑定当前未提交工作区输入快照与包摘要；先前审计与资源验收仍仅适用于各自快照。本批不关闭 Mermaid/Chart.js/ABCJS 渲染、固定双站、真实 SDK、物理设备、独立审查、最终提交 CI 或完整 1.0 验收。
+[先前工作区验证](../validation/2026-10-14/dec03-pace.md)绑定当时未提交输入快照与包摘要；先前审计与资源验收仍仅适用于各自快照。本批不关闭 Mermaid/Chart.js/ABCJS 渲染、固定双站、真实 SDK、物理设备、独立审查、最终提交 CI 或完整 1.0 验收。
+
+提交与合并后的 PR 验证另见 [资源 / Pace PR 验证](../validation/2026-10-14/resource-pr.md)。独立审查确认的迟到 PJAX 回退缺陷已修复；先前快照不能替代 PR 精确提交证据，最终 HEAD 与 CI 见草稿 PR #411。

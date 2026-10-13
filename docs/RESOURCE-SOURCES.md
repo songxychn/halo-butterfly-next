@@ -50,3 +50,5 @@ PJAX 只接纳当前配置解析出的具体页面脚本及其本地回退，不
 `bun run verify` 包括解析优先级、无效地址、固定版本、重复请求、脚本/样式回退、超时和 PJAX 地址约束回归。真实 Halo 2.26.1 的本批限定结果见 [资源验证记录](validation/2026-10-13/resource-sources.md)。新设置的性能默认快照已重新冻结，旧性能结果不转移到新包。完整固定双站、真实 SDK、Safari/真机、独立审查和最终候选 CI 未据本批局部结果完成。
 
 默认 `loading.mode: pace` 提供非阻塞进度，`animation` 才使用四种 Loading；缺少 mode 同样使用 Pace，不推断旧动画。`loading.enable: false` 关闭两种资源。Pace 的脚本和 CSS 必须均成功后启动；失败保留正文与 PJAX 普通忙碌提示。裁定和验证见 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)。
+
+提交并合并最新 master 后的干净包验证、独立审查及修复证据见 [PR 验证记录](validation/2026-10-14/resource-pr.md)；最终精确提交的 CI 结果随 [草稿 PR #411](https://github.com/songxychn/halo-butterfly-next/pull/411) 登记。历史工作区报告保持原来源，不替代此 PR。

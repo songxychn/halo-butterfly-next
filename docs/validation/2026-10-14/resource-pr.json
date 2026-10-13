@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "kind": "scoped-author-clean-commit-validation",
+  "testedAt": "2026-10-13T16:52:11.911823+00:00",
+  "productSourceSha": "17ddb987f273b5bd97c57626610511ddfa435490",
+  "baseSha": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+  "pr": "https://github.com/songxychn/halo-butterfly-next/pull/411",
+  "sourceAttribution": "Clean committed product checkout, excludes original 9417 uncommitted user files; includes master content/renderers/comment features via ordinary merge. Subsequent delivery documentation has no build-input changes.",
+  "artifactSha256": "754429758f859bebcf87e95626a725f96c443282420a55546fa6de1cd348c314",
+  "themeVersion": "0.1.0-alpha.4",
+  "haloVersion": "2.26.1",
+  "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+  "gate": {
+    "command": "bun run verify",
+    "tests": 678,
+    "failures": 0,
+    "files": 131,
+    "packageFiles": 252,
+    "result": "passed"
+  },
+  "repeatBuildSha256": "754429758f859bebcf87e95626a725f96c443282420a55546fa6de1cd348c314",
+  "installedPackageComparison": {
+    "files": 252,
+    "missing": [],
+    "changed": []
+  },
+  "configRestoredAndReadBack": true,
+  "paceChecks": [
+    {
+      "name": "default-nonblocking-Pace-from-unified-root",
+      "result": true
+    },
+    {
+      "name": "five-PJAX-roundtrips-with-one-bar-and-one-stylesheet",
+      "result": true
+    },
+    {
+      "name": "history-back-forward",
+      "result": true
+    },
+    {
+      "name": "Pace-excludes-native-busy-bar",
+      "result": true
+    },
+    {
+      "name": "superseded-fetch-cannot-finish-new-navigation",
+      "result": true
+    },
+    {
+      "name": "XHR-restarts-and-settles-Pace",
+      "result": true
+    },
+    {
+      "name": "ordinary-fetch-is-not-automatically-tracked",
+      "result": true
+    },
+    {
+      "name": "missing-mode-ignores-previous-animation-type",
+      "result": true
+    },
+    {
+      "name": "explicit-animation-circle-ends-on-readable-content",
+      "result": true
+    },
+    {
+      "name": "explicit-animation-cross_line-ends-on-readable-content",
+      "result": true
+    },
+    {
+      "name": "explicit-animation-dot-ends-on-readable-content",
+      "result": true
+    },
+    {
+      "name": "explicit-animation-hourglass-ends-on-readable-content",
+      "result": true
+    },
+    {
+      "name": "explicit-animation-invalid-ends-on-readable-content",
+      "result": true
+    },
+    {
+      "name": "disabled-does-not-load-progress-resources",
+      "result": true
+    },
+    {
+      "name": "explicit-CSS-priority-mobile-dark-reduced-motion",
+      "result": {
+        "height": "6px",
+        "color": "rgb(0, 128, 0)",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "native-error-retries-local-script-and-style",
+      "result": true
+    },
+    {
+      "name": "loaded-script-with-missing-API-retries-local",
+      "result": true
+    },
+    {
+      "name": "both-resources-fail-readable-content-and-native-PJAX-fallback",
+      "result": true
+    },
+    {
+      "name": "script-timeout-never-retries-or-hides-content",
+      "result": true
+    },
+    {
+      "name": "SSR-readable-before-deferred-entry",
+      "result": true
+    },
+    {
+      "name": "fetch-error-stops-Pace-and-falls-back-full-navigation",
+      "result": true
+    },
+    {
+      "name": "30-second-watchdog-disables-stuck-Pace-and-keeps-native-feedback",
+      "result": true
+    }
+  ],
+  "resourceChecks": [
+    {
+      "name": "unified-static-and-default-image",
+      "result": true
+    },
+    {
+      "name": "font-files-from-mirror",
+      "result": true
+    },
+    {
+      "name": "five-pjax-roundtrips",
+      "result": {
+        "common": true,
+        "count": 10,
+        "path": "/",
+        "token": "persist"
+      }
+    },
+    {
+      "name": "sharejs-and-busuanzi-override",
+      "result": {
+        "counter": true,
+        "css": true,
+        "pv": "42",
+        "script": true,
+        "share": 3
+      }
+    },
+    {
+      "name": "sharejs-font-files",
+      "result": true
+    },
+    {
+      "name": "dynamic-effects-from-mirror",
+      "result": true
+    },
+    {
+      "name": "native-error-local-fallback",
+      "result": true
+    },
+    {
+      "name": "invalid-root-falls-back-despite-custom-format",
+      "result": true
+    }
+  ],
+  "fixedUpstream": {
+    "commit": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+    "sourceVerified": true
+  },
+  "independentReview": {
+    "initial": "resource-pr-initial-review.json",
+    "initialFinding": "R1 P2: late native error appended fallback after abort/timeout",
+    "fixed": "resource-pr-review-fixed.json",
+    "nativeBefore": "resource-pr-native-before.json",
+    "nativeFixed": "resource-pr-native-fixed.json",
+    "remainingConfirmedFindings": 0
+  },
+  "originalUserFilesUnchanged": true,
+  "logsSha256": {
+    ".runtime/resource-pr/verify-fixed.log": "a972a3e0a93c0a62798565c3e6d2c2562b28eb3a976305f0f95afb477dd7ddb6",
+    ".runtime/resource-pr/parity-fixed.log": "4ff9c6e80eabad5d6a25bddb6b303d5d257b30910f036062cae93ec846f8f681",
+    ".runtime/resource-pr/rebuild-fixed.log": "4e5cf1baed21c95f6b8c6fd7ec46637f18463ce83da23333eab55feea5aef110"
+  },
+  "browserLogsSha256": {
+    ".runtime/dec03-pr-fixed-browser.log": "2830e75aaf65460b827a34c4f4099a2a363ae231ae45e815634eab39fa025180",
+    ".runtime/dec03-pr-fixed-extra.log": "4fac677952cb733359d6502bc8e2b379550fa4e0191eb9d7290d1e955d885060",
+    ".runtime/dec03-pr-fixed-resource.log": "1692e68a6274690514559477a82988d2a0d1faa98204bd4876e4f41c7737cd0c"
+  },
+  "limitations": [
+    "Author Halo checks use task-owned headless Chromium and local mirrors/stubs, not real third-party accounts or public CDNs.",
+    "Independent reviewer separately performed source/tests and native HTTP script-race checks; it did not independently install Halo.",
+    "No physical device/Safari, complete fixed dual-site parity, plugin ecosystem combinations or complete 1.0 acceptance; no matrix verified promotion.",
+    "Final delivery HEAD and its GitHub CI are recorded in PR body after documentation commit; package/build inputs remain identical to productSourceSha."
+  ]
+}

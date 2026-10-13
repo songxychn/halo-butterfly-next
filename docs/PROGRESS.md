@@ -1,5 +1,9 @@
 # 持续对齐进度
 
+## 2026-10-14：资源 / Pace 草稿 PR 交付
+
+[草稿 PR #411](https://github.com/songxychn/halo-butterfly-next/pull/411) 提交资源配置和 Pace，普通合并最新 master 后保留双方功能；原工作区已有正文扩展文件不变。独立审查确认并修复迟到 PJAX 错误触发回退的 P2。产品提交 `17ddb987` 完整 verify 678 项 / 252 文件、真实 Halo 22 组 Pace + 8 组资源以及全部安装字节比对通过；独立复审没有剩余已确认问题。后续仅证据文档提交，最终 SHA 审查与 CI 随 PR 登记。详见[限定验证](validation/2026-10-14/resource-pr.md)，不转移历史包证据、不提升矩阵 verified，未合并/发布。
+
 ## 2026-10-14：默认 Pace 与 DEC-03 资源裁定
 
 已按维护者授权实施默认 Pace 1.2.4、四种 Loading 显式可选、无旧配置兼容；主题 fetch 导航使用当前请求进度源，资源失败/超时保持正文可读和导航回退。blueimp-md5 与 Node helper 的唯一消费方分别为已退出的 Valine / Gitalk，三个专属条目明确不适用。
