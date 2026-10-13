@@ -4,11 +4,11 @@
   id="card-newest-comments" class="aside-newest-comments card" data-newest-comments
   th:attr="data-card-order=${theme.config.aside.card_newest_comments?.sort_order ?: 25},data-limit=${theme.config.aside.card_newest_comments?.limit ?: 6},data-storage=${theme.config.aside.card_newest_comments?.storage},data-avatar=${theme.config.aside.card_newest_comments?.avatar}"
 >
-  <h1 class="title"><i class="fas fa-comments" aria-hidden="true"></i><span class="name">最新评论</span></h1>
+  <h1 class="title"><i class="fas fa-comments" aria-hidden="true"></i><span class="name" th:text="#{ui.recentComments}">最新评论</span></h1>
   <ul class="newest-comments-list" data-comments-list></ul>
-  <p class="newest-comments-status" data-comments-status role="status">正在准备最新评论…</p>
-  <button type="button" class="newest-comments-retry" data-comments-retry hidden>重试</button>
-  <noscript><p>启用 JavaScript 后可查看最新评论。</p></noscript>
+  <p class="newest-comments-status" data-comments-status role="status" th:text="#{ui.recentPreparing}">正在准备最新评论…</p>
+  <button type="button" class="newest-comments-retry" data-comments-retry hidden th:text="#{ui.retry}">重试</button>
+  <noscript><p th:text="#{ui.recentJs}">启用 JavaScript 后可查看最新评论。</p></noscript>
   <template data-comment-subjects>
     <th:block th:replace="~{::subjects('Post', 1)}"/>
     <th:block th:replace="~{::subjects('SinglePage', 1)}"/>

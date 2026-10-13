@@ -142,7 +142,7 @@
     text-align: center;
     opacity: 1;
 
-    &:not(.loaded)::after { content: '图库需要 JavaScript 才能显示图片。'; }
+    &:not(.loaded)::after { content: var(--message-gallery-js); }
     &:not(.loaded) .gallery-items { display: none; }
     .gallery-items { font-size: 0; min-width: 0; }
     .item { font-size: 1rem; overflow: hidden; }

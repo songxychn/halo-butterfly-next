@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import {applyTagColors} from './tag-cloud-colors.ts';
 /** Progressive enhancement for Halo sidebar options. No network requests or HTML injection. */
 export function limitItems<T>(items: T[], limit: unknown) {
@@ -86,8 +87,8 @@ export function initializeAsideOptions(root = document, colors?: unknown) {
         if (!children?.children.length) continue;
         const details = container.ownerDocument.createElement('details');
         const summary = container.ownerDocument.createElement('summary');
-        summary.textContent = '子分类';
-        summary.setAttribute('aria-label', `${entry.dataset.name}的子分类`);
+        summary.textContent = t('ui.subcategory');
+        summary.setAttribute('aria-label', t('ui.subcategoriesOf', entry.dataset.name || ''));
         details.open = container.dataset.expand === 'true';
         details.append(summary, children);
         entry.append(details);

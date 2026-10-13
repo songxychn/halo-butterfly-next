@@ -1,3 +1,4 @@
+import { t } from './i18n';
 /**
  * 对齐 Butterfly 5.7.0 translate（_config.yml / layout/includes/rightside.pug
  * #translateLink / source/js/tw_cn.js / source/js/main.js translateLink，
@@ -227,6 +228,6 @@ export function bindTranslate(root = typeof document !== 'undefined' ? document 
   pageListen(button, 'click', () => {
     clearTimeout(timer); initialize();
     translatePage(state);
-    if (typeof MainApp !== 'undefined' && (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true')) MainApp.useMessage?.info('已切换繁简显示');
+    if (typeof MainApp !== 'undefined' && (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true')) MainApp.useMessage?.info(t('ui.scriptChanged'));
   });
 }

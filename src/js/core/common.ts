@@ -1,3 +1,4 @@
+import { t } from './i18n';
 /**
  * @date: 2024/3/2
  * @author: 小红
@@ -70,7 +71,7 @@ export default class Common {
 
     const day = parseInt((date / (1000 * 24 * 60 * 60)).toString());
 
-    dom.html(day + ' 天');
+    dom.html(day + t('ui.dayUnit'));
   }
 
   /**

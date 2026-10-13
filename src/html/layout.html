@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   xmlns:th="https://www.thymeleaf.org"
-  th:lang="${#locale.toLanguageTag}"
+  th:lang="${#lists.contains({'en', 'ja', 'ko', 'zh'}, #locale.language) ? #locale.toLanguageTag() : 'en'}"
   data-color-scheme="light"
   th:fragment="html (head, content)"
   th:with="assets_link = ${#theme.assets('/') + '/'}"
@@ -26,7 +26,7 @@
   >
     <script th:if="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading?.mode == 'animation'}" data-theme-script="loading" th:src="${assets_link + 'plugins/loading/' + (#lists.contains({'circle', 'cross_line', 'dot', 'hourglass'}, theme.config.loading?.type) ? theme.config.loading.type : 'circle') + '.min.js?v=' + theme.spec.version}"></script>
     <div id="Butterfly" class="plugin">
-      <a class="plugin-skip-link" href="#plugin-content">跳到主要内容</a>
+      <a class="plugin-skip-link" href="#plugin-content" th:text="#{ui.skipMain}">跳到主要内容</a>
       <header class="header dp">
         <th:block th:replace="~{views/nav}"/>
       </header>

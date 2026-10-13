@@ -90,7 +90,7 @@ test('文章页插入 postReward；单页不插入；enable 与空列表由 th:i
   assert.match(reward, /class="reward-close" type="button"/);
   assert.match(reward, /th:text="\$\{rewardText\}"/);
   assert.match(reward, /th:text="\$\{item\.text\}"/);
-  assert.match(reward, /th:alt="\$\{#strings\.isEmpty\(item\.text\) \? '打赏二维码' : item\.text\}"/);
+  assert.match(reward, /th:alt="\$\{#strings\.isEmpty\(item\.text\) \? #messages\.msg\('ui\.donateQr'\) : item\.text\}"/);
   assert.doesNotMatch(reward, /th:utext/);
 });
 

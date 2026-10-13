@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import type { SettingValue } from '../types.ts';
 
 export interface MathOptions {
@@ -62,7 +63,7 @@ export function enhanceMath(article: HTMLElement, options: MathOptions = {}): ()
       if (overflow) {
         scroll.tabIndex = 0;
         scroll.setAttribute('role', 'region');
-        scroll.setAttribute('aria-label', '数学公式，可横向滚动');
+        scroll.setAttribute('aria-label', t('ui.formula'));
       } else {
         scroll.removeAttribute('tabindex');
         scroll.removeAttribute('role');
@@ -116,15 +117,15 @@ export function enhanceMath(article: HTMLElement, options: MathOptions = {}): ()
         button.type = 'button';
         button.className = 'theme-math-copy';
         button.textContent = 'TeX';
-        button.title = '复制公式 TeX';
-        button.setAttribute('aria-label', '复制公式 TeX');
+        button.title = t('ui.copyTex');
+        button.setAttribute('aria-label', t('ui.copyTex'));
         const status = doc.createElement('span');
         status.className = 'theme-math-status';
         status.setAttribute('role', 'status');
         button.addEventListener('click', async () => {
           const value = mathSource(node) ?? records.get(node)?.raw;
           const ok = value != null && await copyMathText(value, doc);
-          status.textContent = ok ? '已复制' : '复制失败，请选中源码复制';
+          status.textContent = ok ? t('ui.sourceCopied') : t('ui.sourceCopyError');
           const timer = setTimeout(() => { status.textContent = ''; timers.delete(timer); }, 2500);
           timers.add(timer);
         });

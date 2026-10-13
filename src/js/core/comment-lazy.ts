@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { onPageCleanup } from './page-lifecycle.ts';
 
 const LOAD_EVENT = 'theme:load-comments';
@@ -50,7 +51,7 @@ export function initializeLazyComments(root: Document = document, options: Optio
     if (!active || state === 'loading' || state === 'mounted') return;
     observer?.disconnect();
     const current = ++generation;
-    display('loading', '正在加载评论…');
+    display('loading', t('ui.commentLoading'));
     try {
       const url = commentModuleUrl(root, attempt++);
       const module = await Promise.race([
@@ -72,7 +73,7 @@ export function initializeLazyComments(root: Document = document, options: Optio
       // Data, login, submission and reply failures stay with the official UI.
       // Once mounted, never replace a user's editor to retry a theme load.
     } catch {
-      if (active && current === generation) display('failed', '评论组件暂时无法加载，请重试。');
+      if (active && current === generation) display('failed', t('ui.commentError'));
     } finally {
       if (current === generation) win.clearTimeout(timer);
     }
@@ -89,7 +90,7 @@ export function initializeLazyComments(root: Document = document, options: Optio
     retry.removeEventListener('click', trigger);
     delete target.dataset.commentLazyBound;
   });
-  display(state, state === 'mounted' ? '' : '接近评论区时自动加载评论。');
+  display(state, state === 'mounted' ? '' : t('ui.commentHint'));
   if (state === 'mounted') return;
   if (win.location.hash === '#post-comment' || !('IntersectionObserver' in win)) trigger();
   else {

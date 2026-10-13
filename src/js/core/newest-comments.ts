@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { onPageCleanup } from './page-lifecycle.ts';
 /** Halo public comments, merged across the public Post/SinglePage inventory.
  * The public API requires an exact subject. Never use console APIs or cookies.
@@ -39,10 +40,10 @@ export function commentAvatar(value: unknown, origin: string) {
 /** Markup is never inserted into the live page; entity decoding is text-only. */
 export function commentExcerpt(html: string, decode: (value: string) => string = value => value) {
   const text = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
-    .replace(/<pre\b[^>]*>[\s\S]*?<\/pre\s*>/gi, '[代码]')
-    .replace(/<code\b[^>]*>[\s\S]*?<\/code\s*>/gi, '[代码]')
-    .replace(/<img\b[^>]*>/gi, '[图片]')
-    .replace(/<a\b[^>]*>[\s\S]*?<\/a\s*>/gi, '[链接]')
+    .replace(/<pre\b[^>]*>[\s\S]*?<\/pre\s*>/gi, t('ui.codePlaceholder'))
+    .replace(/<code\b[^>]*>[\s\S]*?<\/code\s*>/gi, t('ui.codePlaceholder'))
+    .replace(/<img\b[^>]*>/gi, t('ui.imagePlaceholder'))
+    .replace(/<a\b[^>]*>[\s\S]*?<\/a\s*>/gi, t('ui.linkPlaceholder'))
     .replace(/<[^>]*>/g, ' ');
   const chars = Array.from(decode(text).replace(/\s+/g, ' ').trim());
   return chars.length > 150 ? chars.slice(0, 150).join('') + '…' : chars.join('');
@@ -59,7 +60,7 @@ export function publicComment(value: unknown, subject: CommentSubject, origin: s
   if (typeof date !== 'string' || !Number.isFinite(Date.parse(date))) return null;
   return {
     id: metadata.name, subject: subjectKey(subject),
-    nickname: typeof owner?.displayName === 'string' ? owner.displayName.slice(0, 200) : '访客',
+    nickname: typeof owner?.displayName === 'string' ? owner.displayName.slice(0, 200) : t('ui.guest'),
     excerpt: commentExcerpt(typeof spec.content === 'string' ? spec.content : '', decode),
     date, avatar: commentAvatar(owner?.avatar, origin),
   };
@@ -168,7 +169,7 @@ export function initializeNewestComments(root: Document = document) {
     if (running) return;
     running = true;
     retry.hidden = true;
-    status.textContent = '正在加载最新评论…';
+    status.textContent = t('ui.recentLoading');
     card.setAttribute('aria-busy', 'true');
     try {
       const comments = await fetchNewestComments([...subjects.values()], limit, minutes, { origin: win.location.origin, storage, decode });
@@ -188,7 +189,7 @@ export function initializeNewestComments(root: Document = document) {
         }
         const content = root.createElement('span');
         const excerpt = root.createElement('span');
-        excerpt.className = 'newest-comment-excerpt'; excerpt.textContent = comment.excerpt || '查看评论';
+        excerpt.className = 'newest-comment-excerpt'; excerpt.textContent = comment.excerpt || t('ui.viewComment');
         const byline = root.createElement('span');
         byline.className = 'newest-comment-byline';
         const time = root.createElement('time'); time.dateTime = comment.date;
@@ -197,10 +198,10 @@ export function initializeNewestComments(root: Document = document) {
         content.append(excerpt, byline); link.append(content); item.append(link); fragment.append(item);
       }
       list.replaceChildren(fragment);
-      status.textContent = comments.length ? '' : '暂无评论';
+      status.textContent = comments.length ? '' : t('ui.noComments');
       card.dataset.commentsState = 'loaded';
     } catch {
-      status.textContent = '最新评论暂时无法加载。';
+      status.textContent = t('ui.recentError');
       retry.hidden = false;
       card.dataset.commentsState = 'failed';
     } finally {

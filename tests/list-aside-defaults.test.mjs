@@ -44,7 +44,7 @@ test('列表封面用真实 src、第 2/4/6 篇 right（index%2==1），无评�
   assert.match(list, /stat\.index % 2 == 1/);
   assert.doesNotMatch(list, /stat\.even \? ' right'/);
   assert.doesNotMatch(list, /stat\.odd \? ' right'/);
-  assert.match(list, /showLabel \? '发表于 '/);
+  assert.match(list, /showLabel \? #messages\.msg\('ui\.publishedAlt'\)/);
   assert.doesNotMatch(list, /class="wp comment"/);
   assert.doesNotMatch(list, /'点赞 '/);
   assert.doesNotMatch(list, /'预览 '/);
@@ -72,8 +72,8 @@ test('默认侧栏有归档卡与网站信息，分类/标签无多余 ul，文�
   const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
   assert.match(aside, /th:fragment="archives"/);
   assert.match(aside, /enable_archives != false/);
-  assert.match(aside, /<span class="name">归档<\/span>/);
-  assert.match(aside, /<span class="name">网站信息<\/span>/);
+  assert.match(aside, /<span class="name" th:text="#\{ui\.archives\}">归档<\/span>/);
+  assert.match(aside, /<span class="name" th:text="#\{ui\.siteInfo\}">网站信息<\/span>/);
   assert.doesNotMatch(aside, /网站资讯/);
   const category = aside.slice(aside.indexOf('th:fragment="category"'), aside.indexOf('th:fragment="tags"'));
   const tags = aside.slice(aside.indexOf('th:fragment="tags"'), aside.indexOf('th:fragment="archives"'));
@@ -144,7 +144,7 @@ test('归档卡月份计数取该桶全部文章，archives() 的 size 不是行
 test('网站信息保留文章数目与最后更新时间，访问量按来源与开关显示', async () => {
   const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
   const webInfo = webInfoFragment(aside);
-  assert.match(webInfo, /<span class="name">网站信息<\/span>/);
+  assert.match(webInfo, /<span class="name" th:text="#\{ui\.siteInfo\}">网站信息<\/span>/);
   assert.match(webInfo, /文章数目/);
   assert.match(webInfo, /最后更新时间/);
   assert.match(webInfo, /lastPush/);
@@ -153,7 +153,7 @@ test('网站信息保留文章数目与最后更新时间，访问量按来源�
   assert.match(webInfo, /data-relative-date="true"/);
   assert.doesNotMatch(webInfo, /文章点赞/);
   assert.match(webInfo, /theme.config.busuanzi\?\.site_pv/);
-  assert.match(webInfo, /文章总阅读量/);
+  assert.match(webInfo, /#messages\.msg\('ui\.postVisits'\)/);
   assert.doesNotMatch(webInfo, /stats\.upvote/);
   assert.match(webInfo, /stats\.visit/);
   const now = Date.parse('2026-09-10T13:00:00Z');

@@ -176,6 +176,7 @@ async function build() {
   await rename(stage, path.join(root, 'templates'));
   const zip = new JSZip();
   const paths = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE'];
+  paths.push(...(await filesUnder(path.join(root, 'i18n'))).map(file => path.relative(root, file)));
   paths.push(...(await filesUnder(path.join(root, 'templates'))).map(file => path.relative(root, file)));
   for (const file of paths.sort()) zip.file(file.replaceAll(path.sep, '/'), await readFile(path.join(root, file)), {
     date: new Date('1980-01-01T00:00:00Z'), createFolders: false,
@@ -192,7 +193,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const { watch } = await import('chokidar');
     let timer;
     let queue = Promise.resolve();
-    watch(['src', 'theme.yaml', 'settings.yaml', 'annotation-setting.yaml'], { cwd: root, ignoreInitial: true })
+    watch(['src', 'i18n', 'theme.yaml', 'settings.yaml', 'annotation-setting.yaml'], { cwd: root, ignoreInitial: true })
       .on('all', () => {
         clearTimeout(timer);
         timer = setTimeout(() => {

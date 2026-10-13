@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { loadManagedResource, resolveResource } from './external-resource.ts';
 import { onPageCleanup } from './page-lifecycle.ts';
 
@@ -23,7 +24,7 @@ export function initializeArticleGallery(article: HTMLElement) {
         gallery.classList.add('loaded');
         const message = article.ownerDocument.createElement('p');
         message.className = 'gallery-status'; message.setAttribute('role', 'status');
-        message.textContent = '图库增强未能加载，请刷新重试。';
+        message.textContent = t('ui.galleryEnhanceError');
         gallery.append(message);
       });
     }

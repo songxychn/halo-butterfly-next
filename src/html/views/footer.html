@@ -35,12 +35,12 @@
             th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + (contributor?.displayName ?: site.title)) : ('© ' + currentYear + ' By ' + (contributor?.displayName ?: site.title))}"></span>
       <span class="framework-info powered" th:if="${copyOn}">
         <span class="footer-separator" th:if="${ownerOn and navOn}">|</span>
-        <span>框架 </span>
+        <span th:text="#{ui.framework}">框架 </span>
         <a class="halo" href="https://halo.run/" target="_blank" rel="noopener noreferrer">Halo</a>
         <span class="footer-separator">|</span>
-        <span>主题 </span>
+        <span th:text="#{ui.theme}">主题 </span>
         <a class="theme"
-           title="原 Halo Butterfly 移植项目"
+           title="原 Halo Butterfly 移植项目" th:title="#{ui.originalProject}"
            href="https://github.com/dhjddcn/halo-theme-butterfly"
            target="_blank"
            rel="noopener noreferrer">Halo Butterfly Next</a><span th:if="${versionOn}" th:text="${' ' + theme.spec.version}"></span>
@@ -50,7 +50,7 @@
          th:if="${not #strings.isEmpty(theme.config.footer?.custom_text)}"
          th:text="${theme.config.footer.custom_text}"></div>
     <div class="icp" th:if="${not #strings.isEmpty(theme.config.base.icp)}">
-      <a th:text="'备案号：'+${theme.config.base.icp}"
+      <a th:text="#{ui.icp}+${theme.config.base.icp}"
          href="https://beian.miit.gov.cn/">
       </a>
     </div>
@@ -63,7 +63,7 @@
       <a
         href="https://www.beian.gov.cn/portal/registerSystemInfo"
         target="_blank"
-        th:text="'公安备案：'+${theme.config.base.police}"></a>
+        th:text="#{ui.police}+${theme.config.base.police}"></a>
     </div>
   </div>
   <halo:footer/>

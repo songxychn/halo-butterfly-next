@@ -1,3 +1,4 @@
+import { t } from '../core/i18n';
 import * as echarts from 'echarts/core';
 import {PieChart, BarChart, LineChart} from 'echarts/charts';
 import {TitleComponent, TooltipComponent, GridComponent, DataZoomComponent, LegendComponent, DatasetComponent, TransformComponent, MarkPointComponent, MarkLineComponent} from 'echarts/components';
@@ -60,7 +61,7 @@ function renderCategories() {
       return {
         backgroundColor: '',
         title: {
-          text: '分类统计 📇',
+          text: t('ui.categoryChartTitle'),
           x: 'center',
         },
         tooltip: {
@@ -79,7 +80,7 @@ function renderCategories() {
         },
         series: [
           {
-            name: '分类统计',
+            name: t('ui.categoriesChart'),
             type: 'pie',
             radius: [40, 150],
             center: ['50%', '48%'],
@@ -116,7 +117,7 @@ function renderTags(source: [string, number][]) {
           right: '5%', // 调整右边距
         },
         title: {
-          text: 'Top 10 标签统计 📌',
+          text: t('ui.tagChartTitle'),
           x: 'center',
         },
         dataset: [
@@ -138,7 +139,7 @@ function renderTags(source: [string, number][]) {
           type: 'category',
         },
         yAxis: {
-          name: '文章篇数',
+          name: t('ui.postNumber'),
           type: 'value',
           splitLine: {
             show: !1,
@@ -151,7 +152,7 @@ function renderTags(source: [string, number][]) {
           },
         },
         series: {
-          name: '标签统计',
+          name: t('ui.tagsChart'),
           type: 'bar',
           encode: {
             x: 'name',
@@ -196,13 +197,13 @@ function renderTags(source: [string, number][]) {
                 itemStyle: {
                   color: '#425aef',
                 },
-                name: '最大值',
+                name: t('ui.maximum'),
               }, {
                 type: 'min',
                 itemStyle: {
                   color: '#425aef',
                 },
-                name: '最小值',
+                name: t('ui.minimum'),
               },
             ],
           },
@@ -213,7 +214,7 @@ function renderTags(source: [string, number][]) {
             data: [
               {
                 type: 'average',
-                name: '平均值',
+                name: t('ui.average'),
               },
             ],
           },
@@ -241,7 +242,7 @@ function renderArchives() {
       return {
         color: ['#425aef'],
         title: {
-          text: '归档统计📃',
+          text: t('ui.archiveChart'),
           x: 'center',
         },
         tooltip: {
@@ -262,7 +263,7 @@ function renderArchives() {
           boundaryGap: false,
         },
         yAxis: {
-          name: '篇',
+          name: t('ui.postUnit'),
           axisLine: {
             show: true,
           },
@@ -271,7 +272,7 @@ function renderArchives() {
           {
             zlevel: 0,
             z: 2,
-            name: '文章篇数',
+            name: t('ui.postNumber'),
             type: 'line',
             smooth: true,
             symbol: 'none',

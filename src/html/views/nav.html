@@ -23,11 +23,11 @@
     <div class="controls">
       <a th:if="${pluginFinder.available('PluginSearchWidget', '>=1.7.1')}" class="link" href="javascript:SearchWidget.open()" title="搜索">
         <i class="icon fas fa-search fa-fw"></i>
-        <span class="name">搜索</span>
+        <span class="name" th:text="#{ui.search}">搜索</span>
       </a>
 
       <!--/* 移动侧边栏按钮 */-->
-      <button class="link bars" type="button" aria-label="打开菜单" aria-controls="mobile-navigation" aria-expanded="false">
+      <button class="link bars" type="button" aria-label="打开菜单" th:aria-label="#{ui.openMenu}" aria-controls="mobile-navigation" aria-expanded="false">
         <i class="fas fa-bars fa-fw" aria-hidden="true"></i>
       </button>
     </div>

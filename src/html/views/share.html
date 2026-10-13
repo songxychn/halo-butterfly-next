@@ -1,13 +1,13 @@
 <section xmlns:th="https://www.thymeleaf.org" class="post-share"
-  th:fragment="postShare" aria-label="分享文章"
+  th:fragment="postShare" aria-label="分享文章" th:aria-label="#{ui.share}"
   th:if="${theme.config.share?.use == 'sharejs' or theme.config.share?.use == 'addtoany' or theme.config.share?.use == 'native'}"
   th:attr="data-post-share=${theme.config.share.use},data-url=${canonical ?: post.status.permalink},data-title=${post.spec.title},data-image=${post.spec.cover ?: contributor?.avatar},data-items=${theme.config.share.use == 'addtoany' ? theme.config.share.addtoany?.item : theme.config.share.sharejs?.sites}">
-  <h2>分享文章</h2>
+  <h2 th:text="#{ui.share}">分享文章</h2>
   <div data-share-provider></div>
   <div class="share-actions">
-    <button type="button" data-share-system hidden>系统分享</button>
-    <button type="button" data-share-copy>复制链接</button>
-    <label>文章链接 <input type="text" readonly data-share-url th:value="${canonical ?: post.status.permalink}" aria-label="文章分享链接"></label>
+    <button type="button" data-share-system hidden th:text="#{ui.shareSystem}">系统分享</button>
+    <button type="button" data-share-copy th:text="#{ui.copyLink}">复制链接</button>
+    <label><span th:text="#{ui.postLink}">文章链接</span> <input type="text" readonly data-share-url th:value="${canonical ?: post.status.permalink}" aria-label="文章分享链接" th:aria-label="#{ui.shareLink}"></label>
   </div>
   <p data-share-status role="status" aria-live="polite"></p>
 </section>

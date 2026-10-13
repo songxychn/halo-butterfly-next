@@ -1,7 +1,8 @@
 import { preconnectResource } from './resource-hints.ts';
+import { t } from './i18n';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
 interface ShareWindow extends Window { socialShare?: (element: HTMLElement, options?: unknown) => void; a2a_config?: Record<string, unknown> }
-const LABELS: Record<string, string> = {facebook: 'Facebook', x: 'X', twitter: 'Twitter', wechat: '微信', weibo: '微博', qq: 'QQ', qzone: 'QQ 空间', linkedin: 'LinkedIn', sina_weibo: '微博', facebook_messenger: 'Messenger', email: '邮件', copy_link: '复制链接'};
+const LABELS: Record<string, string> = {facebook: 'Facebook', x: 'X', twitter: 'Twitter', get wechat() { return t('ui.wechat'); }, get weibo() { return t('ui.weibo'); }, qq: 'QQ', get qzone() { return t('ui.qzone'); }, linkedin: 'LinkedIn', get sina_weibo() { return t('ui.weibo'); }, facebook_messenger: 'Messenger', get email() { return t('ui.email'); }, get copy_link() { return t('ui.copyLink'); }};
 export function parseShareItems(value: string, allowed?: string[]) {
   return [...new Set(value.split(',').map(item => item.trim().toLowerCase()).filter(item => /^[a-z][a-z0-9_]*$/.test(item) && (!allowed || allowed.includes(item))))];
 }
@@ -28,15 +29,15 @@ export function initializeShare(root = document) {
   if (field) field.value = url;
   const status = region.querySelector<HTMLElement>('[data-share-status]');
   region.querySelector<HTMLButtonElement>('[data-share-copy]')?.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(url); if (status) status.textContent = '链接已复制'; }
-    catch { field?.focus(); field?.select(); if (status) status.textContent = '请手动复制链接'; }
+    try { await navigator.clipboard.writeText(url); if (status) status.textContent = t('ui.linkCopied'); }
+    catch { field?.focus(); field?.select(); if (status) status.textContent = t('ui.copyManual'); }
   });
   const system = region.querySelector<HTMLButtonElement>('[data-share-system]');
   if (system && typeof navigator.share === 'function') {
     system.hidden = false;
     system.addEventListener('click', async () => {
       try { await navigator.share({title: region.dataset.title ?? root.title, url}); }
-      catch (error) { if ((error as Error).name !== 'AbortError' && status) status.textContent = '请使用下方链接分享'; }
+      catch (error) { if ((error as Error).name !== 'AbortError' && status) status.textContent = t('ui.shareFallback'); }
     });
   }
   const win = window as ShareWindow;
@@ -57,7 +58,7 @@ export function initializeShare(root = document) {
       win.socialShare?.(host, {sites, mobileSites: sites});
       host.querySelectorAll<HTMLAnchorElement>('a').forEach(link => {
         const name = sites.find(site => link.classList.contains(`icon-${site}`));
-        link.setAttribute('aria-label', `分享到${LABELS[name ?? ''] ?? name ?? '平台'}`);
+        link.setAttribute('aria-label', t('ui.shareTo', LABELS[name ?? ''] ?? name ?? t('ui.platform')));
         link.rel = 'noopener noreferrer';
         if (name === 'wechat') {
           link.href = '#';
@@ -75,7 +76,7 @@ export function initializeShare(root = document) {
           });
         } else if (link.href.startsWith('http:')) link.href = link.href.replace(/^http:/, 'https:');
       });
-    }).catch(() => { if (status) status.textContent = '分享组件暂不可用，可复制链接'; });
+    }).catch(() => { if (status) status.textContent = t('ui.shareError'); });
   } else if (region.dataset.postShare === 'addtoany') {
     const items = parseShareItems(region.dataset.items ?? '');
     if (!items.length) return;
@@ -85,10 +86,10 @@ export function initializeShare(root = document) {
     for (const item of items) {
       const link = root.createElement('a'); link.className = `a2a_button_${item}`;
       link.href = `https://www.addtoany.com/add_to/${item}?linkurl=${encodeURIComponent(url)}&linkname=${encodeURIComponent(region.dataset.title ?? '')}`;
-      link.textContent = LABELS[item] ?? item; link.setAttribute('aria-label', `分享到${LABELS[item] ?? item}`);
+      link.textContent = LABELS[item] ?? item; link.setAttribute('aria-label', t('ui.shareTo', LABELS[item] ?? item));
       link.target = '_blank'; link.rel = 'noopener noreferrer'; host.append(link);
     }
     win.a2a_config = {...win.a2a_config, num_services: items.length};
-    void loadScript('https://static.addtoany.com/menu/page.js').catch(() => { if (status) status.textContent = '分享组件暂不可用，可复制链接'; });
+    void loadScript('https://static.addtoany.com/menu/page.js').catch(() => { if (status) status.textContent = t('ui.shareError'); });
   }
 }

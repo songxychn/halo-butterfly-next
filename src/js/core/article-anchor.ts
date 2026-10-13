@@ -1,3 +1,4 @@
+import { t } from './i18n';
 /** Chapter links keep author IDs and work even when the TOC is disabled. */
 const HEADINGS = 'h1,h2,h3,h4,h5,h6';
 
@@ -74,7 +75,7 @@ export function bindArticleAnchors(article: HTMLElement, options: AnchorOptions 
       const link = doc.createElement('a');
       link.className = 'heading-anchor';
       link.href = `#${encodeURIComponent(heading.id)}`;
-      link.setAttribute('aria-label', `链接到章节：${heading.textContent || heading.id}`);
+      link.setAttribute('aria-label', t('ui.headingLink', heading.textContent || heading.id));
       heading.append(link);
       permalinks.push(link);
     }

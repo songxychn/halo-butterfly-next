@@ -82,6 +82,7 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
 export interface ThemeModule { name: string }
 export interface PrismApi { highlightAllUnder(root: Element): void }
 export interface ThemeApp {
+  messages?: Record<string, string>;
   conf: ThemeConfig;
   attrs: { enable_code_copy?: SettingValue };
   modules: Record<string, ThemeModule>;

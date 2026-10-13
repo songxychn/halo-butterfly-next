@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {test} from 'bun:test';
 import vm from 'node:vm';
+import { t } from '../src/js/core/i18n.ts';
 
 const transpiler = new Bun.Transpiler({loader: 'ts', target: 'browser'});
 
@@ -12,7 +13,7 @@ const source = transpiler.transformSync(charts.slice(charts.indexOf('function re
 function run(chartDom, MainApp, useChart) {
   const component = {};
   vm.runInNewContext(`${source}\nrenderCategories();`, {
-    MainApp, useChart,
+    MainApp, useChart, t,
     document: {querySelector: () => chartDom},
     echarts: {use() {}},
     PieChart: component, TitleComponent: component, TooltipComponent: component,

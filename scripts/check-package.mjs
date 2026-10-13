@@ -10,6 +10,7 @@ const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 const theme = parse(await readFile(path.join(root, 'theme.yaml'), 'utf8'));
 const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${theme.metadata.name}-${pkg.version}.zip`)));
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
+for (const name of ['default', 'en', 'ja', 'ko', 'zh', 'zh_CN', 'zh_HK', 'zh_TW']) required.push(`i18n/${name}.properties`);
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
 required.push('templates/assets/js/masonry.min.js', 'templates/assets/js/charts.min.js');

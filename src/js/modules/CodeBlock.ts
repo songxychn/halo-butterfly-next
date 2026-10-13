@@ -1,3 +1,4 @@
+import { t } from '../core/i18n';
 import { onPageCleanup, pageScope, pageListen } from '../core/page-lifecycle.ts';
 /**
  * @date: 2024/2/25
@@ -119,7 +120,7 @@ export default class codeBlock {
     const customItem = toolbar.find('.custom-item');
 
     if (this.#copyEnabled()) {
-      const button = $('<button type="button" class="code-copy" aria-label="复制代码" title="复制代码"><i class="fas fa-paste" aria-hidden="true"></i></button>');
+      const button = $(`<button type="button" class="code-copy" aria-label="${t('ui.copyCode')}" title="${t('ui.copyCode')}"><i class="fas fa-paste" aria-hidden="true"></i></button>`);
       button.on('click', (e) => {
         e.preventDefault();
         const text = pre.children('code[class*=\'language-\']').text();
@@ -132,7 +133,7 @@ export default class codeBlock {
     if (shrink !== 'none') {
       const initiallyClosed = shrink === 'true';
       if (initiallyClosed) wrap.addClass('closed');
-      const expander = $(`<button type="button" class="code-expander" aria-label="${initiallyClosed ? '展开代码' : '折叠代码'}" title="${initiallyClosed ? '展开代码' : '折叠代码'}" aria-expanded="${initiallyClosed ? 'false' : 'true'}"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>`);
+      const expander = $(`<button type="button" class="code-expander" aria-label="${initiallyClosed ? t('ui.expandCode') : t('ui.collapseCode')}" title="${initiallyClosed ? t('ui.expandCode') : t('ui.collapseCode')}" aria-expanded="${initiallyClosed ? 'false' : 'true'}"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>`);
       expander.on('click', () => {
         this.#setCodeExpanded(wrap, expander, wrap.hasClass('closed'));
       });
@@ -140,7 +141,7 @@ export default class codeBlock {
     }
 
     if (this.#flag('enable_code_fullpage')) {
-      const button = $('<button type="button" class="fullpage-button" aria-label="全屏代码" title="全屏代码" aria-pressed="false"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button>');
+      const button = $(`<button type="button" class="fullpage-button" aria-label="${t('ui.fullscreenCode')}" title="${t('ui.fullscreenCode')}" aria-pressed="false"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button>`);
       button.on('click', (e) => {
         e.preventDefault();
         this.#toggleFullpage(wrap, button);
@@ -154,8 +155,8 @@ export default class codeBlock {
   #setCodeExpanded(wrap: JQuery<HTMLElement>, button: JQuery<HTMLElement>, expanded: boolean) {
     wrap.toggleClass('closed', !expanded);
     button.attr('aria-expanded', String(expanded));
-    button.attr('aria-label', expanded ? '折叠代码' : '展开代码');
-    button.attr('title', expanded ? '折叠代码' : '展开代码');
+    button.attr('aria-label', expanded ? t('ui.collapseCode') : t('ui.expandCode'));
+    button.attr('title', expanded ? t('ui.collapseCode') : t('ui.expandCode'));
   }
 
   #fullpageWrap: JQuery<HTMLElement> | null = null;
@@ -197,8 +198,8 @@ export default class codeBlock {
     icon.toggleClass('fa-down-left-and-up-right-to-center', on);
     icon.toggleClass('fa-up-right-and-down-left-from-center', !on);
     button.attr('aria-pressed', String(on));
-    button.attr('aria-label', on ? '退出全屏' : '全屏代码');
-    button.attr('title', on ? '退出全屏' : '全屏代码');
+    button.attr('aria-label', on ? t('ui.exitFullscreen') : t('ui.fullscreenCode'));
+    button.attr('title', on ? t('ui.exitFullscreen') : t('ui.fullscreenCode'));
   }
 
   #lockScroll() {
@@ -266,7 +267,7 @@ export default class codeBlock {
   }
 
   #copyFeedback(button: HTMLElement, ok: boolean) {
-    const text = ok ? '复制成功~' : '复制失败';
+    const text = ok ? t('ui.copied') : t('ui.copyFailed');
     if (ok) MainApp.useMessage.info(text);
     else MainApp.useMessage.error(text);
     const host = button.parentElement || button;
@@ -287,12 +288,12 @@ export default class codeBlock {
     if (!code || code.scrollHeight <= limit) return;
     wrap.addClass('has-height-limit');
     wrap[0].style.setProperty('--code-height-limit', `${limit}px`);
-    const btn = $('<button type="button" class="code-expand-btn" aria-label="展开代码" aria-expanded="false"><i class="fas fa-angle-double-down" aria-hidden="true"></i></button>');
+    const btn = $(`<button type="button" class="code-expand-btn" aria-label="${t('ui.expandCode')}" aria-expanded="false"><i class="fas fa-angle-double-down" aria-hidden="true"></i></button>`);
     btn.on('click', () => {
       wrap.toggleClass('expand-done');
       const expanded = wrap.hasClass('expand-done');
       btn.attr('aria-expanded', String(expanded));
-      btn.attr('aria-label', expanded ? '收起代码' : '展开代码');
+      btn.attr('aria-label', expanded ? t('ui.hideCode') : t('ui.expandCode'));
     });
     wrap.append(btn);
   }

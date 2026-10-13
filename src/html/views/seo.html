@@ -30,7 +30,7 @@
     <meta property="og:description" th:if="${not #strings.isEmpty(seoDescription)}" th:content="${seoDescription}">
     <meta property="og:site_name" th:content="${site.title}">
     <meta property="og:url" th:content="${seoUrl}">
-    <meta property="og:locale" th:content="${#strings.replace(#locale.toLanguageTag(), '-', '_')}">
+    <meta property="og:locale" th:content="${#strings.replace(contentLanguage ?: #locale.toLanguageTag(), '-', '_')}">
     <meta property="og:type" th:content="${page == 'post' ? 'article' : 'website'}">
     <meta property="og:image" th:if="${not #strings.isEmpty(imageUrl)}" th:content="${imageUrl}">
     <meta property="article:published_time" th:if="${page == 'post' and post.spec.publishTime != null}" th:content="${post.spec.publishTime}">

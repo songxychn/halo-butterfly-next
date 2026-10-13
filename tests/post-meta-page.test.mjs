@@ -47,8 +47,8 @@ test('list fragment 按 index.post_meta 控制分类/标签/日期/前缀，并�
   assert.match(list, /post\.tags/);
   assert.match(list, /dateType != 'updated'/);
   assert.match(list, /dateType == 'updated' or dateType == 'both'/);
-  assert.match(list, /showLabel \? '发表于 '/);
-  assert.match(list, /showLabel \? '更新于 '/);
+  assert.match(list, /showLabel \? #messages\.msg\('ui\.publishedAlt'\)/);
+  assert.match(list, /showLabel \? #messages\.msg\('ui\.updated'\)/);
   assert.doesNotMatch(list, /dateType != 'created'/);
   assert.doesNotMatch(list, /theme\.config\.post\.post_meta/);
   assert.doesNotMatch(list, /yyyy-MM-dd HH:mm/);

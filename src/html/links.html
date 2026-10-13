@@ -1,7 +1,7 @@
 <layout
   th:replace="~{views/layout :: layout (
   page = 'links',
-  title = ${site.title} + ' - ' + '链接列表',
+  title = ${site.title} + ' - ' + #{ui.linksTitle},
   pin = ~{::pin},
   header = ~{::header},
   main = ~{::main}
@@ -29,7 +29,7 @@
       <!--第一屏内容-->
       <section class="above" th:if="${aboveEnabled}">
         <div class="above-info">
-          <h1 class="above-title">链接管理</h1>
+          <h1 class="above-title" th:text="#{ui.links}">链接管理</h1>
         </div>
       </section>
     </header>
@@ -39,7 +39,7 @@
   <!--/* 內容 */-->
   <th:block th:fragment="main">
     <section class="content card" th:with="noData = ${not #lists.isEmpty(groups)}">
-      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'链接管理'}"></h1>
+      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${#messages.msg('ui.links')}"></h1>
       <th:block th:if="${noData}">
         <div class="groups">
           <div class="item" th:each="group : ${groups}">
