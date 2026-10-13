@@ -60,7 +60,7 @@ try {
      const url=route.request().url();
      // Remote JSON has article-relative URLs, as in Butterfly; route the
      // synthetic image bytes on both the data server and real Halo origin.
-     if(info && /\/gallery-[0-2]\.svg$/.test(new URL(url).pathname))return route.fetch({url:base+new URL(url).pathname}).then(response=>route.fulfill({response}));
+     if(info && /\/gallery-[0-2]\.svg$/.test(new URL(url).pathname))return route.fetch({url:base+'/'+new URL(url).pathname.split('/').pop()}).then(response=>route.fulfill({response}));
      if(url===base+'/retry.json' && retry++===0)return route.fulfill({status:500,body:'synthetic failure',headers:{'Access-Control-Allow-Origin':'*'}});
      if(![base,origin].includes(new URL(url).origin) && !url.startsWith('data:'))return route.abort();
      return route.continue();
@@ -90,9 +90,12 @@ try {
      assert.equal(await page.locator('.viewer-list > li').count(),9);
      await page.keyboard.press('Escape');await page.locator('.theme-image-viewer').waitFor({state:'hidden'});result.checks.push('lightbox isolates gallery group and restores focus');
      await page.locator('#remote-gallery .gallery-status').filter({hasText:'已加载 2 / 3'}).waitFor();
+     assert.equal(await page.locator('#remote-gallery [data-no-lightbox]').count(),0);
+     assert(await page.locator('#remote-gallery').evaluate(g=>[...g.querySelectorAll('.item img')].every(i=>i.complete && i.naturalWidth>0)));
      assert.equal(await page.evaluate(()=>window.injected),undefined);result.checks.push('remote relative URLs; metadata rendered as text');
      await page.locator('#retry-gallery button').filter({hasText:'重试'}).click();
      await page.locator('#retry-gallery .gallery-status').filter({hasText:'已加载 2 / 3'}).waitFor();result.checks.push('HTTP failure has usable retry');
+     assert.equal(await page.locator('#retry-gallery [data-no-lightbox]').count(),0);
      await page.locator('#bad-gallery [data-no-lightbox]').waitFor();assert.equal(await page.locator('#bad-gallery .theme-lightbox-trigger').count(),0);
      assert.equal(await page.locator('#empty-gallery .gallery-status').textContent(),'暂无图片');
      assert.match(await page.locator('#invalid-gallery .gallery-status').textContent(),/加载失败/);result.checks.push('bad image placeholder; empty/invalid JSON visible');
