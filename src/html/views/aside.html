@@ -35,9 +35,7 @@
     <span th:utext="${theme.config.aside.button.name}"></span>
   </a>
 
-  <div class="social" th:with="social = ${not #lists.isEmpty(theme.config.aside.social)}">
-    <a th:each="item : ${theme.config.aside.social}" class="link" target="_blank" th:title="${item.name}" th:href="${item.link}" th:utext="${item.icon}"></a>
-  </div>
+  <th:block th:if="${theme.config.aside?.social_position != 'header' and theme.config.aside?.social_position != 'none'}"><th:block th:replace="~{views/social :: icons}"/></th:block>
 </section>
 
 <!--/* 公告 */-->

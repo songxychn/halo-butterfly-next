@@ -22,6 +22,7 @@ import { bindCommentJump } from './comment-jump.ts';
 import { initializeLazyComments } from './comment-lazy.ts';
 import { initializeSiteWordcount, initializeVisitCounters } from './site-statistics.ts';
 import { bindCopyAttribution } from './copy-attribution.ts';
+import { initializeSiteContent } from './site-content.ts';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
 
 export default class Common {
@@ -54,6 +55,7 @@ export default class Common {
     initializeVisitCounters();
     initializeSiteWordcount();
     bindCopyAttribution();
+    initializeSiteContent();
 
   }
 

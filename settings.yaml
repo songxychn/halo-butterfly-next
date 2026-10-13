@@ -1113,6 +1113,20 @@ spec:
               placeholder: 请填写 按钮链接
               value: ""
               validation: required
+        - $formkit: select
+          name: social_position
+          label: 社交链接位置
+          value: aside
+          help: 页头指首页标题下方；关闭顶图时显示在首页内容标题后。原有社交列表继续复用。
+          options:
+            - label: 仅作者侧栏
+              value: aside
+            - label: 仅首页页头
+              value: header
+            - label: 页头与侧栏
+              value: both
+            - label: 不显示
+              value: none
         - $formkit: repeater
           name: social
           label: 社交账号
@@ -1139,6 +1153,16 @@ spec:
               placeholder: 请填写 链接
               value: ""
               validation: required
+            - $formkit: text
+              name: color
+              label: 图标颜色
+              value: ''
+              help: 可选 CSS 颜色，例如 #24292e；非法值保持默认。不接受 URL 或样式声明。
+            - $formkit: text
+              name: dark_color
+              label: 深色模式图标颜色
+              value: ''
+              help: 可选。留空沿用当前主题前景，避免浅色背景品牌色在深色中不可读。
         - $formkit: textarea
           rows: 5
           name: notice
@@ -3145,7 +3169,7 @@ spec:
         - $formkit: group
           name: owner
           label: 站点所有权
-          help: 对应上游 Butterfly footer.owner（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认 enable true、since 2025。关闭不渲染 © 行。since 与当前年不同时显示 since - current，否则只显示当前年。作者用站点名称。本刀含 footer.nav（扁平 title/url）与 footer_img。不做嵌套列 html。遮罩见 mask.footer。
+          help: 对应上游 Butterfly footer.owner（_config.yml / layout/includes/footer.pug，5.7.0 f223b188）。默认 enable true、since 2025。关闭不渲染 © 行。since 与当前年不同时显示 since - current，否则只显示当前年。作者用站点名称。保留原扁平 footer.nav 和 footer_img，并可添加独立嵌套导航列和净化 HTML。遮罩见 mask.footer。
           value:
             enable: true
             since: 2025
@@ -3214,6 +3238,52 @@ spec:
           label: 自定义文案
           help: 对应上游 footer.custom_text（默认空）。有内容才渲染。可见文本 th:text，不做 HTML。
           value: ""
+        - $formkit: textarea
+          name: custom_html
+          label: 自定义 HTML
+          value: ''
+          help: 可选普通 HTML，浏览器净化后增强显示；禁止脚本、事件、样式、iframe 和表单。无脚本时保留转义文本。
+        - $formkit: repeater
+          name: columns
+          label: 页脚导航列
+          value: []
+          help: 与原扁平导航兼容；列可包含多个分组，分组内可以放链接、纯文本或安全 HTML。
+          children:
+            - $formkit: number
+              name: width
+              label: 列宽权重
+              value: 1
+              min: 1
+              max: 12
+              help: 相对宽度，移动端自动换行；无脚本时等宽。
+            - $formkit: repeater
+              name: sections
+              label: 列内分组
+              value: []
+              children:
+                - $formkit: text
+                  name: title
+                  label: 分组标题
+                  value: ''
+                - $formkit: repeater
+                  name: items
+                  label: 分组项目
+                  value: []
+                  children:
+                    - $formkit: text
+                      name: title
+                      label: 名称或纯文本
+                      value: ''
+                    - $formkit: text
+                      name: url
+                      label: 链接
+                      value: ''
+                      help: 可选 HTTP(S)、站内路径、锚点、mailto 或 tel；留空显示纯文本。
+                    - $formkit: textarea
+                      name: html
+                      label: HTML 内容
+                      value: ''
+                      help: 可选；填写后优先使用净化 HTML，不执行脚本和事件。
         - $formkit: text
           name: footer_img
           label: 页脚背景
@@ -3655,3 +3725,31 @@ spec:
           label: 外部动态起始日期
           value: ''
           help: 可选 ISO 8601 日期时间，必须带 Z 或时区偏移，例如 2026-01-01T00:00:00+08:00。只显示此时间及之后的动态。
+
+    - group: links
+      label: 友情链接增强
+      formSchema:
+        - $formkit: checkbox
+          name: random_order
+          label: 随机排列组内友链
+          value: false
+          help: 每次页面初始化随机排列各组卡片，保留分组顺序；不修改插件数据。无脚本沿用原排序。
+        - $formkit: repeater
+          name: group_descriptions
+          label: 本地友链组说明
+          value: []
+          help: 官方 Links 模型没有组说明字段，主题按组的 metadata.name 精确匹配；不修改插件模型。
+          children:
+            - $formkit: text
+              name: group
+              label: 分组唯一标识
+              value: ''
+            - $formkit: textarea
+              name: description
+              label: 分组说明
+              value: ''
+        - $formkit: text
+          name: source
+          label: 独立远端友链 JSON
+          value: ''
+          help: 可选 HTTPS 或本站路径，匿名读取且跨域需 CORS；失败保留本地友链。分组数据契约见 docs/SOCIAL-FOOTER-LINKS.md。

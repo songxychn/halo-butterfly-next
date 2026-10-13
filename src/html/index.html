@@ -60,6 +60,7 @@
           <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false and (not #strings.isEmpty(site.subtitle) or not #strings.isEmpty(theme.config.index.typewriter_custom_text) or #lists.contains({'custom','hitokoto','yiyan','jinrishici'}, theme.config.index.subtitle_source))}">
             <span class="above-subtitle--text"></span>
           </div>
+          <th:block th:if="${theme.config.aside?.social_position == 'header' or theme.config.aside?.social_position == 'both'}"><th:block th:replace="~{views/social :: icons}"/></th:block>
         </div>
         <!--/* 对齐 Butterfly 5.7.0 layout/includes/header/index.pug：is_home() 时 #scroll-down + .scroll-down-effects */-->
         <div id="scroll-down">
@@ -74,6 +75,7 @@
   <th:block th:fragment="main">
     <section class="content">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${site.title}"></h1>
+      <th:block th:if="${not aboveEnabled and (theme.config.aside?.social_position == 'header' or theme.config.aside?.social_position == 'both')}"><th:block th:replace="~{views/social :: icons}"/></th:block>
       <th:block th:replace="~{views/components:: list(${posts.items},${homeLayout})}"/>
     </section>
     <th:block th:replace="~{views/aside::common}"/>

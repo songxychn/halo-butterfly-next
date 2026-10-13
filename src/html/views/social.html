@@ -1,0 +1,8 @@
+<div th:fragment="icons" class="social theme-social" th:if="${not #lists.isEmpty(theme.config.aside.social)}">
+  <a th:each="item : ${theme.config.aside.social}" class="link" target="_blank" rel="noopener noreferrer" th:title="${item.name}" th:aria-label="${item.name}"
+    th:with="url=${item.link ?: ''}"
+    th:href="${url.matches('(?i)^(https?://|mailto:|tel:|/|#).*') ? url : null}"
+    data-site-link th:attr="data-social-color=${item.color},data-social-dark-color=${item.dark_color}">
+    <span data-social-icon th:attr="data-icon=${item.icon}"><i class="fa-solid fa-link" aria-hidden="true"></i></span>
+  </a>
+</div>
