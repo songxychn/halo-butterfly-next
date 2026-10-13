@@ -1,79 +1,57 @@
-import { pageListen } from './page-lifecycle.ts';
-/**
- * @date: 2024/2/23
- * @author: 小红
- * @fileName: _theme
- * @Description: 主题切换
- */
-import { resolveInitialColorScheme, shouldListenPrefersColorScheme } from './darkmode.ts';
-
+import {onPageCleanup, pageListen} from './page-lifecycle.ts';
+import {nextColorBoundary, resolveInitialColorScheme, resolveMode} from './color-scheme.ts';
+import type {ColorScheme} from '../types.ts';
 export default class Theme {
-  #LOCALSTORAGE_KEY = 'halo-butterfly-next.color-scheme';
-  #ATTR_KEY = 'colorScheme'; // 根元素主题属性
-  #CHANGE_FN: ((mode: import('../types.ts').ColorScheme) => void) | null = null; // 主题切换回调
-  mode: import('../types.ts').ColorScheme = 'light'; // 主题模式
-
-  // 初始化主题模式
+  #key = 'halo-butterfly-next.color-scheme';
+  #chosen: string | null = null;
+  #callbacks = new Set<(mode: ColorScheme) => void>();
+  #timer: ReturnType<typeof setTimeout> | undefined;
+  mode: ColorScheme = 'light';
   constructor() {
-    const conf = typeof MainApp !== 'undefined' && MainApp.conf ? MainApp.conf : {};
-    let saved = null;
-    try { saved = localStorage.getItem(this.#LOCALSTORAGE_KEY); } catch {}
+    try { this.#chosen = localStorage.getItem(this.#key); } catch {}
+    this.#refresh();
+    if (resolveMode(MainApp.conf.style_mode) === 'system') {
+      try { pageListen(window.matchMedia('(prefers-color-scheme: dark)'), 'change', () => this.#refresh()); } catch {}
+    }
+    pageListen(window, 'focus', () => this.#refresh());
+    pageListen(document, 'visibilitychange', () => this.#refresh());
+    onPageCleanup(() => { clearTimeout(this.#timer); this.#callbacks.clear(); });
+  }
+  #refresh() {
+    const conf = MainApp.conf;
     let prefersDark = false;
-    let prefersLight = false;
-    try {
-      prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    } catch {}
-    const theme = resolveInitialColorScheme({
-      styleMode: conf.style_mode,
-      autoChangeMode: conf.darkmode_autoChangeMode,
-      start: conf.darkmode_start,
-      end: conf.darkmode_end,
-      saved,
-      prefersDark,
-      prefersLight,
-      hour: new Date().getHours(),
-    });
-    this.setMode(theme, { persist: false });
-    if (shouldListenPrefersColorScheme({
-      styleMode: conf.style_mode,
-      autoChangeMode: conf.darkmode_autoChangeMode,
-      saved,
-    })) {
-      try {
-        pageListen(window.matchMedia('(prefers-color-scheme: dark)'), 'change', event => {
-          try {
-            const chosen = localStorage.getItem(this.#LOCALSTORAGE_KEY);
-            if (chosen === 'light' || chosen === 'dark') return;
-          } catch {}
-          this.setMode(event.matches ? 'dark' : 'light', { persist: false });
-        });
-      } catch {}
-    }
+    try { prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch {}
+    this.setMode(resolveInitialColorScheme({styleMode: conf.style_mode, saved: this.#chosen,
+      start: conf.darkmode_night_start, end: conf.darkmode_night_end, prefersDark}), {persist: false});
+    clearTimeout(this.#timer);
+    if (resolveMode(conf.style_mode) === 'schedule') this.#timer = setTimeout(() => this.#refresh(), nextColorBoundary(new Date(), conf.darkmode_night_start, conf.darkmode_night_end) + 20);
   }
-
-  // 设置主题模式。自动推导的初始值不写入 localStorage，避免把 autoChangeMode 1/2 冻成已选项。
-  setMode(theme: unknown, { persist = true } = {}) {
-    this.mode = theme === 'dark' ? 'dark' : 'light';
-    document.documentElement.dataset[this.#ATTR_KEY] = this.mode;
+  setMode(theme: unknown, {persist = true} = {}) {
+    const mode = theme === 'dark' ? 'dark' : 'light';
+    const changed = mode !== this.mode;
+    this.mode = mode;
+    document.documentElement.dataset.colorScheme = mode;
     if (persist) {
-      try { localStorage.setItem(this.#LOCALSTORAGE_KEY, this.mode); } catch {}
+      this.#chosen = mode;
+      try { localStorage.setItem(this.#key, mode); } catch {}
     }
-    this.#CHANGE_FN && this.#CHANGE_FN(this.mode);
+    if (changed) for (const callback of this.#callbacks) callback(mode);
   }
-
-  // 获取主题模式
-  getMode() {
-    return this.mode;
+  resetMode() {
+    this.#chosen = null;
+    try { localStorage.removeItem(this.#key); } catch {}
+    this.#refresh();
   }
-
-  // 切换主题模式
+  getMode() { return this.mode; }
   toggleMode() {
-    this.setMode(this.mode === 'light' ? 'dark' : 'light', { persist: true });
+    const policy = resolveMode(MainApp.conf.style_mode);
+    if (policy === 'light' || policy === 'dark') return;
+    this.setMode(this.mode === 'light' ? 'dark' : 'light');
   }
-
-  // 主题模式切换回调
-  change(fn: (mode: import('../types.ts').ColorScheme) => void) {
-    this.#CHANGE_FN = fn;
+  change(fn: (mode: ColorScheme) => void) {
+    this.#callbacks.add(fn);
+    const remove = () => { this.#callbacks.delete(fn); };
+    onPageCleanup(remove);
+    return remove;
   }
 }

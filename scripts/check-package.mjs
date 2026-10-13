@@ -12,7 +12,7 @@ const zip = await JSZip.loadAsync(await readFile(path.join(root, 'dist', `${them
 const required = ['theme.yaml', 'settings.yaml', 'annotation-setting.yaml', 'LICENSE', 'templates/index.html', 'templates/post.html', 'templates/layout.html', 'templates/error/404.html'];
 required.push('templates/assets/images/above.svg', 'templates/assets/plugins/fontawesome/LICENSE.txt', 'templates/assets/plugins/prism/LICENSE');
 required.push('templates/assets/licenses/viewerjs-1.14.0-LICENSE');
-required.push('templates/assets/js/masonry.min.js');
+required.push('templates/assets/js/masonry.min.js', 'templates/assets/js/charts.min.js');
 for (const name of ['mermaid', 'chartjs', 'abcjs']) required.push(`templates/assets/renderers/${name}.min.js`);
 for (const name of ['mermaid', 'chart.js', 'abcjs', 'dompurify']) {
   const metadata = JSON.parse(await readFile(path.join(root, 'node_modules', name, 'package.json'), 'utf8'));

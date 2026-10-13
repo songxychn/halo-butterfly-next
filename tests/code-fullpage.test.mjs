@@ -56,7 +56,7 @@ test('进入/退出全屏：class、Esc、overflow 恢复', () => {
 });
 
 test('全屏不覆盖 copy / expander / macStyle / word_wrap / height_limit', () => {
-  assert.equal(defaults.render.enable_code_expander, 'false');
+  assert.equal(defaults.render.code_shrink, 'expanded');
   assert.match(js, /class="code-copy"/);
   assert.match(js, /class="code-expander"/);
   assert.match(js, /#flag\('enable_code_mac_style'\)/);

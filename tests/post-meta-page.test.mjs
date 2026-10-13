@@ -22,7 +22,7 @@ test('首页列表 post_meta 默认值对齐上游 Butterfly 5.7.0 post_meta.pag
     tags: false,
     label: true,
   });
-  assert.equal(defaults.index.post_layout, 'list');
+  assert.equal(defaults.index.index_layout, '3');
 });
 
 test('文章页 post.post_meta 默认值不被首页列表组覆盖', () => {

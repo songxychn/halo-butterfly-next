@@ -57,7 +57,7 @@ test('image URLs remain a CSSOM value rather than injected HTML or CSS source', 
 test('new image defaults preserve saved configurations and expose only visibility metadata', async () => {
   const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
   const defaults = defaultsFromSettings(settings);
-  assert.deepEqual(defaults.image, { disable_top_img: false, default_top_img: '', flink_error: '' });
+  assert.deepEqual(defaults.image, { disable_top_img: false, default_top_img: '', other_pages_above: true, flink_error: '' });
   assert.equal(defaults.index.enable_above, true);
   assert.equal(defaults.post.enable_above, true);
   const annotations = parseAllDocuments(await readFile(new URL('../annotation-setting.yaml', import.meta.url), 'utf8')).map(doc => doc.toJSON());

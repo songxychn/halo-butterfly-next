@@ -1,0 +1,1859 @@
+{
+  "schemaVersion": 1,
+  "kind": "scoped-reviewed-worktree-validation",
+  "testedAt": "2026-10-13T17:09:08.215116+00:00",
+  "actor": "Codex author",
+  "result": "passed-scoped",
+  "baseCommit": "44621d24914edea94a242350562af68870cf5b69",
+  "sourceAttribution": "Reviewed dirty candidate based on current master; source identity is the 505-file manifest, not base HEAD alone. Final commit/CI identity recorded in the draft PR.",
+  "sourceSnapshotSha256": "cd27e8e23ca56abbb6c34ed69d062168f5200a3396191a711379c30b791db4be",
+  "buildInputSha256": {
+    "bun.lock": "a5fe18b361ae93164d8a97e0e48890e639ca930a7cc661b6135194b8b51f1a52",
+    "fixtures/performance/theme-defaults.json": "b9555e16493931b1d63cdd46f5da2621f1122371f1b19ffe9c6738223855592c",
+    "package.json": "e397a401ae32e3172ff2b2155a2453e47c07f4a9f0211051402c62081da0b7eb",
+    "scripts/appearance/validate.py": "5ae46dd0cd227990102f6069c4932d0bd1fc31c1ee633e47885d02ade9bf75b4",
+    "scripts/aside-a11y/check-browser.mjs": "359d032b9a468ded6ac3a7718b53ad4d5360e227933ea0649e1d5090e0f20057",
+    "scripts/body-renderers/check.mjs": "a6984cac0ba5bc0c5c536601746e074004db4741875d32e963df0712566a650f",
+    "scripts/body-renderers/cross.mjs": "1057a66a43044b1a368cffd0cc4b524c3496cd0b89b9295970b5227c6717de5c",
+    "scripts/body-renderers/lab.py": "4ada029f002245a5558e02418df1f7426e43bb2d2a82ad999adc22540d6f8863",
+    "scripts/body-renderers/overrides.mjs": "f6ea45bcd51f0e1131d3fbddac38a066ce83905515310a3fc58ca009a8e080ae",
+    "scripts/browser/install.mjs": "9c2568c643ab8511de9784600f650a41dff59404b44115b5517dae20efab1759",
+    "scripts/browser/reload-requests.mjs": "513a3dbf5f3ffa412e896efb76f221ac85fe8b6eeddcc90f7fd654b13e05e7ba",
+    "scripts/browser/run.mjs": "3b9c365837d314a884a4b53f0139dde57c895d5077fa67d69ea214b3b430492d",
+    "scripts/browser/support.mjs": "dc43831e628b8cb51efc8d3dcf5f98a71e9c228503b91c8c06544cb5e10a75be",
+    "scripts/build.mjs": "32dc858079cc6b9d0067169f28fb635e6b3ee55a900d3ee004f63dbcd321dc24",
+    "scripts/check-package.mjs": "def7e4a1c2c0d394b12a4f4037f82db69556cdaa85730d4f8ee4dea84653049d",
+    "scripts/check-parity.mjs": "c7bf85f92a0563cccb955ec71411615967b33111e9a4fb6ac1757ef78df6010e",
+    "scripts/ci/linux-halo/preflight.mjs": "671cea8d4e54e7368c644cf4e7898d82c7b408f00b3bcb71d2cfb01f8dd6b5dc",
+    "scripts/ci/linux-halo/run.py": "3adff403972e9b75fa8da67f18c0fd1ad7624c60c801d57921d45053a1a7442e",
+    "scripts/ci/linux-halo/test_run.py": "6619e50b1ab93f206acc05a790a50498550fad2c5c48c9847748e8f55c680145",
+    "scripts/comment-enhancements/check.mjs": "a6d2a7fbd2a76eb07c81da16d844c17d50320628ca1fe749e7900a111644c45d",
+    "scripts/comment-enhancements/fixture.py": "22ed9ba43495bad33f86448ab82260cceb738ee7031bf3f95c81f2b475e3defc",
+    "scripts/comment-lazy/check.mjs": "abe63772e26bc34c446a04f1e9539ce610b9b30e6b7ac8ecf36a7b809ed31bfd",
+    "scripts/config-defaults/validate.py": "efcfe5b7e95915c5f5fb1a06e16bc39c490c9eefe5c67f68a3e1ecc6c100907e",
+    "scripts/config-migration.mjs": "863d77a9d77bdbf2c19508d3cb74aea1d0c672e9497348b433ddee74784e4276",
+    "scripts/content/check-browser.mjs": "a2e2578a16914bebe923e1d2dca1638b81f26832767ef2ab30831835e0fd49a3",
+    "scripts/content/check-halo.mjs": "5965d2dddf467e7540542998374d3863f4775e3b07ab3b8443b7ac1805376180",
+    "scripts/content/check-portability.mjs": "c4ee89275b9c6dbf80c7847d444fa031788a391c2f6e1dc60bc71bf23b98013a",
+    "scripts/content/lab.py": "1a11cf64a942b918b97552164b74dd6deca53749a926db9f749ebad69fd64054",
+    "scripts/engagement/check-browser.mjs": "b705cfe2c40862af29eff9c4b63cce4a960632d31a1dca05b301d777f3454410",
+    "scripts/error-page/check-browser.mjs": "b397939abd5f1b8fdde09d8fbdbfbf74cd4958e2fcc9819e7a67e3be68abee78",
+    "scripts/error-page/check-http.py": "482f7479fa32fa1d28bc117ba1ce4a75106e1af07296a9aa0fdaa8e80c8d0fc2",
+    "scripts/error-page/profile.py": "50b4a828f55dfff26113851bb6ea872eff5d6d090ede710e43575caeb61bb096",
+    "scripts/footer/check.mjs": "dbc5abcc5fa6b3a787954812519ee29c88fd57b33c149dee5b1cac1614ebb457",
+    "scripts/gallery/check-browser.mjs": "ead5a1813de92da006c34596e5ea931bacc8b76aaaeed4dce11074b26922ca0a",
+    "scripts/gallery/convert.mjs": "dcaf843514bf3e285a7d00fbe0a94445cd7a01857efb8067609fd1299e3b7914",
+    "scripts/gallery/fixture.py": "4b2cfdf094436e60d5c23e8de2ddef4417ff5f038c03688c3a8d07b23872e7f7",
+    "scripts/home-layouts/check.py": "a62a3225d06911e89be2065c0f298e30baffa1967949f4350ff95a1733531da6",
+    "scripts/home-layouts/snapshot.mjs": "f927457d2d7231380689509f17a4125985bce2e5c45375b175ea331051c5cdb6",
+    "scripts/images/validate.py": "d93f4c2790e326c6d0b7b51d82453997681fb6b13c843a8637dde8a40cf34227",
+    "scripts/integrations/check-browser.mjs": "3d6947f6ce81dc14300a8adc057b4927261c06cfd4c54297aa2e6261a62c0ae4",
+    "scripts/integrations/profile.py": "fb06c848d730bb8f6d87676ea1bd2157241f459aa0358a3361bbf005daf82ac9",
+    "scripts/lab/lab.py": "c038ac8f001a95f684c1bbe4604dd3a2a2c5fd1c38022738e384ec3b598d14f0",
+    "scripts/lab/layout-probe.py": "d40bb14376fb691e894a8a0534c0dfc9a90b5b352b644f4af14cf7db844fc304",
+    "scripts/lab/test_lab.py": "82da0ee7eb33b7e2cabf9eb85abc11bfe721ddadb9e07b0990a98ee87317e6ce",
+    "scripts/licenses/compare-lazyload.mjs": "29b6919ada0f9889aca72b0b7ba104b97038e13b673e7017dbdd7c6639113acc",
+    "scripts/lightbox/check.mjs": "d9fbd50c46f216fdb7248dfb80c39d7d3f8f276de34596e69077967a7e72828a",
+    "scripts/math/check.mjs": "adc40e4d7be7aa87da1c3888f9da78f69f9fe1a1ceca7b3191e82b4b31ab0579",
+    "scripts/math/lab.py": "3fe5aafb4e90011a2b6ecedc7749dfd24fc895e637c562d114c66ca5dd400d00",
+    "scripts/migrate-config.mjs": "833b9590a774a2d74f6f706010d7f2eedd710f420cc2b5a4071b0a663a8a0225",
+    "scripts/navigation/artifact.mjs": "12f4926e18a61351af4f9e4df2c7928b27e3ec6c933975b6ff1b5e86d89146e9",
+    "scripts/navigation/check-browser.mjs": "20df47f52bd02f5dbb22746987ccd9d9e3938cb3402fd5e6a46a7bf46df5fa75",
+    "scripts/navigation/fixture.py": "1ca8459099baf0ca6ec38445bd44052f2a98af361d08815c9a5b828026daaaa6",
+    "scripts/navigation-loading/check.mjs": "8f092366efb115bc5b2157652b4de307873a72eeac1e29da26b86a20d567c019",
+    "scripts/navigation-loading/halo.mjs": "74a5c4295e7c2660f3457be3246de48300e332f54ce743101776daedd42f938d",
+    "scripts/navigation-loading/lab.py": "ce72bfdc7e178a0165a7405b6c57e1940a7cd0b001bc792e32b556e977324413",
+    "scripts/parity-inventory.mjs": "3caf1668ab36d6f5f69f36b425f647408214f29d21ed72d408510f740f7380b2",
+    "scripts/parity-render.mjs": "40a1d5f12af54036e98192f41dc2234bac13336491477390bd6b4816e474aa96",
+    "scripts/perf/collect.mjs": "3891fc48a764a0eab711d75f26cbc3bf2b3f6aa526442a4996767550a993fe8e",
+    "scripts/perf/compare.mjs": "d7657eecb93f9ee8d270305f17af22877e7df4e90b1686c8c7d9892b97db3693",
+    "scripts/perf/core-browser.mjs": "3783f7798c9ccf3c9747c96d6de4293438dc5342e2a96e84d3f12e1134c0f164",
+    "scripts/perf/install.mjs": "06cf8034c8cc331b616d665965b312cdc8f6706e7a511ce00c618853e249ba07",
+    "scripts/perf/longform.mjs": "f70711fbaceec417690b905b5287229fc41c3cb791e329c8ce95331cd3e2e56e",
+    "scripts/perf/metrics.mjs": "1f070b643ac9c203683665da28302c703cd428b36fba71d90bfafde2fcd710ec",
+    "scripts/perf/station.py": "68ebcdd1ce3e411a32862fbcdd52df12e79f028618e437ebbda0e2b8c508770c",
+    "scripts/perf/support.mjs": "965e9ec6e00d767b3eec4ee1f810fcfd3e0d34f37f7d64aac1d2f8da774f3383",
+    "scripts/perf/test_station.py": "585c161bcd649776204e9e4dc5f8ca66060416dd3f5eddb303a11ac2abd379b8",
+    "scripts/plugins/diagnose.mjs": "56f5f815877114b3e746df12d2e40ba68b28c8e26b56ea1400a60d97b13c5630",
+    "scripts/plugins/lab.py": "b6b1ad5dc73ac8659bf9f9343cbab28d34c72a46f409c355e4272aefb2fa48a2",
+    "scripts/plugins/test_lab.py": "3e156471cb74ab12a85373f2c1eb70491903d98a334816d8bea2d1f0e16cfa7a",
+    "scripts/post-edit/check-browser.mjs": "4359e580454c6e08f6fac2729075718db647b4112ec0137bdd4b1e73e90aa2c8",
+    "scripts/reading/check-browser.mjs": "7d944d8c94603d374d8647abb63524618e8489e616342791c8daf5e71dc6406b",
+    "scripts/reading/check-statistics-browser.mjs": "2c85755e914edf758b7c6db9f915afd560ea2f96a35876e9b34c2a83a4f59973",
+    "scripts/reading/statistics-lab.py": "379a5b1da7c8ab5cf76889d38779ba0fc03434a9b0da85684d4024dc2ffc8408",
+    "scripts/release/await-demo.py": "9c6d3788cdba977db3726ff254a3f3541bfe82be0eee0eef32d3b64dc23e93e3",
+    "scripts/release/common.py": "f07486f9348420293cc4ab46f5467ed35f88efc7975caaed6dfbc524c8ce9e4e",
+    "scripts/release/download.py": "df59a71bd585d59c6b590c1726ee4ba814148c75d63019a2d45526db3dea6904",
+    "scripts/release/prepare.py": "661895c9e43bc6db1762c48ac28e1017d2766a7d7bf4658c670bc2d45fae2972",
+    "scripts/release/promote.py": "31801a12efeb47ee65d1aab893ff9d9ad1bc4e63a6120f7b71e1ef1a8684b660",
+    "scripts/release/publish.py": "c71c8747c5d01c8c7573e3e695edc9a7142644acecde3dd0c6406bba4d9e7afd",
+    "scripts/resource-templates.mjs": "9ead642b38c55b1fa62c0a7038521fa52d19f6cfe924010494b8e5f5071a1c10",
+    "scripts/search-comment/a11y.mjs": "1fc436162ae70e41e21a2140f59267dbc3ff201065fb26a9ebd322f739a4d838",
+    "scripts/search-comment/auth.py": "8d519e7f2ae10375aa1f89ce701037cabb8d68fede12f16ff9cfd1e677266760",
+    "scripts/search-comment/check.mjs": "cee80afb9fcd46c8366f45cc2c162466fa7841313ffbab3ed65d7de0c8c36ac5",
+    "scripts/search-comment/diagnostics.mjs": "37f4d1697fb0c547c01f774fda616682e529d9b1da718f87725c0aee5b2981fb",
+    "scripts/search-comment/focus.mjs": "417a7451c113ddd73b4cf493e51686ec3731f1ec2e655338b59619266ea4d0f0",
+    "scripts/search-comment/lifecycle.mjs": "00cb70f56cb3ca8e7bd3788b7bd30782e6cc48fda19d27af29002a41b5d39921",
+    "scripts/seo/check.py": "9e1f74f2edee61db3d1cfcc6cf0933c4fe90a8478638e28e294a0ffbc62bf582",
+    "scripts/smoke.mjs": "3ee0bf5c59d2f51d0aaca52bb3822c88f8d126bb6b51f1c142558bb0447dabbf",
+    "scripts/typescript/smoke.mjs": "adccb85e64d860da0697194aea25499e3ac9187129f628cf0c58b4184e9bd288",
+    "settings.yaml": "d52b1c9bcc44d8f27d0bd4bcff4593c14e5beded1582513a80fef4ef5ae26cba",
+    "src/html/archives.html": "2a803139311534b2aec91b552b0f5782fa50906820817921ecf8cfe0f073dd5e",
+    "src/html/categories.html": "dbe8b0a14e139321175f358ce2e8807cb7eb9bbc70cb79844e3d199f3b3b8963",
+    "src/html/category.html": "02863720139ca3dc527ce3bf89ae99653df829876a655474083695f1937c31d7",
+    "src/html/error/404.html": "eb35d3f3c71dc0c6570fd907605184624f0727cb4e099cfc8ea1b36c8f4a3ed1",
+    "src/html/index.html": "77c6c89fa51b17397239f8cc804000d16b20de944025cf3797f5f763de1b5e1c",
+    "src/html/layout.html": "8d3392f5b565347ac44c8bc70e0feec921e54fb6dbb49719450a7e235d23ef75",
+    "src/html/links.html": "e58e5dc13846a207beeee94e9dee3bf820750ba35f86133c6df27697e563142d",
+    "src/html/moments.html": "f7a2c08d3601239163aac10a1b4649bf26c10bc7a8f48bb8732e27aaec928006",
+    "src/html/page.html": "677eb7779fdaa011c5b69340c3d8fc224bece752b2d05e8b45da9167cdfd0a83",
+    "src/html/photos.html": "faa3e62e47bf639ab00ad21bf3da04481bcdff9f1e14293e121350b575ebcf4b",
+    "src/html/post.html": "ea9be64c9bd9d2c25b1b696805263e1de117da22cd816e9bc33aeb94e30ef3b1",
+    "src/html/tag.html": "d947622127637aea7885d00e79bf4adead796ad1af101a45c66d503abe28f8eb",
+    "src/html/tags.html": "5e935e59279a8743456c0900651abb73b21aa451905b14d4c67b0f0cbd9b0e29",
+    "src/html/views/aside.html": "8cd9b672df41f769df5e27ae908f4e7c3fe8d8d5ab487c2c881e3fcdf5c72834",
+    "src/html/views/body-renderers.html": "33039e886af2422bfe8ed89ec48a0001f243481296a64c8a868fa39e37fbdd54",
+    "src/html/views/comment-lazy.html": "1033fbf87b81e058c48a9e58e34bb280f82ef408c2c69223b96d19f292df68e4",
+    "src/html/views/components.html": "426bd43e7d0d03765a1b4c72e9a058c84144c26fd76afef58619e1b01c068508",
+    "src/html/views/config.html": "21bcc690e1362393c1533b56575e5c0a03c54efb5c5d777cb95b43aed2715873",
+    "src/html/views/footer.html": "1b8559ab1a4dcc486c5350120db2431812c5ddfb235fddff258c0c2ea491fb8b",
+    "src/html/views/header.html": "b4f0ac33887c3826e8c0e0283afd3c88fde30bb58cd83e03dae8aa9077fad586",
+    "src/html/views/inject.html": "3e2c774bfae038fed870123ab6a441dd3d206c750f91dee8f5dbc4a9ccde439a",
+    "src/html/views/integration-ads.html": "cff53bfcf3bd8a165f02ceac8be2a5c9460084408a861daf651e3105a7adfa8a",
+    "src/html/views/integration-stats.html": "43867486a2473468b2143b161704f5c476991e985f618ebe0828e18019996f0e",
+    "src/html/views/integrations.html": "e1b4bb69131feca429a251c6e462d4471d3c1e6a28ca0198c49fa4bfc1b3fa8b",
+    "src/html/views/layout.html": "3944fc86d25232739518c90071c9d1fd1ecaeab3ee113c3ab89860b80c1ef476",
+    "src/html/views/menu-items.html": "5cf75f5386966499c51e98f04b4db5951cc94d74d1e77c26b1f3ba152e5f3e9a",
+    "src/html/views/nav.html": "44a9423969e5424114c6b0ed9216cb045fda81d301f31123c4d4df47811f6ba9",
+    "src/html/views/newest-comments.html": "ac4f71abb0b189b89169b77ae5edf05b8db3d30807c43120cb49799d75ee601d",
+    "src/html/views/plugin-pagination.html": "322be34bb6dfaadd6ef5c8dd06cf55240c80923a7e0a93559c608a3fc42d5967",
+    "src/html/views/seo-json.html": "47cdbf3c791a31fcffc062e54f6332701a3a8afbd42ac8e153366bba6e8241c2",
+    "src/html/views/seo.html": "0e4557e9d3edaa1d6554e42e642f3429c42028b2a2f5ae866ba99fffecf3cd0c",
+    "src/html/views/share.html": "c21989e292b19fcc74f0e777d305d0c80373edbd0fa332d66c5356836f5785d8",
+    "src/images/above.svg": "e96e54d9bd042ff2e18fcd43723f600d1e85fa512409881447f9c5e1964b1e15",
+    "src/js/above-background.ts": "5ea673d9ff840eb37f42ee12b9531de5d34ad23521edd4b77d3b49fc47314b4d",
+    "src/js/bootstrap.ts": "12486b56b98502a101813796729ed2f2e0ee77ecaa7d627ba6499d198701bbb3",
+    "src/js/core/App.ts": "0e034bc3eb617bad4165029d32f581f0723b8f7a814483d3ba32793f029e91f5",
+    "src/js/core/_decorator.ts": "3c1af3a2b023d1289e572978de7c7faf227212ae1d51f6bafc409c03cd472774",
+    "src/js/core/_lazyLoad.ts": "435f802d480b1ba70a2d884924137f4701a43ca1c942a34fb20b543a124a2674",
+    "src/js/core/_message.ts": "9d8c2e70d8c9d75524190edaa005f50052bf4d202df04ffe00f201713706d191",
+    "src/js/core/_universe.ts": "d0bc75636ba7312376b493c15c92247d912d1c22e4715cd00aec6fdc138c3a0f",
+    "src/js/core/_util.ts": "1c286239e428007a7b867eb0b62a4b22d3654ce49fd3f4d0184f5d52a24286fe",
+    "src/js/core/appearance.ts": "4a132659837b6fbf91cf6b82a9a6b7bf7a7250e9147c872c016e21b7a0689207",
+    "src/js/core/article-anchor.ts": "55c752740227d5b5b4195416fa676c0fb2d7881a672dba8e8e37de4fdf96db2d",
+    "src/js/core/article-gallery.ts": "ac3d38bd5f26474da7ca28696a2a5e168992dcb48ae84dd9fffe450f5582bf2f",
+    "src/js/core/aside-hide-button.ts": "85a700c90e51e56fa73d5222a98e14d3ec368eaeef43bbfebc3bf4c127c03297",
+    "src/js/core/aside-hide.ts": "2c551292452a77be864709f17da8210bc011ba03cd7842d475bb408da7a52113",
+    "src/js/core/aside-mobile.ts": "42bf1d09961a34eefe750eb0cd8be0138e816247b5a8267eb37179c0baed9fe2",
+    "src/js/core/aside-options.ts": "a55d0ac627f839a3db49ec5dd12b063c71688780109b63687a01751e3ea039bd",
+    "src/js/core/body-renderer-data.ts": "4b9c9c17e66057ba4b19f92f907123abfa519843e1862b6dbd1048836b77617b",
+    "src/js/core/body-renderers.ts": "75d9528badd6fd488a0245ef854c6cbd9bbc475090ece8b2746e9053237fa6e1",
+    "src/js/core/chart-loader.ts": "605d01e80c90a62bf1cdb9cdc9faa72aea4c7e13299484447d1e11f8c1f79662",
+    "src/js/core/code-scroll-focus.ts": "e76eb9c3246b26d3aa412767a42b93a73125709e33d6b848c34241dec7a91f26",
+    "src/js/core/code-shrink.ts": "76ad4f298ffae5bca152b48fff7a326e01ed77c0885bb2a27c1a9d29e60962ba",
+    "src/js/core/color-scheme.ts": "aa2671e6cac20b6e7053359f8dc02127528626c703e21f5f56ba50333bfd6cb0",
+    "src/js/core/comment-jump.ts": "6f73f032adce773c9e06cded204cd1ebff89bcf40bd835c34904a894715534ff",
+    "src/js/core/comment-lazy.ts": "cd5a270ab14366fb2badc75da2810a7a8742a439543d299fec6987f59d738684",
+    "src/js/core/common.ts": "1be4a33d33e4d8aa4f8e1b9b096fef8a36dc0e0d409d4590165c7e262919e984",
+    "src/js/core/content-extensions.ts": "f53f72a4af32f6776420321b1a4c0173883f9627d09ba3c4fb6fe72218b06873",
+    "src/js/core/copy-attribution.ts": "7c5d2841af491d96ecfed09ea1952d472b3f1212e3d7be8e6ce02623c7480a8e",
+    "src/js/core/darkmode.ts": "1d78a38b40451b6465d8609c2afa1e4970dcf3dec1a193fd1107ed8e24984120",
+    "src/js/core/external-resource.ts": "46dedd182b16c0a89a170db3fd7731a8c05cfa65646daad6eb05d5d83a137b2a",
+    "src/js/core/footer.ts": "4e188c73c82771df2f4f1ff2341f361f1da683b8310c13869abfb8bf35929d91",
+    "src/js/core/gallery-data.ts": "7852ab0c068c09989ec6be290aefc42b32244d494fe3f824be64b5f6ff25fe4d",
+    "src/js/core/halo-settings.ts": "1ea0bcad948bd10209719cebf9ffd019dac418cd9b961f314172b908a103c1cb",
+    "src/js/core/image-loading.ts": "1939a9f0dc8710adb99741bf054fb70b696dac2bbdce9a520d9028a7af951816",
+    "src/js/core/index-post-content.ts": "7656addd6c2a89aa9a07e8f1835c3b3c91adc2e551092bd7c2fb4a255f5617fb",
+    "src/js/core/integration-chat.ts": "80ca44aebdfd84a769ce83a12f06d125d273a7113ee7cd927c078b49f6ae04bf",
+    "src/js/core/integrations.ts": "f9f16048afe7a185b8378c590eab443ae868a83768774292f126c63a2f1dd2fb",
+    "src/js/core/loading-ready.ts": "1fad053b6bb322848a50a410bbb66a578afe0b1a3e86e450cad1fe750b9e67de",
+    "src/js/core/mask.ts": "ef5e8adfe550d1748674bb1e634ffc816beffb4c86ec95eeaaf284eb727372ea",
+    "src/js/core/math.ts": "28729f3e19357fb8a8d49121142eb8f9bfa8e51eef488590f305afbecd927e1a",
+    "src/js/core/nav-scroll.ts": "c488d22fd5148bd89db6de54e666d9d39967142acd01682fa9b94dc2c6300fad",
+    "src/js/core/navigation-loading.ts": "17f88bd25871f8b85f3f1e0c326136f927729eddbf6ae6c6a7ed772ee653c5da",
+    "src/js/core/navigation-state.ts": "47e533816db7cd44dbbfe8ee41759e32d81b9f39d14e142513b046addd313066",
+    "src/js/core/navigation.ts": "2fc4ec195b22f78624019a99bba2ad85db2a79d025b84e4f1f88a74d57539e85",
+    "src/js/core/newest-comments.ts": "bc313834bf6e0eb2b628857aa6e64d07e7c9a4de2b8c5fa2389183cb059028a3",
+    "src/js/core/notice-outdate.ts": "6c9bba20471b015480659b7c89840f2f4df07407aa8962a41c6598b5a109f39e",
+    "src/js/core/pace.ts": "9dd6c7e661cac3862e11021fc1613d20a943e48a378f886ffb11e7ac4635b076",
+    "src/js/core/page-lifecycle.ts": "6c4552e48ce6fb87b3d2f2a5f1e499b07ba6e240c2e1934bbaf56c68ae8e36f0",
+    "src/js/core/photofigcaption.ts": "f2da5f2b3e7b91e8b02f0bae3b9ac966ff61a3f8a9ce54e708499d6a8b5f184c",
+    "src/js/core/post-copyright.ts": "112e8eed339f7a34df0dbcf8a5a0c042abfd2fb206c3b62cf59f6891af77f8f0",
+    "src/js/core/post-edit.ts": "7b2bbf5d8c3f5d26686cd3ba2a87517b259c87eefb054449bd89b5cf130f656d",
+    "src/js/core/post-meta.ts": "ba3801ec0f58ee1a2f16745207a6efda65a80088a3ec7ffa3e29b7cbe96e0c1e",
+    "src/js/core/post-pagination.ts": "283e00c070973cfec0aff51f36c9161066b05bb5d0c1efbfc38b369c898b3eb8",
+    "src/js/core/prism-ready.ts": "ff33cdc87b57b6f65620d8975bbdb8e6cb8df9a1480ffe6b5032c8a242fc2aa6",
+    "src/js/core/related-post.ts": "dc8a0939f5fae1f2fed1bea30bfa2f3601ce88abc5ff616e367b4296a568b84c",
+    "src/js/core/relative-date.ts": "6e4b0eede5e8b64e8227f411c5e8816fa9b11cd1b3d383e6ae08303126cbafe5",
+    "src/js/core/reward.ts": "64decaf649e7a2e069e9c28bce249f9b04ae89af2515870c3faf18a772c6a5af",
+    "src/js/core/rightside.ts": "969da970343f947cf3ada3dfc5cc6046d85b47656f9fa7bd79576d6166d953f9",
+    "src/js/core/scroll.ts": "93e503493ebac0edba377e13b6ff0502f9a806082478bfb946792473fb281789",
+    "src/js/core/share.ts": "86fd0f8fc70718603ef991c33a9cb9ec56447ba11318af880b3e387ca65a37d0",
+    "src/js/core/site-statistics.ts": "3a9b7ae1c23b3502eb8fd30544df9b8270706307ddfdca741e3fa8d6eb868506",
+    "src/js/core/svg-viewer.ts": "259c61e9b1ebc066d7a8630e679a916616fb0cb96afb36ea6f28865a900b2e5f",
+    "src/js/core/tag-cloud-colors.ts": "f0b4c60f2afea0d26c6e8b469b9fa58c0396aad65d6fc4c0e5c071f4f35e3284",
+    "src/js/core/theme.ts": "2749dc561824f52e6396d0f37e3f9626d0ec3d1815e3537209f56723e300b8c4",
+    "src/js/core/toc.ts": "a8b51c681a0c035086ad98a6f7e9795249933a60a4e77ab513c8ef261daeeb8a",
+    "src/js/core/translate-maps.ts": "f7c8e8087eed7c450c6cea3c27c59de4bcaacb74fa461ad364baa89ed2cc187a",
+    "src/js/core/translate.ts": "941977a8817b3be0c2106acf999a04457b37ad54603711356e611448b73147ad",
+    "src/js/modules/AmplifyImg.ts": "95c388947b5d9236d8abca59d2792a9012ed1663f1c8b5ca68c03fbcde9eea55",
+    "src/js/modules/CodeBlock.ts": "831b38c24300edd1dc3e7b8499119b8452540c2ab0176107629e2a25a59ef7cf",
+    "src/js/modules/Pagination.ts": "1d479eb77d1ec8eda6a1f8e2744eb650a60e56d11f0e3203928d1391c4b44fcc",
+    "src/js/modules/Render.ts": "8a899b2a0700c0e7ca47ff676eccb03b50dd009f6bb5a5b51f9537abd378bd92",
+    "src/js/modules/subtitle.ts": "07af1bef3e5d611c3bfe145f1327576f37efa6be81615b65f03f0120a58c0198",
+    "src/js/pace-bootstrap.ts": "93822dafded93c91ebb824e0c28479b5e13cecef2195ef22392d421bb7ca1ba9",
+    "src/js/page/archives.ts": "8086d4e0b0a610c673d32d6ee26adeedca1e98fa0b0579dcaa04bfc6006e6389",
+    "src/js/page/categories.ts": "0312b594b9ead2d18706ebc112bcf5065884b05424da9f8f620b2000198113f6",
+    "src/js/page/category.ts": "840c27f072223ff7f422034f02253c3892ea6964bb74be320defa2cb72d1c115",
+    "src/js/page/charts.ts": "a154459fabf0a5b0962c6b2984b2f3977b2bca2aa49d56f01c49f63d96fdaa2b",
+    "src/js/page/effects.ts": "1a8263c61cd23f8e01c48c77930f39d87832d6919855a31f62120adbe61e81cd",
+    "src/js/page/error404.ts": "900bec785a371afe350b848d32c4895e3db54eb9935261a426f84a991cad6f33",
+    "src/js/page/gallery.ts": "520f978f03a4a540d9b22e1ab04e929ec499d49e9ab3117ce91b37cbe5c7c5fb",
+    "src/js/page/index.ts": "ee39614801a76fa06ef97934ab9f1592ba8ba228b2bb6dba3eaf302554648f6c",
+    "src/js/page/integrations.ts": "cce1e692cb30604944696afabd800bd673ec248379baa80840e7e566357394a6",
+    "src/js/page/links.ts": "fb3ad302ca5fcf1be751b0553fd282592cc15eb02005a9f94c1706d5fb0827b1",
+    "src/js/page/masonry.ts": "fafd72ef934d2098d6354beae2a622c0a92f8e36dd686c7c447784277fed49e2",
+    "src/js/page/moments.ts": "de1232db62fc8104e8c953c5f617656b71b11c67c8c460d9b81c9a7ee1d2b645",
+    "src/js/page/photos.ts": "5c1e506f7385fc4b87e25c36e2fe81df3486958f09094dca2a405e5fe1c518fd",
+    "src/js/page/plugin.ts": "29ace92acbc92d6ea66fb4d11f8e1842f4b79735f23cf83ee4319d1b04a6f608",
+    "src/js/page/post.ts": "113ebdea84a923ab49f2ac23752b5805f19a7054bf00961fc83dccb4bd31e601",
+    "src/js/page/single.ts": "ed5a69e005020d5786f1fd7374c5efe551945589965fbcbcbc86ff2661f91312",
+    "src/js/page/tag.ts": "31d202a79e7e50e6b5bd82e9ec25e5b5fae01989296b1683f0c94d9bb388d7d6",
+    "src/js/page/tags.ts": "4e613cf32a63e57702693ba07c8334169ab059d52bb65c4b83e65746106342d1",
+    "src/js/renderers/abcjs.ts": "6a3d75044ec0ae083889a4d1027cd560883d24a08bac5a5d43f18ca4bde43755",
+    "src/js/renderers/chartjs.ts": "55193eaf47c5a544ff3f3a7f0c9e4e9eacb4b394d7264c03fa74695eed16be83",
+    "src/js/renderers/mermaid.ts": "3e2e8a9ec997b432f7e4240fab87a8cf757c502a5219427c9e4c073b17f34fe5",
+    "src/js/types.ts": "9aac8e3aa481dd05047173a2b1184f3fe4a6b8230e2170056a3821e2e68f7536",
+    "src/plugins/cursor/simple.min.css": "a97125d6a691d508554e667ff527e936fe08c070499b40ae89f4e1430ddfebd7",
+    "src/plugins/loading/circle.ts": "95ea489baa3aea0df671d36482380df4532160fdee91345ebb8373e049993ace",
+    "src/plugins/loading/cross_line.ts": "3bab342a709cebdc899bb0e0316c6ecf175bc1e504219d61b96eee7a010f185b",
+    "src/plugins/loading/dot.ts": "6508042af49a6bb0f0c05dffc22ca354cdec5f9792254d561b29b600649e98d1",
+    "src/plugins/loading/hourglass.ts": "35702b3cec37279af245a95928de3e4453698e822f92b11945e6bdcb0b71607b",
+    "src/plugins/prism/LICENSE": "2b947f0901a7ffcf08a89957da9783c0e9c6e72cb6ce8e959f501ab5409e4d2b",
+    "src/plugins/prism/prism.min.css": "cfb351682ab5a64c64117b93ce1b79ed5dafea9be3299715734fab35720fe9ab",
+    "src/plugins/prism/prism.min.js": "aa9a83323c866f139730da962cc82b5ebffac9a0394b519d326a4db706fe76f0",
+    "src/plugins/prism/themes/LICENSE": "e2264658d7deb2bfb574e3d6c9cff84d0e081a6887694d46c3c091e6e15a1119",
+    "src/plugins/prism/themes/prism-a11y-dark.css": "2c2b2c4dbe5d8cebfd2661ab2090597fd0ceb865c9aed2ecbdadd4a91c22b8be",
+    "src/plugins/prism/themes/prism-atom-dark.css": "a36a56e27170b8db30e52d4b62f8aa65a9a598ecc64b6982955e125146a20461",
+    "src/plugins/prism/themes/prism-base16-ateliersulphurpool.light.css": "9070d95af3900dd95e1a7182b2b5389a5bcf50dd0bb836b68bd0b570187c8c3e",
+    "src/plugins/prism/themes/prism-cb.css": "49e752cbb59886e53e34daf1b46e9d98c2a45ef343d50422bb4814f7abfcd8bc",
+    "src/plugins/prism/themes/prism-coldark-cold.css": "b16e1462e528b08ae4a51fda95940f6938143cc093a9528050580673f79811e4",
+    "src/plugins/prism/themes/prism-coldark-dark.css": "1ead4f64f648bdf10f8bdf67ee7b0f9482267807d6b96b9ac71f8b162ce00d8b",
+    "src/plugins/prism/themes/prism-coy-without-shadows.css": "e2d952d83293be98a45d8c35e64a69f068224010d2a163109b00f0494b616a74",
+    "src/plugins/prism/themes/prism-darcula.css": "314e259b322b76d9078016a23e8798dd555115a6bfcee57e916817fbe0690635",
+    "src/plugins/prism/themes/prism-dracula.css": "75bf49ff095fe5ab93c270a4c245b06f48b03ab1dd7523fd07ac511d66965e3b",
+    "src/plugins/prism/themes/prism-duotone-dark.css": "375b0fc393534a5e466d804cc728f3141e3fd0ac238902ace57b1e908c97b0d2",
+    "src/plugins/prism/themes/prism-duotone-earth.css": "34c752ef9911ec86005a6dd6cc45b00684e787cc1e8901e8753a5b2cb0bafb2e",
+    "src/plugins/prism/themes/prism-duotone-forest.css": "d531c4bb805df2db9f8116cb572fe817ae27a1f5ce4b5d48c62bb7e6a49f8f07",
+    "src/plugins/prism/themes/prism-duotone-light.css": "a12c3da5f6805360606e852f96c50741db01e8493a066bbc539f4e38b9158512",
+    "src/plugins/prism/themes/prism-duotone-sea.css": "9eab252a10210c21f1b27ac44bc10e424aa93b93176473f451aa4300ab176bd8",
+    "src/plugins/prism/themes/prism-duotone-space.css": "ad110b60df50e738b1ceed95f2ac2bab73ab96ff416ac0bed8883ec750d54ef9",
+    "src/plugins/prism/themes/prism-ghcolors.css": "44ee02829eac368db9dde2f3473e9e2a783118c52b31dde819231dfbf27613f7",
+    "src/plugins/prism/themes/prism-gruvbox-dark.css": "25ab9b4f8eab5340246a6a131edf844af0437af3b13e24b230684c837f888b48",
+    "src/plugins/prism/themes/prism-gruvbox-light.css": "fbed9a1774ef569d5867c1c438e12c0c18a51d19c1fc67ea1d2430247801a4a7",
+    "src/plugins/prism/themes/prism-holi-theme.css": "b90f3cb5a88709791fb395202d5d945b45fa49ac7640cf8a9b52c0d8eeeb31cd",
+    "src/plugins/prism/themes/prism-hopscotch.css": "e1dafb6a85aa00e43f892cc6f562e822d1acf8077061e514e6c99c9e41217ac6",
+    "src/plugins/prism/themes/prism-lucario.css": "f3523a4a4ef8204201a0e95fe9c91179f814cd78ece2ef5131eeb9ac89e77348",
+    "src/plugins/prism/themes/prism-material-dark.css": "69845bbcc3dc377a6defac970b61cfa7fdbedb27794468a0fcd31bbed391dbc3",
+    "src/plugins/prism/themes/prism-material-light.css": "b0b584e607e80425f4c9527c2aa9b67b4a512ebd3a00dc284bca56a0552a7ec6",
+    "src/plugins/prism/themes/prism-material-oceanic.css": "f13c19e9da06be8c7b7a33d252dd1a578ebf29a885be8f96359666666fe4a6ba",
+    "src/plugins/prism/themes/prism-night-owl.css": "414643e18d59947d09dbb1eef6b18541c94a1fc6532e23c582e37ffd0f0f83e7",
+    "src/plugins/prism/themes/prism-nord.css": "504083faf3f62c23a038d873ae4fd8324ee242ecff6b2c1c414c2fe32ed900a6",
+    "src/plugins/prism/themes/prism-one-dark.css": "6ed91eed8e770540a43c0d25b775bb5593a69106b7e8d275c50603ed4cd4569d",
+    "src/plugins/prism/themes/prism-one-light.css": "8d83e68ad65f97e04764e6b5916f269287a66a2a3421f650995869b20d3b35c2",
+    "src/plugins/prism/themes/prism-pojoaque.css": "76ec023d72d777665596c4e670cd5bbf853c793f4e349bde29bac6550f14ed8b",
+    "src/plugins/prism/themes/prism-shades-of-purple.css": "1a629aaa9e018e4f6102be065b849f975a9e2555023824209f9e15f956e2c19a",
+    "src/plugins/prism/themes/prism-solarized-dark-atom.css": "4afcdcaf67efe88f74e1999b541804bc1440addbefe3d8ee671b8d8c0e94bb14",
+    "src/plugins/prism/themes/prism-synthwave84.css": "60fc2f6d5f04eee33e997bbe7da2c313e69e5ee01d9f33db7492d66ead3568d9",
+    "src/plugins/prism/themes/prism-vs.css": "8b0f78571e97185a397f2e3db8d24c57eb9f0df0673c19a0df4c05e364554829",
+    "src/plugins/prism/themes/prism-vsc-dark-plus.css": "7f665e03d031b4424fe5138d50b5be325dd22e8d21eee5009eea1d1d5caf0e8f",
+    "src/plugins/prism/themes/prism-xonokai.css": "e4e32433c1ea5ca28e3cdcd0d9ea6051fc31b85769b17078b977e391cc6aa49f",
+    "src/plugins/prism/themes/prism-z-touch.css": "014a7a846f853ec5a4397bb9c26715e0aa2b990e818d7fdfbe069efc3fee9ee6",
+    "src/plugins/sharejs/css/share.min.css": "1ee3ceb3a4defcaa8c80951e20099a3ed0255c5e022b22c1d32e0f88d6c76e27",
+    "src/plugins/sharejs/fonts/iconfont.ttf": "83253e1901d300f9e97b40a23ba5761ecb03a9c620ecad4ffe2e8c69100ff296",
+    "src/plugins/sharejs/fonts/iconfont.woff": "aee13afb3c1fc78f873290347e2195d461ce45f29ccba47f1dc66154916f4b7b",
+    "src/plugins/sharejs/fonts/iconfont.woff2": "ec95578f9f2cab3715193d9953e0c30da400b399835f1b7ff1ea3a0bde555862",
+    "src/plugins/sharejs/js/social-share.min.js": "54fc93e3a5d0c0ba2950f5d2a7efecae06ef3d0a38a59951a11cc38b37c057d1",
+    "src/scss/core/_base.scss": "08377a8ab755423262bc4a90e01abc927f8fb3a13121877770169ee22758bb0c",
+    "src/scss/core/_button.scss": "9fc8440e86ea2391de6b874a28e49e0d0a5b6ee094d6d90efda315fe5f98ec96",
+    "src/scss/core/_message.scss": "1a80cb87372358607a8f1cd7506cb48c14737c491fe9fa310ca4a74d6949008f",
+    "src/scss/core/_reset.scss": "c45957fa8b2077851f985dd4bcf36ada2cb52a080b876f90c739c57dcd27f7f2",
+    "src/scss/core/_util.scss": "6a00415215c7415610259061820e9ae45725f4e73d5e2d7adb3e07cb3aa747cf",
+    "src/scss/core/algolia.scss": "d8cfeb9969d01360e8b812a0dc794bcd8a49ca5931bc33aad396610d34a5c253",
+    "src/scss/core/appearance.scss": "f9696abeb698f08919fa49b226d7aeb91445b98c25945a26a7f3d74526d8f0de",
+    "src/scss/core/archives.scss": "c2336e3edfb5f8b35ec137c5bc300b2c49eadfc13eb0ce3a79311b99833177e3",
+    "src/scss/core/aside.scss": "ea41b4ffc4bb21526a10c030179fa441d986a8e7b936b9e5ccbcf4c7efb9b006",
+    "src/scss/core/categories.scss": "e77d2572473368d156306558e5a600513225a272d70b18ae6b27c2bcb684d558",
+    "src/scss/core/chat.scss": "ad89fa15c51ca5b3ca9ad2504c27c69c25cae0c33d482f5ba4ec3e38b7231bf3",
+    "src/scss/core/comments.scss": "c49eea17848dcc785552ff14be9c8145738422e7529e340b308a68b55bb59c24",
+    "src/scss/core/common.scss": "90500044b1284d8f05d2f2bfc561e1ee54716edfa08682672682a9a6a626e977",
+    "src/scss/core/css-index.scss": "942f34f47ff69e0063e3a21d829159101b3a5c9becc7b8ce613eacc492428b4f",
+    "src/scss/core/css-var.scss": "d6b0c945fb6e2b3ece930bd17128a45a883f9328bd307fe0b7422ad49f160773",
+    "src/scss/core/darkmode.scss": "7587f08c2764cec721b429a17461a312fe8d900720b090a762fd4b653d7593d0",
+    "src/scss/core/flink.scss": "3c3aad073c781451cbf03da511bc4a8c391b465758d4532026d95a2d64dbceb7",
+    "src/scss/core/footer.scss": "c94aca9368dcc563f544c8a5a72319587ab0610ffe63f14391094b1712b6633b",
+    "src/scss/core/global-function.scss": "ea3b39d3f6fa1ba356efd05272ab455358fbf2e1b0a9cc16306d89a5b9438126",
+    "src/scss/core/global-index.scss": "edaae779dd1802353ef1c3343f7a055c836f7c90c01f93612c18a01eb8d16e6f",
+    "src/scss/core/header.scss": "bda759559500e1a45865a7ba74ef804cc4afc2c921ad552877c0bb3fab7bd3c2",
+    "src/scss/core/highlight-diff.scss": "0acf7aa36402ebb9a59626425cf7af05c158e0a9307ab3311e103e3b2b36b3fd",
+    "src/scss/core/highlight-index.scss": "852bfec72b2c058e46c16caaaf74ff89790bd126dd7d73790418d93bcdfa2026",
+    "src/scss/core/highlight-theme.scss": "93072066df012ab04a2ad14dd99053ccd93345629d64b3a1540ab0fbb0a4ed71",
+    "src/scss/core/highlight.scss": "4b038635360b7cedb92b301d129de5d71fb294f8304ba2866e0679ccaca22226",
+    "src/scss/core/homepage.scss": "f948d9e0cfc47f4ae553788dcaeb5f62734228a626bd8e03466298832f01a7ce",
+    "src/scss/core/index.scss": "7b4ba99ad2c6762a30c7fb5587abce57e33ca404548ca664e88d5233c7e9b687",
+    "src/scss/core/loading.scss": "001cf0c03d1e302dd8f62c37f3a63e2507454b1432d0216e1cc3b70b687cc7c2",
+    "src/scss/core/local-search.scss": "7baec32e11099f5e4cad7d4082f0ab2dcf7a765e0ab83466acaade89ed289b52",
+    "src/scss/core/main.scss": "d30f2c5b85c456771e9ac7a87646683d8885835348370e3a154e1bea46cdf460",
+    "src/scss/core/math.scss": "c0092ce20a0c70d2cd8e3977965f4c9dd2831234a2434eb246e376ca6693a6b8",
+    "src/scss/core/nav.scss": "d739d66b1dcaef63a1087ec409449399230e36457b3f34b9ed1e6019fbbb1f5e",
+    "src/scss/core/navigation-loading.scss": "0da9c25c1ed18899a61c447222bbad324a5188a90e0122341bd182b4caf54df5",
+    "src/scss/core/page-404.scss": "74830c53611b1e990c63a13d1d7302b1ad8e7f6fe7db27d7bfcd10911b27eae3",
+    "src/scss/core/page-common.scss": "830d0cd7c21dfc42d8555b2e99ae0f88d9d7506eb767bd2334a1d72a7e8415c7",
+    "src/scss/core/pagination.scss": "723e12333b0f7f79d2256a944e1165465d238a7e2c8c6bd0526c06bd120667ea",
+    "src/scss/core/post.scss": "e55781ba1e2c9e2139e88901cf149e00a57815749c0ca801bf4493873d5841fb",
+    "src/scss/core/prismjs-diff.scss": "d081ad7df70d84d99d1e07d0f68e4726b9e7759dd8c700adcd9c6425be2155ef",
+    "src/scss/core/prismjs-index.scss": "1faa90d35300ae9189d9eb96696bf15c2685d5836648dc70317d4394fd1407e3",
+    "src/scss/core/prismjs-line-number.scss": "5528dc4746379c6e571c594059d4d4931f426f5d473123a19ff5ff5dfc5ff4b5",
+    "src/scss/core/readmode.scss": "82d7b72f5382fb8ecc51ed7edde97d4544bf8ebeabe385ac50589dbae5d109e3",
+    "src/scss/core/relatedposts.scss": "6ae78cab338cbf4da6fd0b8d668008a8efcdd8b229af24c5d6612761e408df5f",
+    "src/scss/core/reward.scss": "dd55ceb1af286e4274c5bc21a68367a957cf9ee78d8b58b688e4aef010db501a",
+    "src/scss/core/rightside.scss": "f8e55008dffe4444c28f5c7aca45fad5af6e81f8600eb7bbbb1068f6706d92ac",
+    "src/scss/core/search.scss": "537db682447a474a6860c17eeae59570d69db38c69d6f60db207cd2ed9dfed4a",
+    "src/scss/core/shuoshuo.scss": "1ebb06031067e0ce46bda5d1d20a57193abc44d1c8ca4888993ec7f31ce83631",
+    "src/scss/core/sidebar.scss": "ec775377f9e097a38add7c823086ecf2dd477e33b150bd799475a923b9e7f971",
+    "src/scss/core/tags-button.scss": "1b32b7fd299ffed8db680cff62e8fc5279b0b4077f55b08912a1f33e4c31b98e",
+    "src/scss/core/tags-gallery.scss": "40cd718c5ef7d9c30dae24e99102ab1e98ed9e7c14dd026971283c1cf95efdf6",
+    "src/scss/core/tags-hexo.scss": "4b3c7160dfa6bb0cd21fc402600fb4ec9df369b33a4bb6c330327f7fa834cbe1",
+    "src/scss/core/tags-hide.scss": "0a9fd6e1f216dbacd079f88d662214bf54e94455cbb4d5ebeaa11e215618d4b2",
+    "src/scss/core/tags-inline-img.scss": "dd32a0e9ea9b402a9a594a09de4b1182546e1925fb6de68b7591a93c690e8e7d",
+    "src/scss/core/tags-label.scss": "544b3c00527c0644d43375ef9e9ceb35566288761164a575c34029f9deb63be5",
+    "src/scss/core/tags-note.scss": "a57f5a5618dd1ee0db1ae8accd8c199d5f8f6a2661294eca3007c7c5a2a02d12",
+    "src/scss/core/tags-series.scss": "471f66bed0b018956502f708f32b5d978bb32ce3f2837159ee9907265c1e04ec",
+    "src/scss/core/tags-tabs.scss": "0698737dacde5ed8ff6f9d17d69382525b8b766d561808f837ed994f42e764f9",
+    "src/scss/core/tags-timeline.scss": "4adbaaecdc15b8191b9664a7d2a1a3018860b02db910334c6f6c08a26356b929",
+    "src/scss/core/tags.scss": "f2014c7e0b425a4b1d80b5b6c98f9f0271370a491a075111ad349b4516747224",
+    "src/scss/core/third-party.scss": "d37799fb66d899d49aef21e7a1c16e0724d93f2604403b94dd5b1ac1d667f3ae",
+    "src/scss/core/vendor-normalize.scss": "d3b8f02b41c502b022385723e95d666d42f99a614bbdb6278a88bf3fac09d3de",
+    "src/scss/modules/body-renderers.scss": "35a2ff706b659c593206c66ddc8bc25e3fac9f77bd918cf95e09812e31975c3a",
+    "src/scss/modules/codeBlock.scss": "ba4e2b6c077e59a1692312a7325c24d090567cb7d1a8f7476b480b8e9889198e",
+    "src/scss/modules/components.scss": "837b1bf75528b0158f8b98d2ca7ce20ff3893eb5f93051f6fe18770a778dfd64",
+    "src/scss/modules/content-extensions.scss": "b52050ccd04f0a983f2fc43a1ea640b49856841a522992e1b310cade5ec7b012",
+    "src/scss/modules/photofigcaption.scss": "e270d3d6be6dab87fbe6c611f6a22ecda40ba8b6df80a79c960fd4d7218fa6da",
+    "src/scss/modules/plugin-pagination.scss": "be43e8ff71507b5a5eb507590f91bf176b6beeff49fad765e9a3945343140028",
+    "src/scss/modules/render.scss": "ae7d83c03719270296ac0350ce3df6cb8e23e65e8dad1020fbaa0a0f16190e6a",
+    "src/scss/modules/share.scss": "2069a548b23c9eee507dddab7ee2cc6fa47ba60163a8a5de2f2b3e381be69243",
+    "src/scss/page/archives.scss": "4685c483a1fc5474af2bd6d5613ceedb36bfe3e4aa79d8438d9ee2a350f7e065",
+    "src/scss/page/categories.scss": "48250168c9ccfd815fb965c709478e29a2264e3fa50f59a5fd58760ea52dca23",
+    "src/scss/page/category.scss": "747ef32fd60d8958c5554f93baeb4e110fd70ababaeb5d17e56aa26af3d1a141",
+    "src/scss/page/error404.scss": "55e90e2244a255b1bb18343fd76ca5ba1433d6130a1ae0b486db82fa22d762ee",
+    "src/scss/page/index.scss": "2a47fbea3b2c924c8951ade6e0140d34cf65ded71c44b31bbee94c9e9da47f02",
+    "src/scss/page/links.scss": "86cfb0262a24691007c35592628250fe79537652048a61aa5a6021c1e87b090a",
+    "src/scss/page/moments.scss": "cca6d5615d04d91956f9ca3c83a6529506a0acf08d4e772263a668305741db7a",
+    "src/scss/page/photos.scss": "2763f5718a605649cb602666ff6047758e0a7fadf273307f3f55fcc682d7ed7f",
+    "src/scss/page/plugin.scss": "0620c5d4d13f7d4a99c39f264eea81f403d5b4ac925fabeeb288ebf22e6dfa15",
+    "src/scss/page/post.scss": "2e69ba11cdd63580d1fe9c8a346a6e9403cb73e184159449d0aa3e0c050e3ec1",
+    "src/scss/page/single.scss": "951b2c4aa5b6a85dc452ce1c3cdfec18520f3827225f6ecdfa648befe17121f5",
+    "src/scss/page/tag.scss": "56a9af02c33657511e563ce17a53761df22fcbe987094f5973f47b1141d606d6",
+    "src/scss/page/tags.scss": "252c8a8126005d4391577583089ca919a39489bcd30722976928ee70a7e3591b",
+    "src/types/globals.d.ts": "e35149451479bbcaead9662dfd332f5a953da5d517d6c693b90131bb5d076789",
+    "src/vendor/lazyload.d.ts": "242b7260d06908e8d62946dd097044247efbf11345333a44f530ebbbeee117eb",
+    "src/vendor/lazyload.js": "3cc48f446e07188a623a39b1633d16a38bb0d39f3d9e5a07b95224a296354614",
+    "tests/algolia-style.test.mjs": "b6984739640fa403ac0cc5d786d34df58aa6023d1c5a7d9edcf5000b0b256f33",
+    "tests/app-initialization.test.mjs": "79dcbc387136799d31e431018c4f42cc73e37b7fdd67628496f52a9ed40fc6e2",
+    "tests/appearance.test.mjs": "3e2766e8655b4128aedad8ac5f8403e8fa669562b8e9b57e38257293bd45c346",
+    "tests/archives-style.test.mjs": "22a28f833deaa4439530b52d7f5891a23f243cec83e985b04cd3e35564e340d9",
+    "tests/article-anchor.test.mjs": "adce7214155658b6c1b205e23997c31e07ebcd82849d2a7566848b92135d50d9",
+    "tests/aside-hide-button.test.mjs": "d2808a51970b86f0a22481a26d838d989ed6d99bc1644fe5a81907589d03769f",
+    "tests/aside-hide.test.mjs": "6359974e7728970f3778ead1f391ac6a00856742f69a4176f80a6860b390c819",
+    "tests/aside-mobile.test.mjs": "816b749cf7e7b0a67ecc9257b06e4163f41e0c842b9c2f2f257c734f8f057261",
+    "tests/aside-options.test.mjs": "417e7dc4700dce8b3b70d143fc1370e75c77948c4bbad937d4b538cb083eac61",
+    "tests/aside-style.test.mjs": "c9ef6300d99069ddc0003695e8534952c86c8404725c2a8ec899e47a542ccace",
+    "tests/body-renderers.test.mjs": "db5b01bb3fdc816ccc306be3439ac9acd10bfed595e374c18afa9d5513463d5a",
+    "tests/browser-completion.test.mjs": "355d5e47aa7b4f00901269dc3389f7e280742a8eb1bdf66c5d57894a19b9f129",
+    "tests/browser-guards.test.mjs": "a56a0f83f2c2532409fff9fe58c80f99923085544a5514ce0a212b98cedbff19",
+    "tests/browser-reload.test.mjs": "9f09fa6dfa0de9c47cc6aa6953fe66801a494dbbbf20b34ca31386d3116424a4",
+    "tests/categories-empty.test.mjs": "9a26067462cb799e61889229bb1198c4549f87dd2f7b10ca0e4bddd6e95d389d",
+    "tests/categories-style.test.mjs": "0be492e5463b84c59f2aea27517d0100fa199d34e1117e73114b8a6d6d5ee0e0",
+    "tests/chat-style.test.mjs": "5f7774c6a70c8fae0294ba8a0bc2ee74955cf497903aa22abf551ccb769bc715",
+    "tests/code-blocks.test.mjs": "5940bd88b4551261c9f4beb2787841a1e8c03250277c684de12ebbf1b0b88ba0",
+    "tests/code-fullpage.test.mjs": "e1bc5315b41598ce0cd68554b9d19f396cf2b504886c322834ff001973a5c6c7",
+    "tests/code-scroll-focus.test.mjs": "09e409a4b9e7654e2d6034744b3a6964e51fcb37aaefe13e1ad0de0080c6fe8b",
+    "tests/code-shrink.test.mjs": "fffb1847c7f00a110a182c7a5f594e19599333ec152633c2b9bd49435695ceea",
+    "tests/code-wrap.test.mjs": "f3d74e73e3cca747486c79ffd3bba14d9a55314bc287ff6f67af13bc17c29e42",
+    "tests/comment-lazy.test.mjs": "95a4aabdd06ebc2febfb4cce2105ea08e10b7a2c2b4df056c761b304a7fa2543",
+    "tests/comments-style.test.mjs": "64b450d47117d91c0c56c5e36319541a9afa5f7c17d72ef1faba71bb1d28a2b4",
+    "tests/config-defaults.test.mjs": "cad445c92318c71fb12204f6b3921e07f9539537a3e705406b38d8494842c7f6",
+    "tests/content-extensions.test.mjs": "9a4f146d97dad38d2d21e0c804123c1676f5b3dd726911214908507bd9099e72",
+    "tests/cover-archives.test.mjs": "21192dca11f0c041a81167afcdbf4f84f7e1e6fdc4750c072e92ee6af405b147",
+    "tests/cover-aside.test.mjs": "1b4efe1e553171b9b3b0686b772680742c479cfddec74792025549d486c30bff",
+    "tests/cover-index.test.mjs": "2871a553698df0e8e6fe85000d72ce73a51febad5e8a937ac40b4eb18dc007a6",
+    "tests/css-index-style.test.mjs": "09008616b6c96ae31f4fe625aa0345eeff16ef64e78dbe165c1780e1b0a495cb",
+    "tests/css-var-style.test.mjs": "68c2b6e60cefa5b3c0229c4de15581ddbd2a56ae360bd8e281991f9d0b8d5f30",
+    "tests/darkmode-style.test.mjs": "13c86a48f355da89099fc31faa5220d78d06ea983a97c4f4494b357049025d46",
+    "tests/darkmode.test.mjs": "45a9f4a6563badc4ca3981b572844672e0abbae95eaab3a9ff37240328d17e11",
+    "tests/date-format.test.mjs": "0a850d497765870ab2f6c8135406ffe294a152e159f5c477360540543555b1e3",
+    "tests/default-code-contrast.test.mjs": "87c72863ad106d293402e80caf6fde4357731cf6556de1dfadbc81b4c8774a5c",
+    "tests/flink-style.test.mjs": "88b830051736428f61deb92665a4ddc48387fa47e282bd2d620eb9fddd011f43",
+    "tests/footer-style.test.mjs": "a0e0b394352ff0259c058ff4b21029cc23ee70687c1d33451ca7a5c5b018c4d1",
+    "tests/footer.test.mjs": "e5bce81bc7e45172d8b747ef2ff8da2bb7637c54603ad64891568b0d181f6e07",
+    "tests/frontend-bootstrap.test.mjs": "b9f4a569043ea9df5bf37a0138bbde8b51ced1cfd95177fb2c8d5e926ae3268e",
+    "tests/gallery.test.mjs": "d0081835dab48c33cd91ac5b494a08d01113d0e579612da839029db46b766eb7",
+    "tests/global-function-style.test.mjs": "6a64dafe4f90095ff7228ed4fc4aa2356fb49f67f3d35cdb504ca32bae91946f",
+    "tests/global-index-style.test.mjs": "e09e6254599578a81cf8b637d533e8120adc6a86eafacf6ad7df448fa59b3bf8",
+    "tests/header-style.test.mjs": "d44267ff7f35fc29dd408c359a5a943bbc086d0f31ef4ff23d5354839342ae8b",
+    "tests/highlight-diff-style.test.mjs": "eb9f91af9fdc6ed75451dbb087ec32a0ad75bc58a359477d0c016e8900fb73e7",
+    "tests/highlight-index-style.test.mjs": "31db5a60a82580ec33465e9ef09c57d005644721d3cb1ce3afa57e40f93b38bb",
+    "tests/highlight-style.test.mjs": "222b89874546b23a1ff8a291e147290d98697bbf2864546a461027d8aad168e2",
+    "tests/highlight-theme-style.test.mjs": "82e0e01210a6529a55bf2e0de263f6db372f6a3b429929ea6df0611f2f885022",
+    "tests/home-layouts.test.mjs": "7745c86632ae702bde2421c1fa4601a214c8a023067b0c15e36ffa2365beafe4",
+    "tests/homepage-style.test.mjs": "521738faba286879b362aa216fa546985131403b4db69d3fdbff098042f95c08",
+    "tests/index-post-content.test.mjs": "1e6571edbf8951185dd266f94e018eba0a9873b0b7edc6f3d355fb8eee7eb878",
+    "tests/integrations.test.mjs": "55684d087a043680c3fa68700c787f0edc8033a8fa13f7da95374b4ab043c50d",
+    "tests/lab.test.mjs": "d3617d934648bcb5ff84bfaae0b2d8544570d0941a7fada7560f4ce761e428ee",
+    "tests/layout-probe.test.mjs": "a2f607ff65e93fd5478570baefb48923d91ade41b4cecfbd0140070ed7a3fa47",
+    "tests/lightbox.test.mjs": "d5d21ea6c4d392b18c66e614d650bfeebcc119e7193ad71ad99f242de943e80e",
+    "tests/linux-halo-ci.test.mjs": "9cc70a6bc6ac774cdd1051fde66ac009911eb7759ce6eb2ce314785e84299bbd",
+    "tests/linux-halo-package-manager.test.mjs": "1a670a015be3a47a48eec35b40c94aed13067aa7a278bee133e618269250ad8d",
+    "tests/linux-halo-workflow-policy.test.mjs": "66627cf1459383f2a5b956c28e194208594982991d54205cdcd0a33ef2fc7521",
+    "tests/list-aside-defaults.test.mjs": "77455cea8c948f110b44ccba80f04717582f951dcdda5746522655d5697d80c9",
+    "tests/loading-ready.test.mjs": "7aa2bd744b8b5ebbabd8b00455223de9601e050b5ae7885001511efe9701255b",
+    "tests/loading-style.test.mjs": "601318cdc14a5f06fa405caaa835d34ef2468297bb64384f8282069c022d7489",
+    "tests/local-search-style.test.mjs": "8209b465b370062c56dc6862f81758bde212aa76048b010c155d7f2a3bba9cac",
+    "tests/mask-header.test.mjs": "051e8f5311af2b72b45fb06767e7dc0994232401e772c021a0c70c76076a3be7",
+    "tests/math.test.mjs": "202cd0d8ae6c039aee10dc76ae76d81e2b79e6fa550a6e5c12c6289c0616d80d",
+    "tests/migration.test.mjs": "fcd7f5c7eca830ac83dfd1603244069a8eee4a091ee341e1a1ae2f681f6ea660",
+    "tests/nav-config.test.mjs": "7f6a9b96f03df4aac35a4447327150054213c0c5e7e7242020c3ec5289a8b352",
+    "tests/navigation-artifact.test.mjs": "06bc7069df45d21119c6227a4b79e4d570b7b104e06a545db5c6198e735e48b2",
+    "tests/navigation-fixture.test.mjs": "45319abb4ae788db80160a0f28a9bb9d630ef1de048f6533c00050dd8a280fc1",
+    "tests/navigation-loading.test.mjs": "87e6e646dc40437981ad0d10d673a5de6219198fda7c44012e7b954665a8de63",
+    "tests/navigation-script.test.mjs": "b85d132bb1db830296546b9097e4aeb985652216c300373d34d9640612f4451d",
+    "tests/navigation-state.test.mjs": "22b91d2aca417de1f314a0e5099f5354c3928a9391590357812ed4b638007aee",
+    "tests/newest-comments.test.mjs": "513b2c4acbfb9278746c05733a7b13f22b9495aefc4f60e59459eaa132f6f0c5",
+    "tests/notice-outdate.test.mjs": "794a0df17810df0992bf71d4d0b57872cfed0aee129cd477c1d5f93cdd3c77f7",
+    "tests/pace.test.mjs": "8ea0b7cd1dfe6c8186410236470ab9ddd51753df8e13779c2d60bf5ce2868d60",
+    "tests/page-404-style.test.mjs": "06370f005878ec0757d7205e9d0f9c0293a70bb9385e69bd0660beff07f6e65f",
+    "tests/page-common-style.test.mjs": "00bbafa3dd7a1e2cb665ede905bbea501cc942e9f46f038f58292ca662fe954f",
+    "tests/pagination-style.test.mjs": "2d074a161bebd11133250ff796ae97d9fff2ad5d8ea94c6a859d7e0642b33f3f",
+    "tests/parity.test.mjs": "ec713e0763c73ea79c6822d06f7845a7dea0743adbb9282fc35b2c0e37d6cc31",
+    "tests/perf-station.test.mjs": "abcba40220e5117a4577990822e7ded496a7aaecdfc7374183506bcfdaf58140",
+    "tests/perf.test.mjs": "330ff9fed943da26e9b653b1f842f1cd4c8f7eead0514b4cf0bfd19ae70ff5c9",
+    "tests/photofigcaption.test.mjs": "19dcdf2d8dde1059985d34ee580e71eb689228d62deaabf7f928dcf5e78dd0fd",
+    "tests/plugin-guards.test.mjs": "2969f54e40a38ea90327b6bf6b90d951a66484785cf43c5edf1b920f705bb7de",
+    "tests/post-copyright.test.mjs": "532a5b3f3abc1f8bed8795cba38f9c1945a5f922f0bb602f3cfa3f0199fdd2ed",
+    "tests/post-edit.test.mjs": "393218e4ae288ba30e28899d03ef452bf5410296c373d95ee6ac977c32b261f8",
+    "tests/post-meta-contrast.test.mjs": "9a939a57887c8799599c15188083def16bb95843d431aa517cb73c41811529f3",
+    "tests/post-meta-page.test.mjs": "3a457eee4be6b4729a9db5c901173840e2e52d536e9d3d7f1850c1fa57ee14e4",
+    "tests/post-meta.test.mjs": "ff51406d09d715b97ddf09ee0cc37e18519e420371e1dc7ef427e3e70e321f0d",
+    "tests/post-pagination.test.mjs": "ea946b58557b392691da1b2d0d6d0ffc54039c1a27c281c23c42c18818496a2f",
+    "tests/post-style.test.mjs": "b5810d0eb039b1cc6c9b6b5a81d714dedb69cb3c22975044220b04673d048779",
+    "tests/prismjs-diff-style.test.mjs": "256357c40e16f6afe1a880ab3fa6487ba1201fa505d84617be9c3c607e0c9a35",
+    "tests/prismjs-index-style.test.mjs": "302dc39018acbc8f8bbe3f8217c0edf365b2ff583df5b820bdc4a33d1b4b6203",
+    "tests/prismjs-line-number-style.test.mjs": "a0d269ca653168c4cb4f36f4a7c1446236089634a1e4213c3d11e3427fdef94d",
+    "tests/reading-sharing-statistics.test.mjs": "f943fae5b7e1561fe9cc735f1014b65c64d893b0b5c22e68a625dede3c770b6c",
+    "tests/readmode-style.test.mjs": "fcf45bbd0e313a5a5ee1bf1379701de5e313b75a7c1f9f44234a0b9c744aeaf3",
+    "tests/readmode.test.mjs": "4bdbf31988a2a3fd2bfe15cb50bc09b52c11567d197bf51914805a13cc35d21e",
+    "tests/related-post.test.mjs": "d9f3995abdf5096e96fa320c7d2607dcc46fa9449c15847df640c8513994933e",
+    "tests/relatedposts-style.test.mjs": "73ad9d0376b5e2b2a265547ed0cca8c8e7471977a6a8bcc6478ad7684cccab1b",
+    "tests/release-demo.test.mjs": "9e2904a608925f565cf0b387813d2c436d4414cfe92371a37539c2293d8b432b",
+    "tests/resource-loading.test.mjs": "30e62cce7a6759474f51725d31c7cfd31f935d67a8a2efbd5c8b7bfa37b9ffd0",
+    "tests/reward-style.test.mjs": "bfe42e321f2afdfef90da055eed89f57db4278b404fb4a18ea7548ce6be8e885",
+    "tests/reward.test.mjs": "c76c78f5e3c4f5d7702c1977b07483a8d8afa6a680d68b1391c29c1d4c0a3045",
+    "tests/rightside-bottom.test.mjs": "99e9bd22b719f5f71b56b5890457334892ad32c94c1a3e680659a55eacc3f68a",
+    "tests/rightside-item-order.test.mjs": "ec00a482ed49930f769e97c525ed841500ef842878bcf326e83c4ac7b48c2452",
+    "tests/rightside-scroll-percent.test.mjs": "db800283affd7acf78dcf241b3bb4cce98216047de61664f030afc3b5178e1f9",
+    "tests/rightside-style.test.mjs": "7c1babafbaea9ebd16b7366c73c98ba7982da66ce86e7b2fbabcc8552aaab0dc",
+    "tests/rightside.test.mjs": "aca954a22d583e02c41a4306cf36dedaa089124382855c5703f6946691d88ee8",
+    "tests/script-loading.test.mjs": "e6a2c1fd0d883fbde671018daef352b5da6aadfc4957cbeb7c881c9cd1410063",
+    "tests/scroll-down.test.mjs": "f64c86195d2d6e7120296da6c972140b420228b27bc192e4499c63c143b53a97",
+    "tests/search-diagnostics.test.mjs": "df180a82e902ecdda79ead4690a03afc9341041c9521e53fbe74350961cae8e7",
+    "tests/search-style.test.mjs": "cf22537eff2bd536556221541d693ab5a41415fe467ff8646d97d6a22666ca6d",
+    "tests/shuoshuo-style.test.mjs": "044a8c6e046ddea2a7e244e51817d3f091fde098074eaa4b25ba790d8929621b",
+    "tests/sidebar-style.test.mjs": "8cd30a288e3d9d7e4eadfdd69aab725594851862d0f011166a297dc0f0bcf666",
+    "tests/site-content.test.mjs": "aa42b799b2cb2512aefb07759a0f5a6eb6d3f4350a8c5f076b2742d783751bda",
+    "tests/site-deploy.test.mjs": "ce9ad2192a3a5ab075ad6ce890d738edee3c4da629fe92fd1de6bbba170494d0",
+    "tests/site-publish.test.mjs": "73c82187a7ed109345feebea9ec3e5a14aa40b48a0d9a2751616155eae13af1d",
+    "tests/subtitle-runtime.py": "eba35f793b24743fd88e8d5c1d22362eef19ce4d260313f0a242c9915a501f17",
+    "tests/subtitle.test.mjs": "5110b7538c29e9c28684e0231f6221a9a2271b69d290e0d634c23ae09e9000f9",
+    "tests/tag-cloud-colors.test.mjs": "797ae6ae89b1f72ee5dc07cd37f867b19938b160db81f1c235c683d5e9dc539e",
+    "tests/tags-button-style.test.mjs": "2609f01c1cbbd91788fa1ef6412625b2be7f1236141c46366dd5844a94351129",
+    "tests/tags-gallery-style.test.mjs": "04f45b773ecf4b9c694bd0c1eac69ee5769a45c9e152245a1c87721a2229e2bb",
+    "tests/tags-hexo-style.test.mjs": "b0f243d89ea7d27fbe1235b04112e0c5ba4465ab85ac640e9d335038a06228b3",
+    "tests/tags-hide-style.test.mjs": "b1033db85fcde5f6785566f76c082c82c1f3f8c7fe5d5cd597ab158202046b96",
+    "tests/tags-inline-img-style.test.mjs": "ec187820c674b8fb6d815a8698d1ae87fba7b7a34394011e101cc65f8bea708b",
+    "tests/tags-label-style.test.mjs": "43089ea38ace001b5e9019ed3254cd6d86afb767a3c210ead975f8295528c64b",
+    "tests/tags-note-style.test.mjs": "13864036312cd8b7ff47f619532c653320abb71dc8d3944312917be7771b0037",
+    "tests/tags-series-style.test.mjs": "fa391704280b91d4187e292c18dbc3d5255365a73d3a10f3ba68f4b63326488f",
+    "tests/tags-style.test.mjs": "b63d2e2e0bd957dade80ccdcbe747dab3037401b4d30c7d123ca28ea6240d11e",
+    "tests/tags-tabs-style.test.mjs": "83011e9542b5e83f835f6bc1c3963e9f60f357c29b39559d024f08eb2b1e4fb4",
+    "tests/tags-timeline-style.test.mjs": "e7f0d813776444a374b9d48a5409092efb4dc22032a7ec8f6b05b2c361cce857",
+    "tests/theme-policy-lifecycle.test.mjs": "17cbbeb4eeb913fa6ab3819a9798c5b82e2e47e4112636be3ff186858fc899f4",
+    "tests/third-party-style.test.mjs": "16acba7fb900c09564f938c49aadfe4d067b5568b32ad8f7d3ddd9219fd10e5b",
+    "tests/toc.test.mjs": "acfd54cde674b097ae10f20f52b48fba2ebf374f78706c5050d8922d23d4a0e4",
+    "tests/top-image.test.mjs": "a0d5171f4c12a4341059795566510f3bab4e9411f5217ad77a87f187ffef1f45",
+    "tests/translate.test.mjs": "3197859409861795938acd686f012c0482efa8a04c3b1793cecdea650c08bd50",
+    "tests/vendor-normalize-style.test.mjs": "b5d05d1687bb1d21bf4c3c6b61c682988b798b367d3d25ff65639abbc885aa47",
+    "third-party-licenses/UPSTREAM-ATTRIBUTION.txt": "abd675cd9a1994556756f7bc5951176d06aa7680194a427e6add7dd41661c4d6",
+    "third-party-licenses/butterfly-extsrc-1.1.6-LICENSE.txt": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+    "third-party-licenses/cfcs-core-LICENSE.txt": "03a23caffda8e43fdefcdce73b05ac9a75fcfb63776a7408bf5c8202ff3c8e2a",
+    "third-party-licenses/cfcs-core-NOTICE.txt": "da87bce8a43e4e518f169b1c08521a770801e2efc73c23086c3c710c399127ff",
+    "third-party-licenses/egjs-component-3.0.5-LICENSE.txt": "fd3cd1d05b9e05d8310eeeaba997140b2fdd21f237ff3afe1d94bfa64b3b96ed",
+    "third-party-licenses/egjs-imready-1.4.2-LICENSE.txt": "eabd95bca7bee8ac9eae47606bb8ee4555d342b2c932bdddf506fd9cd93c730b",
+    "third-party-licenses/egjs-imready-1.4.2-NOTICE.txt": "bc9c3b8b15e5e0bd6017d7e48641b43caaa5be459555bfabc163c6ff2405fcc1",
+    "third-party-licenses/egjs-infinitegrid-4.13.0-LICENSE.txt": "fd3cd1d05b9e05d8310eeeaba997140b2fdd21f237ff3afe1d94bfa64b3b96ed",
+    "third-party-licenses/hexo-butterfly-5.7.0-LICENSE.txt": "49bbe9114e49214df2ccc324cb3ac8d1d1aa1c3a0947f94c286765e86647b32e",
+    "third-party-licenses/infinitegrid-sources.json": "34bc76fe178182cd7f7a7b834826f84a40742de8ff538fc1d84f895a0df8d640",
+    "third-party-licenses/normalize-8.0.1-LICENSE.md": "89a9a9ace8be9e79bdc962823479bf980e4a14777ebe51b37e669f658e6f25ef",
+    "third-party-licenses/pace-source.json": "869945fb55be119daa15f247756fa349176c8df14890664ada0408d4a60f2690",
+    "third-party-licenses/prism-themes-source.json": "66931e3ec6590aa84731b9140f86bdc7b649eebf8c006a6db73c44ec06149343",
+    "third-party-licenses/qrcodejs-MIT-LICENSE.txt": "aaa1f349028a59432eb00222b8ddfe4d2ccebdce04cf8348dcb8d41b7068107b",
+    "third-party-licenses/sharejs-MIT-LICENSE.txt": "42d4a32cb496cce6d3d1c71314aba80aa615bbdadf25c4ffe4c432e1e32a57b5",
+    "third-party-licenses/sharejs-source.json": "c5818952839392cc3f32b9b7b41cc5fdd8bed1efe27cb966c5640b447b747496",
+    "third-party-licenses/upstream-sources.json": "da4cddfb7eb30ed3ba5fe3b52c22f0a5e9f49c13207f6c12ad404d8dc19869e7",
+    "third-party-licenses/vanilla-lazyload-LICENSE.txt": "c7d094b1fa2bd1097d50191c0a4a6c9e482ff6263bc5329e364e23db7b1a28a7",
+    "third-party-licenses/vanilla-lazyload-NOTICE.txt": "16b47270207d018bd7a9091f61f137f7180c282af98e3b30c0b93dab698d5ac7",
+    "third-party-licenses/vanilla-lazyload-source.json": "e57ede11f456480e46a27b038863c704237435cd6061eb4e48cb35c8761b553c",
+    "third-party-licenses/zenorocha-MIT.txt": "fd2eadc2622b58591394d46471c00006599d01e7d9ce0c582e38b8eb1cad1cb3"
+  },
+  "package": {
+    "sha256": "a47cdecf9a0a961363f4ffcc4e51f79df87dcd5f86bd8cd8168b238f3087b2f7",
+    "files": 253,
+    "installedByteMatches": 253
+  },
+  "localGate": {
+    "command": "bun run verify",
+    "result": "passed",
+    "tests": 691,
+    "testFiles": 133,
+    "matrixItems": 897,
+    "verified": 0,
+    "notApplicable": 184,
+    "packageFiles": 253,
+    "logSha256": "2b206b55199e63f5434167ba2728ff254da319bbae1190661c79f80a3d28a2e9"
+  },
+  "independentReview": {
+    "actor": "independent_review subagent",
+    "result": "no-blocking-findings",
+    "reviewedBase": "44621d24914edea94a242350562af68870cf5b69",
+    "reviewedInputSha256": "cd27e8e23ca56abbb6c34ed69d062168f5200a3396191a711379c30b791db4be",
+    "focusedTests": 33,
+    "report": "最终整合复核通过，当前无阻塞问题。Pace 核心、bootstrap、依赖及锁文件与基准 HEAD 一致；导航文件仅追加 charts。正文扩展功能未被取消。两个加载器修复、跨午夜迁移修复完整保留。已修复 interaction:collapse-code 的旧配置指针及验收场景。针对性测试 33/33，矩阵检查 897 条通过，保留既有正式裁定。",
+    "fixedFindings": [
+      {
+        "priority": "P2",
+        "problem": "Legacy cross-midnight night windows were reversed.",
+        "fix": "Compare original endpoints before modulo 24; swap daylight windows, preserve night windows; report unrepresentable windows. Exhaustive endpoint/hour equivalence tests."
+      },
+      {
+        "priority": "P2",
+        "problem": "Body renderer and gallery private loaders retried local scripts after timeout, risking duplicate execution.",
+        "fix": "Use common managed loader; fall back only on definite native error or unusable API. Cache timeout, reuse late SDK; allow renderer manual retry after definite error."
+      },
+      {
+        "priority": "P2",
+        "problem": "New master collapse-code matrix still referenced removed render.enable_code_expander.",
+        "fix": "Map to render.code_shrink and explicit expanded/collapsed/disabled cases."
+      }
+    ],
+    "finalWhitespaceCleanup": "Removed whitespace-only line in charts.ts after staged diff check; no executable code or generated package change."
+  },
+  "runtime": {
+    "schema": 1,
+    "testedAt": "2026-10-13T17:04:04Z",
+    "haloVersion": "2.26.1",
+    "installedPackage": {
+      "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "a47cdecf9a0a961363f4ffcc4e51f79df87dcd5f86bd8cd8168b238f3087b2f7",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "44621d24914edea94a242350562af68870cf5b69",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    },
+    "sourceIsDirtyWorktree": true,
+    "results": [
+      {
+        "name": "defaults-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-1-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-2-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-3-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-4-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-5-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-6-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-7-1440",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "defaults-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-1-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-2-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-3-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-4-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-5-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-6-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "layout-7-390",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "obsolete-layout-ignored",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "reader-override",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "reader-reset",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "fixed-dark",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "schedule",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "avatar-explicit",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "category_ui-default",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "category_ui-chart",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "tag_ui-default",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "tag_ui-chart",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "chart-native-error-local-fallback",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "single-independent",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "post-native-cover",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "code-expanded",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "code-collapsed",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "code-disabled",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "root-direct",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "invalid-root-local",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "pjax-34",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "pjax-35",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "pjax-36",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "pjax-37",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "pjax-38",
+        "result": "passed",
+        "observation": true
+      },
+      {
+        "name": "pjax-39",
+        "result": "passed",
+        "observation": true
+      }
+    ],
+    "restored": true,
+    "limitations": [
+      "Halo-only headless Chromium; not Hexo comparison, Safari, real device, screen reader, independent review or CI."
+    ]
+  },
+  "resourceCross": {
+    "sourceBase": "44621d24914edea94a242350562af68870cf5b69",
+    "package": {
+      "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "a47cdecf9a0a961363f4ffcc4e51f79df87dcd5f86bd8cd8168b238f3087b2f7",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "44621d24914edea94a242350562af68870cf5b69",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    },
+    "results": [
+      {
+        "scenario": "root",
+        "result": "passed",
+        "actual": {
+          "images": 2,
+          "rendered": 6,
+          "resources": [
+            "http://127.0.0.1:18114/lab/config-assets/js/gallery.min.js",
+            "http://127.0.0.1:18114/lab/config-assets/renderers/mermaid.min.js",
+            "http://127.0.0.1:18114/lab/config-assets/renderers/chartjs.min.js",
+            "http://127.0.0.1:18114/lab/config-assets/renderers/abcjs.min.js"
+          ],
+          "scripts": [
+            "http://127.0.0.1:18114/lab/config-assets/js/gallery.min.js",
+            "http://127.0.0.1:18114/lab/config-assets/renderers/mermaid.min.js",
+            "http://127.0.0.1:18114/lab/config-assets/renderers/chartjs.min.js",
+            "http://127.0.0.1:18114/lab/config-assets/renderers/abcjs.min.js"
+          ]
+        }
+      },
+      {
+        "scenario": "overrides",
+        "result": "passed",
+        "actual": {
+          "images": 2,
+          "rendered": 6,
+          "resources": [
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?review=gallery",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js?review=mermaid",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js?review=chartjs",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js?review=abcjs_basic_js"
+          ],
+          "scripts": [
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?review=gallery",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js?review=mermaid",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js?review=chartjs",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js?review=abcjs_basic_js"
+          ]
+        }
+      },
+      {
+        "scenario": "native-error",
+        "result": "passed",
+        "actual": {
+          "images": 2,
+          "rendered": 6,
+          "resources": [
+            "http://127.0.0.1:18114/missing-review-gallery.js",
+            "http://127.0.0.1:18114/missing-review-mermaid.js",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?v=0.1.0-alpha.4",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+            "http://127.0.0.1:18114/missing-review-chartjs.js",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+            "http://127.0.0.1:18114/missing-review-abcjs_basic_js.js",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js"
+          ],
+          "scripts": [
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?v=0.1.0-alpha.4",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+            "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js"
+          ]
+        }
+      }
+    ],
+    "restored": true,
+    "createdFixture": "config-resources-cross-review",
+    "runnerSha256": "12c4e5c92e69328b9b06228653b282e7842e2a21d8960733bff0372313f44ef6"
+  },
+  "topImageSupplement": {
+    "testedAt": "2026-10-14T01:07:43+0800",
+    "installed": {
+      "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "a47cdecf9a0a961363f4ffcc4e51f79df87dcd5f86bd8cd8168b238f3087b2f7",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "44621d24914edea94a242350562af68870cf5b69",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    },
+    "runnerSha256": "d93f4c2790e326c6d0b7b51d82453997681fb6b13c843a8637dde8a40cf34227",
+    "restored": true,
+    "results": [
+      {
+        "scenario": "single-default",
+        "route": "/about-preview/",
+        "width": 1440,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "url(\"/lab/cover-sand-dunes.webp\")",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-default",
+        "route": "/about-preview/",
+        "width": 1440,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "url(\"/lab/cover-sand-dunes.webp\")",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-default",
+        "route": "/about-preview/",
+        "width": 390,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "url(\"/lab/cover-sand-dunes.webp\")",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-default",
+        "route": "/about-preview/",
+        "width": 390,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "url(\"/lab/cover-sand-dunes.webp\")",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-empty-legacy",
+        "route": "/archives/preview-1/",
+        "width": 1440,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-empty-legacy",
+        "route": "/archives/preview-1/",
+        "width": 1440,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-empty-legacy",
+        "route": "/archives/preview-1/",
+        "width": 390,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-empty-legacy",
+        "route": "/archives/preview-1/",
+        "width": 390,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-empty-pure-color",
+        "route": "/about-preview/",
+        "width": 1440,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-empty-pure-color",
+        "route": "/about-preview/",
+        "width": 1440,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-empty-pure-color",
+        "route": "/about-preview/",
+        "width": 390,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "single-empty-pure-color",
+        "route": "/about-preview/",
+        "width": 390,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 0,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "关于对照实验室",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-random-not-top-image",
+        "route": "/archives/preview-1/",
+        "width": 1440,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-random-not-top-image",
+        "route": "/archives/preview-1/",
+        "width": 1440,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-random-not-top-image",
+        "route": "/archives/preview-1/",
+        "width": 390,
+        "mode": "light",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "light",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      },
+      {
+        "scenario": "post-random-not-top-image",
+        "route": "/archives/preview-1/",
+        "width": 390,
+        "mode": "dark",
+        "actual": {
+          "enabled": true,
+          "image": "",
+          "imageErrors": 0,
+          "loading": false,
+          "meta": 1,
+          "overflow": false,
+          "preload": [],
+          "scheme": "dark",
+          "title": "Butterfly 对照：排版与交互",
+          "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "visible": true
+        },
+        "result": "passed"
+      }
+    ],
+    "limitations": [
+      "Headless Chromium only; no Safari or physical-device acceptance.",
+      "No full fixed Hexo dual-site acceptance."
+    ]
+  },
+  "paceBoundary": {
+    "inheritedFrom": "master PR #411",
+    "unchangedPaths": [
+      "src/js/core/pace.ts",
+      "src/js/pace-bootstrap.ts",
+      "package.json",
+      "bun.lock"
+    ],
+    "navigationDiff": "Only adds charts to recognized scriptKinds; inherited Pace and settled PJAX lifecycle retained."
+  },
+  "priorCandidateHistory": {
+    "runtime": {
+      "schema": 1,
+      "testedAt": "2026-10-13T16:52:46Z",
+      "haloVersion": "2.26.1",
+      "installedPackage": {
+        "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+        "sha256": "87cea79d2bde806afa7bbd36d3cbbaa9ff1a155dc4be5bd3112de49f1b052cee",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "sourceIsDirtyWorktree": true,
+      "results": [
+        {
+          "name": "defaults-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-1-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-2-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-3-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-4-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-5-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-6-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-7-1440",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "defaults-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-1-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-2-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-3-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-4-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-5-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-6-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "layout-7-390",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "obsolete-layout-ignored",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "reader-override",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "reader-reset",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "fixed-dark",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "schedule",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "avatar-explicit",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "category_ui-default",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "category_ui-chart",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "tag_ui-default",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "tag_ui-chart",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "chart-native-error-local-fallback",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "single-independent",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "post-native-cover",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "code-expanded",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "code-collapsed",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "code-disabled",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "root-direct",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "invalid-root-local",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "pjax-34",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "pjax-35",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "pjax-36",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "pjax-37",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "pjax-38",
+          "result": "passed",
+          "observation": true
+        },
+        {
+          "name": "pjax-39",
+          "result": "passed",
+          "observation": true
+        }
+      ],
+      "restored": true,
+      "limitations": [
+        "Halo-only headless Chromium; not Hexo comparison, Safari, real device, screen reader, independent review or CI."
+      ]
+    },
+    "images": {
+      "testedAt": "2026-10-14T00:56:19+0800",
+      "installed": {
+        "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+        "sha256": "87cea79d2bde806afa7bbd36d3cbbaa9ff1a155dc4be5bd3112de49f1b052cee",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "runnerSha256": "d93f4c2790e326c6d0b7b51d82453997681fb6b13c843a8637dde8a40cf34227",
+      "restored": true,
+      "results": [
+        {
+          "scenario": "single-default",
+          "route": "/about-preview/",
+          "width": 1440,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "url(\"/lab/cover-sand-dunes.webp\")",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-default",
+          "route": "/about-preview/",
+          "width": 1440,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "url(\"/lab/cover-sand-dunes.webp\")",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-default",
+          "route": "/about-preview/",
+          "width": 390,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "url(\"/lab/cover-sand-dunes.webp\")",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-default",
+          "route": "/about-preview/",
+          "width": 390,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "url(\"/lab/cover-sand-dunes.webp\")",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-empty-legacy",
+          "route": "/archives/preview-1/",
+          "width": 1440,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-empty-legacy",
+          "route": "/archives/preview-1/",
+          "width": 1440,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-empty-legacy",
+          "route": "/archives/preview-1/",
+          "width": 390,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-empty-legacy",
+          "route": "/archives/preview-1/",
+          "width": 390,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-empty-pure-color",
+          "route": "/about-preview/",
+          "width": 1440,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-empty-pure-color",
+          "route": "/about-preview/",
+          "width": 1440,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-empty-pure-color",
+          "route": "/about-preview/",
+          "width": 390,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "single-empty-pure-color",
+          "route": "/about-preview/",
+          "width": 390,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 0,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "关于对照实验室",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-random-not-top-image",
+          "route": "/archives/preview-1/",
+          "width": 1440,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-random-not-top-image",
+          "route": "/archives/preview-1/",
+          "width": 1440,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-random-not-top-image",
+          "route": "/archives/preview-1/",
+          "width": 390,
+          "mode": "light",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "light",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        },
+        {
+          "scenario": "post-random-not-top-image",
+          "route": "/archives/preview-1/",
+          "width": 390,
+          "mode": "dark",
+          "actual": {
+            "enabled": true,
+            "image": "",
+            "imageErrors": 0,
+            "loading": false,
+            "meta": 1,
+            "overflow": false,
+            "preload": [],
+            "scheme": "dark",
+            "title": "Butterfly 对照：排版与交互",
+            "version": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+            "visible": true
+          },
+          "result": "passed"
+        }
+      ],
+      "limitations": [
+        "Headless Chromium only; no Safari or physical-device acceptance.",
+        "No full fixed Hexo dual-site acceptance."
+      ]
+    },
+    "resources": {
+      "sourceBase": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+      "package": {
+        "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+        "sha256": "87cea79d2bde806afa7bbd36d3cbbaa9ff1a155dc4be5bd3112de49f1b052cee",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "fb4b152088ab687a2e4bfe73d372beeb2e9187fc",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "results": [
+        {
+          "scenario": "root",
+          "result": "passed",
+          "actual": {
+            "images": 2,
+            "rendered": 6,
+            "resources": [
+              "http://127.0.0.1:18114/lab/config-assets/js/gallery.min.js",
+              "http://127.0.0.1:18114/lab/config-assets/renderers/mermaid.min.js",
+              "http://127.0.0.1:18114/lab/config-assets/renderers/chartjs.min.js",
+              "http://127.0.0.1:18114/lab/config-assets/renderers/abcjs.min.js"
+            ],
+            "scripts": [
+              "http://127.0.0.1:18114/lab/config-assets/js/gallery.min.js",
+              "http://127.0.0.1:18114/lab/config-assets/renderers/mermaid.min.js",
+              "http://127.0.0.1:18114/lab/config-assets/renderers/chartjs.min.js",
+              "http://127.0.0.1:18114/lab/config-assets/renderers/abcjs.min.js"
+            ]
+          }
+        },
+        {
+          "scenario": "overrides",
+          "result": "passed",
+          "actual": {
+            "images": 2,
+            "rendered": 6,
+            "resources": [
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?review=gallery",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js?review=mermaid",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js?review=chartjs",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js?review=abcjs_basic_js"
+            ],
+            "scripts": [
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?review=gallery",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js?review=mermaid",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js?review=chartjs",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js?review=abcjs_basic_js"
+            ]
+          }
+        },
+        {
+          "scenario": "native-error",
+          "result": "passed",
+          "actual": {
+            "images": 2,
+            "rendered": 6,
+            "resources": [
+              "http://127.0.0.1:18114/missing-review-gallery.js",
+              "http://127.0.0.1:18114/missing-review-mermaid.js",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?v=0.1.0-alpha.4",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+              "http://127.0.0.1:18114/missing-review-chartjs.js",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+              "http://127.0.0.1:18114/missing-review-abcjs_basic_js.js",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js"
+            ],
+            "scripts": [
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/js/gallery.min.js?v=0.1.0-alpha.4",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+              "http://127.0.0.1:18114/themes/halo-butterfly-next/assets/renderers/abcjs.min.js"
+            ]
+          }
+        }
+      ],
+      "restored": true,
+      "createdFixture": "config-resources-cross-review",
+      "runnerSha256": "167c2067f460a084bab613206fb22f8389316142d1834b8e4491fc74de7ffda7"
+    }
+  },
+  "failedAttempts": [
+    {
+      "log": "hbn-final-verify1.log",
+      "rootCause": "New master matrix pointer referenced removed code setting; updated mapping without loosening parity gate."
+    },
+    {
+      "log": "hbn-review-targeted2.log / hbn-review-verify2.log",
+      "rootCause": "Gallery fake DOM omitted ownerDocument. Corrected test fixture; kept error, timeout and retry assertions."
+    }
+  ],
+  "limitations": [
+    "Scoped Halo 2.26.1 headless Chromium checks; no full fixed Hexo dual-site, Safari, physical device, assistive technology or performance contract.",
+    "No matrix item promoted to verified; no new not-applicable decision. DEC-08 public registry remains pending.",
+    "Independent source review covers the manifest; final exact commit CI must be read from the draft PR. No release or production deployment."
+  ],
+  "matrixStateBoundary": "config:CDN.custom_format changes implemented-unverified to gap because the legacy runtime template is removed; the replacement contract/DEC-08 registration remains open. Other states retained; no verified or new not-applicable."
+}

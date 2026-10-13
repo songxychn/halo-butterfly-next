@@ -66,7 +66,7 @@ test('本刀不改 hide_button、不改文章上下篇 150px、不改 html.hide-
   assert.doesNotMatch(listHtml, /th:utext/);
   assert.doesNotMatch(rules, /aside\.button/);
   assert.doesNotMatch(postHtml.replace(/th:utext="\$\{post\.content\.content\}"/, ''), /th:utext/);
-  assert.match(settingsText, /name: post_layout/);
+  assert.doesNotMatch(settingsText, /name: post_layout/);
   assert.match(settingsText, /value: list/);
 });
 

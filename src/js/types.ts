@@ -36,9 +36,8 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   lazyload_blur?: SettingValue;
   restore_aside?: boolean;
   style_mode?: SettingValue;
-  darkmode_autoChangeMode?: SettingValue;
-  darkmode_start?: SettingValue;
-  darkmode_end?: SettingValue;
+  darkmode_night_start?: SettingValue;
+  darkmode_night_end?: SettingValue;
   enable_aside?: SettingValue;
   enable_webInfo?: SettingValue;
   assets_link?: string;
@@ -62,7 +61,7 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   post_copyright_decode?: SettingValue;
   enable_code?: SettingValue;
   enable_code_copy?: SettingValue;
-  enable_code_expander?: SettingValue;
+  code_shrink?: SettingValue;
   enable_code_title?: SettingValue;
   enable_code_hr?: SettingValue;
   enable_code_line?: SettingValue;
@@ -76,7 +75,7 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   subtitle_effect?: boolean;
   typewriter_custom_text?: string;
   typewriter_random_api?: string;
-  enable_typewriter_random_text?: boolean;
+  site_subtitle?: string;
   typewriter_api_value_format?: string;
 }
 export interface ThemeModule { name: string }
@@ -99,3 +98,5 @@ export interface ThemeApp {
 }
 export interface ArchiveYear { year: number; months: { month: number; posts: unknown[] }[] }
 export interface Category { postCount: number; spec: { displayName: string } }
+
+declare global { interface Window { themeCharts?: {renderArchives(): void; renderCategories(): void; renderTags(source: [string, number][]): void} } }

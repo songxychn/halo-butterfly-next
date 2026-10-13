@@ -8,7 +8,7 @@ const { values } = parseArgs({ options: {
   input: { type: 'string' }, output: { type: 'string' }, from: { type: 'string' }, format: { type: 'string', default: 'json-config' }, help: { type: 'boolean' },
 } });
 if (values.help) {
-  console.log('bun run migrate --input old.json --from 2.0.5 --output next.json [--format json-config|configmap]');
+  console.log('bun run migrate --input old.json --from 2.0.5 --output next.json [--format json-config|configmap]（--from 支持 2.0.5 / 2.0.7 / 0.1.0-alpha.4）');
 } else {
   if (!values.input || !values.output) throw new Error('请指定 --input 和 --output；脚本只写新文件，不会连接 Halo');
   if (!['json-config', 'configmap'].includes(values.format)) throw new Error('format 必须是 json-config 或 configmap');

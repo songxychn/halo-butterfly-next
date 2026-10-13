@@ -1,4 +1,4 @@
-import { loadExternalScript, resolveResource } from './external-resource.ts';
+import { loadManagedResource, resolveResource } from './external-resource.ts';
 import { onPageCleanup } from './page-lifecycle.ts';
 
 export const GALLERY_KEY = Symbol.for('halo-butterfly-next.article-gallery');
@@ -16,8 +16,7 @@ export function initializeArticleGallery(article: HTMLElement) {
   const local = base + 'js/gallery.min.js' + (MainApp.resources?.version === false ? '' : '?v=' + encodeURIComponent(MainApp.version || ''));
   const source = resolveResource('gallery', local, MainApp.resources, MainApp.version, 'js/gallery.min.js');
   void (async () => {
-    const loaded = await loadExternalScript(source, { attributes: { 'data-theme-script': 'gallery' } });
-    if (!loaded && source !== local && active) await loadExternalScript(local, { attributes: { 'data-theme-script': 'gallery' } });
+    await loadManagedResource(source, local, { attributes: { 'data-theme-script': 'gallery' }, valid: () => typeof window[GALLERY_KEY] === 'function' });
     if (window[GALLERY_KEY]) start();
     else if (active) {
       article.querySelectorAll<HTMLElement>('.gallery-container').forEach(gallery => {

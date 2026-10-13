@@ -14,10 +14,7 @@ export function safeResourceUrl(value: unknown, base = globalThis.location?.href
 }
 
 export interface ResourceConfig {
-  internal_provider?: unknown;
-  third_party_provider?: unknown;
   version?: unknown;
-  custom_format?: unknown;
   asset_base?: unknown;
   option?: Record<string, unknown>;
 }
@@ -28,24 +25,21 @@ export function resolveResource(key: string, local: string, config?: ResourceCon
   const expanded = expand(config?.option?.[key]);
   const override = expanded.includes('${') ? '' : safeResourceUrl(expanded);
   if (override) return override;
-  if (config?.internal_provider === 'custom' && file) {
-    const base = text(config.asset_base).replaceAll('${version}', version).replaceAll('${name}', 'halo-butterfly-next');
-    if (base) {
+  if (file) {
+    const base = text(config?.asset_base).replaceAll('${version}', version).replaceAll('${name}', 'halo-butterfly-next');
+    if (base && !/[?#]/.test(base) && !base.includes('${')) {
       const url = safeResourceUrl(base.replace(/\/+$/, '') + '/' + file);
-      if (url && !/[?#]/.test(base) && !base.includes('${')) return url;
-      return safeResourceUrl(local) ? local : '';
+      if (url) return url;
     }
-    const custom = expand(config.custom_format);
-    const url = safeResourceUrl(custom);
-    if (url && !custom.includes('${')) return url;
   }
   return safeResourceUrl(local) ? local : '';
 }
 
 /** Only exact configured theme files are trusted during partial navigation. */
 export function isThemeScriptSource(source: string, file: string, key: string, localRoot: string, config?: ResourceConfig, version = '', base = globalThis.location?.href || 'https://example.invalid/') {
-  if (!['main', 'masonry', 'loading'].includes(key) ||
+  if (!['main', 'masonry', 'loading', 'charts'].includes(key) ||
       !/^(?:js\/[a-z0-9_-]+\.min\.js|plugins\/loading\/[a-z0-9_-]+\.min\.js)$/.test(file)) return false;
+  if (key === 'charts' && file !== 'js/charts.min.js') return false;
   if (key === 'loading' ? !file.startsWith('plugins/loading/') : !file.startsWith('js/')) return false;
   const local = localRoot + file + (config?.version === false || config?.version === 'false' ? '' : '?v=' + version);
   const selected = resolveResource(key, local, config, version, file);
@@ -57,8 +51,8 @@ export function isThemeScriptSource(source: string, file: string, key: string, l
 
 const managed = new WeakMap<Document, Map<string, Promise<boolean>>>();
 /** A timeout can leave executable bytes in flight: only a native error retries locally. */
-export function loadManagedResource(source: string, local: string, {document = globalThis.document, kind = 'script', attributes = {}, timeout = 8000, valid}: {
-  document?: Document; kind?: 'script' | 'style'; attributes?: Record<string, string>; timeout?: number; valid?: () => boolean;
+export function loadManagedResource(source: string, local: string, {document = globalThis.document, kind = 'script', attributes = {}, timeout = 8000, valid, allowRetryAfterError = false}: {
+  document?: Document; kind?: 'script' | 'style'; attributes?: Record<string, string>; timeout?: number; valid?: () => boolean; allowRetryAfterError?: boolean;
 } = {}) {
   const selected = safeResourceUrl(source, document.baseURI), fallback = safeResourceUrl(local, document.baseURI);
   if (!selected) return Promise.resolve(false);
@@ -81,7 +75,11 @@ export function loadManagedResource(source: string, local: string, {document = g
       done = true; clearTimeout(timer); node.onload = node.onerror = null;
       if (!success) node.remove();
       if (!success && retry && canRetry) request(fallback, false);
-      else settle(success);
+      else {
+        // Only definitive failures can be retried later; timeout bytes may execute late.
+        if (!success && canRetry && allowRetryAfterError) cache!.delete(key);
+        settle(success);
+      }
     };
     const timer = setTimeout(() => finish(false), timeout);
     node.onload = () => { try { finish(!valid || valid(), true); } catch { finish(false, true); } };

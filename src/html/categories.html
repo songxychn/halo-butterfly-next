@@ -41,9 +41,9 @@
     <section class="content card" th:with="noData = ${not #lists.isEmpty(categories)}">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'分类'}"></h1>
       <th:block th:if="${noData}">
-        <div class="chart" th:if="${theme.config.appearance?.category_ui != 'list'}"></div>
-        <th:block th:if="${theme.config.appearance?.category_ui == 'list'}"><th:block th:replace="~{::categoryList(${categoryFinder.listAsTree()})}"/></th:block>
-        <noscript th:unless="${theme.config.appearance?.category_ui == 'list'}"><th:block th:replace="~{::categoryList(${categoryFinder.listAsTree()})}"/></noscript>
+        <div class="chart" th:if="${theme.config.appearance?.category_ui == 'chart'}"></div>
+        <th:block th:if="${theme.config.appearance?.category_ui != 'chart'}"><th:block th:replace="~{::categoryList(${categoryFinder.listAsTree()})}"/></th:block>
+        <div class="chart-fallback" th:if="${theme.config.appearance?.category_ui == 'chart'}"><th:block th:replace="~{::categoryList(${categoryFinder.listAsTree()})}"/></div>
       </th:block>
 
       <th:block th:unless="${noData}" th:insert="~{views/components:: emptyData(false)}"></th:block>

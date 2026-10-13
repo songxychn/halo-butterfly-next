@@ -1,4 +1,4 @@
-import { enabled, resolveResource } from './external-resource.ts';
+import { enabled, resolveResource, loadManagedResource } from './external-resource.ts';
 import { copyMathText } from './math.ts';
 import { parseRendererJson, mermaidTheme } from './body-renderer-data.ts';
 import type { BodyRendererConfig, BodyRenderer, RendererKind, RenderRequest } from './body-renderer-data.ts';
@@ -8,30 +8,26 @@ const labels: Record<RendererKind, string> = { mermaid: 'Mermaid', chartjs: 'Cha
 const files = { mermaid: 'mermaid', chartjs: 'chartjs', abcjs: 'abcjs' };
 const keys = { mermaid: 'mermaid', chartjs: 'chartjs', abcjs: 'abcjs_basic_js' };
 const loads = new WeakMap<Document, Map<string, Promise<BodyRenderer>>>();
-async function loadRenderer(kind: RendererKind, doc: Document) {
+export async function loadRenderer(kind: RendererKind, doc: Document) {
   const win = doc.defaultView!;
-  if (win.ThemeBodyRenderers?.[kind]) return win.ThemeBodyRenderers[kind]!;
+  const usable = () => typeof win.ThemeBodyRenderers?.[kind]?.render === 'function';
+  if (usable()) return win.ThemeBodyRenderers![kind]!;
   const local = (win.MainApp.conf.assets_link || '/themes/halo-butterfly-next/assets/') + 'renderers/' + files[kind] + '.min.js';
   const source = resolveResource(keys[kind], local, win.MainApp.resources, win.MainApp.version, 'renderers/' + files[kind] + '.min.js');
   let cache = loads.get(doc); if (!cache) { cache = new Map(); loads.set(doc, cache); }
   if (cache.has(kind)) return cache.get(kind)!;
-  const attempt = (url: string) => new Promise<BodyRenderer>((resolve, reject) => {
-    const script = doc.createElement('script'); script.async = true; script.dataset.themeRenderer = kind;
-    const finish = (success: boolean) => {
-      clearTimeout(timer); script.onload = script.onerror = null;
-      const api = win.ThemeBodyRenderers?.[kind];
-      if (success && api) resolve(api); else { script.remove(); reject(new Error('渲染器加载失败')); }
-    };
-    let done = false;
-    const settle = (success: boolean) => { if (done) return; done = true; finish(success); };
-    const timer = setTimeout(() => settle(false), 12_000);
-    script.onload = () => settle(true); script.onerror = () => settle(false); script.src = url; doc.head.append(script);
+  const promise = loadManagedResource(source, local, {
+    document: doc, timeout: 12_000, attributes: {'data-theme-renderer': kind},
+    valid: usable, allowRetryAfterError: true,
+  }).then(success => {
+    if (!success || !usable()) throw new Error('渲染器加载失败');
+    return win.ThemeBodyRenderers![kind]!;
   });
-  const promise = attempt(source).catch(error => source !== local ? attempt(local) : Promise.reject(error));
   cache.set(kind, promise);
   promise.catch(() => cache!.delete(kind));
   return promise;
 }
+
 interface RecordEntry {
   kind: RendererKind; shell: HTMLElement; source: HTMLElement; raw: string; output: HTMLElement;
   controls: HTMLElement; status: HTMLElement; details: HTMLDetailsElement; retry: HTMLButtonElement;

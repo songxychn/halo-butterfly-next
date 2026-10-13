@@ -7,16 +7,16 @@ import {defaultsFromSettings, migrateConfig} from '../scripts/config-migration.m
 const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
 const defaults = defaultsFromSettings(settings);
 
-test('seven explicit layouts coexist with the legacy fallback without overwriting a saved tile selection', () => {
+test('seven layouts have one default; tile is converted only by the offline importer', () => {
   const index = settings.spec.forms.find(form => form.group === 'index');
   const layout = index.formSchema.find(field => field.name === 'index_layout');
-  assert.deepEqual(layout.options.map(option => option.value), ['', '1', '2', '3', '4', '5', '6', '7']);
-  assert.equal(defaults.index.index_layout, '');
-  assert.equal(defaults.index.post_layout, 'list');
+  assert.deepEqual(layout.options.map(option => option.value), ['1', '2', '3', '4', '5', '6', '7']);
+  assert.equal(defaults.index.index_layout, '3');
+  assert.equal('post_layout' in defaults.index, false);
   for (const from of ['2.0.5', '2.0.7']) {
     const migrated = migrateConfig({index: {post_layout: 'tile'}}, from, defaults);
-    assert.equal(migrated.config.index.post_layout, 'tile');
-    assert.equal(migrated.config.index.index_layout, '');
+    assert.equal('post_layout' in migrated.config.index, false);
+    assert.equal(migrated.config.index.index_layout, '6');
   }
 });
 

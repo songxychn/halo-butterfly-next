@@ -39,7 +39,7 @@ test('覆盖层：web_bg、kbd、图片滤镜、侧栏虚线、Halo toc', () => 
 });
 
 test('本刀不改 enable/button 语义，不复用 aside.button', () => {
-  assert.match(componentsHtml, /theme\.config\.darkmode\?\.enable != false/);
+  assert.doesNotMatch(componentsHtml, /theme\.config\.darkmode\?\.enable/);
   assert.match(componentsHtml, /theme\.config\.darkmode\?\.button != false/);
   assert.match(componentsHtml, /id="hide-aside-btn"/);
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button/);

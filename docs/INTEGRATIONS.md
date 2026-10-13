@@ -38,10 +38,7 @@ AdSense 使用 `ca-pub-` 加 16 位数字的公开发布商 ID，支持脚本地
 
 | 设置 | 当前映射 |
 | --- | --- |
-| `CDN.internal_provider` | `local` 或 `custom`；目标是 Next 实际生成的 assets，不能用 Hexo npm 脚本替换 Halo 入口 |
-| `CDN.third_party_provider` | 当前独立资源为 Font Awesome Free 6.7.2：local/jsdelivr/unpkg/cdnjs/custom |
 | `CDN.version` | 本地缓存参数；Font Awesome 的三种公共 CDN 均始终固定 6.7.2 |
-| `CDN.custom_format` | `${name}`、`${version}`、`${file}`；主题 name 为 `halo-butterfly-next`，字体包为 `@fortawesome/fontawesome-free` |
 | `CDN.option` | 单项覆盖优先于来源设置；HTTPS 或本站根路径，无效值回到安装包/官方地址 |
 
 例如，把当前版本完整 `templates/assets/` 发布到自己的静态目录后，可以设置：

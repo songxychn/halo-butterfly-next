@@ -1,5 +1,5 @@
 <th:block xmlns:th="https://www.thymeleaf.org"
-          th:with="selectedLayout = ${#strings.toString(theme.config.index.index_layout)}, homeLayout = ${#lists.contains({'1','2','3','4','5','6','7'}, selectedLayout) ? selectedLayout : (theme.config.index.post_layout == 'tile' ? 'tile' : 'list')}">
+          th:with="selectedLayout = ${#strings.toString(theme.config.index.index_layout)}, homeLayout = ${#lists.contains({'1','2','3','4','5','6','7'}, selectedLayout) ? selectedLayout : '3'}">
 <layout
   th:replace="~{views/layout :: layout (
   page = 'index',
@@ -13,7 +13,7 @@
 
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script defer data-theme-script="masonry" id="masonryScript" th:if="${homeLayout == '6' or homeLayout == '7' or homeLayout == 'tile'}"
+    <script defer data-theme-script="masonry" id="masonryScript" th:if="${homeLayout == '6' or homeLayout == '7'}"
             th:src="${assets_link + 'js/masonry.min.js?v=' + theme.spec.version}"></script>
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground)}"
@@ -23,12 +23,12 @@
         //第一屏
         enable_above: /*[[${aboveEnabled}]]*/ '',
         above_background: /*[[${aboveBackground}]]*/ '',
-        // 字幕：缺少新增开关时保留旧版本的可见打字效果
+        // 字幕使用统一默认和明确来源
         enable_subtitle: /*[[${theme.config.index.enable_subtitle != false}]]*/ true,
         subtitle_effect: /*[[${theme.config.index.subtitle_effect != false}]]*/ true,
-        subtitle_source: /*[[${theme.config.index.subtitle_source}]]*/ null,
+        subtitle_source: /*[[${theme.config.index.subtitle_source ?: 'local'}]]*/ 'local',
         subtitle_typed_option: /*[[${theme.config.index.subtitle_typed_option}]]*/ null,
-        enable_typewriter_random_text: /*[[${theme.config.index.enable_typewriter_random_text}]]*/ '',
+        site_subtitle: /*[[${site.subtitle ?: ''}]]*/ '',
         typewriter_custom_text: /*[[${theme.config.index.typewriter_custom_text}]]*/ '',
         typewriter_random_api: /*[[${theme.config.index.typewriter_random_api}]]*/ '',
         typewriter_api_value_format: /*[[${theme.config.index.typewriter_api_value_format}]]*/ '',
@@ -57,7 +57,7 @@
                th:style="|height: ${#strings.isEmpty(theme.config.index.top_img_height) ? '100vh' : theme.config.index.top_img_height}; --index-site-info-top: ${#strings.isEmpty(theme.config.index.site_info_top) ? '43%' : theme.config.index.site_info_top};|">
         <div class="above-info">
           <h1 class="above-title" th:text="${site.title}"></h1>
-          <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false}">
+          <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false and (not #strings.isEmpty(site.subtitle) or not #strings.isEmpty(theme.config.index.typewriter_custom_text) or #lists.contains({'custom','hitokoto','yiyan','jinrishici'}, theme.config.index.subtitle_source))}">
             <span class="above-subtitle--text"></span>
           </div>
         </div>

@@ -40,7 +40,7 @@
     <section class="content card" th:with="noData = ${not #lists.isEmpty(tags)}">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'标签'}"></h1>
       <th:block th:if="${noData}">
-        <div class="chart" th:if="${theme.config.appearance?.tag_ui != 'cloud'}"></div>
+        <div class="chart" th:if="${theme.config.appearance?.tag_ui == 'chart'}"></div>
 
         <div class="equinox">
           <a class="link "

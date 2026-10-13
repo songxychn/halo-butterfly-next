@@ -16,7 +16,15 @@
 
 2026-10-13 [评论懒加载](../COMMENT-ENHANCEMENTS.md)更新三条懒挂载实现为 `implemented-unverified`。官方插件 head 预加载保留，首屏零评论资源断言仍未满足；[限定真实 Halo 验证](../validation/2026-10-13/comment-lazy.md)不替代完整合同。
 
+2026-10-13 [统一资源地址](../RESOURCE-SOURCES.md)补齐实际静态/动态资源、Share.js、不蒜子覆盖及 PJAX 精确地址识别；3 个独立覆盖配置转为 `implemented-unverified`，其余相关记录同步限定结果。全量 CDN 映射仍待完成，0 条提升为 verified。[DEC-03 资源供应草案](DEC-03-RESOURCES-DRAFT.md)保留未决替代项与原 ID，尚未正式裁定。
+
+DEC-03 后续方案已由维护者确认导航/特效的主题承载包供应、Viewer.js 唯一灯箱及 Prism 整包延迟加载。固定上游 217 文件哈希核对后，[Pace / Loading 与 MD5 消费方](DEC-03-PACE-MD5.md)完成源码对照：维护者随后确认默认 Pace、四种动画显式可选，不保留旧动画默认迁移分支；blueimp-md5 唯一直接消费方是 Valine 最新评论，同名 Node helper 仅供 Gitalk。MD5 处理建议仍待裁定，Pace 待开发；40 条记录只补充方向与审计证据，不改状态或适用性。
+
 ## 文件与覆盖边界
+
+最新候选基于已合入 Pace PR #411 的 master，保留其实现。独立复审无阻塞项；[最终限定验证](../validation/2026-10-14/config-defaults-reviewed.md)记录 691 项测试、253 文件包与安装比对、真实 Halo 40 组、封面 16 项、真实 SDK/图库资源 3 组通过。35 条补充限定证据；旧 `config:CDN.custom_format` 因运行模板移除降为 gap，其余状态不变，verified 仍为 0、无新增 N/A；最终提交 CI 随草稿 PR 跟踪。以下是首次实施的历史结果。
+
+2026-10-14 维护者批准按[配置简化与默认体验清单（拟 DEC-08）](DEC-08-CONFIG-DEFAULTS-DRAFT.md)实施九项调整。新配置、离线转换、默认夹具及矩阵映射已同步；[限定验证](../validation/2026-10-14/config-defaults.md)记录 657 项测试、160 个安装文件、真实 Halo 40 组及顶图补充 16 项通过。28 条相关记录加入工作区证据，保留原状态，0 条提升为 verified、无新增 N/A。资源简化归入 DEC-03；Pace 由另一个分叉开发。公开裁定登记和完整 1.0 合同仍待完成。
 
 | 文件 | 职责 |
 | --- | --- |
