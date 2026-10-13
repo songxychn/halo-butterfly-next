@@ -148,7 +148,7 @@
               <a th:href="${post.status.permalink + '#post-comment'}" th:text="#{ui.commentPrefix} + ${post.stats.comment}"></a>
             </span>
             <span class="wp publishTime" th:if="${dateType != 'updated'}">
-              <i class="far fa-calendar-alt fa-bolt"></i>
+              <i class="fa-regular fa-calendar-days"></i>
               <time th:datetime="${post.spec.publishTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.publishedAlt') : '') + #dates.format(post.spec.publishTime, datePattern ?: 'yyyy-MM-dd')}"></time>
             </span>
             <span class="wp lastModifyTime" th:if="${dateType == 'updated' or dateType == 'both'}">
