@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "kind": "development-backlog-snapshot",
-  "sourceSha": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
-  "matrixSha256": "65c3528c5afdddd2ddcdb6df6bfc934721cf8817e441c4d9c034e659d7ba2d1b",
+  "sourceSha": "8acdbe1c52b82325ef94a8cfd62a184e56b8c146",
+  "matrixSha256": "666431f1036cd6703f785a0caf9c31c4f4ba72fc4b46a4ad58f8ddb22f2adf0e",
   "reconciliation": "confirmed-gap-reconciliation-2026-10-14.json",
   "note": "Development branch implementation and scoped acceptance; not merged/published, no verified promotion; matrix.json remains authoritative.",
   "groups": [
@@ -36,7 +36,7 @@
         "tag:score"
       ],
       "current": "PR #408 已实现通用 HTML 提示、Tabs、原生折叠、按钮、时间线与静态卡片；图库、图表/乐谱也已有实现。",
-      "remaining": "核对 Note 外观、行内标记/图片的通用能力映射；验证编辑器保存重开、无脚本/增强失败和换主题内容保留。Hexo 专属语法、DOM/class、完整参数和通用离线转换不是 1.0 默认义务；不再整体列为待开发。"
+      "remaining": "通用HTML块经默认编辑器+官方hybrid-edit-block 1.7.0在三引擎保存重开保留17个增强属性；普通富文本粘贴不保留增强属性。换主题/无脚本已有限定证据，完整EXT-01、设备与母语审校仍待；不要求Hexo专属语法/class/完整参数/通用离线转换。"
     },
     {
       "id": "D02",
@@ -191,13 +191,13 @@
     {
       "id": "A01",
       "title": "安全嵌入完整审计",
-      "category": "audit",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "helper:safeJSON",
         "interaction:data-safe"
       ],
-      "current": "Thymeleaf 配置序列化与 JSON-LD 脚本边界转义已有实现。",
-      "remaining": "补所有消费者和失败输入的清单/断言；当前是审计覆盖不足，不等于已确认漏洞，也不是重写一套序列化。"
+      "current": "已盘点脚本/JSON-LD/CSS与远端HTML边界，修复真实发现的CSS标签突破和JS HTML tokenizer问题，复用Halo JSON mapper；安全33项和SEO36项限定通过。",
+      "remaining": "最终集成及平台升级回归、完整合同仍待；明确允许代码执行的注入/已发布HTML不冒充净化。"
     },
     {
       "id": "A02",

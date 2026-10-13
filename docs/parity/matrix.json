@@ -45858,12 +45858,17 @@
         "strategy": "将上游 helper 的输入输出语义移植到 Halo 模板/Finder 或构建逻辑。",
         "settings": [],
         "code": [
-          "src/html/views/layout.html",
-          "src/html/views/components.html",
+          "scripts/safe-inline-data.mjs",
+          "scripts/build.mjs",
+          "scripts/check-package.mjs",
+          "scripts/security/check.mjs",
           "src/html/views/config.html",
-          "src/html/views/seo-json.html"
+          "src/html/views/seo-json.html",
+          "src/js/core/halo-settings.ts",
+          "src/js/core/moments.ts",
+          "src/js/core/site-content.ts"
         ],
-        "finding": "2026-10-14 主线对账：views/config 使用 Thymeleaf JS 序列化，seo-json 已对 JSON-LD 做严格 Unicode/脚本边界转义；不能继续写成完全没有安全处理。全部脚本嵌入点的消费者清单与端到端断言尚未完成，因此保留待审计缺口，不据此声称已有可利用漏洞。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "A01盘点当前lane15个JS脚本块/201表达式、JSON-LD与20项CSS输入及远端/配置HTML边界。真实发现并修复CSS关闭style与JS注释/脚本组合double-escaped问题；复用Halo JSON mapper后编码HTML边界，保留SSR CSS配置。708测试、三引擎安全33项及既有SEO36项通过；完整组合/平台生态/设备验收仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -45899,9 +45904,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/safe-embedding-audit.json",
+          "sha256": "2ab2aa5a972d6b9ba414ad8a1de74c00e9099eb9888c6432317dc993811bc7d6",
+          "date": "2026-10-14T03:17:48.355554+08:00",
+          "commit": "ddf473acdb954523d61043670d9846dd0d3dc669",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:shuoshuoFN",
