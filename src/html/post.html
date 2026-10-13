@@ -38,6 +38,7 @@
         enable_code_copy: /*[[${#annotations.getOrDefault(post, 'enable_code_copy','true')}]]*/ true,
       });
     </script>
+    <th:block th:replace="~{views/body-renderers :: config(${post})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>
   </th:block>
 

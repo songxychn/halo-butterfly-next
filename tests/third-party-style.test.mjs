@@ -51,9 +51,9 @@ test('上游第三方：Valine 1.1em、Waline token、fireworks 9999、medium-zo
   assert.doesNotMatch(rules, /scrollbar-width:\s*none/);
 });
 
-test('本刀不接入第三方提供方、不改 hide_button、不改文章上下篇 150px、无新增 th:utext', () => {
+test('正文渲染器设置保留既有评论提供方、hide_button 和文章上下篇约束', () => {
   assert.doesNotMatch(settingsText, /name:\s*snackbar/);
-  assert.doesNotMatch(settingsText, /name:\s*mermaid/);
+  assert.match(settingsText, /group:\s*mermaid/);
   assert.doesNotMatch(settingsText, /name:\s*artalk/);
   assert.doesNotMatch(settingsText, /name:\s*waline/);
   assert.match(settingsText, /name:\s*fireworks/);

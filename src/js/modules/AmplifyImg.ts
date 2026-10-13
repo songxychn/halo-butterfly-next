@@ -18,7 +18,7 @@ export function imageSource(image: HTMLImageElement) {
 }
 
 function eligible(image: HTMLImageElement) {
-  if (image.closest('button, [data-no-lightbox]')) return false;
+  if (image.closest('button, [data-no-lightbox], .no-lightbox, figure.gallery-group')) return false;
   const anchor = image.closest<HTMLAnchorElement>('a[href]');
   if (!anchor) return true;
   if (anchor.hasAttribute('download')) return false;

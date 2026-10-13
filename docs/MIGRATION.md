@@ -2,6 +2,8 @@
 
 Next 的主题 ID、Setting 和 ConfigMap 都独立。安装 Next 不会改写原主题配置。先在测试站安装新主题，再迁移配置、检查页面，最后切换正式站点；保留原主题安装包和配置可用于回退。
 
+正文图库新增字段缺失时无需迁移配置；已有普通图片、Photos 页不自动改成正文图库。Hexo `gallery` / `galleryGroup` 源可先通过[图库离线转换](ARTICLE-GALLERY.md)生成等效 HTML，再导入正文。回退旧包后新图库 HTML 和 JSON 仍保留，但旧主题未提供对应增强，需保留原文章源或普通图片版本。
+
 ## 导出与转换
 
 输入支持原主题的 JSON 分组配置，以及 `kind: ConfigMap` 的 JSON/YAML（其中 `data` 的各组为 JSON 字符串）。分组配置可从 Halo 控制台开发者工具或经认证的 API `GET /apis/api.console.halo.run/v1alpha1/themes/theme-butterfly/json-config` 获取。不要把包含个人链接或自定义 HTML 的配置提交进仓库。
@@ -51,9 +53,11 @@ bun run migrate --input old.json --from 2.0.5 --output next.json
 
 在 Next 中核对首页、文章、自定义页面、菜单和手机视图，检查原主题保留的配置仍可读取。随后在主题管理中切换。需要回退时重新启用原主题；不要把 Next 配置写到原主题的 ConfigMap。当前迁移仅覆盖 2.0.5 与 2.0.7 的配置结构，不处理文章内容或 Hexo 配置。
 
+正文 Mermaid / Chart.js / ABC 乐谱已支持等效 HTML 和约定的语言代码块，默认关闭，详见[输入及配置](BODY-CHARTS-SCORE.md)。这补齐主题正文渲染与交互，不改变离线标签转换的待实现状态。
+
 Hexo Butterfly 的 `{% %}` 是生成期语法，主题运行时不解析（[DEC-02](https://github.com/songxychn/halo-butterfly-next/issues/45)）。新正文采用[可读 HTML 与渐进增强](CONTENT-EXTENSIONS.md)：提示用 `blockquote`，折叠用 `details/summary`，Tabs 用包含标题和正文的 `section` 分组，时间线用有序列表，图库和系列用真实图片、说明与链接。可选 `data-content-*` 属性被其他主题忽略时，原文仍可阅读，不要求使用 Butterfly 专属 class。
 
-旧 Hexo 标签源需要人工改写成这些原生结构；不要直接复制运行页面中带 `hidden`、生成按钮或 ARIA 角色的 Tabs DOM。离线自动转换仍未实现，不能把现有 `bun run migrate` 当成内容迁移工具，也不能将本次可移植正文能力视为 EXT-01/02 完整对齐。
+旧 Hexo 标签源需要人工改写成这些原生结构；不要直接复制运行页面中带 `hidden`、生成按钮或 ARIA 角色的 Tabs DOM。图库标签已有[专用离线转换](ARTICLE-GALLERY.md)，通用标签及正文图表与乐谱的离线转换仍待实现。不能把现有 `bun run migrate` 当成内容迁移工具，也不能将本次可移植正文能力视为 EXT-01/02 完整对齐。
 
 第三方接入配置默认关闭，新增组 `analytics`、`chat`、`google_adsense`、`ad`、`CDN`，见 [第三方接入与资源配置](INTEGRATIONS.md)。升级现有 Next 时无需改变原页面资源配置；省略新字段仍使用随包资源。旧 `loading.source` / `other` 的原主题资源地址仍由迁移工具重置到安装包，不能自动套用到 Next 的不同构建入口。旧的账号配置、原始广告 HTML 与 Umami token 需按报告人工核对，不自动向外部服务激活或公开认证凭据。回退时关闭新增服务组并恢复升级前保存的配置。
 

@@ -115,8 +115,13 @@ async function build() {
     if (entries.includes('licenses')) await cp(path.join(dir, 'licenses'), path.join(assets, 'licenses', name + '-additional'), { recursive: true });
     const require = createRequire(path.join(dir, 'package.json'));
     for (const dependency of Object.keys(pkg.dependencies || {})) {
+      // Type-only packages have no browser code to distribute.
+      if (dependency.startsWith('@types/')) continue;
       // 部分包不导出 package.json，从已解析的入口向上寻找其包目录。
-      let cursor = path.dirname(require.resolve(dependency));
+      let entry;
+      try { entry = require.resolve(dependency + '/package.json'); }
+      catch { try { entry = require.resolve(dependency); } catch { entry = Bun.resolveSync(dependency, dir); } }
+      let cursor = path.dirname(entry);
       while (true) {
         try {
           const metadata = JSON.parse(await readFile(path.join(cursor, 'package.json'), 'utf8'));
@@ -129,7 +134,7 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
   for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
     if (!file.endsWith('.scss')) continue;
@@ -143,6 +148,9 @@ async function build() {
   }
   for (const file of (await readdir(path.join(root, 'src/js/page'))).sort()) {
     if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/js/page', file), path.join(assets, 'js'));
+  }
+  for (const file of (await readdir(path.join(root, 'src/js/renderers'))).sort()) {
+    if (file.endsWith('.ts')) await bundle(path.join(root, 'src/js/renderers', file), path.join(assets, 'renderers'));
   }
   for (const file of (await readdir(path.join(root, 'src/plugins/loading'))).sort()) {
     if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/plugins/loading', file), path.join(assets, 'plugins/loading'));
