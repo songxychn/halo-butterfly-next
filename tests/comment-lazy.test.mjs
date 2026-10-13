@@ -107,3 +107,14 @@ test('reinitializing a retained page scope keeps the existing editor and does no
   beginPage(); initializeLazyComments(f.root, options); requestLazyComments(f.root); await tick();
   assert.equal(calls, 1); assert.equal(f.host.children.length, 1); assert.equal(editor.draft, 'retained');
 });
+
+test('Moment lazy mounting accepts only the native moment.halo.run group', async () => {
+  const f=fixture({kind:'Moment',hash:'#post-comment'});
+  f.target.dataset.group='moment.halo.run';
+  initializeLazyComments(f.root,{importModule:async()=>({CommentWidget:true})}); await tick();
+  assert.equal(f.host.children[0].group,'moment.halo.run'); assert.equal(f.host.children[0].kind,'Moment');
+  disposePage();
+  const wrong=fixture({kind:'Moment',hash:'#post-comment'});
+  initializeLazyComments(wrong.root,{importModule:async()=>({CommentWidget:true})}); await tick();
+  assert.equal(wrong.host.children.length,0); assert.equal(wrong.target.dataset.commentState,'failed');
+});

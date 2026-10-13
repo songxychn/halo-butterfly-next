@@ -1,17 +1,17 @@
 import { t } from './i18n';
 import { onPageCleanup } from './page-lifecycle.ts';
-/** Halo public comments, merged across the public Post/SinglePage inventory.
+/** Halo public comments, merged across the public Post/SinglePage/Moment inventory.
  * The public API requires an exact subject. Never use console APIs or cookies.
  */
 export interface CommentSubject {
-  kind: 'Post' | 'SinglePage'; name: string; href: string; revision: string;
+  kind: 'Post' | 'SinglePage' | 'Moment'; name: string; href: string; revision: string;
 }
 export interface RecentComment {
   id: string; subject: string; nickname: string; excerpt: string; date: string; avatar: string;
 }
 interface CacheEntry { expires: number; revision: string; limit: number; items: RecentComment[] }
 const CACHE_KEY = 'halo-butterfly-next.newest-comments.v1';
-const GROUP = 'content.halo.run';
+export const commentGroup = (kind: CommentSubject['kind']) => kind === 'Moment' ? 'moment.halo.run' : 'content.halo.run';
 const boundedNumber = (value: unknown, fallback: number, min: number, max: number) => {
   if (value == null || value === '') return fallback;
   const n = Number(value);
@@ -54,7 +54,7 @@ export function publicComment(value: unknown, subject: CommentSubject, origin: s
   const { metadata, spec, owner } = value as Record<string, any>;
   const ref = spec?.subjectRef;
   if (!metadata || metadata.deletionTimestamp || typeof metadata.name !== 'string' ||
-      spec?.approved !== true || spec.hidden !== false || spec.parentRef || ref?.group !== GROUP ||
+      spec?.approved !== true || spec.hidden !== false || spec.parentRef || ref?.group !== commentGroup(subject.kind) ||
       ref?.kind !== subject.kind || ref?.name !== subject.name) return null;
   const date = typeof spec.creationTime === 'string' ? spec.creationTime : metadata.creationTimestamp;
   if (typeof date !== 'string' || !Number.isFinite(Date.parse(date))) return null;
@@ -108,7 +108,7 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
         const cached = cache.get(key);
         if (cached) { items.push(...cached.items); continue; }
         const url = new URL('/apis/api.halo.run/v1alpha1/comments', options.origin);
-        url.search = new URLSearchParams({ group: GROUP, kind: subject.kind, name: subject.name, page: '1', size: String(limit), sort: 'spec.creationTime,desc', withReplies: 'false' }).toString();
+        url.search = new URLSearchParams({ group: commentGroup(subject.kind), kind: subject.kind, name: subject.name, page: '1', size: String(limit), sort: 'spec.creationTime,desc', withReplies: 'false' }).toString();
         const timeout = setTimeout(() => controller.abort(), 10000);
         let response: Response;
         let data: {items?: unknown[]};
@@ -151,7 +151,7 @@ export function initializeNewestComments(root: Document = document) {
   for (const node of inventory.content.querySelectorAll<HTMLAnchorElement>('a[data-comment-kind]')) {
     const kind = node.dataset.commentKind, name = node.dataset.commentName;
     const href = sameOriginCommentHref(node.getAttribute('href') || '', win.location.origin);
-    if (!['Post', 'SinglePage'].includes(kind || '') || !name || !href) continue;
+    if (!['Post', 'SinglePage', 'Moment'].includes(kind || '') || !name || !href) continue;
     const subject: CommentSubject = { kind: kind as CommentSubject['kind'], name, href, revision: node.dataset.commentRevision || '' };
     subjects.set(subjectKey(subject), subject);
   }

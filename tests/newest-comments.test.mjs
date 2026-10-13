@@ -65,3 +65,14 @@ test('a subject failure rejects the whole result rather than claiming a partial 
   const page={...subject,kind:'SinglePage',name:'about'};
   await assert.rejects(fetchNewestComments([subject,page],6,0,{origin,fetch:async url=>new URL(url).searchParams.get('kind')==='Post'?Response.json({items:[raw('new','2026-10-11T10:00:00Z')]}):new Response('',{status:503})}));
 });
+
+test('Moment comments require their native group and are fetched anonymously alongside content subjects', async () => {
+  const moment={kind:'Moment',name:'m1',href:'/moments/m1#post-comment',revision:'1:1'};
+  const value=raw('moment-comment','2026-10-14T10:00:00Z',{subjectRef:{group:'moment.halo.run',kind:'Moment',name:'m1'}});
+  assert.ok(publicComment(value,moment,origin));
+  assert.equal(publicComment({...value,spec:{...value.spec,subjectRef:{group:'content.halo.run',kind:'Moment',name:'m1'}}},moment,origin),null);
+  const calls=[];
+  const result=await fetchNewestComments([moment],6,0,{origin,fetch:async(url,options)=>{calls.push({url,options});return Response.json({items:[value]});}});
+  assert.equal(new URL(calls[0].url).searchParams.get('group'),'moment.halo.run');
+  assert.equal(calls[0].options.credentials,'omit'); assert.equal(result[0].subject,'Moment/m1');
+});

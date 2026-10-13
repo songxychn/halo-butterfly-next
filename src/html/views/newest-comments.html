@@ -1,4 +1,4 @@
-<!--/* DEC-01: public Halo Post/SinglePage comments only. No comment payload in the inventory. */-->
+<!--/* DEC-01: public Halo Post/SinglePage/Moment comments only. No comment payload in the inventory. */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="card"
   th:if="${theme.config.aside.card_newest_comments?.enable == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled}"
   id="card-newest-comments" class="aside-newest-comments card" data-newest-comments
@@ -12,6 +12,7 @@
   <template data-comment-subjects>
     <th:block th:replace="~{::subjects('Post', 1)}"/>
     <th:block th:replace="~{::subjects('SinglePage', 1)}"/>
+    <th:block th:if="${pluginFinder.available('PluginMoments', '>=1.18.0')}"><th:block th:replace="~{::momentSubjects(1)}"/></th:block>
   </template>
 </section>
 
@@ -24,4 +25,14 @@
       th:attr="data-comment-kind=${kind},data-comment-name=${subject.metadata.name},data-comment-revision=${subject.stats.comment + ':' + subject.spec.releaseSnapshot + ':' + subject.spec.allowComment}"></a>
   </th:block>
   <th:block th:if="${result.hasNext}"><th:block th:replace="~{::subjects(${kind}, ${pageNumber + 1})}"/></th:block>
+</th:block>
+
+<!-- Explicit public filter is required even for a logged-in owner's Finder. -->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="momentSubjects(pageNumber)"
+  th:with="result=${momentFinder.list(pageNumber, 1000)}">
+  <a th:each="subject : ${result.items}"
+    th:if="${subject.spec.visible != null and subject.spec.visible.toString() == 'PUBLIC' and subject.spec.approved == true and subject.metadata.deletionTimestamp == null and subject.stats != null and subject.stats.approvedComment > 0}"
+    th:href="@{/moments/{name}(name=${subject.metadata.name})}"
+    th:attr="data-comment-kind='Moment',data-comment-name=${subject.metadata.name},data-comment-revision=${subject.stats.approvedComment + ':' + subject.metadata.version}"></a>
+  <th:block th:if="${result.hasNext}"><th:block th:replace="~{::momentSubjects(${pageNumber + 1})}"/></th:block>
 </th:block>

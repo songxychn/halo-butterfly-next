@@ -1,0 +1,15 @@
+<section th:fragment="feed" class="moment-feed" data-moment-feed
+  th:if="${not #strings.isEmpty(theme.config.moments?.source)}"
+  th:attr="data-source=${theme.config.moments.source},data-limit=${theme.config.moments?.limit},data-since=${theme.config.moments?.since},data-page-size=${theme.config.moments?.page_size},data-time-zone=${theme.config.moments?.timezone ?: 'UTC'}">
+  <h2 th:text="${theme.config.moments?.title ?: '更多动态'}">更多动态</h2>
+  <p data-feed-status role="status" aria-live="polite">正在加载动态…</p>
+  <button type="button" data-feed-retry hidden>重试加载</button>
+  <ul class="list" data-feed-items></ul>
+  <form class="moment-page-jump" data-feed-pager hidden>
+    <button type="button" data-feed-previous>上一页</button>
+    <label>第 <input type="number" name="page" min="1" required aria-label="动态页码"/> 页</label>
+    <span data-feed-total></span><button type="submit">跳转</button>
+    <button type="button" data-feed-next>下一页</button>
+  </form>
+  <noscript><p>启用 JavaScript 后可查看外部动态，本地瞬间仍可阅读。</p></noscript>
+</section>

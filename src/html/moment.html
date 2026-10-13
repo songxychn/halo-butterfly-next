@@ -1,0 +1,76 @@
+<layout
+  th:replace="~{views/layout :: layout (
+  page = 'moments',
+  title = ${site.title} + ' - ' + '瞬间',
+  pin = ~{::pin},
+  header = ~{::header},
+  main = ~{::main}
+  )}"
+>
+  <!--/* pin */-->
+  <th:block th:fragment="pin">
+    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
+      Object.assign(window.MainApp.conf, {
+        //第一屏
+        enable_above: /*[[${aboveEnabled}]]*/ '',
+        above_background: /*[[${aboveBackground}]]*/ '',
+      });
+    </script>
+  </th:block>
+
+  <!--/* header */-->
+  <th:block th:fragment="header">
+    <header th:class="${not aboveEnabled ? 'header dp' : 'header'}">
+      <!--/* 导航栏 */-->
+      <th:block th:replace="~{views/nav}"/>
+
+      <!--第一屏内容-->
+      <section class="above" th:if="${aboveEnabled}">
+        <div class="above-info">
+          <h1 class="above-title">瞬间</h1>
+        </div>
+      </section>
+    </header>
+  </th:block>
+
+
+  <!--/* 內容 */-->
+  <th:block th:fragment="main">
+
+    <section class="content card" th:if="${moment != null}">
+      <h1 class="page-title" th:if="${not aboveEnabled}">瞬间</h1>
+      <ul class="list"><li class="item" th:insert="~{moments :: item(${moment})}"></li></ul>
+      <div
+        id="post-comment"
+        role="region" aria-labelledby="comment-title"
+        th:if="${pluginFinder.available('PluginCommentWidget', '>=3.3.2') && haloCommentEnabled}"
+      >
+        <div class="comment-head">
+          <h2 class="comment-headline" id="comment-title" tabindex="-1">
+            <i class="fa-solid fa-comments fa-fw" aria-hidden="true"></i>
+            <span th:text="'评论'"></span>
+          </h2>
+        </div>
+        <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
+        <div class="comment-wrap">
+          <th:block th:if="${theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
+            <th:block th:replace="~{views/comment-lazy :: widget('Moment', ${moment.metadata.name})}"/>
+          </th:block>
+          <div th:unless="${theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
+            <halo:comment
+              group="moment.halo.run"
+              kind="Moment"
+              th:attr="name=${moment.metadata.name}"
+            />
+          </div>
+        </div>
+      </div>
+      <p class="comment-notice comment-unavailable"
+        th:if="${theme.config.comments?.text != false and ((site.comment.enable != true) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : ((not pluginFinder.available('PluginCommentWidget', '>=3.3.2') or not haloCommentEnabled) and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
+        th:text="${(site.comment.enable != true) ? theme.config.comments.closed_notice : theme.config.comments.unavailable_notice}"></p>
+      <a href="/moments">返回瞬间列表</a>
+    </section>
+    <section class="content card" th:unless="${moment != null}"><p>瞬间不存在或不可见。</p><a href="/moments">返回瞬间列表</a></section>
+    <th:block th:replace="~{views/aside::common}"/>
+  </th:block>
+</layout>

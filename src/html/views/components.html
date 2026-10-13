@@ -254,7 +254,7 @@
       percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
       readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
       translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'},
-      commentOn = ${theme.config.comments?.jump != false and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and (page == 'post' ? post.spec.allowComment : (page == 'single' ? singlePage.spec.allowComment : false))}
+      commentOn = ${theme.config.comments?.jump != false and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and (page == 'post' ? post.spec.allowComment : (page == 'single' ? singlePage.spec.allowComment : (page == 'moments' and #ctx.containsVariable('moment') and moment != null)))}
     "
   >
     <div id="rightside-config-hide" inert>

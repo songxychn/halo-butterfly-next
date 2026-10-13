@@ -65,7 +65,7 @@ export function initializeLazyComments(root: Document = document, options: Optio
       // Mount directly: its init() adds another viewport observer and retains it.
       if (!module.CommentWidget || !win.customElements.get('comment-widget')) throw new Error('Unsupported comment component');
       const { group, kind, name } = target.dataset;
-      if (group !== 'content.halo.run' || !['Post', 'SinglePage'].includes(kind ?? '') || !name) throw new Error('Invalid comment subject');
+      if (!((group === 'content.halo.run' && ['Post', 'SinglePage'].includes(kind ?? '')) || (group === 'moment.halo.run' && kind === 'Moment')) || !name) throw new Error('Invalid comment subject');
       const widget = root.createElement('comment-widget') as Widget;
       Object.assign(widget, { group, kind, name, version: 'v1alpha1' });
       host.append(widget);

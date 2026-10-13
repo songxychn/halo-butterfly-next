@@ -94,7 +94,7 @@ test('relative 时 time 仍输出绝对 datetime，可见文本由客户端替�
   assert.match(list, /th:data-relative-date="\$\{dateFormat == 'relative'\}"/);
   assert.match(commonJs, /applyRelativeDates/);
   assert.doesNotMatch(commonJs, /moment/);
-  assert.doesNotMatch(source, /moment/);
+  assert.doesNotMatch(postMeta + list, /moment/);
 });
 
 test('formatRelative 输出中文相对时间，并保留发布/更新前缀', () => {

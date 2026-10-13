@@ -8,7 +8,7 @@
 
 加载期间提供可访问状态提示；官方模块加载失败或 8 秒超时后显示重试按钮。重试保留插件版本参数，并使用新的模块请求 URL 避免浏览器缓存失败。延迟完成的旧请求不重复挂载；已挂载组件不因滚动、再次点击跳转而重建，保留当前输入。没有 JavaScript 时显示启用提示。
 
-懒加载使用当前官方插件注入的同源、版本化模块和其公开 `comment-widget` 属性（Post/SinglePage 的 group/kind/name/version），不自行实现登录、权限、提交或回复。主题“加载完成”指模块可用且组件已挂载；组件内部的数据、登录及提交失败由官方 UI 处理，主题不会为了重试而替换已有编辑器。操作状态和重试按钮始终可用，`comments.text` 只控制原来的说明/关闭/不可用文案。
+懒加载使用当前官方插件注入的同源、版本化模块和其公开 `comment-widget` 属性（Post/SinglePage/Moment 的 group/kind/name/version），不自行实现登录、权限、提交或回复。主题“加载完成”指模块可用且组件已挂载；组件内部的数据、登录及提交失败由官方 UI 处理，主题不会为了重试而替换已有编辑器。操作状态和重试按钮始终可用，`comments.text` 只控制原来的说明/关闭/不可用文案。
 
 **资源边界**：CommentWidget 3.3.2 在 head 中注入 JS `modulepreload` 和 CSS；本批保留这些插件资源，只推迟组件初始化和评论数据请求，不承诺首屏零评论资源下载。参考[官方组件用法](https://github.com/halo-sigs/plugin-comment-widget/blob/v3.3.2/dev/component-usage.md)与[资源注入源码](https://github.com/halo-sigs/plugin-comment-widget/blob/v3.3.2/src/main/java/run/halo/comment/widget/CommentWidgetHeadProcessor.java)。
 
@@ -34,7 +34,7 @@
 
 ## 最新评论的范围和成本
 
-模板遍历 Halo Finder 的全部页面，只输出已发布、未删除、可见性 PUBLIC、允许评论且有评论统计的 Post / SinglePage 身份。浏览器在卡片接近视口时查询每个主体的公开评论 API，明确按 `spec.creationTime,desc` 排序，合并后取前 N 条。旧文章的新评论不会因文章发布时间而遗漏，也不沿用默认置顶/优先级排序。Moment 留给后续实现。
+模板遍历 Halo Finder 的全部页面，只输出已发布、未删除、可见性 PUBLIC、允许评论且有评论统计的 Post / SinglePage 身份。浏览器在卡片接近视口时查询每个主体的公开评论 API，明确按 `spec.creationTime,desc` 排序，合并后取前 N 条。旧文章的新评论不会因文章发布时间而遗漏，也不沿用默认置顶/优先级排序。Moment 现已覆盖，使用 moment.halo.run/Moment 主体及 approvedComment 统计，详见[瞬间](MOMENTS.md)。
 
 请求使用 `credentials: omit`，避免已登录管理员获得更多评论。响应仍校验审核、隐藏、删除和精确主体；缓存只保存 ID、主体、昵称、纯文本摘要、日期及头像 URL，不保存邮箱、IP、原始响应或凭证。HTML 中不嵌入评论内容。每次页面重新读取当前公开主体清单，缓存不能重新引入已转为私密、草稿或删除的主体；评论数、发布快照或开关改变也使对应缓存失效。审核/编辑后若上述值未改变，旧内容可能保留到缓存到期；需要及时刷新时设置 0 或缩短时间。
 
@@ -46,6 +46,6 @@
 
 [本轮限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复、原始失败报告和截图。
 
-首批记录不含评论懒挂载，后续实现见上文。首屏零评论资源下载、Moment 评论、真实 Safari/手机键盘/屏幕阅读器和完整双站合同仍未完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
+首批记录不含评论懒挂载，后续实现见上文。首屏零评论资源下载、真实 Safari/手机键盘/屏幕阅读器和完整双站合同仍未完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
 
 参考：[Halo 2.26.1 公开评论查询](https://github.com/halo-dev/halo/blob/v2.26.1/application/src/main/java/run/halo/app/core/endpoint/theme/CommentFinderEndpoint.java)、[Butterfly 5.7.0 最新评论模板](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/third-party/newest-comments/common.pug)。
