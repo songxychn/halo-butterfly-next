@@ -616,6 +616,34 @@
         "result": "failed before checks",
         "cause": "Session from before lab restart redirected to HTML login; refreshed owned private session and used a new report directory."
       }
-    ]
+    ],
+    "latestMaster": {
+      "sourceCommit": "95cb290beb3d4b45ab5e9f692d3f4120ff69757f",
+      "masterIntegrated": "1db37701135c444887f7e83aa0541e837ab940af",
+      "artifactSha256": "9d926430cc20fa5f1dc763ec1d256d00778c04de1adcda437dd180f8ec9e3939",
+      "installedFileCount": 249,
+      "engineering": {
+        "command": "bun run verify",
+        "passedTests": 663,
+        "failedTests": 0
+      },
+      "browser": {
+        "result": "passed",
+        "passedChecks": 81,
+        "restoreErrors": [],
+        "report": ".runtime/comment-lazy-runs/latest-master/report.json"
+      },
+      "testedSourceDigests": {
+        "settings.yaml": "fd1f55b5de1cd24cea28a32a887263799af90fd3fb602e9bcbd4cc75481768fe",
+        "src/html/post.html": "ea9be64c9bd9d2c25b1b696805263e1de117da22cd816e9bc33aeb94e30ef3b1",
+        "src/html/page.html": "677eb7779fdaa011c5b69340c3d8fc224bece752b2d05e8b45da9167cdfd0a83",
+        "src/html/views/comment-lazy.html": "1033fbf87b81e058c48a9e58e34bb280f82ef408c2c69223b96d19f292df68e4",
+        "src/js/core/comment-lazy.ts": "cd5a270ab14366fb2badc75da2810a7a8742a439543d299fec6987f59d738684",
+        "src/js/core/comment-jump.ts": "6f73f032adce773c9e06cded204cd1ebff89bcf40bd835c34904a894715534ff",
+        "src/js/core/common.ts": "f5f134aa22e9f099d06e4f34ebf95be2d29acc5a4c748435e1f4a9a1232f7076",
+        "src/scss/core/comments.scss": "c49eea17848dcc785552ff14be9c8145738422e7529e340b308a68b55bb59c24"
+      },
+      "sourceDigestAttribution": "Runner uses task-owned isolated browser cache; current working directory is the clean product checkout, so report.sourceDigests identify tested source files."
+    }
   }
 }

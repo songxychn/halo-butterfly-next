@@ -4,6 +4,8 @@
 
 ## 独立提交与最新 master 验证
 
+[草稿 PR #409](https://github.com/songxychn/halo-butterfly-next/pull/409) 创建期间 master 又合入正文扩展，因此再普通合并 `1db37701135c444887f7e83aa0541e837ab940af`。当前产品提交 `95cb290beb3d4b45ab5e9f692d3f4120ff69757f` 完整验证 663/663、真实 Halo 三引擎桌面/手机亮暗 81/81、安装文件 249/249 一致，0 设置恢复错误。包 SHA-256 `9d926430cc20fa5f1dc763ec1d256d00778c04de1adcda437dd180f8ec9e3939`。本次 runner 从干净产品检出读取源码摘要，记录见 `committedValidation.latestMaster`；相对当前 master 仍为评论相关 20 个文件，原工作区五个正文扩展文件未提交且摘要不变。后续验证材料提交只更新文档。
+
 评论实现独立提交 `c79b55806602301564ba60c50ff8a8f41b6fd5f2`，干净检出不包含原工作区的五个正文扩展文件改动，完整验证 647/647、真实 Halo 浏览器 81/81、安装文件 160/160 全部通过。原工作区文件摘要比对一致。
 
 随后普通 merge 最新 master `6112374fc177fdcd4ad2a88ca0c543f560e78e77`，产品提交 `d5705e14a73e05b99c7b6f1b59e549e36164e9f2`：完整验证 659/659、真实 Halo 三引擎桌面/手机亮暗模式 81/81、安装文件 249/249 逐字节一致，0 设置恢复错误。相对 master 的 PR 差异仍只有评论源代码、测试与文档 20 个文件。下方保留首次混合工作区验证的历史身份；当前独立/合并记录及安装包摘要见机器记录 `committedValidation`。后续材料提交只更新文档，产品源码及安装包身份不变。
@@ -41,7 +43,7 @@
 BASE_URL=http://127.0.0.1:18631 bun scripts/comment-lazy/check.mjs \
   --lab-runtime .runtime/comment-lazy-halo \
   --theme-package dist/halo-butterfly-next-0.1.0-alpha.4.zip \
-  --theme-source-sha d5705e14a73e05b99c7b6f1b59e549e36164e9f2 \
+  --theme-source-sha 95cb290beb3d4b45ab5e9f692d3f4120ff69757f \
   --output .runtime/comment-lazy-runs/NEW-UNIQUE-DIRECTORY \
   --allow-synthetic-writes yes
 ```
