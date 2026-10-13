@@ -59,7 +59,9 @@ bun run migrate --input old.json --from 2.0.5 --output next.json
 
 正文 Mermaid / Chart.js / ABC 乐谱已支持等效 HTML 和约定的语言代码块，默认关闭，详见[输入及配置](BODY-CHARTS-SCORE.md)。这补齐主题正文渲染与交互，不改变离线标签转换的待实现状态。
 
-Hexo Butterfly 的 `{% %}` 是生成期语法，主题运行时不解析（[DEC-02](https://github.com/songxychn/halo-butterfly-next/issues/45)）。1.0 计划另提供离线转换，把标签源变成与 Butterfly 生成结果一致的 HTML，在 EXT-01 验收；通用转换仍待实现；图库标签已有专用离线转换，正文图表与乐谱标签转换仍待开发。不能把现有 `bun run migrate` 当成内容迁移。
+Hexo Butterfly 的 `{% %}` 是生成期语法，主题运行时不解析（[DEC-02](https://github.com/songxychn/halo-butterfly-next/issues/45)）。新正文采用[可读 HTML 与渐进增强](CONTENT-EXTENSIONS.md)：提示用 `blockquote`，折叠用 `details/summary`，Tabs 用包含标题和正文的 `section` 分组，时间线用有序列表，图库和系列用真实图片、说明与链接。可选 `data-content-*` 属性被其他主题忽略时，原文仍可阅读，不要求使用 Butterfly 专属 class。
+
+旧 Hexo 标签源需要人工改写成这些原生结构；不要直接复制运行页面中带 `hidden`、生成按钮或 ARIA 角色的 Tabs DOM。图库标签已有[专用离线转换](ARTICLE-GALLERY.md)，通用标签及正文图表与乐谱的离线转换仍待实现。不能把现有 `bun run migrate` 当成内容迁移工具，也不能将本次可移植正文能力视为 EXT-01/02 完整对齐。
 
 第三方接入配置默认关闭，新增组 `analytics`、`chat`、`google_adsense`、`ad`、`CDN`，见 [第三方接入与资源配置](INTEGRATIONS.md)。升级现有 Next 时无需改变原页面资源配置；省略新字段仍使用随包资源。旧 `loading.source` / `other` 的原主题资源地址仍由迁移工具重置到安装包，不能自动套用到 Next 的不同构建入口。旧的账号配置、原始广告 HTML 与 Umami token 需按报告人工核对，不自动向外部服务激活或公开认证凭据。回退时关闭新增服务组并恢复升级前保存的配置。
 

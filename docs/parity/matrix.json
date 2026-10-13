@@ -40562,9 +40562,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-button.scss",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-button.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-button.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 a 链接按钮 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -40601,6 +40604,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -40702,9 +40710,12 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。"
+        "finding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。 2026-10-13：另提供 静态列表链接卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -40732,7 +40743,13 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
+        }
+      ],
       "status": "gap"
     },
     {
@@ -40760,9 +40777,12 @@
           "src/js/core/gallery-data.ts",
           "src/js/page/gallery.ts",
           "src/js/modules/AmplifyImg.ts",
-          "scripts/gallery/convert.mjs"
+          "scripts/gallery/convert.mjs",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。"
+        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/img/a 静态网格与现有灯箱 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -40811,6 +40831,11 @@
           "date": "2026-10-13T14:30:59.433Z",
           "actor": "codex-author",
           "outcome": "passed (bounded gallery author regression; full contract remains open)"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "implemented-unverified"
@@ -40840,9 +40865,12 @@
           "src/js/core/gallery-data.ts",
           "src/js/page/gallery.ts",
           "src/js/modules/AmplifyImg.ts",
-          "scripts/gallery/convert.mjs"
+          "scripts/gallery/convert.mjs",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。"
+        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/figcaption 图库分组卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -40891,6 +40919,11 @@
           "date": "2026-10-13T14:30:59.433Z",
           "actor": "codex-author",
           "outcome": "passed (bounded gallery author regression; full contract remains open)"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "implemented-unverified"
@@ -40915,9 +40948,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
-          "src/scss/core/tags-hide.scss"
+          "src/scss/core/tags-hide.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 details/summary 查看答案 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -40954,6 +40990,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -40978,9 +41019,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
-          "src/scss/core/tags-hide.scss"
+          "src/scss/core/tags-hide.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 details/summary（块级替代） 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41017,6 +41061,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41041,9 +41090,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
-          "src/scss/core/tags-hide.scss"
+          "src/scss/core/tags-hide.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 details/summary 折叠 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41080,6 +41132,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41309,9 +41366,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-note.scss",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 blockquote/aside 提示块 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41348,6 +41408,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41451,9 +41516,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-series.scss",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-series.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-series.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 静态列表链接卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41490,6 +41558,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41514,9 +41587,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-note.scss",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 blockquote/aside 提示块可嵌套 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41553,6 +41629,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41577,9 +41658,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
-          "src/scss/core/tags-tabs.scss"
+          "src/scss/core/tags-tabs.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 嵌套 section 分组 Tabs 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41616,6 +41700,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41640,9 +41729,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
-          "src/scss/core/tags-tabs.scss"
+          "src/scss/core/tags-tabs.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 嵌套 section 分组 Tabs 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41679,6 +41771,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41703,9 +41800,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
-          "src/scss/core/tags-tabs.scss"
+          "src/scss/core/tags-tabs.scss",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 section 分组的渐进增强 Tabs 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41742,6 +41842,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"
@@ -41766,9 +41871,12 @@
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/scss/core/tags-timeline.scss",
-          "src/js/modules/Render.ts"
+          "src/js/modules/Render.ts",
+          "src/js/core/content-extensions.ts",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-timeline.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-timeline.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 ol/li/time 时间线 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
       },
       "dependencies": [
         "dual-site",
@@ -41805,6 +41913,11 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/reconciliation-2026-10-13-content.json",
+          "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
         }
       ],
       "status": "gap"

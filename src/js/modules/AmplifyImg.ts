@@ -31,7 +31,8 @@ function eligible(image: HTMLImageElement) {
 
 function group(image: HTMLImageElement) {
   return image.closest('[data-lightbox-group], [data-fancybox]')?.getAttribute('data-lightbox-group') ??
-    image.closest('[data-fancybox]')?.getAttribute('data-fancybox') ?? '';
+    image.closest('[data-fancybox]')?.getAttribute('data-fancybox') ??
+    image.closest('[data-content-gallery]') ?? '';
 }
 
 export default class AmplifyImg {
