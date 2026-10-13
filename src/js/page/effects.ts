@@ -49,7 +49,9 @@ function start() {
   };
   const draw = () => {
     frame=0;
-    if (!ctx || document.hidden || reduced.matches) return;
+    // The preference can change before the browser dispatches its media event.
+    if (reduced.matches) { stop(); return; }
+    if (!ctx || document.hidden) return;
     ctx.clearRect(0,0,width,height); time+=.01;
     if (ribbon || flutter) {
       const size=bounded(ribbon?.size,150,20,500);
