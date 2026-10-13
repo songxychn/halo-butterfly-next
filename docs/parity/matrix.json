@@ -45914,7 +45914,7 @@
           "src/js/core/moments.ts",
           "src/js/core/site-content.ts"
         ],
-        "finding": "A01盘点当前lane15个JS脚本块/201表达式、JSON-LD与20项CSS输入及远端/配置HTML边界。真实发现并修复CSS关闭style与JS注释/脚本组合double-escaped问题；复用Halo JSON mapper后编码HTML边界，保留SSR CSS配置。708测试、三引擎安全33项及既有SEO36项通过；完整组合/平台生态/设备验收仍待。"
+        "finding": "A01已盘点JS脚本、JSON-LD、20项CSS及远端/配置HTML边界。修复CSS标签突破、JS tokenizer与JSON特殊自有键语义；最终通过平台JSON字符串封套和运行时转义避免Thymeleaf预解码。旧33项不足结论已撤回，最终三引擎36项含原HTTP、独立未闭合标记和无JS SSR通过；完整平台生态/设备合同仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -45957,6 +45957,15 @@
           "sha256": "2ab2aa5a972d6b9ba414ad8a1de74c00e9099eb9888c6432317dc993811bc7d6",
           "date": "2026-10-14T03:17:48.355554+08:00",
           "commit": "ddf473acdb954523d61043670d9846dd0d3dc669",
+          "actor": "Codex",
+          "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/validation/2026-10-14/safe-embedding-followup.json",
+          "sha256": "8f4b031534e7e0065dfd629764cc6f446d9b17459fbc8ff35d87a5cff440b192",
+          "date": "2026-10-14T03:30:29.487753+08:00",
+          "commit": "a7893ac9dc33da9bc58835bc9c286b9ffab5ed37",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
