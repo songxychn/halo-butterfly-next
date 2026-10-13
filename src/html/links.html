@@ -40,11 +40,11 @@
   <th:block th:fragment="main">
     <section class="content card" th:attr="data-link-random=${theme.config.links?.random_order}" th:with="noData = ${not #lists.isEmpty(groups)}">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${#messages.msg('ui.links')}"></h1>
-      <section class="remote-links groups" data-remote-links data-i18n-loading="正在加载友链…" data-i18n-empty="暂无远端友链" data-i18n-error="远端友链暂时无法加载，本地友链不受影响。" th:if="${not #strings.isEmpty(theme.config.links?.source)}" th:attr="data-source=${theme.config.links.source}">
-        <p data-links-status role="status" aria-live="polite">正在加载友链…</p>
-        <button type="button" data-links-retry hidden>重试加载友链</button>
+      <section class="remote-links groups" data-remote-links data-i18n-loading="正在加载友链…" data-i18n-empty="暂无远端友链" data-i18n-error="远端友链暂时无法加载，本地友链不受影响。" th:if="${not #strings.isEmpty(theme.config.links?.source)}" th:attr="data-source=${theme.config.links.source},data-i18n-loading=#{ui.linksLoading},data-i18n-empty=#{ui.linksEmpty},data-i18n-error=#{ui.linksError}">
+        <p data-links-status role="status" aria-live="polite" th:text="#{ui.linksLoading}">正在加载友链…</p>
+        <button type="button" data-links-retry hidden th:text="#{ui.linksRetry}">重试加载友链</button>
         <div data-links-items></div>
-        <noscript><p>启用 JavaScript 后可查看远端友链，本地友链仍可使用。</p></noscript>
+        <noscript><p th:text="#{ui.linksJs}">启用 JavaScript 后可查看远端友链，本地友链仍可使用。</p></noscript>
       </section>
       <th:block th:if="${noData}">
         <div class="groups">
