@@ -62,3 +62,11 @@ test('translating mixed content preserves share input and copyright links', asyn
   assert.match(components, /<span class="text"[^>]*><span th:text="#\{ui\.copyrightBefore\}">/);
   assert.doesNotMatch(components, /<span class="text" th:text="#\{ui\.copyrightBefore\}">/);
 });
+
+
+test('Moment fragment titles use a Thymeleaf message expression, not a bare utility call', async () => {
+  for (const name of ['moments', 'moment']) {
+    const html = await readFile(new URL(`src/html/${name}.html`, root), 'utf8');
+    assert.match(html, /title = \$\{site\.title\} \+ ' - ' \+ #\{ui\.moments\}/);
+  }
+});
