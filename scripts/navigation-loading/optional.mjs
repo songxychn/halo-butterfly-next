@@ -54,7 +54,7 @@ try{
     assert.equal(await p.locator('canvas.appearance-effect').count(),1);
     const frames=await p.evaluate(()=>window.fixtureFrames);await p.waitForTimeout(150);assert((await p.evaluate(()=>window.fixtureFrames))>frames,'effects remain animated after navigation');
    }
-   await p.emulateMedia({reducedMotion:'reduce'});await p.waitForFunction(()=>!document.querySelector('canvas.appearance-effect'));
+   await p.emulateMedia({reducedMotion:'reduce'});await p.waitForFunction(()=>!document.querySelector('canvas.appearance-effect'),null,{polling:100});
    await p.emulateMedia({reducedMotion:'no-preference'});await p.waitForSelector('canvas.appearance-effect');assert.equal(await p.locator('canvas.appearance-effect').count(),1);
    assert.equal(resources.filter(x=>x.endsWith('social-share.min.js')).length,1);assert.equal(resources.filter(x=>x.endsWith('effects.min.js')).length,1);
    assert(counters.length>=4);assert(counters.every(row=>row.referrer?.startsWith(base+'/')));
