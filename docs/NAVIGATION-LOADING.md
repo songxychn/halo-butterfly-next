@@ -28,7 +28,11 @@
 
 切换前销毁主题页面作用域：全局事件、导航/图片/代码/公式观察器、图表、目录、Typed、灯箱、剪贴板及请求取消。新页面重新执行标记的主题配置与页面入口；第三方库的普通 DOM 事件由对应实例销毁或旧节点清理。`pjax:send`、`pjax:complete`、`pjax:error` 和 `halo-butterfly-next:before-replace/page-ready` 提供可观察事件。
 
-Halo 文章/单页的 `/halo-tracker.js` 包装 history 且绑定内容身份，尚无安全销毁协议，因此这些页面保留完整导航和原生计数。当前 PJAX 主要覆盖首页、列表、分类标签及归档之间的导航。插件公共布局、未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面使用完整导航。启用全局插件脚本可能使整个站点回退；这是一项明确兼容边界，并不宣称任意插件已适配 PJAX。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 和评论懒挂载不在本批范围。
+启用 PJAX 时，文章/单页通过 Halo 2.26.1 的 `HaloTrackerProcessor.SKIP_TRACKER` 服务端标记停用绑定旧身份的原生 history 包装器，改由主题向官方 counter API 每个已初始化页面作用域上报一次；文章、单页和历史遍历使用各自的服务端身份，列表不继承旧文章身份。保留 `haloTracker.disabled` 停用约定，计数失败不重试、不阻塞正文。关闭 PJAX 继续由原生 `/halo-tracker.js` 计数。
+
+官方 CommentWidget 3.3.2 使用新的组件实例与目标内容身份；非懒加载配置立即挂载，懒加载继续按可见性触发。旧 body 替换时组件、其 shadow DOM 和主题挂载产生的 toast host 一并断开，插件的 disconnectedCallback 清理编辑器和全局监听。尚未提交的评论触发 beforeunload veto 时交给浏览器完整导航及原生离开提醒，避免绕过草稿保护；等待 HTML/CSS 期间开始编辑同样重新检查。
+
+文章图表、ABC 乐谱、图库及脚本为空的插件公共布局已参与页面生命周期；正文渲染配置在切页时重新执行。未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面仍使用完整导航。分析/聊天/广告 SDK、AddToAny、Busuanzi、Share.js 和尚无重新初始化协议的外观特效未在本次适配，启用后可能使页面或全站回退。不会因脚本来自某个受信任 CDN 就放行整站。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 另行跟踪。
 
 预取最多提示 8 个链接；带查询参数、后台/外部资源、省流量和 2G 网络跳过。使用浏览器标准 prefetch，不创建主题 HTML 缓存或绕过鉴权。浏览器可以忽略预取提示。
 
@@ -43,5 +47,7 @@ Halo 文章/单页的 `/halo-tracker.js` 包装 history 且绑定内容身份，
 运行 `bun run verify`。独立合成页面回归为 `bun scripts/navigation-loading/check.mjs`，依赖按仓库 `scripts/browser/install.mjs` 准备的隔离浏览器。检查三引擎桌面/手机连续六次切页、代码初始化、移动抽屉、明暗切换单次响应、标题/meta、前进后退、排除/未知脚本/HTTP 与 CSS 失败、请求竞争、懒加载开关及预取。真实 Halo 记录见 `docs/validation/2026-10-13/navigation-loading.md`。
 
 作者回归不替代固定双站的全部配置组合、插件生态、Safari 真机及完整 1.0 工程验收。
+
+2026-10-14 内容 PJAX 的独立私有 Halo 回归使用 `scripts/navigation-loading/content-fixture.py` 配置已有官方评论夹具，再运行 `BASE_URL=http://127.0.0.1:<owned-port> bun scripts/navigation-loading/content.mjs`。覆盖内容计数身份、评论实例、前进后退、三种正文渲染器和图库反复进入，以及未提交评论。证据及验收边界见 [限定验收](validation/2026-10-14/pjax-completion.md)。
 
 2026-10-14 的 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)新增 Pace 1.2.4 默认进度，通过当前请求的阶段来源跟踪主题 fetch；普通 fetch 不自动被 Pace 跟踪。首屏与请求进度为估算，资源失败或连续进度超过 30 秒回落原导航提示，正文保持可读。验证见 [Pace 限定记录](validation/2026-10-14/dec03-pace.md)。

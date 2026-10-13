@@ -29,7 +29,7 @@ export function supportsPartialNavigation(doc: Document) {
   if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;
   if (doc.querySelector('halo-comment, [data-no-pjax]')) return false;
   if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
-    !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host]')) &&
+    !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host], [data-comment-lazy][data-group="moment.halo.run"][data-kind="Moment"] [data-comment-host]')) &&
     !(['lit-toast-container', 'lit-toast'].includes(node.localName) && node.closest('lit-toast-container[data-theme-comment-toast]')))) return false;
   return [...doc.scripts].every(script => inert(script) || scriptKinds.has(script.dataset.themeScript || ''));
 }
