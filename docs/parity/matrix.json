@@ -41353,9 +41353,10 @@
           "src/js/core/body-renderers.ts",
           "src/js/core/busuanzi.ts",
           "src/js/core/effects-loader.ts",
-          "src/js/core/analytics-navigation.ts"
+          "src/js/core/analytics-navigation.ts",
+          "src/js/core/addtoany-navigation.ts"
         ],
-        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
+        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。AddToAny默认服务已用单kit/持久body和iframe实现有界生命周期，三引擎27/27限定通过；扩展服务、预注入配置、未知节点、失败/超时及打开弹窗仍完整导航。其他分析SDK、聊天、广告、真实账户/设备与完整生态未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -41458,6 +41459,15 @@
           "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "scoped-integration-validation",
+          "path": "docs/validation/2026-10-14/pjax-addtoany.json",
+          "sha256": "cbd533e99401f39ce064b582955c90e523fbcb456d6939d3b8e7798f4853f51b",
+          "date": "2026-10-13T19:55:38.411602+00:00",
+          "commit": "a5318f54ed01a76d83734a1e224c8ec34b884a55",
+          "actor": "Codex",
+          "outcome": "partial: 27/27 scoped real SDK browser cases; remaining providers and full contract open"
         }
       ],
       "status": "gap"
@@ -59981,6 +59991,15 @@
           "commit": "6ad05ee24a5db83e7f777143a9142f3e39a63150",
           "actor": "/root",
           "outcome": "partial: source, bounded checks and failures reconciled; full contract remains open"
+        },
+        {
+          "kind": "scoped-integration-validation",
+          "path": "docs/validation/2026-10-14/home-layouts-candidate.json",
+          "sha256": "a76fc0a0b151762f8e0adb5f4b21ce77aef5f103f65cee182a56bee4680292a5",
+          "date": "2026-10-13T19:55:38.411877+00:00",
+          "commit": "32db6310481fe1cd5da9be34572e447db853fb99",
+          "actor": "Codex",
+          "outcome": "partial: 317/318 fixed dual-site observations; one pending cover retained as failure; later icon/failure fallback 48/48 does not replace full run"
         }
       ],
       "status": "verification-failed"
@@ -63363,9 +63382,10 @@
           "src/js/core/body-renderers.ts",
           "src/js/core/busuanzi.ts",
           "src/js/core/effects-loader.ts",
-          "src/js/core/analytics-navigation.ts"
+          "src/js/core/analytics-navigation.ts",
+          "src/js/core/addtoany-navigation.ts"
         ],
-        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
+        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。AddToAny默认服务已用单kit/持久body和iframe实现有界生命周期，三引擎27/27限定通过；扩展服务、预注入配置、未知节点、失败/超时及打开弹窗仍完整导航。其他分析SDK、聊天、广告、真实账户/设备与完整生态未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -63448,6 +63468,15 @@
           "commit": "0b29fe5adfb37f0ff6eaa4a6dfbeda2f464d717c",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "scoped-integration-validation",
+          "path": "docs/validation/2026-10-14/pjax-addtoany.json",
+          "sha256": "cbd533e99401f39ce064b582955c90e523fbcb456d6939d3b8e7798f4853f51b",
+          "date": "2026-10-13T19:55:38.411910+00:00",
+          "commit": "a5318f54ed01a76d83734a1e224c8ec34b884a55",
+          "actor": "Codex",
+          "outcome": "partial: 27/27 scoped real SDK browser cases; remaining providers and full contract open"
         }
       ],
       "status": "gap"
