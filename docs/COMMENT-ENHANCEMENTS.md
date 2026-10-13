@@ -2,6 +2,18 @@
 
 只使用 Halo 官方 CommentWidget，当前基线 >=3.3.2；不配置第三方评论提供方。文章及单页的评论挂载、提交、回复和计数沿用已有实现。需求跟踪 [#386](https://github.com/songxychn/halo-butterfly-next/issues/386)，范围服从 [DEC-01](https://github.com/songxychn/halo-butterfly-next/issues/46#issuecomment-5682055297)。
 
+## 评论懒加载（后续批次）
+
+需求跟踪 [#407](https://github.com/songxychn/halo-butterfly-next/issues/407)。`comments.lazyload` 默认 `false`；缺字段、`false` 或字符串 `false` 都沿用原 `<halo:comment>` 接入。开启后，文章和单页评论区进入视口上下 300px 邻近范围即加载官方组件；点击同页评论跳转、直接打开 `#post-comment` 或历史导航到此锚点立即加载。无 IntersectionObserver 时立即加载。
+
+加载期间提供可访问状态提示；官方模块加载失败或 8 秒超时后显示重试按钮。重试保留插件版本参数，并使用新的模块请求 URL 避免浏览器缓存失败。延迟完成的旧请求不重复挂载；已挂载组件不因滚动、再次点击跳转而重建，保留当前输入。没有 JavaScript 时显示启用提示。
+
+懒加载使用当前官方插件注入的同源、版本化模块和其公开 `comment-widget` 属性（Post/SinglePage 的 group/kind/name/version），不自行实现登录、权限、提交或回复。主题“加载完成”指模块可用且组件已挂载；组件内部的数据、登录及提交失败由官方 UI 处理，主题不会为了重试而替换已有编辑器。操作状态和重试按钮始终可用，`comments.text` 只控制原来的说明/关闭/不可用文案。
+
+**资源边界**：CommentWidget 3.3.2 在 head 中注入 JS `modulepreload` 和 CSS；本批保留这些插件资源，只推迟组件初始化和评论数据请求，不承诺首屏零评论资源下载。参考[官方组件用法](https://github.com/halo-sigs/plugin-comment-widget/blob/v3.3.2/dev/component-usage.md)与[资源注入源码](https://github.com/halo-sigs/plugin-comment-widget/blob/v3.3.2/src/main/java/run/halo/comment/widget/CommentWidgetHeadProcessor.java)。
+
+[本批限定验收](validation/2026-10-13/comment-lazy.md)：647 项工程测试、三引擎真实 Halo 的 81 项检查及 160 文件安装比对通过；原失败与完整合同缺口保留。
+
 ## 配置
 
 | 字段 | 默认 | 行为 |
@@ -11,6 +23,7 @@
 | `aside.card_newest_comments.sort_order` | 25 | 卡片排序，默认位于最近文章之后 |
 | `aside.card_newest_comments.avatar` | true | 显示头像；失败时移除图片，正文链接仍可用 |
 | `aside.card_newest_comments.storage` | 10 | 当前标签页缓存分钟数，0 关闭，最多 60 |
+| `comments.lazyload` | false | 接近评论区自动挂载；评论跳转和直接锚点立即挂载 |
 | `comments.text` | true | 控制下方三种纯文本提示；HTML 字符按文字显示 |
 | `comments.notice` | 空 | 可用评论区的说明，可换行 |
 | `comments.closed_notice` | 空 | 全局或当前文章/单页禁止评论时显示 |
@@ -33,6 +46,6 @@
 
 [本轮限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复、原始失败报告和截图。
 
-评论组件懒挂载、首屏零评论资源下载、Moment 评论、真实 Safari/手机键盘/屏幕阅读器和完整双站合同均未在本批完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
+首批记录不含评论懒挂载，后续实现见上文。首屏零评论资源下载、Moment 评论、真实 Safari/手机键盘/屏幕阅读器和完整双站合同仍未完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
 
 参考：[Halo 2.26.1 公开评论查询](https://github.com/halo-dev/halo/blob/v2.26.1/application/src/main/java/run/halo/app/core/endpoint/theme/CommentFinderEndpoint.java)、[Butterfly 5.7.0 最新评论模板](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/third-party/newest-comments/common.pug)。

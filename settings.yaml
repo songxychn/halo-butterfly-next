@@ -2130,6 +2130,11 @@ spec:
       label: 评论
       formSchema:
         - $formkit: checkbox
+          name: lazyload
+          label: 评论懒加载
+          value: false
+          help: 开启后接近评论区时自动加载，点击评论跳转立即加载。延迟组件初始化及评论数据请求；官方插件预加载的 JS/CSS 仍保留。
+        - $formkit: checkbox
           name: text
           label: 显示评论说明和状态提示
           value: true

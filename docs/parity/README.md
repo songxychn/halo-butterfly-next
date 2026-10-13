@@ -8,6 +8,8 @@
 
 2026-10-13 [导航与加载限定实现](../NAVIGATION-LOADING.md)更新 12 项配置为 `implemented-unverified`，同步记录列表 PJAX、图片配置及清理协议。文章/插件 PJAX 和任意作者 HTML 图片过滤器仍保留 `gap`；[限定验证](../validation/2026-10-13/navigation-loading.md)不替代 1.0 完整合同。
 
+2026-10-13 [评论懒加载](../COMMENT-ENHANCEMENTS.md)更新三条懒挂载实现为 `implemented-unverified`。官方插件 head 预加载保留，首屏零评论资源断言仍未满足；[限定真实 Halo 验证](../validation/2026-10-13/comment-lazy.md)不替代完整合同。
+
 ## 文件与覆盖边界
 
 | 文件 | 职责 |

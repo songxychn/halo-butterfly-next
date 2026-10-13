@@ -1,4 +1,5 @@
 import { pageListen } from './page-lifecycle.ts';
+import { requestLazyComments } from './comment-lazy.ts';
 /** A native fragment link remains usable when scripts are disabled. */
 export function bindCommentJump(root: Document = document) {
   const target = root.getElementById('post-comment');
@@ -9,6 +10,7 @@ export function bindCommentJump(root: Document = document) {
   target.dataset.commentJumpBound = 'true';
   const focus = () => {
     if (win.location.hash !== '#post-comment') return;
+    requestLazyComments(root);
     target.dataset.commentJumpNavigating = 'true';
     heading.focus({ preventScroll: true });
     target.scrollIntoView({ block: 'start', behavior: 'instant' });
