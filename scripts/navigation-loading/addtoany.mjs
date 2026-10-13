@@ -28,6 +28,7 @@ try{for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split('
   const visit=async route=>{report.beforeVisit=await p.evaluate(()=>({navigation:document.documentElement.dataset.themeNavigation,custom:[...document.querySelectorAll('*')].filter(e=>e.localName.includes('-')).map(e=>e.outerHTML.slice(0,100)),scripts:[...document.scripts].map(s=>({src:s.src,text:s.src?'':s.textContent.slice(0,220),type:s.type,kind:s.dataset.themeScript})),iframes:[...document.querySelectorAll('iframe')].map(x=>x.src),menus:[...document.querySelectorAll('.a2a_menu,#a2a_modal,#a2a_overlay')].map(e=>({id:e.id,display:getComputedStyle(e).display,visibility:getComputedStyle(e).visibility})),ready:window[Symbol.for('halo-butterfly-next.addtoany')]?.ready,owned:(()=>{const s=window[Symbol.for('halo-butterfly-next.addtoany')];return {locale:s?.locale?.src,style:s?.style?.isConnected,main:s?.main.parentNode===document.body,frame:s?.frame.src,rects:[...s.main.querySelectorAll('.a2a_menu,#a2a_modal,#a2a_overlay')].map(e=>[e.id,e.getClientRects().length]),items:s?.items,region:document.querySelector('[data-post-share]')?.dataset.items}})(),no:[...document.querySelectorAll('[data-no-pjax]')].map(e=>e.outerHTML.slice(0,200))}));await save();await p.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove()},route);await p.waitForFunction(route=>location.pathname===route&&!document.documentElement.classList.contains('theme-navigating')&&!!MainApp.useCommon,route,{polling:100});assert.equal(await p.evaluate(()=>window.addToAnySentinel),'keep');};
   for(let i=0;i<4;i++){
    if(i)await visit('/archives/preview-'+(i%2+1)+'/');
+   if(i){const initial=await p.locator('[data-post-share]').evaluate(region=>({href:region.querySelector('.a2a_button_facebook').href,url:region.dataset.url,title:region.dataset.title}));assert(initial.href.includes(encodeURIComponent(initial.url)));assert(initial.href.includes(encodeURIComponent(initial.title)));}
    await p.locator('.a2a_button_facebook').click();
    const identity=await p.evaluate(()=>({destination:window.shareDestination,url:document.querySelector('[data-post-share]').dataset.url,title:document.querySelector('[data-post-share]').dataset.title,kitSame:window.addToAnyOriginalKit===document.querySelector('[data-share-provider]'),indexSame:window.addToAnyIndex===window.addToAnyOriginalKit.a2a_index}));
    assert(identity.destination.includes(encodeURIComponent(identity.url)),JSON.stringify(identity));assert(identity.destination.includes(encodeURIComponent(identity.title)),JSON.stringify(identity));assert(identity.kitSame&&identity.indexSame);
@@ -52,10 +53,11 @@ try{for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split('
   await p.waitForFunction(()=>location.pathname==='/archives/'&&!!window.MainApp?.useCommon,null,{polling:100});assert.equal(await p.evaluate(()=>window.addToAnySentinel),undefined,'An open SDK modal retains native navigation');
   report.results.push({engine,width,mode,cycles:4,result:'passed'});await save();console.log('PASS',engine,width,mode);await context.close();
  }
- for(const scenario of ['unknown-iframe','failed-loader','delayed-loader']){
+ for(const scenario of ['unknown-iframe','late-iframe','failed-loader','delayed-loader']){
   const context=await browser.newContext({locale:'zh-CN'});
+  let release,requested;const pendingRequest=new Promise(resolve=>requested=resolve);
   await context.route('**/*',async route=>{
-   const url=new URL(route.request().url());if(url.origin===base)return route.continue();
+   const url=new URL(route.request().url());if(url.origin===base){if(scenario==='late-iframe'&&url.pathname==='/archives/'&&route.request().resourceType()==='fetch'){await new Promise(resolve=>{release=resolve;requested()})}return route.continue();}
    if(url.pathname==='/menu/page.js'&&scenario==='failed-loader')return route.abort();
    if(url.pathname==='/menu/page.js'&&scenario==='delayed-loader')await new Promise(resolve=>setTimeout(resolve,1000));
    if(url.origin==='https://static.addtoany.com'&&sdk.has(url.pathname)){try{return await route.fulfill({contentType:url.pathname.endsWith('.html')?'text/html':'application/javascript',headers:{'access-control-allow-origin':'*'},body:sdk.get(url.pathname)})}catch{return}}
@@ -63,8 +65,10 @@ try{for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split('
   });
   const p=await context.newPage();await p.goto(base+'/archives/preview-1/',{waitUntil:'domcontentloaded'});
   await p.waitForFunction(()=>!!window[Symbol.for('halo-butterfly-next.addtoany')],null,{polling:50});
+  if(['unknown-iframe','late-iframe'].includes(scenario))await p.waitForFunction(()=>window[Symbol.for('halo-butterfly-next.addtoany')]?.ready,null,{polling:100});
   if(scenario==='unknown-iframe'){await p.waitForFunction(()=>window[Symbol.for('halo-butterfly-next.addtoany')]?.ready,null,{polling:100});await p.evaluate(()=>{const frame=document.createElement('iframe');frame.src='about:blank';document.body.append(frame)})}
   await p.evaluate(()=>{window.fallbackSentinel=true;const a=document.createElement('a');a.href='/archives/';document.body.append(a);a.click()});
+  if(scenario==='late-iframe'){await pendingRequest;await p.evaluate(()=>{const frame=document.createElement('iframe');frame.src='about:blank';document.body.append(frame)});release();}
   await p.waitForFunction(()=>location.pathname==='/archives/'&&!!window.MainApp?.useCommon,null,{polling:100});
   assert.equal(await p.evaluate(()=>window.fallbackSentinel),undefined);
   await p.waitForTimeout(1200);assert.equal(await p.locator('#a2a_menu_container').count(),0,'A late old document SDK cannot mount on the native target');

@@ -2,6 +2,7 @@
 const key = Symbol.for('halo-butterfly-next.addtoany');
 const loaderURL = 'https://static.addtoany.com/menu/page.js';
 const coreURL = 'https://static.addtoany.com/menu/modules/core.iho16r34.js';
+const supportedServices = new Set(['facebook', 'x', 'twitter', 'wechat', 'sina_weibo', 'facebook_messenger', 'email', 'copy_link']);
 const utilityURL = 'https://static.addtoany.com/menu/sm.25.html#type=core&event=load';
 interface AddToAnyState {
   kit: HTMLElement; main: HTMLElement; parking: HTMLElement; loader: HTMLScriptElement;
@@ -16,13 +17,13 @@ interface AddToAnyWindow extends Window {
 function normalizedItems(value: string) { return [...new Set(value.split(',').map(item => item.trim().toLowerCase()).filter(item => /^[a-z][a-z0-9_]*$/.test(item)))].join(','); }
 function state() { return (globalThis.window as AddToAnyWindow | undefined)?.[key]; }
 function menuOpen(s: AddToAnyState) {
-  return [...s.main.querySelectorAll<HTMLElement>('.a2a_menu, #a2a_modal, #a2a_overlay')]
+  return [...s.main.querySelectorAll<HTMLElement>('.a2a_menu, .a2a_pick, #a2a_modal, #a2a_overlay')]
     .some(node => node.getClientRects().length > 0 && getComputedStyle(node).visibility !== 'hidden');
 }
 export function addToAnyCanNavigate(doc: Document) {
   const s = state();
   if (!s) return true;
-  if (!s.ready || !s.main.isConnected || s.main.parentNode !== document.body || !s.style?.isConnected ||
+  if (!s.items.split(',').every(item => supportedServices.has(item)) || !s.ready || !s.main.isConnected || s.main.parentNode !== document.body || !s.style?.isConnected ||
       s.frame?.src !== utilityURL || !s.main.contains(s.frame) || menuOpen(s)) return false;
   const region = doc.querySelector<HTMLElement>('[data-post-share]');
   return !region || (region.dataset.postShare === 'addtoany' &&
@@ -52,6 +53,14 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
     if (s.items !== items.join(',')) throw new Error('AddToAny configuration requires native navigation');
     s.url = url; s.title = title;
     s.kit.dataset.a2aUrl = url; s.kit.dataset.a2aTitle = title;
+    for (const item of items) {
+      const previous = s.kit.querySelector<HTMLAnchorElement>(`.a2a_button_${item}`);
+      const current = host.querySelector<HTMLAnchorElement>(`.a2a_button_${item}`);
+      if (!previous || !current) continue;
+      for (const attribute of ['href', 'aria-label', 'rel']) previous.setAttribute(attribute, current.getAttribute(attribute) || '');
+      const caption = [...previous.childNodes].find(node => node.nodeType === Node.TEXT_NODE);
+      if (caption) caption.textContent = current.textContent;
+    }
     host.replaceWith(s.kit);
     return;
   }

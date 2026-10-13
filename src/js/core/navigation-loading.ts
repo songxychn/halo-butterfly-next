@@ -168,7 +168,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     } finally { styles.forEach(style => style.remove()); }
     if (request.signal.aborted) throw new Error('Navigation cancelled');
     // Editing may begin while HTML/styles are in flight.
-    if (!addToAnyCanNavigate(next)) throw new Error('AddToAny requires native navigation');
+    if (!supportsPartialNavigation(document) || !addToAnyCanNavigate(next)) throw new Error('Current page requires native navigation');
     if (!allowsPartialPageExit()) {
       if (pop) { nativeTraversal(url, state, restore?.index); return; }
       throw new Error('Page exit requires native navigation');
