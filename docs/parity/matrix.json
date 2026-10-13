@@ -28,10 +28,10 @@
     "halo-core": "Halo 2.26.1 实际 API、Finder、模型与注解契约。",
     "public-layout": "所有页面共同加载的 Halo 公共布局及插件页面布局契约。",
     "synthetic-backend": "本地桩服务或专用合成账户；无真实个人数据。",
-    "editor-contract": "DEC-02：主题消费已渲染 HTML，不解析 Hexo `{% %}`。编辑器写入与 Butterfly 生成结果一致的 DOM；Hexo 源经离线转换。",
+    "editor-contract": "DEC-02 2026-10-14 补充：编辑器保存通用 Markdown / 原生 HTML，主题消费渲染后的正文并渐进增强；不解析 Hexo {% %}，不强制专属 DOM/class 或通用离线转换。保存重开与换主题仍需保留内容；见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
     "plugin-contract": "记录插件确切版本、启用、停用和缺失状态。",
     "asset-license": "资源来源、版本、分发许可和第三方声明核验。",
-    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；DEC-07（#387）已裁定数学公式采用 Halo KaTeX 插件平台替代；仅 10 条明列的提供方/资源供应项不适用，7 条公式能力仍待映射。其余 DEC 在裁定前不减范围。见 docs/MATH-RENDERING-DECISION.md。",
+    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；DEC-07（#387）已裁定数学公式采用 Halo KaTeX 插件平台替代；仅 10 条明列的提供方/资源供应项不适用，7 条公式能力仍待映射。其余 DEC 在裁定前不减范围。见 docs/MATH-RENDERING-DECISION.md。 DEC-02 的正文成功条件已按维护者本次确认及 PR #408 修订为通用 Markdown / HTML；冲突的旧标签完整兼容与通用转换义务以 docs/parity/DEC-02-PORTABLE-CONTENT.md 为准。",
     "official-search": "PluginSearchWidget 1.8.0（Halo >=2.26.0）；JAR SHA-256 固定在 fixtures/search-comment/versions.json；入口兼容 >=1.7.1，旧版焦点缺陷保留；2026-10-08 焦点专项通过，完整合同未验收。",
     "official-comments": "PluginCommentWidget 3.3.2 / Halo 2.26.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；完整验收范围见 docs/SEARCH-COMMENT-VALIDATION.md。",
     "official-math": "DEC-07：1.0 数学公式采用 Halo KaTeX 插件；插件 metadata.name、固定版本、JAR SHA-256、最低 Halo 版本与编辑器输出契约尚待联调锁定。主题适配阅读布局与必要交互，不重复渲染。docs/MATH-RENDERING-DECISION.md；公开裁定：https://github.com/songxychn/halo-butterfly-next/issues/387。"
@@ -191,11 +191,12 @@
       ]
     },
     "tags": {
-      "title": "标签扩展",
+      "title": "通用正文与渐进增强（保留上游标签来源）",
       "scenarios": [
-        "每种标签使用与 Butterfly 生成结果一致的 HTML（路径 A）及同一参数，比较 DOM、文本、嵌套、转义和空输入。",
-        "交互标签测试键盘、亮暗、手机和重复初始化；错误输入不得执行任意脚本。",
-        "路径 B 粘贴 `{% %}` 原文时 Halo 原样输出，不作为通过条件。"
+        "使用通用 Markdown / 原生 HTML 内容夹具对照文字、链接、图片、嵌套、转义、空输入及读者操作；不要求与 Hexo 生成的 DOM/class 或参数相同。",
+        "交互增强验证键盘、亮暗、手机、锚点、打印和重复初始化；错误输入不得执行任意脚本。",
+        "编辑器粘贴、保存、重开及发布后保留正文结构与内容；无脚本、增强失败或换主题仍有基本阅读和链接入口；记录实际编辑器/主题版本及覆盖边界。",
+        "Hexo {% %} 原文为不解析的负例；通用离线转换不在 1.0 默认范围。已有图库转换工具按其文档限定范围维护。"
       ]
     },
     "lifecycle": {
@@ -25788,7 +25789,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -25838,6 +25839,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -25878,7 +25888,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -25928,6 +25938,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -25968,7 +25987,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26019,6 +26038,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26059,7 +26087,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26110,6 +26138,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26150,7 +26187,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26207,6 +26244,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26247,7 +26293,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26304,6 +26350,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26344,7 +26399,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26395,6 +26450,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26435,7 +26499,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26486,6 +26550,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26526,7 +26599,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26577,6 +26650,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26617,7 +26699,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26668,6 +26750,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26708,7 +26799,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26759,6 +26850,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26799,7 +26899,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26850,6 +26950,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26890,7 +26999,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -26941,6 +27050,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -26981,7 +27099,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -27032,6 +27150,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -27072,7 +27199,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -27123,6 +27250,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -27148,14 +27284,16 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；提示块样式与语义的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
       },
       "dependencies": [
         "dual-site",
@@ -27165,14 +27303,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "note.style：逐值执行 \"simple\" / \"modern\" / \"flat\" / \"disabled\"。",
-          "保持同组其他设置不变；验证 note.style 与全局/逐页覆盖的优先级。"
-        ],
-        "values": [
-          "simple",
-          "modern",
-          "flat",
-          "disabled"
+          "核对提示块样式与语义在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
+          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27187,10 +27319,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
+        }
+      ],
+      "status": "mapping-required"
     },
     {
       "id": "config:note.icons",
@@ -27213,14 +27357,16 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；图标与文字提示的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
       },
       "dependencies": [
         "dual-site",
@@ -27230,8 +27376,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "note.icons：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 note.icons 与全局/逐页覆盖的优先级。"
+          "核对图标与文字提示在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
+          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27246,10 +27392,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
+        }
+      ],
+      "status": "mapping-required"
     },
     {
       "id": "config:note.border_radius",
@@ -27272,14 +27430,16 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；提示块圆角及外观定制的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
       },
       "dependencies": [
         "dual-site",
@@ -27289,8 +27449,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "note.border_radius：默认 3、边界值及文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 note.border_radius 与全局/逐页覆盖的优先级。"
+          "核对提示块圆角及外观定制在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
+          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27305,10 +27465,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
+        }
+      ],
+      "status": "mapping-required"
     },
     {
       "id": "config:note.light_bg_offset",
@@ -27331,14 +27503,16 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 后由主题设置与按需资源实现；作用于路径 A HTML，不解析 `{% %}`。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/scss/modules/render.scss"
+          "src/scss/modules/render.scss",
+          "src/scss/modules/content-extensions.scss",
+          "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "映射已定；设置项/资源加载尚未加入当前主题实现。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；提示背景色与亮暗可读性的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
       },
       "dependencies": [
         "dual-site",
@@ -27348,8 +27522,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "note.light_bg_offset：默认 0、边界值及文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 note.light_bg_offset 与全局/逐页覆盖的优先级。"
+          "核对提示背景色与亮暗可读性在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
+          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27364,10 +27538,22 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+        ]
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
+        }
+      ],
+      "status": "mapping-required"
     },
     {
       "id": "config:pjax.enable",
@@ -31565,7 +31751,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -31622,6 +31808,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -32434,7 +32629,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -32491,6 +32686,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -34275,7 +34479,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -34332,6 +34536,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -38058,7 +38271,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -38107,6 +38320,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -38138,7 +38360,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -38187,6 +38409,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -39970,7 +40201,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -40020,6 +40251,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -40237,7 +40477,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -40287,6 +40527,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -42819,7 +43068,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -42831,7 +43080,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 原生 a 链接按钮，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现原生 a 链接与可选 data-content-button 样式；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -42841,9 +43090,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "btn：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% btn %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "行内按钮：移植 Butterfly 按钮 class/样式。"
+          "btn 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "真实 href、链接文字、键盘焦点及无样式时仍可访问。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42884,9 +43133,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:chartjs",
@@ -42901,7 +43159,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/views/body-renderers.html",
@@ -42914,7 +43172,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收。"
       },
       "dependencies": [
         "dual-site",
@@ -42924,9 +43182,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "chartjs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% chartjs %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "路径 A 携带图表 JSON（仅解析，不 eval）。不得用归档统计图关闭本项。"
+          "chartjs 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "按 BODY-CHARTS-SCORE.md 的图表 JSON 输入验证真实图表；仅解析 JSON，不 eval，不用归档统计图替代。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42942,7 +43200,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+          "https://github.com/songxychn/halo-butterfly-next/pull/406",
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
         ]
       },
       "evidence": [
@@ -42963,6 +43222,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -42980,7 +43248,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -42990,7 +43258,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 作者维护的静态友链卡片，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现作者维护的静态 HTML 友链列表/卡片；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43000,9 +43268,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "flink：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% flink %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "1.0 仅验收正文友链卡片 HTML。不等于 Links 插件页；活数据灌入正文为 1.1。"
+          "flink 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "链接、描述和嵌套文字保留；不以 Links 插件页替代正文静态输入，活数据仍延期。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43034,9 +43302,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:gallery",
@@ -43051,7 +43328,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43068,7 +43345,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/img/a 静态网格与现有灯箱 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
+        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/img/a 静态网格与现有灯箱 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；静态原生图片/链接输入与现有 JSON 增强输入分别验收，不强制旧 Hexo class/参数域或通用转换；已有图库专用转换保留原范围，完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -43078,9 +43355,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "gallery：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% gallery %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "正文灯箱网格。不得用 Photos 插件页关闭本项。"
+          "gallery 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "正文图片、说明、原图/分组链接与失败回退保留；静态 figure/img/a 网格和已声明的 InfiniteGrid/JSON 增强分别验证，不用 Photos 插件页替代。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43096,7 +43373,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/404"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/405"
+          "https://github.com/songxychn/halo-butterfly-next/pull/405",
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
         ]
       },
       "evidence": [
@@ -43122,6 +43400,15 @@
           "kind": "implementation-reconciliation",
           "path": "docs/parity/reconciliation-2026-10-13-content.json",
           "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -43139,7 +43426,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43156,7 +43443,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/figcaption 图库分组卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。"
+        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/figcaption 图库分组卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；静态原生图片/链接输入与现有 JSON 增强输入分别验收，不强制旧 Hexo class/参数域或通用转换；已有图库专用转换保留原范围，完整合同仍待验收。"
       },
       "dependencies": [
         "dual-site",
@@ -43166,9 +43453,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "galleryGroup：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% galleryGroup %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "正文图库分组封面。不得用 Photos 插件页关闭本项。"
+          "galleryGroup 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "正文图片、说明、原图/分组链接与失败回退保留；静态 figure/img/a 网格和已声明的 InfiniteGrid/JSON 增强分别验证，不用 Photos 插件页替代。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43184,7 +43471,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/404"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/405"
+          "https://github.com/songxychn/halo-butterfly-next/pull/405",
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
         ]
       },
       "evidence": [
@@ -43210,6 +43498,15 @@
           "kind": "implementation-reconciliation",
           "path": "docs/parity/reconciliation-2026-10-13-content.json",
           "sha256": "0b84adc7e0c2bfdbffdc5243fdb965818811c8ed8bb1751b6dbcf7ab9dfe5690"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -43227,7 +43524,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43239,7 +43536,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 details/summary 查看答案，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现原生 details/summary 查看答案；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43249,9 +43546,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "hideBlock：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% hideBlock %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "点击揭示的块级隐藏；按钮名来自路径 A HTML。"
+          "hideBlock 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "摘要、正文及再次收起可用；接受原生折叠替代一次性揭示，不要求旧按钮消失。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43292,9 +43589,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:hideInline",
@@ -43309,7 +43615,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43321,7 +43627,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 块级 details 替代输入（不等同原行内揭示），接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现原生 details/summary 查看答案；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43331,9 +43637,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "hideInline：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% hideInline %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "点击揭示的行内隐藏；按钮名来自路径 A HTML。"
+          "hideInline 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "允许块级原生折叠替代行内一次性揭示；正文顺序、摘要和再次收起可用。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43374,9 +43680,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:hideToggle",
@@ -43391,7 +43706,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43403,7 +43718,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 原生 details 折叠，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现原生 details/summary 折叠；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43413,9 +43728,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "hideToggle：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% hideToggle %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "折叠块；按钮名来自路径 A HTML。"
+          "hideToggle 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "默认开合、摘要、嵌套、键盘操作与再次进入可用；折叠不是权限控制。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43456,9 +43771,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:inlineImg",
@@ -43473,7 +43797,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43482,7 +43806,7 @@
           "src/scss/core/tags-inline-img.scss",
           "src/js/modules/Render.ts"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-inline-img.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "2026-10-14 DEC-02 补充：以普通 Markdown 图片 / 原生 img评估用户能力；旧 .container 样式底稿不能证明当前正文命中，也不构成复刻旧标签的开发义务。确认行内位置、尺寸、alt、正文流和窄屏行为的通用输入及实际样式；不要求 inlineImg 专属 class/参数。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43492,9 +43816,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "inlineImg：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% inlineImg %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "行内图片尺寸与样式按上游 HTML 约定。"
+          "inlineImg 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "确认行内位置、尺寸、alt、正文流和窄屏行为的通用输入及实际样式；不要求 inlineImg 专属 class/参数。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43508,7 +43832,9 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+        ]
       },
       "evidence": [
         {
@@ -43519,9 +43845,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "mapping-required"
     },
     {
       "id": "tag:label",
@@ -43536,7 +43871,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43545,7 +43880,7 @@
           "src/scss/core/tags-label.scss",
           "src/js/modules/Render.ts"
         ],
-        "finding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-label.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02"
+        "finding": "2026-10-14 DEC-02 补充：以通用行内 HTML 标记评估用户能力；旧 .container 样式底稿不能证明当前正文命中，也不构成复刻旧标签的开发义务。明确标记文字/强调与可选配色的通用映射，核对可读性、编辑器保留及换主题正文；不要求 label 专属 class/参数。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43555,9 +43890,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "label：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% label %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "彩色行内标签：移植 Butterfly label class/样式。"
+          "label 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "明确标记文字/强调与可选配色的通用映射，核对可读性、编辑器保留及换主题正文；不要求 label 专属 class/参数。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43571,7 +43906,9 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
-        "pullRequests": []
+        "pullRequests": [
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+        ]
       },
       "evidence": [
         {
@@ -43582,9 +43919,18 @@
           "commit": "f578f292ad98083393bcb17ad511c6b6e62634ed",
           "actor": "/root",
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "mapping-required"
     },
     {
       "id": "tag:mermaid",
@@ -43599,7 +43945,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/views/body-renderers.html",
@@ -43612,7 +43958,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收。"
       },
       "dependencies": [
         "dual-site",
@@ -43622,9 +43968,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "mermaid：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% mermaid %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "路径 A 为 mermaid 容器；按需加载脚本。不得把未渲染源码记为通过。"
+          "mermaid 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "按 BODY-CHARTS-SCORE.md 的 Mermaid 容器/代码块验证真实图形、亮暗、按需资源和错误源码回退，不把源码可见当作渲染成功。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43640,7 +43986,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+          "https://github.com/songxychn/halo-butterfly-next/pull/406",
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
         ]
       },
       "evidence": [
@@ -43661,6 +44008,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -43678,7 +44034,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43690,7 +44046,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 blockquote/aside 提示块，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现blockquote/aside 提示块与 data-content-note 增强；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43700,9 +44056,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "note：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% note %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "提示块样式与图标由主题 CSS 作用于路径 A HTML；subnote 为别名。"
+          "note 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "info/success/warning/danger 以真实文字表达含义，亮暗可读；无增强仍保留提示文字。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43743,9 +44099,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:score",
@@ -43760,7 +44125,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/views/body-renderers.html",
@@ -43773,7 +44138,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收。"
       },
       "dependencies": [
         "dual-site",
@@ -43783,9 +44148,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "score：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% score %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "ABC 音乐记谱源码与 JSON 谱面参数；核对真实音符/休止符、响应式谱面及失败回退。"
+          "score 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "按 BODY-CHARTS-SCORE.md 的 ABC 音乐记谱源码与 JSON 参数验证音符/休止符、响应式谱面和失败回退。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43801,7 +44166,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/403"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/406"
+          "https://github.com/songxychn/halo-butterfly-next/pull/406",
+          "https://github.com/songxychn/halo-butterfly-next/pull/408"
         ]
       },
       "evidence": [
@@ -43822,6 +44188,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -43839,7 +44214,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43851,7 +44226,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 作者维护的静态系列卡片，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。系列活数据的 1.1 裁定不取消 1.0 静态输入和转换要求。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现作者维护的静态系列列表/卡片；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43861,9 +44236,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "series：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% series %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "1.0 仅验收作者提供的静态系列列表 HTML。活数据查询见 1.1 blocked 项。"
+          "series 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "系列标题、说明与真实文章链接保留；活数据查询见既有 1.1 blocked 项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43904,9 +44279,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:subnote",
@@ -43921,7 +44305,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43933,7 +44317,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 可嵌套提示块，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现可嵌套 blockquote/aside 提示块；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -43943,9 +44327,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "subnote：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% subnote %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "note 的别名；与 tag:note 共用样式，不单独发明语法。"
+          "subnote 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "验证嵌套提示文字和阅读顺序；无需 subnote 专属语法或别名。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43986,9 +44370,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:subsubtabs",
@@ -44003,7 +44396,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -44015,7 +44408,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 多层嵌套 Tabs，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现多层嵌套 section 分组与 Tabs 增强；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -44025,9 +44418,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "subsubtabs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% subsubtabs %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "tabs 嵌套别名；与 tag:tabs 共用交互。"
+          "subsubtabs 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "验证多层嵌套、独立激活状态及正文顺序，不要求 subsubtabs 别名。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -44068,9 +44461,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:subtabs",
@@ -44085,7 +44487,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -44097,7 +44499,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 嵌套 Tabs，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现嵌套 section 分组与 Tabs 增强；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -44107,9 +44509,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "subtabs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% subtabs %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "tabs 嵌套别名；与 tag:tabs 共用交互。"
+          "subtabs 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "验证嵌套、独立激活状态及正文顺序，不要求 subtabs 别名。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -44150,9 +44552,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:tabs",
@@ -44167,7 +44578,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -44179,7 +44590,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 section 分组 Tabs（键盘、嵌套、锚点揭示与清理），接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现带标题的 section 分组与 Tabs 增强；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -44189,9 +44600,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "tabs：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% tabs %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "可键盘切换的标签页；主题 JS 绑定已生成的 tabs DOM。"
+          "tabs 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "默认激活、键盘方向键/Home/End、嵌套、锚点/历史展开、打印全部正文及清理恢复。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -44232,9 +44643,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "tag:timeline",
@@ -44249,7 +44669,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "主题实现与 Butterfly 生成结果一致的 DOM/class 样式与交互；Halo 编辑器写入该 HTML。Hexo `{% %}` 不在渲染期解析，由离线转换生成同等 HTML。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -44261,7 +44681,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：已有 ol/li/time 时间线，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现ol/li/time 时间线；原先仅因旧 Hexo 结构/参数/转换不全保留的 gap 改为已有实现待验收。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -44271,9 +44691,9 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "timeline：使用与上游生成结果一致的 HTML 夹具（路径 A）对照正常、空数据和失败场景。",
-          "路径 B 粘贴 `{% timeline %}` 原文时 Halo 原样输出，不作为通过条件。",
-          "时间线结构列表，纯 CSS/HTML。"
+          "timeline 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
+          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
+          "日期、标题、列表顺序、链接及窄屏阅读；无样式仍是有序列表。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -44314,9 +44734,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "helper:aside_archives",
@@ -45982,7 +46411,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -46038,6 +46467,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -46690,7 +47128,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -46746,6 +47184,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -48195,7 +48642,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -48251,6 +48698,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52171,14 +52627,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-button.scss",
           "src/scss/core/index.scss",
           "tests/tags-button-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-button.scss 对齐 button.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-button.scss 对齐 button.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52187,8 +52643,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/button.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/button.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52214,6 +52670,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52232,7 +52697,7 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-gallery.scss",
@@ -52244,7 +52709,7 @@
           "src/js/modules/AmplifyImg.ts",
           "scripts/gallery/convert.mjs"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。"
+        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52253,8 +52718,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/gallery.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/gallery.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52283,6 +52748,15 @@
           "date": "2026-10-13T14:30:59.433Z",
           "actor": "codex-author",
           "outcome": "passed (bounded gallery author regression; full contract remains open)"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52301,14 +52775,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-hexo.scss",
           "src/scss/core/index.scss",
           "tests/tags-hexo-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-hexo.scss 对齐 hexo.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-hexo.scss 对齐 hexo.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52317,8 +52791,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/hexo.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/hexo.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52344,6 +52818,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52362,14 +52845,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-hide.scss",
           "src/scss/core/index.scss",
           "tests/tags-hide-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-hide.scss 对齐 hide.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-hide.scss 对齐 hide.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52378,8 +52861,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/hide.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/hide.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52405,6 +52888,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52423,14 +52915,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-inline-img.scss",
           "src/scss/core/index.scss",
           "tests/tags-inline-img-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-inline-img.scss 对齐 inlineImg.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-inline-img.scss 对齐 inlineImg.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52439,8 +52931,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/inlineImg.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/inlineImg.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52466,6 +52958,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52484,14 +52985,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-label.scss",
           "src/scss/core/index.scss",
           "tests/tags-label-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-label.scss 对齐 label.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-label.scss 对齐 label.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52500,8 +53001,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/label.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/label.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52527,6 +53028,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52545,14 +53055,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-note.scss",
           "src/scss/core/index.scss",
           "tests/tags-note-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-note.scss 对齐 note.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-note.scss 对齐 note.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52561,8 +53071,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/note.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/note.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52588,6 +53098,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52606,14 +53125,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-series.scss",
           "src/scss/core/index.scss",
           "tests/tags-series-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-series.scss 对齐 series.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-series.scss 对齐 series.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52622,8 +53141,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/series.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/series.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52649,6 +53168,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52667,14 +53195,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-tabs.scss",
           "src/scss/core/index.scss",
           "tests/tags-tabs-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-tabs.scss 对齐 tabs.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-tabs.scss 对齐 tabs.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52683,8 +53211,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/tabs.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/tabs.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52710,6 +53238,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -52728,14 +53265,14 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/scss/core/tags-timeline.scss",
           "src/scss/core/index.scss",
           "tests/tags-timeline-style.test.mjs"
         ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-timeline.scss 对齐 timeline.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：已新增 src/scss/core/tags-timeline.scss 对齐 timeline.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
       },
       "dependencies": [
         "dual-site",
@@ -52744,8 +53281,8 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_tags/timeline.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_tags/timeline.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
+          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -52771,6 +53308,15 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -53405,7 +53951,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -53452,6 +53998,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -59512,7 +60067,7 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/photos.html",
@@ -59535,7 +60090,7 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "相册分组、瀑布流、加载更多、懒加载和灯箱；保留上游 gallery 语法映射。"
+          "相册分组、瀑布流、加载更多、懒加载和灯箱按已声明的通用 HTML / JSON 增强输入验证；不强制上游 gallery 语法映射。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -59574,6 +60129,15 @@
           "date": "2026-10-13T14:30:59.433Z",
           "actor": "codex-author",
           "outcome": "passed (bounded gallery author regression; full contract remains open)"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -61580,7 +62144,7 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -61590,7 +62154,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：可移植正文已有 Tabs 键盘/嵌套/锚点切换和原生 details 展开收起。上游 Tabs 参数及 hideInline/hideBlock 一次性揭示的完整行为并未全部实现；保留 gap，不能继续写成无任何展开/切换实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现 section 分组 Tabs 的键盘/嵌套/锚点/打印/清理，以及原生 details/summary 展开收起；不再以旧 Tabs 参数或 hide 一次性/行内揭示差异维持 gap。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -61600,7 +62164,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "tabs/subtabs/subsubtabs、默认激活、嵌套和标签正文。"
+          "默认激活、键盘方向键/Home/End、嵌套、锚点/历史展开、打印全部正文及清理恢复。",
+          "保存原始可读 HTML；初始化失败、禁用脚本或换主题后保留内容，键盘与生命周期按通用实现验证。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -61626,9 +62191,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:hide",
@@ -61644,7 +62218,7 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -61654,7 +62228,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 主线对账：可移植正文已有 Tabs 键盘/嵌套/锚点切换和原生 details 展开收起。上游 Tabs 参数及 hideInline/hideBlock 一次性揭示的完整行为并未全部实现；保留 gap，不能继续写成无任何展开/切换实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 DEC-02 补充：PR #408 已实现 section 分组 Tabs 的键盘/嵌套/锚点/打印/清理，以及原生 details/summary 展开收起；不再以旧 Tabs 参数或 hide 一次性/行内揭示差异维持 gap。完整编辑器保存重开、跨主题内容保留、实际 Safari/真机/屏幕阅读器与逐项合同仍待验收；本次只修订范围及源码对账，不新增运行通过证据。"
       },
       "dependencies": [
         "dual-site",
@@ -61664,7 +62238,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "行内/块隐藏按钮和原生折叠，标题、颜色、嵌套和重新进入。"
+          "默认开合、摘要、嵌套、键盘操作与再次进入可用；折叠不是权限控制。",
+          "保存原始可读 HTML；初始化失败、禁用脚本或换主题后保留内容，键盘与生命周期按通用实现验证。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -61690,9 +62265,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "interaction:mermaid",
@@ -61721,7 +62305,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -61769,6 +62353,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"
@@ -61800,7 +62393,7 @@
           "src/scss/modules/body-renderers.scss",
           "scripts/build.mjs"
         ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。离线 Hexo 标签转换仍待实现。"
+        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
       },
       "dependencies": [
         "dual-site",
@@ -61848,6 +62441,15 @@
           "commit": "977168b8edf091bcd85c536c933d79f707fe4d38",
           "actor": "/root",
           "outcome": "partial: merged gallery preserved; 252 bounded browser checks passed; native Firefox and full 1.0 remain open"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-content-reconciliation-2026-10-14.json",
+          "sha256": "98202ed132150c3daf1d42c3985c6a1c6f4ffd0024018c0d4708fb23965c79e2",
+          "date": "2026-10-14",
+          "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
       "status": "implemented-unverified"

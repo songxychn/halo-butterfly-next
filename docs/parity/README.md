@@ -1,12 +1,18 @@
 # 固定上游功能矩阵维护
 
-目标是完整保留 Butterfly **5.7.0** 的能力，逐项证明 Halo 适配达到 [1.0 工程验收合同](../RELEASE-ACCEPTANCE.md)。本目录完成需求盘点和可追踪检查，初始 **已验收为 0**。原 M0 证据不自动提升任何条目状态。
+## 当前范围补充（2026-10-14）
 
-最新[主线对账（2026-10-14）](RECONCILIATION-2026-10-14.md)以已合并 #411 的 `44621d24914e` 为基准，枚举 897 个状态，修正 171 条记录、61 条状态；60 条转为已有实现待验收，1 条私有 token 转为待平台映射。当前为 586 条已有实现待验收、84 条缺口、26 条待映射、5 条验证失败、12 条延期、184 条不适用，`verified` 仍为 0。源码对账不替代运行验收；未变更条目保留原证据边界。
+维护者结合 [PR #408](https://github.com/songxychn/halo-butterfly-next/pull/408) 确认正文优先通用 Markdown / 原生 HTML；[DEC-02 补充](DEC-02-PORTABLE-CONTENT.md)取消 Hexo 专属 DOM/class、完整参数兼容和通用离线转换的默认要求，保留用户能力与可移植性验收。最新基线为已合并 #413 的 `362beb61d61a`；14 条已实现通用能力从 gap 转为 implemented-unverified，6 条转为通用能力待映射，完整记录见[机器修订](portable-content-reconciliation-2026-10-14.json)。
+
+当前 897 条中：**599 条已有实现待验收、65 条缺口、32 条待映射、5 条验证失败、12 条延期、184 条不适用、0 条 verified**。正文不是整体待开发；最大缺口的重新排序见[剩余需求](DEVELOPMENT-BACKLOG.md#建议推进顺序)。以下对账与限定验证叙述保留各自历史基线，旧转换/结构要求以本补充为准。
+
+目标是按已确认的平台替代与范围裁定保留 Butterfly **5.7.0** 的适用用户能力，逐项证明 Halo 适配达到 [1.0 工程验收合同](../RELEASE-ACCEPTANCE.md)。本目录完成需求盘点和可追踪检查，初始 **已验收为 0**。原 M0 证据不自动提升任何条目状态。
+
+此前[主线对账（2026-10-14）](RECONCILIATION-2026-10-14.md)以已合并 #411 的 `44621d24914e` 为基准，枚举 897 个状态，修正 171 条记录、61 条状态；60 条转为已有实现待验收，1 条私有 token 转为待平台映射。该次对账为 586 条已有实现待验收、84 条缺口、26 条待映射、5 条验证失败、12 条延期、184 条不适用，`verified` 仍为 0。源码对账不替代运行验收；未变更条目保留原证据边界。
 
 排期看 [1.0 剩余开发需求](DEVELOPMENT-BACKLOG.md)，逐项原值/新值和源码哈希看 [机器对账](reconciliation-2026-10-14.json)。旧 [2026-10-05 对账](RECONCILIATION-2026-10-05.md)与 [2026-09-24 对账](RECONCILIATION-2026-09-24.md)保留历史含义。`gap` 可能包含部分实现、`implemented-unverified` 也可能保留参数缺口，不能仅按状态统计独立功能数量。
 
-2026-10-13 [正文图表与乐谱](../BODY-CHARTS-SCORE.md)补齐渲染与阅读交互，更新 31 项为 `implemented-unverified`；更正 score 为 ABC 乐谱。原生 Halo Firefox 资源挂起与完整双站、离线转换及 1.0 合同保持待验。
+2026-10-13 [正文图表与乐谱](../BODY-CHARTS-SCORE.md)补齐渲染与阅读交互，更新 31 项为 `implemented-unverified`；更正 score 为 ABC 乐谱。原生 Halo Firefox 资源挂起与完整双站、1.0 合同保持待验；当时列出的通用离线转换要求已由本次 DEC-02 补充取消。
 
 2026-10-13 [导航与加载限定实现](../NAVIGATION-LOADING.md)更新 12 项配置为 `implemented-unverified`，同步记录列表 PJAX、图片配置及清理协议。文章/插件 PJAX 和任意作者 HTML 图片过滤器仍保留 `gap`；[限定验证](../validation/2026-10-13/navigation-loading.md)不替代 1.0 完整合同。
 
@@ -99,7 +105,7 @@ bun scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 
 DEC-07（2026-10-11）：维护者确认数学公式采用 Halo KaTeX 插件平台替代。公开裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记；MathJax 专属与主题自带数学资源供应共 10 条附完整 `decision` 后转为 `not-applicable`，不计作已验收。已固定 KaTeX 3.0.0，7 条公式保留项加入主题适配并转为 `implemented-unverified`；按需加载及完整运行/设备/审查门禁仍未满足。使用和证据边界见 [数学公式](../MATH.md)。边界见 [数学裁定](../MATH-RENDERING-DECISION.md)，已发布正文见 [issue 正文存档](DEC-07-ISSUE.md)。
 
-DEC-02（[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)）：`tag:*` 的 Halo 输入是与 Butterfly 生成结果一致的 HTML，主题不解析 `{% %}`。
+DEC-02（原记录 [#45](https://github.com/songxychn/halo-butterfly-next/issues/45)，[2026-10-14 补充](DEC-02-PORTABLE-CONTENT.md)）：`tag:*` 保留为来源和用户能力索引，Halo 使用通用 Markdown / 原生 HTML，不要求与 Butterfly 生成结果相同的结构；主题不解析 `{% %}`，通用离线转换不是默认义务。
 
 ## 已验收证据
 

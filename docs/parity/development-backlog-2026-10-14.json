@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "kind": "development-backlog-snapshot",
-  "sourceSha": "44621d24914edea94a242350562af68870cf5b69",
-  "matrixSha256": "757e4c2d382810e60fa6360c3f71330a7764a130f39c6887bc7b165effedc5cf",
-  "reconciliation": "reconciliation-2026-10-14.json",
-  "note": "Read with matrix.json; derived planning snapshot, not a second editable status source. Development groups include partial implemented-unverified entries. RSS/sitemap also come from contract DEC-03.",
+  "sourceSha": "362beb61d61ad3910719af52edd79f0b323a1354",
+  "matrixSha256": "7816e23ef4b584c1e3f17eebfe3d47e48f1a0e518ab6afb06f1c0cc3249c8e71",
+  "reconciliation": "portable-content-reconciliation-2026-10-14.json",
+  "note": "Derived planning snapshot after PR #413 and user-confirmed portable-content scope correction; matrix.json is the only status source. Original reconciliation remains historical. No new runtime acceptance.",
   "groups": [
     {
       "id": "D01",
-      "title": "正文扩展参数与离线迁移",
-      "category": "development",
+      "title": "通用正文能力映射与可移植性验收",
+      "category": "mapping-audit",
       "matrixIds": [
         "config:note.style",
         "config:note.icons",
@@ -35,8 +35,8 @@
         "tag:chartjs",
         "tag:score"
       ],
-      "current": "可移植 HTML 的 Note、Tabs、折叠、按钮、时间线、静态系列/友链可用；图库和图表/乐谱已接入。",
-      "remaining": "补 label/inlineImg 的实际 DOM 适配、Note 四项配置、旧标签参数与 hide 行为差异；完成图库之外的 Hexo 标签离线转换。新写法可用不代表旧标签全域兼容。"
+      "current": "PR #408 已实现通用 HTML 提示、Tabs、原生折叠、按钮、时间线与静态卡片；图库、图表/乐谱也已有实现。",
+      "remaining": "核对 Note 外观、行内标记/图片的通用能力映射；验证编辑器保存重开、无脚本/增强失败和换主题内容保留。Hexo 专属语法、DOM/class、完整参数和通用离线转换不是 1.0 默认义务；不再整体列为待开发。"
     },
     {
       "id": "D02",
@@ -242,10 +242,11 @@
         "site-config:root",
         "site-config:syntax_highlighter",
         "site-config:tag_dir",
-        "site-config:theme"
+        "site-config:theme",
+        "config:CDN.custom_format"
       ],
       "current": "已有 Halo 路由/SEO/Prism、构建入口、图片回退和组件模块；同名 Hexo 文件不存在不能直接判作缺失。",
-      "remaining": "逐项确认 404 开关、路由/pretty URL、根路径、站点元数据、高亮提供方、封面类型/独立顶图、加密标记、源文件/目录来源、构建 hook/默认合并/资源图标等语义。尚无足够证据关闭；必须完成来源→消费者→保留用户能力映射后，才转成开发或有依据不适用。"
+      "remaining": "逐项确认 404 开关、路由/pretty URL、根路径、站点元数据、高亮提供方、封面类型/独立顶图、加密标记、源文件/目录来源、构建 hook/默认合并/资源图标等语义。尚无足够证据关闭；必须完成来源→消费者→保留用户能力映射后，才转成开发或有依据不适用。 PR #413 已取消资源自由模板并由根地址/单项 URL 替代；config:CDN.custom_format 保留 gap 等待正式裁定登记，不应重新开发旧模板。"
     }
   ],
   "unresolvedMatrixIds": [
@@ -261,25 +262,14 @@
     "config:pwa.favicon_32_32",
     "config:pwa.favicon_16_16",
     "config:pwa.mask_icon",
+    "config:CDN.custom_format",
     "template:includes/additional-js",
     "template:includes/head/preconnect",
     "template:includes/head/pwa",
     "template:includes/header/social",
     "template:includes/third-party/pjax",
-    "tag:btn",
-    "tag:flink",
-    "tag:hideBlock",
-    "tag:hideInline",
-    "tag:hideToggle",
     "tag:inlineImg",
     "tag:label",
-    "tag:note",
-    "tag:series",
-    "tag:subnote",
-    "tag:subsubtabs",
-    "tag:subtabs",
-    "tag:tabs",
-    "tag:timeline",
     "helper:cloudTags",
     "helper:findArchivesTitle",
     "helper:getArchiveLength",
@@ -349,8 +339,6 @@
     "site-config:theme",
     "site-config:timezone",
     "site-config:token",
-    "interaction:tabs",
-    "interaction:hide",
     "interaction:shuoshuo-comments",
     "interaction:pjax",
     "interaction:pwa",
@@ -380,5 +368,33 @@
     "lifecycle-hook:scripts/tag/series.js#filter:before_generate",
     "lifecycle-hook:scripts/tag/series.js#filter:before_post_render",
     "page-data:series"
+  ],
+  "previousReconciliation": "reconciliation-2026-10-14.json",
+  "largestGaps": [
+    {
+      "rank": 1,
+      "group": "D02",
+      "reason": "跨页面导航需要统一统计身份、评论/图表及插件和外部 SDK 生命周期，跨模块复杂度最高。"
+    },
+    {
+      "rank": 2,
+      "group": "P01",
+      "reason": "PWA 安装、manifest/图标、缓存、断网与更新恢复尚未完整交付；先明确平台职责，RSS/站点地图单列映射。"
+    },
+    {
+      "rank": 3,
+      "group": "D05",
+      "reason": "完整消息键、七套语言与逐页覆盖尚未接入，涉及全部页面和交互文案。"
+    },
+    {
+      "rank": 4,
+      "group": "D04",
+      "reason": "Moment 评论主体、计数/跳转/最新评论以及说说数据、远端输入、限制和时区尚不完整。"
+    },
+    {
+      "rank": 5,
+      "group": "P03",
+      "reason": "评论 head 预加载与 KaTeX 全站注入需要插件配合；已有懒挂载/显示控制不能满足按需资源目标。"
+    }
   ]
 }
