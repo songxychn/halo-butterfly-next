@@ -38,6 +38,7 @@
         enable_code_copy: /*[[${#annotations.getOrDefault(post, 'enable_code_copy','true')}]]*/ true,
       });
     </script>
+    <th:block th:replace="~{views/body-renderers :: config(${post})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>
   </th:block>
 
@@ -96,7 +97,10 @@
         </div>
         <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
-          <div>
+          <th:block th:if="${theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
+            <th:block th:replace="~{views/comment-lazy :: widget('Post', ${post.metadata.name})}"/>
+          </th:block>
+          <div th:unless="${theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
             <halo:comment
               group="content.halo.run"
               kind="Post"

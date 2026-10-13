@@ -18,6 +18,20 @@
 
 同步 18 个矩阵记录，3 项新增覆盖由 gap 转为 `implemented-unverified`；全量 CDN 映射和完整 PJAX 缺口保留，0 条提升为 verified。Mermaid/Chart.js/ABCJS 随功能开发；其余供应替代见 [DEC-03 本地草案](parity/DEC-03-RESOURCES-DRAFT.md)。草案未公开裁定，不据此改为不适用；固定双站、真实 SDK、独立审查和最终候选 CI 未完成。
 
+## 2026-10-13：文章/单页评论懒加载
+
+[#407](https://github.com/songxychn/halo-butterfly-next/issues/407) 新增默认关闭的评论懒挂载，邻近 300px、跳转/直接锚点触发，模块超时重试和输入保留。工作区候选的 647 项工程测试、真实 Halo 2.26.1 / CommentWidget 3.3.2 三引擎 81 项和 160 文件安装比对通过；主题/系统配置恢复。旧 Firefox 资源超时及测试准备失败保留。官方 head 预加载资源仍保留，三条矩阵仅改为 implemented-unverified，0 条 verified；Moment、首屏零评论资源下载及完整 1.0 未完成。见[限定验收](validation/2026-10-13/comment-lazy.md)及[使用说明](COMMENT-ENHANCEMENTS.md)。评论独立提交 `c79b558` 排除了工作区正文扩展；普通合并最新 master 后产品提交 `d5705e1` 完整验证 659 项、真实 Halo 三引擎 81 项与 249 文件安装比对通过。原五个工作区文件保持原样，相对 master 只包含评论 20 个文件。[草稿 PR #409](https://github.com/songxychn/halo-butterfly-next/pull/409) 创建期间 master 又合入正文扩展，再普通合并后产品提交 `95cb290` 验证 663 项、真实 Halo 81 项和 249 文件安装比对通过，相对当前 master 仍只含评论 20 个文件。首次工作区候选身份保留在机器记录，未发布或部署。
+
+## 2026-10-13：正文图表与乐谱
+
+[草稿 PR #406](https://github.com/songxychn/halo-butterfly-next/pull/406)对应 [#403](https://github.com/songxychn/halo-butterfly-next/issues/403)，补齐文章/单页 Mermaid、Chart.js 与 ABC 乐谱的正文渲染、按需资源、三态覆盖、亮暗重绘、图表手势和键盘、系列显隐、源码复制及 SVG 导出。兼容 Halo Shiki 的服务端容器，默认关闭并保留错误/无 JavaScript 源码。原 ECharts 统计页面保持现有能力。
+
+普通 merge master `1576bae` 的图库后，实现 `977168b` 通过 652 项工程测试和 248 文件包检查（合并前 645/247 记录保留）；三引擎合成与真实 Halo 限定验证、Firefox 原生 Prism 资源挂起及连接对照范围见[验证记录](validation/2026-10-13/body-renderers.md)。更新 31 项为有实现待验，更正 score 是 ABC 乐谱；完整双站、离线标签转换、真机/无障碍/性能与独立审阅仍待完成。未发布或部署。
+
+## 2026-10-13：正文图库与相册分组
+
+遵循 DEC-02 为文章/单页接入 gallery/galleryGroup 等效 HTML，布局引擎按需加载，支持本地/远端 JSON、等高行混排、首批/每批数量、按钮和滚动加载、独立灯箱分组、空数据/坏图/数据重试及切页清理；图库专用离线转换不解析其他正文标签。旧配置缺字段时继续使用随包资源，新增 CDN.option.gallery。见[使用说明](ARTICLE-GALLERY.md)与[限定验证](validation/2026-10-13/article-gallery.md)。四条缺口转为 implemented-unverified，0 条 verified；Photos 插件组合、固定双站和完整 1.0 验收保留。首次公开创建因缺少明确授权被自动审批拒绝后，维护者于 2026-10-13 明确授权推送并公开，现由 [#404](https://github.com/songxychn/halo-butterfly-next/issues/404) 与[草稿 PR #405](https://github.com/songxychn/halo-butterfly-next/pull/405) 跟踪，提交和验证材料已推送；未发行主题或部署线上。
+
 ## 2026-10-13：侧栏、图片与外观配置
 
 后续普通合并 master `2105dc3`，产品提交 `1b4df00` 保留导航加载与本批外观配置，统一懒加载和坏图回退；617 项工程测试、146 文件安装比对、84 项外观复验及 20 项图片/局部导航交叉复验通过，配置恢复。见[当前合并证据](validation/2026-10-13/appearance.md)。

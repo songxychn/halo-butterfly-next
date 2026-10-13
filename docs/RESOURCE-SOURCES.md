@@ -37,7 +37,7 @@ CDN:
 
 Share.js 只有选择该分享方式并存在平台项时加载；不蒜子只有对应计数实际显示时加载。覆盖不蒜子入口不自动改写其内部数据端点。第三方服务初始化方式和原统计口径保持原样；本地桩计数不是正式服务联调通过。
 
-Mermaid、Chart.js、ABCJS 随各自功能接入；本批没有新增空设置或渲染库。其他资源替代的范围见 [DEC-03 草案](parity/DEC-03-RESOURCES-DRAFT.md)，未据草案关闭矩阵条目。
+合并最新 master 后，Mermaid、Chart.js、ABCJS 已随正文功能接入，三个独立覆盖字段分别为 `mermaid`、`chartjs`、`abcjs_basic_js`，默认按统一地址供应 `renderers/*.min.js`；固定版本见 [正文图表与乐谱](BODY-CHARTS-SCORE.md)。本批资源供应裁定见 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)。
 
 ## 回退与局部导航
 

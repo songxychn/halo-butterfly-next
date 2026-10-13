@@ -23,7 +23,7 @@
 
 已打包能力继续通过承载文件供应：`config:CDN.option.typed`、`lazyload`、`translate`、`utils` 对应页面脚本；`config:CDN.option.egjs_infinitegrid` 对应 masonry；`config:CDN.option.prismjs_lineNumber_js` 对应 Prism。资源 ID `resource:typed`、`resource:lazyload`、`resource:egjs_infinitegrid`、`resource:prismjs_lineNumber_js` 保留。上述六个独立覆盖配置不再要求，改为有依据的不适用；实际库资源与用户能力仍保留。库供应方式变化不代表参数、资源失败、语言覆盖或用户交互已验收。
 
-Mermaid、Chart.js、ABCJS 的配置和资源六个 ID 保留待开发：`config:CDN.option.mermaid`、`config:CDN.option.chartjs`、`config:CDN.option.abcjs_basic_js`、`resource:mermaid`、`resource:chartjs`、`resource:abcjs_basic_js`。本批不增加空壳设置，也不将资源框架视为渲染功能完成。
+合并最新 master 后，Mermaid、Chart.js、ABCJS 的配置和资源六个 ID 已随正文功能接入，保留 `implemented-unverified`：`config:CDN.option.mermaid`、`config:CDN.option.chartjs`、`config:CDN.option.abcjs_basic_js`、`resource:mermaid`、`resource:chartjs`、`resource:abcjs_basic_js`。这部分来自已合入 master 的正文功能，见 [正文图表与乐谱](../BODY-CHARTS-SCORE.md)；本批不将资源框架视为完整渲染验收。
 
 ## 已确认 A：主题自身实现的供应方式
 
@@ -71,7 +71,7 @@ Halo 当前使用 `src/js/core/navigation-loading.ts`、`page-lifecycle.ts`、`_
 
 维护者已确认：1.0 保留整包延迟加载，固定并公开支持语言清单，未知语言保留可读代码；不新增语言 CDN 请求。代价是有代码的页面下载整包，而非按语言下载。
 
-当前 vendored Prism 为 **1.29.0**，固定文件哈希、297 个选入组件及 400 个实际注册标识见 [语言清单](DEC-03-PRISM-LANGUAGES.json)。标识含别名、纯文本和内部辅助语法，不能当作 400 种独立语言或逐语言验收通过。JavaScript/TypeScript、Java、Python、Bash、SQL、JSON、YAML、CSS、HTML 等标识可查；未知标识不自动下载语言。`mermaid` 语法仅高亮源码，Mermaid 图表渲染仍随对应功能开发。
+当前 vendored Prism 为 **1.29.0**，固定文件哈希、297 个选入组件及 400 个实际注册标识见 [语言清单](DEC-03-PRISM-LANGUAGES.json)。标识含别名、纯文本和内部辅助语法，不能当作 400 种独立语言或逐语言验收通过。JavaScript/TypeScript、Java、Python、Bash、SQL、JSON、YAML、CSS、HTML 等标识可查；未知标识不自动下载语言。`mermaid` 语法仅高亮源码，Mermaid 图表渲染由独立正文渲染器供应。
 
 ## 已确认 D：Pace 默认进度条
 

@@ -1,0 +1,23 @@
+<th:block th:fragment="config(subject)">
+  <script data-theme-script="body-renderer-config" th:inline="javascript"
+    th:with="mermaidOverride=${#annotations.getOrDefault(subject, 'mermaid', 'inherit')}, chartOverride=${#annotations.getOrDefault(subject, 'chartjs', 'inherit')}, abcOverride=${#annotations.getOrDefault(subject, 'abcjs', 'inherit')}">
+    window.MainApp.conf.body_renderers = {
+      mermaid: {
+        enable: /*[[${mermaidOverride == 'true' ? true : (mermaidOverride == 'false' ? false : theme.config.mermaid?.enable == true)}]]*/ false,
+        code_write: /*[[${theme.config.mermaid?.code_write == true}]]*/ false,
+        theme: { light: /*[[${theme.config.mermaid?.theme?.light ?: 'default'}]]*/ 'default', dark: /*[[${theme.config.mermaid?.theme?.dark ?: 'dark'}]]*/ 'dark' },
+        open_in_new_tab: /*[[${theme.config.mermaid?.open_in_new_tab != false and theme.config.mermaid?.open_in_new_tab != 'false'}]]*/ true,
+        zoom_pan: /*[[${theme.config.mermaid?.zoom_pan != false and theme.config.mermaid?.zoom_pan != 'false'}]]*/ true,
+      },
+      chartjs: {
+        enable: /*[[${chartOverride == 'true' ? true : (chartOverride == 'false' ? false : theme.config.chartjs?.enable == true)}]]*/ false,
+        fontColor: /*[[${theme.config.chartjs?.fontColor}]]*/ null,
+        borderColor: /*[[${theme.config.chartjs?.borderColor}]]*/ null,
+        scale_ticks_backdropColor: /*[[${theme.config.chartjs?.scale_ticks_backdropColor}]]*/ null,
+      },
+      abcjs: {
+        enable: /*[[${abcOverride == 'true' ? true : (abcOverride == 'false' ? false : (theme.config.abcjs?.enable == true and theme.config.abcjs?.per_page != false and theme.config.abcjs?.per_page != 'false'))}]]*/ false,
+      },
+    };
+  </script>
+</th:block>

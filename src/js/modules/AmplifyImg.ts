@@ -18,7 +18,7 @@ export function imageSource(image: HTMLImageElement) {
 }
 
 function eligible(image: HTMLImageElement) {
-  if (image.closest('button, [data-no-lightbox]')) return false;
+  if (image.closest('button, [data-no-lightbox], .no-lightbox, figure.gallery-group')) return false;
   const anchor = image.closest<HTMLAnchorElement>('a[href]');
   if (!anchor) return true;
   if (anchor.hasAttribute('download')) return false;
@@ -31,7 +31,8 @@ function eligible(image: HTMLImageElement) {
 
 function group(image: HTMLImageElement) {
   return image.closest('[data-lightbox-group], [data-fancybox]')?.getAttribute('data-lightbox-group') ??
-    image.closest('[data-fancybox]')?.getAttribute('data-fancybox') ?? '';
+    image.closest('[data-fancybox]')?.getAttribute('data-fancybox') ??
+    image.closest('[data-content-gallery]') ?? '';
 }
 
 export default class AmplifyImg {

@@ -2145,6 +2145,11 @@ spec:
       label: 评论
       formSchema:
         - $formkit: checkbox
+          name: lazyload
+          label: 评论懒加载
+          value: false
+          help: 开启后接近评论区时自动加载，点击评论跳转立即加载。延迟组件初始化及评论数据请求；官方插件预加载的 JS/CSS 仍保留。
+        - $formkit: checkbox
           name: text
           label: 显示评论说明和状态提示
           value: true
@@ -2454,6 +2459,166 @@ spec:
           value: '/themes/halo-butterfly-next/assets/images/above.svg'
           help: 留空使用默认顶图；分类/标签详情优先使用各自原生封面
     #渲染设置
+    - group: mermaid
+      label: Mermaid 图表
+      formSchema:
+      - $formkit: radio
+        name: enable
+        label: 启用 Mermaid
+        value: false
+        help: 正文图表按需加载。文章与单页可以覆盖；关闭时保留源码。
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
+      - $formkit: radio
+        name: code_write
+        label: 渲染 Mermaid 代码块
+        value: false
+        help: 识别 language-mermaid 代码块；等效 HTML 容器不受此开关限制。
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
+      - $formkit: group
+        name: theme
+        label: 图表主题
+        value:
+          light: default
+          dark: dark
+        children:
+        - $formkit: select
+          name: light
+          label: 浅色模式
+          value: default
+          options:
+          - label: default
+            value: default
+          - label: forest
+            value: forest
+          - label: dark
+            value: dark
+          - label: neutral
+            value: neutral
+          - label: base
+            value: base
+        - $formkit: select
+          name: dark
+          label: 深色模式
+          value: dark
+          options:
+          - label: default
+            value: default
+          - label: forest
+            value: forest
+          - label: dark
+            value: dark
+          - label: neutral
+            value: neutral
+          - label: base
+            value: base
+      - $formkit: radio
+        name: open_in_new_tab
+        label: 允许新页查看
+        value: true
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
+      - $formkit: radio
+        name: zoom_pan
+        label: 启用缩放和平移
+        value: true
+        help: 支持按钮、方向键、Ctrl/Command 滚轮、拖动及双指缩放。普通滚轮仍滚动页面。
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
+    - group: chartjs
+      label: 正文 Chart.js 图表
+      formSchema:
+      - $formkit: radio
+        name: enable
+        label: 启用正文图表
+        value: false
+        help: 仅解析 JSON，支持等效 HTML 和 language-chartjs 代码块；按需加载。
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
+      - $formkit: group
+        name: fontColor
+        label: 文字颜色
+        value:
+          light: rgba(0, 0, 0, 0.8)
+          dark: rgba(255, 255, 255, 0.8)
+        children:
+        - $formkit: text
+          name: light
+          label: 浅色模式
+          value: rgba(0, 0, 0, 0.8)
+        - $formkit: text
+          name: dark
+          label: 深色模式
+          value: rgba(255, 255, 255, 0.8)
+      - $formkit: group
+        name: borderColor
+        label: 边线颜色
+        value:
+          light: rgba(0, 0, 0, 0.1)
+          dark: rgba(255, 255, 255, 0.2)
+        children:
+        - $formkit: text
+          name: light
+          label: 浅色模式
+          value: rgba(0, 0, 0, 0.1)
+        - $formkit: text
+          name: dark
+          label: 深色模式
+          value: rgba(255, 255, 255, 0.2)
+      - $formkit: group
+        name: scale_ticks_backdropColor
+        label: 刻度背景
+        value:
+          light: transparent
+          dark: transparent
+        children:
+        - $formkit: text
+          name: light
+          label: 浅色模式
+          value: transparent
+        - $formkit: text
+          name: dark
+          label: 深色模式
+          value: transparent
+    - group: abcjs
+      label: ABC 乐谱
+      formSchema:
+      - $formkit: radio
+        name: enable
+        label: 启用乐谱
+        value: false
+        help: 识别 abc-music-sheet 容器和 language-abc 代码块；只加载谱面渲染器，不加载音源。
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
+      - $formkit: radio
+        name: per_page
+        label: 全部文章和单页
+        value: true
+        help: 开启时所有文章/单页按内容识别乐谱；关闭时仅单篇元数据显式开启的文章/单页渲染。全局关闭时也可以单篇开启。
+        options:
+        - label: 开启
+          value: true
+        - label: 关闭
+          value: false
     - group: math
       label: 数学公式
       formSchema:
@@ -3283,6 +3448,21 @@ spec:
           value: ''
           help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
         - $formkit: text
+          name: mermaid
+          label: Mermaid 渲染脚本
+          value: ''
+          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
+        - $formkit: text
+          name: chartjs
+          label: Chart.js 渲染脚本
+          value: ''
+          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
+        - $formkit: text
+          name: abcjs_basic_js
+          label: ABC 乐谱渲染脚本
+          value: ''
+          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
+        - $formkit: text
           name: integrations
           label: 第三方接入脚本
           value: ''
@@ -3292,6 +3472,11 @@ spec:
           label: 首页瀑布流脚本
           value: ''
           help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
+        - $formkit: text
+          name: gallery
+          label: 正文图库脚本
+          value: ''
+          help: 仅正文包含图库时加载。留空继承主题资源来源；加载错误回退随包脚本。
         - $formkit: text
           name: loading
           label: Loading 脚本

@@ -1,0 +1,1270 @@
+{
+  "kind": "runtime",
+  "sourceSha": "682ff30768574f26c8a146dc3c7e12c82bb94f7e",
+  "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "artifactSha256": "fb46ed2169bd414fcbcacb767ffbf2e520a2133d5340f78affc1682f20fdd9af",
+  "haloVersion": "2.26.1",
+  "actor": "codex-author",
+  "testedAt": "2026-10-13T14:30:59.433Z",
+  "result": "passed",
+  "scope": "Bounded article-gallery implementation and author regression; no complete contract acceptance.",
+  "matrixIds": [
+    "tag:gallery",
+    "tag:galleryGroup",
+    "interaction:gallery",
+    "data-schema:gallery-data",
+    "style:source/css/_tags/gallery.styl",
+    "page:gallery"
+  ],
+  "scenarioIds": [
+    "PAGE-01",
+    "EXT-01",
+    "EXT-02"
+  ],
+  "scenarioScope": "Selected gallery assertions only; full parameter space and dual-site scenarios remain open.",
+  "workingTreeCleanScope": "Tracked files only; preexisting untracked .codegraph is preserved.",
+  "engineeringGate": {
+    "sourceSha": "c2259a163cee78d2cad026df1b1cbdb6b47e48f3",
+    "command": "bun run verify",
+    "testsPassed": 647,
+    "testsFailed": 0,
+    "packageFiles": 160,
+    "result": "passed",
+    "finalSourceDifference": "682ff30 changes only the browser fixture path mapping and stronger remote-image assertions; no product or ZIP byte changes."
+  },
+  "installedFiles": {
+    "sourceSha": "682ff30768574f26c8a146dc3c7e12c82bb94f7e",
+    "artifactSha256": "fb46ed2169bd414fcbcacb767ffbf2e520a2133d5340f78affc1682f20fdd9af",
+    "files": 160,
+    "result": "passed"
+  },
+  "reports": {
+    "realHalo": {
+      "sha256": "1e772c4937a1582b2bb23afab5109a58cf8fba4d561ff46d22627f5ffa768fd0",
+      "report": {
+        "sourceSha": "682ff30768574f26c8a146dc3c7e12c82bb94f7e",
+        "artifactSha256": "fb46ed2169bd414fcbcacb767ffbf2e520a2133d5340f78affc1682f20fdd9af",
+        "workingTreeClean": true,
+        "haloVersion": "2.26.1",
+        "startedAt": "2026-10-13T14:30:27.781Z",
+        "cases": [
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          }
+        ],
+        "limitations": [
+          "Headless browsers, not physical devices or actual Safari.",
+          "No full dual-site/1.0 acceptance."
+        ],
+        "finishedAt": "2026-10-13T14:30:59.433Z",
+        "result": "passed"
+      }
+    },
+    "synthetic": {
+      "sha256": "f33ee5101a6fe594bb485a2aef0b4fc43843b9aee0b0955911085f487efc87c5",
+      "report": {
+        "sourceSha": "682ff30768574f26c8a146dc3c7e12c82bb94f7e",
+        "artifactSha256": "fb46ed2169bd414fcbcacb767ffbf2e520a2133d5340f78affc1682f20fdd9af",
+        "workingTreeClean": true,
+        "haloVersion": null,
+        "startedAt": "2026-10-13T14:30:32.906Z",
+        "cases": [
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "chromium",
+            "width": 320,
+            "entry": "lifecycle",
+            "checks": [
+              "repeated initialization remains singular",
+              "cleanup cancels pending data and preserves input for reinitialization",
+              "reinitialization after cleanup reloads original data"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "firefox",
+            "width": 320,
+            "entry": "lifecycle",
+            "checks": [
+              "repeated initialization remains singular",
+              "cleanup cancels pending data and preserves input for reinitialization",
+              "reinitialization after cleanup reloads original data"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "light",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "light",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "dark",
+            "entry": "post",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "mode": "dark",
+            "entry": "single",
+            "checks": [
+              "first batch only; engine loaded once",
+              "keyboard batches; final focus stays in gallery",
+              "mixed aspect ratios; no overlap or page overflow",
+              "lightbox isolates gallery group and restores focus",
+              "remote relative URLs; metadata rendered as text",
+              "HTTP failure has usable retry",
+              "bad image placeholder; empty/invalid JSON visible",
+              "album card remains a native named link",
+              "hidden gallery recovers after reveal",
+              "automatic batches complete without duplicates"
+            ],
+            "status": "passed"
+          },
+          {
+            "engine": "webkit",
+            "width": 320,
+            "entry": "lifecycle",
+            "checks": [
+              "repeated initialization remains singular",
+              "cleanup cancels pending data and preserves input for reinitialization",
+              "reinitialization after cleanup reloads original data"
+            ],
+            "status": "passed"
+          },
+          {
+            "entry": "ordinary",
+            "status": "passed",
+            "checks": [
+              "no gallery engine request"
+            ]
+          },
+          {
+            "entry": "resource-fallback",
+            "status": "passed",
+            "checks": [
+              "custom script native error falls back to bundle"
+            ]
+          },
+          {
+            "entry": "no-script",
+            "status": "passed",
+            "checks": [
+              "visible no-JS explanation and native album link"
+            ]
+          }
+        ],
+        "limitations": [
+          "Headless browsers, not physical devices or actual Safari.",
+          "No full dual-site/1.0 acceptance.",
+          "Synthetic generated pages, not installed Halo."
+        ],
+        "finishedAt": "2026-10-13T14:31:12.153Z",
+        "result": "passed"
+      }
+    },
+    "existingLightbox": {
+      "sha256": "9be78f37eb6a490c31e0d53f4850e7e0adbeea38777cdce31a469273a0d0607f",
+      "report": {
+        "sourceSha": "2fe3686b3c902037c5b54c8bfdab2e426babaaf6",
+        "workingTreeClean": false,
+        "viewer": "1.14.0",
+        "runnerSha256": "d9fbd50c46f216fdb7248dfb80c39d7d3f8f276de34596e69077967a7e72828a",
+        "bundleSha256": "fa2a092d6c807b3fab78aa16f7a0170f666c678bb628dd074fb2bba04e135829",
+        "checks": [
+          {
+            "engine": "chromium",
+            "width": 1440,
+            "result": "passed",
+            "behaviors": [
+              "reinitialize",
+              "keyboard-open",
+              "focus-trap",
+              "arrows",
+              "rotate",
+              "flips",
+              "one-to-one",
+              "zoom",
+              "reset",
+              "thumbnails",
+              "slideshow",
+              "escape",
+              "close-button",
+              "backdrop",
+              "focus-return",
+              "image-links",
+              "shared-anchor-selected-image",
+              "external/download-links",
+              "groups",
+              "lazy-url",
+              "dynamic-image",
+              "safe-title"
+            ]
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "result": "passed",
+            "behaviors": [
+              "touch-tap",
+              "touch-swipe",
+              "touch-pinch"
+            ]
+          },
+          {
+            "engine": "chromium",
+            "width": 390,
+            "result": "passed",
+            "behaviors": [
+              "reinitialize",
+              "keyboard-open",
+              "focus-trap",
+              "arrows",
+              "rotate",
+              "flips",
+              "one-to-one",
+              "zoom",
+              "reset",
+              "thumbnails",
+              "slideshow",
+              "escape",
+              "close-button",
+              "backdrop",
+              "focus-return",
+              "image-links",
+              "shared-anchor-selected-image",
+              "external/download-links",
+              "groups",
+              "lazy-url",
+              "dynamic-image",
+              "safe-title"
+            ]
+          },
+          {
+            "engine": "firefox",
+            "width": 1440,
+            "result": "passed",
+            "behaviors": [
+              "reinitialize",
+              "keyboard-open",
+              "focus-trap",
+              "arrows",
+              "rotate",
+              "flips",
+              "one-to-one",
+              "zoom",
+              "reset",
+              "thumbnails",
+              "slideshow",
+              "escape",
+              "close-button",
+              "backdrop",
+              "focus-return",
+              "image-links",
+              "shared-anchor-selected-image",
+              "external/download-links",
+              "groups",
+              "lazy-url",
+              "dynamic-image",
+              "safe-title"
+            ]
+          },
+          {
+            "engine": "firefox",
+            "width": 390,
+            "result": "passed",
+            "behaviors": [
+              "reinitialize",
+              "keyboard-open",
+              "focus-trap",
+              "arrows",
+              "rotate",
+              "flips",
+              "one-to-one",
+              "zoom",
+              "reset",
+              "thumbnails",
+              "slideshow",
+              "escape",
+              "close-button",
+              "backdrop",
+              "focus-return",
+              "image-links",
+              "shared-anchor-selected-image",
+              "external/download-links",
+              "groups",
+              "lazy-url",
+              "dynamic-image",
+              "safe-title"
+            ]
+          },
+          {
+            "engine": "webkit",
+            "width": 1440,
+            "result": "passed",
+            "behaviors": [
+              "reinitialize",
+              "keyboard-open",
+              "focus-trap",
+              "arrows",
+              "rotate",
+              "flips",
+              "one-to-one",
+              "zoom",
+              "reset",
+              "thumbnails",
+              "slideshow",
+              "escape",
+              "close-button",
+              "backdrop",
+              "focus-return",
+              "image-links",
+              "shared-anchor-selected-image",
+              "external/download-links",
+              "groups",
+              "lazy-url",
+              "dynamic-image",
+              "safe-title"
+            ]
+          },
+          {
+            "engine": "webkit",
+            "width": 390,
+            "result": "passed",
+            "behaviors": [
+              "reinitialize",
+              "keyboard-open",
+              "focus-trap",
+              "arrows",
+              "rotate",
+              "flips",
+              "one-to-one",
+              "zoom",
+              "reset",
+              "thumbnails",
+              "slideshow",
+              "escape",
+              "close-button",
+              "backdrop",
+              "focus-return",
+              "image-links",
+              "shared-anchor-selected-image",
+              "external/download-links",
+              "groups",
+              "lazy-url",
+              "dynamic-image",
+              "safe-title"
+            ]
+          }
+        ],
+        "limitations": [
+          "Synthetic page, not installed Halo or actual Safari/phone hardware."
+        ],
+        "result": "passed"
+      }
+    }
+  },
+  "fixtureSha256": "478e0c0f0e996a0472a0eb42a83824f4358bc11b7fe3707cd334616ecd3119f9",
+  "runnerSha256": "ead5a1813de92da006c34596e5ea931bacc8b76aaaeed4dce11074b26922ca0a",
+  "commandsAndReports": [
+    "bun run verify",
+    "bun scripts/gallery/check-browser.mjs",
+    "python3 scripts/gallery/fixture.py --runtime .runtime/gallery/halo-18151 --data-base http://127.0.0.1:18152 --package dist/halo-butterfly-next-0.1.0-alpha.4.zip --source-sha 682ff30768574f26c8a146dc3c7e12c82bb94f7e",
+    "GALLERY_DATA_PORT=18152 bun scripts/gallery/check-browser.mjs .runtime/gallery/halo-18151/gallery-fixture.json",
+    "bun scripts/lightbox/check.mjs .runtime/gallery/lightbox-regression"
+  ],
+  "limitations": [
+    "No full fixed dual-site parity: optional Hexo clean failed with exit 2.",
+    "No actual Safari, physical devices or screen reader acceptance.",
+    "No independent review or remote CI; changes retained locally.",
+    "Photos plugin combinations and the full gallery parameter domain remain open.",
+    "No public issue/PR/release/deployment; public issue creation was rejected by automatic approval review."
+  ],
+  "preservedFailures": [
+    "Initial baseScript attribute-order and Chromium-channel setup failures.",
+    "Initial empty report counted every([]) as passed; no browser ran, excluded from acceptance.",
+    "Original 18141 port occupied by unrelated process; protected and not modified.",
+    "H2 cached CLOB timeout on repeated /system/setup; fixture now initializes only fresh labs.",
+    "Early browser execution refused mismatched source/package identity, no pages tested.",
+    "Initial real-Halo remote JSON image fixtures mapped nested paths to HTML; screenshot review exposed placeholders; final reports require successful images, preserve the old report."
+  ]
+}
