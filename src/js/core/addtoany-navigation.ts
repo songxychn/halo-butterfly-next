@@ -46,7 +46,16 @@ export function replaceWithAddToAny(next: Document) {
   document.body.append(...next.body.childNodes);
   return true;
 }
-export function mountAddToAny(host: HTMLElement, items: string[], url: string, title: string) {
+function observeLoading(loader: HTMLScriptElement, callback: (() => void) | undefined) {
+  let failed = false;
+  let notify = callback; callback = undefined;
+  const clear = () => { clearTimeout(timer); loader.onerror = loader.onload = null; notify = undefined; };
+  const fail = () => { if (failed) return; failed = true; const report = notify; clear(); report?.(); };
+  const timer = setTimeout(fail, 10000);
+  loader.onerror = fail;
+  return {failed: () => failed, ready: clear};
+}
+export function mountAddToAny(host: HTMLElement, items: string[], url: string, title: string, onError?: () => void) {
   const win = window as AddToAnyWindow;
   let s = win[key];
   if (s) {
@@ -67,6 +76,7 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
   // Preserve the legacy custom configuration path, without claiming its lifecycle.
   if (win.a2a || win.a2a_config || document.getElementById('a2a_menu_container')) {
     const legacy = document.createElement('script'); legacy.src = loaderURL; legacy.async = true;
+    const loading = observeLoading(legacy, onError); legacy.onload = loading.ready;
     document.body.append(legacy); return;
   }
   const main = document.createElement('div'); main.id = 'a2a_menu_container';
@@ -77,6 +87,7 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
   loader.crossOrigin = 'anonymous';
   s = win[key] = {kit: host, main, parking, loader, items: items.join(','), ready: false, url, title};
   const owned = s;
+  const loading = observeLoading(loader, onError); onError = undefined;
   win.a2a_config = {num_services: items.length, callbacks: [{
     share: () => {
       const url = owned.url;
@@ -91,13 +102,14 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
       return {url, title: owned.title};
     },
     ready: () => {
+      if (loading.failed()) return;
       const core = [...document.scripts].find(script => script.src === coreURL);
       const frame = main.querySelector<HTMLIFrameElement>('#a2a_sm_ifr');
       const styles = [...document.head.querySelectorAll('style')].filter(style => style.textContent?.includes('.a2a_menu'));
       if (win.a2a?.main !== main || !core || frame?.src !== utilityURL || styles.length !== 1) return;
       owned.locale = [...document.scripts].find(script => script.src === 'https://static.addtoany.com/menu/locale/zh-CN.js');
       owned.core = core; owned.frame = frame; owned.style = styles[0];
-      main.append(parking); owned.ready = true;
+      main.append(parking); owned.ready = true; loading.ready();
       document.dispatchEvent(new Event('halo-butterfly-next:analytics-ready'));
     },
   }]};

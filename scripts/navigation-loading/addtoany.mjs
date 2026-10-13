@@ -53,18 +53,20 @@ try{for(const engine of (process.env.ENGINES||'chromium,firefox,webkit').split('
   await p.waitForFunction(()=>location.pathname==='/archives/'&&!!window.MainApp?.useCommon,null,{polling:100});assert.equal(await p.evaluate(()=>window.addToAnySentinel),undefined,'An open SDK modal retains native navigation');
   report.results.push({engine,width,mode,cycles:4,result:'passed'});await save();console.log('PASS',engine,width,mode);await context.close();
  }
- for(const scenario of ['unknown-iframe','late-iframe','failed-loader','delayed-loader']){
+ for(const scenario of ['unknown-iframe','late-iframe','failed-loader','delayed-loader','timeout-loader']){
   const context=await browser.newContext({locale:'zh-CN'});
   let release,requested;const pendingRequest=new Promise(resolve=>requested=resolve);
   await context.route('**/*',async route=>{
    const url=new URL(route.request().url());if(url.origin===base){if(scenario==='late-iframe'&&url.pathname==='/archives/'&&route.request().resourceType()==='fetch'){await new Promise(resolve=>{release=resolve;requested()})}return route.continue();}
    if(url.pathname==='/menu/page.js'&&scenario==='failed-loader')return route.abort();
-   if(url.pathname==='/menu/page.js'&&scenario==='delayed-loader')await new Promise(resolve=>setTimeout(resolve,1000));
+   if(url.pathname==='/menu/page.js'&&['delayed-loader','timeout-loader'].includes(scenario))await new Promise(resolve=>setTimeout(resolve,scenario==='timeout-loader'?11000:1000));
    if(url.origin==='https://static.addtoany.com'&&sdk.has(url.pathname)){try{return await route.fulfill({contentType:url.pathname.endsWith('.html')?'text/html':'application/javascript',headers:{'access-control-allow-origin':'*'},body:sdk.get(url.pathname)})}catch{return}}
    return route.abort();
   });
   const p=await context.newPage();await p.goto(base+'/archives/preview-1/',{waitUntil:'domcontentloaded'});
   await p.waitForFunction(()=>!!window[Symbol.for('halo-butterfly-next.addtoany')],null,{polling:50});
+  if(['failed-loader','timeout-loader'].includes(scenario))await p.waitForFunction(()=>document.querySelector('[data-share-status]')?.textContent.includes('分享组件暂不可用'),null,{polling:100});
+  if(scenario==='timeout-loader'){await p.waitForFunction(()=>!!window.a2a?.main,null,{polling:100});await p.waitForTimeout(300);assert.equal(await p.evaluate(()=>window[Symbol.for('halo-butterfly-next.addtoany')].ready),false,'Late SDK ready cannot reactivate timed-out navigation');}
   if(['unknown-iframe','late-iframe'].includes(scenario))await p.waitForFunction(()=>window[Symbol.for('halo-butterfly-next.addtoany')]?.ready,null,{polling:100});
   if(scenario==='unknown-iframe'){await p.waitForFunction(()=>window[Symbol.for('halo-butterfly-next.addtoany')]?.ready,null,{polling:100});await p.evaluate(()=>{const frame=document.createElement('iframe');frame.src='about:blank';document.body.append(frame)})}
   await p.evaluate(()=>{window.fallbackSentinel=true;const a=document.createElement('a');a.href='/archives/';document.body.append(a);a.click()});

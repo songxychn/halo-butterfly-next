@@ -79,7 +79,7 @@ export function initializeShare(root = document) {
       link.textContent = LABELS[item] ?? item; link.setAttribute('aria-label', t('ui.shareTo', LABELS[item] ?? item));
       link.target = '_blank'; link.rel = 'noopener noreferrer'; host.append(link);
     }
-    try { mountAddToAny(host, items, url, region.dataset.title ?? ''); }
-    catch { if (status) status.textContent = '分享组件暂不可用，可复制链接'; }
+    try { mountAddToAny(host, items, url, region.dataset.title ?? '', () => { if (status?.isConnected) status.textContent = t('ui.shareError'); }); }
+    catch { if (status) status.textContent = t('ui.shareError'); }
   }
 }
