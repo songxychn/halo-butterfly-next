@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "date": "2026-10-14",
+  "sourceCommit": "73a56ec644e940a09eabb6e87441e843a4e45dae",
+  "baseCommit": "3138789f3cf6bbcad91bf4364aa2417d19985366",
+  "engineering": {
+    "command": "bun run verify",
+    "runtime": "Bun 1.4.0",
+    "tests": 698,
+    "failures": 0,
+    "packageFiles": 255
+  },
+  "realHalo": {
+    "schema": 1,
+    "startedAt": "2026-10-13T18:30:59.286Z",
+    "base": "http://127.0.0.1:18431",
+    "installed": {
+      "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "01cd312b2936948fcc59128b84f780032d96d52848cc45cfd51c13610bbd03d9",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "73a56ec644e940a09eabb6e87441e843a4e45dae",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    },
+    "fixture": {
+      "schema": 1,
+      "owner": "halo-butterfly-next-moments-fixture",
+      "plugins": {
+        "PluginMoments": "1.18.0",
+        "PluginCommentWidget": "3.3.2"
+      },
+      "publicMoments": 13,
+      "privateMoment": "moment-fixture-13",
+      "unapprovedMoment": "moment-fixture-14",
+      "feedItems": 8,
+      "latestRelease": "2026-10-14T20:00:00Z",
+      "pendingRetained": false,
+      "pendingLimitation": "Moments 1.18.0 reconciled the requested approved=false to true on create and subsequent PUT; pending Moment browser exclusion was not exercised."
+    },
+    "checks": [
+      {
+        "name": "chromium-1440-light native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "chromium-1440-light exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "chromium-1440-dark native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "chromium-1440-dark exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "chromium-390-light native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "chromium-390-light exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "chromium-390-dark native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "chromium-390-dark exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "chromium empty/malformed/unavailable feed retains native moments and retry",
+        "pass": true
+      },
+      {
+        "name": "chromium private/missing moments expose no content or comments",
+        "pass": true
+      },
+      {
+        "name": "firefox-1440-light native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "firefox-1440-light exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "firefox-1440-dark native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "firefox-1440-dark exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "firefox-390-light native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "firefox-390-light exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "firefox-390-dark native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "firefox-390-dark exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "firefox empty/malformed/unavailable feed retains native moments and retry",
+        "pass": true
+      },
+      {
+        "name": "firefox private/missing moments expose no content or comments",
+        "pass": true
+      },
+      {
+        "name": "webkit-1440-light native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "webkit-1440-light exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "webkit-1440-dark native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "webkit-1440-dark exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "webkit-390-light native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "webkit-390-light exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "webkit-390-dark native list, external feed, labels, sanitation, pagination",
+        "pass": true
+      },
+      {
+        "name": "webkit-390-dark exact lazy comment identity, jump and newest public Moment comments",
+        "pass": true
+      },
+      {
+        "name": "webkit empty/malformed/unavailable feed retains native moments and retry",
+        "pass": true
+      },
+      {
+        "name": "webkit private/missing moments expose no content or comments",
+        "pass": true
+      },
+      {
+        "name": "eager official component uses exact Moment identity",
+        "pass": true
+      },
+      {
+        "name": "disabled official widget removes comment controls without breaking content",
+        "pass": true
+      },
+      {
+        "name": "no JavaScript keeps native text, absolute dates and next-page links",
+        "pass": true
+      }
+    ],
+    "screenshots": [
+      "chromium-1440-light-moment.png",
+      "chromium-1440-dark-moment.png",
+      "chromium-390-light-moment.png",
+      "chromium-390-dark-moment.png"
+    ],
+    "limitations": [
+      "Headless browser engines and phone viewport; not physical device or assistive-technology acceptance.",
+      "No dual-site parity or full-release acceptance."
+    ],
+    "finishedAt": "2026-10-13T18:31:47.672Z"
+  },
+  "sourceHashes": {
+    "CHANGELOG.md": "c15768e4cbe8a317af5e4456981cf3585e5dd1bc72c9f1a3e40c36c8919c378d",
+    "docs/COMMENT-ENHANCEMENTS.md": "a98dc46f93ffdb2c5405479e132b4aa495c518d311426ccd9f7848951feed3a0",
+    "docs/MOMENTS.md": "9c44204b715c46d55596ba9cbf8a7552a6993a09f8499d86bb448068583da36c",
+    "fixtures/performance/theme-defaults.json": "6da3d0746adb0bdaae3dd3c536ed15dce1f17515c4484a7c43bcc26be4545e3a",
+    "scripts/moments/check.mjs": "ee8c134cdbc3bbcfef6eadac4032089515baa9b1b605cc936b837c6bff7148e1",
+    "scripts/moments/fixture.py": "588ec01ed18ec9ed0f7dfdde7d6844fabe72c21892f32f285e1088208c7bdbde",
+    "settings.yaml": "880eac4de7d7740b5b409e8dc4c2ef78a075b2e6e825224295bc0ac42ac193b8",
+    "src/html/moment.html": "1294757601a7d249dfd1701c622e48069badde2263b25080323de2e4f2fa10c5",
+    "src/html/moments.html": "1ad21f621d592b8a311068a889e3260661480f55b680832afa201d427c7b96b3",
+    "src/html/views/comment-lazy.html": "11106b219014e8a9b0af69bc0bac2b3e8810491b7de74d57f4163a7ddb1847ec",
+    "src/html/views/components.html": "e8f6ae8b495fbb241dafc2471b0b01f143097fb753af3f6fa3ed7a40e71f9f04",
+    "src/html/views/moment-feed.html": "17d1f9b31c8f12da841c8cfb1a5e7876cbab831d364b0a1315d4f8447befc667",
+    "src/html/views/newest-comments.html": "1a3d7a2356afa250cc34206b0300b7b7759e0a05fe4db05abfb8994afc980fc3",
+    "src/js/core/comment-lazy.ts": "4c15a7971f3e90dc32bec04cf85b0469262fead5d2b967e1db3c8f70345404ea",
+    "src/js/core/moments.ts": "a0f24ca91ae1926515c334d7b0a6e0f959be322cee7165215b83b5c5378c60a3",
+    "src/js/core/newest-comments.ts": "8745a58bfd618f490c024e0f0ef94dfe4c18f0612e406d2191390ca6910aeba6",
+    "src/js/page/moments.ts": "8807c90fddcfc128c34d761c119eee671fd1f65264a95af9a4f1c95f4c5a3481",
+    "src/scss/page/moments.scss": "e131059177c2100f7e1d6f0c237152b4e11073a9329024f1441d62e2885d13e7",
+    "tests/comment-lazy.test.mjs": "5befa6d381912cc83b41269336ad570bc97f9258ef20df0f48b94fde5bbb117f",
+    "tests/date-format.test.mjs": "f12b35a36112ef50ddda79147bf29d31cc2c027fc0c163a4ca057bfac3c5db73",
+    "tests/moments.test.mjs": "d4f01a62fd740065bcf2b54ca33918c888763f1e316b506066b41b9752e53082",
+    "tests/newest-comments.test.mjs": "1d0b1fd798b3bd5a0f9fcecba902a47399a4ca31dd716312e56947254d98dbf1"
+  },
+  "upstream": {
+    "moments": "https://github.com/halo-sigs/plugin-moments/tree/326343c52c330fdbf67ad8aaf36087312f257346",
+    "commentWidget": "https://github.com/halo-sigs/plugin-comment-widget/tree/v3.3.2"
+  },
+  "limitations": [
+    "Hexo reference startup failed with module.require is not a function under Bun 1.4.0; used existing halo_only/reference=False lab entry points; no dual-site parity claimed.",
+    "Moment 1.18.0 reconciled approved=false synthetic Moment to true on create and a subsequent PUT; pending Moment browser exclusion not exercised; public/private subjects and pending/hidden comment filtering were exercised.",
+    "Comment counts use native stats.approvedComment: hidden approved comments can be counted by the plugin while the widget excludes them.",
+    "Phone viewport and headless WebKit are not physical mobile/Safari/screen-reader acceptance.",
+    "No CI, external remote-service availability, independent review or 1.0 release approval claimed.",
+    "Site timezone only mapped for Moments/independent feed; global site timezone remains a separate requirement."
+  ]
+}
