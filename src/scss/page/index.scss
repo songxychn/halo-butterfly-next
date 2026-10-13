@@ -31,7 +31,10 @@
 
       @include util.useResponsive(util.$w-md) {
         font-size: 1.15em;
-        // Keep mobile title and subtitle readable together at first paint.
+      }
+
+      @media (max-width: 767px) {
+        // Match the heading breakpoint; render both at first paint on mobile.
         animation: none;
       }
     }
