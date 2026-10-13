@@ -210,7 +210,8 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     // A newer click owns navigation now. A timeout/error for the current one reloads normally.
     if (state.active === request) {
       document.dispatchEvent(new Event('pjax:error'));
-      location.assign(url.href);
+      if (pop && !committing && !allowsPartialPageExit()) nativeTraversal(url, state, restore?.index);
+      else location.assign(url.href);
     }
   } finally {
     clearTimeout(timer);
