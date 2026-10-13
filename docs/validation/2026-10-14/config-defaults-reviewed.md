@@ -16,3 +16,5 @@
 [机器记录](config-defaults-reviewed.json)保存输入清单、完整运行结果、原候选历史、审查结论和失败原因。最终提交与 GitHub CI 以草稿 PR 的精确 head 为准；上述运行来自已审查工作区，不将基线 HEAD 单独冒充候选身份。
 
 矩阵新增 35 条限定证据。`config:CDN.custom_format` 因移除旧模板运行支持，由 implemented-unverified 降为 gap，替代合同与公开裁定待补齐；其余状态不变。总计 897、verified 0、N/A 184（既有 DEC-03 裁定，本 PR 无新增）。[首次实施记录](config-defaults.md)保留 657/160 的原身份与证据。完整双站、物理设备、性能及逐项 1.0 合同不在此次通过范围，DEC-08 公开裁定登记仍待完成。未发行或部署生产。
+
+最终提交 CI 期间，PR 主题检查首次出现演示包测试同步子进程等待满 30 秒；同 SHA 的 dispatch 已通过。已仅将该测试五次 Bun CLI 调用改为异步，独立复审确认断言、清理、30 秒门禁与零重试保持。固定 Bun 1.4.0 的 Linux x64 同步/异步对照均通过，未稳定复现或证明 Bun 精确根因；此为限定措施。主题产品输入与上述已安装包字节不变，测试输入新摘要 `88b93c77ebf6b84e6e173f8e28cd39872f119ead20adc5e16cf8a739fd84cb29`。失败与对照见[CI 补充记录](config-defaults-ci-fix.json)，新最终提交/CI 随草稿 PR #413 登记。

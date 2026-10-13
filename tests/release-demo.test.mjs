@@ -1,10 +1,12 @@
 import {test} from 'bun:test';
-import {execFileSync} from 'node:child_process';
+import {execFile,execFileSync} from 'node:child_process';
+import {promisify} from 'node:util';
 import {mkdirSync,mkdtempSync,readFileSync,writeFileSync,rmSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
+const execute = promisify(execFile);
 
-test('demo bundling creates missing parents and keeps publication claims tied to release identity',()=>{
+test('demo bundling creates missing parents and keeps publication claims tied to release identity',async()=>{
  mkdirSync('.runtime',{recursive:true});
  const root=mkdtempSync('.runtime/demo-test-');
  try {
@@ -16,14 +18,14 @@ test('demo bundling creates missing parents and keeps publication claims tied to
   writeFileSync(`${root}/release-identity.json`,JSON.stringify(identity));
   for(const published of [false,true]) {
    const output=`${root}/missing-parent/${published}`;
-   execFileSync(process.execPath,['site/demo/bundle.mjs',packagePath,output],{env:{...process.env,DEMO_RELEASE:String(published)},stdio:'pipe'});
+   await execute(process.execPath,['site/demo/bundle.mjs',packagePath,output],{env:{...process.env,DEMO_RELEASE:String(published)}});
    const download=JSON.parse(readFileSync(`${output}/rendered-public.json`)).content.find(x=>x.id==='hbn-site-download').html;
    assert.equal(download.includes('尚未公开发行'),!published);
    if(published)assert.ok(download.includes(`/releases/tag/v${version}`));
-   assert.throws(()=>execFileSync(process.execPath,['site/demo/bundle.mjs',packagePath,output],{stdio:'pipe'}));
+   await assert.rejects(execute(process.execPath,['site/demo/bundle.mjs',packagePath,output]));
   }
   writeFileSync(`${root}/release-identity.json`,JSON.stringify({...identity,themeSha256:'0'.repeat(64)}));
-  assert.throws(()=>execFileSync(process.execPath,['site/demo/bundle.mjs',packagePath,`${root}/mismatch`],{env:{...process.env,DEMO_RELEASE:'true'},stdio:'pipe'}));
+  await assert.rejects(execute(process.execPath,['site/demo/bundle.mjs',packagePath,`${root}/mismatch`],{env:{...process.env,DEMO_RELEASE:'true'}}));
  } finally {rmSync(root,{recursive:true,force:true});}
 });
 

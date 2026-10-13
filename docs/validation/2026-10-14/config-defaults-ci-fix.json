@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "kind": "scoped-ci-harness-fix",
+  "testedAt": "2026-10-13T17:31:11.057596+00:00",
+  "actor": "Codex author + independent_review",
+  "result": "passed-scoped",
+  "baseCommit": "459ec07a0f3227e95904c1d9413cbe882f1470be",
+  "sourceAttribution": "Dirty candidate differs from reviewed source only in one test file. Product source, settings, dependencies and package bytes are unchanged. Final commit/CI identity is recorded in draft PR #413.",
+  "priorReviewedEvidence": {
+    "path": "docs/validation/2026-10-14/config-defaults-reviewed.json",
+    "sha256": "0fb051d3fac2e31653f9a99a3043d21aa1f356add22cb3aa364ce8e23aa23de8",
+    "inputSha256": "cd27e8e23ca56abbb6c34ed69d062168f5200a3396191a711379c30b791db4be"
+  },
+  "sourceSnapshotSha256": "88b93c77ebf6b84e6e173f8e28cd39872f119ead20adc5e16cf8a739fd84cb29",
+  "sourceFileCount": 505,
+  "changedFiles": {
+    "tests/release-demo.test.mjs": "423fdf15940eb15857aa6b931a1507469251442bb354377e5ebb916a774118ee"
+  },
+  "packageSha256": "a47cdecf9a0a961363f4ffcc4e51f79df87dcd5f86bd8cd8168b238f3087b2f7",
+  "originalFailure": {
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/38437276433",
+    "headSha": "459ec07a0f3227e95904c1d9413cbe882f1470be",
+    "testsPassed": 690,
+    "testsFailed": 1,
+    "test": "demo bundling creates missing parents and keeps publication claims tied to release identity",
+    "observed": "First piped execFileSync Bun bundle invocation timed out at 30001.99 ms; CI reported dangling child processes.",
+    "logSha256": "e4c8a840e576389ac10792e52cc7b4f0b85f7bbb2fd14dd5d920b5f417a83994"
+  },
+  "sameShaControl": {
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/38437302277",
+    "result": "success",
+    "testDurationMs": 1555.08
+  },
+  "inferenceBoundary": "The failing wait is localized. No fixture collision, network wait or unbounded application loop was found. Upstream Bun subprocess/parallel-worker reports are consistent, but neither this project failure nor the Bun mechanism was stably reproduced. Do not claim a proven root cause or universal Bun fix.",
+  "upstreamReferences": [
+    "https://github.com/oven-sh/bun/issues/43697",
+    "https://github.com/oven-sh/bun/issues/34069"
+  ],
+  "controlledLinux": {
+    "bun": "1.4.0+34cbb9a40",
+    "platform": "Linux x64 Docker on macOS arm64 (emulated)",
+    "cpus": 2,
+    "memory": "2 GiB",
+    "network": "none during tests",
+    "testTimeoutMs": 30000,
+    "subprocessStress": {
+      "sync": {
+        "sha256": "cde95fb132baf6364791c7bc82beaf1852c4dd43effa584ef528f6acc64d4063",
+        "summary": [
+          "e147",
+          "e148",
+          "e149",
+          "(pass) loaded [0.53ms]",
+          "",
+          " 4 pass",
+          " 0 fail",
+          "Ran 4 tests across 4 files. [17.16s]"
+        ]
+      },
+      "async": {
+        "sha256": "6ad1037e0a676794ec4a374de562ad96421c82c766c39ff5af57f97ae1a17d94",
+        "summary": [
+          "(pass) loaded [0.41ms]",
+          "",
+          "async-bounded/s3.test.mjs:",
+          "(pass) loaded [1.13ms]",
+          "",
+          " 4 pass",
+          " 0 fail",
+          "Ran 4 tests across 4 files. [18.86s]"
+        ]
+      },
+      "exitCodes": [
+        0,
+        0
+      ],
+      "filesPerMode": 4,
+      "callsPerFile": 150
+    },
+    "realDemoWithThreeStressFiles": {
+      "sync": {
+        "sha256": "d846ec9282787eba3dae78b04732fbee12cbe5968ea688344e8bd86ad577f17d",
+        "summary": [
+          "e148",
+          "e149",
+          "(pass) loaded [0.41ms]",
+          "",
+          " 4 pass",
+          " 5 filtered out",
+          " 0 fail",
+          "Ran 4 tests across 4 files. [15.86s]"
+        ]
+      },
+      "async": {
+        "sha256": "e2a0bc3ee6caeda368345a4257cc4b135d6778a5d471fa82e77a328bbdc7d650",
+        "summary": [
+          "e148",
+          "e149",
+          "(pass) loaded [0.39ms]",
+          "",
+          " 4 pass",
+          " 5 filtered out",
+          " 0 fail",
+          "Ran 4 tests across 4 files. [16.18s]"
+        ]
+      },
+      "exitCodes": [
+        0,
+        0
+      ],
+      "demoDurationMs": [
+        14095.9,
+        15095.3
+      ]
+    },
+    "initialEmulationBudget": {
+      "files": 12,
+      "externalLimitSeconds": 45,
+      "exitCode": 124,
+      "interpretation": "Four files were still active for 12-13 seconds at outer cutoff; slow emulation/load, not established zombie-process deadlock."
+    }
+  },
+  "fix": "Only five Bun CLI calls in the first release-demo test now await asynchronous execFile. Preserve all output/rejection assertions, unique temp directory, try/finally cleanup, Git/Python calls, other tests, 30-second gate and zero retry.",
+  "independentReview": {
+    "actor": "independent_review subagent",
+    "result": "no-blocking-findings",
+    "changedFileSha256": "423fdf15940eb15857aa6b931a1507469251442bb354377e5ebb916a774118ee",
+    "report": "Five Bun CLI calls are awaited. Success/rejection assertions, Git/Python calls, all other tests, 30-second gate and zero retry are unchanged. diff --check passed. Both sync and async x64 controls passed; the Bun root cause is not proven."
+  },
+  "validation": {
+    "focused": {
+      "tests": 12,
+      "files": 2,
+      "result": "passed"
+    },
+    "full": {
+      "command": "bun run verify",
+      "tests": 691,
+      "testFiles": 133,
+      "matrixItems": 897,
+      "packageFiles": 253,
+      "result": "passed",
+      "logSha256": "ff3acc5e0deb1dfdb41ea3ee519090f2b30450e19293778a23e28b1c7dbd5fbb"
+    }
+  },
+  "limitations": [
+    "Final exact commit CI remains required and tracked in PR #413.",
+    "Product runtime evidence is tied to unchanged package bytes, not base HEAD alone.",
+    "Full 1.0 acceptance and public DEC-08 registration remain open."
+  ]
+}
