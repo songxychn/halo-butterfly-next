@@ -26,7 +26,7 @@ for(const engine of ['chromium','firefox','webkit']){
   const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));p.setDefaultTimeout(20000);
   const row={engine,requests:[],checks:[]};report.cases.push(row);
   try{
-   await p.goto(base+'/archives/?language=en',{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>!!window.MainApp?.useCommon);await p.evaluate(()=>window.commentLocaleSentinel=true);
+   await p.goto(base+'/archives/?language=en',{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>!!window.MainApp?.useCommon);await p.evaluate(()=>window.commentLocaleSentinel=true);assert(Number(await p.locator('[data-newest-comments]').getAttribute('data-storage'))>0,'This cache scenario requires an explicitly enabled cache fixture');
    for(const [index,locale] of ['en','ja','ja','en','en'].entries()){
     if(index){await p.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove()},'/archives/?language='+locale+'&probe='+index);await p.waitForFunction(locale=>document.documentElement.lang===locale&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,locale,{polling:100});assert.equal(await p.evaluate(()=>window.commentLocaleSentinel),true);}
     await p.locator('[data-newest-comments]').scrollIntoViewIfNeeded();await p.waitForSelector('[data-comments-state="loaded"]');
