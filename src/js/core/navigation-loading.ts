@@ -54,24 +54,28 @@ function scriptCopy(old: HTMLScriptElement) {
   script.textContent = old.textContent;
   return script;
 }
-function execute(script: HTMLScriptElement, parent: HTMLElement, signal: AbortSignal) {
+export function executeNavigationScript(script: HTMLScriptElement, parent: HTMLElement, signal: AbortSignal) {
   return new Promise<void>((resolve, reject) => {
     if (signal.aborted) return reject(new Error('Navigation cancelled'));
-    let next = scriptCopy(script);
+    let next = scriptCopy(script), done = false;
     next.removeAttribute('onerror');
     const timer = setTimeout(() => finish(new Error('Script timed out')), 8000);
     const abort = () => finish(new Error('Navigation cancelled'));
     const finish = (error?: Error) => {
+      if (done) return;
+      done = true; next.onload = next.onerror = null;
       clearTimeout(timer); signal.removeEventListener('abort', abort);
       if (error) { next.remove(); reject(error); } else resolve();
     };
     signal.addEventListener('abort', abort, { once: true });
     const bind = (retry: boolean) => {
-      next.onload = () => finish();
-      next.onerror = () => {
+      const node = next;
+      node.onload = () => { if (node === next) finish(); };
+      node.onerror = () => {
+        if (done || signal.aborted || node !== next) return;
         const local = script.dataset.localResource;
         if (retry && local && new URL(local, location.href).href !== next.src) {
-          next.remove(); next = scriptCopy(script); next.removeAttribute('onerror');
+          next.onload = next.onerror = null; next.remove(); next = scriptCopy(script); next.removeAttribute('onerror');
           next.src = local; bind(false); parent.append(next);
         } else finish(new Error('Script failed'));
       };
@@ -148,12 +152,12 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
     if (!pop) history.pushState({ [stateKey]: { x: 0, y: 0 } }, '', url.href);
     state.url = url.href;
     for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config'].includes(s.dataset.themeScript || ''))) {
-      await execute(script, document.head, request.signal);
+      await executeNavigationScript(script, document.head, request.signal);
     }
     progress.advance(85);
-    await execute(entry, document.body, request.signal);
+    await executeNavigationScript(entry, document.body, request.signal);
     if (!window.MainApp.useCommon) throw new Error('Page initialization failed');
-    for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await execute(script, document.body, request.signal);
+    for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await executeNavigationScript(script, document.body, request.signal);
     document.body.classList.remove('loading', 'read-mode');
     const main = document.querySelector<HTMLElement>('main');
     main?.setAttribute('tabindex', '-1'); main?.focus({ preventScroll: true });
