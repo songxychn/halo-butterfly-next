@@ -195,7 +195,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     progress.advance(85);
     await executeNavigationScript(entry, document.body, request.signal);
     if (!window.MainApp.useCommon) throw new Error('Page initialization failed');
-    for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await executeNavigationScript(script, document.body, request.signal);
+    for (const script of scripts.filter(s => ['masonry', 'analytics'].includes(s.dataset.themeScript || ''))) await executeNavigationScript(script, document.body, request.signal);
     document.body.classList.remove('loading', 'read-mode');
     const main = document.querySelector<HTMLElement>('main');
     main?.setAttribute('tabindex', '-1'); main?.focus({ preventScroll: true });
