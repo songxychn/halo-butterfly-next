@@ -1,3 +1,4 @@
+import { preconnectResource } from './resource-hints.ts';
 /** One owned AddToAny instance. Never reinitialize kits: the pinned SDK retains them. */
 const key = Symbol.for('halo-butterfly-next.addtoany');
 const loaderURL = 'https://static.addtoany.com/menu/page.js';
@@ -77,7 +78,7 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
   if (win.a2a || win.a2a_config || document.getElementById('a2a_menu_container')) {
     const legacy = document.createElement('script'); legacy.src = loaderURL; legacy.async = true;
     const loading = observeLoading(legacy, onError); legacy.onload = loading.ready;
-    document.body.append(legacy); return;
+    preconnectResource(loaderURL); document.body.append(legacy); return;
   }
   const main = document.createElement('div'); main.id = 'a2a_menu_container';
   const parking = document.createElement('div'); parking.hidden = true;
@@ -113,5 +114,6 @@ export function mountAddToAny(host: HTMLElement, items: string[], url: string, t
       document.dispatchEvent(new Event('halo-butterfly-next:analytics-ready'));
     },
   }]};
+  preconnectResource(loaderURL, document, true);
   document.body.append(main, loader);
 }
