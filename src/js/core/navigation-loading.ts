@@ -22,14 +22,15 @@ export function navigationURL(href: string, current: string, exclude: unknown = 
   } catch { return null; }
 }
 
-const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'gallery', 'body-renderer', 'pace', 'pace-bootstrap']);
+const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'body-renderer-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'gallery', 'body-renderer', 'pace', 'pace-bootstrap']);
 const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
   if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;
   if (doc.querySelector('halo-comment, [data-no-pjax]')) return false;
   if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
-    !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host]')))) return false;
+    !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host]')) &&
+    !(['lit-toast-container', 'lit-toast'].includes(node.localName) && node.closest('lit-toast-container[data-theme-comment-toast]')))) return false;
   return [...doc.scripts].every(script => inert(script) || scriptKinds.has(script.dataset.themeScript || ''));
 }
 
@@ -152,7 +153,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
     document.documentElement.classList.add('theme-navigating');
     if (!pop) history.pushState({ [stateKey]: { x: 0, y: 0 } }, '', url.href);
     state.url = url.href;
-    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config'].includes(s.dataset.themeScript || ''))) {
+    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config', 'body-renderer-config'].includes(s.dataset.themeScript || ''))) {
       await executeNavigationScript(script, document.head, request.signal);
     }
     progress.advance(85);

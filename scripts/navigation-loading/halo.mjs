@@ -50,7 +50,8 @@ try {
       assert.equal(await page.locator('html').getAttribute('data-color-scheme'),mode==='dark'?'light':'dark');
       await page.screenshot({path:path.join(RUNTIME,`navigation-${engine}-${width}-${mode}.png`),fullPage:false});
       await page.evaluate(()=>{const a=document.createElement('a');a.href='/archives/preview-1/';document.body.append(a);a.click();});
-      await page.waitForFunction(()=>window.navigationSentinel===undefined);
+      await page.waitForFunction(()=>location.pathname==='/archives/preview-1/'&&!document.documentElement.classList.contains('theme-navigating'));
+      assert.equal(await page.evaluate(()=>window.navigationSentinel),'halo','Article content stays in the current document');
       await page.waitForSelector('.code-toolbar');
       assert.equal(await page.locator('html').getAttribute('data-color-scheme'),mode==='dark'?'light':'dark');
       assert.deepEqual(errors,[],`${engine}/${width}/${mode}`);

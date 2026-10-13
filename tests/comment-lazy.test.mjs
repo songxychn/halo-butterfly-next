@@ -38,7 +38,7 @@ function fixture({ kind = 'Post', observer = true, hash = '', lazy = true } = {}
   const root = {
     defaultView: win, location: { origin: 'https://blog.test' }, baseURI: 'https://blog.test/archives/fixture/',
     getElementById: () => region, createElement: () => new Node(),
-    querySelectorAll: () => [{ href: 'https://blog.test/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2' }],
+    querySelectorAll: selector => selector === 'lit-toast-container' ? [] : [{ href: 'https://blog.test/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2' }],
   };
   return { root, region, target, host, status, retry, observations };
 }

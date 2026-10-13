@@ -68,7 +68,14 @@ export function initializeLazyComments(root: Document = document, options: Optio
       if (!((group === 'content.halo.run' && ['Post', 'SinglePage'].includes(kind ?? '')) || (group === 'moment.halo.run' && kind === 'Moment')) || !name) throw new Error('Invalid comment subject');
       const widget = root.createElement('comment-widget') as Widget;
       Object.assign(widget, { group, kind, name, version: 'v1alpha1' });
+      const oldToasts = new Set(root.querySelectorAll('lit-toast-container'));
       host.append(widget);
+      // The official component creates a body-level toast host synchronously in
+      // connectedCallback. Only hosts created by this mount are theme-managed;
+      // removing the old body disconnects them together with their subject.
+      root.querySelectorAll('lit-toast-container').forEach(toast => {
+        if (!oldToasts.has(toast)) toast.setAttribute('data-theme-comment-toast', '');
+      });
       display('mounted', '');
       // Data, login, submission and reply failures stay with the official UI.
       // Once mounted, never replace a user's editor to retry a theme load.
