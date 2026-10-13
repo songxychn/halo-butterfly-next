@@ -18,7 +18,7 @@ export async function loadRenderer(kind: RendererKind, doc: Document) {
   let cache = loads.get(doc); if (!cache) { cache = new Map(); loads.set(doc, cache); }
   if (cache.has(kind)) return cache.get(kind)!;
   const promise = loadManagedResource(source, local, {
-    document: doc, timeout: 12_000, attributes: {'data-theme-renderer': kind},
+    document: doc, timeout: 12_000, attributes: {'data-theme-renderer': kind, 'data-theme-script': 'body-renderer', 'data-resource-key': keys[kind], 'data-resource-file': 'renderers/' + files[kind] + '.min.js'},
     valid: usable, allowRetryAfterError: true,
   }).then(success => {
     if (!success || !usable()) throw new Error(t('ui.rendererError'));

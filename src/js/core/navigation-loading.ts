@@ -22,7 +22,7 @@ export function navigationURL(href: string, current: string, exclude: unknown = 
   } catch { return null; }
 }
 
-const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'pace', 'pace-bootstrap']);
+const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'gallery', 'body-renderer', 'pace', 'pace-bootstrap']);
 const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {

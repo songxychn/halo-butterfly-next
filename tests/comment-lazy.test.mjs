@@ -47,7 +47,7 @@ test('lazyload is off in new settings and absent old config takes the eager bran
   assert.equal(defaultsFromSettings(schema).comments.lazyload, false);
   for (const file of ['post', 'page']) {
     const html = await readFile(new URL(`../src/html/${file}.html`, import.meta.url), 'utf8');
-    assert.match(html, /<div th:unless="\$\{theme\.config\.comments\?\.lazyload == true or theme\.config\.comments\?\.lazyload == 'true'\}">\s*<halo:comment/);
+    assert.match(html, /<div th:unless="\$\{themePjaxEnabled or theme\.config\.comments\?\.lazyload == true or theme\.config\.comments\?\.lazyload == 'true'\}">\s*<halo:comment/);
   }
 });
 test('outside the margin nothing mounts; intersection mounts the exact subject once', async () => {
@@ -117,4 +117,13 @@ test('Moment lazy mounting accepts only the native moment.halo.run group', async
   const wrong=fixture({kind:'Moment',hash:'#post-comment'});
   initializeLazyComments(wrong.root,{importModule:async()=>({CommentWidget:true})}); await tick();
   assert.equal(wrong.host.children.length,0); assert.equal(wrong.target.dataset.commentState,'failed');
+});
+
+test('PJAX eager mode mounts without waiting for intersection but retains one editor', async () => {
+  const f = fixture(); let calls = 0;
+  f.target.dataset.commentEager = 'true';
+  initializeLazyComments(f.root, { importModule: async () => { calls++; return { CommentWidget: true }; } });
+  await tick();
+  assert.equal(calls, 1); assert.equal(f.host.children.length, 1); assert.equal(f.observations.length, 0);
+  requestLazyComments(f.root); await tick(); assert.equal(calls, 1);
 });

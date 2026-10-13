@@ -5,7 +5,7 @@
      contentLanguage = ${page == 'post' ? #annotations.getOrDefault(post, 'language', '') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'language', '') : '')},
      contentLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh-CN', 'zh-HK', 'zh-TW'}, contentLanguage) ? contentLanguage : uiLanguage},
      themePjaxEnabled = ${theme.config.pjax?.enable == true or theme.config.pjax?.enable == 'true'},
-     run.halo.app.theme.dialect.HaloTrackerProcessor.SKIP_TRACKER = ${themePjaxEnabled},
+     run.halo.app.theme.dialect.HaloTrackerProcessor.SKIP_TRACKER = ${themePjaxEnabled and (page == 'post' or page == 'single')},
      coverCandidates = ${theme.config.cover?.default_cover_list == null ? {} : theme.config.cover.default_cover_list.?[#this != null and not #strings.isEmpty(#strings.trim(url))]},
      topImgConfig = ${theme.config[(page == 'category' or page == 'categories') ? 'categories' : ((page == 'tag' or page == 'tags') ? 'tags' : (page == 'archives' ? 'archives' : (page == 'post' ? 'post' : (page == 'single' ? 'single' : (page == 'index' ? 'index' : 'image')))))]},
      topImgOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'top_img_enable', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'top_img_enable', 'inherit') : 'inherit')},

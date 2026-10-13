@@ -88,9 +88,6 @@ export function initializeLazyComments(root: Document = document, options: Optio
     observer?.disconnect();
     region.removeEventListener(LOAD_EVENT, trigger);
     retry.removeEventListener('click', trigger);
-    // Disconnect the official Lit component before page replacement, so its
-    // reactive controllers and observers release the old subject/editor.
-    host.replaceChildren();
     delete target.dataset.commentLazyBound;
   });
   display(state, state === 'mounted' ? '' : t('ui.commentHint'));
