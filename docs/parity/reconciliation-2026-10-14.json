@@ -1,0 +1,2478 @@
+{
+  "schemaVersion": 1,
+  "kind": "implementation-reconciliation",
+  "recordedAt": "2026-10-14T01:05:55.819721+08:00",
+  "actor": "Codex",
+  "sourceSha": "44621d24914edea94a242350562af68870cf5b69",
+  "upstreamSha": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "result": "source-reconciled; no new runtime or full acceptance",
+  "scope": "Enumerated all 897 statuses; source-reviewed changed entries and development-boundary groups. Unchanged implemented entries retain their previous scoped evidence; this is not a new full runtime or visual audit.",
+  "counts": {
+    "total": 897,
+    "before": {
+      "implemented-unverified": 526,
+      "gap": 121,
+      "blocked": 12,
+      "not-applicable": 184,
+      "mapping-required": 49,
+      "verification-failed": 5
+    },
+    "after": {
+      "implemented-unverified": 586,
+      "gap": 84,
+      "blocked": 12,
+      "not-applicable": 184,
+      "mapping-required": 26,
+      "verification-failed": 5
+    },
+    "reconciled": 171,
+    "statusChanged": 61
+  },
+  "updates": [
+    {
+      "id": "template:archive",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：archives.html 已遍历 Halo archives.items 的 year/months/posts，输出日期、封面、标题、链接、空态，并由 archives.ts 接入统计图及分页；不能继续记作无归档实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/js/page/archives.ts"
+      ]
+    },
+    {
+      "id": "template:includes/mixins/article-sort",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：archives.html 已遍历 Halo archives.items 的 year/months/posts，输出日期、封面、标题、链接、空态，并由 archives.ts 接入统计图及分页；不能继续记作无归档实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/js/page/archives.ts"
+      ]
+    },
+    {
+      "id": "template:category",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：分类/标签详情已消费 posts.items 和原生 taxonomy 名称/封面，接入共享列表、分页、侧栏及顶图关闭后的标题。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/category.html",
+        "src/html/tag.html",
+        "src/html/views/components.html",
+        "src/html/views/layout.html"
+      ]
+    },
+    {
+      "id": "template:tag",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：分类/标签详情已消费 posts.items 和原生 taxonomy 名称/封面，接入共享列表、分页、侧栏及顶图关闭后的标题。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/category.html",
+        "src/html/tag.html",
+        "src/html/views/components.html",
+        "src/html/views/layout.html"
+      ]
+    },
+    {
+      "id": "template:includes/page/categories",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：已有分类统计与 category_ui=list 树状列表，消费 categoryFinder.listAsTree()，缺省图表模式保留 noscript 列表。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/categories.html"
+      ]
+    },
+    {
+      "id": "template:includes/page/tags",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：已有标签页、tag_ui=cloud、文章数量与自定义亮暗颜色；逐页 order/orderby 参数仍单列待映射，不能从本模板实现推出排序选项已支持。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/tags.html",
+        "src/js/page/tags.ts",
+        "src/js/core/tag-cloud-colors.ts"
+      ]
+    },
+    {
+      "id": "template:includes/page/default-page",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：SinglePage 正文、顶图、目录、评论与增强入口已经接入；使用 Halo singlePage 模型及 content.content。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/page.html",
+        "src/js/page/single.ts"
+      ]
+    },
+    {
+      "id": "template:includes/head",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：普通/插件布局已输出 head、页面配置、样式脚本入口与 SEO/注入；MainApp 承载主题配置、资源映射和逐页开关。PWA、preconnect 及未知插件/PJAX 差异保留在专属条目。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/html/views/config.html",
+        "src/html/views/seo.html",
+        "src/html/views/inject.html"
+      ]
+    },
+    {
+      "id": "template:includes/head/config",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：普通/插件布局已输出 head、页面配置、样式脚本入口与 SEO/注入；MainApp 承载主题配置、资源映射和逐页开关。PWA、preconnect 及未知插件/PJAX 差异保留在专属条目。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/html/views/config.html",
+        "src/html/views/seo.html",
+        "src/html/views/inject.html"
+      ]
+    },
+    {
+      "id": "template:includes/head/config_site",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：普通/插件布局已输出 head、页面配置、样式脚本入口与 SEO/注入；MainApp 承载主题配置、资源映射和逐页开关。PWA、preconnect 及未知插件/PJAX 差异保留在专属条目。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/html/views/config.html",
+        "src/html/views/seo.html",
+        "src/html/views/inject.html"
+      ]
+    },
+    {
+      "id": "template:includes/pagination",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：列表由 Pagination.ts 消费 Halo page/totalPages/prevUrl/nextUrl；文章由 postFinder.cursor 与 postPagination 输出上下篇，支持 1/2/false 方向开关。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/modules/Pagination.ts",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "template:includes/post/post-copyright",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：postCopyright 已接入全局配置、逐篇 copyright 三态、作者/作者链接/当前文章链接与许可证；独立逐篇 copyright_author/info/url 的映射另列，未据全局实现声称支持。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/post.html"
+      ]
+    },
+    {
+      "id": "template:includes/widget/card_ad",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：公共侧栏已调用 integration-ads 处理 ad.aside，空值不输出；与首页和文章广告位共用内容处理。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/html/views/integration-ads.html"
+      ]
+    },
+    {
+      "id": "template:includes/widget/card_top_self",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：aside.custom_cards 已按 top/bottom 输出作者 HTML、标题、图标、类/ID 与排序，普通/文章侧栏消费并跟随侧栏开关；卡片索引已接入最新评论、广告与自定义卡片。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/js/core/aside-options.ts"
+      ]
+    },
+    {
+      "id": "template:includes/widget/card_bottom_self",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：aside.custom_cards 已按 top/bottom 输出作者 HTML、标题、图标、类/ID 与排序，普通/文章侧栏消费并跟随侧栏开关；卡片索引已接入最新评论、广告与自定义卡片。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/js/core/aside-options.ts"
+      ]
+    },
+    {
+      "id": "template:includes/widget/index",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：aside.custom_cards 已按 top/bottom 输出作者 HTML、标题、图标、类/ID 与排序，普通/文章侧栏消费并跟随侧栏开关；卡片索引已接入最新评论、广告与自定义卡片。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/js/core/aside-options.ts"
+      ]
+    },
+    {
+      "id": "template:includes/third-party/effect",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：Common 按 effects 设置动态加载 effects.min.js，七类效果由主题实现并有页面清理；DEC-03 确认承载包供应。效果视觉与行为全域等价仍需对照。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/common.ts",
+        "src/js/page/effects.ts",
+        "docs/parity/DEC-03-RESOURCES-DRAFT.md"
+      ]
+    },
+    {
+      "id": "template:includes/loading/index",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "普通布局与公共插件布局均根据 loading.type 注入已选择的四种 Loading；关闭值为字符串 null。#316 更新就绪退出机制，但上游 preloader 的 fullpage/pace 分派未实现；保留此差异，不以继承动画代替上游完整模板。 剩余：fullpage/pace 分派；上游 preloader 配置域映射",
+      "afterFinding": "2026-10-14 主线对账：普通/插件布局现已按 loading.enable 与 loading.mode 分派：缺省 Pace，显式 animation 才使用四种 Loading，互斥且保留失败保护。旧“未接入 pace”及缺省沿用动画的描述已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/js/core/pace.ts",
+        "src/js/bootstrap.ts",
+        "docs/validation/2026-10-14/dec03-pace.md"
+      ]
+    },
+    {
+      "id": "template:includes/loading/fullpage-loading",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：普通/插件布局现已按 loading.enable 与 loading.mode 分派：缺省 Pace，显式 animation 才使用四种 Loading，互斥且保留失败保护。旧“未接入 pace”及缺省沿用动画的描述已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/js/core/pace.ts",
+        "src/js/bootstrap.ts",
+        "docs/validation/2026-10-14/dec03-pace.md"
+      ]
+    },
+    {
+      "id": "helper:aside_archives",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：侧栏通过 postFinder.archives 生成月/年分组、数量与链接，aside-options 处理排序、格式与行数限制；Hexo helper 由 Halo 数据和主题模板分担。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/js/core/aside-options.ts"
+      ]
+    },
+    {
+      "id": "helper:getBgPath",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：背景 URL 解析与图片失败回退已有实现，但 above-background.ts 将所有值写为 backgroundImage=url(...)；固定上游还支持颜色值与普通 CSS background。纯色/渐变等完整输入域尚未接入，保持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/js/above-background.ts"
+      ]
+    },
+    {
+      "id": "helper:getPageType",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：核心模板显式向 layout 传 page，决定样式、入口脚本、顶图及 SEO 类型；公共插件布局有单独入口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/html/post.html"
+      ]
+    },
+    {
+      "id": "helper:getVersion",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：资源和配置消费 theme.spec.version，构建脚本从主题描述/包版本生成安装包；版本开关控制主题缓存参数，固定第三方版本仍保留。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/config.html",
+        "scripts/build.mjs",
+        "scripts/resource-templates.mjs"
+      ]
+    },
+    {
+      "id": "helper:postDesc",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：共享列表及上下篇根据摘要 method/length，优先作者摘要，再读取正文剥离标签并截断，关闭时无摘要；并非只存在占位入口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "helper:truncate",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：共享列表及上下篇根据摘要 method/length，优先作者摘要，再读取正文剥离标签并截断，关闭时无摘要；并非只存在占位入口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "helper:inject_head_js",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：views/config 使用 Thymeleaf JavaScript 内联序列化，views/inject 已按顺序输出 head/bottom 作者注入。全域安全审计另见 interaction:data-safe。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/config.html",
+        "src/html/views/inject.html"
+      ]
+    },
+    {
+      "id": "page-data:categories",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：文章分类/标签读取 post.categories/post.tags；分类标签详情读取原生实体与 posts 集合，permalink/displayName 已用于导航和正文。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/category.html",
+        "src/html/tag.html"
+      ]
+    },
+    {
+      "id": "page-data:category",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：文章分类/标签读取 post.categories/post.tags；分类标签详情读取原生实体与 posts 集合，permalink/displayName 已用于导航和正文。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/category.html",
+        "src/html/tag.html"
+      ]
+    },
+    {
+      "id": "page-data:tags",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：文章分类/标签读取 post.categories/post.tags；分类标签详情读取原生实体与 posts 集合，permalink/displayName 已用于导航和正文。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/category.html",
+        "src/html/tag.html"
+      ]
+    },
+    {
+      "id": "page-data:tag",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：文章分类/标签读取 post.categories/post.tags；分类标签详情读取原生实体与 posts 集合，permalink/displayName 已用于导航和正文。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/category.html",
+        "src/html/tag.html"
+      ]
+    },
+    {
+      "id": "page-data:current",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：列表直接消费 Halo 的 page/totalPages/prevUrl/nextUrl；文章上下篇读取 postFinder.cursor。它们是生成数据，不要求作者填写同名 Hexo front-matter。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/category.html",
+        "src/html/archives.html",
+        "src/js/modules/Pagination.ts",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "page-data:next",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：列表直接消费 Halo 的 page/totalPages/prevUrl/nextUrl；文章上下篇读取 postFinder.cursor。它们是生成数据，不要求作者填写同名 Hexo front-matter。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/category.html",
+        "src/html/archives.html",
+        "src/js/modules/Pagination.ts",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "page-data:prev",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：列表直接消费 Halo 的 page/totalPages/prevUrl/nextUrl；文章上下篇读取 postFinder.cursor。它们是生成数据，不要求作者填写同名 Hexo front-matter。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/category.html",
+        "src/html/archives.html",
+        "src/js/modules/Pagination.ts",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "page-data:total",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：列表直接消费 Halo 的 page/totalPages/prevUrl/nextUrl；文章上下篇读取 postFinder.cursor。它们是生成数据，不要求作者填写同名 Hexo front-matter。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/category.html",
+        "src/html/archives.html",
+        "src/js/modules/Pagination.ts",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "page-data:posts",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：归档读取 archives.items 中的 year/months/posts，列表读取 posts.items；保留 Halo 数据契约，不复制 Hexo 数据对象。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/html/views/aside.html"
+      ]
+    },
+    {
+      "id": "page-data:year",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：归档读取 archives.items 中的 year/months/posts，列表读取 posts.items；保留 Halo 数据契约，不复制 Hexo 数据对象。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/html/views/aside.html"
+      ]
+    },
+    {
+      "id": "page-data:month",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：归档读取 archives.items 中的 year/months/posts，列表读取 posts.items；保留 Halo 数据契约，不复制 Hexo 数据对象。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/html/views/aside.html"
+      ]
+    },
+    {
+      "id": "page-data:content",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：正文读取 content.content；SEO 描述读取 entity.status.excerpt，回退 site.seo.description/site.subtitle。摘要生成与全部缺省边界仍需固定对照。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/post.html",
+        "src/html/page.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:description",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：正文读取 content.content；SEO 描述读取 entity.status.excerpt，回退 site.seo.description/site.subtitle。摘要生成与全部缺省边界仍需固定对照。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/post.html",
+        "src/html/page.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:date",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：发布日期来自 spec.publishTime、更新时间来自 status.lastModifyTime；用于元信息与 JSON-LD，空更新时间回退发布日期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "page-data:updated",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：发布日期来自 spec.publishTime、更新时间来自 status.lastModifyTime；用于元信息与 JSON-LD，空更新时间回退发布日期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "page-data:title",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：标题来自页面/实体标题，链接来自 status.permalink 和当前请求路径；SEO 处理绝对 URL 与分页路径。不同路由/编码完整对照待验。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:permalink",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：标题来自页面/实体标题，链接来自 status.permalink 和当前请求路径；SEO 处理绝对 URL 与分页路径。不同路由/编码完整对照待验。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:path",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：标题来自页面/实体标题，链接来自 status.permalink 和当前请求路径；SEO 处理绝对 URL 与分页路径。不同路由/编码完整对照待验。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:custom_colors",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：标签颜色集合已映射到 appearance.tag_custom_colors 并在标签页使用；原生 tag.spec.color 也进入 DOM，完整配色参数对照待验。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/tags.html",
+        "src/js/page/tags.ts",
+        "src/js/core/tag-cloud-colors.ts"
+      ]
+    },
+    {
+      "id": "page-data:layout",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：核心页面通过 page 标识选择布局与入口，SEO 映射 post=article、其他=website；任意自定义 Hexo layout 不作原文兼容承诺。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:type",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：核心页面通过 page 标识选择布局与入口，SEO 映射 post=article、其他=website；任意自定义 Hexo layout 不作原文兼容承诺。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:comments",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "文章和单页既有官方评论挂载/计数已实现，首批追加公开最新评论聚合及提示/跳转；Moment 主体和组件懒挂载仍缺，整项保持 gap。",
+      "afterFinding": "2026-10-14 主线对账：本条断言限定文章/单页：已消费 allowComment、站点评论开关、官方插件可用性及 post.stats.comment；懒挂载在 #409 合并。Moment 的开发缺口由 interaction:shuoshuo-comments 单列，不再用其阻止本条实现状态更新。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/post.html",
+        "src/html/page.html",
+        "src/html/views/comment-lazy.html",
+        "src/js/core/comment-lazy.ts"
+      ]
+    },
+    {
+      "id": "site-config:author",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页脚作者读取 contributor.displayName，缺省回退 site.title；文章 SEO 作者读取 contributors。上游站点作者值已有平台消费入口，非完全未实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "site-config:description",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：site.title/site.subtitle/site.seo.description/site.url 已用于页面标题、描述、canonical 与结构化数据；首页打字副标题另由其配置控制。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "site-config:subtitle",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：site.title/site.subtitle/site.seo.description/site.url 已用于页面标题、描述、canonical 与结构化数据；首页打字副标题另由其配置控制。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "site-config:title",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：site.title/site.subtitle/site.seo.description/site.url 已用于页面标题、描述、canonical 与结构化数据；首页打字副标题另由其配置控制。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "site-config:url",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：site.title/site.subtitle/site.seo.description/site.url 已用于页面标题、描述、canonical 与结构化数据；首页打字副标题另由其配置控制。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "site-config:page_pv",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：Umami 的公开统计接口及 site_uv/site_pv/page_pv 显示已接入；私有 token 的后端代理仍由 config:umami_analytics.UV_PV.token 单列待映射，不能把公开接口实现当成私有代理完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/integration-stats.html",
+        "src/html/views/components.html",
+        "src/js/core/integrations.ts"
+      ]
+    },
+    {
+      "id": "site-config:site_pv",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：Umami 的公开统计接口及 site_uv/site_pv/page_pv 显示已接入；私有 token 的后端代理仍由 config:umami_analytics.UV_PV.token 单列待映射，不能把公开接口实现当成私有代理完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/integration-stats.html",
+        "src/html/views/components.html",
+        "src/js/core/integrations.ts"
+      ]
+    },
+    {
+      "id": "site-config:site_uv",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：Umami 的公开统计接口及 site_uv/site_pv/page_pv 显示已接入；私有 token 的后端代理仍由 config:umami_analytics.UV_PV.token 单列待映射，不能把公开接口实现当成私有代理完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/integration-stats.html",
+        "src/html/views/components.html",
+        "src/js/core/integrations.ts"
+      ]
+    },
+    {
+      "id": "interaction:tool-order",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已接入 rightside 分组排序、去重、白名单过滤、空组默认值、齿轮动画和 Escape 收起焦点返回；隐藏组不可 Tab 进入，返回顶部固定保留。历史 Chromium 六组响应式检查通过；chat/comment 尚无主题按钮。剩余：完整上游对照、右下角距离组合、三引擎与真机合同。",
+      "afterFinding": "2026-10-14 主线对账：工具栏已有分组排序、去重、齿轮/Escape 焦点恢复、聊天按钮及文章/单页评论跳转；chat 等待 SDK 就绪，comment 按实际可用性输出，不再是“尚无按钮”。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/js/core/integration-chat.ts",
+        "src/js/core/comment-jump.ts"
+      ]
+    },
+    {
+      "id": "data-schema:cdn-overrides",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "统一根地址与实际白名单覆盖已补齐 effects/sharejs/sharejs_css/busuanzi；Mermaid/Chart.js/ABCJS 随对应功能开发，已捆绑库不拆。全量映射保留 mapping-required，其余供应替代见 docs/parity/DEC-03-RESOURCES-DRAFT.md，草案不产生不适用裁定。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。",
+      "afterFinding": "2026-10-14 主线对账：现有资源白名单、统一 assets 根地址及单项优先已接入；Mermaid/Chart.js/ABCJS 使用各自 Next 适配包覆盖，Pace JS/CSS 也已接入。DEC-03 已裁定的独立供应项保持不适用，已打包库不拆分。删除“图表资源尚未开发”和“草案未裁定”的旧描述；完整组合、回退及真实 SDK 验收仍未完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "scripts/resource-templates.mjs",
+        "src/js/core/external-resource.ts",
+        "src/js/core/body-renderers.ts",
+        "src/js/core/pace.ts",
+        "settings.yaml",
+        "docs/BODY-CHARTS-SCORE.md",
+        "docs/parity/DEC-03-RESOURCES-DRAFT.md"
+      ]
+    },
+    {
+      "id": "config:CDN.option",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。",
+      "afterFinding": "2026-10-14 主线对账：实际资源单项覆盖与统一根地址已实现，包含图表/乐谱适配包、effects、Share.js、不蒜子与 Pace；39 项原独立供应要求按 DEC-03 处理，不能再把图表库列作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "scripts/resource-templates.mjs",
+        "src/js/core/external-resource.ts",
+        "src/js/core/body-renderers.ts",
+        "src/js/core/pace.ts",
+        "settings.yaml",
+        "docs/BODY-CHARTS-SCORE.md",
+        "docs/parity/DEC-03-RESOURCES-DRAFT.md"
+      ]
+    },
+    {
+      "id": "template:includes/third-party/pjax",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 2026-10-13 DEC-03 部分确认/源码审计：维护者已确认使用主题导航实现及承载包，原独立 PJAX 库供应拟取消；模板职责与完整文章/插件 PJAX 行为继续保留验收，不能由供应选择宣称完成。 详见 docs/parity/DEC-03-RESOURCES-DRAFT.md 和 DEC-03-PACE-MD5.md；未新作运行验收或改变矩阵状态。 2026-10-14 DEC-03 已登记：39 原独立供应/专属 MD5 项有依据不适用；Pace 独立覆盖已接入。Mermaid/Chart.js/ABCJS 仍随功能开发，完整 PJAX/泛配置验收仍未关闭。",
+      "afterFinding": "2026-10-14 主线对账：已实现列表 PJAX、清理协议、head/页面入口更新、历史滚动、精确统一资源地址识别及 Pace 导航进度。仍缺文章/单页 tracker 和插件/第三方 SDK 的完整无刷新生命周期适配；相关页面保留完整导航。图表资源供应已由 #406/#411 完成，不能与 PJAX 剩余兼容性混为一项。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/navigation-loading.ts",
+        "src/js/core/page-lifecycle.ts",
+        "src/js/core/pace.ts",
+        "docs/NAVIGATION-LOADING.md"
+      ]
+    },
+    {
+      "id": "interaction:pjax",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "已实现可选列表 PJAX、页面作用域清理、head/入口更新、历史滚动、排除及失败回退；Halo 文章/单页的 tracker 与未知插件脚本保留完整导航。尚未补齐文章计数及任意插件的 PJAX 适配，完整交互合同仍保留缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 本批支持当前统一/单项解析出的精确页面脚本地址及本地回退，5 轮列表往返保持文档运行状态；不信任整个 CDN。文章/插件/第三方 SDK 完整导航边界继续缺口，不改 gap。",
+      "afterFinding": "2026-10-14 主线对账：已实现列表 PJAX、清理协议、head/页面入口更新、历史滚动、精确统一资源地址识别及 Pace 导航进度。仍缺文章/单页 tracker 和插件/第三方 SDK 的完整无刷新生命周期适配；相关页面保留完整导航。图表资源供应已由 #406/#411 完成，不能与 PJAX 剩余兼容性混为一项。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/navigation-loading.ts",
+        "src/js/core/page-lifecycle.ts",
+        "src/js/core/pace.ts",
+        "docs/NAVIGATION-LOADING.md"
+      ]
+    },
+    {
+      "id": "tag:tabs",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 section 分组的渐进增强 Tabs 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 section 分组 Tabs（键盘、嵌套、锚点揭示与清理），接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:subtabs",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 嵌套 section 分组 Tabs 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 嵌套 Tabs，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:subsubtabs",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-tabs.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 嵌套 section 分组 Tabs 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 多层嵌套 Tabs，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:note",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 blockquote/aside 提示块 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 blockquote/aside 提示块，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:subnote",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-note.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 blockquote/aside 提示块可嵌套 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 可嵌套提示块，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:hideBlock",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 details/summary 查看答案 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 details/summary 查看答案，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:hideInline",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 details/summary（块级替代） 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 块级 details 替代输入（不等同原行内揭示），接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:hideToggle",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-hide.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 details/summary 折叠 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 原生 details 折叠，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:btn",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-button.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 原生 a 链接按钮 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 原生 a 链接按钮，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:timeline",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-timeline.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 ol/li/time 时间线 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 ol/li/time 时间线，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:series",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02 保留 1.0 静态 HTML 输入。已有 src/scss/core/tags-series.scss 样式准备，但主要规则明确限定在当前正文无此祖先的 .container 下；未提供该标签的实际 DOM 适配和完整交互/离线转换证据。保留 gap，不将样式模块落地等同标签可用；路径 B 原文仍非通过条件。 剩余：实际 DOM 接入与该标签参数域；交互与键盘（如适用）；离线转换与 EXT-01/02 2026-10-13：另提供 静态列表链接卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 作者维护的静态系列卡片，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。系列活数据的 1.1 裁定不取消 1.0 静态输入和转换要求。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "tag:flink",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-02（#45）：1.0 不解析 `{% %}`。尚无逐项样式/交互实现；路径 B 原文可见记为预期。 2026-10-13：另提供 静态列表链接卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；旧 Hexo class/参数域、离线转换及对应合同仍未完整覆盖，状态不提升。",
+      "afterFinding": "2026-10-14 主线对账：已有 作者维护的静态友链卡片，接入 article.render。旧 .container 样式底稿不再代表完全无用户实现，但旧 Hexo DOM/class、完整参数域和离线标签转换仍缺；本条维持 gap。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "interaction:tabs",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "原需求保留；尚未实现或完成 Halo 平台映射。",
+      "afterFinding": "2026-10-14 主线对账：可移植正文已有 Tabs 键盘/嵌套/锚点切换和原生 details 展开收起。上游 Tabs 参数及 hideInline/hideBlock 一次性揭示的完整行为并未全部实现；保留 gap，不能继续写成无任何展开/切换实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "interaction:hide",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "原需求保留；尚未实现或完成 Halo 平台映射。",
+      "afterFinding": "2026-10-14 主线对账：可移植正文已有 Tabs 键盘/嵌套/锚点切换和原生 details 展开收起。上游 Tabs 参数及 hideInline/hideBlock 一次性揭示的完整行为并未全部实现；保留 gap，不能继续写成无任何展开/切换实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/content-extensions.ts",
+        "src/scss/modules/content-extensions.scss",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "language:default",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "language:en",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "language:ja",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "language:ko",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "language:zh-CN",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "language:zh-HK",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "language:zh-TW",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：页面 lang 使用 Halo locale，但主题模板/脚本仍含固定中文文案，没有对应七套语言消息目录与运行期键映射。简繁字形转换已有实现，不能等同完整国际化；中文现有文案也不等同固定上游全量键验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/archives.html",
+        "src/js/page/tags.ts",
+        "src/js/core/translate.ts"
+      ]
+    },
+    {
+      "id": "template:includes/header/social",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：侧栏已支持名称、图标 HTML 和链接，社交入口并非完全不存在；上游 header 社交位置与逐项颜色尚未完整映射，保留缺口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/html/views/header.html",
+        "settings.yaml"
+      ]
+    },
+    {
+      "id": "data-schema:social-items",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "原需求保留；尚未实现或完成 Halo 平台映射。",
+      "afterFinding": "2026-10-14 主线对账：侧栏已支持名称、图标 HTML 和链接，社交入口并非完全不存在；上游 header 社交位置与逐项颜色尚未完整映射，保留缺口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/html/views/header.html",
+        "settings.yaml"
+      ]
+    },
+    {
+      "id": "data-schema:flink-data",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "Links groups/link.spec 已消费名称、描述、URL、logo；上游 link.yml 的完整字段和正文 tag:flink 的静态输入仍未完成映射。 剩余：Links groups/link.spec 已消费名称、描述、URL、logo；上游 link.yml 的完整字段和正文 tag:flink 的静态输入仍未完成映射。",
+      "afterFinding": "2026-10-14 主线对账：Links 页面已消费 group.spec.displayName 与 link 的名称/链接/logo/说明；正文另有静态卡片。上游组说明、完整字段、远端数据与随机顺序仍需映射；不能用基础 Links 页或静态卡片关闭完整数据项。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/links.html",
+        "docs/CONTENT-EXTENSIONS.md"
+      ]
+    },
+    {
+      "id": "interaction:shuoshuo-comments",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "DEC-01 不取消本项。瞬间与评论组合仍待映射与验收。",
+      "afterFinding": "2026-10-14 主线对账：moments.html 只输出内容/媒体与分页，没有 Moment 评论主体挂载；最新评论聚合仍仅 Post/SinglePage。需要补 Moment 身份、开关、计数/跳转及官方评论组合。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/moments.html",
+        "src/html/views/newest-comments.html",
+        "src/js/core/newest-comments.ts"
+      ]
+    },
+    {
+      "id": "data-schema:shuoshuo-data",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "Moments spec.content.html/medium 与分页集合已消费；上游 author/date/tag/link 等完整字段及远端数据路径未完成映射。 剩余：Moments spec.content.html/medium 与分页集合已消费；上游 author/date/tag/link 等完整字段及远端数据路径未完成映射。",
+      "afterFinding": "2026-10-14 主线对账：Moments 当前消费 spec.content.html/medium 与原生分页；author/avatar/date/tags/key、远端 JSON 与 num/date 限制尚未完整映射。数量按插件分页，主题没有复刻上游说说过滤器。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/moments.html",
+        "src/html/views/plugin-pagination.html"
+      ]
+    },
+    {
+      "id": "data-schema:shuoshuo-limit",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "原需求保留；尚未实现或完成 Halo 平台映射。",
+      "afterFinding": "2026-10-14 主线对账：Moments 当前消费 spec.content.html/medium 与原生分页；author/avatar/date/tags/key、远端 JSON 与 num/date 限制尚未完整映射。数量按插件分页，主题没有复刻上游说说过滤器。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/moments.html",
+        "src/html/views/plugin-pagination.html"
+      ]
+    },
+    {
+      "id": "helper:cloudTags",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：标签页已有标签链接、数量和亮暗自定义颜色，侧栏也有标签卡；上游 helper 的全部字号/排序/参数域未逐项映射。不能写成没有标签云，也不能仅凭页面存在关闭完整 helper。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/tags.html",
+        "src/js/page/tags.ts",
+        "src/js/core/tag-cloud-colors.ts",
+        "src/html/views/aside.html"
+      ]
+    },
+    {
+      "id": "style:source/css/_global/function.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/global-function.scss 对齐 function.styl。工具类 .limit-one-line / .cardHover / .list-beauty / .custom-hr / .btn-effects 落地；入场动画与 imgHover width/height 100% 挂在无 DOM 的 .container 下（Halo 活 DOM 已有 #footer / #page-header / .avatar-img / .reward-main，不要把 translateY/scale/100% 压到主栏或工具栏）。未实现 _global/index.styl。avatar.effect 默认 false，不写活 .avatar-img 旋转。无新增 th:utext。不用 #Butterfly。不改 data-theme。不把已落地 highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/global-function.scss 对齐 function.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/global-function.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_global/index.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/global-index.scss 对齐 index.styl。light :root token / body / 滚动条 5px / 表格圆角 5px 挂在无 DOM 的 .container 下（Halo 活 body 已有 overlay 与 --body-background，::-webkit-scrollbar 已是 6px，不要把 --global-bg / 5px 压到主栏或设置色）。未实现 _tags/* / source/css/index.styl / var.styl。copy.enable 默认 true，不写活 body user-select:none。无新增 th:utext。不用 #Butterfly。不改 data-theme。不把已落地 function.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/global-index.scss 对齐 index.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/global-index.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/highlight.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/highlight.scss 对齐 highlight.styl。:root 与 html[data-color-scheme='dark'] 落地 --hl-color / --hl-bg / --hltools-* / --hlnumber-* / --hlscrollbar-bg / --hlexpand-bg。选择器 .container / figure.highlight / .highlight-tools / $code-block overflow auto、margin 0 0 20px、line-height 1.6 空操作（Halo 正文是 article.render，已有 .code-toolbar copy/shrink/fullpage/word_wrap，无 Hexo figure.highlight DOM）。未重写模板去造 Hexo highlight 结构。未实现 highlight/index.styl / prismjs/* / theme.styl / diff.styl。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 overflow/width 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/highlight.scss 对齐 highlight.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/highlight.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/highlight/diff.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/highlight-diff.scss 对齐 highlight/diff.styl。选择器 .container figure.highlight 下 pre .deletion / .addition / .meta / .comment 及 highlight.js token 颜色空操作（Halo 正文是 article.render，已有 .code-toolbar，无 Hexo figure.highlight / .deletion DOM）。未重写模板。未实现 prismjs/* / theme.styl。token 数字按 light 默认空操作：deletion #BF42BF、addition #105EDE、purple #7C4DFF、comment rgba(149,165,166,.8)、red #E53935、orange #F76D47、yellow #FFB62C、green #91B859、aqua #39ADB5、blue #6182B8。table @extend $scrollbar-style 仅留在上游选择器。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 token 颜色压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/highlight-diff.scss 对齐 highlight/diff.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/highlight-diff.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/highlight/index.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/highlight-index.scss 对齐 highlight/index.styl。选择器 .container figure.highlight .line:before / .line.marked / table / .gutter pre / .code pre 空操作（Halo 正文是 article.render，已有 .code-toolbar，无 Hexo figure.highlight DOM）。未重写模板去造 table-gutter。未实现 prismjs/* / theme.styl / diff.styl。未改代码块主题枚举。无新增 th:utext。上游 .line:before padding 0 6px 0 0、min-width 30px、.line.marked #80CBC440、table overflow auto、gutter padding 10px / text-align right、.code pre width 100% 仅留在上游选择器。不用 #Butterfly 把 overflow/width/min-width 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/highlight-index.scss 对齐 highlight/index.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/highlight-index.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/prismjs/diff.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/prismjs-diff.scss 对齐 prismjs/diff.styl。选择器 .container pre[class*='language-'] 下 light 默认 Prism token 颜色空操作（Halo 正文是 article.render，已有 .code-toolbar 并加载 prism-${code_theme_light|dark}.css，无上游 .container 包装）。未重写模板。未替换第三方 prism 主题文件。未实现 prismjs/index.styl / line-number.styl / theme.styl。token 数字按 light 默认空操作：function #FFB62C、comment rgba(149,165,166,.8)、punctuation #5e6687、operator/number #c76b29、string #22a2c9、important #c94922、deleted line-through。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 token 颜色压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / highlight/diff.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/prismjs-diff.scss 对齐 prismjs/diff.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/prismjs-diff.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/prismjs/index.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/prismjs-index.scss 对齐 prismjs/index.styl。选择器 .container pre[class*='language-'] 下 scrollbar / &:not(.line-numbers) padding 10px 20px / .caption margin-left -3.8em 空操作（Halo 正文是 article.render，已有 .code-toolbar pre padding 30px 0 0，无上游 .container 包装）。未重写模板。未实现 prismjs/line-number.styl / theme.styl。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 padding 10px 20px 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/prismjs-index.scss 对齐 prismjs/index.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/prismjs-index.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/prismjs/line-number.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/prismjs-line-number.scss 对齐 prismjs/line-number.styl。选择器 .container pre[class*='language-'].line-numbers 下 padding-left 3.8em / counter-reset linenumber / line-height 1.6 / .line-numbers-rows left -3.8em 空操作（Halo 正文是 article.render，已有 .code-toolbar 且 .line-numbers-rows left 0、行号 code padding 50px，无上游 .container 包装）。未重写模板。未实现 theme.styl。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把 padding-left 3.8em 压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/diff.styl / prismjs/index.styl / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/prismjs-line-number.scss 对齐 prismjs/line-number.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/prismjs-line-number.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_highlight/theme.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/highlight-theme.scss 对齐 theme.styl。选择器 .container figure.highlight 下 light 默认 --highlight-* 空操作（Halo 正文是 article.render，已有 .code-toolbar 且 highlight.scss 已落地活 --hl-*，无 Hexo figure.highlight DOM）。未重写模板。未实现 _global/*。未把 darker / pale night / ocean 压到活工具栏。未改代码块主题枚举。无新增 th:utext。不用 #Butterfly 把主题色压到主栏或已有代码块工具栏。不改 data-theme。不把已落地 highlight.styl / highlight/index.styl / highlight/diff.styl / prismjs/* / _search/*.styl / _page/*.styl / _layout / darkmode / readmode 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/highlight-theme.scss 对齐 theme.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/highlight-theme.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_layout/aside.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已扩展 src/scss/core/aside.scss 对齐 aside.styl。选择器并列 #aside-content / .aside，不改 data-theme。补齐宽 26%、minWidth900 padding 随 aside-right/left、maxWidth900 全宽叠栏、.card-widget 20px 24px、作者卡 / #card-info-btn / .item-headline / .sticky_layout。#hide-aside-btn 仍用 aside.hide_button。不把 config:aside.*、interaction:hide-aside 或已落地 footer/rightside/darkmode/readmode 升 verified。不做 snackbar / 卡片排序。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已扩展 src/scss/core/aside.scss 对齐 aside.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/aside.scss",
+        "src/scss/core/main.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_layout/chat.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/chat.scss 对齐 chat.styl 隐藏未展开的 #chatra。选择器 #chatra:not(.chatra--expanded)，不改 data-theme。补齐 visibility hidden / 1px / opacity 0 / pointer-events none。不把 config:chat.* / template:includes/third-party/chat/*、已落地 sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar、不接入聊天提供方。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/chat.scss 对齐 chat.styl 隐藏未展开的 #chatra。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/chat.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_layout/comments.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "DEC-01 已裁定外围样式仍适用。已新增 src/scss/core/comments.scss 对齐 comments.styl 评论区标题与切换布局。选择器 #post-comment / .comment-head / .comment-headline / .comment-switch / #switch-btn / .comment-wrap / .move，不改 data-theme。Halo <halo:comment> 包在 #post-comment。comments.text 默认 true 走 float:right。不做双评论切换脚本、不接入提供方。不把 config:comments.* / template:includes/third-party/comments/*、已落地 chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：DEC-01 已裁定外围样式仍适用。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/comments.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_layout/loading.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/loading.scss 对齐 loading.styl 全屏左右半屏加载。选择器 #loading-box / .loading-left-bg / .loading-right-bg / .spinner-box / .configure-border-1/2 / .loaded，不改 data-theme。半屏 50%、z-index 1000/1001、115px、#ffab91 / rgb(63,249,220)、--preloader-bg 回退 #37474f。不接入 pace。不把 config:preloader.*、已落地 comments/chat/sidebar/reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/loading.scss 对齐 loading.styl 全屏左右半屏加载。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/loading.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_layout/rightside.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已扩展 src/scss/core/rightside.scss 对齐 rightside.styl。选择器挂在 #rightside，滚动显隐并列 .rightside-show / .active，不改 data-theme。补齐定位、z-index 100、按钮 35px / --btn-bg、#mobile-toc-button、hide 组 status、#go-up cubic-bezier。#hide-aside-btn 仍用 aside.hide_button。不把 template:includes/rightside 或 rightside/footer/darkmode/readmode config 升 verified。不做 snackbar / item_order。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已扩展 src/scss/core/rightside.scss 对齐 rightside.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/rightside.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_layout/sidebar.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/sidebar.scss 对齐 sidebar.styl 移动侧栏遮罩与抽屉。选择器并列 #sidebar / #menu-mask / #sidebar-menus 与 Halo #mobile-navigation.side-bar / #Butterfly > .mask / menu.bar，不改 data-theme。补齐 330px、z-index 102/103、--sidebar-bg / --sidebar-menu-bg、open/active translate3d(-100%)、菜单 20px/15px、.site-page hover。不把 template:includes/sidebar / interaction:mobile-menu、已落地 reward/relatedposts/post/pagination/head/aside/footer/rightside/darkmode/readmode 升 verified。不做 snackbar。不改 #pagination.pagination-post。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/sidebar.scss 对齐 sidebar.styl 移动侧栏遮罩与抽屉。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/sidebar.scss",
+        "src/scss/core/common.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_mode/darkmode.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已移植为 src/scss/core/darkmode.scss。选择器挂在 html[data-color-scheme='dark']，不改 data-theme。补齐上游 CSS 变量、#web_bg 遮罩、代码/kbd/图片滤镜、侧栏虚线，以及 Halo token 别名（--body-background / --card-background-color / --text-color）。不把 config:darkmode.* 或 interaction:darkmode 升 verified。不做 snackbar / item_order / localStorage 键 theme。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已移植为 src/scss/core/darkmode.scss。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/darkmode.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_mode/readmode.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已移植为 src/scss/core/readmode.scss。选择器挂在 body.read-mode 与 html[data-color-scheme='dark']，不改 data-theme。补齐上游 CSS 变量、隐藏 chrome、代码块/引用/kbd/note 去装饰，以及 Halo 并列选择器（.content.card / .nav / .aside）。不把 config:readmode 或 interaction:readmode 升 verified。不做 snackbar / item_order / localStorage 键 theme。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已移植为 src/scss/core/readmode.scss。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/readmode.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/button.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-button.scss 对齐 button.styl。.btn-center / .btn-beautify（outline / block / larger、padding 0 15px、margin 0 4px 6px、border-radius 8px、width fit-content、hover scale 1.02 / 1.03）挂在无 DOM 的 .container 下（Halo 活按钮是 .button / border-radius 10px，不要把 fit-content / outline hover 压到主栏或 .code-toolbar）。未实现 _tags/gallery.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不把已落地 function.styl / index.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-button.scss 对齐 button.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-button.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/hexo.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-hexo.scss 对齐 hexo.styl。blockquote.pullquote（max-width 45%、float left/right）与 .video-container（padding-top 56.25%、height 0、iframe 100%）挂在无 DOM 的 .container 下（上游文件本身无 .container；Halo 活 DOM 有 blockquote / iframe，不要把 float / 45% / 56.25% / height:0 压到主栏或 .code-toolbar）。未实现 _tags/hide.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不把已落地 gallery.styl / button.styl / function.styl / index.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-hexo.scss 对齐 hexo.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-hexo.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/hide.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-hide.scss 对齐 hide.styl。.hide-inline / .hide-block > .hide-button（padding 5px 18px、border-radius 6px）与 .toggle（margin-bottom 20px、border-radius 5px、\\f0d7）挂在无 DOM 的 .container 下（上游文件本身无 .container；Halo 活 DOM 有 .button / #hide-aside-btn，不要把 padding / scale 压到主栏或侧栏隐藏开关）。未实现 _tags/inlineImg.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 aside.hide / aside.hide_button。不把已落地 hexo.styl / gallery.styl / button.styl / function.styl / index.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-hide.scss 对齐 hide.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-hide.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/inlineImg.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-inline-img.scss 对齐 inlineImg.styl。.inline-img（display: inline、margin: 0 3px、height: 1.1em、vertical-align: text-bottom）挂在上游已有的 .container 下（Halo 无该祖先，保持空操作；不要用 #Butterfly 把 1.1em 压到主栏、封面、活 img 或 .code-toolbar）。未实现 _tags/label.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 aside.hide / aside.hide_button。不把已落地 hide.styl / hexo.styl / gallery.styl / button.styl / function.styl / index.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-inline-img.scss 对齐 inlineImg.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-inline-img.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/label.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-label.scss 对齐 label.styl。.hl-label（padding 2px 4px、border-radius 3px）与 .default / blue / pink / red / purple / orange / green 挂在无 DOM 的 .container 下（上游文件本身无 .container；Halo 活 DOM 有 .button / #hide-aside-btn，不要把 padding 压到主栏或侧栏隐藏开关）。未实现 _tags/note.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 aside.hide / aside.hide_button。不把已落地 inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl / function.styl / index.styl / highlight* / prismjs* / theme.styl / _search / _page / _layout 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-label.scss 对齐 label.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-label.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/note.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-note.scss 对齐 note.styl。.note（padding 15px、margin 0 0 20px、border-radius 3px）、.simple/.flat 左边框 5px、icons 默认 true（padding-left 3em）挂在无 DOM 的 .container 下（上游文件本身无 .container；Halo 活 DOM 有 blockquote / p / img / 阅读模式 .note，不要把 padding / !important margin 压到主栏）。未实现 _tags/series.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-note.scss 对齐 note.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-note.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/series.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-series.scss 对齐 series.styl。.series-items a:hover color var(--pseudo-hover) 挂在无 DOM 的 .container 下（上游文件自身有 .container；Halo 活 DOM 有 a / 主栏，不要把 --pseudo-hover 压到主栏或活 a）。未实现 _tags/tabs.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-series.scss 对齐 series.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-series.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/tabs.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-tabs.scss 对齐 tabs.styl。.tabs（margin 0 0 20px、三边框 1px、border-radius 6px）、.nav-tabs > .tab padding 8px 18px / 顶边框 2px、.tab-item-content padding 36px 24px 10px（768px 下 24px 14px）挂在无 DOM 的 .container 下（上游文件自身有 .container；Halo 活 DOM 有阅读模式 .tabs 与评论区 tabshow，不要把 padding / border 压到主栏，不要重写 @keyframes tabshow）。未实现 _tags/timeline.styl 及其余 _tags/* / source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 series.styl / note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-tabs.scss 对齐 tabs.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-tabs.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_tags/timeline.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/tags-timeline.scss 对齐 timeline.styl。.timeline（margin 0 10px 20px、padding 14px 0 5px 20px、左边框 2px）、.item-circle:before 6px 圆点 / 默认边框 3px / headline 4px left -28px、.timeline-item-content padding 12px 15px / radius 8px / .93em、相邻 .timeline margin-top -20px 挂在无 DOM 的 .container 下（上游文件自身有 .container；不要把 padding / border / -20px 压到主栏）。$color-types blue/pink/red/purple/orange/green 写入 --timeline-color / --timeline-bg。未实现 source/css/index.styl / var.styl / _third-party/normalize.min.css。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 tabs.styl / series.styl / note.styl / label.styl / inlineImg.styl / hide.styl / hexo.styl / gallery.styl / button.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/tags-timeline.scss 对齐 timeline.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/tags-timeline.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/_third-party/normalize.min.css",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/vendor-normalize.scss 对齐 normalize.css v8.0.1。html line-height 1.15、-webkit-text-size-adjust 100%、h1 font-size 2em / margin .67em 0、pre font-family monospace,monospace、fieldset padding .35em .75em .625em 挂在无 DOM 的 .container 下（上游文件本身无 .container；Halo 已有 _reset.scss，不要把 1.15 / 2em 压到活 html/h1/a/pre）。未实现 source/css/index.styl / var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 timeline.styl / tabs.styl / series.styl / note.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/vendor-normalize.scss 对齐 normalize.css v8.0.1。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/vendor-normalize.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/index.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/css-index.scss 对齐 source/css/index.styl barrel。Halo 入口是 core/index.scss 顶层 @use 链；不接入 nib/css_prefix。normalize / _global / _highlight / _page / _layout / _tags / _mode / _search 已由既有模块消费。未实现 var.styl。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 normalize.min.css / timeline.styl / tabs.styl / series.styl / note.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/css-index.scss 对齐 source/css/index.styl barrel。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/css-index.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "style:source/css/var.styl",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已新增 src/scss/core/css-var.scss 对齐 source/css/var.styl。$bright-blue #49b1f5、$font-size 14px、$sidebar-width 330px、$index_top_img_height 100vh、$index_site_info_top 43%、$line-height-code-block 1.6、$preloader-bg #37474f、$tagsP-* / $tab-border-color 挂在无 DOM 的 .container 下（上游文件本身无选择器；Halo 活 token 已在 _base / global-index，不要把 14px / 330px / 100vh 压到活 html/body）。未实现 snackbar / preloader 产品开关。无新增 th:utext。不用 #Butterfly。不改 data-theme。不改 settings.yaml。不改 aside.hide / aside.hide_button。不把已落地 index.styl / normalize.min.css / timeline.styl 升 verified。不改 #pagination.pagination-post。html.hide-aside 80% 不改。#hide-aside-btn 仍走 hide_button。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已新增 src/scss/core/css-var.scss 对齐 source/css/var.styl。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/scss/core/css-var.scss",
+        "src/scss/core/index.scss"
+      ]
+    },
+    {
+      "id": "asset:source/js/tw_cn.js",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：简繁转换已由 translate.ts 与固定 translate-maps 字表实现，包含按钮、延迟恢复、存储和页面清理；不是缺少 tw_cn 能力。完整语言包国际化另列 language:*。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/translate.ts",
+        "src/js/core/translate-maps.ts",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "lifecycle-hook:scripts/events/cdn.js#filter:before_generate",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：资源供应已由构建期 resource-templates 和运行期 external-resource 共同完成，含统一根地址、单项优先、固定版本与本地回退。Hexo before_generate 钩子不原样移植，保留对应用户能力的验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "scripts/resource-templates.mjs",
+        "src/js/core/external-resource.ts",
+        "src/js/core/body-renderers.ts",
+        "src/js/core/pace.ts",
+        "settings.yaml",
+        "docs/BODY-CHARTS-SCORE.md",
+        "docs/parity/DEC-03-RESOURCES-DRAFT.md"
+      ]
+    },
+    {
+      "id": "page-data:cover",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：原生 Post/SinglePage cover 已被列表、上下篇、顶图与 OG/Twitter 消费，并接入候选封面和空值回退。cover_type 与独立 top_img 的平台差异仍单列，不因本条而关闭。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/components.html",
+        "src/html/views/seo.html"
+      ]
+    },
+    {
+      "id": "page-data:archive",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：Halo archives 路由通过 page=archives 选择归档页面，archives.items 提供分组；上游 archive 生成标记已有平台入口，年/月标题差异另见 helper:findArchivesTitle。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/html/views/layout.html"
+      ]
+    },
+    {
+      "id": "helper:findArchivesTitle",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：当前归档标题固定为“归档”。固定上游 helper 会优先格式化 page.year/month，并从菜单递归查找归档入口名称；该动态标题逻辑未完整实现。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/archives.html",
+        "src/html/views/header.html"
+      ]
+    },
+    {
+      "id": "page-data:highlight_shrink",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：代码块已有全局 enable_code_expander 三态和手动开合，但 annotation-setting.yaml 未声明逐篇 highlight_shrink；不能把全局/阅读状态保留当成作者逐篇覆盖。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/modules/CodeBlock.ts",
+        "src/js/core/code-shrink.ts",
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:aside",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：全局 aside.enable、页面类型显示条件、移动端开关及阅读侧栏已实现；annotation-setting.yaml 尚无逐篇 aside 显示覆盖。需明确上游逐篇输入与 Halo 的映射，不能重复开发已有全局开关。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/aside.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:copyright_author",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/seo-json.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:copyright_author_href",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/seo-json.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:copyright_info",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/seo-json.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:copyright_url",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：已有全局作者/作者链接/许可证及当前文章链接，逐篇仅声明 copyright 显示三态。上游逐篇作者、作者 URL、版权文案与原文 URL 的独立覆盖未映射；不要将全局版权区判作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/seo-json.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:order",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：标签页消费 Halo tags 并着色，图表内部按文章数量排序；未暴露上游标签云页面 order/orderby 对链接集合的作者配置。需要补排序映射/实现，不能把图表内部排序等同完整标签列表排序。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/tags.html",
+        "src/js/page/tags.ts",
+        "src/js/core/tag-cloud-colors.ts",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:orderby",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：标签页消费 Halo tags 并着色，图表内部按文章数量排序；未暴露上游标签云页面 order/orderby 对链接集合的作者配置。需要补排序映射/实现，不能把图表内部排序等同完整标签列表排序。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/tags.html",
+        "src/js/page/tags.ts",
+        "src/js/core/tag-cloud-colors.ts",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:lang",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：布局 lang 与 OG locale 已来自 Halo #locale；主题固定文案尚未国际化，也无作者逐页语言覆盖配置。需分别确定平台 locale、逐页语言与七套消息键的职责。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "page-data:language",
+      "beforeStatus": "mapping-required",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。",
+      "afterFinding": "2026-10-14 主线对账：布局 lang 与 OG locale 已来自 Halo #locale；主题固定文案尚未国际化，也无作者逐页语言覆盖配置。需分别确定平台 locale、逐页语言与七套消息键的职责。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "site-config:language",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：布局 lang 与 OG locale 已来自 Halo #locale；主题固定文案尚未国际化，也无作者逐页语言覆盖配置。需分别确定平台 locale、逐页语言与七套消息键的职责。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/seo.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "site-config:date_format",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：文章/列表已有 date/relative 两种模式，归档使用固定日期格式；未提供任意 Hexo date_format 格式串的完整映射。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/archives.html",
+        "settings.yaml"
+      ]
+    },
+    {
+      "id": "site-config:token",
+      "beforeStatus": "gap",
+      "afterStatus": "mapping-required",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：Umami 客户端只读取公开只读统计地址，不向页面输出私有 API token。后端凭据代理未提供；与 config:umami_analytics.UV_PV.token 合并为同一个后端需求，不是第二套统计功能。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/integrations.ts",
+        "settings.yaml"
+      ]
+    },
+    {
+      "id": "helper:safeJSON",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。 2026-10-13：本批 JSON-LD 使用严格 Unicode 字符串转义，覆盖 HTML script tokenizer、特殊字符与嵌套作者/别名数据；见 docs/SEO-INJECTION.md。其他脚本中的通用嵌入数据仍未逐项审计，本条不据局部安全结果完成全域实现。",
+      "afterFinding": "2026-10-14 主线对账：views/config 使用 Thymeleaf JS 序列化，seo-json 已对 JSON-LD 做严格 Unicode/脚本边界转义；不能继续写成完全没有安全处理。全部脚本嵌入点的消费者清单与端到端断言尚未完成，因此保留待审计缺口，不据此声称已有可利用漏洞。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/config.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "interaction:data-safe",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "原需求保留；尚未实现或完成 Halo 平台映射。 2026-10-13：本批 JSON-LD 使用严格 Unicode 字符串转义，覆盖 HTML script tokenizer、特殊字符与嵌套作者/别名数据；见 docs/SEO-INJECTION.md。其他脚本中的通用嵌入数据仍未逐项审计，本条不据局部安全结果完成全域实现。",
+      "afterFinding": "2026-10-14 主线对账：views/config 使用 Thymeleaf JS 序列化，seo-json 已对 JSON-LD 做严格 Unicode/脚本边界转义；不能继续写成完全没有安全处理。全部脚本嵌入点的消费者清单与端到端断言尚未完成，因此保留待审计缺口，不据此声称已有可利用漏洞。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/config.html",
+        "src/html/views/seo-json.html"
+      ]
+    },
+    {
+      "id": "template:includes/additional-js",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "普通页面脚本已改为 defer，正文初始化与异步 Prism 分离；#337 包含慢加载/失败/关闭增强及当前阅读块焦点/滚动保护。仍没有上游 additional-js 的全部配置和第三方能力分派映射，不因加载性能修正将整个模板视作实现完成。 剩余：additional-js 全部功能分派映射",
+      "afterFinding": "2026-10-14 主线对账：正文图表/乐谱、图库、可移植正文增强、评论懒挂载、特效、分析/聊天/广告、Pace 与资源配置已有各自入口。剩余是上游全部分派条件与 Halo 页面入口的逐项对照（含 PWA、语言、插件生命周期），不应将整个脚本分派层列为从零开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/common.ts",
+        "src/js/modules/Render.ts",
+        "src/html/views/integrations.html",
+        "src/html/views/config.html"
+      ]
+    },
+    {
+      "id": "asset:source/js/main.js",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：已拆为 App/Common、页面入口和 core 工具模块，存在实际主题行为。上游脚本全部导出/消费者尚未逐一对照，整体项仍保留 gap；后续做消费者映射，不要求恢复两个同名文件。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/App.ts",
+        "src/js/core/common.ts",
+        "src/js/core/_util.ts",
+        "scripts/build.mjs"
+      ]
+    },
+    {
+      "id": "asset:source/js/utils.js",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：已拆为 App/Common、页面入口和 core 工具模块，存在实际主题行为。上游脚本全部导出/消费者尚未逐一对照，整体项仍保留 gap；后续做消费者映射，不要求恢复两个同名文件。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/core/App.ts",
+        "src/js/core/common.ts",
+        "src/js/core/_util.ts",
+        "scripts/build.mjs"
+      ]
+    },
+    {
+      "id": "template:includes/head/preconnect",
+      "beforeStatus": "gap",
+      "afterStatus": "gap",
+      "beforeFinding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。",
+      "afterFinding": "2026-10-14 主线对账：当前 head 无统一 rel=preconnect 输出。资源按需加载、prefetch 与 preconnect 不是同一能力；需要明确按实际外部资源主机生成连接提示的条件，不能以预取实现关闭。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/layout.html",
+        "src/html/views/config.html"
+      ]
+    },
+    {
+      "id": "config:footer_img",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 footer_img（上游顶层，默认 false）到 footer.footer_img。空 / false 不套背景。本刀非空当附件/URL，th:style 写 background-image。不做 true=复用页头 top_img，不做 mask.footer、颜色值。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：页脚支持图片 URL、关闭和 mask.footer 遮罩；true 复用页头背景、纯色/CSS 背景尚未实现。删除“未做 mask.footer”的旧描述，保留实际值域缺口。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html"
+      ]
+    },
+    {
+      "id": "config:cover.index_enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 cover.index_enable（默认 true）。false 时首页 list/tile 以及共用 list 模板的分类/标签页不渲染封面。对齐上游 indexPostUI；不做 aside_enable / archives_enable。尚未双站对照验收。",
+      "afterFinding": "2026-10-14 主线对账：首页/侧栏/归档三种封面开关现已分别被共享列表、侧栏和归档模板消费，支持原生封面、候选及回退；原先互称其他范围未做的描述已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/aside.html",
+        "src/html/archives.html"
+      ]
+    },
+    {
+      "id": "config:cover.aside_enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 cover.aside_enable（默认 true）。只控制侧栏最近文章卡片缩略图：false 或无图时加 no-cover 且不输出 img。封面优先级与首页 list 一致（文章封面 > default_cover > loading.img.random_enable）。不做 archives_enable。尚未双站对照验收。",
+      "afterFinding": "2026-10-14 主线对账：首页/侧栏/归档三种封面开关现已分别被共享列表、侧栏和归档模板消费，支持原生封面、候选及回退；原先互称其他范围未做的描述已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/aside.html",
+        "src/html/archives.html"
+      ]
+    },
+    {
+      "id": "config:cover.archives_enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 cover.archives_enable（默认 true）。只控制归档页年-月时间轴封面：false 或无图时加 no-cover 且不输出 img。封面优先级与首页 list / 侧栏 recent 一致（文章封面 > default_cover > loading.img.random_enable）。不做 index_enable / aside_enable。尚未双站对照验收。",
+      "afterFinding": "2026-10-14 主线对账：首页/侧栏/归档三种封面开关现已分别被共享列表、侧栏和归档模板消费，支持原生封面、候选及回退；原先互称其他范围未做的描述已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/html/views/aside.html",
+        "src/html/archives.html"
+      ]
+    },
+    {
+      "id": "config:post_meta.post.date_format",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 post_meta.post.date_format（date/relative）到 post.post_meta.date_format，默认 date（yyyy-MM-dd）。relative 时 time[datetime] 仍为绝对时间，可见文本由客户端替换为相对时间。与列表 index.post_meta.date_format 独立。不做 wordcount。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：date/relative 模式、发布/修改日期及元信息开关已有实现；字数和阅读时长已由独立统计模块接入，不再写成未做 wordcount。任意站点日期格式串仍由 site-config:date_format 单列。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/js/core/site-statistics.ts"
+      ]
+    },
+    {
+      "id": "config:toc.scroll_percent",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 toc.scroll_percent（默认 true）到 toc.scroll_percent。开启后目录标题显示阅读进度百分比（对齐 btf.getScrollPercent，写入 .toc-percentage textContent）；关闭不渲染、不更新。不做 rightside_scroll_percent。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：目录进度已有实现，右侧按钮的 rightside_scroll_percent 也有独立实现；两者是不同显示位置，不能沿用另一项未开发的交叉描述。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts"
+      ]
+    },
+    {
+      "id": "config:post_copyright.enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 post_copyright.enable（默认 true）到 post.post_copyright.enable。仅显式 false 关闭。关闭不渲染版权块。不做逐页 page.copyright、footer.nav。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：全局版权开关和逐篇 copyright=inherit/true/false 优先级已接入；页脚导航独立存在，逐篇作者/文案等详细覆盖另列待映射。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:post_pagination",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 post_pagination（false / 1 / 2，默认 1）到 post.post_pagination。false 不渲染上下篇。值为 2 时对齐 pagination.pug 不调换 Hexo page.prev/next；否则对调。Halo cursor.previous=较早发布 ↔ Hexo page.next，cursor.next=较晚发布 ↔ Hexo page.prev。仅文章页在版权后、评论前插入；单页 page.html 不插入。标题与 permalink 用 th:text / th:href / th:title。不做 related_post、noticeOutdate、逐页覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：已接入上下篇 1/2/false 模式及 cursor 方向；相关文章加权排序和过期提醒现已有各自实现。没有据此增加逐篇上下篇模式覆盖。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/js/core/related-post.ts"
+      ]
+    },
+    {
+      "id": "config:noticeOutdate.enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 noticeOutdate.enable（默认 false）到 post.noticeOutdate.enable。关闭不渲染提醒。仅文章页；单页 page.html 不插入。不做 related_post、wordcount、逐页 page.noticeOutdate 覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：过期提醒已有全局开关、样式、阈值、位置、前后文案，以及逐篇 noticeOutdate=inherit/true/false；仅逐篇开关覆盖已实现，其余字段仍来自全局。相关文章与字数统计已另行接入，不再作为本项未开发备注。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:noticeOutdate.style",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 noticeOutdate.style（simple / flat，该 SHA _config.yml 默认 flat）到 post.noticeOutdate.style。simple 纯色条；flat 左侧色条加警告图标（运行时 class，非编译期）。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：过期提醒已有全局开关、样式、阈值、位置、前后文案，以及逐篇 noticeOutdate=inherit/true/false；仅逐篇开关覆盖已实现，其余字段仍来自全局。相关文章与字数统计已另行接入，不再作为本项未开发备注。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:noticeOutdate.limit_day",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 noticeOutdate.limit_day（默认 365）到 post.noticeOutdate.limit_day。天数对齐 btf.diffDate：Math.floor((now - 更新时间)/86400000)，更新时间取 status.lastModifyTime，无则 spec.publishTime；≥ limit_day 才显示。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：过期提醒已有全局开关、样式、阈值、位置、前后文案，以及逐篇 noticeOutdate=inherit/true/false；仅逐篇开关覆盖已实现，其余字段仍来自全局。相关文章与字数统计已另行接入，不再作为本项未开发备注。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:noticeOutdate.position",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 noticeOutdate.position（top / bottom，默认 top）到 post.noticeOutdate.position。top 插在正文前，bottom 插在正文后（对齐 outdate-notice.pug）。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：过期提醒已有全局开关、样式、阈值、位置、前后文案，以及逐篇 noticeOutdate=inherit/true/false；仅逐篇开关覆盖已实现，其余字段仍来自全局。相关文章与字数统计已另行接入，不再作为本项未开发备注。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:noticeOutdate.message_prev",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 noticeOutdate.message_prev（默认 It has been）到 post.noticeOutdate.message_prev。与天数、后缀按上游 JS 空格拼接，可见文本 th:text。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：过期提醒已有全局开关、样式、阈值、位置、前后文案，以及逐篇 noticeOutdate=inherit/true/false；仅逐篇开关覆盖已实现，其余字段仍来自全局。相关文章与字数统计已另行接入，不再作为本项未开发备注。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:noticeOutdate.message_next",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 noticeOutdate.message_next（默认英文过期说明）到 post.noticeOutdate.message_next。与前缀、天数按上游 JS 空格拼接，可见文本 th:text。仅文章页。不做逐页覆盖。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：过期提醒已有全局开关、样式、阈值、位置、前后文案，以及逐篇 noticeOutdate=inherit/true/false；仅逐篇开关覆盖已实现，其余字段仍来自全局。相关文章与字数统计已另行接入，不再作为本项未开发备注。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "annotation-setting.yaml"
+      ]
+    },
+    {
+      "id": "config:footer.nav",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 footer.nav（默认空）到 footer.nav。空列表不渲染。本刀为 title + url 扁平链接，不做嵌套列、width、html 子项（pug != html 不做）。可见文本 th:text / th:href。不做 footer_img。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：页脚已有扁平 title/url 导航、作者年份、主题版权/版本、图片与遮罩及自定义纯文本。嵌套列、width/html 子项和 custom_text HTML 尚未支持，不因页脚存在而关闭这些参数差异。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html"
+      ]
+    },
+    {
+      "id": "template:includes/footer",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已对齐 footer.pug 模板骨架：扁平 nav、.footer-separator、框架/主题链、.footer-other--nav、custom_text th:text。备案与 halo:footer 为 Halo 附加。不做嵌套列/html 子项、不做 custom_text HTML。footer.styl 配色与 flex 列仍 gap。已落地 footer config 不得升 verified。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：页脚已有扁平 title/url 导航、作者年份、主题版权/版本、图片与遮罩及自定义纯文本。嵌套列、width/html 子项和 custom_text HTML 尚未支持，不因页脚存在而关闭这些参数差异。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html"
+      ]
+    },
+    {
+      "id": "config:footer.owner.enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 footer.owner.enable（默认 true）到 footer.owner.enable。关闭不渲染 © 所有权行。作者用站点名称 site.title。不做 footer.nav、footer_img、reward。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：页脚作者与版权/版本开关均有实际模板消费；导航、图片和打赏也已有各自实现。原先“本刀不做”的其他功能清单已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "config:footer.copyright.enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 footer.copyright.enable（默认 true）到 footer.copyright.enable。关闭不渲染框架/主题行。Halo 替代 Hexo，主题名 Halo Butterfly Next。不做 footer.nav。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：页脚作者与版权/版本开关均有实际模板消费；导航、图片和打赏也已有各自实现。原先“本刀不做”的其他功能清单已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html",
+        "src/html/views/components.html"
+      ]
+    },
+    {
+      "id": "config:footer.custom_text",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 footer.custom_text（默认空）到 footer.custom_text。有内容才渲染 .footer_custom_text。可见文本 th:text，不做 HTML（上游 pug !=）。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：footer.custom_text 当前通过 th:text 输出纯文本；上游 HTML 输入能力尚未等效接入或裁定。保留实现状态和差异，不能把支持纯文本当成支持任意 HTML。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html"
+      ]
+    },
+    {
+      "id": "config:aside.hide",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 aside.hide（默认 false）到 aside.hide。仅显式 true 给 html 加 hide-aside；桌面 min-width 900px 隐藏 .aside、主栏约 80%。须 aside.enable。禁止复用作者卡片 aside.button。不做 aside.mobile 与右下角隐藏开关。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：侧栏默认隐藏、手机隐藏、作者卡按钮和工具栏隐藏切换已有各自配置消费；完整工具栏、排序与快捷入口已接入，原先互称其他开关未开发的备注已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/aside.html",
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts"
+      ]
+    },
+    {
+      "id": "config:aside.mobile",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 aside.mobile（默认 true）到 aside.mobile。仅显式 false 给 html 加 aside-mobile-off；max-width 768px 隐藏 .aside .card:not(.aside-toc)，对齐 #card-toc。须 aside.enable。禁止复用作者卡片 aside.button。不做隐藏开关 / aside.hide。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：侧栏默认隐藏、手机隐藏、作者卡按钮和工具栏隐藏切换已有各自配置消费；完整工具栏、排序与快捷入口已接入，原先互称其他开关未开发的备注已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/aside.html",
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts"
+      ]
+    },
+    {
+      "id": "config:aside.button",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射上游 aside.button（默认 true，隐藏侧栏开关）到 aside.hide_button。仅显式 false 不渲染 #hide-aside-btn。须 aside.enable。禁止复用作者卡片 aside.button（name/link）。不改 aside.hide / aside.mobile。不做完整 rightside。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：侧栏默认隐藏、手机隐藏、作者卡按钮和工具栏隐藏切换已有各自配置消费；完整工具栏、排序与快捷入口已接入，原先互称其他开关未开发的备注已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/aside.html",
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts"
+      ]
+    },
+    {
+      "id": "interaction:hide-aside",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 hide-aside 交互：#hide-aside-btn 切换 html.hide-aside，localStorage aside-status TTL 2 天（对齐 main.js / inject_head_js）。须 aside.enable 与 aside.hide_button。禁止复用作者卡片 aside.button。不改 aside.hide / aside.mobile 初始语义。不做完整 rightside。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：侧栏默认隐藏、手机隐藏、作者卡按钮和工具栏隐藏切换已有各自配置消费；完整工具栏、排序与快捷入口已接入，原先互称其他开关未开发的备注已过期。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/layout.html",
+        "src/html/views/aside.html",
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts"
+      ]
+    },
+    {
+      "id": "config:aside.card_recent_post.sort",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 aside.card_recent_post.sort（默认 date）。date→spec.publishTime，updated→status.lastModifyTime；通过 Halo 2.26 postFinder.list({sort})。不做 sort_order。尚未双站对照验收。",
+      "afterFinding": "2026-10-14 主线对账：侧栏最近文章已根据 sort 选择 publishTime/lastModifyTime 查询；卡片 sort_order 也通过 data 属性与 aside-options 实现，不再列作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/aside.html",
+        "src/js/core/aside-options.ts"
+      ]
+    },
+    {
+      "id": "config:readmode",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射为 Halo rightside.readmode，默认 true，仅显式 false 不渲染 #readmode。仅文章页。点击给 body 加 .read-mode，退出按钮 .exit-readmode（不走 innerHTML）。不复用作者卡片 aside.button。不做 item_order / translate。readmode.styl 其余仍 gap。不把 rightside/footer 模板升 verified。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts",
+        "src/js/core/darkmode.ts",
+        "src/js/core/translate.ts",
+        "src/js/core/integration-chat.ts"
+      ]
+    },
+    {
+      "id": "config:darkmode.enable",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射为 Halo darkmode.enable，默认 true；仅显式 false 时不提供右下角 #darkmode（须同时 darkmode.button）。不复用作者卡片 aside.button。不拆 style.mode。不做 autoChangeMode / start / end / 完整 darkmode.styl / item_order。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts",
+        "src/js/core/darkmode.ts",
+        "src/js/core/translate.ts",
+        "src/js/core/integration-chat.ts"
+      ]
+    },
+    {
+      "id": "template:includes/rightside",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已对齐 rightside.pug 骨架：#rightside / #rightside-config-hide / #rightside-config-show / #rightside-config / #go-up。hideAside 仍用 aside.hide_button，挂在 hide 组。保留 .side-btn 滚动 .active。不做 readmode/translate/chat/comment、item_order、scroll_percent。rightside.styl 配色与 bottom 变量仍 gap。不把 footer 模板或 config 升 verified。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/components.html",
+        "src/js/core/rightside.ts",
+        "src/js/core/darkmode.ts",
+        "src/js/core/translate.ts",
+        "src/js/core/integration-chat.ts"
+      ]
+    },
+    {
+      "id": "config:mask.footer",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "已映射 mask.footer（默认 true）到 mask.footer。仅显式 false 关闭。仅当 footer_img 非空时给 .footer 加 footer--mask :before 遮罩。不做 mask.header。尚未双站对照验收，禁止 verified。",
+      "afterFinding": "2026-10-14 主线对账：页脚与页头遮罩开关现均已接入各自模板和样式；不再写成未做 mask.header。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/html/views/footer.html",
+        "src/html/views/layout.html"
+      ]
+    },
+    {
+      "id": "resource:egjs_infinitegrid",
+      "beforeStatus": "implemented-unverified",
+      "afterStatus": "implemented-unverified",
+      "beforeFinding": "按固定上游 plugins.yml 使用 InfiniteGrid 4.13.0，随 ZIP 本地分发，仅首页 6/7（含旧 tile）加载。完整许可证、NOTICE 及来源哈希随包检查；CDN 覆盖配置未实现，完整资源合同仍待验收。 限定双站、旧包升级与后台字段保留证据见 docs/validation/2026-10-11/home-layouts.json；原始失败及各轮身份保留，0 条 verified。",
+      "afterFinding": "2026-10-14 主线对账：InfiniteGrid 4.13.0 已由 masonry/正文图库承载，独立 CDN.option.egjs_infinitegrid 覆盖按 DEC-03 裁定不适用；统一资源来源及承载包覆盖已支持。库本身的布局、失败和图库参数验收仍保留。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。",
+      "inspectedFiles": [
+        "src/js/page/masonry.ts",
+        "src/js/core/article-gallery.ts",
+        "docs/parity/DEC-03-RESOURCES-DECISION.md"
+      ]
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "annotation-setting.yaml",
+      "sha256": "f10ae2683e6360d24eb4a302e320f32ac882bf6419f567ceb82e15fc635438d1"
+    },
+    {
+      "path": "docs/BODY-CHARTS-SCORE.md",
+      "sha256": "0de5748bf81f95f1550af0066b864d049515cc9b66e75201ee036ab8df0fa097"
+    },
+    {
+      "path": "docs/CONTENT-EXTENSIONS.md",
+      "sha256": "9df319f7ca940eacc189105d4a36a3bacb98a21fc8f56ca0aca009afbd10e22e"
+    },
+    {
+      "path": "docs/NAVIGATION-LOADING.md",
+      "sha256": "2f8b44b97e3739b34796dfece6321aec81ad5e0c96c65035a92e1b783be4491b"
+    },
+    {
+      "path": "docs/parity/DEC-03-RESOURCES-DECISION.md",
+      "sha256": "67c440c95e7df5449c3411c4677af7d38ee88e4df80d4297be0ebdd6eee11517"
+    },
+    {
+      "path": "docs/parity/DEC-03-RESOURCES-DRAFT.md",
+      "sha256": "55ca864f2ba7ed10b1a30e5887883b46f17a6773fbadf3d12d228b31dd784f07"
+    },
+    {
+      "path": "docs/validation/2026-10-14/dec03-pace.md",
+      "sha256": "e3e3f3955565da377d4f141322a27d6c2748265c94cb759eaab022192c2989e4"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "32dc858079cc6b9d0067169f28fb635e6b3ee55a900d3ee004f63dbcd321dc24"
+    },
+    {
+      "path": "scripts/resource-templates.mjs",
+      "sha256": "df23c8a5f6720585a48064c1e1c2a718e8f6640376c9d92c7bd7051f993fcfd5"
+    },
+    {
+      "path": "settings.yaml",
+      "sha256": "7c51d6ee8aa1a95f17017899dddfa5655498b9ed77aff76aeeb2de33ebe738d9"
+    },
+    {
+      "path": "src/html/archives.html",
+      "sha256": "2a803139311534b2aec91b552b0f5782fa50906820817921ecf8cfe0f073dd5e"
+    },
+    {
+      "path": "src/html/categories.html",
+      "sha256": "03fc5264cfdab0d789f3cab63f19ddace70aeea38e005b4f837525aa9d29387a"
+    },
+    {
+      "path": "src/html/category.html",
+      "sha256": "02863720139ca3dc527ce3bf89ae99653df829876a655474083695f1937c31d7"
+    },
+    {
+      "path": "src/html/layout.html",
+      "sha256": "8d3392f5b565347ac44c8bc70e0feec921e54fb6dbb49719450a7e235d23ef75"
+    },
+    {
+      "path": "src/html/links.html",
+      "sha256": "e58e5dc13846a207beeee94e9dee3bf820750ba35f86133c6df27697e563142d"
+    },
+    {
+      "path": "src/html/moments.html",
+      "sha256": "f7a2c08d3601239163aac10a1b4649bf26c10bc7a8f48bb8732e27aaec928006"
+    },
+    {
+      "path": "src/html/page.html",
+      "sha256": "677eb7779fdaa011c5b69340c3d8fc224bece752b2d05e8b45da9167cdfd0a83"
+    },
+    {
+      "path": "src/html/post.html",
+      "sha256": "ea9be64c9bd9d2c25b1b696805263e1de117da22cd816e9bc33aeb94e30ef3b1"
+    },
+    {
+      "path": "src/html/tag.html",
+      "sha256": "d947622127637aea7885d00e79bf4adead796ad1af101a45c66d503abe28f8eb"
+    },
+    {
+      "path": "src/html/tags.html",
+      "sha256": "e38f80a2e2f795db1b3d148d8dc17630e8c864cc6e0ebbc78eb89ac50caac80c"
+    },
+    {
+      "path": "src/html/views/aside.html",
+      "sha256": "8cd9b672df41f769df5e27ae908f4e7c3fe8d8d5ab487c2c881e3fcdf5c72834"
+    },
+    {
+      "path": "src/html/views/comment-lazy.html",
+      "sha256": "1033fbf87b81e058c48a9e58e34bb280f82ef408c2c69223b96d19f292df68e4"
+    },
+    {
+      "path": "src/html/views/components.html",
+      "sha256": "0b3128d6bca6346c8c9b9c39d5fe18d0cdafb491cfbc68afc0f33bdbfb4e64fa"
+    },
+    {
+      "path": "src/html/views/config.html",
+      "sha256": "d195505668aa58cb4e124ae66bff6e94ed16218cfa28437d111d703e37816085"
+    },
+    {
+      "path": "src/html/views/footer.html",
+      "sha256": "1b8559ab1a4dcc486c5350120db2431812c5ddfb235fddff258c0c2ea491fb8b"
+    },
+    {
+      "path": "src/html/views/header.html",
+      "sha256": "b4f0ac33887c3826e8c0e0283afd3c88fde30bb58cd83e03dae8aa9077fad586"
+    },
+    {
+      "path": "src/html/views/inject.html",
+      "sha256": "3e2c774bfae038fed870123ab6a441dd3d206c750f91dee8f5dbc4a9ccde439a"
+    },
+    {
+      "path": "src/html/views/integration-ads.html",
+      "sha256": "cff53bfcf3bd8a165f02ceac8be2a5c9460084408a861daf651e3105a7adfa8a"
+    },
+    {
+      "path": "src/html/views/integration-stats.html",
+      "sha256": "43867486a2473468b2143b161704f5c476991e985f618ebe0828e18019996f0e"
+    },
+    {
+      "path": "src/html/views/integrations.html",
+      "sha256": "e1b4bb69131feca429a251c6e462d4471d3c1e6a28ca0198c49fa4bfc1b3fa8b"
+    },
+    {
+      "path": "src/html/views/layout.html",
+      "sha256": "ad93d0272a0e69ee0c8677f7c603d96d971b8ceba94168dc48f5fe4c4a4b6ab1"
+    },
+    {
+      "path": "src/html/views/newest-comments.html",
+      "sha256": "ac4f71abb0b189b89169b77ae5edf05b8db3d30807c43120cb49799d75ee601d"
+    },
+    {
+      "path": "src/html/views/plugin-pagination.html",
+      "sha256": "322be34bb6dfaadd6ef5c8dd06cf55240c80923a7e0a93559c608a3fc42d5967"
+    },
+    {
+      "path": "src/html/views/seo-json.html",
+      "sha256": "47cdbf3c791a31fcffc062e54f6332701a3a8afbd42ac8e153366bba6e8241c2"
+    },
+    {
+      "path": "src/html/views/seo.html",
+      "sha256": "0e4557e9d3edaa1d6554e42e642f3429c42028b2a2f5ae866ba99fffecf3cd0c"
+    },
+    {
+      "path": "src/js/above-background.ts",
+      "sha256": "5ea673d9ff840eb37f42ee12b9531de5d34ad23521edd4b77d3b49fc47314b4d"
+    },
+    {
+      "path": "src/js/bootstrap.ts",
+      "sha256": "0a8bc35b59d1b795c06984ad4fae6c9d4f20f1a661b12b2b207ee1c863ec9128"
+    },
+    {
+      "path": "src/js/core/App.ts",
+      "sha256": "0e034bc3eb617bad4165029d32f581f0723b8f7a814483d3ba32793f029e91f5"
+    },
+    {
+      "path": "src/js/core/_util.ts",
+      "sha256": "888a78b3a81762e05c098113024896b6ee0f0206dc7173e09c559f22d6943e66"
+    },
+    {
+      "path": "src/js/core/article-gallery.ts",
+      "sha256": "506366b2f72abcfd19ed04973d61ff441b9a722692f143952a43d5b53192a91c"
+    },
+    {
+      "path": "src/js/core/aside-options.ts",
+      "sha256": "a55d0ac627f839a3db49ec5dd12b063c71688780109b63687a01751e3ea039bd"
+    },
+    {
+      "path": "src/js/core/body-renderers.ts",
+      "sha256": "3936591f9544f782d100115b70f137ce6ac347a8b954afb3df38bb774b4e9f4d"
+    },
+    {
+      "path": "src/js/core/code-shrink.ts",
+      "sha256": "8db10051e60a293bbedd4ba049d22274f9cffbfe7c2505fa984a251ad802d0c4"
+    },
+    {
+      "path": "src/js/core/comment-jump.ts",
+      "sha256": "6f73f032adce773c9e06cded204cd1ebff89bcf40bd835c34904a894715534ff"
+    },
+    {
+      "path": "src/js/core/comment-lazy.ts",
+      "sha256": "cd5a270ab14366fb2badc75da2810a7a8742a439543d299fec6987f59d738684"
+    },
+    {
+      "path": "src/js/core/common.ts",
+      "sha256": "1be4a33d33e4d8aa4f8e1b9b096fef8a36dc0e0d409d4590165c7e262919e984"
+    },
+    {
+      "path": "src/js/core/content-extensions.ts",
+      "sha256": "f53f72a4af32f6776420321b1a4c0173883f9627d09ba3c4fb6fe72218b06873"
+    },
+    {
+      "path": "src/js/core/darkmode.ts",
+      "sha256": "29393006dd50c6f7ca359e3705709d733eaf3823a21a2cc6ab0e117559528aec"
+    },
+    {
+      "path": "src/js/core/external-resource.ts",
+      "sha256": "ddd35e09350a339d6486ac422d4b322082f195aa18d6702ee92c5bf4d80e4bdc"
+    },
+    {
+      "path": "src/js/core/integration-chat.ts",
+      "sha256": "80ca44aebdfd84a769ce83a12f06d125d273a7113ee7cd927c078b49f6ae04bf"
+    },
+    {
+      "path": "src/js/core/integrations.ts",
+      "sha256": "f9f16048afe7a185b8378c590eab443ae868a83768774292f126c63a2f1dd2fb"
+    },
+    {
+      "path": "src/js/core/navigation-loading.ts",
+      "sha256": "75beb17ae9a9d8bb58ab40e68665ee10e5be3d588dc74139328fbb2e733c537a"
+    },
+    {
+      "path": "src/js/core/newest-comments.ts",
+      "sha256": "bc313834bf6e0eb2b628857aa6e64d07e7c9a4de2b8c5fa2389183cb059028a3"
+    },
+    {
+      "path": "src/js/core/pace.ts",
+      "sha256": "9dd6c7e661cac3862e11021fc1613d20a943e48a378f886ffb11e7ac4635b076"
+    },
+    {
+      "path": "src/js/core/page-lifecycle.ts",
+      "sha256": "6c4552e48ce6fb87b3d2f2a5f1e499b07ba6e240c2e1934bbaf56c68ae8e36f0"
+    },
+    {
+      "path": "src/js/core/related-post.ts",
+      "sha256": "dc8a0939f5fae1f2fed1bea30bfa2f3601ce88abc5ff616e367b4296a568b84c"
+    },
+    {
+      "path": "src/js/core/rightside.ts",
+      "sha256": "969da970343f947cf3ada3dfc5cc6046d85b47656f9fa7bd79576d6166d953f9"
+    },
+    {
+      "path": "src/js/core/site-statistics.ts",
+      "sha256": "3a9b7ae1c23b3502eb8fd30544df9b8270706307ddfdca741e3fa8d6eb868506"
+    },
+    {
+      "path": "src/js/core/tag-cloud-colors.ts",
+      "sha256": "f0b4c60f2afea0d26c6e8b469b9fa58c0396aad65d6fc4c0e5c071f4f35e3284"
+    },
+    {
+      "path": "src/js/core/translate-maps.ts",
+      "sha256": "f7c8e8087eed7c450c6cea3c27c59de4bcaacb74fa461ad364baa89ed2cc187a"
+    },
+    {
+      "path": "src/js/core/translate.ts",
+      "sha256": "941977a8817b3be0c2106acf999a04457b37ad54603711356e611448b73147ad"
+    },
+    {
+      "path": "src/js/modules/CodeBlock.ts",
+      "sha256": "7939473a577dd14b9d61a7874c2fad227a8c96d6e4522fdb6b636c336e299d5d"
+    },
+    {
+      "path": "src/js/modules/Pagination.ts",
+      "sha256": "1d479eb77d1ec8eda6a1f8e2744eb650a60e56d11f0e3203928d1391c4b44fcc"
+    },
+    {
+      "path": "src/js/modules/Render.ts",
+      "sha256": "8a899b2a0700c0e7ca47ff676eccb03b50dd009f6bb5a5b51f9537abd378bd92"
+    },
+    {
+      "path": "src/js/page/archives.ts",
+      "sha256": "010a340a56c3eac3e3d9a521755046900a2c2bc0c5718654afc0c8e6c14378c7"
+    },
+    {
+      "path": "src/js/page/effects.ts",
+      "sha256": "1a8263c61cd23f8e01c48c77930f39d87832d6919855a31f62120adbe61e81cd"
+    },
+    {
+      "path": "src/js/page/masonry.ts",
+      "sha256": "fafd72ef934d2098d6354beae2a622c0a92f8e36dd686c7c447784277fed49e2"
+    },
+    {
+      "path": "src/js/page/single.ts",
+      "sha256": "ed5a69e005020d5786f1fd7374c5efe551945589965fbcbcbc86ff2661f91312"
+    },
+    {
+      "path": "src/js/page/tags.ts",
+      "sha256": "8fb3663b4725f34fe1c184dc47acd10cc21a28d0c54301174b6f918c94e41544"
+    },
+    {
+      "path": "src/scss/core/aside.scss",
+      "sha256": "ea41b4ffc4bb21526a10c030179fa441d986a8e7b936b9e5ccbcf4c7efb9b006"
+    },
+    {
+      "path": "src/scss/core/chat.scss",
+      "sha256": "ad89fa15c51ca5b3ca9ad2504c27c69c25cae0c33d482f5ba4ec3e38b7231bf3"
+    },
+    {
+      "path": "src/scss/core/comments.scss",
+      "sha256": "c49eea17848dcc785552ff14be9c8145738422e7529e340b308a68b55bb59c24"
+    },
+    {
+      "path": "src/scss/core/common.scss",
+      "sha256": "90500044b1284d8f05d2f2bfc561e1ee54716edfa08682672682a9a6a626e977"
+    },
+    {
+      "path": "src/scss/core/css-index.scss",
+      "sha256": "942f34f47ff69e0063e3a21d829159101b3a5c9becc7b8ce613eacc492428b4f"
+    },
+    {
+      "path": "src/scss/core/css-var.scss",
+      "sha256": "d6b0c945fb6e2b3ece930bd17128a45a883f9328bd307fe0b7422ad49f160773"
+    },
+    {
+      "path": "src/scss/core/darkmode.scss",
+      "sha256": "7587f08c2764cec721b429a17461a312fe8d900720b090a762fd4b653d7593d0"
+    },
+    {
+      "path": "src/scss/core/global-function.scss",
+      "sha256": "ea3b39d3f6fa1ba356efd05272ab455358fbf2e1b0a9cc16306d89a5b9438126"
+    },
+    {
+      "path": "src/scss/core/global-index.scss",
+      "sha256": "edaae779dd1802353ef1c3343f7a055c836f7c90c01f93612c18a01eb8d16e6f"
+    },
+    {
+      "path": "src/scss/core/highlight-diff.scss",
+      "sha256": "0acf7aa36402ebb9a59626425cf7af05c158e0a9307ab3311e103e3b2b36b3fd"
+    },
+    {
+      "path": "src/scss/core/highlight-index.scss",
+      "sha256": "852bfec72b2c058e46c16caaaf74ff89790bd126dd7d73790418d93bcdfa2026"
+    },
+    {
+      "path": "src/scss/core/highlight-theme.scss",
+      "sha256": "93072066df012ab04a2ad14dd99053ccd93345629d64b3a1540ab0fbb0a4ed71"
+    },
+    {
+      "path": "src/scss/core/highlight.scss",
+      "sha256": "4b038635360b7cedb92b301d129de5d71fb294f8304ba2866e0679ccaca22226"
+    },
+    {
+      "path": "src/scss/core/index.scss",
+      "sha256": "7b4ba99ad2c6762a30c7fb5587abce57e33ca404548ca664e88d5233c7e9b687"
+    },
+    {
+      "path": "src/scss/core/loading.scss",
+      "sha256": "001cf0c03d1e302dd8f62c37f3a63e2507454b1432d0216e1cc3b70b687cc7c2"
+    },
+    {
+      "path": "src/scss/core/main.scss",
+      "sha256": "d30f2c5b85c456771e9ac7a87646683d8885835348370e3a154e1bea46cdf460"
+    },
+    {
+      "path": "src/scss/core/prismjs-diff.scss",
+      "sha256": "d081ad7df70d84d99d1e07d0f68e4726b9e7759dd8c700adcd9c6425be2155ef"
+    },
+    {
+      "path": "src/scss/core/prismjs-index.scss",
+      "sha256": "1faa90d35300ae9189d9eb96696bf15c2685d5836648dc70317d4394fd1407e3"
+    },
+    {
+      "path": "src/scss/core/prismjs-line-number.scss",
+      "sha256": "5528dc4746379c6e571c594059d4d4931f426f5d473123a19ff5ff5dfc5ff4b5"
+    },
+    {
+      "path": "src/scss/core/readmode.scss",
+      "sha256": "82d7b72f5382fb8ecc51ed7edde97d4544bf8ebeabe385ac50589dbae5d109e3"
+    },
+    {
+      "path": "src/scss/core/rightside.scss",
+      "sha256": "f8e55008dffe4444c28f5c7aca45fad5af6e81f8600eb7bbbb1068f6706d92ac"
+    },
+    {
+      "path": "src/scss/core/sidebar.scss",
+      "sha256": "ec775377f9e097a38add7c823086ecf2dd477e33b150bd799475a923b9e7f971"
+    },
+    {
+      "path": "src/scss/core/tags-button.scss",
+      "sha256": "1b32b7fd299ffed8db680cff62e8fc5279b0b4077f55b08912a1f33e4c31b98e"
+    },
+    {
+      "path": "src/scss/core/tags-hexo.scss",
+      "sha256": "4b3c7160dfa6bb0cd21fc402600fb4ec9df369b33a4bb6c330327f7fa834cbe1"
+    },
+    {
+      "path": "src/scss/core/tags-hide.scss",
+      "sha256": "0a9fd6e1f216dbacd079f88d662214bf54e94455cbb4d5ebeaa11e215618d4b2"
+    },
+    {
+      "path": "src/scss/core/tags-inline-img.scss",
+      "sha256": "dd32a0e9ea9b402a9a594a09de4b1182546e1925fb6de68b7591a93c690e8e7d"
+    },
+    {
+      "path": "src/scss/core/tags-label.scss",
+      "sha256": "544b3c00527c0644d43375ef9e9ceb35566288761164a575c34029f9deb63be5"
+    },
+    {
+      "path": "src/scss/core/tags-note.scss",
+      "sha256": "a57f5a5618dd1ee0db1ae8accd8c199d5f8f6a2661294eca3007c7c5a2a02d12"
+    },
+    {
+      "path": "src/scss/core/tags-series.scss",
+      "sha256": "471f66bed0b018956502f708f32b5d978bb32ce3f2837159ee9907265c1e04ec"
+    },
+    {
+      "path": "src/scss/core/tags-tabs.scss",
+      "sha256": "0698737dacde5ed8ff6f9d17d69382525b8b766d561808f837ed994f42e764f9"
+    },
+    {
+      "path": "src/scss/core/tags-timeline.scss",
+      "sha256": "4adbaaecdc15b8191b9664a7d2a1a3018860b02db910334c6f6c08a26356b929"
+    },
+    {
+      "path": "src/scss/core/vendor-normalize.scss",
+      "sha256": "d3b8f02b41c502b022385723e95d666d42f99a614bbdb6278a88bf3fac09d3de"
+    },
+    {
+      "path": "src/scss/modules/content-extensions.scss",
+      "sha256": "b52050ccd04f0a983f2fc43a1ea640b49856841a522992e1b310cade5ec7b012"
+    }
+  ],
+  "limitations": [
+    "No new browser run, independent review, CI or verified promotion.",
+    "Original acceptance cases, decisions, blocked items and verification failures preserved.",
+    "A source consumer proves related implementation, not every upstream option or platform equivalence."
+  ],
+  "upstreamInspections": [
+    {
+      "file": "scripts/helpers/page.js",
+      "sha256": "28c2d0c708800db68061ccf49553141d35806554c4c3d50a364785468ede94b5",
+      "matchesPinnedInventory": true,
+      "url": "https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/scripts/helpers/page.js"
+    }
+  ]
+}
