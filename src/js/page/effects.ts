@@ -1,7 +1,8 @@
 /** Small local effects implementation, loaded only for explicitly enabled options. */
 import {enabled, cssValue} from '../core/appearance.ts';
 type Options = Record<string, unknown>;
-const config = window.MainApp.conf.effects || {};
+declare global { interface Window { ThemeEffects?: (config: Record<string, unknown>) => () => void } }
+window.ThemeEffects = function initializeEffects(config) {
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const mobile = matchMedia('(max-width: 768px)');
 const active = (name: string) => {
@@ -12,6 +13,7 @@ const bounded = (value: unknown, fallback: number, min: number, max: number) => 
   const n = Number(value); return value === '' || value == null || !Number.isFinite(n) ? fallback : Math.min(max, Math.max(min,n));
 };
 const instances: (() => void)[] = [];
+const timers = new Set<ReturnType<typeof setTimeout>>();
 const listen = (type: string, fn: EventListener) => { document.addEventListener(type,fn); instances.push(()=>document.removeEventListener(type,fn)); };
 let frame = 0;
 function start() {
@@ -91,7 +93,7 @@ function start() {
       label.style.left=event.clientX+'px';label.style.top=event.clientY+'px';label.style.zIndex='100';label.style.color=`hsl(${Math.random()*360} 80% 50%)`;
       label.style.fontSize=cssValue('font-size',text?.fontSize)||'20px';
       document.body.append(label);labels.add(label);
-      const remove=()=>{labels.delete(label);label.remove();};label.addEventListener('animationend',remove,{once:true});setTimeout(remove,1500);
+      const remove=()=>{labels.delete(label);label.remove();clearTimeout(timeout);timers.delete(timeout);};label.addEventListener('animationend',remove,{once:true});const timeout=setTimeout(remove,1500);timers.add(timeout);
     }
   }) as EventListener);
   if(power) listen('input',((event: Event)=>{
@@ -101,9 +103,11 @@ function start() {
     if(enabled(power.shake)) target.animate([{translate:'0'},{translate:'2px 0'},{translate:'-2px 0'},{translate:'0'}],{duration:120});
   }) as EventListener);
 }
-function stop() { cancelAnimationFrame(frame);frame=0;for(const dispose of instances.splice(0))dispose(); }
-if (!document.documentElement.hasAttribute('data-appearance-effects-bound')) {
-  document.documentElement.setAttribute('data-appearance-effects-bound','true');
-  reduced.addEventListener('change',start);mobile.addEventListener('change',start);
-  window.addEventListener('pagehide',stop);window.addEventListener('pageshow',start);start();
-}
+function stop() { cancelAnimationFrame(frame);frame=0;for(const timer of timers)clearTimeout(timer);timers.clear();for(const dispose of instances.splice(0))dispose(); }
+reduced.addEventListener('change',start);mobile.addEventListener('change',start);
+window.addEventListener('pagehide',stop);window.addEventListener('pageshow',start);start();
+return () => {
+  stop(); reduced.removeEventListener('change',start);mobile.removeEventListener('change',start);
+  window.removeEventListener('pagehide',stop);window.removeEventListener('pageshow',start);
+};
+};

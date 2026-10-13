@@ -1,5 +1,6 @@
 import { preconnectResource } from './resource-hints.ts';
 import { t } from './i18n';
+import { pageScope } from './page-lifecycle.ts';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
 interface ShareWindow extends Window { socialShare?: (element: HTMLElement, options?: unknown) => void; a2a_config?: Record<string, unknown> }
 const LABELS: Record<string, string> = {facebook: 'Facebook', x: 'X', twitter: 'Twitter', get wechat() { return t('ui.wechat'); }, get weibo() { return t('ui.weibo'); }, qq: 'QQ', get qzone() { return t('ui.qzone'); }, linkedin: 'LinkedIn', get sina_weibo() { return t('ui.weibo'); }, facebook_messenger: 'Messenger', get email() { return t('ui.email'); }, get copy_link() { return t('ui.copyLink'); }};
@@ -40,7 +41,7 @@ export function initializeShare(root = document) {
       catch (error) { if ((error as Error).name !== 'AbortError' && status) status.textContent = t('ui.shareFallback'); }
     });
   }
-  const win = window as ShareWindow;
+  const win = window as ShareWindow, scope = pageScope();
   if (region.dataset.postShare === 'sharejs') {
     const sites = parseShareItems(region.dataset.items ?? '', ['facebook', 'x', 'twitter', 'wechat', 'weibo', 'qq', 'qzone', 'linkedin']);
     if (!sites.length) return;
@@ -51,11 +52,11 @@ export function initializeShare(root = document) {
     const style = 'plugins/sharejs/css/share.min.css', script = 'plugins/sharejs/js/social-share.min.js';
     const localStyle = MainApp.conf.assets_link + style, localScript = MainApp.conf.assets_link + script;
     const styles = loadManagedResource(resolveResource('sharejs_css', localStyle, MainApp.resources, MainApp.version, style), localStyle, {document: root, kind: 'style'});
-    const scripts = loadManagedResource(resolveResource('sharejs', localScript, MainApp.resources, MainApp.version, script), localScript, {document: root, valid: () => typeof win.socialShare === 'function'});
+    const scripts = typeof win.socialShare === 'function' ? Promise.resolve(true) : loadManagedResource(resolveResource('sharejs', localScript, MainApp.resources, MainApp.version, script), localScript, {document: root, attributes: {'data-theme-script':'sharejs', 'data-resource-key':'sharejs', 'data-resource-file':script}, valid: () => typeof win.socialShare === 'function'});
     void Promise.all([styles, scripts]).then(([styled, loaded]) => {
       if (!styled || !loaded) throw new Error('Share resources unavailable');
-      if (!region.isConnected) return;
-      win.socialShare?.(host, {sites, mobileSites: sites});
+      if (!scope.active || !region.isConnected) return;
+      win.socialShare?.(host, {sites, mobileSites: sites, url, title: region.dataset.title ?? root.title, image: host.dataset.image, description: root.querySelector<HTMLMetaElement>('meta[name=description]')?.content || '', source: root.title, origin: location.origin});
       host.querySelectorAll<HTMLAnchorElement>('a').forEach(link => {
         const name = sites.find(site => link.classList.contains(`icon-${site}`));
         link.setAttribute('aria-label', t('ui.shareTo', LABELS[name ?? ''] ?? name ?? t('ui.platform')));

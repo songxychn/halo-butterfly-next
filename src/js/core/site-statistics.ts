@@ -1,4 +1,5 @@
 import { t } from './i18n';
+import { initializeBusuanzi } from './busuanzi.ts';
 import { readingMetrics } from './post-meta.ts';
 import { onPageCleanup } from './page-lifecycle.ts';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
@@ -14,6 +15,8 @@ export function initializeVisitCounters(root = document) {
   if (!root.querySelector('#busuanzi_value_page_pv, #busuanzi_value_site_pv, #busuanzi_value_site_uv') || root.querySelector('script[data-visit-counter]')) return;
   const official = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
   const source = resolveResource('busuanzi', official, window.MainApp?.resources, window.MainApp?.version);
+  if (source === official) { initializeBusuanzi(root); return; }
+  // A configured replacement script has no guaranteed page lifecycle protocol.
   void loadManagedResource(source, official, {document: root, attributes: {'data-visit-counter': 'busuanzi'}});
 }
 

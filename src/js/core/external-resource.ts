@@ -39,6 +39,11 @@ export function resolveResource(key: string, local: string, config?: ResourceCon
 
 /** Only exact configured theme files are trusted during partial navigation. */
 export function isThemeScriptSource(source: string, file: string, key: string, localRoot: string, config?: ResourceConfig, version = '', base = globalThis.location?.href || 'https://example.invalid/') {
+  if (key === 'effects' && file === 'js/effects.min.js' || key === 'sharejs' && file === 'plugins/sharejs/js/social-share.min.js') {
+    const local = localRoot + file;
+    const selected = resolveResource(key, local, config, version, file);
+    try { return [local, selected].some(value => new URL(value, base).href === new URL(source, base).href); } catch { return false; }
+  }
   if (!['main', 'masonry', 'loading', 'charts'].includes(key) ||
       !/^(?:js\/[a-z0-9_-]+\.min\.js|plugins\/loading\/[a-z0-9_-]+\.min\.js)$/.test(file)) return false;
   if (key === 'charts' && file !== 'js/charts.min.js') return false;
