@@ -32,7 +32,7 @@
 
 官方 CommentWidget 3.3.2 使用新的组件实例与目标内容身份；非懒加载配置立即挂载，懒加载继续按可见性触发。旧 body 替换时组件、其 shadow DOM 和主题挂载产生的 toast host 一并断开，插件的 disconnectedCallback 清理编辑器和全局监听。尚未提交的评论触发 beforeunload veto 时交给浏览器完整导航及原生离开提醒，避免绕过草稿保护；等待 HTML/CSS 期间开始编辑同样重新检查。
 
-文章图表、ABC 乐谱、图库及脚本为空的插件公共布局已参与页面生命周期；正文渲染配置在切页时重新执行。未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面仍使用完整导航。分析/聊天/广告 SDK、AddToAny、Busuanzi、Share.js 和尚无重新初始化协议的外观特效未在本次适配，启用后可能使页面或全站回退。不会因脚本来自某个受信任 CDN 就放行整站。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 另行跟踪。
+文章图表、ABC 乐谱、图库及脚本为空的插件公共布局已参与页面生命周期；正文渲染配置在切页时重新执行。未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面仍使用完整导航。Share.js、官方默认 Busuanzi 与主题本地特效已按页面清理和重新初始化；GA4 仅在显式手动统计模式满足后台前置条件时支持。其他分析/聊天/广告 SDK、AddToAny、自定义 Busuanzi 脚本仍保持完整导航。不会因脚本来自某个受信任 CDN 就放行整站。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 另行跟踪。
 
 预取最多提示 8 个链接；带查询参数、后台/外部资源、省流量和 2G 网络跳过。使用浏览器标准 prefetch，不创建主题 HTML 缓存或绕过鉴权。浏览器可以忽略预取提示。
 
@@ -51,3 +51,12 @@
 2026-10-14 内容 PJAX 的独立私有 Halo 回归使用 `scripts/navigation-loading/content-fixture.py` 配置已有官方评论夹具，再运行 `BASE_URL=http://127.0.0.1:<owned-port> bun scripts/navigation-loading/content.mjs`。覆盖内容计数身份、评论实例、前进后退、三种正文渲染器和图库反复进入，以及未提交评论。证据及验收边界见 [限定验收](validation/2026-10-14/pjax-completion.md)。
 
 2026-10-14 的 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)新增 Pace 1.2.4 默认进度，通过当前请求的阶段来源跟踪主题 fetch；普通 fetch 不自动被 Pace 跟踪。首屏与请求进度为估算，资源失败或连续进度超过 30 秒回落原导航提示，正文保持可读。验证见 [Pace 限定记录](validation/2026-10-14/dec03-pace.md)。
+
+
+## 可选服务的页面生命周期
+
+Share.js 复用库而每页绑定新的 URL、标题、图片与描述，二维码和事件只附着当前分享节点。默认 Busuanzi 直接使用官方 JSONP 协议，每次按当前页面 Referer 请求；旧回调删除后成为无节点引用的 no-op。自定义统计脚本因协议不确定保持原生回退。主题特效每页显式创建/销毁画布、RAF、交互监听与标签计时器，文档只保留一个媒体变化分发器，页面销毁时清空实例引用；若动画帧先观察到减少动态偏好，则立即清理，不等待媒体事件。
+
+GA4 的 `analytics.google_analytics_manual_pageviews` 必须先关闭服务后台增强型历史事件；主题只在成功提交页面后发 pageview，详见 [集成配置](INTEGRATIONS.md)。Cloudflare 自动历史观察无法在草稿取消前撤销事件，继续完整导航。
+
+AddToAny 虽有 `a2a.init_all` 重扫新节点接口，实际 loader 还创建跨页 iframe、菜单根与全局 message 监听；当前整 body 替换会断开其持久节点，不能只重扫分享按钮。需要单独设计持久宿主并验证关闭/卸载协议，因此继续原生回退。聊天会话、GTM 任意标签与 AdSense 自动广告也没有主题可通用安全销毁的协议。

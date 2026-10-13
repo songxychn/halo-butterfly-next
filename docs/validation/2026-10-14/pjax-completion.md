@@ -35,3 +35,5 @@ bun scripts/navigation-loading/check.mjs
 D02 仍保留缺口：分析/聊天/广告 SDK、AddToAny、Share.js、Busuanzi、未定义重建协议的外观特效，以及含未知脚本/嵌入元素的插件页仍可能全站或逐页整页回退。Moment 官方评论宿主已允许精确 `moment.halo.run` / `Moment`，本 lane 没有安装 Moments 插件，整合验收由父 lane 完成。i18n config、根语言及 head 元数据具备切页同步路径，跨语言联验仍由整合阶段补充。
 
 矩阵建议保留 `interaction:pjax`、`template:includes/third-party/pjax` 为 gap，更新已完成范围及剩余，不增加 verified；配置两项维持 implemented-unverified。详见 `pjax-matrix-delta.json`。
+
+后续 Share.js、默认 Busuanzi、本地特效和显式 GA4 手动事件适配见 [补充验收](pjax-optional.md)；本页第一批证据与其历史边界保持原样。

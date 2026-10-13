@@ -7,14 +7,19 @@
     "official CommentWidget eager/lazy instance cleanup and native draft protection",
     "history veto restores committed entry before native confirmation",
     "Mermaid, Chart.js, ABC and article gallery lifecycle",
-    "script-free public plugin layouts"
+    "script-free public plugin layouts",
+    "Share.js current-page URL/title and detached-node lifecycle",
+    "Default official Busuanzi page-scoped JSONP with late-response no-op",
+    "Local effects explicit factory/dispose and reduced-motion cleanup",
+    "Explicit opt-in GA4 manual pageviews only after committed pages"
   ],
   "remaining": [
-    "analytics/chat/advertising SDK lifecycle",
-    "AddToAny, Share.js, Busuanzi reinitialization",
-    "unknown script/custom element/embed plugin pages",
-    "appearance effects without a reinitialization protocol",
-    "physical Safari/devices and full fixed-Hexo parity acceptance"
+    "GA4 real account configuration and DebugView acceptance",
+    "Cloudflare automatic navigation lacks published manual pageview protocol for cancelled-history exclusion",
+    "AddToAny persistent iframe/menu lifecycle",
+    "Baidu/Clarity/GTM/Umami/chat/advertising lifecycle and service-account acceptance",
+    "Custom Busuanzi and unknown script/custom element/embed plugin pages",
+    "Physical Safari/devices and full fixed-Hexo parity acceptance"
   ],
   "items": [
     {
@@ -23,7 +28,9 @@
       "action": "retain status; update supported scope and remaining boundaries",
       "evidence": [
         "docs/validation/2026-10-14/pjax-completion.md",
-        "docs/validation/2026-10-14/pjax-completion.json"
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json"
       ]
     },
     {
@@ -32,7 +39,9 @@
       "action": "retain status; update supported scope and remaining boundaries",
       "evidence": [
         "docs/validation/2026-10-14/pjax-completion.md",
-        "docs/validation/2026-10-14/pjax-completion.json"
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json"
       ]
     },
     {
@@ -41,7 +50,9 @@
       "action": "retain status; update supported scope and remaining boundaries",
       "evidence": [
         "docs/validation/2026-10-14/pjax-completion.md",
-        "docs/validation/2026-10-14/pjax-completion.json"
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json"
       ]
     },
     {
@@ -50,9 +61,21 @@
       "action": "retain status; update supported scope and remaining boundaries",
       "evidence": [
         "docs/validation/2026-10-14/pjax-completion.md",
-        "docs/validation/2026-10-14/pjax-completion.json"
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json"
       ]
     }
   ],
-  "verifiedAdded": 0
+  "verifiedAdded": 0,
+  "settingsDelta": {
+    "config:google_analytics": {
+      "addHaloSettings": [
+        "analytics.google_analytics_manual_pageviews"
+      ],
+      "default": false,
+      "requires": "disable GA4 enhanced history pageviews in property first",
+      "status": "implemented-unverified"
+    }
+  }
 }
