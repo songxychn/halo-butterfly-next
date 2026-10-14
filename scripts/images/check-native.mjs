@@ -65,6 +65,7 @@ const loaded=async(page,id)=>{await page.locator('#'+id).scrollIntoViewIfNeeded(
 try{
  const pw=await import(pathToFileURL(path.join(RUNTIME,'deps/node_modules/playwright/index.mjs')));
  controller=spawn('python3',['-B','scripts/images/native-fixture.py','--runtime',runtime,'--source-sha',sourceSha,'--run-id',runId,'--allow-synthetic-writes','yes'],{cwd:REPO,env:process.env,stdio:['pipe','pipe','inherit']});
+ controller.stdin.on('error',error=>{report.controllerInputError=error.message;process.exitCode=1;});
  childExit=new Promise((resolve,reject)=>{controller.once('exit',code=>resolve(code));controller.once('error',reject);});
  replyIterator=createInterface({input:controller.stdout})[Symbol.asyncIterator]();
  const fixture=await receive('ready');report.fixture=fixture;await save();

@@ -58,7 +58,9 @@ export function initializeImageLoading(config: ThemeConfig) {
     };
     image.addEventListener('load', finish); image.addEventListener('error', error);
     cleanups.push(() => { image.removeEventListener('load', finish); image.removeEventListener('error', error); delete image.dataset.fallbackBound; });
-    const authorEager = image.loading === 'eager' && !image.hasAttribute('data-theme-image');
+    // Missing/invalid loading attributes reflect as eager in Firefox/WebKit.
+    // Honor only an author's explicit HTML keyword, independently of IDL defaults.
+    const authorEager = image.getAttribute('loading')?.toLowerCase() === 'eager' && !image.hasAttribute('data-theme-image');
     if (!included || authorEager) {
       if (image.hasAttribute('data-theme-image')) image.loading = 'eager';
       reveal(image); finish();

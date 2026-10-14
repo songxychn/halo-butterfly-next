@@ -62,7 +62,7 @@ test('cached shared bad images fall back once in native, disabled and post-only 
       const image=new EventTarget();
       Object.assign(image,{dataset:{themeImageFallback:'/fallback.svg'},loading:'lazy',complete:true,naturalWidth:0,
         classList:{remove:k=>classes.delete(k),add:k=>classes.add(k)},closest:()=>null,
-        hasAttribute:k=>attrs.has(k),removeAttribute:k=>attrs.delete(k)});
+        hasAttribute:k=>attrs.has(k),getAttribute:k=>attrs.get(k)??null,removeAttribute:k=>attrs.delete(k)});
       Object.defineProperty(image,'src',{get:()=>new URL(attrs.get('src')||'', 'https://example.test/').href,set:value=>{attrs.set('src',value);replacements++}});
       globalThis.document={baseURI:'https://example.test/',querySelectorAll:()=>[image]};
       initializeImageLoading(config);initializeImageLoading(config);
