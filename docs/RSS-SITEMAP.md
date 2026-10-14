@@ -40,3 +40,16 @@ python3 scripts/feed-sitemap/check.py --runtime .runtime/<owned-lab> --allow-syn
 脚本拒绝非本工作树 `.runtime`、ownership marker 不匹配、非受管进程、非锁定插件版本或未知 JAR 摘要。它保存原始设置与插件状态，创建带唯一 ownership 标记的合成公开、草稿、私密文章，使用**匿名 HTTP**验证 XML 和页面，再验证发布更新、公开转私密、主题设置开关及插件逐个停用/恢复。Sitemap 更新允许 30 秒缓存窗口；HTTP 错误、重定向、XML 解析错误和数据泄露均直接失败。正常结束或断言失败后，在 `finally` 中删除本次合成文章并恢复原设置/插件状态；进程被强制终止时保留 private 恢复快照。
 
 结果写到该 runtime 的 `feed-sitemap-evidence.json`。仅有模板/单元检查不能代替真实 Halo 验收；未安装态若未独立运行，只能记录为待验收，不能用停用态冒充。完整 1.0、第三方手写 head、浏览器阅读器兼容及真实搜索引擎收录不由这份 HTTP 验收证明。
+
+同一实验室应串行执行浏览器和实际卸载检查。`THEME_SOURCE_SHA` 填写实际安装候选的完整提交；两者会核对安装记录、ZIP 字节、产品源及当前激活主题，允许验收工具和文档随后变化，但拒绝把变化后的产品归到旧候选：
+
+```bash
+THEME_SOURCE_SHA=<installed-40-character-sha> python3 scripts/feed-sitemap/browser.py --runtime .runtime/<owned-lab> --allow-synthetic-writes yes
+THEME_SOURCE_SHA=<installed-40-character-sha> python3 scripts/feed-sitemap/uninstalled.py --runtime .runtime/<owned-lab> --allow-synthetic-writes yes
+```
+
+浏览器检查使用隔离无头 Chromium、Firefox、WebKit，覆盖亮暗与两种宽度、白色页脚图片上的文字对比度、PJAX/后退/前进、无脚本、语言回退、设置和插件启停。XML 链接必须原生导航，悬停/聚焦不得触发预取；有限 CSS 过渡结束后才采样对比度，每个案例从创建上下文起有 30 秒总截止。无脚本场景不注入只供主题脚本读取的 localStorage。失败和中止保留原始记录，不因修正采集器而覆盖。
+
+卸载检查在变更前备份两插件的固定 JAR 与配置，逐个真正删除插件资源，检查主题仍正常且对应入口隐藏、XML 返回 404，再用同一字节的包重新安装验证。`finally` 恢复配置和启用态并读回；插件重新安装产生的新 UID 不作为原 UID 恢复。它只允许任务自有的合成实验室，不是生产升级脚本。
+
+本轮运行结果及保留的失败见 [2026-10-15 验收记录](validation/2026-10-15/platform-acceptance.md)。插件旧版本、实际订阅阅读器、搜索引擎收录、真实 Safari/手机以及完整 1.0 门禁仍须分别验证。

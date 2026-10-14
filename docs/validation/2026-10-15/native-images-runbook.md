@@ -4,7 +4,7 @@
 
 ## 运行范围
 
-- native/site、native/post（含 blur）、关闭懒加载三个配置。
+- native/site、native/post（blur=true）、关闭懒加载三个配置。blur=true 仅覆盖该配置下正常加载，不单独断言模糊占位视觉或加载后 class 清理，不代表 blur 选项完整验收。
 - 主题卡片的初始真实 src、loading 属性与范围；作者显式 lazy/eager、src/srcset/picture；文章首屏封面的高优先级 preload。
 - 实际图片加载、响应式候选、显式失败回退、无回退作者坏图的 URL/alt 保留。
 - Chromium/Firefox/WebKit 两种宽度；Chromium 两宽度额外关闭 JavaScript。
