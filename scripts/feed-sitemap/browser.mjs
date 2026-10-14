@@ -2,9 +2,12 @@
 import assert from 'node:assert/strict';
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import path from 'node:path';
+import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
-import {REPO, RUNTIME, ENGINES, validateBaseUrl, browserEnvironment, requestPolicy} from '../browser/support.mjs';
+import {REPO, RUNTIME, ENGINES, validateBaseUrl, browserEnvironment, requestPolicy, sha256} from '../browser/support.mjs';
 import {contrastRatio} from './contrast.mjs';
+import {contextOptions, withinDeadline, fallbackMessages, footerSettled} from './browser-support.mjs';
+const fallback = fallbackMessages(await readFile(path.join(REPO, 'i18n/default.properties'), 'utf8'));
 
 const runtime = path.resolve(process.env.LAB_RUNTIME || '');
 assert.ok(runtime.startsWith(path.join(REPO, '.runtime') + path.sep), 'Explicit task runtime required');
@@ -18,11 +21,24 @@ assert.ok(output.startsWith(runtime + path.sep));
 await mkdir(output, {recursive: true});
 Object.assign(process.env, browserEnvironment(RUNTIME));
 const engines = await import(pathToFileURL(path.join(RUNTIME, 'deps/node_modules/playwright/index.mjs')).href);
-const report = {schema: 1, phase: plan.phase, base, expected: plan.expected, cases: [], failures: []};
+const report = {schema: 1, phase: plan.phase, base, expected: plan.expected,
+  startedAt: new Date().toISOString(), timeoutMs: 30000, cleanupTimeoutMs: 5000,
+  runnerHead: execFileSync('git', ['rev-parse', 'HEAD'], {cwd: REPO, encoding: 'utf8'}).trim(),
+  runnerSha256: sha256(await readFile(new URL(import.meta.url))),
+  supportSha256: sha256(await readFile(new URL('./browser-support.mjs', import.meta.url))),
+  browserSupportSha256: sha256(await readFile(new URL('../browser/support.mjs', import.meta.url))),
+  contrastSha256: sha256(await readFile(new URL('./contrast.mjs', import.meta.url))),
+  fallbackCatalogSha256: sha256(await readFile(path.join(REPO, 'i18n/default.properties'))),
+  package: plan.package, activeTheme: plan.activeTheme, cases: [], failures: []};
 const xml = ['/rss.xml', '/sitemap.xml'];
 const persist = () => writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2) + '\n');
 
 async function inspect(page, expected, white = false) {
+  if (white) {
+    // PJAX completion follows synchronous App reentry, but CSS transitions may
+    // still interpolate from transparent to the newly applied opaque plate.
+    await page.waitForFunction(footerSettled, null, {timeout: 30000});
+  }
   const state = await page.evaluate(() => {
     const links = [...document.querySelectorAll('head link[rel="alternate"][type="application/rss+xml"], head link[rel="sitemap"]')].map(el => ({rel: el.rel, href: el.href, type: el.type}));
     const anchors = [...document.querySelectorAll('.footer-subscription a')].map(el => {
@@ -57,37 +73,61 @@ async function inspect(page, expected, white = false) {
 }
 
 async function contextCase(browser, engine, label, options, action) {
-  const context = await browser.newContext({...options, storageState: {cookies: [], origins: [{origin: base,
-    localStorage: [{name: 'halo-butterfly-next.color-scheme', value: options.colorScheme || 'light'}]}]}});
-  const item = {engine, version: browser.version(), label, options, result: 'failed'};
+  const started = Date.now();
+  let context, page, timedOut = false;
+  const item = {engine, version: browser.version(), label, options, startedAt: new Date(started).toISOString(), timeoutMs: 30000, result: 'running', phase: 'new-context'};
   const errors = [], blocked = [], whiteResponses = [];
+  report.cases.push(item); await persist();
+  const step = async (name, operation) => {
+    item.phase = name; await persist();
+    if (timedOut) throw new Error('Case already timed out');
+    return operation();
+  };
   try {
-    await context.route('**/*', route => {
-      const request = route.request();
-      if (requestPolicy(request.url(), request.method(), base) === 'blocked') {
-        blocked.push({url: request.url(), method: request.method()}); return route.abort();
+    await withinDeadline(async () => {
+      context = await browser.newContext(contextOptions(options, base));
+      // A late newContext resolution after the deadline must not leak a context.
+      if (timedOut) {await context.close(); return;}
+      context.setDefaultTimeout(30000); context.setDefaultNavigationTimeout(30000);
+      await step('request-policy', () => context.route('**/*', route => {
+        const request = route.request();
+        if (requestPolicy(request.url(), request.method(), base) === 'blocked') {
+          blocked.push({url: request.url(), method: request.method()}); return route.abort();
+        }
+        return route.continue();
+      }));
+      page = await step('new-page', () => context.newPage());
+      page.on('pageerror', error => errors.push(error.message));
+      page.on('response', response => {if (new URL(response.url()).pathname === plan.whitePath) whiteResponses.push({status: response.status(), contentType: response.headers()['content-type']});});
+      const response = await step('initial-navigation', () => page.goto(base + '/?language=en', {waitUntil: 'networkidle', timeout: 30000}));
+      assert.equal(response.status(), 200);
+      if (options.javaScriptEnabled !== false) await step('app-ready', () => page.waitForFunction(() => window.MainApp?.useCommon && !document.body.classList.contains('loading')));
+      const actual = await step('scenario-assertions', () => action(page, context));
+      if (timedOut) throw new Error('Case completed after its deadline');
+      item.actual = actual;
+      assert.deepEqual(errors, []); assert.deepEqual(blocked, []);
+      if (options.javaScriptEnabled !== false) {
+        assert.ok(whiteResponses.length > 0, 'Configured white footer image must actually load');
+        assert.ok(whiteResponses.every(response => response.status === 200 && response.contentType?.startsWith('image/svg+xml')), 'White footer image request failed');
       }
-      return route.continue();
-    });
-    const page = await context.newPage();
-    page.on('pageerror', error => errors.push(error.message));
-    page.on('response', response => {if (new URL(response.url()).pathname === plan.whitePath) whiteResponses.push({status: response.status(), contentType: response.headers()['content-type']});});
-    const response = await page.goto(base + '/?language=en', {waitUntil: 'networkidle', timeout: 30000});
-    assert.equal(response.status(), 200);
-    if (options.javaScriptEnabled !== false) await page.waitForFunction(() => window.MainApp?.useCommon && !document.body.classList.contains('loading'));
-    item.actual = await action(page, context);
-    assert.deepEqual(errors, []); assert.deepEqual(blocked, []);
-    if (options.javaScriptEnabled !== false) {
-      assert.ok(whiteResponses.length > 0, 'Configured white footer image must actually load');
-      assert.ok(whiteResponses.every(response => response.status === 200 && response.contentType?.startsWith('image/svg+xml')), 'White footer image request failed');
-    }
-    item.result = 'passed';
+      if (timedOut) throw new Error('Case completed after its deadline');
+      item.result = 'passed';
+    }, 30000, () => `${engine}/${label}/${item.phase}`, () => {timedOut = true;});
   } catch (error) {
-    item.error = error.message; report.failures.push(engine + '/' + label + ': ' + error.message);
+    item.result = 'failed'; item.error = error.message;
+    item.timeout = timedOut; item.url = page?.url();
+    report.failures.push(engine + '/' + label + ': ' + error.message);
   } finally {
     item.errors = errors; item.blocked = blocked; item.whiteResponses = whiteResponses;
-    await context.close(); report.cases.push(item); await persist();
+    item.executionMs = Date.now() - started; item.finishedAt = new Date().toISOString();
+    // Cleanup is separately bounded; it is not evidence that a timed-out case passed.
+    if (context) {
+      try {await withinDeadline(() => context.close(), 5000, 'Context cleanup');}
+      catch (error) {item.cleanupError = error.message; item.result = 'failed'; report.failures.push(engine + '/' + label + ': ' + error.message);}
+    }
+    await persist();
   }
+  if ((timedOut && !context) || item.cleanupError) throw new Error('Browser teardown required after incomplete context lifecycle');
 }
 
 try {
@@ -151,12 +191,12 @@ try {
           await page.goto(base + '/?language=fr', {waitUntil: 'networkidle'});
           const state = await inspect(page, plan.expected, true);
           assert.equal(state.language, 'en');
-          assert.deepEqual(state.anchors.map(x => x.text), ['RSS feed', 'Sitemap']);
-          assert.equal(await page.locator('.footer-subscription').getAttribute('aria-label'), 'Subscription and sitemap');
+          assert.deepEqual(state.anchors.map(x => x.text), [fallback['ui.rssSubscribe'], fallback['ui.sitemap']]);
+          assert.equal(await page.locator('.footer-subscription').getAttribute('aria-label'), fallback['ui.subscriptionLinks']);
           return state;
         });
       }
-    } finally {await browser.close();}
+    } finally {await withinDeadline(() => browser.close(), 5000, 'Browser cleanup');}
   }
 } finally {await persist();}
 assert.deepEqual(report.failures, [], 'Browser acceptance failed; see report.json');

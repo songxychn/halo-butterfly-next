@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import secrets
+import signal
 import subprocess
 import time
 import check
@@ -26,7 +27,12 @@ def main():
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
     check.require(lab.owned_process('halo') and (runtime / 'seed.json').exists(), 'Owned seeded process required')
     check.require(lab.digest(runtime / 'halo/halo-2.26.1.jar') == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
+    guard_spec = importlib.util.spec_from_file_location('feed_browser_identity', check.REPO / 'scripts/feed-sitemap/uninstalled.py')
+    guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
+    source_sha = os.environ.get('THEME_SOURCE_SHA')
+    installed, installed_record_sha = guard.candidate_identity(runtime, source_sha, lab)
     client = lab.Client()
+    active = guard.active_theme(client, installed, lab)
     original_config = client.api(check.CONFIG)
     initial_plugins = {}
     for name, (version, sha, slug) in check.PLUGINS.items():
@@ -47,7 +53,10 @@ def main():
     with white.open('x') as stream:
         stream.write(white_content)
     report = {'schema': 1, 'runId': run, 'owner': 'halo-butterfly-next-feed-sitemap-browser', 'baseUrl': lab.BASE['halo'],
-              'package': json.loads((runtime / 'installed-package.json').read_text()), 'phases': [],
+              'package': installed, 'sourceCommit': source_sha, 'activeTheme': active, 'installedRecordSha256': installed_record_sha,
+              'runnerHead': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=check.REPO, text=True).strip(),
+              'runnerSha256': lab.digest(Path(__file__)), 'identityGuardSha256': lab.digest(Path(guard.__file__)),
+              'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'phases': [],
               'limitations': ['Headless Playwright Chromium/Firefox/WebKit; no physical device or Safari-app claim.',
                               'Configuration is applied before each phase; PJAX/back/forward reentry is exercised within each phase.',
                               'Missing-plugin and old-plugin states require separate evidence; disabled is not absent.']}
@@ -66,8 +75,8 @@ def main():
         raise RuntimeError('Plugin state did not settle: ' + name)
 
     def phase(name, rss=True, sitemap=True, feed_started=True, sitemap_started=True, full=False):
-        for plugin, active in [('PluginFeed', feed_started), ('PluginSitemap', sitemap_started)]:
-            enabled(plugin, active)
+        for plugin, enabled_state in [('PluginFeed', feed_started), ('PluginSitemap', sitemap_started)]:
+            enabled(plugin, enabled_state)
         config = copy.deepcopy(original_config)
         config['subscription'] = {'rss': rss, 'sitemap': sitemap}
         config.setdefault('footer', {})['footer_img'] = '/lab/' + white_name
@@ -78,10 +87,33 @@ def main():
         config.setdefault('style', {})['mode'] = 'system'
         client.api(check.CONFIG, 'PUT', config)
         plan = {'owner': report['owner'], 'phase': name, 'output': str(output / name), 'base': lab.BASE['halo'],
-                'expected': {'rss': rss and feed_started, 'sitemap': sitemap and sitemap_started}, 'full': full, 'whitePath': '/lab/' + white_name}
+                'expected': {'rss': rss and feed_started, 'sitemap': sitemap and sitemap_started}, 'full': full, 'whitePath': '/lab/' + white_name, 'package': installed, 'activeTheme': active}
         plan_path = output / (name + '.json'); lab.write_json(plan_path, plan)
         env = {**os.environ, 'BASE_URL': lab.BASE['halo'], 'LAB_RUNTIME': str(runtime), 'FEED_BROWSER_PLAN': str(plan_path)}
-        result = subprocess.run(['bun', str(check.REPO / 'scripts/feed-sitemap/browser.mjs')], env=env, cwd=check.REPO, timeout=900)
+        # Own a process group so a wedged runner cannot leave its headless engines behind.
+        process = subprocess.Popen(['bun', str(check.REPO / 'scripts/feed-sitemap/browser.mjs')], env=env, cwd=check.REPO, start_new_session=True)
+        try:
+            process.wait(timeout=900)
+        finally:
+            try:
+                os.killpg(process.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+            deadline = time.monotonic() + 5
+            while time.monotonic() < deadline:
+                process.poll()
+                try:
+                    os.killpg(process.pid, 0)
+                except ProcessLookupError:
+                    break
+                time.sleep(.1)
+            else:
+                try:
+                    os.killpg(process.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+            process.wait(timeout=5)
+        result = process
         report['phases'].append({'phase': name, 'result': 'passed' if result.returncode == 0 else 'failed', 'report': str((output / name / 'report.json').relative_to(runtime))})
         save()
         check.require(result.returncode == 0, 'Browser phase failed: ' + name)
@@ -115,6 +147,11 @@ def main():
             white.unlink(); check.require(not white.exists(), 'Synthetic image cleanup failed')
         except Exception as error:
             errors.append('white image: ' + str(error))
+        try:
+            check.require(guard.active_theme(client, installed, lab) == active, 'Active theme identity changed during browser acceptance')
+            check.require(lab.digest(runtime / 'installed-package.json') == installed_record_sha, 'Installed package record changed during browser acceptance')
+        except Exception as error:
+            errors.append('candidate identity: ' + str(error))
         report['restoration'] = {'result': 'failed' if errors else 'passed', 'errors': errors}
         if errors:
             report['result'] = 'failed'

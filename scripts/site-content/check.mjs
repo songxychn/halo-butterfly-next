@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFile,writeFile,mkdir,realpath,stat} from 'node:fs/promises';
 import path from 'node:path';
+import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {RUNTIME,browserEnvironment,validateBaseUrl,sha256} from '../browser/support.mjs';
 const args={};for(let i=2;i<process.argv.length;i+=2)args[process.argv[i]]=process.argv[i+1];
@@ -31,8 +32,28 @@ config.footer.columns=[{width:2,sections:[{title:'导航分组一',items:[{title
 config.footer.custom_html='<p><em>页脚富文本</em><a title="current-hash" href="#footer">页内</a><a title="relative-link" href="./relative">相对</a><a href="/about-preview/" onclick="window.siteContentXss=8">页面</a><iframe src="/login"></iframe><script>window.siteContentXss=9</script></p>';
 config.links={random_order:true,group_descriptions:[{group:'site-content-group',description:'本地组说明\n第二行 <b>按文字显示</b>'}],source:'/lab/site-content-links.json'};
 const out=path.resolve(args['--output']);await mkdir(out,{recursive:true});
-const report={schema:1,startedAt:new Date().toISOString(),installed,plugins:{PluginLinks:'2.3.0'},checks:[],screenshots:[],limitations:['Synthetic local data and headless engines only; no full-release, real-device or external-availability acceptance.']};
-const check=async(name,fn)=>{const row={name};report.checks.push(row);try{await fn();row.pass=true;}catch(e){row.pass=false;row.error=String(e.stack||e);throw e;}finally{await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');}};
+const report={schema:1,runner:{head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),scriptSha256:sha256(await readFile(new URL(import.meta.url))),continueOnFailure:process.env.CONTINUE_ON_FAILURE==='1'},startedAt:new Date().toISOString(),installed,plugins:{PluginLinks:'2.3.0'},checks:[],screenshots:[],limitations:['Synthetic local data and headless engines only; no full-release, real-device or external-availability acceptance.']};
+let diagnostics;
+function observe(page){
+ const requests=new Map(),pageerrors=[],consoleErrors=[];
+ page.on('request',request=>requests.set(request,{url:request.url(),method:request.method(),resourceType:request.resourceType(),startedAt:new Date().toISOString(),state:'pending'}));
+ page.on('response',response=>{const item=requests.get(response.request());if(item){item.status=response.status();item.responseAt=new Date().toISOString();}});
+ page.on('requestfinished',request=>{const item=requests.get(request);if(item){item.state='finished';item.finishedAt=new Date().toISOString();}});
+ page.on('requestfailed',request=>{const item=requests.get(request);if(item){item.state='failed';item.failure=request.failure()?.errorText;item.finishedAt=new Date().toISOString();}});
+ page.on('pageerror',error=>pageerrors.push(String(error.stack||error)));
+ page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});
+ diagnostics={page,requests,pageerrors,consoleErrors};return page;
+}
+const check=async(name,fn)=>{
+ if(diagnostics){for(const [request,item] of diagnostics.requests)if(item.state!=='pending')diagnostics.requests.delete(request);diagnostics.pageerrors.length=0;diagnostics.consoleErrors.length=0;}
+ const row={name};report.checks.push(row);
+ try{await fn();row.pass=true;}
+ catch(e){
+  row.pass=false;row.error=String(e.stack||e);
+  if(diagnostics){const filename='failure-'+report.checks.length+'.json';row.diagnostics=filename;await writeFile(path.join(out,filename),JSON.stringify({check:name,capturedAt:new Date().toISOString(),url:diagnostics.page.url(),pageerrors:diagnostics.pageerrors,consoleErrors:diagnostics.consoleErrors,requests:[...diagnostics.requests.values()]},null,2)+'\n');}
+  if(process.env.CONTINUE_ON_FAILURE!=='1')throw e;
+ }finally{await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');}
+};
 async function goto(p,route){const r=await p.goto(base+route,{waitUntil:'networkidle',timeout:30000});assert.equal(r.status(),200);await p.waitForFunction(()=>!!window.MainApp?.useCommon);}
 try {
  await api(configPath,'put',config);
@@ -40,7 +61,7 @@ try {
   const browser=await pw[engine].launch({headless:true,env:browserEnvironment(),...(engine==='chromium'?{channel:'chromium'}:{})});
   try{
    for(const width of [1440,390])for(const scheme of ['light','dark']){
-    const context=await browser.newContext({viewport:{width,height:width===390?844:1000},colorScheme:scheme,locale:'zh-CN'});await context.addInitScript(s=>localStorage.setItem('halo-butterfly-next.color-scheme',s),scheme);await context.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());const p=await context.newPage();const errors=[];p.on('pageerror',e=>errors.push(String(e)));const label=`${engine}-${width}-${scheme}`;
+    const context=await browser.newContext({viewport:{width,height:width===390?844:1000},colorScheme:scheme,locale:'zh-CN'});await context.addInitScript(s=>localStorage.setItem('halo-butterfly-next.color-scheme',s),scheme);await context.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());const p=observe(await context.newPage());const errors=[];p.on('pageerror',e=>errors.push(String(e)));const label=`${engine}-${width}-${scheme}`;
     await check(label+' social placement/colors, footer columns and sanitized HTML',async()=>{
      await goto(p,'/');assert.equal(await p.locator('html').getAttribute('data-color-scheme'),scheme);assert.equal(await p.locator('.above-info .theme-social').count(),1);assert.equal(await p.locator('.aside-user .theme-social').count(),1);
      for(const selector of ['.above-info .theme-social','.aside-user .theme-social']){const link=p.locator(selector+' a').first();assert.equal(await link.evaluate(el=>getComputedStyle(el).color),scheme==='dark'?'rgb(255, 221, 238)':'rgb(170, 17, 34)');assert.equal(await p.locator(selector+' a').nth(1).getAttribute('href'),null);assert.equal(await p.locator(selector+' script,'+selector+' [onerror]').count(),0);}
@@ -53,7 +74,7 @@ try {
      if(engine==='chromium'){await p.locator('[data-remote-links]').scrollIntoViewIfNeeded();const file=label+'-links.png';await p.screenshot({path:path.join(out,file)});report.screenshots.push(file);}
     });await context.close();
    }
-   const context=await browser.newContext();await context.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());const p=await context.newPage();
+   const context=await browser.newContext();await context.route('**/*',r=>new URL(r.request().url()).origin===base?r.continue():r.abort());const p=observe(await context.newPage());
    await check(engine+' empty/invalid/error remote data preserves native cards and retries',async()=>{
     for(const mode of ['empty','invalid','error']){await p.route('**/lab/site-content-links.json',r=>r.fulfill(mode==='empty'?{json:[]}:mode==='invalid'?{json:[{name:'bad',links:[{name:'x',url:'javascript:bad'}]}]}:{status:503,body:'unavailable'}));await goto(p,'/links');await p.waitForSelector(mode==='empty'?'[data-links-state="loaded"]':'[data-links-state="failed"]');assert.equal(await p.locator('[data-link-list] .link').count(),4);if(mode==='empty'){assert.equal(await p.locator('[data-links-items] .link').count(),0);await p.unroute('**/lab/site-content-links.json');}else{assert.equal(await p.locator('[data-links-retry]').isVisible(),true);await p.unroute('**/lab/site-content-links.json');await p.locator('[data-links-retry]').click();await p.waitForSelector('[data-links-state="loaded"]');}}
    });await context.close();
@@ -61,15 +82,17 @@ try {
  }
  const browser=await pw.chromium.launch({headless:true,channel:'chromium',env:browserEnvironment()});
  try{
-  const context=await browser.newContext();const p=await context.newPage();
+  const context=await browser.newContext();const p=observe(await context.newPage());
   await check('social placement options and hidden hero fallback',async()=>{
    for(const position of ['aside','header','none']){config.aside.social_position=position;await api(configPath,'put',config);await goto(p,'/');assert.equal(await p.locator('.above-info .theme-social').count(),position==='header'?1:0);assert.equal(await p.locator('.aside-user .theme-social').count(),position==='aside'?1:0);}
    config.aside.social_position='header';config.image.disable_top_img=true;await api(configPath,'put',config);await goto(p,'/');assert.equal(await p.locator('.content > .theme-social').count(),1);
   });await context.close();
-  const plain=await browser.newContext({javaScriptEnabled:false});const q=await plain.newPage();
+  const plain=await browser.newContext({javaScriptEnabled:false});const q=observe(await plain.newPage());
   await check('no-script footer/link/social content remains safe and native links readable',async()=>{
    const r=await q.goto(base+'/links');assert.equal(r.status(),200);assert.equal(await q.locator('[data-link-list] .link[href]').count(),4);assert.equal(await q.locator('[data-site-html] script,[data-site-html] iframe,[data-social-icon] script').count(),0);assert.match(await q.locator('.footer_custom_text[data-site-html]').textContent(),/页脚富文本/);assert.equal(await q.locator('.footer-columns a[href^="javascript:"]').count(),0);
   });await plain.close();
  }finally{await browser.close();}
 }finally{await api(configPath,'put',original);await admin.dispose();report.finishedAt=new Date().toISOString();await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');}
 console.log(JSON.stringify({checks:report.checks.length,failed:report.checks.filter(x=>!x.pass).length,out}));
+
+assert(report.checks.every(row=>row.pass),'Site-content acceptance includes failed cases; see preserved report');

@@ -6,12 +6,45 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import secrets
 import shutil
+import subprocess
 import time
 import urllib.error
 import urllib.request
 import check
+
+
+PRODUCT_PATHS = ['src', 'i18n', 'settings.yaml', 'theme.yaml', 'scripts/build.mjs',
+                 'package.json', 'bun.lock', 'bunfig.toml']
+
+
+def candidate_identity(runtime, source_sha, lab):
+    """Reject stale candidate attribution before authenticating or mutating the lab."""
+    check.require(re.fullmatch('[a-f0-9]{40}', source_sha or ''), 'THEME_SOURCE_SHA must be a full candidate SHA')
+    installed_path = runtime / 'installed-package.json'
+    installed = json.loads(installed_path.read_text())
+    check.require(installed.get('sourceCommit') == source_sha, 'Installed source SHA differs from THEME_SOURCE_SHA')
+    name = installed.get('name', '')
+    check.require(name and Path(name).name == name, 'Unsafe candidate package filename')
+    package = check.REPO / 'dist' / name
+    check.require(package.resolve().parent == (check.REPO / 'dist').resolve(), 'Candidate package escapes dist')
+    check.require(lab.digest(package) == installed.get('sha256'), 'Candidate ZIP differs from installed package digest')
+    changes = subprocess.check_output(['git', 'diff', '--name-only', source_sha, '--', *PRODUCT_PATHS], cwd=check.REPO, text=True).strip()
+    untracked = subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard', '--', *PRODUCT_PATHS], cwd=check.REPO, text=True).strip()
+    check.require(not changes and not untracked, 'Product differs from installed candidate; rebuild/install before acceptance')
+    return installed, lab.digest(installed_path)
+
+
+def active_theme(client, installed, lab):
+    # Halo 2.26.1 ThemeEndpoint.fetchActivatedTheme, not a guessed spec.enabled flag.
+    active = client.api('/apis/api.console.halo.run/v1alpha1/themes/-/activation')
+    check.require(active.get('metadata', {}).get('name') == lab.THEME, 'Candidate theme is not active')
+    check.require(active.get('spec', {}).get('version') == installed.get('version'), 'Active theme version differs from candidate')
+    check.require(not active.get('metadata', {}).get('deletionTimestamp'), 'Active theme is being deleted')
+    return {'name': active['metadata']['name'], 'version': active['spec']['version'],
+            'uid': active['metadata'].get('uid')}
 
 
 def main():
@@ -28,14 +61,21 @@ def main():
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
     check.require(lab.owned_process('halo') and (runtime / 'seed.json').exists(), 'Owned seeded process required')
     check.require(lab.digest(runtime / 'halo/halo-2.26.1.jar') == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
+    source_sha = os.environ.get('THEME_SOURCE_SHA')
+    installed, installed_record_sha = candidate_identity(runtime, source_sha, lab)
     client = lab.Client()
+    active = active_theme(client, installed, lab)
     base = lab.BASE['halo']
     output = runtime / 'feed-sitemap-uninstalled' / secrets.token_hex(5)
     output.mkdir(parents=True)
     original_config = client.api(check.CONFIG)
     originals = {}
     report = {'schema': 1, 'owner': 'halo-butterfly-next-feed-sitemap-uninstalled', 'baseUrl': base,
-              'package': json.loads((runtime / 'installed-package.json').read_text()), 'stages': [],
+              'sourceCommit': source_sha, 'package': installed, 'activeTheme': active,
+              'installedRecordSha256': installed_record_sha,
+              'runnerHead': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=check.REPO, text=True).strip(),
+              'runnerSha256': lab.digest(Path(__file__)), 'checkModuleSha256': lab.digest(Path(check.__file__)),
+              'productSourcePaths': PRODUCT_PATHS, 'stages': [],
               'limitations': ['Actual absence and exact pinned JAR reinstall on isolated loopback Halo only; not a production migration.',
                               'Plugin generated metadata versions/UIDs can change across reinstall; configuration data and enabled states are restored.',
                               'Older plugin versions are not installed or claimed tested.']}
@@ -129,6 +169,7 @@ def main():
         return status, body
 
     try:
+        check.require(active_theme(client, installed, lab) == active, 'Active theme changed before first mutation')
         config = copy.deepcopy(original_config); config['subscription'] = {'rss': True, 'sitemap': True}
         client.api(check.CONFIG, 'PUT', config)
         for name in originals:
@@ -167,6 +208,8 @@ def main():
         try:
             client.api(check.CONFIG, 'PUT', original_config)
             check.require(client.api(check.CONFIG) == original_config, 'Theme restoration differs')
+            check.require(active_theme(client, installed, lab) == active, 'Active theme changed during acceptance')
+            check.require(lab.digest(runtime / 'installed-package.json') == installed_record_sha, 'Installed package record changed during acceptance')
         except Exception as error:
             errors.append('theme: ' + str(error))
         report['restoration'] = {'result': 'failed' if errors else 'passed', 'errors': errors}
