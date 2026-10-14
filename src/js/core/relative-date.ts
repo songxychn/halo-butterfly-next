@@ -1,3 +1,4 @@
+import { t } from './i18n';
 /**
  * 相对时间：读 time[datetime] 的绝对时间，替换可见文本。
  * 对齐 Butterfly 5.7.0 post_meta.*.date_format=relative，不引入 moment。
@@ -11,16 +12,16 @@ export function formatRelative(input: string | number | Date | null, now = Date.
   const date = input instanceof Date ? input : new Date(input ?? NaN);
   if (Number.isNaN(date.getTime())) return '';
   const diff = now - date.getTime();
-  if (diff < MINUTE) return '刚刚';
-  if (diff < HOUR) return `${Math.floor(diff / MINUTE)} 分钟前`;
-  if (diff < DAY) return `${Math.floor(diff / HOUR)} 小时前`;
-  return `${Math.floor(diff / DAY)} 天前`;
+  if (diff < MINUTE) return t('ui.now');
+  if (diff < HOUR) return t('ui.minutesAgo', Math.floor(diff / MINUTE));
+  if (diff < DAY) return t('ui.hoursAgo', Math.floor(diff / HOUR));
+  return t('ui.daysAgo', Math.floor(diff / DAY));
 }
 
 function datePrefix(text: string) {
-  if (text.startsWith('发表于 ')) return '发表于 ';
-  if (text.startsWith('发布于 ')) return '发布于 ';
-  if (text.startsWith('更新于 ')) return '更新于 ';
+  if (text.startsWith(t('ui.publishedAlt'))) return t('ui.publishedAlt');
+  if (text.startsWith(t('ui.published'))) return t('ui.published');
+  if (text.startsWith(t('ui.updated'))) return t('ui.updated');
   return '';
 }
 

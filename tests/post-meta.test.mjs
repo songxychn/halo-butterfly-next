@@ -36,8 +36,8 @@ test('模板按 post_meta 开关读取分类/标签/日期/前缀/对齐，且�
   assert.match(fragment, /post_meta\?\.position/);
   assert.match(fragment, /dateType != 'updated'/);
   assert.match(fragment, /dateType != 'created'/);
-  assert.match(fragment, /showLabel \? '发布于 '/);
-  assert.match(fragment, /showLabel \? '更新于 '/);
+  assert.match(fragment, /showLabel \? #messages\.msg\('ui\.published'\)/);
+  assert.match(fragment, /showLabel \? #messages\.msg\('ui\.updated'\)/);
   assert.match(fragment, /replaceAll\('\(\?s\)<\[\^>\]\+>'/);
   assert.match(fragment, /chinese \* 160 \+ words \* 350 \+ 55999/);
   assert.match(fragment, /wordcount\?\.enable == true/);

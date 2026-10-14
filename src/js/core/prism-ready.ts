@@ -1,3 +1,4 @@
+import { preconnectResource } from './resource-hints.ts';
 // A late/failed highlighter must not delay the page or hide the original code.
 import type { PrismApi } from '../types.ts';
 import { resolveResource } from './external-resource.ts';
@@ -25,6 +26,7 @@ export function loadPrismAfterPaint({source, domReady, document = globalThis.doc
     requestFrame(() => requestFrame(() => {
       const selected = resolveResource('prismjs_js', source, globalThis.window?.MainApp?.resources, globalThis.window?.MainApp?.version, 'plugins/prism/prism.min.js');
       const request = (url: string, fallback: boolean) => {
+        preconnectResource(url, document);
         const script = document.createElement('script');
         script.async = true;
         script.setAttribute('data-manual', '');

@@ -1,3 +1,5 @@
+import { addToAnyCanNavigate, isOwnedAddToAnyNode, replaceWithAddToAny } from './addtoany-navigation.ts';
+import { supportsAnalyticsNavigation } from './analytics-navigation.ts';
 import { beginPage, disposePage, onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
 import { beginPaceNavigation } from './pace.ts';
@@ -22,18 +24,21 @@ export function navigationURL(href: string, current: string, exclude: unknown = 
   } catch { return null; }
 }
 
-const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'pace', 'pace-bootstrap']);
+const scriptKinds = new Set(['config', 'page-config', 'above', 'code-config', 'body-renderer-config', 'entry', 'masonry', 'loading', 'ready', 'prism', 'charts', 'gallery', 'body-renderer', 'effects', 'sharejs', 'analytics', 'analytics-sdk', 'busuanzi-request', 'pace', 'pace-bootstrap']);
 const inert = (script: HTMLScriptElement) => /^(?:application\/(?:ld\+)?json)$/i.test(script.type);
 /** Unknown executable scripts/custom elements retain their native document lifecycle. */
 export function supportsPartialNavigation(doc: Document) {
-  if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,iframe,object,embed,meta[http-equiv="refresh" i]')) return false;
-  if (doc.querySelector('#Butterfly.plugin, halo-comment, [data-no-pjax]')) return false;
-  if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block')) return false;
-  return [...doc.scripts].every(script => inert(script) || scriptKinds.has(script.dataset.themeScript || ''));
+  if (!supportsAnalyticsNavigation(doc) || !addToAnyCanNavigate(doc)) return false;
+  if (doc.documentElement.dataset.themeNavigation !== '1' || doc.querySelector('base,object,embed,meta[http-equiv="refresh" i]') || [...doc.querySelectorAll('iframe')].some(frame => !isOwnedAddToAnyNode(frame))) return false;
+  if (doc.querySelector('halo-comment, [data-no-pjax]')) return false;
+  if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
+    !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host], [data-comment-lazy][data-group="moment.halo.run"][data-kind="Moment"] [data-comment-host]')) &&
+    !(['lit-toast-container', 'lit-toast'].includes(node.localName) && node.closest('lit-toast-container[data-theme-comment-toast]')))) return false;
+  return [...doc.scripts].every(script => inert(script) || isOwnedAddToAnyNode(script) || scriptKinds.has(script.dataset.themeScript || ''));
 }
 
 const key = Symbol.for('halo-butterfly-next.navigation-loading');
-interface NavigatorState { active?: AbortController; installed: boolean; url: string; busy: boolean; canNavigate: boolean }
+interface NavigatorState { active?: AbortController; installed: boolean; url: string; busy: boolean; canNavigate: boolean; index: number; restoring?: string }
 declare global { interface Window { [key]?: NavigatorState } }
 const stateKey = 'butterflyNavigation';
 function historyData() {
@@ -41,12 +46,40 @@ function historyData() {
   return state && typeof state === 'object' ? state as Record<string, unknown> : {};
 }
 function saveScroll() {
-  history.replaceState({ ...historyData(), [stateKey]: { x: scrollX, y: scrollY } }, '', location.href);
+  history.replaceState({ ...historyData(), [stateKey]: { ...historyData()[stateKey] as object, x: scrollX, y: scrollY } }, '', location.href);
 }
 function linkFor(event: Event) {
   const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
   if (!anchor || anchor.hasAttribute('download') || anchor.target && anchor.target !== '_self' || anchor.closest('[data-no-pjax], [data-no-prefetch], [contenteditable], .theme-lightbox-trigger') || /external/i.test(anchor.rel)) return null;
   return anchor;
+}
+/** Preserve native leave-page protection (for example an unfinished comment).
+ * An untrusted event never opens a dialog. A veto leaves the actual navigation
+ * to the browser, which runs the trusted beforeunload and owns confirmation.
+ */
+export function allowsPartialPageExit(target: EventTarget = window) {
+  // Property handlers can request confirmation by returning a string; only the
+  // browser's native BeforeUnloadEvent applies that legacy return convention.
+  if ('onbeforeunload' in target && target.onbeforeunload != null) return false;
+  const event = new Event('beforeunload', { cancelable: true });
+  let returnValue = '';
+  Object.defineProperty(event, 'returnValue', {
+    get: () => returnValue, set: value => { returnValue = String(value); },
+  });
+  return target.dispatchEvent(event) && returnValue === '';
+}
+/** A cancelled native dialog must leave URL/history on the still-mounted page. */
+function nativeTraversal(target: URL, state: NavigatorState, index?: number) {
+  state.active?.abort(); state.active = undefined;
+  document.documentElement.classList.remove('theme-navigating');
+  if (Number.isSafeInteger(index) && index !== state.index) {
+    state.restoring = target.href;
+    history.go(state.index - index!);
+  } else {
+    // Non-theme history entries have no reliable traversal distance.
+    history.replaceState({ ...historyData(), [stateKey]: { index: state.index, x: scrollX, y: scrollY } }, '', state.url);
+    location.assign(target.href);
+  }
 }
 function scriptCopy(old: HTMLScriptElement) {
   const script = document.createElement('script');
@@ -85,7 +118,7 @@ export function executeNavigationScript(script: HTMLScriptElement, parent: HTMLE
     if (!next.src) finish();
   });
 }
-async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} | undefined, state: NavigatorState) {
+async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; index?: number} | undefined, state: NavigatorState) {
   state.active?.abort();
   const request = new AbortController();
   state.active = request;
@@ -134,6 +167,12 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
       })));
     } finally { styles.forEach(style => style.remove()); }
     if (request.signal.aborted) throw new Error('Navigation cancelled');
+    // Editing may begin while HTML/styles are in flight.
+    if (!supportsPartialNavigation(document) || !addToAnyCanNavigate(next)) throw new Error('Current page requires native navigation');
+    if (!allowsPartialPageExit()) {
+      if (pop) { nativeTraversal(url, state, restore?.index); return; }
+      throw new Error('Page exit requires native navigation');
+    }
     clearTimeout(timer);
     progress.advance(75);
     state.busy = committing = true;
@@ -143,21 +182,24 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
     beginPage();
     const scripts = [...next.scripts].filter(script => !inert(script));
     scripts.forEach(script => script.remove());
-    document.head.replaceChildren(...next.head.childNodes);
-    document.body.replaceWith(document.adoptNode(next.body));
+    if (!replaceWithAddToAny(next)) {
+      document.head.replaceChildren(...next.head.childNodes);
+      document.body.replaceWith(document.adoptNode(next.body));
+    }
     // Preserve the current color/aside choice; server classes include page-specific defaults.
     document.documentElement.lang = next.documentElement.lang;
     document.documentElement.className = next.documentElement.className;
     document.documentElement.classList.add('theme-navigating');
-    if (!pop) history.pushState({ [stateKey]: { x: 0, y: 0 } }, '', url.href);
+    if (!pop) history.pushState({ [stateKey]: { index: ++state.index, x: 0, y: 0 } }, '', url.href);
+    else if (Number.isSafeInteger(restore?.index)) state.index = restore!.index!;
     state.url = url.href;
-    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config'].includes(s.dataset.themeScript || ''))) {
+    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config', 'body-renderer-config'].includes(s.dataset.themeScript || ''))) {
       await executeNavigationScript(script, document.head, request.signal);
     }
     progress.advance(85);
     await executeNavigationScript(entry, document.body, request.signal);
     if (!window.MainApp.useCommon) throw new Error('Page initialization failed');
-    for (const script of scripts.filter(s => s.dataset.themeScript === 'masonry')) await executeNavigationScript(script, document.body, request.signal);
+    for (const script of scripts.filter(s => ['masonry', 'analytics'].includes(s.dataset.themeScript || ''))) await executeNavigationScript(script, document.body, request.signal);
     document.body.classList.remove('loading', 'read-mode');
     const main = document.querySelector<HTMLElement>('main');
     main?.setAttribute('tabindex', '-1'); main?.focus({ preventScroll: true });
@@ -174,7 +216,8 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number} 
     // A newer click owns navigation now. A timeout/error for the current one reloads normally.
     if (state.active === request) {
       document.dispatchEvent(new Event('pjax:error'));
-      location.assign(url.href);
+      if (pop && !committing && !allowsPartialPageExit()) nativeTraversal(url, state, restore?.index);
+      else location.assign(url.href);
     }
   } finally {
     clearTimeout(timer);
@@ -192,8 +235,14 @@ export function initializeNavigationLoading() {
   history.scrollRestoration = canNavigate ? 'manual' : 'auto';
   initializePrefetch(config);
   if (window[key]?.installed) { window[key].canNavigate = canNavigate; return; }
-  const state: NavigatorState = { installed: true, url: location.href, busy: false, canNavigate };
+  const initial = historyData()[stateKey] as {index?: number} | undefined;
+  const state: NavigatorState = { installed: true, url: location.href, busy: false, canNavigate, index: Number.isSafeInteger(initial?.index) ? initial!.index! : 0 };
+  history.replaceState({ ...historyData(), [stateKey]: { index: state.index, x: scrollX, y: scrollY } }, '', location.href);
   window[key] = state;
+  document.addEventListener('halo-butterfly-next:analytics-ready', () => {
+    state.canNavigate = enabled(window.MainApp.conf.pjax_enable) && supportsPartialNavigation(document);
+    history.scrollRestoration = state.canNavigate ? 'manual' : 'auto';
+  });
   // Keep these two document-level handlers for the document lifetime, not one page.
   document.addEventListener('click', event => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
@@ -204,23 +253,34 @@ export function initializeNavigationLoading() {
       if (!state.busy) { state.active?.abort(); state.active = undefined; document.documentElement.classList.remove('theme-navigating'); }
       return;
     }
-    if (state.busy) { event.preventDefault(); return; }
-    event.preventDefault();
-    void navigate(url, false, undefined, state);
-  });
-  window.addEventListener('popstate', event => {
-    const current = new URL(location.href), old = new URL(state.url);
-    if (current.pathname === old.pathname && current.search === old.search) {
-      state.url = current.href;
+    if (state.busy || state.restoring) { event.preventDefault(); return; }
+    if (!allowsPartialPageExit()) {
       state.active?.abort(); state.active = undefined;
       document.documentElement.classList.remove('theme-navigating');
       return;
     }
+    event.preventDefault();
+    void navigate(url, false, undefined, state);
+  });
+  window.addEventListener('popstate', event => {
+    if (state.restoring) {
+      const target = state.restoring; state.restoring = undefined;
+      location.assign(target); return;
+    }
+    const current = new URL(location.href), old = new URL(state.url);
+    if (current.pathname === old.pathname && current.search === old.search) {
+      state.url = current.href;
+      if (Number.isSafeInteger(event.state?.[stateKey]?.index)) state.index = event.state[stateKey].index;
+      state.active?.abort(); state.active = undefined;
+      document.documentElement.classList.remove('theme-navigating');
+      return;
+    }
+    if (!allowsPartialPageExit()) { nativeTraversal(current, state, event.state?.[stateKey]?.index); return; }
     if (state.busy || !enabled(window.MainApp.conf.pjax_enable) || !supportsPartialNavigation(document) || !navigationURL(current.href, old.href, window.MainApp.conf.pjax_exclude)) { location.reload(); return; }
     void navigate(current, true, event.state?.[stateKey], state);
   });
   // Record scrolling before traversal, including browsers that restore after popstate.
-  window.addEventListener('scroll', () => { if (!state.busy && !state.active && state.canNavigate) saveScroll(); }, { passive: true });
+  window.addEventListener('scroll', () => { if (!state.busy && !state.restoring && !state.active && state.canNavigate) saveScroll(); }, { passive: true });
 }
 function initializePrefetch(config: ThemeConfig) {
   if (!enabled(config.instantpage)) return;

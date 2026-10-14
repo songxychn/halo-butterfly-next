@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import {pageListen} from './page-lifecycle.ts';
 import {resolveMode} from './color-scheme.ts';
 export * from './color-scheme.ts';
@@ -17,7 +18,7 @@ export function bindDarkmode(root = typeof document !== 'undefined' ? document :
   const reset = root.getElementById('darkmode-reset');
   if (button) pageListen(button, 'click', () => {
     const mode = toggleColorScheme(MainApp.useTheme);
-    if (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true') MainApp.useMessage?.info(mode === 'dark' ? '已切换到深色模式' : '已切换到浅色模式');
+    if (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true') MainApp.useMessage?.info(mode === 'dark' ? t('ui.darkMode') : t('ui.lightMode'));
   });
   if (reset) pageListen(reset, 'click', () => MainApp.useTheme.resetMode());
 }

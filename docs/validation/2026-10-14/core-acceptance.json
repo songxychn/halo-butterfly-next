@@ -1,0 +1,679 @@
+{
+  "date": "2026-10-14",
+  "halo": "2.26.1",
+  "bun": "1.4.0",
+  "browser": {
+    "theme": {
+      "sourceCommit": "1cab0728433b0d2260a80a58cd1708ed4dec37a9",
+      "packageSha256": "bab97dc7257edcbe0f77c9becda6f68529a8ab4123aeb875d1d933fbaf98ea83",
+      "packageName": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "attribution": "Caller declaration matched to local lab installation record; source-to-build proof remains separate"
+    },
+    "report": ".runtime/browser-matrix/runs/2026-10-13T18-58-27-884Z-643c4abf/report.json",
+    "sha256": "0eb26a10c20a24b8a261faa4616d09992141dc915c4cfbb6af3c59135e8209f9",
+    "contractAcceptance": false,
+    "status": "failed",
+    "passed": 119,
+    "total": 120,
+    "engines": [
+      {
+        "name": "chromium",
+        "status": "passed",
+        "passed": 40,
+        "total": 40
+      },
+      {
+        "name": "firefox",
+        "status": "failed",
+        "passed": 39,
+        "total": 40
+      },
+      {
+        "name": "webkit",
+        "status": "passed",
+        "passed": 40,
+        "total": 40
+      }
+    ],
+    "failures": [
+      {
+        "engine": "firefox",
+        "path": "/archives/preview-2/",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "mode": "light",
+        "failures": [
+          "waitForFunction: Timeout 15000ms exceeded.",
+          "Resource completion before close: Resource completion before close exceeded 5000ms",
+          "Unfinished resource requests before context close"
+        ],
+        "pendingRequestsBeforeClose": [
+          {
+            "requestId": 12,
+            "url": "http://127.0.0.1:18105/lab/cover-golden-mountain.webp",
+            "method": "GET",
+            "type": "image",
+            "documentId": 1,
+            "mainFrame": true,
+            "responseReceived": false
+          }
+        ],
+        "readinessFailure": {
+          "phase": "visible-images",
+          "state": {
+            "readyState": "complete",
+            "fontStatus": "loaded",
+            "loading": false,
+            "fonts": [
+              {
+                "family": "\"Font Awesome 6 Brands\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"Font Awesome 6 Free\"",
+                "status": "loaded"
+              },
+              {
+                "family": "\"Font Awesome 6 Free\"",
+                "status": "loaded"
+              },
+              {
+                "family": "\"Font Awesome 5 Brands\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"Font Awesome 5 Free\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"Font Awesome 5 Free\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"FontAwesome\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"FontAwesome\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"FontAwesome\"",
+                "status": "unloaded"
+              },
+              {
+                "family": "\"FontAwesome\"",
+                "status": "unloaded"
+              }
+            ],
+            "finiteAnimations": [],
+            "visibleImages": [
+              {
+                "src": "http://127.0.0.1:18105/lab/cover-golden-mountain.webp",
+                "lazy": null,
+                "complete": false,
+                "width": 0,
+                "height": 0
+              },
+              {
+                "src": "http://127.0.0.1:18105/lab/cover-mountain-lake.webp",
+                "lazy": null,
+                "complete": true,
+                "width": 1600,
+                "height": 1067
+              },
+              {
+                "src": "http://127.0.0.1:18105/themes/halo-butterfly-next/assets/images/above.svg?v=0.1.0-alpha.4",
+                "lazy": null,
+                "complete": true,
+                "width": 300,
+                "height": 169
+              }
+            ]
+          }
+        },
+        "screenshot": {
+          "path": "firefox-1440-light-8-diagnostic.png",
+          "sha256": "7582318aba46d47cfed927c62df7fcc38041f53e29b1d14fb3f8ff80cb4bc8db",
+          "diagnosticOnly": true,
+          "readinessCertified": false
+        }
+      }
+    ],
+    "classification": "One Firefox image request stall; no theme JS exception/HTTP failure. Similar observable shape to issue #338, root cause not established by this run; original failure not retried or reclassified."
+  },
+  "accessibility": {
+    "fixCommit": "34c9e8958eb1be30fe33b9acf4b6793efda49b3a",
+    "before": {
+      "report": ".runtime/integrated/a11y-initial/report.json",
+      "sha256": "15aa5acd9d2d151840e5f21cda580ca3c28138bd4493d2ff95e85be90d864c81",
+      "pages": 40,
+      "failedPages": 2,
+      "rule": "color-contrast",
+      "selector": ".is-active-link / .toc-link",
+      "foreground": "#49b1f5",
+      "background": "#ffffff",
+      "ratio": 2.36
+    },
+    "after": {
+      "theme": {
+        "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+        "sha256": "2a6694d70cf61ecdfaab014908f0f87043cca6861d14f47b4b9c0e2dd2d54e44",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "34c9e8958eb1be30fe33b9acf4b6793efda49b3a",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "report": ".runtime/integrated/a11y-fixed/report.json",
+      "sha256": "54a0fbc5b7355c6209e365caec2854d2b346ad91e285cf6159ba01a9b85b7363",
+      "pages": 40,
+      "violations": 0,
+      "incompleteRules": 40,
+      "incompleteIds": [
+        "color-contrast"
+      ]
+    },
+    "contractAcceptance": false,
+    "scope": "Core ten routes, Chromium, desktop/mobile light/dark, automated WCAG 2 A/AA, 2.1 AA, 2.2 AA rules. No screen reader, physical device, visual/interaction/manual WCAG conformance claim."
+  },
+  "corePerformanceBehavior": {
+    "report": ".runtime/integrated/core-performance.json",
+    "sha256": "75dfdb0ba2fd30060074d9efbde5bc117c7616628858751972ab4ad711663b40",
+    "checks": 30,
+    "passed": 30,
+    "scope": "Real Halo core home/longform, light/dark desktop/mobile; delayed bundle and no-JS fallback. Automation engines, not real devices or Safari."
+  },
+  "performanceDiagnostics": [
+    {
+      "route": "home",
+      "report": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/report.json",
+      "sha256": "1c0484bb3265466a5c5a9d19a2de39f5ffce5756ae5f218a428d2111f4fc549e",
+      "result": "incomplete",
+      "contractAcceptance": false,
+      "theme": {
+        "sourceSha": "34c9e8958eb1be30fe33b9acf4b6793efda49b3a",
+        "packageSha256": "2a6694d70cf61ecdfaab014908f0f87043cca6861d14f47b4b9c0e2dd2d54e44",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "configSha256": "2dab8c6366a9b417a91a02f3cddc003d37de6530c6a21c15b4266f8a6a2e0289",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9"
+      },
+      "runner": {
+        "sourceSha": "91d3238211af6de13f76475b8cd62913528ea573",
+        "workingTreeClean": true
+      },
+      "stationUnchanged": true,
+      "samples": [
+        {
+          "route": "home",
+          "device": "mobile",
+          "index": 0,
+          "status": "passed",
+          "requestedUrl": "http://127.0.0.1:18115/",
+          "startedAt": "2026-10-13T19:14:25.081Z",
+          "command": [
+            "/Users/baizhukui/.bun/bin/bun",
+            "/Users/baizhukui/.codex/worktrees/theme-i18n/halo-butterfly-next/.runtime/performance/deps/node_modules/lighthouse/cli/index.js",
+            "http://127.0.0.1:18115/",
+            "--output=json",
+            "--output-path=/Users/baizhukui/.codex/worktrees/theme-i18n/halo-butterfly-next/.runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/home-mobile-0/lhr.json",
+            "--save-assets",
+            "--config-path=/Users/baizhukui/.codex/worktrees/theme-i18n/halo-butterfly-next/.runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/home/home-mobile-0/config.json",
+            "--chrome-flags=--headless=new",
+            "--chrome-flags=--host-resolver-rules=\"MAP * ~NOTFOUND, EXCLUDE 127.0.0.1\"",
+            "--port=0",
+            "--quiet"
+          ],
+          "processGroupPid": 33785,
+          "metrics": {
+            "lcp": 6095.5335000000005,
+            "tbt": 0,
+            "cls": 0,
+            "themeJsBytes": 232833,
+            "themeCssBytes": 291885,
+            "requests": 19,
+            "transferBytes": 1270977,
+            "network": [
+              {
+                "url": "http://127.0.0.1:18115/",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 16497,
+                "decodedBytes": 65908
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 24161,
+                "decodedBytes": 73890
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/pace/pace-theme-minimal.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 574,
+                "decodedBytes": 409
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+                "theme": true,
+                "type": "js",
+                "transferBytes": 5302,
+                "decodedBytes": 12962
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/images/above.svg",
+                "theme": true,
+                "type": "other",
+                "transferBytes": 1220,
+                "decodedBytes": 1049
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/css/index.min.css?v=0.1.0-alpha.4",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 42696,
+                "decodedBytes": 217586
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/fa-solid-900.woff2",
+                "theme": true,
+                "type": "other",
+                "transferBytes": 158390,
+                "decodedBytes": 158220
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/fa-regular-400.woff2",
+                "theme": true,
+                "type": "other",
+                "transferBytes": 25641,
+                "decodedBytes": 25472
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-mountain-lake.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 214675,
+                "decodedBytes": 214372
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-architecture.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 77104,
+                "decodedBytes": 76802
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-golden-mountain.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 22248,
+                "decodedBytes": 21946
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-misty-forest.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 42348,
+                "decodedBytes": 42046
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-turquoise-coast.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 165965,
+                "decodedBytes": 165662
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-misty-mountain.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 95004,
+                "decodedBytes": 94702
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-blue-ocean.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 111853,
+                "decodedBytes": 111550
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/cover-autumn-forest.webp",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 56550,
+                "decodedBytes": 56248
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/js/index.min.js?v=0.1.0-alpha.4",
+                "theme": true,
+                "type": "js",
+                "transferBytes": 91292,
+                "decodedBytes": 219871
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/fa-brands-400.woff2",
+                "theme": true,
+                "type": "other",
+                "transferBytes": 118854,
+                "decodedBytes": 118684
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/avatar.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 603,
+                "decodedBytes": 300
+              }
+            ],
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "lhr": {
+            "path": "home-mobile-0/lhr.json",
+            "sha256": "80e7663f0e18673913775cd2075baafbbbf54f78ac8fadd4642f75c61f388040",
+            "bytes": 266547
+          },
+          "trace": {
+            "path": "home-mobile-0/lhr-0.trace.json",
+            "sha256": "afbaebcc459ae4b9cbae11dd8d1a5de68095a51cc51377cdd84a784e3f2477e1",
+            "bytes": 7253409
+          },
+          "devtoolsLog": {
+            "path": "home-mobile-0/lhr-0.devtoolslog.json",
+            "sha256": "dc9f7bec70c160075fc9967155571a62285374ef653079993e09e57cb8ecd6fa",
+            "bytes": 207173
+          },
+          "finishedAt": "2026-10-13T19:14:35.129Z"
+        }
+      ]
+    },
+    {
+      "route": "longform",
+      "report": ".runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/report.json",
+      "sha256": "c389359269aba870f4731d730e1fc3278077f6ddd31d6c10e966f3e9a4ae0574",
+      "result": "incomplete",
+      "contractAcceptance": false,
+      "theme": {
+        "sourceSha": "34c9e8958eb1be30fe33b9acf4b6793efda49b3a",
+        "packageSha256": "2a6694d70cf61ecdfaab014908f0f87043cca6861d14f47b4b9c0e2dd2d54e44",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "configSha256": "2dab8c6366a9b417a91a02f3cddc003d37de6530c6a21c15b4266f8a6a2e0289",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9"
+      },
+      "runner": {
+        "sourceSha": "91d3238211af6de13f76475b8cd62913528ea573",
+        "workingTreeClean": true
+      },
+      "stationUnchanged": true,
+      "samples": [
+        {
+          "route": "longform",
+          "device": "mobile",
+          "index": 0,
+          "status": "passed",
+          "requestedUrl": "http://127.0.0.1:18115/archives/perf-longform-v1",
+          "startedAt": "2026-10-13T19:14:56.933Z",
+          "command": [
+            "/Users/baizhukui/.bun/bin/bun",
+            "/Users/baizhukui/.codex/worktrees/theme-i18n/halo-butterfly-next/.runtime/performance/deps/node_modules/lighthouse/cli/index.js",
+            "http://127.0.0.1:18115/archives/perf-longform-v1",
+            "--output=json",
+            "--output-path=/Users/baizhukui/.codex/worktrees/theme-i18n/halo-butterfly-next/.runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/longform-mobile-0/lhr.json",
+            "--save-assets",
+            "--config-path=/Users/baizhukui/.codex/worktrees/theme-i18n/halo-butterfly-next/.runtime/performance/runs/candidate-34c9e89-fixed-diagnostic/default/longform/longform-mobile-0/config.json",
+            "--chrome-flags=--headless=new",
+            "--chrome-flags=--host-resolver-rules=\"MAP * ~NOTFOUND, EXCLUDE 127.0.0.1\"",
+            "--port=0",
+            "--quiet"
+          ],
+          "processGroupPid": 34278,
+          "metrics": {
+            "lcp": 2778.918,
+            "tbt": 60.5,
+            "cls": 0.0008469425837072566,
+            "themeJsBytes": 947244,
+            "themeCssBytes": 341187,
+            "requests": 27,
+            "transferBytes": 758288,
+            "network": [
+              {
+                "url": "http://127.0.0.1:18115/archives/perf-longform-v1",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 18815,
+                "decodedBytes": 110938
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 24161,
+                "decodedBytes": 73890
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/pace/pace-theme-minimal.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 574,
+                "decodedBytes": 409
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+                "theme": true,
+                "type": "js",
+                "transferBytes": 5302,
+                "decodedBytes": 12962
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-01.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 671,
+                "decodedBytes": 368
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/prism/prism.min.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 3758,
+                "decodedBytes": 10900
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-light.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 1797,
+                "decodedBytes": 4522
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-dark.css",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 1876,
+                "decodedBytes": 4716
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/css/post.min.css?v=0.1.0-alpha.4",
+                "theme": true,
+                "type": "css",
+                "transferBytes": 48839,
+                "decodedBytes": 246750
+              },
+              {
+                "url": "http://127.0.0.1:18115/halo-tracker.js",
+                "theme": false,
+                "type": "js",
+                "transferBytes": 2011,
+                "decodedBytes": 1838
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-02.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 672,
+                "decodedBytes": 369
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-03.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 672,
+                "decodedBytes": 369
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-04.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 672,
+                "decodedBytes": 369
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-05.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 672,
+                "decodedBytes": 369
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-06.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 672,
+                "decodedBytes": 369
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-07.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 673,
+                "decodedBytes": 370
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-08.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 673,
+                "decodedBytes": 370
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-09.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 673,
+                "decodedBytes": 370
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-10.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 673,
+                "decodedBytes": 370
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-11.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 673,
+                "decodedBytes": 370
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/perf-chart-12.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 673,
+                "decodedBytes": 370
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/fa-solid-900.woff2",
+                "theme": true,
+                "type": "other",
+                "transferBytes": 158390,
+                "decodedBytes": 158220
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/js/post.min.js?v=0.1.0-alpha.4",
+                "theme": true,
+                "type": "js",
+                "transferBytes": 131756,
+                "decodedBytes": 334345
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/fa-brands-400.woff2",
+                "theme": true,
+                "type": "other",
+                "transferBytes": 118854,
+                "decodedBytes": 118684
+              },
+              {
+                "url": "http://127.0.0.1:18115/apis/api.halo.run/v1alpha1/trackers/counter",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 353,
+                "decodedBytes": 0
+              },
+              {
+                "url": "http://127.0.0.1:18115/lab/avatar.svg",
+                "theme": false,
+                "type": "other",
+                "transferBytes": 603,
+                "decodedBytes": 300
+              },
+              {
+                "url": "http://127.0.0.1:18115/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js",
+                "theme": true,
+                "type": "js",
+                "transferBytes": 233130,
+                "decodedBytes": 599937
+              }
+            ],
+            "resolvedConfigHash": "17cc77b79d8aa36ca00fe582e0167a9f5954c9d04d41a588d9bb5cf17a6b00b5"
+          },
+          "lhr": {
+            "path": "longform-mobile-0/lhr.json",
+            "sha256": "df1d1b170e469d8684c12dfd390a1a3c01f5fa6dc12c29cb705c6cb2be63999a",
+            "bytes": 1383612
+          },
+          "trace": {
+            "path": "longform-mobile-0/lhr-0.trace.json",
+            "sha256": "608253f20783e8e6082256fdc6aec8469605128921ed82ea72194a111d9314c3",
+            "bytes": 10108066
+          },
+          "devtoolsLog": {
+            "path": "longform-mobile-0/lhr-0.devtoolslog.json",
+            "sha256": "91c2ad12fa7130ddbe6f3f9eb719bcdec7ef274cb5435317d59c159ce7b69bd7",
+            "bytes": 379228
+          },
+          "finishedAt": "2026-10-13T19:15:07.150Z"
+        }
+      ]
+    }
+  ],
+  "performanceToolFix": {
+    "commit": "91d3238211af6de13f76475b8cd62913528ea573",
+    "reason": "Pinned Lighthouse 13.4.1 resolves zh-CN to zh; request zh directly, retaining strict resolved-settings validation. No raw LHR changes.",
+    "failedOriginal": ".runtime/performance/runs/candidate-34c9e89-diagnostic/default/home/report.json",
+    "failedOriginalSha256": "3bfde977e376c8831ec903a1c26256398e67cd0638f6eec62ba428eff82b5495",
+    "originalError": "Wrong Lighthouse setting: locale",
+    "tests": 722,
+    "failures": 0,
+    "packageFiles": 264
+  },
+  "environment": [
+    "Core browser and axe used owned Halo18105. All D05/D06 temporary annotation/options overrides were removed before the comparison run; previous state saved locally.",
+    "Port14005 was occupied by a historical aside-a11y lab process, left untouched. Performance used fresh owned Halo18115/Hexo14015 and runtime .runtime/performance-lab.",
+    "Pinned Hexo7.3.0 scripts fail under Bun1.4.0 with module.require incompatibility; actual pinned reference output was generated using installed Node24.11.0. Theme source remains built/tested with Bun1.4.0.",
+    "Performance config exactly matches frozen defaults, plugins disabled, fixed longform/assets and official Halo JAR strictly checked. CPU windows coordinated with parent/PJAX/Moments; only one Lighthouse process at a time."
+  ],
+  "limitations": [
+    "Only one mobile sample per performance route, no medians/baseline/recommended/plugins/desktop cohort; performance contracts remain incomplete.",
+    "No real Safari application, physical device, screen reader, full manual a11y, or complete 1.0 acceptance.",
+    "Core browser failure remains a failure; snapshot similarity does not establish #338 root cause.",
+    "Later root commits (Moment/PJAX/security fixes) are not included in these exact candidate results."
+  ]
+}

@@ -1,12 +1,7 @@
 <footer
   class="footer"
-  th:with="
-    footerImg = ${theme.config.footer?.footer_img},
-    footerImgOn = ${not #strings.isEmpty(footerImg) and footerImg != false and footerImg != 'false' and footerImg != true and footerImg != 'true'},
-    footerMaskOn = ${theme.config.mask?.footer != false and theme.config.mask?.footer != 'false'}
-  "
-  th:classappend="${footerImgOn} ? (${footerMaskOn} ? ' footer--bg footer--mask' : ' footer--bg') : ''"
-  th:style="${footerImgOn} ? |background-image: url('${footerImg}');| : ''"
+  th:data-footer-background="${theme.config.footer?.footer_img}"
+  th:data-footer-mask="${theme.config.mask?.footer != false and theme.config.mask?.footer != 'false'}"
 >
   <div
     class="footer-flex"
@@ -22,6 +17,22 @@
       target="_blank"
       rel="noopener noreferrer"
     ></a>
+  </div>
+  <div class="footer-flex footer-columns" th:if="${not #lists.isEmpty(theme.config.footer?.columns)}">
+    <div class="footer-flex-items" th:each="column : ${theme.config.footer.columns}" th:attr="data-footer-grow=${column.width}">
+      <section class="footer-column-section" th:each="section : ${column.sections}">
+        <h3 class="footer-flex-title" th:text="${section.title}"></h3>
+        <div class="footer-flex-content">
+          <div class="footer-flex-item" th:each="item : ${section.items}">
+            <div th:if="${not #strings.isEmpty(item.html)}" data-site-html th:text="${item.html}"></div>
+            <th:block th:unless="${not #strings.isEmpty(item.html)}" th:with="url=${item.url ?: ''}">
+              <a th:if="${not #strings.isEmpty(url) and url.matches('(?i)^(https?://|mailto:|tel:|/|#).*')}" data-site-link th:href="${url}" th:text="${item.title}" target="_blank" rel="noopener noreferrer"></a>
+              <span th:unless="${not #strings.isEmpty(url) and url.matches('(?i)^(https?://|mailto:|tel:|/|#).*')}" th:text="${item.title}"></span>
+            </th:block>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
   <div class="footer-other"
        th:classappend="${not #lists.isEmpty(theme.config.footer?.nav)} ? ' footer-other--nav'"
@@ -40,12 +51,12 @@
             th:text="${!#strings.isEmpty(sinceText) and sinceText != currentYear ? ('© ' + sinceText + ' - ' + currentYear + ' By ' + (contributor?.displayName ?: site.title)) : ('© ' + currentYear + ' By ' + (contributor?.displayName ?: site.title))}"></span>
       <span class="framework-info powered" th:if="${copyOn}">
         <span class="footer-separator" th:if="${ownerOn and navOn}">|</span>
-        <span>框架 </span>
+        <span th:text="#{ui.framework}">框架 </span>
         <a class="halo" href="https://halo.run/" target="_blank" rel="noopener noreferrer">Halo</a>
         <span class="footer-separator">|</span>
-        <span>主题 </span>
+        <span th:text="#{ui.theme}">主题 </span>
         <a class="theme"
-           title="原 Halo Butterfly 移植项目"
+           title="原 Halo Butterfly 移植项目" th:title="#{ui.originalProject}"
            href="https://github.com/dhjddcn/halo-theme-butterfly"
            target="_blank"
            rel="noopener noreferrer">Halo Butterfly Next</a><span th:if="${versionOn}" th:text="${' ' + theme.spec.version}"></span>
@@ -54,8 +65,9 @@
     <div class="footer_custom_text"
          th:if="${not #strings.isEmpty(theme.config.footer?.custom_text)}"
          th:text="${theme.config.footer.custom_text}"></div>
+    <div class="footer_custom_text" th:if="${not #strings.isEmpty(theme.config.footer?.custom_html)}" data-site-html th:text="${theme.config.footer.custom_html}"></div>
     <div class="icp" th:if="${not #strings.isEmpty(theme.config.base.icp)}">
-      <a th:text="'备案号：'+${theme.config.base.icp}"
+      <a th:text="#{ui.icp}+${theme.config.base.icp}"
          href="https://beian.miit.gov.cn/">
       </a>
     </div>
@@ -68,7 +80,7 @@
       <a
         href="https://www.beian.gov.cn/portal/registerSystemInfo"
         target="_blank"
-        th:text="'公安备案：'+${theme.config.base.police}"></a>
+        th:text="#{ui.police}+${theme.config.base.police}"></a>
     </div>
   </div>
   <halo:footer/>

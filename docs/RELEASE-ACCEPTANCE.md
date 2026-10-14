@@ -1,10 +1,10 @@
 # 1.0 工程验收合同
 
-合同版本：2026-10-14 / v1.4（基于 2026-09-06 / v1；v1.1 为 DEC-01，v1.2 为 DEC-02，v1.3 为 DEC-07 数学公式平台替代，v1.4 为 DEC-03 资源供应裁定）。本文固定“具备 1.0 工程验收条件的可发布候选状态”的完成条件，不是验收通过记录。所有新场景初始均为 `未验证`；[0.1.0-alpha.1 首轮记录](VALIDATION.md)只说明其记录的版本与范围，不能直接给新候选版本背书。
+合同版本：2026-10-14 / v1.5（基于 2026-09-06 / v1；v1.1 为 DEC-01，v1.2 为 DEC-02，v1.3 为 DEC-07 数学公式平台替代，v1.4 为 DEC-03 资源供应裁定，v1.5 为 DEC-02 通用正文补充）。本文固定“具备 1.0 工程验收条件的可发布候选状态”的完成条件，不是验收通过记录。所有新场景初始均为 `未验证`；[0.1.0-alpha.1 首轮记录](VALIDATION.md)只说明其记录的版本与范围，不能直接给新候选版本背书。
 
 v1.1 修订：[#46](https://github.com/songxychn/halo-butterfly-next/issues/46) 裁定 DEC-01 为平台替代。1.0 搜索/评论以官方 `PluginSearchWidget` / `PluginCommentWidget` 为唯一主题支持面；修订 PLG-02/03 与矩阵 `not-applicable` 规则。
 
-v1.2 修订：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45) 裁定 DEC-02。1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS，主题不解析 `{% %}`；series/flink 活数据延期 1.1。DEC-01 的 `not-applicable` 不扩大到标签能力。
+v1.2 修订：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45) 裁定 DEC-02。1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS，主题不解析 `{% %}`；series/flink 活数据延期 1.1。DEC-01 的 `not-applicable` 不扩大到标签能力。此处为 v1.2 历史条件，正文输入和转换要求现以 v1.5 补充为准。
 
 v1.3 修订：维护者于 2026-10-11 确认数学公式以 Halo KaTeX 插件提供能力，取消 MathJax 专属验收及主题内数学库/CDN 供应配置，保留公式展示、编号展示、复制、逐页控制、资源与失败回退要求。详见 [DEC-07 裁定](MATH-RENDERING-DECISION.md)与 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387)。10 条提供方/资源供应项转为有依据的不适用；不据范围调整提升任何验收状态。
 
@@ -13,6 +13,8 @@ v1.3 修订：维护者于 2026-10-11 确认数学公式以 Halo KaTeX 插件提
 仓库状态更正（2026-10-05）：本仓库已公开；维护者确认保留公开上游及后续维护的完整 Git 历史，取消另建无历史源码快照仓库的设想。下文“私有预览/RC”保留原候选交付阶段的称呼，不表示当前仓库私有，也不授权直接公开发行原私有附件；具体版本发布仍按发布门禁确认。
 
 v1.4 修订：[#410](https://github.com/songxychn/halo-butterfly-next/issues/410) 登记 [DEC-03 资源供应裁定](parity/DEC-03-RESOURCES-DECISION.md)。导航/特效使用主题承载包，Viewer.js 为唯一灯箱，Prism 整包延迟加载；默认 Pace，四种 Loading 动画仅显式选择，无旧配置兼容。39 个独立供应/覆盖及评论专属 MD5 项转为有依据的不适用；库资源与用户能力继续验收。PWA、离线、RSS、站点地图及 Mermaid/Chart.js/ABCJS 不被本记录取消；0 条提升正式验收状态。
+
+v1.5 修订：维护者于 2026-10-14 结合已合并 [PR #408](https://github.com/songxychn/halo-butterfly-next/pull/408) 明确正文尽量采用通用 Markdown / 原生 HTML，主题渐进增强；不以兼容 Hexo 专属语法、DOM/class、别名或完整参数域为目标，不将通用标签离线转换作为 1.0 默认义务。[DEC-02 补充](parity/DEC-02-PORTABLE-CONTENT.md)取代下述历史记录中的冲突要求。保留通用用户能力、编辑器保存重开、失败回退和换主题阅读验收；不自动提高验收状态。
 
 ## 1. 目标、基准与授权边界
 
@@ -98,7 +100,7 @@ v1.4 修订：[#410](https://github.com/songxychn/halo-butterfly-next/issues/410
 | POST-01 | h1–h6、列表、引用、表格、链接、图片/说明、代码行号/主题/折叠/复制/换行/全屏等适用能力逐项验证；代码复制内容逐字相同；长表格与代码容器内滚动 | 合成原文与渲染断言、实际剪贴板结果、亮暗及窄屏报告 |
 | POST-02 | 目录编号/展开/简洁/进度、阅读模式、上一篇下一篇、相关文章、系列（1.0 为正文静态列表；侧栏活数据按 DEC-02 延期 1.1）、版权/打赏/编辑链接/过期提示/分享等逐项开启验证；切换和返回不丢状态 | 能力 ID 对应配置与操作结果、目标 URL/锚点、动态状态证据 |
 | POST-03 | 模式跟随系统、手动选择、跨页/刷新持久化、首次绘制、存储不可用均验证；代码、灯箱、评论与插件公共页同步，文字保持可读 | 初始与后续模式记录、独立存储状态、浏览器报告；只检验 `data-*` 值不充分 |
-| EXT-01 | 按上游 `scripts/tag/` 每种标签及选项建立 Halo **等效 HTML**（路径 A，class/DOM 对齐 Butterfly 生成结果）：按钮、图库、隐藏内容、标签、Note、Tabs、时间轴、评分、系列、行内图、图表等；展开/切换/缩放等动作真实执行。主题不解析 `{% %}`；路径 B 原文在 Halo 上原样输出，不作为通过条件。Hexo 源离线转换成路径 A HTML，作为本场景转换证据 | 路径 A 夹具与渲染/交互断言；离线转换规则与样例；路径 B 负例（原文可见） |
+| EXT-01 | 以通用 Markdown / 原生 HTML 验证提示、分组 Tabs、折叠、按钮、时间线、静态系列/友链、图片/行内标记及已声明的图库、图表、乐谱能力；主题仅渐进增强。原生 details/summary 可替代旧 hide 揭示。验证键盘、嵌套、锚点/历史、打印、重复初始化、空值/错误回退；编辑器保存重开后正文不丢失，无脚本/失败/换主题仍保留内容和链接入口。不要求 Hexo 语法、专属 DOM/class、完整参数或通用标签转换；未明确的通用能力保留待映射 | 通用内容夹具、实际渲染/交互断言、编辑器及换主题版本和内容保留结果、原文标签不解析负例；记录可移植性边界，不以源码或旧报告代替完整验收 |
 | EXT-02 | 数学公式按 DEC-07 采用 Halo KaTeX 插件，覆盖行内/块级、长公式滚动、显式编号展示、复制 TeX、逐页/全局控制和支持边界；不再验收 MathJax 引擎选择、右键菜单或 all/ams/none 自动编号策略。数学、Mermaid、ABCJS、Chart.js、播放器的按需加载、亮暗、内容错误及禁用回退按矩阵验证；不得将仅出现原始代码记为增强通过 | 每种引擎/插件版本、成功及错误夹具、资源请求与渲染断言 |
 | EXT-03 | PJAX/预取/懒加载/PWA 等逐项映射后测试：往返至少 5 次无重复事件或组件；新内容初始化；排除路由有效；断网缓存及更新按约定验证 | 导航循环、事件/资源计数、缓存生命周期与旧缓存清除记录；未确定映射保持待决策 |
 | CFG-01 | 所有布尔值分别开/关、所有枚举值逐值执行；文本/URL/列表增加空值、默认值与有效自定义值；记录互斥组与依赖组合，不用笛卡尔积替代有依据的覆盖计划 | 配置叶项到场景结果的完整映射、默认值及边界夹具、依赖组合清单 |
@@ -126,7 +128,7 @@ Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plu
 
 ## 6. 安装、配置迁移、升级与回退
 
-使用隔离站和合成配置。所有备份在任务私有目录存储并记录哈希；禁止将凭据或实际用户配置写入 Git。配置迁移覆盖声明仅为 2.0.5/2.0.7 结构，不并入 Hexo 配置无损迁移。Hexo Butterfly 标签源的离线 HTML 转换按 DEC-02 列入 1.0，在 EXT-01 验收，不并入 MIG-01/02。
+使用隔离站和合成配置。所有备份在任务私有目录存储并记录哈希；禁止将凭据或实际用户配置写入 Git。配置迁移覆盖声明仅为 2.0.5/2.0.7 结构，不并入 Hexo 配置无损迁移。DEC-02 补充取消通用 Hexo 标签离线转换的默认 1.0 义务；现有图库专用转换保留原范围，其他转换按明确迁移需求另行确定。EXT-01 验收通用正文能力与可移植性，不并入 MIG-01/02。
 
 | ID | 执行场景与成功条件 | 所需证据 |
 | --- | --- | --- |
@@ -196,7 +198,7 @@ Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plu
 | ID | 需裁定的问题 | 处理或裁定 |
 | --- | --- | --- |
 | DEC-01 | 上游三种搜索与各评论提供方是否逐个保留，或允许 Halo 搜索/评论插件提供语义等效替代；双评论系统、统计与懒加载如何对应 | **已裁定（2026-09-15，选项 2 平台替代，[#46](https://github.com/songxychn/halo-butterfly-next/issues/46)）**：1.0 主题支持面仅为官方 `PluginSearchWidget` / `PluginCommentWidget`。Algolia、DocSearch、本地搜索引擎配置、12 家评论 SDK、双评论及各家第三方资源标 `not-applicable`。保留入口开/关、查询、挂载、逐篇开关、Halo 计数、懒加载、侧栏最新评论（Halo 数据）与说说评论身份。PLG-02/03 按新成功条件执行；插件版本未锁定前这两项未完成。不得再用“已记录限制”缩减上述保留项 |
-| DEC-02 | Hexo `{% %}` 是否原文兼容导入，或采用 Halo 编辑器/插件等效内容；系列与扩展元数据如何保持用户能力 | **已裁定（2026-09-15，[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)）**：不对齐 Hexo 标签语法；1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS。`tag:*` 不标 `not-applicable`。详见下文 |
+| DEC-02 | Hexo `{% %}` 是否原文兼容导入，或采用 Halo 编辑器/插件等效内容；系列与扩展元数据如何保持用户能力 | **已裁定并于 2026-10-14 补充**：原记录 [#45](https://github.com/songxychn/halo-butterfly-next/issues/45)，当前采用通用 Markdown / 原生 HTML + 渐进增强；不强制 Hexo 专属结构/参数或通用离线转换。`tag:*` 保留用户能力追踪，见[补充记录](parity/DEC-02-PORTABLE-CONTENT.md) |
 | DEC-03 | PWA/离线、RSS/站点地图等生成器能力，以及 PJAX/资源 CDN 策略哪些由 Halo/插件承担，是否接受配置与操作差异 | **资源供应部分已裁定（2026-10-14，[#410](https://github.com/songxychn/halo-butterfly-next/issues/410)）**：导航/特效承载包、Viewer.js、Prism 整包、默认 Pace 与动画显式可选；39 个原独立供应/评论 MD5 要求不适用，读者能力保留。PWA/离线、RSS/站点地图仍待裁定；主题缺少生成步骤本身不足以删项 |
 | DEC-04 | 分析、广告、聊天、第三方字幕/播放器等外部服务的完整提供方接入，需要哪些测试账号、专用测试站与真实联调 | 裁定前：用合成数据完成本地契约与失败回退；不向正式外部服务发送测试数据，也不将 mock 通过记为真实联调通过 |
 | DEC-05 | 如某个浏览器/真实设备无法获得，是否调整支持声明或验收范围 | 裁定前：保留 BROWSER/DEVICE 未完成状态；没有维护者决定前不降低本合同 |
@@ -208,10 +210,12 @@ Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plu
 
 ### DEC-02 裁定记录（2026-09-15）
 
+以下保留原决定的历史语义；其中“与 Butterfly 相同 DOM”“实现 + 转换”等条件已由 2026-10-14 的[通用正文补充](parity/DEC-02-PORTABLE-CONTENT.md)取代，不再作为当前门禁。既有活数据 1.1 延期继续有效。
+
 - **证据**：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45)；`{% %}` 由 Hexo 在生成期解析，Butterfly 只在 `scripts/tag/` 注册 19 个标签；Halo 主题消费已渲染 HTML（`post.content.content`），没有对应层。
 - **原成功条件**：EXT-01 未限定 Halo 输入是原文标签还是等效内容；`tag:*` 保持 `mapping-required`，语法差异不得标为不适用。
-- **新成功条件**：1.0 对齐读者可见的 Butterfly DOM/交互，不对齐 `{% %}` 原文。主题不得在渲染期解析该语法。路径 A（等效 HTML）为通过输入；路径 B（原文粘贴）在 Halo 上原样输出，记为预期负例。Hexo 源由离线转换生成路径 A HTML，在 EXT-01 验收。运行时标签解析若需要，单独立项为 1.1 插件，不进入主题包。
-- **1.0 实现 + 转换**（状态改为待实现，不删项）：`tag:btn`、`tag:chartjs`、`tag:gallery`、`tag:galleryGroup`、`tag:hideBlock`、`tag:hideInline`、`tag:hideToggle`、`tag:inlineImg`、`tag:label`、`tag:mermaid`、`tag:note`、`tag:score`、`tag:subnote`、`tag:subsubtabs`、`tag:subtabs`、`tag:tabs`、`tag:timeline`。`tag:gallery` / `tag:flink` / `tag:chartjs` 不得用 Photos 页、Links 页或归档统计图关闭。
+- **当时成功条件（已被补充修订）**：1.0 对齐读者可见的 Butterfly DOM/交互，不对齐 `{% %}` 原文。主题不得在渲染期解析该语法。路径 A（等效 HTML）为通过输入；路径 B（原文粘贴）在 Halo 上原样输出，记为预期负例。Hexo 源由离线转换生成路径 A HTML，在 EXT-01 验收。运行时标签解析若需要，单独立项为 1.1 插件，不进入主题包。
+- **当时的实现 + 转换清单（当前不再要求通用转换，状态以矩阵为准）**：`tag:btn`、`tag:chartjs`、`tag:gallery`、`tag:galleryGroup`、`tag:hideBlock`、`tag:hideInline`、`tag:hideToggle`、`tag:inlineImg`、`tag:label`、`tag:mermaid`、`tag:note`、`tag:score`、`tag:subnote`、`tag:subsubtabs`、`tag:subtabs`、`tag:tabs`、`tag:timeline`。`tag:gallery` / `tag:flink` / `tag:chartjs` 不得用 Photos 页、Links 页或归档统计图关闭。
 - **1.0 正文静态等效**：`tag:series`、`tag:flink` 在 1.0 验收作者提供的静态 HTML；不等于系列数据模型或友链插件页。
 - **延期 1.1（`blocked`，phase=1.1，单列、不计入 1.0 分母）**：`config:series.enable`、`config:series.orderBy`、`config:series.order`、`config:series.number`、`page-data:series`、`lifecycle-hook:scripts/tag/series.js#filter:before_generate`、`lifecycle-hook:scripts/tag/series.js#filter:before_post_render`、`config:aside.card_post_series.enable`、`config:aside.card_post_series.series_title`、`config:aside.card_post_series.orderBy`、`config:aside.card_post_series.order`、`template:includes/widget/card_post_series`。从 Links 插件向正文灌入活数据不在 1.0。
-- **确认放弃**：无。
+- **当时确认放弃**：无。2026-10-14 当前范围以通用正文补充为准，不据此恢复已取消的 Hexo 兼容/转换要求。

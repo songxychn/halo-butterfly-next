@@ -1,3 +1,4 @@
+import { t } from '../core/i18n';
 /**
  * Adapted from Butterfly 5.7.0 source/js/main.js runJustifiedGallery (Apache-2.0).
  * Same InfiniteGrid 4.13.0 justified engine, gap 5 and row size range 150–600.
@@ -42,7 +43,7 @@ function initialize(gallery: HTMLElement) {
     const remaining = cursor < images.length;
     button.hidden = !remaining;
     button.disabled = busy;
-    button.textContent = '加载更多';
+    button.textContent = t('ui.loadMore');
     gallery.setAttribute('aria-busy', String(busy));
   };
   const item = async (data: GalleryImage) => {
@@ -60,7 +61,7 @@ function initialize(gallery: HTMLElement) {
         image.onload = image.onerror = null; pendingImages.delete(cancel);
         if (failed) {
           image.src = brokenImage; image.width = 300; image.height = 200;
-          image.alt = '图片加载失败' + (data.alt ? '：' + data.alt : '');
+          image.alt = t('ui.imageError') + (data.alt ? '：' + data.alt : '');
           element.setAttribute('data-no-lightbox', '');
         } else { image.width = image.naturalWidth; image.height = image.naturalHeight; }
         resolve();
@@ -75,7 +76,7 @@ function initialize(gallery: HTMLElement) {
   };
   const append = async () => {
     if (!active || busy || cursor >= images.length) return;
-    busy = true; showMore(); status.textContent = '正在加载图片…';
+    busy = true; showMore(); status.textContent = t('ui.loadingImages');
     const keyboardFocus = document.activeElement === button;
     const next = Math.min(images.length, cursor + (cursor === 0 ? options.first : options.limit));
     const elements = await Promise.all(images.slice(cursor, next).map(item));
@@ -94,23 +95,23 @@ function initialize(gallery: HTMLElement) {
     });
     grid.append(elements, ++batch);
     busy = false; showMore();
-    status.textContent = `已加载 ${cursor} / ${images.length} 张图片`;
+    status.textContent = t('ui.imagesLoaded', cursor, images.length);
   };
   const load = async () => {
     if (!active || busy) return;
-    busy = true; button.hidden = true; status.textContent = '正在读取图库…';
+    busy = true; button.hidden = true; status.textContent = t('ui.readingGallery');
     gallery.setAttribute('aria-busy', 'true');
     request = new AbortController();
     const timeout = setTimeout(() => request?.abort(), 8000);
     try {
       if (gallery.dataset.type === 'url') images = await fetchGallery(source, document.baseURI, request.signal);
       else {
-        if (new TextEncoder().encode(source).length > MAX_GALLERY_BYTES) throw new Error('图库数据过大');
+        if (new TextEncoder().encode(source).length > MAX_GALLERY_BYTES) throw new Error(t('ui.errorGallerySize'));
         images = galleryImages(JSON.parse(source), document.baseURI);
       }
       if (!active) return;
       loaded = true; busy = false;
-      if (!images.length) { status.textContent = '暂无图片'; showMore(); return; }
+      if (!images.length) { status.textContent = t('ui.emptyImages'); showMore(); return; }
       if (!options.button && 'IntersectionObserver' in window) {
         observer = new IntersectionObserver(entries => {
           if (entries.some(entry => entry.isIntersecting)) void append();
@@ -119,8 +120,8 @@ function initialize(gallery: HTMLElement) {
       await append();
     } catch {
       if (!active) return;
-      busy = false; status.textContent = '图库数据加载失败，请重试。';
-      button.hidden = false; button.disabled = false; button.textContent = '重试';
+      busy = false; status.textContent = t('ui.galleryError');
+      button.hidden = false; button.disabled = false; button.textContent = t('ui.retry');
       gallery.setAttribute('aria-busy', 'false');
     } finally { clearTimeout(timeout); }
   };

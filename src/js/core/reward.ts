@@ -1,3 +1,4 @@
+import { t } from './i18n';
 /**
  * 打赏。对齐 Butterfly 5.7.0
  * _config.yml reward + layout/includes/post/reward.pug + layout/post.pug
@@ -27,9 +28,9 @@ export function resolveEnable(value: unknown) {
 
 /** 空 / 缺省回退「打赏」。 */
 export function resolveText(value: unknown) {
-  if (value == null) return '打赏';
+  if (value == null) return t('ui.donate');
   const text = String(value);
-  return text.trim() === '' ? '打赏' : text;
+  return text.trim() === '' ? t('ui.donate') : text;
 }
 
 export function resolveClickTo(item: {link?: unknown; img?: unknown} | null | undefined) {

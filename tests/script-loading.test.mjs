@@ -93,11 +93,12 @@ test('external Prism failure waits for the local fallback before resolving enhan
   const previous = globalThis.window;
   globalThis.window = {MainApp:{resources:{option:{prismjs_js:'https://cdn.test/prism.js'}}}};
   try {
-    const scripts=[],frames=[];
-    const document={createElement:()=>({events:{},setAttribute(){},addEventListener(k,fn){this.events[k]=fn;}}),head:{append:s=>scripts.push(s)}};
+    const scripts=[],frames=[],hints=[];
+    const document={baseURI:'https://site.test/post',createElement:tag=>({tag,dataset:{},events:{},setAttribute(){},addEventListener(k,fn){this.events[k]=fn;},hasAttribute(){return false;}}),head:{querySelectorAll:()=>hints,append:s=>(s.tag==='link'?hints:scripts).push(s)}};
     const ready=loadPrismAfterPaint({source:'/local-prism.js',document,requestFrame:fn=>frames.push(fn)});
     await Promise.resolve();frames.shift()();frames.shift()();
     const script=scripts[0];assert.equal(script.src,'https://cdn.test/prism.js');
+    assert.equal(hints.length,1);assert.equal(hints[0].href,'https://cdn.test');
     let settled=false;ready.then(()=>settled=true);
     script.events.error();await Promise.resolve();assert.equal(settled,false);
     assert.equal(scripts.length,2);assert.equal(scripts[1].src,'/local-prism.js');

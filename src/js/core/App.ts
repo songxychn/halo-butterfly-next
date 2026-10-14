@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { pageScope, onPageCleanup } from './page-lifecycle.ts';
 import { initializeNavigationLoading } from './navigation-loading.ts';
+import { trackContentView } from './content-tracker.ts';
 /**
  * @date: 2024/3/30
  * @author: 小红
@@ -47,6 +48,7 @@ export default function App(modules: (new () => import('../types.ts').ThemeModul
 
     useClearPage();
     initializeNavigationLoading();
+    trackContentView();
     document.dispatchEvent(new Event('halo-butterfly-next:page-ready'));
 
     return ins;

@@ -1,0 +1,93 @@
+{
+  "haloVersion": "2.26.1",
+  "installedTheme": {
+    "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+    "sha256": "4f65e69630f68b0b0ca3d0336d0a6b7e423a88f3812f152904711306b80321f7",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "bd914e4f057f6df0aa4a4a4f0936cc0175cf5b35",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "fixtureSha256": "4625c06d59f4362ec576fac2e6c37fd8dda6623a891b4b62b6f1928cf50155bf",
+  "cases": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "html-block",
+      "draftName": "01a1369b-e858-77b8-9069-de573646f193",
+      "published": false,
+      "fixtureAttributes": 17,
+      "savedAttributes": 17,
+      "reopenedAttributes": 17,
+      "savedContentSha256": "a99ff3a00222011894e722e4b5b5506e5c213ab2323a71c016edc6b653fbd3c0",
+      "reopenedContentSha256": "ccbdbcfad5552d1fbd884aa44c9cde2db71608528baa08963a52229b2e320ad9",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "plain-paste",
+      "draftName": "01a1369b-f120-74c2-9347-fe3228a41523",
+      "published": false,
+      "fixtureAttributes": 17,
+      "savedAttributes": 0,
+      "reopenedAttributes": 0,
+      "savedContentSha256": "b95cc6da416cd81edbc42e115a865fdbd736e9ebf26c781851e007f44fcbf50a",
+      "reopenedContentSha256": "179d887dc584f49d9ba5c540ce2745b9fa8762bd8d01ac115b5ae0a0c05e013a",
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "mode": "html-block",
+      "draftName": "01a1369d-9aa0-7114-b750-f692bf433210",
+      "published": false,
+      "fixtureAttributes": 17,
+      "savedAttributes": 17,
+      "reopenedAttributes": 17,
+      "savedContentSha256": "a99ff3a00222011894e722e4b5b5506e5c213ab2323a71c016edc6b653fbd3c0",
+      "reopenedContentSha256": "ccbdbcfad5552d1fbd884aa44c9cde2db71608528baa08963a52229b2e320ad9",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "mode": "html-block",
+      "draftName": "01a1369d-a957-74b2-9158-847d2bfb5d73",
+      "published": false,
+      "fixtureAttributes": 17,
+      "savedAttributes": 17,
+      "reopenedAttributes": 17,
+      "savedContentSha256": "a99ff3a00222011894e722e4b5b5506e5c213ab2323a71c016edc6b653fbd3c0",
+      "reopenedContentSha256": "ccbdbcfad5552d1fbd884aa44c9cde2db71608528baa08963a52229b2e320ad9",
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "Only new local unpublished drafts are written. No publish action or theme/configuration changes.",
+    "Editor roundtrip is independent of installed theme behavior; no public rendering claim.",
+    "Plain paste negative control is Chromium-only, delivered through a ClipboardEvent with text/html, not a physical clipboard. Firefox synthetic paste did not roundtrip content and is not qualified.",
+    "CodeMirror document is read after reload to include offscreen lines. No editor state is injected for HTML-block input."
+  ],
+  "plugin": {
+    "name": "hybrid-edit-block",
+    "version": "1.7.0",
+    "enabled": true,
+    "jarSha256": "6706fd5ab80551577522756b81dbbc29427a46b1951bb925a8f1fb8f5900ef1f",
+    "source": "https://github.com/halo-sigs/plugin-hybrid-edit-block"
+  },
+  "status": "passed",
+  "date": "2026-10-14",
+  "verification": {
+    "command": "bun run verify",
+    "tests": 698,
+    "failures": 0,
+    "packageFiles": 261
+  },
+  "normalization": "Compare full DOM tree with all element attributes and nonempty text nodes after HTML parsing; trim/collapse whitespace only. HTML block serialization normalizes insignificant whitespace, so raw byte identity is not claimed.",
+  "sourceBaseCommit": "dbc7a35bae1869e5a0721603d8fd54c8a7972d0d",
+  "notes": [
+    "Chromium plain paste strips all 17 enhancement attributes; this negative case passes by detecting the limitation.",
+    "Firefox synthetic clipboard negative attempts did not reopen the expected content and are unqualified. HTML block input uses actual keyboard insertion, independently passes all three engines.",
+    "No existing posts edited. Additional exploratory drafts remain local/unpublished. No plugin changes or theme/config changes made by this script."
+  ]
+}

@@ -58,7 +58,7 @@
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: var(--above-background, none);
+    background: var(--above-background-style, var(--above-background, none) center / cover no-repeat);
     backface-visibility: hidden;
     transition: .35s;
     max-width: 100%;
@@ -131,7 +131,8 @@
       }
 
       @media (max-width: 767px) {
-        animation-duration: .2s;
+        // Render mobile heading text at first paint; opacity/scale entry delays LCP.
+        animation: none;
       }
     }
 

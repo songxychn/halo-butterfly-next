@@ -1,7 +1,8 @@
+<th:block th:with="archivePath=${#ctx.getExchange().getRequest().getRequestPath()}, archiveSegments=${#strings.arraySplit(archivePath, '/')}, archiveDated=${(archivePath matches '/archives/[0-9]{4}(/.*)?')}, archiveMonth=${archiveDated and #arrays.length(archiveSegments) > 2 and (archiveSegments[2] matches '[0-9]{1,2}')}, archiveTitle=${archiveDated ? (archiveSegments[1] + (archiveMonth ? '-' + archiveSegments[2] : '')) : (#strings.isEmpty(#strings.trim(theme.config.archives?.title)) ? #messages.msg('ui.archives') : theme.config.archives.title)}">
 <layout
   th:replace="~{views/layout :: layout (
   page = 'archives',
-  title = ${site.title} + ' - ' + '归档',
+  title = ${site.title} + ' - ' + ${archiveTitle},
   pin = ~{::pin},
   header = ~{::header},
   main = ~{::main}
@@ -16,6 +17,8 @@
         //第一屏
         enable_above: /*[[${aboveEnabled}]]*/ '',
         above_background: /*[[${aboveBackground}]]*/ '',
+        archive_title: /*[[${theme.config.archives?.title ?: ''}]]*/ '',
+        archive_dated: /*[[${archiveDated}]]*/ false,
         // 分页
         nextUrl: /*[[${archives.nextUrl}]]*/ {},
         prevUrl: /*[[${archives.prevUrl}]]*/ {},
@@ -38,7 +41,7 @@
       <!--第一屏内容-->
       <section class="above" th:if="${aboveEnabled}">
         <div class="above-info">
-          <h1 class="above-title">归档</h1>
+          <h1 class="above-title" data-archive-title th:text="${archiveTitle}">归档</h1>
         </div>
       </section>
     </header>
@@ -48,20 +51,21 @@
   <!--/* 內容 */-->
   <th:block th:fragment="main">
     <section class="content card" th:with="noData = ${not #lists.isEmpty(archives.items)}">
-      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'归档'}"></h1>
+      <h1 class="page-title" th:if="${not aboveEnabled}" data-archive-title th:text="${archiveTitle}"></h1>
 
       <th:block th:if="${noData}">
         <div class="chart"></div>
 
-        <div class="axis-title" th:text="'文章总览 - '+${archives.total}"></div>
+        <div class="axis-title" th:text="#{ui.archiveTotal(${archives.total})}"></div>
 
         <ul class="axis-list">
           <th:block th:each="archive : ${archives.items}">
-            <li class="axis-list--item  year">
+            <li class="axis-list--item year" th:if="${theme.config.archives?.year != false}">
               <span class="name" th:text="${archive.year}"></span>
             </li>
 
             <th:block th:each="months : ${archive.months}">
+              <li class="axis-list--item month" th:if="${theme.config.archives?.month == true}"><span class="name" th:text="|${archive.year}-${months.month}|"></span></li>
               <li class="axis-list--item "
                   th:each="post : ${months.posts}"
                   th:with="
@@ -75,7 +79,7 @@
                 </a>
 
                 <div class="info">
-                  <time th:text="'发布于 '+${#dates.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></time>
+                  <time th:text="#{ui.published}+${#dates.format(post.spec.publishTime, datePattern ?: 'yyyy-MM-dd HH:mm')}"></time>
 
                   <a class="title" th:href="${post.status.permalink}" th:text="${post.spec.title}"></a>
                 </div>
@@ -94,3 +98,4 @@
   </th:block>
 
 </layout>
+</th:block>

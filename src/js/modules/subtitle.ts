@@ -1,3 +1,4 @@
+import { t } from '../core/i18n';
 import type { TypedOptions } from 'typed.js';
 import type { ThemeConfig } from '../types.ts';
 interface SubtitleResponse { body: unknown; contentType?: string }
@@ -81,7 +82,7 @@ export function providerSubtitles(response: SubtitleResponse, source: SubtitleSo
   const text = randomSubtitle(json, source.kind === 'hitokoto' ? 'hitokoto' : 'data.content');
   if (text === null) return [];
   const from = source.kind === 'hitokoto' && randomSubtitle(json, 'from');
-  return from ? [text, `出自 ${from}`] : [text];
+  return from ? [text, t('ui.quoteFrom', from)] : [text];
 }
 
 const escapeMarkup = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

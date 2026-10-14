@@ -1,3 +1,5 @@
+import {preconnectResource} from './resource-hints.ts';
+
 /** Optional resources never participate in the theme's content-ready gate. */
 export const enabled = (value: unknown) => value === true || value === 'true';
 export const text = (value: unknown) => typeof value === 'string' ? value.trim() : '';
@@ -37,8 +39,14 @@ export function resolveResource(key: string, local: string, config?: ResourceCon
 
 /** Only exact configured theme files are trusted during partial navigation. */
 export function isThemeScriptSource(source: string, file: string, key: string, localRoot: string, config?: ResourceConfig, version = '', base = globalThis.location?.href || 'https://example.invalid/') {
-  if (!['main', 'masonry', 'loading', 'charts'].includes(key) ||
+  if (key === 'effects' && file === 'js/effects.min.js' || key === 'sharejs' && file === 'plugins/sharejs/js/social-share.min.js') {
+    const local = localRoot + file;
+    const selected = resolveResource(key, local, config, version, file);
+    try { return [local, selected].some(value => new URL(value, base).href === new URL(source, base).href); } catch { return false; }
+  }
+  if (!['main', 'masonry', 'loading', 'charts', 'integrations'].includes(key) ||
       !/^(?:js\/[a-z0-9_-]+\.min\.js|plugins\/loading\/[a-z0-9_-]+\.min\.js)$/.test(file)) return false;
+  if (key === 'integrations' && file !== 'js/integrations.min.js') return false;
   if (key === 'charts' && file !== 'js/charts.min.js') return false;
   if (key === 'loading' ? !file.startsWith('plugins/loading/') : !file.startsWith('js/')) return false;
   const local = localRoot + file + (config?.version === false || config?.version === 'false' ? '' : '?v=' + version);
@@ -65,6 +73,7 @@ export function loadManagedResource(source: string, local: string, {document = g
   const result = new Promise<boolean>(resolve => { settle = resolve; });
   cache.set(key, result);
   const request = (url: string, retry: boolean) => {
+    preconnectResource(url, document, attributes.crossorigin === 'anonymous' || attributes.crossorigin === '');
     const node = document.createElement(kind === 'style' ? 'link' : 'script');
     if (kind === 'style') (node as HTMLLinkElement).rel = 'stylesheet';
     else (node as HTMLScriptElement).async = true;
@@ -106,6 +115,7 @@ export function loadExternalScript(source: string, {document = globalThis.docume
   const promise = new Promise<boolean>(resolve => { settle = resolve; });
   cache.set(url, promise);
   const script = document.createElement('script');
+  preconnectResource(url, document, attributes.crossorigin === 'anonymous' || attributes.crossorigin === '');
   script.async = true;
   for (const [name, value] of Object.entries(attributes)) {
     if (/^data-[a-z0-9-]+$/.test(name) || name === 'crossorigin') script.setAttribute(name, value);

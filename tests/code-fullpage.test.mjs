@@ -33,7 +33,7 @@ test('开关 false 不插入全屏按钮；true 输出可键盘激活的 button'
   assert.equal((js.match(/class="fullpage-button"/g) || []).length, 1);
   const guarded = js.slice(flag, button);
   assert.match(guarded, /#flag\('enable_code_fullpage'\)/);
-  assert.match(js, /aria-label="全屏代码"/);
+  assert.match(js, /aria-label="\$\{t\('ui\.fullscreenCode'\)\}"/);
   assert.match(js, /type="button" class="fullpage-button"/);
   assert.doesNotMatch(js, /<span[^>]*class="[^"]*fullpage-button/);
   assert.match(fragment, /theme\.config\.render\.enable_code_fullpage/);

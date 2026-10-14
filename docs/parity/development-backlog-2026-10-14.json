@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "kind": "development-backlog-snapshot",
-  "sourceSha": "44621d24914edea94a242350562af68870cf5b69",
-  "matrixSha256": "757e4c2d382810e60fa6360c3f71330a7764a130f39c6887bc7b165effedc5cf",
-  "reconciliation": "reconciliation-2026-10-14.json",
-  "note": "Read with matrix.json; derived planning snapshot, not a second editable status source. Development groups include partial implemented-unverified entries. RSS/sitemap also come from contract DEC-03.",
+  "sourceSha": "26cb42dbfe47ceda5c7fa51b51d5f118f03b85a0",
+  "matrixSha256": "f7a820dc58e9f6b76541ae14f5eb49c6597ab652a0301c17adba7ae76046c465",
+  "reconciliation": "confirmed-gap-reconciliation-2026-10-14.json",
+  "note": "Development branch implementation and scoped acceptance; not merged/published, no verified promotion; matrix.json remains authoritative.",
   "groups": [
     {
       "id": "D01",
-      "title": "正文扩展参数与离线迁移",
-      "category": "development",
+      "title": "通用正文能力映射与可移植性验收",
+      "category": "mapping-audit",
       "matrixIds": [
         "config:note.style",
         "config:note.icons",
@@ -35,8 +35,8 @@
         "tag:chartjs",
         "tag:score"
       ],
-      "current": "可移植 HTML 的 Note、Tabs、折叠、按钮、时间线、静态系列/友链可用；图库和图表/乐谱已接入。",
-      "remaining": "补 label/inlineImg 的实际 DOM 适配、Note 四项配置、旧标签参数与 hide 行为差异；完成图库之外的 Hexo 标签离线转换。新写法可用不代表旧标签全域兼容。"
+      "current": "PR #408 已实现通用 HTML 提示、Tabs、原生折叠、按钮、时间线与静态卡片；图库、图表/乐谱也已有实现。",
+      "remaining": "通用HTML块经默认编辑器+官方hybrid-edit-block 1.7.0在三引擎保存重开保留17个增强属性；普通富文本粘贴不保留增强属性。换主题/无脚本已有限定证据，完整EXT-01、设备与母语审校仍待；不要求Hexo专属语法/class/完整参数/通用离线转换。"
     },
     {
       "id": "D02",
@@ -46,8 +46,8 @@
         "interaction:pjax",
         "template:includes/third-party/pjax"
       ],
-      "current": "列表 PJAX、预取、清理、历史、资源地址及 Pace 已实现。",
-      "remaining": "补 Halo tracker 的内容身份/清理协议和插件/第三方 SDK 生命周期；当前这些页面完整导航是明确回退，不是完整 PJAX 已完成。"
+      "current": "文章/单页统计身份、官方评论草稿保护、正文图表/图库、Share.js、默认Busuanzi、本地特效和GA4显式手动页面统计已接入；可选组合12/12与GA4协议15/15限定通过。 AddToAny默认服务持久宿主/单kit有界生命周期27/27限定通过。",
+      "remaining": "AddToAny扩展服务、其他分析/聊天/广告SDK及未知插件生命周期仍缺适配；默认完整导航保留功能，真实GA4账户与完整生态仍待验。最低Halo2.20.2已防重复统计并保留内容页完整导航。"
     },
     {
       "id": "D03",
@@ -59,13 +59,13 @@
         "helper:getBgPath",
         "config:footer_img"
       ],
-      "current": "主题图片与显式 data-lazy-src 延迟加载可用，URL 背景及错误回退可用，页脚遮罩已接入。",
-      "remaining": "任意作者 HTML 的 src/srcset 在脚本前可能发请求；补内容处理映射。背景仍缺完整颜色/CSS 输入，footer_img=true 尚不复用顶图。候选封面支持颜色不等于所有背景入口支持。"
+      "current": "CSS 颜色/渐变/background 简写、安全图片 URL 及 footer_img=true 继承已实现；16 组真实 Halo 检查通过。",
+      "remaining": "任意作者 HTML 的 src/srcset 在浏览器解析前处理仍缺平台内容处理映射；不得以 JS 后改属性或隐藏正文冒充预扫描前延迟。"
     },
     {
       "id": "D04",
       "title": "瞬间评论与说说数据",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "interaction:shuoshuo-comments",
         "interaction:shuoshuo-pagination",
@@ -76,8 +76,8 @@
         "data-schema:shuoshuo-data",
         "data-schema:shuoshuo-limit"
       ],
-      "current": "Moments 内容、媒体、原生分页可用；文章/单页评论与懒挂载已完成接入。",
-      "remaining": "补 Moment 评论主体、计数/跳转与最新评论覆盖；补说说 author/avatar/date/tags/key、远端输入、num/date 限制和时区映射；输入跳页尚无，上游每页数量与插件设置的差异需确定。"
+      "current": "原生 Moment 评论主体/计数/跳转/最新评论、作者/头像/时间/标签、输入跳页和独立 JSON 动态源已实现；过滤后分页、时区、错误重试和安全输入已限定验收。",
+      "remaining": "完整插件组合/设备验收待执行；全站 timezone 与原生插件每页数量仍保留平台职责，不因动态源参数支持而关闭。"
     },
     {
       "id": "D05",
@@ -95,13 +95,13 @@
         "page-data:language",
         "site-config:language"
       ],
-      "current": "html lang/OG locale 读取 Halo locale，简繁转换可用。",
-      "remaining": "主题仍有固定中文文案，缺完整消息键/七套语言映射；逐页语言覆盖尚未接入。不能把字形转换当成日/韩/英语等国际化。"
+      "current": "七套消息目录及地区回退、模板/浏览器文案与正文语言注解已接入；Halo locale 优先级已有实际证据。",
+      "remaining": "界面保持请求 locale，逐页强制 UI 语言仍待合同映射；Moment/友链跨语言组合12/12已通过，母语审校和真机/完整合同未完成。"
     },
     {
       "id": "D06",
       "title": "作者逐篇覆盖与列表参数",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "page-data:aside",
         "page-data:highlight_shrink",
@@ -115,13 +115,13 @@
         "helper:findArchivesTitle",
         "site-config:date_format"
       ],
-      "current": "已有全局侧栏、全局代码折叠、逐篇版权/过期提醒开关、全局版权详细配置、标签颜色/字号及 date/relative 模式。",
-      "remaining": "缺逐篇 aside/highlight_shrink、逐篇版权详细字段；标签云完整排序/数量/字号参数还需映射，归档年/月/菜单标题尚无，任意站点日期格式未接入。"
+      "current": "逐篇侧栏/代码折叠/版权详细字段、标签排序数量字号、归档年月及菜单标题、受控日期格式已实现；141 项实际 Halo 验收和独立审查通过。",
+      "remaining": "最终组合回归、完整双站/设备/无障碍与性能门禁仍待；不实现 Hexo 路由生成器。"
     },
     {
       "id": "D07",
       "title": "社交、页脚与友链输入",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "config:social",
         "template:includes/header/social",
@@ -133,18 +133,18 @@
         "page-data:flink_url",
         "page-data:random"
       ],
-      "current": "社交名称/图标/链接、扁平页脚导航、页脚纯文本、Links 基础组/卡片与正文静态卡片可用。",
-      "remaining": "缺完整 header 社交位置/逐项颜色、页脚嵌套列/宽度/HTML、友链完整组说明/远端输入/随机顺序。不得从基础卡片存在推断完整上游数据模型完成。"
+      "current": "首页/侧栏社交位置与亮暗色、页脚分组列/宽度/净化 HTML、原生友链组说明及独立远端 JSON/组内随机已实现；29 项实际 Halo 检查通过，相对链接审查问题已修复。",
+      "remaining": "与国际化/PJAX 组合的重入和待完成请求离页12/12已通过，完整验收继续；不保证旧 Hexo 配置原样兼容或任意 HTML 执行。"
     },
     {
       "id": "D08",
       "title": "外部资源连接提示",
-      "category": "development",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "template:includes/head/preconnect"
       ],
-      "current": "按需脚本、资源覆盖和 prefetch 可用。",
-      "remaining": "head 尚无按实际资源主机输出的统一 preconnect；需确定连接提示条件，prefetch 不替代此能力。"
+      "current": "实际所选 HTTPS 资源的 preconnect 已接入 bootstrap、管理资源、Prism、AddToAny 和标题字体，含同源跳过、凭据拒绝、CORS 去重与数量上限。",
+      "remaining": "限定真实 Halo 资源配置及独立审查通过；最终组合性能预算仍待，连接提示不代替资源按需加载。"
     },
     {
       "id": "P01",
@@ -191,13 +191,13 @@
     {
       "id": "A01",
       "title": "安全嵌入完整审计",
-      "category": "audit",
+      "category": "implemented-acceptance",
       "matrixIds": [
         "helper:safeJSON",
         "interaction:data-safe"
       ],
-      "current": "Thymeleaf 配置序列化与 JSON-LD 脚本边界转义已有实现。",
-      "remaining": "补所有消费者和失败输入的清单/断言；当前是审计覆盖不足，不等于已确认漏洞，也不是重写一套序列化。"
+      "current": "已盘点脚本/JSON-LD/CSS与远端HTML边界，修复CSS标签突破、JS tokenizer、Thymeleaf预解码和JSON特殊键语义；最终安全36项限定通过，旧33项不足结论保留更正。",
+      "remaining": "最终集成及平台升级回归、完整合同仍待；明确允许代码执行的注入/已发布HTML不冒充净化。"
     },
     {
       "id": "A02",
@@ -242,10 +242,10 @@
         "site-config:root",
         "site-config:syntax_highlighter",
         "site-config:tag_dir",
-        "site-config:theme"
+        "config:CDN.custom_format"
       ],
-      "current": "已有 Halo 路由/SEO/Prism、构建入口、图片回退和组件模块；同名 Hexo 文件不存在不能直接判作缺失。",
-      "remaining": "逐项确认 404 开关、路由/pretty URL、根路径、站点元数据、高亮提供方、封面类型/独立顶图、加密标记、源文件/目录来源、构建 hook/默认合并/资源图标等语义。尚无足够证据关闭；必须完成来源→消费者→保留用户能力映射后，才转成开发或有依据不适用。"
+      "current": "已有 Halo 路由/SEO/Prism、构建入口、图片回退和组件模块；同名 Hexo 文件不存在不能直接判作缺失。 site-config:theme经核对为Mermaid局部参数，已有消费者，见a02-mermaid-theme-reconciliation-2026-10-14.json。",
+      "remaining": "逐项确认 404 开关、路由/pretty URL、根路径、站点元数据、高亮提供方、封面类型/独立顶图、加密标记、源文件/目录来源、构建 hook/默认合并/资源图标等语义。尚无足够证据关闭；必须完成来源→消费者→保留用户能力映射后，才转成开发或有依据不适用。 PR #413 已取消资源自由模板并由根地址/单项 URL 替代；config:CDN.custom_format 保留 gap 等待正式裁定登记，不应重新开发旧模板。"
     }
   ],
   "unresolvedMatrixIds": [
@@ -261,32 +261,15 @@
     "config:pwa.favicon_32_32",
     "config:pwa.favicon_16_16",
     "config:pwa.mask_icon",
+    "config:CDN.custom_format",
     "template:includes/additional-js",
-    "template:includes/head/preconnect",
     "template:includes/head/pwa",
-    "template:includes/header/social",
     "template:includes/third-party/pjax",
-    "tag:btn",
-    "tag:flink",
-    "tag:hideBlock",
-    "tag:hideInline",
-    "tag:hideToggle",
     "tag:inlineImg",
     "tag:label",
-    "tag:note",
-    "tag:series",
-    "tag:subnote",
-    "tag:subsubtabs",
-    "tag:subtabs",
-    "tag:tabs",
-    "tag:timeline",
-    "helper:cloudTags",
-    "helper:findArchivesTitle",
     "helper:getArchiveLength",
-    "helper:getBgPath",
     "helper:groupPosts",
     "helper:safeJSON",
-    "helper:shuoshuoFN",
     "helper:urlNoIndex",
     "lifecycle-hook:scripts/events/404.js#generator:404",
     "lifecycle-hook:scripts/events/init.js#filter:before_generate",
@@ -302,42 +285,21 @@
     "asset:source/img/friend_404.gif",
     "asset:source/js/main.js",
     "asset:source/js/utils.js",
-    "language:default",
-    "language:en",
-    "language:ja",
-    "language:ko",
-    "language:zh-CN",
-    "language:zh-HK",
-    "language:zh-TW",
-    "page-data:aside",
-    "page-data:copyright_author",
-    "page-data:copyright_author_href",
-    "page-data:copyright_info",
-    "page-data:copyright_url",
     "page-data:cover_type",
     "page-data:encrypt",
-    "page-data:flink_url",
     "page-data:full_source",
-    "page-data:highlight_shrink",
     "page-data:lang",
     "page-data:language",
-    "page-data:limit",
-    "page-data:order",
-    "page-data:orderby",
     "page-data:origin",
-    "page-data:random",
-    "page-data:shuoshuo_url",
     "page-data:source",
     "page-data:top_img",
     "site-config:archive_dir",
     "site-config:archive_generator",
     "site-config:category_dir",
     "site-config:copyright",
-    "site-config:date_format",
     "site-config:email",
     "site-config:favicon",
     "site-config:highlight.enable",
-    "site-config:language",
     "site-config:post_asset_folder",
     "site-config:pretty_urls.trailing_html",
     "site-config:pretty_urls.trailing_index",
@@ -349,16 +311,9 @@
     "site-config:theme",
     "site-config:timezone",
     "site-config:token",
-    "interaction:tabs",
-    "interaction:hide",
-    "interaction:shuoshuo-comments",
     "interaction:pjax",
     "interaction:pwa",
-    "interaction:data-safe",
-    "data-schema:social-items",
-    "data-schema:flink-data",
-    "data-schema:shuoshuo-data",
-    "data-schema:shuoshuo-limit"
+    "interaction:data-safe"
   ],
   "verificationFailedIds": [
     "page:home",
@@ -380,5 +335,33 @@
     "lifecycle-hook:scripts/tag/series.js#filter:before_generate",
     "lifecycle-hook:scripts/tag/series.js#filter:before_post_render",
     "page-data:series"
+  ],
+  "previousReconciliation": "portable-content-reconciliation-2026-10-14.json",
+  "largestGaps": [
+    {
+      "rank": 1,
+      "group": "P01",
+      "reason": "PWA安装、离线缓存和更新恢复尚无完整平台方案。"
+    },
+    {
+      "rank": 2,
+      "group": "P03",
+      "reason": "插件head预加载和全站数学资源注入不受主题挂载开关控制。"
+    },
+    {
+      "rank": 3,
+      "group": "D02",
+      "reason": "AddToAny默认服务持久宿主已实现；扩展服务、其他分析/聊天/广告SDK及未知插件生命周期仍缺适配；默认完整导航保留功能，真实GA4账户与完整生态仍待验。最低Halo2.20.2已防重复统计并保留内容页完整导航。"
+    },
+    {
+      "rank": 4,
+      "group": "D03",
+      "reason": "任意作者 HTML 的 src/srcset 在浏览器解析前处理仍缺平台内容处理映射；不得以 JS 后改属性或隐藏正文冒充预扫描前延迟。"
+    },
+    {
+      "rank": 5,
+      "group": "P02",
+      "reason": "私有凭据代理缺服务端承载；公开只读接口不能替代。"
+    }
   ]
 }

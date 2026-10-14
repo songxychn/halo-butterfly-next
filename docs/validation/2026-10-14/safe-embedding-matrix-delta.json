@@ -1,0 +1,24 @@
+{
+  "sourceCommit": "ddf473acdb954523d61043670d9846dd0d3dc669",
+  "verifiedAdded": 0,
+  "updates": [
+    {
+      "id": "helper:safeJSON",
+      "from": "gap",
+      "to": "implemented-unverified",
+      "finding": "A01盘点当前lane15个JS脚本块/201表达式、JSON-LD与20项CSS输入及远端/配置HTML边界。真实发现并修复CSS关闭style与JS注释/脚本组合double-escaped问题；复用Halo JSON mapper后编码HTML边界，保留SSR CSS配置。708测试、三引擎安全33项及既有SEO36项通过；完整组合/平台生态/设备验收仍待。",
+      "code": [
+        "scripts/safe-inline-data.mjs",
+        "scripts/build.mjs",
+        "scripts/check-package.mjs",
+        "scripts/security/check.mjs",
+        "src/html/views/config.html",
+        "src/html/views/seo-json.html",
+        "src/js/core/halo-settings.ts",
+        "src/js/core/moments.ts",
+        "src/js/core/site-content.ts"
+      ],
+      "evidence": "docs/validation/2026-10-14/safe-embedding-audit.json"
+    }
+  ]
+}

@@ -16,16 +16,16 @@
   <div class="desc" th:text="${not #strings.isEmpty(theme.config.aside.card_author?.description) ? theme.config.aside.card_author.description : (contributor?.bio ?: site.subtitle)}"></div>
 
   <div class="data w-100">
-    <a class="item" title="文章" href="/archives">
-      <div class="headline">文章</div>
+    <a class="item" title="文章" th:title="#{ui.posts}" href="/archives">
+      <div class="headline" th:text="#{ui.posts}">文章</div>
       <div class="num" th:text="${stats.post}"></div>
     </a>
-    <a class="item" href="/tags" title="标签">
-      <div class="headline">标签</div>
+    <a class="item" href="/tags" title="标签" th:title="#{ui.tags}">
+      <div class="headline" th:text="#{ui.tags}">标签</div>
       <div class="num" th:text="${tagFinder.list(1, 1).total}"></div>
     </a>
-    <a class="item" href="/categories" title="分类">
-      <div class="headline">分类</div>
+    <a class="item" href="/categories" title="分类" th:title="#{ui.categories}">
+      <div class="headline" th:text="#{ui.categories}">分类</div>
       <div class="num" th:text="${stats.category}"></div>
     </a>
   </div>
@@ -35,16 +35,14 @@
     <span th:utext="${theme.config.aside.button.name}"></span>
   </a>
 
-  <div class="social" th:with="social = ${not #lists.isEmpty(theme.config.aside.social)}">
-    <a th:each="item : ${theme.config.aside.social}" class="link" target="_blank" th:title="${item.name}" th:href="${item.link}" th:utext="${item.icon}"></a>
-  </div>
+  <th:block th:if="${theme.config.aside?.social_position != 'header' and theme.config.aside?.social_position != 'none'}"><th:block th:replace="~{views/social :: icons}"/></th:block>
 </section>
 
 <!--/* 公告 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="notice" th:if="${theme.config.aside.card_announcement?.enable != false}" th:attr="data-card-order=${theme.config.aside.card_announcement?.sort_order ?: 10}" class="aside-notice title card">
   <h1 class="title">
     <i class="fa-solid fa-bullhorn fa-shake"></i>
-    <span class="name">公告</span>
+    <span class="name" th:text="#{ui.announcement}">公告</span>
   </h1>
 
   <div class="content" th:utext="${theme.config.aside.notice}"></div>
@@ -60,7 +58,7 @@
 >
   <h1 class="title">
     <i class="fas fa-history"></i>
-    <span class="name">最新文章</span>
+    <span class="name" th:text="#{ui.recentPosts}">最新文章</span>
   </h1>
 
   <div
@@ -91,8 +89,8 @@
         </span>
         <span class="info">
           <span class="name" th:text="${post.spec.title}"></span>
-          <time th:if="${sortUpdated}" th:datetime="${post.status.lastModifyTime}" th:text="${#dates.format(post.status.lastModifyTime, 'yyyy-MM-dd')}"></time>
-          <time th:unless="${sortUpdated}" th:datetime="${post.spec.publishTime}" th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+          <time th:if="${sortUpdated}" th:datetime="${post.status.lastModifyTime}" th:text="${#dates.format(post.status.lastModifyTime, datePattern ?: 'yyyy-MM-dd')}"></time>
+          <time th:unless="${sortUpdated}" th:datetime="${post.spec.publishTime}" th:text="${#dates.format(post.spec.publishTime, datePattern ?: 'yyyy-MM-dd')}"></time>
         </span>
       </a>
     </th:block>
@@ -103,7 +101,7 @@
 <!--/* 分类：Halo 树保留后台层级；无脚本时提供有数量限制的平铺链接。 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="category" th:if="${theme.config.aside.enable_category != false}" class="aside-category card"
   th:attr="data-card-order=${theme.config.aside.card_categories?.sort_order ?: 30}">
-  <h1 class="title"><i class="fa-solid fa-layer-group"></i><span class="name">分类</span><a class="card-more-btn" href="/categories" aria-label="查看全部分类">›</a></h1>
+  <h1 class="title"><i class="fa-solid fa-layer-group"></i><span class="name" th:text="#{ui.categories}">分类</span><a class="card-more-btn" href="/categories" aria-label="查看全部分类" th:aria-label="#{ui.allCategories}">›</a></h1>
   <div class="content" data-aside-categories
     th:with="categories = ${categoryFinder.listAsTree()}, flatCategories = ${categoryFinder.listAll().?[status.visiblePostCount > 0]}, categoryLimit = ${theme.config.aside.card_categories?.limit == null ? 5 : theme.config.aside.card_categories.limit}"
     th:attr="data-limit=${theme.config.aside.card_categories?.limit == null ? 5 : categoryLimit},data-expand=${theme.config.aside.card_categories?.expand ?: 'none'}">
@@ -126,7 +124,7 @@
 <!--/* 标签：完整候选在惰性 template 中，数量限制不影响全局排序。 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="tags" th:if="${theme.config.aside.enable_tags != false}" class="aside-tags card"
   th:attr="data-card-order=${theme.config.aside.card_tags?.sort_order ?: 40}">
-  <h1 class="title"><i class="fa-solid fa-tags"></i><span class="name">标签</span><a class="card-more-btn" href="/tags" aria-label="查看全部标签">›</a></h1>
+  <h1 class="title"><i class="fa-solid fa-tags"></i><span class="name" th:text="#{ui.tags}">标签</span><a class="card-more-btn" href="/tags" aria-label="查看全部标签" th:aria-label="#{ui.allTags}">›</a></h1>
   <div class="content" data-aside-tags
     th:with="tags = ${tagFinder.listAll().?[status.visiblePostCount > 0]}, tagLimit = ${theme.config.aside.card_tags?.limit == null ? 25 : theme.config.aside.card_tags.limit}"
     th:attr="data-limit=${tagLimit},data-orderby=${theme.config.aside.card_tags?.orderby ?: 'random'},data-order=${theme.config.aside.card_tags?.order ?: 1},data-color=${theme.config.aside.card_tags?.color}">
@@ -139,16 +137,16 @@
 <!--/* archives() 按文章分页；取完整文章总量，不能将月份行数当作文章 size。 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="archives" th:if="${theme.config.aside.enable_archives != false}" class="aside-archives card card-archives"
   th:attr="data-card-order=${theme.config.aside.card_archives?.sort_order ?: 50}">
-  <h1 class="title"><i class="fas fa-archive"></i><span class="name">归档</span><a class="card-more-btn" href="/archives" aria-label="查看全部归档">›</a></h1>
+  <h1 class="title"><i class="fas fa-archive"></i><span class="name" th:text="#{ui.archives}">归档</span><a class="card-more-btn" href="/archives" aria-label="查看全部归档" th:aria-label="#{ui.allArchives}">›</a></h1>
   <div class="content" th:with="archiveSize = ${stats.post == null or stats.post < 1 ? 1 : stats.post}, archiveYears = ${postFinder.archives(1, archiveSize)}, archiveRowLimit = ${theme.config.aside.card_archives?.limit == null ? 8 : theme.config.aside.card_archives.limit}, yearly = ${theme.config.aside.card_archives?.type == 'yearly'}">
     <style th:if="${archiveRowLimit > 0}" th:inline="css">.aside-archives .card-archive-list-item:nth-child(n + /*[[${archiveRowLimit + 1}]]*/ 9) { display: none; }</style>
-    <ul class="card-archive-list" data-aside-archives th:attr="data-order=${theme.config.aside.card_archives?.order ?: -1},data-format=${theme.config.aside.card_archives?.format ?: (yearly ? 'YYYY年' : 'YYYY年MM月')},data-archive-row-limit=${archiveRowLimit}">
+    <ul class="card-archive-list" data-aside-archives th:attr="data-order=${theme.config.aside.card_archives?.order ?: -1},data-format=${theme.config.aside.card_archives?.format ?: (yearly ? 'YYYY' : 'YYYY-MM')},data-archive-row-limit=${archiveRowLimit}">
       <th:block th:each="year : ${archiveYears.items}">
         <li th:if="${yearly}" class="card-archive-list-item" th:attr="data-year=${year.year},data-month=1">
-          <a class="card-archive-list-link" th:href="@{/archives/{year}(year=${year.year})}"><span class="card-archive-list-date" th:text="${year.year + '年'}"></span><span class="card-archive-list-count" th:text="${#aggregates.sum(year.months.![posts.size()])}"></span></a>
+          <a class="card-archive-list-link" th:href="@{/archives/{year}(year=${year.year})}"><span class="card-archive-list-date" th:text="${year.year}"></span><span class="card-archive-list-count" th:text="${#aggregates.sum(year.months.![posts.size()])}"></span></a>
         </li>
         <li th:unless="${yearly}" class="card-archive-list-item" th:each="monthVo : ${year.months}" th:attr="data-year=${year.year},data-month=${monthVo.month}">
-          <a class="card-archive-list-link" th:href="@{/archives/{year}/{month}(year=${year.year},month=${monthVo.month})}"><span class="card-archive-list-date" th:text="|${year.year}年${monthVo.month}月|"></span><span class="card-archive-list-count" th:text="${#lists.size(monthVo.posts)}"></span></a>
+          <a class="card-archive-list-link" th:href="@{/archives/{year}/{month}(year=${year.year},month=${monthVo.month})}"><span class="card-archive-list-date" th:text="|${year.year}-${monthVo.month}|"></span><span class="card-archive-list-count" th:text="${#lists.size(monthVo.posts)}"></span></a>
         </li>
       </th:block>
     </ul>
@@ -160,7 +158,7 @@
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo != false}" th:attr="data-card-order=${theme.config.aside.card_webinfo?.sort_order ?: 60}" class="aside-webInfo card">
   <h1 class="title">
     <i class="fa-solid fa-chart-simple"></i>
-    <span class="name">网站信息</span>
+    <span class="name" th:text="#{ui.siteInfo}">网站信息</span>
   </h1>
 
   <div
@@ -176,29 +174,29 @@
     "
   >
     <div class="item" th:if="${theme.config.aside.card_webinfo?.post_count != false}">
-      <span>文章数目：</span>
-      <span th:text="${stats.post} + '章'"></span>
+      <span th:text="#{ui.postCount}">文章数目：</span>
+      <span th:text="${stats.post}"></span>
     </div>
     <div class="item" th:if="${theme.config.aside.card_webinfo?.runtime != false and not #strings.isEmpty(theme.config.base.site_birthday)}">
-      <span>运行时间：</span>
-      <span class="run-day" th:data-date="${theme.config.base.site_birthday}">... 天</span>
+      <span th:text="#{ui.uptime}">运行时间：</span>
+      <span class="run-day" th:data-date="${theme.config.base.site_birthday}">...</span>
     </div>
     <div class="item" th:if="${(theme.config.wordcount?.enable == true or theme.config.wordcount?.enable == 'true') and (theme.config.wordcount?.total_wordcount == true or theme.config.wordcount?.total_wordcount == 'true')}">
-      <span>全站字数：</span>
-      <span th:attr="data-site-wordcount=${stats.post + ':' + (lastPush ?: '')}" aria-live="polite">需启用 JavaScript</span>
+      <span th:text="#{ui.siteWords}">全站字数：</span>
+      <span th:attr="data-site-wordcount=${stats.post + ':' + (lastPush ?: '')}" aria-live="polite" th:text="#{ui.jsRequired}">需启用 JavaScript</span>
     </div>
     <div class="item" th:if="${theme.config.busuanzi?.site_pv == true or theme.config.busuanzi?.site_pv == 'true'}">
-      <span th:text="${theme.config.busuanzi?.provider == 'busuanzi' ? '总访问量：' : '文章总阅读量：'}"></span>
+      <span th:text="${theme.config.busuanzi?.provider == 'busuanzi' ? #messages.msg('ui.totalVisits') : #messages.msg('ui.postVisits')}"></span>
       <span th:if="${theme.config.busuanzi?.provider != 'busuanzi'}" th:text="${stats.visit}"></span>
-      <span th:if="${theme.config.busuanzi?.provider == 'busuanzi'}" id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">暂不可用</span></span>
+      <span th:if="${theme.config.busuanzi?.provider == 'busuanzi'}" id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv" th:text="#{ui.unavailable}">暂不可用</span></span>
     </div>
     <div class="item" th:if="${theme.config.busuanzi?.provider == 'busuanzi' and (theme.config.busuanzi?.site_uv == true or theme.config.busuanzi?.site_uv == 'true')}">
-      <span>访客数：</span>
-      <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">暂不可用</span></span>
+      <span th:text="#{ui.visitors}">访客数：</span>
+      <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv" th:text="#{ui.unavailable}">暂不可用</span></span>
     </div>
     <div class="item" th:if="${theme.config.aside.card_webinfo?.last_push_date != false and lastPush != null}">
-      <span>最后更新时间：</span>
-      <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, 'yyyy-MM-dd HH:mm')}"></time>
+      <span th:text="#{ui.lastUpdated}">最后更新时间：</span>
+      <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, datePattern ?: 'yyyy-MM-dd HH:mm')}"></time>
     </div>
     <th:block th:replace="~{views/integration-stats::site}"/>
   </div>
@@ -225,7 +223,7 @@
   <th:block th:replace="~{::tags}"/>
   <th:block th:replace="~{::archives}"/>
   <th:block th:replace="~{::webInfo}"/>
-  <section class="theme-ad ad-aside card" aria-label="广告" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
+  <section class="theme-ad ad-aside card" aria-label="广告" th:aria-label="#{ui.ad}" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
   <th:block th:replace="~{::custom('bottom')}"/>
 </aside>
 
@@ -266,7 +264,7 @@
     <section class="aside-toc card">
       <h1 class="title">
         <i class="fa-solid fa-list"></i>
-        <span class="name">目录</span>
+        <span class="name" th:text="#{ui.toc}">目录</span>
         <span class="toc-percentage" th:if="${tocPercent}"></span>
       </h1>
       <div class="toc" th:classappend="${(tocNumber ? 'is-numbered ' : '') + (tocExpand ? 'is-expand' : '')}"></div>
@@ -274,7 +272,7 @@
   </div>
   <th:block th:unless="${tocSimple}">
     <th:block th:replace="~{::recentPost}"/>
-    <section class="theme-ad ad-aside card" aria-label="广告" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
+    <section class="theme-ad ad-aside card" aria-label="广告" th:aria-label="#{ui.ad}" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
     <th:block th:replace="~{views/newest-comments::card}"/>
     <th:block th:unless="${postPage}">
       <th:block th:replace="~{::category}"/>

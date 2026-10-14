@@ -110,7 +110,7 @@ test('文章页插入 postCopyright；单页不插入；enable 由 th:if 约束�
   const end = block.indexOf('th:fragment="postReward"');
   const html = end === -1 ? block : block.slice(0, end);
   assert.match(html, /post_copyright\?\.enable != false/);
-  assert.match(html, /th:text="\$\{contributor\?\.displayName \?: site\.title\}"/);
+  assert.match(html, /th:text="\$\{pcAuthor\}"/);
   assert.match(html, /th:href="\$\{pcAuthorHref\}"/);
   assert.match(html, /th:href="\$\{pcLicenseUrl\}"/);
   assert.match(html, /th:text="\$\{pcLicense\}"/);

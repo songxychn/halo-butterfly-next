@@ -1,16 +1,17 @@
-import { onPageCleanup } from './page-lifecycle.ts';
-/** Halo public comments, merged across the public Post/SinglePage inventory.
+import { t, uiLocale } from './i18n';
+import { onPageCleanup, pageListen } from './page-lifecycle.ts';
+/** Halo public comments, merged across the public Post/SinglePage/Moment inventory.
  * The public API requires an exact subject. Never use console APIs or cookies.
  */
 export interface CommentSubject {
-  kind: 'Post' | 'SinglePage'; name: string; href: string; revision: string;
+  kind: 'Post' | 'SinglePage' | 'Moment'; name: string; href: string; revision: string;
 }
 export interface RecentComment {
   id: string; subject: string; nickname: string; excerpt: string; date: string; avatar: string;
 }
-interface CacheEntry { expires: number; revision: string; limit: number; items: RecentComment[] }
+interface CacheEntry { locale: string; expires: number; revision: string; limit: number; items: RecentComment[] }
 const CACHE_KEY = 'halo-butterfly-next.newest-comments.v1';
-const GROUP = 'content.halo.run';
+export const commentGroup = (kind: CommentSubject['kind']) => kind === 'Moment' ? 'moment.halo.run' : 'content.halo.run';
 const boundedNumber = (value: unknown, fallback: number, min: number, max: number) => {
   if (value == null || value === '') return fallback;
   const n = Number(value);
@@ -39,10 +40,10 @@ export function commentAvatar(value: unknown, origin: string) {
 /** Markup is never inserted into the live page; entity decoding is text-only. */
 export function commentExcerpt(html: string, decode: (value: string) => string = value => value) {
   const text = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
-    .replace(/<pre\b[^>]*>[\s\S]*?<\/pre\s*>/gi, '[代码]')
-    .replace(/<code\b[^>]*>[\s\S]*?<\/code\s*>/gi, '[代码]')
-    .replace(/<img\b[^>]*>/gi, '[图片]')
-    .replace(/<a\b[^>]*>[\s\S]*?<\/a\s*>/gi, '[链接]')
+    .replace(/<pre\b[^>]*>[\s\S]*?<\/pre\s*>/gi, t('ui.codePlaceholder'))
+    .replace(/<code\b[^>]*>[\s\S]*?<\/code\s*>/gi, t('ui.codePlaceholder'))
+    .replace(/<img\b[^>]*>/gi, t('ui.imagePlaceholder'))
+    .replace(/<a\b[^>]*>[\s\S]*?<\/a\s*>/gi, t('ui.linkPlaceholder'))
     .replace(/<[^>]*>/g, ' ');
   const chars = Array.from(decode(text).replace(/\s+/g, ' ').trim());
   return chars.length > 150 ? chars.slice(0, 150).join('') + '…' : chars.join('');
@@ -53,13 +54,13 @@ export function publicComment(value: unknown, subject: CommentSubject, origin: s
   const { metadata, spec, owner } = value as Record<string, any>;
   const ref = spec?.subjectRef;
   if (!metadata || metadata.deletionTimestamp || typeof metadata.name !== 'string' ||
-      spec?.approved !== true || spec.hidden !== false || spec.parentRef || ref?.group !== GROUP ||
+      spec?.approved !== true || spec.hidden !== false || spec.parentRef || ref?.group !== commentGroup(subject.kind) ||
       ref?.kind !== subject.kind || ref?.name !== subject.name) return null;
   const date = typeof spec.creationTime === 'string' ? spec.creationTime : metadata.creationTimestamp;
   if (typeof date !== 'string' || !Number.isFinite(Date.parse(date))) return null;
   return {
     id: metadata.name, subject: subjectKey(subject),
-    nickname: typeof owner?.displayName === 'string' ? owner.displayName.slice(0, 200) : '访客',
+    nickname: typeof owner?.displayName === 'string' ? owner.displayName.slice(0, 200) : t('ui.guest'),
     excerpt: commentExcerpt(typeof spec.content === 'string' ? spec.content : '', decode),
     date, avatar: commentAvatar(owner?.avatar, origin),
   };
@@ -72,7 +73,7 @@ export function rankComments(items: RecentComment[], limit: number) {
     .slice(0, limit);
 }
 
-export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subjects: CommentSubject[], limit: number, now: number, origin: string) {
+export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subjects: CommentSubject[], limit: number, now: number, origin: string, locale = uiLocale()) {
   const result = new Map<string, CacheEntry>();
   if (!storage) return result;
   try {
@@ -80,7 +81,7 @@ export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subje
     for (const subject of subjects) {
       const key = subjectKey(subject), entry = parsed[key];
       if (!entry || !Number.isFinite(entry.expires) || entry.expires <= now || entry.expires > now + 60 * 60000 ||
-          entry.revision !== subject.revision || entry.limit !== limit || !Array.isArray(entry.items) || entry.items.length > limit) continue;
+          entry.locale !== locale || entry.revision !== subject.revision || entry.limit !== limit || !Array.isArray(entry.items) || entry.items.length > limit) continue;
       const valid = entry.items.every((item: RecentComment) => item && typeof item.id === 'string' && item.subject === key &&
         typeof item.nickname === 'string' && item.nickname.length <= 200 && typeof item.excerpt === 'string' && Array.from(item.excerpt).length <= 151 &&
         typeof item.date === 'string' && Number.isFinite(Date.parse(item.date)) && typeof item.avatar === 'string' && commentAvatar(item.avatar, origin) === item.avatar);
@@ -91,10 +92,10 @@ export function readCommentCache(storage: Pick<Storage, 'getItem'> | null, subje
 }
 
 export async function fetchNewestComments(subjects: CommentSubject[], limit: number, minutes: number, options: {
-  origin: string; storage?: Storage | null; fetch?: typeof fetch; now?: number; decode?: (value: string) => string;
+  origin: string; locale?: string; storage?: Storage | null; fetch?: typeof fetch; now?: number; decode?: (value: string) => string;
 }) {
-  const now = options.now ?? Date.now();
-  const cache = minutes > 0 ? readCommentCache(options.storage ?? null, subjects, limit, now, options.origin) : new Map<string, CacheEntry>();
+  const now = options.now ?? Date.now(), locale = options.locale ?? uiLocale();
+  const cache = minutes > 0 ? readCommentCache(options.storage ?? null, subjects, limit, now, options.origin, locale) : new Map<string, CacheEntry>();
   const request = options.fetch ?? fetch;
   const controller = new AbortController();
   onPageCleanup(() => controller.abort());
@@ -107,7 +108,7 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
         const cached = cache.get(key);
         if (cached) { items.push(...cached.items); continue; }
         const url = new URL('/apis/api.halo.run/v1alpha1/comments', options.origin);
-        url.search = new URLSearchParams({ group: GROUP, kind: subject.kind, name: subject.name, page: '1', size: String(limit), sort: 'spec.creationTime,desc', withReplies: 'false' }).toString();
+        url.search = new URLSearchParams({ group: commentGroup(subject.kind), kind: subject.kind, name: subject.name, page: '1', size: String(limit), sort: 'spec.creationTime,desc', withReplies: 'false' }).toString();
         const timeout = setTimeout(() => controller.abort(), 10000);
         let response: Response;
         let data: {items?: unknown[]};
@@ -116,12 +117,14 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
           if (!response.ok) throw new Error('Public comments unavailable');
           data = await response.json();
         } finally { clearTimeout(timeout); }
+        controller.signal.throwIfAborted();
         if (!Array.isArray(data.items)) throw new Error('Invalid public comments response');
         const comments = data.items.map(value => publicComment(value, subject, options.origin, options.decode)).filter((item): item is RecentComment => !!item);
         items.push(...comments);
-        cache.set(key, { expires: now + minutes * 60000, revision: subject.revision, limit, items: comments });
+        cache.set(key, { locale, expires: now + minutes * 60000, revision: subject.revision, limit, items: comments });
       }
     }));
+    controller.signal.throwIfAborted();
     if (options.storage) {
       try {
         if (minutes > 0) options.storage.setItem(CACHE_KEY, JSON.stringify(Object.fromEntries(cache)));
@@ -133,6 +136,14 @@ export async function fetchNewestComments(subjects: CommentSubject[], limit: num
     controller.abort();
     throw error; // Never present a partial list as the global latest comments.
   }
+}
+
+export function formatCommentDate(value: string, locale = uiLocale()) {
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return value;
+  const options: Intl.DateTimeFormatOptions = { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  try { return new Intl.DateTimeFormat(locale, options).format(date); }
+  catch { return new Intl.DateTimeFormat('zh-CN', options).format(date); }
 }
 
 export function initializeNewestComments(root: Document = document) {
@@ -150,7 +161,7 @@ export function initializeNewestComments(root: Document = document) {
   for (const node of inventory.content.querySelectorAll<HTMLAnchorElement>('a[data-comment-kind]')) {
     const kind = node.dataset.commentKind, name = node.dataset.commentName;
     const href = sameOriginCommentHref(node.getAttribute('href') || '', win.location.origin);
-    if (!['Post', 'SinglePage'].includes(kind || '') || !name || !href) continue;
+    if (!['Post', 'SinglePage', 'Moment'].includes(kind || '') || !name || !href) continue;
     const subject: CommentSubject = { kind: kind as CommentSubject['kind'], name, href, revision: node.dataset.commentRevision || '' };
     subjects.set(subjectKey(subject), subject);
   }
@@ -163,15 +174,17 @@ export function initializeNewestComments(root: Document = document) {
     element.innerHTML = text;
     return element.value;
   };
-  let running = false;
+  let running = false, active = true;
+  onPageCleanup(() => { active = false; });
   const load = async () => {
-    if (running) return;
+    if (running || !active) return;
     running = true;
     retry.hidden = true;
-    status.textContent = '正在加载最新评论…';
+    status.textContent = t('ui.recentLoading');
     card.setAttribute('aria-busy', 'true');
     try {
-      const comments = await fetchNewestComments([...subjects.values()], limit, minutes, { origin: win.location.origin, storage, decode });
+      const comments = await fetchNewestComments([...subjects.values()], limit, minutes, { origin: win.location.origin, locale: uiLocale(root), storage, decode });
+      if (!active) return;
       const fragment = root.createDocumentFragment();
       for (const comment of comments) {
         const subject = subjects.get(comment.subject);
@@ -188,27 +201,28 @@ export function initializeNewestComments(root: Document = document) {
         }
         const content = root.createElement('span');
         const excerpt = root.createElement('span');
-        excerpt.className = 'newest-comment-excerpt'; excerpt.textContent = comment.excerpt || '查看评论';
+        excerpt.className = 'newest-comment-excerpt'; excerpt.textContent = comment.excerpt || t('ui.viewComment');
         const byline = root.createElement('span');
         byline.className = 'newest-comment-byline';
         const time = root.createElement('time'); time.dateTime = comment.date;
-        time.textContent = new Intl.DateTimeFormat('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(comment.date));
+        time.textContent = formatCommentDate(comment.date, uiLocale(root));
         byline.append(root.createTextNode(`${comment.nickname} · `), time);
         content.append(excerpt, byline); link.append(content); item.append(link); fragment.append(item);
       }
       list.replaceChildren(fragment);
-      status.textContent = comments.length ? '' : '暂无评论';
+      status.textContent = comments.length ? '' : t('ui.noComments');
       card.dataset.commentsState = 'loaded';
     } catch {
-      status.textContent = '最新评论暂时无法加载。';
+      if (!active) return;
+      status.textContent = t('ui.recentError');
       retry.hidden = false;
       card.dataset.commentsState = 'failed';
     } finally {
       running = false;
-      card.setAttribute('aria-busy', 'false');
+      if (active) card.setAttribute('aria-busy', 'false');
     }
   };
-  retry.addEventListener('click', () => { void load(); });
+  pageListen(retry, 'click', () => { void load(); });
   if (!('IntersectionObserver' in win)) { void load(); return; }
   const observer = new IntersectionObserver(entries => {
     if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); void load(); }

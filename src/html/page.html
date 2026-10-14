@@ -51,7 +51,7 @@
   <th:block th:fragment="main">
     <section class="content card">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${singlePage.spec.title}"></h1>
-      <article class="render" th:utext="${singlePage.content.content}"
+      <article th:lang="${contentLanguage}" class="render" th:utext="${singlePage.content.content}"
         th:attr="data-copy-enabled=${theme.config.copy?.enable != false and theme.config.copy?.enable != 'false'},data-copy-copyright=${theme.config.copy?.copyright?.enable == true or theme.config.copy?.copyright?.enable == 'true'},data-copy-limit=${theme.config.copy?.copyright?.limit_count != null ? theme.config.copy.copyright.limit_count : 150},data-copy-author=${singlePage.owner?.displayName ?: site.title},data-copy-url=${canonical ?: singlePage.status.permalink},data-copy-site=${site.title},data-copy-license=${theme.config.post.post_copyright?.license ?: 'CC BY-NC-SA 4.0'}"></article>
       <div
         id="post-comment"
@@ -61,15 +61,15 @@
         <div class="comment-head">
           <h2 class="comment-headline" id="comment-title" tabindex="-1">
             <i class="fa-solid fa-comments fa-fw" aria-hidden="true"></i>
-            <span th:text="'评论'"></span>
+            <span th:text="#{ui.comments}"></span>
           </h2>
         </div>
         <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
-          <th:block th:if="${theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
+          <th:block th:if="${themePjaxEnabled or theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
             <th:block th:replace="~{views/comment-lazy :: widget('SinglePage', ${singlePage.metadata.name})}"/>
           </th:block>
-          <div th:unless="${theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
+          <div th:unless="${themePjaxEnabled or theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
             <halo:comment
               group="content.halo.run"
               kind="SinglePage"

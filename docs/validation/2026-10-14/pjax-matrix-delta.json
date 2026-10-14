@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-14",
+  "decision": "DEC-02 portable Markdown/HTML; no Hexo tag compatibility layer",
+  "implemented": [
+    "Post and SinglePage identity-aware content navigation and counters",
+    "official CommentWidget eager/lazy instance cleanup and native draft protection",
+    "history veto restores committed entry before native confirmation",
+    "Mermaid, Chart.js, ABC and article gallery lifecycle",
+    "script-free public plugin layouts",
+    "Share.js current-page URL/title and detached-node lifecycle",
+    "Default official Busuanzi page-scoped JSONP with late-response no-op",
+    "Local effects explicit factory/dispose and reduced-motion cleanup",
+    "Explicit opt-in GA4 manual pageviews only after committed pages",
+    "Bounded AddToAny default-services persistent body/root/utility iframe, one kit and current share identity"
+  ],
+  "remaining": [
+    "GA4 real account configuration and DebugView acceptance",
+    "Cloudflare automatic navigation lacks published manual pageview protocol for cancelled-history exclusion",
+    "AddToAny custom services/configurations/locales outside the audited subset, open SDK UI and unknown SDK nodes retain native navigation",
+    "Baidu/Clarity/GTM/Umami/chat/advertising lifecycle and service-account acceptance",
+    "Custom Busuanzi and unknown script/custom element/embed plugin pages",
+    "Physical Safari/devices and full fixed-Hexo parity acceptance"
+  ],
+  "items": [
+    {
+      "id": "config:pjax.enable",
+      "status": "implemented-unverified",
+      "action": "retain status; update supported scope and remaining boundaries",
+      "evidence": [
+        "docs/validation/2026-10-14/pjax-completion.md",
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json",
+        "docs/validation/2026-10-14/pjax-addtoany.md",
+        "docs/validation/2026-10-14/pjax-addtoany.json"
+      ]
+    },
+    {
+      "id": "config:pjax.exclude",
+      "status": "implemented-unverified",
+      "action": "retain status; update supported scope and remaining boundaries",
+      "evidence": [
+        "docs/validation/2026-10-14/pjax-completion.md",
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json",
+        "docs/validation/2026-10-14/pjax-addtoany.md",
+        "docs/validation/2026-10-14/pjax-addtoany.json"
+      ]
+    },
+    {
+      "id": "template:includes/third-party/pjax",
+      "status": "gap",
+      "action": "retain status; update supported scope and remaining boundaries",
+      "evidence": [
+        "docs/validation/2026-10-14/pjax-completion.md",
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json",
+        "docs/validation/2026-10-14/pjax-addtoany.md",
+        "docs/validation/2026-10-14/pjax-addtoany.json"
+      ]
+    },
+    {
+      "id": "interaction:pjax",
+      "status": "gap",
+      "action": "retain status; update supported scope and remaining boundaries",
+      "evidence": [
+        "docs/validation/2026-10-14/pjax-completion.md",
+        "docs/validation/2026-10-14/pjax-completion.json",
+        "docs/validation/2026-10-14/pjax-optional.md",
+        "docs/validation/2026-10-14/pjax-optional.json",
+        "docs/validation/2026-10-14/pjax-addtoany.md",
+        "docs/validation/2026-10-14/pjax-addtoany.json"
+      ]
+    }
+  ],
+  "verifiedAdded": 0,
+  "settingsDelta": {
+    "config:google_analytics": {
+      "addHaloSettings": [
+        "analytics.google_analytics_manual_pageviews"
+      ],
+      "default": false,
+      "requires": "disable GA4 enhanced history pageviews in property first",
+      "status": "implemented-unverified"
+    }
+  }
+}

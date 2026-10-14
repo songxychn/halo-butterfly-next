@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { hashId, localAnchorId } from './article-anchor.ts';
 
 // Author content is ordinary, fully readable HTML. Only successful initialization
@@ -29,7 +30,7 @@ function initializeTabs(root: HTMLElement): { tabs: Tabs; cleanup: () => void } 
   const nav = doc.createElement('div');
   nav.className = 'content-tab-list';
   nav.setAttribute('role', 'tablist');
-  nav.setAttribute('aria-label', root.getAttribute('aria-label') || '内容分组');
+  nav.setAttribute('aria-label', root.getAttribute('aria-label') || t('ui.contentGroup'));
   const buttons: HTMLButtonElement[] = [];
   let disposed = false;
   const allocateId = (prefix: string) => {

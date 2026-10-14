@@ -1,3 +1,4 @@
+import { t } from '../core/i18n';
 import { onPageCleanup } from '../core/page-lifecycle.ts';
 /**
  * @date: 2024/2/25
@@ -137,7 +138,7 @@ export default class Render {
 
     const toc = $('.aside-toc > .toc');
 
-    if(!toc.html()) toc.html('暂无目录~');
+    if(!toc.html()) toc.html(t('ui.emptyToc'));
     else applyTocNumbers(tocEl, resolveNumber(this.#conf.toc_number));
 
   }
@@ -153,7 +154,7 @@ export default class Render {
     const sideBtn = showPane.length ? showPane : $('.side-btn');
     const goUp = $('#go-up');
 
-    const tocBtn = $(`<button id="mobile-toc-button" class="button h5-toc" type="button" title="文章目录"><i class="fas fa-list-ul"></i></button>`);
+    const tocBtn = $(`<button id="mobile-toc-button" class="button h5-toc" type="button" title="${t('ui.postToc')}"><i class="fas fa-list-ul"></i></button>`);
 
     if (goUp.length && showPane.length) tocBtn.insertBefore(goUp);
     else sideBtn.prepend(tocBtn);
@@ -174,7 +175,7 @@ export default class Render {
   #copyRight() {
     const a = $('.copy-right a.permalink');
     if (!a.length) return;
-    const href = window.location.href;
+    const href = a.attr('href') || document.querySelector<HTMLLinkElement>('link[rel=canonical]')?.href || window.location.href;
     a.attr('href', href);
     a.text(formatPermalinkText(href, this.#conf.post_copyright_decode));
   }

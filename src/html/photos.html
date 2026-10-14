@@ -1,7 +1,7 @@
 <layout
   th:replace="~{views/layout :: layout (
   page = 'photos',
-  title = '图库' ,
+  title = #{ui.photos} ,
   pin = ~{::pin},
   header = ~{::header},
   main = ~{::main}
@@ -28,7 +28,7 @@
       <!--第一屏内容-->
       <section class="above" th:if="${aboveEnabled}">
         <div class="above-info">
-          <h1 class="above-title">图库</h1>
+          <h1 class="above-title" th:text="#{ui.photos}">图库</h1>
         </div>
       </section>
     </header>
@@ -38,12 +38,12 @@
   <!--/* 內容 */-->
   <th:block th:fragment="main">
     <section class="content ">
-      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${'图库'}"></h1>
+      <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${#messages.msg('ui.photos')}"></h1>
       <div class="head card" th:with="noData = ${not #lists.isEmpty(groups)}">
-        <div class="title">图库分类</div>
+        <div class="title" th:text="#{ui.photoCategories}">图库分类</div>
         <div class="groups">
           <th:block th:if="${noData}">
-            <a class="groups-item animate__animated " href="/photos">全部</a>
+            <a class="groups-item animate__animated " href="/photos" th:text="#{ui.all}">全部</a>
             <a th:each="group : ${groups}" th:text="${group.spec.displayName}" th:href="${'/photos?group=' + group.metadata.name }" th:data-group="${group.metadata.name}" class="groups-item animate__animated "></a>
           </th:block>
           
@@ -54,7 +54,7 @@
       <div class="imgs">
         <img class="img animate__animated animate__bounceIn" th:each="photo : ${photos.items}" th:src="${photo.spec.url}" th:alt="${photo.spec.displayName}">
       </div>
-      <th:block th:replace="~{views/plugin-pagination :: pagination(${photos}, '图库分页')}"/>
+      <th:block th:replace="~{views/plugin-pagination :: pagination(${photos}, #{ui.photoPagination})}"/>
     </section>
     <th:block th:replace="~{views/aside::common}"/>
   </th:block>

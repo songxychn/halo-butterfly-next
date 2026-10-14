@@ -1,3 +1,5 @@
+import { t } from './i18n';
+import { initializeArchiveTitle } from './listing-options.ts';
 /**
  * @date: 2024/3/2
  * @author: 小红
@@ -5,7 +7,8 @@
  * @Description:common
  */
 import $ from 'jquery';
-import {initializeAppearance, enabled} from './appearance.ts';
+import { initializeFooterBackground } from './decorative-background.ts';
+import {initializeAppearance} from './appearance.ts';
 import Navigation from './navigation.ts';
 import { initializeAsideOptions } from './aside-options.ts';
 import { initializeImageLoading } from './image-loading.ts';
@@ -19,7 +22,8 @@ import { bindCommentJump } from './comment-jump.ts';
 import { initializeLazyComments } from './comment-lazy.ts';
 import { initializeSiteWordcount, initializeVisitCounters } from './site-statistics.ts';
 import { bindCopyAttribution } from './copy-attribution.ts';
-import { resolveResource, loadManagedResource } from './external-resource.ts';
+import { initializeSiteContent } from './site-content.ts';
+import { initializeEffects } from './effects-loader.ts';
 
 export default class Common {
 
@@ -31,13 +35,10 @@ export default class Common {
 
     initializeAsideOptions(document, MainApp.conf.aside_tag_colors);
     initializeAppearance(MainApp.conf.appearance);
-    const effects = MainApp.conf.effects;
-    if (effects && Object.values(effects).some(value => value && typeof value === 'object' && enabled((value as Record<string, unknown>).enable)) && !document.getElementById('appearance-effects') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const file = 'js/effects.min.js', local = MainApp.conf.assets_link + file;
-      void loadManagedResource(resolveResource('effects', local, MainApp.resources, MainApp.version, file), local,
-        {attributes: {id: 'appearance-effects'}});
-    }
+    initializeFooterBackground();
+    initializeEffects();
     applyRelativeDates();
+    initializeArchiveTitle();
     bindHideAsideButton();
     bindRightsideConfig();
     bindReadmode();
@@ -49,6 +50,7 @@ export default class Common {
     initializeVisitCounters();
     initializeSiteWordcount();
     bindCopyAttribution();
+    initializeSiteContent();
 
   }
 
@@ -68,7 +70,7 @@ export default class Common {
 
     const day = parseInt((date / (1000 * 24 * 60 * 60)).toString());
 
-    dom.html(day + ' 天');
+    dom.html(day + t('ui.dayUnit'));
   }
 
   /**

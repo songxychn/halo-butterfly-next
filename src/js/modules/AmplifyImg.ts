@@ -1,3 +1,4 @@
+import { t } from '../core/i18n';
 import { onPageCleanup, pageListen } from '../core/page-lifecycle.ts';
 /** MIT Viewer.js adapter shared by article, page, photo and moment entries. */
 import Viewer from 'viewerjs';
@@ -7,10 +8,10 @@ const KEY = Symbol.for('halo-butterfly-next.lightbox');
 declare global { interface Document { [KEY]?: AmplifyImg } }
 const SELECTOR = '.main > .content img';
 const labels: Record<string, string> = {
-  'zoom-in': '放大', 'zoom-out': '缩小', 'one-to-one': '原始尺寸', reset: '重置',
-  prev: '上一张', next: '下一张', play: '播放幻灯片', stop: '停止幻灯片',
-  'rotate-left': '向左旋转', 'rotate-right': '向右旋转',
-  'flip-horizontal': '水平翻转', 'flip-vertical': '垂直翻转', mix: '关闭图片',
+  get 'zoom-in'() { return t('ui.zoomIn'); }, get 'zoom-out'() { return t('ui.zoomOut'); }, get 'one-to-one'() { return t('ui.originalSize'); }, get reset() { return t('ui.reset'); },
+  get prev() { return t('ui.previousImage'); }, get next() { return t('ui.nextImage'); }, get play() { return t('ui.slideshow'); }, get stop() { return t('ui.stopSlideshow'); },
+  get 'rotate-left'() { return t('ui.rotateLeft'); }, get 'rotate-right'() { return t('ui.rotateRight'); },
+  get 'flip-horizontal'() { return t('ui.flipHorizontal'); }, get 'flip-vertical'() { return t('ui.flipVertical'); }, get mix() { return t('ui.closeImage'); },
 };
 
 export function imageSource(image: HTMLImageElement) {
@@ -98,7 +99,7 @@ export default class AmplifyImg {
       }
       trigger.classList.add('theme-lightbox-trigger');
       const count = trigger.querySelectorAll('img').length;
-      trigger.setAttribute('aria-label', count > 1 ? `查看图片组（${count} 张）` : `查看图片：${image.alt || '图片'}`);
+      trigger.setAttribute('aria-label', count > 1 ? t('ui.imageGroup', count) : t('ui.viewImage', image.alt || t('ui.image')));
       trigger.setAttribute('aria-haspopup', 'dialog');
     });
   }
@@ -131,27 +132,27 @@ export default class AmplifyImg {
     };
     const describe = () => {
       const dialog = host.querySelector('.viewer-container');
-      dialog?.setAttribute('aria-label', '图片查看器');
+      dialog?.setAttribute('aria-label', t('ui.imageViewer'));
       host.querySelectorAll<HTMLElement>('[data-viewer-action]').forEach(button => {
         const label = labels[button.dataset.viewerAction || ''];
         if (label) { button.setAttribute('aria-label', label); button.title = label; }
       });
       const toolbar = host.querySelector('.viewer-toolbar > ul');
       toolbar?.setAttribute('role', 'group');
-      toolbar?.setAttribute('aria-label', '图片操作');
+      toolbar?.setAttribute('aria-label', t('ui.imageTools'));
       host.querySelectorAll('.viewer-list > li').forEach((item, i) => {
-        item.setAttribute('aria-label', `查看第 ${i + 1} 张图片：${images[i]?.alt || '图片'}`);
+        item.setAttribute('aria-label', t('ui.imageNumber', i + 1, images[i]?.alt || t('ui.image')));
         // Viewer marks button thumbnails aria-selected, which belongs to tabs/options.
         item.removeAttribute('aria-selected');
         item.setAttribute('aria-current', String(item.classList.contains('viewer-active')));
       });
       const toggle = host.querySelector('.viewer-thumbnails');
-      if (toggle) { toggle.textContent = '缩略'; toggle.setAttribute('aria-label', '显示或隐藏缩略图'); }
+      if (toggle) { toggle.textContent = t('ui.thumbnails'); toggle.setAttribute('aria-label', t('ui.toggleThumbnails')); }
     };
     this.viewer = new Viewer(gallery, {
       container: host, className: 'theme-image-viewer', transition: false,
       initialViewIndex: index, fullscreen: false, keyboard: true, focus: true,
-      navbar: true, title: image => image.alt || '图片',
+      navbar: true, title: image => image.alt || t('ui.image'),
       toolbar: {
         zoomIn: true, zoomOut: true, oneToOne: true, reset: true, prev: true,
         play: true, next: true, rotateLeft: true, rotateRight: true,
@@ -178,7 +179,7 @@ export default class AmplifyImg {
         describe();
         const title = host.querySelector('.viewer-title');
         if (!title) return;
-        title.textContent = `${event.detail.index + 1} / ${images.length} — ${images[event.detail.index]?.alt || '图片'}`;
+        title.textContent = `${event.detail.index + 1} / ${images.length} — ${images[event.detail.index]?.alt || t('ui.image')}`;
         title.setAttribute('aria-live', 'polite');
       },
       hidden: restore,

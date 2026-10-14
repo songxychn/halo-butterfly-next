@@ -1,3 +1,4 @@
+import { preconnectResource } from './resource-hints.ts';
 /** Configuration values are applied with CSSOM, never interpolated into a stylesheet. */
 export type Appearance = Record<string, unknown>;
 const record = (value: unknown): Appearance => value && typeof value === 'object' ? value as Appearance : {};
@@ -53,6 +54,7 @@ export function initializeAppearance(conf: unknown, root = document) {
     try {
       const url = new URL(href, root.baseURI);
       if ((url.protocol === 'https:' || (url.origin === location.origin && url.protocol === location.protocol)) && !url.username && !url.password) {
+        preconnectResource(url.href, root);
         const link = root.createElement('link');
         link.id = 'appearance-title-font'; link.rel = 'stylesheet'; link.href = url.href;
         root.head.append(link);

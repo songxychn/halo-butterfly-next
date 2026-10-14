@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { onPageCleanup } from './page-lifecycle.ts';
 
 const LOAD_EVENT = 'theme:load-comments';
@@ -50,7 +51,7 @@ export function initializeLazyComments(root: Document = document, options: Optio
     if (!active || state === 'loading' || state === 'mounted') return;
     observer?.disconnect();
     const current = ++generation;
-    display('loading', '正在加载评论…');
+    display('loading', t('ui.commentLoading'));
     try {
       const url = commentModuleUrl(root, attempt++);
       const module = await Promise.race([
@@ -64,15 +65,22 @@ export function initializeLazyComments(root: Document = document, options: Optio
       // Mount directly: its init() adds another viewport observer and retains it.
       if (!module.CommentWidget || !win.customElements.get('comment-widget')) throw new Error('Unsupported comment component');
       const { group, kind, name } = target.dataset;
-      if (group !== 'content.halo.run' || !['Post', 'SinglePage'].includes(kind ?? '') || !name) throw new Error('Invalid comment subject');
+      if (!((group === 'content.halo.run' && ['Post', 'SinglePage'].includes(kind ?? '')) || (group === 'moment.halo.run' && kind === 'Moment')) || !name) throw new Error('Invalid comment subject');
       const widget = root.createElement('comment-widget') as Widget;
       Object.assign(widget, { group, kind, name, version: 'v1alpha1' });
+      const oldToasts = new Set(root.querySelectorAll('lit-toast-container'));
       host.append(widget);
+      // The official component creates a body-level toast host synchronously in
+      // connectedCallback. Only hosts created by this mount are theme-managed;
+      // removing the old body disconnects them together with their subject.
+      root.querySelectorAll('lit-toast-container').forEach(toast => {
+        if (!oldToasts.has(toast)) toast.setAttribute('data-theme-comment-toast', '');
+      });
       display('mounted', '');
       // Data, login, submission and reply failures stay with the official UI.
       // Once mounted, never replace a user's editor to retry a theme load.
     } catch {
-      if (active && current === generation) display('failed', '评论组件暂时无法加载，请重试。');
+      if (active && current === generation) display('failed', t('ui.commentError'));
     } finally {
       if (current === generation) win.clearTimeout(timer);
     }
@@ -89,9 +97,9 @@ export function initializeLazyComments(root: Document = document, options: Optio
     retry.removeEventListener('click', trigger);
     delete target.dataset.commentLazyBound;
   });
-  display(state, state === 'mounted' ? '' : '接近评论区时自动加载评论。');
+  display(state, state === 'mounted' ? '' : t('ui.commentHint'));
   if (state === 'mounted') return;
-  if (win.location.hash === '#post-comment' || !('IntersectionObserver' in win)) trigger();
+  if (target.dataset.commentEager === 'true' || win.location.hash === '#post-comment' || !('IntersectionObserver' in win)) trigger();
   else {
     observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) trigger();

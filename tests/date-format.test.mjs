@@ -77,10 +77,10 @@ test('文章页只读 post.post_meta.date_format，列表只读 index.post_meta.
   assert.match(list, /yyyy-MM-dd/);
   assert.doesNotMatch(postMeta, /th:utext/);
   assert.doesNotMatch(list, /th:utext/);
-  assert.match(postMeta, /showLabel \? '发布于 '/);
-  assert.match(postMeta, /showLabel \? '更新于 '/);
-  assert.match(list, /showLabel \? '发表于 '/);
-  assert.match(list, /showLabel \? '更新于 '/);
+  assert.match(postMeta, /showLabel \? #messages\.msg\('ui\.published'\)/);
+  assert.match(postMeta, /showLabel \? #messages\.msg\('ui\.updated'\)/);
+  assert.match(list, /showLabel \? #messages\.msg\('ui\.publishedAlt'\)/);
+  assert.match(list, /showLabel \? #messages\.msg\('ui\.updated'\)/);
 });
 
 test('relative 时 time 仍输出绝对 datetime，可见文本由客户端替换', () => {
@@ -94,7 +94,7 @@ test('relative 时 time 仍输出绝对 datetime，可见文本由客户端替�
   assert.match(list, /th:data-relative-date="\$\{dateFormat == 'relative'\}"/);
   assert.match(commonJs, /applyRelativeDates/);
   assert.doesNotMatch(commonJs, /moment/);
-  assert.doesNotMatch(source, /moment/);
+  assert.doesNotMatch(postMeta + list, /moment/);
 });
 
 test('formatRelative 输出中文相对时间，并保留发布/更新前缀', () => {

@@ -6,6 +6,7 @@
  */
 
 import App from '../core/App.ts';
+import { initializeTagCloud } from '../core/listing-options.ts';
 import {applyTagColors, tagCloudColors} from '../core/tag-cloud-colors.ts';
 import {loadPageChart} from '../core/chart-loader.ts';
 
@@ -13,7 +14,10 @@ class Tags {
 
   // 渲染标签
   run_equinox() {
-    const items = document.querySelectorAll<HTMLElement>('.tags .equinox  a.link');
+    const container = document.querySelector<HTMLElement>('[data-tag-cloud]');
+    if (!container) return;
+    const customizedFont = container.dataset.minFont !== '12' || container.dataset.maxFont !== '21' || container.dataset.unit !== 'px';
+    const items = initializeTagCloud(container, MainApp.conf.appearance?.tag_ui !== 'chart' || customizedFont);
 
     if(!items.length) return;
 
@@ -32,7 +36,7 @@ class Tags {
       source.push([dom.innerText, count]);
     }
 
-    applyTagColors([...items], MainApp.conf.appearance?.tag_custom_colors, true, MainApp.conf.appearance?.tag_ui !== 'chart');
+    applyTagColors([...items], MainApp.conf.appearance?.tag_custom_colors, true, false);
     void loadPageChart('tags', source);
   }
 

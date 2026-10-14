@@ -10,10 +10,10 @@ const {chromium,firefox,webkit}=await import(pathToFileURL(path.join(RUNTIME,'de
 const startup=(await readFile(path.join(REPO,'templates/views/config.html'),'utf8')).match(/<script[^>]*id="baseScript"[^>]*>([\s\S]*?)<\/script>/)[1];
 const svg='<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><rect width="200" height="100" fill="#367"/></svg>';
 function fixture(url) {
-  const post=url.pathname==='/post/'; const entry=post?'post':'index';
+  const post=url.pathname==='/post/'; const entry=post?'post':url.pathname==='/plugin/'?'plugin':'index';
   const native=url.searchParams.get('native')!=='false',lazy=url.searchParams.get('lazy')!=='false';
   return `<!doctype html><html lang="zh-CN" data-theme-navigation="1"><head><meta charset="UTF-8"><title>${entry}</title><meta name="description" content="${entry}"><link rel="canonical" href="${url.pathname}">
-  <script data-theme-script="config" id="baseScript">${startup};Object.assign(MainApp.conf,{assets_link:'/assets/',style_mode:'user',pjax_enable:${url.searchParams.get('pjax')!=='false'},pjax_exclude:'/excluded/',instantpage:true,snackbar_enable:true,snackbar_position:'bottom-right',enable_aside:false,enable_webInfo:false,lazyload_enable:${lazy},lazyload_native:${native},lazyload_blur:true,enable_above:false,enable_subtitle:false,enable_code:true,enable_code_copy:true});MainApp.prismSource='/assets/plugins/prism/prism.min.js';</script>
+  <script data-theme-script="config" id="baseScript">${startup};Object.assign(MainApp.conf,{assets_link:'/assets/',style_mode:'user',pjax_enable:${url.searchParams.get('pjax')!=='false'},pjax_exclude:'/excluded/',instantpage:true,snackbar_enable:true,snackbar_position:'bottom-right',enable_aside:false,enable_webInfo:false,lazyload_enable:${lazy},lazyload_native:${native},lazyload_blur:true,enable_above:false,enable_subtitle:false,enable_code:true,enable_code_copy:true});MainApp.prismSource='/assets/plugins/prism/prism.min.js';MainApp.resources={version:false};</script>
   <link rel="stylesheet" href="/assets/css/${entry}.min.css"><style>body{margin:0}.main{display:block!important}.content{width:100%!important}.spacer{height:1500px}a,button{margin:8px}#mobile-navigation{position:fixed;right:0;top:0;z-index:9;background:white}</style>
   ${url.pathname==='/unsafe/'?'<script type="text/ecmascript">window.pluginCounter=(window.pluginCounter||0)+1</script>':''}</head><body>
   <div id="Butterfly" class="${entry}"><header class="header"><nav class="nav"><div class="nav-title"><a href="/">Home</a></div><ul class="menu"><li><a href="/post/">Post</a></li></ul><div class="controls"><button class="bars">Menu</button></div></nav></header><div id="mobile-navigation" hidden inert><button class="side-bar-close">Close</button><a href="/post/">Post</a></div><div class="mask" hidden></div>
@@ -65,6 +65,11 @@ try {
         assert.equal(await page.locator('meta[name=description]').getAttribute('content'),i%2===0?'post':'index');
       }
       console.log(engine,width,'history');
+      await page.evaluate(()=>{const a=document.createElement('a');a.href='/plugin/';document.body.append(a);a.click();});
+      await page.waitForFunction(()=>document.title==='plugin'&&!document.documentElement.classList.contains('theme-navigating'));
+      assert.equal(await page.evaluate(()=>window.navigationSentinel),'persistent','Script-free public plugin layout supports its theme lifecycle');
+      await page.locator('#next').click();await page.waitForFunction(()=>document.title==='post'&&!document.documentElement.classList.contains('theme-navigating'));
+      await page.locator('#next').click();await page.waitForFunction(()=>document.title==='index'&&!document.documentElement.classList.contains('theme-navigating'));
       await page.evaluate(()=>scrollTo({top:650,behavior:'instant'}));await page.waitForFunction(()=>history.state?.butterflyNavigation?.y>=600);
       await page.locator('#next').evaluate(el=>el.click());await page.waitForFunction(()=>document.title==='post'&&!document.documentElement.classList.contains('theme-navigating'));
       await page.goBack();await page.waitForFunction(()=>document.title==='index'&&!document.documentElement.classList.contains('theme-navigating'));

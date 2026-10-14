@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { onPageCleanup } from './page-lifecycle.ts';
 
 const positions = new Set(['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right']);
@@ -30,7 +31,7 @@ export default class Message {
     const message = document.createElement('span');
     message.textContent = text;
     const close = document.createElement('button');
-    close.type = 'button'; close.textContent = '关闭'; close.setAttribute('aria-label', '关闭提示');
+    close.type = 'button'; close.textContent = t('ui.close'); close.setAttribute('aria-label', t('ui.closeNotice'));
     notice.append(message, close); this.#container.append(notice);
     // Keep a burst of events bounded, without concatenating untrusted HTML.
     while (this.#container.children.length > 3) this.#container.firstElementChild?.remove();

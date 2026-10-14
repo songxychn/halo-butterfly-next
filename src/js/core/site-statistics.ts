@@ -1,3 +1,5 @@
+import { t } from './i18n';
+import { initializeBusuanzi } from './busuanzi.ts';
 import { readingMetrics } from './post-meta.ts';
 import { onPageCleanup } from './page-lifecycle.ts';
 import { resolveResource, loadManagedResource } from './external-resource.ts';
@@ -13,6 +15,8 @@ export function initializeVisitCounters(root = document) {
   if (!root.querySelector('#busuanzi_value_page_pv, #busuanzi_value_site_pv, #busuanzi_value_site_uv') || root.querySelector('script[data-visit-counter]')) return;
   const official = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
   const source = resolveResource('busuanzi', official, window.MainApp?.resources, window.MainApp?.version);
+  if (source === official) { initializeBusuanzi(root); return; }
+  // A configured replacement script has no guaranteed page lifecycle protocol.
   void loadManagedResource(source, official, {document: root, attributes: {'data-visit-counter': 'busuanzi'}});
 }
 
@@ -57,13 +61,13 @@ export function initializeSiteWordcount(root = document) {
   onPageCleanup(() => { active = false; observer?.disconnect(); controller?.abort(); });
   const run = async () => {
     if (!active) return;
-    output.textContent = '统计中…';
+    output.textContent = t('ui.statistics');
     const signature = output.dataset.siteWordcount ?? '';
     try {
       try {
         const saved = JSON.parse(sessionStorage.getItem(CACHE_KEY) ?? 'null');
         if (saved?.signature === signature && Date.now() - saved.at >= 0 && Date.now() - saved.at < TTL && Number.isSafeInteger(saved.count) && saved.count >= 0) {
-          output.textContent = `${saved.count} 字`; output.dataset.state = 'ready'; return;
+          output.textContent = t('ui.wordUnit', saved.count); output.dataset.state = 'ready'; return;
         }
       } catch { /* Storage is optional. */ }
       const request = new AbortController();
@@ -78,9 +82,9 @@ export function initializeSiteWordcount(root = document) {
         });
       } finally { clearTimeout(timer); request.abort(); }
       if (!active) return;
-      output.textContent = `${count} 字`; output.dataset.state = 'ready';
+      output.textContent = t('ui.wordUnit', count); output.dataset.state = 'ready';
       try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({signature, count, at: Date.now()})); } catch { /* Optional cache. */ }
-    } catch { if (active) { output.textContent = '暂不可用'; output.dataset.state = 'failed'; } }
+    } catch { if (active) { output.textContent = t('ui.unavailable'); output.dataset.state = 'failed'; } }
   };
   if (typeof IntersectionObserver === 'undefined') { void run(); return; }
   observer = new IntersectionObserver(entries => {

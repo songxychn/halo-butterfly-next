@@ -1,3 +1,4 @@
+import { t } from './i18n';
 /** Butterfly 5.7.0 gallery JSON contract: {url, alt, title}[]. */
 export interface GalleryImage { url: string; alt: string; title: string }
 export const MAX_GALLERY_IMAGES = 5000;
@@ -14,11 +15,11 @@ export function galleryUrl(value: unknown, base: string) {
 }
 
 export function galleryImages(value: unknown, base: string): GalleryImage[] {
-  if (!Array.isArray(value) || value.length > MAX_GALLERY_IMAGES) throw new Error('图库数据必须是最多 5000 张图片的数组');
+  if (!Array.isArray(value) || value.length > MAX_GALLERY_IMAGES) throw new Error(t('ui.errorGalleryList'));
   return value.map(item => {
-    if (!item || typeof item !== 'object') throw new Error('图库图片格式无效');
+    if (!item || typeof item !== 'object') throw new Error(t('ui.errorGalleryItem'));
     const url = galleryUrl(item.url, base);
-    if (!url) throw new Error('图库图片地址无效');
+    if (!url) throw new Error(t('ui.errorGalleryImageUrl'));
     return { url, alt: typeof item.alt === 'string' ? item.alt : '', title: typeof item.title === 'string' ? item.title : '' };
   });
 }
@@ -35,12 +36,12 @@ export function galleryOptions(element: Pick<HTMLElement, 'dataset'>) {
 /** Limit decoded bytes, including chunked bodies; do not send logged-in cookies. */
 export async function fetchGallery(source: string, base: string, signal: AbortSignal, request: typeof fetch = fetch) {
   const url = galleryUrl(source, base);
-  if (!url) throw new Error('图库数据地址无效');
+  if (!url) throw new Error(t('ui.errorGalleryUrl'));
   const response = await request(url, { signal, credentials: 'omit', referrerPolicy: 'no-referrer' });
-  if (!response.ok) throw new Error('图库数据请求失败');
-  if (Number(response.headers.get('content-length')) > MAX_GALLERY_BYTES) throw new Error('图库数据过大');
+  if (!response.ok) throw new Error(t('ui.errorGalleryRequest'));
+  if (Number(response.headers.get('content-length')) > MAX_GALLERY_BYTES) throw new Error(t('ui.errorGallerySize'));
   const reader = response.body?.getReader();
-  if (!reader) throw new Error('图库数据为空');
+  if (!reader) throw new Error(t('ui.errorGalleryEmpty'));
   const chunks: Uint8Array[] = [];
   let size = 0;
   try {
@@ -48,7 +49,7 @@ export async function fetchGallery(source: string, base: string, signal: AbortSi
       const { value, done } = await reader.read();
       if (done) break;
       size += value.byteLength;
-      if (size > MAX_GALLERY_BYTES) throw new Error('图库数据过大');
+      if (size > MAX_GALLERY_BYTES) throw new Error(t('ui.errorGallerySize'));
       chunks.push(value);
     }
   } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }

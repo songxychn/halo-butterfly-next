@@ -81,7 +81,7 @@ test('布局：#hide-aside-btn 在 #rightside-config-hide；无新增 th:utext�
   assert.match(componentsHtml, /id="hide-aside-btn"/);
   assert.match(componentsHtml, /id="rightside-config-hide"/);
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button != false/);
-  assert.match(componentsHtml, /theme\.config\.aside\.enable != false/);
+  assert.match(componentsHtml, /hideBtnOn = \$\{asideEnabled and/);
   assert.doesNotMatch(componentsHtml, /th:utext/);
   assert.doesNotMatch(layoutHtml, /th:utext/);
   assert.match(bootstrapSource, /aside-status/);

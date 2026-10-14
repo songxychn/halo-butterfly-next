@@ -28,7 +28,11 @@
 
 切换前销毁主题页面作用域：全局事件、导航/图片/代码/公式观察器、图表、目录、Typed、灯箱、剪贴板及请求取消。新页面重新执行标记的主题配置与页面入口；第三方库的普通 DOM 事件由对应实例销毁或旧节点清理。`pjax:send`、`pjax:complete`、`pjax:error` 和 `halo-butterfly-next:before-replace/page-ready` 提供可观察事件。
 
-Halo 文章/单页的 `/halo-tracker.js` 包装 history 且绑定内容身份，尚无安全销毁协议，因此这些页面保留完整导航和原生计数。当前 PJAX 主要覆盖首页、列表、分类标签及归档之间的导航。插件公共布局、未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面使用完整导航。启用全局插件脚本可能使整个站点回退；这是一项明确兼容边界，并不宣称任意插件已适配 PJAX。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 和评论懒挂载不在本批范围。
+启用 PJAX 时，文章/单页通过 Halo 2.26.1 的 `HaloTrackerProcessor.SKIP_TRACKER` 服务端标记停用绑定旧身份的原生 history 包装器，改由主题向官方 counter API 每个已初始化页面作用域上报一次；文章、单页和历史遍历使用各自的服务端身份，列表不继承旧文章身份。保留 `haloTracker.disabled` 停用约定，计数失败不重试、不阻塞正文。关闭 PJAX 继续由原生 `/halo-tracker.js` 计数。 Halo 2.20.2不支持该服务端停用标记：主题检测到当前内容的原生tracker时不再重复上报，内容页保留完整导航；因此最低版本的基本浏览兼容不等于其支持当前内容PJAX生命周期。
+
+官方 CommentWidget 3.3.2 使用新的组件实例与目标内容身份；非懒加载配置立即挂载，懒加载继续按可见性触发。旧 body 替换时组件、其 shadow DOM 和主题挂载产生的 toast host 一并断开，插件的 disconnectedCallback 清理编辑器和全局监听。尚未提交的评论触发 beforeunload veto 时交给浏览器完整导航及原生离开提醒，避免绕过草稿保护；等待 HTML/CSS 期间开始编辑同样重新检查。
+
+文章图表、ABC 乐谱、图库及脚本为空的插件公共布局已参与页面生命周期；正文渲染配置在切页时重新执行。未知可执行脚本、自定义元素、iframe、base、meta refresh 和 `data-no-pjax` 页面仍使用完整导航。Share.js、官方默认 Busuanzi 与主题本地特效已按页面清理和重新初始化；GA4 仅在显式手动统计模式满足后台前置条件时支持。AddToAny 的默认服务列表支持下述有界持久宿主协议；其他分析/聊天/广告 SDK、自定义 Busuanzi 脚本仍保持完整导航。不会因脚本来自某个受信任 CDN 就放行整站。目标响应重定向、非 HTML、错误状态或资源失败也回退正常导航。表单始终保持普通提交。PWA 另行跟踪。
 
 预取最多提示 8 个链接；带查询参数、后台/外部资源、省流量和 2G 网络跳过。使用浏览器标准 prefetch，不创建主题 HTML 缓存或绕过鉴权。浏览器可以忽略预取提示。
 
@@ -44,4 +48,17 @@ Halo 文章/单页的 `/halo-tracker.js` 包装 history 且绑定内容身份，
 
 作者回归不替代固定双站的全部配置组合、插件生态、Safari 真机及完整 1.0 工程验收。
 
+2026-10-14 内容 PJAX 的独立私有 Halo 回归使用 `scripts/navigation-loading/content-fixture.py` 配置已有官方评论夹具，再运行 `BASE_URL=http://127.0.0.1:<owned-port> bun scripts/navigation-loading/content.mjs`。覆盖内容计数身份、评论实例、前进后退、三种正文渲染器和图库反复进入，以及未提交评论。证据及验收边界见 [限定验收](validation/2026-10-14/pjax-completion.md)。
+
 2026-10-14 的 [DEC-03](parity/DEC-03-RESOURCES-DECISION.md)新增 Pace 1.2.4 默认进度，通过当前请求的阶段来源跟踪主题 fetch；普通 fetch 不自动被 Pace 跟踪。首屏与请求进度为估算，资源失败或连续进度超过 30 秒回落原导航提示，正文保持可读。验证见 [Pace 限定记录](validation/2026-10-14/dec03-pace.md)。
+
+
+## 可选服务的页面生命周期
+
+Share.js 复用库而每页绑定新的 URL、标题、图片与描述，二维码和事件只附着当前分享节点。默认 Busuanzi 直接使用官方 JSONP 协议，每次按当前页面 Referer 请求；旧回调删除后成为无节点引用的 no-op。自定义统计脚本因协议不确定保持原生回退。主题特效每页显式创建/销毁画布、RAF、交互监听与标签计时器，文档只保留一个媒体变化分发器，页面销毁时清空实例引用；若动画帧先观察到减少动态偏好，则立即清理，不等待媒体事件。
+
+GA4 的 `analytics.google_analytics_manual_pageviews` 必须先关闭服务后台增强型历史事件；主题只在成功提交页面后发 pageview，详见 [集成配置](INTEGRATIONS.md)。Cloudflare 自动历史观察无法在草稿取消前撤销事件，继续完整导航。
+
+AddToAny 复用一个已初始化的分享 kit，更新当前 URL、标题、主题按钮链接和标签，避免 `init_all` 在 SDK 私有集合里保留旧 kit。仅此已知入口保持原 body、菜单宿主、utility iframe 和 SDK 样式始终连接；新页面替换其余子节点。支持默认 facebook/x/wechat/sina_weibo/facebook_messenger/email/copy_link 及 twitter，其他服务、预注入自定义配置、未知节点或脚本、打开的菜单/复制弹窗、失败/超时及 service 配置变化继续原生导航。提交前再次检查当前文档，覆盖请求等待期间新增未知 iframe 的竞态。
+
+主题强制校验已审计 page.js 的 SRI，其内容选择 core.iho16r34.js；core、中文 locale、图标与 utility iframe 仍信任服务方同源资源，不能将审计文件 SHA256 写成运行时全链路 SRI。loader 内容更新后会安全失败并提示复制/平台链接回退，需要重新审计和更新 SRI。实际三引擎限定验收见 [AddToAny 生命周期](validation/2026-10-14/pjax-addtoany.md)。聊天会话、GTM 任意标签与 AdSense 自动广告仍没有主题可通用安全销毁的协议。

@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { getScrollPercent } from './toc.ts';
 /**
  * 对齐 Butterfly 5.7.0 layout/includes/rightside.pug + source/js/main.js
@@ -164,7 +165,7 @@ export function createExitReadmodeButton(doc: Document) {
   const el = doc.createElement('button');
   el.type = 'button';
   el.className = 'fas fa-sign-out-alt exit-readmode';
-  el.title = '退出阅读模式';
+  el.title = t('ui.readExit');
   return el;
 }
 

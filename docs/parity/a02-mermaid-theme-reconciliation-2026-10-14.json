@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "sourceSha": "22ef4562a9dbcb7c4f92af134894b5479a3c8afd",
+  "upstreamCommit": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "id": "site-config:theme",
+  "finding": "Inventory matched local config.theme in Mermaid rendering, not the Hexo global theme selector. Source keeps per-block JSON config.theme and otherwise uses light/dark theme fallback.",
+  "upstream": "layout/includes/third-party/math/mermaid.pug:291-300",
+  "consumer": "src/js/renderers/mermaid.ts:14-22",
+  "mapping": "request.params.theme || request.theme, with safe named-theme fallback; portable data renderer parameters, no Hexo tag parser.",
+  "from": "gap",
+  "to": "implemented-unverified",
+  "verifiedAdded": 0,
+  "limits": [
+    "Source mapping only; full per-value dual-site and release acceptance remain."
+  ]
+}

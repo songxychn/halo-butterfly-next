@@ -215,3 +215,19 @@
     }
   }
 }
+
+.footer .footer-columns {
+  gap: 24px;
+  .footer-flex-items { flex: 1 1 160px; }
+  .footer-column-section + .footer-column-section { margin-top: 20px; }
+  [data-site-html] img { max-width: 100%; height: auto; }
+}
+.theme-social {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+  .link { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: var(--social-color, currentColor); }
+  svg { width: 1.2em; height: 1.2em; }
+  html[data-color-scheme='dark'] & .link { color: var(--social-dark-color, currentColor); }
+}
+.above-info .theme-social { margin-top: 12px; font-size: 1.5em; }
+.aside-user .social.theme-social > .link { color: var(--social-color, var(--font-color, inherit)); }
+html[data-color-scheme='dark'] .aside-user .social.theme-social > .link { color: var(--social-dark-color, var(--font-color, inherit)); }

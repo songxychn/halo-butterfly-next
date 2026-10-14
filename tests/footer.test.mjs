@@ -88,7 +88,7 @@ test('默认对齐上游 SHA：owner true/2025、copyright true/true、custom_te
   assert.match(String(child('nav').help), /th:text/);
   assert.equal(child('footer_img').name, 'footer_img');
   assert.match(String(child('footer_img').help), /footer_img/);
-  assert.match(String(child('footer_img').help), /th:style/);
+  assert.match(String(child('footer_img').help), /CSSOM/);
   assert.equal(maskChild('footer').value, true);
   assert.deepEqual(maskChild('footer').options.map(option => option.value), [true, false]);
   assert.match(String(maskChild('footer').help), /mask\.footer/);
@@ -156,11 +156,9 @@ test('模板：owner/copyright 可关；标题 th:text；无 th:utext；保留�
   assert.match(footerHtml, /not #lists\.isEmpty\(theme\.config\.footer\?\.nav\)/);
   assert.match(footerHtml, /th:text="\$\{item\.title\}"/);
   assert.match(footerHtml, /th:href="\$\{item\.url\}"/);
-  assert.match(footerHtml, /footer--bg/);
-  assert.match(footerHtml, /footer--mask/);
-  assert.match(footerHtml, /footerMaskOn = \$\{theme\.config\.mask\?\.footer != false and theme\.config\.mask\?\.footer != 'false'\}/);
-  assert.match(footerHtml, /background-image: url\('\$\{footerImg\}'\)/);
-  assert.match(footerHtml, /footerImg != true/);
+  assert.match(footerHtml, /th:data-footer-background/);
+  assert.match(footerHtml, /th:data-footer-mask/);
+  assert.doesNotMatch(footerHtml, /th:style/);
   assert.doesNotMatch(footerHtml, /© 2020 -/);
 });
 
@@ -187,7 +185,7 @@ test('nav 默认空不渲染；title 与 url 都有才输出', () => {
   assert.equal(shouldRenderNav([{ title: '友链', url: '/links' }]), true);
 });
 
-test('footer_img 默认空不渲染；true 本刀不套背景；URL 才输出 background-image', () => {
+test('footer_img 默认空不渲染；未提供继承值时 true 无背景；URL 输出 background-image', () => {
   assert.equal(DEFAULTS.footer_img, '');
   assert.equal(shouldRenderFooterImg(undefined), false);
   assert.equal(shouldRenderFooterImg(''), false);

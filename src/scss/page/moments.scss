@@ -73,3 +73,18 @@
   }
 
 }
+
+.moments {
+  .moment-byline, .moment-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .moment-byline .moment-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .moment-permalink, .moment-tag { overflow-wrap: anywhere; }
+  .moment-footer { margin-top: 12px; }
+  .moment-feed { margin-bottom: 24px; }
+  .moment-page-jump:not([hidden]) { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; }
+  .moment-page-jump input { width: 5em; min-height: 44px; padding: 4px 8px; border: 1px solid currentColor; border-radius: 4px; color: inherit; background: transparent; }
+  .moment-page-jump button, [data-feed-retry] { min-height: 44px; padding: 8px 12px; color: inherit; background: transparent; border: 1px solid currentColor; border-radius: 4px; cursor: pointer; }
+  .moment-page-jump button:disabled { opacity: .5; cursor: default; }
+  .moment-feed .list { margin: 0; padding: 0; list-style: none; }
+  .moment-feed .item { padding: 20px 0; border-bottom: 1px dashed var(--theme); overflow-wrap: anywhere; }
+  .moment-feed .h img { max-width: 100%; height: auto; }
+}

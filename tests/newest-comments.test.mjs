@@ -65,3 +65,63 @@ test('a subject failure rejects the whole result rather than claiming a partial 
   const page={...subject,kind:'SinglePage',name:'about'};
   await assert.rejects(fetchNewestComments([subject,page],6,0,{origin,fetch:async url=>new URL(url).searchParams.get('kind')==='Post'?Response.json({items:[raw('new','2026-10-11T10:00:00Z')]}):new Response('',{status:503})}));
 });
+
+test('Moment comments require their native group and are fetched anonymously alongside content subjects', async () => {
+  const moment={kind:'Moment',name:'m1',href:'/moments/m1#post-comment',revision:'1:1'};
+  const value=raw('moment-comment','2026-10-14T10:00:00Z',{subjectRef:{group:'moment.halo.run',kind:'Moment',name:'m1'}});
+  assert.ok(publicComment(value,moment,origin));
+  assert.equal(publicComment({...value,spec:{...value.spec,subjectRef:{group:'content.halo.run',kind:'Moment',name:'m1'}}},moment,origin),null);
+  const calls=[];
+  const result=await fetchNewestComments([moment],6,0,{origin,fetch:async(url,options)=>{calls.push({url,options});return Response.json({items:[value]});}});
+  assert.equal(new URL(calls[0].url).searchParams.get('group'),'moment.halo.run');
+  assert.equal(calls[0].options.credentials,'omit'); assert.equal(result[0].subject,'Moment/m1');
+});
+
+test('comment cache follows the current UI language across page scopes and rejects legacy unlabelled entries', async () => {
+  const oldWindow=globalThis.window,oldDocument=globalThis.document;
+  const {beginPage,disposePage}=await import('../src/js/core/page-lifecycle.ts');
+  const cache=storage();let calls=0;
+  const input=raw('language','2026-10-14T00:00:00Z');input.owner={};input.spec.content='<img src=x><code>x</code>';
+  const request=async()=>{calls++;return Response.json({items:[input]});};
+  const options={origin,storage:cache,fetch:request,now:1000};
+  try {
+    globalThis.window={MainApp:{messages:{'ui.imagePlaceholder':'[图片]','ui.codePlaceholder':'[代码]','ui.guest':'访客'}}};
+    globalThis.document={documentElement:{lang:'zh-cn'}};beginPage();
+    const chinese=await fetchNewestComments([subject],6,10,options);
+    assert.equal(chinese[0].excerpt,'[图片][代码]');assert.equal(chinese[0].nickname,'访客');
+    await fetchNewestComments([subject],6,10,options);assert.equal(calls,1,'Same language cache should be reused');
+    document.documentElement.lang='en';window.MainApp.messages={'ui.imagePlaceholder':'[Image]','ui.codePlaceholder':'[Code]','ui.guest':'Guest'};beginPage();
+    const english=await fetchNewestComments([subject],6,10,options);
+    assert.equal(calls,2);assert.equal(english[0].excerpt,'[Image][Code]');assert.equal(english[0].nickname,'Guest');
+    await fetchNewestComments([subject],6,10,options);assert.equal(calls,2);
+    const [key,value]=[...cache.data][0],legacy=JSON.parse(value);delete legacy['Post/old-post'].locale;cache.setItem(key,JSON.stringify(legacy));
+    assert.equal(readCommentCache(cache,[subject],6,1000,origin).size,0,'Legacy localized content has no trustworthy locale');
+    await fetchNewestComments([subject],6,10,options);assert.equal(calls,3);
+  } finally {disposePage();globalThis.window=oldWindow;globalThis.document=oldDocument;}
+});
+
+test('late JSON from a disposed language page cannot write translated data into its old cache', async () => {
+  const oldWindow=globalThis.window,oldDocument=globalThis.document;
+  const {beginPage,disposePage}=await import('../src/js/core/page-lifecycle.ts');
+  const cache=storage();let release,startedResolve,calls=0;
+  const started=new Promise(resolve=>{startedResolve=resolve;});
+  try {
+    globalThis.window={MainApp:{messages:{'ui.imagePlaceholder':'[图片]'}}};globalThis.document={documentElement:{lang:'zh-CN'}};beginPage();
+    const pending=fetchNewestComments([subject],6,10,{origin,storage:cache,now:1000,fetch:async()=>{calls++;return {ok:true,json:()=>new Promise(resolve=>{release=resolve;startedResolve();})};}});
+    await started;
+    document.documentElement.lang='en';window.MainApp.messages={'ui.imagePlaceholder':'[Image]'};beginPage();
+    const rejected=assert.rejects(pending,error=>error.name==='AbortError');
+    release({items:[raw('late','2026-10-14T00:00:00Z')]});await rejected;
+    assert.equal(cache.data.size,0);assert.equal(calls,1,'No automatic retry');
+    const current=await fetchNewestComments([subject],6,10,{origin,storage:cache,now:1000,fetch:async()=>{calls++;return Response.json({items:[raw('current','2026-10-14T00:00:00Z')]});}});
+    assert.equal(current[0].id,'current');assert(current[0].excerpt.includes('[Image]'));assert.equal(calls,2);
+  } finally {disposePage();globalThis.window=oldWindow;globalThis.document=oldDocument;}
+});
+
+test('recent comment timestamps follow current UI locale and safely fall back on malformed locale', async () => {
+  const {formatCommentDate}=await import('../src/js/core/newest-comments.ts');
+  const date='2026-10-14T13:04:00Z',options={month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'};
+  for(const locale of ['en','ja','ko','zh-CN','zh-HK','zh-TW'])assert.equal(formatCommentDate(date,locale),new Intl.DateTimeFormat(locale,options).format(new Date(date)));
+  assert.equal(formatCommentDate(date,'not_a_locale'),formatCommentDate(date,'zh-CN'));
+  assert.equal(formatCommentDate('invalid','en'),'invalid');
+});

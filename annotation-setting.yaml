@@ -31,6 +31,82 @@ spec:
     group: content.halo.run
     kind: Post
   formSchema:
+    - $formkit: select
+      name: aside
+      label: 本篇侧栏
+      help: 跟随全局或覆盖本篇侧栏显示；不改变其他页面。
+      value: inherit
+      options:
+        - label: 跟随全局
+          value: inherit
+        - label: 显示
+          value: "true"
+        - label: 隐藏
+          value: "false"
+    - $formkit: select
+      name: highlight_shrink
+      label: 本篇代码折叠
+      value: inherit
+      help: 保留当前代码功能总开关；此项只覆盖初始开合状态和折叠按钮。
+      options:
+        - label: 跟随全局
+          value: inherit
+        - label: 初始展开
+          value: expanded
+        - label: 初始折叠
+          value: collapsed
+        - label: 不显示折叠按钮
+          value: disabled
+    - $formkit: text
+      name: copyright_author
+      label: 版权作者
+      value: ""
+      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+    - $formkit: text
+      name: copyright_author_href
+      label: 版权作者链接
+      value: ""
+      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+    - $formkit: text
+      name: copyright_url
+      label: 原文链接
+      value: ""
+      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+    - $formkit: textarea
+      name: copyright_info
+      label: 版权补充声明
+      value: ""
+      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+    - $formkit: text
+      name: copyright_license
+      label: 本篇许可证名称
+      value: ""
+      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+    - $formkit: text
+      name: copyright_license_url
+      label: 本篇许可证链接
+      value: ""
+      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+    - $formkit: select
+      name: language
+      label: 正文语言
+      help: 设置正文 lang 和分享元数据语言；导航等界面仍使用访问者语言，不翻译作者内容。
+      value: ""
+      options:
+        - label: 跟随访问者语言
+          value: ""
+        - label: English
+          value: en
+        - label: 日本語
+          value: ja
+        - label: 한국어
+          value: ko
+        - label: 简体中文
+          value: zh-CN
+        - label: 繁體中文（香港）
+          value: zh-HK
+        - label: 繁體中文（臺灣）
+          value: zh-TW
     - $formkit: radio
       name: top_img_enable
       label: 显示顶图
@@ -184,6 +260,52 @@ spec:
     group: content.halo.run
     kind: SinglePage
   formSchema:
+    - $formkit: select
+      name: aside
+      label: 本篇侧栏
+      help: 跟随全局或覆盖本篇侧栏显示；不改变其他页面。
+      value: inherit
+      options:
+        - label: 跟随全局
+          value: inherit
+        - label: 显示
+          value: "true"
+        - label: 隐藏
+          value: "false"
+    - $formkit: select
+      name: highlight_shrink
+      label: 本篇代码折叠
+      value: inherit
+      help: 保留当前代码功能总开关；此项只覆盖初始开合状态和折叠按钮。
+      options:
+        - label: 跟随全局
+          value: inherit
+        - label: 初始展开
+          value: expanded
+        - label: 初始折叠
+          value: collapsed
+        - label: 不显示折叠按钮
+          value: disabled
+    - $formkit: select
+      name: language
+      label: 正文语言
+      help: 设置正文 lang 和分享元数据语言；导航等界面仍使用访问者语言，不翻译作者内容。
+      value: ""
+      options:
+        - label: 跟随访问者语言
+          value: ""
+        - label: English
+          value: en
+        - label: 日本語
+          value: ja
+        - label: 한국어
+          value: ko
+        - label: 简体中文
+          value: zh-CN
+        - label: 繁體中文（香港）
+          value: zh-HK
+        - label: 繁體中文（臺灣）
+          value: zh-TW
     - $formkit: radio
       name: top_img_enable
       label: 显示顶图

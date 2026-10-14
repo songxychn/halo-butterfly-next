@@ -108,7 +108,7 @@ test('链接标题 permalink 用 text 转义；摘要走 postDesc 且 th:text', 
   assert.match(block, /th:title="\$\{target\.spec\.title\}"/);
   assert.match(block, /th:text="\$\{target\.spec\.title\}"/);
   assert.match(block, /th:text="\$\{excerptText\}"/);
-  assert.match(block, /th:text="\$\{direction == 'prev' \? '上一篇' : '下一篇'\}"/);
+  assert.match(block, /th:text="\$\{direction == 'prev' \? #messages\.msg\('ui\.previousPost'\) : #messages\.msg\('ui\.nextPost'\)\}"/);
   assert.match(block, /full-width/);
   assert.match(block, /no-desc/);
   assert.match(block, /text-right/);

@@ -38,7 +38,7 @@ function fixture({ kind = 'Post', observer = true, hash = '', lazy = true } = {}
   const root = {
     defaultView: win, location: { origin: 'https://blog.test' }, baseURI: 'https://blog.test/archives/fixture/',
     getElementById: () => region, createElement: () => new Node(),
-    querySelectorAll: () => [{ href: 'https://blog.test/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2' }],
+    querySelectorAll: selector => selector === 'lit-toast-container' ? [] : [{ href: 'https://blog.test/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2' }],
   };
   return { root, region, target, host, status, retry, observations };
 }
@@ -47,7 +47,7 @@ test('lazyload is off in new settings and absent old config takes the eager bran
   assert.equal(defaultsFromSettings(schema).comments.lazyload, false);
   for (const file of ['post', 'page']) {
     const html = await readFile(new URL(`../src/html/${file}.html`, import.meta.url), 'utf8');
-    assert.match(html, /<div th:unless="\$\{theme\.config\.comments\?\.lazyload == true or theme\.config\.comments\?\.lazyload == 'true'\}">\s*<halo:comment/);
+    assert.match(html, /<div th:unless="\$\{themePjaxEnabled or theme\.config\.comments\?\.lazyload == true or theme\.config\.comments\?\.lazyload == 'true'\}">\s*<halo:comment/);
   }
 });
 test('outside the margin nothing mounts; intersection mounts the exact subject once', async () => {
@@ -106,4 +106,24 @@ test('reinitializing a retained page scope keeps the existing editor and does no
   const editor = f.host.children[0]; editor.draft = 'retained';
   beginPage(); initializeLazyComments(f.root, options); requestLazyComments(f.root); await tick();
   assert.equal(calls, 1); assert.equal(f.host.children.length, 1); assert.equal(editor.draft, 'retained');
+});
+
+test('Moment lazy mounting accepts only the native moment.halo.run group', async () => {
+  const f=fixture({kind:'Moment',hash:'#post-comment'});
+  f.target.dataset.group='moment.halo.run';
+  initializeLazyComments(f.root,{importModule:async()=>({CommentWidget:true})}); await tick();
+  assert.equal(f.host.children[0].group,'moment.halo.run'); assert.equal(f.host.children[0].kind,'Moment');
+  disposePage();
+  const wrong=fixture({kind:'Moment',hash:'#post-comment'});
+  initializeLazyComments(wrong.root,{importModule:async()=>({CommentWidget:true})}); await tick();
+  assert.equal(wrong.host.children.length,0); assert.equal(wrong.target.dataset.commentState,'failed');
+});
+
+test('PJAX eager mode mounts without waiting for intersection but retains one editor', async () => {
+  const f = fixture(); let calls = 0;
+  f.target.dataset.commentEager = 'true';
+  initializeLazyComments(f.root, { importModule: async () => { calls++; return { CommentWidget: true }; } });
+  await tick();
+  assert.equal(calls, 1); assert.equal(f.host.children.length, 1); assert.equal(f.observations.length, 0);
+  requestLazyComments(f.root); await tick(); assert.equal(calls, 1);
 });

@@ -1,8 +1,9 @@
+import {manualAnalyticsId, initializeManualAnalytics} from './analytics-navigation.ts';
 import {enabled, text, safeResourceUrl, loadExternalScript, resolveResource, type ResourceConfig} from './external-resource.ts';
 import {initializeChat, type ChatConfig, type IntegrationWindow} from './integration-chat.ts';
 
 export interface AnalyticsConfig {
-  baidu_analytics?: unknown; google_analytics?: unknown; cloudflare_analytics?: unknown;
+  baidu_analytics?: unknown; google_analytics?: unknown; google_analytics_manual_pageviews?: unknown; cloudflare_analytics?: unknown;
   microsoft_clarity?: unknown;
   google_tag_manager?: {tag_id?: unknown; domain?: unknown};
   umami_analytics?: {enable?: unknown; serverURL?: unknown; script_name?: unknown; website_id?: unknown;
@@ -132,6 +133,8 @@ export function initializeIntegrations({config = window.MainApp?.integrations, r
   const ready = new Promise<void>(resolve => {
     if (root.readyState === 'loading') root.addEventListener('DOMContentLoaded', () => resolve(), {once: true}); else resolve();
   }).then(async () => {
+    const manualId = manualAnalyticsId(config, resources);
+    if (manualId) return initializeManualAnalytics(manualId, root, win, load);
     const analytics = config?.analytics || {};
     const byUrl = new Map(buildAnalyticsPlan(analytics).map(plan => [plan.url, plan.key]));
     const resourceLoad: ScriptLoader = (url, options) => load(resolveResource(byUrl.get(url) || '', url, resources), options);

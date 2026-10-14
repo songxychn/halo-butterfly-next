@@ -6,7 +6,8 @@ import { parse, parseAllDocuments } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
 
 const source = await readFile(new URL('../src/js/above-background.ts', import.meta.url), 'utf8');
-const code = new Bun.Transpiler({ loader: 'ts' }).transformSync(source);
+const bundle = await Bun.build({entrypoints: [new URL('../src/js/above-background.ts', import.meta.url).pathname], target: 'browser', format: 'iife'});
+const code = await bundle.outputs[0].text();
 function run(conf) {
   const requests = [];
   const properties = new Map();
@@ -14,8 +15,8 @@ function run(conf) {
     set src(value) { requests.push({ value, fail: () => this.onerror() }); }
   }
   const rootStyle = { setProperty: (name, value) => properties.set(name, value), removeProperty: name => properties.delete(name) };
-  runInNewContext(code, { window: { MainApp: { conf } }, Image, document: {
-    documentElement: { style: rootStyle }, createElement: () => ({ style: {} }),
+  runInNewContext(code, { window: { MainApp: { conf } }, Image, URL, document: {
+    baseURI: 'https://example.test/', documentElement: { style: rootStyle }, createElement: () => ({ style: {} }),
   } });
   return { requests, properties };
 }

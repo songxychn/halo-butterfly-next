@@ -1,3 +1,4 @@
+import { t } from './i18n';
 export function zoomViewBox(box: number[], factor: number, x = .5, y = .5) {
   return [box[0] + box[2] * x * (1 - factor), box[1] + box[3] * y * (1 - factor), box[2] * factor, box[3] * factor];
 }
@@ -20,10 +21,10 @@ export function bindSvgViewer(svg: SVGSVGElement, controls: HTMLElement) {
     node.type = 'button'; node.textContent = label;
     node.addEventListener('click', action, listeners); controls.append(node);
   };
-  button('放大', () => zoom(.8)); button('缩小', () => zoom(1.25));
-  button('复位', () => { box = initial.slice(); apply(); });
+  button(t('ui.zoomIn'), () => zoom(.8)); button(t('ui.zoomOut'), () => zoom(1.25));
+  button(t('ui.resetView'), () => { box = initial.slice(); apply(); });
   svg.classList.add('theme-svg-interactive'); svg.setAttribute('tabindex', '0');
-  svg.setAttribute('aria-label', (svg.getAttribute('aria-label') || 'Mermaid 图表') + '，方向键平移，加减键缩放，Home 复位');
+  svg.setAttribute('aria-label', (svg.getAttribute('aria-label') || t('ui.mermaid')) + t('ui.svgKeys'));
   svg.addEventListener('keydown', event => {
     const moves: Record<string, number[]> = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
     if (moves[event.key]) { event.preventDefault(); box[0] += moves[event.key][0] * box[2] * .1; box[1] += moves[event.key][1] * box[3] * .1; apply(); }

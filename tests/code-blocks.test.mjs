@@ -62,8 +62,8 @@ test('JS 按开关输出控件：copy 可键盘激活，关闭 copy 不输出按
   assert.match(js, /addClass\('mac-style'\)/);
   assert.match(js, /toolbar-item.*remove|find\('\.toolbar-item'\)\.first\(\)\.remove/);
   assert.match(js, /<button type="button" class="code-copy"/);
-  assert.match(js, /aria-label="复制代码"/);
-  assert.match(js, /复制成功~/);
+  assert.match(js, /aria-label="\$\{t\('ui\.copyCode'\)\}"/);
+  assert.match(js, /t\('ui\.copied'\)/);
   assert.match(js, /copy-notice/);
   assert.match(js, /useMessage\.info/);
   assert.match(js, /code_height_limit/);
