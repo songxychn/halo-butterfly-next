@@ -45,6 +45,7 @@
          sinceText = ${sinceRaw == null or sinceRaw == '' ? '' : (sinceRaw + '')},
          navOn = ${not #lists.isEmpty(theme.config.footer?.nav)}
        ">
+    <th:block th:replace="~{views/subscription :: links}"/>
     <div class="footer-copyright">
       <span class="copyright"
             th:if="${ownerOn}"

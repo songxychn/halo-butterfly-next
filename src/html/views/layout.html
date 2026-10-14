@@ -52,6 +52,7 @@
     <script data-theme-script="above" id="aboveScript">/* @theme-above-background */</script>
     <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/' + page + '.min.css?v=' + theme.spec.version}">
     <noscript><style>.loading #Butterfly { display: block; } img[data-lazy-src] { display: none; }</style></noscript>
+    <th:block th:replace="~{views/subscription :: head}"/>
     <th:block th:replace="~{views/inject :: head}"/>
   </head>
 

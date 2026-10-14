@@ -3758,3 +3758,17 @@ spec:
           label: 独立远端友链 JSON
           value: ''
           help: 可选 HTTPS 或本站路径，匿名读取且跨域需 CORS；失败保留本地友链。分组数据契约见 docs/SOCIAL-FOOTER-LINKS.md。
+
+    - group: subscription
+      label: RSS 与站点地图
+      formSchema:
+        - $formkit: checkbox
+          name: rss
+          label: RSS 发现链接与页脚订阅入口
+          value: true
+          help: 需要已启用的官方 RSS 插件 1.5.0 或更高版本。主题使用 /rss.xml；插件缺失、停用或版本不足时隐藏入口。关闭只隐藏主题入口，不关闭插件路由。
+        - $formkit: checkbox
+          name: sitemap
+          label: 站点地图发现链接与页脚入口
+          value: true
+          help: 需要已启用的官方 Sitemap 插件 1.3.0 或更高版本。数据与 /sitemap.xml、robots.txt 由插件维护。关闭只隐藏主题入口，不关闭插件路由。

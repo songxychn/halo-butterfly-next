@@ -43,6 +43,7 @@
     .framework-info,
     .footer_custom_text,
     .footer-flex-item,
+    .footer-subscription a,
     .icp a,
     .police a {
       color: var(--footer-foreground);
@@ -231,3 +232,12 @@
 .above-info .theme-social { margin-top: 12px; font-size: 1.5em; }
 .aside-user .social.theme-social > .link { color: var(--social-color, var(--font-color, inherit)); }
 html[data-color-scheme='dark'] .aside-user .social.theme-social > .link { color: var(--social-dark-color, var(--font-color, inherit)); }
+
+.footer-subscription {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 1em;
+  margin-bottom: 8px;
+  a { display: inline-flex; align-items: center; min-height: 44px; }
+}

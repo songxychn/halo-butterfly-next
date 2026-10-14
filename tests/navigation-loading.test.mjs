@@ -7,7 +7,7 @@ import {beginPage, disposePage, onPageCleanup, pageListen, pageScope} from '../s
 
 test('navigation retains native anchors, external/download/admin destinations and configured exclusions', () => {
   const base = 'https://example.test/archives/one/';
-  for (const target of ['#chapter', base+'#chapter','mailto:a@example.test','https://other.test/','/console','/console/posts','/%61pis/a','/logout','/file.zip','https://a:b@example.test/x','javascript:alert(1)']) assert.equal(navigationURL(target,base),null,target);
+  for (const target of ['#chapter', base+'#chapter','mailto:a@example.test','https://other.test/','/console','/console/posts','/%61pis/a','/logout','/file.zip','/rss.xml','/feed.xml','/sitemap.xml','https://a:b@example.test/x','javascript:alert(1)']) assert.equal(navigationURL(target,base),null,target);
   assert.equal(navigationURL('/archives/two/',base).pathname,'/archives/two/');
   assert.equal(navigationURL('/photos?group=a',base).search,'?group=a');
   assert.equal(navigationURL('/private/x',base,'/private/*'),null);
