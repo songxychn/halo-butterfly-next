@@ -1,0 +1,1657 @@
+{
+  "schemaVersion": 1,
+  "kind": "scope-decision-reconciliation",
+  "date": "2026-10-15",
+  "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+  "decision": {
+    "id": "DEC-03-1.0-DEFERRALS",
+    "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
+    "date": "2026-10-15T00:00:00+08:00",
+    "option": "defer-strict-plugin-resources-and-private-umami",
+    "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
+    "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
+  },
+  "decisionDocument": "docs/parity/DEC-03-1.0-DEFERRALS.md",
+  "matrixSha256": "91f6d8bbe73efba8e38f4c8ed570d2f15657ab5b6d2fd40cdd95463e593e5135",
+  "beforeCounts": {
+    "implemented-unverified": 633,
+    "gap": 39,
+    "blocked": 20,
+    "not-applicable": 184,
+    "mapping-required": 16,
+    "verification-failed": 5
+  },
+  "afterCounts": {
+    "implemented-unverified": 633,
+    "gap": 39,
+    "blocked": 22,
+    "not-applicable": 184,
+    "mapping-required": 14,
+    "verification-failed": 5
+  },
+  "totalIds": 897,
+  "applicableBefore": 693,
+  "applicableAfter": 691,
+  "deferredWholeItemIds": [
+    "config:umami_analytics.UV_PV.token",
+    "site-config:token"
+  ],
+  "retainedMixedItemIds": [
+    "config:math.use",
+    "config:math.per_page",
+    "config:math.hide_scrollbar",
+    "config:math.katex.copy_tex",
+    "config:comments.lazyload",
+    "template:includes/third-party/comments/js",
+    "template:includes/third-party/math/index",
+    "template:includes/third-party/math/katex",
+    "page-data:katex",
+    "interaction:comments-lazy"
+  ],
+  "newVerified": 0,
+  "note": "Maintainer-approved scope change only; original runtime evidence and five failed page states unchanged. Only two private token IDs leave denominator; resource subrequirements in mixed comments/math IDs deferred without deferring their user capabilities.",
+  "changes": [
+    {
+      "id": "config:math.use",
+      "before": {
+        "id": "config:math.use",
+        "kind": "config",
+        "key": "math.use",
+        "title": "数学和图表 / math.use",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 456,
+            "key": "math.use",
+            "defaultValue": null
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 257,
+            "key": "math.use",
+            "defaultValue": null
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "DEC-07：Halo 验收域为关闭 / KaTeX 插件；上游 MathJax 枚举保留来源，不要求引擎选择。验证插件未安装、停用、启用、版本不满足及恢复。",
+            "使用插件明确支持的编辑器输出与行内/块级夹具验证渲染，记录语法边界；无公式页不重复加载或渲染。"
+          ],
+          "values": [
+            null,
+            "katex"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "config:math.use",
+        "kind": "config",
+        "key": "math.use",
+        "title": "数学和图表 / math.use",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 456,
+            "key": "math.use",
+            "defaultValue": null
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 257,
+            "key": "math.use",
+            "defaultValue": null
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "DEC-07：Halo 验收域为关闭 / KaTeX 插件；上游 MathJax 枚举保留来源，不要求引擎选择。验证插件未安装、停用、启用、版本不满足及恢复。",
+            "使用插件明确支持的编辑器输出与行内/块级夹具验证渲染，记录语法边界；无公式页不额外重复渲染；允许官方插件全站资源注入，严格资源按需延期。"
+          ],
+          "values": [
+            null,
+            "katex"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "config:math.per_page",
+      "before": {
+        "id": "config:math.per_page",
+        "kind": "config",
+        "key": "math.per_page",
+        "title": "数学和图表 / math.per_page",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 457,
+            "key": "math.per_page",
+            "defaultValue": true
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 258,
+            "key": "math.per_page",
+            "defaultValue": true
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "保留全局与逐页控制需求，映射为插件配置或主题注解并记录优先级；默认、启用、关闭、清空、刷新及跨页分别验证。",
+            "按实际契约验证文章与单页按需资源；平台未满足的控制保持未完成。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "config:math.per_page",
+        "kind": "config",
+        "key": "math.per_page",
+        "title": "数学和图表 / math.per_page",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 457,
+            "key": "math.per_page",
+            "defaultValue": true
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 258,
+            "key": "math.per_page",
+            "defaultValue": true
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "保留全局与逐页控制需求，映射为插件配置或主题注解并记录优先级；默认、启用、关闭、清空、刷新及跨页分别验证。",
+            "验证文章与单页公式显示控制、优先级及恢复；显示开关不控制官方插件全站资源，严格资源按需延期。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "config:math.hide_scrollbar",
+      "before": {
+        "id": "config:math.hide_scrollbar",
+        "kind": "config",
+        "key": "math.hide_scrollbar",
+        "title": "数学和图表 / math.hide_scrollbar",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 458,
+            "key": "math.hide_scrollbar",
+            "defaultValue": false
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 259,
+            "key": "math.hide_scrollbar",
+            "defaultValue": false
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.hide_scrollbar"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "验证长公式在桌面/手机容器内滚动，不造成页面横向溢出；滚动条显示/隐藏策略须有可操作且可访问的映射。",
+            "亮暗、键盘及触摸操作均能阅读完整公式，隐藏滚动条不能截断内容或移除滚动能力。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "config:math.hide_scrollbar",
+        "kind": "config",
+        "key": "math.hide_scrollbar",
+        "title": "数学和图表 / math.hide_scrollbar",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 458,
+            "key": "math.hide_scrollbar",
+            "defaultValue": false
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 259,
+            "key": "math.hide_scrollbar",
+            "defaultValue": false
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.hide_scrollbar"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "验证长公式在桌面/手机容器内滚动，不造成页面横向溢出；滚动条显示/隐藏策略须有可操作且可访问的映射。",
+            "亮暗、键盘及触摸操作均能阅读完整公式，隐藏滚动条不能截断内容或移除滚动能力。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "config:math.katex.copy_tex",
+      "before": {
+        "id": "config:math.katex.copy_tex",
+        "kind": "config",
+        "key": "math.katex.copy_tex",
+        "title": "数学和图表 / math.katex.copy_tex",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 468,
+            "key": "math.katex.copy_tex",
+            "defaultValue": false
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 265,
+            "key": "math.katex.copy_tex",
+            "defaultValue": false
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.copy_tex"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "保留复制 TeX 与开关需求；按所选插件与主题的实际契约验证行内/块级、矩阵、编号和转义内容，剪贴板与原始 TeX 对照。",
+            "保留可访问 MathML；主题不为复制功能引入第二套渲染器，插件未提供的能力保持待实现。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "config:math.katex.copy_tex",
+        "kind": "config",
+        "key": "math.katex.copy_tex",
+        "title": "数学和图表 / math.katex.copy_tex",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 468,
+            "key": "math.katex.copy_tex",
+            "defaultValue": false
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 265,
+            "key": "math.katex.copy_tex",
+            "defaultValue": false
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.copy_tex"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "保留复制 TeX 与开关需求；按所选插件与主题的实际契约验证行内/块级、矩阵、编号和转义内容，剪贴板与原始 TeX 对照。",
+            "保留可访问 MathML；主题不为复制功能引入第二套渲染器，插件未提供的能力保持待实现。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "config:comments.lazyload",
+      "before": {
+        "id": "config:comments.lazyload",
+        "kind": "config",
+        "key": "comments.lazyload",
+        "title": "评论及最新评论 / comments.lazyload",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 541,
+            "key": "comments.lazyload",
+            "defaultValue": false
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 303,
+            "key": "comments.lazyload",
+            "defaultValue": false
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "主题可用 IntersectionObserver 延迟挂载 CommentWidget，与评论提供方无关。",
+          "settings": [
+            "comments.lazyload"
+          ],
+          "code": [
+            "settings.yaml",
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/views/comment-lazy.html",
+            "src/js/core/comment-lazy.ts",
+            "src/js/core/comment-jump.ts",
+            "src/js/core/common.ts",
+            "src/scss/core/comments.scss"
+          ],
+          "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "synthetic-backend",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "comments",
+          "cases": [
+            "开启时首屏不请求评论资源，滚入视区后挂载；关闭时立即挂载。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "PLG-03",
+            "PLG-01",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/46",
+            "https://github.com/songxychn/halo-butterfly-next/issues/407"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "config:comments.lazyload",
+        "kind": "config",
+        "key": "comments.lazyload",
+        "title": "评论及最新评论 / comments.lazyload",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 541,
+            "key": "comments.lazyload",
+            "defaultValue": false
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 303,
+            "key": "comments.lazyload",
+            "defaultValue": false
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "主题可用 IntersectionObserver 延迟挂载 CommentWidget，与评论提供方无关。",
+          "settings": [
+            "comments.lazyload"
+          ],
+          "code": [
+            "settings.yaml",
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/views/comment-lazy.html",
+            "src/js/core/comment-lazy.ts",
+            "src/js/core/comment-jump.ts",
+            "src/js/core/common.ts",
+            "src/scss/core/comments.scss"
+          ],
+          "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "synthetic-backend",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "comments",
+          "cases": [
+            "开启时接近评论区后挂载并请求评论数据；关闭时立即挂载，锚点可立即触发。官方 CSS/modulepreload 可提前下载，首屏零评论资源要求延期。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "PLG-03",
+            "PLG-01",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/46",
+            "https://github.com/songxychn/halo-butterfly-next/issues/407"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "config:umami_analytics.UV_PV.token",
+      "before": {
+        "id": "config:umami_analytics.UV_PV.token",
+        "kind": "config",
+        "key": "umami_analytics.UV_PV.token",
+        "title": "分析服务 / umami_analytics.UV_PV.token",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 716,
+            "key": "umami_analytics.UV_PV.token",
+            "defaultValue": null
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 419,
+            "key": "umami_analytics.UV_PV.token",
+            "defaultValue": null
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
+          "settings": [],
+          "code": [
+            "src/html/views/config.html",
+            "docs/INTEGRATIONS.md"
+          ],
+          "finding": "主题不向页面输出私有 API token；站点后端须持有凭据并提供公开只读统计接口。后端代理未提供，本字段仍待映射，未裁定不适用。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "synthetic-backend",
+          "asset-license"
+        ],
+        "acceptance": {
+          "profile": "analytics",
+          "cases": [
+            "umami_analytics.UV_PV.token：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
+            "保持同组其他设置不变；验证 umami_analytics.UV_PV.token 与全局/逐页覆盖的优先级。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "CFG-01",
+            "NET-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/397"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "mapping-required"
+      },
+      "after": {
+        "id": "config:umami_analytics.UV_PV.token",
+        "kind": "config",
+        "key": "umami_analytics.UV_PV.token",
+        "title": "分析服务 / umami_analytics.UV_PV.token",
+        "sources": [
+          {
+            "file": "_config.yml",
+            "line": 716,
+            "key": "umami_analytics.UV_PV.token",
+            "defaultValue": null
+          },
+          {
+            "file": "scripts/common/default_config.js",
+            "line": 419,
+            "key": "umami_analytics.UV_PV.token",
+            "defaultValue": null
+          }
+        ],
+        "upstreamInventory": "yaml",
+        "halo": {
+          "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
+          "settings": [],
+          "code": [
+            "src/html/views/config.html",
+            "docs/INTEGRATIONS.md"
+          ],
+          "finding": "主题不向页面输出私有 API token；站点后端须持有凭据并提供公开只读统计接口。后端代理未提供，本字段仍待映射，未裁定不适用。 2026-10-15 按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期；Umami 访问追踪和已有公开接口安全/回退保留，不代表已验收。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "synthetic-backend",
+          "asset-license"
+        ],
+        "acceptance": {
+          "profile": "analytics",
+          "cases": [
+            "umami_analytics.UV_PV.token：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
+            "保持同组其他设置不变；验证 umami_analytics.UV_PV.token 与全局/逐页覆盖的优先级。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "CFG-01",
+            "NET-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/397"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "blocked",
+        "decision": {
+          "id": "DEC-03-1.0-DEFERRALS",
+          "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
+          "date": "2026-10-15T00:00:00+08:00",
+          "option": "defer-strict-plugin-resources-and-private-umami",
+          "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
+          "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
+        },
+        "blocker": {
+          "phase": "post-1.0",
+          "reason": "维护者确认 Umami 私有统计移出 1.0，后续版本未定；两个 token 项属于同一后端需求。",
+          "nextAction": "后续再确认收益、版本及后端承载，保管凭据并定义口径、缓存/限流和账户对账；不自动排入 1.1。"
+        }
+      }
+    },
+    {
+      "id": "template:includes/third-party/comments/js",
+      "before": {
+        "id": "template:includes/third-party/comments/js",
+        "kind": "template",
+        "key": "includes/third-party/comments/js",
+        "title": "评论及最新评论 / includes/third-party/comments/js",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/comments/js.pug",
+            "line": 1,
+            "scope": "file"
+          }
+        ],
+        "upstreamInventory": "templates",
+        "halo": {
+          "strategy": "若保留懒加载，由主题脚本包裹 CommentWidget，不加载上游各家评论 JS。",
+          "settings": [
+            "comments.lazyload"
+          ],
+          "code": [
+            "settings.yaml",
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/views/comment-lazy.html",
+            "src/js/core/comment-lazy.ts",
+            "src/js/core/comment-jump.ts",
+            "src/js/core/common.ts",
+            "src/scss/core/comments.scss"
+          ],
+          "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "synthetic-backend",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "comments",
+          "cases": [
+            "懒加载开启时才插入评论资源；关闭时无多余脚本。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "PLG-03",
+            "PLG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/46",
+            "https://github.com/songxychn/halo-butterfly-next/issues/407"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "template:includes/third-party/comments/js",
+        "kind": "template",
+        "key": "includes/third-party/comments/js",
+        "title": "评论及最新评论 / includes/third-party/comments/js",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/comments/js.pug",
+            "line": 1,
+            "scope": "file"
+          }
+        ],
+        "upstreamInventory": "templates",
+        "halo": {
+          "strategy": "若保留懒加载，由主题脚本包裹 CommentWidget，不加载上游各家评论 JS。",
+          "settings": [
+            "comments.lazyload"
+          ],
+          "code": [
+            "settings.yaml",
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/views/comment-lazy.html",
+            "src/js/core/comment-lazy.ts",
+            "src/js/core/comment-jump.ts",
+            "src/js/core/common.ts",
+            "src/scss/core/comments.scss"
+          ],
+          "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "synthetic-backend",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "comments",
+          "cases": [
+            "懒挂载开启时延后官方评论组件初始化和数据请求，关闭时立即挂载；主题不重复插入模块，插件未启用/未安装时正确回退。官方 head 的 CSS/modulepreload 可提前下载，严格资源按需延期。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "PLG-03",
+            "PLG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/46",
+            "https://github.com/songxychn/halo-butterfly-next/issues/407"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "template:includes/third-party/math/index",
+      "before": {
+        "id": "template:includes/third-party/math/index",
+        "kind": "template",
+        "key": "includes/third-party/math/index",
+        "title": "数学和图表 / includes/third-party/math/index",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/math/index.pug",
+            "line": 1,
+            "scope": "file"
+          }
+        ],
+        "upstreamInventory": "templates",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "DEC-07：公式分支只接入 Halo KaTeX 插件；MathJax 不加载，Mermaid/Chart.js 仍按各自矩阵场景验收。",
+            "文章与单页验证公式插件四种状态、全局/逐页控制、资源失败和恢复；模板存在不视为已支持。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "template:includes/third-party/math/index",
+        "kind": "template",
+        "key": "includes/third-party/math/index",
+        "title": "数学和图表 / includes/third-party/math/index",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/math/index.pug",
+            "line": 1,
+            "scope": "file"
+          }
+        ],
+        "upstreamInventory": "templates",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "DEC-07：公式分支只接入 Halo KaTeX 插件；MathJax 不加载，Mermaid/Chart.js 仍按各自矩阵场景验收。",
+            "文章与单页验证公式插件四种状态、全局/逐页控制、资源失败和恢复；模板存在不视为已支持。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "template:includes/third-party/math/katex",
+      "before": {
+        "id": "template:includes/third-party/math/katex",
+        "kind": "template",
+        "key": "includes/third-party/math/katex",
+        "title": "数学和图表 / includes/third-party/math/katex",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/math/katex.pug",
+            "line": 1,
+            "scope": "file"
+          }
+        ],
+        "upstreamInventory": "templates",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable",
+            "math.copy_tex",
+            "math.hide_scrollbar"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "使用锁定 KaTeX 插件的真实编辑器输出，验证行内/块级、显式编号展示、中文混排、长公式、非法输入和无公式页。",
+            "主题适配字号、行距、亮暗和滚动，不重复渲染、不隐藏辅助 MathML；复制、插件生命周期及完整合同门禁另须通过。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "template:includes/third-party/math/katex",
+        "kind": "template",
+        "key": "includes/third-party/math/katex",
+        "title": "数学和图表 / includes/third-party/math/katex",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/math/katex.pug",
+            "line": 1,
+            "scope": "file"
+          }
+        ],
+        "upstreamInventory": "templates",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable",
+            "math.copy_tex",
+            "math.hide_scrollbar"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/js/modules/Render.ts",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "asset-license",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "math",
+          "cases": [
+            "使用锁定 KaTeX 插件的真实编辑器输出，验证行内/块级、显式编号展示、中文混排、长公式、非法输入和无公式页。",
+            "主题适配字号、行距、亮暗和滚动，不重复渲染、不隐藏辅助 MathML；复制、插件生命周期及完整合同门禁另须通过。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "EXT-02",
+            "PLG-06"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "page-data:katex",
+      "before": {
+        "id": "page-data:katex",
+        "kind": "page-data",
+        "key": "katex",
+        "title": "页面数据契约 / katex",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/math/index.pug",
+            "line": 7,
+            "key": "page.katex"
+          }
+        ],
+        "upstreamInventory": "pageProperties",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/archives.html",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "page-data",
+          "cases": [
+            "记录公式逐页元数据到 Halo 注解或插件设置的映射，验证默认/启用/关闭、文章与单页、全局优先级和刷新。",
+            "离线转换只承诺锁定 KaTeX 版本可支持的内容；不兼容命令须明确报告，不声称 MathJax 内容无损迁移。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "page-data:katex",
+        "kind": "page-data",
+        "key": "katex",
+        "title": "页面数据契约 / katex",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/math/index.pug",
+            "line": 7,
+            "key": "page.katex"
+          }
+        ],
+        "upstreamInventory": "pageProperties",
+        "halo": {
+          "strategy": "DEC-07：数学由 Halo KaTeX 插件负责编辑器录入与渲染；主题适配布局、亮暗与必要交互，配置/注解按实际插件契约映射，不重复渲染。",
+          "settings": [
+            "math.enable"
+          ],
+          "code": [
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/archives.html",
+            "src/js/core/math.ts",
+            "src/scss/core/math.scss",
+            "annotation-setting.yaml",
+            "fixtures/math/versions.json"
+          ],
+          "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "editor-contract",
+          "official-math",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "page-data",
+          "cases": [
+            "记录公式逐页元数据到 Halo 注解或插件设置的映射，验证默认/启用/关闭、文章与单页、全局优先级和刷新。",
+            "离线转换只承诺锁定 KaTeX 版本可支持的内容；不兼容命令须明确报告，不声称 MathJax 内容无损迁移。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "CFG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/387"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    },
+    {
+      "id": "site-config:token",
+      "before": {
+        "id": "site-config:token",
+        "kind": "site-config",
+        "key": "token",
+        "title": "站点元数据 / token",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/umami_analytics.pug",
+            "line": 39,
+            "key": "config.token"
+          }
+        ],
+        "upstreamInventory": "siteConfiguration",
+        "halo": {
+          "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+          "settings": [],
+          "code": [
+            "src/html/views/layout.html",
+            "theme.yaml",
+            "src/js/core/integrations.ts",
+            "settings.yaml"
+          ],
+          "finding": "2026-10-14 主线对账：Umami 客户端只读取公开只读统计地址，不向页面输出私有 API token。后端凭据代理未提供；与 config:umami_analytics.UV_PV.token 合并为同一个后端需求，不是第二套统计功能。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "public-layout"
+        ],
+        "acceptance": {
+          "profile": "metadata",
+          "cases": [
+            "token：使用该能力的正常、空数据和失败场景分别对照。",
+            "确认 layout/includes/third-party/umami_analytics.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "SEO-01",
+            "PLG-06"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [
+          {
+            "kind": "implementation-reconciliation",
+            "path": "docs/parity/reconciliation-2026-10-14.json",
+            "sha256": "a59a11a3dd4ccc6bbc400cb82e2c693cf9b1736e66557f7be0784bad5e0268be",
+            "date": "2026-10-14T01:05:55.819721+08:00",
+            "commit": "44621d24914edea94a242350562af68870cf5b69",
+            "actor": "Codex",
+            "outcome": "source-reconciled-not-verified"
+          }
+        ],
+        "status": "mapping-required"
+      },
+      "after": {
+        "id": "site-config:token",
+        "kind": "site-config",
+        "key": "token",
+        "title": "站点元数据 / token",
+        "sources": [
+          {
+            "file": "layout/includes/third-party/umami_analytics.pug",
+            "line": 39,
+            "key": "config.token"
+          }
+        ],
+        "upstreamInventory": "siteConfiguration",
+        "halo": {
+          "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+          "settings": [],
+          "code": [
+            "src/html/views/layout.html",
+            "theme.yaml",
+            "src/js/core/integrations.ts",
+            "settings.yaml"
+          ],
+          "finding": "2026-10-14 主线对账：Umami 客户端只读取公开只读统计地址，不向页面输出私有 API token。后端凭据代理未提供；与 config:umami_analytics.UV_PV.token 合并为同一个后端需求，不是第二套统计功能。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-15 按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期；Umami 访问追踪和已有公开接口安全/回退保留，不代表已验收。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "public-layout"
+        ],
+        "acceptance": {
+          "profile": "metadata",
+          "cases": [
+            "token：使用该能力的正常、空数据和失败场景分别对照。",
+            "确认 layout/includes/third-party/umami_analytics.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "SEO-01",
+            "PLG-06"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [
+          {
+            "kind": "implementation-reconciliation",
+            "path": "docs/parity/reconciliation-2026-10-14.json",
+            "sha256": "a59a11a3dd4ccc6bbc400cb82e2c693cf9b1736e66557f7be0784bad5e0268be",
+            "date": "2026-10-14T01:05:55.819721+08:00",
+            "commit": "44621d24914edea94a242350562af68870cf5b69",
+            "actor": "Codex",
+            "outcome": "source-reconciled-not-verified"
+          }
+        ],
+        "status": "blocked",
+        "decision": {
+          "id": "DEC-03-1.0-DEFERRALS",
+          "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
+          "date": "2026-10-15T00:00:00+08:00",
+          "option": "defer-strict-plugin-resources-and-private-umami",
+          "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
+          "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
+        },
+        "blocker": {
+          "phase": "post-1.0",
+          "reason": "维护者确认 Umami 私有统计移出 1.0，后续版本未定；两个 token 项属于同一后端需求。",
+          "nextAction": "后续再确认收益、版本及后端承载，保管凭据并定义口径、缓存/限流和账户对账；不自动排入 1.1。"
+        }
+      }
+    },
+    {
+      "id": "interaction:comments-lazy",
+      "before": {
+        "id": "interaction:comments-lazy",
+        "kind": "interaction",
+        "key": "comments-lazy",
+        "title": "评论懒加载",
+        "sources": [
+          {
+            "file": "source/js/utils.js",
+            "line": 132,
+            "symbol": "if ('IntersectionObserver' in window)"
+          }
+        ],
+        "upstreamInventory": "manual",
+        "halo": {
+          "strategy": "主题侧懒加载 CommentWidget，不实现上游各家 IntersectionObserver 脚本。",
+          "settings": [
+            "comments.lazyload"
+          ],
+          "code": [
+            "settings.yaml",
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/views/comment-lazy.html",
+            "src/js/core/comment-lazy.ts",
+            "src/js/core/comment-jump.ts",
+            "src/js/core/common.ts",
+            "src/scss/core/comments.scss"
+          ],
+          "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "synthetic-backend",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "comments",
+          "cases": [
+            "滚入视区后才挂载评论；反复进出不重复初始化。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "PLG-03",
+            "PLG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/46",
+            "https://github.com/songxychn/halo-butterfly-next/issues/407"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      },
+      "after": {
+        "id": "interaction:comments-lazy",
+        "kind": "interaction",
+        "key": "comments-lazy",
+        "title": "评论懒加载",
+        "sources": [
+          {
+            "file": "source/js/utils.js",
+            "line": 132,
+            "symbol": "if ('IntersectionObserver' in window)"
+          }
+        ],
+        "upstreamInventory": "manual",
+        "halo": {
+          "strategy": "主题侧懒加载 CommentWidget，不实现上游各家 IntersectionObserver 脚本。",
+          "settings": [
+            "comments.lazyload"
+          ],
+          "code": [
+            "settings.yaml",
+            "src/html/post.html",
+            "src/html/page.html",
+            "src/html/views/comment-lazy.html",
+            "src/js/core/comment-lazy.ts",
+            "src/js/core/comment-jump.ts",
+            "src/js/core/common.ts",
+            "src/scss/core/comments.scss"
+          ],
+          "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        },
+        "dependencies": [
+          "dual-site",
+          "halo-core",
+          "plugin-contract",
+          "synthetic-backend",
+          "scope-decision"
+        ],
+        "acceptance": {
+          "profile": "comments",
+          "cases": [
+            "滚入视区后才挂载评论；反复进出不重复初始化。"
+          ],
+          "contractScenarios": [
+            "ENV-02",
+            "PAGE-01",
+            "PLG-03",
+            "PLG-01"
+          ]
+        },
+        "tracking": {
+          "issues": [
+            "https://github.com/songxychn/halo-butterfly-next/issues/2",
+            "https://github.com/songxychn/halo-butterfly-next/issues/46",
+            "https://github.com/songxychn/halo-butterfly-next/issues/407"
+          ],
+          "pullRequests": []
+        },
+        "evidence": [],
+        "status": "implemented-unverified"
+      }
+    }
+  ]
+}

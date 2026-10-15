@@ -46,6 +46,6 @@
 
 [本轮限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复、原始失败报告和截图。
 
-首批记录不含评论懒挂载，后续实现见上文。首屏零评论资源下载、真实 Safari/手机键盘/屏幕阅读器和完整双站合同仍未完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
+首批记录不含评论懒挂载，后续实现见上文。首屏零评论资源下载已按[1.0 延期决定](parity/DEC-03-1.0-DEFERRALS.md)移出 1.0（版本未定）；真实 Safari/手机键盘/屏幕阅读器和完整双站合同仍未完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
 
 参考：[Halo 2.26.1 公开评论查询](https://github.com/halo-dev/halo/blob/v2.26.1/application/src/main/java/run/halo/app/core/endpoint/theme/CommentFinderEndpoint.java)、[Butterfly 5.7.0 最新评论模板](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/third-party/newest-comments/common.pug)。
