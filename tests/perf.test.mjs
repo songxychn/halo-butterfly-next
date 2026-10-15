@@ -117,7 +117,7 @@ test('推荐组合锁定九插件并计入官方评论KaTeX资源，不扩大默
  for(const [file,digest] of Object.entries(PROFILE.additionalDependencyLocks))assert.equal(sha256(await readFile(new URL('../'+file,import.meta.url))),digest);
  const dir=await mkdtemp(path.join(os.tmpdir(),'perf-plugin-config-'));cleanup.push(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));await cp(path.join(dir,'baseline'),path.join(dir,'candidate'),{recursive:true});
  await mutateRun(path.join(dir,'candidate'),'recommended',async r=>{r.identity.pluginConfigSha256='1'.repeat(64);const file=path.join(dir,'candidate/recommended/home/station.json'),raw=JSON.parse(await readFile(file));raw.identity.pluginConfigSha256=r.identity.pluginConfigSha256;await writeJson(file,raw);r.station=await evidence(file,path.dirname(file));});
- const result=await compare(path.join(dir,'baseline'),path.join(dir,'candidate'));assert.ok(result.incomplete.some(row=>row.reason.includes('pluginConfigSha256')));assert.equal(result.scenarios['PERF-01'],'incomplete');
+ const result=await compare(path.join(dir,'baseline'),path.join(dir,'candidate'));assert.ok(result.incomplete.some(row=>row.reason.includes('pluginConfigSha256')));assert.equal(result.scenarios['PERF-01'],'passed');assert.equal(result.scenarios['PERF-02'],'incomplete');
 });
 
 test('enabled但未STARTED的官方插件不得冒充推荐资源已加载',()=>{
@@ -126,4 +126,65 @@ test('enabled但未STARTED的官方插件不得冒充推荐资源已加载',()=>
  for(const phase of ['FAILED','STARTING',undefined]){plugins[0].phase=phase;assert.throws(()=>validateProfile(station,'recommended','home'),/not STARTED/);}
  const disabled={requiredPlugins:[],plugins:[{name:'PluginCommentWidget',enabled:false,phase:'DISABLED'}]};validateProfile(disabled,'default','home');
  for(const phase of ['STARTED','STARTING','STOPPING',undefined]){disabled.plugins[0].phase=phase;assert.throws(()=>validateProfile(disabled,'default','home'),/not DISABLED/);}
+});
+
+async function candidateCell(root,device='mobile',metric=3000){
+ await mutateRun(root,'default',async run=>{for(const sample of run.samples.filter(s=>s.device===device)){
+  const directory=path.join(root,'default/home'),file=path.join(directory,sample.lhr.path),raw=JSON.parse(await readFile(file));
+  raw.audits['largest-contentful-paint'].numericValue=metric;await writeJson(file,raw);sample.lhr=await evidence(file,directory);
+ }});
+}
+async function comparisonFixture(prefix){
+ const dir=await mkdtemp(path.join(os.tmpdir(),prefix));cleanup.push(()=>rm(dir,{recursive:true,force:true}));
+ const baseline=path.join(dir,'baseline'),candidate=path.join(dir,'candidate');await cohort(baseline);await cp(baseline,candidate,{recursive:true});return {dir,baseline,candidate};
+}
+const absoluteCell=(report,key='home/mobile')=>report.candidateAbsoluteCases.find(c=>c.profile==='default'&&c.case===key);
+test('基线缺样本不隐藏候选完整5次手机的PERF01绝对失败',async()=>{
+ const {baseline,candidate}=await comparisonFixture('perf-absolute-no-base-');await candidateCell(candidate);
+ await mutateRun(baseline,'default',r=>{r.result='incomplete';r.samples=r.samples.filter(s=>!(s.device==='mobile'&&s.index===4));});
+ const report=await compare(baseline,candidate);
+ assert.equal(report.scenarios['PERF-01'],'failed');assert.equal(report.scenarios['PERF-02'],'incomplete');assert.equal(report.budgetResult,'failed');
+ assert.equal(absoluteCell(report).candidate.lcp,3000);assert.equal(absoluteCell(report).checks.lcp,false);assert.equal(report.candidateAbsoluteCases.length,16);
+ assert.equal(report.cases.length,15);assert.ok(!report.cases.some(c=>c.profile==='default'&&c.case==='home/mobile'));assert.deepEqual(report.failures,['default/home/mobile']);
+});
+test('候选desktop失败时mobile恰好5份有效仍单独判绝对失败，不把缺场景判绿',async()=>{
+ const {baseline,candidate}=await comparisonFixture('perf-absolute-one-device-');await candidateCell(candidate);
+ await mutateRun(candidate,'default',r=>{r.result='incomplete';r.samples.find(s=>s.device==='desktop').status='failed';});
+ const report=await compare(baseline,candidate);assert.equal(report.scenarios['PERF-01'],'failed');assert.equal(report.scenarios['PERF-02'],'failed');
+ assert.equal(report.candidateAbsoluteCases.length,15);assert.equal(absoluteCell(report).candidate.lcp,3000);assert.equal(absoluteCell(report,'home/desktop'),undefined);
+ await candidateCell(candidate,'mobile',1000);const below=await compare(baseline,candidate);
+ assert.equal(below.scenarios['PERF-01'],'incomplete');assert.equal(below.scenarios['PERF-02'],'incomplete');assert.equal(below.budgetResult,'incomplete');
+});
+test('候选自身身份、station、包或raw错误不能借完整样本数救回绝对结果',async()=>{
+ const {dir,baseline,candidate}=await comparisonFixture('perf-absolute-invalid-');await candidateCell(candidate);
+ const variants=[['station',r=>delete r.stationUnchanged],['source',r=>r.identity.sourceSha='invalid'],['dirty',r=>r.runner.workingTreeClean=false],['missing-config',r=>delete r.identity.configSha256],['identity',r=>r.identity.configSha256='9'.repeat(64)],['package',r=>r.artifact.sha256='9'.repeat(64)],['raw',r=>r.samples.find(s=>s.device==='mobile').lhr.sha256='9'.repeat(64)]];
+ for(const [name,edit] of variants){const copy=path.join(dir,name);await cp(candidate,copy,{recursive:true});await mutateRun(copy,'default',async run=>{edit(run);
+  if(name==='missing-config'){const file=path.join(copy,'default/home/station.json'),station=JSON.parse(await readFile(file));delete station.identity.configSha256;await writeJson(file,station);run.station=await evidence(file,path.dirname(file));}
+ });const report=await compare(baseline,copy);
+  assert.equal(absoluteCell(report),undefined,name);assert.equal(report.scenarios['PERF-01'],'incomplete',name);assert.equal(report.failures.length,0,name);
+  if(name==='missing-config')assert.ok(report.incomplete.some(x=>x.side==='candidate'&&x.profile==='default'&&x.route==='home'&&x.reason==='Missing exact run identity: configSha256'));
+ }
+});
+test('绝对cell不从6份挑5、不接受4份或重复index，未知route/device拒绝整run',async()=>{
+ const {dir,baseline,candidate}=await comparisonFixture('perf-absolute-count-');await candidateCell(candidate);
+ const variants=[
+  ['extra',r=>r.samples.push({...r.samples.find(s=>s.device==='mobile'),index:5})],
+  ['duplicate',r=>r.samples.filter(s=>s.device==='mobile')[4].index=0],
+  ['missing',r=>r.samples=r.samples.filter(s=>!(s.device==='mobile'&&s.index===4))],
+  ['unknown-device',r=>r.samples.push({...r.samples[0],device:'tablet'})],
+  ['unknown-route',r=>r.samples.push({...r.samples[0],route:'unlisted'})]
+ ];
+ for(const [name,edit] of variants){const copy=path.join(dir,name);await cp(candidate,copy,{recursive:true});await mutateRun(copy,'default',r=>{r.result='incomplete';edit(r);});const report=await compare(baseline,copy);
+  assert.equal(absoluteCell(report),undefined,name);assert.equal(report.scenarios['PERF-01'],'incomplete',name);assert.equal(report.failures.length,0,name);
+  if(name.startsWith('unknown'))assert.equal(absoluteCell(report,'home/desktop'),undefined,name);
+ }
+});
+test('PERF01全部16个候选cell有效即可通过，缺基线只阻塞相对预算',async()=>{
+ const {dir,candidate}=await comparisonFixture('perf-absolute-all-candidate-');const report=await compare(path.join(dir,'missing-baseline'),candidate);
+ assert.equal(report.candidateAbsoluteCases.length,16);assert.equal(report.cases.length,0);assert.equal(report.scenarios['PERF-01'],'passed');assert.equal(report.scenarios['PERF-02'],'incomplete');assert.equal(report.budgetResult,'incomplete');assert.equal(report.result,'incomplete');
+});
+test('候选cohort混用身份时整侧拒绝，不依读取顺序择取超标或达标cell',async()=>{
+ const {baseline,candidate}=await comparisonFixture('perf-absolute-mixed-');await candidateCell(candidate);
+ await mutateRun(candidate,'recommended',async r=>{r.identity.sourceSha='c'.repeat(40);const file=path.join(candidate,'recommended/home/station.json'),station=JSON.parse(await readFile(file));station.identity.sourceSha=r.identity.sourceSha;await writeJson(file,station);r.station=await evidence(file,path.dirname(file));});
+ const report=await compare(baseline,candidate);assert.equal(report.candidateAbsoluteCases.length,0);assert.equal(report.scenarios['PERF-01'],'incomplete');assert.equal(report.failures.length,0);assert.ok(report.incomplete.some(x=>x.side==='candidate'&&x.reason.includes('Mixed source')));
 });
