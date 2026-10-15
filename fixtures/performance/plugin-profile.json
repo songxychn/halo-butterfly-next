@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "sourceIssue": 25,
-  "acceptance": "Fixed #25 fixtures merged; independent feature evidence and performance evidence remain separate.",
+  "acceptance": "The original #25 public-page fixtures plus the existing official search/comment/math/feed/sitemap versions form the current nine-plugin recommended profile. No strict comment/KaTeX resource lazy loading is required; actual global resource cost still counts. Both cohorts must be freshly measured; this fixture does not certify plugin interactions.",
   "pluginLockSha256": "415b8a23356713dbd40e014c4a07bd8ba40ddfb9646c10b3d313e1d49c84d4f9",
   "pluginContentSha256": "585d9ac586e02e3e1366c8a4bab0f0651e18e0e571987ba67fed82652bd5c3fd",
   "plugins": [
@@ -88,6 +88,53 @@
         "PLG-04"
       ],
       "minimumPluginVersionForFixture": "1.18.0"
+    },
+    {
+      "name": "PluginSearchWidget",
+      "version": "1.8.0",
+      "url": "https://github.com/halo-dev/plugin-search-widget/releases/download/v1.8.0/plugin-search-widget-1.8.0.jar",
+      "sha256": "4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d",
+      "release": "https://github.com/halo-dev/plugin-search-widget/releases/tag/v1.8.0",
+      "requiresHalo": ">=2.26.0",
+      "themeMinimumVersion": "1.7.1"
+    },
+    {
+      "name": "PluginCommentWidget",
+      "version": "3.3.2",
+      "url": "https://github.com/halo-dev/plugin-comment-widget/releases/download/v3.3.2/plugin-comment-widget-3.3.2.jar",
+      "sha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+      "release": "https://github.com/halo-dev/plugin-comment-widget/releases/tag/v3.3.2",
+      "requiresHalo": ">=2.26.0",
+      "themeMinimumVersion": "3.3.2"
+    },
+    {
+      "name": "plugin-katex",
+      "version": "3.0.0",
+      "url": "https://github.com/halo-sigs/plugin-katex/releases/download/v3.0.0/plugin-katex-3.0.0.jar",
+      "sha256": "e444781b99c23b020fcc379f6859ce67dc7669536c880004f7bf7cce0ed2df96",
+      "requiresHalo": ">=2.22.2",
+      "source": "https://github.com/halo-sigs/plugin-katex/tree/v3.0.0",
+      "frontendRendering": false
+    },
+    {
+      "name": "PluginFeed",
+      "version": "1.5.0",
+      "sha256": "d7e97df76e502c0f1bd0605d4f3a6dc8b047ed20e1de50fbbed992e95fd33a87",
+      "source": {
+        "kind": "bundled-official-plugin",
+        "halo": "2.26.1",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc"
+      }
+    },
+    {
+      "name": "PluginSitemap",
+      "version": "1.3.0",
+      "sha256": "06cccf55a6d6e9369c818de7a52049fddb4b7f20bb83af52ebc329f89a637c8e",
+      "source": {
+        "kind": "bundled-official-plugin",
+        "halo": "2.26.1",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc"
+      }
     }
   ],
   "probe": {
@@ -118,25 +165,45 @@
         "PluginLinks",
         "PluginPhotos",
         "PluginMoments",
-        "plugin-halo-butterfly-layout-probe"
+        "plugin-halo-butterfly-layout-probe",
+        "PluginSearchWidget",
+        "PluginCommentWidget",
+        "plugin-katex",
+        "PluginFeed",
+        "PluginSitemap"
       ],
       "longform": [
         "PluginLinks",
         "PluginPhotos",
         "PluginMoments",
-        "plugin-halo-butterfly-layout-probe"
+        "plugin-halo-butterfly-layout-probe",
+        "PluginSearchWidget",
+        "PluginCommentWidget",
+        "plugin-katex",
+        "PluginFeed",
+        "PluginSitemap"
       ],
       "photos": [
         "PluginLinks",
         "PluginPhotos",
         "PluginMoments",
-        "plugin-halo-butterfly-layout-probe"
+        "plugin-halo-butterfly-layout-probe",
+        "PluginSearchWidget",
+        "PluginCommentWidget",
+        "plugin-katex",
+        "PluginFeed",
+        "PluginSitemap"
       ],
       "public-layout": [
         "PluginLinks",
         "PluginPhotos",
         "PluginMoments",
-        "plugin-halo-butterfly-layout-probe"
+        "plugin-halo-butterfly-layout-probe",
+        "PluginSearchWidget",
+        "PluginCommentWidget",
+        "plugin-katex",
+        "PluginFeed",
+        "PluginSitemap"
       ]
     }
   },
@@ -149,5 +216,9 @@
     "public-layout": [
       "plugin-halo-butterfly-layout-probe"
     ]
+  },
+  "additionalDependencyLocks": {
+    "fixtures/search-comment/versions.json": "55be4a479da98b789bc0a2841b2f7b15472efc7ec7eab05dece4ea8d4eb41a95",
+    "fixtures/math/versions.json": "824ab26ad2b27f885c4c8e2cfa5ba9050d0e875aee86624ea83951eae12fd02a"
   }
 }

@@ -6,6 +6,7 @@ import os from 'node:os';
 import {ROOT,FIXTURE,RUNTIME,PIN,assert,options,ownRuntime,readJson,writeJson,sha256,treeDigest,machine,sourceIdentity,settings,safeName,localBase,evidence,digestObject} from './support.mjs';
 import {longform} from './longform.mjs';
 import {validateLhr} from './metrics.mjs';
+import {openStationSession} from './station-session.mjs';
 const execute=promisify(execFile);
 const args=options(process.argv.slice(2),['--lab-runtime','--package','--profile','--route','--cohort','--cpu-window','--limit']);
 for(const required of ['lab-runtime','package','profile','route','cohort','cpu-window'])assert(args[required],'Missing --'+required);
@@ -19,11 +20,11 @@ const cli=path.join(RUNTIME,'deps/node_modules/lighthouse/cli/index.js');assert(
 const runner=sourceIdentity();assert(limit<10||runner.workingTreeClean,'Commit the exact runner before full sampling; dirty pilots remain incomplete');
 const output=path.join(RUNTIME,'runs',args.cohort,args.profile,args.route),lock='/private/tmp/halo-butterfly-next-performance-cpu.lock';
 await mkdir(lock);await writeJson(path.join(lock,'owner.json'),{pid:process.pid,runtime:RUNTIME,cpuWindow:args['cpu-window'],startedAt:new Date().toISOString()});
-let report;
+let report,stationSession;
 try{
  await mkdir(output,{recursive:true});assert((await readdir(output)).length===0,'Refusing to overwrite an existing performance run');
- const snapshot=async()=>JSON.parse((await execute('python3',[path.join(ROOT,'scripts/perf/station.py'),'inspect','--lab-runtime',path.resolve(args['lab-runtime']),'--package',path.resolve(args.package),'--profile',args.profile,'--route',args.route],{timeout:60000,maxBuffer:16*1024*1024})).stdout);
- const station=await snapshot();localBase(station.base);assert(station.result==='passed','Station preflight did not pass');
+ stationSession=await openStationSession('python3',[path.join(ROOT,'scripts/perf/station.py'),'session','--lab-runtime',path.resolve(args['lab-runtime']),'--package',path.resolve(args.package),'--profile',args.profile,'--route',args.route]);
+ const station=stationSession.before;localBase(station.base);assert(station.result==='passed','Station preflight did not pass');
  await writeJson(path.join(output,'station.json'),station);await cp(path.resolve(args.package),path.join(output,'theme.zip'));
  const routes={...station.routes};
  // Warm the real Halo JVM/template routes without warming the future browser cache.
@@ -41,7 +42,7 @@ try{
   routes[route]=target.pathname+target.search;
  }
  const currentMachine=machine();assert(currentMachine.platform===PIN.chrome.platform&&currentMachine.arch===PIN.chrome.arch&&process.versions.bun===PIN.bun,'Wrong performance host/runtime');
- report={schema:1,kind:'performance-samples',result:'incomplete',contractAcceptance:false,profile:args.profile,route:args.route,requiredPlugins:station.requiredPlugins,actualPlugins:station.plugins,base:station.base,routes,identity:station.identity,runner,tools:{lighthouse:install.lighthouse,dependencyLockSha256:install.dependencyLockSha256,chrome:{version:install.chrome.version,executableSha256:install.chrome.executableSha256,treeSha256:install.chrome.treeSha256}},machine:currentMachine,cpuWindow:args['cpu-window'],startedAt:new Date().toISOString(),loadBefore:os.loadavg(),station:await evidence(path.join(output,'station.json'),output),artifact:await evidence(path.join(output,'theme.zip'),output),samples:[],limitations:['Cold fresh Chrome process per navigation; Halo warm-up is separate. No GUI/user browser is used.','Initial navigation network through Lighthouse gather completion, no scrolling or interaction; late async loading and failed-provider recovery require separate PERF-03 evidence.','Default home/longform have no enabled optional plugins; default gallery/public page enable only their route dependency. Recommended enables the fixed four-plugin combination. P/P+ in the acceptance contract are page sets, not these profiles.','--limit diagnostic runs and any missing/failed sample remain incomplete. Each route needs 10 samples; a complete two-profile cohort requires 80 samples.']};
+ report={schema:1,kind:'performance-samples',result:'incomplete',contractAcceptance:false,profile:args.profile,route:args.route,requiredPlugins:station.requiredPlugins,actualPlugins:station.plugins,base:station.base,routes,identity:station.identity,runner,tools:{lighthouse:install.lighthouse,dependencyLockSha256:install.dependencyLockSha256,chrome:{version:install.chrome.version,executableSha256:install.chrome.executableSha256,treeSha256:install.chrome.treeSha256}},machine:currentMachine,cpuWindow:args['cpu-window'],startedAt:new Date().toISOString(),loadBefore:os.loadavg(),station:await evidence(path.join(output,'station.json'),output),artifact:await evidence(path.join(output,'theme.zip'),output),samples:[],limitations:['Cold fresh Chrome process per navigation; Halo warm-up is separate. No GUI/user browser is used.','Initial navigation network through Lighthouse gather completion, no scrolling or interaction; late async loading and failed-provider recovery require separate PERF-03 evidence.','Default home/longform have no enabled optional plugins; default gallery/public page enable only their route dependency. Recommended enables the fixed nine-plugin combination; official comment/KaTeX global resources remain included. P/P+ in the acceptance contract are page sets, not these profiles.','--limit diagnostic runs and any missing/failed sample remain incomplete. Each route needs 10 samples; a complete two-profile cohort requires 80 samples.']};
  await writeJson(path.join(output,'report.json'),report);
  for(const route of [args.route])for(const device of PIN.devices)for(let index=0;index<5;index++){
   if(report.samples.length>=limit)continue;
@@ -60,5 +61,5 @@ try{
   }catch(error){sample.error=error.message;await writeFile(path.join(directory,'failure.log'),String(error.stdout||'')+'\n'+String(error.stderr||'')+'\n'+error.message);}finally{if(child?.pid){try{process.kill(-child.pid,'SIGTERM');}catch(error){if(error.code!=='ESRCH')throw error;}}}
   sample.finishedAt=new Date().toISOString();report.samples.push(sample);await writeJson(path.join(output,'report.json'),report);console.log(`${route}/${device}/${index+1}: ${sample.status}`);
  }
- const after=await snapshot();assert(digestObject(after)===digestObject(station),'Station identity/content/config/plugin state drifted during samples');report.stationUnchanged=true;report.finishedAt=new Date().toISOString();report.loadAfter=os.loadavg();report.result=report.samples.length===10&&report.samples.every(s=>s.status==='passed')?'complete-samples':'incomplete';await writeJson(path.join(output,'report.json'),report);console.log('Saved '+path.join(output,'report.json'));if(report.result!=='complete-samples')process.exitCode=2;
-}catch(error){if(report){report.result='incomplete';report.error=error.message;await writeJson(path.join(output,'report.json'),report);}throw error;}finally{await rm(lock,{recursive:true,force:true});}
+ const after=await stationSession.after();assert(digestObject(after)===digestObject(station),'Station identity/content/config/plugin state drifted during samples');report.stationUnchanged=true;report.finishedAt=new Date().toISOString();report.loadAfter=os.loadavg();report.result=report.samples.length===10&&report.samples.every(s=>s.status==='passed')?'complete-samples':'incomplete';await writeJson(path.join(output,'report.json'),report);console.log('Saved '+path.join(output,'report.json'));if(report.result!=='complete-samples')process.exitCode=2;
+}catch(error){if(report){report.result='incomplete';report.error=error.message;await writeJson(path.join(output,'report.json'),report);}throw error;}finally{await stationSession?.close();await rm(lock,{recursive:true,force:true});}

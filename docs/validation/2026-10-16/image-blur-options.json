@@ -1,0 +1,2872 @@
+{
+  "schema": 1,
+  "date": "2026-10-16",
+  "scope": "Native blur option/scope/refresh and explicit cache evidence; does not close entire D03/EXT-03",
+  "candidate": {
+    "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+    "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "result": "partial-with-cache-evidence-gaps",
+  "runs": [
+    {
+      "runId": "083d77ca7c4a6402",
+      "path": ".runtime/features-followup/halo-lab/image-blur-options/083d77ca7c4a6402/report.json",
+      "sha256": "d0ddd250759f91f9dd8cc4df9ad58399d11292a777e133f29e5940ef658a530f",
+      "result": "failed",
+      "runnerHead": "d678d3f839347554d7f100996f87b23b571888df",
+      "runnerSha256": "370d696577cdbb0c1f3ca12e139accc5296f0c7388742505e1f22647f665ef0e",
+      "controllerSha256": "a5791cdd2bacf5413e98de5c2eae1e608f890a6ec25cd672f7b759ef4d420b72",
+      "scope": "full",
+      "total": 15,
+      "passed": 10,
+      "checks": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "width": 390,
+          "profile": "native-post",
+          "field": "post",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "width": 390,
+          "profile": "native-post",
+          "field": "post",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "width": 390,
+          "profile": "native-post",
+          "field": "post",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "width": 390,
+          "profile": "native-post-clear",
+          "field": "post",
+          "blur": false,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "width": 390,
+          "profile": "native-post-clear",
+          "field": "post",
+          "blur": false,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "width": 390,
+          "profile": "native-post-clear",
+          "field": "post",
+          "blur": false,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "eager",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "width": 390,
+          "profile": "native-site-blur",
+          "field": "site",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(0px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              }
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: outside filter scope\n\u001b[32mactual\u001b[39m \u001b[31mexpected\u001b[39m\n\n\u001b[39m'\u001b[39m\u001b[39mb\u001b[39m\u001b[39ml\u001b[39m\u001b[39mu\u001b[39m\u001b[39mr\u001b[39m\u001b[39m(\u001b[39m\u001b[31m5\u001b[39m\u001b[39m0\u001b[39m\u001b[39mp\u001b[39m\u001b[39mx\u001b[39m\u001b[39m)\u001b[39m\u001b[39m \u001b[39m\u001b[39mb\u001b[39m\u001b[39mr\u001b[39m\u001b[39mi\u001b[39m\u001b[39mg\u001b[39m\u001b[39mh\u001b[39m\u001b[39mt\u001b[39m\u001b[39mn\u001b[39m\u001b[39me\u001b[39m\u001b[39ms\u001b[39m\u001b[39ms\u001b[39m\u001b[39m(\u001b[39m\u001b[39m1\u001b[39m\u001b[39m)\u001b[39m\u001b[39m'\u001b[39m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-blur-options.mjs:81:178\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "width": 390,
+          "profile": "native-site-blur",
+          "field": "site",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(0px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              }
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: outside filter scope\n\u001b[32mactual\u001b[39m \u001b[31mexpected\u001b[39m\n\n\u001b[39m'\u001b[39m\u001b[39mb\u001b[39m\u001b[39ml\u001b[39m\u001b[39mu\u001b[39m\u001b[39mr\u001b[39m\u001b[39m(\u001b[39m\u001b[31m5\u001b[39m\u001b[39m0\u001b[39m\u001b[39mp\u001b[39m\u001b[39mx\u001b[39m\u001b[39m)\u001b[39m\u001b[39m \u001b[39m\u001b[39mb\u001b[39m\u001b[39mr\u001b[39m\u001b[39mi\u001b[39m\u001b[39mg\u001b[39m\u001b[39mh\u001b[39m\u001b[39mt\u001b[39m\u001b[39mn\u001b[39m\u001b[39me\u001b[39m\u001b[39ms\u001b[39m\u001b[39ms\u001b[39m\u001b[39m(\u001b[39m\u001b[39m1\u001b[39m\u001b[39m)\u001b[39m\u001b[39m'\u001b[39m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-blur-options.mjs:81:178\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "width": 390,
+          "profile": "native-site-blur",
+          "field": "site",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(0px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              }
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: outside filter scope\n\u001b[32mactual\u001b[39m \u001b[31mexpected\u001b[39m\n\n\u001b[39m'\u001b[39m\u001b[39mb\u001b[39m\u001b[39ml\u001b[39m\u001b[39mu\u001b[39m\u001b[39mr\u001b[39m\u001b[39m(\u001b[39m\u001b[31m5\u001b[39m\u001b[39m0\u001b[39m\u001b[39mp\u001b[39m\u001b[39mx\u001b[39m\u001b[39m)\u001b[39m\u001b[39m \u001b[39m\u001b[39mb\u001b[39m\u001b[39mr\u001b[39m\u001b[39mi\u001b[39m\u001b[39mg\u001b[39m\u001b[39mh\u001b[39m\u001b[39mt\u001b[39m\u001b[39mn\u001b[39m\u001b[39me\u001b[39m\u001b[39ms\u001b[39m\u001b[39ms\u001b[39m\u001b[39m(\u001b[39m\u001b[39m1\u001b[39m\u001b[39m)\u001b[39m\u001b[39m'\u001b[39m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-blur-options.mjs:81:178\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "width": 390,
+          "profile": "native-site",
+          "field": "site",
+          "blur": false,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "width": 390,
+          "profile": "native-site",
+          "field": "site",
+          "blur": false,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "width": 390,
+          "profile": "native-site",
+          "field": "site",
+          "blur": false,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "width": 390,
+          "profile": "native-post",
+          "kind": "actual-cache-refresh",
+          "errors": [],
+          "foreignRequests": [],
+          "warm": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "pending": true,
+              "filter": "blur(50px) brightness(1)",
+              "complete": false,
+              "width": 0,
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": "lazy",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": true
+            }
+          },
+          "refreshed": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "pending": true,
+              "filter": "blur(50px) brightness(1)",
+              "complete": false,
+              "width": 0,
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": "lazy",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": true
+            }
+          },
+          "binding": [
+            {
+              "complete": true,
+              "width": 1600,
+              "pending": false
+            }
+          ],
+          "resourceTiming": [
+            {
+              "name": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "transferSize": 0,
+              "encodedBodySize": 17392,
+              "decodedBodySize": 17392,
+              "duration": 0
+            }
+          ],
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "width": 390,
+          "profile": "native-post",
+          "kind": "actual-cache-refresh",
+          "errors": [],
+          "foreignRequests": [],
+          "warm": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "pending": true,
+              "filter": "blur(50px) brightness(1)",
+              "complete": false,
+              "width": 0,
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": "lazy",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": true
+            }
+          },
+          "refreshed": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "pending": true,
+              "filter": "blur(50px) brightness(1)",
+              "complete": false,
+              "width": 0,
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": "lazy",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": true
+            }
+          },
+          "binding": [
+            {
+              "complete": true,
+              "width": 1600,
+              "pending": false
+            }
+          ],
+          "resourceTiming": [],
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: No actual image cache-hit timing evidence\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-blur-options.mjs:105:4\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "width": 390,
+          "profile": "native-post",
+          "kind": "actual-cache-refresh",
+          "errors": [],
+          "foreignRequests": [],
+          "warm": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "pending": true,
+              "filter": "blur(50px) brightness(1)",
+              "complete": false,
+              "width": 0,
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": "lazy",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": true
+            }
+          },
+          "refreshed": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=083d77ca7c4a6402-a-lazy",
+              "loading": "lazy",
+              "pending": true,
+              "filter": "blur(50px) brightness(1)",
+              "complete": false,
+              "width": 0,
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+              "loading": "eager",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "loading": "lazy",
+              "pending": false,
+              "filter": "none",
+              "complete": true,
+              "width": 1600,
+              "inArticle": true
+            }
+          },
+          "binding": [
+            {
+              "complete": true,
+              "width": 1600,
+              "pending": false
+            }
+          ],
+          "resourceTiming": [
+            {
+              "name": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=083d77ca7c4a6402-a-plain",
+              "transferSize": 0,
+              "encodedBodySize": 0,
+              "decodedBodySize": 0,
+              "duration": 0
+            }
+          ],
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: No actual image cache-hit timing evidence\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-blur-options.mjs:105:4\n    at processTicksAndRejections (native:7:39)"
+        }
+      ],
+      "restoration": {
+        "event": "restored",
+        "result": "passed",
+        "errors": [],
+        "runId": "083d77ca7c4a6402",
+        "snapshot": "native-images-083d77ca7c4a6402.private.json"
+      }
+    },
+    {
+      "runId": "9ee814962c8510ac",
+      "path": ".runtime/features-followup/halo-lab/image-blur-options/9ee814962c8510ac/report.json",
+      "sha256": "5218a92713ebecea66f743466ba5b3be5db69caa1ee5fd0c13bb2ff713c1d06b",
+      "result": "scoped-passed-with-open-mapping",
+      "runnerHead": "d0a127f0f5522097db7d7411340076a8e4ce06ee",
+      "runnerSha256": "c61de815c0b82577f1476abcff95433e5fa2543e8a45776cdcffc9beca37bea2",
+      "controllerSha256": "a5791cdd2bacf5413e98de5c2eae1e608f890a6ec25cd672f7b759ef4d420b72",
+      "scope": "site-blur-only",
+      "total": 3,
+      "passed": 3,
+      "checks": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "width": 390,
+          "profile": "native-site-blur",
+          "field": "site",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "width": 390,
+          "profile": "native-site-blur",
+          "field": "site",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "width": 390,
+          "profile": "native-site-blur",
+          "field": "site",
+          "blur": true,
+          "errors": [],
+          "blocked": [],
+          "rounds": [
+            {
+              "navigation": "initial",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                },
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            },
+            {
+              "navigation": "refresh",
+              "held": {
+                "http://127.0.0.1:18855/lab/cover-mountain-lake.webp": {
+                  "status": 200,
+                  "bodySha256": "8da3684f419bd3c2eb912f4479e66359d46d5bad206b080a45bf3d7b53010998"
+                },
+                "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy": {
+                  "status": 200,
+                  "bodySha256": "942a9abf5780ca41dd7b0cf3b2ae153166fda22cb345581aa06bbd32f234e6ad"
+                }
+              },
+              "pending": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": true,
+                  "filter": "blur(50px) brightness(1)",
+                  "complete": false,
+                  "width": 0,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "loaded": {
+                "inside": {
+                  "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "url": "http://127.0.0.1:18855/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                },
+                "outside": {
+                  "src": "/lab/cover-mountain-lake.webp",
+                  "url": "http://127.0.0.1:18855/lab/cover-mountain-lake.webp",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": false
+                },
+                "plain": {
+                  "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "url": "http://127.0.0.1:18855/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+                  "loading": "lazy",
+                  "pending": false,
+                  "filter": "none",
+                  "complete": true,
+                  "width": 1600,
+                  "inArticle": true
+                }
+              },
+              "result": "passed"
+            }
+          ],
+          "initial": {
+            "inside": {
+              "src": "/lab/cover-golden-mountain.webp?native=9ee814962c8510ac-a-lazy",
+              "loading": "lazy",
+              "inArticle": true
+            },
+            "outside": {
+              "src": "/lab/cover-mountain-lake.webp",
+              "loading": "lazy",
+              "inArticle": false
+            },
+            "plain": {
+              "src": "/lab/cover-sand-dunes.webp?native=9ee814962c8510ac-a-plain",
+              "loading": null,
+              "inArticle": true
+            }
+          },
+          "result": "passed"
+        }
+      ],
+      "restoration": {
+        "event": "restored",
+        "result": "passed",
+        "errors": [],
+        "runId": "9ee814962c8510ac",
+        "snapshot": "native-images-9ee814962c8510ac.private.json"
+      }
+    }
+  ],
+  "identity": {
+    "installedFiles": 269,
+    "unchanged": true,
+    "before": {
+      "path": ".runtime/features-followup/options-identity-before.json",
+      "sha256": "1437ff47342d0c97c92c21d999d15a77f3ffb13d55e2cad512d2dd9df79d5554"
+    },
+    "after": {
+      "path": ".runtime/features-followup/options-identity-after.json",
+      "sha256": "1437ff47342d0c97c92c21d999d15a77f3ffb13d55e2cad512d2dd9df79d5554"
+    },
+    "plugins": [
+      {
+        "name": "PluginCommentWidget",
+        "version": "3.1.2",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginFeed",
+        "version": "1.5.0",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginSitemap",
+        "version": "1.3.0",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "ai-foundation",
+        "version": "1.0.0",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "app-store-integration",
+        "version": "1.18.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "editor-hyperlink-card",
+        "version": "1.9.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "shiki",
+        "version": "1.3.2",
+        "enabled": false,
+        "phase": "DISABLED"
+      }
+    ],
+    "configSha256": "43f84d274074f6c990b7f91fbbc5d8bb970cd4e6de369da6dbb0d23bb374414c",
+    "systemSha256": "ab05432997c2ec7d37f9c31b75b4729a2d8c050a5af9d36a1c49390ee60f79ed",
+    "postNames": [
+      "5152aea5-c2e8-4717-8bba-2263d46e19d5",
+      "preview-1",
+      "preview-10",
+      "preview-11",
+      "preview-12",
+      "preview-2",
+      "preview-3",
+      "preview-4",
+      "preview-5",
+      "preview-6",
+      "preview-7",
+      "preview-8",
+      "preview-9"
+    ]
+  },
+  "cleanup": {
+    "haloPort": 18855,
+    "hexoNeverStarted": true,
+    "stopLog": ".runtime/features-followup/options-stop.log",
+    "stopLogSha256": "16b09a8356c63cc1a5d7cb6cd8e3c23a633cdeb7ac688c67fc13610b456d60b3"
+  },
+  "limitations": [
+    "Full first batch is 10/15, not passed; three additional site-blur cases do not overwrite that report.",
+    "Firefox cache timing entry absent; WebKit entry has decodedBodySize=0. All observed complete/nonpending binding, but only Chromium has actual cache-hit evidence. No repeat or weaker assertion was used for other engines.",
+    "Native unannotated author HTML still lacks initial loading, and post-parse JS does not establish initial request deferral.",
+    "No non-native placeholder, arbitrary cover override, physical phone/Safari, screen-reader or complete 1.0 acceptance."
+  ]
+}

@@ -2,6 +2,8 @@
 
 合同版本：2026-10-15 / v1.9（基于 2026-09-06 / v1；v1.1 为 DEC-01，v1.2 为 DEC-02，v1.3 为 DEC-07 数学公式平台替代，v1.4 为 DEC-03 资源供应裁定，v1.5 为 DEC-02 通用正文补充，v1.6 为 DEC-03 平台范围补充，v1.8 为主题自身兼容边界，v1.9 为资源优化与私有统计延期）。本文固定“具备 1.0 工程验收条件的可发布候选状态”的完成条件，不是验收通过记录。所有新场景初始均为 `未验证`；[0.1.0-alpha.1 首轮记录](VALIDATION.md)只说明其记录的版本与范围，不能直接给新候选版本背书。
 
+执行记录补充（2026-10-16，不修订条件）：PR #417 合并产品已完成[精确 CI 与独立构建核对](validation/2026-10-16/build-reproducibility.md)，并补充[加载协议/浏览器诊断](validation/2026-10-16/loading-followup.md)、[资源故障与 Pace 退场](validation/2026-10-16/perf03-fault-followup.md)、[原生图片 blur 范围/刷新](validation/2026-10-16/image-blur-options.md)。各记录明确受测提交、包摘要、首次失败与未覆盖范围，不代表 ENV/NET/EXT/PERF 或整个合同已通过；[作者图片映射](validation/2026-10-16/authored-image-mapping.md)仅提出下一步证据需求，未裁定降低初始输出要求。[本轮总索引](validation/2026-10-16/acceptance-followup.md)登记正式性能 142/160 有效及覆盖缺口，不能将有效组合的预算达标升级为完整性能通过。
+
 v1.1 修订：[#46](https://github.com/songxychn/halo-butterfly-next/issues/46) 裁定 DEC-01 为平台替代。1.0 搜索/评论以官方 `PluginSearchWidget` / `PluginCommentWidget` 为唯一主题支持面；修订 PLG-02/03 与矩阵 `not-applicable` 规则。
 
 v1.2 修订：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45) 裁定 DEC-02。1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS，主题不解析 `{% %}`；series/flink 活数据延期 1.1。DEC-01 的 `not-applicable` 不扩大到标签能力。此处为 v1.2 历史条件，正文输入和转换要求现以 v1.5 补充为准。

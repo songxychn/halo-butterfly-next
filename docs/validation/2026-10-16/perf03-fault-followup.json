@@ -1,0 +1,2072 @@
+{
+  "schema": 1,
+  "date": "2026-10-16",
+  "candidate": {
+    "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+    "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "scope": "PERF-03 representative bounded failure and on-demand checks, not full contract acceptance",
+  "result": "scoped-pass-with-preserved-fixture-failures",
+  "totalAcceptedScenarios": 18,
+  "delayed": {
+    "path": ".runtime/loading-followup/fault-delayed.json",
+    "sha256": "d3b68ed36c45a8cc8ed63f39164c0f69153fcb5e0e0ec119aa86444bb70c5423",
+    "checks": [
+      {
+        "name": "chromium/blocked-page-bundle",
+        "result": "passed",
+        "detail": {
+          "before": {
+            "readyState": "interactive",
+            "domContentLoaded": false,
+            "enhanced": false,
+            "loading": false
+          },
+          "enhancedAfterRelease": true
+        }
+      },
+      {
+        "name": "firefox/blocked-page-bundle",
+        "result": "passed",
+        "detail": {
+          "before": {
+            "readyState": "interactive",
+            "domContentLoaded": false,
+            "enhanced": false,
+            "loading": false
+          },
+          "enhancedAfterRelease": true
+        }
+      },
+      {
+        "name": "webkit/blocked-page-bundle",
+        "result": "passed",
+        "detail": {
+          "before": {
+            "readyState": "interactive",
+            "domContentLoaded": false,
+            "enhanced": false,
+            "loading": false
+          },
+          "enhancedAfterRelease": true
+        }
+      }
+    ],
+    "result": "passed"
+  },
+  "batches": [
+    {
+      "name": "fault-official",
+      "path": ".runtime/loading-followup/halo-lab/fault-official/report.json",
+      "sha256": "e58c43aae754e460fc5688f769287206cfbcef071731f5f5a44a1a0f26dcd1e8",
+      "toolSha256": "d041fa4d3cb8d2a72e5f699b3d35cc0e3927e74320be11914952548807050018",
+      "profile": "official",
+      "total": 3,
+      "passed": 0,
+      "installationRecordUnchanged": true,
+      "cases": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "fault": "503",
+          "pass": false,
+          "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/perf/fault-browser.mjs:64:47\n    at processTicksAndRejections (native:7:39)",
+          "injected": [
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082798972
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082798972
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082798973
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": null,
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792082799366,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "fault": "503",
+          "pass": false,
+          "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/perf/fault-browser.mjs:64:47\n    at processTicksAndRejections (native:7:39)",
+          "injected": [
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082800731
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082800731
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082800732
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082800752
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082800752
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082800852
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": null,
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792082800909,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "fault": "503",
+          "pass": false,
+          "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/perf/fault-browser.mjs:64:47\n    at processTicksAndRejections (native:7:39)",
+          "injected": [
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082802007
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082802007
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082802062
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": null,
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792082802171,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        }
+      ]
+    },
+    {
+      "name": "fault-official-v2",
+      "path": ".runtime/loading-followup/halo-lab/fault-official-v2/report.json",
+      "sha256": "a365b9a3ac9c5decd0ce4d118942da088dd76c271a05411cf6ed60a52951bebb",
+      "toolSha256": "a6da11807ce93656396d7dd8249fbb8d94b3a0582f938b55e3ead894d94ff524",
+      "profile": "official",
+      "total": 3,
+      "passed": 3,
+      "installationRecordUnchanged": true,
+      "cases": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082838205
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082838205
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082838205
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": null,
+          "readyAt": 1792082838322,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": {
+            "resources": [
+              "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0"
+            ],
+            "commentHosts": 0
+          },
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082843519
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082843520
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082843520
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082843548
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082843548
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082843548
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": null,
+          "readyAt": 1792082843593,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": {
+            "resources": [
+              "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0"
+            ],
+            "commentHosts": 0
+          },
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "fault": "503",
+              "at": 1792082847927
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0",
+              "fault": "503",
+              "at": 1792082847928
+            },
+            {
+              "url": "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "fault": "503",
+              "at": 1792082847957
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": null,
+          "readyAt": 1792082848042,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": {
+            "resources": [
+              "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2",
+              "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+              "http://127.0.0.1:18835/plugins/plugin-katex/assets/static/katex.min.css?version=3.0.0"
+            ],
+            "commentHosts": 0
+          },
+          "optionalRequests": null,
+          "positiveRequests": null
+        }
+      ]
+    },
+    {
+      "name": "fault-external",
+      "path": ".runtime/loading-followup/halo-lab/fault-external/report.json",
+      "sha256": "41afa2b00387b41501e286e3325bc83b7a16a678fd8da8c0d9c1cae5870d31fb",
+      "toolSha256": "a6da11807ce93656396d7dd8249fbb8d94b3a0582f938b55e3ead894d94ff524",
+      "profile": "external",
+      "total": 6,
+      "passed": 6,
+      "installationRecordUnchanged": true,
+      "cases": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "https://static.addtoany.com/menu/page.js",
+              "fault": "503",
+              "at": 1792082855194
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+              "fault": "503",
+              "at": 1792082855196
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": "分享组件暂不可用，可复制链接",
+          "readyAt": 1792082855451,
+          "fallbackAt": 1792082858297,
+          "fallbackLinks": [
+            "https://www.addtoany.com/add_to/facebook?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/x?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/email?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/copy_link?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB"
+          ],
+          "analytics": {
+            "ready": false,
+            "dataLayerCount": 2
+          },
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "fault": "hang",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "https://static.addtoany.com/menu/page.js",
+              "fault": "hang",
+              "at": 1792082858854
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+              "fault": "hang",
+              "at": 1792082858854
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": "分享组件暂不可用，可复制链接",
+          "readyAt": 1792082858855,
+          "fallbackAt": 1792082868851,
+          "fallbackLinks": [
+            "https://www.addtoany.com/add_to/facebook?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/x?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/email?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/copy_link?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB"
+          ],
+          "analytics": {
+            "ready": false,
+            "dataLayerCount": 2
+          },
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "https://static.addtoany.com/menu/page.js",
+              "fault": "503",
+              "at": 1792082870351
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+              "fault": "503",
+              "at": 1792082870355
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": "分享组件暂不可用，可复制链接",
+          "readyAt": 1792082870350,
+          "fallbackAt": 1792082873765,
+          "fallbackLinks": [
+            "https://www.addtoany.com/add_to/facebook?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/x?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/email?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/copy_link?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB"
+          ],
+          "analytics": {
+            "ready": false,
+            "dataLayerCount": 2
+          },
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "fault": "hang",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "https://static.addtoany.com/menu/page.js",
+              "fault": "hang",
+              "at": 1792082874226
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+              "fault": "hang",
+              "at": 1792082874229
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": "分享组件暂不可用，可复制链接",
+          "readyAt": 1792082874230,
+          "fallbackAt": 1792082884255,
+          "fallbackLinks": [
+            "https://www.addtoany.com/add_to/facebook?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/x?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/email?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/copy_link?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB"
+          ],
+          "analytics": {
+            "ready": false,
+            "dataLayerCount": 2
+          },
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "https://static.addtoany.com/menu/page.js",
+              "fault": "503",
+              "at": 1792082885354
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+              "fault": "503",
+              "at": 1792082885360
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": "分享组件暂不可用，可复制链接",
+          "readyAt": 1792082885372,
+          "fallbackAt": 1792082888604,
+          "fallbackLinks": [
+            "https://www.addtoany.com/add_to/facebook?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/x?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/email?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/copy_link?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB"
+          ],
+          "analytics": {
+            "ready": false,
+            "dataLayerCount": 2
+          },
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "fault": "hang",
+          "pass": true,
+          "error": null,
+          "injected": [
+            {
+              "url": "https://static.addtoany.com/menu/page.js",
+              "fault": "hang",
+              "at": 1792082889080
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+              "fault": "hang",
+              "at": 1792082889084
+            }
+          ],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": "固定合成文章\n\n用于核对分页、归档、标签与封面展示。两站使用同一份版本化内容。",
+          "shareStatus": "分享组件暂不可用，可复制链接",
+          "readyAt": 1792082889100,
+          "fallbackAt": 1792082899092,
+          "fallbackLinks": [
+            "https://www.addtoany.com/add_to/facebook?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/x?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/email?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB",
+            "https://www.addtoany.com/add_to/copy_link?linkurl=http%3A%2F%2F127.0.0.1%3A18835%2Farchives%2Fpreview-2&linkname=%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E3%80%81%E6%B2%A1%E6%9C%89%E5%88%86%E7%B1%BB"
+          ],
+          "analytics": {
+            "ready": false,
+            "dataLayerCount": 2
+          },
+          "officialMarkup": null,
+          "optionalRequests": null,
+          "positiveRequests": null
+        }
+      ]
+    },
+    {
+      "name": "fault-ondemand",
+      "path": ".runtime/loading-followup/halo-lab/fault-ondemand/report.json",
+      "sha256": "b779a5bab3f4dcfbfe1996254a8dc9192e1177ccca3632bbe788b21e7d10d5b5",
+      "toolSha256": "a6da11807ce93656396d7dd8249fbb8d94b3a0582f938b55e3ead894d94ff524",
+      "profile": "ondemand",
+      "total": 3,
+      "passed": 0,
+      "installationRecordUnchanged": true,
+      "cases": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "fault": "503",
+          "pass": false,
+          "error": "waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.theme-render-output svg') to be visible\u001b[22m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/perf/fault-browser.mjs:94:22\n    at processTicksAndRejections (native:7:39)",
+          "injected": [],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792082920714,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": [],
+          "positiveRequests": null
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "fault": "503",
+          "pass": false,
+          "error": "waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.theme-render-output svg') to be visible\u001b[22m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/perf/fault-browser.mjs:94:22\n    at processTicksAndRejections (native:7:39)",
+          "injected": [],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792082940993,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": [],
+          "positiveRequests": null
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "fault": "503",
+          "pass": false,
+          "error": "waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.theme-render-output svg') to be visible\u001b[22m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/perf/fault-browser.mjs:94:22\n    at processTicksAndRejections (native:7:39)",
+          "injected": [],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792082960761,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": [],
+          "positiveRequests": null
+        }
+      ]
+    },
+    {
+      "name": "fault-ondemand-v2",
+      "path": ".runtime/loading-followup/halo-lab/fault-ondemand-v2/report.json",
+      "sha256": "dc06da25bbafc6ef3b1e2e9f73a63e2124452a28f71c8ea3e3ff5aba6ed6e724",
+      "toolSha256": "153fb66c66a06efa1229b03d72ffd3054073460a7b0295b04d11870436b65855",
+      "profile": "ondemand",
+      "total": 3,
+      "passed": 3,
+      "installationRecordUnchanged": true,
+      "cases": [
+        {
+          "engine": "chromium",
+          "version": "153.0.8010.12",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792083016108,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": [],
+          "positiveRequests": [
+            {
+              "id": 33,
+              "url": "http://127.0.0.1:18835/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+              "method": "GET",
+              "type": "script",
+              "startedAt": "2026-10-15T16:50:19.348Z",
+              "state": "finished",
+              "status": 200,
+              "finishedAt": "2026-10-15T16:50:19.524Z"
+            },
+            {
+              "id": 34,
+              "url": "http://127.0.0.1:18835/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+              "method": "GET",
+              "type": "script",
+              "startedAt": "2026-10-15T16:50:19.651Z",
+              "state": "finished",
+              "status": 200,
+              "finishedAt": "2026-10-15T16:50:19.668Z"
+            }
+          ]
+        },
+        {
+          "engine": "firefox",
+          "version": "155.0",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792083021080,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": [],
+          "positiveRequests": [
+            {
+              "id": 30,
+              "url": "http://127.0.0.1:18835/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+              "method": "GET",
+              "type": "script",
+              "startedAt": "2026-10-15T16:50:24.787Z",
+              "state": "finished",
+              "status": 200,
+              "finishedAt": "2026-10-15T16:50:24.909Z"
+            },
+            {
+              "id": 32,
+              "url": "http://127.0.0.1:18835/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+              "method": "GET",
+              "type": "script",
+              "startedAt": "2026-10-15T16:50:25.116Z",
+              "state": "finished",
+              "status": 200,
+              "finishedAt": "2026-10-15T16:50:25.129Z"
+            }
+          ]
+        },
+        {
+          "engine": "webkit",
+          "version": "26.6",
+          "fault": "503",
+          "pass": true,
+          "error": null,
+          "injected": [],
+          "blocked": [],
+          "errors": [],
+          "core": {
+            "bodyReadable": true,
+            "loadingCleared": true,
+            "menuOperable": true,
+            "modeChanged": true
+          },
+          "bodyText": null,
+          "shareStatus": null,
+          "readyAt": 1792083026460,
+          "fallbackAt": null,
+          "fallbackLinks": null,
+          "analytics": null,
+          "officialMarkup": null,
+          "optionalRequests": [],
+          "positiveRequests": [
+            {
+              "id": 33,
+              "url": "http://127.0.0.1:18835/themes/halo-butterfly-next/assets/renderers/mermaid.min.js",
+              "method": "GET",
+              "type": "script",
+              "startedAt": "2026-10-15T16:50:30.082Z",
+              "state": "finished",
+              "status": 200,
+              "finishedAt": "2026-10-15T16:50:30.217Z"
+            },
+            {
+              "id": 34,
+              "url": "http://127.0.0.1:18835/themes/halo-butterfly-next/assets/renderers/chartjs.min.js",
+              "method": "GET",
+              "type": "script",
+              "startedAt": "2026-10-15T16:50:30.359Z",
+              "state": "finished",
+              "status": 200,
+              "finishedAt": "2026-10-15T16:50:30.382Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "fixtureFailures": [
+    {
+      "batch": "fault-official",
+      "reason": "Collector incorrectly required synthetic preview-2 text length above100; actual versioned fixture is short. Exact title/body assertions replaced that invalid precondition, no product or timeout change."
+    },
+    {
+      "batch": "fault-ondemand",
+      "reason": "Synthetic publishTime was in the future in UTC; Halo correctly kept DRAFT/inProgress, positive route404. Corrected fixture to past date and required PUBLISHED/HTTP200 before a separate three-case batch."
+    }
+  ],
+  "cleanup": {
+    "configRestored": true,
+    "syntheticPostRemoved": true,
+    "temporaryKatexRemoved": true,
+    "plugins": [
+      {
+        "name": "shiki",
+        "version": "1.3.2",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginSitemap",
+        "version": "1.3.0",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginFeed",
+        "version": "1.5.0",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "editor-hyperlink-card",
+        "version": "1.9.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "PluginCommentWidget",
+        "version": "3.3.2",
+        "enabled": true,
+        "phase": "STARTED"
+      },
+      {
+        "name": "ai-foundation",
+        "version": "1.0.0",
+        "enabled": false,
+        "phase": "DISABLED"
+      },
+      {
+        "name": "app-store-integration",
+        "version": "1.18.1",
+        "enabled": false,
+        "phase": "DISABLED"
+      }
+    ],
+    "installed": {
+      "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    }
+  },
+  "manifest": {
+    "path": ".runtime/loading-followup/fault-raw-manifest.json",
+    "sha256": "b7dc6a62882d42c09a811266144f1fcc2030c2d272fc46b716066c518ec08b0e",
+    "files": 22
+  },
+  "limitations": [
+    "All external provider requests intercepted; synthetic GA4 ID only, no actual provider SDK runs or tracking event sent.",
+    "Expected HTTP503 and held requests are part of evidence, not resource completeness pass; full request ledger stays in raw report.",
+    "Official CommentWidget3.3.2/KaTeX3.0.0 injection retained; broken plugin functions not certified.",
+    "On-demand covers only Mermaid/ChartJS enabled at global settings: absent on home then present and rendered on positive content.",
+    "390px light headless three-engine only; real devices/Safari and unknown renderer/provider combinations remain unverified.",
+    "Source attribution uses installed record+ZIP; no new product code or Halo version baseline change.",
+    "PERF03 JS/CSS budget and whole contract remain subject to separate performance comparison.",
+    "Original15 cases only measured body.loading; separate3 pace-hang cases now verify original30s watchdog while both SDKs remain pending. This does not cover arbitrary providers or all repeated-navigation states."
+  ],
+  "profiles": {
+    "official": {
+      "path": ".runtime/loading-followup/fault-official-profile.json",
+      "sha256": "4d85031d6c83660e0c7cc96048b155009b217da356a7a9a57e90bc79191b3ae2"
+    },
+    "external": {
+      "path": ".runtime/loading-followup/fault-external-profile.json",
+      "sha256": "11c1f3869013d5f1dbc40c8fb4b4d52dfa7d4187062b5cc51167fdb60f5bdf81"
+    },
+    "ondemand": {
+      "path": ".runtime/loading-followup/fault-ondemand-profile.json",
+      "sha256": "c86ff5377c6306c6b729dc45d52701083ed057e7c252964aa4cb4a12d7c77b52"
+    }
+  },
+  "paceFollowup": {
+    "status": "scoped-runtime-passed",
+    "path": ".runtime/loading-followup/halo-lab/pace-hang/report.json",
+    "sha256": "e57eac29ab534bd8dadff2a1aaf6b27f42bd378bb777436cd01d44c48c53e64b",
+    "toolSha256": "843fbdbced42dfff36da51d508a4b9220fdd539c9ddc6be2fccedcddf00ada6b",
+    "passed": 3,
+    "total": 3,
+    "watchdogProductMs": 30000,
+    "observationMaximumMs": 35000,
+    "cases": [
+      {
+        "engine": "chromium",
+        "version": "153.0.8010.12",
+        "pass": true,
+        "paceStart": {
+          "label": "DOM mutation",
+          "at": 1792083655646,
+          "performanceMs": 660.5,
+          "readyState": "loading",
+          "active": true,
+          "apiPresent": true,
+          "running": true,
+          "restartOnRequestAfter": 500,
+          "stateEnabled": true,
+          "stateReady": true,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-active",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 2,
+              "visible": false
+            }
+          ]
+        },
+        "paceBeforeWatchdog": {
+          "label": "after core controls and SDK timeout",
+          "at": 1792083665722,
+          "performanceMs": 10736.700000047684,
+          "readyState": "interactive",
+          "active": true,
+          "apiPresent": true,
+          "running": true,
+          "restartOnRequestAfter": 500,
+          "stateEnabled": true,
+          "stateReady": true,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-active",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 2,
+              "visible": true
+            }
+          ]
+        },
+        "paceStopped": {
+          "label": "watchdog stopped",
+          "at": 1792083685822,
+          "performanceMs": 30837.400000095367,
+          "readyState": "interactive",
+          "active": false,
+          "apiPresent": true,
+          "running": false,
+          "restartOnRequestAfter": false,
+          "stateEnabled": true,
+          "stateReady": false,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-inactive",
+              "display": "none",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 0,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 0,
+              "height": 0,
+              "visible": false
+            }
+          ]
+        },
+        "watchdogElapsedMs": 30176,
+        "heldAfterWatchdog": [
+          {
+            "id": 16,
+            "url": "https://static.addtoany.com/menu/page.js",
+            "method": "GET",
+            "type": "script",
+            "startedAt": "2026-10-15T17:00:55.708Z",
+            "state": "pending"
+          },
+          {
+            "id": 19,
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+            "method": "GET",
+            "type": "script",
+            "startedAt": "2026-10-15T17:00:55.708Z",
+            "state": "pending"
+          }
+        ],
+        "coreAfterWatchdog": {
+          "bodyReadable": true,
+          "menuOperable": true,
+          "modeChanged": true,
+          "snapshot": {
+            "label": "after final core controls",
+            "at": 1792083687698,
+            "performanceMs": 32713,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-inactive",
+                "display": "none",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              }
+            ]
+          }
+        },
+        "paceTrace": [
+          {
+            "label": "DOM mutation",
+            "at": 1792083655438,
+            "performanceMs": 453.2000000476837,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": null,
+            "stateReady": null,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083655511,
+            "performanceMs": 525.5999999046326,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083655538,
+            "performanceMs": 552.9000000953674,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083655646,
+            "performanceMs": 660.5,
+            "readyState": "loading",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "label": "readystatechange",
+            "at": 1792083655646,
+            "performanceMs": 661.0999999046326,
+            "readyState": "interactive",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083655677,
+            "performanceMs": 692.0999999046326,
+            "readyState": "interactive",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083685648,
+            "performanceMs": 30662.599999904633,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083685684,
+            "performanceMs": 30699,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083685787,
+            "performanceMs": 30802.5,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-inactive",
+                "display": "none",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "engine": "firefox",
+        "version": "155.0",
+        "pass": true,
+        "paceStart": {
+          "label": "DOM mutation",
+          "at": 1792083689303,
+          "performanceMs": 422,
+          "readyState": "interactive",
+          "active": true,
+          "apiPresent": true,
+          "running": true,
+          "restartOnRequestAfter": 500,
+          "stateEnabled": true,
+          "stateReady": true,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-active",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 2,
+              "visible": false
+            }
+          ]
+        },
+        "paceBeforeWatchdog": {
+          "label": "after core controls and SDK timeout",
+          "at": 1792083699336,
+          "performanceMs": 10448,
+          "readyState": "interactive",
+          "active": true,
+          "apiPresent": true,
+          "running": true,
+          "restartOnRequestAfter": 500,
+          "stateEnabled": true,
+          "stateReady": true,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-active",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 390,
+              "height": 2,
+              "visible": true
+            }
+          ]
+        },
+        "paceStopped": {
+          "label": "watchdog stopped",
+          "at": 1792083719314,
+          "performanceMs": 30416,
+          "readyState": "interactive",
+          "active": false,
+          "apiPresent": true,
+          "running": false,
+          "restartOnRequestAfter": false,
+          "stateEnabled": true,
+          "stateReady": false,
+          "bodyLoading": false,
+          "bars": []
+        },
+        "watchdogElapsedMs": 30011,
+        "heldAfterWatchdog": [
+          {
+            "id": 13,
+            "url": "https://static.addtoany.com/menu/page.js",
+            "method": "GET",
+            "type": "script",
+            "startedAt": "2026-10-15T17:01:29.309Z",
+            "state": "pending"
+          },
+          {
+            "id": 16,
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+            "method": "GET",
+            "type": "script",
+            "startedAt": "2026-10-15T17:01:29.323Z",
+            "state": "pending"
+          }
+        ],
+        "coreAfterWatchdog": {
+          "bodyReadable": true,
+          "menuOperable": true,
+          "modeChanged": true,
+          "snapshot": {
+            "label": "after final core controls",
+            "at": 1792083721191,
+            "performanceMs": 32293,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-inactive",
+                "display": "none",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              }
+            ]
+          }
+        },
+        "paceTrace": [
+          {
+            "label": "DOM mutation",
+            "at": 1792083689226,
+            "performanceMs": 346,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": null,
+            "stateReady": null,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083689254,
+            "performanceMs": 373,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "readystatechange",
+            "at": 1792083689287,
+            "performanceMs": 406,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083689303,
+            "performanceMs": 422,
+            "readyState": "interactive",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083689332,
+            "performanceMs": 451,
+            "readyState": "interactive",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083719309,
+            "performanceMs": 30411,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083719337,
+            "performanceMs": 30439,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 390,
+                "height": 2,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083719445,
+            "performanceMs": 30547,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-inactive",
+                "display": "none",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "version": "26.6",
+        "pass": true,
+        "paceStart": {
+          "label": "DOM mutation",
+          "at": 1792083722509,
+          "performanceMs": 362,
+          "readyState": "interactive",
+          "active": true,
+          "apiPresent": true,
+          "running": true,
+          "restartOnRequestAfter": 500,
+          "stateEnabled": true,
+          "stateReady": true,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-active",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 384,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 384,
+              "height": 2,
+              "visible": false
+            }
+          ]
+        },
+        "paceBeforeWatchdog": {
+          "label": "after core controls and SDK timeout",
+          "at": 1792083732513,
+          "performanceMs": 10364,
+          "readyState": "interactive",
+          "active": true,
+          "apiPresent": true,
+          "running": true,
+          "restartOnRequestAfter": 500,
+          "stateEnabled": true,
+          "stateReady": true,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-active",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 384,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 384,
+              "height": 2,
+              "visible": true
+            }
+          ]
+        },
+        "paceStopped": {
+          "label": "watchdog stopped",
+          "at": 1792083752663,
+          "performanceMs": 30513,
+          "readyState": "interactive",
+          "active": false,
+          "apiPresent": true,
+          "running": false,
+          "restartOnRequestAfter": false,
+          "stateEnabled": true,
+          "stateReady": false,
+          "bodyLoading": false,
+          "bars": [
+            {
+              "className": "pace pace-inactive",
+              "display": "none",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 0,
+              "height": 0,
+              "visible": false
+            },
+            {
+              "className": "pace-progress",
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "width": 0,
+              "height": 0,
+              "visible": false
+            }
+          ]
+        },
+        "watchdogElapsedMs": 30154,
+        "heldAfterWatchdog": [
+          {
+            "id": 15,
+            "url": "https://static.addtoany.com/menu/page.js",
+            "method": "GET",
+            "type": "script",
+            "startedAt": "2026-10-15T17:02:02.487Z",
+            "state": "pending"
+          },
+          {
+            "id": 17,
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-TEST123",
+            "method": "GET",
+            "type": "script",
+            "startedAt": "2026-10-15T17:02:02.492Z",
+            "state": "pending"
+          }
+        ],
+        "coreAfterWatchdog": {
+          "bodyReadable": true,
+          "menuOperable": true,
+          "modeChanged": true,
+          "snapshot": {
+            "label": "after final core controls",
+            "at": 1792083754497,
+            "performanceMs": 32347,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-inactive",
+                "display": "none",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              }
+            ]
+          }
+        },
+        "paceTrace": [
+          {
+            "label": "DOM mutation",
+            "at": 1792083722366,
+            "performanceMs": 218,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": null,
+            "stateReady": null,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083722396,
+            "performanceMs": 248,
+            "readyState": "loading",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": null,
+            "bars": []
+          },
+          {
+            "label": "readystatechange",
+            "at": 1792083722445,
+            "performanceMs": 298,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": false,
+            "running": null,
+            "restartOnRequestAfter": null,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083722509,
+            "performanceMs": 362,
+            "readyState": "interactive",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 384,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 384,
+                "height": 2,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083722543,
+            "performanceMs": 396,
+            "readyState": "interactive",
+            "active": true,
+            "apiPresent": true,
+            "running": true,
+            "restartOnRequestAfter": 500,
+            "stateEnabled": true,
+            "stateReady": true,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 384,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 384,
+                "height": 2,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083752514,
+            "performanceMs": 30363,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": []
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083752542,
+            "performanceMs": 30392,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-active",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 384,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 384,
+                "height": 2,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "label": "DOM mutation",
+            "at": 1792083752643,
+            "performanceMs": 30493,
+            "readyState": "interactive",
+            "active": false,
+            "apiPresent": true,
+            "running": false,
+            "restartOnRequestAfter": false,
+            "stateEnabled": true,
+            "stateReady": false,
+            "bodyLoading": false,
+            "bars": [
+              {
+                "className": "pace pace-inactive",
+                "display": "none",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              },
+              {
+                "className": "pace-progress",
+                "display": "block",
+                "visibility": "visible",
+                "opacity": "1",
+                "width": 0,
+                "height": 0,
+                "visible": false
+              }
+            ]
+          }
+        ],
+        "errors": []
+      }
+    ],
+    "cleanup": {
+      "path": ".runtime/loading-followup/pace-cleanup.json",
+      "sha256": "75e13389c696ee20f27e7086e73f0c51e7c27419f4400d7bb27fdbf68b5fc731"
+    },
+    "profile": {
+      "path": ".runtime/loading-followup/pace-profile.json",
+      "sha256": "e007a7c32d27f2a3fb39d3db399e287873162033db587d012b09187f14c920a1"
+    }
+  }
+}

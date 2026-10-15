@@ -25,3 +25,5 @@
 仅 2 条纯 Umami token 矩阵项新增 blocked / post-1.0；评论和公式混合条目保留，只延期资源子要求。矩阵分母为 691，详情见[延期决定](DEC-03-1.0-DEFERRALS.md)。
 
 实施证据：[RSS 接入说明](../RSS-SITEMAP.md)、[平台验收](../validation/2026-10-15/platform-acceptance.md)、[已有实现独立验收](../validation/2026-10-15/existing-feature-acceptance.md)、[官方插件资源边界](PLUGIN-RESOURCE-FOLLOWUP.md)。这些记录保留其原候选和限定范围，不代表本轮已重新执行。
+
+2026-10-16 对 PR #417 合并产品的跟进：[协议和浏览器加载排查](../validation/2026-10-16/loading-followup.md)仍保留底层连接队列失败；[第三方故障、按需与 Pace 退场](../validation/2026-10-16/perf03-fault-followup.md)、[图片 blur 范围和刷新](../validation/2026-10-16/image-blur-options.md)、[独立构建与 CI](../validation/2026-10-16/build-reproducibility.md)分别登记限定结果。普通作者图片的[初始 HTML 映射](../validation/2026-10-16/authored-image-mapping.md)明确了主题和 Halo 正文处理的边界，尚不构成新插件开发或缩减合同的决定。范围、兼容承诺及预算均不改变。后续证据统一汇总到[本轮验收索引](../validation/2026-10-16/acceptance-followup.md)：正式性能 160 次中 142 次有效，当前候选 70/80；推荐图库、长文、公共页仍有失败，优先处理加载可靠性。
