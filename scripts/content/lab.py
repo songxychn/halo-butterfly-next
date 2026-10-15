@@ -33,9 +33,9 @@ def start():
             raise RuntimeError('Halo JAR differs from the pinned official digest')
         lab.write_json(runtime / 'lab.json', marker)
         (runtime / 'halo').mkdir()
-        shutil.copyfile(source, runtime / 'halo/halo-2.26.1.jar')
+        shutil.copyfile(source, runtime / 'halo' / lab.HALO_JAR_NAME)
         shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')
-    if lab.digest(runtime / 'halo/halo-2.26.1.jar') != lab.VERSIONS['halo']['sha256']:
+    if lab.digest(runtime / 'halo' / lab.HALO_JAR_NAME) != lab.VERSIONS['halo']['sha256']:
         raise RuntimeError('Halo JAR differs from the pinned official digest')
     lab.start(halo_only=True)
 

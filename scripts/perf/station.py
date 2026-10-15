@@ -90,7 +90,7 @@ def inspect(lab,client,args):
             if name.endswith('/'): continue
             if Path(name).is_absolute() or '..' in Path(name).parts: raise ValueError('Unsafe package path')
             if (lab.RUNTIME/'halo/data/themes/halo-butterfly-next'/name).read_bytes()!=z.read(name): raise ValueError('Installed package bytes differ')
-    jar=lab.RUNTIME/'halo/halo-2.26.1.jar'; jarsha=sha(jar.read_bytes())
+    jar=lab.RUNTIME/'halo' / lab.HALO_JAR_NAME; jarsha=sha(jar.read_bytes())
     if jarsha!=lab.VERSIONS['halo']['sha256']: raise ValueError('Wrong official Halo JAR')
     meta,body=fixture(); post=check_post(client,meta,body)
     lock=json.loads((FIXTURE/'plugin-profile.json').read_text()); enabled=set(lock['profiles'][args.profile][args.route]); actual=client.api('/apis/plugin.halo.run/v1alpha1/plugins?size=100')['items']

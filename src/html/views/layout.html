@@ -1,6 +1,7 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:with="
+     haloCommentResourcesManaged = ${true},
      uiLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh'}, #locale.language) ? #locale.toLanguageTag() : 'en'},
      contentLanguage = ${page == 'post' ? #annotations.getOrDefault(post, 'language', '') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'language', '') : '')},
      contentLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh-CN', 'zh-HK', 'zh-TW'}, contentLanguage) ? contentLanguage : uiLanguage},

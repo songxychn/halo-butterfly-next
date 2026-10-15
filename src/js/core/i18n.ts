@@ -168,6 +168,7 @@ const fallback: Record<string, string> = {
   "ui.mermaid": "Mermaid 图表",
   "ui.svgKeys": "，方向键平移，加减键缩放，Home 复位",
   "ui.commentLoading": "正在加载评论…",
+  "ui.commentUnsupported": "当前评论插件不支持所需的按需资源接口，请管理员安装支持该接口的版本。",
   "ui.commentError": "评论组件暂时无法加载，请重试。",
   "ui.close": "关闭",
   "ui.closeNotice": "关闭提示",

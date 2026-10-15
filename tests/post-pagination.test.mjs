@@ -86,7 +86,7 @@ test('仅一侧时 full-width；无摘要时 no-desc', () => {
 
 test('文章页插入上下篇；单页不插入；false 不渲染', () => {
   assert.match(postHtml, /views\/components :: postPagination/);
-  assert.ok(postHtml.indexOf('views/components :: postPagination') < postHtml.indexOf('halo:comment'));
+  assert.ok(postHtml.indexOf('views/components :: postPagination') < postHtml.indexOf('views/comment-lazy :: widget'));
   assert.ok(postHtml.indexOf('copy-right') < postHtml.indexOf('views/components :: postPagination'));
   assert.doesNotMatch(pageHtml, /postPagination/);
   assert.doesNotMatch(pageHtml, /pagination-post/);

@@ -56,7 +56,7 @@
       <div
         id="post-comment"
         role="region" aria-labelledby="comment-title"
-        th:if="${pluginFinder.available('PluginCommentWidget', '>=3.3.2') && haloCommentEnabled && singlePage.spec.allowComment}"
+        th:if="${pluginFinder.available('PluginCommentWidget') && haloCommentEnabled && singlePage.spec.allowComment}"
       >
         <div class="comment-head">
           <h2 class="comment-headline" id="comment-title" tabindex="-1">
@@ -66,20 +66,11 @@
         </div>
         <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
-          <th:block th:if="${themePjaxEnabled or theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
-            <th:block th:replace="~{views/comment-lazy :: widget('SinglePage', ${singlePage.metadata.name})}"/>
-          </th:block>
-          <div th:unless="${themePjaxEnabled or theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
-            <halo:comment
-              group="content.halo.run"
-              kind="SinglePage"
-              th:attr="name=${singlePage.metadata.name}"
-            />
-          </div>
+          <th:block th:replace="~{views/comment-lazy :: widget('SinglePage', ${singlePage.metadata.name})}"/>
         </div>
       </div>
       <p class="comment-notice comment-unavailable"
-        th:if="${theme.config.comments?.text != false and ((site.comment.enable != true or singlePage.spec.allowComment != true) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : ((not pluginFinder.available('PluginCommentWidget', '>=3.3.2') or not haloCommentEnabled) and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
+        th:if="${theme.config.comments?.text != false and ((site.comment.enable != true or singlePage.spec.allowComment != true) ? not #strings.isEmpty(theme.config.comments?.closed_notice) : ((not pluginFinder.available('PluginCommentWidget') or not haloCommentEnabled) and not #strings.isEmpty(theme.config.comments?.unavailable_notice)))}"
         th:text="${(site.comment.enable != true or singlePage.spec.allowComment != true) ? theme.config.comments.closed_notice : theme.config.comments.unavailable_notice}"></p>
     </section>
     <th:block th:replace="~{views/aside::single}"/>

@@ -119,7 +119,7 @@ def main():
     spec = importlib.util.spec_from_file_location('feed_sitemap_lab', REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
     require(lab.owned_process('halo') and (runtime / 'seed.json').exists(), 'Owned seeded process required')
-    require(lab.digest(runtime / 'halo/halo-2.26.1.jar') == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
+    require(lab.digest(runtime / 'halo' / lab.HALO_JAR_NAME) == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
     client = lab.Client()
     base = lab.BASE['halo']
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())

@@ -29,7 +29,7 @@ class LabTests(unittest.TestCase):
 
     def test_halo_only_start_does_not_launch_or_probe_hexo(self):
         with tempfile.TemporaryDirectory() as directory:
-            with patch.object(lab, 'RUNTIME', Path(directory)), patch.object(lab, 'owned_process', return_value=None), patch.object(lab, 'listening', return_value=False), patch.object(lab.subprocess, 'Popen') as launch, patch.object(lab.LOCAL, 'open') as request:
+            with patch.object(lab, 'RUNTIME', Path(directory)), patch.object(lab, 'owned_process', return_value=None), patch.object(lab, 'listening', return_value=False), patch.object(lab.subprocess, 'Popen') as launch, patch.object(lab.LOCAL, 'open') as request, patch.object(lab, 'digest', return_value=lab.VERSIONS['halo']['sha256']):
                 launch.return_value.pid = 12345
                 lab.start(halo_only=True)
                 launch.assert_called_once()
@@ -38,6 +38,12 @@ class LabTests(unittest.TestCase):
                 self.assertIn('--server.address=127.0.0.1', command)
                 request.assert_called_once_with(lab.BASE['halo'] + '/actuator/health/readiness', timeout=5)
                 self.assertFalse((Path(directory) / 'hexo-process.json').exists())
+
+    def test_halo_start_rejects_wrong_jar_before_launch(self):
+        with patch.object(lab, 'owned_process', return_value=None), patch.object(lab, 'listening', return_value=False), patch.object(lab, 'digest', return_value='wrong'), patch.object(lab.subprocess, 'Popen') as launch:
+            with self.assertRaisesRegex(RuntimeError, 'SHA-256 mismatch'):
+                lab.start(halo_only=True)
+            launch.assert_not_called()
 
     def test_no_reference_still_checks_halo_content_without_hexo_database(self):
         class Client:

@@ -77,3 +77,10 @@ bun scripts/integrations/check-browser.mjs http://127.0.0.1:18131 .runtime/third
 浏览器脚本只修改具有本项目 `lab.json` 和已核实 Halo 进程的回环实验室，并在结束时恢复原主题配置。所有外部 SDK 和字体请求被拦截为本地固定桩，检查请求、队列、配置、失败及 DOM；没有向正式服务发送数据。实际账号接入、外部 SDK 更新、Safari/真机和完整合同验收依旧单列，不能用本地桩提升为 `verified`。
 
 服务契约参考：[固定上游分析](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/head/analytics.pug)、[固定上游聊天](https://github.com/jerryc127/hexo-theme-butterfly/tree/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/layout/includes/third-party/chat)、[固定上游资源](https://github.com/jerryc127/hexo-theme-butterfly/blob/f223b1888b42b2b336068e6c959ed90a3cd7c8f3/scripts/events/cdn.js)、[GA4](https://developers.google.com/tag-platform/gtagjs)、[Cloudflare](https://developers.cloudflare.com/web-analytics/get-started/)、[Umami](https://docs.umami.is/docs/tracker-configuration)、[Chatra](https://chatra.com/help/api/)、[Crisp](https://docs.crisp.chat/guides/chatbox-sdks/web-sdk/dollar-crisp/)。
+
+
+## Umami 服务端适配候选（2026-10-15）
+
+优先扩展现有 `halo-sigs/plugin-umami`，以正式版 1.5.0 源码为基线，本地候选 `1.5.0-next.1`（Halo >=2.27.0），尚未由上游发布。公开读取地址为 `/apis/api.umami.halo.run/v1alpha1/stats`，填写到主题 `analytics.umami_analytics.UV_PV.stats_url`；文章请求附带 `path`。配置步骤、固定站点/UTC统计起点、缓存/限流和构建补丁见[插件说明](../integrations/patches/umami/README.md)。
+
+凭据仅由 Halo 进程环境变量 `HALO_UMAMI_STATS_API_KEY` 提供，不能存入主题设置、插件可公开读取的 ConfigMap 或 HTML。初版仅适配自托管 Umami 3.4.0；API 成功的合成上游测试不等于真实账户对账。主题负责追踪脚本时，将插件 `disableTracker` 设为 true，避免重复上报；此开关不影响只读统计端点。

@@ -1,3 +1,4 @@
+import {verifiedHaloVersion} from '../browser/support.mjs';
 /** Real default-editor roundtrip, confined to new unpublished drafts in an owned local Halo. */
 import assert from 'node:assert/strict';
 import {readFile,writeFile,mkdir,stat} from 'node:fs/promises';
@@ -17,7 +18,7 @@ process.env.PLAYWRIGHT_BROWSERS_PATH=join(runtime,'browsers');
 const engines=(process.env.CONTENT_EDITOR_ENGINES||'chromium,firefox,webkit').split(',');assert.ok(engines.every(x=>['chromium','firefox','webkit'].includes(x)));
 const pw=await import(pathToFileURL(join(runtime,'deps/node_modules/playwright/index.mjs')));
 const sha=value=>createHash('sha256').update(value).digest('hex');
-const report={haloVersion:'2.26.1',installedTheme:JSON.parse(await readFile(join(lab,'installed-package.json'))),fixtureSha256:sha(fixture),cases:[],limitations:['Only new local unpublished drafts are written. No publish action or theme/configuration changes.','Editor roundtrip is independent of installed theme behavior; no public rendering claim.','Plain paste negative control is Chromium-only, delivered through a ClipboardEvent with text/html, not a physical clipboard. Firefox synthetic paste did not roundtrip content and is not qualified.','CodeMirror document is read after reload to include offscreen lines. No editor state is injected for HTML-block input.']};
+const report={haloVersion:await verifiedHaloVersion(lab),installedTheme:JSON.parse(await readFile(join(lab,'installed-package.json'))),fixtureSha256:sha(fixture),cases:[],limitations:['Only new local unpublished drafts are written. No publish action or theme/configuration changes.','Editor roundtrip is independent of installed theme behavior; no public rendering claim.','Plain paste negative control is Chromium-only, delivered through a ClipboardEvent with text/html, not a physical clipboard. Firefox synthetic paste did not roundtrip content and is not qualified.','CodeMirror document is read after reload to include offscreen lines. No editor state is injected for HTML-block input.']};
 let browser;
 try{
  for(const engine of engines){

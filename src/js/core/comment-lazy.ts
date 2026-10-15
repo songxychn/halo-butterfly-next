@@ -10,15 +10,54 @@ type Options = {
   timeoutMs?: number;
 };
 
-/** Use the active plugin's versioned URL, never a hard-coded or external SDK. */
-export function commentModuleUrl(root: Document, attempt = 0) {
-  for (const link of root.querySelectorAll<HTMLLinkElement>('link[rel="modulepreload"][href]')) {
-    const url = new URL(link.href, root.baseURI);
-    if (url.origin !== root.location.origin || url.pathname !== MODULE_PATH) continue;
-    if (attempt) url.searchParams.set('theme-comment-retry', String(attempt));
-    return url.href;
+/** Require the explicit plugin contract; old global preloads are not a fallback. */
+function commentResourceUrl(root: Document, kind: 'module' | 'style') {
+  if (root.querySelector<HTMLMetaElement>('meta[name="halo-comment-widget-contract"]')?.content !== '1') {
+    throw new Error('Official comment resource contract is unavailable');
   }
-  throw new Error('Official comment module is unavailable');
+  const raw = root.querySelector<HTMLMetaElement>(`meta[name="halo-comment-widget-${kind}"]`)?.content;
+  if (!raw) throw new Error('Official comment resource metadata is unavailable');
+  const url = new URL(raw, root.baseURI);
+  const expected = kind === 'module' ? MODULE_PATH : '/plugins/PluginCommentWidget/assets/static/index.css';
+  if (url.origin !== root.location.origin || url.pathname !== expected || url.username || url.password || !url.searchParams.get('version')) {
+    throw new Error('Invalid official comment resource URL');
+  }
+  return url.href;
+}
+
+export function commentModuleUrl(root: Document, attempt = 0) {
+  const url = new URL(commentResourceUrl(root, 'module'));
+  if (attempt) url.searchParams.set('theme-comment-retry', String(attempt));
+  return url.href;
+}
+
+const styles = new WeakMap<Document, { url: string; node: HTMLLinkElement; promise: Promise<void> }>();
+/** The cache follows the actual head node, which PJAX replaces between pages. */
+export function loadCommentStyle(root: Document, timeoutMs = 8000) {
+  const url = commentResourceUrl(root, 'style');
+  const moduleVersion = new URL(commentResourceUrl(root, 'module')).searchParams.get('version');
+  if (new URL(url).searchParams.get('version') !== moduleVersion) throw new Error('Mismatched comment resources');
+  const previous = styles.get(root);
+  if (previous?.url === url && previous.node.isConnected) return previous.promise;
+  const node = root.createElement('link');
+  node.rel = 'stylesheet'; node.href = url;
+  node.setAttribute('data-theme-comment-style', '');
+  let resolve!: () => void, reject!: (reason: Error) => void;
+  const promise = new Promise<void>((yes, no) => { resolve = yes; reject = no; });
+  const finish = (ok: boolean) => {
+    clearTimeout(timer); node.onload = node.onerror = null;
+    if (ok) resolve();
+    else {
+      node.remove();
+      if (styles.get(root)?.node === node) styles.delete(root);
+      reject(new Error('Comment stylesheet failed'));
+    }
+  };
+  const timer = setTimeout(() => finish(false), timeoutMs);
+  node.onload = () => finish(true); node.onerror = () => finish(false);
+  styles.set(root, { url, node, promise });
+  root.head.append(node);
+  return promise;
 }
 
 /** Jump links request mounting before moving focus/scroll. */
@@ -36,7 +75,7 @@ export function initializeLazyComments(root: Document = document, options: Optio
   if (!region || !target || !host || !status || !retry || !win || target.dataset.commentLazyBound === 'true') return;
   target.dataset.commentLazyBound = 'true';
   const importModule = options.importModule ?? (url => import(/* @vite-ignore */ url));
-  let state: 'idle' | 'loading' | 'mounted' | 'failed' = host.querySelector('comment-widget') ? 'mounted' : 'idle';
+  let state: 'idle' | 'loading' | 'mounted' | 'failed' | 'unsupported' = host.querySelector('comment-widget') ? 'mounted' : 'idle';
   let active = true, attempt = 0, generation = 0;
   let timer: number | undefined;
   let observer: IntersectionObserver | undefined;
@@ -48,14 +87,14 @@ export function initializeLazyComments(root: Document = document, options: Optio
     retry.hidden = next !== 'failed';
   };
   const load = async () => {
-    if (!active || state === 'loading' || state === 'mounted') return;
+    if (!active || state === 'loading' || state === 'mounted' || state === 'unsupported') return;
     observer?.disconnect();
     const current = ++generation;
     display('loading', t('ui.commentLoading'));
     try {
       const url = commentModuleUrl(root, attempt++);
-      const module = await Promise.race([
-        importModule(url),
+      const [module] = await Promise.race([
+        Promise.all([importModule(url), loadCommentStyle(root, options.timeoutMs)]),
         new Promise<never>((_, reject) => {
           timer = win.setTimeout(() => reject(new Error('Comment module timeout')), options.timeoutMs ?? 8000);
         }),
@@ -99,6 +138,13 @@ export function initializeLazyComments(root: Document = document, options: Optio
   });
   display(state, state === 'mounted' ? '' : t('ui.commentHint'));
   if (state === 'mounted') return;
+  try {
+    const moduleVersion = new URL(commentResourceUrl(root, 'module')).searchParams.get('version');
+    if (new URL(commentResourceUrl(root, 'style')).searchParams.get('version') !== moduleVersion) throw new Error('Mismatched comment resources');
+  } catch {
+    display('unsupported', t('ui.commentUnsupported'));
+    return;
+  }
   if (target.dataset.commentEager === 'true' || win.location.hash === '#post-comment' || !('IntersectionObserver' in win)) trigger();
   else {
     observer = new IntersectionObserver(entries => {

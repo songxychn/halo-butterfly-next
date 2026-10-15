@@ -82,8 +82,8 @@ jobs:
           esac
           printf 'manager=%s\n' "$manager" >> "$GITHUB_OUTPUT"
           bun -p "'needs-node=' + Boolean(require('./package.json').engines?.node)" >> "$GITHUB_OUTPUT"
+      # The source-built CommentWidget frontend needs Node even when the theme uses Bun.
       - uses: actions/setup-node@v4
-        if: steps.theme-manager.outputs.needs-node == 'true'
         with:
           node-version: '24'
       - uses: pnpm/action-setup@v4

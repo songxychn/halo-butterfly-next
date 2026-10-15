@@ -154,7 +154,7 @@ test('只有任意字符串、失败证据或作者自审不能把条目置为�
 test('运行清单必须覆盖精确提交、安装包、夹具和合同场景', () => {
   const item={...matrix.items[0],verifiedCommit:'a'.repeat(40)};
   const evidence={kind:'runtime',actor:'runner',date:'2026-09-06T12:00:00+08:00'};
-  const manifest={kind:'runtime',sourceSha:item.verifiedCommit,upstreamSha:UPSTREAM_COMMIT,result:'passed',actor:evidence.actor,testedAt:evidence.date,matrixIds:[item.id],commandsAndReports:['node fixture-runner.mjs'],limitations:[],artifactSha256:'b'.repeat(64),fixtureSha:'c'.repeat(40),haloVersion:'2.26.1',runtimeManifest:'docs/parity/evidence/runtime.json',scenarioIds:item.acceptance.contractScenarios};
+  const manifest={kind:'runtime',sourceSha:item.verifiedCommit,upstreamSha:UPSTREAM_COMMIT,result:'passed',actor:evidence.actor,testedAt:evidence.date,matrixIds:[item.id],commandsAndReports:['node fixture-runner.mjs'],limitations:[],artifactSha256:'b'.repeat(64),fixtureSha:'c'.repeat(40),haloVersion:'2.27.0',runtimeManifest:'docs/parity/evidence/runtime.json',scenarioIds:item.acceptance.contractScenarios};
   assert.deepEqual(checkEvidenceManifest(manifest,evidence,item),[]);
   assert(checkEvidenceManifest({...manifest,result:'failed'},evidence,item).some(e=>e.includes('identity/result mismatch')));
   assert(checkEvidenceManifest({...manifest,scenarioIds:[]},evidence,item).some(e=>e.includes('required contract scenarios')));

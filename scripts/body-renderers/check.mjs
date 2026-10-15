@@ -1,3 +1,4 @@
+import {verifiedHaloVersion} from '../browser/support.mjs';
 import assert from 'node:assert/strict';
 import { createServer, request as httpRequest } from 'node:http';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
@@ -62,7 +63,7 @@ if (actual) {
 }
 const env = browserEnvironment(); Object.assign(process.env, env);
 const pw = createRequire(path.join(RUNTIME, 'deps/package.json'))('playwright');
-const report = { startedAt: new Date().toISOString(), transport: transport ? 'diagnostic proxy with upstream Connection: close' : 'native', kind: actual ? 'Halo 2.26.1' : 'isolated browser fixture', sourceHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO, encoding: 'utf8' }).trim(), dirty: execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: REPO, encoding: 'utf8' }).trim(), fixtureSha256:sha256(JSON.stringify(fixtures)), packageSha256: sha256(await readFile(path.join(REPO, 'dist/halo-butterfly-next-0.1.0-alpha.4.zip'))), results: [] };
+const report = { startedAt: new Date().toISOString(), transport: transport ? 'diagnostic proxy with upstream Connection: close' : 'native', kind: actual ? 'Halo ' + await verifiedHaloVersion(path.join(REPO,'.runtime/body-renderers/halo-lab')) : 'isolated browser fixture', sourceHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO, encoding: 'utf8' }).trim(), dirty: execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: REPO, encoding: 'utf8' }).trim(), fixtureSha256:sha256(JSON.stringify(fixtures)), packageSha256: sha256(await readFile(path.join(REPO, 'dist/halo-butterfly-next-0.1.0-alpha.4.zip'))), results: [] };
 const save = () => writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2));
 let failed = false;
 for (const engine of engines) {

@@ -1,6 +1,6 @@
 # 评论增强首批
 
-只使用 Halo 官方 CommentWidget，当前基线 >=3.3.2；不配置第三方评论提供方。文章及单页的评论挂载、提交、回复和计数沿用已有实现。需求跟踪 [#386](https://github.com/songxychn/halo-butterfly-next/issues/386)，范围服从 [DEC-01](https://github.com/songxychn/halo-butterfly-next/issues/46#issuecomment-5682055297)。
+只使用 Halo 官方 CommentWidget，当前开发候选需要资源协议 v1（本地实现 `3.4.0-theme-demand.1`，基于官方 3.4.0；尚未由上游发布）；不配置第三方评论提供方。文章及单页的评论挂载、提交、回复和计数沿用已有实现。需求跟踪 [#386](https://github.com/songxychn/halo-butterfly-next/issues/386)，范围服从 [DEC-01](https://github.com/songxychn/halo-butterfly-next/issues/46#issuecomment-5682055297)。
 
 ## 评论懒加载（后续批次）
 
@@ -10,7 +10,7 @@
 
 懒加载使用当前官方插件注入的同源、版本化模块和其公开 `comment-widget` 属性（Post/SinglePage/Moment 的 group/kind/name/version），不自行实现登录、权限、提交或回复。主题“加载完成”指模块可用且组件已挂载；组件内部的数据、登录及提交失败由官方 UI 处理，主题不会为了重试而替换已有编辑器。操作状态和重试按钮始终可用，`comments.text` 只控制原来的说明/关闭/不可用文案。
 
-**资源边界**：CommentWidget 3.3.2 在 head 中注入 JS `modulepreload` 和 CSS；本批保留这些插件资源，只推迟组件初始化和评论数据请求，不承诺首屏零评论资源下载。参考[官方组件用法](https://github.com/halo-sigs/plugin-comment-widget/blob/v3.3.2/dev/component-usage.md)与[资源注入源码](https://github.com/halo-sigs/plugin-comment-widget/blob/v3.3.2/src/main/java/run/halo/comment/widget/CommentWidgetHeadProcessor.java)。
+**资源边界（2026-10-15 更新）**：主题按当前请求声明资源接管，配合[评论插件补丁](../integrations/patches/comment-widget/README.md)以非下载元数据传递 JS/CSS 地址；开启懒加载后延迟资源、组件和数据请求，关闭时立即加载。官方原版尚无此协议，会显示明确的所需接口提示。此前 3.3.2 仅延迟挂载的记录保留为历史，不作为新候选证据。
 
 [本批限定验收](validation/2026-10-13/comment-lazy.md)：647 项工程测试、三引擎真实 Halo 的 81 项检查及 160 文件安装比对通过；原失败与完整合同缺口保留。
 
@@ -27,7 +27,7 @@
 | `comments.text` | true | 控制下方三种纯文本提示；HTML 字符按文字显示 |
 | `comments.notice` | 空 | 可用评论区的说明，可换行 |
 | `comments.closed_notice` | 空 | 全局或当前文章/单页禁止评论时显示 |
-| `comments.unavailable_notice` | 空 | 全局与主体允许评论，但官方插件不可用或低于基线时显示 |
+| `comments.unavailable_notice` | 空 | 全局与主体允许评论，但官方插件未安装或停用时显示；启用但缺资源协议由加载区域单独提示 |
 | `comments.jump` | true | 当前文章/单页实际挂载评论时提供右侧跳转入口 |
 
 关闭评论的说明优先于插件不可用说明。留空不新增提示。`rightside.item_order` 支持 `comment`，可放到常驻或齿轮展开组，或从列表中省略以隐藏；功能条件不满足时不会创建空入口。原生 `#post-comment` 链接无脚本仍可跳转；增强脚本保留查询参数和浏览历史，把键盘焦点移到评论标题。章节自动追踪在阅读评论时保留评论片段。

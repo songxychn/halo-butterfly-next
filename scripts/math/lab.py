@@ -52,7 +52,7 @@ def bootstrap(package, source_sha, plugin):
         raise RuntimeError('Bootstrap requires an empty fresh runtime; use install for updates')
     lab.write_json(runtime / 'lab.json', marker)
     (runtime / 'halo').mkdir(exist_ok=True)
-    shutil.copyfile(jar_source, runtime / 'halo/halo-2.26.1.jar')
+    shutil.copyfile(jar_source, runtime / 'halo' / lab.HALO_JAR_NAME)
     shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')
     lab.start(halo_only=True)
     client = lab.Client(initialize=True)

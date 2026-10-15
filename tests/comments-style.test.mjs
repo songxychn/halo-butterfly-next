@@ -25,8 +25,8 @@ test('comments.scss 挂在 #post-comment，选择器不使用 data-theme', () =>
   assert.match(postHtml, /id="post-comment"/);
   assert.match(pageHtml, /id="post-comment"/);
   assert.match(postHtml, /class="comment-headline"/);
-  assert.match(postHtml, /<halo:comment/);
-  assert.match(pageHtml, /<halo:comment/);
+  assert.match(postHtml, /views\/comment-lazy :: widget/);
+  assert.match(pageHtml, /views\/comment-lazy :: widget/);
   assert.doesNotMatch(rules, /\[data-theme/);
   assert.doesNotMatch(rules, /th:utext/);
   assert.doesNotMatch(rules, /aside\.button/);
