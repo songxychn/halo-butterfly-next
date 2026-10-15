@@ -24,7 +24,6 @@ from html.parser import HTMLParser
 REPO = Path(__file__).resolve().parents[2]
 FIXTURES = REPO / 'fixtures/comparison'
 VERSIONS = json.loads((FIXTURES / 'versions.json').read_text())
-HALO_JAR_NAME = 'halo-' + VERSIONS['halo']['version'] + '.jar'
 CONTENT = json.loads((FIXTURES / 'content.json').read_text())
 RUNTIME = Path(os.environ.get('LAB_RUNTIME', str(REPO / '.runtime/comparison'))).resolve()
 PORTS = {'halo': int(os.environ.get('HALO_PORT', '18091')), 'hexo': int(os.environ.get('HEXO_PORT', '14000'))}
@@ -82,7 +81,7 @@ def prepare():
     write_json(marker, identity)
     halo = RUNTIME / 'halo'
     halo.mkdir(exist_ok=True)
-    jar = halo / HALO_JAR_NAME
+    jar = halo / 'halo-2.26.1.jar'
     if not jar.exists():
         source = os.environ.get('HALO_JAR_SOURCE')
         if source:
@@ -193,7 +192,7 @@ class Client:
         self.csrf = parser.csrf
         match = re.search(r'const publicKey = (".*?");', page)
         if not match or not self.csrf:
-            raise RuntimeError('Expected pinned Halo login form')
+            raise RuntimeError('Expected Halo 2.26.1 login form')
         with tempfile.NamedTemporaryFile(mode='w', dir=RUNTIME / 'halo', suffix='.pem') as key:
             key.write('-----BEGIN PUBLIC KEY-----\n' + json.loads(match.group(1)) + '\n-----END PUBLIC KEY-----\n'); key.flush()
             encrypted = run(['openssl', 'pkeyutl', '-encrypt', '-pubin', '-inkey', key.name, '-pkeyopt', 'rsa_padding_mode:pkcs1'], input=self.auth['password'].encode(), capture_output=True).stdout
@@ -542,10 +541,6 @@ def owned_process(name):
 def start(halo_only=False):
     services = ['halo'] if halo_only else ['halo', 'hexo']
     for name in services:
-        if name == 'halo' and owned_process(name):
-            current = json.loads((RUNTIME / 'halo-process.json').read_text())
-            if current['identity'] != str(RUNTIME / 'halo' / HALO_JAR_NAME):
-                raise RuntimeError('Running Halo version differs from lock; use a fresh runtime')
         if owned_process(name) and not listening(PORTS[name]):
             continue  # A previously launched owned process may still be starting.
         if listening(PORTS[name]):
@@ -553,9 +548,7 @@ def start(halo_only=False):
                 raise RuntimeError(f'{name} port {PORTS[name]} is occupied by a process this lab does not own')
             continue
         if name == 'halo':
-            identity = str(RUNTIME / 'halo' / HALO_JAR_NAME)
-            if digest(identity) != VERSIONS['halo']['sha256']:
-                raise RuntimeError('Halo JAR SHA-256 mismatch; refusing to execute it')
+            identity = str(RUNTIME / 'halo/halo-2.26.1.jar')
             command = ['java', '-Xms128m', '-Xmx512m', '-Duser.timezone=' + VERSIONS['timezone'], '-jar', identity, '--server.address=127.0.0.1', '--server.port=' + str(PORTS[name]), '--halo.work-dir=' + str(RUNTIME / 'halo/data'), '--halo.external-url=' + BASE[name], '--spring.thymeleaf.cache=false', '--springdoc.api-docs.enabled=true', '--halo.attachment.resource-mappings[0].path-pattern=/lab/**', '--halo.attachment.resource-mappings[0].locations[0]=lab', '--logging.level.org.thymeleaf.TemplateEngine=ERROR']
         else:
             identity = str(RUNTIME / 'hexo/public')

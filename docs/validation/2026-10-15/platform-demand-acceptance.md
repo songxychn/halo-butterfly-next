@@ -1,5 +1,7 @@
 # Halo 2.27 平台按需加载验收
 
+> **已撤回方案的历史证据，非当前安装或交付方案。** 维护者于 2026-10-15 澄清兼容边界并拒绝本次上游功能改造；定制插件补丁及依赖已从当前源码移除。以下结果只归属于文中固定的历史候选，不转用为恢复后的官方插件组合验收。源码、补丁与当时 runner 可在 [2d6fbad 历史快照](https://github.com/songxychn/halo-butterfly-next/tree/2d6fbadb6b07fa38e330dde66b01d198b723d8cc)查阅；当前决定见[更正记录](../../parity/PLATFORM-COMPATIBILITY-CORRECTION.md)。
+
 2026-10-15，本任务本地 Halo **2.27.0** 的限定集成验收通过。主题实现提交 `946d63d7d512c7f50167060b55217b5e0292c27b`，安装包 `halo-butterfly-next-0.1.0-alpha.4.zip` SHA-256 为 `c593b2b3e9950dafdcd188ffb15d3fcf1c7fc8d2bb16b5d96293a4e755e97d95`。这不是完整 1.0 验收，也不覆盖或改写历史 Halo 2.26.1 的通过、失败及候选归属。
 
 [精简机器记录](platform-demand-acceptance.json)保存原始报告路径／SHA、插件补丁与 JAR 身份；[独立审查](platform-demand-independent-review.md)记录代码、构建和协议审查。运行及恢复由集成负责人执行，本记录通过读取原始报告核对结果，没有另行操作实验室。

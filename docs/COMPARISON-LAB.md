@@ -1,8 +1,6 @@
 # 双站对照环境
 
-本环境为功能矩阵提供可重复的基础样例。Hexo 参考站固定到 Butterfly **5.7.0** / `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`，当前开发候选的 Halo 固定为 **2.27.0**。HTML/HTTP 成功只代表环境就绪，不能替代视觉、交互或插件验收。
-
-版本升级后使用新的 `LAB_RUNTIME`，不在旧实验数据库上隐式升级。下方历史运行记录继续标识其原版本；不据新锁定文件改写历史结果。
+本环境为功能矩阵提供可重复的基础样例。Hexo 参考站固定到 Butterfly **5.7.0** / `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`，Halo 固定为 **2.26.1**。HTML/HTTP 成功只代表环境就绪，不能替代视觉、交互或插件验收。
 
 ## 初始化与运行
 
@@ -44,7 +42,7 @@ python3 scripts/lab/lab.py stop
 
 `fixtures/comparison/content.json` 是双方内容真相源，包含 12 篇文章、1 个自定义页面、分类、标签、导航、固定 UTC 发布时间、分页大小，以及共同的页面背景图。首篇 `article.html` 覆盖标题层级、代码、表格、列表、图片、内部链接。`assets/` 保存双方共用的图片，包含 12 张优化后的 WebP 文章封面、首页和归档等页面使用的图片，以及原有的合成 SVG；两站 `/lab/*` 提供相同字节。首页使用第 09 篇文章的封面。Halo 通过专用附件资源映射读取新运行目录中的 `halo/data/attachments/lab`，不会修改主题 ZIP 或安装后的模板。WebP 封面来源见 `image-sources.json`；照片遵循 [Pexels License](https://www.pexels.com/license/)；归档、标签、分类顶图分别使用已有来源记录的金色山景、雾林、海岸照片。新夹具需使用全新 `LAB_RUNTIME` 和端口，不能在旧夹具的播种站上覆盖。
 
-Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的 `fixtures/comparison/hexo/bun.lock` 固定。上游源码和完整第三方资源仅存在运行目录中，不进入仓库或发布包。Halo JAR 摘要在 `versions.json` 中固定，来源为 [Halo 官方 2.27.0 发布资产](https://github.com/halo-dev/halo/releases/tag/v2.27.0)；站点路径和日期按 [Hexo 官方配置](https://hexo.io/docs/configuration) 设置。
+Hexo 的程序、生成器、渲染器及启用的浏览器依赖都由独立的 `fixtures/comparison/hexo/bun.lock` 固定。上游源码和完整第三方资源仅存在运行目录中，不进入仓库或发布包。Halo JAR 摘要在 `versions.json` 中固定，来源为 [Halo 官方 2.26.1 发布资产](https://github.com/halo-dev/halo/releases/tag/v2.26.1)；站点路径和日期按 [Hexo 官方配置](https://hexo.io/docs/configuration) 设置。
 
 | 共同语义 | Hexo 映射 | Halo 映射 |
 | --- | --- | --- |

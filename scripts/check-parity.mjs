@@ -91,7 +91,7 @@ export function checkEvidenceManifest(manifest, evidence, item) {
   if (!Array.isArray(manifest.commandsAndReports) || !manifest.commandsAndReports.length || !manifest.commandsAndReports.every(nonempty)) fail('Evidence manifest lacks commands/reports');
   if (!Array.isArray(manifest.limitations)) fail('Evidence manifest lacks limitations');
   if (evidence.kind === 'runtime') {
-    if (!digest(manifest.artifactSha256) || !sha(manifest.fixtureSha) || manifest.haloVersion !== '2.27.0' || !safePath(manifest.runtimeManifest)) fail('Runtime evidence lacks exact package/fixture/platform manifest');
+    if (!digest(manifest.artifactSha256) || !sha(manifest.fixtureSha) || manifest.haloVersion !== '2.26.1' || !safePath(manifest.runtimeManifest)) fail('Runtime evidence lacks exact package/fixture/platform manifest');
     if (!item.acceptance.contractScenarios.every(id => manifest.scenarioIds?.includes(id))) fail('Runtime evidence does not cover required contract scenarios');
   }
   if (evidence.kind === 'review' && (manifest.actor === item.author || manifest.reviewedSha !== item.verifiedCommit)) fail('Independent review mismatch');

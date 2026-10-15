@@ -1,45 +1,28 @@
-# P03 插件资源按需：调查、实现与验证边界
+# P03 官方插件能力边界与方案撤回
 
-核对日期：2026-10-15（Asia/Shanghai）。本文保留最初只读调查及接口建议，并在后续维护者授权下补充本地实现状态。当前已修改三个插件源码并在独占实验站安装候选；未提交上游 issue/PR、发布插件或部署生产。范围服从 [#415](https://github.com/songxychn/halo-butterfly-next/issues/415)、后续维护者授权与 [平台决定](DEC-03-PLATFORM-DECISION.md)。原版调查不代表补丁候选的当前行为。
+2026-10-15。维护者已明确拒绝将本次功能增强提交上游，并澄清“不考虑兼容性”仅指本主题自身，不包括 Halo 或官方插件。此前定制资源协议、强制 Halo 2.27.0 与 Umami 插件扩展路线已撤回；没有向三个插件上游提交 issue/PR，也没有发布或生产部署。详见[兼容边界更正](PLATFORM-COMPATIBILITY-CORRECTION.md)。
 
-## 本轮实现（2026-10-15）
+以下保留当日对官方发行版的源码调查事实，用于说明现有能力边界，不构成修改上游的行动计划。
 
-维护者已授权升级平台并推进三个现有插件的改造；本地源码开发、构建及独立审查已进行。Halo 锁定 2.27.0；CommentWidget 3.4.0-theme-demand.1、KaTeX 3.0.0-demand.1 与 Umami 1.5.0-next.1 均为本地补丁候选，非官方已发布版本。可携带源码补丁及构建方法位于 [integrations/patches](../../integrations/patches/)。下面的原版源码调查保留为改造依据，不代表补丁仍无能力；本轮真实 Halo 三引擎 27 组资源与 PJAX 检查，以及 4 组启停/主题切换检查通过，详见[候选验收记录](../validation/2026-10-15/platform-demand-acceptance.md)。这些限定结果不能自动关闭 P03 或代替完整 1.0 验收。
-
-## 原版调查结论与版本
+## 当前结论与版本
 
 | 插件 | 已核对版本与提交 | 当前资源行为 / 兼容限制 |
 | --- | --- | --- |
 | 官方 CommentWidget，本项目既有基线 | `v3.3.2`，`1bb6becf499d3f23f3bf9c8ab08b71bb8e078b74` | head 无条件插入版本化 JS `modulepreload` 与 CSS；主题现有懒加载仅延后模块执行/组件挂载及评论数据请求，不能阻止这两项首屏下载。 |
-| 官方 CommentWidget，查询时最新正式版 | `v3.4.0`，`ae278ec1be30bc197e99557090d62f34d76823de`，2026-10-14 发布；查询时 main 为 `dfbf67e1761aefec18362a4846f98a719f55d858` | release 和 main 的 head 注入仍无条件；release 设置没有资源按需开关。`plugin.yaml` 明确要求 Halo `>=2.27.0`，不能直接替换既有实验 Halo 2.26.1 上的 3.3.2；维护者现已允许升级基线，但升级本身不解决资源按需。 |
+| 官方 CommentWidget，查询时最新正式版 | `v3.4.0`，`ae278ec1be30bc197e99557090d62f34d76823de`，2026-10-14 发布；查询时 main 为 `dfbf67e1761aefec18362a4846f98a719f55d858` | release 和 main 的 head 注入仍无条件；release 设置没有资源按需开关。`plugin.yaml` 明确要求 Halo `>=2.27.0`，不能直接替换合同 Halo 2.26.1 上的 3.3.2 来解决本项。 |
 | Halo KaTeX，查询时最新正式版 | `v3.0.0`，`07c18d120c43dd680390aebe112bd7c6a9565278`，2026-01-16 发布；查询时 main 为 `88d0def91739bb0e4a892fcefc4dee7d988beb32` | 要求 Halo `>=2.22.2`。有基本配置时 head 全站输出 CSS；开启客户端渲染后全站输出 JS。release 和 main 的 head 处理器均未按页面公式内容判断；关闭客户端渲染不能去掉 CSS。 |
 
 来源：[CommentWidget 3.3.2 head](https://github.com/halo-dev/plugin-comment-widget/blob/1bb6becf499d3f23f3bf9c8ab08b71bb8e078b74/src/main/java/run/halo/comment/widget/CommentWidgetHeadProcessor.java)、[3.4.0 release](https://github.com/halo-dev/plugin-comment-widget/releases/tag/v3.4.0)、[3.4.0 head](https://github.com/halo-dev/plugin-comment-widget/blob/ae278ec1be30bc197e99557090d62f34d76823de/src/main/java/run/halo/comment/widget/CommentWidgetHeadProcessor.java)、[3.4.0 设置](https://github.com/halo-dev/plugin-comment-widget/blob/ae278ec1be30bc197e99557090d62f34d76823de/src/main/resources/extensions/settings.yaml)、[3.4.0 平台要求](https://github.com/halo-dev/plugin-comment-widget/blob/ae278ec1be30bc197e99557090d62f34d76823de/src/main/resources/plugin.yaml)；[KaTeX 3.0.0 release](https://github.com/halo-sigs/plugin-katex/releases/tag/v3.0.0)、[release head](https://github.com/halo-sigs/plugin-katex/blob/07c18d120c43dd680390aebe112bd7c6a9565278/src/main/java/run/halo/katex/KaTeXHeadProcessor.java)、[main head](https://github.com/halo-sigs/plugin-katex/blob/88d0def91739bb0e4a892fcefc4dee7d988beb32/src/main/java/run/halo/katex/KaTeXHeadProcessor.java)、[平台要求](https://github.com/halo-sigs/plugin-katex/blob/07c18d120c43dd680390aebe112bd7c6a9565278/src/main/resources/plugin.yaml)。
 
-## 第一项：评论资源
+## 当前主题处理方式
 
-最小建议是在官方插件增加**明确 opt-in 的主题管理资源契约**：默认保持当前注入；仅在当前请求/当前主题明确接管资源时，head 不再发出 `modulepreload`/stylesheet，而以不会触发下载的元数据提供版本化模块与 CSS 地址。具体变量/API 形式须在 Halo 的模板执行顺序下验证并与上游约定，不能假定一个新字段已被平台识别。避免仅增加全站总开关而让切换到其他主题后丢失样式。
+- 评论继续使用官方 CommentWidget 的版本化模块地址，按需要延迟组件挂载和数据请求，保留立即模式、锚点、失败重试和切页清理。官方插件 head 预加载的脚本/样式仍可能提前下载，不宣称首屏零评论资源。
+- KaTeX 继续使用官方插件输出，主题处理显示、复制及原文回退；不删除或劫持官方注入，不增加必须由定制插件提供的按需协议。全站 CSS/JS 的行为按官方版本如实记录。
+- Halo 最低版本恢复 `>=2.20.2`，评论入口仍遵循官方插件最低版本及其 Halo 要求。已有实测基线为 Halo 2.26.1 / CommentWidget 3.3.2；3.4.0 自身要求 Halo 2.27.0，不等于整个主题必须提高最低版本。未来官方版本按实际组合验证，不承诺未经测试的全部版本。
+- Umami 保留主题追踪和公开统计接口消费功能；私有凭据不能放在浏览器。撤回现有插件的统计端点补丁，后端承载待重新讨论，不自动建立另一套服务。
 
-预计插件侧涉及 `CommentWidgetHeadProcessor.java`、资源契约声明/配置入口、说明和定向测试；不更改评论存储、权限、提交、验证码或编辑器。主题侧继续复用现有 `comment-lazy.ts` 和官方组件，在接近视口/锚点跳转时加载样式和模块；当前 `commentModuleUrl()` 从 `modulepreload` 读取 URL，因此必须同步支持上述不下载元数据，不能只删除 preload。需要样式失败/重试、资源去重、切页取消和版本一致性检查。
+## 状态与历史记录
 
-验收分别记录下载、组件挂载、数据请求：普通无评论页和延迟区未触发时不下载评论资源；接近视口、点击跳转、直接锚点可加载；立即模式仍正常；Post/SinglePage/Moment 主体正确；CSS/JS 故障能恢复，编辑草稿不被重建，PJAX 往返不重复请求/组件。插件缺失/停用、不满足所需版本时的明确提示或禁用，以及其他主题继续回归；不再要求旧资源契约功能兼容。
+严格的评论／公式资源按需目标保持未满足；此次纠正不将其标为通过、取消或延期。后续方案需在维护者确认的官方兼容边界内讨论。三个上游提交计划已取消，不再列为待审批事项。
 
-**版本路线已确认（2026-10-15）**：维护者确认稳定版前可以为了效果不考虑旧版本兼容。优先向当前上游推进通用能力，允许提高 Halo／插件最低版本；不准备 3.3.2 回移或旧资源契约兼容层。实施时锁定满足所需接口的一组正式版本，同步主题声明与实验室配置并重新验收；当前源码最低版本和独占实验站已升级到 Halo 2.27.0，插件使用上述补丁候选；正式分发仍待上游提交与发行决定。
-
-## 第二项：KaTeX 资源
-
-最小建议同样为官方插件提供明确 opt-in 的资源接管/按内容加载入口，默认保持旧行为。`KaTeXHeadProcessor.java` 在接管模式不再全站输出资源；插件的 Post/SinglePage 内容处理器与前台初始化器需要一起处理，避免它们仍插入依赖全局 `katex` 的同步脚本。
-
-默认编辑器保存的 MathML 与原始 TeX 分开处理：已渲染 MathML 保持原文与可访问语义，有公式时按需补 CSS，不需要重新加载渲染 JS；其他编辑器的原始节点仅在明确选择器实际命中时加载 JS，加载完成后再渲染，禁止重复处理已有 MathML。无公式页面不得因启用插件而下载 CSS/JS；有公式页不要求等到公式进入视口后才加载。若采用 DOM 探测，应在当前页面内容初始化后执行并参与 PJAX 生命周期，不用固定延时猜测时序。
-
-预计外仓范围为 head 处理器、`BasicConfig`/设置与文档、两种内容处理器、`KaTeXJSInjector` 和定向测试；不改编辑器存储格式、不引入新的数学渲染库、不重做插件。现有选择器会直接进入生成脚本，相关变更应采用正确序列化并验证非法选择器；此处只是改动边界建议，不将其他潜在问题扩大成本轮实现任务。
-
-来源：[Post 内容处理器](https://github.com/halo-sigs/plugin-katex/blob/07c18d120c43dd680390aebe112bd7c6a9565278/src/main/java/run/halo/katex/DefaultPostContentHandler.java)、[SinglePage 内容处理器](https://github.com/halo-sigs/plugin-katex/blob/07c18d120c43dd680390aebe112bd7c6a9565278/src/main/java/run/halo/katex/DefaultSinglePageContentHandler.java)、[前台初始化器](https://github.com/halo-sigs/plugin-katex/blob/07c18d120c43dd680390aebe112bd7c6a9565278/src/main/java/run/halo/katex/KaTeXJSInjector.java)。
-
-验收覆盖无公式/MathML/原始公式、客户端渲染开关、合法/非法选择器、加载失败及恢复、PJAX 五次往返、重复初始化、辅助 MathML 保留、切换其他主题与插件启停。主题显示开关仍只控制阅读表示，不冒充插件资源控制。
-
-## 留到最后的审批项
-
-旧版兼容与回移选择已经由上述决定关闭。仍需在完成本地技术验证后明确上游提交和插件发行安排；向上游提交 issue/PR、生产安装/升级须有对应授权。本地只读调查、可撤销的技术验证本身不需要额外审批。不因新版本路线降低首屏资源要求或关闭 P03；不默认建立长期私有 fork。
-
-RSS／站点地图、原生图片及既有功能的原候选证据继续保留。P03 的新资源运行证据单独归属于上述 Halo 2.27.0 候选，不覆盖旧版记录；完整合同的未验项目和正式分发仍保持待办。
+`946d63d` 和 `2d6fbad` 的补丁实验与运行记录保留在 Git 历史及明确标注撤回的验收文档中，只说明那组定制组合曾怎样运行，不能证明当前官方插件兼容组合已验收。当前源码不包含这些补丁或专用安装脚本。

@@ -60,7 +60,7 @@ def main():
     spec = importlib.util.spec_from_file_location('feed_absent_lab', check.REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
     check.require(lab.owned_process('halo') and (runtime / 'seed.json').exists(), 'Owned seeded process required')
-    check.require(lab.digest(runtime / 'halo' / lab.HALO_JAR_NAME) == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
+    check.require(lab.digest(runtime / 'halo/halo-2.26.1.jar') == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
     source_sha = os.environ.get('THEME_SOURCE_SHA')
     installed, installed_record_sha = candidate_identity(runtime, source_sha, lab)
     client = lab.Client()

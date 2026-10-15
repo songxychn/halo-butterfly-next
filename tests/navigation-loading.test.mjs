@@ -1,6 +1,6 @@
 import {test} from 'bun:test';
 import assert from 'node:assert/strict';
-import { navigationURL, allowsPartialPageExit, isManagedKatexScript } from '../src/js/core/navigation-loading.ts';
+import { navigationURL, allowsPartialPageExit } from '../src/js/core/navigation-loading.ts';
 import { imageLoadingOptions, initializeImageLoading } from '../src/js/core/image-loading.ts';
 import { snackbarPosition } from '../src/js/core/_message.ts';
 import {beginPage, disposePage, onPageCleanup, pageListen, pageScope} from '../src/js/core/page-lifecycle.ts';
@@ -73,22 +73,4 @@ test('cached shared bad images fall back once in native, disabled and post-only 
       disposePage();assert.equal(image.dataset.fallbackBound,undefined);
     }
   } finally {globalThis.window=oldWindow;globalThis.document=oldDocument;}
-});
-
-
-test('KaTeX navigation accepts only the versioned opt-in bootstrap and exact local renderer', () => {
-  const source = (dataset, src, textContent = '/* halo-katex-demand:v1 */\n(function(){})();') => ({
-    dataset, textContent, ownerDocument: { URL: 'https://site.test/post' },
-    hasAttribute: name => name === 'src' && src !== undefined,
-    getAttribute: name => name === 'src' ? src : null,
-  });
-  assert.equal(isManagedKatexScript(source({katexDemand:'1',katexVersion:'3.0.0-demand.1'})),true);
-  for (const version of ['', '3.0.0', '3.0.0-demand.0', '4.0.0-demand.1'])
-    assert.equal(isManagedKatexScript(source({katexDemand:'1',katexVersion:version})),false);
-  assert.equal(isManagedKatexScript(source({katexDemand:'1',katexVersion:'3.0.0-demand.1'}, undefined, 'alert(1)')),false);
-  const marker = {katexDemandResource:'1'};
-  assert.equal(isManagedKatexScript(source(marker,'/plugins/plugin-katex/assets/static/katex.min.js?version=3.0.0-demand.1')),true);
-  for (const url of ['https://evil.test/plugins/plugin-katex/assets/static/katex.min.js?version=3.0.0-demand.1', '/plugins/plugin-katex/assets/static/other.js?version=3.0.0-demand.1', '/plugins/plugin-katex/assets/static/katex.min.js', '/plugins/plugin-katex/assets/static/katex.min.js?version=3.0.0-demand.1&other=1', '/plugins/plugin-katex/assets/static/katex.min.js?version=3.0.0-demand.1#x'])
-    assert.equal(isManagedKatexScript(source(marker,url)),false,url);
-  assert.equal(isManagedKatexScript(source({},'/plugins/plugin-katex/assets/static/katex.min.js?version=3.0.0-demand.1')),false);
 });

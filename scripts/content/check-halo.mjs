@@ -1,4 +1,3 @@
-import {verifiedHaloVersion} from '../browser/support.mjs';
 /** Installed-package checks against a fresh, explicitly owned loopback Halo lab. */
 import assert from 'node:assert/strict';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
@@ -22,7 +21,7 @@ const sha=value=>createHash('sha256').update(value).digest('hex');
 validatePackage(installed,sourceSha,sha(await readFile(join(root,'dist',installed.name))));
 const content=JSON.parse(await readFile(join(lab,'content-fixture.json')));
 assert.equal(content.sha256,sha(await readFile(join(root,'fixtures/content-extensions/article.html'))));
-const report={sourceSha,sourceDirty:dirty,installed,fixture:content,haloVersion:await verifiedHaloVersion(lab),checks:[],limitations:['Authenticated Halo HTML API input; not a GUI editor save/reopen roundtrip.','No actual phone/Safari/screen-reader acceptance or full Hexo tag parity.']};
+const report={sourceSha,sourceDirty:dirty,installed,fixture:content,haloVersion:'2.26.1',checks:[],limitations:['Authenticated Halo HTML API input; not a GUI editor save/reopen roundtrip.','No actual phone/Safari/screen-reader acceptance or full Hexo tag parity.']};
 const temp=join(root,'.runtime/content/tmp');await mkdir(temp,{recursive:true});
 Object.assign(process.env,{PLAYWRIGHT_BROWSERS_PATH:join(runtime,'browsers'),PLAYWRIGHT_SKIP_BROWSER_GC:'1',TMPDIR:temp,TMP:temp,TEMP:temp});
 const pw=await import(pathToFileURL(join(runtime,'deps/node_modules/playwright/index.mjs')));

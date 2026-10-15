@@ -120,18 +120,7 @@ def install_plugins(lab, client, runtime, lock):
     result = []
     for plugin in lock['plugins']:
         jar = runtime / (plugin['name'] + '.jar')
-        proof = None
-        if plugin.get('sourceBuild'):
-            source = plugin['sourceBuild']
-            subprocess.run([sys.executable, str(HARNESS / source['builder']),
-                '--work', str(runtime / 'comment-plugin-source'), '--output', str(jar)], check=True)
-            proof = json_file(jar.with_suffix('.build.json'))
-            if proof['baseCommit'] != source['baseCommit'] or proof['patchSha256'] != digest(HARNESS / source['patch']) or proof['version'] != plugin['version'] or proof['sha256'] != digest(jar):
-                raise RuntimeError('Source-built plugin provenance mismatch')
-            plugin['sha256'] = proof['sha256']
-            write(runtime.parent / 'comment-plugin-build.json', proof)
-        else:
-            download(lab, plugin, jar)
+        download(lab, plugin, jar)
         def current():
             try:
                 return client.api(resource + plugin['name'])
@@ -155,7 +144,7 @@ def install_plugins(lab, client, runtime, lock):
         installed = [p for p in (runtime / 'halo/data/plugins').glob('*.jar') if digest(p) == plugin['sha256']]
         if len(installed) != 1:
             raise RuntimeError('Installed plugin JAR bytes do not match official artifact')
-        result.append({'name': plugin['name'], 'version': plugin['version'], 'enabled': True, 'sha256': plugin['sha256'], 'sourceBuild': proof})
+        result.append({'name': plugin['name'], 'version': plugin['version'], 'enabled': True, 'sha256': plugin['sha256']})
     enabled = {p['metadata']['name'] for p in client.api(resource.rstrip('/') + '?size=100')['items'] if p['spec'].get('enabled')}
     if enabled != {p['name'] for p in lock['plugins']}:
         raise RuntimeError('Unexpected enabled plugin outside the fixed profile')
@@ -230,7 +219,7 @@ def main():
     output.mkdir(mode=0o700)
     write(runtime / 'linux-ci-owner.json', {'runId': os.environ['GITHUB_RUN_ID'], 'repository': os.environ['GITHUB_REPOSITORY']})
     lab = load_lab()
-    report = {'status': 'incomplete', 'runnerSha': git(HARNESS, 'rev-parse', 'HEAD'), 'themeSourceSha': args.source_sha, 'profile': 'comparison fixtures; official SearchWidget 1.8.0 and source-built CommentWidget 3.4.0-theme-demand.1 enabled; explicit comment overrides listed below', 'commentProfile': COMMENT_PROFILE, 'comparisonDifference': 'Linux explicitly sets system comment.enable=true; macOS comparison had no system comment keys and used Halo defaults. Other plugin settings are not claimed fully identical.', 'hexoReference': 'not started or checked; not a product gate', 'publication': 'anonymous diagnostic CI, not release acceptance', 'limitations': ['120 anonymous core page checks, not search/comment interaction acceptance', 'Linux Playwright engines are not macOS, actual Safari or physical devices']}
+    report = {'status': 'incomplete', 'runnerSha': git(HARNESS, 'rev-parse', 'HEAD'), 'themeSourceSha': args.source_sha, 'profile': 'comparison fixtures; only official SearchWidget 1.8.0 and CommentWidget 3.3.2 enabled; explicit comment overrides listed below', 'commentProfile': COMMENT_PROFILE, 'comparisonDifference': 'Linux explicitly sets system comment.enable=true; macOS comparison had no system comment keys and used Halo defaults. Other plugin settings are not claimed fully identical.', 'hexoReference': 'not started or checked; not a product gate', 'publication': 'anonymous diagnostic CI, not release acceptance', 'limitations': ['120 anonymous core page checks, not search/comment interaction acceptance', 'Linux Playwright engines are not macOS, actual Safari or physical devices']}
     matrix = None
     try:
         for fixture in ('fixtures/comparison', 'fixtures/search-comment', 'fixtures/browser'):
@@ -240,7 +229,7 @@ def main():
                     if not other.is_file() or digest(other) != digest(file):
                         raise RuntimeError('Theme and harness fixture profiles differ: ' + str(file.relative_to(HARNESS)))
         lock = json_file(HARNESS / 'fixtures/search-comment/versions.json')
-        if lab.VERSIONS['halo']['version'] != '2.27.0' or lock['halo'] != '2.27.0' or [(p['name'], p['version']) for p in lock['plugins']] != [('PluginSearchWidget', '1.8.0'), ('PluginCommentWidget', '3.4.0-theme-demand.1')]:
+        if lab.VERSIONS['halo']['version'] != '2.26.1' or lock['halo'] != '2.26.1' or [(p['name'], p['version']) for p in lock['plugins']] != [('PluginSearchWidget', '1.8.0'), ('PluginCommentWidget', '3.3.2')]:
             raise RuntimeError('Unexpected Halo/plugin lock versions')
         if json_file(HARNESS / 'fixtures/browser/package.json')['dependencies']['playwright'] != '1.63.0':
             raise RuntimeError('Unexpected Playwright fixture version')
@@ -252,7 +241,7 @@ def main():
         (output / 'package.sha256').write_text(report['package']['sha256'] + '  ' + package.name + '\n')
         (runtime / 'halo').mkdir()
         write(runtime / 'lab.json', {'schema': 1, 'ports': lab.PORTS, 'owner': 'halo-butterfly-next-comparison'})
-        download(lab, lab.VERSIONS['halo'], runtime / 'halo' / lab.HALO_JAR_NAME)
+        download(lab, lab.VERSIONS['halo'], runtime / 'halo/halo-2.26.1.jar')
         report['haloJarSha256'] = lab.VERSIONS['halo']['sha256']
         report['fixtureSha256'] = lab.fixture_hash()
         shutil.copytree(lab.FIXTURES / 'assets', runtime / 'halo/data/attachments/lab')

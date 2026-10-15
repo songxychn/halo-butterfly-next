@@ -1,4 +1,3 @@
-import {execFileSync} from 'node:child_process';
 import { readFile, mkdir, readdir, writeFile, realpath } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
@@ -17,17 +16,6 @@ export function comparableAsset(value, resourceType) {
   return ['stylesheet', 'script'].includes(resourceType) && value.subarray(0, 3).equals(Buffer.from([0xef, 0xbb, 0xbf])) ? value.subarray(3) : value;
 }
 export const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
-/** Reject stale labs instead of assigning the current lock to an old runtime. */
-export async function verifiedHaloVersion(runtime) {
-  const lock = JSON.parse(await readFile(path.join(REPO, 'fixtures/comparison/versions.json'), 'utf8')).halo;
-  const jarPath = path.join(runtime, 'halo', `halo-${lock.version}.jar`);
-  const process = JSON.parse(await readFile(path.join(runtime, 'halo-process.json'), 'utf8'));
-  if (process.identity !== jarPath || !execFileSync('ps', ['-p', String(process.pid), '-o', 'command='], {encoding:'utf8'}).includes(jarPath)) throw new Error('Running Halo process differs from the current lock');
-  const bytes = await readFile(jarPath);
-  if (sha256(bytes) !== lock.sha256) throw new Error('Halo runtime JAR differs from the current lock');
-  return lock.version;
-}
-
 export const writeJson = (file, value) => writeFile(file, JSON.stringify(value, null, 2) + '\n', { flag: 'wx' });
 export async function writeProgress(directory, count, value) {
   const file = path.join(directory, `progress-${String(count).padStart(3, '0')}-${randomUUID()}.json`);

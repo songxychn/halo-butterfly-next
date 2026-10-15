@@ -23,8 +23,8 @@
 | 编号 / 需求 | 已有实现 | 下一步 |
 | --- | --- | --- |
 | P01 / RSS 与站点地图 | 已接入官方 Feed 1.5.0 `/rss.xml` 与 Sitemap 1.3.0 `/sitemap.xml`，主题提供 head/页脚入口、独立开关和版本/启用检查。匿名 HTTP 11 阶段及实际卸载/重装 4 阶段通过。 | [接入说明](../RSS-SITEMAP.md)与[本轮验收](../validation/2026-10-15/platform-acceptance.md)分别登记浏览器、隐私、更新与生命周期证据；旧版插件、实际阅读器和完整 1.0 门禁未自动通过。 |
-| P02 / Umami 私有统计后端 | SDK 和公开只读 site_uv/site_pv/page_pv 接口已接入。 | 缺持有私有凭据的服务端代理；两项 token 属于同一需求。需确定后端承载，不把 token 放入公开页面。 |
-| P03 / 评论/公式资源按需加载 | 评论接近视口时挂载、失败重试，KaTeX 阅读/复制/显示控制已有实现；已完成[官方插件能力与最小后续范围调查](PLUGIN-RESOURCE-FOLLOWUP.md)。 | CommentWidget head 预加载未取消；KaTeX 全站注入不受主题显示开关控制。需要插件侧能力；最新 CommentWidget 3.4.0 要求 Halo >=2.27.0，不能直接替换合同基线。当前首屏资源要求保持未满足。 |
+| P02 / Umami 私有统计后端 | SDK 和公开只读 site_uv/site_pv/page_pv 接口已接入。 | 缺持有私有凭据的服务端承载；两项 token 属于同一需求。本次 Umami 上游功能扩展已撤回，承载待重新讨论，不擅自另建服务、不把 token 放入公开页面。 |
+| P03 / 评论/公式资源按需加载 | 评论接近视口时挂载、失败重试，KaTeX 阅读/复制/显示控制已有实现；已完成[官方插件能力与最小后续范围调查](PLUGIN-RESOURCE-FOLLOWUP.md)。 | CommentWidget head 预加载未取消；KaTeX 全站注入不受主题显示开关控制。当前官方接口没有所需能力；不提交本次上游功能改造或强制安装定制插件。最新 CommentWidget 3.4.0 自身要求 Halo >=2.27.0，不提升主题最低版本。当前首屏资源要求保持未满足。 |
 
 依据：[评论资源边界](../COMMENT-ENHANCEMENTS.md)、[KaTeX 边界](../MATH.md)、[DEC-03](DEC-03-RESOURCES-DECISION.md)、[1.0 合同](../RELEASE-ACCEPTANCE.md)。
 

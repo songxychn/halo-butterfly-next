@@ -34,23 +34,7 @@ export function supportsPartialNavigation(doc: Document) {
   if ([...doc.querySelectorAll('*')].some(node => node.localName.includes('-') && node.localName !== 'th:block' &&
     !(node.localName === 'comment-widget' && node.closest('[data-comment-lazy][data-group="content.halo.run"] [data-comment-host], [data-comment-lazy][data-group="moment.halo.run"][data-kind="Moment"] [data-comment-host]')) &&
     !(['lit-toast-container', 'lit-toast'].includes(node.localName) && node.closest('lit-toast-container[data-theme-comment-toast]')))) return false;
-  return [...doc.scripts].every(script => inert(script) || isOwnedAddToAnyNode(script) || isManagedKatexScript(script) || scriptKinds.has(script.dataset.themeScript || ''));
-}
-
-/** Versioned KaTeX opt-in contract, never a blanket exception for plugin scripts. */
-export function isManagedKatexScript(script: HTMLScriptElement, current?: string): boolean {
-  if (script.dataset.katexDemand === '1' && !script.hasAttribute('src')) {
-    return /^3\.0\.0-demand\.[1-9]\d*$/.test(script.dataset.katexVersion || '') &&
-      (script.textContent || '').trimStart().startsWith('/* halo-katex-demand:v1 */');
-  }
-  if (script.dataset.katexDemandResource !== '1' || !script.hasAttribute('src')) return false;
-  try {
-    const base = new URL(current ?? script.ownerDocument.URL), url = new URL(script.getAttribute('src')!, base);
-    return url.origin === base.origin && !url.username && !url.password && !url.hash &&
-      url.pathname === '/plugins/plugin-katex/assets/static/katex.min.js' &&
-      [...url.searchParams.keys()].length === 1 &&
-      /^3\.0\.0-demand\.[1-9]\d*$/.test(url.searchParams.get('version') || '');
-  } catch { return false; }
+  return [...doc.scripts].every(script => inert(script) || isOwnedAddToAnyNode(script) || scriptKinds.has(script.dataset.themeScript || ''));
 }
 
 const key = Symbol.for('halo-butterfly-next.navigation-loading');
@@ -157,7 +141,6 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     const assets = new URL(window.MainApp.conf.assets_link || '/themes/halo-butterfly-next/assets/', location.href);
     for (const script of next.scripts) {
       if (!script.hasAttribute('src')) continue;
-      if (isManagedKatexScript(script, url.href)) continue;
       const source = new URL(script.getAttribute('src')!, url);
       const file = script.dataset.resourceFile || (source.origin === assets.origin && source.pathname.startsWith(assets.pathname) ? source.pathname.slice(assets.pathname.length) : '');
       const key = script.dataset.resourceKey || (script.dataset.themeScript === 'loading' ? 'loading' : script.dataset.themeScript === 'masonry' ? 'masonry' : 'main');
@@ -196,7 +179,6 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     if (!pop) saveScroll();
     disposePage();
     document.dispatchEvent(new Event('halo-butterfly-next:before-replace'));
-    document.dispatchEvent(new Event('katex:suspend'));
     beginPage();
     const scripts = [...next.scripts].filter(script => !inert(script));
     scripts.forEach(script => script.remove());
@@ -211,7 +193,7 @@ async function navigate(url: URL, pop: boolean, restore: {x: number; y: number; 
     if (!pop) history.pushState({ [stateKey]: { index: ++state.index, x: 0, y: 0 } }, '', url.href);
     else if (Number.isSafeInteger(restore?.index)) state.index = restore!.index!;
     state.url = url.href;
-    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config', 'body-renderer-config'].includes(s.dataset.themeScript || '') || isManagedKatexScript(s, url.href) && !s.hasAttribute('src'))) {
+    for (const script of scripts.filter(s => ['config', 'pace-bootstrap', 'page-config', 'above', 'code-config', 'body-renderer-config'].includes(s.dataset.themeScript || ''))) {
       await executeNavigationScript(script, document.head, request.signal);
     }
     progress.advance(85);

@@ -1,5 +1,7 @@
 # Halo 2.27 平台改造独立审查
 
+> **已撤回方案的历史证据，非当前安装或交付方案。** 维护者于 2026-10-15 澄清兼容边界并拒绝本次上游功能改造；定制插件补丁及依赖已从当前源码移除。以下结果只归属于文中固定的历史候选，不转用为恢复后的官方插件组合验收。源码、补丁与当时 runner 可在 [2d6fbad 历史快照](https://github.com/songxychn/halo-butterfly-next/tree/2d6fbadb6b07fa38e330dde66b01d198b723d8cc)查阅；当前决定见[更正记录](../../parity/PLATFORM-COMPATIBILITY-CORRECTION.md)。
+
 日期：2026-10-15。审查者为独立 subagent；未编写产品代码、未改变共享实验站状态。
 
 ## 审查范围与身份

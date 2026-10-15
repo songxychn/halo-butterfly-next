@@ -48,7 +48,7 @@ def main():
     spec = importlib.util.spec_from_file_location('native_images_lab', REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
     require(lab.owned_process('halo') and (runtime / 'seed.json').exists(), 'Owned seeded Halo process required')
-    require(lab.digest(runtime / 'halo' / lab.HALO_JAR_NAME) == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
+    require(lab.digest(runtime / 'halo/halo-2.26.1.jar') == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
     installed = json.loads((runtime / 'installed-package.json').read_text())
     require(installed.get('sourceCommit') == args.source_sha, 'Installed source mismatch')
     package = REPO / 'dist' / installed['name']

@@ -74,11 +74,11 @@ def main():
         elif lab.listening(lab.PORTS['halo']): raise RuntimeError('Refusing to stop an unowned listener')
         return
     if args.command == 'bootstrap':
-        if not args.jar or lab.digest(args.jar) != lab.VERSIONS['halo']['sha256']: raise RuntimeError('Provide the pinned Halo JAR')
+        if not args.jar or lab.digest(args.jar) != lab.VERSIONS['halo']['sha256']: raise RuntimeError('Provide the pinned Halo 2.26.1 JAR')
         if lab.RUNTIME.exists() and any(lab.RUNTIME.iterdir()): raise RuntimeError('Bootstrap requires an empty runtime')
         lab.write_json(lab.RUNTIME / 'lab.json', {'schema': 1, 'ports': lab.PORTS, 'owner': 'halo-butterfly-next-comparison'})
         (lab.RUNTIME / 'halo').mkdir(exist_ok=True)
-        shutil.copyfile(args.jar, lab.RUNTIME / 'halo' / lab.HALO_JAR_NAME)
+        shutil.copyfile(args.jar, lab.RUNTIME / 'halo/halo-2.26.1.jar')
         shutil.copytree(lab.FIXTURES / 'assets', lab.RUNTIME / 'halo/data/attachments/lab')
         lab.start(halo_only=True)
         client = lab.Client(initialize=True)
