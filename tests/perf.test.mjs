@@ -18,8 +18,8 @@ function lhr(device='mobile',url='http://127.0.0.1:18100/',values={}){
 }
 async function cohort(root){
  for(const profile of PIN.profiles)for(const route of PIN.routes){const dir=path.join(root,profile,route);await mkdir(dir,{recursive:true});const data=Buffer.from('fixed-package');await writeFile(path.join(dir,'theme.zip'),data);
- const identity={sourceSha:'a'.repeat(40),packageSha256:sha256(data),haloJarSha256:'b'.repeat(64),fixtureSha256:'c'.repeat(64),configSha256:'d'.repeat(64),contentSha256:'e'.repeat(64),pluginsSha256:'f'.repeat(64)};
- const base='http://127.0.0.1:18100',routes=Object.fromEntries(PIN.routes.map(route=>[route,'/'+route]));const plugins=PROFILE.profiles[profile][route].map(name=>({name,enabled:true,version:(PROFILE.plugins.find(p=>p.name===name)||PROFILE.probe).version}));const requiredPlugins=PROFILE.requiredPlugins[route];const station={identity,base,profile,route,plugins,requiredPlugins};await writeJson(path.join(dir,'station.json'),station);
+ const identity={sourceSha:'a'.repeat(40),packageSha256:sha256(data),haloJarSha256:'b'.repeat(64),fixtureSha256:'c'.repeat(64),configSha256:'d'.repeat(64),contentSha256:'e'.repeat(64),pluginsSha256:'f'.repeat(64),pluginConfigSha256:'0'.repeat(64)};
+ const base='http://127.0.0.1:18100',routes=Object.fromEntries(PIN.routes.map(route=>[route,'/'+route]));const plugins=PROFILE.profiles[profile][route].map(name=>({name,enabled:true,phase:'STARTED',version:(PROFILE.plugins.find(p=>p.name===name)||PROFILE.probe).version}));const requiredPlugins=PROFILE.requiredPlugins[route];const station={identity,base,profile,route,plugins,requiredPlugins};await writeJson(path.join(dir,'station.json'),station);
  const run={schema:1,profile,route,actualPlugins:plugins,requiredPlugins,base,routes,identity,result:'complete-samples',stationUnchanged:true,runner:{sourceSha:'a'.repeat(40),workingTreeClean:true},tools:{lighthouse:PIN.lighthouse,chrome:{version:PIN.chrome.version,executableSha256:PIN.chrome.executableSha256,treeSha256:PIN.chrome.treeSha256||'1'.repeat(64)}},machine:{cpu:'same'},samples:[],station:await evidence(path.join(dir,'station.json'),dir),artifact:await evidence(path.join(dir,'theme.zip'),dir)};
  for(const device of PIN.devices)for(let index=0;index<5;index++){
  const prefix=path.join(dir,`${route}-${device}-${index}`);await writeJson(prefix+'.lhr.json',lhr(device,base+routes[route]));await writeJson(prefix+'.trace.json',{traceEvents:[{name:'navigationStart'}]});await writeJson(prefix+'.devtools.json',[{method:'Network.requestWillBeSent'}]);run.samples.push({route,device,index,status:'passed',lhr:await evidence(prefix+'.lhr.json',dir),trace:await evidence(prefix+'.trace.json',dir),devtoolsLog:await evidence(prefix+'.devtools.json',dir)});
@@ -95,4 +95,35 @@ test('性能配置冻结真实设置默认值，CLI在错误路由/样本数时�
  const args=['scripts/perf/collect.mjs','--lab-runtime','/not-a-real-lab','--package','/not-a-package','--profile','default','--route','home','--cohort','test','--cpu-window','not-assigned'];
  for(const extra of [['--limit','11'],['--limit','NaN']])assert.throws(()=>execFileSync(process.execPath,[...args,...extra],{cwd:new URL('..',import.meta.url),stdio:'pipe'}),e=>e.stderr.toString().includes('--limit must be 1..10'));
  const invalid=[...args];invalid[invalid.indexOf('home')]='unlisted';assert.throws(()=>execFileSync(process.execPath,invalid,{cwd:new URL('..',import.meta.url),stdio:'pipe'}),e=>e.stderr.toString().includes('Unknown route'));
+});
+
+test('缺页与其他预算失败并存时，各PERF保留已知失败但不能误报覆盖完整',async()=>{
+ const dir=await mkdtemp(path.join(os.tmpdir(),'perf-missing-failed-'));cleanup.push(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));
+ for(const [name,edit,expected] of [
+  ['size',value=>value.audits['network-requests'].details.items[0].resourceSize=120481,{'PERF-01':'incomplete','PERF-02':'incomplete','PERF-03':'failed'}],
+  ['absolute',value=>value.audits['largest-contentful-paint'].numericValue=3000,{'PERF-01':'failed','PERF-02':'failed','PERF-03':'incomplete'}],
+  ['regression',value=>value.audits['largest-contentful-paint'].numericValue=1200,{'PERF-01':'incomplete','PERF-02':'failed','PERF-03':'incomplete'}]
+ ]){
+  const candidate=path.join(dir,name);await cp(path.join(dir,'baseline'),candidate,{recursive:true});await rm(path.join(candidate,'recommended','photos'),{recursive:true});
+  await mutateRun(candidate,'default',async r=>{for(const s of r.samples.filter(s=>s.device==='mobile')){const f=path.join(candidate,'default/home',s.lhr.path),value=JSON.parse(await readFile(f));edit(value);await writeJson(f,value);s.lhr=await evidence(f,path.join(candidate,'default/home'));}});
+  const report=await compare(path.join(dir,'baseline'),candidate);assert.equal(report.budgetResult,'failed');assert.deepEqual(report.scenarios,expected,name);assert.ok(report.incomplete.some(row=>row.profile==='recommended'&&row.route==='photos'));
+ }
+});
+
+test('推荐组合锁定九插件并计入官方评论KaTeX资源，不扩大默认最小依赖',async()=>{
+ const expected=['PluginLinks','PluginPhotos','PluginMoments','plugin-halo-butterfly-layout-probe','PluginSearchWidget','PluginCommentWidget','plugin-katex','PluginFeed','PluginSitemap'].sort();
+ for(const route of PIN.routes)assert.deepEqual([...PROFILE.profiles.recommended[route]].sort(),expected);
+ assert.deepEqual(PROFILE.profiles.default,{home:[],longform:[],photos:['PluginPhotos'],'public-layout':['plugin-halo-butterfly-layout-probe']});
+ for(const [file,digest] of Object.entries(PROFILE.additionalDependencyLocks))assert.equal(sha256(await readFile(new URL('../'+file,import.meta.url))),digest);
+ const dir=await mkdtemp(path.join(os.tmpdir(),'perf-plugin-config-'));cleanup.push(()=>rm(dir,{recursive:true,force:true}));await cohort(path.join(dir,'baseline'));await cp(path.join(dir,'baseline'),path.join(dir,'candidate'),{recursive:true});
+ await mutateRun(path.join(dir,'candidate'),'recommended',async r=>{r.identity.pluginConfigSha256='1'.repeat(64);const file=path.join(dir,'candidate/recommended/home/station.json'),raw=JSON.parse(await readFile(file));raw.identity.pluginConfigSha256=r.identity.pluginConfigSha256;await writeJson(file,raw);r.station=await evidence(file,path.dirname(file));});
+ const result=await compare(path.join(dir,'baseline'),path.join(dir,'candidate'));assert.ok(result.incomplete.some(row=>row.reason.includes('pluginConfigSha256')));assert.equal(result.scenarios['PERF-01'],'incomplete');
+});
+
+test('enabled但未STARTED的官方插件不得冒充推荐资源已加载',()=>{
+ const plugins=PROFILE.profiles.recommended.home.map(name=>({name,enabled:true,phase:'STARTED',version:([...PROFILE.plugins,PROFILE.probe].find(p=>p.name===name)).version}));
+ const station={requiredPlugins:[],plugins};validateProfile(station,'recommended','home');
+ for(const phase of ['FAILED','STARTING',undefined]){plugins[0].phase=phase;assert.throws(()=>validateProfile(station,'recommended','home'),/not STARTED/);}
+ const disabled={requiredPlugins:[],plugins:[{name:'PluginCommentWidget',enabled:false,phase:'DISABLED'}]};validateProfile(disabled,'default','home');
+ for(const phase of ['STARTED','STARTING','STOPPING',undefined]){disabled.plugins[0].phase=phase;assert.throws(()=>validateProfile(disabled,'default','home'),/not DISABLED/);}
 });

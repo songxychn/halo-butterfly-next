@@ -1,4 +1,6 @@
-import copy, importlib.util, tempfile, unittest, json
+import copy, importlib.util, tempfile, unittest, json, os
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('perf_station',Path(__file__).with_name('station.py'));module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
 class ApiError(Exception):
@@ -17,6 +19,67 @@ class FakeClient:
         if self.error and self.obj is None:raise ApiError(self.error)
         if self.obj is None:raise ApiError(404)
         return self.obj
+class PluginPhaseTests(unittest.TestCase):
+    def test_enabled_plugins_must_be_started_not_only_enabled(self):
+        plugin={'metadata':{'name':'PluginCommentWidget'},'spec':{'enabled':True},'status':{'phase':'STARTED'}}
+        module.validate_enabled_plugins([plugin],{'PluginCommentWidget'})
+        for phase in ['FAILED','STARTING','STOPPED',None]:
+            plugin['status']['phase']=phase
+            with self.assertRaisesRegex(ValueError,'not STARTED'):module.validate_enabled_plugins([plugin],{'PluginCommentWidget'})
+    def test_disabled_or_missing_required_plugin_is_rejected(self):
+        plugin={'metadata':{'name':'plugin-katex'},'spec':{'enabled':False},'status':{'phase':'DISABLED'}}
+        module.validate_enabled_plugins([plugin],set())
+        for phase in ['STARTED','STARTING','STOPPING',None]:
+            plugin['status']['phase']=phase
+            with self.assertRaisesRegex(ValueError,'not DISABLED'):module.validate_enabled_plugins([plugin],set())
+        with self.assertRaisesRegex(ValueError,'fixed profile'):module.validate_enabled_plugins([plugin],{'plugin-katex'})
+        with self.assertRaisesRegex(ValueError,'fixed profile'):module.validate_enabled_plugins([],{'plugin-katex'})
+
+class PluginConfigTests(unittest.TestCase):
+    def test_enabled_and_disabled_configs_both_affect_snapshot(self):
+        plugins=[{'metadata':{'name':name},'spec':{'configMapName':name+'-config','enabled':enabled}} for name,enabled in [('a',True),('b',False)]]
+        values={'a-config':{'data':{'mode':'default'}},'b-config':{'data':{'private':'local-only'}}}
+        client=SimpleNamespace(api=lambda path:copy.deepcopy(values[path.split('/')[-1]]))
+        before=module.plugin_configs(client,plugins,ApiError)
+        self.assertEqual(set(before),{'a','b'})
+        values['b-config']['data']['private']='changed'
+        self.assertNotEqual(module.sha(module.canonical(before)),module.sha(module.canonical(module.plugin_configs(client,plugins,ApiError))))
+    def test_missing_config_is_explicit_and_server_errors_are_not_hidden(self):
+        plugin={'metadata':{'name':'example'},'spec':{'configMapName':'example-config'}}
+        def fail(status):
+            def get(_):raise ApiError(status)
+            return SimpleNamespace(api=get)
+        self.assertEqual(module.plugin_configs(fail(404),[plugin],ApiError)['example'],{'configMapName':'example-config','exists':False})
+        with self.assertRaises(ApiError):module.plugin_configs(fail(500),[plugin],ApiError)
+        plugin['spec']['configMapName']='../other'
+        with self.assertRaises(ValueError):module.plugin_configs(fail(404),[plugin],ApiError)
+    def test_plugin_without_settings_never_requests_configmap(self):
+        client=SimpleNamespace(api=Mock(side_effect=AssertionError('no request expected')))
+        self.assertEqual(module.plugin_configs(client,[{'metadata':{'name':'probe'},'spec':{}}],ApiError),{'probe':{'configMapName':None}})
+        client.api.assert_not_called()
+
+class StationOwnershipTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.runtime=Path(self.tmp.name)
+        (self.runtime/'lab.json').write_text(json.dumps({'schema':1,'owner':'halo-butterfly-next-comparison','ports':{'halo':18845,'hexo':14845}}))
+    def tearDown(self):self.tmp.cleanup()
+    def load(self,owned):
+        lab=SimpleNamespace(owned_process=Mock(side_effect=lambda name: owned if name=='halo' else False),Client=Mock())
+        spec=SimpleNamespace(loader=SimpleNamespace(exec_module=lambda _:None))
+        with patch.dict(os.environ),patch.object(module.importlib.util,'spec_from_file_location',return_value=spec),patch.object(module.importlib.util,'module_from_spec',return_value=lab):
+            value=module.load_lab(self.runtime)
+        return lab,value
+    def test_halo_performance_does_not_require_unmeasured_hexo_reference(self):
+        lab,value=self.load(True)
+        self.assertIs(value[0],lab);lab.owned_process.assert_called_once_with('halo');lab.Client.assert_called_once_with()
+    def test_missing_or_foreign_halo_still_rejected(self):
+        with self.assertRaisesRegex(ValueError,'Owned Halo process'):self.load(False)
+    def test_foreign_lab_marker_rejected_before_import_or_client(self):
+        (self.runtime/'lab.json').write_text(json.dumps({'schema':1,'owner':'foreign','ports':{'halo':18845,'hexo':14845}}))
+        with patch.object(module.importlib.util,'spec_from_file_location') as load:
+            with self.assertRaisesRegex(ValueError,'owned comparison'):module.load_lab(self.runtime)
+            load.assert_not_called()
+
 class StationTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.lab=type('Lab',(),{'RUNTIME':Path(self.tmp.name),'ApiError':ApiError});self.meta,self.body=module.fixture();self.obj={'spec':{'title':self.meta['title'],'slug':self.meta['name'],'cover':self.meta['cover'],'publishTime':self.meta['date'],'visible':'PUBLIC','publish':True}}

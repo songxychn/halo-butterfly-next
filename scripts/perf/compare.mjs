@@ -35,7 +35,7 @@ export async function compare(baseline,candidate){
     if(cohortIdentity[side])assert(digestObject(cohortIdentity[side])===digestObject(identity),'Mixed source/package/config/tools within '+side+' cohort');else cohortIdentity[side]=identity;
    }
    for(const key of ['tools','machine'])assert(digestObject(a.run[key])===digestObject(b.run[key]),'Baseline/candidate '+key+' differ; remeasure both');
-   for(const key of ['haloJarSha256','fixtureSha256','configSha256','contentSha256','pluginsSha256'])assert(a.run.identity[key]&&a.run.identity[key]===b.run.identity[key],'Baseline/candidate identity mismatch: '+key);
+   for(const key of ['haloJarSha256','fixtureSha256','configSha256','contentSha256','pluginsSha256','pluginConfigSha256'])assert(a.run.identity[key]&&a.run.identity[key]===b.run.identity[key],'Baseline/candidate identity mismatch: '+key);
    for(const side of [a,b])assert(/^[a-f0-9]{40}$/.test(side.run.identity.sourceSha)&&/^[a-f0-9]{64}$/.test(side.run.identity.packageSha256),'Missing exact source/package identity');
    for(const key of Object.keys(a.values)){
     assert(a.values[key].resolvedConfigHash===b.values[key].resolvedConfigHash,'Baseline/candidate resolved Lighthouse config differs');
@@ -46,10 +46,13 @@ export async function compare(baseline,candidate){
  }
  report.budgetResult=report.failures.length?'failed':report.incomplete.length?'incomplete':'passed';
  const sizeFailed=report.cases.some(c=>Object.values(c.checks.size).some(v=>!v));
+ // Each scenario keeps its own known failures, but no scenario can pass
+ // while another route/profile is missing or has invalid evidence.
+ const scenarioStatus=group=>report.cases.some(c=>Object.values(c.checks[group]).some(v=>!v))?'failed':report.incomplete.length?'incomplete':'passed';
  report.scenarios={
-  'PERF-01':report.budgetResult==='incomplete'?'incomplete':report.cases.some(c=>Object.values(c.checks.absolute).some(v=>!v))?'failed':'passed',
-  'PERF-02':report.budgetResult==='incomplete'?'incomplete':report.cases.some(c=>Object.values(c.checks.regression).some(v=>!v))?'failed':'passed',
-  'PERF-03':report.budgetResult==='incomplete'?'incomplete':sizeFailed?'failed':'incomplete'
+  'PERF-01':scenarioStatus('absolute'),
+  'PERF-02':scenarioStatus('regression'),
+  'PERF-03':sizeFailed?'failed':'incomplete'
  };
  if(sizeFailed)report.incomplete.push({scenario:'PERF-03',reason:'Theme first-navigation JS/CSS size budget failed. On-demand component loading and failed-provider Loading recovery remain uncertified and still require separate fault-injection evidence.'});
  else report.incomplete.push({scenario:'PERF-03',reason:'Navigation resource budgets do not establish on-demand component loading or failed-provider Loading recovery. Separate real fault-injection evidence is required; this command cannot certify full PERF-03.'});

@@ -44,5 +44,5 @@ export function validateProfile(station,profile,route){
  const actual=station.plugins.filter(p=>p.enabled).map(p=>p.name).sort();
  assert(digestObject(actual)===digestObject([...PROFILE.profiles[profile][route]].sort()),'Enabled optional plugins invalidate default/recommended route coverage');
  assert(new Set(station.plugins.map(p=>p.name)).size===station.plugins.length,'Duplicate installed plugin identity');
- for(const plugin of station.plugins.filter(p=>p.enabled))assert(plugin.version===([...PROFILE.plugins,PROFILE.probe].find(p=>p.name===plugin.name)?.version),'Unpinned enabled plugin');
+ for(const plugin of station.plugins){const phase=plugin.enabled?'STARTED':'DISABLED';assert(plugin.phase===phase,'Performance plugin is not '+phase);if(plugin.enabled)assert(plugin.version===([...PROFILE.plugins,PROFILE.probe].find(p=>p.name===plugin.name)?.version),'Unpinned enabled plugin');}
 }
