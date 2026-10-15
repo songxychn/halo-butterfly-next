@@ -4,7 +4,7 @@
 
 ## 已确认范围
 
-维护者 [#415](https://github.com/songxychn/halo-butterfly-next/issues/415) 已确认：PWA/离线延期到 1.0 之后（后续版本与是否实施待评估，不自动排入 1.1）；RSS/站点地图 → 评论/KaTeX 按需 → 图片原生懒加载 → Umami。接受 `loading="lazy"`，不要求视口进入前严格零请求。对应[提案](../../parity/PLATFORM-WORK-PROPOSAL.md)、[合同 v1.6](../../RELEASE-ACCEPTANCE.md)与[决策记录](../../parity/DEC-03-PLATFORM-DECISION.md)已更新。
+维护者 [#415](https://github.com/songxychn/halo-butterfly-next/issues/415) 已确认：PWA/离线延期到 1.0 之后（后续版本与是否实施待评估，不自动排入 1.1）；RSS/站点地图 → 评论/KaTeX 按需 → 图片原生懒加载 → Umami。接受 `loading="lazy"`，不要求视口进入前严格零请求。对应[提案](../../parity/PLATFORM-WORK-PROPOSAL.md)、[当前合同](../../RELEASE-ACCEPTANCE.md)与[决策记录](../../parity/DEC-03-PLATFORM-DECISION.md)已更新。
 
 897 条矩阵保留：633 `implemented-unverified`、39 `gap`、16 `mapping-required`、5 `verification-failed`、184 `not-applicable`、20 `blocked`（12 条既有 1.1 系列 + 8 条 post-1.0 PWA）。当前 1.0 适用分母 **693**；RSS/Sitemap 另以必需合同场景 PLG-07 追踪。**verified 仍为 0**。
 
@@ -61,6 +61,6 @@
 
 RSS 浏览器完整批次和原生图片修复后的新候选 Halo 批次已完成并分候选记录。Firefox 资源停滞导致的核心/组合/社交失败仍未关闭，最终提交 CI 另由 PR 状态追踪。普通作者 `<img>` 未声明 loading 的路径仍是初始 HTML 映射缺口，JS 后补 lazy 不证明初始请求已延迟。native-post 的 blur=true 仅检验该配置下正常加载，未单独断言模糊占位视觉或加载后 class 清理，不能视为 blur 选项完整验收。
 
-评论/KaTeX 按需的[只读上游调查与最小方案](../../parity/PLUGIN-RESOURCE-FOLLOWUP.md)已完成：CommentWidget 最新 3.4.0 要求 Halo≥2.27 且仍全站注入，不能直接替换合同 Halo 2.26.1 的锁定组合；KaTeX 3.0.0 仍全站 CSS/可选 JS。待维护者选择官方 opt-in 资源契约、兼容回移及发行路线；本地可撤销验证不额外要求审批。Umami 私有代理、真实账号与设备人工检查仍独立。
+评论/KaTeX 的[官方插件能力边界](../../parity/PLUGIN-RESOURCE-FOLLOWUP.md)已核对：查询时 CommentWidget 3.4.0 要求 Halo≥2.27 且仍全站注入，不能直接替换本轮 Halo 2.26.1 / CommentWidget 3.3.2 的验收组合；KaTeX 3.0.0 仍全站 CSS/可选 JS。严格资源按需目标尚未满足，后续方案须在官方兼容边界内讨论；本 PR 不包含上游功能改造或定制插件协议。Umami 私有凭据后端承载待确定，真实账号与设备人工检查仍独立。
 
 既有五类双站页面失败、最终包性能预算、实际 Safari/真机、屏幕阅读器、安装升级/回退、完整合同与正式发布均未被上述限定测试消除。本表不声称 1.0 已完成，也不授权生产部署或正式发行。
