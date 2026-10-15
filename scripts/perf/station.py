@@ -1,5 +1,5 @@
 """Read-only owned-Halo preflight and narrow deterministic long-article seeding."""
-import argparse, hashlib, importlib.util, json, os, re, shutil, subprocess, time
+import argparse, contextlib, hashlib, importlib.util, json, os, re, shutil, subprocess, sys, time
 from pathlib import Path
 from zipfile import ZipFile
 ROOT = Path(__file__).resolve().parents[2]
@@ -114,7 +114,14 @@ def plugin_configs(client, plugins, api_error):
         configs[name]={'configMapName':reference,'exists':True,'data':value.get('data',{})}
     return configs
 
+def authenticated_principal(client):
+    current=client.api('/apis/api.console.halo.run/v1alpha1/users/-')
+    name=current.get('user',{}).get('metadata',{}).get('name')
+    if name!=client.auth['username']:raise ValueError('Performance station authenticated principal changed')
+    return name
+
 def inspect(lab,client,args):
+    principal=authenticated_principal(client)
     package=args.package.resolve(); raw=package.read_bytes(); installed=json.loads((lab.RUNTIME/'installed-package.json').read_text())
     if installed['sha256']!=sha(raw) or not re.fullmatch('[a-f0-9]{40}',installed.get('sourceCommit','')): raise ValueError('Package/installation identity mismatch')
     with ZipFile(package) as z:
@@ -170,10 +177,22 @@ def inspect(lab,client,args):
         if parsed.netloc and parsed.netloc!=urlsplit(base).netloc:raise ValueError('Nonlocal performance route')
         routes[key]=parsed.path+('?' + parsed.query if parsed.query else '')
     identity={'sourceSha':installed['sourceCommit'],'packageSha256':sha(raw),'haloJarSha256':jarsha,'fixtureSha256':sha(canonical({'longform':meta,'plugins':lock,'assets':asset_hashes})),'configSha256':sha(canonical({'theme':config,'system':system,'users':public_users,'menus':menus,'pluginConfigs':plugin_settings})),'contentSha256':sha(canonical({'posts':content,'pluginCollections':collections})),'pluginsSha256':sha(canonical({'installed':inventory,'enabledArtifacts':versions})),'pluginConfigSha256':sha(canonical(plugin_settings))}
-    return {'schema':1,'base':base,'profile':args.profile,'route':args.route,'requiredPlugins':lock['requiredPlugins'][args.route],'routes':routes,'identity':identity,'sourceAttribution':installed.get('sourceCommitAttribution','installer-record; independently verify source-to-artifact provenance'),'installed':installed,'plugins':inventory,'enabledArtifacts':versions,'contentCounts':{'posts':len(content),**{k:len(v) for k,v in collections.items()}},'result':'passed'}
+    return {'schema':1,'authenticatedPrincipal':principal,'base':base,'profile':args.profile,'route':args.route,'requiredPlugins':lock['requiredPlugins'][args.route],'routes':routes,'identity':identity,'sourceAttribution':installed.get('sourceCommitAttribution','installer-record; independently verify source-to-artifact provenance'),'installed':installed,'plugins':inventory,'enabledArtifacts':versions,'contentCounts':{'posts':len(content),**{k:len(v) for k,v in collections.items()}},'result':'passed'}
+
+def paired_inspections(lab,client,args,input_stream,output_stream):
+    # The same client and immutable CLI parameters are used for both snapshots.
+    # The protocol only permits requesting the after snapshot, never mutations.
+    def snapshot():
+        with contextlib.redirect_stdout(sys.stderr):result=inspect(lab,client,args)
+        output_stream.write(json.dumps(result,ensure_ascii=False)+'\n');output_stream.flush()
+    snapshot()
+    if input_stream.readline(64)!='after\n':raise ValueError('Expected one after-snapshot command; EOF or other commands are invalid')
+    snapshot()
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('command',choices=['seed-longform','inspect']);p.add_argument('--lab-runtime',type=Path,required=True);p.add_argument('--package',type=Path);p.add_argument('--profile',choices=['default','recommended'],default='default');p.add_argument('--route',choices=['home','longform','photos','public-layout']);args=p.parse_args();lab,client=load_lab(args.lab_runtime)
-    if args.command=='inspect' and (args.package is None or args.route is None):p.error('--package and --route required')
-    print(json.dumps(seed(lab,client) if args.command=='seed-longform' else inspect(lab,client,args),ensure_ascii=False))
+    p=argparse.ArgumentParser();p.add_argument('command',choices=['seed-longform','inspect','session']);p.add_argument('--lab-runtime',type=Path,required=True);p.add_argument('--package',type=Path);p.add_argument('--profile',choices=['default','recommended'],default='default');p.add_argument('--route',choices=['home','longform','photos','public-layout']);args=p.parse_args()
+    if args.command in ['inspect','session'] and (args.package is None or args.route is None):p.error('--package and --route required')
+    with contextlib.redirect_stdout(sys.stderr):lab,client=load_lab(args.lab_runtime)
+    if args.command=='session':paired_inspections(lab,client,args,sys.stdin,sys.stdout)
+    else:print(json.dumps(seed(lab,client) if args.command=='seed-longform' else inspect(lab,client,args),ensure_ascii=False))
 if __name__=='__main__':main()

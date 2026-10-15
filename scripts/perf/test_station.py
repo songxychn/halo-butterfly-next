@@ -1,4 +1,4 @@
-import copy, importlib.util, tempfile, unittest, json, os
+import copy, importlib.util, tempfile, unittest, json, os, io
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 from pathlib import Path
@@ -19,6 +19,25 @@ class FakeClient:
         if self.error and self.obj is None:raise ApiError(self.error)
         if self.obj is None:raise ApiError(404)
         return self.obj
+class StationSessionTests(unittest.TestCase):
+    def test_same_client_and_locked_arguments_used_for_two_fresh_inspections(self):
+        client=SimpleNamespace(count=0);args=SimpleNamespace(route='photos',profile='recommended');out=io.StringIO();seen=[]
+        def inspect(lab,actual,parameters):
+            self.assertIs(actual,client);self.assertIs(parameters,args);actual.count+=1;seen.append(actual.count);return {'sequence':actual.count,'route':parameters.route}
+        with patch.object(module,'inspect',side_effect=inspect):module.paired_inspections(None,client,args,io.StringIO('after\n'),out)
+        self.assertEqual(seen,[1,2]);self.assertEqual([json.loads(line)['sequence'] for line in out.getvalue().splitlines()],[1,2])
+    def test_eof_or_mutation_commands_do_not_trigger_after_inspection(self):
+        for command in ['', 'inspect another-host\n','after extra\n']:
+            with patch.object(module,'inspect',return_value={'before':True}) as inspect:
+                with self.assertRaisesRegex(ValueError,'after-snapshot'):module.paired_inspections(None,None,None,io.StringIO(command),io.StringIO())
+                self.assertEqual(inspect.call_count,1)
+    def test_authenticated_identity_checked_independently_of_saved_credentials(self):
+        current={'user':{'metadata':{'name':'fixture-maintainer'}}};client=SimpleNamespace(auth={'username':'fixture-maintainer'},api=lambda path:current)
+        self.assertEqual(module.authenticated_principal(client),'fixture-maintainer')
+        for value in [{},{'user':{'metadata':{'name':'different-user'}}}]:
+            current=value
+            with self.assertRaisesRegex(ValueError,'principal changed'):module.authenticated_principal(client)
+
 class PluginPhaseTests(unittest.TestCase):
     def test_enabled_plugins_must_be_started_not_only_enabled(self):
         plugin={'metadata':{'name':'PluginCommentWidget'},'spec':{'enabled':True},'status':{'phase':'STARTED'}}
