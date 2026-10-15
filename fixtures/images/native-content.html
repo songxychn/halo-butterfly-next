@@ -1,0 +1,10 @@
+<h2 id="native-images-heading">原生图片加载合成夹具 __PAGE__</h2>
+<p><a id="native-next" href="__NEXT_URL__">下一张合成文章</a></p>
+<img id="native-eager" src="/lab/cover-autumn-forest.webp?native=__RUN__-__PAGE__-eager" loading="eager" fetchpriority="high" width="640" height="360" alt="显式首屏图片">
+<img id="native-plain" src="/lab/cover-sand-dunes.webp?native=__RUN__-__PAGE__-plain" width="640" height="360" alt="未声明 loading 的作者图片">
+<div aria-hidden="true" style="height:4200px"></div>
+<img id="native-lazy" src="/lab/cover-golden-mountain.webp?native=__RUN__-__PAGE__-lazy" loading="lazy" width="640" height="360" alt="作者原生延迟图片">
+<picture id="native-picture"><source media="(min-width: 800px)" srcset="/lab/cover-autumn-forest.webp?native=__RUN__-__PAGE__-wide"><img id="native-responsive" src="/lab/cover-sand-dunes.webp?native=__RUN__-__PAGE__-responsive" srcset="/lab/cover-golden-mountain.webp?native=__RUN__-__PAGE__-narrow 1x, /lab/cover-sand-dunes.webp?native=__RUN__-__PAGE__-narrow2 2x" loading="lazy" width="640" height="360" alt="响应式原生图片"></picture>
+<img id="native-fallback" src="/lab/native-missing-__RUN__-__PAGE__.webp" data-theme-image-fallback="/lab/cover-sand-dunes.webp?native=__RUN__-__PAGE__-fallback" loading="lazy" width="640" height="360" alt="显式图片失败回退">
+<img id="native-broken" src="/lab/native-broken-__RUN__-__PAGE__.webp" loading="lazy" width="640" height="360" alt="作者坏图仍有可读替代文本">
+<p id="native-images-end">所有图片之后仍可阅读的正文。</p>

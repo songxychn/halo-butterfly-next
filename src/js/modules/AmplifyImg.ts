@@ -94,8 +94,11 @@ export default class AmplifyImg {
         trigger = document.createElement('span');
         trigger.setAttribute('role', 'button');
         trigger.tabIndex = 0;
-        image.before(trigger);
-        trigger.append(image);
+        // A picture's img must stay a direct child to retain its source/media
+        // candidates. Put the keyboard trigger around the whole picture.
+        const content = image.parentElement?.tagName === 'PICTURE' ? image.parentElement : image;
+        content.before(trigger);
+        trigger.append(content);
       }
       trigger.classList.add('theme-lightbox-trigger');
       const count = trigger.querySelectorAll('img').length;

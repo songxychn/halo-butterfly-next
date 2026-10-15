@@ -7,7 +7,7 @@ import {beginPage, disposePage, onPageCleanup, pageListen, pageScope} from '../s
 
 test('navigation retains native anchors, external/download/admin destinations and configured exclusions', () => {
   const base = 'https://example.test/archives/one/';
-  for (const target of ['#chapter', base+'#chapter','mailto:a@example.test','https://other.test/','/console','/console/posts','/%61pis/a','/logout','/file.zip','https://a:b@example.test/x','javascript:alert(1)']) assert.equal(navigationURL(target,base),null,target);
+  for (const target of ['#chapter', base+'#chapter','mailto:a@example.test','https://other.test/','/console','/console/posts','/%61pis/a','/logout','/file.zip','/rss.xml','/feed.xml','/sitemap.xml','https://a:b@example.test/x','javascript:alert(1)']) assert.equal(navigationURL(target,base),null,target);
   assert.equal(navigationURL('/archives/two/',base).pathname,'/archives/two/');
   assert.equal(navigationURL('/photos?group=a',base).search,'?group=a');
   assert.equal(navigationURL('/private/x',base,'/private/*'),null);
@@ -62,7 +62,7 @@ test('cached shared bad images fall back once in native, disabled and post-only 
       const image=new EventTarget();
       Object.assign(image,{dataset:{themeImageFallback:'/fallback.svg'},loading:'lazy',complete:true,naturalWidth:0,
         classList:{remove:k=>classes.delete(k),add:k=>classes.add(k)},closest:()=>null,
-        hasAttribute:k=>attrs.has(k),removeAttribute:k=>attrs.delete(k)});
+        hasAttribute:k=>attrs.has(k),getAttribute:k=>attrs.get(k)??null,removeAttribute:k=>attrs.delete(k)});
       Object.defineProperty(image,'src',{get:()=>new URL(attrs.get('src')||'', 'https://example.test/').href,set:value=>{attrs.set('src',value);replacements++}});
       globalThis.document={baseURI:'https://example.test/',querySelectorAll:()=>[image]};
       initializeImageLoading(config);initializeImageLoading(config);

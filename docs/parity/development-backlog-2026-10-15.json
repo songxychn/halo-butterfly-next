@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "kind": "development-backlog-snapshot",
+  "sourceSha": "6f7cc52ac12766f0814c16c07216ba74cc71ff21",
+  "matrixSha256": "0441f4d6dbe153110dc899143263f08789844ad09ed9f94d280501d07efb7988",
+  "reconciliation": "platform-decision-reconciliation-2026-10-15.json",
+  "note": "2026-10-15 maintainer scope decision #415; no new runtime verification. matrix.json remains authoritative; prior implementation reports retain their original commit/scope.",
+  "groups": [
+    {
+      "id": "D01",
+      "title": "通用正文能力映射与可移植性验收",
+      "category": "mapping-audit",
+      "matrixIds": [
+        "config:note.style",
+        "config:note.icons",
+        "config:note.border_radius",
+        "config:note.light_bg_offset",
+        "tag:btn",
+        "tag:flink",
+        "tag:hideBlock",
+        "tag:hideInline",
+        "tag:hideToggle",
+        "tag:inlineImg",
+        "tag:label",
+        "tag:note",
+        "tag:series",
+        "tag:subnote",
+        "tag:subsubtabs",
+        "tag:subtabs",
+        "tag:tabs",
+        "tag:timeline",
+        "interaction:tabs",
+        "interaction:hide",
+        "tag:mermaid",
+        "tag:chartjs",
+        "tag:score"
+      ],
+      "current": "PR #408 已实现通用 HTML 提示、Tabs、原生折叠、按钮、时间线与静态卡片；图库、图表/乐谱也已有实现。",
+      "remaining": "通用HTML块经默认编辑器+官方hybrid-edit-block 1.7.0在三引擎保存重开保留17个增强属性；普通富文本粘贴不保留增强属性。换主题/无脚本已有限定证据，完整EXT-01、设备与母语审校仍待；不要求Hexo专属语法/class/完整参数/通用离线转换。"
+    },
+    {
+      "id": "D02",
+      "title": "文章、单页与插件 PJAX",
+      "category": "development",
+      "matrixIds": [
+        "interaction:pjax",
+        "template:includes/third-party/pjax"
+      ],
+      "current": "文章/单页统计身份、官方评论草稿保护、正文图表/图库、Share.js、默认Busuanzi、本地特效和GA4显式手动页面统计已接入；可选组合12/12与GA4协议15/15限定通过。 AddToAny默认服务持久宿主/单kit有界生命周期27/27限定通过。",
+      "remaining": "AddToAny扩展服务、其他分析/聊天/广告SDK及未知插件生命周期仍缺适配；默认完整导航保留功能，真实GA4账户与完整生态仍待验。最低Halo2.20.2已防重复统计并保留内容页完整导航。"
+    },
+    {
+      "id": "D03",
+      "title": "图片原生懒加载与背景值域",
+      "category": "development",
+      "matrixIds": [
+        "lifecycle-hook:scripts/filters/post_lazyload.js#filter:after_post_render",
+        "lifecycle-hook:scripts/filters/post_lazyload.js#filter:after_render:html",
+        "helper:getBgPath",
+        "config:footer_img"
+      ],
+      "current": "CSS 颜色/渐变/background 简写、安全图片 URL 及 footer_img=true 继承已实现；16 组真实 Halo 检查通过。",
+      "remaining": "接受原生 loading=lazy，不要求改写任意作者 src/srcset 或进入视口前零请求；核对初始 HTML 与正文处理路径，验证首屏例外、响应式图片、启停、失败回退和无脚本阅读。"
+    },
+    {
+      "id": "D04",
+      "title": "瞬间评论与说说数据",
+      "category": "implemented-acceptance",
+      "matrixIds": [
+        "interaction:shuoshuo-comments",
+        "interaction:shuoshuo-pagination",
+        "helper:shuoshuoFN",
+        "page-data:limit",
+        "page-data:shuoshuo_url",
+        "site-config:timezone",
+        "data-schema:shuoshuo-data",
+        "data-schema:shuoshuo-limit"
+      ],
+      "current": "原生 Moment 评论主体/计数/跳转/最新评论、作者/头像/时间/标签、输入跳页和独立 JSON 动态源已实现；过滤后分页、时区、错误重试和安全输入已限定验收。",
+      "remaining": "完整插件组合/设备验收待执行；全站 timezone 与原生插件每页数量仍保留平台职责，不因动态源参数支持而关闭。"
+    },
+    {
+      "id": "D05",
+      "title": "国际化",
+      "category": "development",
+      "matrixIds": [
+        "language:default",
+        "language:en",
+        "language:ja",
+        "language:ko",
+        "language:zh-CN",
+        "language:zh-HK",
+        "language:zh-TW",
+        "page-data:lang",
+        "page-data:language",
+        "site-config:language"
+      ],
+      "current": "七套消息目录及地区回退、模板/浏览器文案与正文语言注解已接入；Halo locale 优先级已有实际证据。",
+      "remaining": "界面保持请求 locale，逐页强制 UI 语言仍待合同映射；Moment/友链跨语言组合12/12已通过，母语审校和真机/完整合同未完成。"
+    },
+    {
+      "id": "D06",
+      "title": "作者逐篇覆盖与列表参数",
+      "category": "implemented-acceptance",
+      "matrixIds": [
+        "page-data:aside",
+        "page-data:highlight_shrink",
+        "page-data:copyright_author",
+        "page-data:copyright_author_href",
+        "page-data:copyright_info",
+        "page-data:copyright_url",
+        "page-data:order",
+        "page-data:orderby",
+        "helper:cloudTags",
+        "helper:findArchivesTitle",
+        "site-config:date_format"
+      ],
+      "current": "逐篇侧栏/代码折叠/版权详细字段、标签排序数量字号、归档年月及菜单标题、受控日期格式已实现；141 项实际 Halo 验收和独立审查通过。",
+      "remaining": "最终组合回归、完整双站/设备/无障碍与性能门禁仍待；不实现 Hexo 路由生成器。"
+    },
+    {
+      "id": "D07",
+      "title": "社交、页脚与友链输入",
+      "category": "implemented-acceptance",
+      "matrixIds": [
+        "config:social",
+        "template:includes/header/social",
+        "data-schema:social-items",
+        "config:footer.nav",
+        "config:footer.custom_text",
+        "template:includes/footer",
+        "data-schema:flink-data",
+        "page-data:flink_url",
+        "page-data:random"
+      ],
+      "current": "首页/侧栏社交位置与亮暗色、页脚分组列/宽度/净化 HTML、原生友链组说明及独立远端 JSON/组内随机已实现；29 项实际 Halo 检查通过，相对链接审查问题已修复。",
+      "remaining": "与国际化/PJAX 组合的重入和待完成请求离页12/12已通过，完整验收继续；不保证旧 Hexo 配置原样兼容或任意 HTML 执行。"
+    },
+    {
+      "id": "D08",
+      "title": "外部资源连接提示",
+      "category": "implemented-acceptance",
+      "matrixIds": [
+        "template:includes/head/preconnect"
+      ],
+      "current": "实际所选 HTTPS 资源的 preconnect 已接入 bootstrap、管理资源、Prism、AddToAny 和标题字体，含同源跳过、凭据拒绝、CORS 去重与数量上限。",
+      "remaining": "限定真实 Halo 资源配置及独立审查通过；最终组合性能预算仍待，连接提示不代替资源按需加载。"
+    },
+    {
+      "id": "P01",
+      "title": "RSS 与站点地图",
+      "category": "development",
+      "matrixIds": [],
+      "current": "2026-10-15 维护者接受官方 Feed/Sitemap 平台替代；主题入口和实际版本/启停验收待完成。",
+      "remaining": "锁定官方插件版本和端点，接入主题发现链接/订阅入口，按 PLG-07 验证公开内容、更新、私密/草稿排除、canonical 及插件启停。",
+      "contractScenarios": [
+        "PLG-07"
+      ]
+    },
+    {
+      "id": "P02",
+      "title": "Umami 私有统计后端",
+      "category": "platform-decision",
+      "matrixIds": [
+        "config:umami_analytics.UV_PV.token",
+        "site-config:token"
+      ],
+      "current": "SDK 和公开只读 site_uv/site_pv/page_pv 接口已接入。",
+      "remaining": "缺持有私有凭据的服务端代理；两项 token 属于同一需求。需确定后端承载，不把 token 放入公开页面。"
+    },
+    {
+      "id": "P03",
+      "title": "评论/公式资源按需加载",
+      "category": "platform-decision",
+      "matrixIds": [
+        "config:comments.lazyload",
+        "config:math.use",
+        "config:math.per_page",
+        "config:math.hide_scrollbar",
+        "config:math.katex.copy_tex"
+      ],
+      "current": "评论接近视口时挂载、失败重试，KaTeX 阅读/复制/显示控制已有实现。",
+      "remaining": "CommentWidget head 预加载未取消；KaTeX 全站注入不受主题显示开关控制。需要插件侧能力或明确合同裁定，当前不满足首屏零评论资源/无公式页按需资源目标。"
+    },
+    {
+      "id": "A01",
+      "title": "安全嵌入完整审计",
+      "category": "implemented-acceptance",
+      "matrixIds": [
+        "helper:safeJSON",
+        "interaction:data-safe"
+      ],
+      "current": "已盘点脚本/JSON-LD/CSS与远端HTML边界，修复CSS标签突破、JS tokenizer、Thymeleaf预解码和JSON特殊键语义；最终安全36项限定通过，旧33项不足结论保留更正。",
+      "remaining": "最终集成及平台升级回归、完整合同仍待；明确允许代码执行的注入/已发布HTML不冒充净化。"
+    },
+    {
+      "id": "A02",
+      "title": "其余平台/上游组成项映射",
+      "category": "mapping-audit",
+      "matrixIds": [
+        "config:error_404.enable",
+        "template:includes/additional-js",
+        "helper:getArchiveLength",
+        "helper:groupPosts",
+        "helper:urlNoIndex",
+        "lifecycle-hook:scripts/events/404.js#generator:404",
+        "lifecycle-hook:scripts/events/init.js#filter:before_generate",
+        "lifecycle-hook:scripts/events/stylus.js#filter:stylus:renderer",
+        "lifecycle-hook:scripts/events/welcome.js#event:ready",
+        "lifecycle-hook:scripts/filters/random_cover.js#generator:post",
+        "asset:source/img/404.jpg",
+        "asset:source/img/butterfly-icon.png",
+        "asset:source/img/error-page.png",
+        "asset:source/img/favicon.ico",
+        "asset:source/img/friend_404.gif",
+        "asset:source/js/main.js",
+        "asset:source/js/utils.js",
+        "page-data:cover_type",
+        "page-data:encrypt",
+        "page-data:full_source",
+        "page-data:origin",
+        "page-data:source",
+        "page-data:top_img",
+        "site-config:archive_dir",
+        "site-config:archive_generator",
+        "site-config:category_dir",
+        "site-config:copyright",
+        "site-config:email",
+        "site-config:favicon",
+        "site-config:highlight.enable",
+        "site-config:post_asset_folder",
+        "site-config:pretty_urls.trailing_html",
+        "site-config:pretty_urls.trailing_index",
+        "site-config:prismjs",
+        "site-config:prismjs.enable",
+        "site-config:root",
+        "site-config:syntax_highlighter",
+        "site-config:tag_dir",
+        "config:CDN.custom_format"
+      ],
+      "current": "已有 Halo 路由/SEO/Prism、构建入口、图片回退和组件模块；同名 Hexo 文件不存在不能直接判作缺失。 site-config:theme经核对为Mermaid局部参数，已有消费者，见a02-mermaid-theme-reconciliation-2026-10-14.json。",
+      "remaining": "逐项确认 404 开关、路由/pretty URL、根路径、站点元数据、高亮提供方、封面类型/独立顶图、加密标记、源文件/目录来源、构建 hook/默认合并/资源图标等语义。尚无足够证据关闭；必须完成来源→消费者→保留用户能力映射后，才转成开发或有依据不适用。 PR #413 已取消资源自由模板并由根地址/单项 URL 替代；config:CDN.custom_format 保留 gap 等待正式裁定登记，不应重新开发旧模板。"
+    },
+    {
+      "id": "P01-PWA",
+      "title": "PWA 与离线",
+      "category": "deferred",
+      "matrixIds": [
+        "config:pwa.enable",
+        "config:pwa.manifest",
+        "config:pwa.apple_touch_icon",
+        "config:pwa.favicon_32_32",
+        "config:pwa.favicon_16_16",
+        "config:pwa.mask_icon",
+        "template:includes/head/pwa",
+        "interaction:pwa"
+      ],
+      "current": "维护者于 2026-10-15 #415 裁定延期到 1.0 之后。",
+      "remaining": "目标版本与是否实施待评估，不自动排入 1.1。",
+      "phase": "post-1.0"
+    }
+  ],
+  "unresolvedMatrixIds": [
+    "config:error_404.enable",
+    "config:umami_analytics.UV_PV.token",
+    "config:note.style",
+    "config:note.icons",
+    "config:note.border_radius",
+    "config:note.light_bg_offset",
+    "config:CDN.custom_format",
+    "template:includes/additional-js",
+    "template:includes/third-party/pjax",
+    "tag:inlineImg",
+    "tag:label",
+    "helper:getArchiveLength",
+    "helper:groupPosts",
+    "helper:urlNoIndex",
+    "lifecycle-hook:scripts/events/404.js#generator:404",
+    "lifecycle-hook:scripts/events/init.js#filter:before_generate",
+    "lifecycle-hook:scripts/events/stylus.js#filter:stylus:renderer",
+    "lifecycle-hook:scripts/events/welcome.js#event:ready",
+    "lifecycle-hook:scripts/filters/post_lazyload.js#filter:after_post_render",
+    "lifecycle-hook:scripts/filters/post_lazyload.js#filter:after_render:html",
+    "lifecycle-hook:scripts/filters/random_cover.js#generator:post",
+    "asset:source/img/404.jpg",
+    "asset:source/img/butterfly-icon.png",
+    "asset:source/img/error-page.png",
+    "asset:source/img/favicon.ico",
+    "asset:source/img/friend_404.gif",
+    "asset:source/js/main.js",
+    "asset:source/js/utils.js",
+    "page-data:cover_type",
+    "page-data:encrypt",
+    "page-data:full_source",
+    "page-data:lang",
+    "page-data:language",
+    "page-data:origin",
+    "page-data:source",
+    "page-data:top_img",
+    "site-config:archive_dir",
+    "site-config:archive_generator",
+    "site-config:category_dir",
+    "site-config:copyright",
+    "site-config:email",
+    "site-config:favicon",
+    "site-config:highlight.enable",
+    "site-config:post_asset_folder",
+    "site-config:pretty_urls.trailing_html",
+    "site-config:pretty_urls.trailing_index",
+    "site-config:prismjs",
+    "site-config:prismjs.enable",
+    "site-config:root",
+    "site-config:syntax_highlighter",
+    "site-config:tag_dir",
+    "site-config:timezone",
+    "site-config:token",
+    "interaction:pjax",
+    "interaction:data-safe"
+  ],
+  "verificationFailedIds": [
+    "page:home",
+    "page:post",
+    "page:page",
+    "page:archive",
+    "page:tag"
+  ],
+  "deferredIds": [
+    "config:aside.card_post_series.enable",
+    "config:aside.card_post_series.series_title",
+    "config:aside.card_post_series.orderBy",
+    "config:aside.card_post_series.order",
+    "config:series.enable",
+    "config:series.orderBy",
+    "config:series.order",
+    "config:series.number",
+    "config:pwa.enable",
+    "config:pwa.manifest",
+    "config:pwa.apple_touch_icon",
+    "config:pwa.favicon_32_32",
+    "config:pwa.favicon_16_16",
+    "config:pwa.mask_icon",
+    "template:includes/head/pwa",
+    "template:includes/widget/card_post_series",
+    "lifecycle-hook:scripts/tag/series.js#filter:before_generate",
+    "lifecycle-hook:scripts/tag/series.js#filter:before_post_render",
+    "page-data:series",
+    "interaction:pwa"
+  ],
+  "previousReconciliation": "confirmed-gap-reconciliation-2026-10-14.json",
+  "largestGaps": [
+    {
+      "rank": 1,
+      "group": "P01",
+      "reason": "官方 Feed/Sitemap 与主题入口接入，执行 PLG-07。"
+    },
+    {
+      "rank": 2,
+      "group": "P03",
+      "reason": "优先评论，再 KaTeX；核对插件资源注入和主题按需边界。"
+    },
+    {
+      "rank": 3,
+      "group": "D03",
+      "reason": "接受原生 loading=lazy，核对初始 HTML 与实际加载、首屏例外和无脚本回退。"
+    },
+    {
+      "rank": 4,
+      "group": "P02",
+      "reason": "私有凭据代理的承载、口径与真实账户对账。"
+    }
+  ]
+}

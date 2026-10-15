@@ -1,0 +1,484 @@
+{
+  "kind": "responsive-picture-repair",
+  "date": "2026-10-15",
+  "scope": "Actual lightbox source bundled in memory into synthetic headless-browser page; installed Halo not modified by this run.",
+  "before": {
+    "kind": "responsive-picture-regression",
+    "sourceSha": "bc9d08ca231e388256c4675cd0a9903f0a7475b2",
+    "productFile": "src/js/modules/AmplifyImg.ts",
+    "productSha256": "4c1e0d0015bb4b0a250b79ccde9216985a26fb1c6b184dfd14ba406d0ca7cf89",
+    "runnerSha256": "037adb3fb9b4327b3067167269759d1095ebbd3cafa2f1b5bf91f861250551b7",
+    "bundleSha256": "cc019cd413ac9c108430aab114c38b218151693759ccbbf577312a20a913ea80",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:60958/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "SPAN",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:60958/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><span role=\"button\" tabindex=\"0\" class=\"theme-lightbox-trigger\" aria-label=\"查看图片：Responsive fixture\" aria-haspopup=\"dialog\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></span></picture>",
+          "triggerCount": 1
+        },
+        "result": "failed",
+        "error": "AssertionError [ERR_ASSERTION]: Lightbox must keep img as a direct child of picture\n\n'SPAN' !== 'PICTURE'\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-picture.mjs:41:12\n    at processTicksAndRejections (native:7:39)"
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:60958/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "SPAN",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:60958/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><span role=\"button\" tabindex=\"0\" class=\"theme-lightbox-trigger\" aria-label=\"查看图片：Responsive fixture\" aria-haspopup=\"dialog\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></span></picture>",
+          "triggerCount": 1
+        },
+        "result": "failed",
+        "error": "AssertionError [ERR_ASSERTION]: Lightbox must keep img as a direct child of picture\n\n'SPAN' !== 'PICTURE'\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/images/check-picture.mjs:41:12\n    at processTicksAndRejections (native:7:39)"
+      }
+    ],
+    "limitations": [
+      "Synthetic headless browsers only; no installed Halo, physical device, or actual Safari verification."
+    ],
+    "result": "failed"
+  },
+  "after": {
+    "kind": "responsive-picture-regression",
+    "sourceSha": "bc9d08ca231e388256c4675cd0a9903f0a7475b2",
+    "productFile": "src/js/modules/AmplifyImg.ts",
+    "productSha256": "efcd241e571b4d21c96d08ceecd010abc28e2a19c018dceaaa276c0b8af34207",
+    "runnerSha256": "037adb3fb9b4327b3067167269759d1095ebbd3cafa2f1b5bf91f861250551b7",
+    "bundleSha256": "3c10f912698cba49983288cc57ca8090b927dab145a28857a5ae203e6692777e",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "afterResize": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "result": "passed"
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "afterResize": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "result": "passed"
+      },
+      {
+        "engine": "firefox",
+        "width": 1440,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "afterResize": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "result": "passed"
+      },
+      {
+        "engine": "firefox",
+        "width": 390,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "afterResize": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "result": "passed"
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "afterResize": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "result": "passed"
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "errors": [],
+        "before": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "after": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/narrow.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "afterResize": {
+          "parent": "PICTURE",
+          "src": "/fallback.svg",
+          "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+          "currentSrc": "http://127.0.0.1:61099/wide.svg",
+          "loading": "eager",
+          "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+          "triggerCount": 0
+        },
+        "result": "passed"
+      }
+    ],
+    "limitations": [
+      "Synthetic headless browsers only; no installed Halo, physical device, or actual Safari verification."
+    ],
+    "result": "passed"
+  },
+  "existingLightboxRegression": {
+    "sourceSha": "bc9d08ca231e388256c4675cd0a9903f0a7475b2",
+    "workingTreeClean": false,
+    "viewer": "1.14.0",
+    "runnerSha256": "d9fbd50c46f216fdb7248dfb80c39d7d3f8f276de34596e69077967a7e72828a",
+    "bundleSha256": "7451b90080dd613a05a5409cae616c78564880c9c3993610e96c5b23bf2197ef",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "result": "passed",
+        "behaviors": [
+          "reinitialize",
+          "keyboard-open",
+          "focus-trap",
+          "arrows",
+          "rotate",
+          "flips",
+          "one-to-one",
+          "zoom",
+          "reset",
+          "thumbnails",
+          "slideshow",
+          "escape",
+          "close-button",
+          "backdrop",
+          "focus-return",
+          "image-links",
+          "shared-anchor-selected-image",
+          "external/download-links",
+          "groups",
+          "lazy-url",
+          "dynamic-image",
+          "safe-title"
+        ]
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "result": "passed",
+        "behaviors": [
+          "touch-tap",
+          "touch-swipe",
+          "touch-pinch"
+        ]
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "result": "passed",
+        "behaviors": [
+          "reinitialize",
+          "keyboard-open",
+          "focus-trap",
+          "arrows",
+          "rotate",
+          "flips",
+          "one-to-one",
+          "zoom",
+          "reset",
+          "thumbnails",
+          "slideshow",
+          "escape",
+          "close-button",
+          "backdrop",
+          "focus-return",
+          "image-links",
+          "shared-anchor-selected-image",
+          "external/download-links",
+          "groups",
+          "lazy-url",
+          "dynamic-image",
+          "safe-title"
+        ]
+      },
+      {
+        "engine": "firefox",
+        "width": 1440,
+        "result": "passed",
+        "behaviors": [
+          "reinitialize",
+          "keyboard-open",
+          "focus-trap",
+          "arrows",
+          "rotate",
+          "flips",
+          "one-to-one",
+          "zoom",
+          "reset",
+          "thumbnails",
+          "slideshow",
+          "escape",
+          "close-button",
+          "backdrop",
+          "focus-return",
+          "image-links",
+          "shared-anchor-selected-image",
+          "external/download-links",
+          "groups",
+          "lazy-url",
+          "dynamic-image",
+          "safe-title"
+        ]
+      },
+      {
+        "engine": "firefox",
+        "width": 390,
+        "result": "passed",
+        "behaviors": [
+          "reinitialize",
+          "keyboard-open",
+          "focus-trap",
+          "arrows",
+          "rotate",
+          "flips",
+          "one-to-one",
+          "zoom",
+          "reset",
+          "thumbnails",
+          "slideshow",
+          "escape",
+          "close-button",
+          "backdrop",
+          "focus-return",
+          "image-links",
+          "shared-anchor-selected-image",
+          "external/download-links",
+          "groups",
+          "lazy-url",
+          "dynamic-image",
+          "safe-title"
+        ]
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "result": "passed",
+        "behaviors": [
+          "reinitialize",
+          "keyboard-open",
+          "focus-trap",
+          "arrows",
+          "rotate",
+          "flips",
+          "one-to-one",
+          "zoom",
+          "reset",
+          "thumbnails",
+          "slideshow",
+          "escape",
+          "close-button",
+          "backdrop",
+          "focus-return",
+          "image-links",
+          "shared-anchor-selected-image",
+          "external/download-links",
+          "groups",
+          "lazy-url",
+          "dynamic-image",
+          "safe-title"
+        ]
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "result": "passed",
+        "behaviors": [
+          "reinitialize",
+          "keyboard-open",
+          "focus-trap",
+          "arrows",
+          "rotate",
+          "flips",
+          "one-to-one",
+          "zoom",
+          "reset",
+          "thumbnails",
+          "slideshow",
+          "escape",
+          "close-button",
+          "backdrop",
+          "focus-return",
+          "image-links",
+          "shared-anchor-selected-image",
+          "external/download-links",
+          "groups",
+          "lazy-url",
+          "dynamic-image",
+          "safe-title"
+        ]
+      }
+    ],
+    "limitations": [
+      "Synthetic page, not installed Halo or actual Safari/phone hardware."
+    ],
+    "result": "passed"
+  },
+  "candidateAttribution": "Reports identify pre-commit HEAD and exact AmplifyImg product hash. The repair was uncommitted during these runs. Exact-commit CI/review and installed-candidate acceptance remain separate.",
+  "limitations": [
+    "No actual Safari/physical devices or screen reader.",
+    "No complete native-image/Halo/1.0 acceptance.",
+    "No matrix verified promotion."
+  ]
+}

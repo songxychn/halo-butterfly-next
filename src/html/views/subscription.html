@@ -1,0 +1,15 @@
+<!-- Feed and Sitemap own the XML; the theme only advertises started plugins. -->
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="head">
+  <link th:if="${theme.config.subscription?.rss != false and theme.config.subscription?.rss != 'false' and pluginFinder.available('PluginFeed', '>=1.5.0')}"
+        rel="alternate" type="application/rss+xml" th:href="@{/rss.xml}" th:title="#{ui.rssSubscribe}" data-theme-rss>
+  <link th:if="${theme.config.subscription?.sitemap != false and theme.config.subscription?.sitemap != 'false' and pluginFinder.available('PluginSitemap', '>=1.3.0')}"
+        rel="sitemap" type="application/xml" th:href="@{/sitemap.xml}" th:title="#{ui.sitemap}" data-theme-sitemap>
+</th:block>
+
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="links"
+  th:with="rssOn = ${theme.config.subscription?.rss != false and theme.config.subscription?.rss != 'false' and pluginFinder.available('PluginFeed', '>=1.5.0')}, sitemapOn = ${theme.config.subscription?.sitemap != false and theme.config.subscription?.sitemap != 'false' and pluginFinder.available('PluginSitemap', '>=1.3.0')}">
+  <nav class="footer-subscription" th:if="${rssOn or sitemapOn}" th:aria-label="#{ui.subscriptionLinks}">
+    <a th:if="${rssOn}" th:href="@{/rss.xml}" type="application/rss+xml" data-theme-rss th:text="#{ui.rssSubscribe}">RSS 订阅</a>
+    <a th:if="${sitemapOn}" th:href="@{/sitemap.xml}" type="application/xml" data-theme-sitemap th:text="#{ui.sitemap}">站点地图</a>
+  </nav>
+</th:block>

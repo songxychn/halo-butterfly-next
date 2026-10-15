@@ -2069,7 +2069,7 @@
           "src/js/core/decorative-background.ts",
           "src/js/above-background.ts"
         ],
-        "finding": "CSSOM 已支持颜色、渐变、background 简写与安全图片 URL；footer_img=true 复用当前页顶图并保留遮罩。16 组真实 Halo 背景值域/亮暗/视口检查通过；图片浏览器预扫描前处理仍是独立缺口，完整验收未完成。"
+        "finding": "CSSOM 已支持颜色、渐变、background 简写与安全图片 URL；footer_img=true 复用当前页顶图并保留遮罩。16 组真实 Halo 背景值域/亮暗/视口检查通过；图片按 DEC-03 平台补充接受原生懒加载，独立完成初始 HTML/真实加载与回退验收，完整验收未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -28331,7 +28331,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [
           "lazyload.enable"
         ],
@@ -28346,7 +28346,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -28357,7 +28357,8 @@
         "profile": "lifecycle",
         "cases": [
           "lazyload.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 lazyload.enable 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 lazyload.enable 与全局/逐页覆盖的优先级。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -28370,7 +28371,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -28396,7 +28398,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "config:lazyload.native",
@@ -28419,7 +28429,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [
           "lazyload.native"
         ],
@@ -28434,7 +28444,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -28445,7 +28455,8 @@
         "profile": "lifecycle",
         "cases": [
           "lazyload.native：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 lazyload.native 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 lazyload.native 与全局/逐页覆盖的优先级。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -28458,7 +28469,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -28484,7 +28496,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "config:lazyload.field",
@@ -28507,7 +28527,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [
           "lazyload.field"
         ],
@@ -28522,7 +28542,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -28533,7 +28553,8 @@
         "profile": "lifecycle",
         "cases": [
           "lazyload.field：逐值执行 \"site\" / \"post\"。",
-          "保持同组其他设置不变；验证 lazyload.field 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 lazyload.field 与全局/逐页覆盖的优先级。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "values": [
           "site",
@@ -28550,7 +28571,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -28576,7 +28598,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "config:lazyload.placeholder",
@@ -28599,7 +28629,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [
           "loading.img.preload"
         ],
@@ -28617,7 +28647,8 @@
         "profile": "lifecycle",
         "cases": [
           "lazyload.placeholder：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 lazyload.placeholder 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 lazyload.placeholder 与全局/逐页覆盖的优先级。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -28629,12 +28660,21 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "config:lazyload.blur",
@@ -28657,7 +28697,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [
           "lazyload.blur"
         ],
@@ -28672,7 +28712,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -28683,7 +28723,8 @@
         "profile": "lifecycle",
         "cases": [
           "lazyload.blur：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 lazyload.blur 与全局/逐页覆盖的优先级。"
+          "保持同组其他设置不变；验证 lazyload.blur 与全局/逐页覆盖的优先级。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -28696,7 +28737,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -28722,7 +28764,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "config:pwa.enable",
@@ -28745,13 +28795,13 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -28774,12 +28824,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:pwa.manifest",
@@ -28802,13 +28866,13 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -28831,12 +28895,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:pwa.apple_touch_icon",
@@ -28859,13 +28937,13 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -28888,12 +28966,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:pwa.favicon_32_32",
@@ -28916,13 +29008,13 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -28945,12 +29037,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:pwa.favicon_16_16",
@@ -28973,13 +29079,13 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -29002,12 +29108,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:pwa.mask_icon",
@@ -29030,13 +29150,13 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -29059,12 +29179,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:Open_Graph_meta.enable",
@@ -36625,13 +36759,13 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -36653,12 +36787,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "template:includes/head/site_verification",
@@ -45342,7 +45490,7 @@
           "src/js/core/footer.ts",
           "src/html/views/footer.html"
         ],
-        "finding": "CSSOM 已支持颜色、渐变、background 简写与安全图片 URL；footer_img=true 复用当前页顶图并保留遮罩。16 组真实 Halo 背景值域/亮暗/视口检查通过；图片浏览器预扫描前处理仍是独立缺口，完整验收未完成。"
+        "finding": "CSSOM 已支持颜色、渐变、background 简写与安全图片 URL；footer_img=true 复用当前页顶图并保留遮罩。16 组真实 Halo 背景值域/亮暗/视口检查通过；图片按 DEC-03 平台补充接受原生懒加载，独立完成初始 HTML/真实加载与回退验收，完整验收未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -46431,7 +46579,7 @@
       ],
       "upstreamInventory": "registrations",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
@@ -46444,7 +46592,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -46455,7 +46603,8 @@
         "profile": "lifecycle",
         "cases": [
           "scripts/filters/post_lazyload.js#filter:after_post_render：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/filters/post_lazyload.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认 scripts/filters/post_lazyload.js 的消费页面具备对应行为及关闭/缺失回退。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -46467,7 +46616,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -46493,7 +46643,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "gap"
+      "status": "gap",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "lifecycle-hook:scripts/filters/post_lazyload.js#filter:after_render:html",
@@ -46508,7 +46666,7 @@
       ],
       "upstreamInventory": "registrations",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
+        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
@@ -46521,7 +46679,7 @@
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -46532,7 +46690,8 @@
         "profile": "lifecycle",
         "cases": [
           "scripts/filters/post_lazyload.js#filter:after_render:html：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/filters/post_lazyload.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认 scripts/filters/post_lazyload.js 的消费页面具备对应行为及关闭/缺失回退。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -46544,7 +46703,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -46570,7 +46730,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "gap"
+      "status": "gap",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "lifecycle-hook:scripts/filters/random_cover.js#generator:post",
@@ -48754,7 +48922,7 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [],
         "code": [
           "scripts/build.mjs",
@@ -48775,7 +48943,8 @@
         "profile": "resources",
         "cases": [
           "lazyload：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -48786,7 +48955,8 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
@@ -48801,7 +48971,15 @@
           "outcome": "partial: source and bounded evidence reconciled; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "resource:mathjax",
@@ -63495,7 +63673,7 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。",
+        "strategy": "使用 Halo 附件、文章封面及主题设置表达上游图片层次和回退规则。 2026-10-15 DEC-03 平台补充接受原生 loading=lazy；保留作者 src/srcset/picture、显式 eager、首屏关键图片与无脚本阅读，不再以严格视口前零请求为验收条件。",
         "settings": [],
         "code": [
           "src/html/views/components.html",
@@ -63510,7 +63688,7 @@
           "src/js/core/_message.ts",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML，Hexo 构建期过滤器完整语义仍有缺口。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -63519,7 +63697,8 @@
       "acceptance": {
         "profile": "images",
         "cases": [
-          "原生/库、site/post 范围、占位/模糊和未进入视口图片。"
+          "原生/库、site/post 范围、占位/模糊和未进入视口图片。",
+          "按 DEC-03 平台补充验证原生 loading=lazy 的初始 HTML、真实加载与无脚本阅读；保留 src/srcset/picture、显式 eager 和首屏例外。允许浏览器提前加载邻近图片，不要求进入视口前严格零请求；解析后改属性不能证明初始请求已延迟。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -63531,7 +63710,8 @@
       "tracking": {
         "issues": [
           "https://github.com/songxychn/halo-butterfly-next/issues/2",
-          "https://github.com/songxychn/halo-butterfly-next/issues/393"
+          "https://github.com/songxychn/halo-butterfly-next/issues/393",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": [
           "https://github.com/songxychn/halo-butterfly-next/pull/399"
@@ -63575,7 +63755,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "implemented-unverified",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      }
     },
     {
       "id": "interaction:loading",
@@ -63670,13 +63858,13 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "保留上游 PWA 能力与来源，按 DEC-03 平台补充延期到 1.0 之后（版本未定）。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml"
         ],
-        "finding": "原需求保留；尚未实现或完成 Halo 平台映射。"
+        "finding": "2026-10-15 维护者已裁定延期；当前未交付完整 PWA/离线能力。RSS/站点地图独立保留在 1.0，按 PLG-07 验收。"
       },
       "dependencies": [
         "dual-site",
@@ -63697,12 +63885,26 @@
       },
       "tracking": {
         "issues": [
-          "https://github.com/songxychn/halo-butterfly-next/issues/2"
+          "https://github.com/songxychn/halo-butterfly-next/issues/2",
+          "https://github.com/songxychn/halo-butterfly-next/issues/415"
         ],
         "pullRequests": []
       },
       "evidence": [],
-      "status": "gap"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-PLATFORM",
+        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/415",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-pwa-native-images-official-feed-sitemap",
+        "reason": "维护者确认 PWA 收益不足以列为 1.0 必需能力；图片接受浏览器原生懒加载；RSS/站点地图保留并优先实施。",
+        "replacement": "RSS/站点地图由官方 Feed/Sitemap 插件提供，图片使用原生 loading=lazy；PWA/离线延期到 1.0 之后，版本与是否实施待评估。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "DEC-03 平台补充（2026-10-15，#415）：PWA/离线延期到 1.0 之后，目标版本与是否实施待评估；不计入 1.0 工程分母，不是不适用或已验收。",
+        "nextAction": "后续由维护者重新评估收益、目标版本与范围，再确定插件及安装、缓存、更新、权限和卸载验收；不自动排入 1.1。"
+      }
     },
     {
       "id": "interaction:data-safe",
