@@ -1,0 +1,189 @@
+{
+  "schema": 1,
+  "kind": "merged-product-build-reproducibility",
+  "recordedAt": "2026-10-15T16:51:24.940703+00:00",
+  "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+  "result": "passed-bounded-build-checks",
+  "contractAcceptance": false,
+  "ci": {
+    "conclusion": "success",
+    "createdAt": "2026-10-15T16:34:30Z",
+    "databaseId": 38770144602,
+    "event": "workflow_dispatch",
+    "headSha": "d678d3f839347554d7f100996f87b23b571888df",
+    "jobs": [
+      {
+        "completedAt": "2026-10-15T16:36:13Z",
+        "conclusion": "success",
+        "databaseId": 116543514861,
+        "name": "build",
+        "startedAt": "2026-10-15T16:34:35Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-15T16:34:38Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-15T16:34:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:34:40Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-10-15T16:34:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:34:42Z",
+            "conclusion": "success",
+            "name": "Run oven-sh/setup-bun@v2",
+            "number": 3,
+            "startedAt": "2026-10-15T16:34:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:34:45Z",
+            "conclusion": "success",
+            "name": "Run bun install --frozen-lockfile --ignore-scripts",
+            "number": 4,
+            "startedAt": "2026-10-15T16:34:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:34:46Z",
+            "conclusion": "success",
+            "name": "Checkout fixed Butterfly reference",
+            "number": 5,
+            "startedAt": "2026-10-15T16:34:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:34:47Z",
+            "conclusion": "success",
+            "name": "Verify inventory against fixed upstream source",
+            "number": 6,
+            "startedAt": "2026-10-15T16:34:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:35:42Z",
+            "conclusion": "success",
+            "name": "Run bun run verify",
+            "number": 7,
+            "startedAt": "2026-10-15T16:34:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:36:08Z",
+            "conclusion": "success",
+            "name": "Rebuild and compare archive",
+            "number": 8,
+            "startedAt": "2026-10-15T16:35:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:36:10Z",
+            "conclusion": "success",
+            "name": "Upload requested preview package",
+            "number": 9,
+            "startedAt": "2026-10-15T16:36:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:36:10Z",
+            "conclusion": "success",
+            "name": "Post Checkout fixed Butterfly reference",
+            "number": 16,
+            "startedAt": "2026-10-15T16:36:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:36:10Z",
+            "conclusion": "success",
+            "name": "Post Run oven-sh/setup-bun@v2",
+            "number": 17,
+            "startedAt": "2026-10-15T16:36:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:36:11Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "startedAt": "2026-10-15T16:36:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T16:36:11Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-10-15T16:36:11Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/38770144602/job/116543514861"
+      }
+    ],
+    "updatedAt": "2026-10-15T16:36:14Z",
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/38770144602"
+  },
+  "packages": [
+    {
+      "path": ".runtime/acceptance-followup/ci-d678/halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "bytes": 4375923,
+      "entries": 269
+    },
+    {
+      "path": ".runtime/acceptance-followup/fresh-d678/dist/halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "bytes": 4375923,
+      "entries": 269
+    },
+    {
+      "path": "dist/halo-butterfly-next-0.1.0-alpha.4.zip",
+      "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "bytes": 4375923,
+      "entries": 269
+    }
+  ],
+  "rawEvidence": [
+    {
+      "path": ".runtime/acceptance-followup/ci-d678/run.json",
+      "sha256": "6adaeb6bfd26d341372277a2bdda103aebbd0c2f2e0a58a70fffa200cf5bfccd",
+      "bytes": 2743
+    },
+    {
+      "path": ".runtime/acceptance-followup/source-d678.tar",
+      "sha256": "c408d9ec8b6f5b2ff973cc312078c82d978d0e22e3930b3888e1ca2bd17841c4",
+      "bytes": 27688960
+    },
+    {
+      "path": ".runtime/acceptance-followup/fresh-install.log",
+      "sha256": "516c71e070a6a19a17cf7d9b1573cd2d944590a2e1427ace2274389670c22295",
+      "bytes": 1369
+    },
+    {
+      "path": ".runtime/acceptance-followup/fresh-build.log",
+      "sha256": "9894b6ee9d17fbedfe4fc6ba2555fde5d41b615b105bc6861543f42f0932878d",
+      "bytes": 346
+    }
+  ],
+  "commands": [
+    "gh workflow run verify.yml --repo songxychn/halo-butterfly-next --ref master -f upload_artifact=true",
+    "gh run download 38770144602 --repo songxychn/halo-butterfly-next --name halo-butterfly-next-preview --dir .runtime/acceptance-followup/ci-d678",
+    "git archive --format=tar --output=.runtime/acceptance-followup/source-d678.tar d678d3f839347554d7f100996f87b23b571888df",
+    "fresh empty directory: extract archive; bun install --frozen-lockfile --ignore-scripts; bun run build; bun scripts/check-package.mjs"
+  ],
+  "limitations": [
+    "This verifies the merged PR417 product; subsequent acceptance-tool/document commits are separate runner identities.",
+    "Two independent fresh build directories: GitHub Ubuntu checkout and local source archive. Local fresh run covers build/package; full verify is the exact-source CI job.",
+    "Not a release, deployment, full runtime acceptance, permanent RC evidence archive, or complete supply-chain audit.",
+    "Raw local files remain ignored; GitHub preview artifact expires after 7 days. Reproduce with the exact source and workflow; preserve evidence separately before RC.",
+    "Artifact download initially preceded upload and one retry hit a TLS timeout. Both were retrieval/setup failures, not discarded product test failures."
+  ]
+}

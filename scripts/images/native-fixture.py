@@ -19,7 +19,9 @@ POSTS = '/apis/content.halo.run/v1alpha1/posts'
 CONSOLE = '/apis/api.console.halo.run/v1alpha1/posts'
 PROFILES = {'native-site': {'enable': True, 'native': True, 'field': 'site', 'blur': False},
             'native-post': {'enable': True, 'native': True, 'field': 'post', 'blur': True},
-            'disabled': {'enable': False, 'native': True, 'field': 'site', 'blur': False}}
+            'disabled': {'enable': False, 'native': True, 'field': 'site', 'blur': False},
+            'native-post-clear': {'enable': True, 'native': True, 'field': 'post', 'blur': False},
+            'native-site-blur': {'enable': True, 'native': True, 'field': 'site', 'blur': True}}
 
 
 def require(value, message):

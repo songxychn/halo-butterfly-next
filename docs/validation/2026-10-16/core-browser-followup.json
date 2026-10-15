@@ -1,0 +1,292 @@
+{
+  "date": "2026-10-16",
+  "scope": "Unmodified core runner, three engines, 10 routes x 2 widths x 2 modes per engine; original readiness/keyboard/reload/resource gates",
+  "productSource": "d678d3f839347554d7f100996f87b23b571888df",
+  "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+  "runnerScript": {
+    "path": "scripts/browser/run.mjs",
+    "sha256": "3b9c365837d314a884a4b53f0139dde57c895d5077fa67d69ea214b3b430492d",
+    "bytes": 22981
+  },
+  "diagnosticBatch": {
+    "report": {
+      "path": ".runtime/browser-matrix/runs/2026-10-15T17-46-01-623Z-e989b9cd/report.json",
+      "sha256": "f9c85e6db2f5abdee9044c3c872ae8f62fd826b0526f197f98079fdfb39c0959",
+      "bytes": 4242156
+    },
+    "startedAt": "2026-10-15T17:46:01.623Z",
+    "finishedAt": "2026-10-15T17:50:04.007Z",
+    "elapsedSeconds": 242.384,
+    "runnerResult": "passed-core-smoke",
+    "contractAcceptance": false,
+    "theme": {
+      "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+      "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "packageName": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "attribution": "Caller declaration matched to local lab installation record; source-to-build proof remains separate"
+    },
+    "runner": {
+      "sourceCommit": "b56e97f5ea72fc0547a269863ab6028bce0755eb",
+      "workingTreeClean": false,
+      "playwright": "1.63.0",
+      "packageManager": "bun@1.4.0",
+      "lockSha256": "7bf8b7f9e9e36beccff9c708ea81a1e9f2d27c9a04aea45734f46c066f3a61b7",
+      "browserRegistry": [
+        {
+          "name": "chromium",
+          "revision": "1243",
+          "installByDefault": true,
+          "browserVersion": "153.0.8010.12",
+          "title": "Chrome for Testing"
+        },
+        {
+          "name": "chromium-headless-shell",
+          "revision": "1243",
+          "installByDefault": true,
+          "browserVersion": "153.0.8010.12",
+          "title": "Chrome Headless Shell"
+        },
+        {
+          "name": "firefox",
+          "revision": "1543",
+          "installByDefault": true,
+          "browserVersion": "155.0",
+          "title": "Firefox"
+        },
+        {
+          "name": "webkit",
+          "revision": "2359",
+          "installByDefault": true,
+          "revisionOverrides": {
+            "mac14": "2251",
+            "mac14-arm64": "2251"
+          },
+          "browserVersion": "26.6",
+          "title": "WebKit"
+        },
+        {
+          "name": "ffmpeg",
+          "revision": "1011",
+          "installByDefault": true
+        },
+        {
+          "name": "winldd",
+          "revision": "1007",
+          "installByDefault": false
+        },
+        {
+          "name": "android",
+          "revision": "1001",
+          "installByDefault": false
+        }
+      ]
+    },
+    "engineCounts": [
+      {
+        "engine": "chromium",
+        "status": "passed",
+        "total": 40,
+        "passed": 40
+      },
+      {
+        "engine": "firefox",
+        "status": "passed",
+        "total": 40,
+        "passed": 40
+      },
+      {
+        "engine": "webkit",
+        "status": "passed",
+        "total": 40,
+        "passed": 40
+      }
+    ],
+    "pageCount": 120,
+    "passed": 120,
+    "responses": 2332,
+    "pendingBeforeClose": 0,
+    "failures": [],
+    "pluginResourceCount": 2,
+    "classification": "diagnostic-incomplete",
+    "preparationFailure": {
+      "classification": "diagnostic-incomplete",
+      "collectorError": "AssertionError at station.py:22: len(plugins)==8 and all disabled phase check",
+      "cause": "PluginCommentWidget disable returned while phase STARTING; shell lacked fail-fast and launched original runner. Ready snapshot was not written because assertion preceded write.",
+      "observedOriginalCommentState": {
+        "enabled": true,
+        "phase": "STARTING"
+      },
+      "commentStopCompletedAt": "2026-10-16T01:46:02.249+08:00",
+      "runnerStartedAt": "2026-10-15T17:46:01.623Z",
+      "mixedFirstCaseResourceUrls": [
+        "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+        "http://127.0.0.1:18835/plugins/PluginCommentWidget/assets/static/comment-widget.js?version=3.3.2"
+      ],
+      "runnerResult": "passed-core-smoke",
+      "runnerExitCode": 0,
+      "acceptanceResult": "incomplete; first case mixed state"
+    },
+    "cleanup": {
+      "restored": true,
+      "installedFilesMatched": 269,
+      "configAndPluginEnabledVersionsMatched": true,
+      "transientPhaseExcludedFromTargetComparison": true,
+      "originalCommentPhase": "STARTING",
+      "restoredCommentPhase": "STARTED",
+      "inflightAfterExactMatch": true
+    }
+  },
+  "formalBatch": {
+    "report": {
+      "path": ".runtime/browser-matrix/runs/2026-10-15T17-53-21-835Z-8a376b49/report.json",
+      "sha256": "b72bc986e5643b56e3bdd36e736910aee88a37ccb71ce1fd59d76c98ef5a7926",
+      "bytes": 4228890
+    },
+    "startedAt": "2026-10-15T17:53:21.836Z",
+    "finishedAt": "2026-10-15T17:57:25.781Z",
+    "elapsedSeconds": 243.945,
+    "runnerResult": "passed-core-smoke",
+    "contractAcceptance": false,
+    "theme": {
+      "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+      "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "packageName": "halo-butterfly-next-0.1.0-alpha.4.zip",
+      "attribution": "Caller declaration matched to local lab installation record; source-to-build proof remains separate"
+    },
+    "runner": {
+      "sourceCommit": "b56e97f5ea72fc0547a269863ab6028bce0755eb",
+      "workingTreeClean": false,
+      "playwright": "1.63.0",
+      "packageManager": "bun@1.4.0",
+      "lockSha256": "7bf8b7f9e9e36beccff9c708ea81a1e9f2d27c9a04aea45734f46c066f3a61b7",
+      "browserRegistry": [
+        {
+          "name": "chromium",
+          "revision": "1243",
+          "installByDefault": true,
+          "browserVersion": "153.0.8010.12",
+          "title": "Chrome for Testing"
+        },
+        {
+          "name": "chromium-headless-shell",
+          "revision": "1243",
+          "installByDefault": true,
+          "browserVersion": "153.0.8010.12",
+          "title": "Chrome Headless Shell"
+        },
+        {
+          "name": "firefox",
+          "revision": "1543",
+          "installByDefault": true,
+          "browserVersion": "155.0",
+          "title": "Firefox"
+        },
+        {
+          "name": "webkit",
+          "revision": "2359",
+          "installByDefault": true,
+          "revisionOverrides": {
+            "mac14": "2251",
+            "mac14-arm64": "2251"
+          },
+          "browserVersion": "26.6",
+          "title": "WebKit"
+        },
+        {
+          "name": "ffmpeg",
+          "revision": "1011",
+          "installByDefault": true
+        },
+        {
+          "name": "winldd",
+          "revision": "1007",
+          "installByDefault": false
+        },
+        {
+          "name": "android",
+          "revision": "1001",
+          "installByDefault": false
+        }
+      ]
+    },
+    "engineCounts": [
+      {
+        "engine": "chromium",
+        "status": "passed",
+        "total": 40,
+        "passed": 40
+      },
+      {
+        "engine": "firefox",
+        "status": "passed",
+        "total": 40,
+        "passed": 40
+      },
+      {
+        "engine": "webkit",
+        "status": "passed",
+        "total": 40,
+        "passed": 40
+      }
+    ],
+    "pageCount": 120,
+    "passed": 120,
+    "responses": 2323,
+    "pendingBeforeClose": 0,
+    "failures": [],
+    "pluginResourceCount": 0,
+    "classification": "passed-core-smoke",
+    "coordinator": {
+      "runnerStarted": true,
+      "runnerExitCode": 0,
+      "runnerStartedAt": "2026-10-15T17:53:21.694568+00:00",
+      "runnerEndedAt": "2026-10-15T17:57:25.795946+00:00",
+      "restored": true,
+      "stopExitCode": 0,
+      "endedAt": "2026-10-15T17:57:31.733344+00:00"
+    },
+    "ready": {
+      "path": ".runtime/loading-followup/core120-formal/ready.json",
+      "sha256": "2230381b5372a2182f3f19346510b9b344431ebc2dd8e2c9e5a0da100d27c2e9",
+      "bytes": 44471
+    },
+    "before": {
+      "path": ".runtime/loading-followup/core120-formal/before.json",
+      "sha256": "905d44caabb797c9adcf7248038ab8cf6da954b753af9729c00c6389e55d35b7",
+      "bytes": 44469
+    },
+    "after": {
+      "path": ".runtime/loading-followup/core120-formal/after.json",
+      "sha256": "2230381b5372a2182f3f19346510b9b344431ebc2dd8e2c9e5a0da100d27c2e9",
+      "bytes": 44471
+    },
+    "restored": {
+      "path": ".runtime/loading-followup/core120-formal/restored.json",
+      "sha256": "905d44caabb797c9adcf7248038ab8cf6da954b753af9729c00c6389e55d35b7",
+      "bytes": 44469
+    },
+    "disabledPolls": {
+      "path": ".runtime/loading-followup/core120-formal/disabled-polls.json",
+      "sha256": "562b81691190254598112a357b6bc336b76e6a73ab8bdc883f8c8c69063c659c",
+      "bytes": 49101
+    }
+  },
+  "identity": {
+    "installedFileCount": 269,
+    "readyAfterEqual": true,
+    "beforeRestoredEqual": true
+  },
+  "rawManifest": {
+    "path": ".runtime/loading-followup/core120-raw-manifest.json",
+    "sha256": "1d54dc12d41d3c5834f4c42704114d143483a5194194f24b5e58743f3f087a69",
+    "bytes": 207823
+  },
+  "rawFileCount": 919,
+  "limitations": [
+    "First batch failed preparation and mixed official comment plugin resource state; its 120 passes are diagnostic only and never combined with formal batch.",
+    "No browser assertions/timeouts/product files changed. One formal full batch after reviewed coordinator correction; no failure retries.",
+    "No actual Safari or physical devices, optional plugins/features, performance budget, or complete 1.0 acceptance certified.",
+    "DEBUG/access and Firefox nsHttp logs may affect timing; current run does not erase historical failures or resolve queued HTTP problem #338.",
+    "Raw evidence is retained locally under ignored runtime; committed documents contain hashes and paths, not a public artifact archive."
+  ]
+}

@@ -1,0 +1,546 @@
+{
+  "schema": 1,
+  "kind": "fixed-navigation-followup-diagnostics",
+  "diagnosticOnly": true,
+  "formalReplacement": false,
+  "result": "persistent-pending-observed",
+  "attempted": 10,
+  "observed": 10,
+  "pendingCases": 2,
+  "samples": [
+    {
+      "index": 0,
+      "device": "mobile",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4712,
+      "observationEndSinceNavigationMs": 24733,
+      "observationEndedAt": "2026-10-15T17:40:33.397Z",
+      "observationMsAfterLighthouse": 20021,
+      "side": "baseline",
+      "route": "home",
+      "identity": {
+        "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+        "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/home/report.json",
+        "sha256": "61a6745b88070e5864071d3578577ab6734ce009234e7b80625b3b873f9f85d9"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/home/0-mobile/netlog.json",
+        "sha256": "a375a5d1826daa67d0a8276fdaf07ca2a375382f2c70c13fde3752d9820d7664",
+        "containerTruncated": true,
+        "completeEvents": 6039
+      }
+    },
+    {
+      "index": 1,
+      "device": "desktop",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4691,
+      "observationEndSinceNavigationMs": 24711,
+      "observationEndedAt": "2026-10-15T17:40:59.802Z",
+      "observationMsAfterLighthouse": 20020,
+      "side": "baseline",
+      "route": "home",
+      "identity": {
+        "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+        "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [
+        "http://127.0.0.1:18845/lab/cover-golden-mountain.webp",
+        "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+      ],
+      "pendingAt20s": [
+        "http://127.0.0.1:18845/lab/cover-golden-mountain.webp",
+        "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+      ],
+      "pendingAtObservationEnd": [
+        "http://127.0.0.1:18845/lab/cover-golden-mountain.webp",
+        "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+      ],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/home/report.json",
+        "sha256": "61a6745b88070e5864071d3578577ab6734ce009234e7b80625b3b873f9f85d9"
+      },
+      "socketCorrelations": [
+        {
+          "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp",
+          "requestId": 140,
+          "streamJobId": 142,
+          "socketId": 113,
+          "connection": {
+            "local_address": "127.0.0.1:59363",
+            "remote_address": "127.0.0.1:18845"
+          },
+          "bytesSentAfterRequest": [
+            {
+              "time": "1972181767",
+              "byte_count": 666
+            }
+          ],
+          "receiveEventsAfterRequest": 0,
+          "queueEvidence": {
+            "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline-home-socket-queues.jsonl",
+            "sha256": "b5b97fe555ff80ccdc33fb15a3ac472411a4b06020d31b1feb38ac95a82d77c2"
+          },
+          "positiveQueueObservations": 12,
+          "firstPositive": {
+            "wallTimeMs": 1792086037233,
+            "recvQ": 666,
+            "sendQ": 0,
+            "line": "tcp4     666      0  127.0.0.1.18845        127.0.0.1.59363        ESTABLISHED         4066         6770  407104  146988             java:52219  00102 00000004 000000000315679b 00000080 01000800      2      0 000000"
+          },
+          "lastPositive": {
+            "wallTimeMs": 1792086059525,
+            "recvQ": 666,
+            "sendQ": 0,
+            "line": "tcp4     666      0  127.0.0.1.18845        127.0.0.1.59363        ESTABLISHED         4066         6770  407104  146988             java:52219  00102 00000004 000000000315679b 00000080 01000800      2      0 000000"
+          }
+        },
+        {
+          "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+          "requestId": 146,
+          "streamJobId": 148,
+          "socketId": 108,
+          "connection": {
+            "local_address": "127.0.0.1:50580",
+            "remote_address": "127.0.0.1:18845"
+          },
+          "bytesSentAfterRequest": [
+            {
+              "time": "1972181767",
+              "byte_count": 666
+            }
+          ],
+          "receiveEventsAfterRequest": 0,
+          "queueEvidence": {
+            "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline-home-socket-queues.jsonl",
+            "sha256": "b5b97fe555ff80ccdc33fb15a3ac472411a4b06020d31b1feb38ac95a82d77c2"
+          },
+          "positiveQueueObservations": 12,
+          "firstPositive": {
+            "wallTimeMs": 1792086037233,
+            "recvQ": 666,
+            "sendQ": 0,
+            "line": "tcp4     666      0  127.0.0.1.18845        127.0.0.1.50580        ESTABLISHED         4114         1831  407040  146988             java:52219  00102 00000004 0000000003156799 00000080 01000800      2      0 000000"
+          },
+          "lastPositive": {
+            "wallTimeMs": 1792086059525,
+            "recvQ": 666,
+            "sendQ": 0,
+            "line": "tcp4     666      0  127.0.0.1.18845        127.0.0.1.50580        ESTABLISHED         4114         1831  407040  146988             java:52219  00102 00000004 0000000003156799 00000080 01000800      2      0 000000"
+          }
+        }
+      ],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/home/1-desktop/netlog.json",
+        "sha256": "608512a88e117e4403a18d0d024a8724849b330994982947af256fe41ae89ca4",
+        "containerTruncated": true,
+        "completeEvents": 6245
+      }
+    },
+    {
+      "index": 0,
+      "device": "mobile",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4544,
+      "observationEndSinceNavigationMs": 24560,
+      "observationEndedAt": "2026-10-15T17:41:26.616Z",
+      "observationMsAfterLighthouse": 20016,
+      "side": "baseline",
+      "route": "public-layout",
+      "identity": {
+        "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+        "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/public-layout/report.json",
+        "sha256": "d8992ece0fcc94e29dd58b6b56eb633489ef920abb1c8f7b4a2f6486a6891523"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/public-layout/0-mobile/netlog.json",
+        "sha256": "a38d0a709c51e4a1779b4556b23ce23904fcc4d3a7923794c1f8645e5a175491",
+        "containerTruncated": true,
+        "completeEvents": 4928
+      }
+    },
+    {
+      "index": 1,
+      "device": "desktop",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4489,
+      "observationEndSinceNavigationMs": 24510,
+      "observationEndedAt": "2026-10-15T17:41:52.810Z",
+      "observationMsAfterLighthouse": 20021,
+      "side": "baseline",
+      "route": "public-layout",
+      "identity": {
+        "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+        "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/public-layout/report.json",
+        "sha256": "d8992ece0fcc94e29dd58b6b56eb633489ef920abb1c8f7b4a2f6486a6891523"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/public-layout/1-desktop/netlog.json",
+        "sha256": "29f3c33f1931a03f6cd55459fce3d43379116753bfd4e55282433cf704de127c",
+        "containerTruncated": true,
+        "completeEvents": 4955
+      }
+    },
+    {
+      "index": 2,
+      "device": "desktop",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4457,
+      "observationEndSinceNavigationMs": 24473,
+      "observationEndedAt": "2026-10-15T17:42:18.965Z",
+      "observationMsAfterLighthouse": 20016,
+      "side": "baseline",
+      "route": "public-layout",
+      "identity": {
+        "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+        "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/public-layout/report.json",
+        "sha256": "d8992ece0fcc94e29dd58b6b56eb633489ef920abb1c8f7b4a2f6486a6891523"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/baseline/public-layout/2-desktop/netlog.json",
+        "sha256": "2a70c62dbac72e2df6d540d545fdd8e418988901c867da7dce3ae7d0a1ba4c3c",
+        "containerTruncated": true,
+        "completeEvents": 4897
+      }
+    },
+    {
+      "index": 0,
+      "device": "mobile",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 5532,
+      "observationEndSinceNavigationMs": 25564,
+      "observationEndedAt": "2026-10-15T17:42:46.951Z",
+      "observationMsAfterLighthouse": 20032,
+      "side": "candidate",
+      "route": "longform",
+      "identity": {
+        "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+        "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/longform/report.json",
+        "sha256": "8f20fd4735de506b4eda053e38b22a247c0aee34dc6004c57ec5a6f8afba391f"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/longform/0-mobile/netlog.json",
+        "sha256": "6fe8e7f3e67f5cbf58cc67c1c2451b2eaae4ba6b8592334fcd7152e7ab2ad862",
+        "containerTruncated": true,
+        "completeEvents": 10131
+      }
+    },
+    {
+      "index": 1,
+      "device": "desktop",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 5986,
+      "observationEndSinceNavigationMs": 26018,
+      "observationEndedAt": "2026-10-15T17:43:14.666Z",
+      "observationMsAfterLighthouse": 20032,
+      "side": "candidate",
+      "route": "longform",
+      "identity": {
+        "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+        "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/longform/report.json",
+        "sha256": "8f20fd4735de506b4eda053e38b22a247c0aee34dc6004c57ec5a6f8afba391f"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/longform/1-desktop/netlog.json",
+        "sha256": "214c8a18ec843feabb5c0011123171ad746528618cbe666e1de0cb5bad088c0a",
+        "containerTruncated": true,
+        "completeEvents": 10240
+      }
+    },
+    {
+      "index": 0,
+      "device": "mobile",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4695,
+      "observationEndSinceNavigationMs": 24714,
+      "observationEndedAt": "2026-10-15T17:43:41.623Z",
+      "observationMsAfterLighthouse": 20019,
+      "side": "candidate",
+      "route": "photos",
+      "identity": {
+        "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+        "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [
+        "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+      ],
+      "pendingAt20s": [
+        "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+      ],
+      "pendingAtObservationEnd": [
+        "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+      ],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/photos/report.json",
+        "sha256": "cbec894510e3b46b9c86428a2505a1a7c3b2f5d923d7a9ac0d0fd442b22f5df8"
+      },
+      "socketCorrelations": [
+        {
+          "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+          "requestId": 152,
+          "streamJobId": 154,
+          "socketId": 112,
+          "connection": {
+            "local_address": "127.0.0.1:54262",
+            "remote_address": "127.0.0.1:18845"
+          },
+          "bytesSentAfterRequest": [
+            {
+              "time": "1972343581",
+              "byte_count": 686
+            }
+          ],
+          "receiveEventsAfterRequest": 0,
+          "queueEvidence": {
+            "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate-photos-socket-queues.jsonl",
+            "sha256": "ed04ee3ca1f7c52da1b593088d5831dd610253b22323d4e53cb01cd9abca0c66"
+          },
+          "positiveQueueObservations": 12,
+          "firstPositive": {
+            "wallTimeMs": 1792086199128,
+            "recvQ": 686,
+            "sendQ": 0,
+            "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.54262        ESTABLISHED         4184         6559  407040  146988             java:52219  00102 00000004 00000000031578c9 00000080 01000800      2      0 000000"
+          },
+          "lastPositive": {
+            "wallTimeMs": 1792086221435,
+            "recvQ": 686,
+            "sendQ": 0,
+            "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.54262        ESTABLISHED         4184         6559  407040  146988             java:52219  00102 00000004 00000000031578c9 00000080 01000800      2      0 000000"
+          }
+        }
+      ],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/photos/0-mobile/netlog.json",
+        "sha256": "b436e935d9283d962ed7e3a02375265b0782d1b51f86316b63a1825dee89b6d8",
+        "containerTruncated": true,
+        "completeEvents": 5780
+      }
+    },
+    {
+      "index": 1,
+      "device": "mobile",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4610,
+      "observationEndSinceNavigationMs": 24628,
+      "observationEndedAt": "2026-10-15T17:44:07.951Z",
+      "observationMsAfterLighthouse": 20018,
+      "side": "candidate",
+      "route": "photos",
+      "identity": {
+        "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+        "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/photos/report.json",
+        "sha256": "cbec894510e3b46b9c86428a2505a1a7c3b2f5d923d7a9ac0d0fd442b22f5df8"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/photos/1-mobile/netlog.json",
+        "sha256": "5062936a36ed9686eaed53c6d975a03755df7cadd935288645df58fe32faead4",
+        "containerTruncated": true,
+        "completeEvents": 5803
+      }
+    },
+    {
+      "index": 0,
+      "device": "mobile",
+      "status": "observed",
+      "lighthouseReturnSinceNavigationMs": 4544,
+      "observationEndSinceNavigationMs": 24560,
+      "observationEndedAt": "2026-10-15T17:44:34.757Z",
+      "observationMsAfterLighthouse": 20016,
+      "side": "candidate",
+      "route": "public-layout",
+      "identity": {
+        "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+        "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+        "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+        "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+        "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+        "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+      },
+      "stationUnchanged": true,
+      "pendingAtLighthouse": [],
+      "pendingAt20s": [],
+      "pendingAtObservationEnd": [],
+      "reportEvidence": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/public-layout/report.json",
+        "sha256": "527b1f10a1650ad9638254e99283db2ccf16f5a64310c4e642241c9d60417322"
+      },
+      "socketCorrelations": [],
+      "netlog": {
+        "path": ".runtime/performance-followup/evidence/navigation-observation-01/candidate/public-layout/0-mobile/netlog.json",
+        "sha256": "31f66b909e54fa869b2721cbe5b3706f8a213f400e27dc8cf5dacf64deb41d63",
+        "containerTruncated": true,
+        "completeEvents": 4950
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "path": ".runtime/performance-followup/run-observations.py",
+      "sha256": "5d3c2baef9e12b141e207f0822909c4074d0e4c67567c00946312e0a686e6fb2"
+    },
+    {
+      "path": ".runtime/performance-followup/observe-lh-window.mjs",
+      "sha256": "0e29672c93004a64b45d2c4119c8a103b3956ac21818c0a7387c64c3e88fa36c"
+    }
+  ],
+  "limitations": [
+    "Ten predetermined cases, no retries; these are not budget samples and never replace formal failures.",
+    "Original Lighthouse navigation limits and performance settings unchanged. Same owned page observed for 20 seconds after Lighthouse return.",
+    "Diagnostic uses programmatic Lighthouse: resolved channel is node rather than cli; output is json rather than [json]. Extra passive CDP and NetLog/socket observers mean it is diagnostic evidence only.",
+    "NetLog process termination leaves an unclosed JSON container. Analysis appends only closing container syntax in memory; no missing events are recovered and raw bytes are unchanged.",
+    "Socket evidence supports unread request bytes at the owned Java server. No runtime fix or causal rollback control was applied; the same cause is not established for every formal failure."
+  ],
+  "replayCommand": "python3 -u .runtime/performance-followup/run-observations.py --runner /absolute/clean-b44dc00-runner",
+  "replayConstraints": [
+    "Requires the exact owned 18845 lab, source/ZIP/plugin locks, all completed 16 formal command records and an explicit CPU window.",
+    "Original output is non-overwritable. To repeat as a new diagnostic experiment, use a new output directory and record the changed script SHA; do not edit or replace this batch.",
+    "The coordinator keeps one authenticated Client in memory and re-reads identity, config, content and plugins before and after each route."
+  ],
+  "cleanup": {
+    "schema": 1,
+    "finishedAt": "2026-10-15T17:47:32.649233+00:00",
+    "lab": "/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/performance-followup/halo-lab",
+    "createdForThisTask": true,
+    "restoreTarget": "New dedicated lab: preserve seeded fixture and final candidate package with original frozen defaults and recommended nine-plugin profile for future review; stop owned services. No pre-existing site or configuration was displaced.",
+    "finalIdentity": {
+      "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+      "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+      "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+      "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+      "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+      "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+      "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+    },
+    "finalSnapshotUnchanged": true,
+    "stoppedOwnedHaloPid": 52219,
+    "haloPort": 18845,
+    "haloPortConnectionRefused": true,
+    "hexoPort": 14845,
+    "hexoStarted": false,
+    "fixturePreserved": true,
+    "rawEvidencePreserved": true
+  },
+  "rawManifest": {
+    "path": ".runtime/performance-followup/evidence/navigation-observation-raw-manifest.json",
+    "sha256": "43023290d56b8a8eb28b6ad2b62010b1b5f6f73932f2ad6dbb73f5b52853dd42",
+    "fileCount": 79,
+    "bytes": 108528168
+  },
+  "preservedScriptCopies": ".runtime/performance-followup/evidence/navigation-observation-01-scripts"
+}

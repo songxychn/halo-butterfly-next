@@ -87,6 +87,10 @@ PERF-02 与 JS/CSS 体积比较必须两侧对应 cell 各有完整有效 5 份�
 
 工程测试由默认`bun run verify`执行。真实Lighthouse采样目前按显式CPU窗口执行；正式RC前仍须按原合同把可自动化性能门禁接入固定执行机的CI。共享随机负载机器上的分数不视为固定性能基线。
 
+## 2026-10-16 的完整采样尝试
+
+[正式矩阵](validation/2026-10-16/performance-full-matrix.md)执行全部 160 次，142 次有效、18 次无效；候选 12/16 个完整绝对预算组合及 9/16 个完整配对组合达标，其余覆盖缺失，PERF-01/02/03 仍未完成。[追加请求观察](validation/2026-10-16/performance-navigation-observations.md)单独记录持续停滞及服务端连接证据，不回填正式样本；[总索引](validation/2026-10-16/acceptance-followup.md)登记本轮工具、功能与加载证据。
+
 ## 2026-10-06 的限定移动端优化
 
 [本轮报告](validation/2026-10-06/mobile-performance.md)采用同一个专属 Halo 的 comparison 照片配置与固定长文，基线/候选 × 首页/长文 × 手机/桌面 × 5 次，共 40 个有效样本。手机首页/长文 LCP 分别降低 25.6% / 37.1%，但仍超过 2.5 秒预算。输入/包/原始报告摘要、内联代码体积、工具 locale 兼容说明及验证限制均保存于[机器记录](validation/2026-10-06/mobile-performance.json)。这不替代上方正式默认/推荐组合的 160 样本、合同范围或提交 CI。
