@@ -1,0 +1,1021 @@
+{
+  "schema": 1,
+  "result": "scoped-mobile-budgets-passed-full-contract-incomplete",
+  "contractAcceptance": false,
+  "timezone": "Asia/Shanghai",
+  "taskStartedDate": "2026-10-15",
+  "recordedAt": "2026-10-15T16:03:21.553276+00:00",
+  "candidateSourceSha": "655230879d0c92f224ffa9113c3d9624c4055bd9",
+  "runtime": "official Halo 2.26.1, owned loopback 18825, default frozen configuration, no optional plugins",
+  "scope": "Fresh baseline and candidate, home and longform, five cold-browser mobile samples each; not full four-route/two-profile/mobile-desktop contract.",
+  "tools": {
+    "lighthouse": "13.4.1",
+    "chrome": "153.0.8010.12",
+    "bun": "1.4.0",
+    "settingsSource": {
+      "path": "scripts/perf/support.mjs",
+      "sha256": "4a3ff78a38dd72064e613e0d53340463f02162ce79d738ac84f6f759d43de145",
+      "bytes": 6408
+    },
+    "pins": {
+      "path": "fixtures/performance/versions.json",
+      "sha256": "3578f7f89b779aa327d6010290e1e7d70c03ab7ec0a711eeedb76e4879050f1b",
+      "bytes": 1155
+    }
+  },
+  "budgets": {
+    "lcpMs": 2500,
+    "tbtMs": 200,
+    "cls": 0.1
+  },
+  "cohorts": {
+    "baseline": {
+      "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36",
+      "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+      "stationIdentity": {
+        "configSha256": "f23622ea9e2b1597172400a20778b3018bdbacd74f138f1bed159af481523f24",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "packageSha256": "2733dc6380c727682d15ad7491d09c89b53bde2441affb937700e7b4fbd3d0ce",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9",
+        "sourceSha": "f4ecc75d46651cd8a2f3188799ae27737dfdfd36"
+      },
+      "stationBefore": {
+        "path": ".runtime/performance-next/evidence/station-before.json",
+        "sha256": "30e78564e78d6287382de580f2211d81a346ca2d5721dd5b7b7c0cc6ef3f3d8a",
+        "bytes": 2432
+      },
+      "stationAfter": {
+        "path": ".runtime/performance-next/evidence/station-after.json",
+        "sha256": "30e78564e78d6287382de580f2211d81a346ca2d5721dd5b7b7c0cc6ef3f3d8a",
+        "bytes": 2432
+      },
+      "stationUnchanged": true,
+      "rawReport": {
+        "path": ".runtime/performance-next/evidence/current-mobile/report.json",
+        "sha256": "0c89adaf1fc0a2ece191b31ea5bb967ae2a206c17639fe4aa05dd8a064b499bc",
+        "bytes": 67576
+      },
+      "runner": {
+        "path": ".runtime/performance-next/current-lighthouse.mjs",
+        "sha256": "d92d8800f298326f9a56f6486db579c020b0dc60d6e7f97838d93e5bbc4662de",
+        "bytes": 3311
+      },
+      "routes": {
+        "home": {
+          "samples": [
+            {
+              "index": 0,
+              "fetchTimeUtc": "2026-10-15T15:35:01.567Z",
+              "lcpMs": 6110.978,
+              "tbtMs": 1.5,
+              "cls": 4.898293458748076e-05,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-regular-400.woff2",
+                  "transferBytes": 25641,
+                  "resourceBytes": 25472
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 1272805,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-0/lhr.json",
+                "sha256": "5b913feff8f1340b7157c1cd1f5e1ca40725254de4384812b1928af85ffa402d",
+                "bytes": 264264
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-0/lhr-0.trace.json",
+                "sha256": "c225384222960cfc4f553267674bbdb1663b22e664af0397a954ae3b5d7f075f",
+                "bytes": 7743085
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-0/lhr-0.devtoolslog.json",
+                "sha256": "5ffe3b94c5ab5b43f9059bf79bf02ad26bc6ce82db29a55a5fc6f55ca56dcfa6",
+                "bytes": 214113
+              }
+            },
+            {
+              "index": 1,
+              "fetchTimeUtc": "2026-10-15T15:35:12.463Z",
+              "lcpMs": 3681.852,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-regular-400.woff2",
+                  "transferBytes": 25641,
+                  "resourceBytes": 25472
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 1272805,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-1/lhr.json",
+                "sha256": "8e37d4963feca59e01c8f0a468f0ee8768081bafe8b109407be991ea99ef554c",
+                "bytes": 261469
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-1/lhr-0.trace.json",
+                "sha256": "f1317c02ed820dd6612abe0b2c3dee06b54ae1c3b74981c9dfab4cb16c7fbcbe",
+                "bytes": 8034345
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-1/lhr-0.devtoolslog.json",
+                "sha256": "bdd869af1bed9467021b6bd5c5f35140773f1d3bf8aa8e65fafcf13de0122f8d",
+                "bytes": 205725
+              }
+            },
+            {
+              "index": 2,
+              "fetchTimeUtc": "2026-10-15T15:35:22.839Z",
+              "lcpMs": 4057.554,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-regular-400.woff2",
+                  "transferBytes": 25641,
+                  "resourceBytes": 25472
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 1272805,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-2/lhr.json",
+                "sha256": "afb44472b30b459be4f3e173465dc75cd59eb74566295a0886ab4bdcfbf82ecb",
+                "bytes": 265792
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-2/lhr-0.trace.json",
+                "sha256": "c2b703e4e09767d5400c4ea4e4179047c9e1a859e41c4c798fc7f2793ce7ef8c",
+                "bytes": 7552596
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-2/lhr-0.devtoolslog.json",
+                "sha256": "c40f435fe0d0682372244f6e34bdf9eeee2e8174beb157a93c3705f61f49747d",
+                "bytes": 214741
+              }
+            },
+            {
+              "index": 3,
+              "fetchTimeUtc": "2026-10-15T15:35:33.013Z",
+              "lcpMs": 4057.008,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-regular-400.woff2",
+                  "transferBytes": 25641,
+                  "resourceBytes": 25472
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 1272805,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-3/lhr.json",
+                "sha256": "8efd18cc48b5ccd65fc2f15f174f17d9acffe35fcdcd7ac11cba14c9f3c427a6",
+                "bytes": 265282
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-3/lhr-0.trace.json",
+                "sha256": "77acce3f85b3cbb6b28d431236e20976986c5279bef99a31d6ec8bb39fbce69a",
+                "bytes": 7695632
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-3/lhr-0.devtoolslog.json",
+                "sha256": "bceb27aeea6dc3d259bdc0fa20365a844d0615f39b54c57a0dea5d0c76d31347",
+                "bytes": 212470
+              }
+            },
+            {
+              "index": 4,
+              "fetchTimeUtc": "2026-10-15T15:35:43.345Z",
+              "lcpMs": 3457.5120000000006,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-regular-400.woff2",
+                  "transferBytes": 25641,
+                  "resourceBytes": 25472
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 1272805,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-4/lhr.json",
+                "sha256": "4e994caec16f3a4b0b9955baa4854aab02a6d39d7058c30e328b36fae4c961df",
+                "bytes": 265511
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-4/lhr-0.trace.json",
+                "sha256": "bcf97e6553a2d2e3d3ca40dbbc0c60137cd68751484a27353d4b188f056baacf",
+                "bytes": 7547719
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/home-4/lhr-0.devtoolslog.json",
+                "sha256": "20041927c70aa34d094e1b66746a3f5e950ab855e16efc0aae1d543c21a6aebc",
+                "bytes": 210065
+              }
+            }
+          ],
+          "medians": {
+            "lcpMs": 4057.008,
+            "tbtMs": 0,
+            "cls": 0,
+            "totalTransferBytes": 1272805,
+            "requestCount": 19
+          },
+          "withinMobileBudgets": false,
+          "screenshot": {
+            "path": ".runtime/performance-next/evidence/baseline-home-median.jpg",
+            "sha256": "80075cece82556556f8cbfb5d91b1b394f9599e8e94fcf22b760a0c188f4e1fc",
+            "bytes": 6633
+          }
+        },
+        "longform": {
+          "samples": [
+            {
+              "index": 0,
+              "fetchTimeUtc": "2026-10-15T15:35:53.555Z",
+              "lcpMs": 2786.334,
+              "tbtMs": 85,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 760915,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-0/lhr.json",
+                "sha256": "01f6044b1a9b4c6e1aae1469af550823d439d7958e491218dd00e15bb18dff6f",
+                "bytes": 1351851
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-0/lhr-0.trace.json",
+                "sha256": "6a4ffee057703d2c91b9ff2a5cd6ec356a6f4bb551c4d5942827c700d3041bd6",
+                "bytes": 10481207
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-0/lhr-0.devtoolslog.json",
+                "sha256": "0f56aa3d9cce899258c7546f9da64ac36f187040515d04f43f43af0e6a8b47f1",
+                "bytes": 367987
+              }
+            },
+            {
+              "index": 1,
+              "fetchTimeUtc": "2026-10-15T15:36:04.156Z",
+              "lcpMs": 2783.013,
+              "tbtMs": 72.5,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 760915,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-1/lhr.json",
+                "sha256": "ba133c6fc54d301893b9eb8ffaf99dbde71261da6dd8d7bbd76b14458d79499e",
+                "bytes": 1384029
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-1/lhr-0.trace.json",
+                "sha256": "5ce028b2b34e094f777ffc80580a4a9e8cc06424f5458ba08f443f6809b877b8",
+                "bytes": 10369365
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-1/lhr-0.devtoolslog.json",
+                "sha256": "043cb6cccce004e57ee17141e5b9574cfc1c8a16862d6bdf297655d3e783ea9d",
+                "bytes": 368115
+              }
+            },
+            {
+              "index": 2,
+              "fetchTimeUtc": "2026-10-15T15:36:14.767Z",
+              "lcpMs": 2782.278,
+              "tbtMs": 73,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 760915,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-2/lhr.json",
+                "sha256": "67ee12f8c55e657420c991caff20fb40ca7a6285e74b41bb141a5ec504be33b8",
+                "bytes": 1384284
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-2/lhr-0.trace.json",
+                "sha256": "570af02e22db736e720c3d46d276f4cbcc4d8d981e5641862fdeb575a3cbb178",
+                "bytes": 10652920
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-2/lhr-0.devtoolslog.json",
+                "sha256": "1b02dcdd55c29431385aee5da358a0f79380d909afd2c00cbedb2470593834c0",
+                "bytes": 371634
+              }
+            },
+            {
+              "index": 3,
+              "fetchTimeUtc": "2026-10-15T15:36:25.489Z",
+              "lcpMs": 2786.004,
+              "tbtMs": 72,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 760915,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-3/lhr.json",
+                "sha256": "9776cdb009994ce996d368de9c6e14559db22630a012baa69ba8d6a08028157e",
+                "bytes": 1384191
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-3/lhr-0.trace.json",
+                "sha256": "2a3991a4dda8696d23828ec886277c3c84d45a060be3d1ff495cc49f86d10cfb",
+                "bytes": 10329331
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-3/lhr-0.devtoolslog.json",
+                "sha256": "029c09bc34ccb49fcce170bcf579c02e9b6b9ea8247b4cac31b07c39a6d41edf",
+                "bytes": 350784
+              }
+            },
+            {
+              "index": 4,
+              "fetchTimeUtc": "2026-10-15T15:36:36.125Z",
+              "lcpMs": 2784.063,
+              "tbtMs": 72,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "fa-solid-900.woff2",
+                  "transferBytes": 158390,
+                  "resourceBytes": 158220
+                },
+                {
+                  "file": "fa-brands-400.woff2",
+                  "transferBytes": 118854,
+                  "resourceBytes": 118684
+                }
+              ],
+              "totalTransferBytes": 760915,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-4/lhr.json",
+                "sha256": "d9bdccf69f1339d5c82843113d0eac5c1667a0dd231b7b106d8d6b312a0f01f5",
+                "bytes": 1384841
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-4/lhr-0.trace.json",
+                "sha256": "e4676eebacf579c7fd78139b8a39bde4d290845ff82b93f69aa40a3c21c6e2af",
+                "bytes": 10397621
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/current-mobile/longform-4/lhr-0.devtoolslog.json",
+                "sha256": "c593ad78db64d11182edc8468be03a72d8d5b9ade8ec58808d93825e7373609b",
+                "bytes": 349990
+              }
+            }
+          ],
+          "medians": {
+            "lcpMs": 2784.063,
+            "tbtMs": 72.5,
+            "cls": 0.0008469425837072566,
+            "totalTransferBytes": 760915,
+            "requestCount": 27
+          },
+          "withinMobileBudgets": false,
+          "screenshot": {
+            "path": ".runtime/performance-next/evidence/baseline-longform-median.jpg",
+            "sha256": "56ba9c56b7a56e7a53865c5b5b8883584ee54c09dddbb827631390fec77ab4a0",
+            "bytes": 26296
+          }
+        }
+      }
+    },
+    "candidate": {
+      "sourceSha": "655230879d0c92f224ffa9113c3d9624c4055bd9",
+      "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "stationIdentity": {
+        "configSha256": "f23622ea9e2b1597172400a20778b3018bdbacd74f138f1bed159af481523f24",
+        "contentSha256": "9cd224a52c91449e90779eec5f116750c06ec625094677e4ecd87ebc4f7413ee",
+        "fixtureSha256": "46b71e5201a7440dcb196a413a3b2b2cb0d0bb7ffc0a000b8804f0d926c0d145",
+        "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        "pluginsSha256": "7132baaeb05e1f9277cf527128dd675a385ad0855c9a48e8757ae24f2e0183d9",
+        "sourceSha": "655230879d0c92f224ffa9113c3d9624c4055bd9"
+      },
+      "stationBefore": {
+        "path": ".runtime/performance-next/evidence/candidate-station-before.json",
+        "sha256": "b6cd37250ead07b530e37a00f00fd98272ff0497fa5660a55fe90e9371fb9fcb",
+        "bytes": 2433
+      },
+      "stationAfter": {
+        "path": ".runtime/performance-next/evidence/candidate-station-after.json",
+        "sha256": "b6cd37250ead07b530e37a00f00fd98272ff0497fa5660a55fe90e9371fb9fcb",
+        "bytes": 2433
+      },
+      "stationUnchanged": true,
+      "rawReport": {
+        "path": ".runtime/performance-next/evidence/candidate-mobile/report.json",
+        "sha256": "f727f7178c4c99a7cfaf307cb11a4dee0085b8509f78d00422c706b9284f7f91",
+        "bytes": 67627
+      },
+      "runner": {
+        "path": ".runtime/performance-next/candidate-lighthouse.mjs",
+        "sha256": "26f93a7efa5cd4896f36d6b57618d60eac3dd1faff93eb43cacc4e1f700d4bd6",
+        "bytes": 3316
+      },
+      "routes": {
+        "home": {
+          "samples": [
+            {
+              "index": 0,
+              "fetchTimeUtc": "2026-10-15T15:59:57.403Z",
+              "lcpMs": 3958.2119999999995,
+              "tbtMs": 20,
+              "cls": 4.898293458748076e-05,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-regular.woff2",
+                  "transferBytes": 2792,
+                  "resourceBytes": 2624
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 984026,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-0/lhr.json",
+                "sha256": "589b460e388c0ce3ab0b188d4ceb2b7dd10751421037c3e8639558cde690e6d1",
+                "bytes": 261197
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-0/lhr-0.trace.json",
+                "sha256": "805fded7e1e112d2a75c7921a8310874d4d8896e594e546ce59a5bbeb662f9ba",
+                "bytes": 7207917
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-0/lhr-0.devtoolslog.json",
+                "sha256": "bf06f988912316b2dc5581bea955f988538ab80f045e889a64d56c31baebf2ea",
+                "bytes": 194905
+              }
+            },
+            {
+              "index": 1,
+              "fetchTimeUtc": "2026-10-15T16:00:09.668Z",
+              "lcpMs": 1658.626,
+              "tbtMs": 0.5,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-regular.woff2",
+                  "transferBytes": 2792,
+                  "resourceBytes": 2624
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 984026,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-1/lhr.json",
+                "sha256": "7d12ab1da8f78e19eeacdbdc60cf7d18b670aab0350a0e185927b0bd9175df89",
+                "bytes": 262893
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-1/lhr-0.trace.json",
+                "sha256": "4e8196f366c6ef4c947b6adeac5a5f460cace1e817d3f5039411a33ed69dffdf",
+                "bytes": 8203759
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-1/lhr-0.devtoolslog.json",
+                "sha256": "b34636e77417fce6362c2d5b86abaecb6ae7df8a443c3d90d316beb0daeb9dd5",
+                "bytes": 197603
+              }
+            },
+            {
+              "index": 2,
+              "fetchTimeUtc": "2026-10-15T16:00:20.568Z",
+              "lcpMs": 2030.7599999999998,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-regular.woff2",
+                  "transferBytes": 2792,
+                  "resourceBytes": 2624
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 984026,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-2/lhr.json",
+                "sha256": "8d1cea8266598e07d68d3466dde56bb9ae8d527ef8cfb50dcce518e2337f17ad",
+                "bytes": 265283
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-2/lhr-0.trace.json",
+                "sha256": "eae42909bffbbf2b564a25cb37245f822aa6d61a89292282b5fee110680a0260",
+                "bytes": 7791351
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-2/lhr-0.devtoolslog.json",
+                "sha256": "67258c6fd7bb5d7c5398489f9618d944981c3b5023f87dbadada2c43131da9d5",
+                "bytes": 215557
+              }
+            },
+            {
+              "index": 3,
+              "fetchTimeUtc": "2026-10-15T16:00:31.214Z",
+              "lcpMs": 2030.9950000000001,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-regular.woff2",
+                  "transferBytes": 2792,
+                  "resourceBytes": 2624
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 984026,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-3/lhr.json",
+                "sha256": "7d4495af4487a1d1e1bbee5ec65ec02b4fcbf06aa73f15ef1ffbd96bb24fc0ae",
+                "bytes": 265826
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-3/lhr-0.trace.json",
+                "sha256": "b262f8f260cc6b1d728f4ec105cc968b9d537ccc4f5a88118e411b0293ccbd19",
+                "bytes": 7618757
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-3/lhr-0.devtoolslog.json",
+                "sha256": "6cd6fc4f9b4824b90520901df7f6bafc0ab0aadf1380b63421acb02e2eddb2b1",
+                "bytes": 199557
+              }
+            },
+            {
+              "index": 4,
+              "fetchTimeUtc": "2026-10-15T16:00:41.887Z",
+              "lcpMs": 2029.9625,
+              "tbtMs": 0,
+              "cls": 0,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-regular.woff2",
+                  "transferBytes": 2792,
+                  "resourceBytes": 2624
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 984026,
+              "requestCount": 19,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-4/lhr.json",
+                "sha256": "f9627c3a19c00e86ec30dc652520fb06418ab6deaaa0a077d5e3d84f78a5d52b",
+                "bytes": 265377
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-4/lhr-0.trace.json",
+                "sha256": "a807e65245a7886b879206eaeac6808df37a4a06a1fa800f06b708f20e2c2cf4",
+                "bytes": 7615140
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/home-4/lhr-0.devtoolslog.json",
+                "sha256": "8fcfe916f6e8ee16cbf2b6443109532dfa2fe85e4ce4b86337385b4781aeffc7",
+                "bytes": 200744
+              }
+            }
+          ],
+          "medians": {
+            "lcpMs": 2030.7599999999998,
+            "tbtMs": 0,
+            "cls": 0,
+            "totalTransferBytes": 984026,
+            "requestCount": 19
+          },
+          "withinMobileBudgets": true,
+          "screenshot": {
+            "path": ".runtime/performance-next/evidence/candidate-home-median.jpg",
+            "sha256": "1557708ca32802f0eed734dd037d47557641368797fe30cfe320428d152ca746",
+            "bytes": 6635
+          }
+        },
+        "longform": {
+          "samples": [
+            {
+              "index": 0,
+              "fetchTimeUtc": "2026-10-15T16:00:52.428Z",
+              "lcpMs": 2028.808,
+              "tbtMs": 78.5,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 494966,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-0/lhr.json",
+                "sha256": "50ef001060695e6eac4b73acccd576eda4b3cd93bae574d6f26c35d39590b5cd",
+                "bytes": 1385251
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-0/lhr-0.trace.json",
+                "sha256": "09f1ab564f363326a23dca0fb37c09c054d415078804024c059268024dbce9b0",
+                "bytes": 10478076
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-0/lhr-0.devtoolslog.json",
+                "sha256": "97ee7f7ff79c1d576b7bb14c2a7c61e4d05e1e8b351825b34fc3049396eebddc",
+                "bytes": 373315
+              }
+            },
+            {
+              "index": 1,
+              "fetchTimeUtc": "2026-10-15T16:01:03.118Z",
+              "lcpMs": 2034.52,
+              "tbtMs": 95.5,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 494966,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-1/lhr.json",
+                "sha256": "cf34b20f7f72dbc4dda288d2766949cf0088a56149fcc8e18499f40c4bae0b84",
+                "bytes": 1385742
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-1/lhr-0.trace.json",
+                "sha256": "120e3935942453f9e488baabd029453b9ca7080c82bcc5a3d769ac35c7b6c7ee",
+                "bytes": 12410046
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-1/lhr-0.devtoolslog.json",
+                "sha256": "16d71a4f0f8074378eeb29fde4618ddf8cb60f51a6ab808431f555090fa93b2c",
+                "bytes": 355519
+              }
+            },
+            {
+              "index": 2,
+              "fetchTimeUtc": "2026-10-15T16:01:13.807Z",
+              "lcpMs": 2034.904,
+              "tbtMs": 92.5,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 494966,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-2/lhr.json",
+                "sha256": "8f6b7dfb056da67fcf19e26a634534b91f40fc92178001829f8b58911684ab8e",
+                "bytes": 1384326
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-2/lhr-0.trace.json",
+                "sha256": "67984220361c515a8b59a8c7262dfc1b7972238fb39ceb66cced722f49d17fb7",
+                "bytes": 10523480
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-2/lhr-0.devtoolslog.json",
+                "sha256": "62a1a270002a60cfd8f829a62985d536fe0e843fc607cff018d5f16247467020",
+                "bytes": 366053
+              }
+            },
+            {
+              "index": 3,
+              "fetchTimeUtc": "2026-10-15T16:01:24.436Z",
+              "lcpMs": 2033.0900000000001,
+              "tbtMs": 109,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 494966,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-3/lhr.json",
+                "sha256": "4b76fa429ad20377e679d1210509dd83c3b3c3eb027c588f2bce92a3086d9f23",
+                "bytes": 1351100
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-3/lhr-0.trace.json",
+                "sha256": "2f5028f6710fbcfefc3265a12a85cbf36fdf2242bad296140f1a6ee48767df61",
+                "bytes": 10923622
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-3/lhr-0.devtoolslog.json",
+                "sha256": "9ecf28f07913b42d6029fec2071c520e1f0508862832a294428142e71d146024",
+                "bytes": 378347
+              }
+            },
+            {
+              "index": 4,
+              "fetchTimeUtc": "2026-10-15T16:01:35.382Z",
+              "lcpMs": 2029.722,
+              "tbtMs": 101.5,
+              "cls": 0.0008469425837072566,
+              "fontRequests": [
+                {
+                  "file": "butterfly-solid.woff2",
+                  "transferBytes": 5640,
+                  "resourceBytes": 5472
+                },
+                {
+                  "file": "butterfly-brands.woff2",
+                  "transferBytes": 1159,
+                  "resourceBytes": 992
+                }
+              ],
+              "totalTransferBytes": 494966,
+              "requestCount": 27,
+              "lhr": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-4/lhr.json",
+                "sha256": "0184a698372d68466cf7434dd59cd40892af216dd377b7e25607bd66c875b0e7",
+                "bytes": 1351218
+              },
+              "trace": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-4/lhr-0.trace.json",
+                "sha256": "78d00f4e99652493a95085d0a23e4a4796d53ed7c70b70099441aa38be3a37cb",
+                "bytes": 10650295
+              },
+              "devtoolsLog": {
+                "path": ".runtime/performance-next/evidence/candidate-mobile/longform-4/lhr-0.devtoolslog.json",
+                "sha256": "b6a7c0ac417c3b855b1184722f6e7db9eca50b76f48bc6e61713aeecea56e278",
+                "bytes": 343713
+              }
+            }
+          ],
+          "medians": {
+            "lcpMs": 2033.0900000000001,
+            "tbtMs": 95.5,
+            "cls": 0.0008469425837072566,
+            "totalTransferBytes": 494966,
+            "requestCount": 27
+          },
+          "withinMobileBudgets": true,
+          "screenshot": {
+            "path": ".runtime/performance-next/evidence/candidate-longform-median.jpg",
+            "sha256": "56ba9c56b7a56e7a53865c5b5b8883584ee54c09dddbb827631390fec77ab4a0",
+            "bytes": 26296
+          }
+        }
+      }
+    }
+  },
+  "compatibility": {
+    "cases": 42,
+    "passed": 42,
+    "report": {
+      "path": ".runtime/performance-next/evidence/font-compat-ttf.json",
+      "sha256": "a86e9014b8f4336134a939cfe4412465163d11e772fdd5dc3a96e789d0e84fbf",
+      "bytes": 21540
+    },
+    "runner": {
+      "path": ".runtime/performance-next/font-compat-ttf.mjs",
+      "sha256": "64bed44fa421b8c650696cf18ee6033b1fa23f1b108df85e5652ca0a631a37b0",
+      "bytes": 4777
+    },
+    "scope": "Isolated fixture served through Playwright routing, three pinned browser engines; not full-site visual acceptance. Original upstream CSS and matching icon fixtures are pixel baselines.",
+    "checks": [
+      "Modern common icons and no-JavaScript request only three subsets.",
+      "Arbitrary uncovered glyphs use full fonts, with identical decoded RGBA pixels.",
+      "Original CDN CSS, explicit FA5 family and FA4 FontAwesome alias retain matching pixels.",
+      "Subset HTTP503, corrupt font, and all WOFF2 HTTP503 with original TTF fallback retain matching pixels."
+    ],
+    "buildSourceCss": {
+      "path": "templates/assets/plugins/fontawesome/css/all.min.css",
+      "sha256": "53e0260d0beda154fbbab71c8b6b887cabf3c2cfa414bfcc59df8598b8d43e51",
+      "bytes": 87195
+    },
+    "subsetManifest": {
+      "path": "src/fonts/fontawesome-subsets/manifest.json",
+      "sha256": "34ef0d965bcfb87e58d8d28abcdb3e48b7d2c7638fbdd70fd7363fb2a07ec246",
+      "bytes": 14061
+    }
+  },
+  "remaining": [
+    "Desktop, photos, public plugin page, recommended plugin combination and full PERF-03 remain unaccepted.",
+    "Real Safari/mobile device and real-user measurements are not covered.",
+    "Existing pending-request failures remain open; see loading-reliability.md.",
+    "The first candidate home sample is 3958.212ms; medians do not guarantee every visit meets the budget."
+  ],
+  "cohortsComparable": true,
+  "fontPayload": {
+    "originalWoff2Bytes": 302376,
+    "subsetWoff2Bytes": 9088,
+    "originalFontsRetained": true,
+    "glyphOutlinesAndHmtx": {
+      "path": ".runtime/performance-next/evidence/outline-comparison.json",
+      "sha256": "3d845d56f8288b6336901eb55f4555e629ca2bd0a78a14dc79feafe7547f21d9",
+      "bytes": 2499
+    },
+    "generator": "scripts/fonts/generate-subsets.py",
+    "regenerationTools": {
+      "fonttools": "4.60.1",
+      "brotli": "1.1.0"
+    }
+  },
+  "validation": {
+    "fullVerify": {
+      "sourceSha": "655230879d0c92f224ffa9113c3d9624c4055bd9",
+      "passed": 756,
+      "failed": 0,
+      "packageFiles": 269,
+      "rebuildZipSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "log": {
+        "path": ".runtime/performance-next/verify-submitted.log",
+        "sha256": "4150121e61902c2f9ef39e6092a8bbbf3133d46a742654a551cd1e819587f92b",
+        "bytes": 302074
+      }
+    },
+    "targetedTests": "2 tests, 12 assertions passed after adding TTF fallback and nine upstream input hashes.",
+    "independentReview": "Two independent reviewers verified cmap coverage, preserved outlines/metrics, CSS compatibility and license naming; TTF fallback finding fixed."
+  },
+  "labCleanup": {
+    "stopped": true,
+    "evidence": {
+      "path": ".runtime/performance-next/evidence/lab-stopped.json",
+      "sha256": "d96c4f9dcf6b2465de5b6f893f0c944766f21752f3772b9a1496004f78a0378d",
+      "bytes": 229
+    },
+    "rawEvidencePreserved": true
+  }
+}

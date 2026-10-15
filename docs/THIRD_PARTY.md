@@ -6,6 +6,7 @@
 | Hexo Butterfly 5.7.0 | jerryc127/hexo-theme-butterfly；已有样式改写及繁简字表提取，未直接导入其构建系统 | Apache-2.0；固定原文及本项目归属说明随源码和 ZIP 分发，见 [改写来源清单](../third-party-licenses/UPSTREAM-ATTRIBUTION.txt) |
 | normalize.css 8.0.1 | 从固定 Hexo 源码继承，改为 SCSS 并限定 `.container` 选择器 | MIT；保留 Nicolas Gallagher / Jonathan Neal 版权及[官方许可原文](../third-party-licenses/normalize-8.0.1-LICENSE.md)，不改标 Apache-2.0 |
 | Font Awesome Free 6.7.2 | npm `@fortawesome/fontawesome-free`，本地图标 | 图标 CC BY 4.0、字体 SIL OFL 1.1、代码 MIT；包内附上游许可证 |
+| Butterfly Icons 字体子集 | 从上述 Font Awesome Free 6.7.2 生成，内部及 CSS 字体名改为 Butterfly Icons Free / Brands | 沿用 SIL OFL 1.1，保留版权与完整许可；包内附 `plugins/fontawesome/SUBSETS-NOTICE.md`，完整原字体继续作为任意图标和加载失败的回退 |
 | Prism 1.29.0 核心 | 原主题 vendored JS/CSS，高亮核心 | MIT，Copyright (c) 2012 Lea Verou；包内保留核心 LICENSE |
 | Prism Themes 扩展配色 | `src/plugins/prism/themes/` 的 36 个继承/改写主题，与核心独立归属 | MIT，Copyright (c) 2015 PrismJS；[官方固定许可原文](../src/plugins/prism/themes/LICENSE)随源码和 ZIP 保留；[固定来源与文件比对](../third-party-licenses/prism-themes-source.json) |
 | Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
@@ -25,6 +26,8 @@
 构建会递归收集运行时依赖的 LICENSE/NOTICE，包括 ECharts 的 ZRender/tslib 和 Clipboard 的间接依赖。good-listener 1.2.2、delegate 3.2.0、select 1.1.2 的 npm 包在 README 中声明 MIT 和 Zeno Rocha 版权，安装包同时保留这些原始声明及 MIT 正文。
 
 原主题所带 Font Awesome Pro、CircularBody/HarmonyOS 字体和默认照片已从当前源码与安装包移除。本仓库保留公开上游的 Git 历史；这些旧资源不包含在 Next 新发行包的许可承诺中。默认系统字体由访问者操作系统提供。
+
+Butterfly Icons 的生成来源、固定 FontTools 4.60.1 / Brotli 1.1.0 再生步骤见 [子集说明](../src/fonts/fontawesome-subsets/NOTICE.md)；[生成脚本](../scripts/fonts/generate-subsets.py)按主题静态图标和 SCSS 码点生成三份小字体，`manifest.json`记录上游输入与产物哈希。常规 Bun 构建只校验与复制，不需要安装字体工具。原 Font Awesome CSS、完整字形、FA4/5 别名和 CDN 自选路径保留；子集名称不沿用上游保留字体名。
 
 发布前仍应检查本次实际安装包及新增依赖；新增上游文件时登记来源、版本和对应许可证，不能用主题主许可证替代第三方声明。
 

@@ -31,7 +31,7 @@
     "editor-contract": "DEC-02 2026-10-14 补充：编辑器保存通用 Markdown / 原生 HTML，主题消费渲染后的正文并渐进增强；不解析 Hexo {% %}，不强制专属 DOM/class 或通用离线转换。保存重开与换主题仍需保留内容；见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
     "plugin-contract": "记录插件确切版本、启用、停用和缺失状态。",
     "asset-license": "资源来源、版本、分发许可和第三方声明核验。",
-    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；DEC-07（#387）已裁定数学公式采用 Halo KaTeX 插件平台替代；仅 10 条明列的提供方/资源供应项不适用，7 条公式能力仍待映射。其余 DEC 在裁定前不减范围。见 docs/MATH-RENDERING-DECISION.md。 DEC-02 的正文成功条件已按维护者本次确认及 PR #408 修订为通用 Markdown / HTML；冲突的旧标签完整兼容与通用转换义务以 docs/parity/DEC-02-PORTABLE-CONTENT.md 为准。",
+    "scope-decision": "涉及替代/删减/延期上游能力时，须维护者确认并保留决策链接。DEC-01（#46）已裁定 1.0 搜索/评论为官方 PluginSearchWidget / PluginCommentWidget 平台替代；DEC-02（#45）已裁定不对齐 `{% %}` 原文，series/flink 活数据延期 1.1；DEC-07（#387）已裁定数学公式采用 Halo KaTeX 插件平台替代；仅 10 条明列的提供方/资源供应项不适用，7 条公式能力仍待映射。其余 DEC 在裁定前不减范围。见 docs/MATH-RENDERING-DECISION.md。 DEC-02 的正文成功条件已按维护者本次确认及 PR #408 修订为通用 Markdown / HTML；冲突的旧标签完整兼容与通用转换义务以 docs/parity/DEC-02-PORTABLE-CONTENT.md 为准。 2026-10-15 维护者按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期评论/KaTeX 严格资源按需与 Umami 私有统计；混合能力保留在 1.0。",
     "official-search": "PluginSearchWidget 1.8.0（Halo >=2.26.0）；JAR SHA-256 固定在 fixtures/search-comment/versions.json；入口兼容 >=1.7.1，旧版焦点缺陷保留；2026-10-08 焦点专项通过，完整合同未验收。",
     "official-comments": "PluginCommentWidget 3.3.2 / Halo 2.26.1；来源与 JAR SHA-256 固定在 fixtures/search-comment/versions.json；完整验收范围见 docs/SEARCH-COMMENT-VALIDATION.md。",
     "official-math": "DEC-07：1.0 数学公式采用 Halo KaTeX 插件；插件 metadata.name、固定版本、JAR SHA-256、最低 Halo 版本与编辑器输出契约尚待联调锁定。主题适配阅读布局与必要交互，不重复渲染。docs/MATH-RENDERING-DECISION.md；公开裁定：https://github.com/songxychn/halo-butterfly-next/issues/387。"
@@ -130,7 +130,8 @@
       "scenarios": [
         "DEC-07：公式由 Halo KaTeX 插件提供，验收行内/块级、显式编号展示、复制 TeX、长公式局部滚动、无公式页、全局/逐页控制与语法支持边界；失败不破坏正文。不再验收 MathJax 引擎、右键菜单或自动编号策略。",
         "图表与 Mermaid 在亮暗、手机、放大缩小、平移、打开新页和再次进入时验证。",
-        "插件未安装、停用、满足/不满足版本、恢复与资源失败分别验证；保留辅助 MathML 与可恢复内容。同一公式不重复渲染；锁定插件及编辑器输出版本，完成实际运行、独立审查和对应提交 CI。"
+        "插件未安装、停用、满足/不满足版本、恢复与资源失败分别验证；保留辅助 MathML 与可恢复内容。同一公式不重复渲染；锁定插件及编辑器输出版本，完成实际运行、独立审查和对应提交 CI。",
+        "KaTeX 无公式页零插件资源下载按 DEC-03-1.0-DEFERRALS 延期；保留用户能力、官方兼容及整体性能预算，不影响图表/乐谱原有按需要求。"
       ]
     },
     "search": {
@@ -145,7 +146,7 @@
       "scenarios": [
         "文章/单页允许和禁止评论，官方 PluginCommentWidget 启用/停用/缺失以及匿名/登录态分别检查。",
         "在 Halo 本地评论后端验证提交、回复、分页、计数、失败提示、暗色及手机布局。",
-        "懒加载、最新评论（Halo 评论数据）和跨文章身份隔离按对应功能验收。双 provider 与上游各评论 SDK 不在 1.0 主题范围内（DEC-01）。"
+        "延迟挂载/数据请求、最新评论（Halo 评论数据）和跨文章身份隔离按对应功能验收。双 provider 与上游各评论 SDK 不在 1.0 主题范围内（DEC-01）。 首屏零评论 CSS/JS 下载按 DEC-03-1.0-DEFERRALS 延期。"
       ]
     },
     "share": {
@@ -13296,7 +13297,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -13311,7 +13312,7 @@
         "profile": "math",
         "cases": [
           "DEC-07：Halo 验收域为关闭 / KaTeX 插件；上游 MathJax 枚举保留来源，不要求引擎选择。验证插件未安装、停用、启用、版本不满足及恢复。",
-          "使用插件明确支持的编辑器输出与行内/块级夹具验证渲染，记录语法边界；无公式页不重复加载或渲染。"
+          "使用插件明确支持的编辑器输出与行内/块级夹具验证渲染，记录语法边界；无公式页不额外重复渲染；允许官方插件全站资源注入，严格资源按需延期。"
         ],
         "values": [
           null,
@@ -13369,7 +13370,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -13384,7 +13385,7 @@
         "profile": "math",
         "cases": [
           "保留全局与逐页控制需求，映射为插件配置或主题注解并记录优先级；默认、启用、关闭、清空、刷新及跨页分别验证。",
-          "按实际契约验证文章与单页按需资源；平台未满足的控制保持未完成。"
+          "验证文章与单页公式显示控制、优先级及恢复；显示开关不控制官方插件全站资源，严格资源按需延期。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -13438,7 +13439,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -13647,7 +13648,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -15074,7 +15075,7 @@
           "src/js/core/common.ts",
           "src/scss/core/comments.scss"
         ],
-        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -15086,7 +15087,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "开启时首屏不请求评论资源，滚入视区后挂载；关闭时立即挂载。"
+          "开启时接近评论区后挂载并请求评论数据；关闭时立即挂载，锚点可立即触发。官方 CSS/modulepreload 可提前下载，首屏零评论资源要求延期。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20335,7 +20336,7 @@
           "src/html/views/config.html",
           "docs/INTEGRATIONS.md"
         ],
-        "finding": "主题不向页面输出私有 API token；站点后端须持有凭据并提供公开只读统计接口。后端代理未提供，本字段仍待映射，未裁定不适用。"
+        "finding": "主题不向页面输出私有 API token；站点后端须持有凭据并提供公开只读统计接口。后端代理未提供，本字段仍待映射，未裁定不适用。 2026-10-15 按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期；Umami 访问追踪和已有公开接口安全/回退保留，不代表已验收。"
       },
       "dependencies": [
         "dual-site",
@@ -20364,7 +20365,20 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "mapping-required"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-1.0-DEFERRALS",
+        "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-strict-plugin-resources-and-private-umami",
+        "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
+        "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "维护者确认 Umami 私有统计移出 1.0，后续版本未定；两个 token 项属于同一后端需求。",
+        "nextAction": "后续再确认收益、版本及后端承载，保管凭据并定义口径、缓存/限流和账户对账；不自动排入 1.1。"
+      }
     },
     {
       "id": "config:google_tag_manager.tag_id",
@@ -40090,7 +40104,7 @@
           "src/js/core/common.ts",
           "src/scss/core/comments.scss"
         ],
-        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -40102,7 +40116,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "懒加载开启时才插入评论资源；关闭时无多余脚本。"
+          "懒挂载开启时延后官方评论组件初始化和数据请求，关闭时立即挂载；主题不重复插入模块，插件未启用/未安装时正确回退。官方 head 的 CSS/modulepreload 可提前下载，严格资源按需延期。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -40670,7 +40684,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -40733,7 +40747,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -56024,7 +56038,7 @@
           "annotation-setting.yaml",
           "fixtures/math/versions.json"
         ],
-        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，按需加载仍未满足；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
+        "finding": "KaTeX 插件 3.0.0（内置 0.16.25，Halo >=2.22.2）输出契约已固定。主题保留 MathML，增加 TeX 复制、局部滚动和公式/源码显示；katex 注解优先于 math.enable。开关不关闭插件全站 CSS/JS，严格资源按需未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定），公式用户能力保留；未完成编辑器 UI、全部生命周期/设备/独立审查，保持 implemented-unverified。见 docs/MATH.md 与 docs/validation/2026-10-11/katex.md。"
       },
       "dependencies": [
         "dual-site",
@@ -60012,7 +60026,7 @@
           "src/js/core/integrations.ts",
           "settings.yaml"
         ],
-        "finding": "2026-10-14 主线对账：Umami 客户端只读取公开只读统计地址，不向页面输出私有 API token。后端凭据代理未提供；与 config:umami_analytics.UV_PV.token 合并为同一个后端需求，不是第二套统计功能。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：Umami 客户端只读取公开只读统计地址，不向页面输出私有 API token。后端凭据代理未提供；与 config:umami_analytics.UV_PV.token 合并为同一个后端需求，不是第二套统计功能。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-15 按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期；Umami 访问追踪和已有公开接口安全/回退保留，不代表已验收。"
       },
       "dependencies": [
         "dual-site",
@@ -60049,7 +60063,20 @@
           "outcome": "source-reconciled-not-verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "blocked",
+      "decision": {
+        "id": "DEC-03-1.0-DEFERRALS",
+        "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
+        "date": "2026-10-15T00:00:00+08:00",
+        "option": "defer-strict-plugin-resources-and-private-umami",
+        "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
+        "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
+      },
+      "blocker": {
+        "phase": "post-1.0",
+        "reason": "维护者确认 Umami 私有统计移出 1.0，后续版本未定；两个 token 项属于同一后端需求。",
+        "nextAction": "后续再确认收益、版本及后端承载，保管凭据并定义口径、缓存/限流和账户对账；不自动排入 1.1。"
+      }
     },
     {
       "id": "site-config:url",
@@ -62852,7 +62879,7 @@
           "src/js/core/common.ts",
           "src/scss/core/comments.scss"
         ],
-        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载的原断言仍未满足，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
       },
       "dependencies": [
         "dual-site",

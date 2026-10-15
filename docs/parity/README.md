@@ -20,7 +20,7 @@
 
 2026-10-14 [DEC-03 #410](https://github.com/songxychn/halo-butterfly-next/issues/410) 与 [资源裁定](DEC-03-RESOURCES-DECISION.md)正式登记已确认方案：导航/特效承载包、Viewer.js、Prism 整包、默认 Pace、动画显式选择及评论 MD5 消费方退出。39 个原供应/专属条目转有依据的不适用，6 个 Pace 条目具备实现；0 条提升 verified。当前工作区通过 652 项测试、162 文件包检查和实际安装比对，22 组 Pace + 8 组资源真实 Halo/Chromium 回归通过；[限定验证](../validation/2026-10-14/dec03-pace.md)保留来源与失败边界。PWA/离线、RSS/站点地图仍待裁定，随后合并 master，Mermaid/Chart.js/ABCJS 已随正文功能接入，保留已实现待验。先前草案、源码审计与历史验证不自动背书当前完整合同。
 
-2026-10-13 [评论懒加载](../COMMENT-ENHANCEMENTS.md)更新三条懒挂载实现为 `implemented-unverified`。官方插件 head 预加载保留，首屏零评论资源断言仍未满足；[限定真实 Halo 验证](../validation/2026-10-13/comment-lazy.md)不替代完整合同。
+2026-10-13 [评论懒加载](../COMMENT-ENHANCEMENTS.md)更新三条懒挂载实现为 `implemented-unverified`。官方插件 head 预加载保留；首屏零评论资源未实现，该子要求现按[1.0 延期决定](DEC-03-1.0-DEFERRALS.md)移出 1.0；[限定真实 Halo 验证](../validation/2026-10-13/comment-lazy.md)不替代完整合同。
 
 2026-10-13 [统一资源地址](../RESOURCE-SOURCES.md)补齐实际静态/动态资源、Share.js、不蒜子覆盖及 PJAX 精确地址识别；3 个独立覆盖配置转为 `implemented-unverified`，其余相关记录同步限定结果。全量 CDN 映射仍待完成，0 条提升为 verified。[DEC-03 资源供应草案](DEC-03-RESOURCES-DRAFT.md)保留未决替代项与原 ID，尚未正式裁定。
 
@@ -103,7 +103,7 @@ bun scripts/check-parity.mjs --upstream /path/to/hexo-theme-butterfly
 
 `not-applicable` 不计入 1.0 进度分母，但仍保留上游来源，不能删除条目。没有 `decision` 的条目不得使用该状态。删减可见能力、减少 provider 或用不同能力替代，在对应 DEC 写入 issue 与合同修订之前，不得标为不适用。经 DEC 裁定延期到后续版本的条目使用 `blocked`（`blocker.phase` 为目标版本），保留在矩阵中，不计入当前工程终点分母。
 
-DEC-07（2026-10-11）：维护者确认数学公式采用 Halo KaTeX 插件平台替代。公开裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记；MathJax 专属与主题自带数学资源供应共 10 条附完整 `decision` 后转为 `not-applicable`，不计作已验收。已固定 KaTeX 3.0.0，7 条公式保留项加入主题适配并转为 `implemented-unverified`；按需加载及完整运行/设备/审查门禁仍未满足。使用和证据边界见 [数学公式](../MATH.md)。边界见 [数学裁定](../MATH-RENDERING-DECISION.md)，已发布正文见 [issue 正文存档](DEC-07-ISSUE.md)。
+DEC-07（2026-10-11）：维护者确认数学公式采用 Halo KaTeX 插件平台替代。公开裁定 [#387](https://github.com/songxychn/halo-butterfly-next/issues/387) 已登记；MathJax 专属与主题自带数学资源供应共 10 条附完整 `decision` 后转为 `not-applicable`，不计作已验收。已固定 KaTeX 3.0.0，7 条公式保留项加入主题适配并转为 `implemented-unverified`；严格资源按需现按[1.0 延期决定](DEC-03-1.0-DEFERRALS.md)移出 1.0（版本未定）；公式用户能力及完整运行/设备/审查门禁仍未完成。使用和证据边界见 [数学公式](../MATH.md)。边界见 [数学裁定](../MATH-RENDERING-DECISION.md)，已发布正文见 [issue 正文存档](DEC-07-ISSUE.md)。
 
 DEC-02（原记录 [#45](https://github.com/songxychn/halo-butterfly-next/issues/45)，[2026-10-14 补充](DEC-02-PORTABLE-CONTENT.md)）：`tag:*` 保留为来源和用户能力索引，Halo 使用通用 Markdown / 原生 HTML，不要求与 Butterfly 生成结果相同的结构；主题不解析 `{% %}`，通用离线转换不是默认义务。
 
@@ -135,3 +135,5 @@ DEC-02（原记录 [#45](https://github.com/songxychn/halo-butterfly-next/issues
 合成/桩后端只能证明本地契约和失败回退。搜索索引、评论、分析、广告、聊天及字幕提供方的真实联调仍按合同 DEC-04 与对应场景单独留证；不能用 mock 结果关闭要求真实服务的能力。缺少账户、真机或 Safari 时保留阻塞，继续其他可执行事项。
 
 `implementation-reconciliation` 是源码与历史局部证据的对账记录，不能替代 `runtime`、`review` 或 `ci`。其中 `commit/sourceSha` 指被检查的源码快照；历史运行和性能记录保持各自提交及安装包身份。每条对账说明应列出实际实现、保留差异和下一步验收，不把“文件存在”作为功能已完成的依据。新增引用的文件路径与 SHA-256 需人工或独立脚本复核；现有检查器仅对 `verified` 强制完整证据校验。
+
+2026-10-15 [1.0 延期决定](DEC-03-1.0-DEFERRALS.md)：评论/KaTeX 严格资源按需仅延期混合条目的资源子要求，其他能力保留；Umami 私有统计的两个 token 项改为 blocked / post-1.0，访问追踪保留。897 条中 184 不适用、22 延期单列，当前适用分母 691；0 verified，5 条页面失败不变。当前工作顺序为页面加载可靠性、性能/原生图片、已有组合/映射和最终完整验收。
