@@ -11,6 +11,7 @@ import JSZip from 'jszip';
 import { parse } from 'yaml';
 import { configureResourceTags } from './resource-templates.mjs';
 import { safeInlineData } from './safe-inline-data.mjs';
+import { appendIconSubsets } from './fontawesome-subsets.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 const stage = path.join(root, '.build/templates');
@@ -83,6 +84,7 @@ async function build() {
   await cp(path.join(icons, 'css/all.min.css'), path.join(assets, 'plugins/fontawesome/css/all.min.css'));
   await cp(path.join(icons, 'webfonts'), path.join(assets, 'plugins/fontawesome/webfonts'), { recursive: true });
   await cp(path.join(icons, 'LICENSE.txt'), path.join(assets, 'plugins/fontawesome/LICENSE.txt'));
+  await appendIconSubsets(icons, path.join(root, 'src/fonts/fontawesome-subsets'), path.join(assets, 'plugins/fontawesome'));
   await mkdir(path.join(assets, 'licenses'), { recursive: true });
   // Adapted upstream sources are not npm dependencies, so collect their notices explicitly.
   for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt', 'butterfly-extsrc-1.1.6-LICENSE.txt', 'sharejs-MIT-LICENSE.txt', 'qrcodejs-MIT-LICENSE.txt']) {
