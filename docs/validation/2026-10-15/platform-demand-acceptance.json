@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "date": "2026-10-15",
+  "kind": "platform-demand-scoped-acceptance",
+  "result": "scoped-passed-with-open-followups",
+  "candidate": {
+    "name": "halo-butterfly-next-0.1.0-alpha.4.zip",
+    "sha256": "c593b2b3e9950dafdcd188ffb15d3fcf1c7fc8d2bb16b5d96293a4e755e97d95",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "946d63d7d512c7f50167060b55217b5e0292c27b",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "platform": {
+    "version": "2.27.0",
+    "url": "https://github.com/halo-dev/halo/releases/download/v2.27.0/halo-2.27.0.jar",
+    "sha256": "d3151ea97c4b8d1d4525149477535a3f5c6c713939be592e17a1dc6f9bbd4892"
+  },
+  "plugins": [
+    {
+      "name": "PluginCommentWidget",
+      "version": "3.4.0-theme-demand.1",
+      "jarSha256": "7bd5890f8197086d50febeb641be5f9743ec318b78631fc6da33cbaa7788a5f1",
+      "patch": "integrations/patches/comment-widget/0001-theme-managed-resources.patch",
+      "patchSha256": "6ca10d8198a7fa55bbdf3f8601099d644b2146325f363b3ffff666b31a11f355",
+      "distribution": "local integration candidate, not official release"
+    },
+    {
+      "name": "plugin-katex",
+      "version": "3.0.0-demand.1",
+      "jarSha256": "e9bc80d62cc8c045144e3aea8229783557c7af3dbd64fecd8456c45bb7f8ef4c",
+      "patch": "integrations/patches/katex/0001-content-aware-resources.patch",
+      "patchSha256": "85fa5d08ba350a767b060e1b82767da748ad027ec39f5806b9438ab4a2c6981a",
+      "distribution": "local integration candidate, not official release"
+    },
+    {
+      "name": "PluginUmami",
+      "version": "1.5.0-next.1",
+      "jarSha256": "3ddc802851c2f62a718df506f1d820b6c411eb0f270a8b952f40696579133cbb",
+      "patch": "integrations/patches/umami/0001-public-statistics.patch",
+      "patchSha256": "329ca3664544dde40c050c00d26f9405074acd5c72e03ceaf39e261c3d0a4e06",
+      "distribution": "local integration candidate, not official release"
+    }
+  ],
+  "browser": {
+    "path": ".runtime/platform-demand/browser-final.json",
+    "sha256": "ffd4071ae294e791ea733c97aa70c7016da17398692bd942e4610c85d20c88af",
+    "sourceSha": "946d63d7d512c7f50167060b55217b5e0292c27b",
+    "sourceDirty": false,
+    "runnerSha256": "b6988a4e144c3d468aefd04859a4bbf1c6ae7ff9a1fde6ec57bc26219959a8ad",
+    "startedAt": "2026-10-15T14:13:59.926Z",
+    "finishedAt": "2026-10-15T14:14:36.306Z",
+    "passed": 27,
+    "total": 27,
+    "engines": [
+      {
+        "name": "chromium",
+        "version": "153.0.8010.12",
+        "passed": 9
+      },
+      {
+        "name": "firefox",
+        "version": "155.0",
+        "passed": 9
+      },
+      {
+        "name": "webkit",
+        "version": "26.6",
+        "passed": 9
+      }
+    ],
+    "caseNames": [
+      "home",
+      "closed",
+      "lazy",
+      "mathml",
+      "raw",
+      "page",
+      "anchor",
+      "css-retry",
+      "pjax"
+    ],
+    "requestListsOmitted": true
+  },
+  "lifecycle": {
+    "path": ".runtime/platform-demand/lifecycle-report.json",
+    "sha256": "7cb9415074dc619157fac940ff5d7ef87b69db477be998f8ead4402fba97b564",
+    "passed": 4,
+    "total": 4,
+    "checks": [
+      "disabled plugins: complete HTTP 200, raw content preserved, no plugin resources",
+      "re-enabled plugins restore both resource contracts",
+      "Earth theme receives default CommentWidget global resources without theme opt-in",
+      "returning to candidate theme restores managed comment resources"
+    ],
+    "restored": true,
+    "attribution": "Companion report declares Halo 2.27.0 but contains no independent theme/package SHA; do not infer a stronger artifact attestation."
+  },
+  "umamiProxy": {
+    "path": ".runtime/platform-demand/umami-report.json",
+    "sha256": "951983f1e486363515a96f69cebee48eecc9bccd24970818e7b2f59eed0867cf",
+    "passedGroups": 6,
+    "checks": [
+      "disabled endpoint returns 404 anonymously",
+      "anonymous public counts match synthetic authenticated upstream; fixed website and time range",
+      "repeated public requests share cached upstream results",
+      "invalid and arbitrary upstream query controls rejected",
+      "upstream failure returns bounded 503 without credentials, URLs or fabricated zero",
+      "real home shows site UV/PV and post shows page PV via one anonymous same-origin request per document; credential absent from HTML"
+    ],
+    "configRestored": true,
+    "upstream": "synthetic local Umami 3.4.0 stats schema",
+    "attribution": "Companion report declares plugin version 1.5.0-next.1; exact JAR identity is recorded separately in integrations/patches/umami/manifest.json and the task artifact record.",
+    "themeConfigRestored": true,
+    "themeDisplay": {
+      "siteUV": 120,
+      "sitePV": 456,
+      "pagePV": 78,
+      "anonymousSameOriginRequestsPerDocument": 1,
+      "syntheticCredentialAbsentFromHTML": true,
+      "scope": "Chromium real Halo homepage and article, synthetic local upstream; not real account reconciliation"
+    },
+    "browserRunnerSha256": "66484a190979377efe39637628ef534eee0f71f2273669420c65a770bc3a9b2b",
+    "controllerSha256": "1324a29e6df235b5258a70d00bf3f0726cdb5b0a6ea9c3e336403a4d0092d9a4"
+  },
+  "localVerification": {
+    "path": ".runtime/platform-demand/verify-ready.log",
+    "sha256": "09454f30221c688cf817e65aa2e6906d81bc70437b9defc38762b570525ca5a5",
+    "themeTests": 753,
+    "failures": 0,
+    "packageCheckFiles": 265,
+    "commentJavaTests": 198,
+    "katexJavaTests": 4,
+    "katexBrowserTests": 36,
+    "katexLateCssRaceTests": 2,
+    "umamiTests": 52,
+    "pluginEvidence": [
+      "integrations/patches/comment-widget/validation.json",
+      "integrations/patches/katex/README.md",
+      "integrations/patches/umami/manifest.json"
+    ]
+  },
+  "preservedEarlierRuns": [
+    {
+      "path": ".runtime/platform-demand/browser-first.json",
+      "sha256": "0cf497bdc0ea4907f42462e6c51a13db64b42b8762580f0eb12fe58bc2de08da"
+    },
+    {
+      "path": ".runtime/platform-demand/browser-second.json",
+      "sha256": "7435fa95a2a500428f9ec6c77a0c1f164062f1ceb530bd2a08d98fbd9340f92c"
+    },
+    {
+      "path": ".runtime/platform-demand/browser-third.json",
+      "sha256": "8cde119b9a7bb953908c735877d88dc77acddaa70bbc9ef2f94abd4b2170b5d6"
+    },
+    {
+      "path": ".runtime/platform-demand/browser-fourth.json",
+      "sha256": "7e25734e8c16c6d3475c2c09edc7b44bd6beb1e0d9c6bc950a317ac4902efaa8"
+    },
+    {
+      "path": ".runtime/platform-demand/umami-theme-fixture-failure.json",
+      "sha256": "057a3f51a2f6155693b9dd61db0910c8f67b18aaa87f7b65f18a4439d518665e",
+      "classification": "fixture expectation error: post intentionally has no site webInfo card; corrected to homepage site stats plus article page stats without product change"
+    }
+  ],
+  "resolvedFindings": [
+    "KaTeX embedded resource lookup used host context classloader; explicit plugin classloader and isolation regression fix included in final JAR.",
+    "Halo rejected prerelease CommentWidget version-range expression, truncating page rendering; template availability check corrected while strict client resource protocol checks remain.",
+    "Unconfigured Umami tracker injected null/umami.js and disrupted PJAX; empty configuration now suppresses tracker injection."
+  ],
+  "followups": {
+    "umamiThemeDisplay": "scoped-passed using synthetic upstream; real account remains open",
+    "ciLinux": "Running at this evidence snapshot; subsequent final CI result is recorded in PR #416"
+  },
+  "limitations": [
+    "Synthetic HTML content; not editor save/reopen acceptance.",
+    "Headless engines; not Safari application, physical devices or screen reader.",
+    "Focused resource/lifecycle checks, not complete 1.0 acceptance.",
+    "No real Umami account or production data; actual account reconciliation remains open.",
+    "Local plugin patches are not upstream releases; no production deployment or upgrade acceptance.",
+    "Historical Halo 2.26.1 reports, their candidate attribution and unresolved request stalls remain unchanged.",
+    "This focused Halo 2.27.0 run does not transfer historical core/a11y/content/security acceptance to the new candidate."
+  ],
+  "independentReview": "docs/validation/2026-10-15/platform-demand-independent-review.md",
+  "ci": {
+    "workflow": "Verify theme",
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "946d63d7d512c7f50167060b55217b5e0292c27b",
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/38749657715",
+    "verification": "independently read using gh run view"
+  },
+  "installedByteCheck": {
+    "path": ".runtime/platform-demand/installed-byte-check.json",
+    "sha256": "facb5236d6b7ab8903b3674c1533d8fffb986ab423cdad2a02e8da8fcbe5f245",
+    "sourceCommit": "946d63d7d512c7f50167060b55217b5e0292c27b",
+    "packageSha256": "c593b2b3e9950dafdcd188ffb15d3fcf1c7fc8d2bb16b5d96293a4e755e97d95",
+    "installedFilesEqual": 265,
+    "result": "passed"
+  },
+  "cleanup": {
+    "pluginLifecycleRestored": true,
+    "umamiConfigRestored": true,
+    "themeConfigRestored": true,
+    "ownedHaloPort": 18627,
+    "ownedHaloStopped": true,
+    "headlessBrowserClosed": true,
+    "attribution": "Restoration fields read from reports; integration lead reports owned Halo stopped and headless session closed; independent lsof check found no listener on port 18627."
+  },
+  "runnerHardening": {
+    "changes": [
+      "Attempt each restoration independently; fail nonzero if any restoration fails",
+      "Pass parent LAB_RUNTIME and BASE_URL to the browser"
+    ],
+    "revalidation": "Lifecycle 4/4 and Umami 6/6 passed; all restoration booleans true",
+    "browserRunnerSha256": "24820fe15cda52976f07e71c35788b00cde5bdf56e211151af586b5a1c3008c9"
+  }
+}

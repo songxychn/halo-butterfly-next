@@ -15,3 +15,5 @@
 已有实现继续并行验收：已知页面失败、性能预算和核心交互问题优先于新增 Umami 代理；第三方 PJAX 生命周期、国际化与平台长尾映射不会因本排序被取消。真实 Safari/手机、屏幕阅读器、外部账户与最终发行仍按合同单独记录。任何限定检查通过都不自动提升 `verified`。
 
 实施与证据：RSS／站点地图接入见[说明](../RSS-SITEMAP.md)，本轮可携带结果、失败和候选摘要见[验收记录](../validation/2026-10-15/platform-acceptance.md)；已有实现的独立批次见[独立验收](../validation/2026-10-15/existing-feature-acceptance.md)。评论／KaTeX 插件现有能力、Halo 版本限制和后续修改范围见[资源按需调查](PLUGIN-RESOURCE-FOLLOWUP.md)。这些记录是进展证据，不改变上表完成条件。
+
+本轮平台候选已完成 Halo 2.27.0 联调，评论／KaTeX 的按需加载及 Umami 插件扩展见[平台候选验收记录](../validation/2026-10-15/platform-demand-acceptance.md)与[独立审查](../validation/2026-10-15/platform-demand-independent-review.md)。版本、产物身份和未验边界随记录保留；未进行正式发行或生产升级。

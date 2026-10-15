@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 import threading
 import time
+import subprocess
+import copy
+import os
 from urllib.parse import parse_qs, urlsplit, urlencode
 import urllib.error
 import urllib.request
@@ -36,6 +39,8 @@ name = 'PluginUmami'
 plugin = client.api('/apis/plugin.halo.run/v1alpha1/plugins/' + name)
 config_path = '/api/v1alpha1/configmaps/' + plugin['spec']['configMapName']
 original = client.api(config_path)
+theme_config_path = '/apis/api.console.halo.run/v1alpha1/themes/' + lab.THEME + '/json-config'
+theme_original = client.api(theme_config_path)
 report = {'haloVersion': lab.VERSIONS['halo']['version'], 'plugin': plugin['spec']['version'], 'upstream': 'synthetic local Umami 3.4.0 stats schema', 'checks': [], 'limitations': ['No real Umami account or production data; actual account reconciliation remains open.']}
 public = lab.BASE['halo'] + '/apis/api.umami.halo.run/v1alpha1/stats'
 def configure(**patch):
@@ -51,6 +56,7 @@ def get(query=''):
     except urllib.error.HTTPError as error:
         return error.code, json.loads(error.read())
 try:
+    report['result'] = 'failed'
     configure(publicStatsEnabled=False)
     assert get()[0] == 404
     report['checks'].append('disabled endpoint returns 404 anonymously')
@@ -72,12 +78,36 @@ try:
     assert status == 503 and failure == {'error': 'Statistics unavailable'}, (status, failure)
     report['checks'].append('upstream failure returns bounded 503 without credentials, URLs or fabricated zero')
     assert 'platform-demand-synthetic-key' not in json.dumps(data)
+    theme_config = copy.deepcopy(theme_original)
+    theme_config.setdefault('analytics', {})['umami_analytics'] = {
+        'enable': True, 'serverURL': '', 'website_id': '',
+        'UV_PV': {'site_uv': True, 'site_pv': True, 'page_pv': True, 'stats_url': '/apis/api.umami.halo.run/v1alpha1/stats'},
+    }
+    client.api(theme_config_path, 'PUT', theme_config)
+    subprocess.run(['bun', str(harness.ROOT / 'scripts/platform-demand/umami-browser.mjs')], cwd=harness.ROOT, env={**os.environ, 'LAB_RUNTIME': str(lab.RUNTIME), 'BASE_URL': lab.BASE['halo']}, check=True)
+    report['checks'].append('real home shows site UV/PV and post shows page PV via one anonymous same-origin request per document; credential absent from HTML')
     report['result'] = 'passed'
 finally:
-    current = client.api(config_path); current['data'] = original.get('data', {})
-    client.api(config_path, 'PUT', current)
-    report['configRestored'] = client.api(config_path).get('data', {}) == original.get('data', {})
+    errors = []
+    report['themeConfigRestored'] = report['configRestored'] = False
+    try:
+        client.api(theme_config_path, 'PUT', theme_original)
+        report['themeConfigRestored'] = client.api(theme_config_path) == theme_original
+    except Exception as error:
+        errors.append('theme restoration: ' + type(error).__name__)
+    try:
+        current = client.api(config_path); current['data'] = original.get('data', {})
+        client.api(config_path, 'PUT', current)
+        report['configRestored'] = client.api(config_path).get('data', {}) == original.get('data', {})
+    except Exception as error:
+        errors.append('plugin restoration: ' + type(error).__name__)
     server.shutdown(); server.server_close()
     report['requests'] = requests
+    restored = report['themeConfigRestored'] and report['configRestored'] and not errors
+    if not restored:
+        report['result'] = 'failed'
+        report['restorationErrors'] = errors
     lab.write_json(lab.RUNTIME.parent / 'umami-report.json', report)
+    if not restored:
+        raise RuntimeError('Lab restoration failed; inspect umami-report.json')
 print(json.dumps({'result': report['result'], 'checks': len(report['checks']), 'configRestored': report['configRestored']}))
