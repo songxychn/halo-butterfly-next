@@ -1,0 +1,1579 @@
+{
+  "schema": 1,
+  "kind": "gallery-loading-cause-and-compatible-options",
+  "date": "2026-10-16",
+  "sourceSha": "9d951b8125b580595e5d01cdec2a46b86f58745d",
+  "productSha": "d678d3f839347554d7f100996f87b23b571888df",
+  "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+  "formalAcceptance": false,
+  "formalPerformanceEvidence": false,
+  "causeConclusion": "Fixed photos-page network stalls follow the HttpTrafficHandler read-resume intervention and rollback; not all historical failures, not a deployed fix.",
+  "browserScope": "All nine causal samples had 20 grid images loaded. Four pending Image URLs were outside the recorded grid URLs; exact component attribution is unavailable without the original HTML body.",
+  "causal": {
+    "run": "run-03",
+    "runtimeStrategy": "fixed original absolute path; only Halo JAR switched; no DB relocation",
+    "result": "completed-fixed-plan",
+    "variants": {
+      "kind": "EXPERIMENTAL local causal variants; never production deployment",
+      "compiler": "javac 25",
+      "releaseTarget": 8,
+      "originalSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+      "sourceSha256": "4ee91ae879ebe106b8ed7fd772f819f3a9b520ac4ef86868652853c7c3e44b7c",
+      "upstreamPatchSha256": "e9ede78d69f73ea63af86fcf3551c0970a23817aab95cea560399c41ffe84d44",
+      "variants": {
+        "A": {
+          "jar": "/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/gallery-causal-followup/preparation/build/A/Halo-EXPERIMENTAL-A.jar",
+          "jarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+          "dependencySha256": "0f7293837fe9a800597965f95770ad09131a731a6b199590111e25c1b6f00e8c",
+          "classSha256": "01aa6b7e9f03a7e2758c95e59ccdea7a2ca19c4bed751d21c708e1837930ce20",
+          "sourceSha256": "4ee91ae879ebe106b8ed7fd772f819f3a9b520ac4ef86868652853c7c3e44b7c",
+          "changedOuterEntriesFromOfficial": [
+            "BOOT-INF/lib/reactor-netty-http-1.3.7.jar"
+          ],
+          "changedInnerEntriesFromOfficial": [
+            "reactor/netty/http/server/HttpTrafficHandler.class"
+          ]
+        },
+        "B": {
+          "jar": "/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/gallery-causal-followup/preparation/build/B/Halo-EXPERIMENTAL-B.jar",
+          "jarSha256": "938547cea9b77e009e3a89663faa691906f20d0cffea9d6a59a466d57defca48",
+          "dependencySha256": "f49ab1ac40382e3780b5ae09d0e022dba486003163a2cc810631a74b6b437495",
+          "classSha256": "60a059713671c2516fd15b587d39756546657afc224bd1fc35765dc30979439c",
+          "sourceSha256": "e3a674c62a7949922a7b916caf45d8f47bcb976e1210a6f5b12f51c73419ad98",
+          "changedOuterEntriesFromOfficial": [
+            "BOOT-INF/lib/reactor-netty-http-1.3.7.jar"
+          ],
+          "changedInnerEntriesFromOfficial": [
+            "reactor/netty/http/server/HttpTrafficHandler.class"
+          ]
+        }
+      },
+      "directABChangedOuterEntries": [
+        "BOOT-INF/lib/reactor-netty-http-1.3.7.jar"
+      ],
+      "directABChangedInnerEntries": [
+        "reactor/netty/http/server/HttpTrafficHandler.class"
+      ],
+      "helperNormalizedBytecodeMatchesOfficial": true,
+      "helperRuntimeBytes": "official unchanged"
+    },
+    "cleanup": {
+      "sourceOfficialJarRestored": true,
+      "pluginThemeAttachmentBytesUnchanged": true,
+      "portClosed": true,
+      "originalJvmEnvironmentRestored": true
+    },
+    "allNonRuntimeStationIdentitiesMatch": true,
+    "counts": {
+      "protocol": 18,
+      "browser": 9
+    },
+    "stages": [
+      {
+        "phase": "01-A",
+        "arm": "A",
+        "result": "completed-fixed-plan",
+        "runtimeSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+        "jvmOptions": "-Dreactor.netty.http.server.accessLogEnabled=true -Dlogging.level.reactor.netty.http.server=DEBUG -Xlog:class+load=info:file=/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/gallery-causal-followup/run-03/01-A/class-load.log",
+        "loadedClass": "[6.101s][info][class,load] reactor.netty.http.server.HttpTrafficHandler source: jar:nested:/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/performance-followup/halo-lab/halo/halo-2.26.1.jar/!BOOT-INF/lib/reactor-netty-http-1.3.7.jar!/",
+        "stopped": true,
+        "stationUnchanged": true,
+        "assetsBeforeVerified": true,
+        "assetsAfterVerified": true,
+        "assetsAfterStopVerified": true,
+        "snapshots": {
+          "before": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/01-A/before.json",
+              "sha256": "0f2439ae6035c2b8c5b85b63c845e65f3fe6d6f42be9448a89a9bcc9f2168292",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "A",
+            "experimentalRuntime": true,
+            "result": "passed"
+          },
+          "after-protocol": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/01-A/after-protocol.json",
+              "sha256": "0f2439ae6035c2b8c5b85b63c845e65f3fe6d6f42be9448a89a9bcc9f2168292",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "A",
+            "experimentalRuntime": true,
+            "result": "passed"
+          },
+          "after-browser": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/01-A/after-browser.json",
+              "sha256": "0f2439ae6035c2b8c5b85b63c845e65f3fe6d6f42be9448a89a9bcc9f2168292",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "A",
+            "experimentalRuntime": true,
+            "result": "passed"
+          }
+        },
+        "phaseServerLog": {
+          "path": ".runtime/gallery-causal-followup/run-03/01-A/halo.log",
+          "sha256": "d26c4a9479353cad9f1a0dba135ee616e487989857c6b0d9feee42ff7900f8b6",
+          "bytes": 558850
+        },
+        "protocolSummary": {
+          "sequential": {
+            "attempted": 3,
+            "passed": 3
+          },
+          "queued": {
+            "attempted": 3,
+            "passed": 0
+          }
+        },
+        "protocolEvidence": {
+          "path": ".runtime/gallery-causal-followup/run-03/01-A/protocol/report.json",
+          "sha256": "695b46f681eaf37092b45fbf6f472a3e77bc825806fac6da790806b02a3e507b",
+          "bytes": 26362
+        },
+        "browserSummary": {
+          "attempted": 3,
+          "observed": 3,
+          "effectPassed": 1,
+          "pendingCases": 2
+        },
+        "browserEvidence": {
+          "path": ".runtime/gallery-causal-followup/run-03/01-A/browser/report.json",
+          "sha256": "b3b30748648d909062cd6201d2ff9adced02bdaf224934c070e9c1f5a281471d",
+          "bytes": 85837
+        },
+        "browserCases": [
+          {
+            "index": 0,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 0,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": true,
+            "unfinishedAtObservationEnd": [],
+            "lighthouseReturnSinceNavigationMs": 5184,
+            "observationEndSinceNavigationMs": 25208,
+            "observationMsAfterLighthouse": 20024,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5693,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          },
+          {
+            "index": 1,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 1,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": false,
+            "unfinishedAtObservationEnd": [
+              {
+                "requestId": "30840.132",
+                "url": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+                "type": "Image",
+                "issuedMs": 439.96199988760054,
+                "networkSend": {
+                  "requestTime": 1983454.904596
+                }
+              }
+            ],
+            "lighthouseReturnSinceNavigationMs": 4936,
+            "observationEndSinceNavigationMs": 24953,
+            "observationMsAfterLighthouse": 20017,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5886,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          },
+          {
+            "index": 2,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 1,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": false,
+            "unfinishedAtObservationEnd": [
+              {
+                "requestId": "30906.132",
+                "url": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+                "type": "Image",
+                "issuedMs": 394.85000004060566,
+                "networkSend": {
+                  "requestTime": 1983481.637962
+                }
+              }
+            ],
+            "lighthouseReturnSinceNavigationMs": 4919,
+            "observationEndSinceNavigationMs": 24944,
+            "observationMsAfterLighthouse": 20025,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5763,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          }
+        ]
+      },
+      {
+        "phase": "02-B",
+        "arm": "B",
+        "result": "completed-fixed-plan",
+        "runtimeSha256": "938547cea9b77e009e3a89663faa691906f20d0cffea9d6a59a466d57defca48",
+        "jvmOptions": "-Dreactor.netty.http.server.accessLogEnabled=true -Dlogging.level.reactor.netty.http.server=DEBUG -Xlog:class+load=info:file=/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/gallery-causal-followup/run-03/02-B/class-load.log",
+        "loadedClass": "[6.136s][info][class,load] reactor.netty.http.server.HttpTrafficHandler source: jar:nested:/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/performance-followup/halo-lab/halo/halo-2.26.1.jar/!BOOT-INF/lib/reactor-netty-http-1.3.7.jar!/",
+        "stopped": true,
+        "stationUnchanged": true,
+        "assetsBeforeVerified": true,
+        "assetsAfterVerified": true,
+        "assetsAfterStopVerified": true,
+        "snapshots": {
+          "before": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/02-B/before.json",
+              "sha256": "0e8f420a413977971d09d1a297457abd759b5ba282c98a3086950c972cb02aca",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "938547cea9b77e009e3a89663faa691906f20d0cffea9d6a59a466d57defca48",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "B",
+            "experimentalRuntime": true,
+            "result": "passed"
+          },
+          "after-protocol": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/02-B/after-protocol.json",
+              "sha256": "0e8f420a413977971d09d1a297457abd759b5ba282c98a3086950c972cb02aca",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "938547cea9b77e009e3a89663faa691906f20d0cffea9d6a59a466d57defca48",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "B",
+            "experimentalRuntime": true,
+            "result": "passed"
+          },
+          "after-browser": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/02-B/after-browser.json",
+              "sha256": "0e8f420a413977971d09d1a297457abd759b5ba282c98a3086950c972cb02aca",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "938547cea9b77e009e3a89663faa691906f20d0cffea9d6a59a466d57defca48",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "B",
+            "experimentalRuntime": true,
+            "result": "passed"
+          }
+        },
+        "phaseServerLog": {
+          "path": ".runtime/gallery-causal-followup/run-03/02-B/halo.log",
+          "sha256": "73d13db264a1ed32dd4cf463d7bf9433963e28ba1657863790e6e018847700e7",
+          "bytes": 565657
+        },
+        "protocolSummary": {
+          "sequential": {
+            "attempted": 3,
+            "passed": 3
+          },
+          "queued": {
+            "attempted": 3,
+            "passed": 3
+          }
+        },
+        "protocolEvidence": {
+          "path": ".runtime/gallery-causal-followup/run-03/02-B/protocol/report.json",
+          "sha256": "b690ac8aa2665d217f7da8a96a8f0fa6f0d64c18426438d7b5101fe492d6e77d",
+          "bytes": 27584
+        },
+        "browserSummary": {
+          "attempted": 3,
+          "observed": 3,
+          "effectPassed": 3,
+          "pendingCases": 0
+        },
+        "browserEvidence": {
+          "path": ".runtime/gallery-causal-followup/run-03/02-B/browser/report.json",
+          "sha256": "b4a94273cdf7efa05c96c2b265bc5b3b5bcc14dbc7efdcbe42007868945ec4ea",
+          "bytes": 85026
+        },
+        "browserCases": [
+          {
+            "index": 0,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 0,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": true,
+            "unfinishedAtObservationEnd": [],
+            "lighthouseReturnSinceNavigationMs": 5225,
+            "observationEndSinceNavigationMs": 25249,
+            "observationMsAfterLighthouse": 20024,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5926,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          },
+          {
+            "index": 1,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 0,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": true,
+            "unfinishedAtObservationEnd": [],
+            "lighthouseReturnSinceNavigationMs": 5067,
+            "observationEndSinceNavigationMs": 25085,
+            "observationMsAfterLighthouse": 20018,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5786,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          },
+          {
+            "index": 2,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 0,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": true,
+            "unfinishedAtObservationEnd": [],
+            "lighthouseReturnSinceNavigationMs": 4884,
+            "observationEndSinceNavigationMs": 24904,
+            "observationMsAfterLighthouse": 20020,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 6105,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          }
+        ]
+      },
+      {
+        "phase": "03-A",
+        "arm": "A",
+        "result": "completed-fixed-plan",
+        "runtimeSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+        "jvmOptions": "-Dreactor.netty.http.server.accessLogEnabled=true -Dlogging.level.reactor.netty.http.server=DEBUG -Xlog:class+load=info:file=/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/gallery-causal-followup/run-03/03-A/class-load.log",
+        "loadedClass": "[6.014s][info][class,load] reactor.netty.http.server.HttpTrafficHandler source: jar:nested:/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/.runtime/performance-followup/halo-lab/halo/halo-2.26.1.jar/!BOOT-INF/lib/reactor-netty-http-1.3.7.jar!/",
+        "stopped": true,
+        "stationUnchanged": true,
+        "assetsBeforeVerified": true,
+        "assetsAfterVerified": true,
+        "assetsAfterStopVerified": true,
+        "snapshots": {
+          "before": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/03-A/before.json",
+              "sha256": "0f2439ae6035c2b8c5b85b63c845e65f3fe6d6f42be9448a89a9bcc9f2168292",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "A",
+            "experimentalRuntime": true,
+            "result": "passed"
+          },
+          "after-protocol": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/03-A/after-protocol.json",
+              "sha256": "0f2439ae6035c2b8c5b85b63c845e65f3fe6d6f42be9448a89a9bcc9f2168292",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "A",
+            "experimentalRuntime": true,
+            "result": "passed"
+          },
+          "after-browser": {
+            "evidence": {
+              "path": ".runtime/gallery-causal-followup/run-03/03-A/after-browser.json",
+              "sha256": "0f2439ae6035c2b8c5b85b63c845e65f3fe6d6f42be9448a89a9bcc9f2168292",
+              "bytes": 5790
+            },
+            "runtimeMatchesPhase": true,
+            "identity": {
+              "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+              "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+              "haloJarSha256": "96c84a5a301138d722523200d75d4e2414977b719cd78fcdf9e4b6056cd05c1b",
+              "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+              "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+              "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+              "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+              "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+            },
+            "runtimeArm": "A",
+            "experimentalRuntime": true,
+            "result": "passed"
+          }
+        },
+        "phaseServerLog": {
+          "path": ".runtime/gallery-causal-followup/run-03/03-A/halo.log",
+          "sha256": "c6470b1f39bb459ffe85c4e70fc93b2142393ac9ee086fcd7e35b1a312259fa1",
+          "bytes": 561918
+        },
+        "protocolSummary": {
+          "sequential": {
+            "attempted": 3,
+            "passed": 3
+          },
+          "queued": {
+            "attempted": 3,
+            "passed": 0
+          }
+        },
+        "protocolEvidence": {
+          "path": ".runtime/gallery-causal-followup/run-03/03-A/protocol/report.json",
+          "sha256": "d4e3ff155f22fef766372ba9d35b77aec6c4bb597fcc7fe035d91cf0225167ae",
+          "bytes": 26389
+        },
+        "browserSummary": {
+          "attempted": 3,
+          "observed": 3,
+          "effectPassed": 1,
+          "pendingCases": 2
+        },
+        "browserEvidence": {
+          "path": ".runtime/gallery-causal-followup/run-03/03-A/browser/report.json",
+          "sha256": "9aeeeac0c19666ccf2757a246a56190c8d16d32b2dfce2afb9c473111f141f7c",
+          "bytes": 85848
+        },
+        "browserCases": [
+          {
+            "index": 0,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 0,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": true,
+            "unfinishedAtObservationEnd": [],
+            "lighthouseReturnSinceNavigationMs": 5164,
+            "observationEndSinceNavigationMs": 25189,
+            "observationMsAfterLighthouse": 20025,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5897,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          },
+          {
+            "index": 1,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 1,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": false,
+            "unfinishedAtObservationEnd": [
+              {
+                "requestId": "31412.133",
+                "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+                "type": "Image",
+                "issuedMs": 327.16099987737834,
+                "networkSend": {
+                  "requestTime": 1983654.960771
+                }
+              }
+            ],
+            "lighthouseReturnSinceNavigationMs": 4829,
+            "observationEndSinceNavigationMs": 24850,
+            "observationMsAfterLighthouse": 20021,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5746,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          },
+          {
+            "index": 2,
+            "status": "observed",
+            "checks": {
+              "mainDocument200": true,
+              "sameOriginRequestsNonempty": true,
+              "galleryImagesNonempty": true,
+              "galleryImagesLoaded": true,
+              "pendingCount": 1,
+              "failedCount": 0,
+              "httpErrorCount": 0
+            },
+            "effectPassed": false,
+            "unfinishedAtObservationEnd": [
+              {
+                "requestId": "31462.133",
+                "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+                "type": "Image",
+                "issuedMs": 386.0979999881238,
+                "networkSend": {
+                  "requestTime": 1983681.606921
+                }
+              }
+            ],
+            "lighthouseReturnSinceNavigationMs": 4915,
+            "observationEndSinceNavigationMs": 24937,
+            "observationMsAfterLighthouse": 20022,
+            "netlogContainerTruncated": true,
+            "netlogRecordedEventCount": 5815,
+            "ownedChromeStopped": true,
+            "cleanupErrors": [],
+            "gridImageCount": 20
+          }
+        ]
+      }
+    ],
+    "failedConnections": [
+      {
+        "phase": "01-A",
+        "sample": 1,
+        "url": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+        "cdpRequestId": "30840.132",
+        "netlogRequestId": 138,
+        "initiators": [
+          {
+            "type": "parser",
+            "url": "http://127.0.0.1:18845/photos",
+            "lineNumber": 786,
+            "columnNumber": 140
+          }
+        ],
+        "urlPresentInRecordedGridImages": false,
+        "gridImageCount": 20,
+        "gridAllLoaded": true,
+        "connections": [
+          {
+            "streamJobId": 140,
+            "socketId": 101,
+            "clientAddresses": [
+              "127.0.0.1:64048"
+            ],
+            "postSendReceiveEvents": 0,
+            "requestSendBytes": [
+              [
+                683
+              ]
+            ],
+            "postSendServerQueues": [
+              {
+                "channel": [
+                  "d73ef12c"
+                ],
+                "clientPort": 64048,
+                "postSendNonzeroQueueCount": 12,
+                "first": {
+                  "wallTimeMs": 1792160994714,
+                  "line": "tcp4     683      0  127.0.0.1.18845        127.0.0.1.64048        ESTABLISHED         4180         6770  407040  146988             java:29755  00102 00000004 00000000031ee28c 00000080 01000800      2      0 000000",
+                  "recvQ": 683,
+                  "sendQ": 0
+                },
+                "last": {
+                  "wallTimeMs": 1792161016964,
+                  "line": "tcp4     683      0  127.0.0.1.18845        127.0.0.1.64048        ESTABLISHED         4180         6770  407040  146988             java:29755  00102 00000004 00000000031ee28c 00000080 01000800      2      0 000000",
+                  "recvQ": 683,
+                  "sendQ": 0
+                },
+                "spanMs": 22250,
+                "recvQValues": [
+                  683
+                ],
+                "sendQValues": [
+                  0
+                ],
+                "bufferingMessages": [
+                  {
+                    "line": 34,
+                    "text": "2026-10-16T22:29:54.304+08:00 DEBUG 29755 --- [ctor-http-nio-9] r.n.http.server.HttpServerOperations     : [d73ef12c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:64048] Buffering pipelined HTTP request, pending responses count: 2, queue: 0"
+                  },
+                  {
+                    "line": 40,
+                    "text": "2026-10-16T22:29:54.305+08:00 DEBUG 29755 --- [ctor-http-nio-9] r.n.http.server.HttpServerOperations     : [d73ef12c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:64048] Buffering pipelined HTTP content, pending responses count: 2, queue: 1"
+                  }
+                ],
+                "drainMessages": [
+                  {
+                    "line": 45,
+                    "text": "2026-10-16T22:29:54.305+08:00 DEBUG 29755 --- [ctor-http-nio-9] r.n.http.server.HttpServerOperations     : [d73ef12c, L:/127.0.0.1:18845 - R:/127.0.0.1:64048] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+                  },
+                  {
+                    "line": 68,
+                    "text": "2026-10-16T22:29:54.311+08:00 DEBUG 29755 --- [ctor-http-nio-9] r.n.http.server.HttpServerOperations     : [d73ef12c, L:/127.0.0.1:18845 - R:/127.0.0.1:64048] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "phase": "01-A",
+        "sample": 2,
+        "url": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+        "cdpRequestId": "30906.132",
+        "netlogRequestId": 142,
+        "initiators": [
+          {
+            "type": "parser",
+            "url": "http://127.0.0.1:18845/photos",
+            "lineNumber": 786,
+            "columnNumber": 140
+          }
+        ],
+        "urlPresentInRecordedGridImages": false,
+        "gridImageCount": 20,
+        "gridAllLoaded": true,
+        "connections": [
+          {
+            "streamJobId": 144,
+            "socketId": 100,
+            "clientAddresses": [
+              "127.0.0.1:50291"
+            ],
+            "postSendReceiveEvents": 0,
+            "requestSendBytes": [
+              [
+                683
+              ]
+            ],
+            "postSendServerQueues": [
+              {
+                "channel": [
+                  "20392ac7"
+                ],
+                "clientPort": 50291,
+                "postSendNonzeroQueueCount": 12,
+                "first": {
+                  "wallTimeMs": 1792161023031,
+                  "line": "tcp4     683      0  127.0.0.1.18845        127.0.0.1.50291        ESTABLISHED         4226         5521  407040  146988             java:29755  00102 00000004 00000000031ee4e7 00000080 01000800      2      0 000000",
+                  "recvQ": 683,
+                  "sendQ": 0
+                },
+                "last": {
+                  "wallTimeMs": 1792161045279,
+                  "line": "tcp4     683      0  127.0.0.1.18845        127.0.0.1.50291        ESTABLISHED         4226         5521  407040  146988             java:29755  00102 00000004 00000000031ee4e7 00000080 01000800      2      0 000000",
+                  "recvQ": 683,
+                  "sendQ": 0
+                },
+                "spanMs": 22248,
+                "recvQValues": [
+                  683
+                ],
+                "sendQValues": [
+                  0
+                ],
+                "bufferingMessages": [
+                  {
+                    "line": 32,
+                    "text": "2026-10-16T22:30:20.994+08:00 DEBUG 29755 --- [ctor-http-nio-2] r.n.http.server.HttpServerOperations     : [20392ac7-1, L:/127.0.0.1:18845 - R:/127.0.0.1:50291] Buffering pipelined HTTP request, pending responses count: 2, queue: 0"
+                  },
+                  {
+                    "line": 33,
+                    "text": "2026-10-16T22:30:20.994+08:00 DEBUG 29755 --- [ctor-http-nio-2] r.n.http.server.HttpServerOperations     : [20392ac7-1, L:/127.0.0.1:18845 - R:/127.0.0.1:50291] Buffering pipelined HTTP content, pending responses count: 2, queue: 1"
+                  }
+                ],
+                "drainMessages": [
+                  {
+                    "line": 38,
+                    "text": "2026-10-16T22:30:20.994+08:00 DEBUG 29755 --- [ctor-http-nio-2] r.n.http.server.HttpServerOperations     : [20392ac7, L:/127.0.0.1:18845 - R:/127.0.0.1:50291] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+                  },
+                  {
+                    "line": 68,
+                    "text": "2026-10-16T22:30:21.000+08:00 DEBUG 29755 --- [ctor-http-nio-2] r.n.http.server.HttpServerOperations     : [20392ac7, L:/127.0.0.1:18845 - R:/127.0.0.1:50291] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "phase": "03-A",
+        "sample": 1,
+        "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+        "cdpRequestId": "31412.133",
+        "netlogRequestId": 148,
+        "initiators": [
+          {
+            "type": "parser",
+            "url": "http://127.0.0.1:18845/photos",
+            "lineNumber": 786,
+            "columnNumber": 140
+          }
+        ],
+        "urlPresentInRecordedGridImages": false,
+        "gridImageCount": 20,
+        "gridAllLoaded": true,
+        "connections": [
+          {
+            "streamJobId": 150,
+            "socketId": 108,
+            "clientAddresses": [
+              "127.0.0.1:64958"
+            ],
+            "postSendReceiveEvents": 0,
+            "requestSendBytes": [
+              [
+                686
+              ]
+            ],
+            "postSendServerQueues": [
+              {
+                "channel": [
+                  "0271213b"
+                ],
+                "clientPort": 64958,
+                "postSendNonzeroQueueCount": 12,
+                "first": {
+                  "wallTimeMs": 1792161194908,
+                  "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.64958        ESTABLISHED         4186         6770  407040  146988             java:31271  00102 00000004 00000000031efa3c 00000080 01000800      2      0 000000",
+                  "recvQ": 686,
+                  "sendQ": 0
+                },
+                "last": {
+                  "wallTimeMs": 1792161217146,
+                  "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.64958        ESTABLISHED         4186         6770  407040  146988             java:31271  00102 00000004 00000000031efa3c 00000080 01000800      2      0 000000",
+                  "recvQ": 686,
+                  "sendQ": 0
+                },
+                "spanMs": 22238,
+                "recvQValues": [
+                  686
+                ],
+                "sendQValues": [
+                  0
+                ],
+                "bufferingMessages": [
+                  {
+                    "line": 32,
+                    "text": "2026-10-16T22:33:14.363+08:00 DEBUG 31271 --- [tor-http-nio-10] r.n.http.server.HttpServerOperations     : [0271213b-1, L:/127.0.0.1:18845 - R:/127.0.0.1:64958] Buffering pipelined HTTP request, pending responses count: 2, queue: 0"
+                  },
+                  {
+                    "line": 33,
+                    "text": "2026-10-16T22:33:14.363+08:00 DEBUG 31271 --- [tor-http-nio-10] r.n.http.server.HttpServerOperations     : [0271213b-1, L:/127.0.0.1:18845 - R:/127.0.0.1:64958] Buffering pipelined HTTP content, pending responses count: 2, queue: 1"
+                  }
+                ],
+                "drainMessages": [
+                  {
+                    "line": 41,
+                    "text": "2026-10-16T22:33:14.363+08:00 DEBUG 31271 --- [tor-http-nio-10] r.n.http.server.HttpServerOperations     : [0271213b, L:/127.0.0.1:18845 - R:/127.0.0.1:64958] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+                  },
+                  {
+                    "line": 66,
+                    "text": "2026-10-16T22:33:14.368+08:00 DEBUG 31271 --- [tor-http-nio-10] r.n.http.server.HttpServerOperations     : [0271213b, L:/127.0.0.1:18845 - R:/127.0.0.1:64958] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "phase": "03-A",
+        "sample": 2,
+        "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+        "cdpRequestId": "31462.133",
+        "netlogRequestId": 148,
+        "initiators": [
+          {
+            "type": "parser",
+            "url": "http://127.0.0.1:18845/photos",
+            "lineNumber": 786,
+            "columnNumber": 140
+          }
+        ],
+        "urlPresentInRecordedGridImages": false,
+        "gridImageCount": 20,
+        "gridAllLoaded": true,
+        "connections": [
+          {
+            "streamJobId": 150,
+            "socketId": 108,
+            "clientAddresses": [
+              "127.0.0.1:62987"
+            ],
+            "postSendReceiveEvents": 0,
+            "requestSendBytes": [
+              [
+                686
+              ]
+            ],
+            "postSendServerQueues": [
+              {
+                "channel": [
+                  "a631dc92"
+                ],
+                "clientPort": 62987,
+                "postSendNonzeroQueueCount": 13,
+                "first": {
+                  "wallTimeMs": 1792161221177,
+                  "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.62987        ESTABLISHED         4232         5521  407040  146988             java:31271  00102 00000004 00000000031efca3 00000080 01000800      2      0 000000",
+                  "recvQ": 686,
+                  "sendQ": 0
+                },
+                "last": {
+                  "wallTimeMs": 1792161245427,
+                  "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.62987        ESTABLISHED         4232         5521  407040  146988             java:31271  00102 00000004 00000000031efca3 00000080 01000800      2      0 000000",
+                  "recvQ": 686,
+                  "sendQ": 0
+                },
+                "spanMs": 24250,
+                "recvQValues": [
+                  686
+                ],
+                "sendQValues": [
+                  0
+                ],
+                "bufferingMessages": [
+                  {
+                    "line": 33,
+                    "text": "2026-10-16T22:33:41.011+08:00 DEBUG 31271 --- [ctor-http-nio-4] r.n.http.server.HttpServerOperations     : [a631dc92-1, L:/127.0.0.1:18845 - R:/127.0.0.1:62987] Buffering pipelined HTTP request, pending responses count: 2, queue: 0"
+                  },
+                  {
+                    "line": 34,
+                    "text": "2026-10-16T22:33:41.011+08:00 DEBUG 31271 --- [ctor-http-nio-4] r.n.http.server.HttpServerOperations     : [a631dc92-1, L:/127.0.0.1:18845 - R:/127.0.0.1:62987] Buffering pipelined HTTP content, pending responses count: 2, queue: 1"
+                  }
+                ],
+                "drainMessages": [
+                  {
+                    "line": 41,
+                    "text": "2026-10-16T22:33:41.012+08:00 DEBUG 31271 --- [ctor-http-nio-4] r.n.http.server.HttpServerOperations     : [a631dc92, L:/127.0.0.1:18845 - R:/127.0.0.1:62987] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+                  },
+                  {
+                    "line": 68,
+                    "text": "2026-10-16T22:33:41.016+08:00 DEBUG 31271 --- [ctor-http-nio-4] r.n.http.server.HttpServerOperations     : [a631dc92, L:/127.0.0.1:18845 - R:/127.0.0.1:62987] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "patchedQueuePathEvidence": [
+      {
+        "case": 0,
+        "clientPort": 58898,
+        "serverChannel": "ae0eb349",
+        "result": "passed",
+        "zeroPendingTrailingQueueDrains": [
+          {
+            "line": 1520,
+            "text": "2026-10-16T22:31:00.208+08:00 DEBUG 31021 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [ae0eb349, L:/127.0.0.1:18845 - R:/127.0.0.1:58898] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+          }
+        ],
+        "thirdRequestApplicationEntry": [
+          {
+            "line": 1522,
+            "text": "2026-10-16T22:31:00.246+08:00 DEBUG 31021 --- [ctor-http-nio-6] reactor.netty.http.server.HttpServer     : [ae0eb349-3, L:/127.0.0.1:18845 - R:/127.0.0.1:58898] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@3405341"
+          }
+        ]
+      },
+      {
+        "case": 1,
+        "clientPort": 58900,
+        "serverChannel": "f64b913f",
+        "result": "passed",
+        "zeroPendingTrailingQueueDrains": [
+          {
+            "line": 1543,
+            "text": "2026-10-16T22:31:00.257+08:00 DEBUG 31021 --- [ctor-http-nio-7] r.n.http.server.HttpServerOperations     : [f64b913f, L:/127.0.0.1:18845 - R:/127.0.0.1:58900] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+          }
+        ],
+        "thirdRequestApplicationEntry": [
+          {
+            "line": 1545,
+            "text": "2026-10-16T22:31:00.294+08:00 DEBUG 31021 --- [ctor-http-nio-7] reactor.netty.http.server.HttpServer     : [f64b913f-3, L:/127.0.0.1:18845 - R:/127.0.0.1:58900] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@3405341"
+          }
+        ]
+      },
+      {
+        "case": 2,
+        "clientPort": 58901,
+        "serverChannel": "4fc1585a",
+        "result": "passed",
+        "zeroPendingTrailingQueueDrains": [
+          {
+            "line": 1566,
+            "text": "2026-10-16T22:31:00.303+08:00 DEBUG 31021 --- [ctor-http-nio-8] r.n.http.server.HttpServerOperations     : [4fc1585a, L:/127.0.0.1:18845 - R:/127.0.0.1:58901] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+          }
+        ],
+        "thirdRequestApplicationEntry": [
+          {
+            "line": 1568,
+            "text": "2026-10-16T22:31:00.341+08:00 DEBUG 31021 --- [ctor-http-nio-8] reactor.netty.http.server.HttpServer     : [4fc1585a-3, L:/127.0.0.1:18845 - R:/127.0.0.1:58901] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@3405341"
+          }
+        ]
+      }
+    ],
+    "evidence": {
+      "summary": {
+        "path": ".runtime/gallery-causal-followup/summary-run-03.json",
+        "sha256": "0fc5e4ff81a927e70d196880570dea8aa6942de60cc4d66c4f0f2625e10dd33a",
+        "bytes": 240194
+      },
+      "connections": {
+        "path": ".runtime/gallery-causal-followup/connections-run-03.json",
+        "sha256": "914de8155cd123b9320c59c726eb9485712b000204f09ed85eecc10e7899315d",
+        "bytes": 56039
+      },
+      "frozenPlan": {
+        "path": ".runtime/gallery-causal-followup/run-03/frozen-plan.json",
+        "sha256": "cdbbdae6cf42387e3474c817affcb04a206d07080843836c2f32fc2e4dcdfb4e",
+        "bytes": 5078
+      },
+      "coordinator": {
+        "path": ".runtime/gallery-causal-followup/run-03/coordinator.json",
+        "sha256": "8486084a4dd40cf7c744bc8a7aaf85e9a30e6f014ca3917022bd48135396ca63",
+        "bytes": 103559
+      }
+    },
+    "limitations": [
+      "All attempted cases including negative observations and failures are preserved; no retry or sample substitution.",
+      "A/B are experimental local diagnostic copies, not official deployment or upgrade proposals.",
+      "B applies only a115965 production changes for causal isolation; the official fix sequence includes later defensive commit ec483d. B is not the complete official fix or a deployment recommendation.",
+      "This aggregation reports observations and exact intervention identity; it does not attribute all historical failures or establish a field failure rate.",
+      "NetLog closing-container repair is in memory only and does not recover absent events. Missing connection bindings are recorded as analysis errors.",
+      "No direct instrumentation of every ctx.read call; DEBUG lines are not a direct count of read invocations."
+    ],
+    "patchedBrowserConnection": {
+      "sample": 1,
+      "completedUrl": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+      "status": 200,
+      "finishedMs": 547.7709998376667,
+      "requestId": 142,
+      "streamJobId": 144,
+      "socketId": 100,
+      "clientAddresses": [
+        "127.0.0.1:59025"
+      ],
+      "serverChannels": [
+        [
+          "f7578dc4"
+        ]
+      ]
+    },
+    "independentReview": {
+      "path": ".runtime/gallery-causal-followup/review-run-03.json",
+      "sha256": "64853e33c0a5d870b44952a9b7da8a8f09c642f268cd038b7695dd4e8a2124a5"
+    }
+  },
+  "mitigation": {
+    "officialHaloSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "property": "server.netty.max-keep-alive-requests=1",
+    "jvmOptions": "-Dserver.netty.max-keep-alive-requests=1 -Dreactor.netty.http.server.accessLogEnabled=true -Dlogging.level.reactor.netty.http.server=DEBUG",
+    "plan": {
+      "freshConnectionResourceRounds": 3,
+      "resourcesPerRound": 3,
+      "browser": [
+        "photos/mobile",
+        "photos/mobile",
+        "photos/mobile"
+      ],
+      "publicRoutes": [
+        "/",
+        "/photos",
+        "/rss.xml",
+        "/sitemap.xml"
+      ]
+    },
+    "result": "completed-fixed-plan",
+    "mitigationObserved": true,
+    "stationUnchanged": true,
+    "cleanup": {
+      "ownedHaloStopped": true,
+      "hexoStillStopped": true,
+      "jvmEnvironmentRestored": true,
+      "labEnvironmentRestored": true,
+      "officialJarUnchanged": true
+    },
+    "protocol": [
+      {
+        "round": 0,
+        "resourceIndex": 0,
+        "url": "http://127.0.0.1:18845/plugins/PluginSearchWidget/assets/static/style.css?version=1.8.0",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57673
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 1091,
+        "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 0,
+        "resourceIndex": 1,
+        "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57674
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 12962,
+        "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 0,
+        "resourceIndex": 2,
+        "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57675
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 165662,
+        "decodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 1,
+        "resourceIndex": 0,
+        "url": "http://127.0.0.1:18845/plugins/PluginSearchWidget/assets/static/style.css?version=1.8.0",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57676
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 1091,
+        "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 1,
+        "resourceIndex": 1,
+        "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57677
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 12962,
+        "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 1,
+        "resourceIndex": 2,
+        "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57678
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 165662,
+        "decodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 2,
+        "resourceIndex": 0,
+        "url": "http://127.0.0.1:18845/plugins/PluginSearchWidget/assets/static/style.css?version=1.8.0",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57679
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 1091,
+        "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 2,
+        "resourceIndex": 1,
+        "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57680
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 12962,
+        "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+        "bufferedAfterBytes": 0
+      },
+      {
+        "round": 2,
+        "resourceIndex": 2,
+        "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+        "result": "passed",
+        "clientAddress": [
+          "127.0.0.1",
+          57681
+        ],
+        "serverClosedConnection": true,
+        "status": "HTTP/1.1 200 OK",
+        "connection": "close",
+        "decodedBodyBytes": 165662,
+        "decodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+        "bufferedAfterBytes": 0
+      }
+    ],
+    "publicRoutes": [
+      {
+        "route": "/",
+        "status": 200,
+        "contentType": "text/html",
+        "bodySha256": "dcf2f5011074b09ee014260383dadb9a8c5788da797426cbc143c5717b98cad6",
+        "bodyBytes": 69185,
+        "markup": {
+          "html": true,
+          "themeReady": true,
+          "main": true,
+          "gallery": false,
+          "indexScript": true
+        },
+        "result": "passed"
+      },
+      {
+        "route": "/photos",
+        "status": 200,
+        "contentType": "text/html",
+        "bodySha256": "1df846120e5539f92b6056a06616cc1bd9ee386040ed34425963f9cc81434232",
+        "bodyBytes": 56727,
+        "markup": {
+          "html": true,
+          "themeReady": true,
+          "main": true,
+          "gallery": true,
+          "indexScript": false
+        },
+        "result": "passed"
+      },
+      {
+        "route": "/rss.xml",
+        "status": 200,
+        "contentType": "application/xml",
+        "bodySha256": "7c8cd0321ad937fd1056aad24aa14abc6f87b6f98826f35ef6ef8689d2510c47",
+        "bodyBytes": 12078,
+        "rootElement": "rss",
+        "result": "passed"
+      },
+      {
+        "route": "/sitemap.xml",
+        "status": 200,
+        "contentType": "text/xml;charset=UTF-8",
+        "bodySha256": "9b4ba21510095edb6d38bb22736162e9667361b1a3077ea47449ac5bbea9cabc",
+        "bodyBytes": 2776,
+        "rootElement": "{http://www.sitemaps.org/schemas/sitemap/0.9}urlset",
+        "locationCount": 23,
+        "result": "passed"
+      }
+    ],
+    "browser": [
+      {
+        "index": 0,
+        "status": "observed",
+        "checks": {
+          "mainDocument200": true,
+          "sameOriginRequestsNonempty": true,
+          "noSameOriginPending": true,
+          "noSameOriginNetworkErrors": true,
+          "noSameOriginHttpErrors": true,
+          "galleryImagesNonempty": true,
+          "allGalleryImagesLoaded": true
+        },
+        "mitigationObserved": true,
+        "galleryImageCount": 20,
+        "ownedChromeStopped": true,
+        "cleanupErrors": [],
+        "sameOriginRequestCount": 22
+      },
+      {
+        "index": 1,
+        "status": "observed",
+        "checks": {
+          "mainDocument200": true,
+          "sameOriginRequestsNonempty": true,
+          "noSameOriginPending": true,
+          "noSameOriginNetworkErrors": true,
+          "noSameOriginHttpErrors": true,
+          "galleryImagesNonempty": true,
+          "allGalleryImagesLoaded": true
+        },
+        "mitigationObserved": true,
+        "galleryImageCount": 20,
+        "ownedChromeStopped": true,
+        "cleanupErrors": [],
+        "sameOriginRequestCount": 22
+      },
+      {
+        "index": 2,
+        "status": "observed",
+        "checks": {
+          "mainDocument200": true,
+          "sameOriginRequestsNonempty": true,
+          "noSameOriginPending": true,
+          "noSameOriginNetworkErrors": true,
+          "noSameOriginHttpErrors": true,
+          "galleryImagesNonempty": true,
+          "allGalleryImagesLoaded": true
+        },
+        "mitigationObserved": true,
+        "galleryImageCount": 20,
+        "ownedChromeStopped": true,
+        "cleanupErrors": [],
+        "sameOriginRequestCount": 22
+      }
+    ],
+    "evidence": {
+      "coordinator": {
+        "path": ".runtime/gallery-compatible-followup/run-01/coordinator.json",
+        "sha256": "ba618402439fecdfb1936ae63409b590df2eba4e5e92e1e04a839bad88ed6671",
+        "bytes": 16039
+      },
+      "browser": {
+        "path": ".runtime/gallery-compatible-followup/run-01/browser/report.json",
+        "sha256": "6121bab1366c32fb3ea7c7c1e42ca47e3330e64817dfb1843f149cd9c4146250",
+        "bytes": 117663
+      },
+      "before": {
+        "path": ".runtime/gallery-compatible-followup/run-01/before.json",
+        "sha256": "83eba7b6ff882cf44ed269225076a0c06430f78d28319c9012a20de107986be8",
+        "bytes": 5738
+      },
+      "after": {
+        "path": ".runtime/gallery-compatible-followup/run-01/after.json",
+        "sha256": "83eba7b6ff882cf44ed269225076a0c06430f78d28319c9012a20de107986be8",
+        "bytes": 5738
+      },
+      "independentReview": {
+        "path": ".runtime/gallery-compatible-followup/review.json",
+        "sha256": "e11818dff729623049964838568b71ab4229c1a8d24f178465a47d67d5988a75",
+        "bytes": 5918
+      }
+    },
+    "limitations": [
+      "Bounded local HTTP/1.1 workaround, not a runtime code fix.",
+      "No WebSocket/SSE/streaming, write operations, all-plugin/device matrix or formal performance acceptance.",
+      "Public route bodies were hashed but not archived; the recorded route assertions are not independent body replays."
+    ]
+  },
+  "upstream": {
+    "checkedDate": "2026-10-16",
+    "timezone": "Asia/Shanghai",
+    "scope": "Read-only official GitHub API and official-package inspection; no new Halo 2.27.0 runtime test.",
+    "haloIssue": {
+      "url": "https://github.com/halo-dev/halo/issues/10359",
+      "state": "open",
+      "updatedAt": "2026-10-09T14:31:37Z",
+      "maintainerDependencyStatement": "Reactor Netty is managed by Spring Boot; wait for upstream dependencies.",
+      "maintainerComment": "https://github.com/halo-dev/halo/issues/10359#issuecomment-6062813923"
+    },
+    "reactorIssue": {
+      "url": "https://github.com/reactor/reactor-netty/issues/4361",
+      "state": "closed",
+      "closedAt": "2026-09-16T11:51:55Z",
+      "maintainerSaysLatestSnapshotFixed": "https://github.com/reactor/reactor-netty/issues/4361#issuecomment-5696971228"
+    },
+    "reactorPr": {
+      "url": "https://github.com/reactor/reactor-netty/pull/4347",
+      "state": "closed",
+      "merged": false,
+      "mergedAt": null,
+      "baseBranch": "1.2.x",
+      "resolution": "Maintainer applied fix manually to 1.3.x; do not describe PR itself as merged.",
+      "resolutionComment": "https://github.com/reactor/reactor-netty/pull/4347#issuecomment-5696849720"
+    },
+    "officialFixCommits": [
+      {
+        "sha": "a11596502249de3cc3c68123c3cbc47831bb33d0",
+        "url": "https://github.com/reactor/reactor-netty/commit/a11596502249de3cc3c68123c3cbc47831bb33d0",
+        "committedAt": "2026-09-16T11:29:31Z",
+        "summary": "Resume read after pipelined queue drains without dispatching request; requestRead helper calls ctx.read().",
+        "containedByCurrent13Branch": true,
+        "branchCompare": {
+          "status": "ahead",
+          "aheadBy": 46,
+          "behindBy": 0,
+          "url": "https://github.com/reactor/reactor-netty/compare/a11596502249de3cc3c68123c3cbc47831bb33d0...1.3.x"
+        }
+      },
+      {
+        "sha": "ec483d0701b4298b3f4d8abc45b5ea31f1136600",
+        "url": "https://github.com/reactor/reactor-netty/commit/ec483d0701b4298b3f4d8abc45b5ea31f1136600",
+        "committedAt": "2026-09-16T11:40:04Z",
+        "summary": "Guard resumed read against removed handler, inactive channel and active HttpServerOperations."
+      }
+    ],
+    "latestFormalReleases": [
+      {
+        "project": "Halo",
+        "version": "2.27.0",
+        "publishedAt": "2026-10-14T09:26:07Z",
+        "url": "https://github.com/halo-dev/halo/releases/tag/v2.27.0",
+        "jarUrl": "https://github.com/halo-dev/halo/releases/download/v2.27.0/halo-2.27.0.jar",
+        "officialAssetDigest": "sha256:d3151ea97c4b8d1d4525149477535a3f5c6c713939be592e17a1dc6f9bbd4892",
+        "localMatchesOfficialDigest": true
+      },
+      {
+        "project": "Reactor Netty",
+        "version": "1.3.7",
+        "publishedAt": "2026-08-24T02:42:52Z",
+        "url": "https://github.com/reactor/reactor-netty/releases/tag/v1.3.7"
+      },
+      {
+        "project": "Spring Boot",
+        "version": "4.1.1",
+        "publishedAt": "2026-08-20T20:02:36Z",
+        "url": "https://github.com/spring-projects/spring-boot/releases/tag/v4.1.1"
+      }
+    ],
+    "upcomingMilestones": [
+      {
+        "project": "Reactor Netty",
+        "version": "1.3.8",
+        "state": "open",
+        "dueAt": "2026-10-22T00:00:00Z",
+        "url": "https://github.com/reactor/reactor-netty/milestone/234"
+      },
+      {
+        "project": "Spring Boot",
+        "version": "4.1.2",
+        "state": "open",
+        "dueAt": "2026-10-22T00:00:00Z",
+        "url": "https://github.com/spring-projects/spring-boot/milestone/432"
+      }
+    ],
+    "milestoneCaveat": "Planned dates are not publication guarantees or a Halo delivery commitment.",
+    "officialPackageInspection": [
+      {
+        "version": "2.26.1",
+        "path": ".runtime/performance-followup/halo-lab/halo/halo-2.26.1.jar",
+        "sha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+        "reactorNettyHttpSha256": "f351ff98022e1b73dd93aa59283c3e69cdbb11e21ba217bed732cc0a7d9b83fa",
+        "httpTrafficHandlerSha256": "20ea9779511eb20f18cfc2d7d36c32f3f63bce7ccc07c16243c6a74ccf4c4b2a",
+        "httpTrafficHandlerBytes": 23448,
+        "dependencies": [
+          "BOOT-INF/lib/spring-boot-reactor-netty-4.1.1.jar",
+          "BOOT-INF/lib/spring-boot-4.1.1.jar",
+          "BOOT-INF/lib/reactor-netty-http-1.3.7.jar",
+          "BOOT-INF/lib/reactor-netty-core-1.3.7.jar",
+          "BOOT-INF/lib/reactor-core-3.8.7.jar",
+          "BOOT-INF/lib/netty-common-4.2.17.Final.jar"
+        ]
+      },
+      {
+        "version": "2.27.0",
+        "path": ".runtime/platform-demand/downloads/halo-2.27.0.jar",
+        "sha256": "d3151ea97c4b8d1d4525149477535a3f5c6c713939be592e17a1dc6f9bbd4892",
+        "reactorNettyHttpSha256": "f351ff98022e1b73dd93aa59283c3e69cdbb11e21ba217bed732cc0a7d9b83fa",
+        "httpTrafficHandlerSha256": "20ea9779511eb20f18cfc2d7d36c32f3f63bce7ccc07c16243c6a74ccf4c4b2a",
+        "httpTrafficHandlerBytes": 23448,
+        "dependencies": [
+          "BOOT-INF/lib/spring-boot-reactor-netty-4.1.1.jar",
+          "BOOT-INF/lib/spring-boot-4.1.1.jar",
+          "BOOT-INF/lib/reactor-netty-http-1.3.7.jar",
+          "BOOT-INF/lib/reactor-netty-core-1.3.7.jar",
+          "BOOT-INF/lib/reactor-core-3.8.7.jar",
+          "BOOT-INF/lib/netty-common-4.2.17.Final.jar"
+        ]
+      }
+    ],
+    "sameReactorNettyHttpJarAndTrafficHandlerClass": true,
+    "haloBuildDeclaration": "https://github.com/halo-dev/halo/blob/v2.27.0/gradle/libs.versions.toml#L43",
+    "temporaryOfficialConfigurationCandidate": {
+      "property": "server.netty.max-keep-alive-requests",
+      "value": 1,
+      "scope": "HTTP/1.1 server connections",
+      "status": "Source-level support verified; runtime validation owned by parent task.",
+      "propertyDeclaration": "https://github.com/spring-projects/spring-boot/blob/v4.1.1/module/spring-boot-reactor-netty/src/main/java/org/springframework/boot/reactor/netty/autoconfigure/NettyServerProperties.java#L77",
+      "binding": "https://github.com/spring-projects/spring-boot/blob/v4.1.1/module/spring-boot-reactor-netty/src/main/java/org/springframework/boot/reactor/netty/autoconfigure/NettyReactiveWebServerFactoryCustomizer.java#L111",
+      "reactorApi": "https://github.com/reactor/reactor-netty/blob/v1.3.7/reactor-netty-http/src/main/java/reactor/netty/http/server/HttpServer.java#L770",
+      "tradeoff": "Uses supported property without modifying Halo/plugin code, but extra TCP connections/CPU; direct TLS adds handshakes. It avoids connection-reuse trigger, not repair of read-resume defect."
+    },
+    "unsupportedFlagCaveat": {
+      "flag": "reactor.netty.http.server.lastFlushWhenNoRead=true",
+      "reason": "Does not prevent pendingResponses > 1 queue path seen in current gallery diagnosis; not a complete remedy.",
+      "source": "https://github.com/reactor/reactor-netty/pull/4347#issuecomment-5355985704"
+    },
+    "conclusion": "No available official Halo upgrade containing this fix as of checked date. Prefer future official Halo with full Reactor Netty fix via compatible dependency management, verified on packaged class and gallery regressions. Do not ship a115-only patched JAR, SNAPSHOT or theme/plugin hacks as supported solution."
+  },
+  "priorRuns": [
+    {
+      "run": "run-01",
+      "result": "incomplete",
+      "reason": "Cloned DB retained absolute plugin loadLocation; startup removed 13 original fixture JARs. Excluded from final causal counts.",
+      "evidence": {
+        "path": ".runtime/gallery-causal-followup/isolation-failure.json",
+        "sha256": "4ac95cf44c5bdb4b5f9a263927614b6717855857f7a4e5e1a915b31d9883344a",
+        "bytes": 27907
+      },
+      "restoration": {
+        "path": ".runtime/gallery-causal-followup/source-restoration.json",
+        "sha256": "17c8e8461c3f05beb20c522b2f972136fc3ff4a6065cbfa3243ed85faa1b36dd",
+        "bytes": 2503
+      }
+    },
+    {
+      "run": "run-02",
+      "result": "preflight-failed-zero-cases",
+      "reason": "Overbroad immutability guard included normal Links SQLite runtime writes. No JVM/protocol/browser started.",
+      "evidence": {
+        "path": ".runtime/gallery-causal-followup/run-02-preparation-failure.json",
+        "sha256": "e5a8513b61764c19b21869f64d37f936025aac484d2f8f14645e2f2ba3910ba4",
+        "bytes": 691
+      }
+    }
+  ],
+  "budgetsChanged": false,
+  "productChanges": false,
+  "officialPluginsChanged": false,
+  "productionChanges": false,
+  "rawManifest": {
+    "path": ".runtime/gallery-causal-followup/raw-manifest.json",
+    "sha256": "3e42f68e2436900acef90921243a93a31e01065c3430fd12242a13d4420a07fb",
+    "fileCount": 313,
+    "totalBytes": 237734345
+  }
+}
