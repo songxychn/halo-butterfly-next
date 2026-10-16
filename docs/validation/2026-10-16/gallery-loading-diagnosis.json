@@ -1,0 +1,1288 @@
+{
+  "schema": 1,
+  "kind": "gallery-loading-bounded-diagnosis",
+  "result": "server-queue-read-stall-observed",
+  "performanceBudgetEvidence": false,
+  "replacesFormalSamples": false,
+  "candidate": {
+    "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+    "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "haloJarSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "fixtureSha256": "67c8c3dcc89b56013fcb182051a9238c28861fea9704c6fbe8310dbafb67fd8f",
+    "configSha256": "e8a7694bc1914c653446531bbebab7c01883c620dcd3c604f3a30f3075b5e583",
+    "contentSha256": "b756c29d0fedfa643e7cc22f8b5d25bc36ee73032b6725f88643acbcd5c46e5a",
+    "pluginsSha256": "67428d91be8b25b2ff0a9ba58f925fa9bcab6d58163d302971ba6f661a50f718",
+    "pluginConfigSha256": "a2266683e3c4c5074c4b490cd9b4fff681bd927069a99328652ef0ae9ec57ee4"
+  },
+  "diagnosticSourceSha": "9c561390ab39228b840057cb2f325ebe2f32d398",
+  "scripts": {
+    "test-replay.py": "9cc01918e244d79fbdfe419d058235f6476e4ec6c53291077ad0654c178a7d6d",
+    "browser-observe.mjs": "ec5a3b07eef97a82567b3b4e18a8ff9d1eab2ab2f1f1d26c126a033a26fa2a9c",
+    "run-diagnosis.py": "f2c17abfa6a6c799a368d67338c8bcf7f20666053c0ec4c0944465f36b1579cc",
+    "replay.py": "6a4c65472afcede1176569111356c1b8c504e8a7efc7d66ad0943c256f710d5e",
+    "extract-socket-sequence.py": "6486c6a8c8ff1c9bc59a10f5664f1425356eaa15488d14c5450f331089334fd0"
+  },
+  "previousFailedSetup": {
+    "evidence": {
+      "path": ".runtime/gallery-loading-followup/run-01/coordinator.json",
+      "sha256": "f87c030d47cb7259a0ed46fe186b84d79abc78da2a76e7308cfea0ad669cf894",
+      "bytes": 1306
+    },
+    "log": {
+      "path": ".runtime/gallery-loading-followup/execution-01.log",
+      "sha256": "149f295f1b2070f2ce1d7a3fe2e2ac85510da88aecb00cf9b0b0b049928c95cd",
+      "bytes": 2635
+    },
+    "protocolCases": 0,
+    "browserCases": 0,
+    "cause": "Expected installed Pace path omitted templates/. Corrected offline before new run-02; all original scripts/logs retained.",
+    "productFailure": false
+  },
+  "planned": {
+    "protocol": 6,
+    "browser": 3
+  },
+  "protocol": {
+    "timeoutSeconds": 3,
+    "thirdRequestGapSeconds": 0.032,
+    "preflight": [
+      {
+        "status": "HTTP/1.1 200 OK",
+        "headers": {
+          "cache-control": "max-age=31536000",
+          "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+          "content-type": "text/css",
+          "accept-ranges": "bytes",
+          "content-length": "1091"
+        },
+        "encodedBodyBytes": 1091,
+        "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+        "decodedBodyBytes": 1091,
+        "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+        "chunkSizes": [],
+        "bufferedAfterBytes": 0,
+        "finishedWallTime": 1792104629.941189,
+        "bodyMatchesInstalledBytes": true
+      },
+      {
+        "status": "HTTP/1.1 200 OK",
+        "headers": {
+          "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+          "cache-control": "max-age=31536000",
+          "content-type": "text/javascript",
+          "accept-ranges": "bytes",
+          "content-encoding": "gzip",
+          "transfer-encoding": "chunked"
+        },
+        "encodedBodyBytes": 4998,
+        "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+        "decodedBodyBytes": 12962,
+        "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+        "chunkSizes": [
+          678,
+          376,
+          441,
+          389,
+          333,
+          390,
+          341,
+          324,
+          395,
+          306,
+          350,
+          373,
+          292,
+          10,
+          0
+        ],
+        "bufferedAfterBytes": 0,
+        "finishedWallTime": 1792104629.959044,
+        "bodyMatchesInstalledBytes": true
+      },
+      {
+        "status": "HTTP/1.1 200 OK",
+        "headers": {
+          "last-modified": "Wed, 14 Oct 2026 16:29:45 GMT",
+          "cache-control": "max-age=31536000",
+          "content-length": "165662",
+          "content-type": "image/webp",
+          "accept-ranges": "bytes",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-xss-protection": "0",
+          "referrer-policy": "strict-origin-when-cross-origin"
+        },
+        "encodedBodyBytes": 165662,
+        "encodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+        "decodedBodyBytes": 165662,
+        "decodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+        "chunkSizes": [],
+        "bufferedAfterBytes": 0,
+        "finishedWallTime": 1792104629.967946,
+        "bodyMatchesInstalledBytes": true
+      }
+    ],
+    "resources": [
+      {
+        "url": "http://127.0.0.1:18845/plugins/PluginSearchWidget/assets/static/style.css?version=1.8.0",
+        "originalRequestBytes": 674,
+        "replayRequestBytes": 601,
+        "wire": "GET /plugins/PluginSearchWidget/assets/static/style.css?version=1.8.0 HTTP/1.1\r\nHost: 127.0.0.1:18845\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Android\"\r\nAccept-Language: zh-CN,zh;q=0.9\r\nsec-ch-ua: \"Chromium\";v=\"153\", \"Google Chrome\";v=\"153\"\r\nUser-Agent: Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36\r\nsec-ch-ua-mobile: ?1\r\nAccept: text/css,*/*;q=0.1\r\nSec-Fetch-Site: same-origin\r\nSec-Fetch-Mode: no-cors\r\nSec-Fetch-Dest: style\r\nReferer: http://127.0.0.1:18845/photos\r\nAccept-Encoding: gzip, deflate, br, zstd\r\n\r\n",
+        "expectedDecodedBytes": 1091,
+        "expectedDecodedSha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa"
+      },
+      {
+        "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+        "originalRequestBytes": 654,
+        "replayRequestBytes": 581,
+        "wire": "GET /themes/halo-butterfly-next/assets/plugins/pace/pace.min.js HTTP/1.1\r\nHost: 127.0.0.1:18845\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Android\"\r\nAccept-Language: zh-CN,zh;q=0.9\r\nsec-ch-ua: \"Chromium\";v=\"153\", \"Google Chrome\";v=\"153\"\r\nUser-Agent: Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36\r\nsec-ch-ua-mobile: ?1\r\nAccept: */*\r\nSec-Fetch-Site: same-origin\r\nSec-Fetch-Mode: no-cors\r\nSec-Fetch-Dest: script\r\nReferer: http://127.0.0.1:18845/photos\r\nAccept-Encoding: gzip, deflate, br, zstd\r\n\r\n",
+        "expectedDecodedBytes": 12962,
+        "expectedDecodedSha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d"
+      },
+      {
+        "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+        "originalRequestBytes": 686,
+        "replayRequestBytes": 613,
+        "wire": "GET /lab/cover-turquoise-coast.webp HTTP/1.1\r\nHost: 127.0.0.1:18845\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Android\"\r\nAccept-Language: zh-CN,zh;q=0.9\r\nsec-ch-ua: \"Chromium\";v=\"153\", \"Google Chrome\";v=\"153\"\r\nUser-Agent: Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36\r\nsec-ch-ua-mobile: ?1\r\nAccept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8\r\nSec-Fetch-Site: same-origin\r\nSec-Fetch-Mode: no-cors\r\nSec-Fetch-Dest: image\r\nReferer: http://127.0.0.1:18845/photos\r\nAccept-Encoding: gzip, deflate, br, zstd\r\n\r\n",
+        "expectedDecodedBytes": 165662,
+        "expectedDecodedSha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1"
+      }
+    ],
+    "sequential": {
+      "passed": 1,
+      "attempted": 3
+    },
+    "queued": {
+      "passed": 0,
+      "attempted": 3
+    },
+    "cases": [
+      {
+        "mode": "sequential",
+        "index": 0,
+        "sent": [
+          {
+            "indices": [
+              0
+            ],
+            "bytes": 601,
+            "wallTime": 1792104629.9685051,
+            "monotonic": 8.029494791
+          },
+          {
+            "indices": [
+              1
+            ],
+            "bytes": 581,
+            "wallTime": 1792104629.97079,
+            "monotonic": 8.03178025
+          },
+          {
+            "indices": [
+              2
+            ],
+            "bytes": 613,
+            "wallTime": 1792104630.016396,
+            "monotonic": 8.077386041
+          }
+        ],
+        "responses": [
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "cache-control": "max-age=31536000",
+              "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+              "content-type": "text/css",
+              "accept-ranges": "bytes",
+              "content-length": "1091"
+            },
+            "encodedBodyBytes": 1091,
+            "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "decodedBodyBytes": 1091,
+            "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104629.970776,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+              "cache-control": "max-age=31536000",
+              "content-type": "text/javascript",
+              "accept-ranges": "bytes",
+              "content-encoding": "gzip",
+              "transfer-encoding": "chunked"
+            },
+            "encodedBodyBytes": 4998,
+            "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+            "decodedBodyBytes": 12962,
+            "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+            "chunkSizes": [
+              678,
+              376,
+              441,
+              389,
+              333,
+              390,
+              341,
+              324,
+              395,
+              306,
+              350,
+              373,
+              292,
+              10,
+              0
+            ],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104629.974335,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Wed, 14 Oct 2026 16:29:45 GMT",
+              "cache-control": "max-age=31536000",
+              "content-length": "165662",
+              "content-type": "image/webp",
+              "accept-ranges": "bytes",
+              "x-content-type-options": "nosniff",
+              "x-frame-options": "SAMEORIGIN",
+              "x-xss-protection": "0",
+              "referrer-policy": "strict-origin-when-cross-origin"
+            },
+            "encodedBodyBytes": 165662,
+            "encodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+            "decodedBodyBytes": 165662,
+            "decodedBodySha256": "b37e7cbaa0972c3dae14f82937534c22c2253a59d1ba96e723b6f4584d60ebb1",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104630.020062,
+            "bodyMatchesInstalledBytes": true
+          }
+        ],
+        "startedAt": 1792104629.9683142,
+        "clientAddress": [
+          "127.0.0.1",
+          52119
+        ],
+        "result": "passed",
+        "finishedAt": 1792104630.0200782
+      },
+      {
+        "mode": "sequential",
+        "index": 1,
+        "sent": [
+          {
+            "indices": [
+              0
+            ],
+            "bytes": 601,
+            "wallTime": 1792104630.0215528,
+            "monotonic": 8.082542708
+          },
+          {
+            "indices": [
+              1
+            ],
+            "bytes": 581,
+            "wallTime": 1792104630.023136,
+            "monotonic": 8.084124875
+          },
+          {
+            "indices": [
+              2
+            ],
+            "bytes": 613,
+            "wallTime": 1792104630.068108,
+            "monotonic": 8.129096541
+          }
+        ],
+        "responses": [
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "cache-control": "max-age=31536000",
+              "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+              "content-type": "text/css",
+              "accept-ranges": "bytes",
+              "content-length": "1091"
+            },
+            "encodedBodyBytes": 1091,
+            "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "decodedBodyBytes": 1091,
+            "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104630.02312,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+              "cache-control": "max-age=31536000",
+              "content-type": "text/javascript",
+              "accept-ranges": "bytes",
+              "content-encoding": "gzip",
+              "transfer-encoding": "chunked"
+            },
+            "encodedBodyBytes": 4998,
+            "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+            "decodedBodyBytes": 12962,
+            "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+            "chunkSizes": [
+              678,
+              376,
+              441,
+              389,
+              333,
+              390,
+              341,
+              324,
+              395,
+              306,
+              350,
+              373,
+              292,
+              10,
+              0
+            ],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104630.026081,
+            "bodyMatchesInstalledBytes": true
+          }
+        ],
+        "startedAt": 1792104630.021353,
+        "clientAddress": [
+          "127.0.0.1",
+          52120
+        ],
+        "result": "failed",
+        "error": "timeout('timed out')",
+        "bufferedBytes": 0,
+        "socketSnapshot": [
+          "tcp4     613      0  127.0.0.1.18845        127.0.0.1.52120        ESTABLISHED         3746         6559  407168  146988             java:91398  00102 00000004 0000000003180a7b 00000080 01000800      2      0 000000",
+          "tcp4       0      0  127.0.0.1.52120        127.0.0.1.18845        ESTABLISHED        14002         1795  402197  146988           Python:91387  00102 00000000 0000000003180a7a 00000080 04000900      2      0 000000"
+        ],
+        "finishedAt": 1792104633.0873501
+      },
+      {
+        "mode": "sequential",
+        "index": 2,
+        "sent": [
+          {
+            "indices": [
+              0
+            ],
+            "bytes": 601,
+            "wallTime": 1792104633.088217,
+            "monotonic": 11.149160041
+          },
+          {
+            "indices": [
+              1
+            ],
+            "bytes": 581,
+            "wallTime": 1792104633.090951,
+            "monotonic": 11.151894291
+          },
+          {
+            "indices": [
+              2
+            ],
+            "bytes": 613,
+            "wallTime": 1792104633.133151,
+            "monotonic": 11.194093291
+          }
+        ],
+        "responses": [
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "cache-control": "max-age=31536000",
+              "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+              "content-type": "text/css",
+              "accept-ranges": "bytes",
+              "content-length": "1091"
+            },
+            "encodedBodyBytes": 1091,
+            "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "decodedBodyBytes": 1091,
+            "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104633.090933,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+              "cache-control": "max-age=31536000",
+              "content-type": "text/javascript",
+              "accept-ranges": "bytes",
+              "content-encoding": "gzip",
+              "transfer-encoding": "chunked"
+            },
+            "encodedBodyBytes": 4998,
+            "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+            "decodedBodyBytes": 12962,
+            "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+            "chunkSizes": [
+              678,
+              376,
+              441,
+              389,
+              333,
+              390,
+              341,
+              324,
+              395,
+              306,
+              350,
+              373,
+              292,
+              10,
+              0
+            ],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104633.094035,
+            "bodyMatchesInstalledBytes": true
+          }
+        ],
+        "startedAt": 1792104633.088043,
+        "clientAddress": [
+          "127.0.0.1",
+          52131
+        ],
+        "result": "failed",
+        "error": "timeout('timed out')",
+        "bufferedBytes": 0,
+        "socketSnapshot": [
+          "tcp4     613      0  127.0.0.1.18845        127.0.0.1.52131        ESTABLISHED         3746         6559  407168  146988             java:91398  00102 00000004 0000000003180aa1 00000080 01000800      2      0 000000",
+          "tcp4       0      0  127.0.0.1.52131        127.0.0.1.18845        ESTABLISHED        14002         1795  402197  146988           Python:91387  00102 00000000 0000000003180aa0 00000080 04000900      2      0 000000"
+        ],
+        "finishedAt": 1792104636.152744
+      },
+      {
+        "mode": "queued",
+        "index": 0,
+        "sent": [
+          {
+            "indices": [
+              0,
+              1
+            ],
+            "bytes": 1182,
+            "wallTime": 1792104636.154468,
+            "monotonic": 14.215364791
+          },
+          {
+            "indices": [
+              2
+            ],
+            "bytes": 613,
+            "wallTime": 1792104636.2001011,
+            "monotonic": 14.260997666
+          }
+        ],
+        "responses": [
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "cache-control": "max-age=31536000",
+              "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+              "content-type": "text/css",
+              "accept-ranges": "bytes",
+              "content-length": "1091"
+            },
+            "encodedBodyBytes": 1091,
+            "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "decodedBodyBytes": 1091,
+            "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104636.157158,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+              "cache-control": "max-age=31536000",
+              "content-type": "text/javascript",
+              "accept-ranges": "bytes",
+              "content-encoding": "gzip",
+              "transfer-encoding": "chunked"
+            },
+            "encodedBodyBytes": 4998,
+            "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+            "decodedBodyBytes": 12962,
+            "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+            "chunkSizes": [
+              678,
+              376,
+              441,
+              389,
+              333,
+              390,
+              341,
+              324,
+              395,
+              306,
+              350,
+              373,
+              292,
+              10,
+              0
+            ],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104636.161862,
+            "bodyMatchesInstalledBytes": true
+          }
+        ],
+        "startedAt": 1792104636.1542249,
+        "clientAddress": [
+          "127.0.0.1",
+          52134
+        ],
+        "result": "failed",
+        "error": "timeout('timed out')",
+        "bufferedBytes": 0,
+        "socketSnapshot": [
+          "tcp4     613      0  127.0.0.1.18845        127.0.0.1.52134        ESTABLISHED         3694         6559  407168  146988             java:91398  00102 00000004 0000000003180ac1 00000080 01000800      2      0 000000",
+          "tcp4       0      0  127.0.0.1.52134        127.0.0.1.18845        ESTABLISHED        14002         1795  402197  146988           Python:91387  00102 00000000 0000000003180ac0 00000080 04000900      2      0 000000"
+        ],
+        "finishedAt": 1792104639.2203379
+      },
+      {
+        "mode": "queued",
+        "index": 1,
+        "sent": [
+          {
+            "indices": [
+              0,
+              1
+            ],
+            "bytes": 1182,
+            "wallTime": 1792104639.221403,
+            "monotonic": 17.282253375
+          },
+          {
+            "indices": [
+              2
+            ],
+            "bytes": 613,
+            "wallTime": 1792104639.268733,
+            "monotonic": 17.329582875
+          }
+        ],
+        "responses": [
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "cache-control": "max-age=31536000",
+              "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+              "content-type": "text/css",
+              "accept-ranges": "bytes",
+              "content-length": "1091"
+            },
+            "encodedBodyBytes": 1091,
+            "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "decodedBodyBytes": 1091,
+            "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104639.223777,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+              "cache-control": "max-age=31536000",
+              "content-type": "text/javascript",
+              "accept-ranges": "bytes",
+              "content-encoding": "gzip",
+              "transfer-encoding": "chunked"
+            },
+            "encodedBodyBytes": 4998,
+            "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+            "decodedBodyBytes": 12962,
+            "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+            "chunkSizes": [
+              678,
+              376,
+              441,
+              389,
+              333,
+              390,
+              341,
+              324,
+              395,
+              306,
+              350,
+              373,
+              292,
+              10,
+              0
+            ],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104639.226704,
+            "bodyMatchesInstalledBytes": true
+          }
+        ],
+        "startedAt": 1792104639.2211761,
+        "clientAddress": [
+          "127.0.0.1",
+          52147
+        ],
+        "result": "failed",
+        "error": "timeout('timed out')",
+        "bufferedBytes": 0,
+        "socketSnapshot": [
+          "tcp4     613      0  127.0.0.1.18845        127.0.0.1.52147        ESTABLISHED         3694         6559  407168  146988             java:91398  00102 00000004 0000000003180af6 00000080 01000800      2      0 000000",
+          "tcp4       0      0  127.0.0.1.52147        127.0.0.1.18845        ESTABLISHED        14002         1795  402177  146988           Python:91387  00102 00000000 0000000003180af5 00000080 04000900      2      0 000000"
+        ],
+        "finishedAt": 1792104642.289842
+      },
+      {
+        "mode": "queued",
+        "index": 2,
+        "sent": [
+          {
+            "indices": [
+              0,
+              1
+            ],
+            "bytes": 1182,
+            "wallTime": 1792104642.290874,
+            "monotonic": 20.351678083
+          },
+          {
+            "indices": [
+              2
+            ],
+            "bytes": 613,
+            "wallTime": 1792104642.337981,
+            "monotonic": 20.39878525
+          }
+        ],
+        "responses": [
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "cache-control": "max-age=31536000",
+              "last-modified": "Thu, 15 Oct 2026 16:39:30 GMT",
+              "content-type": "text/css",
+              "accept-ranges": "bytes",
+              "content-length": "1091"
+            },
+            "encodedBodyBytes": 1091,
+            "encodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "decodedBodyBytes": 1091,
+            "decodedBodySha256": "60a6ad227a60e931758727fcb404ed411efd2a4a44a1c9bb8e8c04fb33d242fa",
+            "chunkSizes": [],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104642.293356,
+            "bodyMatchesInstalledBytes": true
+          },
+          {
+            "status": "HTTP/1.1 200 OK",
+            "headers": {
+              "last-modified": "Thu, 15 Oct 2026 17:42:19 GMT",
+              "cache-control": "max-age=31536000",
+              "content-type": "text/javascript",
+              "accept-ranges": "bytes",
+              "content-encoding": "gzip",
+              "transfer-encoding": "chunked"
+            },
+            "encodedBodyBytes": 4998,
+            "encodedBodySha256": "74a6efc5f621e9709b1b95308fbb89d2a346c6a08132d5d4d29abc1023f44dea",
+            "decodedBodyBytes": 12962,
+            "decodedBodySha256": "82a77b6138e0fc1b5fa964b0b093af9dd97407173c8052262c4917413f3eaa3d",
+            "chunkSizes": [
+              678,
+              376,
+              441,
+              389,
+              333,
+              390,
+              341,
+              324,
+              395,
+              306,
+              350,
+              373,
+              292,
+              10,
+              0
+            ],
+            "bufferedAfterBytes": 0,
+            "finishedWallTime": 1792104642.295955,
+            "bodyMatchesInstalledBytes": true
+          }
+        ],
+        "startedAt": 1792104642.290685,
+        "clientAddress": [
+          "127.0.0.1",
+          52150
+        ],
+        "result": "failed",
+        "error": "timeout('timed out')",
+        "bufferedBytes": 0,
+        "socketSnapshot": [
+          "tcp4     613      0  127.0.0.1.18845        127.0.0.1.52150        ESTABLISHED         3694         6559  407168  146988             java:91398  00102 00000004 0000000003180b12 00000080 01000800      2      0 000000",
+          "tcp4       0      0  127.0.0.1.52150        127.0.0.1.18845        ESTABLISHED        14002         1795  402197  146988           Python:91387  00102 00000000 0000000003180b11 00000080 04000900      2      0 000000"
+        ],
+        "finishedAt": 1792104645.357607
+      }
+    ],
+    "evidence": {
+      "path": ".runtime/gallery-loading-followup/run-02/protocol/report.json",
+      "sha256": "3f05fdf784a3ac71d73112e78688faf7e0954c7ef4230d06fda7c7b47781d0c4",
+      "bytes": 25536
+    }
+  },
+  "browser": {
+    "attempted": 3,
+    "pendingCases": 2,
+    "cases": [
+      {
+        "index": 0,
+        "status": "observed",
+        "lighthouseReturnSinceNavigationMs": 5082,
+        "observationEndSinceNavigationMs": 25106,
+        "pendingAtEnd": [],
+        "connections": [],
+        "evidence": {
+          "netlog.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/0-mobile/netlog.json",
+            "sha256": "a9231a44d4d45c8432a67e71a52dbee1bbd4729e1731eb7ea3f1bf5c0d5f3483",
+            "bytes": 1144690
+          },
+          "observer-events.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/0-mobile/observer-events.json",
+            "sha256": "cd447e47879ed4ec6ccc52b620eedcc6a71948db8948325c5bb3bf93b733031b",
+            "bytes": 191659
+          },
+          "server.log": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/0-mobile/server.log",
+            "sha256": "f5b2df53a9db3dde5cb1b3b4ee0fc2055853bf250733c187b92a5f0ab58fdd4d",
+            "bytes": 28946
+          },
+          "lhr.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/0-mobile/lhr.json",
+            "sha256": "3746fd58ff305c7322d18a35aac49fdbbeb34a4bf4bc8eb3ebbb9d0c511090bb",
+            "bytes": 387089
+          },
+          "lh-trace.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/0-mobile/lh-trace.json",
+            "sha256": "86f9e5344e688a6f5f215987b09d2e3d415befd6ee3e0d130d94172700d45795",
+            "bytes": 7582980
+          },
+          "lh-devtoolslog.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/0-mobile/lh-devtoolslog.json",
+            "sha256": "e993ae0a15f9a02f771c8c709ff3242c414c5bfdb88dbdc4a0f2eefd81b672ce",
+            "bytes": 220568
+          }
+        },
+        "netlogContainerTruncated": true,
+        "netlogCompleteEventCount": 6097,
+        "netlogAnalysisRepair": "remove trailing comma and append ]} in memory only"
+      },
+      {
+        "index": 1,
+        "status": "observed",
+        "lighthouseReturnSinceNavigationMs": 4767,
+        "observationEndSinceNavigationMs": 24787,
+        "pendingAtEnd": [
+          "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp"
+        ],
+        "connections": [
+          {
+            "pendingUrl": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+            "requestId": 145,
+            "streamJobId": 147,
+            "socketId": 103,
+            "clientAddress": "127.0.0.1:56895",
+            "serverChannel": "10698384",
+            "actualWireOrder": [
+              {
+                "url": "http://127.0.0.1:18845/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+                "netlogRequestId": 109,
+                "cdpRequestId": "91845.9",
+                "requestBytes": 675,
+                "wireSentTimeMs": 1975810459,
+                "preciseSendMonotonic": 1975810.4595589999,
+                "responseHeaders": [
+                  "HTTP/1.1 200 OK",
+                  "Cache-Control: max-age=31536000",
+                  "Last-Modified: Thu, 15 Oct 2026 16:39:32 GMT",
+                  "Content-Type: text/css",
+                  "Accept-Ranges: bytes",
+                  "Content-Length: 1302"
+                ],
+                "finished": {
+                  "requestId": "91845.9",
+                  "timestamp": 1975810.46182,
+                  "encodedDataLength": 1468
+                },
+                "responseBodyReadEventBytes": 1302
+              },
+              {
+                "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+                "netlogRequestId": 94,
+                "cdpRequestId": "91845.5",
+                "requestBytes": 654,
+                "wireSentTimeMs": 1975810462,
+                "preciseSendMonotonic": 1975810.462008,
+                "responseHeaders": [
+                  "HTTP/1.1 200 OK",
+                  "Last-Modified: Thu, 15 Oct 2026 17:42:19 GMT",
+                  "Cache-Control: max-age=31536000",
+                  "Content-Type: text/javascript",
+                  "Accept-Ranges: bytes",
+                  "content-encoding: gzip",
+                  "transfer-encoding: chunked"
+                ],
+                "finished": {
+                  "requestId": "91845.5",
+                  "timestamp": 1975810.466897,
+                  "encodedDataLength": 5302
+                },
+                "responseBodyReadEventBytes": 4998
+              },
+              {
+                "url": "http://127.0.0.1:18845/lab/cover-turquoise-coast.webp",
+                "netlogRequestId": 145,
+                "cdpRequestId": "91845.38",
+                "requestBytes": 686,
+                "wireSentTimeMs": 1975810512,
+                "preciseSendMonotonic": null,
+                "responseHeaders": null,
+                "finished": null,
+                "responseBodyReadEventBytes": 0
+              }
+            ],
+            "cssFinishedToPaceSendMs": 0.187999801710248,
+            "socketReceiveEventsAfterPendingSend": 0,
+            "serverLogLines": [
+              {
+                "line": 13,
+                "text": "2026-10-16T06:51:28.436+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] New http connection, requesting read"
+              },
+              {
+                "line": 15,
+                "text": "2026-10-16T06:51:28.437+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Increasing pending responses count: 1"
+              },
+              {
+                "line": 16,
+                "text": "2026-10-16T06:51:28.437+08:00 DEBUG 91776 --- [ctor-http-nio-1] reactor.netty.http.server.HttpServer     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@5e01e28b"
+              },
+              {
+                "line": 31,
+                "text": "2026-10-16T06:51:28.439+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Increasing pending responses count: 2"
+              },
+              {
+                "line": 32,
+                "text": "2026-10-16T06:51:28.439+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Buffering pipelined HTTP request, pending responses count: 2, queue: 0"
+              },
+              {
+                "line": 33,
+                "text": "2026-10-16T06:51:28.439+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Buffering pipelined HTTP content, pending responses count: 2, queue: 1"
+              },
+              {
+                "line": 34,
+                "text": "2026-10-16T06:51:28.439+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Last HTTP response frame"
+              },
+              {
+                "line": 35,
+                "text": "2026-10-16T06:51:28.440+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Decreasing pending responses count: 1"
+              },
+              {
+                "line": 37,
+                "text": "2026-10-16T06:51:28.440+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-1, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Last HTTP packet was sent, terminating the channel"
+              },
+              {
+                "line": 38,
+                "text": "2026-10-16T06:51:28.440+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+              },
+              {
+                "line": 39,
+                "text": "2026-10-16T06:51:28.440+08:00 DEBUG 91776 --- [ctor-http-nio-1] reactor.netty.http.server.HttpServer     : [10698384-2, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@5e01e28b"
+              },
+              {
+                "line": 60,
+                "text": "2026-10-16T06:51:28.443+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-2, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Last HTTP response frame"
+              },
+              {
+                "line": 62,
+                "text": "2026-10-16T06:51:28.443+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-2, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Decreasing pending responses count: 0"
+              },
+              {
+                "line": 64,
+                "text": "2026-10-16T06:51:28.444+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384-2, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Last HTTP packet was sent, terminating the channel"
+              },
+              {
+                "line": 65,
+                "text": "2026-10-16T06:51:28.444+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+              }
+            ],
+            "bufferingBranch": "pendingResponses>1",
+            "keepAliveExistingOpsMessageSeen": false,
+            "drainEvents": [
+              {
+                "line": 38,
+                "text": "2026-10-16T06:51:28.440+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+              },
+              {
+                "line": 65,
+                "text": "2026-10-16T06:51:28.444+08:00 DEBUG 91776 --- [ctor-http-nio-1] r.n.http.server.HttpServerOperations     : [10698384, L:/127.0.0.1:18845 - R:/127.0.0.1:56895] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+              }
+            ],
+            "socketQueue": {
+              "evidence": {
+                "path": ".runtime/gallery-loading-followup/run-02/browser-socket-queues.jsonl",
+                "sha256": "848a1afa2ba581f78c57849bdfa3f70d59855700103d757dfea5754b95d166e9",
+                "bytes": 400001
+              },
+              "observations": 12,
+              "first": {
+                "wallTimeMs": 1792104689153,
+                "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.56895        ESTABLISHED         4186         6770  407040  146988             java:91776  00102 00000004 000000000318105c 00000080 01000800      2      0 000000",
+                "recvQ": 686,
+                "sendQ": 0
+              },
+              "last": {
+                "wallTimeMs": 1792104711414,
+                "line": "tcp4     686      0  127.0.0.1.18845        127.0.0.1.56895        ESTABLISHED         4186         6770  407040  146988             java:91776  00102 00000004 000000000318105c 00000080 01000800      2      0 000000",
+                "recvQ": 686,
+                "sendQ": 0
+              }
+            }
+          }
+        ],
+        "evidence": {
+          "netlog.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/1-mobile/netlog.json",
+            "sha256": "6d71ffa4221136bce70fff04ce261a25c84d3983cefb107d14d720e8b2d389a1",
+            "bytes": 1128240
+          },
+          "observer-events.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/1-mobile/observer-events.json",
+            "sha256": "fa03c40c86b7a960cd36e2598d4bcdff44a33ead75c82ff59c160b74ed1833cf",
+            "bytes": 180825
+          },
+          "server.log": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/1-mobile/server.log",
+            "sha256": "e5e6a9a4b5b9c9be4e34be0ea13931a3019c804e90eec966c1ec216dbac84f72",
+            "bytes": 28612
+          },
+          "lhr.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/1-mobile/lhr.json",
+            "sha256": "845f8b614fd50d5ea1a29bf80aa63c3fc2910624305b910b691450d694ee25a0",
+            "bytes": 392912
+          },
+          "lh-trace.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/1-mobile/lh-trace.json",
+            "sha256": "1b5bb6c2bae69162a048e0a60d30d2afd082cc7da7fc85082846128645781979",
+            "bytes": 7043276
+          },
+          "lh-devtoolslog.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/1-mobile/lh-devtoolslog.json",
+            "sha256": "74bfed454cd2a944d5c1c9cc42480e4ef4815ebbde6118c35b8f0c5afbd2bd94",
+            "bytes": 207057
+          }
+        },
+        "netlogContainerTruncated": true,
+        "netlogCompleteEventCount": 5945,
+        "netlogAnalysisRepair": "remove trailing comma and append ]} in memory only"
+      },
+      {
+        "index": 2,
+        "status": "observed",
+        "lighthouseReturnSinceNavigationMs": 4749,
+        "observationEndSinceNavigationMs": 24775,
+        "pendingAtEnd": [
+          "http://127.0.0.1:18845/lab/cover-misty-forest.webp"
+        ],
+        "connections": [
+          {
+            "pendingUrl": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+            "requestId": 148,
+            "streamJobId": 150,
+            "socketId": 103,
+            "clientAddress": "127.0.0.1:49211",
+            "serverChannel": "0de69e8c",
+            "actualWireOrder": [
+              {
+                "url": "http://127.0.0.1:18845/plugins/PluginCommentWidget/assets/static/index.css?version=3.3.2",
+                "netlogRequestId": 109,
+                "cdpRequestId": "91912.9",
+                "requestBytes": 675,
+                "wireSentTimeMs": 1975836932,
+                "preciseSendMonotonic": 1975836.932285,
+                "responseHeaders": [
+                  "HTTP/1.1 200 OK",
+                  "Cache-Control: max-age=31536000",
+                  "Last-Modified: Thu, 15 Oct 2026 16:39:32 GMT",
+                  "Content-Type: text/css",
+                  "Accept-Ranges: bytes",
+                  "Content-Length: 1302"
+                ],
+                "finished": {
+                  "requestId": "91912.9",
+                  "timestamp": 1975836.934902,
+                  "encodedDataLength": 1468
+                },
+                "responseBodyReadEventBytes": 1302
+              },
+              {
+                "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/pace/pace.min.js",
+                "netlogRequestId": 94,
+                "cdpRequestId": "91912.5",
+                "requestBytes": 654,
+                "wireSentTimeMs": 1975836935,
+                "preciseSendMonotonic": 1975836.935116,
+                "responseHeaders": [
+                  "HTTP/1.1 200 OK",
+                  "Last-Modified: Thu, 15 Oct 2026 17:42:19 GMT",
+                  "Cache-Control: max-age=31536000",
+                  "Content-Type: text/javascript",
+                  "Accept-Ranges: bytes",
+                  "content-encoding: gzip",
+                  "transfer-encoding: chunked"
+                ],
+                "finished": {
+                  "requestId": "91912.5",
+                  "timestamp": 1975836.941654,
+                  "encodedDataLength": 5302
+                },
+                "responseBodyReadEventBytes": 4998
+              },
+              {
+                "url": "http://127.0.0.1:18845/lab/cover-misty-forest.webp",
+                "netlogRequestId": 148,
+                "cdpRequestId": "91912.132",
+                "requestBytes": 683,
+                "wireSentTimeMs": 1975837002,
+                "preciseSendMonotonic": null,
+                "responseHeaders": null,
+                "finished": null,
+                "responseBodyReadEventBytes": 0
+              }
+            ],
+            "cssFinishedToPaceSendMs": 0.21399999968707561,
+            "socketReceiveEventsAfterPendingSend": 0,
+            "serverLogLines": [
+              {
+                "line": 16,
+                "text": "2026-10-16T06:51:54.910+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] New http connection, requesting read"
+              },
+              {
+                "line": 18,
+                "text": "2026-10-16T06:51:54.910+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Increasing pending responses count: 1"
+              },
+              {
+                "line": 19,
+                "text": "2026-10-16T06:51:54.910+08:00 DEBUG 91776 --- [ctor-http-nio-6] reactor.netty.http.server.HttpServer     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@5e01e28b"
+              },
+              {
+                "line": 27,
+                "text": "2026-10-16T06:51:54.913+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Increasing pending responses count: 2"
+              },
+              {
+                "line": 28,
+                "text": "2026-10-16T06:51:54.913+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Buffering pipelined HTTP request, pending responses count: 2, queue: 0"
+              },
+              {
+                "line": 29,
+                "text": "2026-10-16T06:51:54.913+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Buffering pipelined HTTP content, pending responses count: 2, queue: 1"
+              },
+              {
+                "line": 30,
+                "text": "2026-10-16T06:51:54.913+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Last HTTP response frame"
+              },
+              {
+                "line": 34,
+                "text": "2026-10-16T06:51:54.914+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Decreasing pending responses count: 1"
+              },
+              {
+                "line": 36,
+                "text": "2026-10-16T06:51:54.914+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-1, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Last HTTP packet was sent, terminating the channel"
+              },
+              {
+                "line": 38,
+                "text": "2026-10-16T06:51:54.914+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+              },
+              {
+                "line": 42,
+                "text": "2026-10-16T06:51:54.914+08:00 DEBUG 91776 --- [ctor-http-nio-6] reactor.netty.http.server.HttpServer     : [0de69e8c-2, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Handler is being applied: org.springframework.http.server.reactive.ReactorHttpHandlerAdapter@5e01e28b"
+              },
+              {
+                "line": 64,
+                "text": "2026-10-16T06:51:54.919+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-2, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Last HTTP response frame"
+              },
+              {
+                "line": 65,
+                "text": "2026-10-16T06:51:54.919+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-2, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Decreasing pending responses count: 0"
+              },
+              {
+                "line": 67,
+                "text": "2026-10-16T06:51:54.919+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c-2, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Last HTTP packet was sent, terminating the channel"
+              },
+              {
+                "line": 68,
+                "text": "2026-10-16T06:51:54.919+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+              }
+            ],
+            "bufferingBranch": "pendingResponses>1",
+            "keepAliveExistingOpsMessageSeen": false,
+            "drainEvents": [
+              {
+                "line": 38,
+                "text": "2026-10-16T06:51:54.914+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Draining next pipelined HTTP request, pending responses count: 1, queued: 2"
+              },
+              {
+                "line": 68,
+                "text": "2026-10-16T06:51:54.919+08:00 DEBUG 91776 --- [ctor-http-nio-6] r.n.http.server.HttpServerOperations     : [0de69e8c, L:/127.0.0.1:18845 - R:/127.0.0.1:49211] Draining next pipelined HTTP request, pending responses count: 0, queued: 1"
+              }
+            ],
+            "socketQueue": {
+              "evidence": {
+                "path": ".runtime/gallery-loading-followup/run-02/browser-socket-queues.jsonl",
+                "sha256": "848a1afa2ba581f78c57849bdfa3f70d59855700103d757dfea5754b95d166e9",
+                "bytes": 400001
+              },
+              "observations": 12,
+              "first": {
+                "wallTimeMs": 1792104715457,
+                "line": "tcp4     683      0  127.0.0.1.18845        127.0.0.1.49211        ESTABLISHED         4180         6770  407040  146988             java:91776  00102 00000004 000000000318126a 00000080 01000800      2      0 000000",
+                "recvQ": 683,
+                "sendQ": 0
+              },
+              "last": {
+                "wallTimeMs": 1792104737718,
+                "line": "tcp4     683      0  127.0.0.1.18845        127.0.0.1.49211        ESTABLISHED         4180         6770  407040  146988             java:91776  00102 00000004 000000000318126a 00000080 01000800      2      0 000000",
+                "recvQ": 683,
+                "sendQ": 0
+              }
+            }
+          }
+        ],
+        "evidence": {
+          "netlog.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/2-mobile/netlog.json",
+            "sha256": "53e7613c80a4078acb554a61b995ae671a243004e9d58fa4acf7d0d4dd00fc62",
+            "bytes": 1127414
+          },
+          "observer-events.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/2-mobile/observer-events.json",
+            "sha256": "ef6a406e8e0845b458dbffb5eb98c426bc9251a1424a69a3676692edd91fbd76",
+            "bytes": 185241
+          },
+          "server.log": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/2-mobile/server.log",
+            "sha256": "32b76448aae20642515c39d773549126e4c4ea3bd5a0bd99c2393b90dc5a0dbd",
+            "bytes": 29317
+          },
+          "lhr.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/2-mobile/lhr.json",
+            "sha256": "81edca1e78f37e5bc208ad09f9eb21635425f2145b4d530a61cc04602daa8102",
+            "bytes": 393153
+          },
+          "lh-trace.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/2-mobile/lh-trace.json",
+            "sha256": "c901b4cd21be97ba2050ca8de4857cf7e1bd7625d4ac8e3c7c0c15d55b0ae416",
+            "bytes": 7193110
+          },
+          "lh-devtoolslog.json": {
+            "path": ".runtime/gallery-loading-followup/run-02/browser/2-mobile/lh-devtoolslog.json",
+            "sha256": "5e76c6a5aed563913139420c5a2c532fc37dc7b8443c6a5b1941bf6f7184f194",
+            "bytes": 212838
+          }
+        },
+        "netlogContainerTruncated": true,
+        "netlogCompleteEventCount": 5937,
+        "netlogAnalysisRepair": "remove trailing comma and append ]} in memory only"
+      }
+    ],
+    "evidence": {
+      "path": ".runtime/gallery-loading-followup/run-02/browser/report.json",
+      "sha256": "14d7e1db0fac7f2476eb31a62f11dc6b06507eafacfbaa3aac2fec71b5a26e51",
+      "bytes": 75620
+    },
+    "jvmOptions": "-Dreactor.netty.http.server.accessLogEnabled=true -Dlogging.level.reactor.netty.http.server=DEBUG"
+  },
+  "stationUnchanged": true,
+  "cleanup": {
+    "ownedHaloStopped": true,
+    "jvmEnvironmentRestored": true,
+    "fixturePreserved": true,
+    "error": null
+  },
+  "snapshots": {
+    "protocol-before": {
+      "path": ".runtime/gallery-loading-followup/run-02/protocol-before.json",
+      "sha256": "83eba7b6ff882cf44ed269225076a0c06430f78d28319c9012a20de107986be8",
+      "bytes": 5738
+    },
+    "protocol-after": {
+      "path": ".runtime/gallery-loading-followup/run-02/protocol-after.json",
+      "sha256": "83eba7b6ff882cf44ed269225076a0c06430f78d28319c9012a20de107986be8",
+      "bytes": 5738
+    },
+    "browser-before": {
+      "path": ".runtime/gallery-loading-followup/run-02/browser-before.json",
+      "sha256": "83eba7b6ff882cf44ed269225076a0c06430f78d28319c9012a20de107986be8",
+      "bytes": 5738
+    },
+    "browser-after": {
+      "path": ".runtime/gallery-loading-followup/run-02/browser-after.json",
+      "sha256": "83eba7b6ff882cf44ed269225076a0c06430f78d28319c9012a20de107986be8",
+      "bytes": 5738
+    }
+  },
+  "originalGallerySequence": {
+    "path": ".runtime/gallery-loading-followup/preparation/socket-112-sequence.json",
+    "sha256": "d07d7f39ff3c430407565654eb14d025582473af7e2d276c419d64687d9e3f1d",
+    "bytes": 13969
+  },
+  "upstreamSource": "https://github.com/reactor/reactor-netty/blob/v1.3.7/reactor-netty-http/src/main/java/reactor/netty/http/server/HttpTrafficHandler.java",
+  "limitations": [
+    "Fixed six protocol and three browser cases, no retry or successful-sample selection; small counts are not a field failure-rate estimate.",
+    "Raw HTTP never executes theme/plugin frontend scripts; nine official/locked server-side plugins remain enabled. Cookie/CSRF/authorization headers are omitted, changing request sizes.",
+    "Browser diagnostic uses the same pinned Lighthouse performance settings and original navigation limit, with node API channel/output-format differences plus passive tracing. It is not a formal budget sample.",
+    "This batch does not apply a patch, change a product/plugin, close every historical failure or replace any of the formal160 samples.",
+    "Both observed browser channels enter the pendingResponses>1 buffering branch; the separately inspected existingOps keep-alive branch was not observed on these two channels.",
+    "No additional same-channel request/read log and persistent kernel Recv-Q support stopped application consumption; logs do not directly trace every ctx.read invocation.",
+    "NetLog raw has complete recorded event lines but an unclosed container on termination. Only the trailing comma is removed and JSON container terminators are appended in memory; no absent events are reconstructed and raw bytes are unchanged."
+  ],
+  "analysisScript": {
+    "path": ".runtime/gallery-loading-followup/preparation/summarize.py",
+    "sha256": "b72f2604d21256c53b641a6823f5060ad175409ee356c1a1711b3ae2fdcfa73b",
+    "bytes": 10051
+  },
+  "rawManifest": {
+    "path": ".runtime/gallery-loading-followup/raw-manifest.json",
+    "sha256": "43a89057d614c42a52d887c4966ffafb015cd7ba24eb81f807d22cf5f29888ab",
+    "bytes": 12900,
+    "fileCount": 62,
+    "totalBytes": 28366511,
+    "excludes": "Mutable PR body text is retained locally but excluded from measurement evidence."
+  },
+  "replay": {
+    "originalCommand": "python3 .runtime/gallery-loading-followup/preparation/run-diagnosis.py",
+    "requires": [
+      "owned initially stopped Halo 18845 fixture and exact candidate ZIP",
+      "frozen nine-plugin STARTED profile with matching station identity",
+      "pinned Chrome/Lighthouse/Bun and exclusive CPU window"
+    ],
+    "evidenceOverwriteGuard": true,
+    "futureRun": "Run-02 already exists: original coordinator refuses to run. Any approved future replay must use a fresh directory, record the script hash change, preserve the fixed six-plus-three plan, and must not modify original evidence."
+  }
+}
