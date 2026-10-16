@@ -1,0 +1,2975 @@
+{
+  "schema": 1,
+  "kind": "bounded-authored-image-editor-acceptance",
+  "date": "2026-10-16",
+  "toolBaseSha": "116a81ea471324f0414f1c24b70ca9585dd5cda5",
+  "productSha": "d678d3f839347554d7f100996f87b23b571888df",
+  "installed": {
+    "name": "candidate-d678d3f.zip",
+    "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "officialHaloSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+  "plugin": {
+    "name": "hybrid-edit-block",
+    "version": "1.7.0",
+    "sha256": "6706fd5ab80551577522756b81dbbc29427a46b1951bb925a8f1fb8f5900ef1f",
+    "source": "https://github.com/halo-sigs/plugin-hybrid-edit-block/releases/tag/v1.7.0"
+  },
+  "effectiveCases": 12,
+  "preserved": 8,
+  "observedDifferences": 4,
+  "cases": [
+    {
+      "id": "chromium-html-block",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "html-block",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-e34cc700779171f1"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [],
+      "runId": "e34cc700779171f1",
+      "stages": {
+        "saved": {
+          "sha256": "fa16d6c4cb6f212286a3d7c73e6d0de3305a6be36b8f4d6104b74b9cbbc09287",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-html-block-saved.html",
+            "sha256": "fa16d6c4cb6f212286a3d7c73e6d0de3305a6be36b8f4d6104b74b9cbbc09287",
+            "bytes": 794
+          }
+        },
+        "reopened": {
+          "sha256": "76578902dc971ca1a411c1637fe10f85f57cca752fec0ba7f738aa932d4802a9",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-html-block-reopened.html",
+            "sha256": "76578902dc971ca1a411c1637fe10f85f57cca752fec0ba7f738aa932d4802a9",
+            "bytes": 741
+          }
+        },
+        "initial": {
+          "sha256": "c4562a24359310506a00084db0c2d68155db9c76aaf03bb35a77edde356311f5",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 5,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-html-block-initial.html",
+            "sha256": "c4562a24359310506a00084db0c2d68155db9c76aaf03bb35a77edde356311f5",
+            "bytes": 57187
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": false,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-html-block-input.txt",
+        "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "chromium-markdown-block",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "markdown-block",
+      "status": "observed-differences",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-e34cc700779171f1"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "stage": "reopened",
+          "expected": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "actual": []
+        },
+        {
+          "stage": "reopened-source",
+          "kind": "Markdown source differs from submitted input; see archived input and reopened files"
+        }
+      ],
+      "runId": "e34cc700779171f1",
+      "stages": {
+        "saved": {
+          "sha256": "519e5611755dfd95daab8c65449a5630556b2f5f6234571cf0e3c5328fcb8be5",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-block-saved.html",
+            "sha256": "519e5611755dfd95daab8c65449a5630556b2f5f6234571cf0e3c5328fcb8be5",
+            "bytes": 798
+          }
+        },
+        "reopened": {
+          "sha256": "2854306fc1fcb4c52419d391f046623259b454db20d95673549675bd44452d9c",
+          "images": [],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-block-reopened.html",
+            "sha256": "2854306fc1fcb4c52419d391f046623259b454db20d95673549675bd44452d9c",
+            "bytes": 414
+          }
+        },
+        "initial": {
+          "sha256": "17a08907fc74d93a304f1f20af348cbf21f77a2161594131f6f885e01ca9852a",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 7,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-block-initial.html",
+            "sha256": "17a08907fc74d93a304f1f20af348cbf21f77a2161594131f6f885e01ca9852a",
+            "bytes": 56509
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": false,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-block-input.txt",
+        "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "chromium-markdown-image",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "markdown-image",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "alt": "author-markdown-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        }
+      ],
+      "differences": [],
+      "runId": "e34cc700779171f1",
+      "stages": {
+        "saved": {
+          "sha256": "387c38c9da14d44f54af295b25ff19b6b2a4ce5e2133416fc7c2d2a805e14d0d",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "alt": "author-markdown-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-image-saved.html",
+            "sha256": "387c38c9da14d44f54af295b25ff19b6b2a4ce5e2133416fc7c2d2a805e14d0d",
+            "bytes": 141
+          }
+        },
+        "reopened": {
+          "sha256": "968d36687c34d3ef60e6136535f7edb8e09ff73e86e4068040bb93185e2d94d1",
+          "images": [],
+          "kind": "Markdown source: no img HTML expected",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-image-reopened.html",
+            "sha256": "968d36687c34d3ef60e6136535f7edb8e09ff73e86e4068040bb93185e2d94d1",
+            "bytes": 68
+          }
+        },
+        "initial": {
+          "sha256": "ab999b85b119902fec385dc969552b4be2f614d380598b9ed0255eefa4749e69",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "alt": "author-markdown-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 5,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-image-initial.html",
+            "sha256": "ab999b85b119902fec385dc969552b4be2f614d380598b9ed0255eefa4749e69",
+            "bytes": 55984
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": true,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-markdown-image-input.txt",
+        "sha256": "968d36687c34d3ef60e6136535f7edb8e09ff73e86e4068040bb93185e2d94d1",
+        "bytes": 68
+      }
+    },
+    {
+      "id": "chromium-plain-paste",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "plain-paste",
+      "status": "observed-differences",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-e34cc700779171f1"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "stage": "saved",
+          "expected": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "actual": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ]
+        },
+        {
+          "stage": "reopened",
+          "expected": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "actual": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ]
+        },
+        {
+          "stage": "initial",
+          "expected": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "actual": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ]
+        }
+      ],
+      "runId": "e34cc700779171f1",
+      "stages": {
+        "saved": {
+          "sha256": "0a28c563b86ae6a968b42f035c4b3547da7ab5333c5c874982bd0b874ea1968c",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-plain-paste-saved.html",
+            "sha256": "0a28c563b86ae6a968b42f035c4b3547da7ab5333c5c874982bd0b874ea1968c",
+            "bytes": 960
+          }
+        },
+        "reopened": {
+          "sha256": "b84c5fd9b8ed5e68bc2a1bc26c62d009fd3f7f48dc21f8a89ea693b630b818da",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-plain-paste-reopened.html",
+            "sha256": "b84c5fd9b8ed5e68bc2a1bc26c62d009fd3f7f48dc21f8a89ea693b630b818da",
+            "bytes": 8616
+          }
+        },
+        "initial": {
+          "sha256": "31c3c1af37d7749c308247ca6b838356f3a79356c6b30c24ef35566cf3aed5c1",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 9,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-plain-paste-initial.html",
+            "sha256": "31c3c1af37d7749c308247ca6b838356f3a79356c6b30c24ef35566cf3aed5c1",
+            "bytes": 56739
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": null,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-plain-paste-input.txt",
+        "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "chromium-api-post",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "api-post",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-e34cc700779171f1"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [],
+      "runId": "e34cc700779171f1",
+      "stages": {
+        "submitted": {
+          "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-post-submitted.html",
+            "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+            "bytes": 747
+          }
+        },
+        "stored": {
+          "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-post-stored.html",
+            "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+            "bytes": 747
+          }
+        },
+        "initial": {
+          "sha256": "e25902e626180e0cf84fa5be90daf44abe77fcee2f81d8007a1bc2e7ca6e80cd",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 10,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-post-initial.html",
+            "sha256": "e25902e626180e0cf84fa5be90daf44abe77fcee2f81d8007a1bc2e7ca6e80cd",
+            "bytes": 56664
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": null,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-post-input.txt",
+        "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "chromium-api-page",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "mode": "api-page",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-e34cc700779171f1"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-e34cc700779171f1"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [],
+      "runId": "e34cc700779171f1",
+      "stages": {
+        "submitted": {
+          "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-page-submitted.html",
+            "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+            "bytes": 747
+          }
+        },
+        "stored": {
+          "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-page-stored.html",
+            "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+            "bytes": 747
+          }
+        },
+        "initial": {
+          "sha256": "df4d605994e9c0c4883c8dc13f2dbed2da9d793d6ced4d57bbc7423d62aa9a02",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-e34cc700779171f1"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-e34cc700779171f1"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 9,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-page-initial.html",
+            "sha256": "df4d605994e9c0c4883c8dc13f2dbed2da9d793d6ced4d57bbc7423d62aa9a02",
+            "bytes": 56009
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": null,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/chromium-api-page-input.txt",
+        "sha256": "3bfae59a7ce951d687fb4cb4c154aa274f3bb4bd5ddf2f25c631a5828f8f08cf",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "firefox-html-block",
+      "engine": "firefox",
+      "version": "155.0",
+      "mode": "html-block",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-26181868052b82be"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [],
+      "runId": "26181868052b82be",
+      "stages": {
+        "saved": {
+          "sha256": "627da4c6f1654d5604d1c803ce54edb64167e7e875eaa0cc9617df61a3a4978b",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 4,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-html-block-saved.html",
+            "sha256": "627da4c6f1654d5604d1c803ce54edb64167e7e875eaa0cc9617df61a3a4978b",
+            "bytes": 794
+          }
+        },
+        "reopened": {
+          "sha256": "1f51a405d2bc4f4cd722fe4eeb442609af04739869bc74b6cb6715f07834457a",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 4,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-html-block-reopened.html",
+            "sha256": "1f51a405d2bc4f4cd722fe4eeb442609af04739869bc74b6cb6715f07834457a",
+            "bytes": 741
+          }
+        },
+        "initial": {
+          "sha256": "1583f93bdfaccc14f6a00a3d651ba3711f006d03b477ba0d55688531d13b53d8",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 5,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-html-block-initial.html",
+            "sha256": "1583f93bdfaccc14f6a00a3d651ba3711f006d03b477ba0d55688531d13b53d8",
+            "bytes": 57173
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": false,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-html-block-input.txt",
+        "sha256": "10a9495da532dee016ceda2a7c3857e26733894c8e8b66290aa5ab23270cb21e",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "firefox-markdown-block",
+      "engine": "firefox",
+      "version": "155.0",
+      "mode": "markdown-block",
+      "status": "observed-differences",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-26181868052b82be"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "stage": "reopened",
+          "expected": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "actual": []
+        },
+        {
+          "stage": "reopened-source",
+          "kind": "Markdown source differs from submitted input; see archived input and reopened files"
+        }
+      ],
+      "runId": "26181868052b82be",
+      "stages": {
+        "saved": {
+          "sha256": "f66e3c5d48c38efc6b465be18d5084ce36bd743319baa6e3a352780d751c25bd",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 4,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-block-saved.html",
+            "sha256": "f66e3c5d48c38efc6b465be18d5084ce36bd743319baa6e3a352780d751c25bd",
+            "bytes": 798
+          }
+        },
+        "reopened": {
+          "sha256": "38baaaae4b6e7a4967cdaad5eeb3a888400fac6781acb413d3a75c465d046717",
+          "images": [],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 0,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-block-reopened.html",
+            "sha256": "38baaaae4b6e7a4967cdaad5eeb3a888400fac6781acb413d3a75c465d046717",
+            "bytes": 414
+          }
+        },
+        "initial": {
+          "sha256": "9b5d7ed6678c4e61409da71bc1010dc54b6d72990dab8c4b1e86afce0bf7f1d4",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 7,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-block-initial.html",
+            "sha256": "9b5d7ed6678c4e61409da71bc1010dc54b6d72990dab8c4b1e86afce0bf7f1d4",
+            "bytes": 56487
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": false,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-block-input.txt",
+        "sha256": "10a9495da532dee016ceda2a7c3857e26733894c8e8b66290aa5ab23270cb21e",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "firefox-markdown-image",
+      "engine": "firefox",
+      "version": "155.0",
+      "mode": "markdown-image",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "alt": "author-markdown-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        }
+      ],
+      "differences": [],
+      "runId": "26181868052b82be",
+      "stages": {
+        "saved": {
+          "sha256": "a969460e15113052567d920a0fa31e2d8f7b3d1bcf182b472786ed1bd78ffb83",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "alt": "author-markdown-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 1,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-image-saved.html",
+            "sha256": "a969460e15113052567d920a0fa31e2d8f7b3d1bcf182b472786ed1bd78ffb83",
+            "bytes": 141
+          }
+        },
+        "reopened": {
+          "sha256": "cf849bfed169bacba5e9878d45f8831a826cd4739351d61535d2c1f1b0e8cb7a",
+          "images": [],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 0,
+          "kind": "Markdown source: no img HTML expected",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-image-reopened.html",
+            "sha256": "cf849bfed169bacba5e9878d45f8831a826cd4739351d61535d2c1f1b0e8cb7a",
+            "bytes": 68
+          }
+        },
+        "initial": {
+          "sha256": "5a619829b3b2d255b5848fa6651b0b3453a4854472798611d77c9a24c0bcdc3f",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "alt": "author-markdown-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 5,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-image-initial.html",
+            "sha256": "5a619829b3b2d255b5848fa6651b0b3453a4854472798611d77c9a24c0bcdc3f",
+            "bytes": 55958
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": true,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/firefox-markdown-image-input.txt",
+        "sha256": "cf849bfed169bacba5e9878d45f8831a826cd4739351d61535d2c1f1b0e8cb7a",
+        "bytes": 68
+      }
+    },
+    {
+      "id": "webkit-html-block",
+      "engine": "webkit",
+      "version": "26.6",
+      "mode": "html-block",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-26181868052b82be"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [],
+      "runId": "26181868052b82be",
+      "stages": {
+        "saved": {
+          "sha256": "627da4c6f1654d5604d1c803ce54edb64167e7e875eaa0cc9617df61a3a4978b",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 4,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-html-block-saved.html",
+            "sha256": "627da4c6f1654d5604d1c803ce54edb64167e7e875eaa0cc9617df61a3a4978b",
+            "bytes": 794
+          }
+        },
+        "reopened": {
+          "sha256": "1f51a405d2bc4f4cd722fe4eeb442609af04739869bc74b6cb6715f07834457a",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 4,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-html-block-reopened.html",
+            "sha256": "1f51a405d2bc4f4cd722fe4eeb442609af04739869bc74b6cb6715f07834457a",
+            "bytes": 741
+          }
+        },
+        "initial": {
+          "sha256": "5c1690cac6e1e084e377958e4a42f501aafdd25380c507e527c5cdb99b122c02",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 5,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-html-block-initial.html",
+            "sha256": "5c1690cac6e1e084e377958e4a42f501aafdd25380c507e527c5cdb99b122c02",
+            "bytes": 57159
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": false,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-html-block-input.txt",
+        "sha256": "10a9495da532dee016ceda2a7c3857e26733894c8e8b66290aa5ab23270cb21e",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "webkit-markdown-block",
+      "engine": "webkit",
+      "version": "26.6",
+      "mode": "markdown-block",
+      "status": "observed-differences",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-autumn-forest.webp",
+            "loading": "eager",
+            "fetchpriority": "high",
+            "width": "640",
+            "height": "360",
+            "alt": "author-eager-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-lazy-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "width": "640",
+            "height": "360",
+            "alt": "author-plain-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        },
+        {
+          "attrs": {
+            "src": "/lab/cover-sand-dunes.webp",
+            "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+            "loading": "lazy",
+            "width": "640",
+            "height": "360",
+            "alt": "author-responsive-26181868052b82be"
+          },
+          "picture": true,
+          "sources": [
+            {
+              "srcset": "/lab/cover-autumn-forest.webp",
+              "media": "(min-width: 800px)"
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "stage": "reopened",
+          "expected": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "actual": []
+        },
+        {
+          "stage": "reopened-source",
+          "kind": "Markdown source differs from submitted input; see archived input and reopened files"
+        }
+      ],
+      "runId": "26181868052b82be",
+      "stages": {
+        "saved": {
+          "sha256": "f66e3c5d48c38efc6b465be18d5084ce36bd743319baa6e3a352780d751c25bd",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 4,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-block-saved.html",
+            "sha256": "f66e3c5d48c38efc6b465be18d5084ce36bd743319baa6e3a352780d751c25bd",
+            "bytes": 798
+          }
+        },
+        "reopened": {
+          "sha256": "38baaaae4b6e7a4967cdaad5eeb3a888400fac6781acb413d3a75c465d046717",
+          "images": [],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 0,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-block-reopened.html",
+            "sha256": "38baaaae4b6e7a4967cdaad5eeb3a888400fac6781acb413d3a75c465d046717",
+            "bytes": 414
+          }
+        },
+        "initial": {
+          "sha256": "82f5b1b5abfa3ab7d7b6201fa8d63269d6ef002392231c13933e61a9cb0f2bdc",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-autumn-forest.webp",
+                "loading": "eager",
+                "fetchpriority": "high",
+                "width": "640",
+                "height": "360",
+                "alt": "author-eager-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-lazy-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "width": "640",
+                "height": "360",
+                "alt": "author-plain-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            },
+            {
+              "attrs": {
+                "src": "/lab/cover-sand-dunes.webp",
+                "srcset": "/lab/cover-golden-mountain.webp 1x, /lab/cover-sand-dunes.webp 2x",
+                "loading": "lazy",
+                "width": "640",
+                "height": "360",
+                "alt": "author-responsive-26181868052b82be"
+              },
+              "picture": true,
+              "sources": [
+                {
+                  "srcset": "/lab/cover-autumn-forest.webp",
+                  "media": "(min-width: 800px)"
+                }
+              ]
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 7,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-block-initial.html",
+            "sha256": "82f5b1b5abfa3ab7d7b6201fa8d63269d6ef002392231c13933e61a9cb0f2bdc",
+            "bytes": 56465
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": false,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-block-input.txt",
+        "sha256": "10a9495da532dee016ceda2a7c3857e26733894c8e8b66290aa5ab23270cb21e",
+        "bytes": 747
+      }
+    },
+    {
+      "id": "webkit-markdown-image",
+      "engine": "webkit",
+      "version": "26.6",
+      "mode": "markdown-image",
+      "status": "preserved",
+      "expected": [
+        {
+          "attrs": {
+            "src": "/lab/cover-golden-mountain.webp",
+            "alt": "author-markdown-26181868052b82be"
+          },
+          "picture": false,
+          "sources": []
+        }
+      ],
+      "differences": [],
+      "runId": "26181868052b82be",
+      "stages": {
+        "saved": {
+          "sha256": "a969460e15113052567d920a0fa31e2d8f7b3d1bcf182b472786ed1bd78ffb83",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "alt": "author-markdown-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 1,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-image-saved.html",
+            "sha256": "a969460e15113052567d920a0fa31e2d8f7b3d1bcf182b472786ed1bd78ffb83",
+            "bytes": 141
+          }
+        },
+        "reopened": {
+          "sha256": "cf849bfed169bacba5e9878d45f8831a826cd4739351d61535d2c1f1b0e8cb7a",
+          "images": [],
+          "scope": "editor-content-fragment",
+          "wholePageRunImageCount": 0,
+          "kind": "Markdown source: no img HTML expected",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-image-reopened.html",
+            "sha256": "cf849bfed169bacba5e9878d45f8831a826cd4739351d61535d2c1f1b0e8cb7a",
+            "bytes": 68
+          }
+        },
+        "initial": {
+          "sha256": "81336f860911324e539d64dd5daad72fb1278400430812d8f075aa7177526640",
+          "images": [
+            {
+              "attrs": {
+                "src": "/lab/cover-golden-mountain.webp",
+                "alt": "author-markdown-26181868052b82be"
+              },
+              "picture": false,
+              "sources": []
+            }
+          ],
+          "scope": "article.render",
+          "wholePageRunImageCount": 5,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-image-initial.html",
+            "sha256": "81336f860911324e539d64dd5daad72fb1278400430812d8f075aa7177526640",
+            "bytes": 55932
+          }
+        }
+      },
+      "initialHttpStatus": 200,
+      "reopenedInputMatches": true,
+      "input": {
+        "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/webkit-markdown-image-input.txt",
+        "sha256": "cf849bfed169bacba5e9878d45f8831a826cd4739351d61535d2c1f1b0e8cb7a",
+        "bytes": 68
+      }
+    }
+  ],
+  "collectionReports": [
+    {
+      "path": ".runtime/authored-images/halo-lab/authored-images/286b60b4b2f241e2/report.json",
+      "sha256": "2da20ef75986a6855ae96ae544fcd00c685ecb0b7ad00fdec08a8296206fcab9",
+      "bytes": 22391
+    },
+    {
+      "path": ".runtime/authored-images/halo-lab/authored-images/e34cc700779171f1/report.json",
+      "sha256": "2bfbabf4ca1a55b7ec77c8812554dec6daa4c4c02d0ccade6bd0aeab2bf13946",
+      "bytes": 84013
+    },
+    {
+      "path": ".runtime/authored-images/halo-lab/authored-images/26181868052b82be/report.json",
+      "sha256": "40ff13cd1c5d5cae93ba6d2233ce328266af4d8b5392a08f2cd9ae24ba2c655a",
+      "bytes": 43947
+    }
+  ],
+  "reanalysis": {
+    "report": {
+      "path": ".runtime/authored-images/attempt-02/reanalyzed-report.json",
+      "sha256": "572ea81af7d93bb1173f866a95db9c4b93a1f31bbf7b8cf5e89081846fce1675",
+      "bytes": 71963
+    },
+    "script": {
+      "path": ".runtime/authored-images/reanalyze-initial.mjs",
+      "sha256": "fd6ac11fd4f497f6c4f9f22f628e5f0da61b90075b792ff277f4c14f7ce1ab60",
+      "bytes": 2814
+    },
+    "newHaloRequests": 0,
+    "newRuntimeSamples": 0,
+    "reason": "Scope corrected from entire page to unique article.render; original responses/reports retained."
+  },
+  "priorFailedBatch": {
+    "runId": "286b60b4b2f241e2",
+    "cases": 6,
+    "status": "failed",
+    "errors": [
+      {
+        "mode": "html-block",
+        "error": "Error: PUT /apis/content.halo.run/v1alpha1/posts/01a1453b-6f9b-768b-a15f-8f778f134056: HTTP 409"
+      },
+      {
+        "mode": "markdown-block",
+        "error": "Error: PUT /apis/content.halo.run/v1alpha1/posts/01a1453b-7973-7328-97fb-9a8aa01aa93d: HTTP 409"
+      },
+      {
+        "mode": "markdown-image",
+        "error": "Error: PUT /apis/content.halo.run/v1alpha1/posts/01a1453b-825a-770a-b89a-19aad0b56202: HTTP 409"
+      },
+      {
+        "mode": "plain-paste",
+        "error": "Error: PUT /apis/content.halo.run/v1alpha1/posts/01a1453b-8bdc-7464-b4b5-e1cb25272005: HTTP 409"
+      },
+      {
+        "mode": "api-post",
+        "error": "Error: GET /apis/api.console.halo.run/v1alpha1/posts/authored-286b60b4b2f241e2-api-post/content: HTTP 500"
+      },
+      {
+        "mode": "api-page",
+        "error": "Error: PUT /apis/content.halo.run/v1alpha1/singlepages/authored-286b60b4b2f241e2-api-page: HTTP 409"
+      }
+    ],
+    "classification": "Runner metadata PUT conflicted with reconciliation; content GET omitted required snapshotName. Not a Halo defect or attribute result."
+  },
+  "cleanup": {
+    "portClosed": true,
+    "officialHaloSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "reports": [
+      {
+        "runId": "26181868052b82be",
+        "status": "completed",
+        "created": 6,
+        "deleted": 6,
+        "stationEqual": true
+      },
+      {
+        "runId": "286b60b4b2f241e2",
+        "status": "failed",
+        "created": 6,
+        "deleted": 6,
+        "stationEqual": true
+      },
+      {
+        "runId": "e34cc700779171f1",
+        "status": "completed",
+        "created": 6,
+        "deleted": 6,
+        "stationEqual": true
+      }
+    ],
+    "lockPresent": false,
+    "temporaryDeployment": false,
+    "productionChanges": false
+  },
+  "cleanupEvidence": {
+    "path": ".runtime/authored-images/cleanup.json",
+    "sha256": "35cd8e334b649e5d560ff165233759e955b49ba6abe11a593e8c6f7dbdbca460",
+    "bytes": 651
+  },
+  "independentReview": {
+    "path": ".runtime/authored-images/review.json",
+    "sha256": "f45ed59d003df155f2e2455f1701f3b1796eb5ad4ca528028f1b2ee9494cbba3",
+    "bytes": 5455
+  },
+  "rawManifest": {
+    "path": ".runtime/authored-images/raw-manifest.json",
+    "sha256": "cb9ce677bd3b6445ae7f5862c6d2260bb5fa0f15acb4457b79f3f35a3cae32f9",
+    "bytes": 20813,
+    "fileCount": 93,
+    "totalBytes": 2114377
+  },
+  "engineering": {
+    "command": "bun run verify",
+    "status": "passed",
+    "testsPassed": 771,
+    "packageFiles": 269,
+    "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "log": {
+      "path": ".runtime/authored-images/verify.log",
+      "sha256": "a65f3a1e55c3c3a31a3cde03eddca8130c19ffd5fd1a0b4f5a68a62e4b1b8d1a",
+      "bytes": 304474
+    }
+  },
+  "formalAcceptance": false,
+  "formalPerformanceEvidence": false,
+  "matrixStatusChanges": 0,
+  "temporaryDeployment": false,
+  "productChanges": false,
+  "officialPluginChanges": false,
+  "limitations": [
+    "Fixed input attributes and pinned official versions only; not every editor or plugin combination.",
+    "Markdown HTML reopening converts source and loses metadata, but the published initial HTML in this run retains original attributes. A second save after reopening was not performed.",
+    "Plain paste uses synthetic Chromium ClipboardEvent, not OS clipboard or insert-image toolbar.",
+    "Standard Markdown images have no initial loading attribute; preservation is not complete lazy-loading acceptance.",
+    "Initial response parsing does not test image loading, decoding, timing, no-script readability, full performance, Safari or physical devices.",
+    "First failed batch remains separate; no failed runtime sample replaced. Raw evidence is local only."
+  ]
+}
