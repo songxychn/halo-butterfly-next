@@ -9,7 +9,7 @@
 - 产品：PR #417 合并提交 `d678d3f839347554d7f100996f87b23b571888df`，ZIP SHA256 `93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e`。每次校验官方 Halo JAR、269 个已安装包文件及全部插件 JAR；新验收工具基于 PR #419 合并提交 `116a81ea471324f0414f1c24b70ca9585dd5cda5`，未改变产品包。
 - 新建回环实验室 `.runtime/authored-images/halo-lab`，Halo 18865；不复制旧数据库。仅官方 `hybrid-edit-block` 1.7.0 启用，SHA256 `6706fd5ab80551577522756b81dbbc29427a46b1951bb925a8f1fb8f5900ef1f`；其他八个初始插件停用，不代表推荐插件组合验收。
 - 四张固定图片分别声明 eager/high、lazy、未声明 loading、picture/source/srcset。HTML 与 Markdown 编辑块使用真实键盘输入，保存后刷新并读取完整 CodeMirror 文档；普通粘贴负例使用 Chromium 的合成 `text/html` 剪贴板事件，不冒充图片工具或系统剪贴板。
-- 发布通过官方内容 API 完成，只操作本轮随机标识和 UID 核对过的新内容。发布后用无登录 Cookie 的独立 HTTP 请求获取原始 HTML，再离线解析唯一 `article.render`；不从主题 JS 修改后的 DOM 提取属性，不执行前台资源。
+- 发布通过官方内容 API 完成，只操作本轮随机标识、名称和唯一标题核对过的新内容。发布后用无登录 Cookie 的独立 HTTP 请求获取原始 HTML，再离线解析唯一 `article.render`；不从主题 JS 修改后的 DOM 提取属性，不执行前台资源。
 - API 控制分别创建文章和单页，以实际 `headSnapshot` 查询保存内容。它们不经过图形编辑器，与编辑器案例分开记录。
 
 ## 结果
@@ -26,7 +26,7 @@
 
 ## 首轮错误与分析修正
 
-首批 `286b60b4b2f241e2` 的六例均保留为工具失败：五例在保存后额外 PUT 归属标签时与 Halo 后台协调发生版本冲突；另一例读取内容遗漏了官方接口必需的 `snapshotName`。核对该实例实际 OpenAPI 后，工具去掉无必要的 metadata PUT，以新对象 UID/唯一标题证明归属，并显式读取 `headSnapshot`。没有把这两个工具错误认定为 Halo 新缺陷。
+首批 `286b60b4b2f241e2` 的六例均保留为工具失败：五例在保存后额外 PUT 归属标签时与 Halo 后台协调发生版本冲突；另一例读取内容遗漏了官方接口必需的 `snapshotName`。核对该实例实际 OpenAPI 后，工具去掉无必要的 metadata PUT，以新对象名称/唯一标题识别归属，并显式读取 `headSnapshot`。没有把这两个工具错误认定为 Halo 新缺陷。
 
 修正工具后，Chromium 使用新批次 `e34cc700779171f1` 完整执行六例。最初分析器扫描整页，同批文章的侧栏/推荐图片也被计入（整页 5–10 张）。原 HTTP 响应和报告保持不变，后续使用共享解析器限定唯一正文离线重算，正文实际为四张或标准 Markdown 的一张；同时保留整页计数。这次重算没有发出 Halo 请求或增加运行样本。
 
@@ -56,3 +56,7 @@ bun scripts/images/check-editor.mjs
 ```
 
 `ENGINES=firefox,webkit` 运行两引擎的三种编辑块路径；不会把 Chromium 专用合成粘贴扩展为跨浏览器结论。此命令会创建、发布并最终删除本轮合成内容，不能指向真实站点。实验室本轮已停止，复跑需先单独启动 owned Halo，不能把旧报告当作新运行结果。
+
+## 后续更正与补证
+
+再次审查实际 API 响应确认 Halo 2.26.1 未返回 `metadata.uid`，旧脚本的空值比较不构成 UID 检查；本页原先的 UID 核验表述已纠正。原始报告和图片结果不变，不能追认旧批执行了创建时间核验。后续工具增加实际 `creationTimestamp`、名称和唯一标题核验；再次保存及插件启停后的读取结果见[后续验收](content-editor-followup.md)。
