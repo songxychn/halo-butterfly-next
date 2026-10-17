@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "result": "incomplete-contract",
+  "productSource": "d678d3f839347554d7f100996f87b23b571888df",
+  "packageSha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+  "productChanged": false,
+  "haloOrOfficialPluginsChanged": false,
+  "connectionWorkaround": false,
+  "featureMatrixChanged": false,
+  "applicableItems": 691,
+  "newVerified": 0,
+  "acceptance": {
+    "comments": "strict 2/6; seven functional checkpoints 5/6; API-seeded disabled/restored reads 3+3",
+    "math": "C/F author 4/4, frontend reads 16/16; WebKit author login unresolved",
+    "navigation": "initial matrix failed 29/42; separate Chromium diagnostic 14/14 did not reproduce; original failure retained"
+  },
+  "evidence": [
+    {
+      "path": ".runtime/usage-followup-20261017/performance-preparation.json",
+      "sha256": "1795488fd2ee8fd29b20092df70204df449438f34a2cc0825a79e11cb749b8ac"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/final-plugin-restoration.json",
+      "sha256": "3194fd0a316296d184482e94ab382e3730f1c2a9e5465ad43f777940f64baeab"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/final-lab-status.json",
+      "sha256": "a445986b3781d16b95a6e7fe409308405c4f739bbf2badc52190c981bc70a5cb"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/stop-18845.log",
+      "sha256": "a86b9afdac5e6a7d1a8af7d53074c84390e7076579e663dfeb2ade49ba087b9b"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/stop-18865.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/verify.log",
+      "sha256": "84a5e73637d4c128b884601388bbdde7bb68a1e348f6185dfa3fadd657cc9434"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/bun-worker-sample.txt",
+      "sha256": "08d704516b7365b05a950fd39b1b6307075f3b8959f9061b26025cda0c7d868c"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/verify-controlled.log",
+      "sha256": "293ad89989518663731f578cf62bae610668e1e33c127e6b63d4d3fa47c4f3bb"
+    },
+    {
+      "path": ".runtime/usage-followup-20261017/verify-controlled.json",
+      "sha256": "6ff13664f80f292c48e8ebe3d14067d5a37a6aa7e12ac2a3066661eaea148362"
+    }
+  ],
+  "cleanup": {
+    "allOriginalPluginStatesRestored": true,
+    "ownedLabsStopped": true,
+    "ports": [
+      18845,
+      14845,
+      18865,
+      14865
+    ],
+    "remainingLocks": [],
+    "notEntireDatabaseIdentityRestoration": true
+  },
+  "release": {
+    "merged": false,
+    "released": false,
+    "productionDeployed": false
+  },
+  "validation": {
+    "command": "bun run verify",
+    "exitCode": 0,
+    "testsPassed": 771,
+    "testsFailed": 0,
+    "packageFiles": 269,
+    "builtZipMatchesTestedCandidate": true,
+    "firstAttempt": "770 tests emitted then CPU-busy worker stopped; raw log and process sample preserved. Controlled unchanged-command run passed; cause not established."
+  },
+  "independentReview": {
+    "path": ".runtime/usage-followup-20261017/final-independent-review.json",
+    "sha256": "5e5c2b4a510ecae4d97c0e72383826c8410868c8b9388ee44c36b13f882871ce",
+    "result": "passed-scoped-claims",
+    "reviewedFiles": 23,
+    "rawReferencesChecked": 181,
+    "uniqueRawFilesChecked": 135,
+    "finalReferenceOnlyAddition": true
+  }
+}

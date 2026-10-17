@@ -1,0 +1,926 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "timezone": "Asia/Shanghai",
+  "kind": "default-editor-katex-author-followup",
+  "status": "passed",
+  "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+  "artifact": {
+    "name": "candidate-d678d3f.zip",
+    "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "halo": {
+    "version": "2.26.1",
+    "sha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc"
+  },
+  "katex": {
+    "plugin": "plugin-katex",
+    "version": "3.0.0",
+    "requiresHalo": ">=2.22.2",
+    "url": "https://github.com/halo-sigs/plugin-katex/releases/download/v3.0.0/plugin-katex-3.0.0.jar",
+    "sha256": "e444781b99c23b020fcc379f6859ce67dc7669536c880004f7bf7cce0ed2df96",
+    "katex": "0.16.25",
+    "source": "https://github.com/halo-sigs/plugin-katex/tree/v3.0.0",
+    "editorOutput": "mathml",
+    "frontendRendering": false
+  },
+  "installedFilesChecked": 269,
+  "latestRun": "1a053c5edc034e4c49f2",
+  "scope": {
+    "engines": [
+      "chromium",
+      "firefox"
+    ],
+    "authorCases": 4,
+    "readerCasesPerState": 4,
+    "readerStates": 4,
+    "readinessSeconds": 20,
+    "browserMatrixSeconds": 1800,
+    "publishing": "official API; both saves use real default editor UI",
+    "copy": "installed click handler output captured; not OS clipboard",
+    "secondEdit": "formula TeX only; no additional body nonce in the final batch",
+    "passedAuthors": 4,
+    "passedReaderCases": 16
+  },
+  "runs": [
+    {
+      "runId": "cc8345d429b39f70d17a",
+      "kind": "sandbox-preflight",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/cc8345d429b39f70d17a/report.json",
+        "sha256": "9ba721c92bf39fe0de9ecb3b7f7f6ccf092e3ba5c52e4d370f163aa005f57eb6"
+      },
+      "tools": {
+        "run.py": {
+          "path": ".runtime/math-editor-followup/attempt01/run.py",
+          "sha256": "ede6f80bd621ba63ca0a58e1681ea8ab99de4b16c45f7b4ff876e71f31163ce9"
+        },
+        "check.mjs": {
+          "path": ".runtime/math-editor-followup/attempt01/check.mjs",
+          "sha256": "48124f25c789d156e0295519c044dae7864cff0349a61390dff87d22b33da0e8"
+        }
+      },
+      "status": "failed",
+      "errors": [
+        "[Errno 1] Operation not permitted: 'ps'"
+      ],
+      "plannedAuthors": 6,
+      "actualAuthors": 0,
+      "authorsPassed": 0,
+      "authorsFailed": 0,
+      "stationRestored": null,
+      "stationEqual": null,
+      "identityEqual": null,
+      "registeredFixtures": 0,
+      "deletedFixtures": 0,
+      "lockRetained": false,
+      "readerStages": [],
+      "additionalBodyMarkerEditPlanned": false
+    },
+    {
+      "runId": "2138217bea2c60d773da",
+      "kind": "six-author-plan",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/2138217bea2c60d773da/report.json",
+        "sha256": "01ba100bb30eb498129a1003b4f5389031ca0fc69fae8408a650d4976386d74f"
+      },
+      "tools": {
+        "run.py": {
+          "path": ".runtime/math-editor-followup/attempt01/run.py",
+          "sha256": "ede6f80bd621ba63ca0a58e1681ea8ab99de4b16c45f7b4ff876e71f31163ce9"
+        },
+        "check.mjs": {
+          "path": ".runtime/math-editor-followup/attempt01/check.mjs",
+          "sha256": "48124f25c789d156e0295519c044dae7864cff0349a61390dff87d22b33da0e8"
+        }
+      },
+      "status": "failed",
+      "errors": [
+        "author browser failed; original evidence retained"
+      ],
+      "plannedAuthors": 6,
+      "actualAuthors": 6,
+      "authorsPassed": 0,
+      "authorsFailed": 6,
+      "stationRestored": true,
+      "stationEqual": true,
+      "identityEqual": true,
+      "registeredFixtures": 0,
+      "deletedFixtures": 0,
+      "lockRetained": false,
+      "readerStages": [],
+      "authorReport": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/2138217bea2c60d773da/author.json",
+        "sha256": "3230c83492c0ab77a6650b88104676c134dca2b356154cc134d191366cc0ce98"
+      },
+      "authorBatchError": null,
+      "cases": [
+        {
+          "id": "chromium-inline",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "chromium-block",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "click: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "firefox-inline",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "firefox-block",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "webkit-inline",
+          "engine": "webkit",
+          "browserVersion": "26.6",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "webkit-block",
+          "engine": "webkit",
+          "browserVersion": "26.6",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        }
+      ],
+      "additionalBodyMarkerEditPlanned": true
+    },
+    {
+      "runId": "984e369b62fea2140a97",
+      "kind": "six-author-plan",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/984e369b62fea2140a97/report.json",
+        "sha256": "e1ca0f8d99ad15394108eaa093badf3b9d90002ba5d81908cd4070e6031768da"
+      },
+      "tools": {
+        "run.py": {
+          "path": ".runtime/math-editor-followup/attempt02/run.py",
+          "sha256": "ede6f80bd621ba63ca0a58e1681ea8ab99de4b16c45f7b4ff876e71f31163ce9"
+        },
+        "check.mjs": {
+          "path": ".runtime/math-editor-followup/attempt02/check.mjs",
+          "sha256": "10d93990984c901ffeca770f9434aa1354f75dd2b06b303fbbc05d803b8649f7"
+        }
+      },
+      "status": "failed",
+      "errors": [
+        "author browser failed; original evidence retained"
+      ],
+      "plannedAuthors": 6,
+      "actualAuthors": 4,
+      "authorsPassed": 0,
+      "authorsFailed": 4,
+      "stationRestored": true,
+      "stationEqual": true,
+      "identityEqual": true,
+      "registeredFixtures": 4,
+      "deletedFixtures": 4,
+      "lockRetained": false,
+      "readerStages": [],
+      "authorReport": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/984e369b62fea2140a97/author.json",
+        "sha256": "ddf6c59bff307b53c541406ca6de09a3e684ff2f6d0790ae51a4c7f3d7949107"
+      },
+      "authorBatchError": "waitForURL: Timeout 20000ms exceeded.",
+      "cases": [
+        {
+          "id": "chromium-inline",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "AssertionError [ERR_ASSERTION]: Exactly one authored formula required",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "chromium-block",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "AssertionError [ERR_ASSERTION]: Exactly one authored formula required",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "firefox-inline",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "AssertionError [ERR_ASSERTION]: Exactly one authored formula required",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "firefox-block",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [],
+          "error": "AssertionError [ERR_ASSERTION]: Exactly one authored formula required",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        }
+      ],
+      "additionalBodyMarkerEditPlanned": true
+    },
+    {
+      "runId": "b3d9db9889e83fe56da6",
+      "kind": "four-author-plan",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/b3d9db9889e83fe56da6/report.json",
+        "sha256": "c835eb532ce770cd5cd938013ee058d246677ce02d3a85ec040f817702626acd"
+      },
+      "tools": {
+        "run.py": {
+          "path": ".runtime/math-editor-followup/attempt03/run.py",
+          "sha256": "14f8221b072c885047ea9a1b8ae345eab0ba26122be7f5c445704bbab245062e"
+        },
+        "check.mjs": {
+          "path": ".runtime/math-editor-followup/attempt03/check.mjs",
+          "sha256": "58d074381a3dc90a671db3740f3c23144f83718c9ded40280cf0505671b4cb67"
+        }
+      },
+      "status": "failed",
+      "errors": [
+        "author browser failed; original evidence retained"
+      ],
+      "plannedAuthors": 4,
+      "actualAuthors": 4,
+      "authorsPassed": 2,
+      "authorsFailed": 2,
+      "stationRestored": true,
+      "stationEqual": true,
+      "identityEqual": true,
+      "registeredFixtures": 4,
+      "deletedFixtures": 4,
+      "lockRetained": false,
+      "readerStages": [],
+      "authorReport": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/b3d9db9889e83fe56da6/author.json",
+        "sha256": "37b4093a5223d118133c1ed1276eaa84e4b901eb3ae9c9bfee6052c1ef16dec8"
+      },
+      "authorBatchError": null,
+      "cases": [
+        {
+          "id": "chromium-inline",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [
+            "saved"
+          ],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "chromium-block",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [
+            "saved"
+          ],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "firefox-inline",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "inline",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API"
+        },
+        {
+          "id": "firefox-block",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "block",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API"
+        }
+      ],
+      "additionalBodyMarkerEditPlanned": true
+    },
+    {
+      "runId": "553efd9690585043942b",
+      "kind": "four-author-plan",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/553efd9690585043942b/report.json",
+        "sha256": "d223329fb3cefd1d0be1aaf91ab918c319af77e278401dfbd70b3d5e6b6b2cac"
+      },
+      "tools": {
+        "run.py": {
+          "path": ".runtime/math-editor-followup/attempt04/run.py",
+          "sha256": "14f8221b072c885047ea9a1b8ae345eab0ba26122be7f5c445704bbab245062e"
+        },
+        "check.mjs": {
+          "path": ".runtime/math-editor-followup/attempt04/check.mjs",
+          "sha256": "82f2f02821b891a57c8e921f009ba13c348fd2cf64123d17fae982e4e308c61b"
+        }
+      },
+      "status": "failed",
+      "errors": [
+        "author browser failed; original evidence retained"
+      ],
+      "plannedAuthors": 4,
+      "actualAuthors": 4,
+      "authorsPassed": 1,
+      "authorsFailed": 3,
+      "stationRestored": true,
+      "stationEqual": true,
+      "identityEqual": true,
+      "registeredFixtures": 4,
+      "deletedFixtures": 4,
+      "lockRetained": false,
+      "readerStages": [],
+      "authorReport": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/553efd9690585043942b/author.json",
+        "sha256": "5ff6f82a59a2841e5d5699d42be3b83c237ec518a55120af00143bb7b60974bb"
+      },
+      "authorBatchError": null,
+      "cases": [
+        {
+          "id": "chromium-inline",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [
+            "saved"
+          ],
+          "error": "click: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null,
+          "markerPlacement": {
+            "location": "start of the existing plain-text paragraph",
+            "collapsed": true,
+            "focusedEditor": true
+          }
+        },
+        {
+          "id": "chromium-block",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "block",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API",
+          "markerPlacement": {
+            "location": "start of the existing plain-text paragraph",
+            "collapsed": true,
+            "focusedEditor": true
+          }
+        },
+        {
+          "id": "firefox-inline",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "inline",
+          "status": "failed",
+          "stagesRecorded": [
+            "saved"
+          ],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        },
+        {
+          "id": "firefox-block",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "block",
+          "status": "failed",
+          "stagesRecorded": [
+            "saved"
+          ],
+          "error": "waitForFunction: Timeout 20000ms exceeded.",
+          "storedEqualsSecondSave": null,
+          "releaseEqualsSecondSave": null,
+          "publishMethod": null
+        }
+      ],
+      "additionalBodyMarkerEditPlanned": true
+    },
+    {
+      "runId": "1a053c5edc034e4c49f2",
+      "kind": "four-author-plan-formula-edit-only",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/1a053c5edc034e4c49f2/report.json",
+        "sha256": "774cf601c25a3542edf9cf5b21e33c5de34a790aa4693a67e2b24903c6395e30"
+      },
+      "tools": {
+        "run.py": {
+          "path": ".runtime/math-editor-followup/attempt05/run.py",
+          "sha256": "14f8221b072c885047ea9a1b8ae345eab0ba26122be7f5c445704bbab245062e"
+        },
+        "check.mjs": {
+          "path": ".runtime/math-editor-followup/attempt05/check.mjs",
+          "sha256": "b9bd2b18332671499e3073f697a12c5208fa569aa0cc8c1a5de6ddbd48ba573c"
+        }
+      },
+      "status": "passed",
+      "errors": [],
+      "plannedAuthors": 4,
+      "actualAuthors": 4,
+      "authorsPassed": 4,
+      "authorsFailed": 0,
+      "stationRestored": true,
+      "stationEqual": true,
+      "identityEqual": true,
+      "registeredFixtures": 4,
+      "deletedFixtures": 4,
+      "lockRetained": false,
+      "readerStages": [
+        {
+          "phase": "enabled",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/math-editor-followup/1a053c5edc034e4c49f2/enabled.json",
+            "sha256": "0584e09d8cad35d7cc36fc6fc7f9c47b9d70b3a96f91caaa6c4ea7627a9e688b"
+          },
+          "status": "passed",
+          "cases": [
+            {
+              "id": "chromium-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "chromium-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "firefox-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "firefox-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 2
+            }
+          ]
+        },
+        {
+          "phase": "theme-off",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/math-editor-followup/1a053c5edc034e4c49f2/theme-off.json",
+            "sha256": "2180e22a6a5dc1bad0bc16539c847fe767234d23aa97b69049022de28456e3f9"
+          },
+          "status": "passed",
+          "cases": [
+            {
+              "id": "chromium-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": false,
+              "sourceVisible": true,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "chromium-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": false,
+              "sourceVisible": true,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "firefox-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": false,
+              "sourceVisible": true,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "firefox-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": false,
+              "sourceVisible": true,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 2
+            }
+          ]
+        },
+        {
+          "phase": "plugin-off",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/math-editor-followup/1a053c5edc034e4c49f2/plugin-off.json",
+            "sha256": "947463bef10d2cc2ad0de40b8960f3ebe036a580a0ae899dc9b5f50a9949f39c"
+          },
+          "status": "passed",
+          "cases": [
+            {
+              "id": "chromium-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 0
+            },
+            {
+              "id": "chromium-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 0
+            },
+            {
+              "id": "firefox-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 0
+            },
+            {
+              "id": "firefox-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 0
+            }
+          ]
+        },
+        {
+          "phase": "restored",
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/math-editor-followup/1a053c5edc034e4c49f2/restored.json",
+            "sha256": "66c040ddb92e75a1389e19780625901733d9857d0d0b05764e9998d715ad76d1"
+          },
+          "status": "passed",
+          "cases": [
+            {
+              "id": "chromium-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "chromium-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "firefox-inline",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "a^2+b^2=c^2"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "a^2+b^2=c^2"
+              ],
+              "pluginResourceCount": 2
+            },
+            {
+              "id": "firefox-block",
+              "status": "passed",
+              "error": null,
+              "mathCount": 1,
+              "tex": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "formulaVisible": true,
+              "sourceVisible": false,
+              "copyCount": 1,
+              "copyOutput": [
+                "\\sum_{i=1}^{3}i=6"
+              ],
+              "pluginResourceCount": 2
+            }
+          ]
+        }
+      ],
+      "authorReport": {
+        "path": ".runtime/authored-images/halo-lab/math-editor-followup/1a053c5edc034e4c49f2/author.json",
+        "sha256": "01e602780952bf206ba04b41c39664bb0bc518b7eaff6356d00b3c37e629d2ee"
+      },
+      "authorBatchError": null,
+      "cases": [
+        {
+          "id": "chromium-inline",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "inline",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API"
+        },
+        {
+          "id": "chromium-block",
+          "engine": "chromium",
+          "browserVersion": "153.0.8010.12",
+          "mode": "block",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API"
+        },
+        {
+          "id": "firefox-inline",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "inline",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API"
+        },
+        {
+          "id": "firefox-block",
+          "engine": "firefox",
+          "browserVersion": "155.0",
+          "mode": "block",
+          "status": "passed",
+          "stagesRecorded": [
+            "saved",
+            "second-saved",
+            "stored"
+          ],
+          "error": null,
+          "storedEqualsSecondSave": true,
+          "releaseEqualsSecondSave": true,
+          "publishMethod": "official API"
+        }
+      ],
+      "additionalBodyMarkerEditPlanned": false
+    }
+  ],
+  "restorationVerified": [
+    "complete theme JSON configuration",
+    "system ConfigMap data",
+    "existing plugin specs, lifecycle phase and config data digests",
+    "existing Post/SinglePage specs and published release-content response digests",
+    "temporary KaTeX plugin/ConfigMap/Setting absence restored",
+    "official Halo JAR, original plugin JAR filenames/hash and 269 installed theme files"
+  ],
+  "restorationNotClaimed": [
+    "all runtime data or notifications/subscription tokens; official Halo lifecycle owns normal subscription rotation",
+    "statistics counters and every database byte"
+  ],
+  "limitations": [
+    "WebKit login navigation timed out in the second formal batch; cause remains undetermined and it was excluded from subsequent batches rather than retried.",
+    "Prior actual empty saved payloads and keyboard placement failures remain failed; readiness changes do not rewrite them.",
+    "The final batch omits the additional body marker edit that caused earlier tool failures; its pass does not validate those failed marker operations.",
+    "Official parent content cache is a read-only save readiness observation, not a substitute for actual requests, snapshots, release contents or anonymous initial HTML.",
+    "Only default editor inline/block formulas and the four named states; no other editor, physical Safari/device, screen reader, complete PLG-06/EXT-02 or performance pass.",
+    "Resource-on-demand deferral remains unchanged; enabled official plugin CSS is retained."
+  ],
+  "productionChanges": false,
+  "connectionWorkaround": false,
+  "rawPrivacy": "Only compact summaries and file hashes are committed; synthetic raw pages, private recovery config and JARs remain under .runtime.",
+  "independentReview": {
+    "path": ".runtime/math-editor-followup/independent-review.json",
+    "sha256": "79d8331629ca39d6466860be1a1052179c7e6385acf249c76ef844c7931f8bfe",
+    "scope": "Final run raw requests, snapshots, MathML, four states, fixture cleanup and stated restoration; previous run counts and boundaries retained",
+    "referencesVerified": 116,
+    "uniqueFilesVerified": 109
+  }
+}
