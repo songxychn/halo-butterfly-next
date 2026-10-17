@@ -52,6 +52,7 @@ def main():
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
+    parser.add_argument('--profile', choices=['six-cases', 'webkit-dark-diagnostic'], default='six-cases')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     args = parser.parse_args()
     runtime = args.runtime.resolve(strict=True)
@@ -76,7 +77,11 @@ def main():
         'Comment widget reading and subject switching only; no comment submission/reply, plugin lifecycle or deferred resource-on-demand claims.',
         'All failures retained; browser navigation is never retried and original 20s/30s readiness limits remain.',
         'No product changes, plugin changes, runtime restart, connection workaround, or performance-budget measurement.']}
+    report['profile'] = args.profile
+    if args.profile == 'webkit-dark-diagnostic':
+        report['limitations'][1] = 'One instrumented WebKit dark mobile diagnostic, not a replacement six-case acceptance batch or a retry of its result.'
     client = None
+    protocol_stream = None
     original_config = original_system = before = None
     config_changed = system_changed = False
     restored = False
@@ -287,14 +292,22 @@ def main():
         group = 'combination-group-' + run
         register('group', object_('LinkGroup', 'core.halo.run/v1alpha1', group, {'displayName': title, 'priority': 0}))
         register('link', object_('Link', 'core.halo.run/v1alpha1', 'combination-link-' + run, {'displayName': title, 'url': post_url, 'logo': lab.BASE['halo'] + '/lab/avatar.svg', 'description': title, 'groupName': group, 'priority': 0}))
-        fixture = {'owner': OWNER, 'runId': run, 'base': lab.BASE['halo'], 'runtime': str(runtime), 'installed': report['identity']['installed'], 'post': {'name': name, 'path': urllib.parse.urlsplit(post_url).path}, 'moment': {'name': moment, 'path': '/moments/' + moment}, 'linkTitle': title, 'tex': 'x^2 + y^2 = z^2', 'expectedCases': 6}
+        fixture = {'owner': OWNER, 'runId': run, 'base': lab.BASE['halo'], 'runtime': str(runtime), 'installed': report['identity']['installed'], 'post': {'name': name, 'path': urllib.parse.urlsplit(post_url).path}, 'moment': {'name': moment, 'path': '/moments/' + moment}, 'linkTitle': title, 'tex': 'x^2 + y^2 = z^2', 'expectedCases': 1 if args.profile == 'webkit-dark-diagnostic' else 6, 'profile': args.profile}
         lab.write_json(output / 'fixture.json', fixture)
         report['ready'] = station()
         save()
         # This process group belongs only to the browser batch; the Halo JVM was
         # already running and is never part of it. A timeout is a failed batch,
         # not a reason to retry any measurement.
-        browser = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json')], cwd=REPO, start_new_session=True)
+        browser_env = dict(os.environ)
+        if args.profile == 'webkit-dark-diagnostic':
+            # Official Playwright logging only: never patch the browser or its
+            # protocol. Raw messages may include session data; keep them private.
+            protocol_path = output / 'protocol.private.log'
+            protocol_stream = os.fdopen(os.open(protocol_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'w')
+            browser_env.update(DEBUG='pw:protocol', DEBUG_COLORS='0')
+            report['protocolLog'] = protocol_path.name
+        browser = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json')], cwd=REPO, env=browser_env, stderr=protocol_stream, start_new_session=True)
         report['browserProcessGroup'] = browser.pid
         report['browserTimeoutSeconds'] = 1800
         save()
@@ -325,6 +338,9 @@ def main():
         report['errors'].append({'stage': 'execution', 'type': type(error).__name__, 'message': str(error)})
         report['status'] = 'failed'
     finally:
+        if protocol_stream:
+            protocol_stream.close()
+            report['protocolSha256'] = lab.digest(output / 'protocol.private.log')
         if client:
             for row in reversed(report['created']):
                 try:

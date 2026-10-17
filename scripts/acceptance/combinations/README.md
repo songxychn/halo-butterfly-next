@@ -79,3 +79,18 @@ captures handler output, not the operating-system clipboard. This batch does
 not cover comment submission/reply, plugin lifecycle, physical devices,
 assistive technology, performance budgets or the full 1.0 contract. It cannot
 reclassify previous network failures or revive deferred resource-lazy requirements.
+
+## Separate WebKit cancellation diagnostic
+
+Add `--profile webkit-dark-diagnostic` to the same owned-lab command to run one
+WebKit dark case with the original five loops and strict error gates. The default
+remains `six-cases`. This diagnostic does not replace or reclassify any earlier
+acceptance batch. It adds before-click image snapshots, request frame/referrer
+observations, and Playwright's official protocol logging into a new mode-0600
+`protocol.private.log`; keep that raw log private in the ignored runtime.
+Capture overhead may alter timing, so no performance conclusion is allowed.
+
+See [DIAGNOSTICS.md](DIAGNOSTICS.md) for offline loader/document attribution and
+its limits. Public frame URL/referrer and the stage label cannot establish request
+ownership. Neither `cancelled` nor a still-current loader alone distinguishes
+normal document departure from a genuine in-page failure.

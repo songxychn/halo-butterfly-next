@@ -1,0 +1,391 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "result": "diagnostic-not-reproduced-original-failure-preserved",
+  "pr425": {
+    "head": "5a5a63d4c75d122570ebe2da602e6e51f070ed0b",
+    "independentReviews": [
+      "image_author_next: compatibility and official publish semantics, no blockers",
+      "rss_acceptance:32 evidence references, raw counts and restoration layers match, no blockers"
+    ],
+    "mergeCommit": "cf41b1d6a264beda6cd93a4fede69a63d8e00e7b",
+    "mergedAt": "2026-10-17T13:14:03Z",
+    "prCiRun": 39035269461,
+    "masterCiRun": 39035717509,
+    "ciBothSuccess": true
+  },
+  "candidate": {
+    "path": ".runtime/webkit-cancellation-20261017/candidate-a9d2c19.zip",
+    "sha256": "4b13dd856dca8599548f433cf43ca2a05c126ff8c76ec6cebedba0b6957df075",
+    "sourceCommit": "a9d2c1928ed8165d48c6de6bb1e5168d2d5a8791",
+    "sourceSha256": "e632588b8200deab4384c4fb0ca5f6b5490527a4d9760de64d545827b5a1d1d7",
+    "packageFiles": 269,
+    "builtFromMerge": true,
+    "reusedFixedProductForDiagnostic": true
+  },
+  "productOrOfficialPluginChanges": false,
+  "connectionWorkaround": false,
+  "originalAcceptance": {
+    "runId": "672c041803213765228d",
+    "result": "failed",
+    "passedCases": 5,
+    "plannedCases": 6,
+    "passedCheckpoints": 87,
+    "plannedCheckpoints": 96,
+    "cause": "unknown; no loader/document identity captured",
+    "reclassified": false
+  },
+  "realDiagnostic": {
+    "runId": "54d21d5c8714a04614c2",
+    "profile": "webkit-dark-diagnostic",
+    "attempts": 1,
+    "engine": "webkit",
+    "browserVersion": "26.6",
+    "width": 390,
+    "height": 844,
+    "color": "dark",
+    "checkpoints": 16,
+    "nativeNavigations": 15,
+    "publicHttpRequests": 415,
+    "finishedHttp200": 415,
+    "errors": {
+      "page": 0,
+      "console": 0,
+      "network": 0
+    },
+    "protocol": {
+      "requests": 425,
+      "httpRequests": 415,
+      "dataImageRequests": 10,
+      "httpUrlMultisetExactlyMatchesPublicRequests": true,
+      "frameLoaderDocumentAndInitiatorPresentOnAllRequests": true,
+      "finished": 425,
+      "failed": 0,
+      "httpErrors": 0,
+      "malformedReceivedMessages": 0,
+      "committedDocuments": 16,
+      "sameDocumentNavigationEvents": 16,
+      "publicFrameNavigatedEvents": 32,
+      "publicFrameNavigatedCountIsNotDocumentCount": true
+    },
+    "mistyForest": {
+      "requests": 16,
+      "articleDocuments": 6,
+      "momentDocuments": 5,
+      "linksDocuments": 5,
+      "uniqueLoaders": 16,
+      "finishedHttp200": 16,
+      "initiators": {
+        "other": 1,
+        "parser": 15
+      },
+      "usableBackendNodeIds": 0,
+      "scriptStacks": 0,
+      "beforeNavigationSnapshots": 15,
+      "allSnapshotCandidatesLazyCompleteConnectedWidth1600": true,
+      "lastArticleHasNoFollowingNavigationSnapshot": true
+    },
+    "measurementOverheadMayChangeTiming": true,
+    "replacesAcceptance": false
+  },
+  "localControls": {
+    "status": "passed-local-controls-only",
+    "server": "separate-owned-loopback-only-not-Halo",
+    "cases": [
+      {
+        "id": "success",
+        "status": "passed-control",
+        "classification": "successful-in-document-image",
+        "finalErrors": {
+          "page": 0,
+          "console": 0,
+          "network": 0
+        }
+      },
+      {
+        "id": "in-document-404",
+        "status": "passed-control",
+        "classification": "genuine-in-document-http-404-image-error",
+        "finalErrors": {
+          "page": 0,
+          "console": 0,
+          "network": 0
+        }
+      },
+      {
+        "id": "leave-pending",
+        "status": "passed-control",
+        "classification": "natural-old-document-image-cancellation-observed-before-context-close",
+        "finalErrors": {
+          "page": 0,
+          "console": 0,
+          "network": 0
+        }
+      }
+    ],
+    "departureOrder": {
+      "navigationPolicySequences": [
+        31,
+        32
+      ],
+      "imageCanceledSequence": 33,
+      "newDocumentRequestSequence": 34,
+      "newDocumentCommitSequence": 36,
+      "imageCanceledAt": "2026-10-17T13:21:58.675Z",
+      "newDocumentRequestAt": "2026-10-17T13:21:58.676Z",
+      "contextCloseStartedAt": "2026-10-17T13:21:58.692Z",
+      "loaderRelationAtCancellation": "during-current"
+    },
+    "provesOriginalHaloCause": false
+  },
+  "parserCorrection": {
+    "field": "Network.requestWillBeSent.type",
+    "officialValue": "StyleSheet",
+    "previousWhitelistValue": "Stylesheet",
+    "previousUnclassifiedCssRequests": 114,
+    "oldSummaryRetained": true,
+    "oldParserRetained": true,
+    "onlyAnalysisChanges": "114 resourceType null values now StyleSheet, plus parser digest; every other parsed field exactly unchanged",
+    "targetedTests": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "restoration": {
+    "innerVerified": true,
+    "outerScopedVerified": true,
+    "errors": [],
+    "fourOwnedFixturesDeleted": true,
+    "preExistingNotificationsUnchanged": 70,
+    "newLocalLoginAuditRetained": 1,
+    "globalSubscriptionsSemanticEqual": 4,
+    "rotatedSubscriptionIdentities": 3,
+    "fullNotificationIdentityRestored": false,
+    "shutdown": {
+      "portsConnectionRefused": {
+        "18845": 61,
+        "14845": 61,
+        "18865": 61,
+        "14865": 61,
+        "51538": 61
+      },
+      "originalPackageFilesEqual": 269,
+      "outerScopedRestorationVerified": true,
+      "fullNotificationIdentityRestored": false,
+      "locks": []
+    }
+  },
+  "validation": {
+    "verify": {
+      "exitCode": 0,
+      "seconds": 24.68267583847046,
+      "command": "bun run verify",
+      "baseSourceCommit": "cf41b1d6a264beda6cd93a4fede69a63d8e00e7b"
+    },
+    "testsPassed": 777,
+    "testsFailed": 0,
+    "newParserTests": 6,
+    "matrixPromotions": 0
+  },
+  "limitations": [
+    "Diagnostic overhead changes timing; one un-reproduced run cannot reclassify the original six-case acceptance.",
+    "A current loader can be departing. Cancellation text or current loader alone is not a loading-defect classifier.",
+    "Observed normal departure is only proven for the synthetic controlled case.",
+    "URL-matched DOM snapshots are candidates, not exact backend node identity or proof of lazy-loading causality.",
+    "Complete official-plugin combinations, performance, actual Safari/devices and the full 1.0 contract remain unpassed."
+  ],
+  "evidence": [
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/54d21d5c8714a04614c2/browser-report.json",
+      "sha256": "7c9d300d4223784b023f62a959b3c2dfc5c826a2bdfa5a4ae40e20f1bd2d18c2"
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/54d21d5c8714a04614c2/fixture.html",
+      "sha256": "a46ff1d9f8e15c7e37fb635d042e0ef7e6686e55683cf3a4e4a72e884cd3cfab"
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/54d21d5c8714a04614c2/fixture.json",
+      "sha256": "289c704f84e1c9a282057ac02d7b8e5048f5d82fdd90537f88926d33fadd7583"
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/54d21d5c8714a04614c2/protocol.private.log",
+      "sha256": "1995c158d2edbff2a84fe08a48fc55aa5b6826fec8f063a57462d616bab40a37"
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/54d21d5c8714a04614c2/report.json",
+      "sha256": "f69cc3c24136c6cbdc1d380d975e861757f42bce420cadb111f2eb2a1650b5e6"
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/54d21d5c8714a04614c2/restore.private.json",
+      "sha256": "577f90f91a80a66d45497aa3f6cbf757b99d9f73f89ca39497f951423fab4fdb"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/candidate.json",
+      "sha256": "707b4594a05a85a2d2d1b90e27c69335a24939a4014248354b89e40e976558a0"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls/owner.json",
+      "sha256": "ef426308aaeaf389fba20b72443383b65302687b5fccc92b6ab3380c9ed2ce72"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls/report.json",
+      "sha256": "c0afa35960b991aefbbfbc98cbc28b941497f844aff7c8e9d19d6fa1c0db2d52"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls/runner.mjs",
+      "sha256": "55f76a95b17058d8624502a459cf0fc5e1b5892755389c9543dca5a27e4ecec5"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls/supervisor.json",
+      "sha256": "b96be05d3e5ad7e3e1dd3b793e856795d0591ce72ff9f03733094170453e427d"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls-protocol-summary.json",
+      "sha256": "38c3a34431db080d30858b3b1af407c42f1bca8fa72a4b569923a515ad925a33"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls-protocol.private.log",
+      "sha256": "adecfe6eb7c7355c7dcbad1ff56f2a5129f8f0db189fb14b208b93a33ffb2518"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/controls.log",
+      "sha256": "8f2240948c9c85994f732c302fa2ede7a1f2abc71249dd4a29af0b0e9bee3036"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/coordinator-before.private.json",
+      "sha256": "11ef877ea4a05b35100c668f216228968d61ee74a7681cae994f3788b1ec836d"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/coordinator.json",
+      "sha256": "f840ea5df903d983e3f4dacaabfa6425088ad884485340975d8a1564d393e513"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/coordinator.py",
+      "sha256": "f4866f7b95f2df1544b4a4009d1cece2f3cddef9fa3d5904e50e129440c0456e"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/DIAGNOSTICS.md",
+      "sha256": "334409a27c56d505a4cb018a7a6ce64d45e0be55e3d1353d02a29f7483a978d1"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/README.md",
+      "sha256": "46fd1766ca383d546990c923fcc52e384b4a7fc7e285565cfdc96130883f6e19"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/analyze-webkit-protocol.mjs",
+      "sha256": "aa872ca259fa1a1b7a73ce4fe44fccfda792c88545776a426be5066d8aa72888"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/cancellation-controls.mjs",
+      "sha256": "55f76a95b17058d8624502a459cf0fc5e1b5892755389c9543dca5a27e4ecec5"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/check.mjs",
+      "sha256": "ca39e51236bd15ba68cb863077a81b0b8a1e6a1eea3dcf16c61fcbea4f33170f"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/run.py",
+      "sha256": "c3e4e57839aa723c363629358f2055bc993f222a66fb44593805c71d5b2c3bc0"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/final-tools/webkit-protocol.test.mjs",
+      "sha256": "a614f41e49b4b7997b8e8c0fb8a741475f4c05b73d411138071438d36ca4726e"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/frozen-tools/check.mjs",
+      "sha256": "ca39e51236bd15ba68cb863077a81b0b8a1e6a1eea3dcf16c61fcbea4f33170f"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/frozen-tools/run.py",
+      "sha256": "c3e4e57839aa723c363629358f2055bc993f222a66fb44593805c71d5b2c3bc0"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/notification-audit.json",
+      "sha256": "d494ecd31509d33385a9b5ae46affa17b523a7696aec9c7df28c3f14f3d693a9"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/notifications-after.private.json",
+      "sha256": "ed46f491e63bdc2420f89bb49aa9327e38fdbfdae9973ce9c9ecb23dfee7cfc9"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/notifications-before.private.json",
+      "sha256": "74a7d56410c6ddfc949f79d07d228368d253433c9d1012fdba419657f65c63e7"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/parser-before-stylesheet.mjs",
+      "sha256": "c9556f41701e30dda763ff8812b9c32b09f4c57bc1f48f57351d72f23a28cf05"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/parser-targeted-tests.log",
+      "sha256": "5a283492520521df12933a14f7faae5d10423972d12c4818a32bd6bc028068ed"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/pr425-review.json",
+      "sha256": "559eec0e7f119c8e47a0907efa6cc23f46883df3dcc213bb3d33a7f10eca21e9"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/preflight-final.json",
+      "sha256": "34d40096f5f1edfe01257042186cf6e8ef1912da746feca5d5b66beb2ead1d25"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/preflight-review.json",
+      "sha256": "684d3c3b1231ef1f77a2b4693010a9c8450f847643a1a2c1b35e72d8e7db966f"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/protocol-actual-review.json",
+      "sha256": "883d87e3b5b8e6cd8b9e3a8041c9cebe041e3e96740634212f4eeba83d5703e5"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/protocol-summary-v2.json",
+      "sha256": "b12b1b4ebbaf80ad3329821fd7bca80e2a07eb9e47d91aad6486d9d23dae3363"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/protocol-summary.json",
+      "sha256": "d74777ae23d015c83697109f319dd50fcc8be48b8c5d732f32820855367224b0"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/results-independent-review.json",
+      "sha256": "0302f000a5b518c2aa1f453013713fa9c9ffa70974160c093c90b79f87dcb7f8"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/run.log",
+      "sha256": "0c51aed2514c72fde61ebaee5c8117b0a5e6481f5d9b1489b1d618fb4f207094"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/shutdown.json",
+      "sha256": "f04c3fb7993484a1d706ad6182d196a530905a18c40dc6d5a47ab1f016803a10"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/start.log",
+      "sha256": "8679a0ab343fd06f9602636e2481dbaf09f4310d583d6ca0a63f04d61761c616"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/stop.log",
+      "sha256": "0dcf4a9ee7573a757309f873a8238b846dfcff26b9fca89f58420d3bc21606ef"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/tool-final.json",
+      "sha256": "5337ab1b99c7eba0bc11e9afe791cb292be5c68006ea0600572e49a91ebb0d81"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/tool-freeze.json",
+      "sha256": "855f0dab49f77eb0609be886328ec1fffd27d1804c2e88f66483f43f8055072c"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/verify.json",
+      "sha256": "2d6d09b4d19f14fb4995ad51007aaf400971461a2885bb361a30423d162ac6da"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/verify.log",
+      "sha256": "14712a89373d7b53eb05af0bb7848ec47702234d15d33171c15dc867958ed4b3"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/parity-final.log",
+      "sha256": "472697beb75a02910240950b27d3a4c9a9ddcf96e27befdd329f26c7eb2e0270"
+    },
+    {
+      "path": ".runtime/webkit-cancellation-20261017/delivery-review.json",
+      "sha256": "73f3e8289fc5b9394d8f1e7dfb0e1c7bd041d697c836624e759b11741e033e5c"
+    }
+  ]
+}
