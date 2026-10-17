@@ -1,0 +1,583 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "kind": "plugin-disabled-core-navigation-followup",
+  "status": "failed",
+  "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+  "artifact": {
+    "name": "candidate-d678d3f.zip",
+    "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "halo": {
+    "version": "2.26.1",
+    "sha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc"
+  },
+  "installedFilesChecked": 269,
+  "runId": "1fa62c4de686dcebfc83",
+  "scope": {
+    "engines": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "colorScheme": "light",
+    "configuration": "all 13 installed plugins DISABLED; separate coordinator restores 8 originally enabled plugins",
+    "plannedCases": 3,
+    "passedCases": 2,
+    "failedCases": 1,
+    "plannedCheckpoints": 42,
+    "completedCheckpoints": 29,
+    "plannedPjaxTransitions": 36,
+    "completedPjaxTransitions": 24,
+    "plannedExcludedNativeTransitions": 3,
+    "completedExcludedNativeTransitions": 2,
+    "observedRequests": 160,
+    "counterPostsObserved": 30,
+    "counterPostsAtCompletedCheckpoints": 29,
+    "counterBalanceVerified": false,
+    "browserRetries": 0
+  },
+  "raw": {
+    "runner": {
+      "path": ".runtime/performance-followup/halo-lab/navigation-followup/1fa62c4de686dcebfc83/report.json",
+      "sha256": "5ce8668848119b41739c6ca3f5d404e6ec17d5dcdd7df07653cabc244ccc9357"
+    },
+    "browser": {
+      "path": ".runtime/performance-followup/halo-lab/navigation-followup/1fa62c4de686dcebfc83/browser-report.json",
+      "sha256": "b0619c254c560d0c77319d1116156357c0bdef8738c06211c251531d93c2ba3a"
+    },
+    "fixture": {
+      "path": ".runtime/performance-followup/halo-lab/navigation-followup/1fa62c4de686dcebfc83/fixture.json",
+      "sha256": "62757a0fba8e5511fe15a7f5cc66df645fcb9e8db279a3528966118bbdc301f6"
+    },
+    "coordinator": {
+      "path": ".runtime/usage-followup-20261017/navigation-plugins.json",
+      "sha256": "702d5f31e7b302813b1714266c3e820f4ae5a306a872e1ce7bcfb5c9909ed4a6"
+    },
+    "console": {
+      "path": ".runtime/usage-followup-20261017/navigation-attempt-01/console.log",
+      "sha256": "09f367d7f58e65b8adc77e1c9ac4e4f93c36b851322ddfe7101d2ca6bdd7a56c"
+    }
+  },
+  "tools": {
+    "run.py": {
+      "path": ".runtime/usage-followup-20261017/navigation-attempt-01/run.py",
+      "sha256": "78501fb11bf5975f1d2d17b2d9b079ba6cb2ab34bb2893ae76dd1a49572b172d"
+    },
+    "check.mjs": {
+      "path": ".runtime/usage-followup-20261017/navigation-attempt-01/check.mjs",
+      "sha256": "5188ce87faa72b72672d74f1a3bfb6cda0a3514992df4ad73e687232e4a48db5"
+    },
+    "README.md": {
+      "path": ".runtime/usage-followup-20261017/navigation-attempt-01/README.md",
+      "sha256": "ca5e950e7a19fc2742fc6c10ed9f94a58588719a3d267b1f2e640f7a7d5039a5"
+    }
+  },
+  "coordinatorTool": {
+    "path": ".runtime/usage-followup-20261017/navigation-attempt-01/navigation-coordinator.py",
+    "sha256": "d92617f93d7999f7860c74bff15b38d809653455c1ab46818dcb5d15fc5d9a26"
+  },
+  "cases": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "status": "failed",
+      "plannedCheckpoints": 14,
+      "completedCheckpoints": 1,
+      "completedPjaxTransitions": 0,
+      "completedNativeTransitions": 0,
+      "requestCount": 23,
+      "counterPostsObserved": 2,
+      "allObservedRequestsFinished200": true,
+      "pageErrors": [
+        "Cannot read properties of null (reading 'style')"
+      ],
+      "consoleErrors": [],
+      "lastStage": "cycle1-b",
+      "pendingAtFailure": [],
+      "completedNavigations": []
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "status": "passed",
+      "plannedCheckpoints": 14,
+      "completedCheckpoints": 14,
+      "completedPjaxTransitions": 12,
+      "completedNativeTransitions": 1,
+      "requestCount": 83,
+      "counterPostsObserved": 14,
+      "allObservedRequestsFinished200": true,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "lastStage": "exclude-excluded",
+      "pendingAtFailure": [],
+      "completedNavigations": [
+        {
+          "action": "cycle1",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 18,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle1",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 23,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle2",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 28,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle2",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 33,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle3",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 38,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle3",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 43,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle4",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 48,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle4",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 53,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle5",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 58,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle5",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 63,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "back",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 68,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "forward",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 73,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "exclude",
+          "target": "/archives/navigation-excluded-1fa62c4de686dcebfc83",
+          "mode": "native",
+          "pageRequestId": 78,
+          "observed": {}
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "status": "passed",
+      "plannedCheckpoints": 14,
+      "completedCheckpoints": 14,
+      "completedPjaxTransitions": 12,
+      "completedNativeTransitions": 1,
+      "requestCount": 54,
+      "counterPostsObserved": 14,
+      "allObservedRequestsFinished200": true,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "lastStage": "exclude-excluded",
+      "pendingAtFailure": [],
+      "completedNavigations": [
+        {
+          "action": "cycle1",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 17,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle1",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 19,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle2",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 21,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle2",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 23,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle3",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 25,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle3",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 27,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle4",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 29,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle4",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 31,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle5",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 33,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "cycle5",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 35,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "back",
+          "target": "/archives/navigation-b-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 37,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "forward",
+          "target": "/archives/navigation-a-1fa62c4de686dcebfc83",
+          "mode": "pjax",
+          "pageRequestId": 39,
+          "observed": {
+            "sentinel": "1fa62c4de686dcebfc83",
+            "oldConnected": false,
+            "oldScopeActive": false,
+            "oldCleanupCount": 0
+          }
+        },
+        {
+          "action": "exclude",
+          "target": "/archives/navigation-excluded-1fa62c4de686dcebfc83",
+          "mode": "native",
+          "pageRequestId": 41,
+          "observed": {}
+        }
+      ]
+    }
+  ],
+  "failure": {
+    "engine": "chromium",
+    "stage": "cycle1-b",
+    "message": "Cannot read properties of null (reading 'style')",
+    "classification": "unresolved frontend exception; not attributed to Halo transport or a specific component",
+    "targetFetch200": true,
+    "counterPost200": true,
+    "noPendingOrFailedObservedRequests": true,
+    "pageErrorStackCaptured": false,
+    "laterCheckpointsNotExecuted": 12,
+    "followup": "One separately planned Chromium diagnostic captured timing without reproducing the error; no stack was produced. The first failure remains unresolved and no further sampling was performed."
+  },
+  "restoration": {
+    "runnerRestorationVerified": true,
+    "runnerBeforeEqualsAfter": true,
+    "packageAndJarIdentityEqual": true,
+    "ownedPostsCreated": 3,
+    "ownedPostsDeleted": 3,
+    "runnerLockReleased": true,
+    "coordinatorRestorationVerified": true,
+    "coordinatorBeforeEqualsAfter": true,
+    "coordinatorErrors": [],
+    "scope": [
+      "theme complete config",
+      "system ConfigMap data",
+      "existing plugin spec/config/phase",
+      "existing Post/SinglePage spec and release-content digests",
+      "official Halo JAR, plugin JAR bytes, 269 installed package files"
+    ],
+    "excludes": [
+      "all database bytes",
+      "Halo-managed global publication notification subscriptions and tokens"
+    ]
+  },
+  "reuse": {
+    "officialPluginNativeNavigation": {
+      "document": "docs/validation/2026-10-17/combination-followup.md",
+      "runId": "08fef6d7823aca0aa4bf",
+      "cases": 6,
+      "nativeTransitions": 90,
+      "observedUnmarkedScript": "SearchWidget 1.8.0",
+      "rerun": false
+    },
+    "olderPjax": {
+      "document": "docs/validation/2026-10-14/pjax-completion.md",
+      "currentPackageAttribution": false
+    }
+  },
+  "limitations": [
+    "Two engines completed the fixed matrix; whole current three-engine core PJAX acceptance remains failed.",
+    "Plugin-disabled core configuration is not enabled-official-plugin ecosystem PJAX. No plugin assets were removed or relabelled in a page.",
+    "Counter requests prove observed submissions and HTTP responses, not database balances, visitor deduplication or remote analytics.",
+    "No comment drafts/submission/replies, dark/desktop, physical devices, scroll position restoration, performance or full 1.0 acceptance claim.",
+    "Previous official-plugin native navigation evidence retains separate run/package attribution.",
+    "Frontend exception has message only, no stack; suspected component is not established."
+  ],
+  "productionChanges": false,
+  "connectionWorkaround": false,
+  "rawPrivacy": "Raw fixture HTML, private config snapshots and runtime files stay local; no credentials or original site content copied into this summary.",
+  "diagnostic": {
+    "runId": "e12abc1e2113057337c5",
+    "profile": "chromium-diagnostic",
+    "status": "passed-tested-scope",
+    "interpretation": "single diagnostic did not reproduce original error; does not change failed three-engine matrix",
+    "engine": "chromium",
+    "version": "153.0.8010.12",
+    "completedCheckpoints": 14,
+    "completedPjaxTransitions": 12,
+    "completedNativeTransitions": 1,
+    "requests": 86,
+    "counterPosts": 14,
+    "timelineEvents": 133,
+    "pageErrors": [],
+    "pageErrorDetails": [],
+    "allObservedRequestsFinished200": true,
+    "raw": {
+      "runner": {
+        "path": ".runtime/performance-followup/halo-lab/navigation-followup/e12abc1e2113057337c5/report.json",
+        "sha256": "b87d19102d7d599d469f836b2daa0efd328a9ac37b4aecd7d10dec94b53f9809"
+      },
+      "browser": {
+        "path": ".runtime/performance-followup/halo-lab/navigation-followup/e12abc1e2113057337c5/browser-report.json",
+        "sha256": "e5df8ccec02c73cf01ec289f03504f1249691206fd2b7243a9d64999a218ec85"
+      },
+      "fixture": {
+        "path": ".runtime/performance-followup/halo-lab/navigation-followup/e12abc1e2113057337c5/fixture.json",
+        "sha256": "eeb79ab7a50ebb164d266cdd276be5ce190397253b029a726d4141c8ded3b31c"
+      },
+      "coordinator": {
+        "path": ".runtime/usage-followup-20261017/navigation-attempt-02/navigation-plugins.json",
+        "sha256": "a2e5bcf2adada17c8187dd7a487dc3fd5e9b63486636fe474fb435756619cc4d"
+      },
+      "console": {
+        "path": ".runtime/usage-followup-20261017/navigation-attempt-02/console.log",
+        "sha256": "48e451a3a30f99c6aada6549be56d44bf0ef04800f8a174d9b7f64f720317d4c"
+      }
+    },
+    "tools": {
+      "run.py": {
+        "path": ".runtime/usage-followup-20261017/navigation-attempt-02/run.py",
+        "sha256": "24e43fa12c850efd62e85dc56b43ec29878f0314192c55da1a9699580b635b6e"
+      },
+      "check.mjs": {
+        "path": ".runtime/usage-followup-20261017/navigation-attempt-02/check.mjs",
+        "sha256": "a97ee180573935fbbee3c742fc6fccf8784e519d88277e32cae14c781ccfc938"
+      },
+      "README.md": {
+        "path": ".runtime/usage-followup-20261017/navigation-attempt-02/README.md",
+        "sha256": "f2f863e832c12f10261b5973b4f87f36db7582eefb3c01e2db4f7f7f4d84ee13"
+      },
+      "navigation-coordinator.py": {
+        "path": ".runtime/usage-followup-20261017/navigation-attempt-02/navigation-coordinator.py",
+        "sha256": "0b83e793c2fc0210b559324c7c97d73b3f1db8f2594c468d041f1f72818d4e39"
+      }
+    },
+    "restoration": {
+      "runnerBeforeEqualsAfter": true,
+      "identityEqual": true,
+      "runnerRestorationVerified": true,
+      "coordinatorBeforeEqualsAfter": true,
+      "coordinatorRestorationVerified": true,
+      "ownedPostsDeleted": 3,
+      "lockReleased": true,
+      "errors": []
+    },
+    "measurementChanges": [
+      "Chromium only, same fixed 14-checkpoint sequence and unchanged actions/readiness/assertions",
+      "Read-only page/window errors, stack/URL/stage/time, lightbox host changes and existing PJAX events",
+      "Binding Promise rejection during document disposal ignored only for diagnostic transport; original page errors still recorded and asserted"
+    ],
+    "noFurtherSampling": true
+  },
+  "independentReview": {
+    "path": ".runtime/usage-followup-20261017/navigation-independent-review.json",
+    "sha256": "661db3ea2d2ae15af0d08315dcbc41e7bc829aa5c34a04be84271a6178ada18a",
+    "result": "record-accuracy passed; original navigation matrix remains failed"
+  }
+}

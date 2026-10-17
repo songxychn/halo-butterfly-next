@@ -1,8 +1,8 @@
-# 评论增强首批
+# 官方评论增强
 
 只使用 Halo 官方 CommentWidget，当前基线 >=3.3.2；不配置第三方评论提供方。文章及单页的评论挂载、提交、回复和计数沿用已有实现。需求跟踪 [#386](https://github.com/songxychn/halo-butterfly-next/issues/386)，范围服从 [DEC-01](https://github.com/songxychn/halo-butterfly-next/issues/46#issuecomment-5682055297)。
 
-## 评论懒加载（后续批次）
+## 评论延迟挂载
 
 需求跟踪 [#407](https://github.com/songxychn/halo-butterfly-next/issues/407)。`comments.lazyload` 默认 `false`；缺字段、`false` 或字符串 `false` 都沿用原 `<halo:comment>` 接入。开启后，文章和单页评论区进入视口上下 300px 邻近范围即加载官方组件；点击同页评论跳转、直接打开 `#post-comment` 或历史导航到此锚点立即加载。无 IntersectionObserver 时立即加载。
 
@@ -45,6 +45,10 @@
 `bun run verify` 包括排序、安全投影、缓存、权限筛选、设置兼容和工具栏排序回归。真实 Halo 检查使用任务专属合成站、固定 Halo 2.26.1 / CommentWidget 3.3.2 与独立无头浏览器，运行脚本为 `scripts/comment-enhancements/check.mjs`；需显式本地 origin、lab 归属、包/提交摘要及合成写入许可。每次使用新输出目录保存失败；配置和权限在 finally 恢复并读回。准备脚本创建的合成评论和内容留在该站供追溯。
 
 [本轮限定验证](validation/2026-10-11/comment-enhancements.md)记录合并后的 594 项工程测试、三引擎 48 项合成站检查、Firefox 历史前进修复、原始失败报告和截图。
+
+当前包的[真实使用补证](validation/2026-10-17/comment-usage-followup.md)分批走通五种浏览器／登录组合的草稿保存、真实离开确认、返回恢复、父评论提交、回复失败保留与再次提交、刷新后无重复显示。只有 Chromium 匿名／登录两例通过整例网络门禁；Firefox 匿名加载超时、Firefox 登录残留图片请求，以及 WebKit 两例切页字体取消分别保留，不把字体取消直接归因于 Halo 连接读取缺陷。插件停用／恢复另有三引擎共 6 条读取检查通过，其父评论和回复由 API 创建，只作为生命周期夹具，不计入 UI 提交证据。
+
+以上补证使用自有 Post、官方 CommentWidget 3.3.2 和 `comments.lazyload=false`；不替代单页、Moment、延迟挂载完整配置或整个 PLG-03 合同。每批临时正文与评论清理，配置及既有内容按记录核对；Halo 自动轮换的精确全局评论通知订阅按语义单列，不还原旧 token，也不声称所有通知对象身份未变。
 
 首批记录不含评论懒挂载，后续实现见上文。首屏零评论资源下载已按[1.0 延期决定](parity/DEC-03-1.0-DEFERRALS.md)移出 1.0（版本未定）；真实 Safari/手机键盘/屏幕阅读器和完整双站合同仍未完成。矩阵只提升对应实现条目到 implemented-unverified，不提升 verified；设置默认快照重新冻结，旧性能结果不迁移到新包。
 

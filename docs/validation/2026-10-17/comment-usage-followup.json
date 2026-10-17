@@ -1,0 +1,898 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "result": "incomplete",
+  "scope": "Official CommentWidget real usage and independent disable/restore reading lifecycle",
+  "identity": {
+    "installed": {
+      "name": "candidate-d678d3f.zip",
+      "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    },
+    "haloSha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc",
+    "packageFiles": 269,
+    "pluginJars": {
+      "PluginCommentWidget-3.3.2.jar": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+      "PluginFeed-1.5.0.jar": "d7e97df76e502c0f1bd0605d4f3a6dc8b047ed20e1de50fbbed992e95fd33a87",
+      "PluginLinks-2.3.0.jar": "96ec593d97912f6f3069cc184004389459ac842cea20212eb664c2ca19862f86",
+      "PluginMoments-1.18.0.jar": "f4f5fd5a35fffca6da80405b72546aa5ce55601c240c353fd63fc9dfbe1e41bc",
+      "PluginPhotos-2.1.2.jar": "ef8d9507b60c2b6f268dc1574bd19ece4c4dd6dd33de09ff5dab6f640e5e267e",
+      "PluginSearchWidget-1.8.0.jar": "4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d",
+      "PluginSitemap-1.3.0.jar": "06cccf55a6d6e9369c818de7a52049fddb4b7f20bb83af52ebc329f89a637c8e",
+      "ai-foundation-1.0.0.jar": "7edd2af4cf97822c57a73131ad0b7810b1332e97b8e1584c6404d9f5d23fb5a4",
+      "app-store-integration-1.18.1.jar": "e193bd12852eab31e6edda1803c538f4a180f1454d14634381e6cef26c74e952",
+      "editor-hyperlink-card-1.9.1.jar": "6467f51804e6bf3e4ef62dd1bfc230d60a6efabcf8418e4e05f23a1930b9be56",
+      "plugin-halo-butterfly-layout-probe-0.0.1.jar": "89dc40d823c5132502112bd109f82af3f59f2a36a409ec11f5ca68a613857a5a",
+      "plugin-katex-3.0.0.jar": "e444781b99c23b020fcc379f6859ce67dc7669536c880004f7bf7cce0ed2df96",
+      "shiki-1.3.2.jar": "afbc17749cfcf4c2af5006222998517eaf1dbaf7d0d3f3af6f1976980bbdb319"
+    }
+  },
+  "strictUsage": {
+    "uniquePlanned": 6,
+    "passed": 2,
+    "passedCases": [
+      "chromium-anonymous",
+      "chromium-signed"
+    ],
+    "completeSevenFunctionalCheckpoints": 5,
+    "functionalCheckpointCompletionDoesNotOverrideNetworkFailure": true,
+    "remaining": [
+      "firefox-anonymous: initial document readiness timeout; no repeat",
+      "firefox-signed: seven checkpoints complete but avatar pending; no repeat",
+      "webkit-anonymous and webkit-signed: seven checkpoints complete using real keys but navigation font cancelled; strict failed"
+    ]
+  },
+  "lifecycle": {
+    "runId": "f206f97f6c62ec14d651",
+    "disabledPassed": 3,
+    "restoredPassed": 3,
+    "seedMethod": "official public API",
+    "notUiSubmissionEvidence": true
+  },
+  "batches": [
+    {
+      "runId": "e6060c04b23c518473b7",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e6060c04b23c518473b7/report.json",
+        "sha256": "bec7a57f7e09429e6af830f60cc1db331e053c736ceb8fe6ba8b0aa29e01720c"
+      },
+      "status": "failed",
+      "startedAt": "2026-10-17T11:37:26Z",
+      "finishedAt": "2026-10-17T11:39:46Z",
+      "note": "Initial full-six: five rich-HTML/plain-text draft assertion failures; Firefox anonymous initial DOMContentLoaded timeout. Original restoration=false retained, separate reconciliation/unlock only.",
+      "runnerDigests": {
+        "run.py": "9ec172ad403d66c1efab2e521c1ff749d5442bb56c76b1dd0a4aafe60ec888b8",
+        "check.mjs": "2f8c0d290dc530410ff6d6d05d0c19d74453f8bdda069c665d54eb733a4fc786"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e6060c04b23c518473b7/runner-README.md",
+          "sha256": "6f53d3f4bc5a62b2b3bddf213f8a1cca54b1c951c7a1c9fc4311dd633829a78f"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e6060c04b23c518473b7/runner-check.mjs",
+          "sha256": "2f8c0d290dc530410ff6d6d05d0c19d74453f8bdda069c665d54eb733a4fc786"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e6060c04b23c518473b7/runner-run.py",
+          "sha256": "9ec172ad403d66c1efab2e521c1ff749d5442bb56c76b1dd0a4aafe60ec888b8"
+        }
+      ],
+      "cleanup": {
+        "created": 1,
+        "deleted": 1,
+        "restorationVerified": false,
+        "lockReleased": false,
+        "stationEqual": false,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "usage",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e6060c04b23c518473b7/usage-browser-report.json",
+            "sha256": "64c1f5676750391aa038e1dd3a0b2db384341a6bd16831ae942a5df924ca03cf"
+          },
+          "passed": 0,
+          "failed": 6,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "waitForFunction: Timeout 20000ms exceeded.\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:92:17\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "chromium-signed",
+              "engineVersion": "153.0.8010.12",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "waitForFunction: Timeout 20000ms exceeded.\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:92:17\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "firefox-anonymous",
+              "engineVersion": "155.0",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [
+                {
+                  "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/css/post.min.css?v=0.1.0-alpha.4",
+                  "method": "GET",
+                  "type": "stylesheet",
+                  "mainDocument": false,
+                  "state": "pending",
+                  "stage": "initial"
+                },
+                {
+                  "url": "http://127.0.0.1:18845/lab/avatar.svg",
+                  "method": "GET",
+                  "type": "image",
+                  "mainDocument": false,
+                  "state": "pending",
+                  "stage": "initial"
+                }
+              ],
+              "error": "goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:18845/archives/comment-usage-e6060c04b23c518473b7\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at <anonymous> (/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:63:61)\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:76:31\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "waitForFunction: Timeout 20000ms exceeded.\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:92:17\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "waitForFunction: Timeout 20000ms exceeded.\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:92:17\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-signed",
+              "engineVersion": "26.6",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "waitForFunction: Timeout 20000ms exceeded.\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:92:17\n    at processTicksAndRejections (native:7:39)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "6bfce0f24bacc66fce4f",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/6bfce0f24bacc66fce4f/report.json",
+        "sha256": "6da125aa9da55df87997c2658901dde442cc4aab62a9aabde46064ea6ee0c8df"
+      },
+      "status": "failed",
+      "startedAt": "2026-10-17T11:45:04Z",
+      "finishedAt": "2026-10-17T11:46:23Z",
+      "note": "Corrected-five: Chromium two and Firefox signed reached parent200 then toast title/detail assertion failed; WebKit two empty editor after fill. Firefox anonymous excluded.",
+      "runnerDigests": {
+        "run.py": "e86f0af89eecca4ea9b4923df0e3050fb60be7fd42d3e6be7979234dd09a6f5e",
+        "check.mjs": "d2205f103590a0d170efc559bf4398ae821670b3bd0a188c7a59311da94d75dd"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/6bfce0f24bacc66fce4f/runner-README.md",
+          "sha256": "05976d2665cb3583057466d38adf710e0b684de65813eda990dd84d1b35f0b98"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/6bfce0f24bacc66fce4f/runner-check.mjs",
+          "sha256": "d2205f103590a0d170efc559bf4398ae821670b3bd0a188c7a59311da94d75dd"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/6bfce0f24bacc66fce4f/runner-run.py",
+          "sha256": "e86f0af89eecca4ea9b4923df0e3050fb60be7fd42d3e6be7979234dd09a6f5e"
+        }
+      ],
+      "cleanup": {
+        "created": 7,
+        "deleted": 7,
+        "restorationVerified": true,
+        "lockReleased": true,
+        "stationEqual": true,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "usage",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/6bfce0f24bacc66fce4f/usage-browser-report.json",
+            "sha256": "a07d7bf436e9ea8ffbb4d5e25ac3054d6c8e4e51d1a72a371237c41c27b14082"
+          },
+          "passed": 0,
+          "failed": 5,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared"
+              ],
+              "networkExceptions": [],
+              "error": "waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('合成服务不可用', { exact: true }) to be visible\u001b[22m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:110:51\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "chromium-signed",
+              "engineVersion": "153.0.8010.12",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared"
+              ],
+              "networkExceptions": [],
+              "error": "waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('合成服务不可用', { exact: true }) to be visible\u001b[22m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:110:51\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared"
+              ],
+              "networkExceptions": [
+                {
+                  "url": "http://127.0.0.1:18845/lab/avatar.svg",
+                  "method": "GET",
+                  "type": "image",
+                  "mainDocument": false,
+                  "state": "failed",
+                  "stage": "draft-leave",
+                  "failure": "NS_BINDING_ABORTED"
+                },
+                {
+                  "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/butterfly-brands.woff2",
+                  "method": "GET",
+                  "type": "font",
+                  "mainDocument": false,
+                  "state": "failed",
+                  "stage": "draft-leave",
+                  "failure": "NS_BINDING_ABORTED"
+                }
+              ],
+              "error": "waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('合成服务不可用', { exact: true }) to be visible\u001b[22m\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:110:51\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\u001b[32mactual\u001b[39m \u001b[31mexpected\u001b[39m\n\n\u001b[39m'\u001b[39m\u001b[31mU\u001b[39m\u001b[31ms\u001b[39m\u001b[31ma\u001b[39m\u001b[31mg\u001b[39m\u001b[31me\u001b[39m\u001b[31m \u001b[39m\u001b[31mp\u001b[39m\u001b[31ma\u001b[39m\u001b[31mr\u001b[39m\u001b[31me\u001b[39m\u001b[31mn\u001b[39m\u001b[31mt\u001b[39m\u001b[31m \u001b[39m\u001b[31mw\u001b[39m\u001b[31me\u001b[39m\u001b[31mb\u001b[39m\u001b[31mk\u001b[39m\u001b[31mi\u001b[39m\u001b[31mt\u001b[39m\u001b[31m-\u001b[39m\u001b[31ma\u001b[39m\u001b[31mn\u001b[39m\u001b[31mo\u001b[39m\u001b[31mn\u001b[39m\u001b[31my\u001b[39m\u001b[31mm\u001b[39m\u001b[31mo\u001b[39m\u001b[31mu\u001b[39m\u001b[31ms\u001b[39m\u001b[31m \u001b[39m\u001b[31m6\u001b[39m\u001b[31mb\u001b[39m\u001b[31mf\u001b[39m\u001b[31mc\u001b[39m\u001b[31me\u001b[39m\u001b[31m0\u001b[39m\u001b[31mf\u001b[39m\u001b[31m2\u001b[39m\u001b[31m4\u001b[39m\u001b[31mb\u001b[39m\u001b[31ma\u001b[39m\u001b[31mc\u001b[39m\u001b[31mc\u001b[39m\u001b[31m6\u001b[39m\u001b[31m6\u001b[39m\u001b[31mf\u001b[39m\u001b[31mc\u001b[39m\u001b[31me\u001b[39m\u001b[31m4\u001b[39m\u001b[31mf\u001b[39m\u001b[39m'\u001b[39m\n\n    at <anonymous> (/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:70:132)\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-signed",
+              "engineVersion": "26.6",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\u001b[32mactual\u001b[39m \u001b[31mexpected\u001b[39m\n\n\u001b[39m'\u001b[39m\u001b[31mU\u001b[39m\u001b[31ms\u001b[39m\u001b[31ma\u001b[39m\u001b[31mg\u001b[39m\u001b[31me\u001b[39m\u001b[31m \u001b[39m\u001b[31mp\u001b[39m\u001b[31ma\u001b[39m\u001b[31mr\u001b[39m\u001b[31me\u001b[39m\u001b[31mn\u001b[39m\u001b[31mt\u001b[39m\u001b[31m \u001b[39m\u001b[31mw\u001b[39m\u001b[31me\u001b[39m\u001b[31mb\u001b[39m\u001b[31mk\u001b[39m\u001b[31mi\u001b[39m\u001b[31mt\u001b[39m\u001b[31m-\u001b[39m\u001b[31ms\u001b[39m\u001b[31mi\u001b[39m\u001b[31mg\u001b[39m\u001b[31mn\u001b[39m\u001b[31me\u001b[39m\u001b[31md\u001b[39m\u001b[31m \u001b[39m\u001b[31m6\u001b[39m\u001b[31mb\u001b[39m\u001b[31mf\u001b[39m\u001b[31mc\u001b[39m\u001b[31me\u001b[39m\u001b[31m0\u001b[39m\u001b[31mf\u001b[39m\u001b[31m2\u001b[39m\u001b[31m4\u001b[39m\u001b[31mb\u001b[39m\u001b[31ma\u001b[39m\u001b[31mc\u001b[39m\u001b[31mc\u001b[39m\u001b[31m6\u001b[39m\u001b[31m6\u001b[39m\u001b[31mf\u001b[39m\u001b[31mc\u001b[39m\u001b[31me\u001b[39m\u001b[31m4\u001b[39m\u001b[31mf\u001b[39m\u001b[39m'\u001b[39m\n\n    at <anonymous> (/Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:70:132)\n    at processTicksAndRejections (native:7:39)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "db27de6efccd937f043c",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/db27de6efccd937f043c/report.json",
+        "sha256": "307991dba48802b383040f67f4d43474622c82cbfcc4a9f6bae7c0366fe6660d"
+      },
+      "status": "failed",
+      "startedAt": "2026-10-17T11:48:49Z",
+      "finishedAt": "2026-10-17T11:49:16Z",
+      "note": "Reply-three: Chromium two passed. Firefox signed completed seven functional checkpoints but avatar request remained pending; whole case failed and was not repeated.",
+      "runnerDigests": {
+        "run.py": "c4da7d2c57739205bc2cd3bf64bbba7cc1f4ac7c1de5d230a547ced4f656f0fa",
+        "check.mjs": "352434a0c6958abc8525f24cf67ddf0b09e4f24a58aa8b4a89c284599decfd9a"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/db27de6efccd937f043c/runner-README.md",
+          "sha256": "fd29edacafec3f9a4f96efdbdb39b02524f2a5d42113b2f2aa1cf8096a43d049"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/db27de6efccd937f043c/runner-check.mjs",
+          "sha256": "352434a0c6958abc8525f24cf67ddf0b09e4f24a58aa8b4a89c284599decfd9a"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/db27de6efccd937f043c/runner-run.py",
+          "sha256": "c4da7d2c57739205bc2cd3bf64bbba7cc1f4ac7c1de5d230a547ced4f656f0fa"
+        }
+      ],
+      "cleanup": {
+        "created": 10,
+        "deleted": 10,
+        "restorationVerified": true,
+        "lockReleased": true,
+        "stationEqual": true,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "usage",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/db27de6efccd937f043c/usage-browser-report.json",
+            "sha256": "277e29ffc9d6d5b0592bf1ff471c903175f9141dc43eed928fda4a5f56930f70"
+          },
+          "passed": 2,
+          "failed": 1,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "passed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared",
+                "reply-503-editor-and-draft-retained",
+                "real-reply-retry-200-draft-cleared",
+                "refresh-one-parent-one-reply"
+              ],
+              "networkExceptions": [],
+              "error": null
+            },
+            {
+              "id": "chromium-signed",
+              "engineVersion": "153.0.8010.12",
+              "width": 1440,
+              "signedIn": true,
+              "status": "passed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared",
+                "reply-503-editor-and-draft-retained",
+                "real-reply-retry-200-draft-cleared",
+                "refresh-one-parent-one-reply"
+              ],
+              "networkExceptions": [],
+              "error": null
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared",
+                "reply-503-editor-and-draft-retained",
+                "real-reply-retry-200-draft-cleared",
+                "refresh-one-parent-one-reply"
+              ],
+              "networkExceptions": [
+                {
+                  "url": "http://127.0.0.1:18845/lab/avatar.svg",
+                  "method": "GET",
+                  "type": "image",
+                  "mainDocument": false,
+                  "state": "pending",
+                  "stage": "draft-leave"
+                }
+              ],
+              "error": "AssertionError [ERR_ASSERTION]: Pending network requests\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m [\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     mainDocument: false,\n\u001b[32m+\u001b[39m     method: 'GET',\n\u001b[32m+\u001b[39m     stage: 'draft-leave',\n\u001b[32m+\u001b[39m     state: 'pending',\n\u001b[32m+\u001b[39m     type: 'image',\n\u001b[32m+\u001b[39m     url: 'http://127.0.0.1:18845/lab/avatar.svg'\n\u001b[32m+\u001b[39m   }\n\u001b[32m+\u001b[39m ]\n\u001b[31m-\u001b[39m []\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:118:12\n    at processTicksAndRejections (native:7:39)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "a4aac9416852bfdcdf91",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/a4aac9416852bfdcdf91/report.json",
+        "sha256": "605f8cde999e59187f498f948ff50a401a8220212cb5c0ac2dd4852ce7a5559d"
+      },
+      "status": "failed",
+      "startedAt": "2026-10-17T11:54:04Z",
+      "finishedAt": "2026-10-17T11:54:19Z",
+      "note": "WebKit keyboard-two: both completed seven functional checkpoints but navigation-time font cancellation failed strict network gate; no pending. Not proven Halo connection-read failure.",
+      "runnerDigests": {
+        "run.py": "fa3c713f329dce7d6f3f9be353c4f2addec7de726769b7b4b4fc15a2e6dfe431",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "check.mjs": "9bfaa06e9d47067adf3524fab6a1182e8a10aa32f7548d280621c6d42cfbbaa5"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/a4aac9416852bfdcdf91/runner-README.md",
+          "sha256": "a5b3d8cb2160ff13fb17f4a115576070a668e7d73180ee9345714d855478fbe5"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/a4aac9416852bfdcdf91/runner-check.mjs",
+          "sha256": "9bfaa06e9d47067adf3524fab6a1182e8a10aa32f7548d280621c6d42cfbbaa5"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/a4aac9416852bfdcdf91/runner-diagnose-webkit-input.mjs",
+          "sha256": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/a4aac9416852bfdcdf91/runner-run.py",
+          "sha256": "fa3c713f329dce7d6f3f9be353c4f2addec7de726769b7b4b4fc15a2e6dfe431"
+        }
+      ],
+      "cleanup": {
+        "created": 8,
+        "deleted": 8,
+        "restorationVerified": true,
+        "lockReleased": true,
+        "stationEqual": true,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "usage",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/a4aac9416852bfdcdf91/usage-browser-report.json",
+            "sha256": "1e3ed541c83dc953fa0bd30a1b62bf41f7659c21945c29b5b2b87e0775f6c720"
+          },
+          "passed": 0,
+          "failed": 2,
+          "cases": [
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared",
+                "reply-503-editor-and-draft-retained",
+                "real-reply-retry-200-draft-cleared",
+                "refresh-one-parent-one-reply"
+              ],
+              "networkExceptions": [
+                {
+                  "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/butterfly-brands.woff2",
+                  "method": "GET",
+                  "type": "font",
+                  "mainDocument": false,
+                  "state": "failed",
+                  "stage": "draft-leave",
+                  "failure": "cancelled"
+                }
+              ],
+              "error": "AssertionError [ERR_ASSERTION]: Unexpected failed requests\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m [\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     failure: 'cancelled',\n\u001b[32m+\u001b[39m     mainDocument: false,\n\u001b[32m+\u001b[39m     method: 'GET',\n\u001b[32m+\u001b[39m     stage: 'draft-leave',\n\u001b[32m+\u001b[39m     state: 'failed',\n\u001b[32m+\u001b[39m     type: 'font',\n\u001b[32m+\u001b[39m     url: 'http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/butterfly-brands.woff2'\n\u001b[32m+\u001b[39m   }\n\u001b[32m+\u001b[39m ]\n\u001b[31m-\u001b[39m []\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:121:12\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-signed",
+              "engineVersion": "26.6",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [
+                "draft-saved",
+                "draft-leave-dismissed",
+                "draft-restored-after-native-return",
+                "real-parent-200-draft-cleared",
+                "reply-503-editor-and-draft-retained",
+                "real-reply-retry-200-draft-cleared",
+                "refresh-one-parent-one-reply"
+              ],
+              "networkExceptions": [
+                {
+                  "url": "http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/butterfly-brands.woff2",
+                  "method": "GET",
+                  "type": "font",
+                  "mainDocument": false,
+                  "state": "failed",
+                  "stage": "draft-leave",
+                  "failure": "cancelled"
+                }
+              ],
+              "error": "AssertionError [ERR_ASSERTION]: Unexpected failed requests\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m [\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     failure: 'cancelled',\n\u001b[32m+\u001b[39m     mainDocument: false,\n\u001b[32m+\u001b[39m     method: 'GET',\n\u001b[32m+\u001b[39m     stage: 'draft-leave',\n\u001b[32m+\u001b[39m     state: 'failed',\n\u001b[32m+\u001b[39m     type: 'font',\n\u001b[32m+\u001b[39m     url: 'http://127.0.0.1:18845/themes/halo-butterfly-next/assets/plugins/fontawesome/webfonts/butterfly-brands.woff2'\n\u001b[32m+\u001b[39m   }\n\u001b[32m+\u001b[39m ]\n\u001b[31m-\u001b[39m []\n\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:121:12\n    at processTicksAndRejections (native:7:39)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "0c37ed2d875c60203356",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/0c37ed2d875c60203356/report.json",
+        "sha256": "31443666cd1288f7da6464d87fd56bd556cbf0d32af740d02a9057bf3832e47b"
+      },
+      "status": "failed",
+      "startedAt": "2026-10-17T11:59:46Z",
+      "finishedAt": "2026-10-17T11:59:58Z",
+      "note": "Lifecycle-only API seed: disabled three failed wrong #article-container assertion; restored phase not run.",
+      "runnerDigests": {
+        "run.py": "0e8e55956ce22e38e5d2857967924bb2772647028f04f8df12c081d23f9fd3af",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "check.mjs": "b6baac02405e34e67ada5be0528b5f12cb61a53f50eff7d7d2e2d32c1ae298ab"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/0c37ed2d875c60203356/runner-README.md",
+          "sha256": "223f24950eca0e51ff886716c0dd9b31dd04d21a490c1e23d48c0197725c4357"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/0c37ed2d875c60203356/runner-check.mjs",
+          "sha256": "b6baac02405e34e67ada5be0528b5f12cb61a53f50eff7d7d2e2d32c1ae298ab"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/0c37ed2d875c60203356/runner-diagnose-webkit-input.mjs",
+          "sha256": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/0c37ed2d875c60203356/runner-run.py",
+          "sha256": "0e8e55956ce22e38e5d2857967924bb2772647028f04f8df12c081d23f9fd3af"
+        }
+      ],
+      "cleanup": {
+        "created": 4,
+        "deleted": 4,
+        "restorationVerified": true,
+        "lockReleased": true,
+        "stationEqual": true,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "disabled",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/0c37ed2d875c60203356/disabled-browser-report.json",
+            "sha256": "8bee067ac7303bfeccbb7516578c38e34f1fd392b81e637b97d6eb2ecb903c7c"
+          },
+          "passed": 0,
+          "failed": 3,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:87:125\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:87:125\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:87:125\n    at processTicksAndRejections (native:7:39)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "e15b626e935011640d0b",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e15b626e935011640d0b/report.json",
+        "sha256": "3f2301679fb54b74e155795bd7833f96ba92f8162f32f71161869f0f5f4a4e8a"
+      },
+      "status": "failed",
+      "startedAt": "2026-10-17T12:01:09Z",
+      "finishedAt": "2026-10-17T12:01:23Z",
+      "note": "Lifecycle-only API seed: disabled three failed exact heading accessible-name assertion; restored phase not run. Cause of name mismatch unproven; actual click_to_scroll=false.",
+      "runnerDigests": {
+        "run.py": "0e8e55956ce22e38e5d2857967924bb2772647028f04f8df12c081d23f9fd3af",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "check.mjs": "79e6fe3d3e8c81eecd335f72f747dafef92c479989f4389414148cacdd37d567"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e15b626e935011640d0b/runner-README.md",
+          "sha256": "223f24950eca0e51ff886716c0dd9b31dd04d21a490c1e23d48c0197725c4357"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e15b626e935011640d0b/runner-check.mjs",
+          "sha256": "79e6fe3d3e8c81eecd335f72f747dafef92c479989f4389414148cacdd37d567"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e15b626e935011640d0b/runner-diagnose-webkit-input.mjs",
+          "sha256": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e15b626e935011640d0b/runner-run.py",
+          "sha256": "0e8e55956ce22e38e5d2857967924bb2772647028f04f8df12c081d23f9fd3af"
+        }
+      ],
+      "cleanup": {
+        "created": 4,
+        "deleted": 4,
+        "restorationVerified": true,
+        "lockReleased": true,
+        "stationEqual": true,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "disabled",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/e15b626e935011640d0b/disabled-browser-report.json",
+            "sha256": "2051b4ca73b4d8bcb6e7632b566a0a3dc7d61387c5336427258322d26d818531"
+          },
+          "passed": 0,
+          "failed": 3,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:87:182\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:87:182\n    at processTicksAndRejections (native:7:39)"
+            },
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "failed",
+              "checkpoints": [],
+              "networkExceptions": [],
+              "error": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/baizhukui/.codex/worktrees/9285/halo-butterfly-next/scripts/acceptance/comments/check.mjs:87:182\n    at processTicksAndRejections (native:7:39)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "f206f97f6c62ec14d651",
+      "report": {
+        "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/report.json",
+        "sha256": "1c206ce6121ca58e4b067fd0c261e3b2f07b8df8b4567abf62e577bd2940351e"
+      },
+      "status": "passed-tested-scope",
+      "startedAt": "2026-10-17T12:03:45Z",
+      "finishedAt": "2026-10-17T12:04:07Z",
+      "note": "Lifecycle-only API seed: disabled three and restored three passed with visible article.render, visible direct h2 and exact h2 textContent. Not UI submission evidence.",
+      "runnerDigests": {
+        "run.py": "0e8e55956ce22e38e5d2857967924bb2772647028f04f8df12c081d23f9fd3af",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "check.mjs": "bc88bcc5577f2d4f740163fab84fe19e79b03ad236cbdd794facd1ba56443945"
+      },
+      "archivedRunners": [
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/runner-README.md",
+          "sha256": "223f24950eca0e51ff886716c0dd9b31dd04d21a490c1e23d48c0197725c4357"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/runner-check.mjs",
+          "sha256": "bc88bcc5577f2d4f740163fab84fe19e79b03ad236cbdd794facd1ba56443945"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/runner-diagnose-webkit-input.mjs",
+          "sha256": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b"
+        },
+        {
+          "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/runner-run.py",
+          "sha256": "0e8e55956ce22e38e5d2857967924bb2772647028f04f8df12c081d23f9fd3af"
+        }
+      ],
+      "cleanup": {
+        "created": 4,
+        "deleted": 4,
+        "restorationVerified": true,
+        "lockReleased": true,
+        "stationEqual": true,
+        "identityEqual": true
+      },
+      "phases": [
+        {
+          "phase": "disabled",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/disabled-browser-report.json",
+            "sha256": "20e86d22e0bccbbcd09d7f463f6279fcda35fa2ba4500de334ccaac2950f4587"
+          },
+          "passed": 3,
+          "failed": 0,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "passed",
+              "checkpoints": [
+                "official-plugin-disabled-core-and-fallback"
+              ],
+              "networkExceptions": [],
+              "error": null
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "passed",
+              "checkpoints": [
+                "official-plugin-disabled-core-and-fallback"
+              ],
+              "networkExceptions": [],
+              "error": null
+            },
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "passed",
+              "checkpoints": [
+                "official-plugin-disabled-core-and-fallback"
+              ],
+              "networkExceptions": [],
+              "error": null
+            }
+          ]
+        },
+        {
+          "phase": "restored",
+          "raw": {
+            "path": ".runtime/performance-followup/halo-lab/comment-usage-followup/f206f97f6c62ec14d651/restored-browser-report.json",
+            "sha256": "ae5bf8bed72207afb4e1e52a240eb922be320391ada387906ea06bf57cc8c183"
+          },
+          "passed": 3,
+          "failed": 0,
+          "cases": [
+            {
+              "id": "chromium-anonymous",
+              "engineVersion": "153.0.8010.12",
+              "width": 390,
+              "signedIn": false,
+              "status": "passed",
+              "checkpoints": [
+                "official-plugin-restored-declared-parents-and-replies"
+              ],
+              "networkExceptions": [],
+              "error": null
+            },
+            {
+              "id": "firefox-signed",
+              "engineVersion": "155.0",
+              "width": 1440,
+              "signedIn": true,
+              "status": "passed",
+              "checkpoints": [
+                "official-plugin-restored-declared-parents-and-replies"
+              ],
+              "networkExceptions": [],
+              "error": null
+            },
+            {
+              "id": "webkit-anonymous",
+              "engineVersion": "26.6",
+              "width": 390,
+              "signedIn": false,
+              "status": "passed",
+              "checkpoints": [
+                "official-plugin-restored-declared-parents-and-replies"
+              ],
+              "networkExceptions": [],
+              "error": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notificationBoundary": {
+    "onlyDefaultEmailNotifier": true,
+    "smtpEnabled": false,
+    "smtpHostPresent": false,
+    "invalidEmailsOnly": true,
+    "officialAllowNotificationUnchanged": true,
+    "semanticException": "Only the exact enabled fixture-maintainer/new-comment-on-post/NonexistentKind subscription, expression props.postOwner == fixture-maintainer; token/name/timestamp rotations separately retained. All other original resources exact. See runner for exact quoted expression and shape.",
+    "firstBatchExactRestorationProven": false,
+    "reconciliation": {
+      "path": ".runtime/comment-usage-followup-20261017/first-batch-reconciliation.json",
+      "sha256": "e0bd587e3b3cedc1b73010663b86976b65d891cc9aee77312943c88c99c5e57c"
+    },
+    "unlock": {
+      "path": ".runtime/comment-usage-followup-20261017/first-batch-unlock.json",
+      "sha256": "0515d87267e4a751d36a3870331e53f7940e255f64959c41699f465aeae025c6"
+    }
+  },
+  "webkitDiagnostic": {
+    "result": "failed-partial",
+    "observations": 2,
+    "planned": 8,
+    "businessWritesBlocked": true,
+    "report": {
+      "path": ".runtime/comment-usage-followup-20261017/webkit-input-diagnostic/report.json",
+      "sha256": "d4cb86ba0fa4eeb73f5b4663487aaa2ae793f3494460eb44344cc4461cd4b605"
+    },
+    "conclusion": {
+      "path": ".runtime/comment-usage-followup-20261017/webkit-input-conclusion.json",
+      "sha256": "e784a553c21a05ad7fa9e731eec368b993a261b469529c510b90a00f4d728a4f"
+    },
+    "boundary": "DOM, official editor model and draft remained empty after fill, same observed node identities; later anonymous input locator failed. No complete timing/root-cause claim."
+  },
+  "rawManifest": {
+    "path": ".runtime/comment-usage-followup-20261017/raw-manifest.json",
+    "sha256": "c17b928f27cef905db426078767a86f91c9258a35069ca0c568dd0b43d4bdcc1"
+  },
+  "limitations": [
+    "No product or upstream changes.",
+    "Native navigation only; no PJAX or performance acceptance.",
+    "No email delivery, CAPTCHA, private comments, attachments, moderation, real devices or all configuration combinations.",
+    "No full accessibility acceptance or proved accessible-name mismatch root cause.",
+    "Original failure reports and restoration=false remain unchanged.",
+    "Source SHA is caller attribution; exact installed bytes are bound by package and 269-file comparison."
+  ],
+  "independentReview": {
+    "path": ".runtime/comment-usage-followup-20261017/independent-review.json",
+    "sha256": "c7caed6596b678d644d35bfa2998c78be1a7d2ac5c3a796686bffc33af82d31e",
+    "scope": "Reviewed seven frozen batches, source copies, raw evidence and pre-reference summary; limited conclusions accepted. No rerun."
+  }
+}
