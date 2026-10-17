@@ -4,6 +4,8 @@
 
 执行记录补充（2026-10-16，不修订条件）：PR #417 合并产品已完成[精确 CI 与独立构建核对](validation/2026-10-16/build-reproducibility.md)，并补充[加载协议/浏览器诊断](validation/2026-10-16/loading-followup.md)、[资源故障与 Pace 退场](validation/2026-10-16/perf03-fault-followup.md)、[原生图片 blur 范围/刷新](validation/2026-10-16/image-blur-options.md)。各记录明确受测提交、包摘要、首次失败与未覆盖范围，不代表 ENV/NET/EXT/PERF 或整个合同已通过；[作者图片映射](validation/2026-10-16/authored-image-mapping.md)仅提出下一步证据需求，未裁定降低初始输出要求。[本轮总索引](validation/2026-10-16/acceptance-followup.md)登记正式性能 142/160 有效及覆盖缺口，不能将有效组合的预算达标升级为完整性能通过。
 
+执行记录补充（2026-10-17，不修订条件）：按维护者确定的 RSS／站点地图 → 图片作者路径 → 已有功能组合顺序，补充[本轮证据索引](validation/2026-10-17/acceptance-followup.md)。本轮仍使用相同产品包，工具修正与失败批次单列；官方插件要求的原生导航回退不冒充 PJAX 生命周期通过。P0 及完整性能保持未通过，等待官方 Halo 修复，不采用临时连接绕行；兼容范围、延期决定与矩阵状态不变。
+
 v1.1 修订：[#46](https://github.com/songxychn/halo-butterfly-next/issues/46) 裁定 DEC-01 为平台替代。1.0 搜索/评论以官方 `PluginSearchWidget` / `PluginCommentWidget` 为唯一主题支持面；修订 PLG-02/03 与矩阵 `not-applicable` 规则。
 
 v1.2 修订：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45) 裁定 DEC-02。1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS，主题不解析 `{% %}`；series/flink 活数据延期 1.1。DEC-01 的 `not-applicable` 不扩大到标签能力。此处为 v1.2 历史条件，正文输入和转换要求现以 v1.5 补充为准。

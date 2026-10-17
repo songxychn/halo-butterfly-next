@@ -1,0 +1,275 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "timezone": "Asia/Shanghai",
+  "kind": "rss-sitemap-limited-contract-followup",
+  "status": "scoped-passed-with-preserved-setup-failure",
+  "sourceSha": "d678d3f839347554d7f100996f87b23b571888df",
+  "artifact": {
+    "name": "candidate-d678d3f.zip",
+    "sha256": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+    "version": "0.1.0-alpha.4",
+    "sourceCommit": "d678d3f839347554d7f100996f87b23b571888df",
+    "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+  },
+  "halo": {
+    "version": "2.26.1",
+    "sha256": "7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc"
+  },
+  "installedFilesChecked": 269,
+  "runnerHead": "89e0871d4c24693e9dda62e90c008ba79ee28602",
+  "baseUrl": "http://127.0.0.1:18865",
+  "plugins": [
+    {
+      "name": "PluginFeed",
+      "version": "1.5.0",
+      "sha256": "d7e97df76e502c0f1bd0605d4f3a6dc8b047ed20e1de50fbbed992e95fd33a87",
+      "initialEnabled": false,
+      "finalEnabled": false
+    },
+    {
+      "name": "PluginSitemap",
+      "version": "1.3.0",
+      "sha256": "06cccf55a6d6e9369c818de7a52049fddb4b7f20bb83af52ebc329f89a637c8e",
+      "initialEnabled": false,
+      "finalEnabled": false
+    }
+  ],
+  "reader": {
+    "name": "reader",
+    "version": "3.26",
+    "plugins": [],
+    "addedDependency": "sgmllib3k==1.0.0",
+    "beforeDependencies": {
+      "path": ".runtime/rss-sitemap-followup/attempt-01/reader-requirements.txt",
+      "sha256": "cb39d906905651460a75b9220481254b3b48c9e5f817178dbe66d0900323a2ce"
+    },
+    "afterDependencies": {
+      "path": ".runtime/rss-sitemap-followup/attempt-02/reader-requirements-final.txt",
+      "sha256": "0b31a11b57697d21e9ccad5989fee1cb0d5e383cf182b25a1d71daa7358883b8"
+    },
+    "phaseSequence": [
+      "initial",
+      "updated",
+      "repeat",
+      "private-fresh"
+    ],
+    "persistedEntryId": "/archives/feed-followup-d8a6ba45450900031e1b06b0-public",
+    "updateModified": 1,
+    "repeatNew": 0,
+    "repeatModified": 0,
+    "initialUpdatedRepeatReadAfter": true,
+    "freshSyntheticEntries": 0,
+    "existingSubscriberRefreshAfterPrivacyChangeTested": false,
+    "python": "3.11.15",
+    "minimumPython": "3.11"
+  },
+  "mainRuns": [
+    {
+      "runId": "5e1005de5acc3ed0549a3334",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/5e1005de5acc3ed0549a3334/report.json",
+        "sha256": "908fb9dbd8ea0f54f53796e48a02005a17258900fc6059f50331ae2a541f6824"
+      },
+      "frozenDirectory": ".runtime/rss-sitemap-followup/attempt-01",
+      "status": "failed",
+      "httpStages": [
+        "public-private-draft",
+        "head-footer-canonical"
+      ],
+      "readerPhases": [
+        {
+          "phase": "initial",
+          "exitCode": 1,
+          "status": "failed",
+          "error": {
+            "type": "ModuleNotFoundError",
+            "message": "No module named 'sgmllib'"
+          },
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/5e1005de5acc3ed0549a3334/reader-initial.json",
+            "sha256": "51cb62585c9d5d5965afac6684702e9c67024c21e97c228dc24c4b7303383473"
+          }
+        }
+      ],
+      "httpResponseCount": 4,
+      "created": 3,
+      "cleanup404": 3,
+      "stationRestored": true,
+      "artifactIdentityRestored": true,
+      "runnerSha256": "f78da0b71f40bf5825fc9b7f7ed8c0bb29278810e955c5314bd39317df9ff7e4",
+      "readerRunnerSha256": "9ee71f3358b4b0619152a15e8840028cc21d904f4a86ee47ddfc0baac675cdbb",
+      "checkModuleSha256": "86514f230a27631961a42ad5e323c9f6a065df44b2b0f08f4fa79752f3b75c78"
+    },
+    {
+      "runId": "d8a6ba45450900031e1b06b0",
+      "raw": {
+        "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/d8a6ba45450900031e1b06b0/report.json",
+        "sha256": "241d5a467c165d750480806468678cfb3787525ed3ba7cb9bec7f31a50765dd3"
+      },
+      "frozenDirectory": ".runtime/rss-sitemap-followup/attempt-02",
+      "status": "completed",
+      "httpStages": [
+        "public-private-draft",
+        "head-footer-canonical",
+        "published-update",
+        "public-to-private",
+        "settings-False-True",
+        "settings-True-False",
+        "settings-False-False",
+        "disabled-feed",
+        "restarted-feed",
+        "disabled-sitemap",
+        "restarted-sitemap"
+      ],
+      "readerPhases": [
+        {
+          "phase": "initial",
+          "exitCode": 0,
+          "status": "passed",
+          "error": null,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/d8a6ba45450900031e1b06b0/reader-initial.json",
+            "sha256": "51b8dd104618e0154efeee47730e7188973f258cf40b8fc852f8988357c2476e"
+          }
+        },
+        {
+          "phase": "updated",
+          "exitCode": 0,
+          "status": "passed",
+          "error": null,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/d8a6ba45450900031e1b06b0/reader-updated.json",
+            "sha256": "2e09d3e8982054d505349c3570c322b900da10a6dec5a2259239680669672be4"
+          }
+        },
+        {
+          "phase": "repeat",
+          "exitCode": 0,
+          "status": "passed",
+          "error": null,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/d8a6ba45450900031e1b06b0/reader-repeat.json",
+            "sha256": "c76e91a3b3ad91233851ba9b60849e1114fa53842b4fb797650be1908a3740e9"
+          }
+        },
+        {
+          "phase": "private-fresh",
+          "exitCode": 0,
+          "status": "passed",
+          "error": null,
+          "raw": {
+            "path": ".runtime/authored-images/halo-lab/feed-sitemap-followup/d8a6ba45450900031e1b06b0/reader-private-fresh.json",
+            "sha256": "6fb6d02278b8511d95d900d7f174a612127bd7344be6e77e635856d90adcbce5"
+          }
+        }
+      ],
+      "httpResponseCount": 137,
+      "created": 3,
+      "cleanup404": 3,
+      "stationRestored": true,
+      "artifactIdentityRestored": true,
+      "runnerSha256": "f78da0b71f40bf5825fc9b7f7ed8c0bb29278810e955c5314bd39317df9ff7e4",
+      "readerRunnerSha256": "9ee71f3358b4b0619152a15e8840028cc21d904f4a86ee47ddfc0baac675cdbb",
+      "checkModuleSha256": "86514f230a27631961a42ad5e323c9f6a065df44b2b0f08f4fa79752f3b75c78"
+    }
+  ],
+  "cachePropagation": {
+    "publishedUpdateSitemap": {
+      "polls": 55,
+      "propagationSeconds": 27.687
+    },
+    "privateSitemap": {
+      "polls": 58,
+      "propagationSeconds": 29.192
+    },
+    "privateRSS": {
+      "polls": 2,
+      "propagationSeconds": 0.542
+    },
+    "sitemapLimitSeconds": 35,
+    "rssLimitSeconds": 10
+  },
+  "absenceRun": {
+    "runId": "7f9e5c4f4a582cb2fcd39524",
+    "raw": {
+      "path": ".runtime/authored-images/halo-lab/feed-sitemap-absent-followup/7f9e5c4f4a582cb2fcd39524/evidence.json",
+      "sha256": "21469b572a815f329dd312bfdd449b2745643a56efe6f42b537d55c1a2f4ba31"
+    },
+    "frozenDirectory": ".runtime/rss-sitemap-followup/absent-01",
+    "status": "passed",
+    "stages": [
+      {
+        "stage": "absent-feed",
+        "resourceStatus": 404,
+        "routeStatus": 404,
+        "originalCreationTimestamp": "2026-10-16T14:56:22.514963Z",
+        "headFooter": {
+          "rssHead": 0,
+          "sitemapHead": 1,
+          "rssFooter": 0,
+          "sitemapFooter": 1,
+          "canonical": null
+        },
+        "result": "passed"
+      },
+      {
+        "stage": "reinstalled-feed",
+        "version": "1.5.0",
+        "sha256": "d7e97df76e502c0f1bd0605d4f3a6dc8b047ed20e1de50fbbed992e95fd33a87",
+        "creationTimestamp": "2026-10-17T03:10:02.096693Z",
+        "result": "passed"
+      },
+      {
+        "stage": "absent-sitemap",
+        "resourceStatus": 404,
+        "routeStatus": 404,
+        "originalCreationTimestamp": "2026-10-16T14:56:22.528238Z",
+        "headFooter": {
+          "rssHead": 1,
+          "sitemapHead": 0,
+          "rssFooter": 1,
+          "sitemapFooter": 0,
+          "canonical": null
+        },
+        "result": "passed"
+      },
+      {
+        "stage": "reinstalled-sitemap",
+        "version": "1.3.0",
+        "sha256": "06cccf55a6d6e9369c818de7a52049fddb4b7f20bb83af52ebc329f89a637c8e",
+        "creationTimestamp": "2026-10-17T03:10:07.991575Z",
+        "result": "passed"
+      }
+    ],
+    "httpResponseCount": 8,
+    "restoration": {
+      "result": "passed",
+      "errors": []
+    },
+    "stationRestored": true,
+    "runnerSha256": "8c85874aed1a375ff70190ca044b3d038fdf6e6b5926afed5d3aab0edc21e2ae",
+    "checkModuleSha256": "86514f230a27631961a42ad5e323c9f6a065df44b2b0f08f4fa79752f3b75c78"
+  },
+  "independentReviews": [
+    {
+      "path": ".runtime/rss-sitemap-followup/main-review.json",
+      "sha256": "bdb05c931dba0dbe3f8c6842c3706361e9a14cb38f239e64db02f2afe7fdeeb6"
+    },
+    {
+      "path": ".runtime/rss-sitemap-followup/absent-review.json",
+      "sha256": "123df6e9cff0ffb5b97c3b53dd5144f8ec3e7ea933b89290a8d133b902f18d81"
+    }
+  ],
+  "productionChanges": false,
+  "temporaryConnectionMitigation": false,
+  "limitations": [
+    "Reader library with persistent SQLite; no desktop/mobile reader GUI or rendered-body image request claim.",
+    "Existing subscriber database was last refreshed before privatization. Only a fresh subscriber was tested after privatization.",
+    "First run remains failed due to missing sgmllib; no original report was overwritten.",
+    "Main-run requests.path is an archived response filename; identify endpoint via stage proof keys, reviewed script and XML root.",
+    "Absent plugin resource 404 was observed by reviewed bounded API polling; standalone resource API response bodies were not archived. Anonymous XML route 404 bodies were archived.",
+    "Target plugin creationTimestamp and JAR filenames may change on exact-version reinstall; configuration/content and all artifact bytes remain strict invariants.",
+    "This does not clear Halo connection failures, full performance, browser/device/visual gates or the whole 1.0 contract."
+  ]
+}
