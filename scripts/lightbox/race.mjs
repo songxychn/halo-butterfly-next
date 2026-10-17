@@ -35,6 +35,18 @@ const report={schema:1,expect,kind:'actual-compiled-theme-native-load-race',star
 ]};
 for(const file of ['src/js/modules/AmplifyImg.ts','src/js/core/page-lifecycle.ts','src/js/core/i18n.ts','node_modules/viewerjs/dist/viewer.esm.js','node_modules/viewerjs/dist/viewer.css','package.json','bun.lock']){const bytes=await readFile(path.join(REPO,file));report.sources[file]=sha256(bytes);await writeFile(path.join(output,file.replaceAll('/','__')),bytes);}
 const save=()=>writeFile(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');
+const finalErrorGate=(row,stage)=>{
+ const early=['capture-escape','capture-page-cleanup'].includes(row.id);
+ const expectedBaseline=expect==='baseline'&&early;
+ const priorFailure=row.harnessResult==='failed';
+ row.productResult=row.pageErrors.length?'failed':priorFailure?'unknown':'passed';
+ (row.finalErrorChecks??=[]).push({stage,pageErrors:row.pageErrors.length,expected:expectedBaseline?1:0});
+ try{
+  if(expectedBaseline){assert.equal(row.pageErrors.length,1);assert.match(row.pageErrors[0].message,/null.*style|style.*null/i);assert(row.pageErrors[0].stack.includes('/bundle.js'));}
+  else assert.deepEqual(row.pageErrors,[]);
+  if(!priorFailure)row.harnessResult=expectedBaseline?'expected-baseline-failure-captured':'passed';
+ }catch(error){row.harnessResult='failed';(row.finalGateErrors??=[]).push({stage,error:String(error.stack||error)});}
+};
 const bounded=async(fn,ms,label)=>{let t;try{return await Promise.race([fn(),new Promise((_,reject)=>{t=setTimeout(()=>reject(Error(label+' exceeded '+ms+'ms')),ms);})]);}finally{clearTimeout(t);}};
 const emptyGate=()=>{let release;return {promise:new Promise(r=>{release=r;}),release:()=>release()};};
 const snapshot=page=>page.evaluate(()=>{
@@ -133,6 +145,7 @@ try{
     Object.values(gates).forEach(g=>g.release());
     if(page)row.lastObservation=await bounded(()=>snapshot(page),1000,'Last observation').catch(error=>({error:String(error)}));
     if(context)await bounded(()=>context.close(),10000,'Context close').catch(error=>{row.harnessResult='failed';row.closeError=String(error);});
+    finalErrorGate(row,'after-context-close');
     await save();
    }
   }
@@ -140,6 +153,7 @@ try{
  }
 }finally{
  if(browser)await bounded(()=>browser.close(),10000,'Final browser close').catch(error=>{report.closeError=String(error);});
+ for(const row of report.cases)finalErrorGate(row,'before-final-summary');
  report.finishedAt=new Date().toISOString();report.productFailures=report.cases.filter(c=>c.productResult==='failed').length;
  report.result=report.cases.length===10&&report.cases.every(c=>['passed','expected-baseline-failure-captured'].includes(c.harnessResult))&&!report.closeError?(expect==='baseline'?'baseline-captured':'passed'):'harness-or-expectation-failed';
  await save();console.log(JSON.stringify({output,result:report.result,productFailures:report.productFailures,cases:report.cases.map(c=>({engine:c.engine,id:c.id,result:c.harnessResult,error:c.error}))}));
