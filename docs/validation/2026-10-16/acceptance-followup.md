@@ -13,7 +13,7 @@
 | 第三方故障与按需加载 | [15 个代表场景](perf03-fault-followup.md)验证延迟主题 JS、官方评论/KaTeX 503、外部 SDK 503/挂起，以及 Mermaid/ChartJS 正负控制；另有 3/3 实测 Pace 原 30 秒 watchdog 退出。不能扩展为所有提供商或全部 PERF-03 通过。 |
 | 原生图片 blur | [生命周期 9/9](image-blur-followup.md)及[开关/范围/刷新](image-blur-options.md)支持当前原生行为。首批 10/15 与补充 3/3 分开保留；Firefox/WebKit 缓存来源仍缺充分证据，CSS blur 不生成低清缩略图。 |
 | 作者图片初始 HTML | [映射调查](authored-image-mapping.md)区分主题图片片段、Halo 正文 HTML 和解析后 JS；后续编辑入口限定证据见下一行，不能用后补属性证明初始下载已延迟。 |
-| 作者图片编辑路径补证 | [后续专项](authored-image-editor.md)完成 12 例限定采集：8 例属性/普通 Markdown 语义保留，4 例有输入限制；三引擎 HTML 块保留 lazy/eager/srcset/picture，Markdown 块重开源转换和 Chromium 普通粘贴过滤明确记录。未覆盖全部入口、重开后再次保存或完整 EXT-03。 |
+| 作者图片编辑路径补证 | [后续专项](authored-image-editor.md)完成 12 例限定采集：8 例属性/普通 Markdown 语义保留，4 例有输入限制；三引擎 HTML 块保留 lazy/eager/srcset/picture，Markdown 块重开源转换和 Chromium 普通粘贴过滤明确记录。[后续记录](content-editor-followup.md)补充三引擎再次保存与停用编辑块插件后的读取边界；全部入口及完整 EXT-03 仍未覆盖。 |
 | 构建身份 | [精确 CI 与独立构建](build-reproducibility.md)确认 CI、全新本地源码构建与当前 ZIP 完全一致，269 个包文件。不是发布、部署或全部供应链条款通过。 |
 
 ## 正式性能矩阵
