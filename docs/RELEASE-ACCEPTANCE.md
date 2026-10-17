@@ -129,7 +129,7 @@ v1.9 修订：维护者于 2026-10-15 明确确认[资源优化与私有统计�
 
 Halo 的 [插件集成](https://docs.halo.run/developer-guide/theme/plugin-integration)规定插件能力按可用性和必要版本检查，评论通过 `haloCommentEnabled` 组合条件接入，页脚保留 `halo:footer` 扩展点。[页面布局契约](https://docs.halo.run/developer-guide/theme/page-layout)从 2.26.0 提供 `templates/layout.html` 中的 `html(head, content)`，安装后可读 `Theme.status.pageLayout`。这些官方规则是适配依据，真实 2.26.1 的运行结果才是项目通过证据。
 
-每个依赖登记实际插件 `metadata.name`、版本、来源、包 SHA-256、所需最低版本、公开 Finder/API/模板契约、负责的能力 ID。至少覆盖 SearchWidget、CommentWidget、语法高亮、友链、图库、瞬间，以及矩阵最终采用的内容扩展/SEO 等插件。1.0 搜索与评论的主题支持面仅为官方 `PluginSearchWidget` 与 `PluginCommentWidget`（DEC-01）；精确版本与 JAR SHA 已在[版本锁](../fixtures/search-comment/versions.json)登记，并由矩阵依赖引用；锁定不等于完整通过。数学公式采用 Halo KaTeX 插件（DEC-07）；[版本锁](../fixtures/math/versions.json)已登记 `plugin-katex 3.0.0`、JAR SHA、最低 Halo `>=2.22.2` 和默认编辑器 MathML 输出格式，[当前组合补证](validation/2026-10-17/combination-followup.md)已核对官方包和保存格式控制。[真实默认编辑器补证](validation/2026-10-17/math-editor-followup.md)已完成 Chromium/Firefox 行内与块级录入、修改、两次 UI 保存、API 发布及四状态读取；不再将这些限定作者/生命周期场景整体记为未验。WebKit 作者路径、实际系统剪贴板、其他编辑器与完整合同仍未通过。没有选定兼容实现的其他能力继续待实现或待决策。
+每个依赖登记实际插件 `metadata.name`、版本、来源、包 SHA-256、所需最低版本、公开 Finder/API/模板契约、负责的能力 ID。至少覆盖 SearchWidget、CommentWidget、语法高亮、友链、图库、瞬间，以及矩阵最终采用的内容扩展/SEO 等插件。1.0 搜索与评论的主题支持面仅为官方 `PluginSearchWidget` 与 `PluginCommentWidget`（DEC-01）；精确版本与 JAR SHA 已在[版本锁](../fixtures/search-comment/versions.json)登记，并由矩阵依赖引用；锁定不等于完整通过。数学公式采用 Halo KaTeX 插件（DEC-07）；[版本锁](../fixtures/math/versions.json)已登记 `plugin-katex 3.0.0`、JAR SHA、最低 Halo `>=2.22.2` 和默认编辑器 MathML 输出格式，[旧 d678 组合补证](validation/2026-10-17/combination-followup.md)已核对官方包和保存格式控制。[真实默认编辑器补证](validation/2026-10-17/math-editor-followup.md)已完成 Chromium/Firefox 行内与块级录入、修改、两次 UI 保存、API 发布及四状态读取；不再将这些限定作者/生命周期场景整体记为未验。WebKit 作者路径、实际系统剪贴板、其他编辑器与完整合同仍未通过。没有选定兼容实现的其他能力继续待实现或待决策。
 
 | ID | 执行场景与成功条件 | 所需证据 |
 | --- | --- | --- |
@@ -141,7 +141,7 @@ Halo 的 [插件集成](https://docs.halo.run/developer-guide/theme/plugin-integ
 | PLG-06 | 评论组件/内容处理插件（包括 DEC-07 KaTeX 插件）与主题高亮、灯箱、SEO 同时启用；同一公式只由一个负责人渲染，主题保留插件已渲染 DOM 与辅助 MathML；重复处理和跨页不产生双公式、双工具栏、双灯箱、重复 meta；关闭后保留可恢复正文和明确回退 | 每个已声明组合的内容/DOM 计数、网络报告、开关顺序；组合未验明确记录 |
 | PLG-07 | RSS／站点地图由官方 Feed／Sitemap 插件提供数据和路由；锁定插件版本及端点。主题发现链接/订阅入口在启用时有效、未安装/停用时正确回退，恢复后重新可用且不重复；合成公开文章能被发现，更新可见，私密/草稿排除，URL 与 canonical 一致。RSS／站点地图不依赖 PWA 或离线缓存 | 插件包版本/哈希、启停前后页面 HTML、实际 feed/XML 内容与固定内容 ID/URL 对账、更新及隐私负例；已有初始插件不能代替此场景验收 |
 
-当前剩余执行优先级（仅执行安排，不缩减上述条件）：P0 在灯箱确定性竞态修复及新候选固定核心导航通过后，继续处理评论 Firefox 网络问题、公式 WebKit 未知登录超时和等待官方修复的 #338；原导航首批失败单列，不以新包通过追认旧根因。P1 在固定新候选上补完整性能与原生图片剩余门禁；P2 补新包完整官方插件组合、评论/公式及导航桌面/深色/滚动恢复/设备等明确未覆盖范围、Moment 用户交互及平台长尾映射。已有 RSS/图片入口、C/F 公式作者与限定插件生命周期证据不重复列为从未执行。最终仍须通过真实 Safari/手机、无障碍、安装升级回退、外部账户、独立审查及 CI，不能通过改写合同消除失败。
+当前剩余执行优先级（仅执行安排，不缩减上述条件）：P0 在灯箱确定性竞态修复及新候选固定核心导航通过后，继续处理评论 Firefox 网络问题、公式 WebKit 未知登录超时和等待官方修复的 #338；原导航首批失败单列，不以新包通过追认旧根因。P1 在固定新候选上补完整性能与原生图片剩余门禁；P2 新包[手机亮暗官方组合](validation/2026-10-17/plugin-combination-fixed-candidate.md)已执行 5/6、87/96，先定位 WebKit 深色图片取消并补完整组合门禁，再补评论/公式及导航桌面/深色/滚动恢复/设备等明确未覆盖范围、Moment 用户交互及平台长尾映射。已有 RSS/图片入口、C/F 公式作者与限定插件生命周期证据不重复列为从未执行。最终仍须通过真实 Safari/手机、无障碍、安装升级回退、外部账户、独立审查及 CI，不能通过改写合同消除失败。
 
 Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plugin/theme-integration)支持将内容增强、权限和业务数据交给插件。这允许实现方式适配，不等于自动允许删去上游提供方、设置语义或内容能力；DEC-01 为搜索/评论、DEC-07 为数学公式的独立平台替代裁定；各自只适用于明列范围，不自动缩减其他能力。主题附带资源的 [加载契约](https://docs.halo.run/developer-guide/theme/extension-resources)也不允许将任意自定义资源当作主题功能直接安装；需要插件时显式登记依赖并验收。
 

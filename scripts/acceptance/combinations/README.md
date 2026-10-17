@@ -25,6 +25,15 @@ uniquely labelled Post, Moment, LinkGroup and Link, then deletes only the exact
 registered names, creation timestamps, owner labels and spec identities. Halo
 2.26.1 does not supply a metadata UID; none is assumed. A create response lost
 before registration is left for explicit inspection rather than unsafe cleanup.
+Post publication has one 20-second setup deadline, including the publish call:
+the released `raw` and `content` must both match the saved fixture HTML before
+the final Post is reread and its cleanup spec digest frozen. Name, owner label,
+creation timestamp and `spec.owner` remain fixed. Only Halo's publication fields
+(`publish`, `headSnapshot`, `releaseSnapshot`, `publishTime`) may change; snapshot
+references must resolve to the original draft snapshot, an existing publish time
+must remain unchanged, and all other spec fields must match. Setup observations
+and the released-content digest are recorded. Missing content or a late response
+fails setup; it never retries browser navigation or relaxes cleanup ownership.
 For an approved Moment, setup waits at most 20 seconds for the official
 controller to add `approvedTime` and acknowledge the resource version. Only
 that exact addition is allowed; before/after specs and polling results are
@@ -48,6 +57,9 @@ locale changes, including the Japanese/Korean browser message values. The five
 loops use normal scoped links, not browser Back/Forward history. Links coverage
 is native local-plugin data; it does not repeat remote-feed cancellation tests.
 Every checkpoint records network errors and unfinished requests.
+After all contexts and browsers close, a final gate rejects any page error,
+console error, failed/unfinished request or HTTP error in the final arrays.
+An earlier failure and its original stack are retained.
 There are no navigation retries, plugin resource removal or keep-alive changes.
 
 Output is a unique `combination-followup/<run-id>/` directory inside the lab.

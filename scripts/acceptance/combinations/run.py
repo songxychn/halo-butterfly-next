@@ -150,8 +150,11 @@ def main():
         save()
         client.api(CONSOLE + 'posts' if console_body else endpoint, 'POST', console_body or body)
         obj = client.api(endpoint + '/' + name)
+        require(obj['metadata']['name'] == name, 'Created name mismatch')
         require(obj['metadata'].get('labels', {}).get(OWNER) == run, 'Created label mismatch')
         require(bool(obj['metadata'].get('creationTimestamp')), 'Server creationTimestamp missing')
+        if 'owner' in body['spec']:
+            require(obj['spec'].get('owner') == body['spec']['owner'], 'Created owner mismatch')
         row.update(creationTimestamp=obj['metadata']['creationTimestamp'], specSha256=digest(obj['spec']))
         save()
         if kind == 'moment':
@@ -231,16 +234,52 @@ def main():
         name = 'combination-' + run
         post = object_('Post', 'content.halo.run/v1alpha1', name, {'title': title, 'slug': name, 'allowComment': True, 'deleted': False, 'pinned': False, 'priority': 0, 'publish': False, 'visible': 'PUBLIC', 'owner': client.auth['username'], 'excerpt': {'autoGenerate': True}, 'cover': '', 'tags': [], 'categories': []})
         row = register('post', post, {'post': post, 'content': {'rawType': 'HTML', 'raw': html, 'content': html}})
-        check_owned(client.api(COLLECTIONS['post'] + '/' + name), row)
+        draft = client.api(COLLECTIONS['post'] + '/' + name)
+        check_owned(draft, row)
+        require(all(draft['spec'].get(key) == value for key, value in post['spec'].items()), 'Created post differs from requested fixture')
+        draft_spec = draft['spec']
+        # Halo 2.26.1 PostServiceImpl.publish sets publish/releaseSnapshot,
+        # filling a missing headSnapshot from baseSnapshot. PostReconciler may
+        # add publishTime. No other fixture spec changes are accepted here.
+        publication_fields = {'publish', 'headSnapshot', 'releaseSnapshot', 'publishTime'}
+        expected_snapshot = draft_spec.get('headSnapshot') or draft_spec.get('baseSnapshot')
+        require(isinstance(expected_snapshot, str) and expected_snapshot, 'Draft snapshot missing')
+        publication = {'before': draft_spec, 'allowedChanges': sorted(publication_fields), 'limitSeconds': 20, 'polls': []}
+        row['publication'] = publication
+        save()
+        def check_publication(obj):
+            require(obj['metadata']['name'] == name and obj['metadata'].get('labels', {}).get(OWNER) == run, 'Published ownership changed')
+            require(obj['metadata'].get('creationTimestamp') == row['creationTimestamp'], 'Published creation timestamp changed')
+            value = obj['spec']
+            require(value.get('owner') == post['spec']['owner'], 'Published owner changed')
+            require({k: v for k, v in value.items() if k not in publication_fields} == {k: v for k, v in draft_spec.items() if k not in publication_fields}, 'Post changed beyond official publication fields')
+            require(value.get('publish') is True and value.get('headSnapshot') == expected_snapshot and value.get('releaseSnapshot') == expected_snapshot, 'Published snapshot differs from original draft')
+            if draft_spec.get('publishTime') is not None:
+                require(value.get('publishTime') == draft_spec['publishTime'], 'Existing publishTime changed')
+            return isinstance(value.get('publishTime'), str) and bool(value['publishTime']) and bool(obj.get('status', {}).get('permalink'))
+        deadline = time.monotonic() + 20
         client.api(CONSOLE + 'posts/' + name + '/publish', 'PUT')
-        for _ in range(80):
+        while True:
+            require(time.monotonic() < deadline, 'Post publication exceeded 20-second deadline')
             current = client.api(COLLECTIONS['post'] + '/' + name)
-            if current['spec'].get('publish') and current.get('status', {}).get('permalink'):
+            require(time.monotonic() < deadline, 'Post publication response arrived after deadline')
+            ready = check_publication(current)
+            released = optional(CONSOLE + 'posts/' + name + '/release-content') if ready else None
+            require(time.monotonic() < deadline, 'Released content response arrived after deadline')
+            matches = bool(released and released.get('raw') == html and released.get('content') == html)
+            publication['polls'].append({'specSha256': digest(current['spec']), 'publicationReady': ready, 'releasedContentMatches': matches, 'releaseSha256': digest(released) if released else None})
+            save()
+            if ready and matches:
+                # Freeze cleanup identity only after the actual published body
+                # is available, then independently recheck the latest object.
+                current = client.api(COLLECTIONS['post'] + '/' + name)
+                require(time.monotonic() < deadline, 'Final post identity arrived after deadline')
+                require(check_publication(current), 'Final published post is not ready')
+                publication.update(after=current['spec'], releaseSha256=digest(released), completed=True)
+                row['specSha256'] = digest(current['spec'])
+                save()
                 break
             time.sleep(.25)
-        require(current['spec'].get('publish') and current.get('status', {}).get('permalink'), 'Publish did not converge')
-        require(current['metadata'].get('creationTimestamp') == row['creationTimestamp'] and current['spec']['title'] == title and current['metadata'].get('labels', {}).get(OWNER) == run, 'Published identity changed')
-        row['specSha256'] = digest(current['spec'])
         post_url = urllib.parse.urljoin(lab.BASE['halo'], current['status']['permalink'])
         require(urllib.parse.urlsplit(post_url).netloc == urllib.parse.urlsplit(lab.BASE['halo']).netloc, 'Post permalink origin mismatch')
         moment = 'combination-moment-' + run
