@@ -1,10 +1,12 @@
-# 1.0 剩余需求（2026-10-16 验收跟进；范围沿用 2026-10-15 裁定）
+# 1.0 剩余需求（2026-10-17 验收跟进；范围沿用 2026-10-15 裁定）
 
 基准：PR #416 已合并主线 [`f4ecc75`](https://github.com/songxychn/halo-butterfly-next/commit/f4ecc75d46651cd8a2f3188799ae27737dfdfd36)，叠加维护者确认的 [1.0 延期决定](DEC-03-1.0-DEFERRALS.md)与 [DEC-03 平台补充](DEC-03-PLATFORM-DECISION.md)；[DEC-02 通用正文补充](DEC-02-PORTABLE-CONTENT.md)继续有效。本清单按用户能力归并；状态真相源为 [matrix.json](matrix.json)，最新归组见[机器清单](development-backlog-2026-10-15.json)。历史记录保留原提交与范围，本次范围与状态修订见[机器记录](scope-deferrals-reconciliation-2026-10-15.json)。
 
 当前受测产品已推进到 PR #417 合并提交 [`d678d3f`](https://github.com/songxychn/halo-butterfly-next/commit/d678d3f839347554d7f100996f87b23b571888df)，ZIP `93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e`。2026-10-16 的工具和证据更新不改变延期范围、预算或矩阵状态；合并产品的[精确 CI 与两处独立构建](../validation/2026-10-16/build-reproducibility.md)已核对，完整 1.0 仍未通过。
 
 **既有开发进展：D04/D06/D07/D08 的已确认代码缺口已补齐，D05 国际化主体已实现，D02 已覆盖核心内容与官方评论，D03 已补背景值域。** 完整 1.0 验收仍未完成。本轮依次推进 P0 页面加载可靠性、P1 性能/原生图片、P2 已实现组合/平台映射和最终完整验收。RSS/站点地图已实现，转剩余验收；评论/KaTeX 严格资源按需、Umami 私有统计及 PWA/离线均延期到 1.0 之后（版本未定）。评论、公式与 Umami 追踪继续验收并保持官方兼容。源码状态与限定证据见[本轮对账](confirmed-gap-reconciliation-2026-10-14.json)，不将测试通过自动记为 `verified`。
+
+2026-10-17 按确认顺序追加 [RSS／站点地图](../validation/2026-10-17/rss-sitemap-followup.md)、[图片作者入口](../validation/2026-10-17/image-toolbar-followup.md)和[既有组合](../validation/2026-10-17/combination-followup.md)证据，统一见[索引及剩余项](../validation/2026-10-17/acceptance-followup.md)。已完成的限定场景不再重复开发，未完成项与早期失败继续单列；不改变 691 项适用分母，不新增 verified。
 
 ## 1. 已确认的开发缺口
 

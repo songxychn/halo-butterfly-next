@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "closeout": {
+    "evidence": {
+      "path": ".runtime/acceptance-20261017-closeout.json",
+      "sha256": "63cbabfca7891abbeddc3cfa37eccca09e1a7bab07f45796be426ac8929c3885"
+    },
+    "result": {
+      "scope": "Task-owned local labs only",
+      "ports": {
+        "18845": {
+          "listening": false
+        },
+        "18865": {
+          "listening": false
+        }
+      },
+      "locks": {
+        ".runtime/performance-followup/halo-lab/authored-image-editor.lock": false,
+        ".runtime/performance-followup/halo-lab/acceptance-combinations.lock": false,
+        ".runtime/authored-images/halo-lab/authored-image-editor.lock": false,
+        ".runtime/authored-images/halo-lab/acceptance-combinations.lock": false
+      },
+      "packages": {
+        "dist/halo-butterfly-next-0.1.0-alpha.4.zip": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e",
+        ".runtime/performance-followup/evidence/candidate-d678d3f.zip": "93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e"
+      },
+      "localVerify": {
+        "exitCode": 0,
+        "testsPassed": 771,
+        "testsFailed": 0,
+        "log": ".runtime/acceptance-20261017-verify.log",
+        "sha256": "ab6b99e0eade7a4d222d872a036fc2c1b749c41fc06d19c65732b5f62665effb"
+      },
+      "probeRestoration": {
+        "name": "plugin-halo-butterfly-layout-probe",
+        "creationTimestamp": "2026-10-15T16:35:57.472646Z",
+        "restoredEnabled": true,
+        "phase": "STARTED",
+        "reason": "Restore pre-existing owned-lab state after measurement before stopping the lab"
+      }
+    }
+  },
+  "records": {
+    "rss-sitemap-followup": {
+      "path": "docs/validation/2026-10-17/rss-sitemap-followup.json",
+      "sha256": "62e7dd642af35e1f3abfb6314f2c29a04aa82c0de8f39825e3fb38386ff4f726"
+    },
+    "image-toolbar-followup": {
+      "path": "docs/validation/2026-10-17/image-toolbar-followup.json",
+      "sha256": "01dbb37e7546324a6bb7c1c3e79f65b9631b716b2c384fff1d78d1c3d333cff3"
+    },
+    "combination-followup": {
+      "path": "docs/validation/2026-10-17/combination-followup.json",
+      "sha256": "c1308cb837751054dd40074f5f01ae72ce524a7d9c8a6581ddd6d2c468dfa50f"
+    }
+  },
+  "productChanged": false,
+  "matrixStatusesChanged": false,
+  "fullReleaseAccepted": false
+}
