@@ -169,6 +169,17 @@ export default class AmplifyImg {
         }},
       },
       ready: describe,
+      view(event) {
+        const image = event.detail.image;
+        // A native load can be queued when hide/destroy or another view removes
+        // this image. Keep Viewer from handling events for that retired image.
+        // Retain both listeners across error/fallback loads until the node is GC'd.
+        const guard = (event: Event) => {
+          if (!host.isConnected || !host.contains(image)) event.stopImmediatePropagation();
+        };
+        image.addEventListener('load', guard, true);
+        image.addEventListener('error', guard, true);
+      },
       shown() {
         for (const sibling of document.body.children) {
           if (!(sibling instanceof HTMLElement)) continue;

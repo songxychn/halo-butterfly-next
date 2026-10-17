@@ -8,6 +8,8 @@
 
 执行记录补充（2026-10-17 真实使用，不修订条件）：受测产品仍为 `d678d3f` / ZIP `93b6a78a…`。[评论](validation/2026-10-17/comment-usage-followup.md)严格整例 **2/6**、七个功能检查点完成 **5/6**；插件停用/恢复读取 **3+3** 使用 API 夹具，不计入 UI 提交通过。[公式](validation/2026-10-17/math-editor-followup.md)Chromium/Firefox 作者 **4/4**、四状态前台 **16/16**，WebKit 登录超时原因未定。[核心导航](validation/2026-10-17/navigation-followup.md)Firefox/WebKit 各 **14/14**，Chromium 首切 `null.style` 失败保留；单次 Chromium 诊断 14/14 未复现，整体未通过。完整 PLG-03/06、EXT-02/03 和浏览器矩阵继续受下文原条件约束，历史失败、真实设备与性能缺口不被局部通过抵消。
 
+执行记录补充（2026-10-17 灯箱修复，不修订条件）：[修复候选及导航复验](validation/2026-10-17/lightbox-load-race.md)绑定产品源 `3841b8a3dab9d60543ffed19993611329931a2af`、ZIP `4b13dd856dca8599548f433cf43ca2a05c126ff8c76ec6cebedba0b6957df075`。主题侧独立确定性竞态修复通过十例回归；官方 Halo 的唯一新批在插件全停、390px 浅色下三引擎 **42/42** 检查点、**36 次 PJAX + 3 次完整导航**通过。原 `d678d3f` 首次失败未改判、不能确认同根因。该固定核心范围已补齐；新候选完整官方插件组合、桌面/深色/滚动恢复、真实设备、评论网络、公式 WebKit 和完整性能仍未通过，不挪用旧包证据或改变矩阵状态。
+
 v1.1 修订：[#46](https://github.com/songxychn/halo-butterfly-next/issues/46) 裁定 DEC-01 为平台替代。1.0 搜索/评论以官方 `PluginSearchWidget` / `PluginCommentWidget` 为唯一主题支持面；修订 PLG-02/03 与矩阵 `not-applicable` 规则。
 
 v1.2 修订：[#45](https://github.com/songxychn/halo-butterfly-next/issues/45) 裁定 DEC-02。1.0 验收 Butterfly 等效 HTML + 主题 CSS/JS，主题不解析 `{% %}`；series/flink 活数据延期 1.1。DEC-01 的 `not-applicable` 不扩大到标签能力。此处为 v1.2 历史条件，正文输入和转换要求现以 v1.5 补充为准。
@@ -139,7 +141,7 @@ Halo 的 [插件集成](https://docs.halo.run/developer-guide/theme/plugin-integ
 | PLG-06 | 评论组件/内容处理插件（包括 DEC-07 KaTeX 插件）与主题高亮、灯箱、SEO 同时启用；同一公式只由一个负责人渲染，主题保留插件已渲染 DOM 与辅助 MathML；重复处理和跨页不产生双公式、双工具栏、双灯箱、重复 meta；关闭后保留可恢复正文和明确回退 | 每个已声明组合的内容/DOM 计数、网络报告、开关顺序；组合未验明确记录 |
 | PLG-07 | RSS／站点地图由官方 Feed／Sitemap 插件提供数据和路由；锁定插件版本及端点。主题发现链接/订阅入口在启用时有效、未安装/停用时正确回退，恢复后重新可用且不重复；合成公开文章能被发现，更新可见，私密/草稿排除，URL 与 canonical 一致。RSS／站点地图不依赖 PWA 或离线缓存 | 插件包版本/哈希、启停前后页面 HTML、实际 feed/XML 内容与固定内容 ID/URL 对账、更新及隐私负例；已有初始插件不能代替此场景验收 |
 
-当前剩余执行优先级（仅执行安排，不缩减上述条件）：P0 先定位核心导航 Chromium 首切脚本异常，保留评论 Firefox 网络问题、公式 WebKit 未知登录超时和等待官方修复的 #338；P1 在固定候选上补完整性能与原生图片剩余门禁；P2 补评论/公式/导航明确未覆盖范围、Moment 用户交互及平台长尾映射。已有 RSS/图片入口、C/F 公式作者与限定插件生命周期证据不重复列为从未执行。最终仍须通过真实 Safari/手机、无障碍、安装升级回退、外部账户、独立审查及 CI，不能通过改写合同消除失败。
+当前剩余执行优先级（仅执行安排，不缩减上述条件）：P0 在灯箱确定性竞态修复及新候选固定核心导航通过后，继续处理评论 Firefox 网络问题、公式 WebKit 未知登录超时和等待官方修复的 #338；原导航首批失败单列，不以新包通过追认旧根因。P1 在固定新候选上补完整性能与原生图片剩余门禁；P2 补新包完整官方插件组合、评论/公式及导航桌面/深色/滚动恢复/设备等明确未覆盖范围、Moment 用户交互及平台长尾映射。已有 RSS/图片入口、C/F 公式作者与限定插件生命周期证据不重复列为从未执行。最终仍须通过真实 Safari/手机、无障碍、安装升级回退、外部账户、独立审查及 CI，不能通过改写合同消除失败。
 
 Halo 的 [主题侧与插件侧分工](https://docs.halo.run/developer-guide/plugin/theme-integration)支持将内容增强、权限和业务数据交给插件。这允许实现方式适配，不等于自动允许删去上游提供方、设置语义或内容能力；DEC-01 为搜索/评论、DEC-07 为数学公式的独立平台替代裁定；各自只适用于明列范围，不自动缩减其他能力。主题附带资源的 [加载契约](https://docs.halo.run/developer-guide/theme/extension-resources)也不允许将任意自定义资源当作主题功能直接安装；需要插件时显式登记依赖并验收。
 
