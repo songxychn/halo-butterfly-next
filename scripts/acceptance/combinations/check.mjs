@@ -142,4 +142,12 @@ for(const engine of ['chromium','firefox','webkit']){
  }catch(error){report.executionErrors??=[];report.executionErrors.push({engine,error:String(error.stack||error)});await save();}
  finally{if(browser){try{await boundedClose(browser,'browser');}catch(error){report.executionErrors??=[];report.executionErrors.push({engine,error:String(error)});await save();}}}
 }
+// Recheck the final arrays after context/browser shutdown so late errors cannot
+// leave a case marked passed. Keep checkpoint failures and their original stacks.
+for(const row of report.cases){
+ row.finalErrors={page:row.pageErrors.length,console:row.consoleErrors.length,network:row.requests.filter(r=>r.state!=='finished'||r.httpStatus>=400).length};
+ if(Object.values(row.finalErrors).some(Boolean)&&row.status==='passed'){
+  row.status='failed';row.error='Final error gate failed: '+JSON.stringify(row.finalErrors);
+ }
+}
 report.finishedAt=new Date().toISOString();report.status=report.cases.length===fixture.expectedCases&&report.cases.every(c=>c.status==='passed')&&!report.executionErrors?.length?'passed-tested-scope':'failed';await save();console.log(report.status,path.join(output,'browser-report.json'));process.exitCode=report.status==='failed'?1:0;
