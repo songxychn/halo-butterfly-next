@@ -1,0 +1,440 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "result": "failed-formal-batch-four-departure-cancellations-attributed",
+  "runId": "0b551b33691308a9542f",
+  "profile": "six-cases-attributed",
+  "attempts": 1,
+  "pr426": {
+    "head": "75b2b83cceb0f4ffc34e7318e55e246f667ce4e9",
+    "reviewedExactHead": true,
+    "independentReviews": [
+      {
+        "reviewer": "rss_acceptance",
+        "blockingFindings": [],
+        "scope": "run/check/parser/control and raw evidence consistency; current code and hashes checked"
+      },
+      {
+        "reviewer": "image_author_next",
+        "blockingFindings": [],
+        "scope": "48 evidence refs, documents and candidate compatibility; exact head checked"
+      }
+    ],
+    "parentEvidenceHashCheck": 48,
+    "parentParserTests": {
+      "path": ".runtime/plugin-combination-attributed-20261017/pr426-parser-tests.log",
+      "sha256": "5102c5c688e21c01e12373fb8c7a6b3994e9c364ddb52faa5e2257a24c534934"
+    },
+    "productDiffEmpty": true,
+    "prCI": {
+      "run": 39036810712,
+      "conclusion": "success"
+    },
+    "merge": {
+      "headRefOid": "75b2b83cceb0f4ffc34e7318e55e246f667ce4e9",
+      "mergeCommit": {
+        "oid": "28d6656929ea1b945ab80266a8495b0654d2eff8"
+      },
+      "mergedAt": "2026-10-17T13:36:35Z",
+      "state": "MERGED"
+    }
+  },
+  "masterCI": {
+    "conclusion": "success",
+    "headSha": "28d6656929ea1b945ab80266a8495b0654d2eff8",
+    "status": "completed",
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/39037266819"
+  },
+  "candidate": {
+    "path": ".runtime/plugin-combination-attributed-20261017/candidate-a9d2c19.zip",
+    "sha256": "4b13dd856dca8599548f433cf43ca2a05c126ff8c76ec6cebedba0b6957df075",
+    "sourceCommit": "a9d2c1928ed8165d48c6de6bb1e5168d2d5a8791",
+    "sourceSha256": "e632588b8200deab4384c4fb0ca5f6b5490527a4d9760de64d545827b5a1d1d7",
+    "packageFiles": 269,
+    "builtFromMerge": true,
+    "reusedFixedProductForAttributedAcceptance": true
+  },
+  "productOrOfficialPluginChanges": false,
+  "connectionWorkaround": false,
+  "cases": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "color": "light",
+      "status": "passed",
+      "checkpoints": 16,
+      "nativeNavigations": 15,
+      "requests": 482,
+      "finalErrors": {
+        "page": 0,
+        "console": 0,
+        "network": 0
+      }
+    },
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "color": "dark",
+      "status": "passed",
+      "checkpoints": 16,
+      "nativeNavigations": 15,
+      "requests": 482,
+      "finalErrors": {
+        "page": 0,
+        "console": 0,
+        "network": 0
+      }
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "color": "light",
+      "status": "passed",
+      "checkpoints": 16,
+      "nativeNavigations": 15,
+      "requests": 243,
+      "finalErrors": {
+        "page": 0,
+        "console": 0,
+        "network": 0
+      }
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "color": "dark",
+      "status": "passed",
+      "checkpoints": 16,
+      "nativeNavigations": 15,
+      "requests": 243,
+      "finalErrors": {
+        "page": 0,
+        "console": 0,
+        "network": 0
+      }
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "color": "light",
+      "status": "failed",
+      "checkpoints": 4,
+      "nativeNavigations": 4,
+      "requests": 131,
+      "finalErrors": {
+        "page": 0,
+        "console": 0,
+        "network": 1
+      }
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "color": "dark",
+      "status": "failed",
+      "checkpoints": 1,
+      "nativeNavigations": 1,
+      "requests": 60,
+      "finalErrors": {
+        "page": 0,
+        "console": 0,
+        "network": 3
+      }
+    }
+  ],
+  "totals": {
+    "passedCases": 4,
+    "plannedCases": 6,
+    "passedCheckpoints": 69,
+    "plannedCheckpoints": 96,
+    "completedNativeNavigations": 65,
+    "plannedNativeNavigations": 90,
+    "httpRequests": 1641,
+    "finishedHttp200": 1637,
+    "cancelled": 4,
+    "pending": 0,
+    "httpErrors": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
+  "attribution": {
+    "exactLoaderScope": "WebKit only; Chromium/Firefox public observations",
+    "protocol": {
+      "wholeLogBytes": 64169283,
+      "webkitSliceBytes": 7180720,
+      "exactByteSliceVerified": true,
+      "allSixCaseCloseBoundariesComplete": true,
+      "webKitProtocolRequests": 211,
+      "webKitHttpRequests": 191,
+      "webKitDataRequests": 20,
+      "rawRequestFailures": 4,
+      "httpErrors": 0,
+      "malformedMessages": 0,
+      "parserWarnings": 0,
+      "webKitDocuments": 7
+    },
+    "oldArticleLoaders": [
+      "26",
+      "47"
+    ],
+    "newMomentLoaders": [
+      "32",
+      "59"
+    ],
+    "classification": "4 normally cancelled requests belonging to departing article documents; no original verdict rewritten",
+    "beforeContextClose": true,
+    "newMomentMistyImage": {
+      "requestObserved": false,
+      "loading": "lazy",
+      "top": 1777.453125,
+      "viewportHeight": 844,
+      "complete": false,
+      "naturalWidth": 0,
+      "meaning": "offscreen and unrequested; neither failed request nor proof of fully loaded page"
+    },
+    "otherTwoImages": {
+      "names": [
+        "cover-architecture.webp",
+        "cover-golden-mountain.webp"
+      ],
+      "bothNewMomentLoadersFinishedHttp200": true,
+      "domComplete": true,
+      "naturalWidth": 1600
+    }
+  },
+  "historicalFailuresReclassified": false,
+  "originalAutomaticCleanup": {
+    "restorationVerified": false,
+    "remainingOwnedFixture": "combination-moment-0b551b33691308a9542f",
+    "reason": "approvedTime changed after frozen spec; all other spec and identity match",
+    "rawReportsPreserved": true
+  },
+  "manualRecovery": {
+    "status": "recovery-verified-original-measurement-still-failed",
+    "momentDeleted404": true,
+    "scope": "single exact owned Moment with only approvedTime changed to creationTimestamp; original failed reports unchanged",
+    "originalContentsConfigsPluginsPackageVerified": true,
+    "packageFiles": 269,
+    "locksReleased": true,
+    "originalNotifications": 72,
+    "automaticChildLoginAuditRetained": 1,
+    "readonlyInvestigationLoginAuditRetained": 1,
+    "manualBeforeAfterNotificationsExactlyEqual": true,
+    "notificationSubscriptions": "three previously audited exact global semantic specs may rotate identity/token",
+    "fullDatabaseOrNotificationIdentityRestore": false,
+    "newLoginDuringCleanup": false,
+    "shutdown": {
+      "portsConnectionRefused": {
+        "18845": 61,
+        "14845": 61
+      },
+      "remainingLocks": [],
+      "ownedServicesStopped": true
+    }
+  },
+  "validation": {
+    "verifyExitCode": 0,
+    "testsPassed": 781,
+    "testsFailed": 0,
+    "measuredToolsFrozen": true
+  },
+  "limitations": [
+    "No retry or second formal batch; stopped WebKit loops are untested.",
+    "Instrumentation changes timing and is not performance evidence.",
+    "All original strict failures retained; no automatic cancellation exemption.",
+    "The old 672c run lacks loader evidence and cannot be reclassified.",
+    "Full plugin combinations, physical devices, performance and 1.0 acceptance remain incomplete."
+  ],
+  "evidence": [
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/pr426-merged.json",
+      "sha256": "82cc13ce514187137fe791b1467673f2d12fbb23c163c6445ebc42826443f4bf"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/pr426-review.json",
+      "sha256": "7cb66cbf63e471dc678e9f67881b7c2699886d579cf8d0507946e28b8c52701d"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/master-ci.json",
+      "sha256": "5b1eda668b3f6763b4dcf16f967be523803c446606a4094d3d7b8749f3ce5b52"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/candidate.json",
+      "sha256": "a946604a1f4803efb1edc12f6d8ebe1761083c66ddca61e11e56a250e11c3e88"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/candidate-a9d2c19.zip",
+      "sha256": "4b13dd856dca8599548f433cf43ca2a05c126ff8c76ec6cebedba0b6957df075"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/coordinator.py",
+      "sha256": "b8f4d50d254656f675f53c9a22f6976149dfcf14ab02163c521d5a2f7c2fff11"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/preflight-coordinator.json",
+      "sha256": "ff97969f0e92b0bf5334a267b9600cfe6ec1518b0f2ead9840375546a90398b4"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/preflight-tools.json",
+      "sha256": "5fcc484abeb6c1b683125818afe3bfe2ce8805bd0be82bbb3216dcc8a35f6bc9"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/preflight-extractor.json",
+      "sha256": "bb4b4f99ad0e680277a7cca2a802f6f85bcce9e71ad06c18acca97a08695ad15"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/tool-manifest.json",
+      "sha256": "6c8b03767a343e483724786986753616b77864b764d4edb1cf7c6420fbb50b31"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/verify.json",
+      "sha256": "8726099f2beaf15a950aeff2ce55b902ce4fa293b72b6ee021dac9241826cf9d"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/verify.log",
+      "sha256": "104e94feb8a4dd5f3589b97407cc3145716a86a5065b893eabb7f2067c933057"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/execution.json",
+      "sha256": "4ada8f409cc56395aa26b1a3c4c066acd5f002ba951525a42af801e9421a1dc0"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/coordinator.json",
+      "sha256": "d35c566ba116a2ada9cedfe7e8a1d37f03f845e8131a0f926f9eb833ca8b35ee"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/protocol-segment.json",
+      "sha256": "43dceedf386cbbcd373ad192efce5930934865f700ee93542a5fe515e929e0ef"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/protocol-summary.json",
+      "sha256": "31b4419a7b94c2eae3ce7020127bdaf321feaf48cd763a9c7ccdd351a163abaa"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/protocol-analysis.json",
+      "sha256": "b879ab90689d08c8bdcf7950a83a44b700410d48079abd137f9ea6f9288a4801"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/moment-readonly-difference.json",
+      "sha256": "08447c4536fc92d1262e5eb6d36b9aa65f562c6fd1f652bbca9226034d9fa84b"
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/moment-cleanup-investigation.json",
+      "sha256": "698f62a9c37b5473af5ad00f97814af7868632ffd074ad148f0442dce66fc2f1"
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/0b551b33691308a9542f/report.json",
+      "sha256": "76c120d997de47fb4e137bfb2ee410a306384eecbbbbacea59a36e2e7856119e",
+      "private": false
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/0b551b33691308a9542f/browser-report.json",
+      "sha256": "1c238d5a38b2cfa89efb49b51cdc9887f5706dab959a378f463299ed308449d0",
+      "private": false
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/0b551b33691308a9542f/fixture.json",
+      "sha256": "1ba35ed06cb6a5ec24a8d0ca20036f7fe4de77a8490d620f10775a31f8551f1b",
+      "private": false
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/0b551b33691308a9542f/fixture.html",
+      "sha256": "3348203604d49c3e94951e185379ab69666780dfa6408d920852a5c1f92b8035",
+      "private": false
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/0b551b33691308a9542f/protocol.private.log",
+      "sha256": "3c8b25a1d9c094e3116c1d2dc633b102d77f577f03ea14c5d2c855046dfc812f",
+      "private": true
+    },
+    {
+      "path": ".runtime/performance-followup/halo-lab/combination-followup/0b551b33691308a9542f/restore.private.json",
+      "sha256": "577f90f91a80a66d45497aa3f6cbf757b99d9f73f89ca39497f951423fab4fdb",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/verify-before-freeze.json",
+      "sha256": "c54c1ff08ce3a1746f4ba6d3c4807c61ecd283d172c9ab67222080005f195eac",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/browser-attribution-independent-review.json",
+      "sha256": "47730d060652693a0275bd3570f7aca9d3f43e3ce146006fa5c492a5804d0dd9",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-cleanup.py",
+      "sha256": "afd7b39daf2173441e195bd45d15eaa01acffbc33594a2e938020b3d8022a40a",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-cleanup-preflight-independent-review.json",
+      "sha256": "a44e8a6cfdabcd03d518c56691de799109c14815d7766fb01217e03b95885163",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery/report.json",
+      "sha256": "722092a7ae80eeaf44e1bef2583419f76ff9f21e16a74f365d5e62e4b7b1a9ec",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery/before-state.private.json",
+      "sha256": "ee71ea4d186f3ca6634dc90588efde6a2852a5e782835015434706849469636d",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery/after-state.private.json",
+      "sha256": "2bbd5d1cf53caabf57af2df2b33426c8d6e0be5324690a0e367edbce5ad4e2e4",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery/before-notifications.private.json",
+      "sha256": "124fe26715fa95bd3da899264cb755555b5ae0e22dcb5ec62c4e098caf513796",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery/after-notifications.private.json",
+      "sha256": "124fe26715fa95bd3da899264cb755555b5ae0e22dcb5ec62c4e098caf513796",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery/moment-before-delete.private.json",
+      "sha256": "fe0a59a3c3a04bf46c18c5a13c6bd39a25769829882df469edc36f286e2c66e5",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/manual-recovery-author-check.json",
+      "sha256": "26d628db7bcb374f71fa2cf9b1aefe98a052f5bb805173b78b4dd43d5c1351f5",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/notification-audit.json",
+      "sha256": "b05f3b03fe5605921fd94876e10f88d84bae425e485ea3e2bfba1f9a69a8a3ac",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/notifications-before.private.json",
+      "sha256": "9f30fa1d70c57ea348deb9ae264af1605805ed53e470308219aa263c69782fed",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/notifications-after.private.json",
+      "sha256": "3a0020402508fed42728b427e1bb3e4493702dc53623fbea2378d0b5f32e9e14",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/coordinator-before.private.json",
+      "sha256": "11ef877ea4a05b35100c668f216228968d61ee74a7681cae994f3788b1ec836d",
+      "private": true
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/shutdown.json",
+      "sha256": "a0cdf4876e4e1deb64c7bbb8f6e571fba59b136f55c9698a475142cff55b11cc",
+      "private": false
+    },
+    {
+      "path": ".runtime/plugin-combination-attributed-20261017/delivery-review.json",
+      "sha256": "c43097a26e63e978b1a5a3fa7656a0132dd1312390a11a05fd91f40f8bcbe3ec"
+    }
+  ]
+}

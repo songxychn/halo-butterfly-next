@@ -9,8 +9,10 @@ const file=await realpath(process.argv[2]);
 assert(file.startsWith(path.join(REPO,'.runtime')+path.sep));
 const fixture=JSON.parse(await readFile(file));
 const profile=fixture.profile||'six-cases';
-assert(['six-cases','webkit-dark-diagnostic'].includes(profile));
+assert(['six-cases','webkit-dark-diagnostic','six-cases-attributed'].includes(profile));
 const diagnostic=profile==='webkit-dark-diagnostic';
+const attributed=profile==='six-cases-attributed';
+const observed=diagnostic||attributed;
 assert.equal(fixture.expectedCases,diagnostic?1:6);
 assert.equal(fixture.owner,'combination-followup-owner');
 assert.match(fixture.runId,/^[0-9a-f]{20}$/);
@@ -27,6 +29,9 @@ const report={schema:1,runId:fixture.runId,startedAt:new Date().toISOString(),ru
 const save=()=>writeFile(path.join(output,'browser-report.json'),JSON.stringify(report,null,2)+'\n');
 report.profile=profile;
 if(diagnostic)report.limitations[0]='One instrumented WebKit dark mobile diagnostic only; not a replacement six-case acceptance batch.';
+if(attributed)report.limitations.push('Six fixed cases with public navigation/resource observations; precise loader attribution only in the WebKit protocol segment. Observation overhead is not a performance sample. No cancellation exemption.');
+const stamp=()=>({at:new Date().toISOString(),monotonicNs:process.hrtime.bigint().toString()});
+const boundary=(event,details)=>{if(attributed)process.stderr.write('HBN_COMBINATION_PROTOCOL '+JSON.stringify({schema:1,runId:fixture.runId,event,...stamp(),...details})+'\n');};
 const boundedClose=async(target,label)=>{
  let timer;
  try{await Promise.race([target.close(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label+' close exceeded 10s')),10000);})]);}
@@ -35,22 +40,35 @@ const boundedClose=async(target,label)=>{
 await save();
 for(const engine of diagnostic?['webkit']:['chromium','firefox','webkit']){
  let browser;
+ let engineCloseOutcome='not-launched';
+ boundary('engine-start',{engine});
  try{
   browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{channel:'chromium'}:{})});
   for(const color of diagnostic?['dark']:['light','dark']){
    const row={engine,version:browser.version(),color,width:390,stages:[],requests:[],pageErrors:[],consoleErrors:[],status:'running'};
+   const caseId=engine+'-'+color;
+   boundary('case-start',{engine,color,caseId});
+   if(attributed){row.caseStarted=stamp();row.navigationIntents=[];row.afterDocumentReady=[];}
    report.cases.push(row);await save();
    const context=await browser.newContext({viewport:{width:390,height:844},locale:'en',colorScheme:color});
    const page=await context.newPage();page.setDefaultTimeout(20000);
    const requests=new Map();let nextId=0;
-   page.on('request',r=>{const v={id:++nextId,url:r.url(),method:r.method(),resourceType:r.resourceType(),isMainFrameNavigation:r.isNavigationRequest()&&r.frame()===page.mainFrame(),stage:row.stage,startedAt:new Date().toISOString(),state:'pending'};if(diagnostic){v.frameUrlAtRequest=r.frame().url();v.referer=r.headers().referer||null;}requests.set(r,v);row.requests.push(v);});
-   if(diagnostic){row.documentCommits=[];row.beforeNavigation=[];page.on('framenavigated',frame=>{if(frame===page.mainFrame())row.documentCommits.push({url:frame.url(),at:new Date().toISOString()});});}
+   page.on('request',r=>{const v={id:++nextId,url:r.url(),method:r.method(),resourceType:r.resourceType(),isMainFrameNavigation:r.isNavigationRequest()&&r.frame()===page.mainFrame(),stage:row.stage,startedAt:new Date().toISOString(),state:'pending'};if(observed){v.frameUrlAtRequest=r.frame().url();v.referer=r.headers().referer||null;}requests.set(r,v);row.requests.push(v);});
+   if(observed){row.documentCommits=[];row.beforeNavigation=[];page.on('framenavigated',frame=>{if(frame===page.mainFrame())row.documentCommits.push({url:frame.url(),at:new Date().toISOString()});});}
    page.on('response',r=>{const v=requests.get(r.request());if(v){v.httpStatus=r.status();v.responseAt=new Date().toISOString();}});
    page.on('requestfinished',r=>{const v=requests.get(r);if(v){v.state='finished';v.finishedAt=new Date().toISOString();}});
    page.on('requestfailed',r=>{const v=requests.get(r);if(v){v.state='failed';v.failure=r.failure()?.errorText;v.finishedAt=new Date().toISOString();}});
    page.on('pageerror',e=>row.pageErrors.push(e.message));
    page.on('console',m=>{if(m.type()==='error')row.consoleErrors.push(m.text().slice(0,2000));});
    await context.addInitScript(color=>localStorage.setItem('halo-butterfly-next.color-scheme',color),color);
+   const intent=(kind,destination)=>{if(attributed){const observation={kind,destination,...stamp()};row.navigationIntents.push(observation);boundary('navigation-intent',{engine,color,caseId,...observation});}};
+   const documentReady=async(kind)=>{
+    if(!attributed)return;
+    const observation=await page.evaluate(()=>({url:location.href,timeOrigin:performance.timeOrigin,at:Date.now(),readyState:document.readyState,
+     images:[...document.images].map(image=>({src:image.getAttribute('src'),currentSrc:image.currentSrc,loading:image.loading,complete:image.complete,naturalWidth:image.naturalWidth,connected:image.isConnected,top:image.getBoundingClientRect().top})),
+     completedImageTimings:performance.getEntriesByType('resource').filter(entry=>entry.initiatorType==='img').map(entry=>({name:entry.name,startTime:entry.startTime,responseEnd:entry.responseEnd,duration:entry.duration}))}));
+    row.afterDocumentReady.push({kind,observed:stamp(),...observation});
+   };
    const checkpoint=async(name)=>{
     assert.equal(await page.locator('html').getAttribute('data-color-scheme'),color);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Horizontal page overflow');
@@ -58,7 +76,9 @@ for(const engine of diagnostic?['webkit']:['chromium','firefox','webkit']){
     const pending=()=>row.requests.filter(r=>r.state==='pending');
     const deadline=Date.now()+5000;
     while(pending().length&&Date.now()<deadline)await page.waitForTimeout(100);
-    assert.deepEqual(pending(),[],'Requests remain pending before checkpoint');
+    const pendingAtDeadline=pending();
+    if(attributed)await documentReady('checkpoint:'+name);
+    assert.deepEqual(pendingAtDeadline,[],'Requests remain pending before checkpoint');
     assert.deepEqual(row.requests.filter(r=>r.state==='failed'||r.httpStatus>=400),[],'Network errors before checkpoint');
     row.stages.push({name,url:page.url(),requestCount:row.requests.length});await save();
    };
@@ -67,8 +87,9 @@ for(const engine of diagnostic?['webkit']:['chromium','firefox','webkit']){
     const scripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>({src:n.src,type:n.type,themeScript:n.dataset.themeScript||null})).filter(n=>/\/plugins\/(PluginCommentWidget|PluginSearchWidget)\/assets\//.test(new URL(n.src).pathname)));
     assert(scripts.some(s=>!s.themeScript&&!/application\/(?:ld\+)?json/i.test(s.type)),'Expected retained official script requiring native lifecycle');
     const previousCount=row.requests.length;
-    if(diagnostic)row.beforeNavigation.push(await page.evaluate(destination=>({url:location.href,timeOrigin:performance.timeOrigin,at:Date.now(),destination,images:[...document.images].map(image=>({src:image.getAttribute('src'),currentSrc:image.currentSrc,loading:image.loading,complete:image.complete,naturalWidth:image.naturalWidth,connected:image.isConnected,top:image.getBoundingClientRect().top}))}),route));
+    if(observed)row.beforeNavigation.push(await page.evaluate(destination=>({url:location.href,timeOrigin:performance.timeOrigin,at:Date.now(),destination,images:[...document.images].map(image=>({src:image.getAttribute('src'),currentSrc:image.currentSrc,loading:image.loading,complete:image.complete,naturalWidth:image.naturalWidth,connected:image.isConnected,top:image.getBoundingClientRect().top}))}),route));
     await page.evaluate(run=>window.combinationFollowupSentinel=run,fixture.runId);
+    intent('native-link',base+route);
     await page.evaluate(route=>{const a=document.createElement('a');a.href=route;document.body.append(a);a.click();a.remove();},route);
     await page.waitForFunction(route=>location.pathname+location.search===route&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,route,{timeout:30000,polling:100});
     assert.equal(await page.evaluate(()=>window.combinationFollowupSentinel),undefined,'Official plugin page must receive a fresh document lifecycle');
@@ -76,6 +97,7 @@ for(const engine of diagnostic?['webkit']:['chromium','firefox','webkit']){
     assert.equal(documents.length,1,'Expected one actual main-frame document request');
     assert.equal(documents[0].httpStatus,200);
     (row.navigations??=[]).push({route,mode:'native',officialScripts:scripts,documentRequestId:documents[0].id});
+    await documentReady('native-document-ready');
    };
    const comment=async(kind,name)=>{
     await page.locator('#post-comment').scrollIntoViewIfNeeded();
@@ -115,9 +137,11 @@ for(const engine of diagnostic?['webkit']:['chromium','firefox','webkit']){
    };
    try{
     row.stage='initial';
+    intent('initial-goto',base+fixture.post.path+'?language=en');
     const response=await page.goto(base+fixture.post.path+'?language=en',{waitUntil:'networkidle',timeout:20000});
     assert.equal(response.status(),200);
     await page.waitForFunction(()=>!!window.MainApp?.useCommon);
+    await documentReady('initial-document-ready');
     await page.evaluate(run=>window.combinationFollowupSentinel=run,fixture.runId);
     await article('en');await checkpoint('initial-article');
     for(let cycle=1;cycle<=5;cycle++){
@@ -140,15 +164,25 @@ for(const engine of diagnostic?['webkit']:['chromium','firefox','webkit']){
    }catch(error){
     row.status='failed';row.error=String(error.stack||error);row.failedUrl=page.url();
     row.pendingAtFailure=row.requests.filter(r=>r.state==='pending').map(r=>({...r}));
-    try{row.failureState=await Promise.race([page.evaluate(()=>({url:location.href,readyState:document.readyState,lang:document.documentElement.lang,classes:document.documentElement.className,sentinel:window.combinationFollowupSentinel,math:document.querySelectorAll('article.render math').length,comments:document.querySelectorAll('comment-widget').length})),new Promise((_,reject)=>setTimeout(()=>reject(Error('snapshot timed out')),2000))]);}catch(e){row.snapshotError=String(e);}
+    try{row.failureState=await Promise.race([page.evaluate(attributed=>({url:location.href,readyState:document.readyState,lang:document.documentElement.lang,classes:document.documentElement.className,sentinel:window.combinationFollowupSentinel,math:document.querySelectorAll('article.render math').length,comments:document.querySelectorAll('comment-widget').length,...(attributed?{timeOrigin:performance.timeOrigin,at:Date.now(),images:[...document.images].map(image=>({src:image.getAttribute('src'),currentSrc:image.currentSrc,loading:image.loading,complete:image.complete,naturalWidth:image.naturalWidth,connected:image.isConnected}))}:{})}),attributed),new Promise((_,reject)=>setTimeout(()=>reject(Error('snapshot timed out')),2000))]);}catch(e){row.snapshotError=String(e);}
    }finally{
     row.requestsBeforeClose=row.requests.map(r=>({...r}));
-    await save();await boundedClose(context,'context');await save();
+    await save();
+    if(attributed){row.contextCloseStarted=stamp();boundary('context-close-start',{engine,color,caseId,...row.contextCloseStarted});}
+    let closeOutcome='failed';
+    try{await boundedClose(context,'context');closeOutcome='closed';}
+    finally{
+     if(attributed){row.contextCloseFinished={...stamp(),outcome:closeOutcome};boundary('context-close-end',{engine,color,caseId,...row.contextCloseFinished});boundary('case-end',{engine,color,caseId});}
+     await save();
+    }
     console.log(engine,color,row.status,row.error||'');
    }
   }
  }catch(error){report.executionErrors??=[];report.executionErrors.push({engine,error:String(error.stack||error)});await save();}
- finally{if(browser){try{await boundedClose(browser,'browser');}catch(error){report.executionErrors??=[];report.executionErrors.push({engine,error:String(error)});await save();}}}
+ finally{
+  if(browser){try{await boundedClose(browser,'browser');engineCloseOutcome='closed';}catch(error){engineCloseOutcome='failed';report.executionErrors??=[];report.executionErrors.push({engine,error:String(error)});await save();}}
+  boundary('engine-end',{engine,outcome:engineCloseOutcome});
+ }
 }
 // Recheck the final arrays after context/browser shutdown so late errors cannot
 // leave a case marked passed. Keep checkpoint failures and their original stacks.
