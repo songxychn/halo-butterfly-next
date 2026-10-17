@@ -52,7 +52,7 @@ def main():
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
-    parser.add_argument('--profile', choices=['six-cases', 'webkit-dark-diagnostic'], default='six-cases')
+    parser.add_argument('--profile', choices=['six-cases', 'webkit-dark-diagnostic', 'six-cases-attributed'], default='six-cases')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     args = parser.parse_args()
     runtime = args.runtime.resolve(strict=True)
@@ -80,6 +80,8 @@ def main():
     report['profile'] = args.profile
     if args.profile == 'webkit-dark-diagnostic':
         report['limitations'][1] = 'One instrumented WebKit dark mobile diagnostic, not a replacement six-case acceptance batch or a retry of its result.'
+    if args.profile == 'six-cases-attributed':
+        report['limitations'].append('Six fixed acceptance cases with additional public observations and private protocol logging; strict errors remain failures. Exact loader attribution is available only from the separately extracted WebKit segment; not a performance sample.')
     client = None
     protocol_stream = None
     original_config = original_system = before = None
@@ -300,12 +302,16 @@ def main():
         # already running and is never part of it. A timeout is a failed batch,
         # not a reason to retry any measurement.
         browser_env = dict(os.environ)
-        if args.profile == 'webkit-dark-diagnostic':
+        if args.profile in ('webkit-dark-diagnostic', 'six-cases-attributed'):
             # Official Playwright logging only: never patch the browser or its
             # protocol. Raw messages may include session data; keep them private.
             protocol_path = output / 'protocol.private.log'
             protocol_stream = os.fdopen(os.open(protocol_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'w')
             browser_env.update(DEBUG='pw:protocol', DEBUG_COLORS='0')
+            # The caller's debug-file/truncation preferences must not divert or
+            # truncate this explicit private evidence stream.
+            browser_env.pop('DEBUG_FILE', None)
+            browser_env.pop('MAX_LOG_LENGTH', None)
             report['protocolLog'] = protocol_path.name
         browser = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json')], cwd=REPO, env=browser_env, stderr=protocol_stream, start_new_session=True)
         report['browserProcessGroup'] = browser.pid

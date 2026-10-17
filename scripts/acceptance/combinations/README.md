@@ -62,6 +62,20 @@ console error, failed/unfinished request or HTTP error in the final arrays.
 An earlier failure and its original stack are retained.
 There are no navigation retries, plugin resource removal or keep-alive changes.
 
+`--profile six-cases-attributed` is a separate fixed six-case acceptance batch
+with the same five loops and strict error gates. It adds public observations for
+all three engines: initial/link navigation intent, images before navigation,
+images and completed image ResourceTiming entries after document readiness and
+at checkpoints, plus context-close start/end timestamps. Pending requests are
+captured before the checkpoint observation so extra observation time cannot turn
+an overdue request into a passing checkpoint. Failures during teardown still fail.
+The additional observations can affect scheduling and are not performance data.
+Official `DEBUG=pw:protocol` output is stored in a new 0600 private file with
+engine/case boundaries. It contains mixed protocols: extract the WebKit interval
+as described in [DIAGNOSTICS.md](DIAGNOSTICS.md) before using its offline parser.
+Only WebKit receives precise protocol loader attribution; public frame URLs and
+DOM candidates do not provide that identity for Chromium or Firefox.
+
 Output is a unique `combination-followup/<run-id>/` directory inside the lab.
 `report.json` owns setup/restoration results; `browser-report.json` owns six
 case results. `restore.private.json` is mode 0600 and must never be committed.
