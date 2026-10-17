@@ -11,6 +11,7 @@ import html as html_module
 import json
 import os
 from pathlib import Path
+import re
 import secrets
 import signal
 import subprocess
@@ -24,6 +25,7 @@ CONFIG = CONSOLE + 'themes/halo-butterfly-next/json-config'
 SYSTEM = '/api/v1alpha1/configmaps/system'
 PLUGINS = '/apis/plugin.halo.run/v1alpha1/plugins'
 OWNER = 'navigation-followup-owner'
+DEFAULT_PACKAGE_SHA256 = '93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e'
 COLLECTIONS = {
     'post': '/apis/content.halo.run/v1alpha1/posts',
     'page': '/apis/content.halo.run/v1alpha1/singlepages',
@@ -39,11 +41,18 @@ def require(value, message):
         raise RuntimeError(message)
 
 
+def hex_digest(value, length):
+    if not re.fullmatch(r'[0-9a-fA-F]{' + str(length) + '}', value):
+        raise argparse.ArgumentTypeError(f'Expected exactly {length} hexadecimal characters')
+    return value.lower()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--package', type=Path, required=True)
-    parser.add_argument('--source-sha', required=True)
+    parser.add_argument('--source-sha', type=lambda value: hex_digest(value, 40), required=True)
+    parser.add_argument('--package-sha256', type=lambda value: hex_digest(value, 64), default=DEFAULT_PACKAGE_SHA256)
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     parser.add_argument('--profile', choices=['three-engines', 'chromium-diagnostic'], default='three-engines')
     args = parser.parse_args()
@@ -64,7 +73,7 @@ def main():
         stream.write(run)
     lock.chmod(0o600)
     output.mkdir(parents=True, exist_ok=False)
-    report = {'schema': 1, 'runId': run, 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'status': 'running', 'created': [], 'cleanup': [], 'errors': [], 'limitations': [
+    report = {'schema': 1, 'runId': run, 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'status': 'running', 'declaredIdentity': {'sourceCommit': args.source_sha, 'packageSha256': args.package_sha256, 'sourceCommitAttribution': 'caller-supplied declaration; successful preflight separately checks product-source diff and installed package bytes'}, 'created': [], 'cleanup': [], 'errors': [], 'limitations': [
         'Fixed mobile light-mode profile in explicitly plugin-disabled core configuration; not whole-ecosystem PJAX.',
         'Official-plugin native fallback reuses separately attributed combination evidence; no resource deletion or script marking.',
         'No comment draft, submission/reply, physical devices, performance budgets or full 1.0 claim.',
@@ -96,8 +105,9 @@ def main():
         package = args.package.resolve(strict=True)
         require(package.is_relative_to(REPO), 'Package outside worktree')
         installed = json.loads((runtime / 'installed-package.json').read_text())
-        require(args.source_sha == 'd678d3f839347554d7f100996f87b23b571888df' and lab.digest(package) == '93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e', 'Fixed candidate identity mismatch')
-        require(installed['sourceCommit'] == args.source_sha and installed['sha256'] == lab.digest(package), 'Installed package attribution mismatch')
+        package_sha256 = lab.digest(package)
+        require(package_sha256 == args.package_sha256, 'Declared package SHA-256 mismatch')
+        require(installed['sourceCommit'] == args.source_sha and installed['sha256'] == args.package_sha256, 'Installed package attribution mismatch')
         subprocess.run(['git', 'diff', '--exit-code', args.source_sha, '--', 'src', 'i18n', 'settings.yaml', 'theme.yaml', 'scripts/build.mjs', 'package.json', 'bun.lock', 'bunfig.toml'], cwd=REPO, check=True, stdout=subprocess.DEVNULL)
         with zipfile.ZipFile(package) as archive:
             files = [n for n in archive.namelist() if not n.endswith('/')]

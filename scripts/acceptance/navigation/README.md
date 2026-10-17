@@ -12,12 +12,21 @@ plugin ecosystem supports PJAX. The runner never changes a plugin or process.
 python3 scripts/acceptance/navigation/run.py \
   --runtime "$PWD/.runtime/performance-followup/halo-lab" \
   --package "$PWD/.runtime/performance-followup/evidence/candidate-d678d3f.zip" \
+  --package-sha256 93b6a78ad1780dc7ae0a3a2d84955a9cdfa4c88f15a6ab9d4708d7c036c1453e \
   --source-sha d678d3f839347554d7f100996f87b23b571888df \
   --allow-synthetic-writes yes
 ```
 
-Preflight checks owned loopback process identity, the official Halo JAR, fixed
-candidate ZIP `93b6a78a…`, all 269 installed files, no product source difference,
+For another fixed candidate, provide its full 40-character source commit and
+explicit 64-character `--package-sha256`. Branch names, shortened SHAs and other
+Git revision expressions are rejected before runtime access. Hex digits are
+normalized to lowercase. Omitting `--package-sha256` preserves the original
+`93b6a78a…` package default for existing commands; a new ZIP requires its own
+explicit digest. The report records the declared source/package identity.
+
+Preflight checks owned loopback process identity, the official Halo JAR, declared
+candidate ZIP digest, matching installed source/hash, all 269 installed files,
+no product source difference against the given commit,
 all plugin states, active theme and operation locks. It preserves theme/system
 configuration, plugin specs/configuration/JARs, existing Post/SinglePage specs
 and published release-content fingerprints. A retained lock means restoration
