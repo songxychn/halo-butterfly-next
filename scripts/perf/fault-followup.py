@@ -17,6 +17,7 @@ CONSOLE = '/apis/api.console.halo.run/v1alpha1/'
 POSTS = '/apis/content.halo.run/v1alpha1/posts'
 PLUGINS = '/apis/plugin.halo.run/v1alpha1/plugins'
 CONFIG = CONSOLE + 'themes/halo-butterfly-next/json-config'
+CPU_LOCK = Path('/private/tmp/halo-butterfly-next-performance-cpu.lock')
 
 
 def sha(value):
@@ -26,6 +27,78 @@ def sha(value):
 def require(value, message):
     if not value:
         raise RuntimeError(message)
+
+
+def release_run_locks(locks):
+    # Validate every owner before releasing any part of the reservation.
+    for path, payload in locks:
+        require(path.read_text() == payload, 'Run lock ownership changed: ' + str(path))
+    cpu_owner = locks[0][0]
+    require(set(cpu_owner.parent.iterdir()) == {cpu_owner}, 'Unexpected CPU lock contents')
+    for path, _ in reversed(locks):
+        path.unlink()
+    cpu_owner.parent.rmdir()
+
+
+def acquire_run_locks(runtime, run, cpu_lock=CPU_LOCK):
+    # These are the same atomic locks used by collect.mjs and combinations/run.py.
+    # Taking both prevents either tool from starting after the fault run begins.
+    cpu_lock.mkdir()
+    locks = []
+    try:
+        owner = json.dumps({'pid': os.getpid(), 'runtime': str(runtime), 'kind': 'perf03-followup', 'runId': run})
+        for path, payload in [(cpu_lock / 'owner.json', owner),
+                              (runtime / 'acceptance-combinations.lock', run),
+                              (runtime / 'perf03-followup.lock', run)]:
+            with path.open('x') as stream:
+                stream.write(payload)
+            path.chmod(0o600)
+            locks.append((path, payload))
+        return locks
+    except BaseException:
+        if locks:
+            release_run_locks(locks)
+        elif not any(cpu_lock.iterdir()):
+            cpu_lock.rmdir()
+        raise
+
+
+def stop_browser_group(child, grace=10):
+    try:
+        os.killpg(child.pid, signal.SIGTERM)
+    except ProcessLookupError:
+        pass
+    try:
+        child.wait(timeout=grace)
+    except subprocess.TimeoutExpired:
+        pass
+    finally:
+        # The parent may exit on TERM while a browser descendant ignores it.
+        # Always finish the original group, even after a normal parent exit.
+        try:
+            os.killpg(child.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+    child.wait(timeout=grace)
+
+
+class BrowserCleanupError(RuntimeError):
+    pass
+
+
+def run_browser(command, log, base, timeout=600, grace=10):
+    with log.open('w') as stream:
+        child = subprocess.Popen(command, cwd=ROOT, env=dict(os.environ, BASE_URL=base), stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
+        try:
+            return child.wait(timeout=timeout)
+        except subprocess.TimeoutExpired as error:
+            raise RuntimeError('Fault batch exceeded fixed ' + str(timeout) + ' seconds') from error
+        finally:
+            # Also runs on KeyboardInterrupt; restoration must follow child cleanup.
+            try:
+                stop_browser_group(child, grace)
+            except Exception as error:
+                raise BrowserCleanupError('Browser group cleanup failed; retain run locks') from error
 
 
 def main():
@@ -39,8 +112,6 @@ def main():
     require(runtime.is_relative_to(ROOT / '.runtime'), 'Runtime outside owned checkout')
     marker = json.loads((runtime / 'lab.json').read_text())
     require(marker['owner'] == 'halo-butterfly-next-comparison' and marker['schema'] == 1, 'Wrong lab owner')
-    require(not Path('/private/tmp/halo-butterfly-next-performance-cpu.lock').exists(), 'Performance sampling still active')
-    require(not (runtime / 'acceptance-combinations.lock').exists(), 'Combination batch still active')
     os.environ.update(LAB_RUNTIME=str(runtime), HALO_PORT=str(marker['ports']['halo']), HEXO_PORT=str(marker['ports']['hexo']))
     spec = importlib.util.spec_from_file_location('fault_lab', ROOT / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec)
@@ -60,16 +131,11 @@ def main():
     run = secrets.token_hex(10)
     output = runtime / 'fault-followup' / run
     output.mkdir(parents=True)
-    lock = runtime / 'perf03-followup.lock'
-    with lock.open('x') as f:
-        f.write(run)
-    lock.chmod(0o600)
-    c = lab.Client()
-    original_config = c.api(CONFIG)
-    before_plugins = c.api(PLUGINS + '?size=100')['items']
-    lab.write_json(output / 'restore.private.json', {'config': original_config, 'plugins': before_plugins}, private=True)
     report = {'coordinatorSha256': lab.digest(Path(__file__)), 'runId': run, 'candidate': installed, 'halo': lab.VERSIONS['halo'], 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'batches': [], 'errors': [], 'restorationVerified': False}
     created = None
+    locks = None
+    mutations_started = False
+    c = None
     def save():
         lab.write_json(output / 'report.json', report)
     def inventory():
@@ -112,24 +178,23 @@ def main():
             require(time.monotonic() < deadline, 'Plugin state did not settle')
             time.sleep(.25)
     def browser(command, log):
-        with log.open('w') as stream:
-            child = subprocess.Popen(command, cwd=ROOT, env=dict(os.environ, BASE_URL=lab.BASE['halo']), stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
-            try:
-                return child.wait(timeout=600)
-            except subprocess.TimeoutExpired:
-                os.killpg(child.pid, signal.SIGTERM)
-                try:
-                    child.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    os.killpg(child.pid, signal.SIGKILL)
-                    child.wait(timeout=10)
-                raise RuntimeError('Fault batch exceeded fixed 600 seconds')
-    before = plugin_snapshot()
-    before_content = content_snapshot()
-    before_system = sha(c.api('/api/v1alpha1/configmaps/system').get('data', {}))
-    report['before'] = {'plugins': before, 'content': before_content, 'systemSha256': before_system}
-    save()
+        try:
+            return run_browser(command, log, lab.BASE['halo'])
+        except BrowserCleanupError:
+            report['browserCleanupFailed'] = True
+            raise
     try:
+        locks = acquire_run_locks(runtime, run, CPU_LOCK)
+        save()
+        c = lab.Client()
+        original_config = c.api(CONFIG)
+        before_plugins = c.api(PLUGINS + '?size=100')['items']
+        lab.write_json(output / 'restore.private.json', {'config': original_config, 'plugins': before_plugins}, private=True)
+        before = plugin_snapshot()
+        before_content = content_snapshot()
+        before_system = sha(c.api('/api/v1alpha1/configmaps/system').get('data', {}))
+        report['before'] = {'plugins': before, 'content': before_content, 'systemSha256': before_system}
+        save()
         # Use the same versioned renderer content as functional acceptance.
         rs = importlib.util.spec_from_file_location('fault_renderer', ROOT / 'scripts/body-renderers/lab.py')
         renderer = importlib.util.module_from_spec(rs)
@@ -137,6 +202,7 @@ def main():
         markup, _ = renderer.content()
         name = 'perf03-demand-' + run
         post = {'apiVersion': 'content.halo.run/v1alpha1', 'kind': 'Post', 'metadata': {'name': name, 'labels': {'perf03-owner': run}}, 'spec': {'title': 'PERF03 synthetic ' + run, 'slug': name, 'owner': c.auth['username'], 'publish': False, 'publishTime': '2026-08-01T04:00:00Z', 'visible': 'PUBLIC', 'deleted': False, 'pinned': False, 'allowComment': False, 'priority': 0, 'excerpt': {'autoGenerate': True}, 'cover': '', 'tags': [], 'categories': []}}
+        mutations_started = True  # An uncertain POST outcome also needs restoration checks.
         c.api(CONSOLE + 'posts', 'POST', {'post': post, 'content': {'raw': markup, 'content': markup, 'rawType': 'HTML'}})
         initial = c.api(POSTS + '/' + name)
         created = {'name': name, 'creationTimestamp': initial['metadata']['creationTimestamp'], 'specSha256': None}
@@ -180,10 +246,11 @@ def main():
         # Original delayed-bundle check: three engines, unchanged deadlines.
         code = browser(['bun', str(ROOT / 'scripts/perf/core-browser.mjs'), '--base', lab.BASE['halo'], '--output', str(output / 'delayed.json'), '--scenario', 'delayed'], output / 'delayed.log')
         report['batches'].append({'profile': 'delayed', 'exitCode': code, 'report': 'delayed.json'})
-    except Exception as e:
-        report['errors'].append(str(e))
+    except (Exception, KeyboardInterrupt) as e:
+        report['errors'].append(str(e) or type(e).__name__)
     finally:
         try:
+            require(not report.get('browserCleanupFailed'), 'Browser group cleanup incomplete; preserve fixture')
             if created:
                 current = c.api(POSTS + '/' + created['name'])
                 require(current['metadata'].get('labels', {}).get('perf03-owner') == run and current['metadata']['creationTimestamp'] == created['creationTimestamp'] and created['specSha256'] == sha(current['spec']), 'Synthetic fixture identity drift; preserve for inspection')
@@ -202,15 +269,21 @@ def main():
         except Exception as e:
             report['errors'].append('fixture cleanup: ' + str(e))
         try:
-            c.api(CONFIG, 'PUT', original_config)
-            enable({x['metadata']['name'] for x in before_plugins if x['spec'].get('enabled')})
-            require(c.api(CONFIG) == original_config and plugin_snapshot() == before, 'Restoration differs')
-            require(json.loads((runtime / 'installed-package.json').read_text()) == installed, 'Installed candidate changed')
-            require(content_snapshot() == before_content, 'Existing content or release changed')
-            require(sha(c.api('/api/v1alpha1/configmaps/system').get('data', {})) == before_system, 'System configuration changed')
-            require(not created or report.get('fixtureDeleted'), 'Synthetic fixture was not deleted')
-            report['restorationVerified'] = True
-            lock.unlink()
+            require(not report.get('browserCleanupFailed'), 'Browser group cleanup incomplete; preserve configuration and locks')
+            if mutations_started:
+                c.api(CONFIG, 'PUT', original_config)
+                enable({x['metadata']['name'] for x in before_plugins if x['spec'].get('enabled')})
+                require(c.api(CONFIG) == original_config and plugin_snapshot() == before, 'Restoration differs')
+                require(json.loads((runtime / 'installed-package.json').read_text()) == installed, 'Installed candidate changed')
+                require(content_snapshot() == before_content, 'Existing content or release changed')
+                require(sha(c.api('/api/v1alpha1/configmaps/system').get('data', {})) == before_system, 'System configuration changed')
+                require(not created or report.get('fixtureDeleted'), 'Synthetic fixture was not deleted')
+                report['restorationVerified'] = True
+            else:
+                report['preflightOnly'] = True
+            if locks:
+                release_run_locks(locks)
+            report['locksReleased'] = True
         except Exception as e:
             report['errors'].append('restoration: ' + str(e))
         report['passed'] = report['restorationVerified'] and not report['errors'] and len(report['batches']) == 5 and all(x['exitCode'] == 0 for x in report['batches'])
