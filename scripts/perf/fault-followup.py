@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run fixed PERF-03 controls in an owned lab, preserving failures and restoring inputs."""
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
