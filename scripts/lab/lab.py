@@ -24,6 +24,15 @@ from html.parser import HTMLParser
 REPO = Path(__file__).resolve().parents[2]
 FIXTURES = REPO / 'fixtures/comparison'
 VERSIONS = json.loads((FIXTURES / 'versions.json').read_text())
+HALO_RELEASES = {VERSIONS['halo']['version']: VERSIONS['halo'],
+                 '2.27.1': {'version': '2.27.1',
+                            'url': 'https://github.com/halo-dev/halo/releases/download/v2.27.1/halo-2.27.1.jar',
+                            'sha256': 'f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3'}}
+HALO_VERSION = os.environ.get('HALO_VERSION', VERSIONS['halo']['version'])
+if HALO_VERSION not in HALO_RELEASES:
+    raise RuntimeError('HALO_VERSION must select a pinned official release')
+VERSIONS['halo'] = HALO_RELEASES[HALO_VERSION]
+HALO_JAR_NAME = 'halo-' + HALO_VERSION + '.jar'
 CONTENT = json.loads((FIXTURES / 'content.json').read_text())
 RUNTIME = Path(os.environ.get('LAB_RUNTIME', str(REPO / '.runtime/comparison'))).resolve()
 PORTS = {'halo': int(os.environ.get('HALO_PORT', '18091')), 'hexo': int(os.environ.get('HEXO_PORT', '14000'))}
@@ -81,7 +90,7 @@ def prepare():
     write_json(marker, identity)
     halo = RUNTIME / 'halo'
     halo.mkdir(exist_ok=True)
-    jar = halo / 'halo-2.26.1.jar'
+    jar = halo / HALO_JAR_NAME
     if not jar.exists():
         source = os.environ.get('HALO_JAR_SOURCE')
         if source:
@@ -548,7 +557,7 @@ def start(halo_only=False):
                 raise RuntimeError(f'{name} port {PORTS[name]} is occupied by a process this lab does not own')
             continue
         if name == 'halo':
-            identity = str(RUNTIME / 'halo/halo-2.26.1.jar')
+            identity = str(RUNTIME / 'halo' / HALO_JAR_NAME)
             command = ['java', '-Xms128m', '-Xmx512m', '-Duser.timezone=' + VERSIONS['timezone'], '-jar', identity, '--server.address=127.0.0.1', '--server.port=' + str(PORTS[name]), '--halo.work-dir=' + str(RUNTIME / 'halo/data'), '--halo.external-url=' + BASE[name], '--spring.thymeleaf.cache=false', '--springdoc.api-docs.enabled=true', '--halo.attachment.resource-mappings[0].path-pattern=/lab/**', '--halo.attachment.resource-mappings[0].locations[0]=lab', '--logging.level.org.thymeleaf.TemplateEngine=ERROR']
         else:
             identity = str(RUNTIME / 'hexo/public')

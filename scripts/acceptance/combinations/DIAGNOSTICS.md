@@ -79,3 +79,47 @@ case, never the cause or pass status of a historical Halo request.
 Current scoped behavior is tested by `bun test tests/webkit-protocol.test.mjs`.
 The tests cover loader/target identity, missing evidence, HTTP errors, the exact
 WebKit `StyleSheet` type, privacy filtering and incomplete-log warnings.
+
+## Six-case acceptance with attribution
+
+`run.py --profile six-cases-attributed` retains the original six cases, five loops,
+timeouts and strict failure gates. Its whole private protocol log mixes Chromium,
+Firefox and WebKit. **Do not pass that mixed log directly to the WebKit parser.**
+The runner writes explicit `HBN_COMBINATION_PROTOCOL` JSON lifecycle markers to
+the same stderr stream, without changing Playwright's logger or browser methods.
+
+```sh
+bun scripts/acceptance/combinations/extract-webkit-protocol.mjs \
+  "$PWD/.runtime/<run>/protocol.private.log" \
+  "$PWD/.runtime/<run>/webkit-protocol.private.log" \
+  "$PWD/.runtime/<run>/webkit-segment.json"
+bun scripts/acceptance/combinations/analyze-webkit-protocol.mjs \
+  "$PWD/.runtime/<run>/webkit-protocol.private.log" \
+  "$PWD/.runtime/<run>/webkit-analysis.json"
+```
+
+Extraction preserves the whole original log and copies the exact WebKit engine
+byte interval, including unknown protocol events. The manifest records source and
+slice hashes, byte/line boundaries, engine/case windows and context-close starts
+and finishes. It requires all three engine scopes, both ordered cases per engine,
+matching run IDs, nondecreasing monotonic marker times and completed closes.
+Missing/overlapping/unknown boundaries or failed closes produce an incomplete
+manifest and no slice. A failed content assertion can still have complete capture;
+capture completeness does not change the acceptance verdict.
+
+Public observations are recorded for all engines. `navigationIntents` records
+initial goto and link-click intent immediately before the action. `beforeNavigation`
+captures the departing document's images; `afterDocumentReady` includes initial,
+native-document-ready and checkpoint resource observations. A checkpoint keeps
+the pending-request list from the original deadline before collecting its extra
+snapshot. `contextCloseStarted` and `contextCloseFinished` separate observations
+before/during teardown; cancellation in either window remains a strict failure.
+The final error gate still runs after all contexts and browsers close.
+
+`documentCommits` contains public `framenavigated` notifications, including
+same-document navigation: do not count each as a new document. ResourceTiming
+entries only show recorded completed image timing entries, not every pending or
+failed request. Image URL matches and frame URLs are supporting observations;
+precise loader ownership comes only from the WebKit protocol. No field here
+automatically distinguishes a normal departure from a product fault or exempts
+an earlier failed batch. The added layout reads/logging can affect timing.

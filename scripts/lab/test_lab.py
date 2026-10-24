@@ -2,6 +2,7 @@
 import importlib.util
 import copy
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -13,6 +14,18 @@ spec.loader.exec_module(lab)
 
 
 class LabTests(unittest.TestCase):
+    def test_halo_release_selection_fails_closed(self):
+        for version, expected in [('2.26.1', '7a1d6ea0800e8940672aab99a7328b7bd9520e297677169594328004a41991bc'),
+                                  ('2.27.1', 'f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3')]:
+            with patch.dict(os.environ, {'HALO_VERSION': version}):
+                selected = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(selected)
+                self.assertEqual(selected.VERSIONS['halo']['sha256'], expected)
+                self.assertEqual(selected.HALO_JAR_NAME, 'halo-' + version + '.jar')
+        with patch.dict(os.environ, {'HALO_VERSION': 'latest'}):
+            with self.assertRaisesRegex(RuntimeError, 'pinned official release'):
+                spec.loader.exec_module(importlib.util.module_from_spec(spec))
+
     def test_shared_photo_fixture_is_complete_and_small(self):
         sources = json.loads((lab.FIXTURES / 'image-sources.json').read_text())
         covers = [post['cover'] for post in lab.CONTENT['posts']]

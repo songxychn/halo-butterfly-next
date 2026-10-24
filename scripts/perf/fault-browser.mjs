@@ -8,10 +8,11 @@ import { RUNTIME, browserEnvironment, validatePackage, sha256 } from '../browser
 import { ownedDiagnosticLab, boundedDiagnostic, loadingRequestLedger } from '../browser/loading-diagnostics.mjs';
 const args = {};
 for (let i = 2; i < process.argv.length; i += 2) {
-  assert(['--lab-runtime', '--package', '--source-sha', '--profile', '--output'].includes(process.argv[i]) && process.argv[i + 1] && !args[process.argv[i]]);
+  assert(['--lab-runtime', '--package', '--source-sha', '--profile', '--output', '--positive-path'].includes(process.argv[i]) && process.argv[i + 1] && !args[process.argv[i]]);
   args[process.argv[i]] = process.argv[i + 1];
 }
-assert.equal(Object.keys(args).length, 5);
+for (const key of ['--lab-runtime', '--package', '--source-sha', '--profile', '--output']) assert(args[key], 'Missing ' + key);
+if (args['--positive-path']) assert(/^\/archives\/[a-z0-9-]+\/$/.test(args['--positive-path']), 'Positive control must be a local article path');
 assert(['official', 'external', 'ondemand', 'pace-hang'].includes(args['--profile']));
 const lab = await ownedDiagnosticLab(args['--lab-runtime'], process.env.BASE_URL);
 const base = new URL(process.env.BASE_URL).origin;
@@ -23,7 +24,7 @@ assert(output.startsWith(lab + path.sep));
 await mkdir(output); // Never replace an earlier batch.
 Object.assign(process.env, browserEnvironment());
 const pw = await import(pathToFileURL(path.join(RUNTIME, 'deps/node_modules/playwright/index.mjs')));
-const report = { schema: 1, candidate: installed, profile: args['--profile'], startedAt: new Date().toISOString(), toolSha256: sha256(await readFile(fileURLToPath(import.meta.url))), runnerHead: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), cases: [], limitations: ['Injected failures are expected and recorded; this is not a resource-completeness or provider feature pass.', 'Headless 390px light mode only; not physical phones/Safari or all configurations.', 'Official plugin injection remains intact; failed plugin resources do not certify math/comment functionality.', 'On-demand scope covers enabled Mermaid/ChartJS absent on homepage then present with matching content; no claim for all body features.'] };
+const report = { schema: 1, candidate: installed, profile: args['--profile'], startedAt: new Date().toISOString(), toolSha256: sha256(await readFile(fileURLToPath(import.meta.url))), runnerHead: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), cases: [], limitations: ['Injected failures are expected and recorded; this is not a resource-completeness or provider feature pass.', 'Headless 390px light mode only; not physical phones/Safari or all configurations.', 'Official plugin injection remains intact; failed plugin resources do not certify math/comment functionality.', `On-demand scope covers enabled Mermaid/ChartJS${args['--positive-path'] ? '/ABCJS' : ''} absent on homepage then present with matching content; no claim for all body features.`] };
 const save = () => writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2) + '\n');
 for (const engine of ['chromium', 'firefox', 'webkit']) {
   const browser = await pw[engine].launch({ headless: true, ...(engine === 'chromium' ? { channel: 'chromium' } : {}) });
@@ -134,16 +135,18 @@ for (const engine of ['chromium', 'firefox', 'webkit']) {
           row.officialMarkup = await page.evaluate(() => ({ resources: [...document.querySelectorAll('script[src],link[href]')].map(n => n.src || n.href).filter(x => /\/plugins\/(PluginCommentWidget|plugin-katex)\//.test(x)), commentHosts: document.querySelectorAll('[data-comment-lazy]').length }));
           assert(row.officialMarkup.resources.length >= 2);
         } else {
-          row.optionalRequests = ledger.snapshot().filter(x => /mermaid|chartjs|body-renderer/.test(new URL(x.url).pathname));
+          row.optionalRequests = ledger.snapshot().filter(x => /mermaid|chartjs|abcjs|body-renderer/.test(new URL(x.url).pathname));
           assert.equal(row.optionalRequests.length, 0);
           row.config = await page.evaluate(() => MainApp.conf);
-          const positiveResponse = await page.goto(base + '/archives/perf03-demand-20261016/', { waitUntil: 'domcontentloaded', timeout: 20000 });
+          const positiveResponse = await page.goto(base + (args['--positive-path'] || '/archives/perf03-demand-20261016/'), { waitUntil: 'domcontentloaded', timeout: 20000 });
           assert.equal(positiveResponse.status(), 200, 'Published positive control must return 200');
           await page.waitForSelector('.theme-render-output svg');
           await page.waitForSelector('.theme-render-output canvas');
-          row.positiveRequests = ledger.snapshot().filter(x => /renderers\/(mermaid|chartjs)\.min\.js/.test(new URL(x.url).pathname));
+          if (args['--positive-path']) await page.waitForSelector('#fixture-score .theme-render-output svg');
+          row.positiveRequests = ledger.snapshot().filter(x => /renderers\/(mermaid|chartjs|abcjs)\.min\.js/.test(new URL(x.url).pathname));
           assert(row.positiveRequests.some(x => x.url.includes('/renderers/mermaid.min.js')));
           assert(row.positiveRequests.some(x => x.url.includes('/renderers/chartjs.min.js')));
+          if (args['--positive-path']) assert(row.positiveRequests.some(x => x.url.includes('/renderers/abcjs.min.js')));
         }
         assert.deepEqual(row.blocked, []);
         assert.deepEqual(row.errors, []);

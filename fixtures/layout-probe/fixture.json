@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "name": "plugin-halo-butterfly-layout-probe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "halo": {
     "version": "2.26.1",
     "url": "https://github.com/halo-dev/halo/releases/download/v2.26.1/halo-2.26.1.jar",
@@ -27,7 +27,18 @@
     "LICENSE": "LICENSE"
   },
   "routes": [
-    {"path": "/__layout-probe/head", "template": "layout-probe-head", "marker": "layout-probe-head-content", "title": "布局探针：显式 head", "hasHead": true},
-    {"path": "/__layout-probe/no-head", "template": "layout-probe-no-head", "marker": "layout-probe-no-head-content", "hasHead": false}
+    {
+      "path": "/__layout-probe/head",
+      "template": "layout-probe-head",
+      "marker": "layout-probe-head-content",
+      "title": "布局探针：显式 head",
+      "hasHead": true
+    },
+    {
+      "path": "/__layout-probe/no-head",
+      "template": "layout-probe-no-head",
+      "marker": "layout-probe-no-head-content",
+      "hasHead": false
+    }
   ]
 }
