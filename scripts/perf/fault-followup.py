@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Run fixed PERF-03 controls in an owned lab, preserving failures and restoring inputs."""
 import argparse
-import hashlib
 import importlib.util
 import json
 import os
@@ -68,7 +67,7 @@ def main():
     original_config = c.api(CONFIG)
     before_plugins = c.api(PLUGINS + '?size=100')['items']
     lab.write_json(output / 'restore.private.json', {'config': original_config, 'plugins': before_plugins}, private=True)
-    report = {'runId': run, 'candidate': installed, 'halo': lab.VERSIONS['halo'], 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'batches': [], 'errors': [], 'restorationVerified': False}
+    report = {'coordinatorSha256': lab.digest(Path(__file__)), 'runId': run, 'candidate': installed, 'halo': lab.VERSIONS['halo'], 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'batches': [], 'errors': [], 'restorationVerified': False}
     created = None
     def save():
         lab.write_json(output / 'report.json', report)
@@ -87,6 +86,19 @@ def main():
                         raise
             result.append({'name': name, 'specSha256': sha(x['spec']), 'phase': x.get('status', {}).get('phase'), 'configSha256': sha(cfg.get('data', {}) if cfg else None)})
         return sorted(result, key=lambda x: x['name'])
+    def content_snapshot():
+        result = {}
+        for kind in ['posts', 'singlepages']:
+            listing = c.api('/apis/content.halo.run/v1alpha1/' + kind + '?size=200')
+            require(not listing.get('hasNext') and listing.get('total', len(listing['items'])) <= 200, 'Content inventory exceeds fixed bound')
+            rows = []
+            for obj in listing['items']:
+                row = {'name': obj['metadata']['name'], 'creationTimestamp': obj['metadata'].get('creationTimestamp'), 'specSha256': sha(obj['spec'])}
+                if obj['spec'].get('publish'):
+                    row['releaseSha256'] = sha(c.api(CONSOLE + kind + '/' + obj['metadata']['name'] + '/release-content'))
+                rows.append(row)
+            result[kind] = sorted(rows, key=lambda x: x['name'])
+        return result
     def enable(names):
         for x in inventory():
             name = x['metadata']['name']
@@ -112,6 +124,9 @@ def main():
                     child.wait(timeout=10)
                 raise RuntimeError('Fault batch exceeded fixed 600 seconds')
     before = plugin_snapshot()
+    before_content = content_snapshot()
+    before_system = sha(c.api('/api/v1alpha1/configmaps/system').get('data', {}))
+    report['before'] = {'plugins': before, 'content': before_content, 'systemSha256': before_system}
     save()
     try:
         # Use the same versioned renderer content as functional acceptance.
@@ -182,10 +197,16 @@ def main():
                         raise
                     require(time.monotonic() < deadline, 'Fixture deletion did not settle')
                     time.sleep(.25)
+        except Exception as e:
+            report['errors'].append('fixture cleanup: ' + str(e))
+        try:
             c.api(CONFIG, 'PUT', original_config)
             enable({x['metadata']['name'] for x in before_plugins if x['spec'].get('enabled')})
             require(c.api(CONFIG) == original_config and plugin_snapshot() == before, 'Restoration differs')
             require(json.loads((runtime / 'installed-package.json').read_text()) == installed, 'Installed candidate changed')
+            require(content_snapshot() == before_content, 'Existing content or release changed')
+            require(sha(c.api('/api/v1alpha1/configmaps/system').get('data', {})) == before_system, 'System configuration changed')
+            require(not created or report.get('fixtureDeleted'), 'Synthetic fixture was not deleted')
             report['restorationVerified'] = True
             lock.unlink()
         except Exception as e:

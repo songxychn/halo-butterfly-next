@@ -91,7 +91,18 @@ PERF-02 与 JS/CSS 体积比较必须两侧对应 cell 各有完整有效 5 份�
 
 显式设置 `HALO_VERSION=2.27.1` 使用锁定的官方正式 JAR；默认实验基线仍为 2.26.1。自有 layout-probe 更新为 0.0.2，移除过时的 `<2.27.0` 上限，类文件与模板字节保持不变；官方插件版本不变。更新后的精确摘要见 `plugin-profile.json`。旧 probe 的启动失败及已完成的 30 个前置样本保留，不能混入新夹具的完整 160 次集合。
 
+最新实际结果及剩余门禁见 [Halo 2.27.1 验收记录](validation/2026-10-24/halo-2271-acceptance.md)。历史尝试保留原候选与失败，不并入本轮。
+
 `fault-followup.py` 在同一候选上另行执行官方资源 503、第三方 503/挂起、Pace watchdog 和三种正文 renderer 的按需正负控制；只有性能采样结束后才能运行。它保存配置、插件状态、独占夹具身份和恢复记录；不访问正式外部提供商。
+
+```sh
+HALO_VERSION=2.27.1 python3 scripts/perf/fault-followup.py \
+  --lab-runtime /absolute/owned/checkout/.runtime/performance-lab \
+  --package /absolute/frozen/theme.zip --source-sha FULL_CANDIDATE_SHA \
+  --allow-synthetic-writes yes
+```
+
+该命令仅操作本 checkout 下带所有权标记的合成站，要求已安装候选字节相同，显式允许创建/删除带唯一身份的合成文章。它核验现有文章/单页发布内容、系统配置、插件配置与启用状态的恢复；故障或恢复不完整时保留失败和锁，不静默重试。原始恢复文件私有保存，只有脱敏摘要进入版本库。
 
 ## 2026-10-16 的完整采样尝试
 
