@@ -29,6 +29,27 @@ def require(value, message):
         raise RuntimeError(message)
 
 
+def plugin_phases_stable(items):
+    return bool(items) and all(p.get('status', {}).get('phase') == ('STARTED' if p['spec'].get('enabled') else 'DISABLED') for p in items)
+
+
+def wait_for_stable_plugins(inventory, timeout=60):
+    deadline = time.monotonic() + timeout
+    identity = None
+    while True:
+        items = inventory()
+        names = [p['metadata']['name'] for p in items]
+        require(names and len(set(names)) == len(names), 'Empty or duplicate plugin inventory')
+        current = sorted((p['metadata']['name'], sha(p['spec'])) for p in items)
+        if identity is None:
+            identity = current
+        require(current == identity, 'Plugin inventory/spec changed during preflight')
+        require(time.monotonic() < deadline, 'Initial plugin states did not settle')
+        if plugin_phases_stable(items):
+            return items
+        time.sleep(.25)
+
+
 def release_run_locks(locks):
     # Validate every owner before releasing any part of the reservation.
     for path, payload in locks:
@@ -139,10 +160,14 @@ def main():
     def save():
         lab.write_json(output / 'report.json', report)
     def inventory():
-        return c.api(PLUGINS + '?size=100')['items']
+        listing = c.api(PLUGINS + '?size=100')
+        require(not listing.get('hasNext') and listing.get('total', len(listing['items'])) <= 100, 'Plugin inventory exceeds fixed bound')
+        return listing['items']
     def plugin_snapshot():
         result = []
-        for x in inventory():
+        items = inventory()
+        require(plugin_phases_stable(items), 'Cannot snapshot transient plugin phases')
+        for x in items:
             name = x['metadata']['name']
             cfg = None
             if x['spec'].get('configMapName'):
@@ -187,8 +212,8 @@ def main():
         locks = acquire_run_locks(runtime, run, CPU_LOCK)
         save()
         c = lab.Client()
+        before_plugins = wait_for_stable_plugins(inventory)
         original_config = c.api(CONFIG)
-        before_plugins = c.api(PLUGINS + '?size=100')['items']
         lab.write_json(output / 'restore.private.json', {'config': original_config, 'plugins': before_plugins}, private=True)
         before = plugin_snapshot()
         before_content = content_snapshot()

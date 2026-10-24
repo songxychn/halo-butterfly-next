@@ -11,7 +11,7 @@ import tempfile
 import time
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 import zipfile
 
 spec = importlib.util.spec_from_file_location('fault_followup', Path(__file__).with_name('fault-followup.py'))
@@ -54,21 +54,22 @@ class BrowserGroupTests(unittest.TestCase):
     def group_case(self, mode):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp).resolve(); pulse = root / 'pulse'; ready = root / 'ready'; children = []
-            descendant = "import signal,time,pathlib,os;signal.signal(signal.SIGTERM,signal.SIG_IGN);p=pathlib.Path(%r);pathlib.Path(%r).write_text(str(os.getpid()))\nwhile True:\n p.write_text(str(time.monotonic_ns()));time.sleep(.02)" % (str(pulse), str(ready))
+            descendant = "import signal,time,pathlib,os;signal.signal(signal.SIGTERM,signal.SIG_IGN);p=pathlib.Path(%r);p.write_text('started');pathlib.Path(%r).write_text(str(os.getpid()))\nwhile True:\n p.write_text(str(time.monotonic_ns()));time.sleep(.02)" % (str(pulse), str(ready))
             parent = "import subprocess,sys,time,pathlib;subprocess.Popen([sys.executable,'-c',%r])\nwhile not pathlib.Path(%r).exists(): time.sleep(.01)\n" % (descendant, str(ready))
             if mode != 'normal': parent += 'while True: time.sleep(1)\n'
             real_popen = subprocess.Popen
             def launch(*args, **kwargs):
                 child = real_popen(*args, **kwargs); children.append(child)
+                deadline = time.monotonic() + 3
+                while not ready.exists():
+                    if time.monotonic() > deadline: raise RuntimeError('Child fixture did not start')
+                    time.sleep(.01)
                 if mode == 'interrupt':
                     real_wait = child.wait; first = True
                     def wait(*a, **kw):
                         nonlocal first
                         if first:
-                            first = False; deadline = time.monotonic() + 3
-                            while not ready.exists():
-                                if time.monotonic() > deadline: raise RuntimeError('Child fixture did not start')
-                                time.sleep(.01)
+                            first = False
                             raise KeyboardInterrupt()
                         return real_wait(*a, **kw)
                     child.wait = wait
@@ -96,6 +97,35 @@ class BrowserGroupTests(unittest.TestCase):
 
 
 class PreflightTests(unittest.TestCase):
+    def test_initial_plugin_transitions_finish_before_snapshot(self):
+        starting = [{'metadata': {'name': 'on'}, 'spec': {'enabled': True}, 'status': {'phase': 'STARTING'}},
+                    {'metadata': {'name': 'off'}, 'spec': {'enabled': False}, 'status': {'phase': 'STOPPING'}}]
+        settled = [{'metadata': {'name': 'on'}, 'spec': {'enabled': True}, 'status': {'phase': 'STARTED'}},
+                   {'metadata': {'name': 'off'}, 'spec': {'enabled': False}, 'status': {'phase': 'DISABLED'}}]
+        read = Mock(side_effect=[starting, settled])
+        with patch.object(fault.time, 'sleep') as sleep:
+            self.assertEqual(fault.wait_for_stable_plugins(read), settled)
+        self.assertEqual(read.call_count, 2); sleep.assert_called_once_with(.25)
+        self.assertFalse(fault.plugin_phases_stable(starting))
+        self.assertFalse(fault.plugin_phases_stable([{'spec': {'enabled': True}}]))
+
+    def test_initial_plugin_wait_keeps_original_deadline(self):
+        read = Mock(return_value=[{'metadata': {'name': 'on'}, 'spec': {'enabled': True}, 'status': {'phase': 'STARTED'}}])
+        with patch.object(fault.time, 'monotonic', side_effect=[0, 61]):
+            with self.assertRaisesRegex(RuntimeError, 'did not settle'):
+                fault.wait_for_stable_plugins(read)
+        read.assert_called_once_with()
+
+    def test_initial_wait_rejects_empty_inventory_and_spec_drift(self):
+        self.assertFalse(fault.plugin_phases_stable([]))
+        with self.assertRaisesRegex(RuntimeError, 'Empty'):
+            fault.wait_for_stable_plugins(lambda: [])
+        starting = [{'metadata': {'name': 'plugin'}, 'spec': {'enabled': True}, 'status': {'phase': 'STARTING'}}]
+        changed = [{'metadata': {'name': 'plugin'}, 'spec': {'enabled': False}, 'status': {'phase': 'DISABLED'}}]
+        with patch.object(fault.time, 'sleep'):
+            with self.assertRaisesRegex(RuntimeError, 'spec changed'):
+                fault.wait_for_stable_plugins(Mock(side_effect=[starting, changed]))
+
     def test_client_config_and_snapshot_failures_are_recorded_without_mutating_or_leaking_locks(self):
         for failure in ['client', 'config', 'plugins', 'content']:
             with self.subTest(failure=failure), tempfile.TemporaryDirectory() as temp:
@@ -119,7 +149,7 @@ class PreflightTests(unittest.TestCase):
                             return {}
                         if url.startswith(fault.PLUGINS):
                             if failure == 'plugins': raise RuntimeError('failed plugins')
-                            return {'items': []}
+                            return {'items': [{'metadata': {'name': 'fixture'}, 'spec': {'enabled': False}, 'status': {'phase': 'DISABLED'}}]}
                         raise RuntimeError('failed content')
                 def write_json(path, value, private=False):
                     Path(path).write_text(json.dumps(value)); Path(path).chmod(0o600 if private else 0o644)
