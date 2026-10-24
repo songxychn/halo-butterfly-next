@@ -52,7 +52,8 @@ def main():
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
-    parser.add_argument('--profile', choices=['six-cases', 'webkit-dark-diagnostic'], default='six-cases')
+    parser.add_argument('--profile', choices=['six-cases', 'webkit-dark-diagnostic', 'six-cases-attributed'], default='six-cases')
+    parser.add_argument('--viewport', choices=['mobile', 'desktop'], default='mobile')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     args = parser.parse_args()
     runtime = args.runtime.resolve(strict=True)
@@ -73,13 +74,16 @@ def main():
     output.mkdir(parents=True, exist_ok=False)
     report = {'schema': 1, 'runId': run, 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'status': 'running', 'created': [], 'cleanup': [], 'errors': [], 'limitations': [
         'API-created official-renderer MathML, not editor UI recording or formula resave acceptance.',
-        'Six headless mobile light/dark native-navigation combinations with retained official scripts; no PJAX disposal claim; no physical device, Safari application, assistive technology, external accounts, or full contract.',
+        'Six headless light/dark native-navigation combinations at the recorded viewport with retained official scripts; no PJAX disposal claim; no physical device, Safari application, assistive technology, external accounts, or full contract.',
         'Comment widget reading and subject switching only; no comment submission/reply, plugin lifecycle or deferred resource-on-demand claims.',
         'All failures retained; browser navigation is never retried and original 20s/30s readiness limits remain.',
         'No product changes, plugin changes, runtime restart, connection workaround, or performance-budget measurement.']}
     report['profile'] = args.profile
+    report['viewport'] = args.viewport
     if args.profile == 'webkit-dark-diagnostic':
         report['limitations'][1] = 'One instrumented WebKit dark mobile diagnostic, not a replacement six-case acceptance batch or a retry of its result.'
+    if args.profile == 'six-cases-attributed':
+        report['limitations'].append('Six fixed acceptance cases with additional public observations and private protocol logging; strict errors remain failures. Exact loader attribution is available only from the separately extracted WebKit segment; not a performance sample.')
     client = None
     protocol_stream = None
     original_config = original_system = before = None
@@ -100,7 +104,7 @@ def main():
     def identity():
         require(lab.owned_process('halo'), 'No live owned process')
         state = json.loads((runtime / 'halo-process.json').read_text())
-        jar = runtime / 'halo/halo-2.26.1.jar'
+        jar = runtime / 'halo' / lab.HALO_JAR_NAME
         command = subprocess.check_output(['ps', '-p', str(state['pid']), '-o', 'command='], text=True)
         require(state['identity'] == str(jar) and str(jar) in command and str(runtime / 'halo/data') in command, 'Process identity mismatch')
         require('max-keep-alive-requests' not in command and 'maxKeepAliveRequests' not in command, 'Connection workaround forbidden')
@@ -292,7 +296,7 @@ def main():
         group = 'combination-group-' + run
         register('group', object_('LinkGroup', 'core.halo.run/v1alpha1', group, {'displayName': title, 'priority': 0}))
         register('link', object_('Link', 'core.halo.run/v1alpha1', 'combination-link-' + run, {'displayName': title, 'url': post_url, 'logo': lab.BASE['halo'] + '/lab/avatar.svg', 'description': title, 'groupName': group, 'priority': 0}))
-        fixture = {'owner': OWNER, 'runId': run, 'base': lab.BASE['halo'], 'runtime': str(runtime), 'installed': report['identity']['installed'], 'post': {'name': name, 'path': urllib.parse.urlsplit(post_url).path}, 'moment': {'name': moment, 'path': '/moments/' + moment}, 'linkTitle': title, 'tex': 'x^2 + y^2 = z^2', 'expectedCases': 1 if args.profile == 'webkit-dark-diagnostic' else 6, 'profile': args.profile}
+        fixture = {'viewport': {'width': 390, 'height': 844} if args.viewport == 'mobile' else {'width': 1440, 'height': 1000}, 'haloVersion': lab.HALO_VERSION, 'haloSha256': lab.VERSIONS['halo']['sha256'], 'owner': OWNER, 'runId': run, 'base': lab.BASE['halo'], 'runtime': str(runtime), 'installed': report['identity']['installed'], 'post': {'name': name, 'path': urllib.parse.urlsplit(post_url).path}, 'moment': {'name': moment, 'path': '/moments/' + moment}, 'linkTitle': title, 'tex': 'x^2 + y^2 = z^2', 'expectedCases': 1 if args.profile == 'webkit-dark-diagnostic' else 6, 'profile': args.profile}
         lab.write_json(output / 'fixture.json', fixture)
         report['ready'] = station()
         save()
@@ -300,12 +304,16 @@ def main():
         # already running and is never part of it. A timeout is a failed batch,
         # not a reason to retry any measurement.
         browser_env = dict(os.environ)
-        if args.profile == 'webkit-dark-diagnostic':
+        if args.profile in ('webkit-dark-diagnostic', 'six-cases-attributed'):
             # Official Playwright logging only: never patch the browser or its
             # protocol. Raw messages may include session data; keep them private.
             protocol_path = output / 'protocol.private.log'
             protocol_stream = os.fdopen(os.open(protocol_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'w')
             browser_env.update(DEBUG='pw:protocol', DEBUG_COLORS='0')
+            # The caller's debug-file/truncation preferences must not divert or
+            # truncate this explicit private evidence stream.
+            browser_env.pop('DEBUG_FILE', None)
+            browser_env.pop('MAX_LOG_LENGTH', None)
             report['protocolLog'] = protocol_path.name
         browser = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json')], cwd=REPO, env=browser_env, stderr=protocol_stream, start_new_session=True)
         report['browserProcessGroup'] = browser.pid
