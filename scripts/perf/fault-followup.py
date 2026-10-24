@@ -165,7 +165,8 @@ def main():
             config['chat'] = {'use': 'none'}
             config['mermaid'] = {'enable': profile == 'ondemand', 'code_write': True, 'theme': {'light': 'default', 'dark': 'dark'}}
             config['chartjs'] = {'enable': profile == 'ondemand'}
-            config['abcjs'] = {'enable': profile == 'ondemand', 'per_page': False}
+            # per_page=True enables content detection on all posts; False requires per-post metadata.
+            config['abcjs'] = {'enable': profile == 'ondemand', 'per_page': True}
             c.api(CONFIG, 'PUT', config)
             require(c.api(CONFIG) == config, 'Fault configuration did not apply')
             lab.write_json(output / (profile + '-inputs.private.json'), {'config': config, 'plugins': plugin_snapshot()}, private=True)
