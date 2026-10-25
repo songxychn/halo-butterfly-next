@@ -14,6 +14,7 @@ import time
 import urllib.parse
 import zipfile
 from inventory import read_inventory
+from subscriptions import rotating_subscription
 
 REPO = Path(__file__).resolve().parents[3]
 CONSOLE = '/apis/api.console.halo.run/v1alpha1/'
@@ -114,17 +115,7 @@ def main():
         require(not sender.get('enable') and not sender.get('host'), 'SMTP must already be unconfigured and disabled')
         return {'descriptorsSha256': digest(descriptors), 'senderConfigSha256': digest(sender), 'onlyDefaultEmailNotifier': True, 'smtpEnabled': False, 'smtpHostPresent': False}
     def rotating_post_subscription(obj):
-        spec = obj['spec']
-        reason = spec.get('reason', {})
-        expected = {'new-comment-on-post': "props.postOwner == 'fixture-maintainer'"}
-        if args.subject == 'Moment':expected['new-comment-on-moment'] = "props.momentOwner == 'fixture-maintainer'"
-        if args.subject == 'SinglePage':expected['new-comment-on-single-page'] = "props.pageOwner == 'fixture-maintainer'"
-        return (set(spec) == {'disabled', 'reason', 'subscriber', 'unsubscribeToken'}
-                and spec['disabled'] is False
-                and spec['subscriber'] == {'name': 'fixture-maintainer'}
-                and reason.get('reasonType') in expected
-                and reason == {'reasonType': reason['reasonType'], 'expression': expected[reason['reasonType']], 'subject': {'apiVersion': 'notification.halo.run/v1alpha1', 'kind': 'NonexistentKind'}}
-                and isinstance(spec['unsubscribeToken'], str) and bool(spec['unsubscribeToken']))
+        return rotating_subscription(obj, args.subject, report.get('preserveExistingReplySubscription', False))
     def settle_notifications(label):
         # Official login and subscription reconciliation is setup/cleanup
         # readiness only, not a browser measurement retry or a new timeout.
@@ -257,7 +248,7 @@ def main():
         original = set(report.get('originalSubscriptionNames', []))
         for obj in inventory(NOTIFICATION + 'subscriptions'):
             s = obj['spec'];reason = s.get('reason', {})
-            if obj['metadata']['name'] not in original and reason.get('reasonType') == 'someone-replied-to-you':
+            if obj['metadata']['name'] not in original and reason.get('reasonType') == 'someone-replied-to-you' and not rotating_post_subscription(obj):
                 expression = reason.get('expression', '')
                 if run in expression or expression == "props.repliedOwner == 'fixture-maintainer'":
                     created = datetime.datetime.fromisoformat(obj['metadata']['creationTimestamp'].replace('Z', '+00:00')).timestamp()
@@ -285,6 +276,7 @@ def main():
         require(not json.loads(plugin_cfg.get('security', '{}')).get('captcha', {}).get('enable') and not json.loads(plugin_cfg.get('avatar', '{}')).get('enable'), 'This fixed batch requires captcha and external avatar disabled')
         settle_notifications('before')
         originals = inventory(NOTIFICATION + 'subscriptions')
+        report['preserveExistingReplySubscription'] = any(o['spec'].get('reason', {}).get('reasonType') == 'someone-replied-to-you' and rotating_subscription(o, args.subject, True) for o in originals)
         report['originalSubscriptionNames'] = [o['metadata']['name'] for o in originals]
         report['originalSubscriptionSpecs'] = {o['metadata']['name']: {'creationTimestamp': o['metadata'].get('creationTimestamp'), 'specSha256': digest(o['spec'])} for o in originals if not o['metadata'].get('deletionTimestamp') and not rotating_post_subscription(o)}
         require(not any(post_name in json.dumps(o['spec']) for o in originals), 'Unique subject unexpectedly already subscribed')

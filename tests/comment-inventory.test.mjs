@@ -27,3 +27,16 @@ except RuntimeError:pass
 else:raise AssertionError('Unbounded inventory accepted')
 `],{stdio:'pipe'});
 });
+
+test('only an existing exact synthetic global reply subscription may rotate',()=>{
+ execFileSync('python3',['-B','-c',String.raw`
+import sys,copy
+sys.path.insert(0,'scripts/acceptance/comments')
+from subscriptions import rotating_subscription
+obj={'spec':{'disabled':False,'subscriber':{'name':'fixture-maintainer'},'unsubscribeToken':'synthetic','reason':{'reasonType':'someone-replied-to-you','expression':"props.repliedOwner == 'fixture-maintainer'",'subject':{'apiVersion':'notification.halo.run/v1alpha1','kind':'NonexistentKind'}}}}
+assert rotating_subscription(obj,'Post',True)
+assert not rotating_subscription(obj,'Post',False)
+for change in [lambda x:x['spec'].update(extra=True),lambda x:x['spec'].update(disabled=True),lambda x:x['spec']['subscriber'].update(name='other'),lambda x:x['spec']['reason'].update(expression='true'),lambda x:x['spec']['reason']['subject'].update(name='any'),lambda x:x['spec'].update(unsubscribeToken='')]:
+ changed=copy.deepcopy(obj);change(changed);assert not rotating_subscription(changed,'Post',True)
+`],{stdio:'pipe'});
+});
