@@ -118,9 +118,10 @@ would require both a known document ID and `pageshow.persisted`. This is separat
 from core PJAX disposal/counter checks.
 
 A direct runner refuses every active runtime lock. Only a core child with an
-exact `--coordinator-run-id` matching the sole coordinator lock may enter the
-reserved lab. The coordinator passes that token and remains locked through full
-plugin restoration; independent official/native work cannot enter that window.
+exact `--coordinator-run-id` matching all three runtime reservation files and
+the shared CPU owner may enter the reserved lab. The coordinator holds the
+existing combination/fault and performance CPU locks through full plugin
+restoration, so older entry points cannot enter during that window.
 
 The final Halo 2.27.1 follow-up includes a product fix for deferred Prism layout
 changing restored scroll offsets. Native WebKit and theme-owned manual/PJAX
@@ -129,3 +130,12 @@ positions without injecting scroll state or changing plugin scripts; its fixed
 WebKit diagnostic profile additionally records read-only layout/scroll events.
 All failed product candidates and passing replacements retain separate source,
 ZIP and report identities in the [2026-10-25 evidence](../../../docs/validation/2026-10-25/user-flows.md).
+
+## Review-strengthened gates
+
+Core history checks the expected offset only after the code toolbar, image and
+bounded network idle have settled, before lightbox focus can move the viewport.
+Both runners keep request/page/console listeners through context/browser close
+and validate the final arrays afterwards; late failures cannot retain a pass.
+The [PR #429 review record](../../../docs/validation/2026-10-25/pr429-review.md)
+attributes new strict batches separately from the original reports.

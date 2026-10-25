@@ -2,7 +2,7 @@
 
 合同版本：2026-10-15 / v1.9（基于 2026-09-06 / v1；v1.1 为 DEC-01，v1.2 为 DEC-02，v1.3 为 DEC-07 数学公式平台替代，v1.4 为 DEC-03 资源供应裁定，v1.5 为 DEC-02 通用正文补充，v1.6 为 DEC-03 平台范围补充，v1.8 为主题自身兼容边界，v1.9 为资源优化与私有统计延期）。本文固定“具备 1.0 工程验收条件的可发布候选状态”的完成条件，不是验收通过记录。所有新场景初始均为 `未验证`；[0.1.0-alpha.1 首轮记录](VALIDATION.md)只说明其记录的版本与范围，不能直接给新候选版本背书。
 
-最新执行状态（2026-10-25，不修订合同）：[用户流程补验](validation/2026-10-25/user-flows.md)覆盖评论 Post/Moment/SinglePage 限定使用与生命周期、WebKit 默认编辑器作者 2/2 和四状态阅读 8/8；修复候选原生/PJAX 历史滚动各 12/12 通过，按产品包单列。旧失败、跨批覆盖及恢复语义不改判。此前[组合与性能](validation/2026-10-24/halo-2271-acceptance.md)仍绑定 `28d6656`，新包最终 RC 性能另验。#338 正式包复验已完成；当前剩余以[开发清单](parity/DEVELOPMENT-BACKLOG.md)为准。完整合同、精确提交独立审查/CI 与发行决定仍未完成，先不发布 1.0。
+最新执行状态（2026-10-25，不修订合同）：[用户流程补验](validation/2026-10-25/user-flows.md)覆盖评论 Post/Moment/SinglePage 限定使用与生命周期、WebKit 默认编辑器作者 2/2 和四状态阅读 8/8；修复候选原生/PJAX 历史滚动各 12/12 通过，按产品包单列。旧失败、跨批覆盖及恢复语义不改判。此前[组合与性能](validation/2026-10-24/halo-2271-acceptance.md)仍绑定 `28d6656`，新包最终 RC 性能另验。#338 正式包复验已完成；当前剩余以[开发清单](parity/DEVELOPMENT-BACKLOG.md)为准。本轮 PR 独立审查与加严复验见[审查记录](validation/2026-10-25/pr429-review.md)；完整合同、最终 RC 的独立审查/CI 与发行决定仍未完成，先不发布 1.0。
 
 执行记录补充（2026-10-16，不修订条件）：PR #417 合并产品已完成[精确 CI 与独立构建核对](validation/2026-10-16/build-reproducibility.md)，并补充[加载协议/浏览器诊断](validation/2026-10-16/loading-followup.md)、[资源故障与 Pace 退场](validation/2026-10-16/perf03-fault-followup.md)、[原生图片 blur 范围/刷新](validation/2026-10-16/image-blur-options.md)。各记录明确受测提交、包摘要、首次失败与未覆盖范围，不代表 ENV/NET/EXT/PERF 或整个合同已通过；[作者图片映射](validation/2026-10-16/authored-image-mapping.md)仅提出下一步证据需求，未裁定降低初始输出要求。[本轮总索引](validation/2026-10-16/acceptance-followup.md)登记正式性能 142/160 有效及覆盖缺口，不能将有效组合的预算达标升级为完整性能通过。
 
