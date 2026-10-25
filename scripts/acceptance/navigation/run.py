@@ -73,8 +73,9 @@ def main():
     existing_locks = list(runtime.glob('*.lock'))
     if args.coordinator_run_id:
         require(bool(re.fullmatch('[0-9a-f]{20}', args.coordinator_run_id)) and args.profile in ['history-matrix','history-webkit-followup'], 'Invalid coordinator delegation')
-        coordinator_lock = runtime / 'navigation-coordinator.lock'
-        require(existing_locks == [coordinator_lock] and coordinator_lock.read_text() == args.coordinator_run_id, 'Coordinator reservation differs')
+        reservation_spec = importlib.util.spec_from_file_location('navigation_reservation', Path(__file__).with_name('reservation.py'))
+        reservation = importlib.util.module_from_spec(reservation_spec); reservation_spec.loader.exec_module(reservation)
+        reservation.validate_delegation(runtime, args.coordinator_run_id, guard)
     else:
         require(not existing_locks, 'Another acceptance writer or restoration is active')
     with lock.open('x') as stream:

@@ -1,5 +1,6 @@
 /** Native history under retained official plugin scripts; observes bfcache explicitly. */
 import assert from 'node:assert/strict';
+import {assertCleanNavigation, closeNavigationCase} from './finalize.mjs';
 import {readFile,writeFile,realpath} from 'node:fs/promises';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -22,7 +23,7 @@ const save=()=>writeFile(path.join(output,'browser-report.json'),JSON.stringify(
 const close=async target=>{let timer;try{await Promise.race([target.close(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Close timeout')),10000);})]);}finally{clearTimeout(timer);}};
 await save();
 for(const engine of engines)for(const width of widths)for(const color of colors){
- const row={engine,width,color,status:'running',requests:[],pageErrors:[],checkpoints:[],navigations:[]};report.cases.push(row);await save();
+ const row={engine,width,color,status:'running',requests:[],pageErrors:[],consoleErrors:[],checkpoints:[],navigations:[]};report.cases.push(row);await save();
  let browser,context;
  try{
   browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{channel:'chromium'}:{})});row.version=browser.version();
@@ -42,6 +43,7 @@ for(const engine of engines)for(const width of widths)for(const color of colors)
   page.on('requestfinished',r=>{const x=requests.get(r);if(x)x.state='finished';});
   page.on('requestfailed',r=>{const x=requests.get(r);if(x){x.state='failed';x.failure=r.failure()?.errorText;}});
   page.on('pageerror',e=>row.pageErrors.push({message:e.message,stack:e.stack}));
+  page.on('console',m=>{if(m.type()==='error')row.consoleErrors.push(m.text().slice(0,2000));});
   const [a,b]=fixture.posts;
   const ready=async(post,y)=>{
    await page.waitForFunction(p=>location.pathname===p&&!!window.MainApp?.useCommon,post.path,{polling:100});
@@ -51,8 +53,7 @@ for(const engine of engines)for(const width of widths)for(const color of colors)
    await page.waitForLoadState('networkidle',{timeout:5000});
    await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,y,{polling:100});
    assert.equal(await page.evaluate(()=>history.scrollRestoration),'auto');
-   assert.deepEqual(row.pageErrors,[]);
-   assert.deepEqual(row.requests.filter(r=>r.state!=='finished'||r.status>=400),[]);
+   assertCleanNavigation(row);
    assert(row.requests.every(r=>new URL(r.url).origin===base));
    const observation=await page.evaluate(()=>({...window.__nativeHistoryObservation,y:scrollY}));
    row.checkpoints.push({stage:row.stage,path:post.path,expectedY:y,actualY:observation.y,document:observation});await save();return observation;
@@ -77,6 +78,6 @@ for(const engine of engines)for(const width of widths)for(const color of colors)
   await scroll(850);await move(b,'link',0);await scroll(1250);await move(a,'back',850);await move(b,'forward',1250);await move(a,'new-entry',0);
   assert.equal(row.checkpoints.length,5);assert.equal(row.navigations.length,4);row.status='passed';
  }catch(e){row.status='failed';row.error=e.stack||String(e);row.failureDocument=await context?.pages()[0]?.evaluate(()=>({url:location.href,y:scrollY,restoration:history.scrollRestoration,state:history.state,document:window.__nativeHistoryObservation,timeline:window.__layoutTimeline,active:document.activeElement?.outerHTML?.slice(0,500)})).catch(()=>null);row.failureReading=await context?.pages()[0]?.evaluate(reading).catch(()=>null);}
- finally{for(const target of [context,browser])if(target)try{await close(target);}catch(e){row.status='failed';row.closeError=String(e);}await save();}
+ finally{row.requestsBeforeClose=row.requests.map(r=>({...r}));await save();await closeNavigationCase(row,[context,browser],close);await save();}
 }
 report.status=report.cases.length===expectedCases&&report.cases.every(x=>x.status==='passed')?'passed-tested-scope':'failed';await save();process.exitCode=report.status==='failed'?1:0;

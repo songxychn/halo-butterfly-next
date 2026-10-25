@@ -1,5 +1,6 @@
 /** Current installed product: plugin-disabled core PJAX, actual fixture anchors. */
 import assert from 'node:assert/strict';
+import {closeNavigationCase} from './finalize.mjs';
 import {readFile,writeFile,realpath} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import path from 'node:path';
@@ -57,7 +58,7 @@ for(const engine of engines)for(const variant of variants){
   page.on('requestfailed',r=>{const item=requests.get(r);if(item){item.state='failed';item.failure=r.failure()?.errorText;}});
   page.on('pageerror',e=>{row.pageErrors.push(e.message);if(diagnostic)row.pageErrorDetails.push({message:e.message,stack:e.stack,url:page.url(),stage:row.stage,at:new Date().toISOString()});});
   page.on('console',m=>{if(m.type()==='error')row.consoleErrors.push(m.text().slice(0,2000));});
-  const ready=async(post)=>{
+  const ready=async(post,expectedScroll=null)=>{
    await page.waitForFunction(path=>location.pathname===path&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,post.path,{timeout:30000,polling:100});
    assert.equal(await page.locator('html').getAttribute('data-color-scheme'),variant.color);
    assert.equal(await page.locator('article.render > h2').textContent(),post.title);
@@ -69,6 +70,13 @@ for(const engine of engines)for(const variant of variants){
    assert.equal(await page.locator('.theme-lightbox-trigger .theme-lightbox-trigger').count(),0);
    assert.equal(await page.locator('comment-widget').count(),0);
    await page.waitForFunction(()=>document.querySelector('#navigation-image')?.naturalWidth>0);
+   if(expectedScroll!==null){
+    // Check after deferred Prism/image requests and before lightbox focus can
+    // move the viewport. A transient pre-enhancement offset is not a pass.
+    await page.waitForLoadState('networkidle',{timeout:5000});
+    await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,expectedScroll,{polling:100});
+    (row.scrollChecks??=[]).push({action:row.stage,target:post.path,expected:expectedScroll,actual:await page.evaluate(()=>scrollY),afterCodeAndImageReady:true});
+   }
    const trigger=page.locator('#navigation-image').locator('..');
    assert.equal(await trigger.getAttribute('role'),'button');
    await trigger.focus();observe('lightbox-enter-key');await page.keyboard.press('Enter');
@@ -90,7 +98,7 @@ for(const engine of engines)for(const variant of variants){
    assert.deepEqual([counters[0].counterPayload.group,counters[0].counterPayload.plural,counters[0].counterPayload.name,counters[0].counterPayload.url],['content.halo.run','posts',post.name,post.path]);
    return counters[0].id;
   };
-  const checkpoint=async(post,start)=>{await ready(post);const counterRequestId=await counter(post,start);row.stages.push({name:row.stage,url:page.url(),counterRequestId});await save();};
+  const checkpoint=async(post,start,expectedScroll=null)=>{await ready(post,expectedScroll);const counterRequestId=await counter(post,start);row.stages.push({name:row.stage,url:page.url(),counterRequestId});await save();};
   const transition=async(post,action,mode='pjax')=>{
    const start=row.requests.length;row.stage=action+'-'+post.label;observe('navigation-action-start');
    await page.evaluate(run=>{window.navigationSentinel=run;window.previousNavigationNode=document.querySelector('article.render');window.previousNavigationScope=window[Symbol.for('halo-butterfly-next.page-scope')];},fixture.runId);
@@ -108,12 +116,7 @@ for(const engine of engines)for(const variant of variants){
    else if(action==='forward')await page.goForward({waitUntil:'domcontentloaded',timeout:30000});
    else if(historyMatrix){await page.locator('article.render #navigation-'+post.label).evaluate(e=>e.focus({preventScroll:true}));await page.keyboard.press('Enter');}
    else await page.locator('article.render #navigation-'+post.label).click();
-   if(historyMatrix&&mode==='pjax'){
-    await page.waitForFunction(path=>location.pathname===path&&!document.documentElement.classList.contains('theme-navigating'),post.path,{timeout:30000,polling:100});
-    await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,expectedScroll,{polling:100});
-    (row.scrollChecks??=[]).push({action,target:post.path,expected:expectedScroll,actual:await page.evaluate(()=>scrollY)});
-   }
-   await checkpoint(post,start);
+   await checkpoint(post,start,historyMatrix&&mode==='pjax'?expectedScroll:null);
    const observed=await page.evaluate(()=>({sentinel:window.navigationSentinel,oldConnected:window.previousNavigationNode?.isConnected,oldScopeActive:window.previousNavigationScope?.active,oldCleanupCount:window.previousNavigationScope?.cleanups.size}));
    const targetRequests=row.requests.slice(start).filter(r=>r.url===base+post.path&&r.method==='GET');
    assert.equal(targetRequests.length,1,'Exactly one target page fetch/document request');
@@ -144,7 +147,7 @@ for(const engine of engines)for(const variant of variants){
  }catch(error){row.status='failed';row.error=String(error.stack||error);if(context){row.documentAtFailure=await context.pages()[0]?.evaluate(()=>({url:location.href,classes:document.documentElement.className,y:scrollY,history:history.state,ready:document.readyState,initialized:!!window.MainApp?.useCommon})).catch(()=>null);}row.pendingAtFailure=row.requests.filter(r=>r.state==='pending').map(r=>({...r}));}
  finally{
   row.requestsBeforeClose=row.requests.map(r=>({...r}));await save();
-  for(const target of [context,browser])if(target){try{await close(target);}catch(error){row.status='failed';(row.closeErrors??=[]).push(String(error));}}
+  await closeNavigationCase(row,[context,browser],close);
   await save();console.log(engine,row.status,row.error||'');
  }
 }

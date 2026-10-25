@@ -22,15 +22,16 @@ def main():
     os.environ.update(LAB_RUNTIME=str(runtime), HALO_PORT=str(marker['ports']['halo']), HEXO_PORT=str(marker['ports']['hexo']))
     lab = load('nav_coordinate_lab', ROOT / 'scripts/lab/lab.py')
     guard = load('nav_coordinate_guard', ROOT / 'scripts/perf/fault-followup.py')
+    reservation = load('nav_coordinate_reservation', Path(__file__).with_name('reservation.py'))
     assert lab.owned_process('halo') and not list(runtime.glob('*.lock'))
     jar = runtime / 'halo' / lab.HALO_JAR_NAME
     assert json.loads((runtime / 'halo-process.json').read_text())['identity'] == str(jar)
     assert lab.digest(jar) == lab.VERSIONS['halo']['sha256']
     assert json.loads((runtime / 'installed-package.json').read_text())['sha256'] == lab.digest(a.package)
     run = secrets.token_hex(10); output = runtime / 'navigation-coordination' / run
-    output.mkdir(parents=True); lock = runtime / 'navigation-coordinator.lock'
-    with lock.open('x') as f: f.write(run)
-    report = {'runId':run, 'before':None, 'errors':[], 'restored':False}
+    output.mkdir(parents=True)
+    locks = reservation.acquire(runtime, run, guard)
+    report = {'runId':run, 'before':None, 'errors':[], 'restored':False, 'reservation':{'kind':reservation.KIND,'paths':[str(p) for p,_ in locks]}}
     endpoint = '/apis/plugin.halo.run/v1alpha1/plugins'
     console = '/apis/api.console.halo.run/v1alpha1/plugins/'
     c = None; before = None
@@ -72,7 +73,7 @@ def main():
                 report['restored']=True;report['afterSha256']=guard.sha(after)
             except Exception as e:report['errors'].append('restore: '+str(e))
         if before is None or report['restored']:
-            assert lock.read_text()==run;lock.unlink();report['lockReleased']=True
+            guard.release_run_locks(locks);report['lockReleased']=True
         save()
     print(json.dumps({'output':str(output),**report}))
     return 0 if report.get('exitCode')==0 and report['restored'] and not report['errors'] else 1
