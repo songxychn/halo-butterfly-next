@@ -12,7 +12,7 @@ def run_policies(client, lab, guard, fixture, output, subject_url):
     lab.write_json(output / 'policies-restore.private.json', originals, private=True)
     base_comment = json.loads(originals[SYSTEM]['data']['comment'])
     report = {'scope': 'comment-policy-surface', 'cases': [], 'status': 'running',
-              'limitations': ['No captcha solution, uploaded attachment or moderation submission is counted by surface checks.'],
+              'limitations': ['Captcha solution and uploaded attachment flows remain outside this policy batch; moderation and private submissions are separately asserted.'],
               'restored': False}
     scenarios = [
         ('enabled', {}, {}, True),

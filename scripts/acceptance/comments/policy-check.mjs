@@ -37,7 +37,7 @@ for(const {engine,signedIn} of cases){
   await context.route('**/*',route=>{
    const req=route.request(),url=new URL(req.url());
    const tracker=req.method()==='POST'&&url.pathname==='/apis/api.halo.run/v1alpha1/trackers/counter'&&req.postDataJSON()?.name===fixture.post.name;
-   const moderation=fixture.policy==='moderation-enabled'&&!signedIn&&req.method()==='POST'&&url.pathname==='/apis/api.halo.run/v1alpha1/comments'&&req.postDataJSON()?.subjectRef?.name===fixture.post.name&&String(req.postDataJSON()?.raw).includes(fixture.runId);
+   const moderation=((fixture.policy==='moderation-enabled'&&!signedIn)||fixture.policy==='private-enabled')&&req.method()==='POST'&&url.pathname==='/apis/api.halo.run/v1alpha1/comments'&&req.postDataJSON()?.subjectRef?.name===fixture.post.name&&String(req.postDataJSON()?.raw).includes(fixture.runId);
    if(url.origin!==base||(!['GET','HEAD','OPTIONS'].includes(req.method())&&!tracker&&!moderation))return route.abort('blockedbyclient');
    return route.continue();
   });
@@ -76,20 +76,22 @@ for(const {engine,signedIn} of cases){
     if(fixture.policy==='private-enabled'){assert.equal(state.config.basic.enablePrivateComment,true);await page.locator('comment-form input[name="hidden"]').waitFor();}
     if(fixture.policy==='upload-disabled'){assert.equal(state.config.editor.enableUpload,false);assert.equal(await page.locator('comment-form comment-editor').evaluate(e=>e.enableUpload),false);assert.equal(state.config.editor.enableEmoji,false);}
     if(fixture.policy==='captcha-anonymous'){assert.equal(state.config.security.captcha.enable,true);assert.equal(state.config.security.captcha.audience,'ANONYMOUS');assert.equal(state.config.security.captcha.type,'ARITHMETIC');}
-    if(fixture.policy==='moderation-enabled'&&!signedIn){
-     const form=page.locator('comment-form'),editor=form.locator('[contenteditable]'),text='Moderation '+engine+' '+fixture.runId;
+    if((fixture.policy==='moderation-enabled'&&!signedIn)||fixture.policy==='private-enabled'){
+     const form=page.locator('comment-form'),editor=form.locator('[contenteditable]'),text=fixture.policy+' '+engine+' '+signedIn+' '+fixture.runId;
      if(engine==='webkit'){await editor.click();await editor.pressSequentially(text);}else await editor.fill(text);
-     await form.locator('input[name="displayName"]').fill('Policy '+fixture.runId);
-     await form.locator('input[name="email"]').fill(engine+'-'+fixture.runId+'@example.invalid');
+     if(!signedIn){await form.locator('input[name="displayName"]').fill('Policy '+fixture.runId);await form.locator('input[name="email"]').fill(engine+'-'+fixture.runId+'@example.invalid');}
+     if(fixture.policy==='private-enabled')await form.locator('input[name="hidden"]').check();
      await page.waitForTimeout(6500);
      const responsePromise=page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/apis/api.halo.run/v1alpha1/comments',{timeout:20000});
      const refreshPromise=page.waitForResponse(r=>r.request().method()==='GET'&&new URL(r.url()).pathname==='/apis/api.halo.run/v1alpha1/comments'&&new URL(r.url()).searchParams.get('name')===fixture.post.name,{timeout:20000});
      await form.locator('button.form-submit').click();const response=await responsePromise;assert.equal(response.status(),200);
-     const comment=await response.json();assert.equal(comment.spec.approved,false);assert.equal(comment.spec.subjectRef.name,fixture.post.name);assert.equal(comment.spec.allowNotification,true);assert(comment.spec.raw.includes(fixture.runId));
-     row.created={name:comment.metadata.name,creationTimestamp:comment.metadata.creationTimestamp,approved:comment.spec.approved};
-     row.assertions.push('real-anonymous-submission-pending-review');
-     const refreshed=await refreshPromise;assert.equal(refreshed.status(),200);await refreshed.finished();assert.equal((await refreshed.json()).items.length,0);
-     row.assertions.push('unapproved-comments-absent-from-public-refetch');
+     const comment=await response.json();if(fixture.policy==='moderation-enabled')assert.equal(comment.spec.approved,false);else assert.equal(comment.spec.hidden,true);assert.equal(comment.spec.subjectRef.name,fixture.post.name);assert.equal(comment.spec.allowNotification,true);assert(comment.spec.raw.includes(fixture.runId));
+     row.created={name:comment.metadata.name,creationTimestamp:comment.metadata.creationTimestamp,approved:comment.spec.approved,hidden:comment.spec.hidden};
+     row.assertions.push(fixture.policy==='moderation-enabled'?'real-anonymous-submission-pending-review':'real-private-submission');
+     const refreshed=await refreshPromise;assert.equal(refreshed.status(),200);await refreshed.finished();
+     if(fixture.policy==='moderation-enabled')assert.equal((await refreshed.json()).items.length,0);
+     else{const publicRead=await fetch(refreshed.url(),{signal:AbortSignal.timeout(20000)});assert.equal(publicRead.status,200);const data=await publicRead.json();assert(!data.items.some(x=>String(x.spec?.raw||x.raw||x.spec?.content||x.content).includes(text)));row.publicRead={status:publicRead.status,privateTextExposed:false};}
+     row.assertions.push(fixture.policy==='moderation-enabled'?'unapproved-comments-absent-from-public-refetch':'private-text-not-exposed-to-anonymous-reader');
     }
    }
    row.assertions.push('official-subject-and-permission','configured-form-state');
