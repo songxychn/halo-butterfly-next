@@ -91,8 +91,21 @@ for(const engine of ['chromium','firefox','webkit']){
      await checkpoint('official-plugin-disabled-core-and-fallback');
     }else if(phase==='restored'){
      await mount();
-     const pairs=fixture.scope==='lifecycle-only'?[fixture.lifecycleSeed]:(JSON.parse(await readFile(path.join(output,'usage-browser-report.json')))).cases.map(old=>({parent:old.created.find(x=>x.kind==='Comment'),reply:old.created.find(x=>x.kind==='Reply')}));
-     for(const {parent,reply} of pairs){assert(parent&&reply);const item=itemFor(parent.visibleText);await item.waitFor();const content=page.locator('comment-content').getByText(reply.visibleText,{exact:true});if(!await content.isVisible()){const toggle=item.locator('.show-replies-button').first();await toggle.waitFor();await toggle.click();}await content.waitFor();}
+     const pairs=fixture.scope==='lifecycle-only'?(fixture.lifecycleSeeds||[fixture.lifecycleSeed]):(JSON.parse(await readFile(path.join(output,'usage-browser-report.json')))).cases.map(old=>({parent:old.created.find(x=>x.kind==='Comment'),reply:old.created.find(x=>x.kind==='Reply')}));
+     for(const {parent,reply} of pairs){
+      assert(parent&&reply);const item=itemFor(parent.visibleText);await item.waitFor();
+      const state=()=>item.evaluate(e=>({name:e.comment?.metadata?.name,showReplies:e.showReplies,showReplyForm:e.showReplyForm,withReplies:e.configMapData?.basic?.withReplies,scrollY,rect:e.getBoundingClientRect().toJSON(),clicks:e.__acceptanceClicks||[]}));
+      const step={parent:parent.name,reply:reply.name,before:await state()};(row.restoredSteps??=[]).push(step);await save();
+      try{
+       const content=page.locator('comment-content').getByText(reply.visibleText,{exact:true});
+       if(!await content.isVisible()){
+        const toggle=item.locator('.show-replies-button').first();await toggle.waitFor();
+        await item.evaluate(e=>{e.__acceptanceClicks=[];e.addEventListener('click',event=>{e.__acceptanceClicks.push({trusted:event.isTrusted,path:event.composedPath().filter(n=>n instanceof Element).slice(0,5).map(n=>n.tagName+'.'+n.className)});},{capture:true});});
+        await toggle.click();step.afterClick=await state();await save();
+       }
+       await content.waitFor();step.result='passed';
+      }finally{step.final=await state();await save();}
+     }
      await checkpoint('official-plugin-restored-declared-parents-and-replies');
     }else{
      await mount();let form=page.locator('comment-form');const text='Usage parent '+id+' '+fixture.runId,replyText='Usage reply '+id+' '+fixture.runId;

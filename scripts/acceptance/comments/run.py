@@ -43,9 +43,12 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
+    parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
+    require(args.lifecycle_pairs == 1 or args.cases == 'lifecycle-only', 'Pair count only applies to lifecycle-only')
+    require(args.cases != 'access-only' or args.subject != 'Moment', 'Native content access applies to Post and SinglePage')
     subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
     subject_group = 'moment.halo.run' if args.subject == 'Moment' else 'content.halo.run'
     def collection_api(plural):
@@ -327,31 +330,39 @@ def main():
         if args.cases == 'lifecycle-only':
             # These are explicitly API-created reading fixtures, not evidence
             # of a user submitting or replying through the browser UI.
-            parent_text = 'API lifecycle parent ' + run
-            reply_text = 'API lifecycle reply ' + run
-            parent_html = '<p>' + parent_text + '</p>'
-            reply_html = '<p>' + reply_text + '</p>'
-            parent = client.api('/apis/api.halo.run/v1alpha1/comments', 'POST', {'raw': parent_html, 'content': parent_html, 'allowNotification': True, 'hidden': False, 'subjectRef': {'group': subject_group, 'version': 'v1alpha1', 'kind': args.subject, 'name': post_name}})
-            require(parent['metadata'].get('creationTimestamp') and parent['spec']['subjectRef']['name'] == post_name and parent['spec']['raw'] == parent_html, 'API lifecycle parent mismatch')
-            report['apiLifecycleFixture'] = {'parent': {'name': parent['metadata']['name'], 'creationTimestamp': parent['metadata']['creationTimestamp'], 'raw': parent_html, 'visibleText': parent_text}, 'notUiSubmissionEvidence': True}
-            save()
-            reply = client.api('/apis/api.halo.run/v1alpha1/comments/' + parent['metadata']['name'] + '/reply', 'POST', {'raw': reply_html, 'content': reply_html, 'allowNotification': True})
-            require(reply['metadata'].get('creationTimestamp') and reply['spec']['commentName'] == parent['metadata']['name'] and reply['spec']['raw'] == reply_html, 'API lifecycle reply mismatch')
-            report['apiLifecycleFixture']['reply'] = {'name': reply['metadata']['name'], 'creationTimestamp': reply['metadata']['creationTimestamp'], 'raw': reply_html, 'visibleText': reply_text}
-            fixture['lifecycleSeed'] = report['apiLifecycleFixture']
-            save()
+            fixture['lifecycleSeeds'] = []
+            report['apiLifecycleFixtures'] = fixture['lifecycleSeeds']
+            for pair_index in range(args.lifecycle_pairs):
+                parent_text = 'API lifecycle parent ' + str(pair_index) + ' ' + run
+                reply_text = 'API lifecycle reply ' + str(pair_index) + ' ' + run
+                parent_html = '<p>' + parent_text + '</p>'
+                reply_html = '<p>' + reply_text + '</p>'
+                time.sleep(6.5)
+                parent = client.api('/apis/api.halo.run/v1alpha1/comments', 'POST', {'raw': parent_html, 'content': parent_html, 'allowNotification': True, 'hidden': False, 'subjectRef': {'group': subject_group, 'version': 'v1alpha1', 'kind': args.subject, 'name': post_name}})
+                require(parent['metadata'].get('creationTimestamp') and parent['spec']['subjectRef']['name'] == post_name and parent['spec']['raw'] == parent_html, 'API lifecycle parent mismatch')
+                pair = {'parent': {'name': parent['metadata']['name'], 'creationTimestamp': parent['metadata']['creationTimestamp'], 'raw': parent_html, 'visibleText': parent_text}, 'notUiSubmissionEvidence': True}
+                save()
+                time.sleep(6.5)
+                reply = client.api('/apis/api.halo.run/v1alpha1/comments/' + parent['metadata']['name'] + '/reply', 'POST', {'raw': reply_html, 'content': reply_html, 'allowNotification': True})
+                require(reply['metadata'].get('creationTimestamp') and reply['spec']['commentName'] == parent['metadata']['name'] and reply['spec']['raw'] == reply_html, 'API lifecycle reply mismatch')
+                pair['reply'] = {'name': reply['metadata']['name'], 'creationTimestamp': reply['metadata']['creationTimestamp'], 'raw': reply_html, 'visibleText': reply_text}
+                fixture['lifecycleSeeds'].append(pair)
+                save()
         lab.write_json(output / 'fixture.json', fixture)
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases == 'policy-only':
+        if args.cases == 'access-only':
+            from access import run_access
+            run_access(client, lab, fixture, output, collection_api(subject_collection) + '/' + post_name)
+        elif args.cases == 'policy-only':
             from policies import run_policies
             run_policies(client, lab, guard, fixture, output, collection_api(subject_collection) + '/' + post_name)
         else:
             if args.cases != 'lifecycle-only':
                 browser('usage')
             collect_children()
-            expected_children = 1 if args.cases == 'lifecycle-only' else len(cases)
+            expected_children = args.lifecycle_pairs if args.cases == 'lifecycle-only' else len(cases)
             require(len([r for r in report['created'] if r['collection'] == 'comments']) == expected_children and len([r for r in report['created'] if r['collection'] == 'replies']) == expected_children, 'Expected exact declared parent/reply fixtures')
             plugin_state(False);browser('disabled')
             plugin_state(True);browser('restored')
