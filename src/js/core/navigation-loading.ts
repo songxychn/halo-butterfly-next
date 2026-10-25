@@ -3,7 +3,6 @@ import { supportsAnalyticsNavigation } from './analytics-navigation.ts';
 import { beginPage, disposePage, onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
 import { beginPaceNavigation } from './pace.ts';
-import { saveNativeHistoryScroll } from './native-history-scroll.ts';
 import { isThemeScriptSource } from './external-resource.ts';
 
 export const enabled = (value: unknown) => value === true || value === 'true';
@@ -282,9 +281,6 @@ export function initializeNavigationLoading() {
   });
   // Record scrolling before traversal, including browsers that restore after popstate.
   window.addEventListener('scroll', () => { if (!state.busy && !state.restoring && !state.active && state.canNavigate) saveScroll(); }, { passive: true });
-  // Native history can restore against the pre-enhancement layout. Record the
-  // actual departing position separately from PJAX's intermediate scroll state.
-  window.addEventListener('pagehide', () => { if (!state.canNavigate) saveNativeHistoryScroll(); });
 }
 function initializePrefetch(config: ThemeConfig) {
   if (!enabled(config.instantpage)) return;
