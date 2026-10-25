@@ -43,12 +43,12 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
     require(args.lifecycle_pairs == 1 or args.cases == 'lifecycle-only', 'Pair count only applies to lifecycle-only')
-    require(args.cases != 'access-only' or args.subject != 'Moment', 'Native content access applies to Post and SinglePage')
+    require(args.cases not in ['access-only', 'language-only'] or args.subject != 'Moment', 'Native content access/language applies to Post and SinglePage')
     subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
     subject_group = 'moment.halo.run' if args.subject == 'Moment' else 'content.halo.run'
     def collection_api(plural):
@@ -362,7 +362,10 @@ def main():
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases == 'access-only':
+        if args.cases == 'language-only':
+            from language import run_language
+            run_language(client, lab, guard, fixture, output, collection_api(subject_collection) + '/' + post_name)
+        elif args.cases == 'access-only':
             from access import run_access
             run_access(client, lab, fixture, output, collection_api(subject_collection) + '/' + post_name)
         elif args.cases == 'policy-only':

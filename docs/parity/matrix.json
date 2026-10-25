@@ -30052,7 +30052,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
+        "strategy": "按已授权 CFG-05 / DEC-03 以统一主题 assets 根地址和单项完整 URL 替代旧自由模板。",
         "settings": [
           "CDN.asset_base"
         ],
@@ -30065,7 +30065,7 @@
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：原自由模板运行时已取消，根地址和单项完整 URL 替代；CFG-05 已获本次维护者实施授权，正式 DEC-03 登记仍待完成，原模板供应要求保留 gap，不据本地方案标 N/A。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：原自由模板运行时已取消，根地址和单项完整 URL 替代；CFG-05 已获本次维护者实施授权，正式 DEC-03 登记仍待完成，原模板供应要求保留 gap，不据本地方案标 N/A。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 2026-10-25：既有决定已在 DEC-08-CONFIG-DEFAULTS.md 正式登记；不再保留行政登记 gap，不新增运行验收或 N/A。"
       },
       "dependencies": [
         "dual-site",
@@ -30075,7 +30075,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "原自由模板取消，按已批准草案记录差异；正式裁定登记前保留 gap。",
+          "按 docs/parity/DEC-08-CONFIG-DEFAULTS.md 验证资源根地址/单项 URL 优先级、无效值回退及真实资源消费者；不复刻旧自由模板。",
           "旧格式离线转根地址或单项URL；不能表示的模板列 manual-review，不静默应用。"
         ],
         "contractScenarios": [
@@ -30132,9 +30132,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-reconciliation-2026-10-25.json",
+          "sha256": "66c9b46f1c9c22f0e5da5256af9dbfef9cc89035a553093c3da36320b44d24fd",
+          "date": "2026-10-25",
+          "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
+          "actor": "Codex",
+          "outcome": "Existing authorized mapping reconciled; no new runtime pass or verified promotion."
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:CDN.option",
@@ -45685,13 +45694,13 @@
       ],
       "upstreamInventory": "helpers",
       "halo": {
-        "strategy": "将上游 helper 的输入输出语义移植到 Halo 模板/Finder 或构建逻辑。",
+        "strategy": "按既有 DEC-02 随侧栏活数据系列延至 1.1；1.0 静态正文系列不调用此 helper。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "src/html/views/components.html"
         ],
-        "finding": "尚未逐项实现或核实；列出的文件是适配入口，不能据此视为支持。"
+        "finding": "固定上游 scripts/helpers/series.js 读取 hexo._seriesGroups；唯一调用者 layout/includes/widget/card_post_series.pug:2 已按 DEC-02 延期。补齐遗漏的同一消费链追踪项，不是新增系列范围取舍。"
       },
       "dependencies": [
         "dual-site",
@@ -45715,8 +45724,23 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "gap"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-reconciliation-2026-10-25.json",
+          "sha256": "66c9b46f1c9c22f0e5da5256af9dbfef9cc89035a553093c3da36320b44d24fd",
+          "date": "2026-10-25",
+          "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
+          "actor": "Codex",
+          "outcome": "Existing authorized mapping reconciled; no new runtime pass or verified promotion."
+        }
+      ],
+      "status": "blocked",
+      "blocker": {
+        "phase": "1.1",
+        "reason": "DEC-02：系列文章活数据查询推迟到 1.1。1.0 仅验收 tag:series 静态 HTML，不在 Halo 中重建 Hexo 生成期过滤器。",
+        "nextAction": "1.1 用 Halo 注解或分组模型实现系列成员查询，再恢复侧栏卡片与 config:series.*。"
+      }
     },
     {
       "id": "helper:inject_head_js",
@@ -56095,7 +56119,7 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "按维护者 DEC-08-NATIVE-LANGUAGE 决定，正文 language 注解与 Halo 原生 UI locale 分开；1.0 不要求作者逐篇强制整页 UI 语言。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -56105,7 +56129,7 @@
           "src/html/views/seo.html",
           "annotation-setting.yaml"
         ],
-        "finding": "已用文章/单页 language 注解设置正文 lang 与 OG locale；界面仍按 Halo 请求 locale，不强制改变访问者语言。逐页 UI 语言合同仍待映射，不能据正文标记关闭整个条目。"
+        "finding": "原生平台替代已裁定；现有 language 注解设置正文 lang/OG locale，界面遵循 Halo 请求 locale。当前包正文/UI 分离、原生优先级和回退补验单独记录，不据范围决定宣称全面通过。"
       },
       "dependencies": [
         "dual-site",
@@ -56116,8 +56140,9 @@
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "lang：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/helpers/aside_archives.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "正文 language 与 UI locale 不同时，各自的 article lang/OG locale 和界面/交互文案正确；不改写正文。",
+          "空值或未知正文语言按现有回退；Halo 原生 language 参数/偏好及地区回退按实际版本验证。",
+          "1.0 不要求作者逐篇强制全部 UI；依据 docs/parity/DEC-08-NATIVE-LANGUAGE.md。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -56149,9 +56174,18 @@
           "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "scope-decision",
+          "path": "docs/parity/DEC-08-NATIVE-LANGUAGE.md",
+          "sha256": "57fe24f34fb4a94a19e535cc7e22f8da23393f29284011a5a61f9348367ea7b5",
+          "date": "2026-10-25",
+          "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
+          "actor": "maintainer",
+          "outcome": "Accepted native Halo locale and separate content-language mapping; no new runtime verification claimed."
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:language",
@@ -56167,7 +56201,7 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "按维护者 DEC-08-NATIVE-LANGUAGE 决定，正文 language 注解与 Halo 原生 UI locale 分开；1.0 不要求作者逐篇强制整页 UI 语言。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -56180,7 +56214,7 @@
           "src/js/core/i18n.ts",
           "src/html/views/config.html"
         ],
-        "finding": "已用文章/单页 language 注解设置正文 lang 与 OG locale；界面仍按 Halo 请求 locale，不强制改变访问者语言。逐页 UI 语言合同仍待映射，不能据正文标记关闭整个条目。"
+        "finding": "原生平台替代已裁定；现有 language 注解设置正文 lang/OG locale，界面遵循 Halo 请求 locale。当前包正文/UI 分离、原生优先级和回退补验单独记录，不据范围决定宣称全面通过。"
       },
       "dependencies": [
         "dual-site",
@@ -56191,8 +56225,9 @@
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "language：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/helpers/aside_archives.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "正文 language 与 UI locale 不同时，各自的 article lang/OG locale 和界面/交互文案正确；不改写正文。",
+          "空值或未知正文语言按现有回退；Halo 原生 language 参数/偏好及地区回退按实际版本验证。",
+          "1.0 不要求作者逐篇强制全部 UI；依据 docs/parity/DEC-08-NATIVE-LANGUAGE.md。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -56224,9 +56259,18 @@
           "commit": "eb8c84ce89011346dcb91d659609df7a48d62b8e",
           "actor": "Codex",
           "outcome": "implemented-scoped-acceptance-not-verified"
+        },
+        {
+          "kind": "scope-decision",
+          "path": "docs/parity/DEC-08-NATIVE-LANGUAGE.md",
+          "sha256": "57fe24f34fb4a94a19e535cc7e22f8da23393f29284011a5a61f9348367ea7b5",
+          "date": "2026-10-25",
+          "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
+          "actor": "maintainer",
+          "outcome": "Accepted native Halo locale and separate content-language mapping; no new runtime verification claimed."
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:layout",
@@ -64022,7 +64066,7 @@
           "src/html/views/config.html",
           "src/html/views/seo-json.html"
         ],
-        "finding": "2026-10-14 主线对账：views/config 使用 Thymeleaf JS 序列化，seo-json 已对 JSON-LD 做严格 Unicode/脚本边界转义；不能继续写成完全没有安全处理。全部脚本嵌入点的消费者清单与端到端断言尚未完成，因此保留待审计缺口，不据此声称已有可利用漏洞。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：views/config 使用 Thymeleaf JS 序列化，seo-json 已对 JSON-LD 做严格 Unicode/脚本边界转义；不能继续写成完全没有安全处理。全部脚本嵌入点的消费者清单与端到端断言尚未完成，因此保留待审计缺口，不据此声称已有可利用漏洞。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-25：A01 已于 a7893ac 完成消费者盘点、编码修复及 36 项限定运行补验，详见 safe-embedding-followup；本轮仅纠正滞后映射状态，旧 Halo 2.26.1 证据不转为当前包完整通过。"
       },
       "dependencies": [
         "dual-site",
@@ -64057,9 +64101,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex",
           "outcome": "source-reconciled-not-verified"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-reconciliation-2026-10-25.json",
+          "sha256": "66c9b46f1c9c22f0e5da5256af9dbfef9cc89035a553093c3da36320b44d24fd",
+          "date": "2026-10-25",
+          "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
+          "actor": "Codex",
+          "outcome": "Existing authorized mapping reconciled; no new runtime pass or verified promotion."
         }
       ],
-      "status": "gap"
+      "status": "implemented-unverified"
     },
     {
       "id": "data-schema:menu-items",

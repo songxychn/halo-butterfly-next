@@ -1,5 +1,7 @@
 # 1.0 剩余需求（2026-10-25 验收跟进）
 
+**2026-10-25 语言决定**：按 [Halo 原生语言方案](DEC-08-NATIVE-LANGUAGE.md)，正文与界面分开，取消作者逐篇强制整页 UI 语言要求。`page-data:lang / language` 转为 implemented-unverified；当前包优先级/回退补验单列，不新增 verified。
+
 **2026-10-25 访问控制决定**：`page.encrypt / page.origin` 按 [Halo 原生权限映射](DEC-08-NATIVE-ACCESS.md)，不兼容 Hexo 密码解密协议。映射已裁定，Post/SinglePage 各 24 次 HTTP/公开 API 检查通过，见[实际记录](../validation/2026-10-25/native-access.md)。两条由 mapping-required 转为 implemented-unverified，完整权限/目录合同待验，未新增 verified。
 
 **2026-10-25 最新范围决定**：维护者将 P3 整组（实际 Safari/手机、完整无障碍/辅助技术、真实外部账户联调）延期到 1.0 之后，版本未定；见 [延期登记](DEC-04-05-P3-DEFERRAL.md)。下文历史未覆盖项保留事实，但上述 P3 不再计作 1.0 阻碍，也不记为通过。继续 P0 剩余用户场景 → P1 原生图片与固定候选性能 → P2 平台/内容映射 → 最终候选集成验收；先不发布。
@@ -17,9 +19,9 @@
 | 编号 / 需求 | 已有实现 | 实际剩余 |
 | --- | --- | --- |
 | D02 / 文章、单页与插件 PJAX | 文章/单页统计身份、官方评论草稿保护、正文图表/图库、Share.js、默认Busuanzi、本地特效和GA4显式手动页面统计已接入；可选组合12/12与GA4协议15/15限定通过。 | AddToAny默认服务持久宿主已实现并限定27/27通过；扩展服务、其他分析/聊天/广告SDK及未知插件生命周期仍缺适配；默认完整导航保留功能，真实GA4账户与完整生态仍待验。最低Halo2.20.2不支持原生tracker停用，已防止重复统计并保留内容页完整导航。[修复候选核心导航](../validation/2026-10-17/lightbox-load-race.md)在全部插件停用、390px 浅色范围下三引擎 42/42、36 次 PJAX、3 次完整导航已补齐；桌面／深色／历史滚动已在[本轮记录](../validation/2026-10-25/user-flows.md)按修复候选单列补证；实际设备、未知插件/SDK 与完整合同仍缺。旧包官方组合 12/12、192/192 保留原归属。原 d678 首批失败继续保留且根因未定，不抵消插件启用时的完整导航边界。 |
-| D03 / 图片原生懒加载与背景值域 | CSS 颜色/渐变/background 简写、安全图片 URL 及 footer_img=true 继承已实现。此前原生图片 24/24 的候选与范围见[原记录](../validation/2026-10-15/platform-acceptance.md)；当前合并产品补齐 [blur CSS 生命周期 9/9](../validation/2026-10-16/image-blur-followup.md)及[开关、site/post 范围、刷新对照](../validation/2026-10-16/image-blur-options.md)。 | 接受原生 loading="lazy"，不要求进入视口前零请求。普通作者图片的[初始 HTML 来源映射](../validation/2026-10-16/authored-image-mapping.md)已明确，[编辑入口专项](../validation/2026-10-16/authored-image-editor.md)已补三引擎 HTML/Markdown 块和 Chromium 合成粘贴、文章/单页 API：12 例中 8 例保留、4 例输入限制分开登记；[再次保存与插件读取补证](../validation/2026-10-16/content-editor-followup.md)确认 HTML 块保留属性、Markdown 块内原生 HTML 再次保存后的公开正文丢失部分属性；停用插件仅验证已存 HTML 的读取；[普通图片工具补证](../validation/2026-10-17/image-toolbar-followup.md)已完成三引擎双保存和公开正文采集，2 例属性一致、1 例后续新增宽度，普通入口不自动输出 loading；不能以 JS 后补属性证明初始请求已延迟。Firefox/WebKit 缓存来源证据不足、非原生占位视觉和完整配置覆盖仍未完成；实际 Safari/真机按 P3 延期；原生 blur 不生成低清缩略图。 |
-| D04 / 瞬间评论与说说数据 | 原生 Moment 评论主体/计数/跳转/最新评论、作者/头像/时间/标签、输入跳页和独立 JSON 动态源已实现；过滤后分页、时区、错误重试和安全输入已限定验收。 | [旧 d678 官方插件组合](../validation/2026-10-17/combination-followup.md)已完成六例原生导航及评论主体读取；[本轮 Moment](../validation/2026-10-25/user-flows.md) 六例 UI 提交/回复通过；原恢复失败保留，独立修复工具后停用/恢复读取 3+3 自动恢复通过，不将 API 阅读夹具计为 UI 提交。验证码/审核/上传等其他配置和完整设备验收仍待；全站 timezone 与原生插件每页数量仍保留平台职责，不因动态源参数支持而关闭。 |
-| D05 / 国际化 | 七套消息目录及地区回退、模板/浏览器文案与正文语言注解已接入；Halo locale 优先级已有实际证据。 | 界面保持请求 locale，逐页强制 UI 语言仍待合同映射；Moment/友链跨语言组合12/12已通过，母语审校和真机/完整合同未完成。 |
+| D03 / 图片原生懒加载与背景值域 | CSS 颜色/渐变/background 简写、安全图片 URL 及 footer_img=true 继承已实现。此前原生图片 24/24 的候选与范围见[原记录](../validation/2026-10-15/platform-acceptance.md)；当前合并产品补齐 [blur CSS 生命周期 9/9](../validation/2026-10-16/image-blur-followup.md)及[开关、site/post 范围、刷新对照](../validation/2026-10-16/image-blur-options.md)。 | 接受原生 loading="lazy"，不要求进入视口前零请求。普通作者图片的[初始 HTML 来源映射](../validation/2026-10-16/authored-image-mapping.md)已明确，[编辑入口专项](../validation/2026-10-16/authored-image-editor.md)已补三引擎 HTML/Markdown 块和 Chromium 合成粘贴、文章/单页 API：12 例中 8 例保留、4 例输入限制分开登记；[再次保存与插件读取补证](../validation/2026-10-16/content-editor-followup.md)确认 HTML 块保留属性、Markdown 块内原生 HTML 再次保存后的公开正文丢失部分属性；停用插件仅验证已存 HTML 的读取；[普通图片工具补证](../validation/2026-10-17/image-toolbar-followup.md)已完成三引擎双保存和公开正文采集，2 例属性一致、1 例后续新增宽度，普通入口不自动输出 loading；不能以 JS 后补属性证明初始请求已延迟。[当前包缓存补证](../validation/2026-10-25/images-faults.md)已区分 WebKit 明确缓存事件与 Firefox 对照推断；非原生占位视觉和完整配置覆盖仍未完成；实际 Safari/真机按 P3 延期；原生 blur 不生成低清缩略图。 |
+| D04 / 瞬间评论与说说数据 | 原生 Moment 评论主体/计数/跳转/最新评论、作者/头像/时间/标签、输入跳页和独立 JSON 动态源已实现；过滤后分页、时区、错误重试和安全输入已限定验收。 | [旧 d678 官方插件组合](../validation/2026-10-17/combination-followup.md)已完成六例原生导航及评论主体读取；[本轮 Moment](../validation/2026-10-25/user-flows.md) 六例 UI 提交/回复通过；原恢复失败保留，独立修复工具后停用/恢复读取 3+3 自动恢复通过，不将 API 阅读夹具计为 UI 提交。[当前策略补证](../validation/2026-10-25/comment-policies.md)已覆盖审核/私密实际提交及其他配置表面；验证码求解、开启上传与完整合同仍待；全站 timezone 与原生插件每页数量仍保留平台职责，不因动态源参数支持而关闭。 |
+| D05 / 国际化 | 七套消息目录及地区回退、模板/浏览器文案与正文语言注解已接入；Halo locale 优先级已有实际证据。 | 界面保持请求 locale，逐页强制 UI 语言要求已由原生方案替代，当前包原生优先级/回退仍需补验；Moment/友链跨语言组合12/12已通过，母语审校和真机/完整合同未完成。 |
 | D06 / 作者逐篇覆盖与列表参数 | 逐篇侧栏/代码折叠/版权详细字段、标签排序数量字号、归档年月及菜单标题、受控日期格式已实现；141 项实际 Halo 验收和独立审查通过。 | 固定组合与性能预算已补；完整双站/设备/无障碍及最终 RC 仍待；不实现 Hexo 路由生成器。 |
 | D07 / 社交、页脚与友链输入 | 首页/侧栏社交位置与亮暗色、页脚分组列/宽度/净化 HTML、原生友链组说明及独立远端 JSON/组内随机已实现；29 项实际 Halo 检查通过，相对链接审查问题已修复。 | 与国际化/PJAX 组合的重入和待完成请求离页12/12已通过，完整验收继续；不保证旧 Hexo 配置原样兼容或任意 HTML 执行。 |
 | D08 / 外部资源连接提示 | 实际所选 HTTPS 资源的 preconnect 已接入 bootstrap、管理资源、Prism、AddToAny 和标题字体，含同源跳过、凭据拒绝、CORS 去重与数量上限。 | 限定真实 Halo 资源配置及独立审查通过；固定候选默认/推荐组合性能预算已通过，最终 RC 继续核验，连接提示不代替资源按需加载。 |
@@ -45,13 +47,13 @@ RSS/站点地图与现有评论/公式用户能力保留在 1.0；下表明确�
 
 A02 的全部 ID 如下，保留这些未决项，避免只列醒目功能而隐藏长尾：
 
-`config:error_404.enable`, `template:includes/additional-js`, `helper:getArchiveLength`, `helper:groupPosts`, `helper:urlNoIndex`, `lifecycle-hook:scripts/events/404.js#generator:404`, `lifecycle-hook:scripts/events/init.js#filter:before_generate`, `lifecycle-hook:scripts/events/stylus.js#filter:stylus:renderer`, `lifecycle-hook:scripts/events/welcome.js#event:ready`, `lifecycle-hook:scripts/filters/random_cover.js#generator:post`, `asset:source/img/404.jpg`, `asset:source/img/butterfly-icon.png`, `asset:source/img/error-page.png`, `asset:source/img/favicon.ico`, `asset:source/img/friend_404.gif`, `asset:source/js/main.js`, `asset:source/js/utils.js`, `page-data:cover_type`, `page-data:full_source`, `page-data:source`, `page-data:top_img`, `site-config:archive_dir`, `site-config:archive_generator`, `site-config:category_dir`, `site-config:copyright`, `site-config:email`, `site-config:favicon`, `site-config:highlight.enable`, `site-config:post_asset_folder`, `site-config:pretty_urls.trailing_html`, `site-config:pretty_urls.trailing_index`, `site-config:prismjs`, `site-config:prismjs.enable`, `site-config:root`, `site-config:syntax_highlighter`, `site-config:tag_dir`, `config:CDN.custom_format`。
+`config:error_404.enable`, `template:includes/additional-js`, `helper:getArchiveLength`, `helper:urlNoIndex`, `lifecycle-hook:scripts/events/404.js#generator:404`, `lifecycle-hook:scripts/events/init.js#filter:before_generate`, `lifecycle-hook:scripts/events/stylus.js#filter:stylus:renderer`, `lifecycle-hook:scripts/events/welcome.js#event:ready`, `lifecycle-hook:scripts/filters/random_cover.js#generator:post`, `asset:source/img/404.jpg`, `asset:source/img/butterfly-icon.png`, `asset:source/img/error-page.png`, `asset:source/img/favicon.ico`, `asset:source/img/friend_404.gif`, `asset:source/js/main.js`, `asset:source/js/utils.js`, `page-data:cover_type`, `page-data:full_source`, `page-data:source`, `page-data:top_img`, `site-config:archive_dir`, `site-config:archive_generator`, `site-config:category_dir`, `site-config:copyright`, `site-config:email`, `site-config:favicon`, `site-config:highlight.enable`, `site-config:post_asset_folder`, `site-config:pretty_urls.trailing_html`, `site-config:pretty_urls.trailing_index`, `site-config:prismjs`, `site-config:prismjs.enable`, `site-config:root`, `site-config:syntax_highlighter`, `site-config:tag_dir`。
 
 [A02局部变量映射核对](a02-mermaid-theme-reconciliation-2026-10-14.json)确认盘点ID `site-config:theme` 实际来自 Mermaid 块级JSON参数，已有对应消费者，已转 implemented-unverified；不再计作缺少站点主题名。其余未决项继续保留。
 
-PR #413 已用统一资源根地址与单项 URL 替代 `CDN.custom_format`；该项仍为 gap 是因为正式裁定登记未完成，不应重新开发旧模板。DEC-08 公开登记也仍待完成。
+已在 [DEC-08 正式登记](DEC-08-CONFIG-DEFAULTS.md)归档既有配置决定；`CDN.custom_format` 按根地址/单项 URL 替代能力转 implemented-unverified。A01 `interaction:data-safe` 依据已有 36 项限定记录纠正滞后状态，未新增当前包运行通过。
 
-其中 `helper:groupPosts` 与系列活数据有关，但本次未新加延期裁定；应复核 DEC-02 的具体消费者后同步该追踪项。`page-data:top_img` 保留原生封面方案与原独立字段的差异，不建议重新添加已明确不采用的独立文章顶图字段。
+固定上游核对确认 `helper:groupPosts` 的唯一调用者为已延期的侧栏系列模板，按同一 DEC-02 补齐遗漏追踪项；13 条系列延期、总延期 23 条，适用分母 690。来源哈希与状态变更见[对账记录](a02-reconciliation-2026-10-25.json)。`page-data:top_img` 保留原生封面方案与原独立字段的差异，不建议重新添加已明确不采用的独立文章顶图字段。
 
 ## 4. 已实现，后续以验收为主
 
@@ -65,7 +67,7 @@ PR #413 已用统一资源根地址与单项 URL 替代 `CDN.custom_format`；�
 
 ## 5. 已延期或已裁定替代
 
-8 条 PWA/离线相关项按 DEC-03 平台补充延期到 1.0 之后，`blocked` / `phase=post-1.0`，目标版本与是否实施待评估，不自动排入 1.1。12 条系列活数据/侧栏系列相关项按既有 DEC-02 延至 1.1；1.0 保留通用 HTML 静态系列能力，通用离线转换不再是默认义务。184 条不适用保持原裁定，不恢复第三方搜索/评论 SDK、MathJax 或 DEC-03 已退出的独立资源提供方。新增 2 条 Umami 私有凭据项延期（post-1.0、版本未定）；评论/KaTeX 只延期严格资源子要求，混合条目仍留在 1.0。22 条延期单列；当前适用矩阵分母为 691，RSS/站点地图的 PLG-07 合同场景仍为必需。0 条新改为 verified。
+8 条 PWA/离线相关项按 DEC-03 平台补充延期到 1.0 之后，`blocked` / `phase=post-1.0`，目标版本与是否实施待评估，不自动排入 1.1。13 条系列活数据/侧栏系列相关项按既有 DEC-02 延至 1.1；1.0 保留通用 HTML 静态系列能力，通用离线转换不再是默认义务。184 条不适用保持原裁定，不恢复第三方搜索/评论 SDK、MathJax 或 DEC-03 已退出的独立资源提供方。新增 2 条 Umami 私有凭据项延期（post-1.0、版本未定）；评论/KaTeX 只延期严格资源子要求，混合条目仍留在 1.0。23 条延期单列；当前适用矩阵分母为 690，RSS/站点地图的 PLG-07 合同场景仍为必需。0 条新改为 verified。
 
 ## 已确认推进顺序
 

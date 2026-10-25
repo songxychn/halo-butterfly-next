@@ -37,8 +37,8 @@ for(const [width,scheme] of [[1440,'light'],[390,'light'],[390,'dark']]) {
   assert.equal(response.status(),route.includes('no-such')?404:200);
   const state=await page.evaluate(()=>({lang:document.documentElement.lang,contentLang:document.querySelector('article.render')?.lang,og:document.querySelector('meta[property="og:locale"]')?.content,missing:/\?\?ui\./.test(document.documentElement.outerHTML),overflow:document.documentElement.scrollWidth>innerWidth+1,color:document.documentElement.dataset.colorScheme,shareInputs:document.querySelectorAll('[data-share-url]').length,copyrightLinks:document.querySelectorAll('.copy-right .declaration a').length}));
   assert.equal(state.lang,'en');assert.equal(state.missing,false);assert.equal(state.overflow,false);assert.deepEqual(errors,[]);
-  if(route==='/archives/preview-1'){assert.equal(state.contentLang,'ja');assert.equal(state.og,'ja');assert.equal(state.shareInputs,1);}
-  if(route==='/about-preview'){assert.equal(state.contentLang,'ko');assert.equal(state.og,'ko');}
+  if(route==='/archives/preview-1'){assert.equal(state.contentLang,'ja');assert.equal(state.og,'ja_JP');assert.equal(state.shareInputs,1);}
+  if(route==='/about-preview'){assert.equal(state.contentLang,'ko');assert.equal(state.og,'ko_KR');}
   report.cases.push({route,width,scheme,status:response.status(),...state,errors});
   if(route==='/archives/preview-1') await page.screenshot({path:out+`/post-${width}-${scheme}.png`,fullPage:true});
   page.off('pageerror',listener);
