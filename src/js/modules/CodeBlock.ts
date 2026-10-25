@@ -12,6 +12,7 @@ import {useToBool} from '../core/_util.ts';
 import {resolveCodeShrink} from '../core/code-shrink.ts';
 import { bindCodeScrollFocus, preserveCodeReadingFocus } from '../core/code-scroll-focus.ts';
 import { enhanceCodeWhenReady, loadPrismAfterPaint } from '../core/prism-ready.ts';
+import { preserveNativeHistoryScroll } from '../core/native-history-scroll.ts';
 
 export default class codeBlock {
   name = 'codeBlock';
@@ -29,6 +30,7 @@ export default class codeBlock {
     MainApp.useTheme.change((mode) => this.#codeTheme(mode));
     const refreshScrollFocus = bindCodeScrollFocus(this.#renderDom[0]);
     if (!this.#flag('enable_code') || !this.#renderDom[0]?.querySelector('pre code')) return;
+    const enhanceWithRestoredScroll = preserveNativeHistoryScroll();
     MainApp.prismReady = loadPrismAfterPaint({
       source: MainApp.prismSource,
       domReady: MainApp.codeDomReady,
@@ -47,10 +49,12 @@ export default class codeBlock {
           if (wrap.hasClass('closed')) this.#setCodeExpanded(wrap, wrap.find('.code-expander'), true);
           refreshScrollFocus();
         });
-        this.#code(prism);
-        this.#codeToolbar();
-        refreshScrollFocus();
-        restoreReadingFocus();
+        enhanceWithRestoredScroll(() => {
+          this.#code(prism);
+          this.#codeToolbar();
+          refreshScrollFocus();
+          restoreReadingFocus();
+        });
       },
     });
   }
