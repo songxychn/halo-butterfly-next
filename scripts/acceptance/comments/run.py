@@ -13,6 +13,7 @@ import subprocess
 import time
 import urllib.parse
 import zipfile
+from inventory import read_inventory
 
 REPO = Path(__file__).resolve().parents[3]
 CONSOLE = '/apis/api.console.halo.run/v1alpha1/'
@@ -82,9 +83,7 @@ def main():
             if error.status != 404:
                 raise
     def inventory(url):
-        result = client.api(url + '?size=200')
-        require(result.get('total', len(result['items'])) <= 200 and not result.get('hasNext'), 'Inventory exceeds fixed bound: ' + url)
-        return result['items']
+        return read_inventory(client.api, url)
     def identity():
         require(lab.owned_process('halo'), 'Owned Halo process not live')
         state = json.loads((runtime / 'halo-process.json').read_text())
