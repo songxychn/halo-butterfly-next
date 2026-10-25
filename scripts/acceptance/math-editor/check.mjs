@@ -1,4 +1,4 @@
-/** Four default-editor workflows/readers; prior WebKit login timeout is not rerun. */
+/** Declared official default-editor workflows and four reader states. */
 import assert from 'node:assert/strict';
 import {readFile, writeFile, realpath, stat} from 'node:fs/promises';
 import path from 'node:path';
@@ -15,8 +15,9 @@ assert.equal(await realpath(output), path.dirname(planPath));
 assert.equal((await readFile(path.join(runtime, 'math-editor.lock'), 'utf8')), runId);
 const base = validateBaseUrl(plan.base, JSON.parse(await readFile(path.join(runtime, 'lab.json'))));
 assert(['author', 'enabled', 'theme-off', 'plugin-off', 'restored'].includes(phase));
-const ENGINES=['chromium','firefox'];
-const EXPECTED_CASES=4;
+const ENGINES=plan.engines||['chromium','firefox'];
+assert(ENGINES.length&&new Set(ENGINES).size===ENGINES.length&&ENGINES.every(x=>['chromium','firefox','webkit'].includes(x)));
+const EXPECTED_CASES=ENGINES.length*2;
 const readiness=new Map();
 const report = {schema:1,expectedCases:EXPECTED_CASES,engines:ENGINES, runId, phase, status:'running', runnerSha256:sha256(await readFile(new URL(import.meta.url))), cases:[], created:[], pending:[], blockedRequests:[]};
 const save = () => writeFile(path.join(output, phase + '.json'), JSON.stringify(report, null, 2) + '\n');
@@ -29,7 +30,7 @@ const jsonArchive = (id, label, value) => archive(id, label + '.json', JSON.stri
 const POST = '/apis/content.halo.run/v1alpha1/posts';
 const CONSOLE = '/apis/api.console.halo.run/v1alpha1/posts';
 const same = (obj, row) => row && obj?.metadata?.name === row.name && obj?.spec?.title === row.title && obj?.metadata?.creationTimestamp === row.creationTimestamp && obj?.metadata?.uid === row.uid && obj?.spec?.owner === row.owner;
-report.codeMirrorReader={module:'vendor~Codemirror~index~index~index~index~index~index-CGuvB-w4.js',export:'M',method:'EditorView.findFromDOM(element).state.doc.toString()',scope:'Import the already-loaded official module; read only, no dispatch or editor mutation'};
+report.codeMirrorReader={module:plan.haloVersion==='2.27.1'?'vendor~Codemirror~index~index~index~index~index~index-Vcls81jG.js':'vendor~Codemirror~index~index~index~index~index~index-CGuvB-w4.js',export:'M',method:'EditorView.findFromDOM(element).state.doc.toString()',scope:'Import the already-loaded official module; read only, no dispatch or editor mutation'};
 const fixtures = [{mode:'inline', first:'x^2+y^2=z^2', second:'a^2+b^2=c^2'}, {mode:'block', first:'\\frac{1}{2}+\\frac{1}{3}=\\frac{5}{6}', second:'\\sum_{i=1}^{3}i=6'}];
 const env = browserEnvironment(); Object.assign(process.env, env);
 const pw = await import(pathToFileURL(path.join(RUNTIME, 'deps/node_modules/playwright/index.mjs')));

@@ -40,9 +40,14 @@ def main():
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'lifecycle-only'], default='full-six')
+    parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     args = parser.parse_args()
+    subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
+    subject_group = 'moment.halo.run' if args.subject == 'Moment' else 'content.halo.run'
+    def collection_api(plural):
+        return ('/apis/moment.halo.run/v1alpha1/' if plural == 'moments' else CONTENT) + plural
     runtime = args.runtime.resolve(strict=True)
     require(runtime.is_relative_to(REPO / '.runtime') and not args.runtime.is_symlink(), 'Not an owned runtime')
     marker = json.loads((runtime / 'lab.json').read_text())
@@ -51,7 +56,9 @@ def main():
     spec = importlib.util.spec_from_file_location('comment_lab', REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(lab)
-    cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and args.cases != 'lifecycle-only']
+    guard_spec = importlib.util.spec_from_file_location('fault_guard', REPO / 'scripts/perf/fault-followup.py')
+    guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
+    cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and not (args.cases == 'firefox-signed' and (engine != 'firefox' or not signed)) and args.cases != 'lifecycle-only']
     run = secrets.token_hex(10)
     output = runtime / 'comment-usage-followup' / run
     require(not list(runtime.glob('*.lock')), 'Another runtime lock is present')
@@ -81,7 +88,7 @@ def main():
     def identity():
         require(lab.owned_process('halo'), 'Owned Halo process not live')
         state = json.loads((runtime / 'halo-process.json').read_text())
-        jar = runtime / 'halo/halo-2.26.1.jar'
+        jar = runtime / 'halo' / lab.HALO_JAR_NAME
         command = subprocess.check_output(['ps', '-p', str(state['pid']), '-o', 'command='], text=True)
         require(state['identity'] == str(jar) and str(jar) in command and str(runtime / 'halo/data') in command, 'Wrong JVM identity')
         require('max-keep-alive-requests' not in command and 'maxKeepAliveRequests' not in command, 'Connection workaround forbidden')
@@ -109,10 +116,15 @@ def main():
         return {'descriptorsSha256': digest(descriptors), 'senderConfigSha256': digest(sender), 'onlyDefaultEmailNotifier': True, 'smtpEnabled': False, 'smtpHostPresent': False}
     def rotating_post_subscription(obj):
         spec = obj['spec']
+        reason = spec.get('reason', {})
+        expected = {'new-comment-on-post': "props.postOwner == 'fixture-maintainer'"}
+        if args.subject == 'Moment':expected['new-comment-on-moment'] = "props.momentOwner == 'fixture-maintainer'"
+        if args.subject == 'SinglePage':expected['new-comment-on-single-page'] = "props.pageOwner == 'fixture-maintainer'"
         return (set(spec) == {'disabled', 'reason', 'subscriber', 'unsubscribeToken'}
                 and spec['disabled'] is False
                 and spec['subscriber'] == {'name': 'fixture-maintainer'}
-                and spec['reason'] == {'reasonType': 'new-comment-on-post', 'expression': "props.postOwner == 'fixture-maintainer'", 'subject': {'apiVersion': 'notification.halo.run/v1alpha1', 'kind': 'NonexistentKind'}}
+                and reason.get('reasonType') in expected
+                and reason == {'reasonType': reason['reasonType'], 'expression': expected[reason['reasonType']], 'subject': {'apiVersion': 'notification.halo.run/v1alpha1', 'kind': 'NonexistentKind'}}
                 and isinstance(spec['unsubscribeToken'], str) and bool(spec['unsubscribeToken']))
     def settle_notifications(label):
         # Official login and subscription reconciliation is setup/cleanup
@@ -146,12 +158,13 @@ def main():
                 if plural == 'subscriptions' and rotating_post_subscription(obj):
                     require(not obj['metadata'].get('deletionTimestamp'), 'Post subscription has not converged')
                     stable = {k: v for k, v in obj['spec'].items() if k != 'unsubscribeToken'}
-                    result[plural].append({'name': 'semantic:fixture-maintainer:new-comment-on-post', 'specSha256': digest(stable)})
+                    result[plural].append({'name': 'semantic:fixture-maintainer:' + obj['spec']['reason']['reasonType'], 'specSha256': digest(stable)})
                     report.setdefault('postSubscriptionRotations', []).append({'name': name, 'creationTimestamp': obj['metadata'].get('creationTimestamp'), 'fullSpecSha256': digest(obj['spec']), 'unsubscribeTokenSha256': digest(obj['spec']['unsubscribeToken']), 'semanticSha256': digest(stable)})
                 else:
                     result[plural].append({'name': name, 'creationTimestamp': obj['metadata'].get('creationTimestamp'), 'specSha256': digest(obj['spec'])})
             result[plural].sort(key=lambda x: x['name'])
-            require(len([x for x in result[plural] if x['name'].startswith('semantic:')]) <= 1, 'Duplicate semantic subscriptions')
+            semantic = [x['name'] for x in result[plural] if x['name'].startswith('semantic:')]
+            require(len(semantic) == len(set(semantic)), 'Duplicate semantic subscriptions')
         snapshots = report.setdefault('privateNotificationSnapshots', [])
         filename = 'notifications-' + str(len(snapshots)) + '.private.json'
         lab.write_json(output / filename, snapshot, private=True)
@@ -163,9 +176,9 @@ def main():
             config = optional('/api/v1alpha1/configmaps/' + urllib.parse.quote(obj['spec']['configMapName'], safe='')) if obj['spec'].get('configMapName') else None
             plugins.append({'name': obj['metadata']['name'], 'version': obj['spec']['version'], 'enabled': obj['spec'].get('enabled'), 'phase': obj.get('status', {}).get('phase'), 'specSha256': digest(obj['spec']), 'configSha256': digest(config.get('data', {})) if config else None})
         contents = {}
-        for plural in ['posts', 'singlepages', 'comments', 'replies']:
+        for plural in ['posts', 'singlepages', 'comments', 'replies'] + (['moments'] if args.subject == 'Moment' else []):
             rows = []
-            for obj in inventory(CONTENT + plural):
+            for obj in inventory(collection_api(plural)):
                 if is_owned_content(plural, obj):
                     continue
                 row = {'name': obj['metadata']['name'], 'creationTimestamp': obj['metadata'].get('creationTimestamp'), 'specSha256': digest(obj['spec'])}
@@ -177,10 +190,10 @@ def main():
         require(active['metadata']['name'] == 'halo-butterfly-next', 'Unexpected active theme')
         return {'activeTheme': {'name': active['metadata']['name'], 'version': active['spec']['version']}, 'themeConfigSha256': digest(client.api(CONFIG)), 'systemDataSha256': digest(client.api(SYSTEM).get('data', {})), 'notifiers': notifier_identity(), 'notifications': notification_inventory(), 'plugins': plugins, 'contents': contents}
     def is_owned_content(plural, obj):
-        if plural == 'posts':
+        if plural == subject_collection:
             return obj['metadata']['name'] == post_name and obj['metadata'].get('labels', {}).get(OWNER) == run
         if plural == 'comments':
-            return obj['spec'].get('subjectRef', {}).get('name') == post_name and run in obj['spec'].get('raw', '')
+            return obj['spec'].get('subjectRef') == {'group': subject_group, 'version': 'v1alpha1', 'kind': args.subject, 'name': post_name} and run in obj['spec'].get('raw', '')
         if plural == 'replies':
             return obj['spec'].get('commentName') in {x['name'] for x in report['created'] if x['collection'] == 'comments'} and run in obj['spec'].get('raw', '')
         return False
@@ -215,32 +228,16 @@ def main():
         report['pluginTransitions'].append({'enabled': enable, 'phase': obj['status']['phase']})
         save()
     def browser(phase):
-        child = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json'), phase], cwd=REPO, start_new_session=True)
-        row = {'phase': phase, 'pid': child.pid, 'timeoutSeconds': 1200 if phase == 'usage' else 300}
-        report['batches'].append(row)
+        row = {'phase': phase, 'timeoutSeconds': 1200 if phase == 'usage' else 300}
+        report['batches'].append(row); save()
+        row['exitCode'] = guard.run_browser(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json'), phase], output / (phase + '.log'), lab.BASE['halo'], timeout=row['timeoutSeconds'])
         save()
-        try:
-            child.wait(timeout=row['timeoutSeconds'])
-        except subprocess.TimeoutExpired:
-            row['timedOut'] = True
-            for sig in [signal.SIGTERM, signal.SIGKILL]:
-                try:
-                    os.killpg(child.pid, sig)
-                except ProcessLookupError:
-                    pass
-                try:
-                    child.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    pass
-            raise RuntimeError('Browser phase timeout; no retry: ' + phase)
-        row['exitCode'] = child.returncode
-        save()
-        require(child.returncode == 0, 'Browser phase failed: ' + phase)
+        require(row['exitCode'] == 0, 'Browser phase failed: ' + phase)
     def collect_children():
         # A lost POST response can still be recovered only through the random
         # owned subject and exact run-token text; no generic deletion by date.
         for plural in ['comments', 'replies']:
-            for obj in inventory(CONTENT + plural):
+            for obj in inventory(collection_api(plural)):
                 if is_owned_content(plural, obj):
                     require(run in obj['spec'].get('raw', '') and obj['spec'].get('allowNotification') is True, 'Unexpected official comment payload')
                     owner = obj['spec'].get('owner', {})
@@ -272,8 +269,11 @@ def main():
     restored = False
     try:
         report['identity'] = identity()
+        for tool in Path(__file__).parent.iterdir():
+            if tool.suffix in ['.py','.mjs']:(output / ('runner-' + tool.name)).write_bytes(tool.read_bytes())
         report['runnerDigests'] = {p.name: lab.digest(p) for p in Path(__file__).parent.iterdir() if p.suffix in ['.py', '.mjs']}
         client = lab.Client()
+        guard.wait_for_stable_plugins(lambda: inventory(PLUGINS))
         user = client.api(CONSOLE + 'users/-')['user']
         require(user['metadata']['name'] == 'fixture-maintainer' and user['spec']['email'].endswith('.invalid'), 'Only synthetic maintainer allowed')
         report['notificationSafety'] = {**notifier_identity(), 'maintainerEmailInvalid': True, 'officialAllowNotificationUnchanged': True}
@@ -300,26 +300,39 @@ def main():
         system = client.api(SYSTEM);system.setdefault('data', {})['comment'] = json.dumps({**json.loads(original_comment or '{}'), 'enable': True, 'systemUserOnly': False, 'requireReviewForNew': False})
         client.api(SYSTEM, 'PUT', system)
         require(client.api(CONFIG) == config and client.api(SYSTEM)['data']['comment'] == system['data']['comment'], 'Config did not apply')
-        require(optional(CONTENT + 'posts/' + post_name) is None, 'Unique post already exists')
-        report['postCreationAttempted'] = True;save()
-        post = {'apiVersion': 'content.halo.run/v1alpha1', 'kind': 'Post', 'metadata': {'name': post_name, 'labels': {OWNER: run}}, 'spec': {'title': title, 'slug': post_name, 'allowComment': True, 'deleted': False, 'pinned': False, 'priority': 0, 'publish': False, 'visible': 'PUBLIC', 'owner': client.auth['username'], 'excerpt': {'autoGenerate': True}, 'cover': '', 'tags': [], 'categories': []}}
-        html = '<h2>' + title + '</h2><p>Owned local comment acceptance fixture.</p><a id="comment-usage-away" href="/">Leave this synthetic article</a>'
-        client.api(CONSOLE + 'posts', 'POST', {'post': post, 'content': {'rawType': 'HTML', 'raw': html, 'content': html}})
-        current = client.api(CONTENT + 'posts/' + post_name)
-        require(is_owned_content('posts', current) and current['spec']['title'] == title and current['metadata'].get('creationTimestamp'), 'Post ownership mismatch')
-        report['postIdentity'] = {'name': post_name, 'creationTimestamp': current['metadata']['creationTimestamp'], 'label': run, 'title': title};save()
-        client.api(CONSOLE + 'posts/' + post_name + '/publish', 'PUT')
-        current = poll('post publication', lambda: client.api(CONTENT + 'posts/' + post_name), lambda x: x['spec'].get('publish') and x.get('status', {}).get('permalink'))
-        released = poll('published content', lambda: client.api(CONSOLE + 'posts/' + post_name + '/release-content'), lambda x: x.get('content') == html and x.get('raw') == html)
-        current = client.api(CONTENT + 'posts/' + post_name)
-        require(is_owned_content('posts', current) and current['metadata']['creationTimestamp'] == report['postIdentity']['creationTimestamp'] and current['spec']['title'] == title, 'Post identity changed during publication')
-        report['postReleaseSha256'] = digest(released)
-        register('posts', current)
-        url = urllib.parse.urljoin(lab.BASE['halo'], current['status']['permalink'])
-        require(urllib.parse.urlsplit(url).netloc == urllib.parse.urlsplit(lab.BASE['halo']).netloc, 'Post origin mismatch')
+        if args.subject == 'Moment':
+            require(client.api(PLUGINS + '/PluginMoments')['status']['phase'] == 'STARTED', 'Moment plugin must be enabled')
+            html = '<h2>' + title + '</h2><p>Owned Moment acceptance.</p><a id="comment-usage-away" href="/">Leave this synthetic moment</a>'
+            endpoint = collection_api('moments')
+            require(optional(endpoint + '/' + post_name) is None, 'Unique Moment already exists')
+            report['postCreationAttempted'] = True; save()
+            client.api(endpoint, 'POST', {'apiVersion': 'moment.halo.run/v1alpha1', 'kind': 'Moment', 'metadata': {'name': post_name, 'labels': {OWNER: run}}, 'spec': {'content': {'raw': html, 'html': html, 'medium': []}, 'releaseTime': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'visible': 'PUBLIC', 'approved': True, 'owner': client.auth['username'], 'tags': []}})
+            current = poll('Moment approval timestamp', lambda: client.api(endpoint + '/' + post_name), lambda x: bool(x['spec'].get('approvedTime')))
+            require(current['spec']['approvedTime'] == current['metadata']['creationTimestamp'], 'Unexpected Moment approval timestamp')
+            require(is_owned_content('moments', current) and current['spec']['content']['html'] == html, 'Moment identity/content differs')
+            register('moments', current)
+            url = lab.BASE['halo'] + '/moments/' + post_name
+        else:
+            require(optional(collection_api(subject_collection) + '/' + post_name) is None, 'Unique post already exists')
+            report['postCreationAttempted'] = True;save()
+            post = {'apiVersion': 'content.halo.run/v1alpha1', 'kind': args.subject, 'metadata': {'name': post_name, 'labels': {OWNER: run}}, 'spec': {'title': title, 'slug': post_name, 'allowComment': True, 'deleted': False, 'pinned': False, 'priority': 0, 'publish': False, 'visible': 'PUBLIC', 'owner': client.auth['username'], 'excerpt': {'autoGenerate': True}, 'cover': '', 'tags': [], 'categories': []}}
+            html = '<h2>' + title + '</h2><p>Owned local comment acceptance fixture.</p><a id="comment-usage-away" href="/">Leave this synthetic article</a>'
+            client.api(CONSOLE + subject_collection, 'POST', {('page' if args.subject == 'SinglePage' else 'post'): post, 'content': {'rawType': 'HTML', 'raw': html, 'content': html}})
+            current = client.api(collection_api(subject_collection) + '/' + post_name)
+            require(is_owned_content(subject_collection, current) and current['spec']['title'] == title and current['metadata'].get('creationTimestamp'), 'Post ownership mismatch')
+            report['postIdentity'] = {'name': post_name, 'creationTimestamp': current['metadata']['creationTimestamp'], 'label': run, 'title': title};save()
+            client.api(CONSOLE + subject_collection + '/' + post_name + '/publish', 'PUT')
+            current = poll('post publication', lambda: client.api(collection_api(subject_collection) + '/' + post_name), lambda x: x['spec'].get('publish') and x.get('status', {}).get('permalink'))
+            released = poll('published content', lambda: client.api(CONSOLE + subject_collection + '/' + post_name + '/release-content'), lambda x: x.get('content') == html and x.get('raw') == html)
+            current = client.api(collection_api(subject_collection) + '/' + post_name)
+            require(is_owned_content(subject_collection, current) and current['metadata']['creationTimestamp'] == report['postIdentity']['creationTimestamp'] and current['spec']['title'] == title, 'Post identity changed during publication')
+            report['postReleaseSha256'] = digest(released)
+            register(subject_collection, current)
+            url = urllib.parse.urljoin(lab.BASE['halo'], current['status']['permalink'])
+            require(urllib.parse.urlsplit(url).netloc == urllib.parse.urlsplit(lab.BASE['halo']).netloc, 'Post origin mismatch')
         cookies = [{'name': c.name, 'value': c.value, 'domain': c.domain, 'path': c.path, 'expires': c.expires or -1, 'httpOnly': c.has_nonstandard_attr('HttpOnly'), 'secure': c.secure, 'sameSite': 'Lax'} for c in client.jar]
         lab.write_json(output / 'auth.private.json', {'cookies': cookies}, private=True)
-        fixture = {'owner': OWNER, 'runId': run, 'runtime': str(runtime), 'base': lab.BASE['halo'], 'installed': report['identity']['installed'], 'post': {'name': post_name, 'path': urllib.parse.urlsplit(url).path}, 'expectedCases': len(cases), 'cases': cases, 'scope': args.cases}
+        fixture = {'owner': OWNER, 'runId': run, 'runtime': str(runtime), 'base': lab.BASE['halo'], 'installed': report['identity']['installed'], 'haloJar': lab.HALO_JAR_NAME, 'post': {'kind': args.subject, 'group': subject_group, 'name': post_name, 'path': urllib.parse.urlsplit(url).path}, 'expectedCases': len(cases), 'cases': cases, 'scope': args.cases}
         if args.cases == 'lifecycle-only':
             # These are explicitly API-created reading fixtures, not evidence
             # of a user submitting or replying through the browser UI.
@@ -327,7 +340,7 @@ def main():
             reply_text = 'API lifecycle reply ' + run
             parent_html = '<p>' + parent_text + '</p>'
             reply_html = '<p>' + reply_text + '</p>'
-            parent = client.api('/apis/api.halo.run/v1alpha1/comments', 'POST', {'raw': parent_html, 'content': parent_html, 'allowNotification': True, 'hidden': False, 'subjectRef': {'group': 'content.halo.run', 'version': 'v1alpha1', 'kind': 'Post', 'name': post_name}})
+            parent = client.api('/apis/api.halo.run/v1alpha1/comments', 'POST', {'raw': parent_html, 'content': parent_html, 'allowNotification': True, 'hidden': False, 'subjectRef': {'group': subject_group, 'version': 'v1alpha1', 'kind': args.subject, 'name': post_name}})
             require(parent['metadata'].get('creationTimestamp') and parent['spec']['subjectRef']['name'] == post_name and parent['spec']['raw'] == parent_html, 'API lifecycle parent mismatch')
             report['apiLifecycleFixture'] = {'parent': {'name': parent['metadata']['name'], 'creationTimestamp': parent['metadata']['creationTimestamp'], 'raw': parent_html, 'visibleText': parent_text}, 'notUiSubmissionEvidence': True}
             save()
@@ -348,11 +361,14 @@ def main():
         plugin_state(False);browser('disabled')
         plugin_state(True);browser('restored')
         report['status'] = 'passed-tested-scope'
+    except guard.BrowserCleanupError as error:
+        report['browserCleanupFailed'] = True
+        report['status'] = 'failed'; report['errors'].append({'stage': 'browser-cleanup', 'message': str(error)})
     except Exception as error:
         report['errors'].append({'stage': 'execution', 'type': type(error).__name__, 'message': str(error)})
         report['status'] = 'failed'
     finally:
-        if client and changed:
+        if client and changed and not report.get('browserCleanupFailed'):
             for label, action in [('plugin-enable', lambda: plugin_state(True)), ('collect-children', collect_children), ('notification-readiness', lambda: settle_notifications('before-side-effect-collection')), ('collect-notifications', collect_notifications)]:
                 try:
                     action()
@@ -360,8 +376,7 @@ def main():
                     report['errors'].append({'stage': label, 'message': str(error)})
             for row in reversed(report['created']):
                 try:
-                    prefix = NOTIFICATION if row['collection'] in ['subscriptions', 'notifications', 'reasons'] else CONTENT
-                    endpoint = prefix + row['collection'] + '/' + row['name']
+                    endpoint = (NOTIFICATION + row['collection'] if row['collection'] in ['subscriptions', 'notifications', 'reasons'] else collection_api(row['collection'])) + '/' + row['name']
                     obj = optional(endpoint)
                     if obj:
                         require(obj['metadata'].get('creationTimestamp') == row['creationTimestamp'] and digest(obj['spec']) == row['specSha256'], 'Cleanup identity/spec mismatch')
@@ -382,7 +397,7 @@ def main():
                 except Exception as error:
                     report['errors'].append({'stage': 'restore-' + label, 'message': str(error)})
             try:
-                require(not report.get('postCreationAttempted') or any(r['collection'] == 'posts' for r in report['created']), 'Unregistered post creation needs manual inspection')
+                require(not report.get('postCreationAttempted') or any(r['collection'] == subject_collection for r in report['created']), 'Unregistered post creation needs manual inspection')
                 settle_notifications('after-cleanup')
                 report['after'] = station();report['identityAfter'] = identity()
                 require(report['after'] == before and report['identityAfter'] == report['identity'], 'Original station/package not restored')

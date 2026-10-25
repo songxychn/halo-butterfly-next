@@ -83,3 +83,26 @@ cases whose functional checkpoints completed but whose strict network gates
 retained failures. WebKit's navigation-time font cancellation is not classified
 as a proven Halo connection-read defect; Firefox's two network observations stay
 separate. Every fixture still follows the same strict cleanup and restoration.
+
+## Halo 2.27.1 user-flow follow-up
+
+Set `HALO_VERSION=2.27.1` to bind the pinned official JAR; the default historical
+pin remains available. `--subject Post|SinglePage|Moment` selects one independently
+owned fixture and six engine/identity cases. Moment uses its native subject group,
+resource collection and template, with the same comment/reply form assertions.
+Every run freezes its Python/JS tools before writing fixtures.
+
+Submissions are paced 6500ms each to stay within the official 10/minute creation
+budget; no server rate-limit setting is changed and no rejected POST is retried
+except the one declared client-injected 503. Leaving uses keyboard activation of
+the saved anchor, avoiding Playwright click's implicit scroll. The return starts
+only after the away document's bounded readiness check. Historical failed runs
+remain separate; this is neither a network-cancellation exemption nor a claim of
+pointer-path or real-device acceptance.
+
+Moment creation waits for the official `approvedTime` reconciliation before
+freezing its spec. For the selected subject only, the exact synthetic maintainer's
+`new-comment-on-moment` or `new-comment-on-single-page` subscription permits the
+same narrowly checked token/identity rotation as the existing Post subscription.
+No other subscriber, expression, reason type or extra spec shape is exempted.
+Restored reading expands existing replies; it does not require a reply editor.

@@ -95,8 +95,10 @@ def main():
     parser.add_argument('--package', required=True, type=Path)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--plugin', required=True, type=Path)
+    parser.add_argument('--engines', choices=['chromium,firefox','webkit','chromium,firefox,webkit'], default='chromium,firefox')
     parser.add_argument('--allow-synthetic-writes', required=True, choices=['yes'])
     args = parser.parse_args()
+    engines = args.engines.split(','); expected_cases = len(engines) * 2
     runtime = args.runtime.resolve(strict=True)
     require(runtime.is_relative_to(REPO / '.runtime'), 'Runtime outside owned workspace')
     marker = json.loads((runtime / 'lab.json').read_text())
@@ -105,6 +107,8 @@ def main():
     os.environ.update(LAB_RUNTIME=str(runtime), HALO_PORT=str(marker['ports']['halo']), HEXO_PORT=str(marker['ports']['hexo']))
     spec = importlib.util.spec_from_file_location('math_editor_lab', REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
+    guard_spec = importlib.util.spec_from_file_location('fault_guard', REPO / 'scripts/perf/fault-followup.py')
+    guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
     require(not list(runtime.glob('*.lock')), 'Another acceptance writer lock exists')
     run = secrets.token_hex(10)
     output = runtime / 'math-editor-followup' / run
@@ -113,9 +117,10 @@ def main():
     with lock.open('x') as stream:
         stream.write(run)
     lock.chmod(0o600)
-    report = {'schema': 1, 'runId': run, 'base': base, 'status': 'running', 'stages': [], 'cleanup': [], 'errors': [], 'runnerDigests': {p.name: digest(p) for p in Path(__file__).parent.iterdir() if p.suffix in ('.py', '.mjs')}, 'limits': {'readinessSeconds': 20, 'browserBatchSeconds': 1800, 'authorCases': 4, 'readerStates': 4}, 'limitations': ['Default editor real UI formula input and two UI saves; publishing uses the official API.', 'Four Chromium/Firefox author workflows and four reader states only; prior WebKit login timeout remains unresolved; no other editor, physical Safari, screen reader, performance or full contract claim.', 'Clipboard handler output is instrumented, not the operating-system clipboard.', 'No content pre-rendering, editor transactions, connection workaround or browser measurement retry.']}
+    report = {'schema': 1, 'runId': run, 'base': base, 'status': 'running', 'stages': [], 'cleanup': [], 'errors': [], 'runnerDigests': {p.name: digest(p) for p in Path(__file__).parent.iterdir() if p.suffix in ('.py', '.mjs')}, 'limits': {'readinessSeconds': 20, 'browserBatchSeconds': 1800, 'authorCases': expected_cases, 'readerStates': 4}, 'limitations': ['Default editor real UI formula input and two UI saves; publishing uses the official API.', 'Declared headless engine authors and four reader states only; no other editor, physical Safari, screen reader, performance or full contract claim.', 'Clipboard handler output is instrumented, not the operating-system clipboard.', 'No content pre-rendering, editor transactions, connection workaround or browser measurement retry.']}
     client = before = original = plugin_instance = None
     changed = False
+    existing_plugin = None
     aux_owned = {}
     browser_deadline = None
     def save():
@@ -127,7 +132,7 @@ def main():
     def identity():
         require(lab.owned_process('halo'), 'Owned Halo is not running')
         state = json.loads((runtime / 'halo-process.json').read_text())
-        jar = runtime / 'halo/halo-2.26.1.jar'
+        jar = runtime / 'halo' / lab.HALO_JAR_NAME
         command = subprocess.check_output(['ps', '-p', str(state['pid']), '-o', 'command='], text=True)
         require(state['identity'] == str(jar) and str(jar) in command and str(runtime / 'halo/data') in command, 'Process identity mismatch')
         require('max-keep-alive-requests' not in command and 'maxKeepAliveRequests' not in command, 'Connection workaround forbidden')
@@ -145,7 +150,8 @@ def main():
                 target = (root / name).resolve()
                 require(target.is_relative_to(root) and target.read_bytes() == archive.read(name), 'Installed package bytes differ')
         jars = {p.name: digest(p) for p in sorted((runtime / 'halo/data/plugins').glob('*.jar'))}
-        require('6706fd5ab80551577522756b81dbbc29427a46b1951bb925a8f1fb8f5900ef1f' in jars.values(), 'Official hybrid editor missing')
+        if lab.HALO_VERSION != '2.27.1':
+            require('6706fd5ab80551577522756b81dbbc29427a46b1951bb925a8f1fb8f5900ef1f' in jars.values(), 'Official hybrid editor missing')
         if report.get('identity'):
             original_jars = report['identity']['pluginJars']
             require(all(jars.get(name) == sha for name, sha in original_jars.items()), 'Original plugin JAR changed')
@@ -196,37 +202,13 @@ def main():
         remaining = browser_deadline - time.monotonic()
         require(remaining > 0, 'Fixed complete browser matrix deadline exceeded')
         file = output / 'plan.json'
-        write(file, {'runId': run, 'runtime': str(runtime), 'base': base, 'output': str(output), 'phase': phase, 'installed': report['identity']['installed']})
+        write(file, {'runId': run, 'runtime': str(runtime), 'base': base, 'output': str(output), 'phase': phase, 'installed': report['identity']['installed'], 'engines': engines, 'haloVersion': lab.HALO_VERSION})
         log = output / (phase + '.log')
-        with log.open('wb') as stream:
-            proc = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), '--plan', str(file)], cwd=REPO, stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
-            try:
-                result = proc.wait(timeout=remaining)
-            except subprocess.TimeoutExpired:
-                try:
-                    os.killpg(proc.pid, signal.SIGTERM)
-                except ProcessLookupError:
-                    pass
-                try:
-                    proc.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    pass
-                try:
-                    os.killpg(proc.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
-                proc.wait(timeout=10)
-                raise RuntimeError('Fixed browser batch limit exceeded')
-        # Even an exited Bun parent can leave a browser in its process group.
-        # Reap that group before any subsequent state mutation or restoration.
-        try:
-            os.killpg(proc.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
+        result = guard.run_browser(['bun', str(Path(__file__).with_name('check.mjs')), '--plan', str(file)], log, base, timeout=remaining)
         require(result == 0, phase + ' browser failed; original evidence retained')
         data = json.loads((output / (phase + '.json')).read_text())
-        require(data['status'] == 'passed' and len(data['cases']) == 4, 'Incomplete browser matrix')
-        report['stages'].append({'phase': phase, 'path': str((output / (phase + '.json')).relative_to(REPO)), 'sha256': digest(output / (phase + '.json')), 'cases': 4, 'status': 'passed'})
+        require(data['status'] == 'passed' and len(data['cases']) == expected_cases, 'Incomplete browser matrix')
+        report['stages'].append({'phase': phase, 'path': str((output / (phase + '.json')).relative_to(REPO)), 'sha256': digest(output / (phase + '.json')), 'cases': expected_cases, 'status': 'passed'})
         save()
     def cleanup():
         path = output / 'author.json'
@@ -258,30 +240,44 @@ def main():
     save()
     try:
         report['identity'] = identity()
-        require(digest(args.plugin) == KATEX_SHA and KATEX_SHA not in report['identity']['pluginJars'].values(), 'Expected pinned, not-yet-installed KaTeX')
+        for tool in Path(__file__).parent.iterdir():
+            if tool.suffix in ['.py','.mjs']:(output / ('runner-' + tool.name)).write_bytes(tool.read_bytes())
+        require(digest(args.plugin) == KATEX_SHA, 'Expected pinned official KaTeX JAR')
         client = Client(runtime, base, lab)
-        require(client.api(PLUGINS + '/' + KATEX, missing=True) is None, 'KaTeX already installed')
-        for endpoint in AUX:
-            require(client.api(endpoint, missing=True) is None, 'KaTeX auxiliary resource already exists')
-        hybrid = client.api(PLUGINS + '/hybrid-edit-block')
-        require(hybrid['spec']['version'] == '1.7.0' and hybrid['spec'].get('enabled') is True and hybrid.get('status', {}).get('phase') == 'STARTED', 'Official hybrid editor must remain enabled')
+        existing_plugin = client.api(PLUGINS + '/' + KATEX, missing=True)
+        if existing_plugin:
+            require(existing_plugin['spec']['version'] == '3.0.0' and KATEX_SHA in report['identity']['pluginJars'].values(), 'Existing KaTeX identity differs')
+            require(existing_plugin.get('status', {}).get('phase') == ('STARTED' if existing_plugin['spec'].get('enabled') else 'DISABLED'), 'Existing KaTeX unstable')
+        else:
+            for endpoint in AUX:
+                require(client.api(endpoint, missing=True) is None, 'KaTeX auxiliary resource already exists')
+        if lab.HALO_VERSION != '2.27.1':
+            hybrid = client.api(PLUGINS + '/hybrid-edit-block')
+            require(hybrid['spec']['version'] == '1.7.0' and hybrid['spec'].get('enabled') is True and hybrid.get('status', {}).get('phase') == 'STARTED', 'Official hybrid editor must remain enabled')
+        report['editorProvider'] = 'Halo 2.27.1 bundled default editor' if lab.HALO_VERSION == '2.27.1' else 'hybrid-edit-block 1.7.0'
         original = client.api(CONFIG)
         before = station(); report['before'] = before
         write(output / 'restore.private.json', {'themeConfig': original}, private=True)
         changed = True
-        boundary = 'math-editor-' + run
-        body = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="plugin-katex-3.0.0.jar"\r\nContent-Type: application/java-archive\r\n\r\n'.encode() + args.plugin.read_bytes() + f'\r\n--{boundary}--\r\n'.encode())
-        result = client.api(CONSOLE + 'plugins/install', 'POST', body, 'multipart/form-data; boundary=' + boundary)
-        require(result['metadata']['name'] == KATEX and result['spec']['version'] == '3.0.0', 'Installed plugin mismatch')
-        plugin_instance = result['metadata'].get('creationTimestamp'); require(plugin_instance, 'Plugin creation timestamp missing')
-        report['pluginInstance'] = plugin_instance; save()
-        lifecycle(True)
-        for endpoint in AUX:
-            value = client.api(endpoint, missing=True)
-            if value:
-                require(value['metadata'].get('creationTimestamp'), 'Auxiliary creation timestamp missing')
-                aux_owned[endpoint] = {'creationTimestamp': value['metadata'].get('creationTimestamp'), 'contentSha256': digest({k: v for k, v in value.items() if k != 'metadata'})}
-        report['auxCreated'] = aux_owned; save()
+        if existing_plugin:
+            plugin_instance = existing_plugin['metadata'].get('creationTimestamp')
+            require(plugin_instance, 'Plugin creation timestamp missing')
+            report['reusedExistingPlugin'] = True
+            lifecycle(True)
+        else:
+            boundary = 'math-editor-' + run
+            body = (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="plugin-katex-3.0.0.jar"\r\nContent-Type: application/java-archive\r\n\r\n'.encode() + args.plugin.read_bytes() + f'\r\n--{boundary}--\r\n'.encode())
+            result = client.api(CONSOLE + 'plugins/install', 'POST', body, 'multipart/form-data; boundary=' + boundary)
+            require(result['metadata']['name'] == KATEX and result['spec']['version'] == '3.0.0', 'Installed plugin mismatch')
+            plugin_instance = result['metadata'].get('creationTimestamp'); require(plugin_instance, 'Plugin creation timestamp missing')
+            report['pluginInstance'] = plugin_instance; save()
+            lifecycle(True)
+            for endpoint in AUX:
+                value = client.api(endpoint, missing=True)
+                if value:
+                    require(value['metadata'].get('creationTimestamp'), 'Auxiliary creation timestamp missing')
+                    aux_owned[endpoint] = {'creationTimestamp': value['metadata'].get('creationTimestamp'), 'contentSha256': digest({k: v for k, v in value.items() if k != 'metadata'})}
+            report['auxCreated'] = aux_owned; save()
         configmap = client.api(AUX[0], missing=True)
         basic = json.loads((configmap or {}).get('data', {}).get('basic', '{}'))
         require(basic.get('enable_frontend_katex') not in (True, 'true'), 'Frontend renderer must remain off')
@@ -295,26 +291,33 @@ def main():
             if phase == 'restored': lifecycle(True)
             browser(phase)
         report['status'] = 'passed'
+    except guard.BrowserCleanupError as error:
+        report['browserCleanupFailed'] = True
+        report['status'] = 'failed'; report['errors'].append(str(error))
     except Exception as error:
         report['status'] = 'failed'; report['errors'].append(str(error))
     finally:
-        if changed:
+        if changed and not report.get('browserCleanupFailed'):
             for action in ('fixtures', 'plugin', 'theme', 'verify'):
                 try:
                     identity()
                     if action == 'fixtures': cleanup()
                     elif action == 'plugin':
-                        present = client.api(PLUGINS + '/' + KATEX, missing=True)
-                        if present:
-                            owned_plugin(); client.api(PLUGINS + '/' + KATEX, 'DELETE')
-                            poll(lambda: client.api(PLUGINS + '/' + KATEX, missing=True), lambda p: p is None, 'Plugin uninstall incomplete')
-                        for endpoint in AUX:
-                            value = client.api(endpoint, missing=True)
-                            if value:
-                                owned = aux_owned.get(endpoint)
-                                require(owned and value['metadata'].get('creationTimestamp') == owned['creationTimestamp'] and digest({k: v for k, v in value.items() if k != 'metadata'}) == owned['contentSha256'], 'Auxiliary resource identity differs')
-                                client.api(endpoint, 'DELETE')
-                                poll(lambda: client.api(endpoint, missing=True), lambda p: p is None, 'Auxiliary cleanup incomplete')
+                        if existing_plugin:
+                            lifecycle(existing_plugin['spec'].get('enabled') is True)
+                            require(owned_plugin()['spec'] == existing_plugin['spec'], 'Existing KaTeX spec changed')
+                        else:
+                            present = client.api(PLUGINS + '/' + KATEX, missing=True)
+                            if present:
+                                owned_plugin(); client.api(PLUGINS + '/' + KATEX, 'DELETE')
+                                poll(lambda: client.api(PLUGINS + '/' + KATEX, missing=True), lambda p: p is None, 'Plugin uninstall incomplete')
+                            for endpoint in AUX:
+                                value = client.api(endpoint, missing=True)
+                                if value:
+                                    owned = aux_owned.get(endpoint)
+                                    require(owned and value['metadata'].get('creationTimestamp') == owned['creationTimestamp'] and digest({k: v for k, v in value.items() if k != 'metadata'}) == owned['contentSha256'], 'Auxiliary resource identity differs')
+                                    client.api(endpoint, 'DELETE')
+                                    poll(lambda: client.api(endpoint, missing=True), lambda p: p is None, 'Auxiliary cleanup incomplete')
                     elif action == 'theme':
                         client.api(CONFIG, 'PUT', original); require(client.api(CONFIG) == original, 'Theme configuration restoration differs')
                     else:

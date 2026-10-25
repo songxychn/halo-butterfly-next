@@ -10,30 +10,33 @@ assert(file.startsWith(path.join(REPO,'.runtime')+path.sep));
 const fixture=JSON.parse(await readFile(file));
 assert.equal(fixture.owner,'navigation-followup-owner');assert.match(fixture.runId,/^[0-9a-f]{20}$/);
 const diagnostic=fixture.profile==='chromium-diagnostic';
-assert(['three-engines','chromium-diagnostic'].includes(fixture.profile));
-const engines=diagnostic?['chromium']:['chromium','firefox','webkit'];
-assert.deepEqual(fixture.engines,engines);assert.equal(fixture.expectedCases,engines.length);assert.deepEqual(fixture.posts.map(p=>p.label),['a','b','excluded']);
+assert(['three-engines','chromium-diagnostic','history-matrix','history-webkit-followup'].includes(fixture.profile));
+const engines=fixture.profile==='history-webkit-followup'?['webkit']:(diagnostic?['chromium']:['chromium','firefox','webkit']);
+const historyMatrix=['history-matrix','history-webkit-followup'].includes(fixture.profile);
+const variants=fixture.profile==='history-webkit-followup'?[{width:390,color:'dark'},{width:1440,color:'light'}]:historyMatrix?[{width:390,color:'light'},{width:390,color:'dark'},{width:1440,color:'light'},{width:1440,color:'dark'}]:[{width:390,color:'light'}];
+const expectedCases=engines.length*variants.length;
+assert.deepEqual(fixture.engines,engines);assert.equal(fixture.expectedCases,expectedCases);assert.deepEqual(fixture.posts.map(p=>p.label),['a','b','excluded']);
 const output=path.dirname(file),runtime=await realpath(fixture.runtime);
 assert.equal(await readFile(path.join(runtime,'acceptance-navigations.lock'),'utf8'),fixture.runId);
 const base=validateBaseUrl(fixture.base,JSON.parse(await readFile(path.join(runtime,'lab.json'))));
 assert.deepEqual(JSON.parse(await readFile(path.join(runtime,'installed-package.json'))),fixture.installed);
 const state=JSON.parse(await readFile(path.join(runtime,'halo-process.json')));
-assert(execFileSync('ps',['-p',String(state.pid),'-o','command='],{encoding:'utf8'}).includes(path.join(runtime,'halo/halo-2.26.1.jar')));
+assert(execFileSync('ps',['-p',String(state.pid),'-o','command='],{encoding:'utf8'}).includes(path.join(runtime,'halo',fixture.haloJar)));
 for(const post of fixture.posts)assert.equal(new URL(post.path,base).origin,base);
 Object.assign(process.env,browserEnvironment());
 const pw=await import(pathToFileURL(path.join(RUNTIME,'deps/node_modules/playwright/index.mjs')));
-const report={schema:1,runId:fixture.runId,startedAt:new Date().toISOString(),runnerSha256:sha256(await readFile(new URL(import.meta.url))),fixtureSha256:sha256(await readFile(file)),installed:fixture.installed,configuration:'all-installed-plugins-disabled-core',profile:fixture.profile,expectedCases:engines.length,cases:[],limitations:['Fixed mobile/light headless profile only; official-plugin native fallback retains its separate existing evidence.','No script/resource stripping, product-code injection, navigation retry or connection workaround. All link clicks target actual API-saved fixture anchors.','Counter evidence counts actual per-navigation POST requests and HTTP status, not database counter balances.','No official comment draft, plugin lifecycle, physical Safari/device, performance or full contract claim.']};
+const report={schema:1,runId:fixture.runId,startedAt:new Date().toISOString(),runnerSha256:sha256(await readFile(new URL(import.meta.url))),fixtureSha256:sha256(await readFile(file)),installed:fixture.installed,configuration:'all-installed-plugins-disabled-core',profile:fixture.profile,expectedCases,cases:[],limitations:['Fixed mobile/light headless profile only; official-plugin native fallback retains its separate existing evidence.','No script/resource stripping, product-code injection, navigation retry or connection workaround. All link clicks target actual API-saved fixture anchors.','Counter evidence counts actual per-navigation POST requests and HTTP status, not database counter balances.','No official comment draft, plugin lifecycle, physical Safari/device, performance or full contract claim.']};
 const save=()=>writeFile(path.join(output,'browser-report.json'),JSON.stringify(report,null,2)+'\n');
 const close=async(target)=>{let timer;try{await Promise.race([target.close(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Close exceeded 10s')),10000);})]);}finally{clearTimeout(timer);}};
 await save();
-for(const engine of engines){
+for(const engine of engines)for(const variant of variants){
  let browser,context;
- const row={engine,width:390,color:'light',status:'running',stages:[],navigations:[],requests:[],pageErrors:[],consoleErrors:[]};
+ const row={engine,...variant,status:'running',stages:[],navigations:[],requests:[],pageErrors:[],consoleErrors:[]};
  report.cases.push(row);await save();
  try{
   browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{channel:'chromium'}:{})});row.version=browser.version();
-  context=await browser.newContext({viewport:{width:390,height:844},locale:'en',colorScheme:'light'});
-  await context.addInitScript(()=>localStorage.setItem('halo-butterfly-next.color-scheme','light'));
+  context=await browser.newContext({viewport:{width:variant.width,height:844},locale:'en',colorScheme:variant.color});
+  await context.addInitScript(color=>localStorage.setItem('halo-butterfly-next.color-scheme',color),variant.color);
   if(diagnostic){
    row.timeline=[];row.pageErrorDetails=[];
    await context.exposeBinding('__navigationObservation',(_source,event)=>row.timeline.push({...event,receivedAt:new Date().toISOString(),stage:row.stage}));
@@ -56,7 +59,7 @@ for(const engine of engines){
   page.on('console',m=>{if(m.type()==='error')row.consoleErrors.push(m.text().slice(0,2000));});
   const ready=async(post)=>{
    await page.waitForFunction(path=>location.pathname===path&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,post.path,{timeout:30000,polling:100});
-   assert.equal(await page.locator('html').getAttribute('data-color-scheme'),'light');
+   assert.equal(await page.locator('html').getAttribute('data-color-scheme'),variant.color);
    assert.equal(await page.locator('article.render > h2').textContent(),post.title);
    assert((await page.title()).includes(post.title));
    assert.equal(new URL(await page.locator('link[rel=canonical]').getAttribute('href'),base).pathname,post.path);
@@ -91,9 +94,25 @@ for(const engine of engines){
   const transition=async(post,action,mode='pjax')=>{
    const start=row.requests.length;row.stage=action+'-'+post.label;observe('navigation-action-start');
    await page.evaluate(run=>{window.navigationSentinel=run;window.previousNavigationNode=document.querySelector('article.render');window.previousNavigationScope=window[Symbol.for('halo-butterfly-next.page-scope')];},fixture.runId);
+   let expectedScroll=null;
+   if(historyMatrix){
+    const currentLabel=fixture.posts.find(p=>p.path===new URL(page.url()).pathname).label;
+    const y=currentLabel==='a'?850:1250;
+    await page.evaluate(y=>window.scrollTo({top:y,behavior:'instant'}),y);
+    await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,y,{polling:100});
+    // Let the native scroll event persist the source history entry before traversal.
+    await page.waitForFunction(y=>Object.values(history.state||{}).some(v=>v&&typeof v==='object'&&Math.abs(v.y-y)<=2),y,{polling:100});
+    expectedScroll=['back','forward'].includes(action)?(post.label==='a'?850:1250):0;
+   }
    if(action==='back')await page.goBack({waitUntil:'domcontentloaded',timeout:30000});
    else if(action==='forward')await page.goForward({waitUntil:'domcontentloaded',timeout:30000});
+   else if(historyMatrix){await page.locator('article.render #navigation-'+post.label).evaluate(e=>e.focus({preventScroll:true}));await page.keyboard.press('Enter');}
    else await page.locator('article.render #navigation-'+post.label).click();
+   if(historyMatrix&&mode==='pjax'){
+    await page.waitForFunction(path=>location.pathname===path&&!document.documentElement.classList.contains('theme-navigating'),post.path,{timeout:30000,polling:100});
+    await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,expectedScroll,{polling:100});
+    (row.scrollChecks??=[]).push({action,target:post.path,expected:expectedScroll,actual:await page.evaluate(()=>scrollY)});
+   }
    await checkpoint(post,start);
    const observed=await page.evaluate(()=>({sentinel:window.navigationSentinel,oldConnected:window.previousNavigationNode?.isConnected,oldScopeActive:window.previousNavigationScope?.active,oldCleanupCount:window.previousNavigationScope?.cleanups.size}));
    const targetRequests=row.requests.slice(start).filter(r=>r.url===base+post.path&&r.method==='GET');
@@ -122,11 +141,11 @@ for(const engine of engines){
   await transition(fixture.posts[2],'exclude','native');
   assert.equal(row.navigations.length,13);assert.equal(row.stages.length,14);
   row.status='passed';
- }catch(error){row.status='failed';row.error=String(error.stack||error);row.pendingAtFailure=row.requests.filter(r=>r.state==='pending').map(r=>({...r}));}
+ }catch(error){row.status='failed';row.error=String(error.stack||error);if(context){row.documentAtFailure=await context.pages()[0]?.evaluate(()=>({url:location.href,classes:document.documentElement.className,y:scrollY,history:history.state,ready:document.readyState,initialized:!!window.MainApp?.useCommon})).catch(()=>null);}row.pendingAtFailure=row.requests.filter(r=>r.state==='pending').map(r=>({...r}));}
  finally{
   row.requestsBeforeClose=row.requests.map(r=>({...r}));await save();
   for(const target of [context,browser])if(target){try{await close(target);}catch(error){row.status='failed';(row.closeErrors??=[]).push(String(error));}}
   await save();console.log(engine,row.status,row.error||'');
  }
 }
-report.finishedAt=new Date().toISOString();report.status=report.cases.length===engines.length&&report.cases.every(r=>r.status==='passed')?'passed-tested-scope':'failed';await save();process.exitCode=report.status==='failed'?1:0;
+report.finishedAt=new Date().toISOString();report.status=report.cases.length===expectedCases&&report.cases.every(r=>r.status==='passed')?'passed-tested-scope':'failed';await save();process.exitCode=report.status==='failed'?1:0;

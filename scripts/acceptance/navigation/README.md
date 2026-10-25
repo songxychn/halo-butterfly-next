@@ -88,3 +88,44 @@ separate. Chromium's first frontend exception remains unresolved; a diagnostic
 without reproduction does not turn the original matrix into a pass. Frozen
 attempt01/attempt02 files and both raw runs are retained locally. Restoration
 covers only the enumerated fields, not every database or notification object.
+
+## Halo 2.27.1 history matrix
+
+Use `HALO_VERSION=2.27.1 python3 scripts/acceptance/navigation/coordinate.py` with
+`--runtime`, `--package`, `--source-sha`, and `--allow-synthetic-writes yes`.
+The coordinator reserves the owned lab, records plugin identities/configuration,
+disables them for the explicit core PJAX profile, then restores and verifies the
+original states. It retains its lock on ambiguous restoration.
+
+`--profile history-matrix` on the inner runner selects 3 engines × 390/1440px ×
+light/dark. Each case retains five A/B loops, Back/Forward and one excluded native
+navigation. Long saved content allows actual 850px/1250px scroll positions.
+Keyboard activation of stored anchors preserves the source offset; before any
+lightbox/focus checks, new PJAX destinations must reach 0 and Back/Forward must
+restore the saved offset within 2px. The original readiness bounds are unchanged.
+This does not certify native-history scroll under enabled official plugins or
+physical Safari/mobile devices. Failures and cleanup evidence remain per-run.
+
+`--profile history-webkit-followup` is the fixed two-case supplement (390/dark,
+1440/light), with the same deadlines and explicit 100ms polling for new scroll/
+ready assertions. It preserves the first matrix's two timeouts; a passing
+supplement alone does not establish their root cause.
+
+`--profile official-history` runs `native-history.mjs` with the original official
+plugins enabled. Its 12 cases check A→B→Back(A at 850px)→Forward(B at 1250px)→a new
+A entry at 0px. Document requests prove native navigation; a no-request restoration
+would require both a known document ID and `pageshow.persisted`. This is separate
+from core PJAX disposal/counter checks.
+
+A direct runner refuses every active runtime lock. Only a core child with an
+exact `--coordinator-run-id` matching the sole coordinator lock may enter the
+reserved lab. The coordinator passes that token and remains locked through full
+plugin restoration; independent official/native work cannot enter that window.
+
+The final Halo 2.27.1 follow-up includes a product fix for deferred Prism layout
+changing restored scroll offsets. Native WebKit and theme-owned manual/PJAX
+restoration are separate branches. `native-history.mjs` observes the real saved
+positions without injecting scroll state or changing plugin scripts; its fixed
+WebKit diagnostic profile additionally records read-only layout/scroll events.
+All failed product candidates and passing replacements retain separate source,
+ZIP and report identities in the [2026-10-25 evidence](../../../docs/validation/2026-10-25/user-flows.md).

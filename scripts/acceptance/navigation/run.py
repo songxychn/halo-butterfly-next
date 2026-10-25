@@ -54,7 +54,8 @@ def main():
     parser.add_argument('--source-sha', type=lambda value: hex_digest(value, 40), required=True)
     parser.add_argument('--package-sha256', type=lambda value: hex_digest(value, 64), default=DEFAULT_PACKAGE_SHA256)
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
-    parser.add_argument('--profile', choices=['three-engines', 'chromium-diagnostic'], default='three-engines')
+    parser.add_argument('--coordinator-run-id')
+    parser.add_argument('--profile', choices=['three-engines', 'chromium-diagnostic', 'history-matrix', 'history-webkit-followup', 'official-history', 'official-history-webkit', 'official-history-webkit-diagnostic'], default='three-engines')
     args = parser.parse_args()
     runtime = args.runtime.resolve(strict=True)
     require(runtime.is_relative_to(REPO / '.runtime'), 'Owned runtime outside worktree')
@@ -64,11 +65,18 @@ def main():
     spec = importlib.util.spec_from_file_location('navigation_lab', REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(lab)
+    guard_spec = importlib.util.spec_from_file_location('fault_guard', REPO / 'scripts/perf/fault-followup.py')
+    guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
     run = secrets.token_hex(10)
     output = runtime / 'navigation-followup' / run
     lock = runtime / 'acceptance-navigations.lock'
-    require(not (runtime / 'acceptance-combinations.lock').exists(), 'Combination run is active')
-    require(not (runtime / 'authored-image-editor.lock').exists(), 'Editor/lifecycle run is active')
+    existing_locks = list(runtime.glob('*.lock'))
+    if args.coordinator_run_id:
+        require(bool(re.fullmatch('[0-9a-f]{20}', args.coordinator_run_id)) and args.profile in ['history-matrix','history-webkit-followup'], 'Invalid coordinator delegation')
+        coordinator_lock = runtime / 'navigation-coordinator.lock'
+        require(existing_locks == [coordinator_lock] and coordinator_lock.read_text() == args.coordinator_run_id, 'Coordinator reservation differs')
+    else:
+        require(not existing_locks, 'Another acceptance writer or restoration is active')
     with lock.open('x') as stream:
         stream.write(run)
     lock.chmod(0o600)
@@ -97,7 +105,7 @@ def main():
     def identity():
         require(lab.owned_process('halo'), 'No live owned process')
         state = json.loads((runtime / 'halo-process.json').read_text())
-        jar = runtime / 'halo/halo-2.26.1.jar'
+        jar = runtime / 'halo' / lab.HALO_JAR_NAME
         command = subprocess.check_output(['ps', '-p', str(state['pid']), '-o', 'command='], text=True)
         require(state['identity'] == str(jar) and str(jar) in command and str(runtime / 'halo/data') in command, 'Process identity mismatch')
         require('max-keep-alive-requests' not in command and 'maxKeepAliveRequests' not in command, 'Connection workaround forbidden')
@@ -162,11 +170,17 @@ def main():
     save()
     try:
         report['identity'] = identity()
+        for tool in Path(__file__).parent.iterdir():
+            if tool.suffix in ['.py','.mjs']:(output / ('runner-' + tool.name)).write_bytes(tool.read_bytes())
         report['runnerDigests'] = {p.name: lab.digest(p) for p in Path(__file__).parent.iterdir() if p.suffix in ('.py', '.mjs')}
         client = lab.Client()
+        guard.wait_for_stable_plugins(lambda: inventory(PLUGINS))
         before = station()
         report['before'] = before
-        require(all(p['enabled'] is False and p['phase'] == 'DISABLED' for p in before['plugins']), 'Core lane requires all installed plugins already DISABLED; coordinator restores original states separately')
+        if args.profile.startswith('official-history'):
+            require(any(p['name'] == 'PluginSearchWidget' and p['enabled'] and p['phase'] == 'STARTED' for p in before['plugins']), 'Official native lane requires SearchWidget enabled')
+        else:
+            require(all(p['enabled'] is False and p['phase'] == 'DISABLED' for p in before['plugins']), 'Core lane requires all installed plugins already DISABLED; coordinator restores original states separately')
         original_config = client.api(CONFIG)
         original_system = client.api(SYSTEM).get('data', {}).get('comment')
         lab.write_json(output / 'restore.private.json', {'themeConfig': original_config, 'systemComment': original_system}, private=True)
@@ -212,6 +226,8 @@ def main():
             check_owned(client.api(COLLECTIONS['post'] + '/' + name), row)
             links = ''.join('<a id="navigation-' + other['label'] + '" href="' + html_module.escape(other['path'], quote=True) + '">' + other['label'] + '</a>' for other in posts if other != item)
             html = '<h2>' + title + '</h2>' + links + '<pre><code class="language-javascript">const navigation = 1;</code></pre><img id="navigation-image" src="/lab/avatar.svg" alt="local navigation fixture" loading="eager" width="100" height="100">'
+            if args.profile in ['history-matrix','history-webkit-followup','official-history', 'official-history-webkit', 'official-history-webkit-diagnostic']:
+                html += ''.join('<p>Scroll history fixture section ' + str(i) + ' — ' + title + '</p>' for i in range(100))
             (output / (item['label'] + '.html')).write_text(html)
             client.api(CONSOLE + 'posts/' + name + '/content', 'PUT', {'rawType': 'HTML', 'raw': html, 'content': html})
             publish()
@@ -229,7 +245,7 @@ def main():
         config['pjax']['exclude'] = posts[2]['path']
         client.api(CONFIG, 'PUT', config)
         require(client.api(CONFIG) == config, 'Exclude configuration did not apply')
-        fixture = {'owner': OWNER, 'runId': run, 'base': lab.BASE['halo'], 'runtime': str(runtime), 'installed': report['identity']['installed'], 'posts': posts, 'profile': args.profile, 'engines': ['chromium'] if args.profile == 'chromium-diagnostic' else ['chromium', 'firefox', 'webkit'], 'expectedCases': 1 if args.profile == 'chromium-diagnostic' else 3}
+        fixture = {'haloJar': lab.HALO_JAR_NAME, 'owner': OWNER, 'runId': run, 'base': lab.BASE['halo'], 'runtime': str(runtime), 'installed': report['identity']['installed'], 'posts': posts, 'profile': args.profile, 'engines': ['webkit'] if args.profile == 'history-webkit-followup' else (['chromium'] if args.profile == 'chromium-diagnostic' else ['chromium', 'firefox', 'webkit']), 'expectedCases': 1 if args.profile == 'official-history-webkit-diagnostic' else (4 if args.profile == 'official-history-webkit' else 12) if args.profile in ['history-matrix','official-history', 'official-history-webkit', 'official-history-webkit-diagnostic'] else (2 if args.profile == 'history-webkit-followup' else (1 if args.profile == 'chromium-diagnostic' else 3))}
         lab.write_json(output / 'fixture.json', fixture)
         report['ready'] = station()
         require(report['ready']['plugins'] == before['plugins'], 'Plugin state/config changed during setup')
@@ -237,38 +253,18 @@ def main():
         # This process group belongs only to the browser batch; the Halo JVM was
         # already running and is never part of it. A timeout is a failed batch,
         # not a reason to retry any measurement.
-        browser = subprocess.Popen(['bun', str(Path(__file__).with_name('check.mjs')), str(output / 'fixture.json')], cwd=REPO, start_new_session=True)
-        report['browserProcessGroup'] = browser.pid
-        report['browserTimeoutSeconds'] = 1800
-        save()
-        try:
-            browser.wait(timeout=1800)
-        except subprocess.TimeoutExpired:
-            report['browserTimedOut'] = True
-            try:
-                os.killpg(browser.pid, signal.SIGTERM)
-            except ProcessLookupError:
-                pass
-            try:
-                browser.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                pass
-            # Kill any same-group child still alive even if the Bun parent has
-            # already exited after TERM. The group was created by this batch.
-            try:
-                os.killpg(browser.pid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
-            browser.wait(timeout=10)
-            raise RuntimeError('Browser batch exceeded fixed 1800s limit; process group terminated; no retry')
-        report['browserExitCode'] = browser.returncode
-        require(browser.returncode == 0, 'Browser batch failed; preserved its report')
+        report['browserTimeoutSeconds'] = 1800; save()
+        report['browserExitCode'] = guard.run_browser(['bun', str(Path(__file__).with_name('native-history.mjs' if args.profile.startswith('official-history') else 'check.mjs')), str(output / 'fixture.json')], output / 'browser.log', lab.BASE['halo'], timeout=1800)
+        require(report['browserExitCode'] == 0, 'Browser batch failed; preserved its report')
         report['status'] = 'passed-tested-scope'
+    except guard.BrowserCleanupError as error:
+        report['browserCleanupFailed'] = True
+        report['status'] = 'failed'; report['errors'].append(str(error))
     except Exception as error:
         report['errors'].append({'stage': 'execution', 'type': type(error).__name__, 'message': str(error)})
         report['status'] = 'failed'
     finally:
-        if client:
+        if client and not report.get('browserCleanupFailed'):
             for row in reversed(report['created']):
                 try:
                     endpoint = COLLECTIONS[row['kind']] + '/' + row['name']
