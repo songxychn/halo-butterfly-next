@@ -83,10 +83,13 @@ for(const {engine,signedIn} of cases){
      await form.locator('input[name="email"]').fill(engine+'-'+fixture.runId+'@example.invalid');
      await page.waitForTimeout(6500);
      const responsePromise=page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/apis/api.halo.run/v1alpha1/comments',{timeout:20000});
+     const refreshPromise=page.waitForResponse(r=>r.request().method()==='GET'&&new URL(r.url()).pathname==='/apis/api.halo.run/v1alpha1/comments'&&new URL(r.url()).searchParams.get('name')===fixture.post.name,{timeout:20000});
      await form.locator('button.form-submit').click();const response=await responsePromise;assert.equal(response.status(),200);
      const comment=await response.json();assert.equal(comment.spec.approved,false);assert.equal(comment.spec.subjectRef.name,fixture.post.name);assert.equal(comment.spec.allowNotification,true);assert(comment.spec.raw.includes(fixture.runId));
      row.created={name:comment.metadata.name,creationTimestamp:comment.metadata.creationTimestamp,approved:comment.spec.approved};
      row.assertions.push('real-anonymous-submission-pending-review');
+     const refreshed=await refreshPromise;assert.equal(refreshed.status(),200);await refreshed.finished();assert.equal((await refreshed.json()).items.length,0);
+     row.assertions.push('unapproved-comments-absent-from-public-refetch');
     }
    }
    row.assertions.push('official-subject-and-permission','configured-form-state');
