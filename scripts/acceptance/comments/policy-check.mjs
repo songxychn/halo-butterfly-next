@@ -37,7 +37,8 @@ for(const {engine,signedIn} of cases){
   await context.route('**/*',route=>{
    const req=route.request(),url=new URL(req.url());
    const tracker=req.method()==='POST'&&url.pathname==='/apis/api.halo.run/v1alpha1/trackers/counter'&&req.postDataJSON()?.name===fixture.post.name;
-   if(url.origin!==base||(!['GET','HEAD','OPTIONS'].includes(req.method())&&!tracker))return route.abort('blockedbyclient');
+   const moderation=fixture.policy==='moderation-enabled'&&!signedIn&&req.method()==='POST'&&url.pathname==='/apis/api.halo.run/v1alpha1/comments'&&req.postDataJSON()?.subjectRef?.name===fixture.post.name&&String(req.postDataJSON()?.raw).includes(fixture.runId);
+   if(url.origin!==base||(!['GET','HEAD','OPTIONS'].includes(req.method())&&!tracker&&!moderation))return route.abort('blockedbyclient');
    return route.continue();
   });
   const response=await page.goto(base+fixture.post.path,{waitUntil:'domcontentloaded',timeout:30000});assert.equal(response.status(),200);
@@ -59,13 +60,24 @@ for(const {engine,signedIn} of cases){
    assert.equal(state.user,signedIn);
    assert.equal(state.allowAnonymous,fixture.policy!=='members-only');
    if(fixture.policy==='members-only'&&!signedIn){
-    assert.equal(await page.locator('comment-form [contenteditable]').count(),0);
-    assert(await page.locator('comment-form a[href*="login"]').count()>0);
+    await page.waitForFunction(()=>!document.querySelector('comment-form [contenteditable]')&&!!document.querySelector('comment-form a[href*="login"]'));
    }else{
     await page.locator('comment-form [contenteditable]').waitFor();
-    if(fixture.policy==='private-enabled'){assert.equal(state.config.basic.enablePrivateComment,true);assert.equal(await page.locator('comment-form input[name="hidden"]').count(),1);}
+    if(fixture.policy==='private-enabled'){assert.equal(state.config.basic.enablePrivateComment,true);await page.locator('comment-form input[name="hidden"]').waitFor();}
     if(fixture.policy==='upload-disabled'){assert.equal(state.config.editor.enableUpload,false);assert.equal(await page.locator('comment-form comment-editor').evaluate(e=>e.enableUpload),false);assert.equal(state.config.editor.enableEmoji,false);}
     if(fixture.policy==='captcha-anonymous'){assert.equal(state.config.security.captcha.enable,true);assert.equal(state.config.security.captcha.audience,'ANONYMOUS');assert.equal(state.config.security.captcha.type,'ARITHMETIC');}
+    if(fixture.policy==='moderation-enabled'&&!signedIn){
+     const form=page.locator('comment-form'),editor=form.locator('[contenteditable]'),text='Moderation '+engine+' '+fixture.runId;
+     if(engine==='webkit'){await editor.click();await editor.pressSequentially(text);}else await editor.fill(text);
+     await form.locator('input[name="displayName"]').fill('Policy '+fixture.runId);
+     await form.locator('input[name="email"]').fill(engine+'-'+fixture.runId+'@example.invalid');
+     await page.waitForTimeout(6500);
+     const responsePromise=page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/apis/api.halo.run/v1alpha1/comments',{timeout:20000});
+     await form.locator('button.form-submit').click();const response=await responsePromise;assert.equal(response.status(),200);
+     const comment=await response.json();assert.equal(comment.spec.approved,false);assert.equal(comment.spec.subjectRef.name,fixture.post.name);assert.equal(comment.spec.allowNotification,true);assert(comment.spec.raw.includes(fixture.runId));
+     row.created={name:comment.metadata.name,creationTimestamp:comment.metadata.creationTimestamp,approved:comment.spec.approved};
+     row.assertions.push('real-anonymous-submission-pending-review');
+    }
    }
    row.assertions.push('official-subject-and-permission','configured-form-state');
   }
