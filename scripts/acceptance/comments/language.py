@@ -15,9 +15,10 @@ class LanguageMarkup(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
-        if tag == 'html': self.observed['ui'] = attrs.get('lang')
-        if tag == 'article' and 'render' in attrs.get('class', '').split(): self.observed['body'] = attrs.get('lang')
-        if tag == 'meta' and attrs.get('property') == 'og:locale': self.observed['og'] = attrs.get('content')
+        key = 'ui' if tag == 'html' else ('body' if tag == 'article' and 'render' in attrs.get('class', '').split() else ('og' if tag == 'meta' and attrs.get('property') == 'og:locale' else None))
+        if key:
+            assert key not in self.observed, 'Duplicate language output: ' + key
+            self.observed[key] = attrs.get('content' if key == 'og' else 'lang')
 
 
 def run_language(client, lab, guard, fixture, output, subject_url):

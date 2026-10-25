@@ -42,6 +42,8 @@ for(const engine of ['chromium','firefox','webkit'])for(const width of [390,1440
   });
   const response=await page.goto(base+fixture.post.path+'?language='+encodeURIComponent(fixture.query),{waitUntil:'domcontentloaded',timeout:30000});assert.equal(response.status(),200);
   await page.waitForFunction(()=>!!window.MainApp?.messages);
+  assert.equal(await page.locator('meta[property="og:locale"]').count(),1);
+  assert.equal(await page.locator('article.render').count(),1);
   row.observed=await page.evaluate(()=>({ui:document.documentElement.lang,body:document.querySelector('article.render')?.lang,og:document.querySelector('meta[property="og:locale"]')?.content}));
   assert.deepEqual(row.observed,fixture.expected);
   row.copy=await page.evaluate(()=>window.MainApp.messages['ui.copyCode']);assert.equal(row.copy,copyText[fixture.expected.ui]);

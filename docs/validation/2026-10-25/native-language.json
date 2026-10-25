@@ -1,0 +1,961 @@
+{
+  "schema": 1,
+  "scope": "Native content/UI language separation; no whole-page author override",
+  "candidateSource": "1eb27c3e83f9377a094680b3f099518c4d0e1fad",
+  "candidateZipSha256": "96334b9a37200c11137ca134316c6e6b1ad9c88584d644119ba38a88c465a7f9",
+  "haloVersion": "2.27.1",
+  "haloJarSha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3",
+  "runs": [
+    {
+      "runId": "5a27740a5c0207e65db0",
+      "subject": "Post",
+      "rawReportSha256": "2a1733651f99a10586e6809eaac08acba6da421578d8ca0b2a7949f0a03d0b93",
+      "languageReportSha256": "46ba35b180af8b9034dd7cae7b52ac553e2b568190960c48e090054aef2c9980",
+      "runnerDigests": {
+        "policy-check.mjs": "d8fe6acc9078221902d9a2a630973b13c48e83bea704d7f408202cdf15fd809a",
+        "run.py": "72efb30d25d428e41d977af6c6962114798d962353003c9022a6c9896f4d1899",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "subscriptions.py": "2c5189e384059a3e75128b6d333d01ba946533973d10e24f7402b04388e1e969",
+        "access.py": "61dc52ec21ded501d800d49ed30db833ab6313c5387fae5ff816d22fefbf102c",
+        "final-errors.mjs": "9be955b672839529f344b082dd3fc5495a7bf296cc3cd14f5f14894ff29e6a2b",
+        "language-check.mjs": "8899459c95c2d018bbc918411b78427d0f5f290a20279db00f15426a99ffa73f",
+        "check.mjs": "57ca9e73c461693969a4db4e1ba08d864cdbdf788adb0b38a4ddb54ec8668ade",
+        "language.py": "3ed29875f6c0fc7a0a4864b56285712ef87494882bb67ddef222a728b56b975c",
+        "policies.py": "7901beeed49d0760fa0c09a1481b93892d162a3f3ad7623ebe58a032333301e1",
+        "inventory.py": "0ccee37b2b9fe2766d0c01ed6ac3a978154e9ec9b966d7be21750705070d580e"
+      },
+      "restorationVerified": true,
+      "language": {
+        "status": "passed-tested-scope",
+        "cases": [
+          {
+            "name": "query-over-cookie",
+            "annotation": "ja",
+            "query": "en",
+            "cookie": "ko",
+            "accept": "ja",
+            "expected": {
+              "ui": "en",
+              "body": "ja",
+              "og": "ja_JP"
+            },
+            "observed": {
+              "ui": "en",
+              "og": "ja_JP",
+              "body": "ja"
+            },
+            "htmlSha256": "2edc2b74101d442108a9969f5c88f9a65de6e746462465a66900ca2d70559427",
+            "status": "passed",
+            "browserExitCode": 0
+          },
+          {
+            "name": "empty-body",
+            "annotation": "",
+            "query": "ko",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "ko",
+              "body": "ko",
+              "og": "ko_KR"
+            },
+            "observed": {
+              "ui": "ko",
+              "og": "ko_KR",
+              "body": "ko"
+            },
+            "htmlSha256": "444d06a1f54534803de2808af406d249a10653c48115a9aef5f10e6f6d57f0e4",
+            "status": "passed",
+            "browserExitCode": 0
+          },
+          {
+            "name": "invalid-body",
+            "annotation": "invalid",
+            "query": "zh-TW",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "zh-TW",
+              "body": "zh-TW",
+              "og": "zh_TW"
+            },
+            "observed": {
+              "ui": "zh-TW",
+              "og": "zh_TW",
+              "body": "zh-TW"
+            },
+            "htmlSha256": "01932c777d35e37657d4e9df05e0de2de4d6654aeccef3f9664cdd9478375d54",
+            "status": "passed",
+            "browserExitCode": 0
+          },
+          {
+            "name": "cookie-over-site",
+            "annotation": "ko",
+            "query": "",
+            "cookie": "ja",
+            "accept": "en",
+            "expected": {
+              "ui": "ja",
+              "body": "ko",
+              "og": "ko_KR"
+            },
+            "observed": {
+              "ui": "ja",
+              "og": "ko_KR",
+              "body": "ko"
+            },
+            "htmlSha256": "212a5282f6f4a24f7ef3f0b627cd0e22e6011a09ce07bc513a06e2ab5f10d9c3",
+            "status": "passed"
+          },
+          {
+            "name": "site-over-accept",
+            "annotation": "",
+            "query": "",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "zh-CN",
+              "body": "zh-CN",
+              "og": "zh_CN"
+            },
+            "observed": {
+              "ui": "zh-CN",
+              "og": "zh_CN",
+              "body": "zh-CN"
+            },
+            "htmlSha256": "95bc21318cf3bb56c49c5a08c25404ad6213c109a7c9a12e660252e00f5be0c6",
+            "status": "passed"
+          },
+          {
+            "name": "unknown-ui",
+            "annotation": "",
+            "query": "de",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "en",
+              "body": "en",
+              "og": "en_US"
+            },
+            "observed": {
+              "ui": "en",
+              "og": "en_US",
+              "body": "en"
+            },
+            "htmlSha256": "900f655b2586cf6709bbf85700d123b622af826f3d7d1019928090e47774a6a2",
+            "status": "passed"
+          },
+          {
+            "name": "regional-english",
+            "annotation": "",
+            "query": "en-GB",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "en-GB",
+              "body": "en-GB",
+              "og": "en_GB"
+            },
+            "observed": {
+              "ui": "en-GB",
+              "og": "en_GB",
+              "body": "en-GB"
+            },
+            "htmlSha256": "2435b8044f824c8e905b6ed4a8af1a5cf268d7f6ead7e32718afeb9900d5e0b8",
+            "status": "passed"
+          },
+          {
+            "name": "regional-chinese",
+            "annotation": "",
+            "query": "zh-SG",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "zh-SG",
+              "body": "zh-SG",
+              "og": "zh_SG"
+            },
+            "observed": {
+              "ui": "zh-SG",
+              "og": "zh_SG",
+              "body": "zh-SG"
+            },
+            "htmlSha256": "64a7b06f579344b9e84670bed67f68856b2efd95869a039d4006c188d343ffa8",
+            "status": "passed"
+          },
+          {
+            "name": "traditional-body",
+            "annotation": "zh-HK",
+            "query": "en",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "en",
+              "body": "zh-HK",
+              "og": "zh_HK"
+            },
+            "observed": {
+              "ui": "en",
+              "og": "zh_HK",
+              "body": "zh-HK"
+            },
+            "htmlSha256": "75d9d9a07b674be05317c5a78a30812607e0ae22e88559128b557603deada0ca",
+            "status": "passed"
+          }
+        ],
+        "restored": true,
+        "siteLanguage": "zh-CN"
+      },
+      "browserCases": [
+        {
+          "scenario": "query-over-cookie",
+          "rawSha256": "63b916bdf0b61e546060d092e76a0b89c66d45a4b16814d94fba0382f34cda3e",
+          "cases": [
+            {
+              "engine": "chromium",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "chromium",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            }
+          ]
+        },
+        {
+          "scenario": "empty-body",
+          "rawSha256": "e338984115553b40f5e9fa972dccc0c790f8b4088629858de7b1eae288e44ba4",
+          "cases": [
+            {
+              "engine": "chromium",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "chromium",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            }
+          ]
+        },
+        {
+          "scenario": "invalid-body",
+          "rawSha256": "a686401257ea2d34a1fd3dbb9d6b93b1a55c804e090495796b7477c59642ad8a",
+          "cases": [
+            {
+              "engine": "chromium",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "chromium",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "e5e85a975500f236bb9a",
+      "subject": "SinglePage",
+      "rawReportSha256": "e3a05b386ce34df082324d45acd7090c83f9472c9a2579ddf858136a7299f055",
+      "languageReportSha256": "1c240b9e26ad6f75a14044553e939559f442f34b01b29309d6bcd94dc50d3582",
+      "runnerDigests": {
+        "policy-check.mjs": "d8fe6acc9078221902d9a2a630973b13c48e83bea704d7f408202cdf15fd809a",
+        "run.py": "72efb30d25d428e41d977af6c6962114798d962353003c9022a6c9896f4d1899",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "subscriptions.py": "2c5189e384059a3e75128b6d333d01ba946533973d10e24f7402b04388e1e969",
+        "access.py": "61dc52ec21ded501d800d49ed30db833ab6313c5387fae5ff816d22fefbf102c",
+        "final-errors.mjs": "9be955b672839529f344b082dd3fc5495a7bf296cc3cd14f5f14894ff29e6a2b",
+        "language-check.mjs": "8899459c95c2d018bbc918411b78427d0f5f290a20279db00f15426a99ffa73f",
+        "check.mjs": "57ca9e73c461693969a4db4e1ba08d864cdbdf788adb0b38a4ddb54ec8668ade",
+        "language.py": "3ed29875f6c0fc7a0a4864b56285712ef87494882bb67ddef222a728b56b975c",
+        "policies.py": "7901beeed49d0760fa0c09a1481b93892d162a3f3ad7623ebe58a032333301e1",
+        "inventory.py": "0ccee37b2b9fe2766d0c01ed6ac3a978154e9ec9b966d7be21750705070d580e"
+      },
+      "restorationVerified": true,
+      "language": {
+        "status": "passed-tested-scope",
+        "cases": [
+          {
+            "name": "query-over-cookie",
+            "annotation": "ja",
+            "query": "en",
+            "cookie": "ko",
+            "accept": "ja",
+            "expected": {
+              "ui": "en",
+              "body": "ja",
+              "og": "ja_JP"
+            },
+            "observed": {
+              "ui": "en",
+              "og": "ja_JP",
+              "body": "ja"
+            },
+            "htmlSha256": "9bc34f19148e54dac26266de386512c508d44902f77e08c3b2aab86591f0b9a2",
+            "status": "passed",
+            "browserExitCode": 0
+          },
+          {
+            "name": "empty-body",
+            "annotation": "",
+            "query": "ko",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "ko",
+              "body": "ko",
+              "og": "ko_KR"
+            },
+            "observed": {
+              "ui": "ko",
+              "og": "ko_KR",
+              "body": "ko"
+            },
+            "htmlSha256": "0c7f8aecf8cb93eb9697ddd8bec932c951766bd723f38acfb1ed6b399dab065f",
+            "status": "passed",
+            "browserExitCode": 0
+          },
+          {
+            "name": "invalid-body",
+            "annotation": "invalid",
+            "query": "zh-TW",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "zh-TW",
+              "body": "zh-TW",
+              "og": "zh_TW"
+            },
+            "observed": {
+              "ui": "zh-TW",
+              "og": "zh_TW",
+              "body": "zh-TW"
+            },
+            "htmlSha256": "aaf0807199a00138853599bd74297291600cbed1aba283245e66e9d75e924b1e",
+            "status": "passed",
+            "browserExitCode": 0
+          },
+          {
+            "name": "cookie-over-site",
+            "annotation": "ko",
+            "query": "",
+            "cookie": "ja",
+            "accept": "en",
+            "expected": {
+              "ui": "ja",
+              "body": "ko",
+              "og": "ko_KR"
+            },
+            "observed": {
+              "ui": "ja",
+              "og": "ko_KR",
+              "body": "ko"
+            },
+            "htmlSha256": "6f3adb2f09b342bab8525c09b83a0cd636011cfc1ab598f3e88551027cf7bade",
+            "status": "passed"
+          },
+          {
+            "name": "site-over-accept",
+            "annotation": "",
+            "query": "",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "zh-CN",
+              "body": "zh-CN",
+              "og": "zh_CN"
+            },
+            "observed": {
+              "ui": "zh-CN",
+              "og": "zh_CN",
+              "body": "zh-CN"
+            },
+            "htmlSha256": "a8446b981877a6687fa7e8ce6e6fdd6d80112fefd8707a0ae8b22a0433b4c75f",
+            "status": "passed"
+          },
+          {
+            "name": "unknown-ui",
+            "annotation": "",
+            "query": "de",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "en",
+              "body": "en",
+              "og": "en_US"
+            },
+            "observed": {
+              "ui": "en",
+              "og": "en_US",
+              "body": "en"
+            },
+            "htmlSha256": "e67f6da35728d6b46fd0f80881f0f484bcec91766e371cedcfea0bd0fe69cd5c",
+            "status": "passed"
+          },
+          {
+            "name": "regional-english",
+            "annotation": "",
+            "query": "en-GB",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "en-GB",
+              "body": "en-GB",
+              "og": "en_GB"
+            },
+            "observed": {
+              "ui": "en-GB",
+              "og": "en_GB",
+              "body": "en-GB"
+            },
+            "htmlSha256": "7c5f6690b5c50e1ebaa8cca567d36e0d65112b04add94066a6135e397b5a7002",
+            "status": "passed"
+          },
+          {
+            "name": "regional-chinese",
+            "annotation": "",
+            "query": "zh-SG",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "zh-SG",
+              "body": "zh-SG",
+              "og": "zh_SG"
+            },
+            "observed": {
+              "ui": "zh-SG",
+              "og": "zh_SG",
+              "body": "zh-SG"
+            },
+            "htmlSha256": "77d94c68c32653aa92dda7b890c15d922c0d75ae8d19f5f34f560535c1d9341e",
+            "status": "passed"
+          },
+          {
+            "name": "traditional-body",
+            "annotation": "zh-HK",
+            "query": "en",
+            "cookie": "",
+            "accept": "en",
+            "expected": {
+              "ui": "en",
+              "body": "zh-HK",
+              "og": "zh_HK"
+            },
+            "observed": {
+              "ui": "en",
+              "og": "zh_HK",
+              "body": "zh-HK"
+            },
+            "htmlSha256": "7d0d663694bbd12ce9b2e1d71cd311f87555d34cdedbca8f721b8371521f38e9",
+            "status": "passed"
+          }
+        ],
+        "restored": true,
+        "siteLanguage": "zh-CN"
+      },
+      "browserCases": [
+        {
+          "scenario": "query-over-cookie",
+          "rawSha256": "8ec9449d3352a878508cd2aa253fda1b5607eb550f4f91974beaf5f7b5e02da6",
+          "cases": [
+            {
+              "engine": "chromium",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "chromium",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "en",
+                "body": "ja",
+                "og": "ja_JP"
+              },
+              "copy": "Copy code",
+              "pageErrors": [],
+              "consoleErrors": []
+            }
+          ]
+        },
+        {
+          "scenario": "empty-body",
+          "rawSha256": "ba556b91736b718d04ffe96eefd0cd3a7bd33fd50e5e06a9c802b9cf8fa32fbd",
+          "cases": [
+            {
+              "engine": "chromium",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "chromium",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "ko",
+                "body": "ko",
+                "og": "ko_KR"
+              },
+              "copy": "코드 복사",
+              "pageErrors": [],
+              "consoleErrors": []
+            }
+          ]
+        },
+        {
+          "scenario": "invalid-body",
+          "rawSha256": "9d5af3a2b09537bf343fb3435c5d498cfc7c5d38b4008a605c6408eecc24b928",
+          "cases": [
+            {
+              "engine": "chromium",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "chromium",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "153.0.8010.12",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "firefox",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "155.0",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 390,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            },
+            {
+              "engine": "webkit",
+              "width": 1440,
+              "status": "passed",
+              "browserVersion": "26.6",
+              "observed": {
+                "ui": "zh-TW",
+                "body": "zh-TW",
+                "og": "zh_TW"
+              },
+              "copy": "複製程式碼",
+              "pageErrors": [],
+              "consoleErrors": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Synthetic published fixture and headless browsers, not human translation review or physical devices.",
+    "The tested site default is zh-CN; alternate site defaults and every third-party plugin locale remain separate acceptance.",
+    "Body annotation does not translate content or force whole-page UI locale."
+  ]
+}

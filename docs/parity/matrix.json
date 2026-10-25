@@ -56129,7 +56129,7 @@
           "src/html/views/seo.html",
           "annotation-setting.yaml"
         ],
-        "finding": "原生平台替代已裁定；现有 language 注解设置正文 lang/OG locale，界面遵循 Halo 请求 locale。当前包正文/UI 分离、原生优先级和回退补验单独记录，不据范围决定宣称全面通过。"
+        "finding": "DEC-08 原生语言方案已裁定；固定 1eb27c3 / Halo 2.27.1 的 Post、SinglePage 18 个 HTTP 场景和 36 个浏览器例通过，覆盖正文/UI 分离、原生优先级、空/非法值及地区回退；修正 OG locale 的地区格式。母语审校、全部插件/配置和完整合同未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -56183,6 +56183,15 @@
           "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
           "actor": "maintainer",
           "outcome": "Accepted native Halo locale and separate content-language mapping; no new runtime verification claimed."
+        },
+        {
+          "kind": "scoped-runtime-validation",
+          "path": "docs/validation/2026-10-25/native-language.json",
+          "sha256": "0ecafc5f9c403beac17c2ea55596e97727c17d719388a3a63201ae28e8b40fb9",
+          "date": "2026-10-25",
+          "commit": "1eb27c3e83f9377a094680b3f099518c4d0e1fad",
+          "actor": "Codex",
+          "outcome": "18 HTTP and 36 headless browser cases passed; restoration verified; full contract remains open."
         }
       ],
       "status": "implemented-unverified"
@@ -56214,7 +56223,7 @@
           "src/js/core/i18n.ts",
           "src/html/views/config.html"
         ],
-        "finding": "原生平台替代已裁定；现有 language 注解设置正文 lang/OG locale，界面遵循 Halo 请求 locale。当前包正文/UI 分离、原生优先级和回退补验单独记录，不据范围决定宣称全面通过。"
+        "finding": "DEC-08 原生语言方案已裁定；固定 1eb27c3 / Halo 2.27.1 的 Post、SinglePage 18 个 HTTP 场景和 36 个浏览器例通过，覆盖正文/UI 分离、原生优先级、空/非法值及地区回退；修正 OG locale 的地区格式。母语审校、全部插件/配置和完整合同未完成。"
       },
       "dependencies": [
         "dual-site",
@@ -56268,6 +56277,15 @@
           "commit": "97af1e19416c1b0fb92d59c55f2653417424374d",
           "actor": "maintainer",
           "outcome": "Accepted native Halo locale and separate content-language mapping; no new runtime verification claimed."
+        },
+        {
+          "kind": "scoped-runtime-validation",
+          "path": "docs/validation/2026-10-25/native-language.json",
+          "sha256": "0ecafc5f9c403beac17c2ea55596e97727c17d719388a3a63201ae28e8b40fb9",
+          "date": "2026-10-25",
+          "commit": "1eb27c3e83f9377a094680b3f099518c4d0e1fad",
+          "actor": "Codex",
+          "outcome": "18 HTTP and 36 headless browser cases passed; restoration verified; full contract remains open."
         }
       ],
       "status": "implemented-unverified"
