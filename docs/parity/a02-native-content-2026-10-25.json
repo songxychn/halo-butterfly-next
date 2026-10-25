@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "head": "c277eb433bbf67ee17a3300b8a698701456a66d3",
+  "upstream": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "scope": "Source-to-consumer reconciliation; no new runtime acceptance",
+  "entries": [
+    {
+      "id": "page-data:source",
+      "source": "layout/includes/header/post-info.pug",
+      "consumer": "theme.post_edit.url + page.source",
+      "target": [
+        "src/html/views/components.html",
+        "src/js/core/post-edit.ts",
+        "tests/post-edit.test.mjs"
+      ],
+      "mapping": "上游 source 在文章编辑入口中标识源文件；Halo 文章按原生对象名进入 /console/posts/editor?name=...，使用已登录服务端门禁和官方 UI 权限读取后挂载。无权限、会话失效、失败或开关关闭不显示入口；不构造虚拟 Hexo 文件路径。",
+      "cases": [
+        "文章原生对象名进入正确控制台编辑路由；设置关闭或匿名页面不产生入口/权限请求。",
+        "有 view/manage 或通配权限显示一次；拒绝/失效/异常保留关闭状态；前台门禁不替代 Halo 服务端授权。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "sourceSha256": "a3be1c5710bb61e4dd2303806cdd47d4ec9c483104a83feb34ab9a4d24b07d94",
+      "targetSha256": {
+        "src/html/views/components.html": "04bb004b8678716761b996122b77b4bef3c59d4d47eeb6bed41820953c837081",
+        "src/js/core/post-edit.ts": "7b2bbf5d8c3f5d26686cd3ba2a87517b259c87eefb054449bd89b5cf130f656d",
+        "tests/post-edit.test.mjs": "393218e4ae288ba30e28899d03ef452bf5410296c373d95ee6ac977c32b261f8"
+      }
+    },
+    {
+      "id": "page-data:top_img",
+      "source": "layout/includes/header/index.pug",
+      "consumer": "page.top_img || page.cover || theme.default_top_img",
+      "target": [
+        "src/html/views/layout.html",
+        "annotation-setting.yaml",
+        "docs/IMAGE-OPTIONS.md",
+        "docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md"
+      ],
+      "mapping": "按既有维护者决定复用原生 Post/SinglePage cover，不新增独立顶图 URL；top_img_enable 保留显示三态，全局关闭优先，原生封面到全局默认再到纯色，已保存封面不迁移。此为已批准映射，不宣称旧独立 front-matter 全域等价。",
+      "cases": [
+        "按 docs/IMAGE-OPTIONS.md 验证原生封面、默认图、纯色及失败回退；无需独立顶图 URL 字段。",
+        "逐篇显示三态与页面类型/全局开关优先级正确，文章不隐式读取列表随机图或首页背景。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "sourceSha256": "5790700b3933271916c380cb66df7de8018203df7a482bb470b7ff02e7370771",
+      "targetSha256": {
+        "src/html/views/layout.html": "52a1a5716e134adad0d76081b64a88076e6df62358d8f293796a0eef094660b1",
+        "annotation-setting.yaml": "24f4f1526656f721d7b7f409ae35f922a2cdcd997c57ae14fe7006e0bb8e2d3f",
+        "docs/IMAGE-OPTIONS.md": "1f5b1413aa51edb773897811f2d9653a77509ccb761b6811cd85b6a119a39c98",
+        "docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md": "5103bd4e09c1b07a4220b9279277a59629cbfd0c909dfaf7c62c254fd6b4412f"
+      }
+    }
+  ]
+}

@@ -55934,14 +55934,16 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "固定上游中 full_source 仅进入 shuoshuoFN 的临时文章对象，供 Hexo 渲染过滤器处理源文件路径；不是额外可见正文。按既有原生瞬间/通用 HTML 决定，Halo Moments 消费原生 content.html 和媒体；外部 JSON 明确接收纯文本或净化 HTML，不调用 Hexo 标签或文件过滤器。保留正文、链接、媒体与失败回退能力，不构造服务器文件路径，也不新增标签兼容义务。",
         "settings": [],
         "code": [
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/moments.html",
+          "src/html/moment.html",
+          "src/js/core/moments.ts",
+          "docs/MOMENTS.md",
+          "docs/parity/DEC-02-PORTABLE-CONTENT.md"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "2026-10-25：已定位唯一消费者并按既有通用正文/原生瞬间能力映射；不新增运行通过或 verified，完整动态源与作者流程合同仍待。"
       },
       "dependencies": [
         "dual-site",
@@ -55952,8 +55954,8 @@
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "full_source：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 scripts/helpers/page.js 的消费页面具备对应行为及关闭/缺失回退。"
+          "原生 Moment 文字、链接、媒体来自已发布内容，详情/列表身份正确；缺少 full_source 不影响展示。",
+          "独立 JSON 的普通文本/允许 HTML 保留阅读，危险 HTML/URL 被过滤，失败可重试且本地瞬间仍可读；不将源码文件或旧标签作为必需输入。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -55967,8 +55969,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-full-source-2026-10-25.json",
+          "sha256": "f726ca3df74808de7e2e3cc846616b0183615e73dfe392c0972200c4770502fa",
+          "date": "2026-10-25",
+          "commit": "64f526621870bd96514683b5746c30a610dc6e93",
+          "actor": "Codex",
+          "outcome": "Source and consumer mapped; no new runtime verification."
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:highlight_shrink",
@@ -57356,14 +57368,17 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "上游 source 在文章编辑入口中标识源文件；Halo 文章按原生对象名进入 /console/posts/editor?name=...，使用已登录服务端门禁和官方 UI 权限读取后挂载。无权限、会话失效、失败或开关关闭不显示入口；不构造虚拟 Hexo 文件路径。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/html/views/components.html",
+          "src/js/core/post-edit.ts",
+          "tests/post-edit.test.mjs"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。"
+        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。 2026-10-25：已核对固定上游来源和实际消费者，按既有原生平台决定完成映射；仅纠正追踪状态，不新增运行/独立审查或 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -57374,8 +57389,8 @@
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "source：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/header/post-info.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "文章原生对象名进入正确控制台编辑路由；设置关闭或匿名页面不产生入口/权限请求。",
+          "有 view/manage 或通配权限显示一次；拒绝/失效/异常保留关闭状态；前台门禁不替代 Halo 服务端授权。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -57389,8 +57404,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-native-content-2026-10-25.json",
+          "sha256": "02f65b3a35bf4618a353f90f163f1611567aeaaacaec5e245effbbae4035b8e1",
+          "date": "2026-10-25",
+          "commit": "c277eb433bbf67ee17a3300b8a698701456a66d3",
+          "actor": "Codex",
+          "outcome": "Source and consumer mapped; no new runtime verification."
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:tag",
@@ -57854,14 +57879,18 @@
       ],
       "upstreamInventory": "pageProperties",
       "halo": {
-        "strategy": "区分 Hexo 生成数据与作者 front-matter，映射到 Halo Finder、模型字段、注解或编辑器扩展。",
+        "strategy": "按既有维护者决定复用原生 Post/SinglePage cover，不新增独立顶图 URL；top_img_enable 保留显示三态，全局关闭优先，原生封面到全局默认再到纯色，已保存封面不迁移。此为已批准映射，不宣称旧独立 front-matter 全域等价。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html"
+          "src/html/archives.html",
+          "src/html/views/layout.html",
+          "annotation-setting.yaml",
+          "docs/IMAGE-OPTIONS.md",
+          "docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md"
         ],
-        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。 2026-10-11 限定实现：维护者确认文章顶图继续复用原生封面，不新增独立顶图字段；文章/单页 top_img_enable 三态只控制显示。原生封面、默认图与旧回退已接入，未声明独立 URL front-matter 全域等价。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。 2026-10-14 配置简化：继续默认复用 Halo 内容原生封面，保留逐篇显示三态，不新增文章独立顶图图片字段。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "finding": "当前无逐项等价证明；保留原能力并建立 Halo 适配契约。 2026-10-11 限定实现：维护者确认文章顶图继续复用原生封面，不新增独立顶图字段；文章/单页 top_img_enable 三态只控制显示。原生封面、默认图与旧回退已接入，未声明独立 URL front-matter 全域等价。 见 docs/IMAGE-OPTIONS.md 与限定验收；固定双站、全部配置域、独立审查和完整 1.0 合同仍待完成。 2026-10-14 配置简化：继续默认复用 Halo 内容原生封面，保留逐篇显示三态，不新增文章独立顶图图片字段。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 2026-10-25：已核对固定上游来源和实际消费者，按既有原生平台决定完成映射；仅纠正追踪状态，不新增运行/独立审查或 verified。"
       },
       "dependencies": [
         "dual-site",
@@ -57872,9 +57901,8 @@
       "acceptance": {
         "profile": "page-data",
         "cases": [
-          "top_img：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/header/index.pug 的消费页面具备对应行为及关闭/缺失回退。",
-          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：继续默认复用 Halo 内容原生封面，保留逐篇显示三态，不新增文章独立顶图图片字段。"
+          "按 docs/IMAGE-OPTIONS.md 验证原生封面、默认图、纯色及失败回退；无需独立顶图 URL 字段。",
+          "逐篇显示三态与页面类型/全局开关优先级正确，文章不隐式读取列表随机图或首页背景。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -57916,9 +57944,18 @@
           "commit": "44621d24914edea94a242350562af68870cf5b69",
           "actor": "Codex author + independent_review",
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
+        },
+        {
+          "kind": "implementation-reconciliation",
+          "path": "docs/parity/a02-native-content-2026-10-25.json",
+          "sha256": "02f65b3a35bf4618a353f90f163f1611567aeaaacaec5e245effbbae4035b8e1",
+          "date": "2026-10-25",
+          "commit": "c277eb433bbf67ee17a3300b8a698701456a66d3",
+          "actor": "Codex",
+          "outcome": "Source and consumer mapped; no new runtime verification."
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:total",

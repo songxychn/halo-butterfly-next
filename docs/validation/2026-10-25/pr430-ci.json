@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "failure": {
+    "sourceSha": "c277eb433bbf67ee17a3300b8a698701456a66d3",
+    "runId": 40197550170,
+    "jobId": 121181557934,
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/40197550170",
+    "status": "completed",
+    "conclusion": "failure",
+    "passedTests": 794,
+    "failedTests": 2,
+    "timeoutMs": 30000,
+    "rawLogSha256": "ef74e3c58d3733adfbdeb3db93686ed18df25d0647244728342e9064628d4824"
+  },
+  "correction": {
+    "sourceSha": "0e211c13839bd8d9eb883f09dcc18767b945d658",
+    "path": "tests/navigation-fixture.test.mjs",
+    "beforeSha256": "45319abb4ae788db80160a0f28a9bb9d630ef1de048f6533c00050dd8a280fc1",
+    "afterSha256": "6340f07a45e30f7563fcccc02db1196b4e19a4ede59182555f061b169482010b",
+    "change": "Await Python subprocesses asynchronously; keep all five tests, Python programs, positive/negative assertions and global 30000ms test timeout. No retry.",
+    "exactRootCauseEstablished": false
+  },
+  "verification": {
+    "sourceSha": "0e211c13839bd8d9eb883f09dcc18767b945d658",
+    "runId": 40197981627,
+    "jobId": 121182872757,
+    "url": "https://github.com/songxychn/halo-butterfly-next/actions/runs/40197981627",
+    "status": "completed",
+    "conclusion": "success",
+    "passedTests": 796,
+    "failedTests": 0,
+    "installedPackageFiles": 269,
+    "rebuildByteComparison": "passed",
+    "rawLogSha256": "26b14271b39a96c3bcdd5c73fb60e792b57affef1bd5e5a6d7ed98f2df6406f3"
+  },
+  "limitations": [
+    "Passing CI supports this bounded correction, not a confirmed Bun kernel/runtime root cause.",
+    "This test-only change does not modify product source or the running performance candidate."
+  ]
+}

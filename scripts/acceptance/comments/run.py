@@ -43,7 +43,7 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
@@ -64,6 +64,8 @@ def main():
     guard_spec = importlib.util.spec_from_file_location('fault_guard', REPO / 'scripts/perf/fault-followup.py')
     guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
     cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and not (args.cases == 'firefox-signed' and (engine != 'firefox' or not signed)) and args.cases != 'lifecycle-only']
+    if args.cases == 'captcha-expiry':
+        cases = [{'engine': 'chromium', 'signedIn': False}]
     run = secrets.token_hex(10)
     output = runtime / 'comment-usage-followup' / run
     require(not list(runtime.glob('*.lock')), 'Another runtime lock is present')
@@ -362,7 +364,10 @@ def main():
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases == 'language-only':
+        if args.cases in ['captcha-only', 'captcha-expiry']:
+            from captcha import run_captcha
+            run_captcha(client, lab, guard, fixture, output)
+        elif args.cases == 'language-only':
             from language import run_language
             run_language(client, lab, guard, fixture, output, collection_api(subject_collection) + '/' + post_name)
         elif args.cases == 'access-only':
