@@ -61,13 +61,13 @@ def release_run_locks(locks):
     cpu_owner.parent.rmdir()
 
 
-def acquire_run_locks(runtime, run, cpu_lock=CPU_LOCK):
+def acquire_run_locks(runtime, run, cpu_lock=CPU_LOCK, *, kind='perf03-followup'):
     # These are the same atomic locks used by collect.mjs and combinations/run.py.
     # Taking both prevents either tool from starting after the fault run begins.
     cpu_lock.mkdir()
     locks = []
     try:
-        owner = json.dumps({'pid': os.getpid(), 'runtime': str(runtime), 'kind': 'perf03-followup', 'runId': run})
+        owner = json.dumps({'pid': os.getpid(), 'runtime': str(runtime), 'kind': kind, 'runId': run})
         for path, payload in [(cpu_lock / 'owner.json', owner),
                               (runtime / 'acceptance-combinations.lock', run),
                               (runtime / 'perf03-followup.lock', run)]:

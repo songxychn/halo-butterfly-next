@@ -78,3 +78,17 @@ Preserve every failed run and frozen tool SHA before correcting a tool. Raw
 content, private snapshots and JARs remain local; committed reports contain
 only scoped summaries and evidence hashes. This is not full PLG-06/EXT-02,
 other-editor, physical-device, assistive-technology or performance acceptance.
+
+## Halo 2.27.1 supplement
+
+With `HALO_VERSION=2.27.1`, the coordinator binds the official JAR including its
+bundled default editor (the old hybrid plugin requirement applies only to the
+historical Halo pin). `--engines webkit` explicitly selects two author cases and
+eight readings in four states. The pinned CodeMirror module comes from that JAR;
+its `EditorView.findFromDOM` export is still read only.
+
+The pinned official KaTeX 3.0.0 may already be installed. In that case preserve its
+instance/configuration and restore its original enabled state; never uninstall an
+existing plugin. The absent-plugin path retains the original owned install and
+uninstall workflow. All runs freeze tool copies and use bounded owned-process
+cleanup. Actual results, including any official UI changes, belong to each run.

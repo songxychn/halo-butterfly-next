@@ -15,11 +15,11 @@ const base=validateBaseUrl(fixture.base,JSON.parse(await readFile(path.join(runt
 assert.deepEqual(JSON.parse(await readFile(path.join(runtime,'installed-package.json'))),fixture.installed);
 assert.equal(new URL(fixture.post.path,base).origin,base);
 const processState=JSON.parse(await readFile(path.join(runtime,'halo-process.json')));
-assert(execFileSync('ps',['-p',String(processState.pid),'-o','command='],{encoding:'utf8'}).includes(path.join(runtime,'halo/halo-2.26.1.jar')));
+assert(execFileSync('ps',['-p',String(processState.pid),'-o','command='],{encoding:'utf8'}).includes(path.join(runtime,'halo',fixture.haloJar)));
 const auth=JSON.parse(await readFile(path.join(output,'auth.private.json')));
 Object.assign(process.env,browserEnvironment());
 const pw=await import(pathToFileURL(path.join(RUNTIME,'deps/node_modules/playwright/index.mjs')));
-const report={schema:1,phase,runId:fixture.runId,startedAt:new Date().toISOString(),runnerSha256:sha256(await readFile(new URL(import.meta.url))),fixtureSha256:sha256(await readFile(file)),cases:[],limitations:[`Headless local synthetic Post, ${fixture.expectedCases} declared anonymous/signed-in flows (${fixture.scope}); not full provider/configuration, email delivery, physical device or PJAX acceptance.`,...(['corrected-five','reply-three'].includes(fixture.scope)?['Firefox anonymous is excluded because its first-batch 30s connection/readiness failure is retained without resampling.']:[]),...(fixture.scope==='lifecycle-only'?['Parent and reply are API-created reading fixtures only; this phase provides no browser submission/retry/draft acceptance.']:[]),...(fixture.scope==='webkit-two'?['Fixed WebKit keyboard-input supplement; earlier fill-based empty-editor failures and both Firefox connection/readiness failures remain retained.']:[]),...(fixture.scope==='reply-three'?['The two WebKit editor-empty failures are retained for separate bounded diagnosis, not marked passed by this three-case reply batch.']:[]),'Exactly one 503-injected reply attempt followed by one real user retry per usage case. No navigation or measurement retry.','Official allowNotification:true remains unchanged. Coordinator requires unconfigured/disabled SMTP and .invalid identities.']};
+const report={schema:1,phase,runId:fixture.runId,startedAt:new Date().toISOString(),runnerSha256:sha256(await readFile(new URL(import.meta.url))),fixtureSha256:sha256(await readFile(file)),cases:[],limitations:[`Headless local synthetic ${fixture.post.kind}, ${fixture.expectedCases} declared anonymous/signed-in flows (${fixture.scope}); not full provider/configuration, email delivery, physical device or PJAX acceptance.`,...(['corrected-five','reply-three'].includes(fixture.scope)?['Firefox anonymous is excluded because its first-batch 30s connection/readiness failure is retained without resampling.']:[]),...(fixture.scope==='lifecycle-only'?['Parent and reply are API-created reading fixtures only; this phase provides no browser submission/retry/draft acceptance.']:[]),...(fixture.scope==='webkit-two'?['Fixed WebKit keyboard-input supplement; earlier fill-based empty-editor failures and both Firefox connection/readiness failures remain retained.']:[]),...(fixture.scope==='reply-three'?['The two WebKit editor-empty failures are retained for separate bounded diagnosis, not marked passed by this three-case reply batch.']:[]),'Exactly one 503-injected reply attempt followed by one real user retry per usage case. No navigation or measurement retry.','Official allowNotification:true remains unchanged. Coordinator requires unconfigured/disabled SMTP and .invalid identities.']};
 const reportFile=path.join(output,phase+'-browser-report.json');
 await writeFile(reportFile,JSON.stringify(report,null,2)+'\n',{flag:'wx'});
 const save=()=>writeFile(reportFile,JSON.stringify(report,null,2)+'\n');
@@ -48,9 +48,9 @@ for(const engine of ['chromium','firefox','webkit']){
       let allowed=false;
       if(request.method()==='POST'){
        const payload=request.postDataJSON();
-       if(url.pathname==='/apis/api.halo.run/v1alpha1/comments')allowed=payload.subjectRef?.name===fixture.post.name&&payload.subjectRef?.kind==='Post'&&String(payload.raw).includes(fixture.runId);
+       if(url.pathname==='/apis/api.halo.run/v1alpha1/comments')allowed=payload.subjectRef?.name===fixture.post.name&&payload.subjectRef?.kind===fixture.post.kind&&payload.subjectRef?.group===fixture.post.group&&String(payload.raw).includes(fixture.runId);
        else if(/^\/apis\/api.halo.run\/v1alpha1\/comments\/[^/]+\/reply$/.test(url.pathname))allowed=row.created.some(x=>x.kind==='Comment'&&url.pathname===`/apis/api.halo.run/v1alpha1/comments/${x.name}/reply`)&&String(payload.raw).includes(fixture.runId);
-       else if(url.pathname==='/apis/api.halo.run/v1alpha1/trackers/counter')allowed=payload.name===fixture.post.name&&payload.plural==='posts';
+       else if(url.pathname==='/apis/api.halo.run/v1alpha1/trackers/counter')allowed=payload.name===fixture.post.name&&payload.plural===(fixture.post.kind==='SinglePage'?'singlepages':'posts');
       }
       if(!allowed){row.unexpectedWrites??=[];row.unexpectedWrites.push({url:request.url(),method:request.method()});await route.abort('blockedbyclient');return;}
      }
@@ -62,7 +62,7 @@ for(const engine of ['chromium','firefox','webkit']){
     });
     const checkpoint=async(name)=>{assert.deepEqual(row.pageErrors,[]);assert.deepEqual(row.externalBlocked||[],[]);assert.deepEqual(row.unexpectedWrites||[],[]);row.checkpoints.push({name,url:page.url(),at:new Date().toISOString()});await save();};
     const navigate=async(route)=>{const response=await page.goto(base+route,{waitUntil:'domcontentloaded',timeout:30000});assert.equal(response.status(),200);await page.waitForFunction(()=>!!window.MainApp?.useCommon,null,{timeout:20000});};
-    const mount=async()=>{await page.locator('#post-comment').scrollIntoViewIfNeeded();await page.locator('comment-form [contenteditable]').waitFor();assert.equal(await page.locator('comment-widget').count(),1);assert.equal(await page.locator('comment-widget').evaluate(e=>e.name),fixture.post.name);};
+    const mount=async()=>{await page.locator('#post-comment').scrollIntoViewIfNeeded();await page.locator('comment-form [contenteditable]').waitFor();assert.equal(await page.locator('comment-widget').count(),1);assert.deepEqual(await page.locator('comment-widget').evaluate(e=>[e.group,e.kind,e.name]),[fixture.post.group,fixture.post.kind,fixture.post.name]);};
     const draft=()=>page.evaluate(()=>Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith('halo-comment-draft:')).map(k=>[k,JSON.parse(localStorage.getItem(k))])));
     const editor=(form)=>form.locator('[contenteditable]');
     const enterText=async(form,text)=>{if(engine==='webkit'){const state=await form.locator('comment-editor').evaluate(e=>({loading:e.loading,destroyed:e.editor?.isDestroyed,text:e.editor?.getText()}));assert.equal(state.loading,false);assert.equal(state.destroyed,false);assert.equal(state.text,'');await editor(form).click();await editor(form).pressSequentially(text);row.inputMethod='real-key-events';}else{await editor(form).fill(text);row.inputMethod='fill';}};
@@ -71,6 +71,9 @@ for(const engine of ['chromium','firefox','webkit']){
     const showReply=async(item)=>{if(await item.locator('.reply-button').count())await item.locator('.reply-button').first().click();else await item.locator('.show-replies-button').first().click();const form=item.locator('reply-form').first();await editor(form).waitFor();return form;};
     const captureHtml=async(form,text)=>{const actual=await editor(form).evaluate(e=>({html:e.innerHTML,text:e.innerText}));assert.equal(actual.text.trim(),text);assert(actual.html.includes(fixture.runId));assert(actual.html.startsWith('<p>')&&actual.html.endsWith('</p>'),'Expected actual rich-text paragraph HTML');return actual.html;};
     const submit=async(form,text,html,reply,expectedStatus)=>{
+     // Official 2.27.1 comment-creation budget is 10/minute per client.
+     // Pace distinct user submissions; do not retry a rejected measurement.
+     row.submissionPacingMs=6500;await page.waitForTimeout(6500);
      assert.equal(await captureHtml(form,text),html);
      const responsePromise=page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname.startsWith('/apis/api.halo.run/v1alpha1/comments')&&(reply?new URL(r.url()).pathname.endsWith('/reply'):new URL(r.url()).pathname.endsWith('/comments')),{timeout:20000});
      await form.locator('button.form-submit').click();const response=await responsePromise;assert.equal(response.status(),expectedStatus);
@@ -84,12 +87,12 @@ for(const engine of ['chromium','firefox','webkit']){
      assert.equal(await page.locator('comment-widget').count(),0);
      assert.equal(await page.locator('[data-comment-lazy]').count(),0);
      assert.equal(row.requests.filter(r=>r.url.includes('/plugins/PluginCommentWidget/')).length,0);
-     assert.equal(await page.locator('.comment-unavailable').innerText(),'Owned comment plugin unavailable '+fixture.runId);assert(await page.locator('article.render').isVisible());assert(await page.locator('article.render > h2').isVisible());assert.equal(await page.locator('article.render > h2').textContent(),'Comment usage '+fixture.runId);
+     assert.equal(await page.locator('.comment-unavailable').innerText(),'Owned comment plugin unavailable '+fixture.runId);const body=page.locator(fixture.post.kind==='Moment'?'.list .h':'article.render');assert(await body.isVisible());assert.equal(await body.locator('h2').first().textContent(),'Comment usage '+fixture.runId);
      await checkpoint('official-plugin-disabled-core-and-fallback');
     }else if(phase==='restored'){
      await mount();
      const pairs=fixture.scope==='lifecycle-only'?[fixture.lifecycleSeed]:(JSON.parse(await readFile(path.join(output,'usage-browser-report.json')))).cases.map(old=>({parent:old.created.find(x=>x.kind==='Comment'),reply:old.created.find(x=>x.kind==='Reply')}));
-     for(const {parent,reply} of pairs){assert(parent&&reply);const item=itemFor(parent.visibleText);await item.waitFor();await showReply(item);await page.locator('comment-content').getByText(reply.visibleText,{exact:true}).waitFor();}
+     for(const {parent,reply} of pairs){assert(parent&&reply);const item=itemFor(parent.visibleText);await item.waitFor();const content=page.locator('comment-content').getByText(reply.visibleText,{exact:true});if(!await content.isVisible()){const toggle=item.locator('.show-replies-button').first();await toggle.waitFor();await toggle.click();}await content.waitFor();}
      await checkpoint('official-plugin-restored-declared-parents-and-replies');
     }else{
      await mount();let form=page.locator('comment-form');const text='Usage parent '+id+' '+fixture.runId,replyText='Usage reply '+id+' '+fixture.runId;
@@ -100,11 +103,16 @@ for(const engine of ['chromium','firefox','webkit']){
      row.draftBefore=await draft();await checkpoint('draft-saved');
      // Real trusted click gives the browser an activation; native beforeunload
      // is observed, not replaced with a synthetic browser event or dialog.
+     const away=page.locator('#comment-usage-away');
+     await away.evaluate(e=>e.focus({preventScroll:true}));
      row.stage='draft-dismiss';
-     await Promise.all([page.waitForEvent('dialog',{timeout:20000}).then(async d=>{row.dialogs.push({type:d.type(),action:'dismiss'});assert.equal(d.type(),'beforeunload');await d.dismiss();}),page.locator('#comment-usage-away').click({noWaitAfter:true})]);
+     await Promise.all([page.waitForEvent('dialog',{timeout:20000}).then(async d=>{row.dialogs.push({type:d.type(),action:'dismiss'});assert.equal(d.type(),'beforeunload');await d.dismiss();}),page.keyboard.press('Enter')]);
      assert.equal(new URL(page.url()).pathname,fixture.post.path);assert.equal(await editor(form).innerText(),text);await checkpoint('draft-leave-dismissed');
+     await away.evaluate(e=>e.focus({preventScroll:true}));
      row.stage='draft-leave';
-     await Promise.all([page.waitForEvent('dialog',{timeout:20000}).then(async d=>{row.dialogs.push({type:d.type(),action:'accept'});assert.equal(d.type(),'beforeunload');await d.accept();}),page.waitForURL(base+'/',{waitUntil:'domcontentloaded',timeout:30000}),page.locator('#comment-usage-away').click({noWaitAfter:true})]);
+     await Promise.all([page.waitForEvent('dialog',{timeout:20000}).then(async d=>{row.dialogs.push({type:d.type(),action:'accept'});assert.equal(d.type(),'beforeunload');await d.accept();}),page.waitForURL(base+'/',{waitUntil:'domcontentloaded',timeout:30000}),page.keyboard.press('Enter')]);
+     await page.waitForLoadState('networkidle',{timeout:5000});
+     assert.deepEqual(row.requests.filter(r=>r.state==='pending'),[],'Away page must finish before the scripted return');
      await navigate(fixture.post.path);await mount();form=page.locator('comment-form');assert.equal(await editor(form).innerText(),text);await fillIdentity(form);await checkpoint('draft-restored-after-native-return');
      row.stage='parent-submit';const parent=await submit(form,text,parentHtml,false,200);assert.equal(parent.spec.subjectRef.name,fixture.post.name);
      await itemFor(text).waitFor();await page.waitForFunction(text=>!Object.keys(localStorage).some(k=>k.startsWith('halo-comment-draft:')&&JSON.parse(localStorage.getItem(k)).content===text),parentHtml);assert.equal((await editor(form).innerText()).trim(),'');await checkpoint('real-parent-200-draft-cleared');

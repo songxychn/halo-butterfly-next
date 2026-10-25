@@ -1,0 +1,355 @@
+{
+  "schema": 1,
+  "pr": 429,
+  "reviewedInitialHead": "5de6632620d8254c3609afcef1692e3ae4ce46ae",
+  "implementationFixCommit": "816ec84ff37aefe9ebc05401976363f952a6a911",
+  "productSourceCommit": "577cc427f15fcbc3a53d056eb7e5f10b48c38ab9",
+  "productZipSha256": "8a95280a840f2a6fdfd9639a8094a641be5687335e3e3293c664b8146626ea4d",
+  "haloVersion": "2.27.1",
+  "haloJarSha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3",
+  "priorEvidenceAudit": {
+    "references": 69,
+    "runs": 26,
+    "allHashesMatch": true,
+    "originalResultsRewritten": false
+  },
+  "fixedFindings": [
+    "P2 shared reservation missing across legacy entry points",
+    "P2 core scroll checked before deferred layout",
+    "P2 late teardown errors and native console not gated"
+  ],
+  "runs": [
+    {
+      "kind": "core-pjax",
+      "runId": "239f9b10ce25ba76ba7b",
+      "status": "passed-tested-scope",
+      "restorationVerified": true,
+      "lockReleased": true,
+      "report": {
+        "path": ".runtime/acceptance-2271/lab/navigation-followup/239f9b10ce25ba76ba7b/report.json",
+        "sha256": "375c789e42ad0362e0a3f14c2e57ad05a8430fa576ad310f582c9dfe763ae6f8"
+      },
+      "browserReport": {
+        "path": ".runtime/acceptance-2271/lab/navigation-followup/239f9b10ce25ba76ba7b/browser-report.json",
+        "sha256": "91d7f248b9a161672e2adba98571f55aa01a023456e6da0c733f8f86e1610ca4"
+      },
+      "runnerDigests": {
+        "reservation.py": "6c93b40eb43629a70c2a1c4ae75561dd0f41da91cfe7d33907c2e0c44575a333",
+        "run.py": "ae32ac955c3b5a4f7b7b383c87c1d195b01bc3338e01a1de787ae6a8226093df",
+        "coordinate.py": "9b639424694d16eacfe4df4938ef108bf1f07e216db9a40c062908e87eb254c5",
+        "check.mjs": "14f1cec4513a0c13a061e17f50d7a6a64406b67e1420b740e28192c68e5f8d96",
+        "native-history.mjs": "5b2595e14bdd6debf6038cd6e7e194f3e307eb5d33dad640208842d7897f8a8a",
+        "finalize.mjs": "964e54a810786c90a736432f3c40418dd007b9e0a9e03d28616d0e51e1e996f4"
+      },
+      "cases": [
+        {
+          "engine": "chromium",
+          "width": 390,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "chromium",
+          "width": 1440,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "chromium",
+          "width": 1440,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 1440,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 1440,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 1440,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 1440,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 14,
+          "navigations": 13,
+          "scrollChecksAfterLayout": 12,
+          "finalNetworkPageConsoleClean": true
+        }
+      ]
+    },
+    {
+      "kind": "official-native",
+      "runId": "ee38904b23624e7eab85",
+      "status": "passed-tested-scope",
+      "restorationVerified": true,
+      "lockReleased": true,
+      "report": {
+        "path": ".runtime/acceptance-2271/lab/navigation-followup/ee38904b23624e7eab85/report.json",
+        "sha256": "18e6e6a952e2d250855c46c3cbffdb508434dec44c6bc0e61292a8d92e0cf28d"
+      },
+      "browserReport": {
+        "path": ".runtime/acceptance-2271/lab/navigation-followup/ee38904b23624e7eab85/browser-report.json",
+        "sha256": "3dda5e892a3141af1e217da1bd430e7029a23606754aaa0a0b7e74012fc67bcb"
+      },
+      "runnerDigests": {
+        "reservation.py": "6c93b40eb43629a70c2a1c4ae75561dd0f41da91cfe7d33907c2e0c44575a333",
+        "run.py": "ae32ac955c3b5a4f7b7b383c87c1d195b01bc3338e01a1de787ae6a8226093df",
+        "coordinate.py": "9b639424694d16eacfe4df4938ef108bf1f07e216db9a40c062908e87eb254c5",
+        "check.mjs": "14f1cec4513a0c13a061e17f50d7a6a64406b67e1420b740e28192c68e5f8d96",
+        "native-history.mjs": "5b2595e14bdd6debf6038cd6e7e194f3e307eb5d33dad640208842d7897f8a8a",
+        "finalize.mjs": "964e54a810786c90a736432f3c40418dd007b9e0a9e03d28616d0e51e1e996f4"
+      },
+      "cases": [
+        {
+          "engine": "chromium",
+          "width": 390,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "chromium",
+          "width": 1440,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "chromium",
+          "width": 1440,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 1440,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "firefox",
+          "width": 1440,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 1440,
+          "color": "light",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        },
+        {
+          "engine": "webkit",
+          "width": 1440,
+          "color": "dark",
+          "passed": true,
+          "checkpoints": 5,
+          "navigations": 4,
+          "scrollChecksAfterLayout": null,
+          "finalNetworkPageConsoleClean": true
+        }
+      ]
+    }
+  ],
+  "coordination": {
+    "path": ".runtime/acceptance-2271/lab/navigation-coordination/0411bcef452bc9943355/report.json",
+    "sha256": "3f24b0a025b137c0a281f0a2e04ed90f5e4a25029b3c93ec54912429a4fce7b7",
+    "restored": true,
+    "lockReleased": true,
+    "beforeSha256": "fdca6ec202b3b351ecad3d42ddfc25ed89a24171ef942d0a87c28cc540a2ae7f",
+    "afterSha256": "fdca6ec202b3b351ecad3d42ddfc25ed89a24171ef942d0a87c28cc540a2ae7f",
+    "sharedReservationKind": "navigation-coordination"
+  },
+  "verify": {
+    "path": ".runtime/acceptance-2271/pr429-review-verify.log",
+    "sha256": "cdd3448e5a59120c39f07688a0aa3ba026a612292853d05cbe9a5467ae7c08d0",
+    "testsPassed": 792,
+    "testsFailed": 0
+  },
+  "focusedRegressions": {
+    "path": ".runtime/acceptance-2271/pr429-review-regressions.log",
+    "sha256": "e963bb8aa32b262d6ce114acbb0284a818b34c3d33d65475c814518ae38f2b91"
+  },
+  "cleanup": {
+    "path": ".runtime/acceptance-2271/pr429-review-cleanup.json",
+    "sha256": "244751c978f6e47d419fec5bd621f9f6aadf4e7ab6321cca7c3049c3d81ad709",
+    "result": {
+      "originalStationComparison": {
+        "activeTheme": true,
+        "themeConfigSha256": true,
+        "systemDataSha256": true,
+        "plugins": true,
+        "existingPosts": true,
+        "existingSinglePages": true
+      },
+      "haloStopped": true,
+      "port18845Closed": true,
+      "runtimeLocks": [],
+      "sharedCpuLockReleased": true,
+      "ownedBrowserPids": [],
+      "productZipSha256": "8a95280a840f2a6fdfd9639a8094a641be5687335e3e3293c664b8146626ea4d",
+      "rebuildIdentical": true,
+      "notificationBoundary": "Local synthetic login notices/subscription rotations retained; no global notification inventory equality claim."
+    }
+  },
+  "sharedGuardSha256": "298a338264059dc86729b404370e33a7eb6ac392656658510ea784b714db7e23"
+}
