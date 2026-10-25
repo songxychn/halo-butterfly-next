@@ -41,7 +41,7 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     args = parser.parse_args()
     subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
@@ -353,13 +353,17 @@ def main():
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases != 'lifecycle-only':
-            browser('usage')
-        collect_children()
-        expected_children = 1 if args.cases == 'lifecycle-only' else len(cases)
-        require(len([r for r in report['created'] if r['collection'] == 'comments']) == expected_children and len([r for r in report['created'] if r['collection'] == 'replies']) == expected_children, 'Expected exact declared parent/reply fixtures')
-        plugin_state(False);browser('disabled')
-        plugin_state(True);browser('restored')
+        if args.cases == 'policy-only':
+            from policies import run_policies
+            run_policies(client, lab, guard, fixture, output, collection_api(subject_collection) + '/' + post_name)
+        else:
+            if args.cases != 'lifecycle-only':
+                browser('usage')
+            collect_children()
+            expected_children = 1 if args.cases == 'lifecycle-only' else len(cases)
+            require(len([r for r in report['created'] if r['collection'] == 'comments']) == expected_children and len([r for r in report['created'] if r['collection'] == 'replies']) == expected_children, 'Expected exact declared parent/reply fixtures')
+            plugin_state(False);browser('disabled')
+            plugin_state(True);browser('restored')
         report['status'] = 'passed-tested-scope'
     except guard.BrowserCleanupError as error:
         report['browserCleanupFailed'] = True
