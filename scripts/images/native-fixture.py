@@ -50,7 +50,7 @@ def main():
     spec = importlib.util.spec_from_file_location('native_images_lab', REPO / 'scripts/lab/lab.py')
     lab = importlib.util.module_from_spec(spec); spec.loader.exec_module(lab)
     require(lab.owned_process('halo') and (runtime / 'seed.json').exists(), 'Owned seeded Halo process required')
-    require(lab.digest(runtime / 'halo/halo-2.26.1.jar') == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
+    require(lab.digest(runtime / 'halo' / lab.HALO_JAR_NAME) == lab.VERSIONS['halo']['sha256'], 'Halo digest mismatch')
     installed = json.loads((runtime / 'installed-package.json').read_text())
     require(installed.get('sourceCommit') == args.source_sha, 'Installed source mismatch')
     package = REPO / 'dist' / installed['name']
@@ -115,7 +115,7 @@ def main():
             content = fixture.replace('__RUN__', args.run_id).replace('__PAGE__', letter).replace('__NEXT_URL__', html.escape(target, quote=True))
             client.api(CONSOLE + '/' + name + '/content', 'PUT', {'rawType': 'HTML', 'raw': content, 'content': content})
             client.api(CONSOLE + '/' + name + '/publish', 'PUT')
-        output({'event': 'ready', 'routes': routes, 'names': names, 'runId': args.run_id, 'fixtureSha256': hashlib.sha256(fixture.encode()).hexdigest(), 'installed': installed, 'activeTheme': active, 'installedRecordSha256': installed_record_sha})
+        output({'event': 'ready', 'haloVersion': lab.HALO_VERSION, 'haloJarSha256': lab.VERSIONS['halo']['sha256'], 'routes': routes, 'names': names, 'runId': args.run_id, 'fixtureSha256': hashlib.sha256(fixture.encode()).hexdigest(), 'installed': installed, 'activeTheme': active, 'installedRecordSha256': installed_record_sha})
         stage = 'configure-profile'
         for line in sys.stdin:
             command = line.strip()
