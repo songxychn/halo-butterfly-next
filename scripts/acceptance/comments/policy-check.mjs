@@ -60,7 +60,17 @@ for(const {engine,signedIn} of cases){
    assert.equal(state.user,signedIn);
    assert.equal(state.allowAnonymous,fixture.policy!=='members-only');
    if(fixture.policy==='members-only'&&!signedIn){
-    await page.waitForFunction(()=>!document.querySelector('comment-form [contenteditable]')&&!!document.querySelector('comment-form a[href*="login"]'));
+    const form=page.locator('comment-form');
+    await form.locator('a.form-login[href*="login"]').waitFor();
+    await form.locator('input[name="displayName"]').waitFor({state:'detached'});
+    const editor=form.locator('[contenteditable]');await editor.waitFor();
+    const text='Members only '+fixture.runId;
+    if(engine==='webkit'){await editor.click();await editor.pressSequentially(text);}else await editor.fill(text);
+    await form.locator('button.form-submit').click();
+    await page.getByText('请先登录',{exact:true}).waitFor();
+    assert.equal(row.requests.filter(r=>r.method==='POST'&&new URL(r.url).pathname==='/apis/api.halo.run/v1alpha1/comments').length,0);
+    row.assertions.push('anonymous-submit-keeps-draft-and-requires-login');
+    assert.equal((await editor.innerText()).trim(),text);
    }else{
     await page.locator('comment-form [contenteditable]').waitFor();
     if(fixture.policy==='private-enabled'){assert.equal(state.config.basic.enablePrivateComment,true);await page.locator('comment-form input[name="hidden"]').waitFor();}
