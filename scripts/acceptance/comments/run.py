@@ -125,6 +125,8 @@ def main():
         observations = []
         report.setdefault('notificationReadiness', []).append({'label': label, 'limitSeconds': 30, 'observations': observations})
         deadline = time.monotonic() + 30
+        stable_since = None
+        previous = None
         while True:
             reasons = inventory(NOTIFICATION + 'reasons')
             subscriptions = inventory(NOTIFICATION + 'subscriptions')
@@ -133,8 +135,16 @@ def main():
             observations.append({'at': time.time(), 'loginReasons': login, 'deletingSubscriptions': deleting})
             save()
             require(time.monotonic() < deadline, 'Notification readiness exceeded fixed 30s: ' + label)
-            if not login and not deleting:
-                return
+            signature = digest([(o['metadata']['name'], o['spec']) for o in sorted(subscriptions, key=lambda o: o['metadata']['name'])])
+            # Reply subscriptions rotate asynchronously after successful writes.
+            # One empty deleting-list is only a momentary observation. Require
+            # the inventory to remain stable within the existing 30s setup gate.
+            if not login and not deleting and signature == previous:
+                if stable_since is not None and time.monotonic() - stable_since >= 2:
+                    return
+            else:
+                stable_since = time.monotonic() if not login and not deleting else None
+            previous = signature
             time.sleep(.25)
     def notification_inventory():
         result = {}

@@ -55783,7 +55783,7 @@
           "src/html/page.html",
           "src/html/archives.html"
         ],
-        "finding": "映射范围已裁定；PUBLIC/INTERNAL/PRIVATE 服从核心实际权限，不承诺任意登录用户可读 INTERNAL。实际读取、泄露负例与目录验收待补，状态不提升。"
+        "finding": "DEC-08 原生访问控制映射已裁定；固定 6587691 / Halo 2.27.1 的 Post、SinglePage 各四状态 HTTP/公开 API 检查通过（24+24 请求），匿名非公开正文/标题/摘要未泄露、作者可读、恢复公开可读。普通非作者登录、浏览器目录和完整合同仍待验。"
       },
       "dependencies": [
         "dual-site",
@@ -55810,8 +55810,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-10-25/native-access.json",
+          "sha256": "daee7c5692d22cf7c69194ca8f8aa28004f98323f9c00779ff8a484a18bb4b6d",
+          "date": "2026-10-25",
+          "commit": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+          "actor": "/root",
+          "outcome": "Native access mapping accepted; 48 bounded HTTP requests passed on official Halo 2.27.1. Original empty-200 assertion failure retained; full contract unverified."
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:flink_url",
@@ -56778,7 +56788,7 @@
           "src/html/page.html",
           "src/html/archives.html"
         ],
-        "finding": "映射范围已裁定；PUBLIC/INTERNAL/PRIVATE 服从核心实际权限，不承诺任意登录用户可读 INTERNAL。实际读取、泄露负例与目录验收待补，状态不提升。"
+        "finding": "DEC-08 原生访问控制映射已裁定；固定 6587691 / Halo 2.27.1 的 Post、SinglePage 各四状态 HTTP/公开 API 检查通过（24+24 请求），匿名非公开正文/标题/摘要未泄露、作者可读、恢复公开可读。普通非作者登录、浏览器目录和完整合同仍待验。"
       },
       "dependencies": [
         "dual-site",
@@ -56805,8 +56815,18 @@
         ],
         "pullRequests": []
       },
-      "evidence": [],
-      "status": "mapping-required"
+      "evidence": [
+        {
+          "kind": "partial-runtime-review",
+          "path": "docs/validation/2026-10-25/native-access.json",
+          "sha256": "daee7c5692d22cf7c69194ca8f8aa28004f98323f9c00779ff8a484a18bb4b6d",
+          "date": "2026-10-25",
+          "commit": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+          "actor": "/root",
+          "outcome": "Native access mapping accepted; 48 bounded HTTP requests passed on official Halo 2.27.1. Original empty-200 assertion failure retained; full contract unverified."
+        }
+      ],
+      "status": "implemented-unverified"
     },
     {
       "id": "page-data:path",

@@ -8,4 +8,4 @@
 
 `page-data:encrypt`、`page-data:origin` 保留原 ID 和上游来源，按此新契约验收，不作为不适用或延期项扣除分母，也不因本决定直接记为 verified。需要记录固定 Halo JAR、主题包与源提交，实际检查匿名请求的正文/摘要/目录不泄露、作者合法读取、公开状态恢复；普通登录用户、浏览器目录和公共发现端点分别保留各自的证据边界。不得把后台管理员 API 可读冒充普通访客有权读取。
 
-限定 HTTP 验收入口：`scripts/acceptance/comments/run.py --cases access-only`，复用已固定实验环境、随机自有内容、包逐文件校验及恢复检查。实际结果另行登记；脚本存在不代表已通过。
+限定 HTTP 验收入口：`scripts/acceptance/comments/run.py --cases access-only`，复用已固定实验环境、随机自有内容、包逐文件校验及恢复检查。Post/SinglePage 的 48 次限定 HTTP 实测与首次断言失败见[实际记录](../validation/2026-10-25/native-access.md)。完整合同仍待验，矩阵两条转为 implemented-unverified，未新增 verified。

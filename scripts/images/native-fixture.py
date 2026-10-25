@@ -39,6 +39,7 @@ def main():
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
+    parser.add_argument('--plugin-mode', choices=['unchanged', 'disabled'], default=os.environ.get('IMAGE_PLUGIN_MODE', 'unchanged'))
     args = parser.parse_args()
     require(re.fullmatch('[a-f0-9]{40}', args.source_sha), 'Exact source SHA required')
     require(re.fullmatch('[a-f0-9]{16}', args.run_id), 'Unique hex run ID required')
@@ -67,9 +68,25 @@ def main():
 
     active = active_theme()
     original = client.api(CONFIG)
+    plugins_url = '/apis/plugin.halo.run/v1alpha1/plugins'
+    original_plugins = client.api(plugins_url + '?size=100')['items']
+    require(len(original_plugins) < 100, 'Plugin inventory exceeds bounded page')
+    def plugin_states(enabled):
+        for plugin in client.api(plugins_url + '?size=100')['items']:
+            name = plugin['metadata']['name']
+            if bool(plugin['spec'].get('enabled')) != (name in enabled):
+                client.api('/apis/api.console.halo.run/v1alpha1/plugins/' + name + '/plugin-state', 'PUT', {'enable': name in enabled, 'async': False})
+        deadline = time.monotonic() + 30
+        while True:
+            current = client.api(plugins_url + '?size=100')['items']
+            if all(bool(p['spec'].get('enabled')) == (p['metadata']['name'] in enabled) and p.get('status', {}).get('phase') == ('STARTED' if p['metadata']['name'] in enabled else 'DISABLED') for p in current):
+                return current
+            require(time.monotonic() < deadline, 'Plugin state readiness timed out')
+            time.sleep(.25)
+
     names = {letter: 'native-images-' + args.run_id + '-' + letter for letter in ['a', 'b']}
     snapshot = runtime / ('native-images-' + args.run_id + '.private.json')
-    lab.write_json(snapshot, {'owner': 'native-images', 'runId': args.run_id, 'config': original, 'names': names}, private=True)
+    lab.write_json(snapshot, {'owner': 'native-images', 'runId': args.run_id, 'config': original, 'plugins': original_plugins, 'names': names}, private=True)
     made = []
     fixture = (REPO / 'fixtures/images/native-content.html').read_text()
 
@@ -82,6 +99,7 @@ def main():
     last_observed = None
     try:
         require(active_theme() == active, 'Active theme changed before fixture writes')
+        actual_plugins = plugin_states(set()) if args.plugin_mode == 'disabled' else original_plugins
         routes = {}
         for letter, name in names.items():
             content = fixture.replace('__RUN__', args.run_id).replace('__PAGE__', letter).replace('__NEXT_URL__', '#')
@@ -115,7 +133,7 @@ def main():
             content = fixture.replace('__RUN__', args.run_id).replace('__PAGE__', letter).replace('__NEXT_URL__', html.escape(target, quote=True))
             client.api(CONSOLE + '/' + name + '/content', 'PUT', {'rawType': 'HTML', 'raw': content, 'content': content})
             client.api(CONSOLE + '/' + name + '/publish', 'PUT')
-        output({'event': 'ready', 'haloVersion': lab.HALO_VERSION, 'haloJarSha256': lab.VERSIONS['halo']['sha256'], 'routes': routes, 'names': names, 'runId': args.run_id, 'fixtureSha256': hashlib.sha256(fixture.encode()).hexdigest(), 'installed': installed, 'activeTheme': active, 'installedRecordSha256': installed_record_sha})
+        output({'event': 'ready', 'pluginMode': args.plugin_mode, 'plugins': [{'name': p['metadata']['name'], 'enabled': p['spec'].get('enabled'), 'version': p['spec']['version']} for p in actual_plugins], 'haloVersion': lab.HALO_VERSION, 'haloJarSha256': lab.VERSIONS['halo']['sha256'], 'routes': routes, 'names': names, 'runId': args.run_id, 'fixtureSha256': hashlib.sha256(fixture.encode()).hexdigest(), 'installed': installed, 'activeTheme': active, 'installedRecordSha256': installed_record_sha})
         stage = 'configure-profile'
         for line in sys.stdin:
             command = line.strip()
@@ -159,6 +177,11 @@ def main():
             require(lab.digest(runtime / 'installed-package.json') == installed_record_sha, 'Installed package record changed during acceptance')
         except Exception as error:
             errors.append('configuration: ' + str(error))
+        try:
+            current = plugin_states({p['metadata']['name'] for p in original_plugins if p['spec'].get('enabled')})
+            require({p['metadata']['name']: p['spec'] for p in current} == {p['metadata']['name']: p['spec'] for p in original_plugins}, 'Original plugin specs not restored')
+        except Exception as error:
+            errors.append('plugins: ' + str(error))
         result = {'event': 'restored', 'result': 'failed' if errors else 'passed', 'errors': errors, 'runId': args.run_id, 'snapshot': snapshot.name}
         lab.write_json(runtime / ('native-images-restoration-' + args.run_id + '.json'), result)
         output(result)

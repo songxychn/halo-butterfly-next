@@ -62,7 +62,13 @@ def run_access(client, lab, fixture, output, subject_url):
                         assert row['status'] == 200 and row['titlePresent'], row
                         assert 'Owned local comment acceptance fixture.' in body, 'Authorized body missing'
                     else:
-                        assert row['status'] in [401, 403, 404] and not row['titlePresent'], row
+                        # Halo 2.27.1 SinglePageQueryEndpoint returns an empty
+                        # Mono for an unreadable detail: HTTP 200 with zero bytes.
+                        # Accept only that exact native API shape, never a 200
+                        # theme page or a JSON/content-bearing response.
+                        empty_singlepage = plural == 'singlepages' and path == public_api + '/' + fixture['post']['name'] and row['status'] == 200 and body == ''
+                        row['denial'] = 'native-empty-200' if empty_singlepage else 'http-denied'
+                        assert (row['status'] in [401, 403, 404] or empty_singlepage) and not row['titlePresent'], row
                         assert 'Owned local comment acceptance fixture.' not in body, 'Unauthorized body leaked'
             row, body = fetch(lab.LOCAL, public_api + '?size=100')
             row['identity'] = 'anonymous-list'

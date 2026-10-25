@@ -1,5 +1,6 @@
 /** Real official CommentWidget forms; no source injection or request-body rewrite. */
 import assert from 'node:assert/strict';
+import {finalCommentErrors,hasFinalCommentErrors} from './final-errors.mjs';
 import {readFile, writeFile, realpath} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import path from 'node:path';
@@ -100,6 +101,12 @@ for(const engine of ['chromium','firefox','webkit']){
        const content=page.locator('comment-content').getByText(reply.visibleText,{exact:true});
        if(!await content.isVisible()){
         const toggle=item.locator('.show-replies-button').first();await toggle.waitFor();
+        // WebKit's automatic offscreen click can land on the surrounding row
+        // during its scroll/layout transition. Prepare the visible target first;
+        // still use one trusted click, unchanged timeout and no retry/force.
+        await toggle.scrollIntoViewIfNeeded();
+        await page.waitForFunction(()=>document.fonts.status==='loaded');
+        step.prepared=await state();step.targetRect=await toggle.boundingBox();await save();
         await item.evaluate(e=>{e.__acceptanceClicks=[];e.addEventListener('click',event=>{e.__acceptanceClicks.push({trusted:event.isTrusted,path:event.composedPath().filter(n=>n instanceof Element).slice(0,5).map(n=>n.tagName+'.'+n.className)});},{capture:true});});
         await toggle.click();step.afterClick=await state();await save();
        }
@@ -147,6 +154,10 @@ for(const engine of ['chromium','firefox','webkit']){
   }
  }catch(error){report.cases.push({engine,status:'failed',setupError:error.stack||String(error)});await save();}
  finally{if(browser)try{await close(browser,'browser');}catch(e){report.cases.push({engine,status:'failed',closeError:String(e)});await save();}}
+}
+for(const row of report.cases){
+ row.finalErrors=finalCommentErrors(row);
+ if(hasFinalCommentErrors(row.finalErrors)){row.status='failed';row.finalGateError='Final error arrays contain unexpected failures';}
 }
 report.finishedAt=new Date().toISOString();report.passed=report.cases.filter(c=>c.status==='passed').length;report.failed=report.cases.length-report.passed;await save();
 process.exitCode=report.failed||report.cases.length!==(phase==='usage'?fixture.expectedCases:3)?1:0;
