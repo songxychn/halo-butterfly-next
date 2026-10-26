@@ -1,0 +1,626 @@
+{
+  "schema": 1,
+  "candidateSource": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+  "candidateZipSha256": "7f91d07597b6fa35ee99e2adde573891c9dc9548a9e1a137f414c7d33d24e08a",
+  "haloVersion": "2.27.1",
+  "haloJarSha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3",
+  "runs": [
+    {
+      "runId": "45d256cd9214af28d849",
+      "subject": "Post",
+      "status": "passed-tested-scope",
+      "restorationVerified": true,
+      "source": {
+        "name": "candidate-6587691.zip",
+        "sha256": "7f91d07597b6fa35ee99e2adde573891c9dc9548a9e1a137f414c7d33d24e08a",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "access": {
+        "scope": "native-visibility-http",
+        "cases": [
+          {
+            "visibility": "PUBLIC",
+            "requests": [
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 60261,
+                "sha256": "38aa55e0ef13fc87b84f22e076ea972a096c91dfa6b14c1ecb14def7459d0439",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 3330,
+                "sha256": "f30be59fc7f6bccd550e92bfeeb6d40caa86fcf3fbabf43ff06f3a17919943cf",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 60261,
+                "sha256": "38aa55e0ef13fc87b84f22e076ea972a096c91dfa6b14c1ecb14def7459d0439",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 3330,
+                "sha256": "f30be59fc7f6bccd550e92bfeeb6d40caa86fcf3fbabf43ff06f3a17919943cf",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts?size=100",
+                "status": 200,
+                "bytes": 52077,
+                "sha256": "03cef6bee5186cda6ba911d3c2395227146df702ae57a81d7dfbc35e7b33d2ab",
+                "titlePresent": true,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "INTERNAL",
+            "requests": [
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 404,
+                "bytes": 44082,
+                "sha256": "12860adb69dc8450da8d35877aabc569f4a97a98e09a5522daf1d06e098789c1",
+                "titlePresent": false,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 404,
+                "bytes": 249,
+                "sha256": "e5aa4984de5cc29c01a55ab76b1d3bd30c79a5b1fe1961166269c72f61c0ae14",
+                "titlePresent": false,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 60121,
+                "sha256": "b333bdc612883c4ec937c96a7597e6c0acd38d7f77146e5af9352e7c53e25c07",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 3336,
+                "sha256": "df29376d82877feb0761ed8fc5c04135bf16df8a40011ced98ffa4e54eecdb75",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts?size=100",
+                "status": 200,
+                "bytes": 49102,
+                "sha256": "91ad0ccf13bc52210487f782af43b41bbb183dc9d41d4cf44a98bee1459481ed",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/",
+                "status": 200,
+                "bytes": 69185,
+                "sha256": "8048310177fc86132128be79c4902e5f4b6c367804afe18704139bfe9d3639b4",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/archives/",
+                "status": 200,
+                "bytes": 115157,
+                "sha256": "91571e5292f3c43c4470c66191e1555f8a5acf663e220d61a11f6e7c6d28a09b",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "PRIVATE",
+            "requests": [
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 404,
+                "bytes": 44082,
+                "sha256": "12860adb69dc8450da8d35877aabc569f4a97a98e09a5522daf1d06e098789c1",
+                "titlePresent": false,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 404,
+                "bytes": 249,
+                "sha256": "36af271a94834b44d9d2f63441ae414439eee72d0e6ef11894cb10c5233dd9f9",
+                "titlePresent": false,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 60181,
+                "sha256": "81f718846a495b5fcab42dd6eeb810cd0e09368df93590d596048633e20e93c9",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 3334,
+                "sha256": "ce220eeaf4cf14c4422532b8bd471951642fc195bb7c24e7ce81a931eb1ca5cd",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts?size=100",
+                "status": 200,
+                "bytes": 49102,
+                "sha256": "91ad0ccf13bc52210487f782af43b41bbb183dc9d41d4cf44a98bee1459481ed",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/",
+                "status": 200,
+                "bytes": 69185,
+                "sha256": "8048310177fc86132128be79c4902e5f4b6c367804afe18704139bfe9d3639b4",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/archives/",
+                "status": 200,
+                "bytes": 115157,
+                "sha256": "91571e5292f3c43c4470c66191e1555f8a5acf663e220d61a11f6e7c6d28a09b",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "PUBLIC",
+            "requests": [
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 60261,
+                "sha256": "38aa55e0ef13fc87b84f22e076ea972a096c91dfa6b14c1ecb14def7459d0439",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 3332,
+                "sha256": "23464415c926077751e352456f1292205a56ca570c8b23b443e0d0effebe8685",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/archives/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 60261,
+                "sha256": "38aa55e0ef13fc87b84f22e076ea972a096c91dfa6b14c1ecb14def7459d0439",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts/comment-usage-45d256cd9214af28d849",
+                "status": 200,
+                "bytes": 3332,
+                "sha256": "23464415c926077751e352456f1292205a56ca570c8b23b443e0d0effebe8685",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/posts?size=100",
+                "status": 200,
+                "bytes": 52079,
+                "sha256": "db13e259d9bfe68493c3d406e44fba6b25710d54da6f12599de70314000f7936",
+                "titlePresent": true,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          }
+        ],
+        "status": "passed-tested-scope",
+        "restored": true,
+        "limitations": [
+          "HTTP markup and public API only; no browser TOC interaction or non-owner signed-in session in this batch.",
+          "INTERNAL is not treated as a promise that every signed-in user can read it."
+        ]
+      },
+      "rawReportSha256": "416bb4b7b3d3b0050f28dccfbca1959a64a35126225d30f89a6705d20f09024b",
+      "accessReportSha256": "9a2ff8df75d681183022373b07f160793f763a447def3b8465b7f2073ddb3a9a",
+      "runnerDigests": {
+        "policy-check.mjs": "d8fe6acc9078221902d9a2a630973b13c48e83bea704d7f408202cdf15fd809a",
+        "run.py": "041beb7d90c7d36b956198ffa558c6f8867a1534837623fcf379fb2b01270f01",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "subscriptions.py": "2c5189e384059a3e75128b6d333d01ba946533973d10e24f7402b04388e1e969",
+        "access.py": "4912a4681c2d175b998a6f825422462d89e594aecee2566d4955800b2dfb28a6",
+        "check.mjs": "d2d7c2f86f91fe2648d68d2ef2317c84f5ee2581be525eb9bdb191fa7f7ef35d",
+        "policies.py": "7901beeed49d0760fa0c09a1481b93892d162a3f3ad7623ebe58a032333301e1",
+        "inventory.py": "0ccee37b2b9fe2766d0c01ed6ac3a978154e9ec9b966d7be21750705070d580e"
+      }
+    },
+    {
+      "runId": "13ddb7109d16bf20599f",
+      "subject": "SinglePage",
+      "status": "failed",
+      "restorationVerified": true,
+      "source": {
+        "name": "candidate-6587691.zip",
+        "sha256": "7f91d07597b6fa35ee99e2adde573891c9dc9548a9e1a137f414c7d33d24e08a",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "access": {
+        "scope": "native-visibility-http",
+        "cases": [
+          {
+            "visibility": "PUBLIC",
+            "requests": [
+              {
+                "path": "/comment-usage-13ddb7109d16bf20599f",
+                "status": 200,
+                "bytes": 58994,
+                "sha256": "5c6719756ca277b0d9b908e84da41f15d9bc8ceb26d94f6099a1365660d3f4f2",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-13ddb7109d16bf20599f",
+                "status": 200,
+                "bytes": 2847,
+                "sha256": "3088589716bda6b0c3643e9d16a3f3c58a8865abbfced6b2fc777fe6be999214",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/comment-usage-13ddb7109d16bf20599f",
+                "status": 200,
+                "bytes": 58994,
+                "sha256": "5c6719756ca277b0d9b908e84da41f15d9bc8ceb26d94f6099a1365660d3f4f2",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-13ddb7109d16bf20599f",
+                "status": 200,
+                "bytes": 2847,
+                "sha256": "3088589716bda6b0c3643e9d16a3f3c58a8865abbfced6b2fc777fe6be999214",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages?size=100",
+                "status": 200,
+                "bytes": 9848,
+                "sha256": "d81a18e0bb5b9fd7de57ced5219e61df5c49bd9ae55f34f0af76210f22956d5e",
+                "titlePresent": true,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "INTERNAL",
+            "requests": [
+              {
+                "path": "/comment-usage-13ddb7109d16bf20599f",
+                "status": 404,
+                "bytes": 44082,
+                "sha256": "27bb776627181f2a06b05c0dba9b6a14795ac8cb555d34ba18e1ce743cc6046e",
+                "titlePresent": false,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-13ddb7109d16bf20599f",
+                "status": 200,
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "titlePresent": false,
+                "identity": "anonymous"
+              }
+            ],
+            "result": "running"
+          }
+        ],
+        "status": "failed",
+        "restored": true,
+        "limitations": [
+          "HTTP markup and public API only; no browser TOC interaction or non-owner signed-in session in this batch.",
+          "INTERNAL is not treated as a promise that every signed-in user can read it."
+        ],
+        "error": "{'path': '/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-13ddb7109d16bf20599f', 'status': 200, 'bytes': 0, 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'titlePresent': False, 'identity': 'anonymous'}"
+      },
+      "rawReportSha256": "3628cb7e5b557e391aad8f547f0fe3f72363405742876bfdb9e3ce1bfc0d48f5",
+      "accessReportSha256": "eda54cfab3d4bc2b131dc992f796a4fcec81009fe0eb55bea8dd621a1ba230a6",
+      "runnerDigests": {
+        "policy-check.mjs": "d8fe6acc9078221902d9a2a630973b13c48e83bea704d7f408202cdf15fd809a",
+        "run.py": "041beb7d90c7d36b956198ffa558c6f8867a1534837623fcf379fb2b01270f01",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "subscriptions.py": "2c5189e384059a3e75128b6d333d01ba946533973d10e24f7402b04388e1e969",
+        "access.py": "4912a4681c2d175b998a6f825422462d89e594aecee2566d4955800b2dfb28a6",
+        "check.mjs": "d2d7c2f86f91fe2648d68d2ef2317c84f5ee2581be525eb9bdb191fa7f7ef35d",
+        "policies.py": "7901beeed49d0760fa0c09a1481b93892d162a3f3ad7623ebe58a032333301e1",
+        "inventory.py": "0ccee37b2b9fe2766d0c01ed6ac3a978154e9ec9b966d7be21750705070d580e"
+      }
+    },
+    {
+      "runId": "fdba113c72ac1b348223",
+      "subject": "SinglePage",
+      "status": "passed-tested-scope",
+      "restorationVerified": true,
+      "source": {
+        "name": "candidate-6587691.zip",
+        "sha256": "7f91d07597b6fa35ee99e2adde573891c9dc9548a9e1a137f414c7d33d24e08a",
+        "version": "0.1.0-alpha.4",
+        "sourceCommit": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+        "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+      },
+      "access": {
+        "scope": "native-visibility-http",
+        "cases": [
+          {
+            "visibility": "PUBLIC",
+            "requests": [
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 58994,
+                "sha256": "22c572ee01359356a26183434180797e3dcb8451ed7d2e8784a6ec60d9c74a6f",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 2847,
+                "sha256": "b61527874463e3527481d205134dfaf5f35a55ed15f1334df2386272d0627b94",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 58994,
+                "sha256": "22c572ee01359356a26183434180797e3dcb8451ed7d2e8784a6ec60d9c74a6f",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 2847,
+                "sha256": "b61527874463e3527481d205134dfaf5f35a55ed15f1334df2386272d0627b94",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages?size=100",
+                "status": 200,
+                "bytes": 9848,
+                "sha256": "e0e18dff87d39e4e75322212b1828403383c410bbfe9e91482b16a7007e7e685",
+                "titlePresent": true,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "INTERNAL",
+            "requests": [
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 404,
+                "bytes": 44082,
+                "sha256": "27bb776627181f2a06b05c0dba9b6a14795ac8cb555d34ba18e1ce743cc6046e",
+                "titlePresent": false,
+                "identity": "anonymous",
+                "denial": "http-denied"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "titlePresent": false,
+                "identity": "anonymous",
+                "denial": "native-empty-200"
+              },
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 58854,
+                "sha256": "05e39ffb8881216426771a9eb777a4b0a9dffe430683a40dae9ff6aa9d9b7a05",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 2851,
+                "sha256": "a24971f360e99a1d8089c3df41bd41190c264d6185fd6de579aa8cccb2dfe95d",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages?size=100",
+                "status": 200,
+                "bytes": 7763,
+                "sha256": "016cc6589e58f43a1c213b930407e39daada78a384e14e3ab5d13d1ae3672927",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/",
+                "status": 200,
+                "bytes": 69185,
+                "sha256": "e434da594c00d7993f3feda1bd93e625d2c5878953e25f0e69b9ec6a6efb73eb",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/archives/",
+                "status": 200,
+                "bytes": 115157,
+                "sha256": "d0ab490a342e4026de952878ab0db46c39db70fbb5e2391912e938fd4766c79a",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "PRIVATE",
+            "requests": [
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 404,
+                "bytes": 44082,
+                "sha256": "27bb776627181f2a06b05c0dba9b6a14795ac8cb555d34ba18e1ce743cc6046e",
+                "titlePresent": false,
+                "identity": "anonymous",
+                "denial": "http-denied"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "titlePresent": false,
+                "identity": "anonymous",
+                "denial": "native-empty-200"
+              },
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 58854,
+                "sha256": "05e39ffb8881216426771a9eb777a4b0a9dffe430683a40dae9ff6aa9d9b7a05",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 2850,
+                "sha256": "b2b7e6ea8893d139fab7c2ee51823e297cb3da25c147d4c85ead9f997d739e59",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages?size=100",
+                "status": 200,
+                "bytes": 7763,
+                "sha256": "016cc6589e58f43a1c213b930407e39daada78a384e14e3ab5d13d1ae3672927",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/",
+                "status": 200,
+                "bytes": 69185,
+                "sha256": "e434da594c00d7993f3feda1bd93e625d2c5878953e25f0e69b9ec6a6efb73eb",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              },
+              {
+                "path": "/archives/",
+                "status": 200,
+                "bytes": 115157,
+                "sha256": "d0ab490a342e4026de952878ab0db46c39db70fbb5e2391912e938fd4766c79a",
+                "titlePresent": false,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          },
+          {
+            "visibility": "PUBLIC",
+            "requests": [
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 58994,
+                "sha256": "22c572ee01359356a26183434180797e3dcb8451ed7d2e8784a6ec60d9c74a6f",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 2848,
+                "sha256": "84500520e4f12ac654d199442b32bc95f8cf5b8ca6ad477f2091dfe1e6287b15",
+                "titlePresent": true,
+                "identity": "anonymous"
+              },
+              {
+                "path": "/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 58994,
+                "sha256": "22c572ee01359356a26183434180797e3dcb8451ed7d2e8784a6ec60d9c74a6f",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages/comment-usage-fdba113c72ac1b348223",
+                "status": 200,
+                "bytes": 2848,
+                "sha256": "84500520e4f12ac654d199442b32bc95f8cf5b8ca6ad477f2091dfe1e6287b15",
+                "titlePresent": true,
+                "identity": "owner"
+              },
+              {
+                "path": "/apis/api.content.halo.run/v1alpha1/singlepages?size=100",
+                "status": 200,
+                "bytes": 9849,
+                "sha256": "21f0d65773ccf4206cf0f0fc9c1cbc2c9edb6363bd2cd3a033ce592af63942e7",
+                "titlePresent": true,
+                "identity": "anonymous-list"
+              }
+            ],
+            "result": "passed"
+          }
+        ],
+        "status": "passed-tested-scope",
+        "restored": true,
+        "limitations": [
+          "HTTP markup and public API only; no browser TOC interaction or non-owner signed-in session in this batch.",
+          "INTERNAL is not treated as a promise that every signed-in user can read it."
+        ]
+      },
+      "rawReportSha256": "453edc19af3171801e78f177161669fa51b1ef8d384a2d3cbc9e20304729f526",
+      "accessReportSha256": "a4378858b7f3186aeeb114c7f04bfac6eff1461f963370bfb5b6996ee6a9415a",
+      "runnerDigests": {
+        "policy-check.mjs": "d8fe6acc9078221902d9a2a630973b13c48e83bea704d7f408202cdf15fd809a",
+        "run.py": "041beb7d90c7d36b956198ffa558c6f8867a1534837623fcf379fb2b01270f01",
+        "diagnose-webkit-input.mjs": "51d39515d3582944af56c561ed59707884700ea174180088efc53ebee999379b",
+        "subscriptions.py": "2c5189e384059a3e75128b6d333d01ba946533973d10e24f7402b04388e1e969",
+        "access.py": "61dc52ec21ded501d800d49ed30db833ab6313c5387fae5ff816d22fefbf102c",
+        "check.mjs": "d2d7c2f86f91fe2648d68d2ef2317c84f5ee2581be525eb9bdb191fa7f7ef35d",
+        "policies.py": "7901beeed49d0760fa0c09a1481b93892d162a3f3ad7623ebe58a032333301e1",
+        "inventory.py": "0ccee37b2b9fe2766d0c01ed6ac3a978154e9ec9b966d7be21750705070d580e"
+      }
+    }
+  ],
+  "limitations": [
+    "No non-owner signed-in session, browser TOC interaction, private search/feed/sitemap discovery or complete contract certification.",
+    "The original SinglePage HTTP-status assertion failure is retained. Native empty-200 is allowed only for its exact detail endpoint with a zero-byte response."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "plugin": "PluginCommentWidget 3.3.2",
+  "jarSha256": "e569a4bd8aade89383c8c7fee169fd822cfa80ff01341fdaa292cd2cd9db8f3f",
+  "entries": {
+    "run/halo/comment/widget/captcha/CaptchaManagerImpl.class": "5c4e6f2a7b9e39b118cb7a2afbce68016050188aeabbb9c8a1c1fcaf67bab47c",
+    "run/halo/comment/widget/captcha/CommentCaptchaFilter$CaptchaCodeMissingException.class": "0a78772719b0ff680bb75f4937e2f9b4860dfc0db005e30a0fc55362ae9a7c25",
+    "run/halo/comment/widget/captcha/CommentCaptchaFilter$InvalidCaptchaCodeException.class": "8d9e50f228b2f179dadbea4c40f51d68821c28528e7fffc61ab6c6bde26db1af",
+    "static/a.ff4cd3aa.js": "0cd10e9b7c3b207d87ffce28abe9758ccdb61848ce713e3d3f1c918dbd6ea0bf"
+  },
+  "javapSha256": "306853184d464a4d0ca245c184600fe6acc1553ea1cc98afc688928118adbdf4",
+  "arithmeticCacheExpiry": "expireAfterWrite(1, TimeUnit.MINUTES)",
+  "required": {
+    "status": 403,
+    "type": "https://www.halo.run/probs/captcha-required",
+    "detail": "请先输入验证码"
+  },
+  "invalid": {
+    "status": 403,
+    "type": "https://www.halo.run/probs/captcha-invalid",
+    "serverDetail": "验证码错误，请重新输入",
+    "displayedMessage": "人机验证未通过，请重新验证后提交。"
+  }
+}

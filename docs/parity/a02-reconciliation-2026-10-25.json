@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "candidateSource": "97af1e19416c1b0fb92d59c55f2653417424374d",
+  "upstream": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "entries": [
+    {
+      "id": "helper:groupPosts",
+      "beforeStatus": "gap",
+      "afterStatus": "blocked",
+      "sources": [
+        {
+          "path": "scripts/helpers/series.js",
+          "sha256": "4c71e733b8e580c64538e2001eeaf29ce2ef3eb0425b37a8fc262e81cf58cc50"
+        },
+        {
+          "path": "layout/includes/widget/card_post_series.pug",
+          "sha256": "f125735d6763cca6894ee719715af8f4504e008a2d6ab90539cf57351f9919cc"
+        },
+        {
+          "path": "scripts/tag/series.js",
+          "sha256": "804c06e2089189ea4f1479d8cd05bbfb645e8cad145e9d04c016ba58bb4840dc"
+        }
+      ],
+      "reason": "固定上游 scripts/helpers/series.js 读取 hexo._seriesGroups；唯一调用者 layout/includes/widget/card_post_series.pug:2 已按 DEC-02 延期。补齐遗漏的同一消费链追踪项，不是新增系列范围取舍。"
+    },
+    {
+      "id": "config:CDN.custom_format",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "decision": "docs/parity/DEC-08-CONFIG-DEFAULTS.md",
+      "decisionSha256": "c3498c5ead7825ed8753b334c0ab188fc3bbe9fc49e3d03be96c3e3f79d97580"
+    },
+    {
+      "id": "interaction:data-safe",
+      "beforeStatus": "gap",
+      "afterStatus": "implemented-unverified",
+      "evidence": "docs/validation/2026-10-14/safe-embedding-followup.json",
+      "sha256": "8f4b031534e7e0065dfd629764cc6f446d9b17459fbc8ff35d87a5cff440b192",
+      "historicalSource": "a7893ac9dc33da9bc58835bc9c286b9ffab5ed37"
+    }
+  ],
+  "newRuntimeEvidence": false
+}

@@ -1,0 +1,1459 @@
+{
+  "schema": 1,
+  "candidateSource": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+  "candidateZipSha256": "7f91d07597b6fa35ee99e2adde573891c9dc9548a9e1a137f414c7d33d24e08a",
+  "haloVersion": "2.27.1",
+  "haloJarSha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3",
+  "imageRuns": [
+    {
+      "path": ".runtime/acceptance-2271/lab/native-images/f7fb934257ed03a2/report.json",
+      "sha256": "6b52a6e35265baac55893b779e6e24686c16a02d98de6593e9db28c3fc265bcc",
+      "runId": "f7fb934257ed03a2",
+      "result": "failed",
+      "restoration": {
+        "event": "restored",
+        "result": "passed",
+        "errors": [],
+        "runId": "f7fb934257ed03a2",
+        "snapshot": "native-images-f7fb934257ed03a2.private.json"
+      },
+      "gaps": [
+        {
+          "id": "author-plain-initial-loading",
+          "status": "mapping-required",
+          "finding": "The fixture without loading is unchanged in initial HTML. With native enabled, theme JS later sets loading=lazy. Initial request deferral for arbitrary unannotated author images remains unproven; author-supplied native loading is tested separately."
+        }
+      ],
+      "limitations": [
+        "Headless browser checks; not physical phones, actual Safari, screen reader or full fixed-Hexo parity.",
+        "Native lazy loading may fetch near-viewport images before entry; there is no zero-request-before-viewport assertion.",
+        "Ordinary author img without a loading attribute is recorded separately; post-parse JS lazy does not prove initial request deferral.",
+        "Broken authored images without an explicit fallback retain their URL and readable alt; no replacement is promised."
+      ],
+      "runnerSha256": "8266474dfe6eca111041e0fe7224babce32c99634a09c2f0fcb93ce6e2a70dbc",
+      "controllerSha256": "fe0782479f804b29793f1bdc59e3478c84587824bea3b06399412550a85c6427",
+      "checks": [
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: Expected actual PJAX, not full reload\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m undefined\n\u001b[31m- \u001b[39m'retained'\n\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-native.mjs:116:15\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: Expected actual PJAX, not full reload\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m undefined\n\u001b[31m- \u001b[39m'retained'\n\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-native.mjs:116:15\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: Expected actual PJAX, not full reload\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m undefined\n\u001b[31m- \u001b[39m'retained'\n\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-native.mjs:116:15\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "profile": "native-site",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: Expected actual PJAX, not full reload\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m undefined\n\u001b[31m- \u001b[39m'retained'\n\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-native.mjs:116:15\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "profile": "native-site",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: Expected actual PJAX, not full reload\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m undefined\n\u001b[31m- \u001b[39m'retained'\n\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-native.mjs:116:15\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "profile": "native-site",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: Expected actual PJAX, not full reload\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m undefined\n\u001b[31m- \u001b[39m'retained'\n\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-native.mjs:116:15\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        }
+      ]
+    },
+    {
+      "path": ".runtime/acceptance-2271/lab/native-images/7529e701d8614bd5/report.json",
+      "sha256": "3d825ce4076018fc61f5b91e415f53816dd774b334c7bd97eee4d6d55c131889",
+      "runId": "7529e701d8614bd5",
+      "result": "scoped-passed-with-open-mapping",
+      "navigationMode": "pjax",
+      "restoration": {
+        "event": "restored",
+        "result": "passed",
+        "errors": [],
+        "runId": "7529e701d8614bd5",
+        "snapshot": "native-images-7529e701d8614bd5.private.json"
+      },
+      "gaps": [
+        {
+          "id": "author-plain-initial-loading",
+          "status": "mapping-required",
+          "finding": "The fixture without loading is unchanged in initial HTML. With native enabled, theme JS later sets loading=lazy. Initial request deferral for arbitrary unannotated author images remains unproven; author-supplied native loading is tested separately."
+        }
+      ],
+      "limitations": [
+        "Headless browser checks; not physical phones, actual Safari, screen reader or full fixed-Hexo parity.",
+        "Native lazy loading may fetch near-viewport images before entry; there is no zero-request-before-viewport assertion.",
+        "Ordinary author img without a loading attribute is recorded separately; post-parse JS lazy does not prove initial request deferral.",
+        "Broken authored images without an explicit fallback retain their URL and readable alt; no replacement is promised."
+      ],
+      "runnerSha256": "690f634703395f87ed4a81f8c2557fa19c9301784e4c26a3a5d15ce427e8af75",
+      "controllerSha256": "819dbb1ea414989f364b894d67bcd3b93b5c504b7f696733589b381d980eeab9",
+      "checks": [
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        }
+      ]
+    },
+    {
+      "path": ".runtime/acceptance-2271/lab/native-images/4f90bb6e0f32f341/report.json",
+      "sha256": "9b1b28776ada5919e0a06db9f9c388e9fe0151a5a029cd1fc0124bc3fc984f0c",
+      "runId": "4f90bb6e0f32f341",
+      "result": "scoped-passed-with-open-mapping",
+      "navigationMode": "native",
+      "restoration": {
+        "event": "restored",
+        "result": "passed",
+        "errors": [],
+        "runId": "4f90bb6e0f32f341",
+        "snapshot": "native-images-4f90bb6e0f32f341.private.json"
+      },
+      "gaps": [
+        {
+          "id": "author-plain-initial-loading",
+          "status": "mapping-required",
+          "finding": "The fixture without loading is unchanged in initial HTML. With native enabled, theme JS later sets loading=lazy. Initial request deferral for arbitrary unannotated author images remains unproven; author-supplied native loading is tested separately."
+        }
+      ],
+      "limitations": [
+        "Headless browser checks; not physical phones, actual Safari, screen reader or full fixed-Hexo parity.",
+        "Native lazy loading may fetch near-viewport images before entry; there is no zero-request-before-viewport assertion.",
+        "Ordinary author img without a loading attribute is recorded separately; post-parse JS lazy does not prove initial request deferral.",
+        "Broken authored images without an explicit fallback retain their URL and readable alt; no replacement is promised."
+      ],
+      "runnerSha256": "690f634703395f87ed4a81f8c2557fa19c9301784e4c26a3a5d15ce427e8af75",
+      "controllerSha256": "819dbb1ea414989f364b894d67bcd3b93b5c504b7f696733589b381d980eeab9",
+      "checks": [
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-site",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "native-post",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 1440,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "chromium",
+          "width": 390,
+          "js": false,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "firefox",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "firefox",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "webkit",
+          "width": 1440,
+          "js": true,
+          "result": "passed"
+        },
+        {
+          "profile": "disabled",
+          "engine": "webkit",
+          "width": 390,
+          "js": true,
+          "result": "passed"
+        }
+      ]
+    },
+    {
+      "path": ".runtime/acceptance-2271/lab/image-blur-options/d4dedf06a67c9e42/report.json",
+      "sha256": "dcc2c8a11fd77f9093229c5181808ac841a72f1eb78baab0806b3dfb6963483b",
+      "runId": "d4dedf06a67c9e42",
+      "result": "failed",
+      "restoration": {
+        "event": "restored",
+        "result": "passed",
+        "errors": [],
+        "runId": "d4dedf06a67c9e42",
+        "snapshot": "native-images-d4dedf06a67c9e42.private.json"
+      },
+      "gaps": [],
+      "limitations": [
+        "Headless browser checks; not physical phones, actual Safari, screen reader or full fixed-Hexo parity.",
+        "Native lazy loading may fetch near-viewport images before entry; there is no zero-request-before-viewport assertion.",
+        "Ordinary author img without a loading attribute is recorded separately; post-parse JS lazy does not prove initial request deferral.",
+        "Broken authored images without an explicit fallback retain their URL and readable alt; no replacement is promised."
+      ],
+      "runnerSha256": "ff39c6f9a1f45fbd9e73e6a4d0f0d3c8c7700a5e0f0b411be81e78142b041047",
+      "controllerSha256": "819dbb1ea414989f364b894d67bcd3b93b5c504b7f696733589b381d980eeab9",
+      "checks": [
+        {
+          "engine": "chromium",
+          "width": 390,
+          "profile": "native-post",
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "profile": "native-post",
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "profile": "native-post",
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "profile": "native-post-clear",
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "profile": "native-post-clear",
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "profile": "native-post-clear",
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "profile": "native-site-blur",
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "profile": "native-site-blur",
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "profile": "native-site-blur",
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "profile": "native-site",
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "profile": "native-site",
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "profile": "native-site",
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "profile": "native-post",
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "profile": "native-post",
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: No actual image cache-hit timing evidence\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-blur-options.mjs:106:4\n    at processTicksAndRejections (native:7:39)"
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "profile": "native-post",
+          "result": "failed",
+          "error": "AssertionError [ERR_ASSERTION]: No actual image cache-hit timing evidence\n    at /Users/baizhukui/.codex/worktrees/4cc9/halo-butterfly-next/scripts/images/check-blur-options.mjs:106:4\n    at processTicksAndRejections (native:7:39)"
+        }
+      ]
+    }
+  ],
+  "cache": {
+    "verdictSha256": "a89d877bd2323904ee228189501957dcc012ae8d2cdb81b01ecee3d4827243ce",
+    "schema": 1,
+    "runId": "798a359c74bdf918",
+    "result": "passed-tested-scope",
+    "browserReportSha256": "17a61147861b94a51680f0344d19b57a40580d1f25dffc0f80ea72a5a4aac7b5",
+    "protocolSha256": "a08d4af434a313111c664e0fdd57ba6f9e618add86cff569e3d159ed1676dd44",
+    "boundaries": [
+      {
+        "engine": "firefox",
+        "round": "setup",
+        "runId": "798a359c74bdf918",
+        "line": 3
+      },
+      {
+        "engine": "firefox",
+        "round": "cold",
+        "runId": "798a359c74bdf918",
+        "line": 42
+      },
+      {
+        "engine": "firefox",
+        "round": "warm",
+        "runId": "798a359c74bdf918",
+        "line": 381
+      },
+      {
+        "engine": "firefox",
+        "round": "cache-disabled",
+        "runId": "798a359c74bdf918",
+        "line": 659
+      },
+      {
+        "engine": "firefox",
+        "round": "closed",
+        "runId": "798a359c74bdf918",
+        "line": 1059
+      },
+      {
+        "engine": "webkit",
+        "round": "setup",
+        "runId": "798a359c74bdf918",
+        "line": 1060
+      },
+      {
+        "engine": "webkit",
+        "round": "cold",
+        "runId": "798a359c74bdf918",
+        "line": 1162
+      },
+      {
+        "engine": "webkit",
+        "round": "warm",
+        "runId": "798a359c74bdf918",
+        "line": 1644
+      },
+      {
+        "engine": "webkit",
+        "round": "cache-disabled",
+        "runId": "798a359c74bdf918",
+        "line": 2124
+      },
+      {
+        "engine": "webkit",
+        "round": "closed",
+        "runId": "798a359c74bdf918",
+        "line": 2692
+      }
+    ],
+    "images": [
+      {
+        "engine": "firefox",
+        "image": "native-eager",
+        "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+        "verdict": "decoded-image-reuse-inferred-from-controls",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "firefox",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934601",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [],
+          "cache-disabled": [
+            {
+              "engine": "firefox",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934646",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "firefox",
+        "image": "native-plain",
+        "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+        "verdict": "decoded-image-reuse-inferred-from-controls",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "firefox",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934602",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [],
+          "cache-disabled": [
+            {
+              "engine": "firefox",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934647",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "firefox",
+        "image": "native-lazy",
+        "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+        "verdict": "decoded-image-reuse-inferred-from-controls",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "firefox",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934619",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [],
+          "cache-disabled": [
+            {
+              "engine": "firefox",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934657",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "firefox",
+        "image": "native-responsive",
+        "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+        "verdict": "decoded-image-reuse-inferred-from-controls",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "firefox",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934620",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [],
+          "cache-disabled": [
+            {
+              "engine": "firefox",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+              "source": "network",
+              "status": 200,
+              "requestId": "8589934658",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "webkit",
+        "image": "native-eager",
+        "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+        "verdict": "explicit-protocol-cache",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "webkit",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.42",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [
+            {
+              "engine": "webkit",
+              "round": "warm",
+              "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+              "source": "memory-cache",
+              "status": 200,
+              "requestId": "5.333",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "cache-disabled": [
+            {
+              "engine": "webkit",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-autumn-forest.webp?native=798a359c74bdf918-a-eager",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.550",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "webkit",
+        "image": "native-plain",
+        "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+        "verdict": "explicit-protocol-cache",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "webkit",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.43",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [
+            {
+              "engine": "webkit",
+              "round": "warm",
+              "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+              "source": "memory-cache",
+              "status": 200,
+              "requestId": "5.335",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "cache-disabled": [
+            {
+              "engine": "webkit",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-sand-dunes.webp?native=798a359c74bdf918-a-plain",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.551",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "webkit",
+        "image": "native-lazy",
+        "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+        "verdict": "explicit-protocol-cache",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "webkit",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.235",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [
+            {
+              "engine": "webkit",
+              "round": "warm",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+              "source": "memory-cache",
+              "status": 200,
+              "requestId": "5.337",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "cache-disabled": [
+            {
+              "engine": "webkit",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-lazy",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.552",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      },
+      {
+        "engine": "webkit",
+        "image": "native-responsive",
+        "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+        "verdict": "explicit-protocol-cache",
+        "protocol": {
+          "cold": [
+            {
+              "engine": "webkit",
+              "round": "cold",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.236",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "warm": [
+            {
+              "engine": "webkit",
+              "round": "warm",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+              "source": "memory-cache",
+              "status": 200,
+              "requestId": "5.339",
+              "method": "Network.responseReceived"
+            }
+          ],
+          "cache-disabled": [
+            {
+              "engine": "webkit",
+              "round": "cache-disabled",
+              "url": "http://127.0.0.1:18845/lab/cover-golden-mountain.webp?native=798a359c74bdf918-a-narrow",
+              "source": "network",
+              "status": 200,
+              "requestId": "5.553",
+              "method": "Network.responseReceived"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "pictureSynthetic": {
+    "path": ".runtime/acceptance-2271/picture-remaining/report.json",
+    "sha256": "0c2b4c616c10321fe9361cd4829b8be68b2e09f562cbd596eac5a7c6ed5473e9",
+    "scope": "Synthetic module regression, not installed Halo runtime evidence",
+    "report": {
+      "kind": "responsive-picture-regression",
+      "sourceSha": "3c91ce5763532a8abe36fa80e8dadca2f601f891",
+      "productFile": "src/js/modules/AmplifyImg.ts",
+      "productSha256": "e632588b8200deab4384c4fb0ca5f6b5490527a4d9760de64d545827b5a1d1d7",
+      "runnerSha256": "037adb3fb9b4327b3067167269759d1095ebbd3cafa2f1b5bf91f861250551b7",
+      "bundleSha256": "ad458e0123fd1802f4e767e97fb578c2815201a24515039922b18ea7710308e0",
+      "checks": [
+        {
+          "engine": "chromium",
+          "width": 1440,
+          "errors": [],
+          "before": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "after": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "afterResize": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "errors": [],
+          "before": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "after": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "afterResize": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 1440,
+          "errors": [],
+          "before": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "after": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "afterResize": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "firefox",
+          "width": 390,
+          "errors": [],
+          "before": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "after": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "afterResize": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "width": 1440,
+          "errors": [],
+          "before": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "after": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "afterResize": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "result": "passed"
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "errors": [],
+          "before": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "after": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/narrow.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "afterResize": {
+            "parent": "PICTURE",
+            "src": "/fallback.svg",
+            "srcset": "/narrow.svg 1x, /narrow2.svg 2x",
+            "currentSrc": "http://127.0.0.1:50883/wide.svg",
+            "loading": "eager",
+            "picture": "<picture id=\"responsive\"><source media=\"(min-width: 800px)\" srcset=\"/wide.svg\"><img id=\"responsive-image\" src=\"/fallback.svg\" srcset=\"/narrow.svg 1x, /narrow2.svg 2x\" loading=\"eager\" alt=\"Responsive fixture\"></picture>",
+            "triggerCount": 0
+          },
+          "result": "passed"
+        }
+      ],
+      "limitations": [
+        "Synthetic headless browsers only; no installed Halo, physical device, or actual Safari verification."
+      ],
+      "result": "passed"
+    }
+  },
+  "fault": {
+    "path": ".runtime/acceptance-2271/lab/fault-followup/32e69865b1ffa48aaa01/report.json",
+    "sha256": "b21662b5a2ce8b17d8c127f150c949c536864dd28e9df39a30df55975d8c7366",
+    "runId": "32e69865b1ffa48aaa01",
+    "candidate": {
+      "name": "candidate-6587691.zip",
+      "sha256": "7f91d07597b6fa35ee99e2adde573891c9dc9548a9e1a137f414c7d33d24e08a",
+      "version": "0.1.0-alpha.4",
+      "sourceCommit": "65876917bd7ff31b18455a3e48a205dd5e1ded76",
+      "sourceCommitAttribution": "caller-supplied; package bytes identified by sha256"
+    },
+    "halo": {
+      "version": "2.27.1",
+      "url": "https://github.com/halo-dev/halo/releases/download/v2.27.1/halo-2.27.1.jar",
+      "sha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3"
+    },
+    "batches": [
+      {
+        "profile": "official",
+        "exitCode": 0,
+        "configSha256": "5f31028e0ae882163742566d75c5fde5c4df68090edf0430ac66fe1b59b60bac",
+        "report": "official/report.json",
+        "rawSha256": "415e8af3811258fd4502f563310c0cc575627ae36a3ca2723ddda55451a57ff9",
+        "checks": [
+          {
+            "engine": "chromium",
+            "pass": true
+          },
+          {
+            "engine": "firefox",
+            "pass": true
+          },
+          {
+            "engine": "webkit",
+            "pass": true
+          }
+        ],
+        "count": 3,
+        "pass": true
+      },
+      {
+        "profile": "external",
+        "exitCode": 0,
+        "configSha256": "837b2fa1f8df765c3f91239131d4de8ca37b5b507b25f953ebad588e9bdca4f8",
+        "report": "external/report.json",
+        "rawSha256": "6bbae07e1663959edd15cb641d426c58256ce37587f5651316866ae2fd1444be",
+        "checks": [
+          {
+            "engine": "chromium",
+            "pass": true
+          },
+          {
+            "engine": "chromium",
+            "pass": true
+          },
+          {
+            "engine": "firefox",
+            "pass": true
+          },
+          {
+            "engine": "firefox",
+            "pass": true
+          },
+          {
+            "engine": "webkit",
+            "pass": true
+          },
+          {
+            "engine": "webkit",
+            "pass": true
+          }
+        ],
+        "count": 6,
+        "pass": true
+      },
+      {
+        "profile": "ondemand",
+        "exitCode": 0,
+        "configSha256": "a8d66ab8858f9d7c208b705308b2dba4724900831712f1518398345193ac3fe3",
+        "report": "ondemand/report.json",
+        "rawSha256": "29eed437dd6185bd2d657d48da66eb0f89e2912ff8e0209ab5d132474fd0b14b",
+        "checks": [
+          {
+            "engine": "chromium",
+            "pass": true
+          },
+          {
+            "engine": "firefox",
+            "pass": true
+          },
+          {
+            "engine": "webkit",
+            "pass": true
+          }
+        ],
+        "count": 3,
+        "pass": true
+      },
+      {
+        "profile": "pace-hang",
+        "exitCode": 0,
+        "configSha256": "837b2fa1f8df765c3f91239131d4de8ca37b5b507b25f953ebad588e9bdca4f8",
+        "report": "pace-hang/report.json",
+        "rawSha256": "2485bf644bdeaf72f123814a30a174215ce1cf28c1d4c163ae32b32963169288",
+        "checks": [
+          {
+            "engine": "chromium",
+            "pass": true
+          },
+          {
+            "engine": "firefox",
+            "pass": true
+          },
+          {
+            "engine": "webkit",
+            "pass": true
+          }
+        ],
+        "count": 3,
+        "pass": true
+      },
+      {
+        "profile": "delayed",
+        "exitCode": 0,
+        "report": "delayed.json",
+        "rawSha256": "15256de7fe242cba1f0cc19ca580f351323a562270072f68983eb9de7641aee0",
+        "checks": [
+          {
+            "name": "chromium/blocked-page-bundle",
+            "result": "passed"
+          },
+          {
+            "name": "firefox/blocked-page-bundle",
+            "result": "passed"
+          },
+          {
+            "name": "webkit/blocked-page-bundle",
+            "result": "passed"
+          }
+        ],
+        "count": 3,
+        "pass": "passed"
+      }
+    ],
+    "errors": [],
+    "restorationVerified": true,
+    "fixtureDeleted": true,
+    "locksReleased": true,
+    "passed": true
+  },
+  "limitations": [
+    "Original failures are retained; cache supplement is independently evaluated and does not rewrite the blur report.",
+    "Firefox warm decoded-image reuse is inferred from positive and negative controls; WebKit has explicit protocol cache events.",
+    "No claim of persistent disk cache, offline support, arbitrary plain-image initial request deferral, real Safari or complete contract certification."
+  ]
+}

@@ -1,10 +1,12 @@
 import {test} from 'bun:test';
 import assert from 'node:assert/strict';
-import {execFileSync} from 'node:child_process';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 
-const run = (...args) => JSON.parse(execFileSync('python3', ['-B', 'scripts/navigation/fixture.py', ...args], {encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}));
-test('两级导航使用 Halo 2.26 parent/menuName 树，固定叶链接、图标和顺序', () => {
-  const {menu, items} = run('halo-json');
+const execute = promisify(execFile);
+const run = async (...args) => JSON.parse((await execute('python3', ['-B', 'scripts/navigation/fixture.py', ...args], {encoding: 'utf8'})).stdout);
+test('两级导航使用 Halo 2.26 parent/menuName 树，固定叶链接、图标和顺序', async () => {
+  const {menu, items} = await run('halo-json');
   assert.equal(items.length, 5);
   assert.deepEqual(items.filter(item => !item.spec.parent).map(item => item.spec.displayName), ['首页', '内容', '标签']);
   const children = items.filter(item => item.spec.parent);
@@ -12,14 +14,14 @@ test('两级导航使用 Halo 2.26 parent/menuName 树，固定叶链接、图�
   assert.ok(children.every(item => item.spec.parent === 'navigation-keyboard-content'));
   assert.ok(items.every(item => item.spec.menuName === menu.metadata.name && !('children' in item.spec)));
 });
-test('双平台两级夹具语义等价；空菜单保持独立菜单身份', () => {
-  assert.deepEqual(run('hexo-json'), {menu: {'首页': '/ || fas fa-home', '内容||fas fa-folder||hide': {'归档': '/archives || fas fa-archive', '关于': '/about-preview || fas fa-heart'}, '标签': '/tags || fas fa-tags'}});
-  const empty = run('halo-json', '--fixture', 'fixtures/navigation/empty.json');
+test('双平台两级夹具语义等价；空菜单保持独立菜单身份', async () => {
+  assert.deepEqual(await run('hexo-json'), {menu: {'首页': '/ || fas fa-home', '内容||fas fa-folder||hide': {'归档': '/archives || fas fa-archive', '关于': '/about-preview || fas fa-heart'}, '标签': '/tags || fas fa-tags'}});
+  const empty = await run('halo-json', '--fixture', 'fixtures/navigation/empty.json');
   assert.equal(empty.menu.metadata.name, 'navigation-keyboard-empty');
   assert.deepEqual(empty.items, []);
 });
-test('重复ID与空分组拒绝输入', () => {
-  execFileSync('python3', ['-B', '-c', `import importlib.util
+test('重复ID与空分组拒绝输入', async () => {
+  await execute('python3', ['-B', '-c', `import importlib.util
 s=importlib.util.spec_from_file_location('fixture','scripts/navigation/fixture.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 a={'id':'a','title':'A','icon':'fas fa-home','path':'/'}
 for nodes in [[a,a],[dict(a,children=[])]]:
@@ -28,8 +30,8 @@ for nodes in [[a,a],[dict(a,children=[])]]:
  else:raise AssertionError('invalid fixture accepted')
 `]);
 });
-test('apply拒绝既有顶层菜单的非空parent且不改主菜单，兼容平台null默认值', () => {
-  execFileSync('python3', ['-B', '-c', `import importlib.util,json,pathlib,sys,tempfile
+test('apply拒绝既有顶层菜单的非空parent且不改主菜单，兼容平台null默认值', async () => {
+  await execute('python3', ['-B', '-c', `import importlib.util,json,pathlib,sys,tempfile
 s=importlib.util.spec_from_file_location('fixture','scripts/navigation/fixture.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 fixture=json.loads(pathlib.Path('fixtures/navigation/two-level.json').read_text())
 for parent in ['unexpected-parent',None]:
@@ -50,10 +52,10 @@ for parent in ['unexpected-parent',None]:
 `]);
 });
 
-test('Halo 多层菜单保留 parent 链、hide 注解与长菜单；上游明确拒绝三级输入', () => {
-  const {items} = run('halo-json', '--fixture', 'fixtures/navigation/options.json');
+test('Halo 多层菜单保留 parent 链、hide 注解与长菜单；上游明确拒绝三级输入', async () => {
+  const {items} = await run('halo-json', '--fixture', 'fixtures/navigation/options.json');
   assert.equal(items.length, 45);
   assert.equal(items.find(item => item.metadata.name.endsWith('-archives')).spec.parent, 'navigation-keyboard-options-deep');
   assert.equal(items.find(item => item.metadata.name.endsWith('-collapsed')).metadata.annotations.hide, 'true');
-  assert.throws(() => run('hexo-json', '--fixture', 'fixtures/navigation/options.json'), /only two menu levels/);
+  await assert.rejects(() => run('hexo-json', '--fixture', 'fixtures/navigation/options.json'), /only two menu levels/);
 });

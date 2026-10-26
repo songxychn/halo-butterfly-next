@@ -66,16 +66,7 @@
         </div>
         <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
-          <th:block th:if="${themePjaxEnabled or theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
-            <th:block th:replace="~{views/comment-lazy :: widget('SinglePage', ${singlePage.metadata.name})}"/>
-          </th:block>
-          <div th:unless="${themePjaxEnabled or theme.config.comments?.lazyload == true or theme.config.comments?.lazyload == 'true'}">
-            <halo:comment
-              group="content.halo.run"
-              kind="SinglePage"
-              th:attr="name=${singlePage.metadata.name}"
-            />
-          </div>
+          <th:block th:replace="~{views/comment-lazy :: widget('SinglePage', ${singlePage.metadata.name})}"/>
         </div>
       </div>
       <p class="comment-notice comment-unavailable"

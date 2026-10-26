@@ -14,7 +14,9 @@ JavaScript 文案由 Thymeleaf 的 JavaScript 内联转义后注入 `MainApp.mes
 
 文章和自定义页面新增 `language` 注解（控制台显示“正文语言”），可选择六种明确语言或跟随访问者。它控制正文 `<article lang>` 与 Open Graph `og:locale`，未知注解值回退界面语言。页面外壳、导航及控件继续使用访问者的 UI 语言，不把整页标记为正文语言，也不更改作者正文。
 
-这项实现是**逐篇内容语言覆盖**。它不强制改变 Halo 请求的 locale，不代表“逐篇切换全部 UI 文案”已经实现。需要整页 UI 切换时使用 Halo 原生 `language` 参数/偏好。默认模式下，一篇固定语言文章应显式设置正文语言，避免跟随不同访问者语言。
+维护者已于 2026-10-25 确认 [1.0 原生语言方案](parity/DEC-08-NATIVE-LANGUAGE.md)，正文与界面语言分开，取消作者逐篇强制整页 UI 语言要求。这项实现是**逐篇内容语言覆盖**。它不强制改变 Halo 请求的 locale，不代表“逐篇切换全部 UI 文案”已经实现。需要整页 UI 切换时使用 Halo 原生 `language` 参数/偏好。默认模式下，一篇固定语言文章应显式设置正文语言，避免跟随不同访问者语言。
+
+Halo 2.27.1 的[当前候选补验](validation/2026-10-25/native-language.md)覆盖 Post/SinglePage 18 个 HTTP 场景及 36 个浏览器例，确认上述优先级与正文/UI 分离。OG 使用 `language_TERRITORY`，例如 `ja_JP`、`ko_KR`；正文 `lang` 继续使用 `ja`、`ko` 等 BCP 47 值，不因 OG 格式改变。
 
 ## 简繁转换
 

@@ -113,3 +113,7 @@ HALO_VERSION=2.27.1 python3 scripts/perf/fault-followup.py \
 [本轮报告](validation/2026-10-06/mobile-performance.md)采用同一个专属 Halo 的 comparison 照片配置与固定长文，基线/候选 × 首页/长文 × 手机/桌面 × 5 次，共 40 个有效样本。手机首页/长文 LCP 分别降低 25.6% / 37.1%，但仍超过 2.5 秒预算。输入/包/原始报告摘要、内联代码体积、工具 locale 兼容说明及验证限制均保存于[机器记录](validation/2026-10-06/mobile-performance.json)。这不替代上方正式默认/推荐组合的 160 样本、合同范围或提交 CI。
 
 可用 `bun scripts/perf/core-browser.mjs --base http://127.0.0.1:<owned-port> --output <new-local-report.json>` 对已安装夹具执行 30 个核心 headless 检查。依赖由 `scripts/browser/install.mjs` 按既有固定流程准备；只启动独立浏览器，不接入用户浏览器。检查菜单/目录/复制/灯箱、亮暗和顶图、延迟页面增强包时的正文显示，以及无 JS 阅读；不证明推荐插件、实际 Safari 或真机通过。
+
+## 2026-10-25 执行安排
+
+维护者确认先完成本地固定机器正式验收，固定执行机 CI 接入单列待办。仓库 Actions 自托管 runner 清单为 0；本地通过不写成固定机 CI 已通过。现有绝对/配对/体积预算和 160 个有效样本要求保持，最终包改变后重新绑定实际候选。

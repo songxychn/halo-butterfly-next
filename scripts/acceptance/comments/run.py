@@ -13,6 +13,8 @@ import subprocess
 import time
 import urllib.parse
 import zipfile
+from inventory import read_inventory
+from subscriptions import rotating_subscription
 
 REPO = Path(__file__).resolve().parents[3]
 CONSOLE = '/apis/api.console.halo.run/v1alpha1/'
@@ -41,9 +43,12 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
+    parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
+    require(args.lifecycle_pairs == 1 or args.cases == 'lifecycle-only', 'Pair count only applies to lifecycle-only')
+    require(args.cases not in ['access-only', 'language-only'] or args.subject != 'Moment', 'Native content access/language applies to Post and SinglePage')
     subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
     subject_group = 'moment.halo.run' if args.subject == 'Moment' else 'content.halo.run'
     def collection_api(plural):
@@ -59,6 +64,8 @@ def main():
     guard_spec = importlib.util.spec_from_file_location('fault_guard', REPO / 'scripts/perf/fault-followup.py')
     guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
     cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and not (args.cases == 'firefox-signed' and (engine != 'firefox' or not signed)) and args.cases != 'lifecycle-only']
+    if args.cases == 'captcha-expiry':
+        cases = [{'engine': 'chromium', 'signedIn': False}]
     run = secrets.token_hex(10)
     output = runtime / 'comment-usage-followup' / run
     require(not list(runtime.glob('*.lock')), 'Another runtime lock is present')
@@ -82,9 +89,7 @@ def main():
             if error.status != 404:
                 raise
     def inventory(url):
-        result = client.api(url + '?size=200')
-        require(result.get('total', len(result['items'])) <= 200 and not result.get('hasNext'), 'Inventory exceeds fixed bound: ' + url)
-        return result['items']
+        return read_inventory(client.api, url)
     def identity():
         require(lab.owned_process('halo'), 'Owned Halo process not live')
         state = json.loads((runtime / 'halo-process.json').read_text())
@@ -115,23 +120,15 @@ def main():
         require(not sender.get('enable') and not sender.get('host'), 'SMTP must already be unconfigured and disabled')
         return {'descriptorsSha256': digest(descriptors), 'senderConfigSha256': digest(sender), 'onlyDefaultEmailNotifier': True, 'smtpEnabled': False, 'smtpHostPresent': False}
     def rotating_post_subscription(obj):
-        spec = obj['spec']
-        reason = spec.get('reason', {})
-        expected = {'new-comment-on-post': "props.postOwner == 'fixture-maintainer'"}
-        if args.subject == 'Moment':expected['new-comment-on-moment'] = "props.momentOwner == 'fixture-maintainer'"
-        if args.subject == 'SinglePage':expected['new-comment-on-single-page'] = "props.pageOwner == 'fixture-maintainer'"
-        return (set(spec) == {'disabled', 'reason', 'subscriber', 'unsubscribeToken'}
-                and spec['disabled'] is False
-                and spec['subscriber'] == {'name': 'fixture-maintainer'}
-                and reason.get('reasonType') in expected
-                and reason == {'reasonType': reason['reasonType'], 'expression': expected[reason['reasonType']], 'subject': {'apiVersion': 'notification.halo.run/v1alpha1', 'kind': 'NonexistentKind'}}
-                and isinstance(spec['unsubscribeToken'], str) and bool(spec['unsubscribeToken']))
+        return rotating_subscription(obj, args.subject, report.get('preserveExistingReplySubscription', False))
     def settle_notifications(label):
         # Official login and subscription reconciliation is setup/cleanup
         # readiness only, not a browser measurement retry or a new timeout.
         observations = []
         report.setdefault('notificationReadiness', []).append({'label': label, 'limitSeconds': 30, 'observations': observations})
         deadline = time.monotonic() + 30
+        stable_since = None
+        previous = None
         while True:
             reasons = inventory(NOTIFICATION + 'reasons')
             subscriptions = inventory(NOTIFICATION + 'subscriptions')
@@ -140,8 +137,16 @@ def main():
             observations.append({'at': time.time(), 'loginReasons': login, 'deletingSubscriptions': deleting})
             save()
             require(time.monotonic() < deadline, 'Notification readiness exceeded fixed 30s: ' + label)
-            if not login and not deleting:
-                return
+            signature = digest([(o['metadata']['name'], o['spec']) for o in sorted(subscriptions, key=lambda o: o['metadata']['name'])])
+            # Reply subscriptions rotate asynchronously after successful writes.
+            # One empty deleting-list is only a momentary observation. Require
+            # the inventory to remain stable within the existing 30s setup gate.
+            if not login and not deleting and signature == previous:
+                if stable_since is not None and time.monotonic() - stable_since >= 2:
+                    return
+            else:
+                stable_since = time.monotonic() if not login and not deleting else None
+            previous = signature
             time.sleep(.25)
     def notification_inventory():
         result = {}
@@ -258,7 +263,7 @@ def main():
         original = set(report.get('originalSubscriptionNames', []))
         for obj in inventory(NOTIFICATION + 'subscriptions'):
             s = obj['spec'];reason = s.get('reason', {})
-            if obj['metadata']['name'] not in original and reason.get('reasonType') == 'someone-replied-to-you':
+            if obj['metadata']['name'] not in original and reason.get('reasonType') == 'someone-replied-to-you' and not rotating_post_subscription(obj):
                 expression = reason.get('expression', '')
                 if run in expression or expression == "props.repliedOwner == 'fixture-maintainer'":
                     created = datetime.datetime.fromisoformat(obj['metadata']['creationTimestamp'].replace('Z', '+00:00')).timestamp()
@@ -286,6 +291,7 @@ def main():
         require(not json.loads(plugin_cfg.get('security', '{}')).get('captcha', {}).get('enable') and not json.loads(plugin_cfg.get('avatar', '{}')).get('enable'), 'This fixed batch requires captcha and external avatar disabled')
         settle_notifications('before')
         originals = inventory(NOTIFICATION + 'subscriptions')
+        report['preserveExistingReplySubscription'] = any(o['spec'].get('reason', {}).get('reasonType') == 'someone-replied-to-you' and rotating_subscription(o, args.subject, True) for o in originals)
         report['originalSubscriptionNames'] = [o['metadata']['name'] for o in originals]
         report['originalSubscriptionSpecs'] = {o['metadata']['name']: {'creationTimestamp': o['metadata'].get('creationTimestamp'), 'specSha256': digest(o['spec'])} for o in originals if not o['metadata'].get('deletionTimestamp') and not rotating_post_subscription(o)}
         require(not any(post_name in json.dumps(o['spec']) for o in originals), 'Unique subject unexpectedly already subscribed')
@@ -336,30 +342,48 @@ def main():
         if args.cases == 'lifecycle-only':
             # These are explicitly API-created reading fixtures, not evidence
             # of a user submitting or replying through the browser UI.
-            parent_text = 'API lifecycle parent ' + run
-            reply_text = 'API lifecycle reply ' + run
-            parent_html = '<p>' + parent_text + '</p>'
-            reply_html = '<p>' + reply_text + '</p>'
-            parent = client.api('/apis/api.halo.run/v1alpha1/comments', 'POST', {'raw': parent_html, 'content': parent_html, 'allowNotification': True, 'hidden': False, 'subjectRef': {'group': subject_group, 'version': 'v1alpha1', 'kind': args.subject, 'name': post_name}})
-            require(parent['metadata'].get('creationTimestamp') and parent['spec']['subjectRef']['name'] == post_name and parent['spec']['raw'] == parent_html, 'API lifecycle parent mismatch')
-            report['apiLifecycleFixture'] = {'parent': {'name': parent['metadata']['name'], 'creationTimestamp': parent['metadata']['creationTimestamp'], 'raw': parent_html, 'visibleText': parent_text}, 'notUiSubmissionEvidence': True}
-            save()
-            reply = client.api('/apis/api.halo.run/v1alpha1/comments/' + parent['metadata']['name'] + '/reply', 'POST', {'raw': reply_html, 'content': reply_html, 'allowNotification': True})
-            require(reply['metadata'].get('creationTimestamp') and reply['spec']['commentName'] == parent['metadata']['name'] and reply['spec']['raw'] == reply_html, 'API lifecycle reply mismatch')
-            report['apiLifecycleFixture']['reply'] = {'name': reply['metadata']['name'], 'creationTimestamp': reply['metadata']['creationTimestamp'], 'raw': reply_html, 'visibleText': reply_text}
-            fixture['lifecycleSeed'] = report['apiLifecycleFixture']
-            save()
+            fixture['lifecycleSeeds'] = []
+            report['apiLifecycleFixtures'] = fixture['lifecycleSeeds']
+            for pair_index in range(args.lifecycle_pairs):
+                parent_text = 'API lifecycle parent ' + str(pair_index) + ' ' + run
+                reply_text = 'API lifecycle reply ' + str(pair_index) + ' ' + run
+                parent_html = '<p>' + parent_text + '</p>'
+                reply_html = '<p>' + reply_text + '</p>'
+                time.sleep(6.5)
+                parent = client.api('/apis/api.halo.run/v1alpha1/comments', 'POST', {'raw': parent_html, 'content': parent_html, 'allowNotification': True, 'hidden': False, 'subjectRef': {'group': subject_group, 'version': 'v1alpha1', 'kind': args.subject, 'name': post_name}})
+                require(parent['metadata'].get('creationTimestamp') and parent['spec']['subjectRef']['name'] == post_name and parent['spec']['raw'] == parent_html, 'API lifecycle parent mismatch')
+                pair = {'parent': {'name': parent['metadata']['name'], 'creationTimestamp': parent['metadata']['creationTimestamp'], 'raw': parent_html, 'visibleText': parent_text}, 'notUiSubmissionEvidence': True}
+                save()
+                time.sleep(6.5)
+                reply = client.api('/apis/api.halo.run/v1alpha1/comments/' + parent['metadata']['name'] + '/reply', 'POST', {'raw': reply_html, 'content': reply_html, 'allowNotification': True})
+                require(reply['metadata'].get('creationTimestamp') and reply['spec']['commentName'] == parent['metadata']['name'] and reply['spec']['raw'] == reply_html, 'API lifecycle reply mismatch')
+                pair['reply'] = {'name': reply['metadata']['name'], 'creationTimestamp': reply['metadata']['creationTimestamp'], 'raw': reply_html, 'visibleText': reply_text}
+                fixture['lifecycleSeeds'].append(pair)
+                save()
         lab.write_json(output / 'fixture.json', fixture)
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases != 'lifecycle-only':
-            browser('usage')
-        collect_children()
-        expected_children = 1 if args.cases == 'lifecycle-only' else len(cases)
-        require(len([r for r in report['created'] if r['collection'] == 'comments']) == expected_children and len([r for r in report['created'] if r['collection'] == 'replies']) == expected_children, 'Expected exact declared parent/reply fixtures')
-        plugin_state(False);browser('disabled')
-        plugin_state(True);browser('restored')
+        if args.cases in ['captcha-only', 'captcha-expiry']:
+            from captcha import run_captcha
+            run_captcha(client, lab, guard, fixture, output)
+        elif args.cases == 'language-only':
+            from language import run_language
+            run_language(client, lab, guard, fixture, output, collection_api(subject_collection) + '/' + post_name)
+        elif args.cases == 'access-only':
+            from access import run_access
+            run_access(client, lab, fixture, output, collection_api(subject_collection) + '/' + post_name)
+        elif args.cases == 'policy-only':
+            from policies import run_policies
+            run_policies(client, lab, guard, fixture, output, collection_api(subject_collection) + '/' + post_name)
+        else:
+            if args.cases != 'lifecycle-only':
+                browser('usage')
+            collect_children()
+            expected_children = args.lifecycle_pairs if args.cases == 'lifecycle-only' else len(cases)
+            require(len([r for r in report['created'] if r['collection'] == 'comments']) == expected_children and len([r for r in report['created'] if r['collection'] == 'replies']) == expected_children, 'Expected exact declared parent/reply fixtures')
+            plugin_state(False);browser('disabled')
+            plugin_state(True);browser('restored')
         report['status'] = 'passed-tested-scope'
     except guard.BrowserCleanupError as error:
         report['browserCleanupFailed'] = True

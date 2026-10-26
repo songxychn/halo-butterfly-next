@@ -106,3 +106,28 @@ freezing its spec. For the selected subject only, the exact synthetic maintainer
 same narrowly checked token/identity rotation as the existing Post subscription.
 No other subscriber, expression, reason type or extra spec shape is exempted.
 Restored reading expands existing replies; it does not require a reply editor.
+
+## Bounded policy, access and language matrices
+
+`--cases policy-only` separately checks the official global/subject visibility,
+member-only form behavior, real moderation/private submissions, captcha surface,
+and disabled upload/emoji configuration. It does not solve captchas or upload
+attachments. `--cases lifecycle-only --lifecycle-pairs 6` uses six API-created
+reading fixtures; these are never counted as UI submissions.
+
+`--cases access-only` applies only to Post/SinglePage. It checks anonymous and
+owner HTTP/API reads through PUBLIC, INTERNAL, PRIVATE and restored PUBLIC.
+INTERNAL is not interpreted as readable by every signed-in user. The native
+SinglePage detail API's empty HTTP200 denial is accepted only at its exact URL
+with a zero-byte body; HTML detail still requires denial.
+
+`--cases language-only` reuses the owned Post/SinglePage and restoration guards.
+Nine HTTP scenes check body/UI separation, query/cookie/site priority and locale
+fallback. Three scenes each run three headless engines at 390/1440 widths and
+assert browser UI messages. The declared site locale is zh-CN; other site setups
+fail preflight instead of changing the expected result. Original annotations are
+restored before the owned subject is deleted. This is not native-speaker review,
+actual Safari or author-forced whole-page UI language support.
+
+All these modes retain failed reports and exact source/package/JAR binding.
+Choose one exclusive runtime window; do not overlap a performance measurement.

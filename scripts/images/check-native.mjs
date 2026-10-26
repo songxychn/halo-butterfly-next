@@ -9,6 +9,7 @@ import path from 'node:path';
 import {REPO,RUNTIME,browserEnvironment,validateBaseUrl,validatePackage,sha256,requestPolicy} from '../browser/support.mjs';
 
 const runId=randomBytes(8).toString('hex');
+const navigationMode=process.env.IMAGE_NAVIGATION_MODE||'pjax';assert(['native','pjax'].includes(navigationMode));
 assert.equal(process.env.ALLOW_SYNTHETIC_WRITES,'yes','ALLOW_SYNTHETIC_WRITES=yes is required');
 assert(process.env.LAB_RUNTIME,'LAB_RUNTIME is required');
 const runtime=await realpath(path.resolve(process.env.LAB_RUNTIME));
@@ -26,7 +27,7 @@ const lock=path.join(runtime,'native-image-acceptance.lock');
 const handle=await open(lock,'wx',0o600);await handle.writeFile(runId+'\n');await handle.close();
 const output=path.join(runtime,'native-images',runId);await mkdir(output,{recursive:true});
 Object.assign(process.env,browserEnvironment());
-const report={schema:1,kind:'native-image-runtime-acceptance',runId,sourceSha,runnerHead:execFileSync('git',['rev-parse','HEAD'],{cwd:REPO,encoding:'utf8'}).trim(),artifactSha256:installed.sha256,halo:'2.26.1',runnerSha256:sha256(await readFile(fileURLToPath(import.meta.url))),controllerSha256:sha256(await readFile(new URL('./native-fixture.py',import.meta.url))),checks:[],gaps:[],limitations:['Headless browser checks; not physical phones, actual Safari, screen reader or full fixed-Hexo parity.','Native lazy loading may fetch near-viewport images before entry; there is no zero-request-before-viewport assertion.','Ordinary author img without a loading attribute is recorded separately; post-parse JS lazy does not prove initial request deferral.','Broken authored images without an explicit fallback retain their URL and readable alt; no replacement is promised.']};
+const report={schema:1,kind:'native-image-runtime-acceptance',runId,sourceSha,runnerHead:execFileSync('git',['rev-parse','HEAD'],{cwd:REPO,encoding:'utf8'}).trim(),artifactSha256:installed.sha256,halo:process.env.HALO_VERSION||'2.26.1',runnerSha256:sha256(await readFile(fileURLToPath(import.meta.url))),controllerSha256:sha256(await readFile(new URL('./native-fixture.py',import.meta.url))),checks:[],gaps:[],limitations:['Headless browser checks; not physical phones, actual Safari, screen reader or full fixed-Hexo parity.','Native lazy loading may fetch near-viewport images before entry; there is no zero-request-before-viewport assertion.','Ordinary author img without a loading attribute is recorded separately; post-parse JS lazy does not prove initial request deferral.','Broken authored images without an explicit fallback retain their URL and readable alt; no replacement is promised.']};
 const save=()=>writeFile(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');
 let controller,browser,childExit,replyIterator,restored=false;
 const receive=async event=>{
@@ -68,7 +69,7 @@ try{
  controller.stdin.on('error',error=>{report.controllerInputError=error.message;process.exitCode=1;});
  childExit=new Promise((resolve,reject)=>{controller.once('exit',code=>resolve(code));controller.once('error',reject);});
  replyIterator=createInterface({input:controller.stdout})[Symbol.asyncIterator]();
- const fixture=await receive('ready');report.fixture=fixture;await save();
+ const fixture=await receive('ready');report.fixture=fixture;report.navigationMode=navigationMode;await save();
  const routeA=new URL(fixture.routes.a,base);assert.equal(routeA.origin,base);const routeB=new URL(fixture.routes.b,base);assert.equal(routeB.origin,base);
  for(const profile of ['native-site','native-post','disabled']){
   await configure(profile);
@@ -113,13 +114,13 @@ try{
        assert.equal(new URL(await page.locator('#native-next').getAttribute('href'),base).href,target.href,'Fixture next link must use actual Halo permalink');
        await page.locator('#native-next').click();
        await page.waitForFunction(target=>location.href===target&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,target.href);
-       assert.equal(await page.evaluate(()=>window.nativeImageSentinel),'retained','Expected actual PJAX, not full reload');
+       assert.equal(await page.evaluate(()=>window.nativeImageSentinel),navigationMode==='pjax'?'retained':undefined,'Navigation must match declared '+navigationMode+' profile');
        assert.equal(await page.locator('#native-picture > img').count(),1);assert.equal(await page.locator('.theme-lightbox-trigger .theme-lightbox-trigger').count(),0);
        assert.equal(await page.locator('#native-eager').getAttribute('loading'),'eager');
        await loaded(page,'native-responsive');
        const selected=await page.locator('#native-responsive').evaluate(i=>i.currentSrc);
        assert(selected.endsWith((n%2===0?'-b':'-a')+(width>=800?'-wide':'-narrow')));
-       item.navigation.push({path:target.pathname,currentSrc:selected});
+       item.navigation.push({path:target.pathname,currentSrc:selected,mode:navigationMode});
       }
      }
      assert.deepEqual(item.errors,[]);assert.deepEqual(item.blocked,[]);item.result='passed';

@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "head": "fd29065773851b6a70e63012180f3e9b1c188f02",
+  "productSource": "64f526621870bd96514683b5746c30a610dc6e93",
+  "upstream": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "scope": "User-confirmed portable-note scope and source-to-consumer mapping; no new runtime verification",
+  "sourceSha256": {
+    "_config.yml": "b79446e6ea408f40ec8a18026828f2789b5d959a1640b244754b69b4c491fe7b",
+    "scripts/common/default_config.js": "4c7ded80993317d3d36fd45754accd381b7a34fbc63b66c8beaa7171b8de3547",
+    "scripts/tag/note.js": "64141b388ab3b68845c30d9d76011deb848e9ea191be76171bbfb3c5ecd8b12b",
+    "source/css/_tags/note.styl": "1e3c9b44703598c4d87c53e7c52dbd1b8793bfd884fba3c11dec0d3e8c6dc81b",
+    "source/css/var.styl": "6109341b2adb4e5a45b20b8249c7afcfad1062480ddcd0514ee85e777f2233bc"
+  },
+  "targetSha256": {
+    "src/scss/modules/content-extensions.scss": "b52050ccd04f0a983f2fc43a1ea640b49856841a522992e1b310cade5ec7b012",
+    "docs/CONTENT-EXTENSIONS.md": "38644f972f588fd69b61c4bd054000cb315b26e9da3839e6efb5ac36addfc697",
+    "docs/parity/DEC-02-PORTABLE-NOTES.md": "a2121963687833122d7c64ca93d8f89f9439f945ded0fa47fb964d143e75ad4e"
+  },
+  "entries": [
+    {
+      "id": "config:note.style",
+      "consumer": "scripts/tag/note.js → source/css/_tags/note.styl",
+      "target": "src/scss/modules/content-extensions.scss",
+      "mapping": "统一提示样式与四种语义替代旧样式枚举；外观可用 CSS 调整。",
+      "cases": [
+        "验证 blockquote/aside 的四种语义和缺省 info，文字/结构/链接保留，CSS 覆盖不破坏正文。",
+        "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified"
+    },
+    {
+      "id": "config:note.icons",
+      "consumer": "source/css/_tags/note.styl",
+      "target": "src/scss/modules/content-extensions.scss",
+      "mapping": "实际文字表达提示含义，不要求自动图标及其全局开关。",
+      "cases": [
+        "提示包含可独立理解的实际文字；无图标、移除增强或换主题后含义仍可读，不以颜色或图标作为唯一提示。",
+        "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified"
+    },
+    {
+      "id": "config:note.border_radius",
+      "consumer": "source/css/_tags/note.styl",
+      "target": "src/scss/modules/content-extensions.scss",
+      "mapping": "默认 6px 圆角并允许 CSS 覆盖，不要求旧全局数值配置。",
+      "cases": [
+        "验证默认圆角与自定义 CSS 覆盖，长文本、嵌套与打印不遮挡正文或链接。",
+        "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified"
+    },
+    {
+      "id": "config:note.light_bg_offset",
+      "consumer": "source/css/var.styl → source/css/_tags/note.styl",
+      "target": "src/scss/modules/content-extensions.scss",
+      "mapping": "已有浅深色语义配色并允许 CSS 覆盖，不要求旧背景亮度偏移算法。",
+      "cases": [
+        "四种语义在浅深色下文字/链接可读；CSS 覆盖后复核可读性，移除样式或换主题仍保留提示文字。",
+        "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 /** Real official CommentWidget forms; no source injection or request-body rewrite. */
 import assert from 'node:assert/strict';
+import {finalCommentErrors,hasFinalCommentErrors} from './final-errors.mjs';
 import {readFile, writeFile, realpath} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import path from 'node:path';
@@ -91,8 +92,27 @@ for(const engine of ['chromium','firefox','webkit']){
      await checkpoint('official-plugin-disabled-core-and-fallback');
     }else if(phase==='restored'){
      await mount();
-     const pairs=fixture.scope==='lifecycle-only'?[fixture.lifecycleSeed]:(JSON.parse(await readFile(path.join(output,'usage-browser-report.json')))).cases.map(old=>({parent:old.created.find(x=>x.kind==='Comment'),reply:old.created.find(x=>x.kind==='Reply')}));
-     for(const {parent,reply} of pairs){assert(parent&&reply);const item=itemFor(parent.visibleText);await item.waitFor();const content=page.locator('comment-content').getByText(reply.visibleText,{exact:true});if(!await content.isVisible()){const toggle=item.locator('.show-replies-button').first();await toggle.waitFor();await toggle.click();}await content.waitFor();}
+     const pairs=fixture.scope==='lifecycle-only'?(fixture.lifecycleSeeds||[fixture.lifecycleSeed]):(JSON.parse(await readFile(path.join(output,'usage-browser-report.json')))).cases.map(old=>({parent:old.created.find(x=>x.kind==='Comment'),reply:old.created.find(x=>x.kind==='Reply')}));
+     for(const {parent,reply} of pairs){
+      assert(parent&&reply);const item=itemFor(parent.visibleText);await item.waitFor();
+      const state=()=>item.evaluate(e=>({name:e.comment?.metadata?.name,showReplies:e.showReplies,showReplyForm:e.showReplyForm,withReplies:e.configMapData?.basic?.withReplies,scrollY,rect:e.getBoundingClientRect().toJSON(),clicks:e.__acceptanceClicks||[]}));
+      const step={parent:parent.name,reply:reply.name,before:await state()};(row.restoredSteps??=[]).push(step);await save();
+      try{
+       const content=page.locator('comment-content').getByText(reply.visibleText,{exact:true});
+       if(!await content.isVisible()){
+        const toggle=item.locator('.show-replies-button').first();await toggle.waitFor();
+        // WebKit's automatic offscreen click can land on the surrounding row
+        // during its scroll/layout transition. Prepare the visible target first;
+        // still use one trusted click, unchanged timeout and no retry/force.
+        await toggle.scrollIntoViewIfNeeded();
+        await page.waitForFunction(()=>document.fonts.status==='loaded');
+        step.prepared=await state();step.targetRect=await toggle.boundingBox();await save();
+        await item.evaluate(e=>{e.__acceptanceClicks=[];e.addEventListener('click',event=>{e.__acceptanceClicks.push({trusted:event.isTrusted,path:event.composedPath().filter(n=>n instanceof Element).slice(0,5).map(n=>n.tagName+'.'+n.className)});},{capture:true});});
+        await toggle.click();step.afterClick=await state();await save();
+       }
+       await content.waitFor();step.result='passed';
+      }finally{step.final=await state();await save();}
+     }
      await checkpoint('official-plugin-restored-declared-parents-and-replies');
     }else{
      await mount();let form=page.locator('comment-form');const text='Usage parent '+id+' '+fixture.runId,replyText='Usage reply '+id+' '+fixture.runId;
@@ -134,6 +154,10 @@ for(const engine of ['chromium','firefox','webkit']){
   }
  }catch(error){report.cases.push({engine,status:'failed',setupError:error.stack||String(error)});await save();}
  finally{if(browser)try{await close(browser,'browser');}catch(e){report.cases.push({engine,status:'failed',closeError:String(e)});await save();}}
+}
+for(const row of report.cases){
+ row.finalErrors=finalCommentErrors(row);
+ if(hasFinalCommentErrors(row.finalErrors)){row.status='failed';row.finalGateError='Final error arrays contain unexpected failures';}
 }
 report.finishedAt=new Date().toISOString();report.passed=report.cases.filter(c=>c.status==='passed').length;report.failed=report.cases.length-report.passed;await save();
 process.exitCode=report.failed||report.cases.length!==(phase==='usage'?fixture.expectedCases:3)?1:0;

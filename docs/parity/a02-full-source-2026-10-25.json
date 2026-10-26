@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "head": "64f526621870bd96514683b5746c30a610dc6e93",
+  "upstream": "f223b1888b42b2b336068e6c959ed90a3cd7c8f3",
+  "scope": "Source-to-consumer reconciliation only; no new runtime or independent verification",
+  "entries": [
+    {
+      "id": "page-data:full_source",
+      "source": "scripts/helpers/page.js",
+      "consumer": "shuoshuoFN -> mockPost.full_source -> before_post_render",
+      "target": [
+        "src/html/moments.html",
+        "src/html/moment.html",
+        "src/js/core/moments.ts",
+        "docs/MOMENTS.md",
+        "docs/parity/DEC-02-PORTABLE-CONTENT.md"
+      ],
+      "mapping": "固定上游中 full_source 仅进入 shuoshuoFN 的临时文章对象，供 Hexo 渲染过滤器处理源文件路径；不是额外可见正文。按既有原生瞬间/通用 HTML 决定，Halo Moments 消费原生 content.html 和媒体；外部 JSON 明确接收纯文本或净化 HTML，不调用 Hexo 标签或文件过滤器。保留正文、链接、媒体与失败回退能力，不构造服务器文件路径，也不新增标签兼容义务。",
+      "cases": [
+        "原生 Moment 文字、链接、媒体来自已发布内容，详情/列表身份正确；缺少 full_source 不影响展示。",
+        "独立 JSON 的普通文本/允许 HTML 保留阅读，危险 HTML/URL 被过滤，失败可重试且本地瞬间仍可读；不将源码文件或旧标签作为必需输入。"
+      ],
+      "beforeStatus": "mapping-required",
+      "afterStatus": "implemented-unverified",
+      "sourceSha256": "28c2d0c708800db68061ccf49553141d35806554c4c3d50a364785468ede94b5",
+      "targetSha256": {
+        "src/html/moments.html": "1ff60a5ae33185df826b6893d56fc3bc624e5052b4266c4b0cfbbee618df6b15",
+        "src/html/moment.html": "bfa4cdf974018da19c7aadfe6e782c5e8a2fd6aaa50ef053164aefd2b5211c2f",
+        "src/js/core/moments.ts": "27c77e06568ed5ccacda94e354f3e8b93bd6b4caa8833f8f7a5d086e5c8b2cc6",
+        "docs/MOMENTS.md": "9c44204b715c46d55596ba9cbf8a7552a6993a09f8499d86bb448068583da36c",
+        "docs/parity/DEC-02-PORTABLE-CONTENT.md": "67f5ef1fe101f73d5d04bffa82ae8899964a6f241bc782636344e931ac74d76c"
+      }
+    }
+  ]
+}

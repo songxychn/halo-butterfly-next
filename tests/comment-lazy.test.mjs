@@ -42,13 +42,16 @@ function fixture({ kind = 'Post', observer = true, hash = '', lazy = true } = {}
   };
   return { root, region, target, host, status, retry, observations };
 }
-test('lazyload is off in new settings and absent old config takes the eager branch', async () => {
+test('disabled or absent lazyload uses the eager public-component mount on every subject', async () => {
   const schema = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
   assert.equal(defaultsFromSettings(schema).comments.lazyload, false);
-  for (const file of ['post', 'page']) {
+  for (const file of ['post', 'page', 'moment']) {
     const html = await readFile(new URL(`../src/html/${file}.html`, import.meta.url), 'utf8');
-    assert.match(html, /<div th:unless="\$\{themePjaxEnabled or theme\.config\.comments\?\.lazyload == true or theme\.config\.comments\?\.lazyload == 'true'\}">\s*<halo:comment/);
+    assert.match(html, /views\/comment-lazy :: widget/);
+    assert.doesNotMatch(html, /<halo:comment/);
   }
+  const partial = await readFile(new URL('../src/html/views/comment-lazy.html', import.meta.url), 'utf8');
+  assert.match(partial, /data-comment-eager=\$\{theme\.config\.comments\?\.lazyload != true and theme\.config\.comments\?\.lazyload != 'true'\}/);
 });
 test('outside the margin nothing mounts; intersection mounts the exact subject once', async () => {
   const f = fixture(); let calls = 0;
