@@ -82,3 +82,10 @@ File 作为 multipart 发送时，回显服务收到零字节；新建 File 正�
 本地完整 `bun run verify`：799/0，类型、897 项矩阵、构建及 269 文件安装包检查通过。
 新增回归检查覆盖唯一注入 503 的严格豁免、迟到网络/页面错误，以及拒绝删除被替换的
 附件和无法归属的新票据。没有新增矩阵 verified；CI 状态以本批 PR 的精确提交为准。
+
+首轮 [PR #431 CI](https://github.com/songxychn/halo-butterfly-next/actions/runs/40364960114)
+在 794 项通过、0 项失败后超过八分钟无进展，取消后取得日志；唯一缺少输出的是
+`layout-probe.test.mjs` 的五项同步 Python stdin 测试，新上传测试三项均通过。
+将该调用改为异步 `execFile -c`，保留五项断言，子进程增加 20 秒界限，未放宽原
+30 秒测试门禁。专项 5/5、完整 verify 799/0 再次通过；不声称证明了 Bun 内部根因。
+原取消记录与日志哈希保留在 [CI 记录](pr431-ci.json)，后续 CI 不覆盖原结果。
