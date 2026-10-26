@@ -27381,7 +27381,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "DEC-02 2026-10-26 通用提示块方案；保留原生 HTML、四种语义和 CSS 外观定制，不兼容旧全局配置。见 docs/parity/DEC-02-PORTABLE-NOTES.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -27390,7 +27390,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；提示块样式与语义的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
+        "finding": "统一提示样式与四种语义替代旧样式枚举；外观可用 CSS 调整。 来源和完整正文验收保留；本次只完成范围裁定与源码映射。"
       },
       "dependencies": [
         "dual-site",
@@ -27400,8 +27400,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "核对提示块样式与语义在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
-          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
+          "验证 blockquote/aside 的四种语义和缺省 info，文字/结构/链接保留，CSS 覆盖不破坏正文。",
+          "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27417,7 +27417,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+          "https://github.com/songxychn/halo-butterfly-next/pull/408",
+          "https://github.com/songxychn/halo-butterfly-next/pull/430"
         ]
       },
       "evidence": [
@@ -27429,9 +27430,18 @@
           "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
           "actor": "Codex",
           "outcome": "user-confirmed portable-content scope; not runtime verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-note-reconciliation-2026-10-26.json",
+          "sha256": "7ab3186af108d4728b865980c7d9d65ed689191fcaa5e68828df7662dce2ee34",
+          "date": "2026-10-26",
+          "commit": "fd29065773851b6a70e63012180f3e9b1c188f02",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-note scope; source mapping only, not runtime verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:note.icons",
@@ -27454,7 +27464,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "DEC-02 2026-10-26 通用提示块方案；保留原生 HTML、四种语义和 CSS 外观定制，不兼容旧全局配置。见 docs/parity/DEC-02-PORTABLE-NOTES.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -27463,7 +27473,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；图标与文字提示的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
+        "finding": "实际文字表达提示含义，不要求自动图标及其全局开关。 来源和完整正文验收保留；本次只完成范围裁定与源码映射。"
       },
       "dependencies": [
         "dual-site",
@@ -27473,8 +27483,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "核对图标与文字提示在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
-          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
+          "提示包含可独立理解的实际文字；无图标、移除增强或换主题后含义仍可读，不以颜色或图标作为唯一提示。",
+          "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27490,7 +27500,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+          "https://github.com/songxychn/halo-butterfly-next/pull/408",
+          "https://github.com/songxychn/halo-butterfly-next/pull/430"
         ]
       },
       "evidence": [
@@ -27502,9 +27513,18 @@
           "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
           "actor": "Codex",
           "outcome": "user-confirmed portable-content scope; not runtime verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-note-reconciliation-2026-10-26.json",
+          "sha256": "7ab3186af108d4728b865980c7d9d65ed689191fcaa5e68828df7662dce2ee34",
+          "date": "2026-10-26",
+          "commit": "fd29065773851b6a70e63012180f3e9b1c188f02",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-note scope; source mapping only, not runtime verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:note.border_radius",
@@ -27527,7 +27547,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "DEC-02 2026-10-26 通用提示块方案；保留原生 HTML、四种语义和 CSS 外观定制，不兼容旧全局配置。见 docs/parity/DEC-02-PORTABLE-NOTES.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -27536,7 +27556,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；提示块圆角及外观定制的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
+        "finding": "默认 6px 圆角并允许 CSS 覆盖，不要求旧全局数值配置。 来源和完整正文验收保留；本次只完成范围裁定与源码映射。"
       },
       "dependencies": [
         "dual-site",
@@ -27546,8 +27566,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "核对提示块圆角及外观定制在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
-          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
+          "验证默认圆角与自定义 CSS 覆盖，长文本、嵌套与打印不遮挡正文或链接。",
+          "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27563,7 +27583,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+          "https://github.com/songxychn/halo-butterfly-next/pull/408",
+          "https://github.com/songxychn/halo-butterfly-next/pull/430"
         ]
       },
       "evidence": [
@@ -27575,9 +27596,18 @@
           "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
           "actor": "Codex",
           "outcome": "user-confirmed portable-content scope; not runtime verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-note-reconciliation-2026-10-26.json",
+          "sha256": "7ab3186af108d4728b865980c7d9d65ed689191fcaa5e68828df7662dce2ee34",
+          "date": "2026-10-26",
+          "commit": "fd29065773851b6a70e63012180f3e9b1c188f02",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-note scope; source mapping only, not runtime verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:note.light_bg_offset",
@@ -27600,7 +27630,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "DEC-02 2026-10-26 通用提示块方案；保留原生 HTML、四种语义和 CSS 外观定制，不兼容旧全局配置。见 docs/parity/DEC-02-PORTABLE-NOTES.md。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -27609,7 +27639,7 @@
           "src/scss/modules/content-extensions.scss",
           "docs/CONTENT-EXTENSIONS.md"
         ],
-        "finding": "2026-10-14 DEC-02 补充：PR #408 已有提示块；提示背景色与亮暗可读性的通用映射需核对，不能从旧配置键缺失推断为必须移植该设置。上游键/取值保留在 sources；不要求复刻原参数域，尚不标已验收或不适用。"
+        "finding": "已有浅深色语义配色并允许 CSS 覆盖，不要求旧背景亮度偏移算法。 来源和完整正文验收保留；本次只完成范围裁定与源码映射。"
       },
       "dependencies": [
         "dual-site",
@@ -27619,8 +27649,8 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "核对提示背景色与亮暗可读性在通用 blockquote/aside 与可选增强中的消费者及替代方式，记录仍需补充的用户能力。",
-          "验证文字与结构保留、亮暗可读、关闭增强/换主题回退；映射确认后执行相应通用输入断言，不以原配置键/枚举逐值复刻作为门禁。"
+          "四种语义在浅深色下文字/链接可读；CSS 覆盖后复核可读性，移除样式或换主题仍保留提示文字。",
+          "验证编辑器保存重开、浅深色阅读、无增强/换主题回退；完整 EXT-01 仍待验，不要求旧配置键、枚举、自动图标或亮度算法。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27636,7 +27666,8 @@
           "https://github.com/songxychn/halo-butterfly-next/issues/45"
         ],
         "pullRequests": [
-          "https://github.com/songxychn/halo-butterfly-next/pull/408"
+          "https://github.com/songxychn/halo-butterfly-next/pull/408",
+          "https://github.com/songxychn/halo-butterfly-next/pull/430"
         ]
       },
       "evidence": [
@@ -27648,9 +27679,18 @@
           "commit": "362beb61d61ad3910719af52edd79f0b323a1354",
           "actor": "Codex",
           "outcome": "user-confirmed portable-content scope; not runtime verified"
+        },
+        {
+          "kind": "scope-reconciliation",
+          "path": "docs/parity/portable-note-reconciliation-2026-10-26.json",
+          "sha256": "7ab3186af108d4728b865980c7d9d65ed689191fcaa5e68828df7662dce2ee34",
+          "date": "2026-10-26",
+          "commit": "fd29065773851b6a70e63012180f3e9b1c188f02",
+          "actor": "Codex",
+          "outcome": "user-confirmed portable-note scope; source mapping only, not runtime verified"
         }
       ],
-      "status": "mapping-required"
+      "status": "implemented-unverified"
     },
     {
       "id": "config:pjax.enable",

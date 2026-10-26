@@ -38,6 +38,8 @@ Markdown 编辑块不能等同于 HTML 块：输入原生 HTML 后，重开时�
 
 支持 `info`（默认）、`success`、`warning`、`danger`。也可用 `<aside>`。含义由实际文字表达，配色只是辅助；普通 Markdown 引用不会被自动识别为警告。换主题后显示为普通引用或提示文字。
 
+1.0 采用此通用提示块方案：默认显示边框、左侧强调线、6px 圆角及浅深色配色，不自动添加图标。外观通过自定义 CSS 调整，不提供旧 Hexo 的 `note.style`、`note.icons`、`note.border_radius`、`note.light_bg_offset` 四项全局配置。例如，自定义样式中可用 `article.render [data-content-note] { border-radius: 0; }` 改为直角；配色调整后需自行检查浅深色可读性。此处说明能力范围，不代表完整编辑器/可移植性验收已通过；见 [1.0 裁定](parity/DEC-02-PORTABLE-NOTES.md)。
+
 ## 折叠与查看答案
 
 ```html
