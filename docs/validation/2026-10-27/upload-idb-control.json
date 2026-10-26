@@ -1,0 +1,74 @@
+{
+  "recordedDate": "2026-10-27",
+  "source": "scripts/acceptance/comments/idb-control.mjs",
+  "sourceSha256": "cf724f321ededa92f8bd8357846e0e273ce24f0edafda1360835b5527a195eac",
+  "rawReportSha256": "17e5f5c5ea84ff566bf0a13100d14389c792b4b9279f2faebe459d027dfd21de",
+  "data": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "before": {
+        "written": true
+      },
+      "after": {
+        "exists": true,
+        "constructor": "File",
+        "isFile": true,
+        "isBlob": true,
+        "name": "fixture.png",
+        "size": 3,
+        "type": "image/png",
+        "text": "abc"
+      }
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "before": {
+        "written": true
+      },
+      "after": {
+        "exists": true,
+        "constructor": "File",
+        "isFile": true,
+        "isBlob": true,
+        "name": "fixture.png",
+        "size": 3,
+        "type": "image/png",
+        "text": "abc"
+      }
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "before": {
+        "error": {
+          "text": "transaction failed with null error"
+        }
+      },
+      "after": {
+        "exists": false,
+        "isFile": false,
+        "isBlob": false,
+        "text": null
+      }
+    },
+    {
+      "engine": "webkit-persistent",
+      "version": "26.6",
+      "before": {
+        "written": true
+      },
+      "after": {
+        "exists": true,
+        "constructor": "File",
+        "isFile": true,
+        "isBlob": true,
+        "name": "fixture.png",
+        "size": 3,
+        "type": "image/png",
+        "text": "abc"
+      }
+    }
+  ]
+}

@@ -43,7 +43,7 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry', 'upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
@@ -64,6 +64,8 @@ def main():
     guard_spec = importlib.util.spec_from_file_location('fault_guard', REPO / 'scripts/perf/fault-followup.py')
     guard = importlib.util.module_from_spec(guard_spec); guard_spec.loader.exec_module(guard)
     cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and not (args.cases == 'firefox-signed' and (engine != 'firefox' or not signed)) and args.cases != 'lifecycle-only']
+    if args.cases in ['upload-isolated', 'upload-webkit-direct']:
+        cases = [{'engine':'webkit','signedIn':False}, {'engine':'webkit','signedIn':True}]
     if args.cases == 'captcha-expiry':
         cases = [{'engine': 'chromium', 'signedIn': False}]
     run = secrets.token_hex(10)
@@ -78,6 +80,7 @@ def main():
     client = before = original_config = original_comment = None
     changed = False
     plugin_original = None
+    upload_batch = None
     post_name = 'comment-usage-' + run
     title = 'Comment usage ' + run
     def save():
@@ -364,7 +367,11 @@ def main():
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases in ['captcha-only', 'captcha-expiry']:
+        if args.cases in ['upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated']:
+            from uploads import UploadBatch
+            upload_batch = UploadBatch(client, lab, guard, fixture, output)
+            upload_batch.run()
+        elif args.cases in ['captcha-only', 'captcha-expiry']:
             from captcha import run_captcha
             run_captcha(client, lab, guard, fixture, output)
         elif args.cases == 'language-only':
@@ -409,6 +416,11 @@ def main():
                     report['cleanup'].append({**row, 'deleted': True})
                 except Exception as error:
                     report['errors'].append({'stage': 'cleanup', 'name': row['name'], 'message': str(error)})
+            if upload_batch:
+                try:
+                    upload_batch.cleanup()
+                except Exception as error:
+                    report['errors'].append({'stage': 'upload-cleanup', 'message': str(error)})
             for label in ['theme', 'system']:
                 try:
                     if label == 'theme':
@@ -429,6 +441,7 @@ def main():
                 for name, original in report['originalSubscriptionSpecs'].items():
                     obj = optional(NOTIFICATION + 'subscriptions/' + name)
                     require(obj and obj['metadata'].get('creationTimestamp') == original['creationTimestamp'] and digest(obj['spec']) == original['specSha256'], 'Pre-existing subscription changed')
+                require(not upload_batch or upload_batch.report.get('restored'), 'Upload storage restoration not verified')
                 restored = True
             except Exception as error:
                 report['errors'].append({'stage': 'restore-verify', 'message': str(error)})
