@@ -1,5 +1,7 @@
 # 1.0 发行准备（未发布）
 
+**当前候选补充**：维护者预览后要求修正文案、清空 demo 页脚导航并恢复 Butterfly 页脚文字样式。当前 ZIP 为 `08c90952aecdef82de0d2f03326b4254e98fcfc30355291a40c472b380a83add`，最新状态见[本地 demo 更新](local-demo.md)。以下 R1–R3 与机器 JSON 保留原 `ef8d4b…` 包的验收历史；“仅 theme.yaml 改变”与原源码归档结论不外推到页脚更新包。新的 PR head 仍须独立审查，未授权合并或发布。
+
 2026-10-28，按 DEC-09 完成有限收尾。基于已审查合并的 `09f8af3`，固定运行候选 `655efe301b4cb68c2f23c08ac0acfa11d424941e`；1.0.0 ZIP SHA-256 为 `ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d`。机器证据见 [release-1.0.json](release-1.0.json)。本轮不打 tag、不发布、不部署 demo。
 
 ## R1 核心证据与最小补测

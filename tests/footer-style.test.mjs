@@ -31,15 +31,12 @@ test('实验室默认 --theme 对齐 Butterfly #49b1f5；暗色页脚不改成�
   assert.match(scss, /background-color:\s*var\(--theme\)/);
 });
 
-test('页脚保留品牌背景，文字使用独立不透明前景并保留图片遮罩', () => {
+test('页脚恢复 Butterfly 浅色文字和链接样式，保留图片遮罩', () => {
   assert.match(scss, /background-color:\s*var\(--theme\)/);
-  assert.match(scss, /--footer-foreground:\s*#102a43/);
-  assert.match(scss, /\.footer--bg\s*\{\s*--footer-foreground:\s*#ffffff/);
-  assert.match(scss, /color:\s*var\(--footer-foreground\)/);
-  assert.match(scss, /background-color:\s*#333333/);
+  assert.match(scss, /color:\s*var\(--light-grey, #eee\)/);
+  assert.doesNotMatch(scss, /--footer-foreground|background-color:\s*#333333/);
   assert.match(scss, /background-color:\s*var\(--mark-bg, rgba\(0, 0, 0, 0\.5\)\)/);
-  assert.match(scss, /a[\s\S]*&:hover[\s\S]*color:\s*inherit/);
-  assert.match(scss, /a:focus-visible\s*\{\s*outline-offset:\s*-2px/);
+  assert.match(scss, /a[\s\S]*&:hover[\s\S]*color:\s*var\(--theme\)/);
   assert.match(scss, /outline:\s*2px solid currentColor/);
   assert.match(scss, /background-attachment:\s*scroll/);
   assert.match(scss, /background-position:\s*bottom/);
@@ -69,6 +66,6 @@ test('390 不横向溢出；本刀不改模板语义，不复用 aside.button', 
   assert.match(componentsHtml, /theme\.config\.aside\.hide_button/);
   assert.doesNotMatch(scss, /aside\.button/);
   assert.match(settingsText, /name: hide_button/);
-  assert.match(scss, /text-decoration:\s*underline/);
+  assert.match(scss, /text-decoration:\s*none/);
   assert.match(scss, /&:focus-visible/);
 });

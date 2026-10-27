@@ -6,9 +6,9 @@
 
 | 项目 | 尚需完成 | 现有依据 |
 | --- | --- | --- |
-| R1 核心证据对账 | 已固定 1.0 运行候选 655efe3 / ZIP ef8d4b…，按源码与包差异复用已有证据，4 个动画显示场景通过 | [核心页面/插件组合](../validation/2026-10-24/halo-2271-acceptance.md)、[导航/评论/公式](../validation/2026-10-25/user-flows.md)、[图片](../validation/2026-10-25/images-faults.md)、[当前包性能](../validation/2026-10-25/performance-hero.md)、[RSS/站点地图](../validation/2026-10-17/rss-sitemap-followup.md) |
+| R1 核心证据对账 | 页脚调整后本地预览 ZIP 为 08c90952…；保留原候选的核心/动画证据，新补桌面与窄屏页脚检查，见[本地 demo 更新](../validation/2026-10-28/local-demo.md) | [核心页面/插件组合](../validation/2026-10-24/halo-2271-acceptance.md)、[导航/评论/公式](../validation/2026-10-25/user-flows.md)、[图片](../validation/2026-10-25/images-faults.md)、[当前包性能](../validation/2026-10-25/performance-hero.md)、[RSS/站点地图](../validation/2026-10-17/rss-sitemap-followup.md) |
 | R2 安装/升级/回退 | 已完成全新 Halo 2.27.1 安装、公开 alpha.4 同 ID 往返、旧值/正文保留、配置导出恢复及完整冷备份恢复；语义迁移边界明确 | [安装升级流程](../INSTALL-UPGRADE.md)、[迁移支持范围](../MIGRATION.md)；不扩展平台组合 |
-| R3 发行包与审查 | 1.0 包、对应源码、校验摘要和说明已准备；805/0、许可/敏感文件及干净源码重建通过。准备 PR 的审查/CI/合并与发布授权分别处理 | 工具 PR 的 CI 不代替最终候选的全部证据；不额外创建预发布流程 |
+| R3 发行包与审查 | 原包的发行材料与重建记录保留；页脚更新包 805/0 和安装核验通过，当前摘要及源码重建状态见本地 demo 更新记录。准备 PR 的审查/CI/合并与发布授权分别处理 | 工具 PR 的 CI 不代替最终候选的全部证据；不额外创建预发布流程 |
 
 自然回收观察固定运行产品为 `2eb87dffd321411b00b48bf10bc7771b960a83d2`，ZIP SHA-256 为 `594c6fb24714c9e9de14b608f87741c4c88129660b997e4d9c7042297f2883e6`。原生/PJAX 历史滚动、评论立即挂载和 OG locale 修复保留。维护者已要求撤销为性能指标改变外观的调整：当前源码恢复标题/副标题一秒入场动画，含手机端。观察实例继续使用原包；新候选不继承取消动画包的性能通过结论，详见[回滚记录](../validation/2026-10-27/hero-animation-rollback.md)。
 
