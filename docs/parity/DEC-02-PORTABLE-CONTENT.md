@@ -1,6 +1,6 @@
 # DEC-02 补充：通用 Markdown / HTML 正文
 
-日期：2026-10-14。依据：维护者在本次需求盘点中明确纠正“完整兼容旧 Hexo 标签”目标，并要求同步路线图、矩阵和剩余需求；已合并的 [PR #408](https://github.com/songxychn/halo-butterfly-next/pull/408) 提供实现依据。本记录补充并取代 [DEC-02 原记录](../RELEASE-ACCEPTANCE.md#dec-02-裁定记录2026-09-15) 中冲突的成功条件；不声称原 issue #45 或 PR #408 已追加本次确认。
+日期：2026-10-14。依据：维护者在本次需求盘点中明确纠正“完整兼容旧 Hexo 标签”目标，并要求同步路线图、矩阵和剩余需求；已合并的 [PR #408](https://github.com/songxychn/halo-butterfly-next/pull/408) 提供实现依据。本记录补充并取代 [DEC-02 原记录](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/RELEASE-ACCEPTANCE.md#dec-02-裁定记录2026-09-15) 中冲突的成功条件；不声称原 issue #45 或 PR #408 已追加本次确认。
 
 ## 决定与成功条件
 

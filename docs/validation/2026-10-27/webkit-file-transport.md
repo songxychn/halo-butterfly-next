@@ -21,18 +21,15 @@
 没有证明 WebKit 内部的精确实现根因，也不能外推实际 Safari 同样受影响。
 没有把失败格删除或把零字节请求的 HTTP 200 误判为上传成功。
 
-## 可核对的上游兼容修复候选
+## 维护结论与历史材料
 
-CommentWidget [v3.3.2](https://github.com/halo-dev/plugin-comment-widget/blob/v3.3.2/packages/comment-widget/src/utils/upload-api.ts)
-和 [v3.4.0](https://github.com/halo-dev/plugin-comment-widget/blob/v3.4.0/packages/comment-widget/src/utils/upload-api.ts)
-都直接将 File append 到 FormData，这一函数的源代码相同。可以在官方上传边界将
-File 重新包装，并保留 name、type、lastModified，避免把引擎兼容代码放进主题。
+按维护者批准的 [DEC-09](../../parity/DEC-09-RELEASE-CLOSURE.md)，本问题作为所测 WebKit / 官方评论插件图片草稿刷新路径的已知限制，不再默认阻塞主题 1.0。不承诺刷新后的图片草稿可靠续传；直接上传成功只覆盖原记录场景。
 
-已准备[最小补丁](upstream/comment-widget-file-rewrap.patch)，对官方 v3.4.0 源文件的
-`git apply --check` 通过，补丁核心包装表达式已在上述八个对照格验证。
-**补丁没有安装、发布或向上游提交；完整官方插件构建、浏览器流程及实际 Safari
-仍未验证，不能把它当成已交付修复。** 本仓库只是保存复现和修复候选。
+一次性传输诊断已结束。上游补丁和三个独立诊断入口从当前树移除，不维护、不构建或安装定制插件，不继续矩阵或上游提交。原始失败、32 格结果和报告/脚本哈希保持原样；重新包装对照成功仍不等于完整插件流程已修复。
 
-此前失败的完整图片草稿流程继续保留。直接上传成功或最小重包装对照成功，都不等于完整插件流程已修复。
+以下固定 Git 快照供追溯原实验，不是当前执行入口：
 
-维护者于 2026-10-27 批准 [DEC-09](../../parity/DEC-09-RELEASE-CLOSURE.md)：本问题作为所测 WebKit / 官方评论插件图片草稿刷新路径的已知限制，不再默认阻塞主题 1.0。不承诺刷新后的图片草稿可靠续传；新选文件直接上传的成功仅覆盖原记录场景。停止新增补丁构建、插件集成、浏览器矩阵和上游提交支线；本补丁仅保留研究候选，不安装到官方验收实例。
+- [原上游补丁](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/validation/2026-10-27/upstream/comment-widget-file-rewrap.patch)：曾通过 v3.4.0 源码 apply-check；未安装、发布或提交上游。
+- [IDB File 对照源码](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/scripts/acceptance/comments/idb-control.mjs)，对应 [原报告](upload-idb-control.json)。
+- [multipart 对照源码](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/scripts/acceptance/comments/transport-control.mjs)，对应 [原报告](upload-transport-control.json)。
+- [版本/运行时传输矩阵源码](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/scripts/acceptance/comments/transport-matrix.mjs)，对应 [32 格结果](webkit-transport-matrix.json)。

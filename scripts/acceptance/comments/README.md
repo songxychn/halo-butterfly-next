@@ -1,4 +1,7 @@
-# Real official comment usage acceptance
+# Official comment acceptance tools
+
+Current maintenance scope follows [DEC-09](../../../docs/parity/DEC-09-RELEASE-CLOSURE.md). Existing modes document historical evidence and are not a release checklist. Do not start further plugin-business matrices. Only the already running natural observation is authorized to continue; preserve ownership guards and cleanup.
+
 
 Runs only against an already running, explicitly owned loopback lab. It does not
 start/stop servers, install software, change product code, patch official modules,
@@ -42,47 +45,14 @@ python3 scripts/acceptance/comments/run.py \
 
 Use only after independent review and an exclusive lab window are confirmed.
 
-The first historical batch miscompared official rich-text draft HTML with plain
-text and also retained one Firefox anonymous document-readiness timeout. The
-`--cases corrected-five` profile fixes only the HTML contract and excludes that
-Firefox anonymous connection failure; it does not claim six-case acceptance.
-Browser limits stay unchanged. The actual editor HTML, visible text, draft,
-official payload and returned raw HTML are compared without rewriting content.
+## Existing supplemental modes
 
-All notification objects are retained in private before/after snapshots. Halo's
-PostReconciler calls DefaultNotificationCenter.subscribe, which removes/recreates
-the author's global subscription and token. Only the exact enabled
-`fixture-maintainer` / `new-comment-on-post` / `props.postOwner == 'fixture-maintainer'`
-subscription with the official NonexistentKind subject permits semantic equality;
-name, creation timestamp and token hash are recorded separately, never described
-as identity restoration. Every other pre-existing notification/reason/subscription
-still uses exact identity/spec equality. Fixed 30-second readiness waits observe
-known login reason and deletion convergence before snapshots; they do not retry
-browser cases. Old failed batch reports are not overwritten or reclassified.
-
-`--cases reply-three` is the further fixed correction for the three cases that
-reached reply503: Chromium anonymous/signed-in and Firefox signed-in. It matches
-the official exact `title + " - " + detail` toast. The two WebKit empty-editor
-observations remain separate failed evidence pending diagnosis; this profile does
-not replace them. All original timeouts and official request bodies stay intact.
-
-`--cases webkit-two` is a separate two-case supplement using real key events
-(`click` then `pressSequentially`) for contenteditable text. A preceding single
-read-only local-draft diagnostic found unchanged editor node identity but empty
-DOM, official editor model and draft after WebKit's `fill` returned. That diagnostic
-retains its later anonymous-name-locator failure (only 2 of 8 planned snapshots),
-so it does not claim a complete timing diagnosis or an upstream bug. The supplement
-checks an initialized empty editor, actual visible text/HTML, official editor text,
-and the same 20-second draft gate. It never injects editor state or rewrites POSTs.
-
-`--cases lifecycle-only` creates one parent and reply via the official public API
-as explicitly labelled reading fixtures, then runs only the existing three-engine
-disabled/restored stages. It never counts these seed requests as UI submission,
-retry or draft acceptance. This independent phase avoids repeating prior usage
-cases whose functional checkpoints completed but whose strict network gates
-retained failures. WebKit's navigation-time font cancellation is not classified
-as a proven Halo connection-read defect; Firefox's two network observations stay
-separate. Every fixture still follows the same strict cleanup and restoration.
+`corrected-five`, `reply-three`, `webkit-two`, `firefox-signed` and
+`lifecycle-only` retain their original bounded scopes; they must not be combined
+into a claim that an original failed batch passed. The fixed historical mode
+semantics, input corrections and subscription-rotation rules are available in the
+[pre-cleanup README](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/scripts/acceptance/comments/README.md). No notification ownership or restoration guard is
+removed by this documentation cleanup.
 
 ## Halo 2.27.1 user-flow follow-up
 
@@ -171,19 +141,10 @@ The input harness waits for the official editor click handler's 100ms delayed
 focus before switching fields, uses real Tab/typing for anonymous WebKit input,
 and asserts visible and submitted text. Pointer interception failures remain
 separate from keyboard-input supplements.
-The bundled WebKit ephemeral context cannot reliably persist a `File` in
-IndexedDB. The separate diagnostic scripts reproduce storage and multipart
-transport behavior without Halo or plugin modifications:
-
-```bash
-bun scripts/acceptance/comments/idb-control.mjs .runtime/acceptance-2271
-bun scripts/acceptance/comments/transport-control.mjs .runtime/acceptance-2271
-```
-
-They write structured results under the supplied `.runtime` directory. The
-transport control uses a temporary loopback-only echo server and records body
-byte counts; it does not issue requests to Halo. Headless WebKit is not actual
-Safari. Diagnostic passes do not promote matrix entries to verified.
+The one-off IndexedDB and multipart diagnostic entry points are retired.
+Their [recorded results](../../../docs/validation/2026-10-27/webkit-file-transport.md)
+and frozen source references remain available; no diagnostic command is part of
+the current release workflow.
 
 ## Natural-time lifecycle follow-up
 
@@ -211,18 +172,7 @@ window before registering the full resource snapshot. Content, owner, subject
 and creation identity changes still fail the guard. Final cleanup verifies the
 original storage, plugin config, theme config, content and package identities.
 
-Run this only in an owned, otherwise idle runtime with an empty attachment,
-upload and submission baseline. Keep the worker and Halo running through the
-natural deadlines; do not start another acceptance job on that runtime. The
-coordinator freezes tool sources; changing tracked source later does not hot
-patch an already running observer. The separate transport matrix uses its own
-loopback echo server and fresh browser profiles and makes no Halo requests:
-
-```bash
-node scripts/acceptance/comments/transport-matrix.mjs \
-  .runtime/browser-matrix/deps/node_modules/playwright \
-  .runtime/browser-matrix/browsers .runtime/my-isolated-output
-```
-
-Create the output directory first. Both Node and Bun are accepted for this
-portable diagnostic; this does not change the project's Bun development runtime.
+The existing worker keeps its frozen tool sources. Do not start another batch,
+change deadlines, restart services or occupy its locked runtime. Tracked-source
+cleanup does not hot-patch that worker. The already running observation finishes
+with its original cleanup and restore checks, then its heartbeat is removed.
