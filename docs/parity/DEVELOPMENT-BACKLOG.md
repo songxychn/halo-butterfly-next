@@ -1,14 +1,14 @@
 # 1.0 收口清单
 
-当前依据：[DEC-09 发布门禁收口](DEC-09-RELEASE-CLOSURE.md)与[验收要求](../RELEASE-ACCEPTANCE.md)。只保留主题严重缺陷、核心使用和发行必需检查；不再全量推进旧 P0/P1/P2。当前清单未定位新的未修复主题严重缺陷，但以下三项尚未全部闭合，先不发布。
+当前依据：[DEC-09 发布门禁收口](DEC-09-RELEASE-CLOSURE.md)与[验收要求](../RELEASE-ACCEPTANCE.md)。只保留主题严重缺陷、核心使用和发行必需检查；不再全量推进旧 P0/P1/P2。当前清单未定位新的未修复主题严重缺陷。1.0 的有限运行收尾已完成，发行材料准备和审查/CI 状态见[最终准备记录](../validation/2026-10-28/release-1.0.md)；本轮不打 tag、不发布。
 
 ## 当前收口顺序
 
 | 项目 | 尚需完成 | 现有依据 |
 | --- | --- | --- |
-| R1 核心证据对账 | 固定最终 SHA/ZIP，分析差异后复用已有结果，仅补明确缺口 | [核心页面/插件组合](../validation/2026-10-24/halo-2271-acceptance.md)、[导航/评论/公式](../validation/2026-10-25/user-flows.md)、[图片](../validation/2026-10-25/images-faults.md)、[当前包性能](../validation/2026-10-25/performance-hero.md)、[RSS/站点地图](../validation/2026-10-17/rss-sitemap-followup.md) |
-| R2 安装/升级/回退 | 当前候选新装、Next 同 ID 升级、配置/正文保留及备份恢复收口 | [安装升级流程](../INSTALL-UPGRADE.md)、[迁移支持范围](../MIGRATION.md)；不扩展平台组合 |
-| R3 发行包与审查 | 构建/包一致性、许可/署名/敏感文件、限制说明、独立审查及 PR/合并后 CI | 工具 PR 的 CI 不代替最终候选的全部证据；不额外创建预发布流程 |
+| R1 核心证据对账 | 已固定 1.0 运行候选 655efe3 / ZIP ef8d4b…，按源码与包差异复用已有证据，4 个动画显示场景通过 | [核心页面/插件组合](../validation/2026-10-24/halo-2271-acceptance.md)、[导航/评论/公式](../validation/2026-10-25/user-flows.md)、[图片](../validation/2026-10-25/images-faults.md)、[当前包性能](../validation/2026-10-25/performance-hero.md)、[RSS/站点地图](../validation/2026-10-17/rss-sitemap-followup.md) |
+| R2 安装/升级/回退 | 已完成全新 Halo 2.27.1 安装、公开 alpha.4 同 ID 往返、旧值/正文保留、配置导出恢复及完整冷备份恢复；语义迁移边界明确 | [安装升级流程](../INSTALL-UPGRADE.md)、[迁移支持范围](../MIGRATION.md)；不扩展平台组合 |
+| R3 发行包与审查 | 本地构建与许可检查通过；1.0 说明和包准备中，干净源码重建及准备 PR CI 待记入；最终审查/合并与发布授权分别处理 | 工具 PR 的 CI 不代替最终候选的全部证据；不额外创建预发布流程 |
 
 自然回收观察固定运行产品为 `2eb87dffd321411b00b48bf10bc7771b960a83d2`，ZIP SHA-256 为 `594c6fb24714c9e9de14b608f87741c4c88129660b997e4d9c7042297f2883e6`。原生/PJAX 历史滚动、评论立即挂载和 OG locale 修复保留。维护者已要求撤销为性能指标改变外观的调整：当前源码恢复标题/副标题一秒入场动画，含手机端。观察实例继续使用原包；新候选不继承取消动画包的性能通过结论，详见[回滚记录](../validation/2026-10-27/hero-animation-rollback.md)。
 
