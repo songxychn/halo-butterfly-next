@@ -1,5 +1,13 @@
 # 安装、升级与回退
 
+## 1.0 发行准备（尚未发布）
+
+当前源码构建 `halo-butterfly-next-1.0.0.zip`，主题 ID 保持不变。建议采用 Halo 2.27.1；最低声明仍为 `>=2.20.2`，不代表全部版本均已实测。旧版记录保留原包身份；1.0 的有限验收和升级回退结果见[发行准备记录](validation/2026-10-28/release-1.0.md)。尚无公开 1.0 附件，不把本地候选视为已发行版本。
+
+下面的备份、同 ID 升级与回退操作继续适用。回退前先保存旧 ZIP 与完整配置；恢复配置会替换整份 JSON。正文、附件和数据库备份须按 Halo 的部署方式另行保存。主题 ZIP 本身不是整站备份。
+
+## alpha.4 历史发行与验收
+
 alpha.4 的主题 ID 为 `halo-butterfly-next`，最低声明 Halo ≥2.20.2，不设上限；真实升级回退基线为 Halo 2.26.1。获取[alpha.4 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)中的 `halo-butterfly-next-0.1.0-alpha.4.zip`，按 `SHA256SUMS` 校验。安装、升级和回退均在控制台主题管理中上传构建 ZIP；源码归档不能直接安装。
 
 升级前备份数据库、附件与完整主题配置，并保留当前可用的旧包。先在测试站更新同 ID 主题；出现问题时上传原版本并重新启用，检查页面、配置和内容。alpha.4 本轮在真实 Halo 2.26.1 演练了 alpha.3 → alpha.4 → alpha.3 → alpha.4，129 文件核对、配置及内容保留通过，见[当前验收记录](validation/2026-10-08/alpha4-acceptance.json)。搜索与评论插件版本单独管理；退回主题不会自动降低插件版本。
