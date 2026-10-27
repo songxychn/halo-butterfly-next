@@ -1,0 +1,18 @@
+--- a/packages/comment-widget/src/utils/upload-api.ts
++++ b/packages/comment-widget/src/utils/upload-api.ts
+@@ -40,7 +40,14 @@
+   try {
+     const formData = new FormData();
+     files.forEach((file) => {
+-      formData.append('files', file);
++      // Re-wrap Files restored from IndexedDB before multipart serialization.
++      formData.append(
++        'files',
++        new File([file], file.name, {
++          type: file.type,
++          lastModified: file.lastModified,
++        })
++      );
+     });
+ 
+     const attachments = await ofetch(

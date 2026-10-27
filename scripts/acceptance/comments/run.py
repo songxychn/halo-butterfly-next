@@ -43,10 +43,11 @@ def main():
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry', 'upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry', 'upload-natural', 'upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
+    require(args.cases != 'upload-natural' or args.subject == 'Post', 'Natural-time lifecycle scope is the fixed Post API fixture')
     require(args.lifecycle_pairs == 1 or args.cases == 'lifecycle-only', 'Pair count only applies to lifecycle-only')
     require(args.cases not in ['access-only', 'language-only'] or args.subject != 'Moment', 'Native content access/language applies to Post and SinglePage')
     subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
@@ -66,6 +67,8 @@ def main():
     cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and not (args.cases == 'firefox-signed' and (engine != 'firefox' or not signed)) and args.cases != 'lifecycle-only']
     if args.cases in ['upload-isolated', 'upload-webkit-direct']:
         cases = [{'engine':'webkit','signedIn':False}, {'engine':'webkit','signedIn':True}]
+    if args.cases == 'upload-natural':
+        cases = []  # Four API lifecycle conditions, not a declared browser matrix.
     if args.cases == 'captcha-expiry':
         cases = [{'engine': 'chromium', 'signedIn': False}]
     run = secrets.token_hex(10)
@@ -367,7 +370,11 @@ def main():
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases in ['upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated']:
+        if args.cases == 'upload-natural':
+            from natural import NaturalUploadBatch
+            upload_batch = NaturalUploadBatch(client, lab, guard, fixture, output, register)
+            upload_batch.run()
+        elif args.cases in ['upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated']:
             from uploads import UploadBatch
             upload_batch = UploadBatch(client, lab, guard, fixture, output)
             upload_batch.run()

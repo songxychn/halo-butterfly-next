@@ -184,3 +184,45 @@ They write structured results under the supplied `.runtime` directory. The
 transport control uses a temporary loopback-only echo server and records body
 byte counts; it does not issue requests to Halo. Headless WebKit is not actual
 Safari. Diagnostic passes do not promote matrix entries to verified.
+
+## Natural-time lifecycle follow-up
+
+`--cases upload-natural --subject Post` creates four official local-storage API
+fixtures: a bound parent image, a bound reply image, a bound image also referenced
+by another comment, and an unsubmitted temporary upload. These are lifecycle
+fixtures, not UI-submission evidence. The reference holder is an explicitly
+recorded administrative content edit; it does not bypass the public upload API
+in a claimed user flow. The observer retains the existing exclusive lab lock
+for about 24 hours and records one sample per minute.
+
+No expiry/deletion timestamp, server clock, official plugin or JAR is modified.
+The normal bound-image grace is five minutes after the official deadline. The
+reference holder stays until twenty minutes after that deadline, then the tool
+deletes only its owned holder and permits the documented fifteen-minute retry
+plus sampling allowance. Temporary expiry allows two fifteen-minute reconciler
+periods plus two minutes. These bounds are fixed before observing results.
+Original errors remain failed; a gap over 120 seconds invalidates continuous
+observation. Failed live attachments remain locked for separately reviewed
+recovery rather than being forcibly expired.
+
+Halo 2.27.1 re-approves a parent when a comment manager replies. The fixture
+validates only the resulting `approvedTime` change within that owned API request
+window before registering the full resource snapshot. Content, owner, subject
+and creation identity changes still fail the guard. Final cleanup verifies the
+original storage, plugin config, theme config, content and package identities.
+
+Run this only in an owned, otherwise idle runtime with an empty attachment,
+upload and submission baseline. Keep the worker and Halo running through the
+natural deadlines; do not start another acceptance job on that runtime. The
+coordinator freezes tool sources; changing tracked source later does not hot
+patch an already running observer. The separate transport matrix uses its own
+loopback echo server and fresh browser profiles and makes no Halo requests:
+
+```bash
+node scripts/acceptance/comments/transport-matrix.mjs \
+  .runtime/browser-matrix/deps/node_modules/playwright \
+  .runtime/browser-matrix/browsers .runtime/my-isolated-output
+```
+
+Create the output directory first. Both Node and Bun are accepted for this
+portable diagnostic; this does not change the project's Bun development runtime.
