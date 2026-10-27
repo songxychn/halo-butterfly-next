@@ -22,23 +22,16 @@
       top: var(--index-site-info-top, 43%);
     }
 
-    .above-title {
-      // The hero is the initial content, not an entrance animation. Keeping it
-      // visible avoids delaying desktop LCP until the one-second scale finishes.
-      animation: none;
-    }
-
     &-subtitle {
       font-size: 1.72em;
       line-height: 1.5;
       color: var(--above-index-subtitle-color);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
-      animation: none;
+      animation: above-title-scale 1s;
 
       @include util.useResponsive(util.$w-md) {
         font-size: 1.15em;
       }
-
     }
 
     /* 对齐 Butterfly 5.7.0 head.styl #scroll-down；桌面与 390 都显示，不用 CSS 藏。 */

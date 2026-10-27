@@ -37,16 +37,31 @@ def digest(value):
     return hashlib.sha256(value if isinstance(value, bytes) else json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+def natural_cleanup_preflight(client, plugin, theme, comment, upload_batch):
+    """A passive observation must not repair an externally changed lab."""
+    current = client.api(PLUGINS + '/PluginCommentWidget')
+    require(current['metadata'].get('creationTimestamp') == plugin['metadata'].get('creationTimestamp')
+            and current['spec'] == plugin['spec']
+            and current.get('status', {}).get('phase') == 'STARTED',
+            'Natural cleanup blocked: comment plugin changed or stopped')
+    require(client.api(CONFIG) == theme, 'Natural cleanup blocked: theme config changed')
+    require(client.api(SYSTEM).get('data', {}).get('comment') == comment,
+            'Natural cleanup blocked: system comment config changed')
+    if upload_batch:
+        upload_batch.check_cleanup_state()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--package', type=Path, required=True)
     parser.add_argument('--source-sha', required=True)
     parser.add_argument('--subject', choices=['Post','SinglePage','Moment'], default='Post')
-    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry', 'upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated'], default='full-six')
+    parser.add_argument('--cases', choices=['full-six', 'corrected-five', 'reply-three', 'webkit-two', 'firefox-signed', 'lifecycle-only', 'policy-only', 'access-only', 'language-only', 'captcha-only', 'captcha-expiry', 'upload-natural', 'upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated'], default='full-six')
     parser.add_argument('--allow-synthetic-writes', choices=['yes'], required=True)
     parser.add_argument('--lifecycle-pairs', type=int, choices=[1, 6], default=1)
     args = parser.parse_args()
+    require(args.cases != 'upload-natural' or args.subject == 'Post', 'Natural-time lifecycle scope is the fixed Post API fixture')
     require(args.lifecycle_pairs == 1 or args.cases == 'lifecycle-only', 'Pair count only applies to lifecycle-only')
     require(args.cases not in ['access-only', 'language-only'] or args.subject != 'Moment', 'Native content access/language applies to Post and SinglePage')
     subject_collection = {'Post':'posts','SinglePage':'singlepages','Moment':'moments'}[args.subject]
@@ -66,6 +81,8 @@ def main():
     cases = [{'engine': engine, 'signedIn': signed} for engine in ['chromium', 'firefox', 'webkit'] for signed in [False, True] if not (args.cases in ['corrected-five', 'reply-three'] and engine == 'firefox' and not signed) and not (args.cases == 'reply-three' and engine == 'webkit') and not (args.cases == 'webkit-two' and engine != 'webkit') and not (args.cases == 'firefox-signed' and (engine != 'firefox' or not signed)) and args.cases != 'lifecycle-only']
     if args.cases in ['upload-isolated', 'upload-webkit-direct']:
         cases = [{'engine':'webkit','signedIn':False}, {'engine':'webkit','signedIn':True}]
+    if args.cases == 'upload-natural':
+        cases = []  # Four API lifecycle conditions, not a declared browser matrix.
     if args.cases == 'captcha-expiry':
         cases = [{'engine': 'chromium', 'signedIn': False}]
     run = secrets.token_hex(10)
@@ -79,6 +96,7 @@ def main():
     report = {'schema': 1, 'runId': run, 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'status': 'running', 'errors': [], 'created': [], 'cleanup': [], 'batches': [], 'pluginTransitions': []}
     client = before = original_config = original_comment = None
     changed = False
+    natural_theme = natural_comment = None
     plugin_original = None
     upload_batch = None
     post_name = 'comment-usage-' + run
@@ -304,9 +322,11 @@ def main():
         lab.write_json(output / 'restore.private.json', {'theme': original_config, 'comment': original_comment}, private=True)
         config = json.loads(json.dumps(original_config));config.setdefault('comments', {}).update(lazyload=False, text=True, unavailable_notice='Owned comment plugin unavailable '+run)
         report['mutationStartedEpoch'] = time.time()
+        natural_theme = config
         changed = True
         client.api(CONFIG, 'PUT', config)
         system = client.api(SYSTEM);system.setdefault('data', {})['comment'] = json.dumps({**json.loads(original_comment or '{}'), 'enable': True, 'systemUserOnly': False, 'requireReviewForNew': False})
+        natural_comment = system['data']['comment']
         client.api(SYSTEM, 'PUT', system)
         require(client.api(CONFIG) == config and client.api(SYSTEM)['data']['comment'] == system['data']['comment'], 'Config did not apply')
         if args.subject == 'Moment':
@@ -367,7 +387,11 @@ def main():
         settle_notifications('ready')
         collect_children()
         report['ready'] = station();save()
-        if args.cases in ['upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated']:
+        if args.cases == 'upload-natural':
+            from natural import NaturalUploadBatch
+            upload_batch = NaturalUploadBatch(client, lab, guard, fixture, output, register)
+            upload_batch.run()
+        elif args.cases in ['upload-only', 'upload-direct', 'upload-webkit-direct', 'upload-isolated']:
             from uploads import UploadBatch
             upload_batch = UploadBatch(client, lab, guard, fixture, output)
             upload_batch.run()
@@ -399,8 +423,16 @@ def main():
         report['errors'].append({'stage': 'execution', 'type': type(error).__name__, 'message': str(error)})
         report['status'] = 'failed'
     finally:
-        if client and changed and not report.get('browserCleanupFailed'):
-            for label, action in [('plugin-enable', lambda: plugin_state(True)), ('collect-children', collect_children), ('notification-readiness', lambda: settle_notifications('before-side-effect-collection')), ('collect-notifications', collect_notifications)]:
+        natural_cleanup_safe = True
+        if args.cases == 'upload-natural' and client and changed:
+            try:
+                natural_cleanup_preflight(client, plugin_original, natural_theme, natural_comment, upload_batch)
+            except Exception as error:
+                natural_cleanup_safe = False
+                report['errors'].append({'stage': 'natural-cleanup-preflight', 'message': str(error)})
+        if client and changed and not report.get('browserCleanupFailed') and natural_cleanup_safe:
+            plugin_cleanup = [] if args.cases == 'upload-natural' else [('plugin-enable', lambda: plugin_state(True))]
+            for label, action in plugin_cleanup + [('collect-children', collect_children), ('notification-readiness', lambda: settle_notifications('before-side-effect-collection')), ('collect-notifications', collect_notifications)]:
                 try:
                     action()
                 except Exception as error:
