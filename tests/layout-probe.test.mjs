@@ -1,6 +1,6 @@
 import {test} from 'bun:test';
-import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -14,12 +14,12 @@ spec = importlib.util.spec_from_file_location('layout_probe', Path('scripts/lab/
 probe = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(probe)
 `;
-function python(code) {
-  const result = spawnSync('python3', ['-B', '-'], {
-    cwd: root, input: loader + code, encoding: 'utf8',
+const execute = promisify(execFile);
+async function python(code) {
+  await execute('python3', ['-B', '-c', loader + code], {
+    cwd: root, encoding: 'utf8', timeout: 20000,
     env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' },
   });
-  assert.equal(result.status, 0, result.error?.message || result.stdout + result.stderr);
 }
 
 test('插件 JAR 条目顺序、时间戳和权限固定，拒绝越界路径', () => python(`

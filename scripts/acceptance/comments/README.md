@@ -131,3 +131,56 @@ actual Safari or author-forced whole-page UI language support.
 
 All these modes retain failed reports and exact source/package/JAR binding.
 Choose one exclusive runtime window; do not overlap a performance measurement.
+
+## Image upload and owned attachment cleanup
+
+`--cases upload-only` declares six cases (three engines × anonymous/signed in)
+for the selected Post/SinglePage/Moment. It selects real files through the upload
+button, checks local format/size rejection, reloads an unsubmitted image draft,
+injects one upload 503, retries through the actual form, submits a parent and
+reply with images, and checks both images again after a full refresh.
+`--cases upload-direct` is a separate six-case scope without the unsubmitted-image
+refresh; it cannot turn a failed draft-recovery case into a pass.
+`--cases upload-webkit-direct` declares only the two WebKit identities as a
+separate supplement. It cannot replace a failed six-case report.
+`--cases upload-isolated` uses two WebKit identities and serves only the original
+official component script on an intercepted synthetic subject document, with no
+theme CSS/JS; it provides attribution, not theme integration acceptance.
+
+The harness uses an exclusive owned-lab lock, checks the exact installed ZIP and
+official JARs, leaves SMTP disabled, and creates a unique local attachment group.
+It records all successful upload IDs and submission ticket IDs, including an
+unused ticket left by a failed UI submission. Cleanup checks IDs, creation times,
+filenames, group, upload labels, comment targets and the pre-run inventory; it
+restores plugin settings and compares the original storage inventory. Failed
+restoration retains the runtime lock for inspection.
+
+For images bound to deleted comments/replies, it first observes the official
+one-hour `delete-after` schedule. It then advances only those owned fixture
+annotations to a past time and observes the official reconciler remove the
+attachment and the public image return 404. This is controlled-deadline evidence,
+not a naturally elapsed hour. On a failed run, a temporary owned upload can be
+expired using the same explicit fixture-only method. Natural 24-hour expiry and
+other storage providers remain outside this batch. The 30-second observation
+window after advancing an annotation is a harness deadline, not the official
+natural GC deadline. A timeout stays failed and locked; any later administrative
+recovery must be recorded separately, never substituted for official GC proof.
+
+WebKit uses a fresh private disk profile per case and removes it after closing.
+The input harness waits for the official editor click handler's 100ms delayed
+focus before switching fields, uses real Tab/typing for anonymous WebKit input,
+and asserts visible and submitted text. Pointer interception failures remain
+separate from keyboard-input supplements.
+The bundled WebKit ephemeral context cannot reliably persist a `File` in
+IndexedDB. The separate diagnostic scripts reproduce storage and multipart
+transport behavior without Halo or plugin modifications:
+
+```bash
+bun scripts/acceptance/comments/idb-control.mjs .runtime/acceptance-2271
+bun scripts/acceptance/comments/transport-control.mjs .runtime/acceptance-2271
+```
+
+They write structured results under the supplied `.runtime` directory. The
+transport control uses a temporary loopback-only echo server and records body
+byte counts; it does not issue requests to Halo. Headless WebKit is not actual
+Safari. Diagnostic passes do not promote matrix entries to verified.
