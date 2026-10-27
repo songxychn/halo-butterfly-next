@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "tag": "v1.0.0",
-  "sourceSha": "1dc10a227d55bb5f95026197c1ce0e7238e43b1c",
-  "runtimeSourceSha": "655efe301b4cb68c2f23c08ac0acfa11d424941e",
-  "themeSha256": "ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d",
+  "sourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
+  "runtimeSourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
+  "themeSha256": "08c90952aecdef82de0d2f03326b4254e98fcfc30355291a40c472b380a83add",
   "decision": "prepared-awaiting-independent-release-review",
   "reviewer": null,
   "publicationAuthorized": false,
@@ -21,7 +21,8 @@
     "真实 Safari/手机、完整无障碍、真实账户及长尾矩阵按既有决定延期。",
     "PWA、Umami 私有统计、评论/公式严格零资源按需延期；不宣称完整 Butterfly 对齐。",
     "自然回收观察仍按原包收尾，不属于本次新增发布门禁。",
-    "本轮未发布、未更新 demo；现役 demo 的平台版本不归为本次已测 1.0 组合。"
+    "仅本地 demo 更新至当前候选；公网 demo 未升级，其平台版本不能归为本次已测 1.0 组合。",
+    "页脚按维护者要求恢复原版浅色文字；不将历史深色字对比度结论继承为当前完整无障碍通过。"
   ],
   "evidence": [
     {
@@ -30,13 +31,28 @@
     },
     {
       "path": "docs/validation/2026-10-28/release-1.0.md",
-      "sha256": "6e993200e39ba66e7d3504b13517ef68770fc7536c1a0e07e3484ad9c7bd5ceb"
+      "sha256": "8793555c1104136eabe65ff2aa3521fc1f910debc0a5f94f82628d1295c3333d"
+    },
+    {
+      "path": "docs/validation/2026-10-28/local-demo.json",
+      "sha256": "2418556b4ef9ec18da1d625df2d37286c51e87f8e23886b927aaea9eb6687eb7"
+    },
+    {
+      "path": "docs/validation/2026-10-28/local-demo.md",
+      "sha256": "3975a18d8cc7637df56bf31fc63e1f11d708b8f6db87562bcca743c07f6b7ddc"
     }
   ],
   "gateNotes": {
-    "realHalo": "Bounded core evidence reuse plus current fresh install and four animation scenes; original failures retained.",
-    "review": "Product reviewed in PR #432; this version/material preparation still needs final review and PR/master CI before authorization.",
-    "source": "Independent source archive rebuild at 1dc10a2 matches the runtime ZIP; subsequent evidence-only changes must preserve product inputs.",
-    "publication": "Maintainer explicitly authorized preparation only. No tag, GitHub release, deployment or demo update."
+    "realHalo": "Original core/lifecycle evidence retained for unchanged implementation; current official Halo 2.27.1 local demo upgrade, exact installed-file comparison and desktop/mobile footer checks passed.",
+    "review": "PR #432 reviewed the earlier product. PR #433 now also changes footer CSS and demo copy; final head review and PR/master CI remain separate from publication authorization.",
+    "source": "Clean source archive at 8c16f5e6b7c3206f03ae6737ed089b8f06818556 rebuilds to the current runtime ZIP. Subsequent records-only changes must preserve product inputs.",
+    "publication": "Only local demo preview and PR updates authorized. No merge, tag, GitHub release or public demo deployment.",
+    "installUpgradeRollback": "Original ef8d4b package lifecycle evidence reused by bounded diff: only generated CSS changed; current local demo upgrade preserved configuration and installed 269 matching files."
+  },
+  "previousCandidate": {
+    "sourceSha": "1dc10a227d55bb5f95026197c1ce0e7238e43b1c",
+    "runtimeSourceSha": "655efe301b4cb68c2f23c08ac0acfa11d424941e",
+    "themeSha256": "ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d",
+    "evidence": "docs/validation/2026-10-28/release-1.0.json"
   }
 }
