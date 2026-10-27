@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "preparedAt": "2026-10-28",
-  "status": "runtime-preparation-complete-build-record-pending",
+  "status": "technical-preparation-complete-awaiting-review-no-publication",
   "sourceSha": "655efe301b4cb68c2f23c08ac0acfa11d424941e",
   "baseSha": "09f8af3c63ffb065f3e301c2d5260525031dd2fc",
   "themeSha256": "ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d",
@@ -735,5 +735,20 @@
     "Fresh quantity and exact-config assumptions failed and are preserved; corrected checks used the same instances.",
     "Old config storage retention does not imply automatic semantic conversion of removed/renamed settings.",
     "No tag, release, demo deployment, market submission or production change authorized."
-  ]
+  ],
+  "sourceRebuild": {
+    "sourceArchiveCommit": "1dc10a227d55bb5f95026197c1ce0e7238e43b1c",
+    "sourceArchiveSha256": "17ef9e84ad90723fff02a0ce04a2fe7e3389f3a11b5fb40a9fc5d88ee72300d8",
+    "command": "git archive HEAD; bun install --frozen-lockfile --ignore-scripts; bun run build; bun scripts/check-package.mjs",
+    "cleanDirectory": true,
+    "themeSha256": "ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d",
+    "matchesRuntimePackage": true,
+    "logSha256": "bbfa9414247d72640346fc4436ffd9e9799bafd64f0637d0156c3118cdd7b57c"
+  },
+  "resourcesAndLicenses": {
+    "unchangedSinceReviewedProduct": "09f8af3c63ffb065f3e301c2d5260525031dd2fc",
+    "checkPackagePassedInBothBuilds": true,
+    "sensitivePathAndPrivateKeyScanIssues": [],
+    "licenseDocumentSha256": "f0851acd43abad5086320f035adfcba0ee6383a1de4491aec2677e8ff3b67e59"
+  }
 }

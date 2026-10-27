@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "tag": "v1.0.0",
+  "sourceSha": "1dc10a227d55bb5f95026197c1ce0e7238e43b1c",
+  "runtimeSourceSha": "655efe301b4cb68c2f23c08ac0acfa11d424941e",
+  "themeSha256": "ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d",
+  "decision": "prepared-awaiting-independent-release-review",
+  "reviewer": null,
+  "publicationAuthorized": false,
+  "gates": {
+    "realHalo": "passed",
+    "installUpgradeRollback": "passed",
+    "resourcesAndLicenses": "passed",
+    "sourceRebuild": "passed"
+  },
+  "knownLimitations": [
+    "所测 Playwright WebKit 刷新恢复评论图片草稿后上传失败；直接选图对照正常，不外推所有 Safari。",
+    "原生图片初始加载和编辑器增强属性保留有边界，不保证任意插件/SDK/编辑器组合。",
+    "恢复一秒标题动画后的候选无新的性能预算通过结论，旧性能结果不继承。",
+    "旧配置存储保留不等于语义等价；alpha.4 需离线迁移核对，回退需旧配置。",
+    "真实 Safari/手机、完整无障碍、真实账户及长尾矩阵按既有决定延期。",
+    "PWA、Umami 私有统计、评论/公式严格零资源按需延期；不宣称完整 Butterfly 对齐。",
+    "自然回收观察仍按原包收尾，不属于本次新增发布门禁。",
+    "本轮未发布、未更新 demo；现役 demo 的平台版本不归为本次已测 1.0 组合。"
+  ],
+  "evidence": [
+    {
+      "path": "docs/validation/2026-10-28/release-1.0.json",
+      "sha256": "89b53d6c5e8e22e1d83f9c8ac56f47fbfe4503f72317d45f139705230bc4f9d7"
+    },
+    {
+      "path": "docs/validation/2026-10-28/release-1.0.md",
+      "sha256": "6e993200e39ba66e7d3504b13517ef68770fc7536c1a0e07e3484ad9c7bd5ceb"
+    }
+  ],
+  "gateNotes": {
+    "realHalo": "Bounded core evidence reuse plus current fresh install and four animation scenes; original failures retained.",
+    "review": "Product reviewed in PR #432; this version/material preparation still needs final review and PR/master CI before authorization.",
+    "source": "Independent source archive rebuild at 1dc10a2 matches the runtime ZIP; subsequent evidence-only changes must preserve product inputs.",
+    "publication": "Maintainer explicitly authorized preparation only. No tag, GitHub release, deployment or demo update."
+  }
+}
