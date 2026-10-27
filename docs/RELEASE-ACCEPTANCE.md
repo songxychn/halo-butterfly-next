@@ -1,6 +1,6 @@
 # 1.0 发布验收要求
 
-版本：2026-10-27 / v1.14，依据维护者批准的 [DEC-09](parity/DEC-09-RELEASE-CLOSURE.md)。本文件只列当前有效要求；历史合同及修订见[清理前快照](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/RELEASE-ACCEPTANCE.md)。当前工作不合并、不打 tag、不发布。
+版本：2026-10-27 / v1.14，依据维护者批准的 [DEC-09](parity/DEC-09-RELEASE-CLOSURE.md)。本文件只列当前有效要求；历史合同及修订见[清理前快照](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/RELEASE-ACCEPTANCE.md)。维护者已授权 PR #432 经独立审查和 CI 通过后合并；本轮仍不打 tag、不发布。
 
 ## 发布阻塞的判定
 

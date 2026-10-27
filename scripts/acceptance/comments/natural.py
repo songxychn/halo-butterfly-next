@@ -287,9 +287,22 @@ class NaturalUploadBatch(UploadBatch):
         self.save()
         if self.report['errors']: raise RuntimeError('Natural expiry acceptance failed; see natural-gc-report.json')
 
+    def check_cleanup_state(self):
+        if hasattr(self, 'process'):
+            if (not self.lab.owned_process('halo')
+                    or json.loads((self.lab.RUNTIME/'halo-process.json').read_text()) != self.process):
+                raise RuntimeError('Natural cleanup blocked: Halo process changed')
+        if self.original:
+            current = self.client.api(PLUGIN)
+            expected = getattr(self, 'active_config', self.original['data'])
+            if (current['metadata'].get('creationTimestamp') != self.original['metadata'].get('creationTimestamp')
+                    or current.get('data') != expected):
+                raise RuntimeError('Natural cleanup blocked: plugin config changed')
+
     def cleanup(self):
         errors=[]
         try:
+            self.check_cleanup_state()
             self.collect()
             for row in self.report['attachments']:
                 if self.optional(STORAGE+'attachments/'+row['name']):
@@ -312,6 +325,7 @@ class NaturalUploadBatch(UploadBatch):
         finally:
             if self.original:
                 try:
+                    self.check_cleanup_state()
                     obj=self.client.api(PLUGIN);obj['data']=copy.deepcopy(self.original['data']);self.client.api(PLUGIN,'PUT',obj)
                     if self.client.api(PLUGIN)['data']!=self.original['data']:raise RuntimeError('Plugin config restoration mismatch')
                 except Exception as error:errors.append(str(error))

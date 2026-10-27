@@ -37,6 +37,20 @@ def digest(value):
     return hashlib.sha256(value if isinstance(value, bytes) else json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+def natural_cleanup_preflight(client, plugin, theme, comment, upload_batch):
+    """A passive observation must not repair an externally changed lab."""
+    current = client.api(PLUGINS + '/PluginCommentWidget')
+    require(current['metadata'].get('creationTimestamp') == plugin['metadata'].get('creationTimestamp')
+            and current['spec'] == plugin['spec']
+            and current.get('status', {}).get('phase') == 'STARTED',
+            'Natural cleanup blocked: comment plugin changed or stopped')
+    require(client.api(CONFIG) == theme, 'Natural cleanup blocked: theme config changed')
+    require(client.api(SYSTEM).get('data', {}).get('comment') == comment,
+            'Natural cleanup blocked: system comment config changed')
+    if upload_batch:
+        upload_batch.check_cleanup_state()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runtime', type=Path, required=True)
@@ -82,6 +96,7 @@ def main():
     report = {'schema': 1, 'runId': run, 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'status': 'running', 'errors': [], 'created': [], 'cleanup': [], 'batches': [], 'pluginTransitions': []}
     client = before = original_config = original_comment = None
     changed = False
+    natural_theme = natural_comment = None
     plugin_original = None
     upload_batch = None
     post_name = 'comment-usage-' + run
@@ -307,9 +322,11 @@ def main():
         lab.write_json(output / 'restore.private.json', {'theme': original_config, 'comment': original_comment}, private=True)
         config = json.loads(json.dumps(original_config));config.setdefault('comments', {}).update(lazyload=False, text=True, unavailable_notice='Owned comment plugin unavailable '+run)
         report['mutationStartedEpoch'] = time.time()
+        natural_theme = config
         changed = True
         client.api(CONFIG, 'PUT', config)
         system = client.api(SYSTEM);system.setdefault('data', {})['comment'] = json.dumps({**json.loads(original_comment or '{}'), 'enable': True, 'systemUserOnly': False, 'requireReviewForNew': False})
+        natural_comment = system['data']['comment']
         client.api(SYSTEM, 'PUT', system)
         require(client.api(CONFIG) == config and client.api(SYSTEM)['data']['comment'] == system['data']['comment'], 'Config did not apply')
         if args.subject == 'Moment':
@@ -406,8 +423,16 @@ def main():
         report['errors'].append({'stage': 'execution', 'type': type(error).__name__, 'message': str(error)})
         report['status'] = 'failed'
     finally:
-        if client and changed and not report.get('browserCleanupFailed'):
-            for label, action in [('plugin-enable', lambda: plugin_state(True)), ('collect-children', collect_children), ('notification-readiness', lambda: settle_notifications('before-side-effect-collection')), ('collect-notifications', collect_notifications)]:
+        natural_cleanup_safe = True
+        if args.cases == 'upload-natural' and client and changed:
+            try:
+                natural_cleanup_preflight(client, plugin_original, natural_theme, natural_comment, upload_batch)
+            except Exception as error:
+                natural_cleanup_safe = False
+                report['errors'].append({'stage': 'natural-cleanup-preflight', 'message': str(error)})
+        if client and changed and not report.get('browserCleanupFailed') and natural_cleanup_safe:
+            plugin_cleanup = [] if args.cases == 'upload-natural' else [('plugin-enable', lambda: plugin_state(True))]
+            for label, action in plugin_cleanup + [('collect-children', collect_children), ('notification-readiness', lambda: settle_notifications('before-side-effect-collection')), ('collect-notifications', collect_notifications)]:
                 try:
                     action()
                 except Exception as error:

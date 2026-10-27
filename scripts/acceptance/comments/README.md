@@ -176,3 +176,9 @@ The existing worker keeps its frozen tool sources. Do not start another batch,
 change deadlines, restart services or occupy its locked runtime. Tracked-source
 cleanup does not hot-patch that worker. The already running observation finishes
 with its original cleanup and restore checks, then its heartbeat is removed.
+
+The natural mode checks the process, plugin state and owned settings again before
+cleanup. Drift retains the evidence and lock instead of enabling a stopped plugin
+or overwriting changed settings. This review fix applies to the checked-in tool;
+the existing worker remains on its original frozen implementation and must not be
+hot-patched or restarted.
