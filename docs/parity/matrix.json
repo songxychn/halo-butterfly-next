@@ -3321,10 +3321,9 @@
           "src/html/views/header.html",
           "src/js/core/relative-date.ts",
           "src/js/core/common.ts",
-          "settings.yaml",
-          "src/js/core/site-statistics.ts"
+          "settings.yaml"
         ],
-        "finding": "2026-10-14 主线对账：date/relative 模式、发布/修改日期及元信息开关已有实现；字数和阅读时长已由独立统计模块接入，不再写成未做 wordcount。任意站点日期格式串仍由 site-config:date_format 单列。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：date/relative 模式、发布/修改日期及元信息开关已有实现；字数和阅读时长已由独立统计模块接入，不再写成未做 wordcount。任意站点日期格式串仍由 site-config:date_format 单列。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -3995,16 +3994,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
-        "settings": [
-          "index.subtitle_source"
-        ],
-        "code": [
-          "src/js/page/index.ts",
-          "src/js/modules/subtitle.ts",
-          "src/html/index.html"
-        ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：改为 local/custom/hitokoto/yiyan/jinrishici，默认 local；custom 无旧随机开关，地址为空回退本地。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -4013,8 +4006,7 @@
       "acceptance": {
         "profile": "home",
         "cases": [
-          "local/custom/hitokoto/yiyan/jinrishici 逐值；缺省不请求API，custom无第二开关。",
-          "URL为空、服务失败、页面离开、迟到响应；真实服务可用性继续单列。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "values": [
           "local",
@@ -4067,7 +4059,15 @@
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:subtitle.sub",
@@ -11129,10 +11129,9 @@
           "src/scss/core/readmode.scss",
           "tests/readmode.test.mjs",
           "src/js/core/darkmode.ts",
-          "src/js/core/translate.ts",
-          "src/js/core/integration-chat.ts"
+          "src/js/core/translate.ts"
         ],
-        "finding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -11206,10 +11205,9 @@
           "src/js/core/darkmode.ts",
           "tests/darkmode.test.mjs",
           "src/js/core/rightside.ts",
-          "src/js/core/translate.ts",
-          "src/js/core/integration-chat.ts"
+          "src/js/core/translate.ts"
         ],
-        "finding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 配置简化：合并到 darkmode.button，隐藏入口不关闭模式策略；style.mode 固定 light/dark 不显示切换入口。 本轮候选待真实设备及最终提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 独立审查修复后无阻塞项，实际资源补充与新配置结果见 docs/validation/2026-10-14/config-defaults-reviewed.json；不替代完整逐项合同。"
+        "finding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 配置简化：合并到 darkmode.button，隐藏入口不关闭模式策略；style.mode 固定 light/dark 不显示切换入口。 本轮候选待真实设备及最终提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 独立审查修复后无阻塞项，实际资源补充与新配置结果见 docs/validation/2026-10-14/config-defaults-reviewed.json；不替代完整逐项合同。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -12585,10 +12583,9 @@
           "src/html/post.html",
           "src/html/views/aside.html",
           "src/js/core/post-meta.ts",
-          "src/js/core/site-statistics.ts",
           "src/html/views/components.html"
         ],
-        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -12686,10 +12683,9 @@
           "src/html/post.html",
           "src/html/views/aside.html",
           "src/js/core/post-meta.ts",
-          "src/js/core/site-statistics.ts",
           "src/html/views/components.html"
         ],
-        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -12787,10 +12783,9 @@
           "src/html/post.html",
           "src/html/views/aside.html",
           "src/js/core/post-meta.ts",
-          "src/js/core/site-statistics.ts",
           "src/html/views/components.html"
         ],
-        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -12880,18 +12875,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [
-          "wordcount.total_wordcount"
-        ],
-        "code": [
-          "src/html/post.html",
-          "src/html/views/aside.html",
-          "src/js/core/post-meta.ts",
-          "src/js/core/site-statistics.ts",
-          "src/html/views/components.html"
-        ],
-        "finding": "中文按字、其他语言按词，混合 350 字/160 词每分钟。文章服务端统计；全站汇总显式开启后匿名遍历公开已发布 API，最多两个并发、当前标签页缓存和失败回退。大型站点汇总成本仍是性能限制。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -12901,8 +12888,7 @@
       "acceptance": {
         "profile": "statistics",
         "cases": [
-          "wordcount.total_wordcount：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 wordcount.total_wordcount 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -12958,7 +12944,15 @@
           "outcome": "partial: latest master merge and page cleanup reverified; full 1.0 contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:busuanzi.site_uv",
@@ -12981,18 +12975,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
-        "settings": [
-          "busuanzi.site_uv"
-        ],
-        "code": [
-          "src/html/post.html",
-          "src/html/views/aside.html",
-          "src/html/views/components.html",
-          "src/html/views/footer.html",
-          "src/js/core/site-statistics.ts"
-        ],
-        "finding": "PV 默认映射 Halo 原生文章/文章累计阅读量；选择不蒜子后可选 site_pv/site_uv/page_pv，异步官方脚本只在存在显示项时加载。真实第三方数据联调仍待验收，PV 不冒充 UV。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -13002,8 +12988,7 @@
       "acceptance": {
         "profile": "statistics",
         "cases": [
-          "busuanzi.site_uv：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 busuanzi.site_uv 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -13059,7 +13044,15 @@
           "outcome": "partial: latest master merge and page cleanup reverified; full 1.0 contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:busuanzi.site_pv",
@@ -13082,7 +13075,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [
           "busuanzi.site_pv"
         ],
@@ -13090,10 +13083,9 @@
           "src/html/post.html",
           "src/html/views/aside.html",
           "src/html/views/components.html",
-          "src/html/views/footer.html",
-          "src/js/core/site-statistics.ts"
+          "src/html/views/footer.html"
         ],
-        "finding": "PV 默认映射 Halo 原生文章/文章累计阅读量；选择不蒜子后可选 site_pv/site_uv/page_pv，异步官方脚本只在存在显示项时加载。真实第三方数据联调仍待验收，PV 不冒充 UV。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "仅展示 Halo 原生文章累计阅读量；保留旧字段名，不再接入不蒜子。"
       },
       "dependencies": [
         "dual-site",
@@ -13183,7 +13175,7 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "比较上游计数语义，选定 Halo 数据/插件/外部服务的具体映射；不同计数不可直接宣称等价。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [
           "busuanzi.page_pv"
         ],
@@ -13191,10 +13183,9 @@
           "src/html/post.html",
           "src/html/views/aside.html",
           "src/html/views/components.html",
-          "src/html/views/footer.html",
-          "src/js/core/site-statistics.ts"
+          "src/html/views/footer.html"
         ],
-        "finding": "PV 默认映射 Halo 原生文章/文章累计阅读量；选择不蒜子后可选 site_pv/site_uv/page_pv，异步官方脚本只在存在显示项时加载。真实第三方数据联调仍待验收，PV 不冒充 UV。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "仅展示 Halo 原生单篇阅读量；保留旧字段名，不再接入不蒜子。"
       },
       "dependencies": [
         "dual-site",
@@ -14613,17 +14604,16 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [
           "share.use"
         ],
         "code": [
           "src/html/post.html",
           "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json"
+          "src/html/views/share.html"
         ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "分享仅保留原生系统分享和复制链接。"
       },
       "dependencies": [
         "dual-site",
@@ -14719,17 +14709,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [
-          "share.sharejs.sites"
-        ],
-        "code": [
-          "src/html/post.html",
-          "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json"
-        ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -14739,8 +14722,7 @@
       "acceptance": {
         "profile": "share",
         "cases": [
-          "share.sharejs.sites：默认 \"facebook,x,wechat,weibo,qq\" 与文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 share.sharejs.sites 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -14797,7 +14779,15 @@
           "outcome": "partial: latest master merge and page cleanup reverified; full 1.0 contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:share.addtoany.item",
@@ -14820,17 +14810,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [
-          "share.addtoany.item"
-        ],
-        "code": [
-          "src/html/post.html",
-          "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json"
-        ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -14840,8 +14823,7 @@
       "acceptance": {
         "profile": "share",
         "cases": [
-          "share.addtoany.item：默认 \"facebook,x,wechat,sina_weibo,facebook_messenger,email,copy_link\" 与文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 share.addtoany.item 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -14898,7 +14880,15 @@
           "outcome": "partial: latest master merge and page cleanup reverified; full 1.0 contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:comments.use",
@@ -18869,18 +18859,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.use"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -18891,8 +18873,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "chat.use：逐值执行 null / \"chatra\" / \"tidio\" / \"crisp\" / \"knocket\"。",
-          "保持同组其他设置不变；验证 chat.use 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "values": [
           null,
@@ -18929,7 +18910,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:chat.rightside_button",
@@ -18952,18 +18941,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.rightside_button"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -18974,8 +18955,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "chat.rightside_button：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 chat.rightside_button 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19005,7 +18985,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:chat.button_hide_show",
@@ -19028,18 +19016,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.button_hide_show"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19050,8 +19030,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "chat.button_hide_show：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 chat.button_hide_show 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19081,7 +19060,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:chatra.id",
@@ -19104,18 +19091,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.chatra.id"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19126,8 +19105,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "chatra.id：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 chatra.id 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19157,7 +19135,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:tidio.public_key",
@@ -19180,18 +19166,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.tidio.public_key"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19202,8 +19180,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "tidio.public_key：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 tidio.public_key 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19233,7 +19210,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:crisp.website_id",
@@ -19256,18 +19241,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.crisp.website_id"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19278,8 +19255,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "crisp.website_id：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 crisp.website_id 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19309,7 +19285,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:knocket.identifier",
@@ -19332,18 +19316,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [
-          "chat.knocket.identifier"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19354,8 +19330,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "knocket.identifier：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 knocket.identifier 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19385,7 +19360,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:baidu_analytics",
@@ -19408,18 +19391,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.baidu_analytics"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19430,8 +19405,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "baidu_analytics：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 baidu_analytics 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19461,7 +19435,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_analytics",
@@ -19484,19 +19466,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.google_analytics",
-          "analytics.google_analytics_manual_pageviews"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。 本轮新增默认关闭的GA4手动页面统计适配；启用前必须关闭服务后台增强型历史浏览量。合成协议含草稿历史取消零PV，真实DebugView待账户验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19507,8 +19480,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "google_analytics：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_analytics 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19547,7 +19519,15 @@
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:cloudflare_analytics",
@@ -19570,18 +19550,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.cloudflare_analytics"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19592,8 +19564,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "cloudflare_analytics：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 cloudflare_analytics 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19623,7 +19594,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:microsoft_clarity",
@@ -19646,18 +19625,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.microsoft_clarity"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19668,8 +19639,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "microsoft_clarity：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 microsoft_clarity 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19699,7 +19669,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.enable",
@@ -19722,18 +19700,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.enable"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19744,8 +19714,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.enable 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19775,7 +19744,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.serverURL",
@@ -19798,18 +19775,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.serverURL"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19820,8 +19789,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.serverURL：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.serverURL 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19851,7 +19819,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.script_name",
@@ -19874,18 +19850,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.script_name"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19896,8 +19864,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.script_name：默认 \"script.js\" 与文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.script_name 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -19927,7 +19894,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.website_id",
@@ -19950,18 +19925,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.website_id"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -19972,8 +19939,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.website_id：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.website_id 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20003,7 +19969,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.option",
@@ -20026,18 +20000,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.option"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20048,8 +20014,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.option：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.option 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20079,7 +20044,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.UV_PV.site_uv",
@@ -20102,18 +20075,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.UV_PV.site_uv"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20124,8 +20089,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.UV_PV.site_uv：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.UV_PV.site_uv 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20155,7 +20119,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.UV_PV.site_pv",
@@ -20178,18 +20150,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.UV_PV.site_pv"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20200,8 +20164,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.UV_PV.site_pv：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.UV_PV.site_pv 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20231,7 +20194,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.UV_PV.page_pv",
@@ -20254,18 +20225,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.umami_analytics.UV_PV.page_pv"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20276,8 +20239,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.UV_PV.page_pv：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.UV_PV.page_pv 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20307,7 +20269,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:umami_analytics.UV_PV.token",
@@ -20330,13 +20300,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "docs/INTEGRATIONS.md"
-        ],
-        "finding": "主题不向页面输出私有 API token；站点后端须持有凭据并提供公开只读统计接口。后端代理未提供，本字段仍待映射，未裁定不适用。 2026-10-15 按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期；Umami 访问追踪和已有公开接口安全/回退保留，不代表已验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20347,8 +20314,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "umami_analytics.UV_PV.token：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 umami_analytics.UV_PV.token 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20365,19 +20331,14 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "blocked",
+      "status": "not-applicable",
       "decision": {
-        "id": "DEC-03-1.0-DEFERRALS",
-        "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
-        "date": "2026-10-15T00:00:00+08:00",
-        "option": "defer-strict-plugin-resources-and-private-umami",
-        "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
-        "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
-      },
-      "blocker": {
-        "phase": "post-1.0",
-        "reason": "维护者确认 Umami 私有统计移出 1.0，后续版本未定；两个 token 项属于同一后端需求。",
-        "nextAction": "后续再确认收益、版本及后端承载，保管凭据并定义口径、缓存/限流和账户对账；不自动排入 1.1。"
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
       }
     },
     {
@@ -20401,18 +20362,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.google_tag_manager.tag_id"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20423,8 +20376,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "google_tag_manager.tag_id：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_tag_manager.tag_id 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20454,7 +20406,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_tag_manager.domain",
@@ -20477,18 +20437,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [
-          "analytics.google_tag_manager.domain"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20499,8 +20451,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "google_tag_manager.domain：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_tag_manager.domain 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20530,7 +20481,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_adsense.enable",
@@ -20553,21 +20512,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "google_adsense.enable"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20577,8 +20525,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "google_adsense.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_adsense.enable 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20608,7 +20555,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_adsense.auto_ads",
@@ -20631,21 +20586,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "google_adsense.auto_ads"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20655,8 +20599,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "google_adsense.auto_ads：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_adsense.auto_ads 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20686,7 +20629,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_adsense.js",
@@ -20709,21 +20660,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "google_adsense.js"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20733,8 +20673,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "google_adsense.js：默认 \"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\" 与文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_adsense.js 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20764,7 +20703,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_adsense.client",
@@ -20787,21 +20734,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "google_adsense.client"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20811,8 +20747,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "google_adsense.client：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_adsense.client 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20842,7 +20777,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:google_adsense.enable_page_level_ads",
@@ -20865,21 +20808,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "google_adsense.enable_page_level_ads"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20889,8 +20821,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "google_adsense.enable_page_level_ads：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 google_adsense.enable_page_level_ads 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20920,7 +20851,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:ad.index",
@@ -20943,21 +20882,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "ad.index"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -20967,8 +20895,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "ad.index：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 ad.index 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -20998,7 +20925,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:ad.aside",
@@ -21021,21 +20956,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "ad.aside"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -21045,8 +20969,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "ad.aside：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 ad.aside 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -21076,7 +20999,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:ad.post",
@@ -21099,21 +21030,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [
-          "ad.post"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -21123,8 +21043,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "ad.post：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 ad.post 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -21154,7 +21073,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:site_verification",
@@ -21744,7 +21671,6 @@
           "settings.yaml",
           "src/js/core/loading-ready.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -21756,7 +21682,7 @@
           "third-party-licenses/pace-source.json",
           "docs/parity/DEC-03-RESOURCES-DECISION.md"
         ],
-        "finding": "2026-10-14 DEC-03：默认 Pace 1.2.4 非阻塞进度，animation 显式可选且互斥；缺省 mode 统一 Pace，无旧配置兼容。首屏/XHR 估算及主题 fetch 分阶段来源；当前请求身份、取消/错误、CSS 恢复、30 秒保护。JS/CSS 单项与统一来源生效；原生错误/接口不符本地回退一次，超时不重试。当前工作区限定 Halo/Chromium 与工程门禁通过，不替代完整合同、插件组合、双站、独立审查/CI或真实设备。"
+        "finding": "2026-10-14 DEC-03：默认 Pace 1.2.4 非阻塞进度，animation 显式可选且互斥；缺省 mode 统一 Pace，无旧配置兼容。首屏/XHR 估算及主题 fetch 分阶段来源；当前请求身份、取消/错误、CSS 恢复、30 秒保护。JS/CSS 单项与统一来源生效；原生错误/接口不符本地回退一次，超时不重试。当前工作区限定 Halo/Chromium 与工程门禁通过，不替代完整合同、插件组合、双站、独立审查/CI或真实设备。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -27713,28 +27639,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [
-          "pjax.enable"
-        ],
-        "code": [
-          "src/html/views/layout.html",
-          "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
-          "src/js/core/image-loading.ts",
-          "src/js/core/_message.ts",
-          "src/html/views/components.html",
-          "settings.yaml",
-          "src/js/core/content-tracker.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/busuanzi.ts",
-          "src/js/core/effects-loader.ts",
-          "src/js/core/analytics-navigation.ts"
-        ],
-        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -27744,8 +27652,7 @@
       "acceptance": {
         "profile": "lifecycle",
         "cases": [
-          "pjax.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 pjax.enable 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27802,7 +27709,15 @@
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:pjax.exclude",
@@ -27825,28 +27740,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [
-          "pjax.exclude"
-        ],
-        "code": [
-          "src/html/views/layout.html",
-          "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
-          "src/js/core/image-loading.ts",
-          "src/js/core/_message.ts",
-          "src/html/views/components.html",
-          "settings.yaml",
-          "src/js/core/content-tracker.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/busuanzi.ts",
-          "src/js/core/effects-loader.ts",
-          "src/js/core/analytics-navigation.ts"
-        ],
-        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。其他分析SDK、AddToAny、聊天、广告和未知脚本仍完整导航，完整生态与真实账户/设备未完成。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -27856,8 +27753,7 @@
       "acceptance": {
         "profile": "lifecycle",
         "cases": [
-          "pjax.exclude：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 pjax.exclude 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -27914,7 +27810,15 @@
           "outcome": "implemented-scoped-acceptance-not-verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:snackbar.enable",
@@ -27946,13 +27850,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28034,13 +27937,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28130,13 +28032,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28218,13 +28119,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已提供可选操作提示、六种位置与亮暗背景；内容使用 textContent，支持关闭、焦点/悬停暂停和页面切换清理。关闭增强提示时仍保留必要操作反馈。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28297,22 +28197,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [
-          "loading.instantpage"
-        ],
-        "code": [
-          "src/html/views/layout.html",
-          "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
-          "src/js/core/image-loading.ts",
-          "src/js/core/_message.ts",
-          "src/html/views/components.html",
-          "settings.yaml"
-        ],
-        "finding": "loading.instantpage 默认关闭；主题列表/分页或显式 opt-in 链接聚焦/经过时最多预取 8 条，同源排除规则、省流量/2G 与查询参数限制生效；浏览器可以忽略标准 prefetch 提示。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -28322,8 +28210,7 @@
       "acceptance": {
         "profile": "lifecycle",
         "cases": [
-          "instantpage：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 instantpage 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -28362,7 +28249,15 @@
           "outcome": "partial: merged SEO/injection integration checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:lazyload.enable",
@@ -28394,13 +28289,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28492,13 +28386,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28590,13 +28483,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -28760,13 +28652,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -29787,14 +29678,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：用 CDN.asset_base 空/非空选择安装包/自定义根地址，删除重复选择器。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：用 CDN.asset_base 空/非空选择安装包/自定义根地址，删除重复选择器。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -29899,14 +29789,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：Font Awesome 跟随统一根地址，独立供应改填完整 CDN.option.fontawesome；公共 CDN 固定 6.7.2 URL 可由离线工具转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：Font Awesome 跟随统一根地址，独立供应改填完整 CDN.option.fontawesome；公共 CDN 固定 6.7.2 URL 可由离线工具转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -30011,14 +29900,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -30098,14 +29986,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：原自由模板运行时已取消，根地址和单项完整 URL 替代；CFG-05 已获本次维护者实施授权，正式 DEC-03 登记仍待完成，原模板供应要求保留 gap，不据本地方案标 N/A。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 2026-10-25：既有决定已在 DEC-08-CONFIG-DEFAULTS.md 正式登记；不再保留行政登记 gap，不新增运行验收或 N/A。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：原自由模板运行时已取消，根地址和单项完整 URL 替代；CFG-05 已获本次维护者实施授权，正式 DEC-03 登记仍待完成，原模板供应要求保留 gap，不据本地方案标 N/A。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 2026-10-25：既有决定已在 DEC-08-CONFIG-DEFAULTS.md 正式登记；不再保留行政登记 gap，不新增运行验收或 N/A。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -30212,7 +30099,6 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
@@ -30224,7 +30110,7 @@
           "docs/BODY-CHARTS-SCORE.md",
           "docs/parity/DEC-03-RESOURCES-DRAFT.md"
         ],
-        "finding": "2026-10-14 主线对账：实际资源单项覆盖与统一根地址已实现，包含图表/乐谱适配包、effects、Share.js、不蒜子与 Pace；39 项原独立供应要求按 DEC-03 处理，不能再把图表库列作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 配置简化：统一单项优先→根地址→安装包；新增 charts 按需图表实际覆盖，完整上游映射仍未完成。 本轮候选待真实设备及最终提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 独立审查修复后无阻塞项，实际资源补充与新配置结果见 docs/validation/2026-10-14/config-defaults-reviewed.json；不替代完整逐项合同。"
+        "finding": "2026-10-14 主线对账：实际资源单项覆盖与统一根地址已实现，包含图表/乐谱适配包、effects、Share.js、不蒜子与 Pace；39 项原独立供应要求按 DEC-03 处理，不能再把图表库列作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 配置简化：统一单项优先→根地址→安装包；新增 charts 按需图表实际覆盖，完整上游映射仍未完成。 本轮候选待真实设备及最终提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 独立审查修复后无阻塞项，实际资源补充与新配置结果见 docs/validation/2026-10-14/config-defaults-reviewed.json；不替代完整逐项合同。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -32596,22 +32482,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "保持原分享/统计能力，按当前实际资源和服务入口配置覆盖；服务内部端点不跟随主题资源根地址。",
-        "settings": [
-          "CDN.option.busuanzi"
-        ],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/html/views/config.html",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/share.ts",
-          "src/js/core/site-statistics.ts"
-        ],
-        "finding": "新增资源 URL 覆盖、清空后的来源继承和原生错误回退。Share.js JS/CSS 跟随统一 assets；不蒜子仅单项覆盖，默认仍官方服务。2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -32621,8 +32495,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.busuanzi：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.busuanzi 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -32649,7 +32522,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:CDN.option.canvas_fluttering_ribbon",
@@ -33837,14 +33718,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：统一按主题实际路径展开占位符，不使用 npm 包 name/file 语义；旧意义仅离线转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：统一按主题实际路径展开占位符，不使用 npm 包 name/file 语义；旧意义仅离线转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -34117,17 +33997,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "DEC-03 明确资源供应替代或无保留消费方；不将提供方缩减视为能力验收。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "docs/parity/DEC-03-RESOURCES-DRAFT.md",
-          "docs/parity/DEC-03-PACE-MD5.md",
-          "docs/parity/DEC-03-RESOURCES-DECISION.md"
-        ],
-        "finding": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。 原 ID/固定来源及历史证据保留；仅专属供应要求不适用，0 条提升 verified。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -34137,8 +34010,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "DEC-03 已确认原独立供应/评论专属要求取消，保留固定上游来源备查。",
-          "替代能力：主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34186,12 +34058,12 @@
       ],
       "status": "not-applicable",
       "decision": {
-        "id": "DEC-03",
-        "option": "bundled-native-and-provider-substitute",
-        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/410",
-        "date": "2026-10-14T00:00:00+08:00",
-        "reason": "维护者确认本项取消原独立供应或评论专属依赖要求；主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。",
-        "replacement": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
       }
     },
     {
@@ -34482,14 +34354,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -34563,14 +34434,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -34990,14 +34860,13 @@
         ],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -35146,17 +35015,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "DEC-03 明确资源供应替代或无保留消费方；不将提供方缩减视为能力验收。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "docs/parity/DEC-03-RESOURCES-DRAFT.md",
-          "docs/parity/DEC-03-PACE-MD5.md",
-          "docs/parity/DEC-03-RESOURCES-DECISION.md"
-        ],
-        "finding": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。 原 ID/固定来源及历史证据保留；仅专属供应要求不适用，0 条提升 verified。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -35166,8 +35028,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "DEC-03 已确认原独立供应/评论专属要求取消，保留固定上游来源备查。",
-          "替代能力：主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -35215,12 +35076,12 @@
       ],
       "status": "not-applicable",
       "decision": {
-        "id": "DEC-03",
-        "option": "bundled-native-and-provider-substitute",
-        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/410",
-        "date": "2026-10-14T00:00:00+08:00",
-        "reason": "维护者确认本项取消原独立供应或评论专属依赖要求；主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。",
-        "replacement": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
       }
     },
     {
@@ -35238,22 +35099,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "保持原分享/统计能力，按当前实际资源和服务入口配置覆盖；服务内部端点不跟随主题资源根地址。",
-        "settings": [
-          "CDN.option.sharejs"
-        ],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/html/views/config.html",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/share.ts",
-          "src/js/core/site-statistics.ts"
-        ],
-        "finding": "新增资源 URL 覆盖、清空后的来源继承和原生错误回退。Share.js JS/CSS 跟随统一 assets；不蒜子仅单项覆盖，默认仍官方服务。2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -35263,8 +35112,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.sharejs：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.sharejs 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -35291,7 +35139,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:CDN.option.sharejs_css",
@@ -35308,22 +35164,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "保持原分享/统计能力，按当前实际资源和服务入口配置覆盖；服务内部端点不跟随主题资源根地址。",
-        "settings": [
-          "CDN.option.sharejs_css"
-        ],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/html/views/config.html",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/share.ts",
-          "src/js/core/site-statistics.ts"
-        ],
-        "finding": "新增资源 URL 覆盖、清空后的来源继承和原生错误回退。Share.js JS/CSS 跟随统一 assets；不蒜子仅单项覆盖，默认仍官方服务。2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -35333,8 +35177,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.sharejs_css：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.sharejs_css 与全局/逐页覆盖的优先级。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -35361,7 +35204,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "config:CDN.option.snackbar",
@@ -36189,10 +36040,9 @@
           "src/js/core/_lazyLoad.ts",
           "src/js/modules/Render.ts",
           "src/js/core/common.ts",
-          "src/html/views/integrations.html",
           "src/html/views/config.html"
         ],
-        "finding": "2026-10-14 主线对账：正文图表/乐谱、图库、可移植正文增强、评论懒挂载、特效、分析/聊天/广告、Pace 与资源配置已有各自入口。剩余是上游全部分派条件与 Halo 页面入口的逐项对照（含 PWA、语言、插件生命周期），不应将整个脚本分派层列为从零开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：正文图表/乐谱、图库、可移植正文增强、评论懒挂载、特效、分析/聊天/广告、Pace 与资源配置已有各自入口。剩余是上游全部分派条件与 Halo 页面入口的逐项对照（含 PWA、语言、插件生命周期），不应将整个脚本分派层列为从零开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -36480,16 +36330,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -36500,8 +36344,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "includes/head/analytics：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/head/analytics.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -36531,7 +36374,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/head/config",
@@ -36679,19 +36530,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-ads.html",
-          "src/html/views/components.html",
-          "src/html/post.html",
-          "src/html/views/aside.html"
-        ],
-        "finding": "已实现 AdSense 初始化及首页每三篇文章、侧栏、文章广告 HTML；空值不输出。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -36701,8 +36543,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "includes/head/google_adsense：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/head/google_adsense.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -36732,7 +36573,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/head/preconnect",
@@ -38555,10 +38404,9 @@
           "src/scss/core/rightside.scss",
           "tests/rightside.test.mjs",
           "src/js/core/darkmode.ts",
-          "src/js/core/translate.ts",
-          "src/js/core/integration-chat.ts"
+          "src/js/core/translate.ts"
         ],
-        "finding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：阅读、简繁、亮暗自动策略、工具栏分组排序、聊天/评论入口和滚动进度均有实际实现；原“不做其他按钮/自动模式/item_order”的跨批次描述已过期。功能条件、设备和全部配色组合仍待完整验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -39373,16 +39221,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -39393,8 +39235,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "includes/third-party/chat/chatra：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/chat/chatra.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39424,7 +39265,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/chat/crisp",
@@ -39440,16 +39289,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -39460,8 +39303,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "includes/third-party/chat/crisp：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/chat/crisp.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39491,7 +39333,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/chat/index",
@@ -39507,16 +39357,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -39527,8 +39371,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "includes/third-party/chat/index：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/chat/index.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39558,7 +39401,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/chat/knocket",
@@ -39574,16 +39425,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -39594,8 +39439,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "includes/third-party/chat/knocket：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/chat/knocket.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39625,7 +39469,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/chat/tidio",
@@ -39641,16 +39493,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "为上游每种聊天服务建立可选的 Halo 接入；服务端账户和前端配置分别管理。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integration-chat.ts",
-          "src/js/core/rightside.ts"
-        ],
-        "finding": "已实现四家服务原生入口/主题按钮、加载失败移除无效按钮、键盘开合与滚动显隐。Knocket仅联系浮层显示/隐藏。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -39661,8 +39507,7 @@
       "acceptance": {
         "profile": "chat",
         "cases": [
-          "includes/third-party/chat/tidio：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/chat/tidio.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -39692,7 +39537,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/comments/artalk",
@@ -41543,31 +41396,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
-          "src/js/core/image-loading.ts",
-          "src/js/core/_message.ts",
-          "src/html/views/components.html",
-          "settings.yaml",
-          "docs/parity/DEC-03-RESOURCES-DRAFT.md",
-          "docs/parity/DEC-03-PACE-MD5.md",
-          "src/js/core/pace.ts",
-          "docs/NAVIGATION-LOADING.md",
-          "src/js/core/content-tracker.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/busuanzi.ts",
-          "src/js/core/effects-loader.ts",
-          "src/js/core/analytics-navigation.ts",
-          "src/js/core/addtoany-navigation.ts"
-        ],
-        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。AddToAny默认服务已用单kit/持久body和iframe实现有界生命周期，三引擎27/27限定通过；扩展服务、预注入配置、未知节点、失败/超时及打开弹窗仍完整导航。其他分析SDK、聊天、广告、真实账户/设备与完整生态未完成。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -41577,8 +41409,7 @@
       "acceptance": {
         "profile": "lifecycle",
         "cases": [
-          "includes/third-party/pjax：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/pjax.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -41681,7 +41512,15 @@
           "outcome": "partial: 27/27 scoped real SDK browser cases; remaining providers and full contract open"
         }
       ],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/prismjs",
@@ -41998,15 +41837,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json"
-        ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -42016,8 +41850,7 @@
       "acceptance": {
         "profile": "share",
         "cases": [
-          "includes/third-party/share/addtoany：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/share/addtoany.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42073,7 +41906,15 @@
           "outcome": "partial: latest master merge and page cleanup reverified; full 1.0 contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/share/index",
@@ -42089,15 +41930,14 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json"
+          "src/html/views/share.html"
         ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "finding": "分享仅保留原生系统分享和复制链接。"
       },
       "dependencies": [
         "dual-site",
@@ -42180,15 +42020,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "将上游分享系统作为独立可选适配；保留渠道、文案和页面元数据要求。",
-        "settings": [],
-        "code": [
-          "src/html/post.html",
-          "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json"
-        ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -42198,8 +42033,7 @@
       "acceptance": {
         "profile": "share",
         "cases": [
-          "includes/third-party/share/share-js：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/share/share-js.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42255,7 +42089,15 @@
           "outcome": "partial: latest master merge and page cleanup reverified; full 1.0 contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/third-party/subtitle",
@@ -42271,7 +42113,7 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [],
         "code": [
           "src/html/index.html",
@@ -42280,7 +42122,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.ts"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。"
+        "finding": "仅本地文案和打字效果。"
       },
       "dependencies": [
         "dual-site",
@@ -42355,16 +42197,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "保留每个分析服务独立配置与注入位置，核对 Halo 公共注入是否足以表达原功能。",
-        "settings": [],
-        "code": [
-          "src/html/views/config.html",
-          "src/html/views/integrations.html",
-          "docs/INTEGRATIONS.md",
-          "src/js/core/integrations.ts",
-          "src/html/views/integration-stats.html"
-        ],
-        "finding": "已实现独立按需 SDK、公开 ID/追踪选项和安全只读统计；默认关闭，服务失败不阻塞正文。 本地 Halo 合成 SDK 检查不代表真实账户、完整双站合同、独立审查或最终候选验收；保持未验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -42375,8 +42211,7 @@
       "acceptance": {
         "profile": "analytics",
         "cases": [
-          "includes/third-party/umami_analytics：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/umami_analytics.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42406,7 +42241,15 @@
           "scope": "bounded synthetic SDK integration; not full contract"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/widget/card_ad",
@@ -42422,15 +42265,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "按上游广告插入位置、频率和按需脚本接入 Halo 模板。",
-        "settings": [],
-        "code": [
-          "src/html/index.html",
-          "src/html/post.html",
-          "src/html/views/aside.html",
-          "src/html/views/integration-ads.html"
-        ],
-        "finding": "2026-10-14 主线对账：公共侧栏已调用 integration-ads 处理 ad.aside，空值不输出；与首页和文章广告位共用内容处理。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -42440,8 +42278,7 @@
       "acceptance": {
         "profile": "ads",
         "cases": [
-          "includes/widget/card_ad：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/widget/card_ad.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42469,7 +42306,15 @@
           "outcome": "source-reconciled-not-verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "template:includes/widget/card_announcement",
@@ -46664,13 +46509,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -46751,13 +46595,12 @@
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -48592,14 +48435,13 @@
         "settings": [],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -48793,17 +48635,10 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "DEC-03 明确资源供应替代或无保留消费方；不将提供方缩减视为能力验收。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "docs/parity/DEC-03-RESOURCES-DRAFT.md",
-          "docs/parity/DEC-03-PACE-MD5.md",
-          "docs/parity/DEC-03-RESOURCES-DECISION.md"
-        ],
-        "finding": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。 原 ID/固定来源及历史证据保留；仅专属供应要求不适用，0 条提升 verified。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -48813,8 +48648,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "DEC-03 已确认原独立供应/评论专属要求取消，保留固定上游来源备查。",
-          "替代能力：主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -48861,12 +48695,12 @@
       ],
       "status": "not-applicable",
       "decision": {
-        "id": "DEC-03",
-        "option": "bundled-native-and-provider-substitute",
-        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/410",
-        "date": "2026-10-14T00:00:00+08:00",
-        "reason": "维护者确认本项取消原独立供应或评论专属依赖要求；主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。",
-        "replacement": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
       }
     },
     {
@@ -49514,17 +49348,10 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "DEC-03 明确资源供应替代或无保留消费方；不将提供方缩减视为能力验收。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "docs/parity/DEC-03-RESOURCES-DRAFT.md",
-          "docs/parity/DEC-03-PACE-MD5.md",
-          "docs/parity/DEC-03-RESOURCES-DECISION.md"
-        ],
-        "finding": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。 原 ID/固定来源及历史证据保留；仅专属供应要求不适用，0 条提升 verified。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -49534,8 +49361,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "DEC-03 已确认原独立供应/评论专属要求取消，保留固定上游来源备查。",
-          "替代能力：主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -49582,12 +49408,12 @@
       ],
       "status": "not-applicable",
       "decision": {
-        "id": "DEC-03",
-        "option": "bundled-native-and-provider-substitute",
-        "issue": "https://github.com/songxychn/halo-butterfly-next/issues/410",
-        "date": "2026-10-14T00:00:00+08:00",
-        "reason": "维护者确认本项取消原独立供应或评论专属依赖要求；主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。",
-        "replacement": "主题原生实现，main/main_css 或统一 assets 供应；导航、预取限制、消息颜色/位置/清理和失败恢复继续验收。"
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
       }
     },
     {
@@ -49709,14 +49535,13 @@
         "settings": [],
         "code": [
           "src/html/views/config.html",
-          "src/html/views/integrations.html",
           "docs/INTEGRATIONS.md",
           "scripts/resource-templates.mjs",
           "src/js/core/external-resource.ts",
           "src/js/core/prism-ready.ts",
           "docs/RESOURCE-SOURCES.md"
         ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -49857,22 +49682,10 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/html/views/config.html",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/site-statistics.ts"
-        ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。 本批新增 JS/CSS 独立覆盖与统一来源，CSS 相对字体已在本地镜像加载；原生错误本地回退一次，缺少 API 保留复制链接。2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -49882,8 +49695,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "sharejs：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -49948,7 +49760,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "resource:sharejs_css",
@@ -49963,22 +49783,10 @@
       ],
       "upstreamInventory": "plugins",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [],
-        "code": [
-          "scripts/build.mjs",
-          "scripts/check-package.mjs",
-          "docs/THIRD_PARTY.md",
-          "src/js/core/share.ts",
-          "src/html/views/share.html",
-          "third-party-licenses/sharejs-source.json",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/html/views/config.html",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/site-statistics.ts"
-        ],
-        "finding": "已提供 native/sharejs/addtoany 和平台列表。Share.js 固定 butterfly-extsrc@1.1.6 随包离线分发，AddToAny 显式开启加载官方在线服务；规范链接、标题、封面、复制及失败回退已接入。真实账号提交和完整跨平台验收仍待完成。 详见 docs/READING-SHARING-STATISTICS.md；限定实现不代表固定双站及完整 1.0 验收通过。 本批新增 JS/CSS 独立覆盖与统一来源，CSS 相对字体已在本地镜像加载；原生错误本地回退一次，缺少 API 保留复制链接。2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -49988,8 +49796,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "sharejs_css：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 plugins.yml 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -50054,7 +49861,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "resource:snackbar",
@@ -51727,14 +51542,10 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "将上游颜色、字体、圆角、遮罩和内容美化映射成主题变量与设置。",
-        "settings": [],
-        "code": [
-          "src/scss/core/chat.scss",
-          "src/scss/core/index.scss",
-          "tests/chat-style.test.mjs"
-        ],
-        "finding": "2026-10-14 主线对账：已新增 src/scss/core/chat.scss 对齐 chat.styl 隐藏未展开的 #chatra。这些文件提供样式适配底稿；部分选择器仍限定上游 .container/#aside-content 等结构，导入不证明当前 Halo DOM 全部命中。正文可移植增强、七种 effects、卡片排序、Snackbar 与 Pace 已有各自运行实现，不能沿用旧批次“后续模块/开关未实现”的清单。完整样式命中、视觉参数和双站差异仍需逐项验收。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -51743,8 +51554,7 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "source/css/_layout/chat.styl：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 source/css/_layout/chat.styl 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -51772,7 +51582,15 @@
           "outcome": "source-reconciled-not-verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "style:source/css/_layout/comments.styl",
@@ -59167,16 +58985,14 @@
       ],
       "upstreamInventory": "siteConfiguration",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml",
-          "src/html/views/integration-stats.html",
-          "src/html/views/components.html",
-          "src/js/core/integrations.ts"
+          "src/html/views/components.html"
         ],
-        "finding": "2026-10-14 主线对账：Umami 的公开统计接口及 site_uv/site_pv/page_pv 显示已接入；私有 token 的后端代理仍由 config:umami_analytics.UV_PV.token 单列待映射，不能把公开接口实现当成私有代理完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "使用 Halo 原生单篇阅读量。"
       },
       "dependencies": [
         "dual-site",
@@ -59714,16 +59530,14 @@
       ],
       "upstreamInventory": "siteConfiguration",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [],
         "code": [
           "src/html/views/layout.html",
           "theme.yaml",
-          "src/html/views/integration-stats.html",
-          "src/html/views/components.html",
-          "src/js/core/integrations.ts"
+          "src/html/views/components.html"
         ],
-        "finding": "2026-10-14 主线对账：Umami 的公开统计接口及 site_uv/site_pv/page_pv 显示已接入；私有 token 的后端代理仍由 config:umami_analytics.UV_PV.token 单列待映射，不能把公开接口实现当成私有代理完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "使用 Halo 原生文章累计阅读量。"
       },
       "dependencies": [
         "dual-site",
@@ -59778,16 +59592,10 @@
       ],
       "upstreamInventory": "siteConfiguration",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml",
-          "src/html/views/integration-stats.html",
-          "src/html/views/components.html",
-          "src/js/core/integrations.ts"
-        ],
-        "finding": "2026-10-14 主线对账：Umami 的公开统计接口及 site_uv/site_pv/page_pv 显示已接入；私有 token 的后端代理仍由 config:umami_analytics.UV_PV.token 单列待映射，不能把公开接口实现当成私有代理完成。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -59797,8 +59605,7 @@
       "acceptance": {
         "profile": "metadata",
         "cases": [
-          "site_uv：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/umami_analytics.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -59826,7 +59633,15 @@
           "outcome": "source-reconciled-not-verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "site-config:subtitle",
@@ -60179,15 +59994,10 @@
       ],
       "upstreamInventory": "siteConfiguration",
       "halo": {
-        "strategy": "将 Hexo 站点/页面元数据映射到 Halo site、Post、SinglePage 与全局 head 注入，核对优先级。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "theme.yaml",
-          "src/js/core/integrations.ts",
-          "settings.yaml"
-        ],
-        "finding": "2026-10-14 主线对账：Umami 客户端只读取公开只读统计地址，不向页面输出私有 API token。后端凭据代理未提供；与 config:umami_analytics.UV_PV.token 合并为同一个后端需求，不是第二套统计功能。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-15 按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期；Umami 访问追踪和已有公开接口安全/回退保留，不代表已验收。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -60197,8 +60007,7 @@
       "acceptance": {
         "profile": "metadata",
         "cases": [
-          "token：使用该能力的正常、空数据和失败场景分别对照。",
-          "确认 layout/includes/third-party/umami_analytics.pug 的消费页面具备对应行为及关闭/缺失回退。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -60224,19 +60033,14 @@
           "outcome": "source-reconciled-not-verified"
         }
       ],
-      "status": "blocked",
+      "status": "not-applicable",
       "decision": {
-        "id": "DEC-03-1.0-DEFERRALS",
-        "document": "docs/parity/DEC-03-1.0-DEFERRALS.md",
-        "date": "2026-10-15T00:00:00+08:00",
-        "option": "defer-strict-plugin-resources-and-private-umami",
-        "reason": "维护者确认评论/KaTeX 严格资源懒加载及 Umami 私有统计移出 1.0，保留用户能力与官方兼容，先处理页面加载与性能。",
-        "replacement": "1.0 保留评论延迟挂载与数据、公式阅读适配、Umami 访问追踪；延期功能后续版本未定。"
-      },
-      "blocker": {
-        "phase": "post-1.0",
-        "reason": "维护者确认 Umami 私有统计移出 1.0，后续版本未定；两个 token 项属于同一后端需求。",
-        "nextAction": "后续再确认收益、版本及后端承载，保管凭据并定义口径、缓存/限流和账户对账；不自动排入 1.1。"
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
       }
     },
     {
@@ -62378,10 +62182,9 @@
           "src/js/core/rightside.ts",
           "src/html/views/config.html",
           "src/scss/core/rightside.scss",
-          "src/js/core/integration-chat.ts",
           "src/js/core/comment-jump.ts"
         ],
-        "finding": "2026-10-14 主线对账：工具栏已有分组排序、去重、齿轮/Escape 焦点恢复、聊天按钮及文章/单页评论跳转；chat 等待 SDK 就绪，comment 按实际可用性输出，不再是“尚无按钮”。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
+        "finding": "2026-10-14 主线对账：工具栏已有分组排序、去重、齿轮/Escape 焦点恢复、聊天按钮及文章/单页评论跳转；chat 等待 SDK 就绪，comment 按实际可用性输出，不再是“尚无按钮”。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",
@@ -62537,7 +62340,7 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "将上游首页布局、摘要和首屏行为映射到 Halo 分页文章及主题设置。",
+        "strategy": "按 DEC-10 收敛；历史验收不代表当前包通过。",
         "settings": [],
         "code": [
           "src/html/index.html",
@@ -62546,7 +62349,7 @@
           "src/scss/page/index.scss",
           "src/js/modules/subtitle.ts"
         ],
-        "finding": "已提供仅本地/旧自定义API/三种内置来源，以及声明式Typed参数白名单。保持旧默认启用及200ms速度；内置来源远端前置并追加本地，外部文案按纯文本处理；今日诗词采用SDK首次JSON请求，不存token或执行外部SDK。真实提供方网络/CORS及完整参数等价尚未验收，见 docs/SUBTITLE.md。 本轮局部实现不代表固定双站、全设备与完整1.0合同验收通过。 2026-10-14 配置简化：远端响应检查页面 scope，离开页面中止请求并销毁 Typed；默认无远端请求。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。"
+        "finding": "仅本地文案和打字效果，不请求外部文案 API。"
       },
       "dependencies": [
         "dual-site",
@@ -63770,33 +63573,10 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "在 Halo 路由与公共布局上实现上游加载、预取、PJAX 和缓存能力及清理协议。",
-        "settings": [],
-        "code": [
-          "src/html/views/layout.html",
-          "src/js/core/App.ts",
-          "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
-          "src/js/core/image-loading.ts",
-          "src/js/core/_message.ts",
-          "src/html/views/components.html",
-          "settings.yaml",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/html/views/config.html",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/pace.ts",
-          "docs/NAVIGATION-LOADING.md",
-          "src/js/core/content-tracker.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/busuanzi.ts",
-          "src/js/core/effects-loader.ts",
-          "src/js/core/analytics-navigation.ts",
-          "src/js/core/addtoany-navigation.ts"
-        ],
-        "finding": "2026-10-14 已覆盖文章/单页统计身份、官方评论草稿与清理、正文渲染器/图库、公共布局及默认Busuanzi、Share.js、本地特效生命周期；GA4显式手动模式仅在成功提交页面后统计，取消历史导航不记PV。可选组合12/12、GA4协议15/15限定通过。AddToAny默认服务已用单kit/持久body和iframe实现有界生命周期，三引擎27/27限定通过；扩展服务、预注入配置、未知节点、失败/超时及打开弹窗仍完整导航。其他分析SDK、聊天、广告、真实账户/设备与完整生态未完成。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已从产品和设置删除，不是等待实现的 1.0 缺口。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -63806,7 +63586,7 @@
       "acceptance": {
         "profile": "lifecycle",
         "cases": [
-          "跳转多种页面、排除路径、后退、插件加载和实例/监听清理。"
+          "确认安装包不包含该专用实现，旧配置迁移明确报告能力移除。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -63890,7 +63670,15 @@
           "outcome": "partial: 27/27 scoped real SDK browser cases; remaining providers and full contract open"
         }
       ],
-      "status": "gap"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者在正式发布前明确授权删减浏览器运行机制及外部服务适配。",
+        "replacement": "整页导航、Halo 原生统计、原生分享或站点自行管理的服务；详见 DEC-10。"
+      }
     },
     {
       "id": "interaction:lazyload",
@@ -63916,12 +63704,11 @@
           "src/js/core/common.ts",
           "src/html/views/aside.html",
           "src/js/core/page-lifecycle.ts",
-          "src/js/core/navigation-loading.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "settings.yaml"
         ],
-        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。"
+        "finding": "已增加 enable/native/field/blur 配置；主题卡片服务端输出原生 lazy 或 IO 占位，site/post 范围与关闭模式可选，支持 data-lazy-src/srcset、错误回退和无 JS 卡片图片。保留作者 src/srcset 与显式 eager、头像原生 loading；不改写任意作者 HTML；2026-10-15 起以原生 loading=lazy 为接受方案，取消强制改写 src/srcset 和视口前零请求要求，初始 HTML 与正文处理路径仍须核对。 2026-10-13 限定作者回归见 docs/NAVIGATION-LOADING.md；固定双站、全部配置组合、真机及独立审查仍未完成，未升级为 verified。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
       },
       "dependencies": [
         "dual-site",

@@ -26,12 +26,9 @@
         // 字幕使用统一默认和明确来源
         enable_subtitle: /*[[${theme.config.index.enable_subtitle != false}]]*/ true,
         subtitle_effect: /*[[${theme.config.index.subtitle_effect != false}]]*/ true,
-        subtitle_source: /*[[${theme.config.index.subtitle_source ?: 'local'}]]*/ 'local',
         subtitle_typed_option: /*[[${theme.config.index.subtitle_typed_option}]]*/ null,
         site_subtitle: /*[[${site.subtitle ?: ''}]]*/ '',
         typewriter_custom_text: /*[[${theme.config.index.typewriter_custom_text}]]*/ '',
-        typewriter_random_api: /*[[${theme.config.index.typewriter_random_api}]]*/ '',
-        typewriter_api_value_format: /*[[${theme.config.index.typewriter_api_value_format}]]*/ '',
         // 分页
         nextUrl: /*[[${posts.nextUrl}]]*/ {},
         prevUrl: /*[[${posts.prevUrl}]]*/ {},
@@ -57,7 +54,7 @@
                th:style="|height: ${#strings.isEmpty(theme.config.index.top_img_height) ? '100vh' : theme.config.index.top_img_height}; --index-site-info-top: ${#strings.isEmpty(theme.config.index.site_info_top) ? '43%' : theme.config.index.site_info_top};|">
         <div class="above-info">
           <h1 class="above-title" th:text="${site.title}"></h1>
-          <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false and (not #strings.isEmpty(site.subtitle) or not #strings.isEmpty(theme.config.index.typewriter_custom_text) or #lists.contains({'custom','hitokoto','yiyan','jinrishici'}, theme.config.index.subtitle_source))}">
+          <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false and (not #strings.isEmpty(site.subtitle) or not #strings.isEmpty(theme.config.index.typewriter_custom_text))}">
             <span class="above-subtitle--text"></span>
           </div>
           <th:block th:if="${theme.config.aside?.social_position == 'header' or theme.config.aside?.social_position == 'both'}"><th:block th:replace="~{views/social :: icons}"/></th:block>

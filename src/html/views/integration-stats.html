@@ -1,6 +1,0 @@
-<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="site" th:with="umami=${theme.config.analytics?.umami_analytics}">
-  <th:block th:if="${(umami?.enable == true or umami?.enable == 'true') and not #strings.isEmpty(umami?.UV_PV?.stats_url)}">
-  <div class="item" th:if="${umami?.UV_PV?.site_uv == true or umami?.UV_PV?.site_uv == 'true'}"><span th:text="#{ui.visitors}">访客数：</span><span data-umami-stat="site_uv">—</span></div>
-  <div class="item" th:if="${umami?.UV_PV?.site_pv == true or umami?.UV_PV?.site_pv == 'true'}"><span th:text="#{ui.visits}">访问量：</span><span data-umami-stat="site_pv">—</span></div>
-  </th:block>
-</th:block>

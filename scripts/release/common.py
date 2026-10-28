@@ -34,6 +34,7 @@ def validate_evidence(evidence,tag,source,package_sha):
     checked=evidence.get('sourceSha','')
     if not re.fullmatch('[a-f0-9]{40}',checked): raise ValueError('Missing reviewed source SHA')
     subprocess.run(['git','merge-base','--is-ancestor',checked,source],check=True)
+    if evidence.get('publicationAuthorized') is not True: raise ValueError('Publication is not authorized')
     if not evidence.get('reviewer') or evidence.get('decision')!='approved': raise ValueError('Missing independent release approval')
     for gate in ['realHalo','installUpgradeRollback','resourcesAndLicenses','sourceRebuild']:
         if evidence.get('gates',{}).get(gate)!='passed': raise ValueError('Release gate incomplete: '+gate)

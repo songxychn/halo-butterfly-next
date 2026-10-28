@@ -20,7 +20,6 @@ import { bindDarkmode } from './darkmode.ts';
 import { initializeNewestComments } from './newest-comments.ts';
 import { bindCommentJump } from './comment-jump.ts';
 import { initializeLazyComments } from './comment-lazy.ts';
-import { initializeSiteWordcount, initializeVisitCounters } from './site-statistics.ts';
 import { bindCopyAttribution } from './copy-attribution.ts';
 import { initializeSiteContent } from './site-content.ts';
 import { initializeEffects } from './effects-loader.ts';
@@ -47,8 +46,6 @@ export default class Common {
     initializeNewestComments();
     initializeLazyComments();
     bindCommentJump();
-    initializeVisitCounters();
-    initializeSiteWordcount();
     bindCopyAttribution();
     initializeSiteContent();
 

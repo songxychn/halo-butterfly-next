@@ -57,10 +57,10 @@ assert not m.expected_receipt(dict(expected,ready=True,sourceSha='c'*40),expecte
 with tempfile.TemporaryDirectory() as tmp:
  p=Path(tmp)/'evidence';p.write_text('checked')
  # All required release gates and real, tracked-style evidence digests are mandatory.
- evidence={'tag':'v1.0.0','sourceSha':'a'*40,'themeSha256':'b'*64,'reviewer':'independent','decision':'approved','gates':{k:'passed' for k in ['realHalo','installUpgradeRollback','resourcesAndLicenses','sourceRebuild']},'knownLimitations':[],'evidence':[{'path':'README.md','sha256':digest('README.md')}]}
+ evidence={'tag':'v1.0.0','sourceSha':'a'*40,'themeSha256':'b'*64,'reviewer':'independent','decision':'approved','publicationAuthorized':True,'gates':{k:'passed' for k in ['realHalo','installUpgradeRollback','resourcesAndLicenses','sourceRebuild']},'knownLimitations':[],'evidence':[{'path':'README.md','sha256':digest('README.md')}]}
  with patch('common.subprocess.run'),patch('common.run',return_value=''):
   validate_evidence(evidence,'v1.0.0','c'*40,'b'*64)
-  for modify in [lambda e:e['gates'].update(realHalo='failed'),lambda e:e.update(themeSha256='d'*64),lambda e:e.update(evidence=[]),lambda e:e['evidence'][0].update(sha256='0'*64)]:
+  for modify in [lambda e:e.pop('publicationAuthorized'),lambda e:e.update(publicationAuthorized=False),lambda e:e.update(publicationAuthorized='true'),lambda e:e['gates'].update(realHalo='failed'),lambda e:e.update(themeSha256='d'*64),lambda e:e.update(evidence=[]),lambda e:e['evidence'][0].update(sha256='0'*64)]:
    item=json.loads(json.dumps(evidence));modify(item)
    try:validate_evidence(item,'v1.0.0','c'*40,'b'*64)
    except ValueError:pass

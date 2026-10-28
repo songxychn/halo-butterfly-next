@@ -16,7 +16,7 @@
 | --- | --- | --- |
 | 启用首页字幕 | 开启 | `index.enable_subtitle` |
 | 启用字幕打字效果 | 关闭 | `index.subtitle_effect` |
-| 字幕来源 | 仅本地文案 | `index.subtitle_source="0"` |
+| 字幕来源 | 仅本地文案 | 无远程 API 配置 |
 | 首页字幕文案 | Hexo Butterfly 主题在 Halo 的移植版本 | `index.typewriter_custom_text` |
 
 这样简介不需要请求外部文案服务。需要打字效果时再开启对应选项；多条文案以 `|&|` 分隔。静态模式只展示第一条本地文案。

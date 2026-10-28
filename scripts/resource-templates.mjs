@@ -5,7 +5,7 @@ export function configureResourceTags(html) {
     const match = tail.match(/^'([^']+)'/);
     if (!match) return tag;
     const path = match[1];
-    const key = path.startsWith('css/') ? 'main_css' : path.startsWith('js/integrations') ? 'integrations' : path.startsWith('js/masonry') ? 'masonry'
+    const key = path.startsWith('css/') ? 'main_css' : path.startsWith('js/masonry') ? 'masonry'
       : path.startsWith('js/') ? 'main' : path.startsWith('plugins/loading/') ? 'loading'
       : path === 'plugins/fontawesome/css/all.min.css' ? 'fontawesome'
       : path === 'plugins/prism/prism.min.css' ? 'prismjs_css'

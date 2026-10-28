@@ -95,6 +95,10 @@ test('不适用状态必须带完整 DEC 裁定记录', () => {
     replacement: 'PluginSearchWidget',
   };
   assert.equal(checkMatrix(changed, inventory).filter(error => error.startsWith('Not-applicable without decision')).length, 0);
+  delete item.decision.issue; item.decision.path = 'docs/parity/DEC-10-THEME-SCOPE.md';
+  assert.equal(checkMatrix(changed, inventory).filter(error => error.startsWith('Not-applicable without decision')).length, 0);
+  item.decision.path = 'docs/parity/../../outside.md';
+  assert.ok(checkMatrix(changed, inventory).some(error => error.startsWith('Not-applicable without decision')));
 });
 
 test('DEC-01 平台替代后搜索引擎与评论 SDK 为不适用，保留项仍适用', () => {

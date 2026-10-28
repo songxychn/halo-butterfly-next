@@ -137,15 +137,6 @@ export function migrateConfig(input, from, defaults) {
     if (converted) put(key, 'render.code_shrink', converted);
     else discard(key, 'manual-review');
   }
-  if (own('index', 'subtitle_source') || own('index', 'enable_typewriter_random_text')) {
-    const aliases = {'0': 'local', '1': 'hitokoto', '2': 'yiyan', '3': 'jinrishici'};
-    const source = index.subtitle_source;
-    const converted = aliases[String(source)] || (source === 'custom' || source == null || source === ''
-      ? index.enable_typewriter_random_text === true && typeof index.typewriter_random_api === 'string' && index.typewriter_random_api.trim() ? 'custom' : 'local'
-      : ['local', 'hitokoto', 'yiyan', 'jinrishici'].includes(source) ? source : 'local');
-    put('index.subtitle_source', 'index.subtitle_source', converted);
-    if (own('index', 'enable_typewriter_random_text')) discard('index.enable_typewriter_random_text');
-  }
   if (own('index', 'enable_above')) {
     if (!own('single', 'enable_above')) put('single.enable_above', 'single.enable_above', index.enable_above);
     if (!own('image', 'other_pages_above')) put('image.other_pages_above', 'image.other_pages_above', index.enable_above);
@@ -198,7 +189,19 @@ export function migrateConfig(input, from, defaults) {
       }
     }
   }
+  if (own('share', 'use') && ['sharejs', 'addtoany'].includes(input.share.use)) {
+    assign('share.use', 'share.use', 'native', 'experience-changed');
+    handled.add('share.use');
+  }
+  if (input.busuanzi?.provider === 'busuanzi') {
+    for (const key of ['site_pv', 'page_pv']) {
+      assign(`busuanzi.${key}`, `busuanzi.${key}`, false, 'experience-changed');
+      handled.add(`busuanzi.${key}`);
+    }
+  }
+  const removed = /^(?:(?:pjax|analytics|chat|google_adsense|ad)(?:\.|$)|loading\.instantpage$|wordcount\.total_wordcount$|busuanzi\.(?:provider|site_uv)$|share\.(?:sharejs|addtoany)(?:\.|$)|CDN\.option\.(?:busuanzi|sharejs|sharejs_css|addtoany|umami_analytics|google_analytics|baidu_analytics|cloudflare_analytics|microsoft_clarity|google_tag_manager|chat_chatra|chat_crisp|chat_tidio|chat_knocket|google_adsense)$|index\.(?:subtitle_source|typewriter_random_api|typewriter_api_value_format|enable_typewriter_random_text)$)/;
   const visit = (value, source) => {
+    if (removed.test(source)) { report(source, 'removed-feature'); return; }
     if (handled.has(source)) return;
     // 旧的资源 CDN 指向原主题。独立版本只使用自身安装包中的 JS/CSS。
     if (source === 'loading.source' || source === 'other') {
@@ -237,7 +240,7 @@ export function migrateConfig(input, from, defaults) {
   };
   visit(input, '');
   return { config, report: { from, targetTheme: 'halo-butterfly-next', targetVersion, changes,
-    needsReview: changes.some(item => ['unsupported', 'manual-review', 'type-mismatch', 'experience-changed', 'removed-implicit-inheritance'].includes(item.action)) } };
+    needsReview: changes.some(item => ['removed-feature', 'unsupported', 'manual-review', 'type-mismatch', 'experience-changed', 'removed-implicit-inheritance'].includes(item.action)) } };
 }
 
 export function asConfigMap(config) {

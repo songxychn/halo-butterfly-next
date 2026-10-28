@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {test} from 'bun:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
-import { customSubtitles, randomSubtitle, runSubtitle, subtitleSource, subtitleTypedOptions } from '../src/js/modules/subtitle.ts';
+import { customSubtitles, runSubtitle, subtitleTypedOptions } from '../src/js/modules/subtitle.ts';
 import { defaultsFromSettings, migrateConfig } from '../scripts/config-migration.mjs';
 
 function target() {
@@ -49,53 +49,6 @@ test('空文案不创建空循环或配置警告；换行兼容旧分隔规则',
   assert.deepEqual(customSubtitles('甲\r\n乙|&|丙'), ['甲乙', '丙']);
 });
 
-test('JSON 路径可读取有效嵌套字符串，缺失路径、空值和越界数据稳定拒绝', () => {
-  const response = { body: '{"data":{"content":"JSON 文案","items":["首项"]}}', contentType: 'application/json' };
-  assert.equal(randomSubtitle(response, 'data.content'), 'JSON 文案');
-  assert.equal(randomSubtitle(response, 'data.items.0'), '首项');
-  for (const path of ['', null, 'data.missing.value', 'data', 'data..content', 'constructor', '__proto__.x']) assert.equal(randomSubtitle(response, path), null);
-  assert.equal(randomSubtitle({ body: 'broken json', contentType: 'application/json' }, 'data.content'), null);
-  assert.equal(randomSubtitle({ body: '<script>unsafe()</script>', contentType: 'text/javascript' }, ''), '<script>unsafe()</script>');
-  assert.equal(randomSubtitle({ body: '"JSON 字符串"', contentType: 'application/json' }, ''), 'JSON 字符串');
-});
-
-test('随机 API 静态模式也取返回文案，失败、超时或无效 JSON 回退自定义首项', async () => {
-  for (const response of [{ body: '远程文案', contentType: 'text/plain' }, { body: '{"data":{"text":"JSON 文案"}}', contentType: 'application/json' }, null, { body: '{"wrong":[]}', contentType: 'application/json' }]) {
-    const element = target();
-    let requests = 0;
-    await runSubtitle({ element, config: { subtitle_effect: false, subtitle_source: 'custom',
-      typewriter_random_api: '/fixture', typewriter_api_value_format: response?.contentType === 'application/json' ? 'data.text' : '', typewriter_custom_text: '本地首项|&|次项' }, createTyped: unused,
-      requestRandom: async url => { requests++; assert.equal(url, '/fixture'); if (!response) throw new Error('timeout'); return response; } });
-    assert.equal(requests, 1);
-    assert.equal(element.textContent, response?.body === '远程文案' ? '远程文案' : response?.body.includes('JSON 文案') ? 'JSON 文案' : '本地首项');
-  }
-});
-
-test('随机来源未启用或缺少 URL 时不请求；动态失败回退本地列表', async () => {
-  for (const config of [{ enable_typewriter_random_text: false, typewriter_random_api: '/fixture' }, { subtitle_source: 'custom', typewriter_random_api: ' ' }]) {
-    const element = target();
-    await runSubtitle({ element, config: { ...config, subtitle_effect: false, typewriter_custom_text: '本地' }, createTyped: unused, requestRandom: unused });
-    assert.equal(element.textContent, '本地');
-  }
-  let options;
-  await runSubtitle({ element: target(), config: { subtitle_source: 'custom', typewriter_random_api: '/fixture', typewriter_custom_text: '本地甲|&|本地乙' },
-    requestRandom: async () => { throw new Error('offline'); }, createTyped: (_node, value) => { options = value; } });
-  assert.deepEqual(options.strings, ['本地甲', '本地乙']);
-  assert.equal(options.contentType, 'html');
-});
-
-test('动态远程文案按纯文本呈现，失败回退仍保留作者的自定义 HTML', async () => {
-  const config = { subtitle_source: 'custom', typewriter_random_api: '/fixture', typewriter_custom_text: '<b>作者文案</b>' };
-  for (const success of [true, false]) {
-    let options;
-    await runSubtitle({ element: target(), config,
-      requestRandom: async () => { if (!success) throw new Error('offline'); return { body: '<img src=x onerror=alert(1)>', contentType: 'text/plain' }; },
-      createTyped: (_node, value) => { options = value; } });
-    assert.equal(options.contentType, success ? null : 'html');
-    assert.deepEqual(options.strings, [success ? '<img src=x onerror=alert(1)>' : '<b>作者文案</b>']);
-  }
-});
-
 test('原版 2.0.5/2.0.7 迁移补齐兼容开关，显式 false 不被默认值覆盖', async () => {
   const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
   for (const from of ['2.0.5', '2.0.7']) {
@@ -103,62 +56,12 @@ test('原版 2.0.5/2.0.7 迁移补齐兼容开关，显式 false 不被默认值
     const result = migrateConfig({ index }, from, defaults);
     assert.equal(result.config.index.enable_subtitle, true);
     assert.equal(result.config.index.subtitle_effect, true);
-    assert.equal(result.config.index.subtitle_source, 'local');
     assert.equal(result.config.index.subtitle_typed_option, '');
     assert.equal(result.config.index.typewriter_custom_text, '甲|&|乙');
     const disabled = migrateConfig({ index: { enable_subtitle: false, subtitle_effect: false } }, from, defaults);
     assert.equal(disabled.config.index.enable_subtitle, false);
     assert.equal(disabled.config.index.subtitle_effect, false);
   }
-});
-
-test('explicit custom source uses API; missing/local/unknown sources do not infer an old switch', () => {
-  assert.equal(subtitleSource({enable_typewriter_random_text:true,typewriter_random_api:'/fixture'}),null);
-  assert.equal(subtitleSource({subtitle_source:'local',typewriter_random_api:'/fixture'}),null);
-  assert.equal(subtitleSource({subtitle_source:'custom',typewriter_random_api:'/fixture'}).kind,'custom');
-  assert.equal(subtitleSource({subtitle_source:'custom',typewriter_random_api:''}),null);
-  assert.equal(subtitleSource({subtitle_source:'wrong',typewriter_random_api:'/fixture'}),null);
-});
-
-test('内置来源动态按远端、出处、本地顺序播放；静态只显示远端首项', async () => {
-  const cases = [
-    ['hitokoto', { body: JSON.stringify({ hitokoto: '<img src=x onerror=alert(1)>', from: '<b>出处</b>' }) }, ['&lt;img src=x onerror=alert(1)&gt;', '出自 &lt;b&gt;出处&lt;/b&gt;']],
-    ['yiyan', { body: '<p>远端 & <b>文字</b></p><p>不取第二项</p>', contentType: 'text/html' }, ['远端 &amp; &lt;b&gt;文字&lt;/b&gt;']],
-    ['jinrishici', { body: JSON.stringify({ status: 'success', data: { content: '今日诗词' } }) }, ['今日诗词']],
-  ];
-  for (const [source, response, remote] of cases) {
-    const config = { subtitle_source: source, enable_typewriter_random_text: false, typewriter_custom_text: '<b>本地</b>|&|末项' };
-    let options;
-    let requests = 0;
-    await runSubtitle({ element: target(), config, requestRandom: async (url, request) => {
-      requests++;
-      assert.equal(url, subtitleSource(config).url);
-      assert.equal(request.withCredentials === true, source === 'jinrishici');
-      return response;
-    }, createTyped: (_node, value) => { options = value; } });
-    assert.equal(requests, 1);
-    assert.deepEqual(options.strings, [...remote, '<b>本地</b>', '末项']);
-    assert.equal(options.contentType, 'html');
-    const element = target();
-    await runSubtitle({ element, config: { ...config, subtitle_effect: false }, requestRandom: async () => response, createTyped: unused });
-    assert.equal(element.textContent, remote[0].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
-  }
-});
-
-test('内置来源失败或结构错误回退本地，空本地不创建 Typed；远端独立显示保持纯文本', async () => {
-  for (const source of ['hitokoto', 'yiyan', 'jinrishici']) {
-    for (const response of [null, { body: '{}' }, { body: '<p></p>' }, { body: '{"data":{"content":12},"hitokoto":null}' }]) {
-      let options;
-      const requestRandom = async () => { if (!response) throw new Error('timeout'); return response; };
-      await runSubtitle({ element: target(), config: { subtitle_source: source, typewriter_custom_text: '<b>回退</b>|&|第二项' }, requestRandom, createTyped: (_node, value) => { options = value; } });
-      assert.deepEqual(options.strings, ['<b>回退</b>', '第二项']);
-      await runSubtitle({ element: target(), config: { subtitle_source: source, typewriter_custom_text: '' }, requestRandom, createTyped: unused });
-    }
-  }
-  let options;
-  await runSubtitle({ element: target(), config: { subtitle_source: 'hitokoto' }, requestRandom: async () => ({ body: '{"hitokoto":"<script>x</script>"}' }), createTyped: (_node, value) => { options = value; } });
-  assert.equal(options.contentType, null);
-  assert.deepEqual(options.strings, ['<script>x</script>']);
 });
 
 test('Typed 参数支持速度、循环、光标等声明式选项并忽略错误类型和行为覆盖', async () => {
