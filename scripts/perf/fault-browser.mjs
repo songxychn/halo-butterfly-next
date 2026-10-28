@@ -132,7 +132,7 @@ for (const engine of ['chromium', 'firefox', 'webkit']) {
         } else if (args['--profile'] === 'official') {
           assert(row.injected.some(x => x.url.includes('/plugins/PluginCommentWidget/')));
           assert(row.injected.some(x => x.url.includes('/plugins/plugin-katex/')));
-          row.officialMarkup = await page.evaluate(() => ({ resources: [...document.querySelectorAll('script[src],link[href]')].map(n => n.src || n.href).filter(x => /\/plugins\/(PluginCommentWidget|plugin-katex)\//.test(x)), commentHosts: document.querySelectorAll('[data-comment-lazy]').length }));
+          row.officialMarkup = await page.evaluate(() => ({ resources: [...document.querySelectorAll('script[src],link[href]')].map(n => n.src || n.href).filter(x => /\/plugins\/(PluginCommentWidget|plugin-katex)\//.test(x)), commentHosts: document.querySelectorAll('#post-comment .comment-wrap').length }));
           assert(row.officialMarkup.resources.length >= 2);
         } else {
           row.optionalRequests = ledger.snapshot().filter(x => /mermaid|chartjs|abcjs|body-renderer/.test(new URL(x.url).pathname));
