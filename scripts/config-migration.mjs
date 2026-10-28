@@ -199,7 +199,7 @@ export function migrateConfig(input, from, defaults) {
       handled.add(`busuanzi.${key}`);
     }
   }
-  const removed = /^(?:(?:pjax|analytics|chat|google_adsense|ad)(?:\.|$)|loading\.instantpage$|wordcount\.total_wordcount$|busuanzi\.(?:provider|site_uv)$|share\.(?:sharejs|addtoany)(?:\.|$)|CDN\.option\.(?:busuanzi|sharejs|sharejs_css|addtoany|umami_analytics|google_analytics|baidu_analytics|cloudflare_analytics|microsoft_clarity|google_tag_manager|chat_chatra|chat_crisp|chat_tidio|chat_knocket|google_adsense)$|index\.(?:subtitle_source|typewriter_random_api|typewriter_api_value_format|enable_typewriter_random_text)$)/;
+  const removed = /^(?:(?:pjax|analytics|chat|google_adsense|ad)(?:\.|$)|moments\.(?:source|title|page_size|limit|since)$|links\.source$|loading\.instantpage$|wordcount\.total_wordcount$|busuanzi\.(?:provider|site_uv)$|share\.(?:sharejs|addtoany)(?:\.|$)|CDN\.option\.(?:busuanzi|sharejs|sharejs_css|addtoany|umami_analytics|google_analytics|baidu_analytics|cloudflare_analytics|microsoft_clarity|google_tag_manager|chat_chatra|chat_crisp|chat_tidio|chat_knocket|google_adsense)$|index\.(?:subtitle_source|typewriter_random_api|typewriter_api_value_format|enable_typewriter_random_text)$)/;
   const visit = (value, source) => {
     if (removed.test(source)) { report(source, 'removed-feature'); return; }
     if (handled.has(source)) return;

@@ -3321,37 +3321,9 @@ spec:
       formSchema:
         - $formkit: text
           name: timezone
-          label: 日期显示时区
+          label: 瞬间日期显示时区
           value: UTC
-          help: IANA 时区，例如 Asia/Shanghai。瞬间和外部动态共用；无脚本时保留原始 ISO 日期和时区，非法值回退 UTC。
-        - $formkit: text
-          name: source
-          label: 外部动态 JSON 地址
-          value: ''
-          help: 可选。作为独立动态列表显示在本地瞬间之前，不替换本地内容、不绑定本地评论。只接受 HTTPS 或本站路径，跨域需允许匿名 CORS。数据契约见 docs/MOMENTS.md。
-        - $formkit: text
-          name: title
-          label: 外部动态标题
-          value: 更多动态
-        - $formkit: number
-          name: page_size
-          label: 外部动态每页数量
-          value: 10
-          min: 1
-          max: 50
-          help: 仅影响外部 JSON 动态。本地瞬间每页数量请在瞬间插件设置中调整。
-        - $formkit: number
-          name: limit
-          label: 外部动态最多显示数量
-          value: 100
-          min: 1
-          max: 1000
-          help: 按日期倒序、日期过滤后取前 N 条，再分页。
-        - $formkit: text
-          name: since
-          label: 外部动态起始日期
-          value: ''
-          help: 可选 ISO 8601 日期时间，必须带 Z 或时区偏移，例如 2026-01-01T00:00:00+08:00。只显示此时间及之后的动态。
+          help: IANA 时区，例如 Asia/Shanghai。无脚本时保留原始 ISO 日期和时区，非法值回退 UTC。
 
     - group: links
       label: 友情链接增强
@@ -3375,11 +3347,6 @@ spec:
               name: description
               label: 分组说明
               value: ''
-        - $formkit: text
-          name: source
-          label: 独立远端友链 JSON
-          value: ''
-          help: 可选 HTTPS 或本站路径，匿名读取且跨域需 CORS；失败保留本地友链。分组数据契约见 docs/SOCIAL-FOOTER-LINKS.md。
 
     - group: subscription
       label: RSS 与站点地图

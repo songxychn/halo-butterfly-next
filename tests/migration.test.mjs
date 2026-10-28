@@ -92,14 +92,14 @@ test('CLI refuses existing files and leaves source contents unchanged', async ()
 });
 
 test('scope reduction reports removed services without retaining credentials and changes sharing explicitly', () => {
-  const input = {pjax:{enable:true},analytics:{umami_analytics:{token:'private-fixture'}},chat:{crisp:{website_id:'fixture'}},ad:{post:'<script>fixture</script>'},loading:{instantpage:true},wordcount:{total_wordcount:true},share:{use:'addtoany',addtoany:{item:'x'}},busuanzi:{provider:'busuanzi',site_uv:true,site_pv:true,page_pv:true},index:{subtitle_source:'custom',typewriter_random_api:'/old-api',typewriter_custom_text:'Keep'}};
+  const input = {moments:{source:'/feed.json',limit:20,timezone:'UTC'},links:{source:'/links.json'},pjax:{enable:true},analytics:{umami_analytics:{token:'private-fixture'}},chat:{crisp:{website_id:'fixture'}},ad:{post:'<script>fixture</script>'},loading:{instantpage:true},wordcount:{total_wordcount:true},share:{use:'addtoany',addtoany:{item:'x'}},busuanzi:{provider:'busuanzi',site_uv:true,site_pv:true,page_pv:true},index:{subtitle_source:'custom',typewriter_random_api:'/old-api',typewriter_custom_text:'Keep'}};
   const before=structuredClone(input),{config,report}=migrateConfig(input,'0.1.0-alpha.4',defaults);
   assert.deepEqual(input,before);
   assert.equal(config.share.use,'native');
   assert.equal(config.busuanzi.site_pv,false);assert.equal(config.busuanzi.page_pv,false);
   assert.equal(config.index.typewriter_custom_text,'Keep');
   assert.equal(report.needsReview,true);
-  for(const field of ['pjax','analytics','chat','ad','loading.instantpage','wordcount.total_wordcount','share.addtoany','busuanzi.provider','busuanzi.site_uv','index.subtitle_source','index.typewriter_random_api']) assert.ok(report.changes.some(x=>x.field===field&&x.action==='removed-feature'),field);
+  for(const field of ['moments.source','moments.limit','links.source','pjax','analytics','chat','ad','loading.instantpage','wordcount.total_wordcount','share.addtoany','busuanzi.provider','busuanzi.site_uv','index.subtitle_source','index.typewriter_random_api']) assert.ok(report.changes.some(x=>x.field===field&&x.action==='removed-feature'),field);
   assert.doesNotMatch(JSON.stringify({config,report}),/private-fixture|old-api|<script>fixture/);
   for(const provider of ['halo',undefined]) {
     const kept=migrateConfig({busuanzi:{...(provider?{provider}:{}),site_pv:true,page_pv:true}},'0.1.0-alpha.4',defaults);

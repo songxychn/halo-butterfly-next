@@ -8,6 +8,7 @@
 - 分析服务（百度、Google Analytics/GTM、Cloudflare、Clarity、Umami）、聊天服务（Chatra、Crisp、Tidio、Knocket）、AdSense 与主题广告槽。
 - 不蒜子、全站逐篇抓取字数、Share.js/AddToAny 与对应打包资源和许可证副本。
 - 一言、今日诗词、自定义字幕 API；保留本地字幕和打字效果。
+- 远程动态和友链 JSON 聚合：读取、重试、客户端分页及渲染；这两类内容仅使用 Halo 官方插件数据。
 - 上述功能专用的运行、测试及验收协调脚本。
 
 ## 保留

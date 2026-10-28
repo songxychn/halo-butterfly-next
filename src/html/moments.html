@@ -39,7 +39,6 @@
 
     <section class="content card animate__animated animate__fadeIn" th:with="noData = ${not #lists.isEmpty(moments.items)}"  th:style="${ noData ?  '' : 'min-height: auto'}">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${#messages.msg('ui.moments')}"></h1>
-      <th:block th:replace="~{views/moment-feed :: feed}"/>
       <ul class="list" th:if="${noData}">
         <li class="item" th:each="moment : ${moments.items}" th:insert="~{::item(${moment})}"></li>
       </ul>
