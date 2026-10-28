@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "tag": "v1.0.0",
-  "sourceSha": null,
-  "runtimeSourceSha": null,
-  "themeSha256": null,
-  "decision": "pending-reduced-scope-validation",
+  "sourceSha": "0d9f1fa94439c218ecbb92ce6025c9abf3f282cb",
+  "runtimeSourceSha": "0d9f1fa94439c218ecbb92ce6025c9abf3f282cb",
+  "themeSha256": "8df5f687d36977eec8c3b009ae6439e34da2e697a82fe38d38d7c6df920042b5",
+  "decision": "pending-independent-review-and-release-validation",
   "reviewer": null,
   "publicationAuthorized": false,
   "gates": {
-    "realHalo": "pending",
-    "installUpgradeRollback": "pending",
-    "resourcesAndLicenses": "pending",
+    "realHalo": "partial",
+    "installUpgradeRollback": "passed",
+    "resourcesAndLicenses": "passed",
     "sourceRebuild": "pending"
   },
   "knownLimitations": [
@@ -24,10 +24,22 @@
     "仅本地 demo 更新至当前候选；公网 demo 未升级，其平台版本不能归为本次已测 1.0 组合。",
     "页脚按维护者要求恢复原版浅色文字；不将历史深色字对比度结论继承为当前完整无障碍通过。"
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "path": "docs/validation/2026-10-28/scope-reduction.json",
+      "sha256": "5dda84e3f8c7af3e0a072528a34d37ce97e3a6ae30e008d47370f9f6ec05a3dc"
+    },
+    {
+      "path": "docs/validation/2026-10-28/scope-reduction.md",
+      "sha256": "593d923be955d45090b194bea871051ff8a0e843e2d34edf744b1f422d136ae7"
+    }
+  ],
   "gateNotes": {
     "scope": "DEC-10 removes PJAX, external integrations, remote subtitles and browser aggregate statistics. Previous candidate evidence does not qualify this package.",
-    "publication": "Publication remains unauthorized; fresh package identity, validation and review are required."
+    "publication": "Publication remains unauthorized; fresh package identity, validation and review are required.",
+    "realHalo": "Scoped native navigation, nine routes, mobile viewport, official comment/Moments/Links and search dialog checked on Halo 2.27.1; not complete release acceptance.",
+    "installUpgradeRollback": "Final ZIP fresh install and alpha.4 upgrade/rollback passed in isolated local databases; stored configuration and content preserved.",
+    "source": "Local verify rebuild matches installed ZIP; clean distributable source archive rebuild and independent review remain pending."
   },
   "previousCandidate": {
     "sourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
