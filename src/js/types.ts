@@ -25,9 +25,6 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   loading_enable?: SettingValue;
   loading_mode?: string;
   pace_css_url?: string;
-  pjax_enable?: SettingValue;
-  pjax_exclude?: string | string[];
-  instantpage?: SettingValue;
   snackbar_enable?: SettingValue;
   snackbar_position?: string;
   snackbar_bg_light?: string;
@@ -72,14 +69,11 @@ export interface ThemeConfig extends Partial<PaginationConfig> {
   code_height_limit?: SettingValue;
   enable_code_word_wrap?: SettingValue;
   enable_code_fullpage?: SettingValue;
-  subtitle_source?: SettingValue;
   subtitle_typed_option?: unknown;
   enable_subtitle?: boolean;
   subtitle_effect?: boolean;
   typewriter_custom_text?: string;
-  typewriter_random_api?: string;
   site_subtitle?: string;
-  typewriter_api_value_format?: string;
 }
 export interface ThemeModule { name: string }
 export interface PrismApi { highlightAllUnder(root: Element): void }
@@ -98,7 +92,6 @@ export interface ThemeApp {
   prismReady?: Promise<boolean>;
   resources?: import('./core/external-resource.ts').ResourceConfig;
   version?: string;
-  integrations?: import('./core/integrations.ts').IntegrationConfig;
 }
 export interface ArchiveYear { year: number; months: { month: number; posts: unknown[] }[] }
 export interface Category { postCount: number; spec: { displayName: string } }

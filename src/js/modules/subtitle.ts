@@ -1,31 +1,11 @@
-import { t } from '../core/i18n';
 import type { TypedOptions } from 'typed.js';
 import type { ThemeConfig } from '../types.ts';
-interface SubtitleResponse { body: unknown; contentType?: string }
-interface SubtitleSource { kind: 'custom' | 'hitokoto' | 'yiyan' | 'jinrishici'; url: string; path?: string; withCredentials?: boolean }
 export type SubtitleOptions = Omit<TypedOptions, 'contentType'> & {contentType: 'html' | null};
-// Local author content and external responses have separate markup policies.
+// Local author-configured subtitle content.
 export function customSubtitles(value: unknown) {
   if (typeof value !== 'string') return [];
   const lines = value.replace(/[\r\n]/g, '').split('|&|');
   return lines.some(line => line.trim()) ? lines : [];
-}
-
-export function randomSubtitle({ body, contentType = '' }: SubtitleResponse, valuePath?: unknown) {
-  if (typeof body !== 'string') return null;
-  const path = typeof valuePath === 'string' ? valuePath.trim() : '';
-  let value: unknown = body;
-  if (path || /\bjson\b/i.test(contentType)) {
-    try { value = JSON.parse(body); } catch { return null; }
-    if (path) {
-      for (const key of path.split('.')) {
-        if (!key || ['__proto__', 'prototype', 'constructor'].includes(key) ||
-          value === null || typeof value !== 'object' || !Object.hasOwn(value, key)) return null;
-        value = (value as Record<string, unknown>)[key];
-      }
-    }
-  }
-  return typeof value === 'string' && value.trim() ? value : null;
 }
 
 // JSON configuration deliberately cannot replace strings, HTML mode, DOM targets or callbacks.
@@ -54,70 +34,18 @@ export function subtitleTypedOptions(value: unknown): Pick<TypedOptions, 'typeSp
   return options;
 }
 
-export function subtitleSource(config: ThemeConfig): SubtitleSource | null {
-  const source = config.subtitle_source;
-  if (source === 'custom') {
-    const url = typeof config.typewriter_random_api === 'string' ? config.typewriter_random_api.trim() : '';
-    return url ? { kind: 'custom', url, path: config.typewriter_api_value_format } : null;
-  }
-  switch (String(source)) {
-    case 'hitokoto': return { kind: 'hitokoto', url: 'https://v1.hitokoto.cn' };
-    case 'yiyan': return { kind: 'yiyan', url: 'https://v.api.aa1.cn/api/yiyan/index.php' };
-    // The official SDK reads this JSON endpoint; do not execute a third-party script.
-    case 'jinrishici': return { kind: 'jinrishici', url: 'https://v2.jinrishici.com/one.json?client=browser-sdk/1.2', withCredentials: true };
-    default: return null;
-  }
-}
-
-export function providerSubtitles(response: SubtitleResponse, source: SubtitleSource) {
-  if (source.kind === 'custom') {
-    const text = randomSubtitle(response, source.path);
-    return text === null ? [] : [text];
-  }
-  if (source.kind === 'yiyan') {
-    const match = typeof response.body === 'string' && /<p>(.*?)<\/p>/g.exec(response.body);
-    return match && match[1].trim() ? [match[1]] : [];
-  }
-  const json = { ...response, contentType: 'application/json' };
-  const text = randomSubtitle(json, source.kind === 'hitokoto' ? 'hitokoto' : 'data.content');
-  if (text === null) return [];
-  const from = source.kind === 'hitokoto' && randomSubtitle(json, 'from');
-  return from ? [text, t('ui.quoteFrom', from)] : [text];
-}
-
 const escapeMarkup = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export async function runSubtitle<T>({ element, config = {}, createTyped, requestRandom, isActive = () => true }: {
+export async function runSubtitle<T>({ element, config = {}, createTyped, isActive = () => true }: {
   element: Element | null; config?: ThemeConfig;
   isActive?: () => boolean;
   createTyped: (element: Element, options: SubtitleOptions) => T;
-  requestRandom: (url: string, source: SubtitleSource) => Promise<SubtitleResponse>;
 }) {
   if (!element || config.enable_above === false || config.enable_subtitle === false) return;
 
-  let strings = customSubtitles(config.typewriter_custom_text);
-  let contentType: 'html' | null = 'html'; // Preserve author-configured markup in the existing dynamic mode.
-  const source = subtitleSource(config);
-  let staticText = strings[0] ?? config.site_subtitle ?? '';
+  const strings = customSubtitles(config.typewriter_custom_text);
+  const staticText = strings[0] ?? config.site_subtitle ?? '';
   element.textContent = staticText;
-  if (source) {
-    try {
-      const remote = providerSubtitles(await requestRandom(source.url, source), source);
-      if (remote.length) {
-        staticText = remote[0];
-        if (source.kind === 'custom' || !strings.length) {
-          strings = remote;
-          contentType = null;
-        } else {
-          // Built-in providers prepend their text to author HTML, matching upstream order.
-          // Escape external markup before mixing with the trusted local HTML strings.
-          strings = [...remote.map(escapeMarkup), ...strings];
-        }
-      }
-    } catch {
-      // Unavailable services use the same local content as the no-source case.
-    }
-  }
 
   if (!isActive()) return;
   if (!staticText && strings.length === 0) {
@@ -131,7 +59,7 @@ export async function runSubtitle<T>({ element, config = {}, createTyped, reques
   }
   return createTyped(element, {
     strings,
-    contentType,
+    contentType: 'html',
     startDelay: 300,
     typeSpeed: 200,
     loop: true,

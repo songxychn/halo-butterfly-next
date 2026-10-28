@@ -18,15 +18,10 @@ export function safeResourceUrl(value: unknown, base = globalThis.location?.href
 export interface ResourceConfig {
   version?: unknown;
   asset_base?: unknown;
-  option?: Record<string, unknown>;
 }
 
-/** Browser-side counterpart of scripts/resource-templates.mjs (Prism + service URLs). */
-export function resolveResource(key: string, local: string, config?: ResourceConfig, version = '', file = '') {
-  const expand = (value: unknown) => text(value).replaceAll('${version}', version).replaceAll('${file}', file).replaceAll('${name}', 'halo-butterfly-next');
-  const expanded = expand(config?.option?.[key]);
-  const override = expanded.includes('${') ? '' : safeResourceUrl(expanded);
-  if (override) return override;
+/** Browser-side counterpart of scripts/resource-templates.mjs (theme assets). */
+export function resolveResource(local: string, config?: ResourceConfig, version = '', file = '') {
   if (file) {
     const base = text(config?.asset_base).replaceAll('${version}', version).replaceAll('${name}', 'halo-butterfly-next');
     if (base && !/[?#]/.test(base) && !base.includes('${')) {
@@ -35,26 +30,6 @@ export function resolveResource(key: string, local: string, config?: ResourceCon
     }
   }
   return safeResourceUrl(local) ? local : '';
-}
-
-/** Only exact configured theme files are trusted during partial navigation. */
-export function isThemeScriptSource(source: string, file: string, key: string, localRoot: string, config?: ResourceConfig, version = '', base = globalThis.location?.href || 'https://example.invalid/') {
-  if (key === 'effects' && file === 'js/effects.min.js' || key === 'sharejs' && file === 'plugins/sharejs/js/social-share.min.js') {
-    const local = localRoot + file;
-    const selected = resolveResource(key, local, config, version, file);
-    try { return [local, selected].some(value => new URL(value, base).href === new URL(source, base).href); } catch { return false; }
-  }
-  if (!['main', 'masonry', 'loading', 'charts', 'integrations'].includes(key) ||
-      !/^(?:js\/[a-z0-9_-]+\.min\.js|plugins\/loading\/[a-z0-9_-]+\.min\.js)$/.test(file)) return false;
-  if (key === 'integrations' && file !== 'js/integrations.min.js') return false;
-  if (key === 'charts' && file !== 'js/charts.min.js') return false;
-  if (key === 'loading' ? !file.startsWith('plugins/loading/') : !file.startsWith('js/')) return false;
-  const local = localRoot + file + (config?.version === false || config?.version === 'false' ? '' : '?v=' + version);
-  const selected = resolveResource(key, local, config, version, file);
-  try {
-    const canonical = (value: string) => new URL(value, base).href;
-    return canonical(source) === canonical(local) || Boolean(selected) && canonical(source) === canonical(selected);
-  } catch { return false; }
 }
 
 const managed = new WeakMap<Document, Map<string, Promise<boolean>>>();

@@ -4,8 +4,6 @@
      uiLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh'}, #locale.language) ? #locale.toLanguageTag() : 'en'},
      contentLanguage = ${page == 'post' ? #annotations.getOrDefault(post, 'language', '') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'language', '') : '')},
      contentLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh-CN', 'zh-HK', 'zh-TW'}, contentLanguage) ? contentLanguage : uiLanguage},
-     themePjaxEnabled = ${theme.config.pjax?.enable == true or theme.config.pjax?.enable == 'true'},
-     run.halo.app.theme.dialect.HaloTrackerProcessor.SKIP_TRACKER = ${themePjaxEnabled and (page == 'post' or page == 'single')},
      coverCandidates = ${theme.config.cover?.default_cover_list == null ? {} : theme.config.cover.default_cover_list.?[#this != null and not #strings.isEmpty(#strings.trim(url))]},
      topImgConfig = ${theme.config[(page == 'category' or page == 'categories') ? 'categories' : ((page == 'tag' or page == 'tags') ? 'tags' : (page == 'archives' ? 'archives' : (page == 'post' ? 'post' : (page == 'single' ? 'single' : (page == 'index' ? 'index' : 'image')))))]},
      topImgOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'top_img_enable', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'top_img_enable', 'inherit') : 'inherit')},
@@ -32,7 +30,6 @@
   <!DOCTYPE html>
   <html
     th:lang="${uiLanguage}"
-    data-theme-navigation="1"
     data-color-scheme="light"
     th:classappend="${(asideEnabled and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (asideEnabled and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
     th:with="isDev = ${true ? #dates.createNow().time : ''} "
@@ -44,8 +41,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
     <meta name="author" th:content="${site.title}">
     <meta name="site" th:content="${site.url}">
-    <meta th:if="${themePjaxEnabled and (page == 'post' or page == 'single')}" data-theme-tracker
-          data-group="content.halo.run" th:attr="data-plural=${page == 'post' ? 'posts' : 'singlepages'},data-name=${page == 'post' ? post.metadata.name : singlePage.metadata.name},data-endpoint=@{/apis/api.halo.run/v1alpha1/trackers/counter}">
     <th:block th:replace="~{views/seo :: metadata(${page},${title})}"/>
     <th:block th:replace="~{views/config}"/>
     <th:block th:replace="${pin}"/>
@@ -83,7 +78,6 @@
   <script data-theme-script="ready" id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
   <script data-theme-script="entry" defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
-  <th:block th:replace="~{views/integrations::scripts}"/>
   <th:block th:replace="~{views/inject :: bottom}"/>
   </body>
 

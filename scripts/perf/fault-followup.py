@@ -244,16 +244,12 @@ def main():
                     break
             require(time.monotonic() < deadline, 'Positive fixture publication timeout')
             time.sleep(.25)
-        for profile in ['official', 'external', 'ondemand', 'pace-hang']:
+        for profile in ['official', 'ondemand']:
             enable({'PluginCommentWidget', 'plugin-katex'} if profile == 'official' else set())
             config = json.loads(json.dumps(original_config))
             config['loading'] = {**config.get('loading', {}), 'enable': True, 'mode': 'pace'}
-            config['pjax'] = {'enable': True, 'exclude': ''}
-            config['comments'] = {**config.get('comments', {}), 'lazyload': False}
-            config['share'] = {'use': 'addtoany' if profile in ('external', 'pace-hang') else 'none', 'addtoany': {'item': 'facebook,x,email,copy_link'}}
-            config['analytics'] = {'google_analytics': 'G-TEST123', 'google_analytics_manual_pageviews': True} if profile in ('external', 'pace-hang') else {}
-            config['busuanzi'] = {'provider': 'none'}
-            config['chat'] = {'use': 'none'}
+            config['share'] = {'use': 'none'}
+            config['busuanzi'] = {'site_pv': False, 'page_pv': False}
             config['mermaid'] = {'enable': profile == 'ondemand', 'code_write': True, 'theme': {'light': 'default', 'dark': 'dark'}}
             config['chartjs'] = {'enable': profile == 'ondemand'}
             # per_page=True enables content detection on all posts; False requires per-post metadata.
@@ -311,7 +307,7 @@ def main():
             report['locksReleased'] = True
         except Exception as e:
             report['errors'].append('restoration: ' + str(e))
-        report['passed'] = report['restorationVerified'] and not report['errors'] and len(report['batches']) == 5 and all(x['exitCode'] == 0 for x in report['batches'])
+        report['passed'] = report['restorationVerified'] and not report['errors'] and len(report['batches']) == 3 and all(x['exitCode'] == 0 for x in report['batches'])
         report['finishedAt'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         save()
     print(output, report['passed'])

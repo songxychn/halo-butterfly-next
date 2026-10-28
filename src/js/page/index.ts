@@ -5,7 +5,6 @@ import { pageScope } from '../core/page-lifecycle.ts';
  * @fileName: index
  * @Description: 首页
  */
-import $ from 'jquery';
 import Typed from 'typed.js';
 import type { TypedOptions } from 'typed.js';
 import App from '../core/App.ts';
@@ -28,19 +27,6 @@ class Index {
         scope.add(() => typed.destroy());
         return typed;
       },
-      requestRandom: (url, source) => new Promise((resolve, reject) => {
-        const request = $.ajax({
-          url,
-          type: 'get',
-          // Treat external responses as data, including script-like content types.
-          dataType: 'text',
-          timeout: 5000,
-          xhrFields: { withCredentials: source?.withCredentials === true },
-          success: (body, _status, xhr) => resolve({ body, contentType: xhr.getResponseHeader('Content-Type') || '' }),
-          error: () => reject(new Error('Random subtitle request failed')),
-        });
-        scope.add(() => request.abort());
-      }),
     });
   }
 }

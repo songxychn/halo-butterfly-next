@@ -17,10 +17,7 @@ import { bindHideAsideButton } from './aside-hide-button.ts';
 import { bindRightsideConfig, bindReadmode } from './rightside.ts';
 import { bindTranslate } from './translate.ts';
 import { bindDarkmode } from './darkmode.ts';
-import { initializeNewestComments } from './newest-comments.ts';
 import { bindCommentJump } from './comment-jump.ts';
-import { initializeLazyComments } from './comment-lazy.ts';
-import { initializeSiteWordcount, initializeVisitCounters } from './site-statistics.ts';
 import { bindCopyAttribution } from './copy-attribution.ts';
 import { initializeSiteContent } from './site-content.ts';
 import { initializeEffects } from './effects-loader.ts';
@@ -44,11 +41,7 @@ export default class Common {
     bindReadmode();
     bindTranslate();
     bindDarkmode();
-    initializeNewestComments();
-    initializeLazyComments();
     bindCommentJump();
-    initializeVisitCounters();
-    initializeSiteWordcount();
     bindCopyAttribution();
     initializeSiteContent();
 

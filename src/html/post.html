@@ -80,7 +80,6 @@
       <th:block th:replace="~{views/share :: postShare}"/>
 
       <th:block th:replace="~{views/components :: postReward}"/>
-      <section class="theme-ad ad-post" aria-label="广告" th:aria-label="#{ui.ad}" th:if="${not #strings.isEmpty(theme.config.ad?.post)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.post})}"/></section>
       <th:block th:replace="~{views/components :: postPagination}"/>
       <th:block th:replace="~{views/components :: relatedPosts}"/>
 
@@ -97,7 +96,7 @@
         </div>
         <p class="comment-notice" th:if="${theme.config.comments?.text != false and not #strings.isEmpty(theme.config.comments?.notice)}" th:text="${theme.config.comments.notice}"></p>
         <div class="comment-wrap">
-          <th:block th:replace="~{views/comment-lazy :: widget('Post', ${post.metadata.name})}"/>
+          <halo:comment group="content.halo.run" kind="Post" th:attr="name=${post.metadata.name}" />
         </div>
       </div>
       <p class="comment-notice comment-unavailable"

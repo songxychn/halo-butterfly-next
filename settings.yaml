@@ -712,11 +712,6 @@ spec:
           label: Pace 自定义样式地址
           value: ''
           help: 留空使用内置蓝色顶部进度条。可填写 HTTPS 或本站绝对路径；加载失败回退内置样式。
-        - $formkit: checkbox
-          name: instantpage
-          label: 预取站内内容链接
-          value: false
-          help: 鼠标经过或键盘聚焦列表、分页链接时提示浏览器预取。每页最多 8 个，省流量/慢速网络和带查询参数的链接跳过。
         - $formkit: radio
           name: type
           if: $get(loading_mode).value == 'animation'
@@ -774,19 +769,6 @@ spec:
               value: ''
               help: 自定义随机图API，用于填充没有设置封面的 ，免费 API 不会一直可用，请知悉
               validation: url
-    - group: pjax
-      label: 无刷新导航
-      formSchema:
-        - $formkit: checkbox
-          name: enable
-          label: 启用 PJAX
-          value: false
-          help: 主题页面之间无刷新跳转。外链、下载、后台、插件自有页和未知脚本使用普通导航；加载失败自动回退。
-        - $formkit: textarea
-          name: exclude
-          label: 排除地址
-          value: ''
-          help: 每行一个路径或完整 URL。路径末尾 * 表示前缀，例如 /photos*。同时影响页面预取。
     - group: snackbar
       label: 消息提示
       formSchema:
@@ -1212,39 +1194,6 @@ spec:
               value: 20
               help: "数值越小越靠前；相同数值保持原顺序。"
               min: 0
-        - $formkit: group
-          name: card_newest_comments
-          label: 最新评论
-          help: 汇总公开文章与单页的已审核顶层评论，按评论发布时间倒序；接近视区时查询。站点规模越大，首次查询越多。瞬间评论不在本卡片范围。
-          children:
-            - $formkit: checkbox
-              name: enable
-              label: 显示最新评论卡片
-              value: false
-              help: 默认关闭。需要官方评论组件 3.3.2 或更新版本及全局评论启用。
-            - $formkit: number
-              name: limit
-              label: 显示数量
-              value: 6
-              min: 1
-              max: 20
-            - $formkit: number
-              name: sort_order
-              label: 卡片顺序
-              value: 25
-              min: 0
-              help: 数值越小越靠前；相同数值保持原顺序。
-            - $formkit: checkbox
-              name: avatar
-              label: 显示头像
-              value: true
-            - $formkit: number
-              name: storage
-              label: 缓存分钟数
-              value: 10
-              min: 0
-              max: 60
-              help: 同一标签页缓存公开评论摘要，0 为禁用。新增评论导致计数变化时刷新；审核隐藏或正文修改后的摘要可能在缓存到期后更新。每次导航重新核对公开内容清单；浏览器拒绝缓存时直接查询。
         - $formkit: radio
           name: enable_category
           label: 启用侧边栏分类
@@ -1662,25 +1611,8 @@ spec:
           name: typewriter_custom_text
           label: 首页字幕文案
           placeholder: 请填写 首页字幕文案
-          help: 多条文案用 |&| 分隔；关闭打字效果时显示第一条。留空静态显示站点副标题，两者均空时不输出字幕；远端失败先回退此处文案。
+          help: 多条文案用 |&| 分隔；关闭打字效果时显示第一条。留空静态显示站点副标题，两者均空时不输出字幕。
           value: ''
-        - $formkit: select
-          name: subtitle_source
-          id: subtitle_source
-          label: 字幕来源
-          value: local
-          help: 默认只使用本地文案。选择自定义 API 即启用该地址，失败回退本地文案或站点副标题。
-          options:
-            - label: 本地文案
-              value: local
-            - label: 自定义 API
-              value: custom
-            - label: 一言 hitokoto.cn
-              value: hitokoto
-            - label: 一言 aa1.cn
-              value: yiyan
-            - label: 今日诗词
-              value: jinrishici
         - $formkit: textarea
           name: subtitle_typed_option
           label: 字幕打字机参数（JSON）
@@ -1688,19 +1620,6 @@ spec:
           value: ""
           placeholder: '{"typeSpeed":150,"backDelay":1500,"loop":true}'
           help: 默认速度 200ms；可用 typeSpeed、startDelay、backSpeed、backDelay、smartBackspace、shuffle、fadeOut、fadeOutClass、fadeOutDelay、loop、loopCount、showCursor、cursorChar、autoInsertCss、bindInputFocusEvents。loopCount 可设数字或字符串 Infinity。光标按纯文本处理；不支持覆盖文案、HTML模式、DOM目标或回调。无效 JSON 或字段忽略；静态模式不使用这些参数。
-        - $formkit: text
-          name: typewriter_random_api
-          if: $get(subtitle_source).value == custom
-          label: 随机文案链接（api）
-          placeholder: 请正确填写 随机文案链接（api）
-          value: ''
-          help: 自定义随机文案API(推荐使用一言,返回格式设置为TEXT格式，json需要配置取值格式)，免费 API 不会一直可用，请知悉
-        - $formkit: text
-          name: typewriter_api_value_format
-          if: $get(subtitle_source).value == custom
-          label: 随机文案api取值格式
-          value: ''
-          help: 如果使用的随机文案API返回格式不是TEXT格式，Json请自定义取值格式，如：data.content
         - $formkit: select
           name: index_layout
           id: index_layout
@@ -2165,11 +2084,6 @@ spec:
       label: 评论
       formSchema:
         - $formkit: checkbox
-          name: lazyload
-          label: 评论懒加载
-          value: false
-          help: 开启后接近评论区时自动加载，点击评论跳转立即加载。延迟组件初始化及评论数据请求；官方插件预加载的 JS/CSS 仍保留。
-        - $formkit: checkbox
           name: text
           label: 显示评论说明和状态提示
           value: true
@@ -2237,11 +2151,6 @@ spec:
               value: true
             - label: 隐藏
               value: false
-        - $formkit: checkbox
-          name: total_wordcount
-          label: 显示全站字数
-          value: false
-          help: 网站信息卡片进入视区后读取公开已发布文章，使用同一字数算法；当前标签页缓存 5 分钟。大型站点请求较多，可保持关闭。
     - group: copy
       label: 正文复制
       formSchema:
@@ -2276,55 +2185,18 @@ spec:
               value: ''
             - label: 系统分享与复制链接
               value: native
-            - label: Share.js
-              value: sharejs
-            - label: AddToAny
-              value: addtoany
-          help: Share.js 随主题分发；AddToAny 开启时加载其在线服务。各方式均提供手动复制链接回退。
-        - $formkit: group
-          name: sharejs
-          label: Share.js 平台
-          children:
-            - $formkit: text
-              name: sites
-              label: 平台列表
-              value: facebook,x,wechat,weibo,qq
-              help: 以英文逗号分隔，支持 facebook、x、twitter、wechat、weibo、qq、qzone、linkedin；空列表不显示平台按钮。
-        - $formkit: group
-          name: addtoany
-          label: AddToAny 平台
-          children:
-            - $formkit: text
-              name: item
-              label: 平台列表
-              value: facebook,x,wechat,sina_weibo,facebook_messenger,email,copy_link
-              help: 使用 AddToAny 服务标识，以英文逗号分隔；空列表不加载服务。
+          help: 系统分享与复制链接，不加载第三方分享服务。
     - group: busuanzi
-      label: 访问统计
+      label: Halo 阅读量
       formSchema:
-        - $formkit: select
-          name: provider
-          label: 统计来源
-          value: halo
-          options:
-            - label: Halo 原生阅读量
-              value: halo
-            - label: 不蒜子 PV / UV
-              value: busuanzi
-          help: Halo 提供文章及文章累计阅读量；独立访客数仅在选择不蒜子时显示。启用不蒜子后向其在线服务发送访问请求，两种来源的统计口径不同。
         - $formkit: checkbox
           name: site_pv
-          label: 显示累计访问量
+          label: 显示文章累计阅读量
           value: false
-        - $formkit: checkbox
-          name: site_uv
-          label: 显示独立访客数
-          value: false
-          help: 仅不蒜子来源支持，在网站信息卡片中显示。
         - $formkit: radio
           name: page_pv
           label: 显示文章阅读量
-          help: 在文章元信息显示阅读量，使用本组选择的统计来源。
+          help: 显示 Halo 原生文章阅读量。
           value: false
           options:
             - label: 显示
@@ -3060,8 +2932,8 @@ spec:
             - $formkit: text
               name: show
               label: 常驻按钮
-              value: "toc,chat,comment"
-              help: "使用相同标识。仅显示已启用且当前页面可用的功能；comment 对应跳到评论，chat 暂未接入会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。"
+              value: "toc,comment"
+              help: "使用相同标识。仅显示已启用且当前页面可用的功能；comment 对应跳到评论，已移除的 chat 项会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。"
         - $formkit: checkbox
           name: config_animation
           label: 齿轮旋转动画
@@ -3302,219 +3174,6 @@ spec:
           label: 404 配图
           value: ''
           help: 留空使用首页第一屏背景；图片加载失败时回退到首页背景及主题内置插图。
-    - group: analytics
-      label: 分析统计
-      formSchema:
-      - $formkit: text
-        name: baidu_analytics
-        label: 百度统计 ID
-        value: ''
-        help: 填统计脚本 hm.js? 后的 32 位 ID；留空关闭。
-      - $formkit: text
-        name: google_analytics
-        label: Google Analytics 4 测量 ID
-        value: ''
-        help: G- 开头的测量 ID；留空关闭。
-      - $formkit: checkbox
-        name: google_analytics_manual_pageviews
-        label: 已关闭 GA4 自动历史浏览统计，交由主题逐页上报
-        value: false
-        help: 先在 GA4 数据流增强型衡量中关闭基于浏览器历史事件的网页更改；否则重复计数。仅单独启用 GA4、无聊天或广告服务且使用官方脚本时支持 PJAX。默认保留原完整导航行为。
-      - $formkit: text
-        name: cloudflare_analytics
-        label: Cloudflare Web Analytics token
-        value: ''
-        help: 公开追踪 token；留空关闭。
-      - $formkit: text
-        name: microsoft_clarity
-        label: Microsoft Clarity 项目 ID
-        value: ''
-      - $formkit: group
-        name: google_tag_manager
-        label: Google Tag Manager
-        value:
-          tag_id: ''
-          domain: ''
-        children:
-        - $formkit: text
-          name: tag_id
-          label: 容器 ID
-          value: ''
-          help: GTM- 开头；留空关闭。
-        - $formkit: text
-          name: domain
-          label: 服务地址
-          value: ''
-          help: 可选 HTTPS 地址，留空使用 Google 官方地址。
-      - $formkit: group
-        name: umami_analytics
-        label: Umami
-        value:
-          enable: false
-          website_id: ''
-          serverURL: ''
-          script_name: script.js
-          option: '{}'
-          UV_PV: &id001
-            stats_url: ''
-            site_uv: false
-            site_pv: false
-            page_pv: false
-        children:
-        - $formkit: checkbox
-          name: enable
-          label: 启用 Umami
-          value: false
-        - $formkit: text
-          name: website_id
-          label: 网站 ID
-          value: ''
-        - $formkit: text
-          name: serverURL
-          label: 服务地址
-          value: ''
-          help: 留空使用 Umami Cloud；自托管填写 HTTPS 地址或本站路径。
-        - $formkit: text
-          name: script_name
-          label: 追踪脚本文件名
-          value: script.js
-        - $formkit: textarea
-          name: option
-          label: 追踪选项
-          value: '{}'
-          help: JSON 对象，支持 data-domains、data-tag、data-do-not-track、data-exclude-search、data-exclude-hash、data-host-url。
-        - $formkit: group
-          name: UV_PV
-          label: 公开访问统计
-          value: *id001
-          children:
-          - $formkit: text
-            name: stats_url
-            label: 公开只读统计接口
-            value: ''
-            help: 返回 site_uv、site_pv、page_pv 数值；文章请求附加 path。后台凭据由接口服务保管，只填写公开 URL。
-          - $formkit: checkbox
-            name: site_uv
-            label: 显示站点访客数
-            value: false
-          - $formkit: checkbox
-            name: site_pv
-            label: 显示站点访问量
-            value: false
-          - $formkit: checkbox
-            name: page_pv
-            label: 显示文章访问量
-            value: false
-    - group: chat
-      label: 在线聊天
-      formSchema:
-      - $formkit: select
-        name: use
-        label: 聊天服务
-        value: ''
-        options:
-        - label: 关闭
-          value: ''
-        - label: Chatra
-          value: chatra
-        - label: Tidio
-          value: tidio
-        - label: Crisp
-          value: crisp
-        - label: Knocket
-          value: knocket
-      - $formkit: checkbox
-        name: rightside_button
-        label: 使用主题聊天按钮
-        value: false
-        help: 替代服务原有的浮动入口；Knocket 切换其联系面板的显示。加载失败时不显示按钮。
-      - $formkit: checkbox
-        name: button_hide_show
-        label: 滚动时显示或隐藏原生入口
-        value: false
-        help: 向上滚动显示，向下滚动隐藏；使用主题按钮时不生效。
-      - $formkit: group
-        name: chatra
-        label: Chatra
-        value:
-          id: ''
-        children:
-        - $formkit: text
-          name: id
-          label: 站点 ID
-          value: ''
-      - $formkit: group
-        name: tidio
-        label: Tidio
-        value:
-          public_key: ''
-        children:
-        - $formkit: text
-          name: public_key
-          label: Public Key
-          value: ''
-      - $formkit: group
-        name: crisp
-        label: Crisp
-        value:
-          website_id: ''
-        children:
-        - $formkit: text
-          name: website_id
-          label: Website ID
-          value: ''
-      - $formkit: group
-        name: knocket
-        label: Knocket
-        value:
-          identifier: ''
-        children:
-        - $formkit: text
-          name: identifier
-          label: Identifier
-          value: ''
-    - group: google_adsense
-      label: Google AdSense
-      formSchema:
-      - $formkit: checkbox
-        name: enable
-        label: 启用 AdSense
-        value: false
-      - $formkit: text
-        name: client
-        label: 发布商 ID
-        value: ''
-        help: ca-pub- 开头的 16 位 ID。
-      - $formkit: text
-        name: js
-        label: 脚本地址
-        value: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
-      - $formkit: checkbox
-        name: auto_ads
-        label: 自动广告
-        value: true
-      - $formkit: checkbox
-        name: enable_page_level_ads
-        label: 页面级广告
-        value: true
-    - group: ad
-      label: 广告位
-      formSchema:
-      - $formkit: textarea
-        name: index
-        label: 首页广告 HTML
-        value: ''
-        help: 每三篇文章后插入一次；只在首页列表显示。
-      - $formkit: textarea
-        name: aside
-        label: 侧栏广告 HTML
-        value: ''
-        help: 在普通侧栏和非简洁阅读侧栏显示。
-      - $formkit: textarea
-        name: post
-        label: 文章广告 HTML
-        value: ''
-        help: 放在文章上下篇导航之前。广告位内容由站点管理员提供；留空不输出。
     - group: CDN
       label: 资源来源
       formSchema:
@@ -3522,214 +3181,21 @@ spec:
         name: version
         label: 本地资源附加版本缓存参数
         value: true
-        help: 关闭仅移除本地 URL 的缓存参数；依赖 CDN 地址仍固定版本，不自动使用最新版。
+        help: 关闭仅移除本地 URL 的缓存参数；统一资源地址应提供与当前主题版本一致的完整 assets 目录。
       - $formkit: text
         name: asset_base
         label: 统一主题资源地址
         value: ''
         help: 填写后直接生效，留空使用安装包。填写完整 assets 目录的 HTTPS 地址或本站路径；可用 ${version}、${name}，不支持查询参数。
-      - $formkit: group
-        name: option
-        label: 单项地址覆盖
-        value: {}
-        children:
-        - $formkit: text
-          name: main
-          label: 页面脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: main_css
-          label: 页面样式
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: mermaid
-          label: Mermaid 渲染脚本
-          value: ''
-          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
-        - $formkit: text
-          name: chartjs
-          label: Chart.js 渲染脚本
-          value: ''
-          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
-        - $formkit: text
-          name: abcjs_basic_js
-          label: ABC 乐谱渲染脚本
-          value: ''
-          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
-        - $formkit: text
-          name: integrations
-          label: 第三方接入脚本
-          value: ''
-          help: 留空继承主题资源来源。
-        - $formkit: text
-          name: charts
-          label: 分类和标签统计图脚本
-          value: ''
-          help: 仅显式统计图模式加载；留空跟随统一资源地址。
-        - $formkit: text
-          name: masonry
-          label: 首页瀑布流脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: gallery
-          label: 正文图库脚本
-          value: ''
-          help: 仅正文包含图库时加载。留空继承主题资源来源；加载错误回退随包脚本。
-        - $formkit: text
-          name: loading
-          label: Loading 脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: pace_js
-          label: Pace 脚本
-          value: ''
-          help: 留空继承主题资源来源；替换脚本须提供 Pace 1.2.4 接口。
-        - $formkit: text
-          name: pace_default_css
-          label: Pace 默认样式
-          value: ''
-          help: 留空继承主题资源来源；加载设置中的自定义样式优先。
-        - $formkit: text
-          name: effects
-          label: 特效脚本
-          value: ''
-          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: sharejs
-          label: Share.js 脚本
-          value: ''
-          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: sharejs_css
-          label: Share.js 样式
-          value: ''
-          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: busuanzi
-          label: 不蒜子脚本
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用官方服务脚本。统一主题地址不改写统计服务。
-        - $formkit: text
-          name: fontawesome
-          label: 图标样式
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: prismjs_js
-          label: Prism 脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: prismjs_css
-          label: Prism 基础样式
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: code_light
-          label: 浅色代码配色
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: code_dark
-          label: 深色代码配色
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: baidu_analytics
-          label: 百度统计
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: google_analytics
-          label: Google Analytics
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: cloudflare_analytics
-          label: Cloudflare Web Analytics
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: microsoft_clarity
-          label: Microsoft Clarity
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: google_tag_manager
-          label: Google Tag Manager
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: umami_analytics
-          label: Umami
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: google_adsense
-          label: AdSense
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: chat_chatra
-          label: Chatra
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: chat_tidio
-          label: Tidio
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: chat_crisp
-          label: Crisp
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
-        - $formkit: text
-          name: chat_knocket
-          label: Knocket
-          value: ''
-          help: 可选 HTTPS 或本站路径；留空使用服务官方脚本。
 
     - group: moments
       label: 瞬间与动态
       formSchema:
         - $formkit: text
           name: timezone
-          label: 日期显示时区
+          label: 瞬间日期显示时区
           value: UTC
-          help: IANA 时区，例如 Asia/Shanghai。瞬间和外部动态共用；无脚本时保留原始 ISO 日期和时区，非法值回退 UTC。
-        - $formkit: text
-          name: source
-          label: 外部动态 JSON 地址
-          value: ''
-          help: 可选。作为独立动态列表显示在本地瞬间之前，不替换本地内容、不绑定本地评论。只接受 HTTPS 或本站路径，跨域需允许匿名 CORS。数据契约见 docs/MOMENTS.md。
-        - $formkit: text
-          name: title
-          label: 外部动态标题
-          value: 更多动态
-        - $formkit: number
-          name: page_size
-          label: 外部动态每页数量
-          value: 10
-          min: 1
-          max: 50
-          help: 仅影响外部 JSON 动态。本地瞬间每页数量请在瞬间插件设置中调整。
-        - $formkit: number
-          name: limit
-          label: 外部动态最多显示数量
-          value: 100
-          min: 1
-          max: 1000
-          help: 按日期倒序、日期过滤后取前 N 条，再分页。
-        - $formkit: text
-          name: since
-          label: 外部动态起始日期
-          value: ''
-          help: 可选 ISO 8601 日期时间，必须带 Z 或时区偏移，例如 2026-01-01T00:00:00+08:00。只显示此时间及之后的动态。
+          help: IANA 时区，例如 Asia/Shanghai。无脚本时保留原始 ISO 日期和时区，非法值回退 UTC。
 
     - group: links
       label: 友情链接增强
@@ -3753,11 +3219,6 @@ spec:
               name: description
               label: 分组说明
               value: ''
-        - $formkit: text
-          name: source
-          label: 独立远端友链 JSON
-          value: ''
-          help: 可选 HTTPS 或本站路径，匿名读取且跨域需 CORS；失败保留本地友链。分组数据契约见 docs/SOCIAL-FOOTER-LINKS.md。
 
     - group: subscription
       label: RSS 与站点地图

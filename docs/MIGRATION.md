@@ -2,9 +2,9 @@
 
 Next 的主题 ID、Setting 和 ConfigMap 都独立。安装 Next 不会改写原主题配置。先在测试站安装新主题，再迁移配置、检查页面，最后切换正式站点；保留原主题安装包和配置可用于回退。
 
-## 评论懒加载
+## 评论与资源范围收敛
 
-新增 `comments.lazyload` 默认关闭；旧配置缺字段时继续使用官方 `<halo:comment>`，不修改评论主体或已有数据。需要时在主题设置“评论”中开启。关闭后恢复原挂载方式，评论和回复仍由官方插件管理。
+评论统一恢复官方 `<halo:comment>`。`comments.lazyload`、`aside.card_newest_comments`、`CDN.option` 和旧第三方资源提供方已删除，迁移报告明确标记 `removed-feature`；不迁移对应地址或缓存。评论数据不受影响。资源仅保留统一 `CDN.asset_base` 与本地版本缓存开关，托管目录须与当前安装包一致。
 
 正文图库新增字段缺失时无需迁移配置；已有普通图片、Photos 页不自动改成正文图库。Hexo `gallery` / `galleryGroup` 源可先通过[图库离线转换](ARTICLE-GALLERY.md)生成等效 HTML，再导入正文。回退旧包后新图库 HTML 和 JSON 仍保留，但旧主题未提供对应增强，需保留原文章源或普通图片版本。
 
@@ -35,13 +35,13 @@ bun run migrate --input old.json --from 2.0.5 --output next.json
 
 原版字体重置为系统字体，已知的原版默认封面重置为 Next 内置 SVG；自定义封面链接保留。JS/CSS 的旧 CDN 配置重置为当前安装包资源，避免跨版本脚本混用。旧配置中的 Pro 专用图标需替换为 Font Awesome Free 图标。
 
-首页字幕新增 `index.enable_subtitle` 与 `index.subtitle_effect`，均默认开启以保留旧站行为。原版迁移自动补齐缺项并保留显式 `false`；Next 直接升级时缺失的新开关也按开启处理。空文案不再循环显示配置警告；静态及远端文案按纯文本呈现，动态自定义文案保留 HTML 标记。完整映射与 API 失败回退见 [字幕说明](SUBTITLE.md)。
+首页字幕新增 `index.enable_subtitle` 与 `index.subtitle_effect`，均默认开启以保留旧站行为。原版迁移自动补齐缺项并保留显式 `false`；Next 直接升级时缺失的新开关也按开启处理。空文案不再循环显示配置警告；静态文案按纯文本呈现，动态自定义文案保留 HTML 标记。当前行为见 [字幕说明](SUBTITLE.md)。
 
 侧栏新增页面显示、卡片排序、分类层级、标签排序、归档和网站信息字段配置。原有 `enable_category`、`enable_tags`、`enable_archives`、`enable_webInfo` 开关继续有效；缺失新增字段时，分类 5 条、标签 25 条、归档 8 行和原卡片顺序保持不变。分类树和排序为脚本增强，无脚本仍有受数量限制的链接。配置明细及格式支持范围见 [侧栏配置](SIDEBAR-OPTIONS.md)。
 
 移动菜单现在按上游默认展开分组。旧菜单没有 `hide` 注解时也采用此行为；需要保留旧版默认折叠时，请在菜单分组自定义属性中开启“移动菜单默认折叠”。该属性不隐藏菜单项，也不改变桌面初始收起行为。多层、长菜单和键盘行为见 [菜单配置](NAVIGATION-OPTIONS.md)。
 
-字幕新增 `index.subtitle_source`，默认 `custom`，继续读取原随机开关、URL 和字段路径；选择“仅本地”时不发远端请求。`index.subtitle_typed_option` 默认留空（等效于 `{}`），保留原 200ms 打字速度，支持参数白名单内的速度、停顿、循环和光标等设置。内置来源动态模式会在远端文案后追加本地文案；旧自定义 API 成功时仍只展示返回文本。回退主题前保留原有配置备份，旧包不会识别这些新增选项。
+字幕仅使用本地文案；远程提供方与自定义 API 已删除。`index.subtitle_typed_option` 仍保留经过白名单校验的打字效果参数。旧来源、URL 和字段路径会在迁移报告中标为 `removed-feature`，请改填本地文案。
 
 导航新增 `nav.fixed`（默认 false，与升级前滚动显隐一致）、`nav.logo`（空）、`nav.display_title` / `nav.display_post_title`（默认 true）。首页新增 `index.top_img_height` 与 `index.site_info_top`，留空使用全屏高度和 43% 的标题区域顶部位置。旧配置缺这些字段时由主题表单默认值补齐，不改变原滚动导航行为。
 
@@ -63,11 +63,11 @@ Hexo Butterfly 的 `{% %}` 是生成期语法，主题运行时不解析（[DEC-
 
 旧 Hexo 标签源需要人工改写成这些原生结构；不要直接复制运行页面中带 `hidden`、生成按钮或 ARIA 角色的 Tabs DOM。图库标签已有[专用离线转换](ARTICLE-GALLERY.md)，保留其限定支持范围；其他内容转换仅在有明确迁移需求时另行确定，不列为默认待开发项。不能把现有 `bun run migrate` 当成内容迁移工具，也不能将本次可移植正文能力视为 EXT-01/02 完整对齐。
 
-第三方接入配置默认关闭，新增组 `analytics`、`chat`、`google_adsense`、`ad`、`CDN`，见 [第三方接入与资源配置](INTEGRATIONS.md)。升级现有 Next 时无需改变原页面资源配置；省略新字段仍使用随包资源。旧 `loading.source` / `other` 的原主题资源地址仍由迁移工具重置到安装包，不能自动套用到 Next 的不同构建入口。旧的账号配置、原始广告 HTML 与 Umami token 需按报告人工核对，不自动向外部服务激活或公开认证凭据。回退时关闭新增服务组并恢复升级前保存的配置。
+分析、聊天、广告和第三方分享 SDK 已按 [DEC-10](parity/DEC-10-THEME-SCOPE.md) 删除。离线迁移不保留其服务配置或凭据，报告要求人工复核。Share.js/AddToAny 转为原生分享；不蒜子提供方的 PV 开关关闭，确认 Halo 原生数据口径后可重新开启。站长原先手写在注入区的脚本需自行检查；回退应恢复升级前配置备份。CDN 资源配置保留。
 
 ## 导航与加载配置
 
-新配置和回退方式见 [导航与加载](NAVIGATION-LOADING.md)。旧配置维持原生图片懒加载、现有 Loading；PJAX、预取和额外模式提示默认关闭。开启 IO 图片模式时，主题封面使用原有 loading.img.preload 作为占位；作者正文 src/srcset 不作破坏性重写。
+导航使用浏览器整页跳转，PJAX 和预取已删除。旧配置维持原生图片懒加载和 Loading；开启 IO 图片模式时，主题封面使用原有 loading.img.preload 作为占位，作者正文 src/srcset 不作破坏性重写。见 [导航与加载](NAVIGATION-LOADING.md)。
 
 ## 2026-10-14：统一配置模型
 
@@ -77,7 +77,7 @@ Hexo Butterfly 的 `{% %}` 是生成期语法，主题运行时不解析（[DEC-
 bun run migrate --input old.json --from 0.1.0-alpha.4 --output next.json
 ```
 
-工具只创建新配置和字段报告，不修改源文件、不连接 Halo。旧首页 list/tile 转为布局 3/6；代码折叠转为 expanded/collapsed/disabled；深色合并为 system/light/dark/schedule，旧 start/end 按实际时段转换为夜间 night_start/night_end（白天窗口交换，跨午夜夜间窗口保留）；字幕来源转为语义枚举，旧随机开关仅参与离线判断；资源来源转为 assets 根地址及完整 Font Awesome URL。
+工具只创建新配置和字段报告，不修改源文件、不连接 Halo。旧首页 list/tile 转为布局 3/6；代码折叠转为 expanded/collapsed/disabled；深色合并为 system/light/dark/schedule，旧 start/end 按实际时段转换为夜间 night_start/night_end（白天窗口交换，跨午夜夜间窗口保留）；远程字幕及外部服务字段报告为 removed-feature；资源来源转为 assets 根地址及完整 Font Awesome URL。
 
 无法表示的资源模板列为 manual-review，禁止按猜测应用。原作者文案、封面、统计图/头像的显式选择保留。旧 tile 取消无摘要例外、旧 user 默认转 system、单页不再继承首页背景，均在报告中说明。缺省新值为布局 3、system、本地字幕、分类列表、标签云、静止头像；保留坏图/资源失败回退。Pace 由另一个分叉实现，本轮不转换加载模式。
 

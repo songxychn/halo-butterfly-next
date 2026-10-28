@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "date": "2026-10-28T15:16:05.961284+00:00",
+  "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+  "runtimeSourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
+  "productSourceSha": "76857b5b641c7d24b7aeaaa882c35f4529cd32c9",
+  "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+  "files": 255,
+  "bytes": 4208152,
+  "attribution": "No product or build-input changes since 76857b5; b1 runtime package and final source archive rebuild have identical SHA-256. Later changes are acceptance tools, demo copy and release documentation.",
+  "engineering": {
+    "command": "bun run verify",
+    "testsPassed": 714,
+    "testsFailed": 0,
+    "matrixItems": 897,
+    "typecheck": "passed",
+    "buildAndPackage": "passed",
+    "siteCheck": "19 content, 10 tutorials, 4 demos, 5 pages, 14 assets, 92 links",
+    "publishedDemoRegression": "6 tests passed; published output contains no private-preview/candidate claim"
+  },
+  "freshInstall": {
+    "sourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
+    "packageSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+    "haloJarSha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3",
+    "files": 255,
+    "installedBytesMatch": true,
+    "freshInstall": true,
+    "port": 18963
+  },
+  "upgradeMigrationRollback": {
+    "sourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
+    "packageSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+    "files": 255,
+    "installedExactFileSetAndBytes": true,
+    "upgradeFrom": "0.1.0-alpha.4",
+    "oldPackageSha256": "389f78ad60c2cf73195d3cf16ae967f967d64e510a70d679878d061a2f570953",
+    "savedConfigurationPreserved": true,
+    "migrationApplied": true,
+    "rollbackPackageAndConfiguration": true,
+    "contentPreserved": true,
+    "finalInstalled": "1.0.0",
+    "plugins": [
+      {
+        "name": "PluginCommentWidget",
+        "version": "3.3.2",
+        "phase": "STARTED"
+      },
+      {
+        "name": "PluginSearchWidget",
+        "version": "1.7.1",
+        "phase": "STARTED"
+      }
+    ]
+  },
+  "coldBackupRecovery": {
+    "sourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
+    "packageSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+    "searchPlugin": {
+      "name": "PluginSearchWidget",
+      "version": "1.8.0",
+      "url": "https://github.com/halo-dev/plugin-search-widget/releases/download/v1.8.0/plugin-search-widget-1.8.0.jar",
+      "sha256": "4ada3473c55a1428134f0373fc7069cb6a906ae44582fd5e7319687f7d27cc2d",
+      "release": "https://github.com/halo-dev/plugin-search-widget/releases/tag/v1.8.0",
+      "requiresHalo": ">=2.26.0",
+      "themeMinimumVersion": "1.7.1"
+    },
+    "coldBackupFiles": 391,
+    "coldBackupCopiedBytesMatch": true,
+    "restoredBytesMatchBeforeStart": true,
+    "freshAuthenticatedClientAfterRestore": true,
+    "themeBytesMatch": true,
+    "configurationAndContentAndPluginSpecsRestored": true,
+    "changedConfigurationReverted": true,
+    "backupManifestSha256": "0aaf0466c5b2fa3f5a260ebd26f1bd9c46b6d0c02a5b172a26215758c9d36b93"
+  },
+  "search": {
+    "plugin": "SearchWidget 1.8.0",
+    "mode": "anonymous headless Chromium",
+    "sourceSha": "1f7ac02744ecbb4c4ede91f88e76068219d4aeae",
+    "packageSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+    "results": {
+      "headings": [
+        "Butterfly 对照：排版与交互"
+      ],
+      "requests": [
+        {
+          "status": 200,
+          "url": "http://127.0.0.1:18963/apis/api.halo.run/v1alpha1/indices/-/search"
+        }
+      ]
+    },
+    "navigation": {
+      "body": true,
+      "path": "/archives/preview-1",
+      "title": "Butterfly 对照：排版与交互"
+    },
+    "empty": {
+      "open": true,
+      "requests": [
+        {
+          "status": 200,
+          "url": "http://127.0.0.1:18963/apis/api.halo.run/v1alpha1/indices/-/search"
+        }
+      ],
+      "text": "没有搜索结果"
+    },
+    "closed": {
+      "focus": "link",
+      "label": "搜索",
+      "open": false
+    },
+    "collectorNotes": [
+      "Initial empty-state wait used an incorrect text (没有找到); actual nested-shadow text is 没有搜索结果. DOM and successful search API response verified."
+    ],
+    "passed": true
+  },
+  "smoke": {
+    "routes": [
+      "/",
+      "/archives",
+      "/categories",
+      "/tags"
+    ],
+    "themeResources": 10,
+    "status": "passed-after-restore"
+  },
+  "independentReview": {
+    "reviewer": "Codex read-only subagent /root/independent_review",
+    "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+    "status": "passed-no-remaining-blocking-findings",
+    "finding": "P2: current acceptance tools required removed external SDKs/PJAX; removed retired cases, native navigation assertions and corrected batch count to 3.",
+    "boundaries": "Independent source review only; runtime/build verification by primary agent, CI verified separately."
+  },
+  "sourceRebuild": {
+    "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+    "sourceArchiveSha256": "f6a36bac5bcafcb1678b6c3c81420fe30e73323dfb3f920607b46189a238642b",
+    "archiveCommand": "git archive --format=tar HEAD",
+    "commands": [
+      "bun install --frozen-lockfile --ignore-scripts",
+      "bun run build",
+      "bun scripts/check-package.mjs"
+    ],
+    "runtime": "Bun 1.4.0",
+    "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+    "sameBytes": true,
+    "scope": "Fresh directory with lockfile install; no copied node_modules or Halo data."
+  },
+  "retainedFailures": [
+    {
+      "stage": "first upgrade fixture",
+      "result": "Configuration equality failed because fixture replaced the full comments section with only lazyload, then Halo filled missing defaults.",
+      "resolution": "Preserved existing comments fields and added obsolete flag; repeated full upgrade/migration/rollback with new output filename passed."
+    },
+    {
+      "stage": "first retry",
+      "result": "Migration CLI refused to overwrite prior output (EEXIST).",
+      "resolution": "Used migrated-final-v2.json; old output preserved."
+    },
+    {
+      "stage": "search empty text wait",
+      "result": "Collector waited for 没有找到; actual UI text is 没有搜索结果.",
+      "resolution": "Verified nested shadow DOM text, HTTP 200 search and focus recovery; no product change."
+    }
+  ],
+  "cleanup": {
+    "ownedHaloStopped": true,
+    "ownedBrowserClosed": true,
+    "productionOrOtherObservationModified": false
+  },
+  "limitations": [
+    "Bounded DEC-09/DEC-10 release evidence; no new performance budget, physical Safari/mobile, full accessibility, comment upload/business matrix or full upstream parity claim.",
+    "Existing historical failures retain their original package attribution.",
+    "Public demo deployment, tag, release creation and public artifact verification were not performed."
+  ],
+  "publicationAuthorized": false,
+  "ci": "Final PR head and merged-master workflows are required and checked on GitHub separately; this local report does not claim a CI pass.",
+  "localEvidence": [
+    {
+      "path": ".runtime/release-scope-final/fresh-result.json",
+      "sha256": "bf69f8f1fa41715bb366cb87088b027daa10a559f3027a2a984c9d02584aa8dc"
+    },
+    {
+      "path": ".runtime/release-scope-final/lifecycle-final-result.json",
+      "sha256": "6ae35a48c20436b3f26bb6b6b805557e98aa914fccdb50d2ada7450668dbfe51"
+    },
+    {
+      "path": ".runtime/release-scope-final/recovery-result.json",
+      "sha256": "62d9ec1376cee7a6d0cb208f2930fee5a19aabfa935acd1365daf31e90e882fc"
+    },
+    {
+      "path": ".runtime/release-scope-final/search-result.json",
+      "sha256": "2af348a3a0648ac150bedcd5a0725f3d955ea40b70bbd5ecb1f390e8ce6d6739"
+    },
+    {
+      "path": ".runtime/release-scope-final/smoke.log",
+      "sha256": "73f15decfb29452551cb29b3ca066aef12370275838e69cd77c3669e3b557e08"
+    },
+    {
+      "path": ".runtime/release-scope-final/verify-final.log",
+      "sha256": "f3ff33bed875db0ab83252211f106f70db16f2edf7714eaffc13ada5bdca88fb"
+    },
+    {
+      "path": ".runtime/release-scope-final/site-check.log",
+      "sha256": "ef8d6685b9b3bce4965af1502cdd1d6521122715b4ae03a243685701644ab3c5"
+    },
+    {
+      "path": ".runtime/release-scope-final.py",
+      "sha256": "1fa627b96506317058480195e9674ffe859975fb6161c9452fce98304b8c2887"
+    },
+    {
+      "path": ".runtime/release-scope-recovery.py",
+      "sha256": "b1f048c25ffe9e38c88239e7baece3224b24f94f3bba8dd6dc9bdfda1f363ee9"
+    },
+    {
+      "path": ".runtime/release-scope-search.py",
+      "sha256": "88b3d29c5560c36c8434bd3ff7cd123a90f470c4eb41e4a9c6fb812982225030"
+    },
+    {
+      "path": ".runtime/release-scope-search-close.py",
+      "sha256": "0703d9a1fea28ce5588302889595d83b64fc48f33d169afa30425cec3cfa469f"
+    },
+    {
+      "path": ".runtime/release-source-final/install.log",
+      "sha256": "918dfead89a4f77a5eea4dade7a65425e3d76edc220ab2723f25723ae2792f3b"
+    },
+    {
+      "path": ".runtime/release-source-final/build.log",
+      "sha256": "c34bb36533f1f0d8378296648f519af1d19e9a3d4adc92c80168a6b838f9c1af"
+    }
+  ]
+}

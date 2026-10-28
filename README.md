@@ -74,7 +74,7 @@ bun run verify
 
 主题沿用 [GPL-3.0](LICENSE)，保留小红及历史贡献者署名；其他组件许可见[第三方资源说明](docs/THIRD_PARTY.md)和[改写来源清单](third-party-licenses/UPSTREAM-ATTRIBUTION.txt)。旧 Font Awesome Pro、旧字体和旧默认照片不属于当前安装包；公开范围不为旧历史资源追加授权。
 
-第三方分析、聊天、广告和资源地址配置见[接入说明](docs/INTEGRATIONS.md)。
+主题范围已按 [DEC-10](docs/parity/DEC-10-THEME-SCOPE.md) 收敛：原生整页导航、Halo 阅读量、本地字幕与原生分享；不再内置分析、聊天、广告和第三方分享 SDK。
 
 [公开 alpha 计划](docs/PUBLIC-ALPHA.md)、[完整功能矩阵](docs/parity/MATRIX.md)和[1.0 验收合同](docs/RELEASE-ACCEPTANCE.md)继续保留各项未完成状态。
 

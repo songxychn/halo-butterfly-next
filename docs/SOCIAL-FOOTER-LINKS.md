@@ -20,25 +20,4 @@ HTML 支持段落、换行、强调、链接、列表、图片、引用、代码
 
 原生链接来自官方 Links 插件。本次固定版本是 [Links 2.3.0](https://github.com/halo-sigs/plugin-links/tree/v2.3.0)。其 LinkGroup 没有组说明字段，因此 `links.group_descriptions` 使用原生分组的 `metadata.name` 作为 `group` 键，`description` 作为纯文本说明。不是以可变的展示名称关联。`links.random_order` 默认关闭，打开时每次页面初始化独立随机排序每个组里的卡片；不改变后台顺序，关闭脚本时保留原生顺序。
 
-`links.source` 留空时仅显示原生友链。可配置独立公开 JSON 数据源，要求 HTTPS 地址或同源路径；跨源服务须允许浏览器 CORS。匿名请求不携带凭据或 Referer，10 秒超时、最多 1 MiB。JSON 支持数组或 `{ "groups": [...] }` 包装：
-
-```json
-[
-  {
-    "name": "朋友们",
-    "description": "这一组的说明（纯文本）",
-    "links": [
-      {
-        "name": "Halo",
-        "url": "https://halo.run/",
-        "logo": "https://halo.run/logo.svg",
-        "description": "站点说明（纯文本）"
-      }
-    ]
-  }
-]
-```
-
-最多 50 个组、合计 500 个链接。链接名称必填且最长 200 字符，网页地址必须有效且不含用户名密码。组名最长 200 字符；组说明保留前 5000 字符，链接说明保留前 2000 字符。图片可选，危险地址、缺图或坏图显示名称首字符。组及卡片的说明均按文字处理，HTML 不会执行。
-
-远端内容显示在原生列表之前，空数据有空状态，网络/格式错误可重试；原生分组与链接始终保留。远端来源不写入 Halo，不使用 Hexo 特殊标签、Hexo 数据文件或兼容解析器。限制与真实验收见 `docs/validation/2026-10-14/site-content-completion.md`。
+远程友链 JSON 已按 [DEC-10](parity/DEC-10-THEME-SCOPE.md) 删除。只使用 Halo Links 插件分组和链接；旧 links.source 在迁移报告中标为 removed-feature。

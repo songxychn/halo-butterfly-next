@@ -55,12 +55,10 @@ test('aside.card_recent_post 使用上游嵌套名，支持 sort_order', async (
   visit(aside.formSchema);
   assert.ok(fieldNames.includes('sort_order'));
   assert.ok(fieldNames.includes('card_archives'));
-  assert.ok(fieldNames.includes('card_newest_comments'));
   const noticeIdx = aside.formSchema.findIndex(node => node.name === 'notice');
   const recentIdx = aside.formSchema.findIndex(node => node.name === 'card_recent_post');
   const categoryIdx = aside.formSchema.findIndex(node => node.name === 'enable_category');
-  const commentsIdx = aside.formSchema.findIndex(node => node.name === 'card_newest_comments');
-  assert.ok(noticeIdx >= 0 && recentIdx === noticeIdx + 1 && commentsIdx === recentIdx + 1 && categoryIdx === commentsIdx + 1);
+  assert.ok(noticeIdx >= 0 && recentIdx === noticeIdx + 1 && categoryIdx === recentIdx + 1);
 });
 
 test('模板：enable=false 不渲染卡片；aside_enable=false 无 thumbnail / 有 no-cover；limit/sort 表达式存在', async () => {

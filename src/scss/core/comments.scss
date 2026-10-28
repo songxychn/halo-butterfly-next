@@ -142,51 +142,7 @@
   white-space: pre-line;
 }
 
-#post-comment .comment-lazy {
-  min-height: 100px;
-  .comment-lazy-status { margin: 0 0 12px; }
-  .comment-lazy-status:empty { display: none; }
-  .comment-lazy-retry {
-    padding: 6px 12px;
-    color: var(--font-color);
-    background: var(--sidebar-bg, #f6f8fa);
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    cursor: pointer;
-    &:focus-visible { outline: 2px solid var(--font-color); outline-offset: 3px; }
-    &[hidden] { display: none; }
-  }
-}
-
 #comment-title {
   margin: 0;
   &:focus-visible { outline: 2px solid var(--font-color); outline-offset: 4px; }
-}
-
-.aside-newest-comments {
-  .newest-comments-list { list-style: none; margin: 0; padding: 0; }
-  .newest-comment-link {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    padding: 8px 0;
-    color: var(--font-color);
-    border-bottom: 1px solid var(--text-light-color, #999);
-    > img { flex: 0 0 36px; width: 36px; height: 36px; object-fit: cover; border-radius: 50%; }
-    > span { min-width: 0; }
-    &:focus-visible { outline: 2px solid var(--font-color); outline-offset: 2px; }
-  }
-  .newest-comment-excerpt { display: block; overflow-wrap: anywhere; }
-  .newest-comment-byline { display: block; font-size: .85em; margin-top: 4px; overflow-wrap: anywhere; }
-  .newest-comments-status { margin: 8px 0; }
-  .newest-comments-status:empty { display: none; }
-  .newest-comments-retry {
-    padding: 5px 12px;
-    color: var(--font-color);
-    background: var(--sidebar-bg, #f6f8fa);
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .newest-comments-retry[hidden] { display: none; }
 }

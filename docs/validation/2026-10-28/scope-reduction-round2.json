@@ -1,0 +1,209 @@
+{
+  "sourceSha": "76857b5b641c7d24b7aeaaa882c35f4529cd32c9",
+  "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+  "files": 255,
+  "installedExactFileSetAndBytes": true,
+  "configurationPreserved": true,
+  "contentPreserved": true,
+  "legacySettingsIgnoredFixture": true,
+  "date": "2026-10-28T13:57:50.549249+00:00",
+  "scope": "DEC-10 round 2: official comment ownership, unified theme assets and retired plugin-business harnesses",
+  "engineering": {
+    "command": "bun run verify",
+    "testsPassed": 714,
+    "testsFailed": 0,
+    "matrixItems": 897,
+    "typecheck": "passed",
+    "buildAndPackage": "passed"
+  },
+  "halo": {
+    "version": "2.27.1",
+    "jarSha256": "f621cdcfbb66d18079784a1c8796a1707da45c9a4a783978c4ccae3133f9a3d3",
+    "port": 18961
+  },
+  "smoke": {
+    "routes": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/archives/",
+        "status": 200
+      },
+      {
+        "path": "/categories/",
+        "status": 200
+      },
+      {
+        "path": "/tags/",
+        "status": 200
+      },
+      {
+        "path": "/archives/preview-1",
+        "status": 200
+      },
+      {
+        "path": "/about-preview/",
+        "status": 200
+      },
+      {
+        "path": "/moments",
+        "status": 200
+      },
+      {
+        "path": "/moments/page/2",
+        "status": 200
+      },
+      {
+        "path": "/links",
+        "status": 200
+      }
+    ],
+    "themeResources": 21,
+    "legacyMarkupAbsent": true
+  },
+  "browser": {
+    "engine": "agent-browser headless Chrome",
+    "checks": [
+      {
+        "path": "/archives/preview-1",
+        "focus": "comment-title",
+        "oldHosts": 0,
+        "overflow": false,
+        "requests": [
+          "http://127.0.0.1:18961/apis/api.halo.run/v1alpha1/comments?group=content.halo.run&kind=Post&name=preview-1&page=1&size=20&version=v1alpha1&withReplies=false&replySize=5"
+        ],
+        "widgets": [
+          {
+            "group": "content.halo.run",
+            "kind": "Post",
+            "name": "preview-1",
+            "shadow": true,
+            "version": "v1alpha1"
+          }
+        ]
+      },
+      {
+        "path": "/about-preview/",
+        "focus": "comment-title",
+        "oldHosts": 0,
+        "overflow": false,
+        "requests": [
+          "http://127.0.0.1:18961/apis/api.halo.run/v1alpha1/comments?group=content.halo.run&kind=SinglePage&name=about-preview&page=1&size=20&version=v1alpha1&withReplies=false&replySize=5"
+        ],
+        "widgets": [
+          {
+            "group": "content.halo.run",
+            "kind": "SinglePage",
+            "name": "about-preview",
+            "shadow": true,
+            "version": "v1alpha1"
+          }
+        ]
+      },
+      {
+        "path": "/moments/scope-moment-12",
+        "focus": "comment-title",
+        "oldHosts": 0,
+        "overflow": false,
+        "requests": [
+          "http://127.0.0.1:18961/apis/api.halo.run/v1alpha1/comments?group=moment.halo.run&kind=Moment&name=scope-moment-12&page=1&size=20&version=v1alpha1&withReplies=false&replySize=5"
+        ],
+        "widgets": [
+          {
+            "group": "moment.halo.run",
+            "kind": "Moment",
+            "name": "scope-moment-12",
+            "shadow": true,
+            "version": "v1alpha1"
+          }
+        ]
+      }
+    ],
+    "nativeBackSingleInstance": true,
+    "mobileDark": {
+      "overflow": false,
+      "scheme": "dark",
+      "widgets": 1
+    }
+  },
+  "pluginAvailability": {
+    "checks": [
+      {
+        "route": "/archives/preview-1",
+        "status": 200,
+        "commentEntryAbsent": true
+      },
+      {
+        "route": "/about-preview/",
+        "status": 200,
+        "commentEntryAbsent": true
+      },
+      {
+        "route": "/moments/scope-moment-12",
+        "status": 200,
+        "commentEntryAbsent": true
+      }
+    ],
+    "pluginStateRestored": true
+  },
+  "resourceFallback": {
+    "localTags": [
+      {
+        "key": "fontawesome",
+        "url": "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css"
+      },
+      {
+        "key": "prismjs_css",
+        "url": "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/plugins/prism/prism.min.css"
+      },
+      {
+        "key": "code_light",
+        "url": "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-light.css"
+      },
+      {
+        "key": "code_dark",
+        "url": "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/plugins/prism/themes/prism-one-dark.css"
+      },
+      {
+        "key": "main_css",
+        "url": "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/css/post.min.css?v=1.0.0"
+      },
+      {
+        "key": "main",
+        "url": "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/js/post.min.js?v=1.0.0"
+      }
+    ],
+    "overflow": false,
+    "prism": true,
+    "ready": true,
+    "requests": [
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/fontawesome/css/all.min.css",
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/pace/pace-theme-minimal.css",
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/pace/pace.min.js",
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/prism/prism.min.css",
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/prism/themes/prism-one-light.css",
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/prism/themes/prism-one-dark.css",
+      "http://127.0.0.1:18961/missing-theme-assets/css/post.min.css",
+      "http://127.0.0.1:18961/missing-theme-assets/js/post.min.js",
+      "http://127.0.0.1:18961/missing-theme-assets/images/above.svg",
+      "http://127.0.0.1:18961/missing-theme-assets/plugins/prism/prism.min.js",
+      "http://127.0.0.1:18961/themes/halo-butterfly-next/assets/plugins/prism/prism.min.js"
+    ],
+    "widget": "Post"
+  },
+  "limitations": [
+    "Author validation, not independent review.",
+    "This package was upgraded from the first scope-reduction candidate; fresh install and alpha.4 rollback evidence belongs to that prior package.",
+    "Headless Chrome and a 390px viewport; not physical mobile or Safari.",
+    "No comment submission, upload, captcha, storage GC, complete accessibility or performance acceptance.",
+    "Initial screenshot caught rendering in progress; settled component styles and a second screenshot were checked. No extra color adapter was introduced.",
+    "Search-result validation, clean source archive rebuild and final published-demo wording remain open."
+  ],
+  "size": {
+    "bytes": 4208152,
+    "browserTypeScriptFiles": 94,
+    "browserTypeScriptLines": 6705
+  }
+}

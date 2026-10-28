@@ -19,7 +19,7 @@
 
 主题的较低 Halo 兼容基线（例如 2.20.2）不等于插件兼容基线：上述插件在该版本不可作为受支持组合安装。主题的安全回退是隐藏不可用入口，不能将隐藏行为说成 RSS/Sitemap 已在低版本平台可用。
 
-入口使用服务端 HTML，关闭 JavaScript 后仍可读；既有 PJAX/预取规则会排除 `.xml`，保留浏览器原生导航。标准主题布局与插件公共布局各调用一次共享 head 片段。锁定的 Feed/Sitemap 版本没有自动注入 head 的处理器；无需额外添加手写标签。管理员的主题注入或 Halo 全局/内容 head 是独立配置，手动添加同一发现链接会重复，应删去手写项，或关闭对应主题设置。
+入口使用服务端 HTML，关闭 JavaScript 后仍可读；页面与 XML 链接均使用浏览器原生导航，不做主题预取。标准主题布局与插件公共布局各调用一次共享 head 片段。锁定的 Feed/Sitemap 版本没有自动注入 head 的处理器；无需额外添加手写标签。管理员的主题注入或 Halo 全局/内容 head 是独立配置，手动添加同一发现链接会重复，应删去手写项，或关闭对应主题设置。
 
 ## 数据边界
 
@@ -48,7 +48,7 @@ THEME_SOURCE_SHA=<installed-40-character-sha> python3 scripts/feed-sitemap/brows
 THEME_SOURCE_SHA=<installed-40-character-sha> python3 scripts/feed-sitemap/uninstalled.py --runtime .runtime/<owned-lab> --allow-synthetic-writes yes
 ```
 
-浏览器检查使用隔离无头 Chromium、Firefox、WebKit，覆盖亮暗与两种宽度、白色页脚图片上的文字对比度、PJAX/后退/前进、无脚本、语言回退、设置和插件启停。XML 链接必须原生导航，悬停/聚焦不得触发预取；有限 CSS 过渡结束后才采样对比度，每个案例从创建上下文起有 30 秒总截止。无脚本场景不注入只供主题脚本读取的 localStorage。失败和中止保留原始记录，不因修正采集器而覆盖。
+浏览器检查使用隔离无头 Chromium、Firefox、WebKit，覆盖亮暗与两种宽度、白色页脚图片上的文字对比度、原生导航/后退/前进、无脚本、语言回退、设置和插件启停。XML 链接必须原生导航，悬停/聚焦不得触发预取；有限 CSS 过渡结束后才采样对比度，每个案例从创建上下文起有 30 秒总截止。无脚本场景不注入只供主题脚本读取的 localStorage。失败和中止保留原始记录，不因修正采集器而覆盖。
 
 卸载检查在变更前备份两插件的固定 JAR 与配置，逐个真正删除插件资源，检查主题仍正常且对应入口隐藏、XML 返回 404，再用同一字节的包重新安装验证。`finally` 恢复配置和启用态并读回；插件重新安装产生的新 UID 不作为原 UID 恢复。它只允许任务自有的合成实验室，不是生产升级脚本。
 

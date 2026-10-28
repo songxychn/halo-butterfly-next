@@ -11,6 +11,7 @@ export interface RenderRequest {
   hiddenDatasets: Set<number>;
 }
 export interface BodyRenderer { render(output: HTMLElement, request: RenderRequest): Promise<() => void> }
+/** Internal handshake between version-matched theme bundles; not an extension API. */
 declare global { interface Window { ThemeBodyRenderers?: Partial<Record<RendererKind, BodyRenderer>> } }
 
 /** No executable configuration, inherited keys, or unbounded recursive input. */

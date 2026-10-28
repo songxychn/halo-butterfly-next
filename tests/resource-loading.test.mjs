@@ -1,7 +1,7 @@
 import {test} from 'bun:test';
 import {loadRenderer} from '../src/js/core/body-renderers.ts';
 import assert from 'node:assert/strict';
-import {isThemeScriptSource, loadManagedResource, resolveResource} from '../src/js/core/external-resource.ts';
+import {loadManagedResource, resolveResource} from '../src/js/core/external-resource.ts';
 
 function documentFixture() {
   const nodes=[];
@@ -9,17 +9,14 @@ function documentFixture() {
   return {document,nodes};
 }
 
-test('PJAX trusts exact configured files and local fallbacks, not other files on the CDN',()=>{
-  const root='https://site.test/themes/next/assets/';
-  const config={asset_base:'https://cdn.test/v1/assets'};
-  const check=(url,file='js/index.min.js',key='main')=>isThemeScriptSource(url,file,key,root,config,'v1');
-  assert(check('https://cdn.test/v1/assets/js/index.min.js'));
-  assert(check(root+'js/index.min.js?v=v1'));
-  for(const url of ['https://cdn.test/foreign.js','https://cdn.test/v1/assets/js/other.min.js','https://cdn.test.evil/v1/assets/js/index.min.js',root+'js/index.min.js?v=wrong']) assert.equal(check(url),false);
-  for(const file of ['js/../index.min.js','js/%2e%2e/index.min.js','//evil.test/index.min.js','js/index.min.js?extra']) assert.equal(check('https://cdn.test/v1/assets/'+file,file),false);
-  assert.equal(check('https://cdn.test/v1/assets/js/index.min.js','js/index.min.js','loading'),false);
-  assert(isThemeScriptSource('https://override.test/entry.js','js/index.min.js','main',root,{option:{main:'https://override.test/entry.js'}},'v1'));
+test('only a valid unified directory supplies theme resources; legacy overrides are ignored',()=>{
+  const local='/themes/halo-butterfly-next/assets/renderers/mermaid.min.js',file='renderers/mermaid.min.js';
+  const legacy={option:{mermaid:'https://obsolete.invalid/adapter.js'}};
+  assert.equal(resolveResource(local,legacy,'1.0.0',file),local);
+  assert.equal(resolveResource(local,{...legacy,asset_base:'https://cdn.test/${name}/${version}/assets/'},'1.0.0',file),'https://cdn.test/halo-butterfly-next/1.0.0/assets/'+file);
+  for(const asset_base of ['//evil.test/assets','javascript:alert(1)','https://user:password@cdn.test/assets','https://cdn.test/assets?x=1','https://cdn.test/assets#x','https://cdn.test/${unknown}'])assert.equal(resolveResource(local,{asset_base},'1.0.0',file),local);
 });
+
 
 test('native script error retries locally once; concurrent callers share the completion',async()=>{
   const {document,nodes}=documentFixture();
@@ -48,17 +45,7 @@ test('stylesheet failure loads local CSS and successful styles are cached',async
   assert.equal(await pending,true);assert.equal(await loadManagedResource('https://cdn.test/share.css','/share.css',{document,kind:'style'}),true);assert.equal(nodes.length,2);
 });
 
-test('service URLs stay official unless overridden, even with a unified theme directory',()=>{
-  const official='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-  const config={asset_base:'https://cdn.test/assets'};
-  assert.equal(resolveResource('busuanzi',official,config,'v1'),official);
-  assert.equal(resolveResource('busuanzi',official,{...config,option:{busuanzi:'https://stats.test/entry.js'}},'v1'),'https://stats.test/entry.js');
-});
 
- test('chart modules participate in PJAX only under their exact configured file',()=>{
-   assert(isThemeScriptSource('https://cdn.test/assets/js/charts.min.js','js/charts.min.js','charts','https://site.test/assets/',{asset_base:'https://cdn.test/assets'},'v1'));
-   assert.equal(isThemeScriptSource('https://cdn.test/assets/js/foreign.min.js','js/foreign.min.js','charts','https://site.test/assets/',{asset_base:'https://cdn.test/assets'},'v1'),false);
- });
 
 
 test('all three body renderers share native-error fallback and recover after definite failure',async()=>{

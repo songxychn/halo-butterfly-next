@@ -15,7 +15,7 @@ export function initializeArticleGallery(article: HTMLElement) {
   const base = MainApp.conf.assets_link;
   if (typeof base !== 'string') return;
   const local = base + 'js/gallery.min.js' + (MainApp.resources?.version === false ? '' : '?v=' + encodeURIComponent(MainApp.version || ''));
-  const source = resolveResource('gallery', local, MainApp.resources, MainApp.version, 'js/gallery.min.js');
+  const source = resolveResource(local, MainApp.resources, MainApp.version, 'js/gallery.min.js');
   void (async () => {
     await loadManagedResource(source, local, { attributes: { 'data-theme-script': 'gallery', 'data-resource-key': 'gallery', 'data-resource-file': 'js/gallery.min.js' }, valid: () => typeof window[GALLERY_KEY] === 'function' });
     if (window[GALLERY_KEY]) start();

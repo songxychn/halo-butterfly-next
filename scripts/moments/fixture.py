@@ -49,10 +49,8 @@ for suffix,subject,approved,hidden in [('public','moment-fixture-12',True,False)
  if optional(path+'/'+name):continue
  text='<p>瞬间测试评论 '+suffix+'</p>'
  client.api(path,'POST',{'apiVersion':'content.halo.run/v1alpha1','kind':'Comment','metadata':{'name':name,'labels':{'moments-fixture':owner}},'spec':{'subjectRef':{'group':'moment.halo.run','version':'v1alpha1','kind':'Moment','name':subject},'owner':{'kind':'User','name':client.auth['username']},'raw':text,'content':text,'approved':approved,'hidden':hidden,'top':False,'priority':0,'allowNotification':False,'creationTime':'2026-10-14T10:00:00Z'}})
-feed=[{'key':f'feed-{i}','author':'远端作者','avatar':'/lab/avatar.svg','date':f'2026-10-{i:02}T20:00:00Z','html':'<p>远端动态 '+str(i)+'</p><script>window.feedXss=1</script><img src="javascript:alert(1)" onerror="window.feedXss=2"><a href="javascript:alert(1)">危险链接</a>','tags':['公开','<b>文字标签</b>']} for i in range(1,16)]
-lab.write_json(runtime/'halo/data/attachments/lab/moments-feed.json',feed)
-config=json.loads(json.dumps(original_config));config.setdefault('moments',{}).update({'source':'/lab/moments-feed.json','timezone':'Asia/Shanghai','page_size':3,'limit':8,'since':'2026-10-05T00:00:00Z'})
-config.setdefault('comments',{}).update({'lazyload':True,'jump':True});config.setdefault('aside',{})['card_newest_comments']={'enable':True,'limit':6,'storage':0,'avatar':True,'sort_order':25}
+config=json.loads(json.dumps(original_config));config.setdefault('moments',{}).update({'timezone':'Asia/Shanghai'})
+config.setdefault('comments',{}).update({'jump':True})
 client.api(config_path,'PUT',config)
 system=client.api('/api/v1alpha1/configmaps/system');system['data']['comment']=json.dumps({'enable':True,'systemUserOnly':False,'requireReviewForNew':True});client.api('/api/v1alpha1/configmaps/system','PUT',system)
 for _ in range(60):
@@ -60,7 +58,7 @@ for _ in range(60):
  if any(x['metadata']['name']=='moment-fixture-12' and x.get('stats',{}).get('approvedComment',0)>0 for x in result['items']):break
  time.sleep(.5)
 else:raise RuntimeError('Comment statistics not ready')
-lab.write_json(snapshot,{'schema':1,'owner':owner,'plugins':{'PluginMoments':'1.18.0','PluginCommentWidget':'3.3.2'},'publicMoments':sum(x['spec'].get('visible')=='PUBLIC' for x in result['items']),'latestRelease':max(x['spec']['releaseTime'] for x in result['items'] if x['spec'].get('visible')=='PUBLIC'),'pendingRetained':not any(x['metadata']['name']=='moment-fixture-14' and x['spec'].get('approved') for x in result['items']),'privateMoment':'moment-fixture-13','unapprovedMoment':'moment-fixture-14','feedItems':8})
+lab.write_json(snapshot,{'schema':1,'owner':owner,'plugins':{'PluginMoments':'1.18.0','PluginCommentWidget':'3.3.2'},'publicMoments':sum(x['spec'].get('visible')=='PUBLIC' for x in result['items']),'latestRelease':max(x['spec']['releaseTime'] for x in result['items'] if x['spec'].get('visible')=='PUBLIC'),'pendingRetained':not any(x['metadata']['name']=='moment-fixture-14' and x['spec'].get('approved') for x in result['items']),'privateMoment':'moment-fixture-13','unapprovedMoment':'moment-fixture-14'})
 cookies=[{'name':x.name,'value':x.value,'domain':x.domain,'path':x.path,'expires':x.expires or -1,'httpOnly':x.has_nonstandard_attr('HttpOnly'),'secure':x.secure,'sameSite':'Lax'} for x in client.jar]
 lab.write_json(runtime/'moments-auth.private.json',{'cookies':cookies,'csrf':client.csrf},private=True)
-print('Owned moment/native comment/feed fixtures ready')
+print('Owned moment/native comment fixtures ready')

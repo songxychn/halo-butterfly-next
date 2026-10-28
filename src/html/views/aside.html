@@ -154,7 +154,7 @@
   </div>
 </section>
 
-<!--/* 网站信息。对齐上游 card_webinfo：文章数目 + 最后更新时间；无 busuanzi 时不硬渲染总访问量；无文章点赞。 */-->
+<!--/* 网站信息。对齐上游 card_webinfo：文章数目 + 最后更新时间；仅按开关显示 Halo 文章累计阅读量；无文章点赞。 */-->
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="webInfo" th:if="${theme.config.aside.enable_webInfo != false}" th:attr="data-card-order=${theme.config.aside.card_webinfo?.sort_order ?: 60}" class="aside-webInfo card">
   <h1 class="title">
     <i class="fa-solid fa-chart-simple"></i>
@@ -181,24 +181,14 @@
       <span th:text="#{ui.uptime}">运行时间：</span>
       <span class="run-day" th:data-date="${theme.config.base.site_birthday}">...</span>
     </div>
-    <div class="item" th:if="${(theme.config.wordcount?.enable == true or theme.config.wordcount?.enable == 'true') and (theme.config.wordcount?.total_wordcount == true or theme.config.wordcount?.total_wordcount == 'true')}">
-      <span th:text="#{ui.siteWords}">全站字数：</span>
-      <span th:attr="data-site-wordcount=${stats.post + ':' + (lastPush ?: '')}" aria-live="polite" th:text="#{ui.jsRequired}">需启用 JavaScript</span>
-    </div>
     <div class="item" th:if="${theme.config.busuanzi?.site_pv == true or theme.config.busuanzi?.site_pv == 'true'}">
-      <span th:text="${theme.config.busuanzi?.provider == 'busuanzi' ? #messages.msg('ui.totalVisits') : #messages.msg('ui.postVisits')}"></span>
-      <span th:if="${theme.config.busuanzi?.provider != 'busuanzi'}" th:text="${stats.visit}"></span>
-      <span th:if="${theme.config.busuanzi?.provider == 'busuanzi'}" id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv" th:text="#{ui.unavailable}">暂不可用</span></span>
-    </div>
-    <div class="item" th:if="${theme.config.busuanzi?.provider == 'busuanzi' and (theme.config.busuanzi?.site_uv == true or theme.config.busuanzi?.site_uv == 'true')}">
-      <span th:text="#{ui.visitors}">访客数：</span>
-      <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv" th:text="#{ui.unavailable}">暂不可用</span></span>
+      <span th:text="#{ui.postVisits}"></span>
+      <span th:text="${stats.visit}"></span>
     </div>
     <div class="item" th:if="${theme.config.aside.card_webinfo?.last_push_date != false and lastPush != null}">
       <span th:text="#{ui.lastUpdated}">最后更新时间：</span>
       <time th:datetime="${lastPush}" data-relative-date="true" th:text="${#dates.format(lastPush, datePattern ?: 'yyyy-MM-dd HH:mm')}"></time>
     </div>
-    <th:block th:replace="~{views/integration-stats::site}"/>
   </div>
 </section>
 
@@ -218,12 +208,10 @@
   <th:block th:replace="~{::user}"/>
   <th:block th:replace="~{::notice}"/>
   <th:block th:replace="~{::recentPost}"/>
-  <th:block th:replace="~{views/newest-comments::card}"/>
   <th:block th:replace="~{::category}"/>
   <th:block th:replace="~{::tags}"/>
   <th:block th:replace="~{::archives}"/>
   <th:block th:replace="~{::webInfo}"/>
-  <section class="theme-ad ad-aside card" aria-label="广告" th:aria-label="#{ui.ad}" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
   <th:block th:replace="~{::custom('bottom')}"/>
 </aside>
 
@@ -272,8 +260,6 @@
   </div>
   <th:block th:unless="${tocSimple}">
     <th:block th:replace="~{::recentPost}"/>
-    <section class="theme-ad ad-aside card" aria-label="广告" th:aria-label="#{ui.ad}" th:if="${not #strings.isEmpty(theme.config.ad?.aside)}" ><th:block th:replace="~{views/integration-ads::content(${theme.config.ad.aside})}"/></section>
-    <th:block th:replace="~{views/newest-comments::card}"/>
     <th:block th:unless="${postPage}">
       <th:block th:replace="~{::category}"/>
       <th:block th:replace="~{::tags}"/>

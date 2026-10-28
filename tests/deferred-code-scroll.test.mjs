@@ -64,15 +64,10 @@ test('native engine boundaries retain Blink/Gecko anchors and include iOS WebKit
   }
 });
 
-test('PJAX manual restoration protects all engines and restores authored inline anchoring priority', () => {
-  for (const agent of ['Chrome/153.0.0.0','Firefox/155.0','AppleWebKit/605.1.15']) {
-    const {view, style, paint} = browser('navigate','manual');view.navigator.userAgent = agent;
-    style.setProperty('overflow-anchor','auto','important');
-    preserveDeferredCodeScroll(view)(() => {view.scrollY += 67;});
-    assert.equal(view.scrollY,850);paint();paint();
-    assert.equal(style.getPropertyValue('overflow-anchor'),'auto');
-    assert.equal(style.getPropertyPriority('overflow-anchor'),'important');
-  }
+test('another script setting manual restoration does not opt into theme history correction', () => {
+  const {view, calls} = browser('navigate','manual');
+  preserveDeferredCodeScroll(view)(() => {view.scrollY += 67;});
+  assert.equal(view.scrollY,917);assert.deepEqual(calls,[]);
 });
 
 test('enhancement exceptions release temporary anchoring without masking the error', () => {

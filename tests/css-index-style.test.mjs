@@ -44,7 +44,6 @@ const barrelUses = [
   'relatedposts',
   'reward',
   'sidebar',
-  'chat',
   'comments',
   'loading',
   'third-party',

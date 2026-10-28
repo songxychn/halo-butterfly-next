@@ -32,7 +32,7 @@ export function checkMatrix(matrix, inventory) {
     if (item.status === 'blocked' && (!nonempty(item.blocker?.phase) || !nonempty(item.blocker?.reason) || !nonempty(item.blocker?.nextAction))) fail(`Blocked without next action: ${item.id}`);
     if (item.status === 'not-applicable') {
       const decision = item.decision;
-      if (!nonempty(decision?.id) || !nonempty(decision?.option) || !nonempty(decision?.reason) || !nonempty(decision?.replacement) || !timestamp(decision?.date) || !/^https:\/\/github\.com\/songxychn\/halo-butterfly-next\/issues\/\d+$/.test(decision?.issue ?? '')) {
+      if (!nonempty(decision?.id) || !nonempty(decision?.option) || !nonempty(decision?.reason) || !nonempty(decision?.replacement) || !timestamp(decision?.date) || !(/^https:\/\/github\.com\/songxychn\/halo-butterfly-next\/issues\/\d+$/.test(decision?.issue ?? '') || (safePath(decision?.path) && decision.path.startsWith('docs/parity/')))) {
         fail(`Not-applicable without decision: ${item.id}`);
       }
     }
@@ -132,6 +132,7 @@ export async function checkParity({ root = ROOT, upstream } = {}) {
   const contractIds = contractScenarioIds(contract);
   const codeReferences = new Set();
   for (const item of matrix.items) {
+    if (item.status === 'not-applicable' && item.decision?.path) codeReferences.add(item.decision.path);
     for (const id of item.acceptance.contractScenarios ?? []) if (!contractIds.has(id)) errors.push(`Unknown contract scenario: ${item.id} -> ${id}`);
     for (const key of item.halo.settings) if (!settings.has(key)) errors.push(`Halo setting does not exist: ${item.id} -> ${key}`);
     for (const file of item.halo.code) codeReferences.add(file);

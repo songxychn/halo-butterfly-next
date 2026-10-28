@@ -165,23 +165,22 @@ try {
           return state;
         });
       }
-      await contextCase(browser, engine, 'pjax-reentry', {viewport: {width: 1440, height: 900}}, async page => {
+      await contextCase(browser, engine, 'native-reentry', {viewport: {width: 1440, height: 900}}, async page => {
         await page.goto(base + '/archives/', {waitUntil: 'networkidle'});
         await page.waitForFunction(() => window.MainApp?.useCommon);
-        const token = await page.evaluate(() => {window.__feedPjaxToken = Math.random().toString(36); window.__feedPjaxComplete = 0;
-          document.addEventListener('pjax:complete', () => window.__feedPjaxComplete++); return window.__feedPjaxToken;});
+        await page.evaluate(() => {window.__feedDocumentToken = 'source';});
         await page.locator('.nav-title a[href="/"]').click();
         await page.waitForURL(base + '/');
-        await page.waitForFunction(() => window.__feedPjaxComplete === 1);
-        assert.equal(await page.evaluate(() => window.__feedPjaxToken), token, 'same document must survive PJAX');
+        await page.waitForFunction(() => window.MainApp?.useCommon);
+        assert.equal(await page.evaluate(() => window.__feedDocumentToken), undefined, 'navigation must load a new document');
         const state = await inspect(page, plan.expected, true);
         await page.goBack(); await page.waitForURL(base + '/archives/');
-        await page.waitForFunction(() => window.__feedPjaxComplete === 2);
+        await page.waitForFunction(() => window.MainApp?.useCommon);
         await inspect(page, plan.expected, true);
         await page.goForward(); await page.waitForURL(base + '/');
-        await page.waitForFunction(() => window.__feedPjaxComplete === 3);
+        await page.waitForFunction(() => window.MainApp?.useCommon);
         await inspect(page, plan.expected, true);
-        return {...state, pjaxEvents: 3, sameDocument: true};
+        return {...state, navigationMode: 'native', historyRoundTrip: true};
       });
       if (plan.full) {
         for (const width of [1440, 390]) {

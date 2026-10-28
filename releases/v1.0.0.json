@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "tag": "v1.0.0",
-  "sourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
-  "runtimeSourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
-  "themeSha256": "08c90952aecdef82de0d2f03326b4254e98fcfc30355291a40c472b380a83add",
-  "decision": "prepared-awaiting-independent-release-review",
-  "reviewer": null,
+  "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+  "runtimeSourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
+  "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+  "decision": "ready-for-publication-decision-pending-final-ci",
+  "reviewer": "Codex read-only subagent /root/independent_review; reviewed 7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
   "publicationAuthorized": false,
   "gates": {
     "realHalo": "passed",
@@ -19,40 +19,91 @@
     "恢复一秒标题动画后的候选无新的性能预算通过结论，旧性能结果不继承。",
     "旧配置存储保留不等于语义等价；alpha.4 需离线迁移核对，回退需旧配置。",
     "真实 Safari/手机、完整无障碍、真实账户及长尾矩阵按既有决定延期。",
-    "PWA、Umami 私有统计、评论/公式严格零资源按需延期；不宣称完整 Butterfly 对齐。",
+    "PWA、评论/公式严格零资源按需延期；不宣称完整 Butterfly 对齐。",
     "自然回收观察仍按原包收尾，不属于本次新增发布门禁。",
     "仅本地 demo 更新至当前候选；公网 demo 未升级，其平台版本不能归为本次已测 1.0 组合。",
     "页脚按维护者要求恢复原版浅色文字；不将历史深色字对比度结论继承为当前完整无障碍通过。"
   ],
   "evidence": [
     {
-      "path": "docs/validation/2026-10-28/release-1.0.json",
-      "sha256": "89b53d6c5e8e22e1d83f9c8ac56f47fbfe4503f72317d45f139705230bc4f9d7"
+      "path": "docs/validation/2026-10-28/scope-reduction-round2.json",
+      "sha256": "d375a3bd451631cbb26d7d15bed87cd304f5c5e45dc5856f4bc470a8d469d437"
     },
     {
-      "path": "docs/validation/2026-10-28/release-1.0.md",
-      "sha256": "8793555c1104136eabe65ff2aa3521fc1f910debc0a5f94f82628d1295c3333d"
+      "path": "docs/validation/2026-10-28/scope-reduction-round2.md",
+      "sha256": "d31ea34726e476d375946be9ca1c856be20b2cb4a2069fc72643a378c87d015c"
     },
     {
-      "path": "docs/validation/2026-10-28/local-demo.json",
-      "sha256": "2418556b4ef9ec18da1d625df2d37286c51e87f8e23886b927aaea9eb6687eb7"
+      "path": "docs/validation/2026-10-28/scope-release-closure.json",
+      "sha256": "5c14369a7a549fdf9db6e5bdba988952deaf7cc13a3629a08af6b2da73176722"
     },
     {
-      "path": "docs/validation/2026-10-28/local-demo.md",
-      "sha256": "3975a18d8cc7637df56bf31fc63e1f11d708b8f6db87562bcca743c07f6b7ddc"
+      "path": "docs/validation/2026-10-28/scope-release-closure.md",
+      "sha256": "c1ddaef38da9d61a424786c3a7b0d566fd85a1d053876b91967ca45afd483842"
     }
   ],
   "gateNotes": {
-    "realHalo": "Original core/lifecycle evidence retained for unchanged implementation; current official Halo 2.27.1 local demo upgrade, exact installed-file comparison and desktop/mobile footer checks passed.",
-    "review": "PR #432 reviewed the earlier product. PR #433 now also changes footer CSS and demo copy; final head review and PR/master CI remain separate from publication authorization.",
-    "source": "Clean source archive at 8c16f5e6b7c3206f03ae6737ed089b8f06818556 rebuilds to the current runtime ZIP. Subsequent records-only changes must preserve product inputs.",
-    "publication": "Only local demo preview and PR updates authorized. No merge, tag, GitHub release or public demo deployment.",
-    "installUpgradeRollback": "Original ef8d4b package lifecycle evidence reused by bounded diff: only generated CSS changed; current local demo upgrade preserved configuration and installed 269 matching files."
+    "scope": "DEC-10 additionally removes whole-site newest comments, theme-owned comment mounting, per-library resource overrides and plugin-business acceptance harnesses.",
+    "publication": "Publication remains unauthorized. Independent source review and local release validation passed; final PR and merged-master CI are checked separately before delivery.",
+    "realHalo": "Same ZIP as round2 evidence plus official SearchWidget 1.8.0 actual search, result navigation, empty state and focus restoration.",
+    "installUpgradeRollback": "Current ZIP fresh install, alpha.4 upgrade/migration/rollback, exact file set/content/config checks, and complete 391-file cold-backup restore passed.",
+    "source": "Final reviewed source archive, frozen dependency install, build and package checks reproduce the exact runtime ZIP."
   },
   "previousCandidate": {
-    "sourceSha": "1dc10a227d55bb5f95026197c1ce0e7238e43b1c",
-    "runtimeSourceSha": "655efe301b4cb68c2f23c08ac0acfa11d424941e",
-    "themeSha256": "ef8d4b547a184ddab4853acbdadd9c112ad96c65e374ab4c68139789d558506d",
-    "evidence": "docs/validation/2026-10-28/release-1.0.json"
+    "sourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
+    "runtimeSourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
+    "themeSha256": "08c90952aecdef82de0d2f03326b4254e98fcfc30355291a40c472b380a83add",
+    "evidence": [
+      {
+        "path": "docs/validation/2026-10-28/release-1.0.json",
+        "sha256": "89b53d6c5e8e22e1d83f9c8ac56f47fbfe4503f72317d45f139705230bc4f9d7"
+      },
+      {
+        "path": "docs/validation/2026-10-28/release-1.0.md",
+        "sha256": "8793555c1104136eabe65ff2aa3521fc1f910debc0a5f94f82628d1295c3333d"
+      },
+      {
+        "path": "docs/validation/2026-10-28/local-demo.json",
+        "sha256": "2418556b4ef9ec18da1d625df2d37286c51e87f8e23886b927aaea9eb6687eb7"
+      },
+      {
+        "path": "docs/validation/2026-10-28/local-demo.md",
+        "sha256": "3975a18d8cc7637df56bf31fc63e1f11d708b8f6db87562bcca743c07f6b7ddc"
+      }
+    ],
+    "gates": {
+      "realHalo": "passed",
+      "installUpgradeRollback": "passed",
+      "resourcesAndLicenses": "passed",
+      "sourceRebuild": "passed"
+    }
+  },
+  "previousScopeCandidate": {
+    "sourceSha": "0d9f1fa94439c218ecbb92ce6025c9abf3f282cb",
+    "runtimeSourceSha": "0d9f1fa94439c218ecbb92ce6025c9abf3f282cb",
+    "themeSha256": "8df5f687d36977eec8c3b009ae6439e34da2e697a82fe38d38d7c6df920042b5",
+    "gates": {
+      "realHalo": "partial",
+      "installUpgradeRollback": "passed",
+      "resourcesAndLicenses": "passed",
+      "sourceRebuild": "pending"
+    },
+    "evidence": [
+      {
+        "path": "docs/validation/2026-10-28/scope-reduction.json",
+        "sha256": "5dda84e3f8c7af3e0a072528a34d37ce97e3a6ae30e008d47370f9f6ec05a3dc"
+      },
+      {
+        "path": "docs/validation/2026-10-28/scope-reduction.md",
+        "sha256": "593d923be955d45090b194bea871051ff8a0e843e2d34edf744b1f422d136ae7"
+      }
+    ],
+    "gateNotes": {
+      "scope": "DEC-10 removes PJAX, external integrations, remote subtitles and browser aggregate statistics. Previous candidate evidence does not qualify this package.",
+      "publication": "Publication remains unauthorized; fresh package identity, validation and review are required.",
+      "realHalo": "Scoped native navigation, nine routes, mobile viewport, official comment/Moments/Links and search dialog checked on Halo 2.27.1; not complete release acceptance.",
+      "installUpgradeRollback": "Final ZIP fresh install and alpha.4 upgrade/rollback passed in isolated local databases; stored configuration and content preserved.",
+      "source": "Local verify rebuild matches installed ZIP; clean distributable source archive rebuild and independent review remain pending."
+    }
   }
 }

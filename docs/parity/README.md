@@ -1,3 +1,5 @@
+> 2026-10-28：当前产品范围以 [DEC-10](DEC-10-THEME-SCOPE.md) 为准。以下旧进度和任务条目保留作历史，不要求恢复已删除的能力。
+
 # 功能矩阵维护说明
 
 发布判定以 [DEC-09](DEC-09-RELEASE-CLOSURE.md) 和[当前收口清单](DEVELOPMENT-BACKLOG.md)为准。矩阵是来源、实现及证据索引，不是自动执行队列；不要求所有适用项 verified 后才发布。

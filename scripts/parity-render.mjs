@@ -21,7 +21,7 @@ export function renderMatrix(matrix) {
   const lines = ['# Butterfly 5.7.0 功能矩阵', '',
     '> 此文件由 `bun scripts/parity-render.mjs` 生成。只编辑 `matrix.json`；覆盖检查不代表功能验收。', '',
     `固定上游：${matrix.upstream.version} / \`${matrix.upstream.commit}\`。首次 Halo 源码盘点：\`${matrix.haloBaseline}\`。`, '',
-    '每项必须经过其验收场景、独立审查和对应提交的 CI 才能置为 `verified`。`not-applicable` 仅用于合同已裁定的提供方缩减/平台替代或确属 Hexo 构建机制的条目，且必须带 `decision`。其余平台差异保留原需求。', '',
+    '每项必须经过其验收场景、独立审查和对应提交的 CI 才能置为 `verified`。`not-applicable` 用于明确裁定的产品范围删减、提供方缩减/平台替代或 Hexo 构建机制条目，且必须带 `decision`。当前产品范围以 DEC-10 为准；矩阵是上游差异索引，不是 1.0 必须逐项实现的任务单。', '',
     '| 状态 | 项数 |', '| --- | ---: |'];
   for (const [key, label] of Object.entries(statusLabels)) lines.push(`| ${label} | ${matrix.items.filter(item => item.status === key).length} |`);
   lines.push('', '详细适配方案、依赖和每项验收案例见 [matrix.json](matrix.json)。共用条件及证据格式见 [维护说明](README.md)。', '');

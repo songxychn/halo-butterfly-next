@@ -137,15 +137,6 @@ export function migrateConfig(input, from, defaults) {
     if (converted) put(key, 'render.code_shrink', converted);
     else discard(key, 'manual-review');
   }
-  if (own('index', 'subtitle_source') || own('index', 'enable_typewriter_random_text')) {
-    const aliases = {'0': 'local', '1': 'hitokoto', '2': 'yiyan', '3': 'jinrishici'};
-    const source = index.subtitle_source;
-    const converted = aliases[String(source)] || (source === 'custom' || source == null || source === ''
-      ? index.enable_typewriter_random_text === true && typeof index.typewriter_random_api === 'string' && index.typewriter_random_api.trim() ? 'custom' : 'local'
-      : ['local', 'hitokoto', 'yiyan', 'jinrishici'].includes(source) ? source : 'local');
-    put('index.subtitle_source', 'index.subtitle_source', converted);
-    if (own('index', 'enable_typewriter_random_text')) discard('index.enable_typewriter_random_text');
-  }
   if (own('index', 'enable_above')) {
     if (!own('single', 'enable_above')) put('single.enable_above', 'single.enable_above', index.enable_above);
     if (!own('image', 'other_pages_above')) put('image.other_pages_above', 'image.other_pages_above', index.enable_above);
@@ -174,31 +165,23 @@ export function migrateConfig(input, from, defaults) {
       else report('CDN.custom_format', 'manual-review');
     }
     if (own('CDN', 'internal_provider')) discard('CDN.internal_provider');
-    if (own('CDN', 'third_party_provider')) discard('CDN.third_party_provider');
+    if (own('CDN', 'third_party_provider')) discard('CDN.third_party_provider', 'removed-feature');
     if (own('CDN', 'custom_format')) handled.add('CDN.custom_format');
-    const font = cdn.option?.fontawesome;
-    // Old Font Awesome placeholders had npm-package meanings, independent of theme assets.
-    if (typeof font === 'string' && font.trim()) {
-      const concrete = expand(font.trim(), '@fortawesome/fontawesome-free', '6.7.2', 'css/all.min.css');
-      if (safe(concrete)) put('CDN.option.fontawesome', 'CDN.option.fontawesome', concrete);
-      else discard('CDN.option.fontawesome', 'manual-review');
-    } else {
-      const providers = {
-        local: '/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css',
-        jsdelivr: 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css',
-        unpkg: 'https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/css/all.min.css',
-        cdnjs: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css',
-      };
-      const selected = cdn.third_party_provider;
-      if (providers[selected]) put('CDN.option.fontawesome', 'CDN.option.fontawesome', providers[selected]);
-      else if (selected === 'custom') {
-        const concrete = expand(cdn.custom_format, '@fortawesome/fontawesome-free', '6.7.2', 'css/all.min.css');
-        if (safe(concrete)) put('CDN.option.fontawesome', 'CDN.option.fontawesome', concrete);
-        else report('CDN.option.fontawesome', 'manual-review');
-      }
+  }
+
+  if (own('share', 'use') && ['sharejs', 'addtoany'].includes(input.share.use)) {
+    assign('share.use', 'share.use', 'native', 'experience-changed');
+    handled.add('share.use');
+  }
+  if (input.busuanzi?.provider === 'busuanzi') {
+    for (const key of ['site_pv', 'page_pv']) {
+      assign(`busuanzi.${key}`, `busuanzi.${key}`, false, 'experience-changed');
+      handled.add(`busuanzi.${key}`);
     }
   }
+  const removed = /^(?:(?:pjax|analytics|chat|google_adsense|ad)(?:\.|$)|moments\.(?:source|title|page_size|limit|since)$|links\.source$|loading\.instantpage$|wordcount\.total_wordcount$|busuanzi\.(?:provider|site_uv)$|share\.(?:sharejs|addtoany)(?:\.|$)|CDN\.option(?:\.|$)|aside\.card_newest_comments(?:\.|$)|comments\.lazyload$|index\.(?:subtitle_source|typewriter_random_api|typewriter_api_value_format|enable_typewriter_random_text)$)/;
   const visit = (value, source) => {
+    if (removed.test(source)) { report(source, 'removed-feature'); return; }
     if (handled.has(source)) return;
     // 旧的资源 CDN 指向原主题。独立版本只使用自身安装包中的 JS/CSS。
     if (source === 'loading.source' || source === 'other') {
@@ -237,7 +220,7 @@ export function migrateConfig(input, from, defaults) {
   };
   visit(input, '');
   return { config, report: { from, targetTheme: 'halo-butterfly-next', targetVersion, changes,
-    needsReview: changes.some(item => ['unsupported', 'manual-review', 'type-mismatch', 'experience-changed', 'removed-implicit-inheritance'].includes(item.action)) } };
+    needsReview: changes.some(item => ['removed-feature', 'unsupported', 'manual-review', 'type-mismatch', 'experience-changed', 'removed-implicit-inheritance'].includes(item.action)) } };
 }
 
 export function asConfigMap(config) {

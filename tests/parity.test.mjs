@@ -95,38 +95,31 @@ test('不适用状态必须带完整 DEC 裁定记录', () => {
     replacement: 'PluginSearchWidget',
   };
   assert.equal(checkMatrix(changed, inventory).filter(error => error.startsWith('Not-applicable without decision')).length, 0);
+  delete item.decision.issue; item.decision.path = 'docs/parity/DEC-10-THEME-SCOPE.md';
+  assert.equal(checkMatrix(changed, inventory).filter(error => error.startsWith('Not-applicable without decision')).length, 0);
+  item.decision.path = 'docs/parity/../../outside.md';
+  assert.ok(checkMatrix(changed, inventory).some(error => error.startsWith('Not-applicable without decision')));
 });
 
 test('DEC-01 平台替代后搜索引擎与评论 SDK 为不适用，保留项仍适用', () => {
   const keep = new Set([
-    'config:aside.card_newest_comments.enable',
-    'config:aside.card_newest_comments.sort_order',
-    'config:aside.card_newest_comments.limit',
-    'config:aside.card_newest_comments.storage',
-    'config:aside.card_newest_comments.avatar',
     'config:search.use',
     'config:comments.use',
     'config:comments.text',
-    'config:comments.lazyload',
     'config:comments.count',
     'config:comments.card_post_count',
     'template:includes/third-party/comments/index',
     'template:includes/third-party/comments/js',
-    'template:includes/third-party/newest-comments/common',
-    'template:includes/third-party/newest-comments/index',
     'template:includes/third-party/search/index',
     'template:includes/third-party/card-post-count/index',
-    'template:includes/widget/card_newest_comment',
     'style:source/css/_layout/comments.styl',
     'page-data:comments',
     'interaction:search-popup',
-    'interaction:comments-lazy',
-    'interaction:newest-comments',
     'interaction:shuoshuo-comments',
   ]);
   const na = matrix.items.filter(item => item.status === 'not-applicable' && item.decision?.id === 'DEC-01');
   assert.equal(na.length, 135);
-  assert.equal(keep.size, 24);
+  assert.equal(keep.size, 13);
   for (const id of keep) {
     const item = matrix.items.find(entry => entry.id === id);
     assert.ok(item, id);

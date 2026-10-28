@@ -1,7 +1,7 @@
 import { onPageCleanup } from './page-lifecycle.ts';
 
 // Preserve an already restored offset across one deferred Prism enhancement.
-// PJAX owns manual restoration. Native WebKit restores before Prism and then
+// Native WebKit restores before Prism and then
 // adds its layout growth again; Blink/Gecko instead use interim native anchors.
 export function preserveDeferredCodeScroll(view: Window = window) {
   const navigation = view.performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
@@ -9,7 +9,7 @@ export function preserveDeferredCodeScroll(view: Window = window) {
   const agent = view.navigator.userAgent;
   const webkit = /AppleWebKit\//.test(agent) && !/(?:Chrome|Chromium|Edg|OPR)\//.test(agent);
   const native = webkit && navigation?.type === 'back_forward';
-  let eligible = native || view.history.scrollRestoration === 'manual';
+  let eligible = native;
   const events = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
   const cancel = () => { eligible = false; remove(); };
   const remove = () => events.forEach(type => view.removeEventListener(type, cancel, true));
@@ -18,7 +18,7 @@ export function preserveDeferredCodeScroll(view: Window = window) {
     onPageCleanup(cancel);
   }
   return (enhance: () => void) => {
-    const restore = eligible && (view.history.scrollRestoration === 'manual' || native) &&
+    const restore = eligible && native &&
       (view.scrollX > 0 || view.scrollY > 0);
     const x = view.scrollX, y = view.scrollY;
     cancel();

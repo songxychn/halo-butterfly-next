@@ -9,7 +9,7 @@ import path from 'node:path';
 import {REPO,RUNTIME,browserEnvironment,validateBaseUrl,validatePackage,sha256,requestPolicy} from '../browser/support.mjs';
 
 const runId=randomBytes(8).toString('hex');
-const navigationMode=process.env.IMAGE_NAVIGATION_MODE||'pjax';assert(['native','pjax'].includes(navigationMode));
+const navigationMode='native';
 assert.equal(process.env.ALLOW_SYNTHETIC_WRITES,'yes','ALLOW_SYNTHETIC_WRITES=yes is required');
 assert(process.env.LAB_RUNTIME,'LAB_RUNTIME is required');
 const runtime=await realpath(path.resolve(process.env.LAB_RUNTIME));
@@ -114,7 +114,7 @@ try{
        assert.equal(new URL(await page.locator('#native-next').getAttribute('href'),base).href,target.href,'Fixture next link must use actual Halo permalink');
        await page.locator('#native-next').click();
        await page.waitForFunction(target=>location.href===target&&!document.documentElement.classList.contains('theme-navigating')&&!!window.MainApp?.useCommon,target.href);
-       assert.equal(await page.evaluate(()=>window.nativeImageSentinel),navigationMode==='pjax'?'retained':undefined,'Navigation must match declared '+navigationMode+' profile');
+       assert.equal(await page.evaluate(()=>window.nativeImageSentinel),undefined,'Navigation must match declared '+navigationMode+' profile');
        assert.equal(await page.locator('#native-picture > img').count(),1);assert.equal(await page.locator('.theme-lightbox-trigger .theme-lightbox-trigger').count(),0);
        assert.equal(await page.locator('#native-eager').getAttribute('loading'),'eager');
        await loaded(page,'native-responsive');

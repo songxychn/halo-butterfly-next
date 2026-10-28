@@ -24,7 +24,7 @@ export function loadPrismAfterPaint({source, domReady, document = globalThis.doc
   const ready = Promise.resolve(domReady).then(() => new Promise<boolean>(resolve => {
     if (!source) return resolve(false);
     requestFrame(() => requestFrame(() => {
-      const selected = resolveResource('prismjs_js', source, globalThis.window?.MainApp?.resources, globalThis.window?.MainApp?.version, 'plugins/prism/prism.min.js');
+      const selected = resolveResource(source, globalThis.window?.MainApp?.resources, globalThis.window?.MainApp?.version, 'plugins/prism/prism.min.js');
       const request = (url: string, fallback: boolean) => {
         preconnectResource(url, document);
         const script = document.createElement('script');

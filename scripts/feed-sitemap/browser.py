@@ -81,8 +81,7 @@ def main():
         config['subscription'] = {'rss': rss, 'sitemap': sitemap}
         config.setdefault('footer', {})['footer_img'] = '/lab/' + white_name
         config.setdefault('mask', {})['footer'] = False
-        config.setdefault('pjax', {})['enable'] = True
-        config.setdefault('loading', {}).update({'enable': False, 'instantpage': True})
+        config.setdefault('loading', {}).update({'enable': False})
         config.setdefault('share', {})['use'] = 'native'
         config.setdefault('style', {})['mode'] = 'system'
         client.api(check.CONFIG, 'PUT', config)
