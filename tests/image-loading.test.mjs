@@ -1,7 +1,6 @@
 import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import {initializeImageLoading} from '../src/js/core/image-loading.ts';
-import {disposePage} from '../src/js/core/page-lifecycle.ts';
 
 /** Model the observed cross-browser IDL difference without changing the content attribute. */
 function authorImage(attribute, missingValue, inArticle = true) {
@@ -32,7 +31,6 @@ function runImage(attribute, missingValue, config = {}, inArticle = true) {
     assert.equal(attrs.get('sizes'), '100vw');
     return attrs.get('loading') ?? null;
   } finally {
-    disposePage();
     globalThis.window = beforeWindow; globalThis.document = beforeDocument;
   }
 }

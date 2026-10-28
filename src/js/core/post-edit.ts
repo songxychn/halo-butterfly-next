@@ -1,4 +1,3 @@
-import { onPageCleanup } from './page-lifecycle.ts';
 /** Halo console shortcut. Permission names match the console's Posts/PostEditor routes. */
 export const POST_EDIT_PERMISSIONS_URL = '/apis/api.console.halo.run/v1alpha1/users/-/permissions';
 
@@ -20,7 +19,7 @@ export async function initializePostEdit(root: ParentNode = document, request: t
   templates.forEach(template => initialized.add(template));
 
   const controller = new AbortController();
-  onPageCleanup(() => controller.abort());
+
   const timeout = setTimeout(() => controller.abort(), 5000);
   try {
     const response = await request(POST_EDIT_PERMISSIONS_URL, {

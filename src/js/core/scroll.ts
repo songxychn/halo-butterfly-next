@@ -1,4 +1,3 @@
-import { pageListen } from './page-lifecycle.ts';
 /**
  * @date: 2024/2/23
  * @author: 小红
@@ -23,7 +22,7 @@ export default class Scroll {
   constructor() {
     this.#fixed = isNavAlwaysPinned(window.MainApp?.conf?.nav_fixed);
     this.#goUpPercent = bindRightsideScrollPercent();
-    pageListen(window, 'scroll', useThrottle(() => {
+    window.addEventListener('scroll', useThrottle(() => {
       let scrollTop = window.scrollY || document.documentElement.scrollTop;
 
       // 激活头部导航栏
@@ -64,14 +63,11 @@ export default class Scroll {
     }
   }
 
-
   /**
    *  回调
    */
   change(fn: (max: number, previous: number, top: number) => void) {
     this.#CHANGE_FN = fn;
   }
-
 }
- 
- 
+

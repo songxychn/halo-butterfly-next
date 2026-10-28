@@ -6,7 +6,7 @@ Next 的主题 ID、Setting 和 ConfigMap 都独立。安装 Next 不会改写�
 
 评论统一恢复官方 `<halo:comment>`。`comments.lazyload`、`aside.card_newest_comments`、`CDN.option` 和旧第三方资源提供方已删除，迁移报告明确标记 `removed-feature`；不迁移对应地址或缓存。评论数据不受影响。资源仅保留统一 `CDN.asset_base` 与本地版本缓存开关，托管目录须与当前安装包一致。
 
-正文图库新增字段缺失时无需迁移配置；已有普通图片、Photos 页不自动改成正文图库。Hexo `gallery` / `galleryGroup` 源可先通过[图库离线转换](ARTICLE-GALLERY.md)生成等效 HTML，再导入正文。回退旧包后新图库 HTML 和 JSON 仍保留，但旧主题未提供对应增强，需保留原文章源或普通图片版本。
+正文图库使用真实 HTML 图片与 CSS 网格。旧预发布版本的本地 JSON 数组和远端 JSON 图库需先改写为图片正文；主题不再读取这些数据。详见[图库迁移说明](ARTICLE-GALLERY.md)。Photos 插件页面不受影响。
 
 ## 导出与转换
 

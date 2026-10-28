@@ -1,5 +1,5 @@
 import { t } from './i18n';
-import {pageListen} from './page-lifecycle.ts';
+
 import {resolveMode} from './color-scheme.ts';
 export * from './color-scheme.ts';
 export const DARKMODE_BUTTON_DEFAULT = true;
@@ -16,9 +16,9 @@ export function bindDarkmode(root = typeof document !== 'undefined' ? document :
   if (!root) return;
   const button = root.getElementById('darkmode');
   const reset = root.getElementById('darkmode-reset');
-  if (button) pageListen(button, 'click', () => {
+  if (button) button.addEventListener('click', () => {
     const mode = toggleColorScheme(MainApp.useTheme);
     if (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true') MainApp.useMessage?.info(mode === 'dark' ? t('ui.darkMode') : t('ui.lightMode'));
   });
-  if (reset) pageListen(reset, 'click', () => MainApp.useTheme.resetMode());
+  if (reset) reset.addEventListener('click', () => MainApp.useTheme.resetMode());
 }

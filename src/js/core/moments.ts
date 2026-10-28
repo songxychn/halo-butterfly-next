@@ -1,5 +1,3 @@
-import { pageListen } from './page-lifecycle.ts';
-
 export function formatMomentDate(value: string, zone = 'UTC', locale = 'zh-CN') {
   const date = new Date(value);
   if (!Number.isFinite(date.getTime())) return value;
@@ -27,7 +25,7 @@ export function initializeMoments(root: Document = document) {
     const input = jump.elements.namedItem('page') as HTMLInputElement;
     const total = Number(jump.dataset.totalPages);
     jump.hidden = false;
-    pageListen(jump, 'submit', event => {
+    jump.addEventListener('submit', event => {
       event.preventDefault();
       const href = nativeMomentPage(win.location.href, Number(input.value), total);
       if (href) win.location.assign(href);

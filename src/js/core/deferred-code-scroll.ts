@@ -1,5 +1,3 @@
-import { onPageCleanup } from './page-lifecycle.ts';
-
 // Preserve an already restored offset across one deferred Prism enhancement.
 // Native WebKit restores before Prism and then
 // adds its layout growth again; Blink/Gecko instead use interim native anchors.
@@ -15,7 +13,6 @@ export function preserveDeferredCodeScroll(view: Window = window) {
   const remove = () => events.forEach(type => view.removeEventListener(type, cancel, true));
   if (eligible) {
     events.forEach(type => view.addEventListener(type, cancel, {capture: true, passive: true}));
-    onPageCleanup(cancel);
   }
   return (enhance: () => void) => {
     const restore = eligible && native &&
@@ -36,7 +33,7 @@ export function preserveDeferredCodeScroll(view: Window = window) {
       if (anchor) style.setProperty('overflow-anchor', anchor, priority);
       else style.removeProperty('overflow-anchor');
     };
-    onPageCleanup(restoreStyle);
+
     try {
       enhance();
       view.document.documentElement.getBoundingClientRect();

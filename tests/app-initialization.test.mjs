@@ -12,7 +12,7 @@ test('page initialization retains service, run method, module and cleanup order'
   const calls = [];
   const window = {MainApp: {modules: {}}};
   const service = name => class {constructor() {calls.push(name);}};
-  const context = {window, document: { body: {}, dispatchEvent() { calls.push('ready'); } }, Event, pageScope() {}, onPageCleanup() {}, Theme: service('theme'), Common: service('common'), Scroll: service('scroll'), Message: service('message'), useClearPage() {calls.push('cleanup');}};
+  const context = {window, document: { body: {}, dispatchEvent() { calls.push('ready'); } }, Event, Theme: service('theme'), Common: service('common'), Scroll: service('scroll'), Message: service('message'), useClearPage() {calls.push('cleanup');}};
   vm.runInNewContext(source + '\nglobalThis.initializePage = App;', context);
   class Page {
     constructor() {calls.push('page');}

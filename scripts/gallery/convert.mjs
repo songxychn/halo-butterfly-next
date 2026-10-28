@@ -45,16 +45,15 @@ export function convertGallery(source) {
     const remaining = tail.slice(closing.index + closing[0].length);
     const params = argumentsText.trim().split(',').map(x => x.trim());
     const remote = params[0] === 'url';
-    if (remote) params.shift();
-    const url = remote ? safeUrl(params.shift() || '') : '';
+    if (remote) throw Error('Remote gallery JSON is not supported; convert the images to ordinary Markdown first');
     const [button = 'false', limit = '10', first = '10'] = params;
     if (params.length > 3 || !['true', 'false', ''].includes(button) || !/^\d+$/.test(limit) || !/^\d+$/.test(first) || +limit < 1 || +first < 1 || +limit > 200 || +first > 200) throw Error('Invalid gallery button/limit/first arguments');
     const images = [];
     marked.walkTokens(marked.lexer(content), token => {
       if (token.type === 'image') images.push({url: safeUrl(token.href), alt: token.text || '', title: token.title || ''});
     });
-    const data = remote ? url : JSON.stringify(images);
-    return `<div class="gallery-container" data-type="${remote ? 'url' : 'data'}" data-button="${button || 'false'}" data-limit="${limit}" data-first="${first}"><div class="gallery-items">${escape(data)}</div></div>` + remaining;
+    const html = images.map(image => `<img src="${escape(image.url)}" alt="${escape(image.alt)}" title="${escape(image.title)}" loading="lazy" decoding="async">`).join('\n');
+    return `<div class="gallery-container"><div class="gallery-items">${html}</div></div>` + remaining;
   });
   return converted.replace(/\u0000GALLERY_CODE_(\d+)\u0000/g,(_,i)=>protectedBlocks[+i].raw);
 }

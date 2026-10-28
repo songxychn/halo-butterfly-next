@@ -1,4 +1,3 @@
-import {onPageCleanup, pageListen} from './page-lifecycle.ts';
 import {nextColorBoundary, resolveInitialColorScheme, resolveMode} from './color-scheme.ts';
 import type {ColorScheme} from '../types.ts';
 export default class Theme {
@@ -11,11 +10,10 @@ export default class Theme {
     try { this.#chosen = localStorage.getItem(this.#key); } catch {}
     this.#refresh();
     if (resolveMode(MainApp.conf.style_mode) === 'system') {
-      try { pageListen(window.matchMedia('(prefers-color-scheme: dark)'), 'change', () => this.#refresh()); } catch {}
+      try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => this.#refresh()); } catch {}
     }
-    pageListen(window, 'focus', () => this.#refresh());
-    pageListen(document, 'visibilitychange', () => this.#refresh());
-    onPageCleanup(() => { clearTimeout(this.#timer); this.#callbacks.clear(); });
+    window.addEventListener('focus', () => this.#refresh());
+    document.addEventListener('visibilitychange', () => this.#refresh());
   }
   #refresh() {
     const conf = MainApp.conf;
@@ -50,8 +48,6 @@ export default class Theme {
   }
   change(fn: (mode: ColorScheme) => void) {
     this.#callbacks.add(fn);
-    const remove = () => { this.#callbacks.delete(fn); };
-    onPageCleanup(remove);
-    return remove;
+    return () => { this.#callbacks.delete(fn); };
   }
 }

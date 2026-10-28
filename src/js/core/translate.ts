@@ -10,7 +10,6 @@ import { t } from './i18n';
  * 页面离开时清理延迟恢复与按钮监听。
  */
 import { JTPYStr, FTPYStr } from './translate-maps.ts';
-import { onPageCleanup, pageListen } from './page-lifecycle.ts';
 
 export const TRANSLATE_ENABLE_DEFAULT = false;
 export const TRANSLATE_DEFAULT_TEXT = '繁';
@@ -224,8 +223,8 @@ export function bindTranslate(root = typeof document !== 'undefined' ? document 
   let initialized = false;
   const initialize = () => { if (!initialized) { initializeTranslate(state); initialized = true; } };
   const timer = setTimeout(initialize, delay);
-  onPageCleanup(() => clearTimeout(timer));
-  pageListen(button, 'click', () => {
+
+  button.addEventListener('click', () => {
     clearTimeout(timer); initialize();
     translatePage(state);
     if (typeof MainApp !== 'undefined' && (MainApp.conf.snackbar_enable === true || MainApp.conf.snackbar_enable === 'true')) MainApp.useMessage?.info(t('ui.scriptChanged'));

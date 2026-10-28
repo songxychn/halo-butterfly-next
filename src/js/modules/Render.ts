@@ -1,5 +1,5 @@
 import { t } from '../core/i18n';
-import { onPageCleanup } from '../core/page-lifecycle.ts';
+
 /**
  * @date: 2024/2/25
  * @author: 小红
@@ -31,7 +31,6 @@ import {
 import { enhanceBodyRenderers } from '../core/body-renderers.ts';
 import { enhanceMath } from '../core/math.ts';
 import { bindRewards } from '../core/reward.ts';
-import { initializeArticleGallery } from '../core/article-gallery.ts';
 
 export default class Render {
   name = 'Render';
@@ -45,28 +44,26 @@ export default class Render {
   constructor() {
     this.#h();
     const article = document.querySelector<HTMLElement>('article.render');
-    if (article) onPageCleanup(enhanceBodyRenderers(article, this.#conf.body_renderers));
-    if (article) onPageCleanup(enhanceMath(article, {
+    if (article) enhanceBodyRenderers(article, this.#conf.body_renderers);
+    if (article) enhanceMath(article, {
       enabled: this.#conf.math_enabled,
       copyTex: this.#conf.math_copy_tex,
       hideScrollbar: this.#conf.math_hide_scrollbar,
-    }));
+    });
     if (article) applyPhotoFigcaptions(article, this.#conf.photofigcaption);
     if (article) {
       ensureHeadingIds(article);
-      onPageCleanup(enhanceContent(article));
-      initializeArticleGallery(article);
+      enhanceContent(article);
     }
-    if (article) onPageCleanup(bindArticleAnchors(article, {
+    if (article) bindArticleAnchors(article, {
       autoUpdate: this.#conf.anchor_auto_update,
       clickToScroll: this.#conf.anchor_click_to_scroll,
-    }));
+    });
     this.#domObserver();
     this.#tocBotH5();
     this.#copyRight();
     this.#relatedPosts();
-    bindRewards().forEach(onPageCleanup);
-    onPageCleanup(() => tocBot.destroy());
+    bindRewards();
   }
 
   /**
@@ -89,7 +86,6 @@ export default class Render {
       }
     });
     observer.observe(renderDom);
-    onPageCleanup(() => observer.disconnect());
   }
 
   /**
@@ -140,7 +136,6 @@ export default class Render {
 
     if(!toc.html()) toc.html(t('ui.emptyToc'));
     else applyTocNumbers(tocEl, resolveNumber(this.#conf.toc_number));
-
   }
 
   /**
@@ -188,5 +183,4 @@ export default class Render {
     if (!list) return;
     renderRelatedPosts(list, resolveLimit(this.#conf.related_post_limit));
   }
-
 }

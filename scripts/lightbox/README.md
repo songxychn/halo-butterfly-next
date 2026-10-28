@@ -1,5 +1,7 @@
 # Lightbox regression
 
+> 2026-10-28：页面作用域与 PJAX 竞态脚本 `race.mjs` 已退休；本文的相关旧命令仅供历史追溯。当前入口见 [维护范围](../../docs/MAINTENANCE.md)。
+
 `check.mjs` exercises the real compiled theme adapter with fresh headless
 Chromium, Firefox and WebKit at desktop/mobile widths. It covers the normal
 toolbar, keyboard/focus, groups, links, reinitialization and Chromium touch input.
