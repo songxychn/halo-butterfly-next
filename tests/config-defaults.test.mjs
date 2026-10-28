@@ -29,12 +29,12 @@ test('old daytime window reverses into night window and invalid values are visib
   if(start===end||start==='bad'||Math.abs(start-end)===24)assert(result.report.changes.some(x=>x.action==='manual-review'));
  }
 });
-test('resource importer separates theme and old font placeholders with fixed version',()=>{
- const a=migrate({CDN:{internal_provider:'custom',third_party_provider:'custom',custom_format:'https://cdn.test/${name}/${version}/${file}'}});
- assert.equal(a.config.CDN.asset_base,'https://cdn.test/${name}/${version}');assert.equal(a.config.CDN.option.fontawesome,'https://cdn.test/@fortawesome/fontawesome-free/6.7.2/css/all.min.css');
- for(const provider of ['jsdelivr','unpkg','cdnjs'])assert.match(migrate({CDN:{third_party_provider:provider}}).config.CDN.option.fontawesome,/6\.7\.2/);
+test('resource importer retains a unified root and reports retired library sources',()=>{
+ const a=migrate({CDN:{internal_provider:'custom',third_party_provider:'custom',custom_format:'https://cdn.test/${name}/${version}/${file}',option:{fontawesome:'https://private.test/font.css'}}});
+ assert.equal(a.config.CDN.asset_base,'https://cdn.test/${name}/${version}');assert.equal(a.config.CDN.option,undefined);
+ for(const field of ['CDN.third_party_provider','CDN.option'])assert(a.report.changes.some(x=>x.field===field&&x.action==='removed-feature'));
+ assert(a.report.needsReview);assert.doesNotMatch(JSON.stringify(a),/private.test/);
  assert.equal(migrate({CDN:{internal_provider:'local',asset_base:'https://cdn.test/assets'}}).config.CDN.asset_base,'');
- const explicit=migrate({CDN:{third_party_provider:'unpkg',option:{fontawesome:'https://private.test/${version}/${file}'}}});assert.equal(explicit.config.CDN.option.fontawesome,'https://private.test/6.7.2/css/all.min.css');
 });
 test('unrepresentable roots/templates produce manual review rather than guessed paths',()=>{
  for(const custom_format of ['https://cdn.test/${file}?v=${version}','https://cdn.test/${file}/${file}','https://cdn.test/${unsupported}/${file}','javascript:bad']) {

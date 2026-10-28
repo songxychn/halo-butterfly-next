@@ -165,30 +165,10 @@ export function migrateConfig(input, from, defaults) {
       else report('CDN.custom_format', 'manual-review');
     }
     if (own('CDN', 'internal_provider')) discard('CDN.internal_provider');
-    if (own('CDN', 'third_party_provider')) discard('CDN.third_party_provider');
+    if (own('CDN', 'third_party_provider')) discard('CDN.third_party_provider', 'removed-feature');
     if (own('CDN', 'custom_format')) handled.add('CDN.custom_format');
-    const font = cdn.option?.fontawesome;
-    // Old Font Awesome placeholders had npm-package meanings, independent of theme assets.
-    if (typeof font === 'string' && font.trim()) {
-      const concrete = expand(font.trim(), '@fortawesome/fontawesome-free', '6.7.2', 'css/all.min.css');
-      if (safe(concrete)) put('CDN.option.fontawesome', 'CDN.option.fontawesome', concrete);
-      else discard('CDN.option.fontawesome', 'manual-review');
-    } else {
-      const providers = {
-        local: '/themes/halo-butterfly-next/assets/plugins/fontawesome/css/all.min.css',
-        jsdelivr: 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css',
-        unpkg: 'https://unpkg.com/@fortawesome/fontawesome-free@6.7.2/css/all.min.css',
-        cdnjs: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css',
-      };
-      const selected = cdn.third_party_provider;
-      if (providers[selected]) put('CDN.option.fontawesome', 'CDN.option.fontawesome', providers[selected]);
-      else if (selected === 'custom') {
-        const concrete = expand(cdn.custom_format, '@fortawesome/fontawesome-free', '6.7.2', 'css/all.min.css');
-        if (safe(concrete)) put('CDN.option.fontawesome', 'CDN.option.fontawesome', concrete);
-        else report('CDN.option.fontawesome', 'manual-review');
-      }
-    }
   }
+
   if (own('share', 'use') && ['sharejs', 'addtoany'].includes(input.share.use)) {
     assign('share.use', 'share.use', 'native', 'experience-changed');
     handled.add('share.use');
@@ -199,7 +179,7 @@ export function migrateConfig(input, from, defaults) {
       handled.add(`busuanzi.${key}`);
     }
   }
-  const removed = /^(?:(?:pjax|analytics|chat|google_adsense|ad)(?:\.|$)|moments\.(?:source|title|page_size|limit|since)$|links\.source$|loading\.instantpage$|wordcount\.total_wordcount$|busuanzi\.(?:provider|site_uv)$|share\.(?:sharejs|addtoany)(?:\.|$)|CDN\.option\.(?:busuanzi|sharejs|sharejs_css|addtoany|umami_analytics|google_analytics|baidu_analytics|cloudflare_analytics|microsoft_clarity|google_tag_manager|chat_chatra|chat_crisp|chat_tidio|chat_knocket|google_adsense)$|index\.(?:subtitle_source|typewriter_random_api|typewriter_api_value_format|enable_typewriter_random_text)$)/;
+  const removed = /^(?:(?:pjax|analytics|chat|google_adsense|ad)(?:\.|$)|moments\.(?:source|title|page_size|limit|since)$|links\.source$|loading\.instantpage$|wordcount\.total_wordcount$|busuanzi\.(?:provider|site_uv)$|share\.(?:sharejs|addtoany)(?:\.|$)|CDN\.option(?:\.|$)|aside\.card_newest_comments(?:\.|$)|comments\.lazyload$|index\.(?:subtitle_source|typewriter_random_api|typewriter_api_value_format|enable_typewriter_random_text)$)/;
   const visit = (value, source) => {
     if (removed.test(source)) { report(source, 'removed-feature'); return; }
     if (handled.has(source)) return;

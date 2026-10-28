@@ -106,3 +106,16 @@ test('scope reduction reports removed services without retaining credentials and
     assert.equal(kept.config.busuanzi.site_pv,true);assert.equal(kept.config.busuanzi.page_pv,true);
   }
 });
+
+test('removed comment controls and individual resources cannot survive migration', () => {
+  const input = {comments:{lazyload:true,jump:true},aside:{card_newest_comments:{enable:true,storage:10}},CDN:{asset_base:'/theme-assets',option:{main:'https://obsolete.invalid/main.js',mermaid:'/custom-renderer.js'}}};
+  const {config,report}=migrateConfig(input,'0.1.0-alpha.4',defaults);
+  assert.equal(config.comments.jump,true);
+  assert.equal(config.CDN.asset_base,'/theme-assets');
+  for(const field of ['comments.lazyload','aside.card_newest_comments','CDN.option'])assert(report.changes.some(x=>x.field===field&&x.action==='removed-feature'),field);
+  assert.equal(report.needsReview,true);
+  assert.equal(config.comments.lazyload,undefined);
+  assert.equal(config.aside.card_newest_comments,undefined);
+  assert.equal(config.CDN.option,undefined);
+  assert.doesNotMatch(JSON.stringify({config,report}),/obsolete.invalid|custom-renderer/);
+});

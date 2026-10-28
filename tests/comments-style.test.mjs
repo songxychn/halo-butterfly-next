@@ -25,8 +25,8 @@ test('comments.scss 挂在 #post-comment，选择器不使用 data-theme', () =>
   assert.match(postHtml, /id="post-comment"/);
   assert.match(pageHtml, /id="post-comment"/);
   assert.match(postHtml, /class="comment-headline"/);
-  assert.match(postHtml, /views\/comment-lazy :: widget/);
-  assert.match(pageHtml, /views\/comment-lazy :: widget/);
+  assert.match(postHtml, /<halo:comment group="content.halo.run" kind="Post"/ );
+  assert.match(pageHtml, /<halo:comment group="content.halo.run" kind="SinglePage"/ );
   assert.doesNotMatch(rules, /\[data-theme/);
   assert.doesNotMatch(rules, /th:utext/);
   assert.doesNotMatch(rules, /aside\.button/);

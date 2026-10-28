@@ -18,15 +18,10 @@ export function safeResourceUrl(value: unknown, base = globalThis.location?.href
 export interface ResourceConfig {
   version?: unknown;
   asset_base?: unknown;
-  option?: Record<string, unknown>;
 }
 
-/** Browser-side counterpart of scripts/resource-templates.mjs (Prism + service URLs). */
-export function resolveResource(key: string, local: string, config?: ResourceConfig, version = '', file = '') {
-  const expand = (value: unknown) => text(value).replaceAll('${version}', version).replaceAll('${file}', file).replaceAll('${name}', 'halo-butterfly-next');
-  const expanded = expand(config?.option?.[key]);
-  const override = expanded.includes('${') ? '' : safeResourceUrl(expanded);
-  if (override) return override;
+/** Browser-side counterpart of scripts/resource-templates.mjs (theme assets). */
+export function resolveResource(local: string, config?: ResourceConfig, version = '', file = '') {
   if (file) {
     const base = text(config?.asset_base).replaceAll('${version}', version).replaceAll('${name}', 'halo-butterfly-next');
     if (base && !/[?#]/.test(base) && !base.includes('${')) {

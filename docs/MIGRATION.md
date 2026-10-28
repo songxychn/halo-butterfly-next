@@ -2,9 +2,9 @@
 
 Next 的主题 ID、Setting 和 ConfigMap 都独立。安装 Next 不会改写原主题配置。先在测试站安装新主题，再迁移配置、检查页面，最后切换正式站点；保留原主题安装包和配置可用于回退。
 
-## 评论懒加载
+## 评论与资源范围收敛
 
-新增 `comments.lazyload` 默认关闭；旧配置缺字段时继续使用官方 `<halo:comment>`，不修改评论主体或已有数据。需要时在主题设置“评论”中开启。关闭后恢复原挂载方式，评论和回复仍由官方插件管理。
+评论统一恢复官方 `<halo:comment>`。`comments.lazyload`、`aside.card_newest_comments`、`CDN.option` 和旧第三方资源提供方已删除，迁移报告明确标记 `removed-feature`；不迁移对应地址或缓存。评论数据不受影响。资源仅保留统一 `CDN.asset_base` 与本地版本缓存开关，托管目录须与当前安装包一致。
 
 正文图库新增字段缺失时无需迁移配置；已有普通图片、Photos 页不自动改成正文图库。Hexo `gallery` / `galleryGroup` 源可先通过[图库离线转换](ARTICLE-GALLERY.md)生成等效 HTML，再导入正文。回退旧包后新图库 HTML 和 JSON 仍保留，但旧主题未提供对应增强，需保留原文章源或普通图片版本。
 

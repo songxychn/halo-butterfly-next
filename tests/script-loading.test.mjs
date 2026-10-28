@@ -91,13 +91,13 @@ test('one manual async request starts only after DOM readiness and two frame opp
 
 test('external Prism failure waits for the local fallback before resolving enhancement', async () => {
   const previous = globalThis.window;
-  globalThis.window = {MainApp:{resources:{option:{prismjs_js:'https://cdn.test/prism.js'}}}};
+  globalThis.window = {MainApp:{resources:{asset_base:'https://cdn.test/assets'}}};
   try {
     const scripts=[],frames=[],hints=[];
     const document={baseURI:'https://site.test/post',createElement:tag=>({tag,dataset:{},events:{},setAttribute(){},addEventListener(k,fn){this.events[k]=fn;},hasAttribute(){return false;}}),head:{querySelectorAll:()=>hints,append:s=>(s.tag==='link'?hints:scripts).push(s)}};
     const ready=loadPrismAfterPaint({source:'/local-prism.js',document,requestFrame:fn=>frames.push(fn)});
     await Promise.resolve();frames.shift()();frames.shift()();
-    const script=scripts[0];assert.equal(script.src,'https://cdn.test/prism.js');
+    const script=scripts[0];assert.equal(script.src,'https://cdn.test/assets/plugins/prism/prism.min.js');
     assert.equal(hints.length,1);assert.equal(hints[0].href,'https://cdn.test');
     let settled=false;ready.then(()=>settled=true);
     script.events.error();await Promise.resolve();assert.equal(settled,false);

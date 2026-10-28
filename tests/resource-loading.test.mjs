@@ -9,6 +9,14 @@ function documentFixture() {
   return {document,nodes};
 }
 
+test('only a valid unified directory supplies theme resources; legacy overrides are ignored',()=>{
+  const local='/themes/halo-butterfly-next/assets/renderers/mermaid.min.js',file='renderers/mermaid.min.js';
+  const legacy={option:{mermaid:'https://obsolete.invalid/adapter.js'}};
+  assert.equal(resolveResource(local,legacy,'1.0.0',file),local);
+  assert.equal(resolveResource(local,{...legacy,asset_base:'https://cdn.test/${name}/${version}/assets/'},'1.0.0',file),'https://cdn.test/halo-butterfly-next/1.0.0/assets/'+file);
+  for(const asset_base of ['//evil.test/assets','javascript:alert(1)','https://user:password@cdn.test/assets','https://cdn.test/assets?x=1','https://cdn.test/assets#x','https://cdn.test/${unknown}'])assert.equal(resolveResource(local,{asset_base},'1.0.0',file),local);
+});
+
 
 test('native script error retries locally once; concurrent callers share the completion',async()=>{
   const {document,nodes}=documentFixture();

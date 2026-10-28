@@ -1194,39 +1194,6 @@ spec:
               value: 20
               help: "数值越小越靠前；相同数值保持原顺序。"
               min: 0
-        - $formkit: group
-          name: card_newest_comments
-          label: 最新评论
-          help: 汇总公开文章与单页的已审核顶层评论，按评论发布时间倒序；接近视区时查询。站点规模越大，首次查询越多。瞬间评论不在本卡片范围。
-          children:
-            - $formkit: checkbox
-              name: enable
-              label: 显示最新评论卡片
-              value: false
-              help: 默认关闭。需要官方评论组件 3.3.2 或更新版本及全局评论启用。
-            - $formkit: number
-              name: limit
-              label: 显示数量
-              value: 6
-              min: 1
-              max: 20
-            - $formkit: number
-              name: sort_order
-              label: 卡片顺序
-              value: 25
-              min: 0
-              help: 数值越小越靠前；相同数值保持原顺序。
-            - $formkit: checkbox
-              name: avatar
-              label: 显示头像
-              value: true
-            - $formkit: number
-              name: storage
-              label: 缓存分钟数
-              value: 10
-              min: 0
-              max: 60
-              help: 同一标签页缓存公开评论摘要，0 为禁用。新增评论导致计数变化时刷新；审核隐藏或正文修改后的摘要可能在缓存到期后更新。每次导航重新核对公开内容清单；浏览器拒绝缓存时直接查询。
         - $formkit: radio
           name: enable_category
           label: 启用侧边栏分类
@@ -2116,11 +2083,6 @@ spec:
     - group: comments
       label: 评论
       formSchema:
-        - $formkit: checkbox
-          name: lazyload
-          label: 评论懒加载
-          value: false
-          help: 开启后接近评论区时自动加载，点击评论跳转立即加载。延迟组件初始化及评论数据请求；官方插件预加载的 JS/CSS 仍保留。
         - $formkit: checkbox
           name: text
           label: 显示评论说明和状态提示
@@ -3219,102 +3181,12 @@ spec:
         name: version
         label: 本地资源附加版本缓存参数
         value: true
-        help: 关闭仅移除本地 URL 的缓存参数；依赖 CDN 地址仍固定版本，不自动使用最新版。
+        help: 关闭仅移除本地 URL 的缓存参数；统一资源地址应提供与当前主题版本一致的完整 assets 目录。
       - $formkit: text
         name: asset_base
         label: 统一主题资源地址
         value: ''
         help: 填写后直接生效，留空使用安装包。填写完整 assets 目录的 HTTPS 地址或本站路径；可用 ${version}、${name}，不支持查询参数。
-      - $formkit: group
-        name: option
-        label: 单项地址覆盖
-        value: {}
-        children:
-        - $formkit: text
-          name: main
-          label: 页面脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: main_css
-          label: 页面样式
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: mermaid
-          label: Mermaid 渲染脚本
-          value: ''
-          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
-        - $formkit: text
-          name: chartjs
-          label: Chart.js 渲染脚本
-          value: ''
-          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
-        - $formkit: text
-          name: abcjs_basic_js
-          label: ABC 乐谱渲染脚本
-          value: ''
-          help: 覆盖 Next 渲染器适配包，需保留 ThemeBodyRenderers 接口；失败时回退随包文件。
-        - $formkit: text
-          name: charts
-          label: 分类和标签统计图脚本
-          value: ''
-          help: 仅显式统计图模式加载；留空跟随统一资源地址。
-        - $formkit: text
-          name: masonry
-          label: 首页瀑布流脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: gallery
-          label: 正文图库脚本
-          value: ''
-          help: 仅正文包含图库时加载。留空继承主题资源来源；加载错误回退随包脚本。
-        - $formkit: text
-          name: loading
-          label: Loading 脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: pace_js
-          label: Pace 脚本
-          value: ''
-          help: 留空继承主题资源来源；替换脚本须提供 Pace 1.2.4 接口。
-        - $formkit: text
-          name: pace_default_css
-          label: Pace 默认样式
-          value: ''
-          help: 留空继承主题资源来源；加载设置中的自定义样式优先。
-        - $formkit: text
-          name: effects
-          label: 特效脚本
-          value: ''
-          help: 留空继承主题资源来源；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: fontawesome
-          label: 图标样式
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: prismjs_js
-          label: Prism 脚本
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: prismjs_css
-          label: Prism 基础样式
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: code_light
-          label: 浅色代码配色
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
-        - $formkit: text
-          name: code_dark
-          label: 深色代码配色
-          value: ''
-          help: 留空继承来源设置；可使用 ${file}、${version}、${name}。
 
     - group: moments
       label: 瞬间与动态

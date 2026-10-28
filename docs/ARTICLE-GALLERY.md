@@ -64,6 +64,6 @@ bun scripts/gallery/convert.mjs article.md article-gallery.md
 
 ## 资源与验证
 
-只有正文出现图库时请求随包 `assets/js/gallery.min.js`；普通文章不增加排版引擎下载。继承主题内部资源来源设置，`CDN.option.gallery` 可单独覆盖，加载失败回退随包脚本；脚本最终不可用时显示刷新提示。旧配置缺少新增字段时继续使用本地资源。
+只有正文出现图库时请求随包 `assets/js/gallery.min.js`；普通文章不增加排版引擎下载。继承统一主题资源地址，加载失败回退随包脚本；脚本最终不可用时显示刷新提示。旧配置缺少新增字段时继续使用本地资源。
 
 验证命令：`bun run verify`、`bun scripts/gallery/check-browser.mjs`。真实 Halo 夹具仅允许本项目独立回环实验室：`scripts/gallery/fixture.py` 安装候选并创建合成文章/单页，再用记录的 `gallery-fixture.json` 执行检查；图库数据服务器端口通过 `GALLERY_DATA_PORT` 明确指定。有限浏览器结果不等于完整双站、实际 Safari/设备或 1.0 验收，参见[本批记录](validation/2026-10-13/article-gallery.md)。

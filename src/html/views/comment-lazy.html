@@ -1,8 +1,0 @@
-<!-- Immediate and lazy mounting use the official plugin's public Web Component API. -->
-<div th:fragment="widget(kind, name)" class="comment-lazy" data-comment-lazy
-     th:attr="data-group=${kind == 'Moment' ? 'moment.halo.run' : 'content.halo.run'},data-kind=${kind},data-name=${name},data-comment-eager=${theme.config.comments?.lazyload != true and theme.config.comments?.lazyload != 'true'}">
-  <p class="comment-lazy-status" data-comment-status role="status" aria-live="polite" th:text="#{ui.commentHint}">接近评论区时自动加载评论。</p>
-  <button class="comment-lazy-retry" data-comment-retry type="button" hidden th:text="#{ui.commentRetry}">重试加载评论</button>
-  <div data-comment-host></div>
-  <noscript><p th:text="#{ui.commentJs}">请启用 JavaScript 以加载评论。</p></noscript>
-</div>

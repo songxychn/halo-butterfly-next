@@ -36,7 +36,7 @@ export function initializeImageLoading(config: ThemeConfig) {
       const app = window.MainApp;
       const localIllustration = app?.conf.assets_link ? app.conf.assets_link + 'images/above.svg' : '';
       if (localIllustration && image.dataset.resourceFallbackTried !== 'true') {
-        const selected = resolveResource('theme_image', localIllustration, app.resources, app.version, 'images/above.svg');
+        const selected = resolveResource(localIllustration, app.resources, app.version, 'images/above.svg');
         if (selected && new URL(selected, document.baseURI).href === image.src && new URL(localIllustration, document.baseURI).href !== image.src) {
           image.dataset.resourceFallbackTried = 'true'; image.src = localIllustration; return;
         }

@@ -8277,19 +8277,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [
-          "aside.card_newest_comments.enable"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -8299,8 +8290,7 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "aside.card_newest_comments.enable：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 aside.card_newest_comments.enable 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -8318,7 +8308,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:aside.card_newest_comments.sort_order",
@@ -8341,19 +8339,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [
-          "aside.card_newest_comments.sort_order"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -8363,8 +8352,7 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "aside.card_newest_comments.sort_order：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 aside.card_newest_comments.sort_order 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -8382,7 +8370,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:aside.card_newest_comments.limit",
@@ -8405,19 +8401,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [
-          "aside.card_newest_comments.limit"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -8427,8 +8414,7 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "aside.card_newest_comments.limit：默认 6、边界值及文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 aside.card_newest_comments.limit 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -8446,7 +8432,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:aside.card_newest_comments.storage",
@@ -8469,19 +8463,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [
-          "aside.card_newest_comments.storage"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -8491,8 +8476,7 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "aside.card_newest_comments.storage：默认 10、边界值及文档允许的替代值，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 aside.card_newest_comments.storage 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -8510,7 +8494,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:aside.card_newest_comments.avatar",
@@ -8533,19 +8525,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "侧栏最新评论卡片保留为 Halo 评论数据实现；不拉取上游各家 newest-comments 接口。",
-        "settings": [
-          "aside.card_newest_comments.avatar"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -8555,8 +8538,7 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "aside.card_newest_comments.avatar：分别设置 true 与 false，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 aside.card_newest_comments.avatar 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -8574,7 +8556,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:aside.card_categories.enable",
@@ -14987,8 +14977,6 @@
           "comments.text"
         ],
         "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
           "src/scss/core/comments.scss",
           "src/html/post.html",
           "src/html/page.html",
@@ -15048,21 +15036,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "主题可用 IntersectionObserver 延迟挂载 CommentWidget，与评论提供方无关。",
-        "settings": [
-          "comments.lazyload"
-        ],
-        "code": [
-          "settings.yaml",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/views/comment-lazy.html",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/comment-jump.ts",
-          "src/js/core/common.ts",
-          "src/scss/core/comments.scss"
-        ],
-        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -15074,7 +15051,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "开启时接近评论区后挂载并请求评论数据；关闭时立即挂载，锚点可立即触发。官方 CSS/modulepreload 可提前下载，首屏零评论资源要求延期。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -15093,7 +15070,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:comments.count",
@@ -21657,9 +21642,7 @@
           "loading.enable",
           "loading.mode",
           "loading.type",
-          "loading.pace_css_url",
-          "CDN.option.pace_js",
-          "CDN.option.pace_default_css"
+          "loading.pace_css_url"
         ],
         "code": [
           "src/html/views/layout.html",
@@ -21796,9 +21779,7 @@
           "loading.enable",
           "loading.mode",
           "loading.type",
-          "loading.pace_css_url",
-          "CDN.option.pace_js",
-          "CDN.option.pace_default_css"
+          "loading.pace_css_url"
         ],
         "code": [
           "src/plugins/loading/circle.ts",
@@ -21917,9 +21898,7 @@
           "loading.enable",
           "loading.mode",
           "loading.type",
-          "loading.pace_css_url",
-          "CDN.option.pace_js",
-          "CDN.option.pace_default_css"
+          "loading.pace_css_url"
         ],
         "code": [
           "src/html/views/layout.html",
@@ -29781,9 +29760,7 @@
       "upstreamInventory": "yaml",
       "halo": {
         "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [
-          "CDN.option.fontawesome"
-        ],
+        "settings": [],
         "code": [
           "src/html/views/config.html",
           "docs/INTEGRATIONS.md",
@@ -29868,7 +29845,15 @@
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "资源仅使用完整主题包的统一地址，不保留逐库提供方。",
+        "replacement": "CDN.asset_base"
+      }
     },
     {
       "id": "config:CDN.version",
@@ -30090,24 +30075,10 @@
       ],
       "upstreamInventory": "yaml",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [
-          "CDN.option"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "docs/INTEGRATIONS.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/js/core/prism-ready.ts",
-          "docs/RESOURCE-SOURCES.md",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/pace.ts",
-          "settings.yaml",
-          "docs/BODY-CHARTS-SCORE.md",
-          "docs/parity/DEC-03-RESOURCES-DRAFT.md"
-        ],
-        "finding": "2026-10-14 主线对账：实际资源单项覆盖与统一根地址已实现，包含图表/乐谱适配包、effects、Share.js、不蒜子与 Pace；39 项原独立供应要求按 DEC-03 处理，不能再把图表库列作未开发。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。 2026-10-14 配置简化：统一单项优先→根地址→安装包；新增 charts 按需图表实际覆盖，完整上游映射仍未完成。 本轮候选待真实设备及最终提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 独立审查修复后无阻塞项，实际资源补充与新配置结果见 docs/validation/2026-10-14/config-defaults-reviewed.json；不替代完整逐项合同。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -30117,9 +30088,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option 与全局/逐页覆盖的优先级。",
-          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：统一单项优先→根地址→安装包；新增 charts 按需图表实际覆盖，完整上游映射仍未完成。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -30207,7 +30176,15 @@
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:artalk.vote",
@@ -31947,22 +31924,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
-        "settings": [
-          "CDN.option.abcjs_basic_js"
-        ],
-        "code": [
-          "src/html/views/body-renderers.html",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/body-renderer-data.ts",
-          "src/js/core/svg-viewer.ts",
-          "src/js/renderers/mermaid.ts",
-          "src/js/renderers/chartjs.ts",
-          "src/js/renderers/abcjs.ts",
-          "src/scss/modules/body-renderers.scss",
-          "scripts/build.mjs"
-        ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -31972,8 +31937,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.abcjs_basic_js：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.abcjs_basic_js 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -32030,7 +31994,15 @@
           "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.activate_power_mode",
@@ -32820,22 +32792,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
-        "settings": [
-          "CDN.option.chartjs"
-        ],
-        "code": [
-          "src/html/views/body-renderers.html",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/body-renderer-data.ts",
-          "src/js/core/svg-viewer.ts",
-          "src/js/renderers/mermaid.ts",
-          "src/js/renderers/chartjs.ts",
-          "src/js/renderers/abcjs.ts",
-          "src/scss/modules/body-renderers.scss",
-          "scripts/build.mjs"
-        ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -32845,8 +32805,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.chartjs：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.chartjs 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -32903,7 +32862,15 @@
           "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.click_heart",
@@ -33709,19 +33676,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [
-          "CDN.option.fontawesome"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "docs/INTEGRATIONS.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/js/core/prism-ready.ts",
-          "docs/RESOURCE-SOURCES.md"
-        ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 2026-10-14 配置简化：统一按主题实际路径展开占位符，不使用 npm 包 name/file 语义；旧意义仅离线转换。 本轮候选待真实设备、独立审查及当前提交 CI，非完整 1.0 验收。 本轮限定证据见 docs/validation/2026-10-14/config-defaults.json；保留完整合同、历史失败和状态。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -33731,9 +33689,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.fontawesome：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.fontawesome 与全局/逐页覆盖的优先级。",
-          "2026-10-14：按 docs/parity/DEC-08-CONFIG-DEFAULTS-DRAFT.md 验证：统一按主题实际路径展开占位符，不使用 npm 包 name/file 语义；旧意义仅离线转换。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -33791,7 +33747,15 @@
           "outcome": "partial: reviewed 505-file candidate manifest; 691 tests, 253 installed byte matches, 40 Halo groups, 16 cover cases and 3 real SDK/gallery resource scenarios passed; base HEAD alone is not candidate identity; full per-item contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.gitalk",
@@ -34345,19 +34309,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [
-          "CDN.option.main"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "docs/INTEGRATIONS.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/js/core/prism-ready.ts",
-          "docs/RESOURCE-SOURCES.md"
-        ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -34367,8 +34322,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.main：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.main 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34408,7 +34362,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.main_css",
@@ -34425,19 +34387,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [
-          "CDN.option.main_css"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "docs/INTEGRATIONS.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/js/core/prism-ready.ts",
-          "docs/RESOURCE-SOURCES.md"
-        ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -34447,8 +34400,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.main_css：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.main_css 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34488,7 +34440,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.mathjax",
@@ -34659,22 +34619,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "主题消费等效 HTML/语言代码块，单篇注解覆盖全局；正文按需加载本地适配包。保留固定上游完整对照与配置域验收要求。",
-        "settings": [
-          "CDN.option.mermaid"
-        ],
-        "code": [
-          "src/html/views/body-renderers.html",
-          "src/js/core/body-renderers.ts",
-          "src/js/core/body-renderer-data.ts",
-          "src/js/core/svg-viewer.ts",
-          "src/js/renderers/mermaid.ts",
-          "src/js/renderers/chartjs.ts",
-          "src/js/renderers/abcjs.ts",
-          "src/scss/modules/body-renderers.scss",
-          "scripts/build.mjs"
-        ],
-        "finding": "已接入 Mermaid/Chart.js/ABC 乐谱与亮暗、阅读交互、源码/资源失败回退及生命周期清理。限定三引擎回归见 #403；Firefox 原生 Halo 传输挂起保留，关闭上游持久连接仅为对照，不替代完整合同。2026-10-14 DEC-02 补充：通用 Hexo 标签转换不再是 1.0 默认义务；以文档声明的 HTML/语言代码块输入验收，现有渲染、资源与失败回退要求保留。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -34684,8 +34632,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.mermaid：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.mermaid 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34742,7 +34689,15 @@
           "outcome": "user-confirmed portable-content scope; not runtime verified"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.prismjs_autoloader",
@@ -34851,19 +34806,10 @@
       ],
       "upstreamInventory": "documented",
       "halo": {
-        "strategy": "先核对功能需要、实际版本和许可证，再确定随包分发或可配置来源；版本不同不直接判定等价。",
-        "settings": [
-          "CDN.option.prismjs_js"
-        ],
-        "code": [
-          "src/html/views/config.html",
-          "docs/INTEGRATIONS.md",
-          "scripts/resource-templates.mjs",
-          "src/js/core/external-resource.ts",
-          "src/js/core/prism-ready.ts",
-          "docs/RESOURCE-SOURCES.md"
-        ],
-        "finding": "2026-10-13：统一 assets 根地址、完整相对目录、单项优先及原生错误本地回退已接入；Font Awesome inherit 与固定 6.7.2 生效。实际依赖随当前 ZIP/锁文件供应，在线服务 SDK 不宣称内容锁定。详见 docs/RESOURCE-SOURCES.md 和 docs/validation/2026-10-13/resource-sources.md。限定 Chromium/Halo 结果不替代完整合同、独立审查与最终候选 CI。 DEC-10 已移除局部导航和外部服务相关实现；这里只保留当前功能的代码引用。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -34873,8 +34819,7 @@
       "acceptance": {
         "profile": "resources",
         "cases": [
-          "CDN.option.prismjs_js：未配置、自定义有效值及清空，核对对应输出及再次刷新。",
-          "保持同组其他设置不变；验证 CDN.option.prismjs_js 与全局/逐页覆盖的优先级。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -34914,7 +34859,15 @@
           "outcome": "partial: uncommitted worktree snapshot; 648 tests, 159 installed files and scoped Halo browser checks passed; full contract remains open"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "config:CDN.option.prismjs_lineNumber_js",
@@ -37454,9 +37407,7 @@
           "loading.enable",
           "loading.mode",
           "loading.type",
-          "loading.pace_css_url",
-          "CDN.option.pace_js",
-          "CDN.option.pace_default_css"
+          "loading.pace_css_url"
         ],
         "code": [
           "src/html/views/layout.html",
@@ -37971,9 +37922,7 @@
           "src/html/views/plugin-pagination.html",
           "src/js/page/moments.ts",
           "src/html/moment.html",
-          "src/js/core/moments.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/newest-comments.ts"
+          "src/js/core/moments.ts"
         ],
         "finding": "仅使用 Halo 官方插件数据；DEC-10 删除外部 JSON 源及其客户端分页。"
       },
@@ -39980,21 +39929,17 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "若保留懒加载，由主题脚本包裹 CommentWidget，不加载上游各家评论 JS。",
-        "settings": [
-          "comments.lazyload"
-        ],
+        "strategy": "保留主体标识、可用条件和主题样式。",
+        "settings": [],
         "code": [
           "settings.yaml",
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/views/comment-lazy.html",
-          "src/js/core/comment-lazy.ts",
           "src/js/core/comment-jump.ts",
           "src/js/core/common.ts",
           "src/scss/core/comments.scss"
         ],
-        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        "finding": "通过 halo:comment 委托官方插件初始化，不再由主题动态导入或挂载组件。"
       },
       "dependencies": [
         "dual-site",
@@ -40898,21 +40843,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "最新评论卡片共用结构改为消费 Halo 评论数据。",
-        "settings": [
-          "aside.card_newest_comments.enable",
-          "comments.text",
-          "comments.jump"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -40924,7 +40858,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "卡片结构在有/无数据时稳定；不请求上游 newest-comments 各家接口。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -40942,7 +40876,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "template:includes/third-party/newest-comments/disqus-comment",
@@ -41080,21 +41022,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "最新评论入口改为 Halo 数据源选择，不再按 comments.use 分发各家模板。",
-        "settings": [
-          "aside.card_newest_comments.enable",
-          "comments.text",
-          "comments.jump"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -41106,7 +41037,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "启用侧栏最新评论时渲染 Halo 数据卡片；关闭时不输出。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -41124,7 +41055,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "template:includes/third-party/newest-comments/remark42",
@@ -42624,21 +42563,10 @@
       ],
       "upstreamInventory": "templates",
       "halo": {
-        "strategy": "侧栏最新评论卡片保留为 Halo 实现。",
-        "settings": [
-          "aside.card_newest_comments.enable",
-          "comments.text",
-          "comments.jump"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -42648,7 +42576,7 @@
       "acceptance": {
         "profile": "aside",
         "cases": [
-          "侧栏开关控制该卡片；数据来自 Halo 评论而非第三方。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -42666,7 +42594,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "template:includes/widget/card_post_series",
@@ -46063,9 +45999,7 @@
           "src/html/views/components.html",
           "src/html/moments.html",
           "src/html/moment.html",
-          "src/js/core/moments.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/newest-comments.ts"
+          "src/js/core/moments.ts"
         ],
         "finding": "仅使用 Halo 官方插件数据；DEC-10 删除外部 JSON 源及其客户端分页。"
       },
@@ -49149,9 +49083,7 @@
           "loading.enable",
           "loading.mode",
           "loading.type",
-          "loading.pace_css_url",
-          "CDN.option.pace_js",
-          "CDN.option.pace_default_css"
+          "loading.pace_css_url"
         ],
         "code": [
           "scripts/build.mjs",
@@ -49242,9 +49174,7 @@
           "loading.enable",
           "loading.mode",
           "loading.type",
-          "loading.pace_css_url",
-          "CDN.option.pace_js",
-          "CDN.option.pace_default_css"
+          "loading.pace_css_url"
         ],
         "code": [
           "scripts/build.mjs",
@@ -54787,9 +54717,7 @@
         "code": [
           "src/html/post.html",
           "src/html/page.html",
-          "src/html/archives.html",
-          "src/html/views/comment-lazy.html",
-          "src/js/core/comment-lazy.ts"
+          "src/html/archives.html"
         ],
         "finding": "2026-10-14 主线对账：本条断言限定文章/单页：已消费 allowComment、站点评论开关、官方插件可用性及 post.stats.comment；懒挂载在 #409 合并。Moment 的开发缺口由 interaction:shuoshuo-comments 单列，不再用其阻止本条实现状态更新。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
       },
@@ -60818,9 +60746,7 @@
           "src/html/views/plugin-pagination.html",
           "src/js/page/moments.ts",
           "src/html/moment.html",
-          "src/js/core/moments.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/newest-comments.ts"
+          "src/js/core/moments.ts"
         ],
         "finding": "仅使用 Halo 官方插件数据；DEC-10 删除外部 JSON 源及其客户端分页。"
       },
@@ -62821,21 +62747,10 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "主题侧懒加载 CommentWidget，不实现上游各家 IntersectionObserver 脚本。",
-        "settings": [
-          "comments.lazyload"
-        ],
-        "code": [
-          "settings.yaml",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/html/views/comment-lazy.html",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/comment-jump.ts",
-          "src/js/core/common.ts",
-          "src/scss/core/comments.scss"
-        ],
-        "finding": "2026-10-13 / #407：默认关闭；开启后评论区邻近 300px 自动挂载官方 CommentWidget，跳转/直接锚点立即挂载。模块 8 秒超时、重试 URL、页面清理和重复挂载保护已实现；无 IntersectionObserver 时立即加载。保留官方 modulepreload/CSS，首屏零评论资源下载未实现，已按 docs/parity/DEC-03-1.0-DEFERRALS.md 延期到 1.0 之后（版本未定）；延迟挂载/数据请求保留，不据此提升 verified。组件内部请求/提交错误由插件 UI 处理。限定真实 Halo 验证见 docs/validation/2026-10-13/comment-lazy.md；完整合同、真机与独立审查仍未完成。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -62847,7 +62762,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "滚入视区后才挂载评论；反复进出不重复初始化。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -62865,7 +62780,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "interaction:newest-comments",
@@ -62881,21 +62804,10 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "侧栏最新评论改为 Halo 评论数据；不保留各家 newest-comments 拉取脚本。",
-        "settings": [
-          "aside.card_newest_comments.enable",
-          "comments.text",
-          "comments.jump"
-        ],
-        "code": [
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
-          "src/scss/core/comments.scss",
-          "src/html/post.html",
-          "src/html/page.html",
-          "src/js/core/comment-jump.ts"
-        ],
-        "finding": "首批评论增强已实现：仅官方评论；公开 Post/SinglePage 清单按评论时间聚合、纯文本提示、原生跳转。限定合成站验证不代替双站、独立审查或完整合同。懒挂载和 Moment 评论后续实现。"
+        "strategy": "不纳入主题维护范围。",
+        "finding": "DEC-10：已删除；历史验收仅供追溯。",
+        "code": [],
+        "settings": []
       },
       "dependencies": [
         "dual-site",
@@ -62907,7 +62819,7 @@
       "acceptance": {
         "profile": "comments",
         "cases": [
-          "侧栏卡片展示 Halo 最新公开评论；空数据、超限和关闭开关分别验证。"
+          "确认已删除功能不再执行，迁移报告明确标出移除项。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -62925,7 +62837,15 @@
         "pullRequests": []
       },
       "evidence": [],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "DEC-10",
+        "option": "scope-reduction",
+        "path": "docs/parity/DEC-10-THEME-SCOPE.md",
+        "date": "2026-10-28T20:00:00+08:00",
+        "reason": "维护者确认继续删除全站评论聚合、自建评论挂载及单项资源替换。",
+        "replacement": "Halo 官方评论入口；当前主题包的统一资源地址。"
+      }
     },
     {
       "id": "interaction:gallery",
@@ -63361,9 +63281,7 @@
           "src/html/views/plugin-pagination.html",
           "src/scss/modules/plugin-pagination.scss",
           "src/html/moment.html",
-          "src/js/core/moments.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/newest-comments.ts"
+          "src/js/core/moments.ts"
         ],
         "finding": "仅使用 Halo 官方插件数据；DEC-10 删除外部 JSON 源及其客户端分页。"
       },
@@ -63438,11 +63356,8 @@
           "src/html/page.html",
           "src/html/views/layout.html",
           "src/html/moments.html",
-          "src/html/views/newest-comments.html",
-          "src/js/core/newest-comments.ts",
           "src/html/moment.html",
-          "src/js/core/moments.ts",
-          "src/js/core/comment-lazy.ts"
+          "src/js/core/moments.ts"
         ],
         "finding": "仅使用 Halo 官方插件数据；DEC-10 删除外部 JSON 源及其客户端分页。"
       },
@@ -64417,9 +64332,7 @@
           "src/html/moments.html",
           "src/html/views/plugin-pagination.html",
           "src/html/moment.html",
-          "src/js/core/moments.ts",
-          "src/js/core/comment-lazy.ts",
-          "src/js/core/newest-comments.ts"
+          "src/js/core/moments.ts"
         ],
         "finding": "仅使用 Halo 官方插件数据；DEC-10 删除外部 JSON 源及其客户端分页。"
       },

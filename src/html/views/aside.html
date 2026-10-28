@@ -208,7 +208,6 @@
   <th:block th:replace="~{::user}"/>
   <th:block th:replace="~{::notice}"/>
   <th:block th:replace="~{::recentPost}"/>
-  <th:block th:replace="~{views/newest-comments::card}"/>
   <th:block th:replace="~{::category}"/>
   <th:block th:replace="~{::tags}"/>
   <th:block th:replace="~{::archives}"/>
@@ -261,7 +260,6 @@
   </div>
   <th:block th:unless="${tocSimple}">
     <th:block th:replace="~{::recentPost}"/>
-    <th:block th:replace="~{views/newest-comments::card}"/>
     <th:block th:unless="${postPage}">
       <th:block th:replace="~{::category}"/>
       <th:block th:replace="~{::tags}"/>

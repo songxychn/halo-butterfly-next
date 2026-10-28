@@ -50,7 +50,7 @@ for suffix,subject,approved,hidden in [('public','moment-fixture-12',True,False)
  text='<p>瞬间测试评论 '+suffix+'</p>'
  client.api(path,'POST',{'apiVersion':'content.halo.run/v1alpha1','kind':'Comment','metadata':{'name':name,'labels':{'moments-fixture':owner}},'spec':{'subjectRef':{'group':'moment.halo.run','version':'v1alpha1','kind':'Moment','name':subject},'owner':{'kind':'User','name':client.auth['username']},'raw':text,'content':text,'approved':approved,'hidden':hidden,'top':False,'priority':0,'allowNotification':False,'creationTime':'2026-10-14T10:00:00Z'}})
 config=json.loads(json.dumps(original_config));config.setdefault('moments',{}).update({'timezone':'Asia/Shanghai'})
-config.setdefault('comments',{}).update({'lazyload':True,'jump':True});config.setdefault('aside',{})['card_newest_comments']={'enable':True,'limit':6,'storage':0,'avatar':True,'sort_order':25}
+config.setdefault('comments',{}).update({'jump':True})
 client.api(config_path,'PUT',config)
 system=client.api('/api/v1alpha1/configmaps/system');system['data']['comment']=json.dumps({'enable':True,'systemUserOnly':False,'requireReviewForNew':True});client.api('/api/v1alpha1/configmaps/system','PUT',system)
 for _ in range(60):

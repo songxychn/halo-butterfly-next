@@ -13,11 +13,10 @@ export function configureResourceTags(html) {
     if (!key) return tag;
     const withoutQuery = value => `(#strings.contains(${value}, '?') ? #strings.substringBefore(${value}, '?') : ${value})`;
     const local = `cdn?.version == false ? ${withoutQuery(`assets_link + ${tail}`)} : assets_link + ${tail}`;
-    const expand = field => `(cdn?.${field} ?: '').replaceAll('[$]\\x7bversion\\x7d', theme.spec.version).replaceAll('[$]\\x7bfile\\x7d', ${withoutQuery(tail)}).replaceAll('[$]\\x7bname\\x7d', 'halo-butterfly-next')`;
     const root = `(cdn?.asset_base ?: '').replaceAll('[$]\\x7bversion\\x7d', theme.spec.version).replaceAll('[$]\\x7bname\\x7d', 'halo-butterfly-next')`;
     const unified = `(not #strings.isEmpty(themeRoot) and not #strings.contains(themeRoot, '?') and not #strings.contains(themeRoot, '#') and not #strings.contains(themeRoot, '$') ? themeRoot.replaceAll('/+$', '') + '/' + ${withoutQuery(tail)} : '')`;
     const valid = value => `not #strings.isEmpty(${value}) and not #strings.startsWith(${value}, '//') and ${value}.matches('https://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/[a-zA-Z0-9._~:/?#%&amp;=,+!()@$-]*)?|/[a-zA-Z0-9._~/?#%&amp;=,+!()@$-]*') and not #strings.contains(${value}, '$')`;
-    const withAttr = `th:with="cdn=\${theme.config.CDN},localResource=\${${local}},overrideResource=\${${expand(`option?.${key}`)}},themeRoot=\${${root}},unifiedResource=\${${unified}},resourceUrl=\${${valid('overrideResource')} ? overrideResource : (${valid('unifiedResource')} ? unifiedResource : localResource)}"`;
+    const withAttr = `th:with="cdn=\${theme.config.CDN},localResource=\${${local}},themeRoot=\${${root}},unifiedResource=\${${unified}},resourceUrl=\${${valid('unifiedResource')} ? unifiedResource : localResource}"`;
     // A prepared parser-inserted script does not execute again when its src changes.
     const fallback = element === 'script'
       ? "var s=document.createElement('script');s.async=false;for(var a of this.attributes){if(a.name!=='src' &amp;&amp; a.name!=='onerror')s.setAttribute(a.name,a.value)}s.src=this.dataset.localResource;this.replaceWith(s)"

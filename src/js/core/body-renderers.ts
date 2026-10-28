@@ -14,7 +14,7 @@ export async function loadRenderer(kind: RendererKind, doc: Document) {
   const usable = () => typeof win.ThemeBodyRenderers?.[kind]?.render === 'function';
   if (usable()) return win.ThemeBodyRenderers![kind]!;
   const local = (win.MainApp.conf.assets_link || '/themes/halo-butterfly-next/assets/') + 'renderers/' + files[kind] + '.min.js';
-  const source = resolveResource(keys[kind], local, win.MainApp.resources, win.MainApp.version, 'renderers/' + files[kind] + '.min.js');
+  const source = resolveResource(local, win.MainApp.resources, win.MainApp.version, 'renderers/' + files[kind] + '.min.js');
   let cache = loads.get(doc); if (!cache) { cache = new Map(); loads.set(doc, cache); }
   if (cache.has(kind)) return cache.get(kind)!;
   const promise = loadManagedResource(source, local, {

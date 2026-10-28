@@ -49,14 +49,14 @@ export function initializePace() {
   const js = 'plugins/pace/pace.min.js', css = 'plugins/pace/pace-theme-minimal.css';
   const localJS = app.conf.assets_link + js, localCSS = app.conf.assets_link + css;
   const explicitCSS = safeResourceUrl(app.conf.pace_css_url);
-  const sourceCSS = explicitCSS || resolveResource('pace_default_css', localCSS, app.resources, app.version, css);
+  const sourceCSS = explicitCSS || resolveResource(localCSS, app.resources, app.version, css);
   // No auto-start/restart until BOTH script API and CSS have loaded successfully.
   window.paceOptions = {
     startOnPageLoad: false, restartOnPushState: false, restartOnRequestAfter: false,
   };
   state.pending = Promise.all([
     loadManagedResource(sourceCSS, localCSS, {kind: 'style', attributes: {id: 'theme-pace-style'}}),
-    loadManagedResource(resolveResource('pace_js', localJS, app.resources, app.version, js), localJS,
+    loadManagedResource(resolveResource(localJS, app.resources, app.version, js), localJS,
       {attributes: {'data-theme-script': 'pace'}, valid: () => paceAPIReady(window.Pace)}),
   ]).then(([styled, loaded]) => {
     if (!styled || !loaded || !paceAPIReady(window.Pace)) return false;

@@ -12,7 +12,7 @@ try {
     const files = {main_css: `css/${page}.min.css`, main: `js/${page}.min.js`,
       fontawesome: 'plugins/fontawesome/css/all.min.css'};
     for (const [key, file] of Object.entries(files)) {
-      const url = resolveResource(key, app.conf.assets_link + file, app.resources, app.version, file);
+      const url = resolveResource(app.conf.assets_link + file, app.resources, app.version, file);
       preconnectResource(url);
       // Font files use CORS, unlike the CSS file that discovers them.
       if (key === 'fontawesome') preconnectResource(url, document, true);

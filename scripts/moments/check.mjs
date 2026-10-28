@@ -44,16 +44,13 @@ try {
      await p.waitForLoadState('networkidle');assert.equal(await p.locator('.content > .list > .item').count(),fixture.publicMoments-10);assert.equal(new URL(p.url()).searchParams.get('tag'),'山川');
      assert.equal(await p.locator('[data-moment-key="moment-fixture-13"]').count(),0);
     });
-    await check(label+' exact lazy comment identity, jump and newest public Moment comments',async()=>{
+    await check(label+' official comment identity and jump',async()=>{
      await goto(p,'/moments/moment-fixture-12#post-comment');
      await p.waitForSelector('comment-widget');
      assert.deepEqual(await p.locator('comment-widget').evaluate(el=>[el.group,el.kind,el.name]),['moment.halo.run','Moment','moment-fixture-12']);
      assert.equal(await p.locator('comment-widget').count(),1);
      assert.equal(await p.locator('#jump-comment').count(),1);
      await p.locator('.moment-comment-link').click();assert.equal(await p.evaluate(()=>document.activeElement?.id),'comment-title');
-     const card=p.locator('[data-newest-comments]');await card.scrollIntoViewIfNeeded();await p.waitForSelector('[data-comments-state="loaded"]');
-     const text=await card.textContent();assert.match(text,/瞬间测试评论 public/);assert.match(text,/瞬间测试评论 old/);assert.doesNotMatch(text,/瞬间测试评论 (private|pending|hidden)/);
-     assert.ok((await card.locator('.newest-comment-link').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')))).every(href=>href.startsWith('/moments/')));
      assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
      assert.deepEqual(errors,[]);
      if(engine==='chromium'){const file=label+'-moment.png';await p.screenshot({path:path.join(out,file),fullPage:true});report.screenshots.push(file);}
@@ -64,7 +61,7 @@ try {
    await check(engine+' private/missing moments expose no content or comments',async()=>{
     for(const name of ['moment-fixture-13','does-not-exist',...(fixture.pendingRetained?['moment-fixture-14']:[])]) {
      const r=await p.goto(base+'/moments/'+name,{waitUntil:'networkidle'});assert.ok([200,404].includes(r.status()));
-     assert.equal(await p.locator('comment-widget,[data-comment-lazy],.content > .list > .item').count(),0);
+     assert.equal(await p.locator('comment-widget,.content > .list > .item').count(),0);
     }
    });
    await context.close();
@@ -74,14 +71,9 @@ try {
  const browser=await pw.chromium.launch({headless:true,channel:'chromium',env:browserEnvironment()});
  try {
   const context=await browser.newContext();const p=await context.newPage();
-  await check('eager official component uses exact Moment identity',async()=>{
-   const cfg=structuredClone(initialConfig);cfg.comments.lazyload=false;assert((await admin.put(configPath,{data:cfg})).ok());
-   await goto(p,'/moments/moment-fixture-12#post-comment');await p.waitForSelector('comment-widget');
-   assert.deepEqual(await p.locator('comment-widget').evaluate(el=>[el.group,el.kind,el.name]),['moment.halo.run','Moment','moment-fixture-12']);
-  });
   await check('disabled official widget removes comment controls without breaking content',async()=>{
    assert((await admin.put(pluginPath,{data:{enable:false,async:false}})).ok());
-   await goto(p,'/moments/moment-fixture-12');assert.equal(await p.locator('#post-comment,.moment-comment-link,[data-newest-comments]').count(),0);assert.equal(await p.locator('.content > .list > .item').count(),1);
+   await goto(p,'/moments/moment-fixture-12');assert.equal(await p.locator('#post-comment,.moment-comment-link').count(),0);assert.equal(await p.locator('.content > .list > .item').count(),1);
   });
   await context.close();
  } finally {await browser.close();}
