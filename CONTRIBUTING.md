@@ -34,3 +34,5 @@ Bun 1.4.0。提交依赖时同步提交锁文件，使用 `bun install --frozen-
 自维护浏览器代码统一使用 TypeScript（`src/js/**/*.ts`、`src/plugins/loading/*.ts`），运行 `bun run typecheck` 做严格类型检查；`bun run verify` 已包含此步骤。Bun 直接执行测试引用的 TypeScript，测试使用 `bun:test` 并隔离各文件的全局环境；类型检查仍由 `tsc --noEmit` 独立完成。第三方压缩库保留 JS，使用声明文件描述调用边界。模板只注入 Halo 数据，首屏逻辑由 `src/js/bootstrap.ts` 构建后同步内联，页面资源仍输出原有 `.min.js` 文件名。
 
 前端迁移的独立浏览器回归：先运行 `bun run build` 和 `bun scripts/browser/install.mjs`，再运行 `bun scripts/typescript/smoke.mjs`。它用隔离的 Chromium、Firefox、WebKit 检查 13 个生成页面入口的桌面/手机视口、导航、图表、代码块及 Loading；报告写入 `.runtime/ts-migration/`。这是合成页面回归，真实 Halo 验收仍按实验室文档执行。灯箱专项回归使用 `bun scripts/lightbox/check.mjs`。
+
+当前检查入口、已退休工具与运维归属见 [维护范围](docs/MAINTENANCE.md)。不要恢复已移除的 PJAX、远端图库 JSON 或插件内部验收框架来满足旧报告。

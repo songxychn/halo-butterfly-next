@@ -15107,7 +15107,6 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "scripts/search-comment/lifecycle.mjs",
           "src/scss/core/common.scss"
         ],
         "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线和焦点框；2026-10-11 文章顶图元信息去掉独立底板，改为底部全宽渐变（随 mask.header 开关）。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
@@ -15183,7 +15182,6 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "scripts/search-comment/lifecycle.mjs",
           "src/scss/core/common.scss"
         ],
         "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线和焦点框；2026-10-11 文章顶图元信息去掉独立底板，改为底部全宽渐变（随 mask.header 开关）。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
@@ -21650,7 +21648,6 @@
           "src/js/core/_lazyLoad.ts",
           "settings.yaml",
           "src/js/core/loading-ready.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -27825,7 +27822,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -27912,7 +27908,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -28007,7 +28002,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -28094,7 +28088,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -28264,7 +28257,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -28361,7 +28353,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -28458,7 +28449,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -28627,7 +28617,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -38852,7 +38841,6 @@
         ],
         "code": [
           "src/html/views/components.html",
-          "scripts/search-comment/lifecycle.mjs",
           "src/scss/core/common.scss"
         ],
         "finding": "使用 Halo post.stats.comment；文章与列表计数默认关闭，受插件版本、全局和逐篇权限控制。#316 验证统计、开关和恢复；#318 为计数链接增加常显下划线和焦点框；2026-10-11 文章顶图元信息去掉独立底板，改为底部全宽渐变（随 mask.header 开关）。alpha.3 局部人工对比度结论与原始 axe needs-manual-review 分别保留，不等于完整 PLG/A11Y 通过。 剩余：完整 PLG/A11Y；真机/屏幕阅读器"
@@ -43573,7 +43561,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "原生 HTML 图片、相册链接和 CSS 网格；灯箱渐进增强。本地 Hexo 图库可离线转换，JSON 数据协议与批次加载不再纳入主题。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43581,16 +43569,14 @@
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
           "src/scss/core/tags-gallery.scss",
-          "src/js/core/article-gallery.ts",
-          "src/js/core/gallery-data.ts",
-          "src/js/page/gallery.ts",
           "src/js/modules/AmplifyImg.ts",
           "scripts/gallery/convert.mjs",
           "src/js/core/content-extensions.ts",
           "src/scss/modules/content-extensions.scss",
-          "docs/CONTENT-EXTENSIONS.md"
+          "docs/CONTENT-EXTENSIONS.md",
+          "docs/ARTICLE-GALLERY.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/img/a 静态网格与现有灯箱 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；静态原生图片/链接输入与现有 JSON 增强输入分别验收，不强制旧 Hexo class/参数域或通用转换；已有图库专用转换保留原范围，完整合同仍待验收。"
+        "finding": "范围收缩：正文图库为真实 HTML 图片与 CSS 网格，复用正文灯箱；离线转换本地 Hexo 图库。取消远端/内联 JSON 协议及自定义批次加载；不宣称与 Hexo 动态图库完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -43600,9 +43586,7 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "gallery 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
-          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
-          "正文图片、说明、原图/分组链接与失败回退保留；静态 figure/img/a 网格和已声明的 InfiniteGrid/JSON 增强分别验证，不用 Photos 插件页替代。"
+          "无 JavaScript 时图片可读；窄屏网格不溢出；本地 Hexo 图片离线转换保留文本和安全地址；远端 JSON 明确拒绝。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -43671,7 +43655,7 @@
       ],
       "upstreamInventory": "tags",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "原生 HTML 图片、相册链接和 CSS 网格；灯箱渐进增强。本地 Hexo 图库可离线转换，JSON 数据协议与批次加载不再纳入主题。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -43679,16 +43663,14 @@
           "src/scss/modules/render.scss",
           "src/js/modules/Render.ts",
           "src/scss/core/tags-gallery.scss",
-          "src/js/core/article-gallery.ts",
-          "src/js/core/gallery-data.ts",
-          "src/js/page/gallery.ts",
           "src/js/modules/AmplifyImg.ts",
           "scripts/gallery/convert.mjs",
           "src/js/core/content-extensions.ts",
           "src/scss/modules/content-extensions.scss",
-          "docs/CONTENT-EXTENSIONS.md"
+          "docs/CONTENT-EXTENSIONS.md",
+          "docs/ARTICLE-GALLERY.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-13：另提供 figure/figcaption 图库分组卡片 的可移植输入，见 docs/CONTENT-EXTENSIONS.md。作者保存完整 HTML，主题仅增强；静态原生图片/链接输入与现有 JSON 增强输入分别验收，不强制旧 Hexo class/参数域或通用转换；已有图库专用转换保留原范围，完整合同仍待验收。"
+        "finding": "范围收缩：正文图库为真实 HTML 图片与 CSS 网格，复用正文灯箱；离线转换本地 Hexo 图库。取消远端/内联 JSON 协议及自定义批次加载；不宣称与 Hexo 动态图库完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -43698,9 +43680,7 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "galleryGroup 的读者能力用通用内容输入验证正常、空内容和失败场景；保留该 ID 的上游来源，不验收 Hexo 专属语法或完整参数域。",
-          "粘贴 Hexo 标签原文不触发主题解析；无需通用离线转换器作为通过证据。",
-          "正文图片、说明、原图/分组链接与失败回退保留；静态 figure/img/a 网格和已声明的 InfiniteGrid/JSON 增强分别验证，不用 Photos 插件页替代。"
+          "无 JavaScript 时图片可读；窄屏网格不溢出；本地 Hexo 图片离线转换保留文本和安全地址；远端 JSON 明确拒绝。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -46424,7 +46404,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -46510,7 +46489,6 @@
           "src/html/views/layout.html",
           "src/js/core/App.ts",
           "src/js/core/_lazyLoad.ts",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "src/html/views/components.html",
@@ -47985,7 +47963,6 @@
           "docs/THIRD_PARTY.md",
           "src/js/page/masonry.ts",
           "third-party-licenses/infinitegrid-sources.json",
-          "src/js/core/article-gallery.ts",
           "docs/parity/DEC-03-RESOURCES-DECISION.md"
         ],
         "finding": "2026-10-14 主线对账：InfiniteGrid 4.13.0 已由 masonry/正文图库承载，独立 CDN.option.egjs_infinitegrid 覆盖按 DEC-03 裁定不适用；统一资源来源及承载包覆盖已支持。库本身的布局、失败和图库参数验收仍保留。 固定双站逐项断言、浏览器/设备与完整 1.0 合同仍待验收；本次源码对账不新增运行、独立审查或 CI 通过证据。"
@@ -53031,19 +53008,17 @@
       ],
       "upstreamInventory": "styles",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "原生 HTML 图片、相册链接和 CSS 网格；灯箱渐进增强。本地 Hexo 图库可离线转换，JSON 数据协议与批次加载不再纳入主题。",
         "settings": [],
         "code": [
           "src/scss/core/tags-gallery.scss",
           "src/scss/core/index.scss",
           "tests/tags-gallery-style.test.mjs",
-          "src/js/core/article-gallery.ts",
-          "src/js/core/gallery-data.ts",
-          "src/js/page/gallery.ts",
           "src/js/modules/AmplifyImg.ts",
-          "scripts/gallery/convert.mjs"
+          "scripts/gallery/convert.mjs",
+          "docs/ARTICLE-GALLERY.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。 2026-10-14 DEC-02 补充：以上样式文件保留来源意义；验收按通用正文实际消费者与渐进增强，不要求旧 .container/class 结构命中；label/inlineImg 等映射未明项继续单列，不能凭样式文件存在关闭。"
+        "finding": "范围收缩：正文图库为真实 HTML 图片与 CSS 网格，复用正文灯箱；离线转换本地 Hexo 图库。取消远端/内联 JSON 协议及自定义批次加载；不宣称与 Hexo 动态图库完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -53052,8 +53027,7 @@
       "acceptance": {
         "profile": "style",
         "cases": [
-          "按对应通用正文能力核对实际 CSS 消费者、亮暗/窄屏/键盘与失败回退；不要求作者复刻上游 DOM/class。",
-          "与关联 tag/interaction 条目共用内容保留和换主题断言；尚未明确的用户能力先完成映射。"
+          "无 JavaScript 时图片可读；窄屏网格不溢出；本地 Hexo 图片离线转换保留文本和安全地址；远端 JSON 明确拒绝。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -60875,20 +60849,18 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "DEC-02 2026-10-14 补充：通用 Markdown / 原生 HTML 保存正文，主题按需渐进增强；不要求 Hexo 语法、专属 DOM/class、别名、完整参数域或通用离线转换。见 docs/parity/DEC-02-PORTABLE-CONTENT.md。",
+        "strategy": "原生 HTML 图片、相册链接和 CSS 网格；灯箱渐进增强。本地 Hexo 图库可离线转换，JSON 数据协议与批次加载不再纳入主题。",
         "settings": [],
         "code": [
           "src/html/photos.html",
           "src/html/views/plugin-pagination.html",
           "src/js/page/photos.ts",
           "src/js/modules/AmplifyImg.ts",
-          "src/js/core/article-gallery.ts",
-          "src/js/core/gallery-data.ts",
-          "src/js/page/gallery.ts",
           "src/scss/core/tags-gallery.scss",
-          "scripts/gallery/convert.mjs"
+          "scripts/gallery/convert.mjs",
+          "docs/ARTICLE-GALLERY.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。"
+        "finding": "范围收缩：正文图库为真实 HTML 图片与 CSS 网格，复用正文灯箱；离线转换本地 Hexo 图库。取消远端/内联 JSON 协议及自定义批次加载；不宣称与 Hexo 动态图库完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -60898,7 +60870,7 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "相册分组、瀑布流、加载更多、懒加载和灯箱按已声明的通用 HTML / JSON 增强输入验证；不强制上游 gallery 语法映射。"
+          "无 JavaScript 时图片可读；窄屏网格不溢出；本地 Hexo 图片离线转换保留文本和安全地址；远端 JSON 明确拒绝。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -62861,7 +62833,7 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "原生 HTML 图片、相册链接和 CSS 网格；灯箱渐进增强。本地 Hexo 图库可离线转换，JSON 数据协议与批次加载不再纳入主题。",
         "settings": [],
         "code": [
           "src/html/post.html",
@@ -62871,12 +62843,10 @@
           "src/js/page/photos.ts",
           "src/js/modules/AmplifyImg.ts",
           "src/scss/core/tags-gallery.scss",
-          "src/js/core/article-gallery.ts",
-          "src/js/core/gallery-data.ts",
-          "src/js/page/gallery.ts",
-          "scripts/gallery/convert.mjs"
+          "scripts/gallery/convert.mjs",
+          "docs/ARTICLE-GALLERY.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。"
+        "finding": "范围收缩：正文图库为真实 HTML 图片与 CSS 网格，复用正文灯箱；离线转换本地 Hexo 图库。取消远端/内联 JSON 协议及自定义批次加载；不宣称与 Hexo 动态图库完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -62886,10 +62856,7 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "横竖混排、行高、按钮、无限加载、URL/本地数据及错误回退。",
-          "首批/后续批次数量、键盘及最终焦点；多个图库独立灯箱。",
-          "非法/空 JSON、危险地址、匿名 CORS、1MiB/5000 图片上限、数据重试与坏图占位。",
-          "隐藏容器显示和侧栏/视口变化；切页取消请求并销毁实例；普通文章不下载图库引擎。"
+          "无 JavaScript 时图片可读；窄屏网格不溢出；本地 Hexo 图片离线转换保留文本和安全地址；远端 JSON 明确拒绝。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -63553,7 +63520,6 @@
           "src/scss/core/header.scss",
           "src/js/core/common.ts",
           "src/html/views/aside.html",
-          "src/js/core/page-lifecycle.ts",
           "src/js/core/image-loading.ts",
           "src/js/core/_message.ts",
           "settings.yaml"
@@ -64548,21 +64514,19 @@
       ],
       "upstreamInventory": "manual",
       "halo": {
-        "strategy": "先确认 Halo 编辑器/内容转换/主题渲染的接口，再实现对应语法或经维护者确认的等效编辑方式。",
+        "strategy": "原生 HTML 图片、相册链接和 CSS 网格；灯箱渐进增强。本地 Hexo 图库可离线转换，JSON 数据协议与批次加载不再纳入主题。",
         "settings": [],
         "code": [
           "src/html/post.html",
           "src/html/page.html",
           "src/scss/modules/render.scss",
           "src/html/photos.html",
-          "src/js/core/article-gallery.ts",
-          "src/js/core/gallery-data.ts",
-          "src/js/page/gallery.ts",
           "src/scss/core/tags-gallery.scss",
           "src/js/modules/AmplifyImg.ts",
-          "scripts/gallery/convert.mjs"
+          "scripts/gallery/convert.mjs",
+          "docs/ARTICLE-GALLERY.md"
         ],
-        "finding": "2026-10-13 正文图库：接入文章/单页等效 HTML，本地/远端 JSON、首批/每批数量、按钮或滚动加载、InfiniteGrid 4.13.0 等高行与独立 Viewer.js 分组、相册封面卡片及图库标签离线转换；数据校验、超时、重试、坏图与页面清理。Photos 插件页保持原模型。使用与限制见 docs/ARTICLE-GALLERY.md；作者限定验证见 docs/validation/2026-10-13/article-gallery.md。固定双站、完整参数交叉、实际 Safari/真机及独立审查仍待完成，0 条提升 verified。"
+        "finding": "范围收缩：正文图库为真实 HTML 图片与 CSS 网格，复用正文灯箱；离线转换本地 Hexo 图库。取消远端/内联 JSON 协议及自定义批次加载；不宣称与 Hexo 动态图库完整等价。"
       },
       "dependencies": [
         "dual-site",
@@ -64572,7 +64536,7 @@
       "acceptance": {
         "profile": "tags",
         "cases": [
-          "gallery 的 url/title/alt、galleryGroup 的名称/描述/链接/图片。"
+          "无 JavaScript 时图片可读；窄屏网格不溢出；本地 Hexo 图片离线转换保留文本和安全地址；远端 JSON 明确拒绝。"
         ],
         "contractScenarios": [
           "ENV-02",
@@ -64611,7 +64575,15 @@
           "outcome": "passed (bounded gallery author regression; full contract remains open)"
         }
       ],
-      "status": "implemented-unverified"
+      "status": "not-applicable",
+      "decision": {
+        "id": "SCOPE-GALLERY-HTML",
+        "option": "native-html",
+        "reason": "主题不维护图库数据源协议",
+        "replacement": "正文真实 HTML 图片、CSS 网格和现有灯箱",
+        "date": "2026-10-28T12:00:00+08:00",
+        "path": "docs/parity/GALLERY-SCOPE.md"
+      }
     },
     {
       "id": "data-schema:tag-colors",

@@ -1,5 +1,5 @@
 import { t } from '../core/i18n';
-import { onPageCleanup, pageListen } from '../core/page-lifecycle.ts';
+
 /** MIT Viewer.js adapter shared by article, page, photo and moment entries. */
 import Viewer from 'viewerjs';
 import viewerCss from 'viewerjs/dist/viewer.css?inline';
@@ -60,13 +60,13 @@ export default class AmplifyImg {
       .theme-lightbox .viewer-list>li:focus-visible{outline:3px solid white;outline-offset:-3px}
     `;
     document.head.append(style);
-    onPageCleanup(() => { this.viewer?.hide(true); this.viewer?.destroy(); this.observer?.disconnect(); style.remove(); delete document[KEY]; });
+
     this.prepare();
     this.observer = new MutationObserver(() => this.prepare());
     document.querySelectorAll('.main > .content').forEach(content => {
       this.observer.observe(content, {childList: true, subtree: true});
     });
-    pageListen(document, 'click', event => {
+    document.addEventListener('click', event => {
       if (!(event.target instanceof Element)) return;
       if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       const trigger = event.target.closest<HTMLElement>('.theme-lightbox-trigger');
@@ -76,7 +76,7 @@ export default class AmplifyImg {
       event.preventDefault();
       this.open(image, trigger);
     });
-    pageListen(document, 'keydown', event => {
+    document.addEventListener('keydown', event => {
       if (!(event.target instanceof Element)) return;
       const trigger = event.target.closest<HTMLElement>('.theme-lightbox-trigger[role=button]');
       if (trigger && (event.key === 'Enter' || event.key === ' ')) {

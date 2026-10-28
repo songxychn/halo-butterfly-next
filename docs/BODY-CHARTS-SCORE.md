@@ -1,5 +1,7 @@
 # 正文图表与 ABC 乐谱
 
+> 2026-10-28：本文包含历史验收过程。引用的部分一次性脚本已退休，下面的旧命令不是当前推荐入口；功能说明以当前源码为准。参见[维护范围](MAINTENANCE.md)及其中的历史源码链接。
+
 主题在文章和自定义单页中渲染 Mermaid、Chart.js 与 ABC 乐谱。对应 Butterfly 5.7.0 的等效 HTML，跟踪 [#403](https://github.com/songxychn/halo-butterfly-next/issues/403)。不在运行时解析 Hexo `{% %}` 标签。归档/分类/标签页的 ECharts 统计图继续使用原实现。
 
 ## 开启与输入

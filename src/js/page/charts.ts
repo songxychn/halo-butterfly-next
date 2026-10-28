@@ -3,7 +3,7 @@ import * as echarts from 'echarts/core';
 import {PieChart, BarChart, LineChart} from 'echarts/charts';
 import {TitleComponent, TooltipComponent, GridComponent, DataZoomComponent, LegendComponent, DatasetComponent, TransformComponent, MarkPointComponent, MarkLineComponent} from 'echarts/components';
 import {CanvasRenderer} from 'echarts/renderers';
-import {pageListen, onPageCleanup} from '../core/page-lifecycle.ts';
+
 import {useThrottle} from '../core/_util.ts';
 echarts.use([PieChart, BarChart, LineChart, TitleComponent, TooltipComponent, GridComponent, DataZoomComponent, LegendComponent, DatasetComponent, TransformComponent, MarkPointComponent, MarkLineComponent, CanvasRenderer]);
 /**
@@ -15,11 +15,10 @@ export function useChart(dom: HTMLElement, getOption: () => echarts.EChartsCoreO
   const options = getOption();
 
   let es: echarts.ECharts | null = null;
-  let alive = true;
 
   const fallback = dom.parentElement?.querySelector<HTMLElement>('.chart-fallback');
   const render = () => {
-    if (!alive || !dom.isConnected) return;
+    if (!dom.isConnected) return;
     try {
       es?.dispose();
       es = echarts.init(dom, MainApp.useTheme.getMode());
@@ -35,10 +34,10 @@ export function useChart(dom: HTMLElement, getOption: () => echarts.EChartsCoreO
     if (entries.some(entry => entry.contentRect.width > 0)) { render(); observer.disconnect(); }
   });
   observer.observe(dom);
-  onPageCleanup(() => { alive = false; observer.disconnect(); es?.dispose(); });
+
   MainApp.useTheme.change(render);
 
-  pageListen(window, 'resize', useThrottle(() => {
+  window.addEventListener('resize', useThrottle(() => {
     es?.resize();
   }, 500));
 }
@@ -95,7 +94,6 @@ function renderCategories() {
           },
         ],
       };
-
     });
   }
 function renderTags(source: [string, number][]) {

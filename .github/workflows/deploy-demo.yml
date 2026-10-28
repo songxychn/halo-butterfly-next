@@ -1,14 +1,9 @@
-name: Deploy released demo
+name: Publish released demo image
 on:
-  workflow_call:
-    inputs:
-      tag:
-        required: true
-        type: string
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Newest published version tag to deploy again'
+        description: 'Published version to promote to the demo channel (may trigger host updater)'
         required: true
         type: string
 permissions:
@@ -18,7 +13,7 @@ concurrency:
   group: demo-promotion
   cancel-in-progress: false
 jobs:
-  deploy:
+  image:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -61,16 +56,13 @@ jobs:
           password: ${{ github.token }}
       - name: Promote only newest immutable release image
         run: python3 scripts/release/promote.py "$TAG" "$IMAGE"
-      - name: Verify hk deployment receipt
-        run: python3 scripts/release/await-demo.py "$TAG"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: demo-deployment-result
+          name: demo-image-result
           path: |
             .runtime/demo-smoke.json
             .runtime/demo-promotion.json
-            .runtime/demo-public.json
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 14

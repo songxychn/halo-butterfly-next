@@ -1,4 +1,3 @@
-import { pageListen, onPageCleanup, pageScope } from './page-lifecycle.ts';
 import { isCurrentMenuLink } from './navigation-state.ts';
 
 /** Site navigation uses disclosure buttons; its links keep native navigation. */
@@ -21,8 +20,7 @@ export default class Navigation {
     if (document[instanceKey]) return document[instanceKey];
     if (!document.querySelector('.nav')) return;
     document[instanceKey] = this;
-    const scope = pageScope();
-    onPageCleanup(() => { this.closeDrawer(); this.layoutObserver?.disconnect(); delete document[instanceKey]; });
+
     const drawer = document.getElementById('mobile-navigation');
     const toggle = document.querySelector<HTMLElement>('.nav .bars');
     this.open = false;
@@ -99,7 +97,7 @@ export default class Navigation {
     this.toggle.addEventListener('click', () => this.open ? this.closeDrawer() : this.openDrawer());
     this.drawer.querySelector('.side-bar-close')?.addEventListener('click', () => this.closeDrawer());
     this.mask.addEventListener('click', () => this.closeDrawer());
-    pageListen(document, 'keydown', event => {
+    document.addEventListener('keydown', event => {
       if (!this.open) {
         if (event.key === 'Escape') this.disclosures.forEach(({close}) => close());
         return;
@@ -119,7 +117,7 @@ export default class Navigation {
         }
       }
     });
-    pageListen(document, 'focusin', event => {
+    document.addEventListener('focusin', event => {
       if (!(event.target instanceof Node)) return;
       if (event.target !== document.body) this.lastFocusedElement = event.target;
       if (this.open && !this.drawer.contains(event.target)) {
@@ -128,7 +126,7 @@ export default class Navigation {
     });
     this.mobile = window.matchMedia('(max-width: 768px)');
     const updateLayout = () => {
-      if (!scope.active) return;
+
       const nav = document.querySelector<HTMLElement>('.nav');
       const menu = nav?.querySelector('.menu');
       const controls = nav?.querySelector('.controls');
@@ -159,9 +157,9 @@ export default class Navigation {
         document.querySelector<HTMLElement>('.nav-title a')?.focus({preventScroll: true});
       }
     };
-    pageListen(this.mobile, 'change', updateLayout);
-    pageListen(window, 'resize', updateLayout);
-    pageListen(window, 'load', updateLayout);
+    this.mobile.addEventListener('change', updateLayout);
+    window.addEventListener('resize', updateLayout);
+    window.addEventListener('load', updateLayout);
     // Theme CSS can finish after the controller runs. Observe layout boxes so
     // an early unstyled measurement cannot leave normal menus in drawer mode.
     this.layoutObserver = new ResizeObserver(updateLayout);

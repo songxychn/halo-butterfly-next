@@ -34,31 +34,19 @@ test('demo bundling creates missing parents and keeps publication claims tied to
  } finally {rmSync(root,{recursive:true,force:true});}
 });
 
-test('release ordering, evidence integrity and shared Caddy scope reject unsafe updates', () => {
+test('release ordering and evidence integrity reject unsafe publication', () => {
   execFileSync('python3', ['-B', '-c', String.raw`
 import sys, importlib.util, json, tempfile
 from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0,'scripts/release')
 from common import version_key,validate_evidence,digest
-spec=importlib.util.spec_from_file_location('updater','site/demo/hk-update.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 versions=['v0.1.0-alpha.2','v0.1.0-alpha.10','v0.1.0-beta.1','v0.1.0-rc.1','v0.1.0','v0.2.0-alpha.1']
 assert sorted(versions,key=version_key)==versions
 for invalid in ['v01.2.3','v1.2','v1.2.3; echo bad','master','v1.2.3-alpha.01']:
  try: version_key(invalid)
  except ValueError: pass
  else: raise AssertionError('Accepted invalid tag '+invalid)
-config='other.example {\n reverse_proxy other:80\n}\nbutterfly.baizhukui.com {\n encode gzip\n reverse_proxy halo-butterfly-next:8090\n}\n'
-result=m.candidate_config(config,'hbn-demo-123456789abc')
-assert result==config.replace('halo-butterfly-next:8090','hbn-demo-123456789abc:8090')
-for bad in [config+config,config.replace('halo-butterfly-next','unrelated'),config.replace('reverse_proxy halo-butterfly-next:8090','reverse_proxy halo-butterfly-next:8090\n reverse_proxy halo-butterfly-next:8090')]:
- try: m.candidate_config(bad,'hbn-demo-123456789abc')
- except RuntimeError: pass
- else: raise AssertionError('Accepted ambiguous shared route')
-expected={'tag':'v1.0.0','sourceSha':'a'*40,'themeSha256':'b'*64}
-assert m.expected_receipt(dict(expected,ready=True),expected)
-assert not m.expected_receipt(dict(expected,ready=False),expected)
-assert not m.expected_receipt(dict(expected,ready=True,sourceSha='c'*40),expected)
 with tempfile.TemporaryDirectory() as tmp:
  p=Path(tmp)/'evidence';p.write_text('checked')
  # All required release gates and real, tracked-style evidence digests are mandatory.
@@ -74,45 +62,6 @@ with tempfile.TemporaryDirectory() as tmp:
   try:validate_evidence(evidence,'v1.0.0','c'*40,'b'*64)
   except ValueError:pass
   else:raise AssertionError('Accepted product changes after review')
- # Simulate process death immediately after route write: recover both route and state.
- m.ROOT=Path(tmp);m.CADDY=Path(tmp)/'Caddyfile';m.CADDY.write_text(result)
- before={'container':'halo-butterfly-next'}
- m.write(m.ROOT/'pending.json',{'beforeText':config,'beforeState':before,'afterSha':m.sha(result)})
- with patch.object(m,'run'),patch.object(m,'check_container'),patch.object(m,'apply_caddy',side_effect=lambda text,expected:m.CADDY.write_text(text)):
-  m.recover()
- assert m.CADDY.read_text()==config and m.read(m.ROOT/'state.json')==before
- assert not (m.ROOT/'pending.json').exists()
- # Even if disk was restored before a crash, Caddy memory must be reloaded.
- m.write(m.ROOT/'pending.json',{'beforeText':config,'beforeState':before,'afterSha':m.sha(result)})
- with patch.object(m,'run'),patch.object(m,'check_container'),patch.object(m,'apply_caddy') as reload:
-  m.recover();reload.assert_called_once_with(config,m.sha(config))
- # Unrelated administrator edits must never be overwritten by recovery.
- m.CADDY.write_text('another change')
- m.write(m.ROOT/'pending.json',{'beforeText':config,'beforeState':before,'afterSha':m.sha(result)})
- try:m.recover()
- except RuntimeError:pass
- else:raise AssertionError('Overwrote unrelated Caddy edits')
- # Rollback intent survives death after committing the route/state, before stopping the candidate.
- (m.ROOT/'pending.json').unlink();m.CADDY.write_text(result)
- current={'container':'hbn-demo-123456789abc','previous':before}
- m.write(m.ROOT/'state.json',current)
- def interrupt_stop(*args,**kwargs):
-  assert m.read(m.ROOT/'paused.json')
-  assert m.read(m.ROOT/'state.json')==before
-  assert not (m.ROOT/'pending.json').exists()
-  raise KeyboardInterrupt('simulated process death')
- with patch.object(m,'start_deployment'),patch.object(m,'check_container',return_value={'State':{'Health':{'Status':'healthy'}}}),patch.object(m,'apply_caddy',side_effect=lambda text,expected:m.CADDY.write_text(text)),patch.object(m,'run',side_effect=interrupt_stop):
-  try:m.rollback()
-  except KeyboardInterrupt:pass
-  else:raise AssertionError('Missing simulated interruption')
- assert m.read(m.ROOT/'paused.json') and m.CADDY.read_text()==config
- # A failure while starting the previous deployment must also leave polling paused.
- m.write(m.ROOT/'state.json',current);(m.ROOT/'paused.json').unlink()
- with patch.object(m,'start_deployment',side_effect=RuntimeError('cannot start old version')):
-  try:m.rollback()
-  except RuntimeError:pass
-  else:raise AssertionError('Missing start failure')
- assert m.read(m.ROOT/'paused.json')
 `], {stdio:'pipe'});
 });
 
@@ -262,4 +211,16 @@ with tempfile.TemporaryDirectory() as tmp:
   scenario(resumed,corrupt=True)
  finally:os.chdir(original)
 `],{stdio:'pipe'});
+});
+
+test('theme publication cannot trigger demo promotion; the demo image requires a manual dispatch',async()=>{
+ const {parse}=await import('yaml');
+ const release=parse(readFileSync('.github/workflows/release.yml','utf8'));
+ const demo=parse(readFileSync('.github/workflows/deploy-demo.yml','utf8'));
+ assert.deepEqual(Object.keys(release.jobs),['publish']);
+ assert.deepEqual(Object.keys(demo.on),['workflow_dispatch']);
+ assert.equal(demo.on.workflow_dispatch.inputs.tag.required,true);
+ assert(release.jobs.publish.steps.some(step=>step.run?.includes('scripts/release/publish.py')));
+ assert(demo.jobs.image.steps.some(step=>step.run?.includes('site/demo/smoke.py')));
+ assert(demo.jobs.image.steps.some(step=>step.run?.includes('scripts/release/promote.py')));
 });

@@ -75,39 +75,3 @@ export function loadManagedResource(source: string, local: string, {document = g
   request(selected, Boolean(fallback) && fallback !== selected);
   return result;
 }
-
-const requests = new WeakMap<Document, Map<string, Promise<boolean>>>();
-export function loadExternalScript(source: string, {document = globalThis.document, attributes = {}, timeout = 8000}: {
-  document?: Document; attributes?: Record<string, string>; timeout?: number;
-} = {}) {
-  const url = safeResourceUrl(source, document.baseURI);
-  if (!url) return Promise.resolve(false);
-  let cache = requests.get(document);
-  if (!cache) { cache = new Map(); requests.set(document, cache); }
-  if (cache.has(url)) return cache.get(url)!;
-  // Cache before appending, so repeated initializers share the native load outcome.
-  let settle!: (success: boolean) => void;
-  const promise = new Promise<boolean>(resolve => { settle = resolve; });
-  cache.set(url, promise);
-  const script = document.createElement('script');
-  preconnectResource(url, document, attributes.crossorigin === 'anonymous' || attributes.crossorigin === '');
-  script.async = true;
-  for (const [name, value] of Object.entries(attributes)) {
-    if (/^data-[a-z0-9-]+$/.test(name) || name === 'crossorigin') script.setAttribute(name, value);
-  }
-  let done = false;
-  const finish = (success: boolean) => {
-    if (done) return;
-    done = true;
-    clearTimeout(timer);
-    script.onload = script.onerror = null;
-    if (!success) script.remove();
-    settle(success);
-  };
-  const timer = setTimeout(() => finish(false), timeout);
-  script.onload = () => finish(true);
-  script.onerror = () => finish(false);
-  script.src = url;
-  document.head.append(script);
-  return promise;
-}

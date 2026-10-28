@@ -2,7 +2,6 @@ import {test} from 'bun:test';
 import assert from 'node:assert/strict';
 import {appendAttribution, bindCopyAttribution} from '../src/js/core/copy-attribution.ts';
 import {safeShareUrl} from '../src/js/core/share.ts';
-import {beginPage, disposePage} from '../src/js/core/page-lifecycle.ts';
 import {createTranslateState, initializeTranslate, translatePage, readSavedEncoding, writeSavedEncoding} from '../src/js/core/translate.ts';
 
 test('复制版权严格超过阈值才追加，保留换行与正文，0 阈值有效', () => {
@@ -25,10 +24,10 @@ test('繁体原文、按钮文案与存储被禁时仍可切换，不改脚本/�
   translatePage(state); assert.equal(bodyText.data,'简体'); assert.equal(codeText.data,'簡體'); assert.equal(button.textContent,'转繁');
 });
 
-test('局部换页移除旧文档复制监听，不继续处理旧正文选区', () => {
+test('原生文档复制保留正文版权信息', () => {
   const savedWindow=globalThis.window, savedElement=globalThis.Element;
   try {
-    globalThis.window={}; globalThis.Element=class {}; beginPage();
+    globalThis.window={}; globalThis.Element=class {};
     const node={parentElement:{closest:()=>null}};
     const article={dataset:{copyEnabled:'true',copyCopyright:'true',copyLimit:'0',copyUrl:'https://example.invalid/old'},contains:()=>true};
     const root=new EventTarget();root.querySelector=()=>article;
@@ -36,6 +35,5 @@ test('局部换页移除旧文档复制监听，不继续处理旧正文选区',
     let writes=0;
     const copy=()=>{const event=new Event('copy',{cancelable:true});event.clipboardData={setData:()=>writes++};root.dispatchEvent(event);return event.defaultPrevented;};
     bindCopyAttribution(root);assert.equal(copy(),true);assert.equal(writes,1);
-    beginPage();assert.equal(copy(),false);assert.equal(writes,1);
-  } finally {disposePage();globalThis.window=savedWindow;globalThis.Element=savedElement;}
+  } finally {globalThis.window=savedWindow;globalThis.Element=savedElement;}
 });

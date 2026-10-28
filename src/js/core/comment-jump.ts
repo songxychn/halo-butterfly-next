@@ -1,4 +1,3 @@
-import { pageListen } from './page-lifecycle.ts';
 /** A native fragment link remains usable when scripts are disabled. */
 export function bindCommentJump(root: Document = document) {
   const target = root.getElementById('post-comment');
@@ -14,7 +13,7 @@ export function bindCommentJump(root: Document = document) {
     target.scrollIntoView({ block: 'start', behavior: 'instant' });
   };
   // All same-document comment links (including existing metadata counts).
-  pageListen(root, 'click', event => {
+  root.addEventListener('click', event => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
     if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
@@ -36,8 +35,8 @@ export function bindCommentJump(root: Document = document) {
     // Reapply after that browser restoration, still guarded by the current hash.
     win.requestAnimationFrame(focus);
   };
-  pageListen(win, 'hashchange', followNavigation);
-  pageListen(win, 'popstate', followNavigation);
-  pageListen(win, 'load', focus, { once: true });
+  win.addEventListener('hashchange', followNavigation);
+  win.addEventListener('popstate', followNavigation);
+  win.addEventListener('load', focus, { once: true });
   focus();
 }

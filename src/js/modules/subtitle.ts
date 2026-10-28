@@ -36,9 +36,8 @@ export function subtitleTypedOptions(value: unknown): Pick<TypedOptions, 'typeSp
 
 const escapeMarkup = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export async function runSubtitle<T>({ element, config = {}, createTyped, isActive = () => true }: {
+export function runSubtitle<T>({ element, config = {}, createTyped }: {
   element: Element | null; config?: ThemeConfig;
-  isActive?: () => boolean;
   createTyped: (element: Element, options: SubtitleOptions) => T;
 }) {
   if (!element || config.enable_above === false || config.enable_subtitle === false) return;
@@ -47,7 +46,6 @@ export async function runSubtitle<T>({ element, config = {}, createTyped, isActi
   const staticText = strings[0] ?? config.site_subtitle ?? '';
   element.textContent = staticText;
 
-  if (!isActive()) return;
   if (!staticText && strings.length === 0) {
     element.parentElement?.setAttribute('hidden', '');
     return;

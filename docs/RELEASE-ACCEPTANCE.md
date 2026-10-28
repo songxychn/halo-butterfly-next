@@ -2,6 +2,8 @@
 
 版本：2026-10-28 / v1.15，产品范围以 [DEC-10](parity/DEC-10-THEME-SCOPE.md) 为准，发布原则沿用 [DEC-09](parity/DEC-09-RELEASE-CLOSURE.md)。本文件只列当前有效要求；历史合同及修订见[清理前快照](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/RELEASE-ACCEPTANCE.md)。维护者已授权 PR #434 经独立审查和 CI 通过后合并；本轮仍不打 tag、不发布。
 
+2026-10-28 后续范围收缩已获维护者授权实施，当前源码将继续变更；#434 的包摘要和独立审查仅适用于原候选，不自动放行本次新包。新增范围决定见 [图库边界](parity/GALLERY-SCOPE.md)，有效维护入口见 [维护范围](MAINTENANCE.md)。正式发布与 Demo 推广分别授权。
+
 ## 发布阻塞的判定
 
 - 声明支持范围内，已知未修复的严重安全/隐私或数据损坏问题、核心页面无法阅读、核心导航或承诺的主题插件入口无法使用。

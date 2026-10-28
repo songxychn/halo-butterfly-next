@@ -73,24 +73,3 @@ test('slow body-renderer CDN never starts another script on timeout or manual re
   }
  }finally{globalThis.setTimeout=timer;}
 });
-
-
-test('slow gallery loader keeps readable failure state and never requests the local script after timeout',async()=>{
- const {initializeArticleGallery,GALLERY_KEY}=await import('../src/js/core/article-gallery.ts');
- const {beginPage,disposePage}=await import('../src/js/core/page-lifecycle.ts');
- const {document,nodes}=documentFixture();const classes=new Set(),messages=[];
- const gallery={classList:{add:value=>classes.add(value)},ownerDocument:document,append:node=>messages.push(node)};
- const article={ownerDocument:document,querySelector:()=>gallery,querySelectorAll:()=>[gallery],isConnected:true};
- const keys=['window','document','MainApp'];const previous=keys.map(key=>[key,Object.hasOwn(globalThis,key),globalThis[key]]);
- const timer=globalThis.setTimeout;
- try{
-  globalThis.document=document;globalThis.window={};
-  globalThis.MainApp={conf:{assets_link:'/assets/'},resources:{asset_base:'https://slow.test/assets'},version:'v1'};
-  globalThis.setTimeout=(fn,ms,...args)=>timer(fn,Math.min(ms,5),...args);beginPage();
-  initializeArticleGallery(article);await new Promise(resolve=>timer(resolve,25));
-  assert.equal(nodes.length,1);assert.equal(nodes[0].src,'https://slow.test/assets/js/gallery.min.js');
-  assert(classes.has('loaded'));assert.equal(messages[0].textContent,'图库增强未能加载，请刷新重试。');
-  let initialized=0;window[GALLERY_KEY]=()=>initialized++;
-  initializeArticleGallery(article);assert.equal(initialized,1);assert.equal(nodes.length,1);
- }finally{disposePage();globalThis.setTimeout=timer;for(const [key,owned,value] of previous){if(owned)globalThis[key]=value;else delete globalThis[key];}}
-});

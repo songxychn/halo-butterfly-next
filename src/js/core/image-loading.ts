@@ -1,4 +1,3 @@
-import { onPageCleanup } from './page-lifecycle.ts';
 import type { ThemeConfig } from '../types.ts';
 import { resolveResource } from './external-resource.ts';
 
@@ -14,7 +13,6 @@ export function imageLoadingOptions(config: ThemeConfig) {
 export function initializeImageLoading(config: ThemeConfig) {
   const options = imageLoadingOptions(config);
   let observer: IntersectionObserver | undefined;
-  const cleanups: (() => void)[] = [];
   const reveal = (image: HTMLImageElement) => {
     if (image.dataset.lazySrcset) { image.srcset = image.dataset.lazySrcset; delete image.dataset.lazySrcset; }
     if (image.dataset.lazySrc) { image.src = image.dataset.lazySrc; delete image.dataset.lazySrc; }
@@ -57,7 +55,6 @@ export function initializeImageLoading(config: ThemeConfig) {
       }
     };
     image.addEventListener('load', finish); image.addEventListener('error', error);
-    cleanups.push(() => { image.removeEventListener('load', finish); image.removeEventListener('error', error); delete image.dataset.fallbackBound; });
     // Missing/invalid loading attributes reflect as eager in Firefox/WebKit.
     // Honor only an author's explicit HTML keyword, independently of IDL defaults.
     const authorEager = image.getAttribute('loading')?.toLowerCase() === 'eager' && !image.hasAttribute('data-theme-image');
@@ -75,5 +72,4 @@ export function initializeImageLoading(config: ThemeConfig) {
     // Existing author src/srcset may already be requested. Never replace them with a placeholder.
     if (image.complete && image.naturalWidth === 0 && !image.dataset.lazySrc) error();
   });
-  onPageCleanup(() => { observer?.disconnect(); cleanups.forEach(cleanup => cleanup()); });
 }

@@ -1,4 +1,3 @@
-import { pageListen, onPageCleanup } from './page-lifecycle.ts';
 /**
  * @date: 2023/10/9
  * @author: 小红
@@ -16,7 +15,7 @@ import $ from 'jquery';
  */
 export function useDebounce<This, Args extends unknown[]>(func: (this: This, ...args: Args) => unknown, wait: number, immediate = false) {
   let timeout: ReturnType<typeof setTimeout> | undefined;
-  onPageCleanup(() => clearTimeout(timeout));
+
   return function(this: This, ...callArgs: Args) {
     const context = this;
     const args = callArgs;
@@ -40,7 +39,7 @@ export function useDebounce<This, Args extends unknown[]>(func: (this: This, ...
  */
 export function useThrottle<This, Args extends unknown[]>(func: (this: This, ...args: Args) => unknown, wait: number, options: {leading?: boolean; trailing?: boolean} = {}) {
   let timeOut: ReturnType<typeof setTimeout> | undefined;
-  onPageCleanup(() => clearTimeout(timeOut));
+
   let context: This | undefined;
   let args: Args | undefined;
   let previous = 0;
@@ -162,7 +161,7 @@ export function useDelay(time: number) {
  * 清理页面
  */
 export function useClearPage() {
-  pageListen(window, 'load', () => {
+  window.addEventListener('load', () => {
     const scripts = document.querySelectorAll('script');
 
     for (let i = 0; i < scripts.length; i++) {
@@ -182,14 +181,14 @@ export function getQueryParams(search = window.location.search) {
   const queryStr = search.substring(1);
 
   const params: Record<string, string> = {};
-  
+
   const pairs = queryStr.split('&');
-  
+
   for (let i = 0; i < pairs.length; i++) {
     const pair = pairs[i];
     const kv = pair.split('=');
     params[kv[0]] = kv[1] || '';
   }
-  
+
   return params;
 }

@@ -19,8 +19,6 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
-    outputs:
-      tag: ${{ steps.identity.outputs.tag }}
     env:
       TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
       GH_TOKEN: ${{ github.token }}
@@ -51,13 +49,3 @@ jobs:
         run: python3 scripts/release/prepare.py "$TAG"
       - name: Publish and verify downloaded assets
         run: python3 scripts/release/publish.py "$TAG"
-      - id: identity
-        run: printf 'tag=%s\n' "$TAG" >> "$GITHUB_OUTPUT"
-  demo:
-    needs: publish
-    permissions:
-      contents: read
-      packages: write
-    uses: ./.github/workflows/deploy-demo.yml
-    with:
-      tag: ${{ needs.publish.outputs.tag }}

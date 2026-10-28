@@ -1,5 +1,4 @@
 import { t } from './i18n';
-import { onPageCleanup } from './page-lifecycle.ts';
 
 const positions = new Set(['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right']);
 export function snackbarPosition(value: unknown) {
@@ -7,10 +6,6 @@ export function snackbarPosition(value: unknown) {
 }
 export default class Message {
   #container: HTMLDivElement | null = null;
-  #timers = new Set<ReturnType<typeof setTimeout>>();
-  constructor() {
-    onPageCleanup(() => { this.#timers.forEach(clearTimeout); this.#timers.clear(); this.#container?.remove(); });
-  }
   #show(type: 'info' | 'error', text: string, duration = 3000) {
     const conf = MainApp.conf;
     const snackbar = conf.snackbar_enable === true || conf.snackbar_enable === 'true';
@@ -36,12 +31,11 @@ export default class Message {
     // Keep a burst of events bounded, without concatenating untrusted HTML.
     while (this.#container.children.length > 3) this.#container.firstElementChild?.remove();
     let timer: ReturnType<typeof setTimeout> | undefined;
-    const cancel = () => { if (timer !== undefined) { clearTimeout(timer); this.#timers.delete(timer); } };
+    const cancel = () => { if (timer !== undefined) { clearTimeout(timer); } };
     const remove = () => { cancel(); notice.remove(); };
     const schedule = () => {
       cancel();
-      timer = setTimeout(() => { if (timer !== undefined) this.#timers.delete(timer); notice.remove(); }, Math.max(1000, Math.min(Number.isFinite(duration) ? duration : 3000, 30000)));
-      this.#timers.add(timer);
+      timer = setTimeout(() => { notice.remove(); }, Math.max(1000, Math.min(Number.isFinite(duration) ? duration : 3000, 30000)));
     };
     close.addEventListener('click', remove);
     notice.addEventListener('pointerenter', cancel); notice.addEventListener('pointerleave', schedule);
