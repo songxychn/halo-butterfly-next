@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "tag": "v1.0.0",
-  "sourceSha": "76857b5b641c7d24b7aeaaa882c35f4529cd32c9",
-  "runtimeSourceSha": "76857b5b641c7d24b7aeaaa882c35f4529cd32c9",
+  "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+  "runtimeSourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
   "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
-  "decision": "pending-independent-review-and-release-validation",
-  "reviewer": null,
+  "decision": "ready-for-publication-decision-pending-final-ci",
+  "reviewer": "Codex read-only subagent /root/independent_review; reviewed 7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
   "publicationAuthorized": false,
   "gates": {
-    "realHalo": "partial",
-    "installUpgradeRollback": "partial",
+    "realHalo": "passed",
+    "installUpgradeRollback": "passed",
     "resourcesAndLicenses": "passed",
-    "sourceRebuild": "pending"
+    "sourceRebuild": "passed"
   },
   "knownLimitations": [
     "所测 Playwright WebKit 刷新恢复评论图片草稿后上传失败；直接选图对照正常，不外推所有 Safari。",
@@ -32,14 +32,22 @@
     {
       "path": "docs/validation/2026-10-28/scope-reduction-round2.md",
       "sha256": "d31ea34726e476d375946be9ca1c856be20b2cb4a2069fc72643a378c87d015c"
+    },
+    {
+      "path": "docs/validation/2026-10-28/scope-release-closure.json",
+      "sha256": "5c14369a7a549fdf9db6e5bdba988952deaf7cc13a3629a08af6b2da73176722"
+    },
+    {
+      "path": "docs/validation/2026-10-28/scope-release-closure.md",
+      "sha256": "c1ddaef38da9d61a424786c3a7b0d566fd85a1d053876b91967ca45afd483842"
     }
   ],
   "gateNotes": {
     "scope": "DEC-10 additionally removes whole-site newest comments, theme-owned comment mounting, per-library resource overrides and plugin-business acceptance harnesses.",
-    "publication": "Publication remains unauthorized; independent review and full candidate release validation remain pending.",
-    "realHalo": "Halo 2.27.1: three official comment subjects, native back/anchor, 390px dark view, disabled-plugin fallbacks, nine routes and 21 resources checked.",
-    "installUpgradeRollback": "This package upgraded from the previous scope-reduction candidate with exact installed bytes and preserved content/configuration. Prior fresh install and alpha.4 rollback belong to previousScopeCandidate.",
-    "source": "Local verify passed; clean distributable source rebuild remains pending."
+    "publication": "Publication remains unauthorized. Independent source review and local release validation passed; final PR and merged-master CI are checked separately before delivery.",
+    "realHalo": "Same ZIP as round2 evidence plus official SearchWidget 1.8.0 actual search, result navigation, empty state and focus restoration.",
+    "installUpgradeRollback": "Current ZIP fresh install, alpha.4 upgrade/migration/rollback, exact file set/content/config checks, and complete 391-file cold-backup restore passed.",
+    "source": "Final reviewed source archive, frozen dependency install, build and package checks reproduce the exact runtime ZIP."
   },
   "previousCandidate": {
     "sourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
