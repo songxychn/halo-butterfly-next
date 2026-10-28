@@ -1,6 +1,6 @@
 # 1.0 发布验收要求
 
-版本：2026-10-28 / v1.15，产品范围以 [DEC-10](parity/DEC-10-THEME-SCOPE.md) 为准，发布原则沿用 [DEC-09](parity/DEC-09-RELEASE-CLOSURE.md)。本文件只列当前有效要求；历史合同及修订见[清理前快照](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/RELEASE-ACCEPTANCE.md)。维护者已授权 PR #432 经独立审查和 CI 通过后合并；本轮仍不打 tag、不发布。
+版本：2026-10-28 / v1.15，产品范围以 [DEC-10](parity/DEC-10-THEME-SCOPE.md) 为准，发布原则沿用 [DEC-09](parity/DEC-09-RELEASE-CLOSURE.md)。本文件只列当前有效要求；历史合同及修订见[清理前快照](https://github.com/songxychn/halo-butterfly-next/blob/409e79cc6e4bc027b35d2972b8854efcfbc61b28/docs/RELEASE-ACCEPTANCE.md)。维护者已授权 PR #434 经独立审查和 CI 通过后合并；本轮仍不打 tag、不发布。
 
 ## 发布阻塞的判定
 
@@ -36,7 +36,7 @@ WebKit 图片草稿刷新、编辑器属性保留、原生图片初始加载及�
 
 ## 矩阵维护
 
-保留 897 个追踪 ID、原状态和全部失败；184 项不适用、23 项既有延期及其余 690 项仍可追踪。690 不再是发布必须全部通过的分母。单项置为 verified 仍需专属运行证据、独立审查和对应提交 CI；不以删项或虚增通过率完成收口，详见[矩阵维护说明](parity/README.md)。
+保留 897 个追踪 ID 和历史失败；当前不适用及延期项以矩阵生成的统计为准，其余追踪项不作为发布必须全部通过的分母。单项置为 verified 仍需专属运行证据、独立审查和对应提交 CI；不以删项或虚增通过率完成收口，详见[矩阵维护说明](parity/README.md)。
 
 ## 历史场景 ID 索引
 

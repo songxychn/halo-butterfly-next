@@ -1,6 +1,6 @@
 # 第一次使用 Halo Butterfly Next
 
-适用：Halo Butterfly Next 1.0.0 发行候选版内容，平台验证基线为 Halo 2.27.1。
+适用：Halo Butterfly Next 1.0.0，平台验证基线为 Halo 2.27.1。
 
 Halo Butterfly Next 是用于 Halo 的博客主题。文章仍在 Halo 中管理，主题负责展示首页、正文、导航与侧栏。它不是可以单独启动的网站程序，也不解析 Hexo 的主题配置。
 

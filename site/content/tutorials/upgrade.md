@@ -1,6 +1,6 @@
 # 升级主题与回退
 
-适用：主题 ID 为 `halo-butterfly-next` 的同 ID 升级。当前候选版本为 1.0.0，尚未公开发布，下载与版本状态见[预览说明](../pages/download.md)。
+适用：主题 ID 为 `halo-butterfly-next` 的同 ID 升级。本文面向 1.0.0，下载与发布状态见[预览说明](../pages/download.md)。
 
 升级主题会更换模板和静态资源。它不是整站备份，也不保证所有自定义配置在任意旧版本之间都兼容。
 
@@ -35,6 +35,6 @@ GitHub 的 Source code 压缩包不能代替构建后的主题 ZIP。同名预�
 
 无法立即恢复显示时，可以先启用另一个已验证可用的主题。主题包回退不会自动回退升级后新增的文章或评论，也不能代替数据库和附件恢复。
 
-原始 alpha.2 在关闭文章顶图时有已知元信息脚本问题；确需回退该旧包时，应保留文章顶图开启。该历史版本及附件已在 [GitHub Release](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.2) 公开；使用前仍需核对原包摘要、资源说明和配置适用范围，不能把它当作最新候选包。
+原始 alpha.2 在关闭文章顶图时有已知元信息脚本问题；确需回退该旧包时，应保留文章顶图开启。该历史版本及附件已在 [GitHub Release](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.2) 公开；使用前仍需核对原包摘要、资源说明和配置适用范围，不能把它当作当前版本的安装包。
 
 从 `theme-butterfly` 切换到 Next 是另一条流程，请阅读[旧主题迁移](migration.md)。

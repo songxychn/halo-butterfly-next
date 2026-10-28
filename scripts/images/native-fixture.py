@@ -142,9 +142,7 @@ def main():
             require(command in PROFILES, 'Unknown image profile')
             config = copy.deepcopy(original)
             config['lazyload'] = copy.deepcopy(PROFILES[command])
-            config['pjax'] = {'enable': True, 'exclude': ''}
-            config.setdefault('loading', {}).update({'enable': False, 'instantpage': False})
-            config.setdefault('comments', {})['lazyload'] = True
+            config.setdefault('loading', {}).update({'enable': False})
             config.setdefault('post', {})['enable_above'] = True
             config.setdefault('image', {})['disable_top_img'] = False
             client.api(CONFIG, 'PUT', config)
