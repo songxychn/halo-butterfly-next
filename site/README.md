@@ -1,8 +1,12 @@
 # 文档与演示站
 
-真实 Halo 2.26.1 上运行的文档演示一体站，包含 10 篇教程、4 篇演示、5 个单页及 14 张 Pexels 摄影图片。采用主题现有导航、置顶文章和侧栏入口，不新增首屏双按钮。实施背景见[方案](../docs/DEMO-DOCS-SITE.md)。
+当前源文案面向 **1.0.0 发行候选版**，包含 10 篇教程、4 篇演示、5 个单页及 14 张 Pexels 摄影图片。采用主题现有导航、置顶文章和侧栏入口；页脚导航留空，只保留版权、主题/框架署名及自定义说明，文字样式恢复 Butterfly 原版。实施背景见[方案](../docs/DEMO-DOCS-SITE.md)。
 
-文档与演示站已部署至 <https://butterfly.baizhukui.com/>，当前展示已发布的 alpha.3，见[发布完成记录](../docs/validation/2026-10-06/alpha3-publication.md)。Release 驱动的 H2 更新机制见 [demo 部署](demo/README.md)，首次 PostgreSQL 部署资料见 [hk 部署](deploy/README.md)。本地样站默认地址仍为 `http://127.0.0.1:18141`；`site/local.py` 只管理自己的本地实例，不支持远程 URL，也不发布主题安装包。已启用固定版本的官方搜索插件；评论保持关闭。搜索关闭后的焦点恢复限制仍保留；公开 alpha 已按披露的例外放行，不代表完整插件或 1.0 验收通过。
+2026-10-28 的本地预览位于 `http://127.0.0.1:18947/`，使用 Halo 2.27.1 官方包和当前 1.0 候选包，可选插件停用，文章与单页不开放评论。`manifest.baseline.plugins` 只描述教程参考版本，不声明运行实例已安装或启用。当前验证与包摘要见[本地 demo 更新记录](../docs/validation/2026-10-28/local-demo.md)。同版本包更新后，浏览器可能缓存旧 CSS，需强制刷新。
+
+本轮只更新本地预览，不打 tag、不发布、不更新公网站点。公开 demo 的历史 alpha.4 部署见[原发布记录](../docs/validation/2026-10-09/alpha4-publication.md)，不能由当前源文案推断线上版本。Release 驱动的 H2 更新机制见 [demo 部署](demo/README.md)。
+
+下列 `site/local.py` 命令仍使用历史固定 Halo 2.26.1 运行器和默认端口 18141；当前 18947 预览采用独立运行目录及校验后的 2.27.1 JAR，未改写默认运行器，也不与原自然观察实例共用目录或端口。工具只管理本地实例，不发布主题包。搜索插件按需另行启用。
 
 ## 文件职责
 
@@ -28,7 +32,7 @@
 bun install --frozen-lockfile --ignore-scripts
 bun run verify
 bun run site:check
-bun run site:local init --jar-source /absolute/path/halo-2.26.1.jar --package dist/halo-butterfly-next-0.1.0-alpha.3.zip
+bun run site:local init --jar-source /absolute/path/halo-2.26.1.jar --package dist/halo-butterfly-next-1.0.0.zip
 bun run site:local plan
 bun run site:local sync
 bun run site:local publish
@@ -84,6 +88,6 @@ bun test --isolate --timeout 30000 tests/site-content.test.mjs tests/site-publis
 bun run verify
 ```
 
-本地实测覆盖重复同步、后台冲突阻断与恢复、19 项发布内容、导航和常用归档、桌面/手机视口及图片灯箱。初始样站检查见[样站记录](../docs/validation/2026-10-05/site-local.json)；当前搜索、重复同步及审查修复记录见[搜索交付记录](../docs/validation/2026-10-05/site-search.json)。无头浏览器结果不等于真机或全面无障碍验收。
+本地实测覆盖重复同步、后台冲突阻断与恢复、19 项发布内容、导航和常用归档、桌面/手机视口及图片灯箱。初始样站检查见[样站记录](../docs/validation/2026-10-05/site-local.json)；历史搜索、重复同步及审查修复记录见[搜索交付记录](../docs/validation/2026-10-05/site-search.json)。无头浏览器结果不等于真机或全面无障碍验收。
 
 同步台账 `sync-state.json`、操作报告、配置写入前备份和 `halo.log` 位于独立运行目录。遇到冲突先保留文件并核对后台修改，再决定如何合并；工具不提供强制覆盖、删除或远程部署开关。

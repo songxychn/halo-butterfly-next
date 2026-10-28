@@ -68,7 +68,7 @@ bun install --frozen-lockfile --ignore-scripts
 bun run verify
 ```
 
-输出 `dist/halo-butterfly-next-0.1.0-alpha.4.zip`。源码在 `src/`；`templates/` 与 `dist/` 为生成物，不手工修改。详见[对应源码与构建说明](docs/SOURCE-BUILD.md)、[双站实验室](docs/COMPARISON-LAB.md)和[贡献流程](CONTRIBUTING.md)。无服务 CI 通过不能替代真实 Halo 安装与插件交互验证。
+当前源码正在准备 **1.0.0，尚未发布**，发行范围与限制见[1.0 说明草案](releases/v1.0.0.md)。构建输出 `dist/halo-butterfly-next-1.0.0.zip`。源码在 `src/`；`templates/` 与 `dist/` 为生成物，不手工修改。详见[对应源码与构建说明](docs/SOURCE-BUILD.md)、[双站实验室](docs/COMPARISON-LAB.md)和[贡献流程](CONTRIBUTING.md)。无服务 CI 通过不能替代真实 Halo 安装与插件交互验证。
 
 ## 许可与后续计划
 
