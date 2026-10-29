@@ -18,7 +18,12 @@ class Element {
   set className(value) { this.attrs.class = value; }
   hasAttribute(key) { return Object.hasOwn(this.attrs, key); }
   setAttribute(key, value) { this.attrs[key] = value; }
-  append(...children) { for (const child of children) { child.parentElement = this; this.children.push(child); } }
+  append(...children) {
+    for (const child of children) {
+      if (child.parentElement) child.parentElement.children.splice(child.parentElement.children.indexOf(child), 1);
+      child.parentElement = this; this.children.push(child);
+    }
+  }
   matches(selector) { return selector.split(',').some(part => { const s = part.trim(); return s.startsWith('.') ? this.className.split(' ').includes(s.slice(1)) : this.tag === s; }); }
   closest(selector) { return this.matches(selector) ? this : this.parentElement?.closest(selector) || null; }
   contains(child) { return child === this || this.children.some(item => item.contains(child)); }
@@ -26,8 +31,32 @@ class Element {
   querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   get nextElementSibling() { return this.parentElement?.children[this.parentElement.children.indexOf(this) + 1] || null; }
   after(child) { child.parentElement = this.parentElement; this.parentElement.children.splice(this.parentElement.children.indexOf(this) + 1, 0, child); }
+  before(child) { child.parentElement = this.parentElement; this.parentElement.children.splice(this.parentElement.children.indexOf(this), 0, child); }
 }
 const el = (tag, attrs, ...children) => new Element(tag, attrs, ...children);
+
+test('native gallery captions share each image grid cell and preserve picture/link identity', () => {
+  const first = el('img', { alt: 'first' });
+  const second = el('img', { alt: 'second' });
+  const source = el('source', { srcset: 'wide.webp' });
+  const picture = el('picture', {}, source, second);
+  const link = el('a', { href: '/original.webp', class: 'theme-lightbox-trigger' }, picture);
+  const grid = el('div', { class: 'gallery-items' }, first, link);
+  const article = el('article', {}, grid);
+  assert.equal(applyPhotoFigcaptions(article, true), 2);
+  assert.equal(grid.children.length, 2);
+  for (const [index, target] of [first, link].entries()) {
+    const item = grid.children[index];
+    assert.equal(item.tag, 'figure');
+    assert.equal(item.children[0], target);
+    assert.equal(item.children[1].tag, 'figcaption');
+    assert.equal(item.children[1].textContent, index ? 'second' : 'first');
+  }
+  assert.deepEqual(picture.children, [source, second]);
+  assert.equal(link.attrs.href, '/original.webp');
+  assert.equal(applyPhotoFigcaptions(article, true), 0);
+  assert.equal(grid.children.length, 2);
+});
 
 test('photofigcaption is opt-in and follows pinned upstream title then alt priority', () => {
   for (const value of [false, 'false', undefined, null, '', 1]) assert.equal(resolvePhotoFigcaption(value), false);

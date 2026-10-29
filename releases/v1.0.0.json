@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "tag": "v1.0.0",
-  "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
-  "runtimeSourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
-  "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
-  "decision": "superseded-by-followup-scope-reduction",
-  "reviewer": "Codex read-only subagent /root/independent_review; reviewed 7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+  "sourceSha": "cd606cb9b3e309a7b4a07e3da23d4239887f1de0",
+  "runtimeSourceSha": "cd606cb9b3e309a7b4a07e3da23d4239887f1de0",
+  "themeSha256": "3280eefb3eb4782508e584f14af9df113cd08952f3d170d49411ad3cd782483b",
+  "decision": "approved",
+  "reviewer": "Codex read-only subagent /root/release_review_435; reviewed cd606cb9b3e309a7b4a07e3da23d4239887f1de0",
   "publicationAuthorized": false,
   "gates": {
     "realHalo": "passed",
@@ -21,34 +21,26 @@
     "真实 Safari/手机、完整无障碍、真实账户及长尾矩阵按既有决定延期。",
     "PWA、评论/公式严格零资源按需延期；不宣称完整 Butterfly 对齐。",
     "自然回收观察仍按原包收尾，不属于本次新增发布门禁。",
-    "仅本地 demo 更新至当前候选；公网 demo 未升级，其平台版本不能归为本次已测 1.0 组合。",
+    "本轮仅在隔离 Halo 实验环境安装当前候选；本地 demo 与公网 demo 均未在本轮升级，其平台版本不归为本次已测组合。",
     "页脚按维护者要求恢复原版浅色文字；不将历史深色字对比度结论继承为当前完整无障碍通过。"
   ],
   "evidence": [
     {
-      "path": "docs/validation/2026-10-28/scope-reduction-round2.json",
-      "sha256": "d375a3bd451631cbb26d7d15bed87cd304f5c5e45dc5856f4bc470a8d469d437"
+      "path": "docs/validation/2026-10-29/release-readiness.json",
+      "sha256": "188994ab699cc02bddb673590abcf085e73f94e1102ddeec8093ec9843034f9d"
     },
     {
-      "path": "docs/validation/2026-10-28/scope-reduction-round2.md",
-      "sha256": "d31ea34726e476d375946be9ca1c856be20b2cb4a2069fc72643a378c87d015c"
-    },
-    {
-      "path": "docs/validation/2026-10-28/scope-release-closure.json",
-      "sha256": "5c14369a7a549fdf9db6e5bdba988952deaf7cc13a3629a08af6b2da73176722"
-    },
-    {
-      "path": "docs/validation/2026-10-28/scope-release-closure.md",
-      "sha256": "c1ddaef38da9d61a424786c3a7b0d566fd85a1d053876b91967ca45afd483842"
+      "path": "docs/validation/2026-10-29/release-readiness.md",
+      "sha256": "486298b465ba73ef49200b6e4522e0b39955bfd197cb565a29fa4750a24b3ac8"
     }
   ],
   "gateNotes": {
-    "scope": "DEC-10 additionally removes whole-site newest comments, theme-owned comment mounting, per-library resource overrides and plugin-business acceptance harnesses.",
-    "publication": "Publication remains unauthorized. Independent source review and local release validation passed; final PR and merged-master CI are checked separately before delivery.",
-    "realHalo": "Same ZIP as round2 evidence plus official SearchWidget 1.8.0 actual search, result navigation, empty state and focus restoration.",
-    "installUpgradeRollback": "Current ZIP fresh install, alpha.4 upgrade/migration/rollback, exact file set/content/config checks, and complete 391-file cold-backup restore passed.",
-    "source": "Final reviewed source archive, frozen dependency install, build and package checks reproduce the exact runtime ZIP.",
-    "followup": "本记录的源码、包和 passed 门禁仅适用于 #434 候选。后续图库/浏览器/发布范围收缩已改变源码，须为新候选重新汇总受影响验证与独立审查；此记录不放行新包。"
+    "scope": "Final #435 scope plus gallery-caption grid regression fix; bounded candidate-specific acceptance.",
+    "publication": "Publication remains unauthorized. Final PR CI and merged-master CI are separate pre-tag gates.",
+    "realHalo": "Exact reviewed source ZIP on isolated Halo 2.27.1; native gallery/captions/no-script rendering, keyboard lightbox/history, official search/comment entries and narrow dark mode passed.",
+    "installUpgradeRollback": "Fresh install, alpha.4 upgrade/migration/rollback, exact installed files/config/content and 393-file cold-backup recovery passed.",
+    "resourcesAndLicenses": "Current bun run verify package/resource/license guards passed.",
+    "source": "Fresh Git source archive, frozen Bun dependency install, build and package check reproduce the exact runtime ZIP."
   },
   "previousCandidate": {
     "sourceSha": "8c16f5e6b7c3206f03ae6737ed089b8f06818556",
@@ -105,6 +97,45 @@
       "realHalo": "Scoped native navigation, nine routes, mobile viewport, official comment/Moments/Links and search dialog checked on Halo 2.27.1; not complete release acceptance.",
       "installUpgradeRollback": "Final ZIP fresh install and alpha.4 upgrade/rollback passed in isolated local databases; stored configuration and content preserved.",
       "source": "Local verify rebuild matches installed ZIP; clean distributable source archive rebuild and independent review remain pending."
+    }
+  },
+  "previousClosureCandidate": {
+    "sourceSha": "7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+    "runtimeSourceSha": "b1cdfc3f7cdffad5c57c379eef5da3d94acc4c52",
+    "themeSha256": "05415689ae92bcc073b96468ab076c45f55f4597ed8dfb7806d053f68c2742c7",
+    "decision": "superseded-by-followup-scope-reduction",
+    "reviewer": "Codex read-only subagent /root/independent_review; reviewed 7e9d71de81d1bbd1a4eb55bd66d48f286a4cb105",
+    "gates": {
+      "realHalo": "passed",
+      "installUpgradeRollback": "passed",
+      "resourcesAndLicenses": "passed",
+      "sourceRebuild": "passed"
+    },
+    "evidence": [
+      {
+        "path": "docs/validation/2026-10-28/scope-reduction-round2.json",
+        "sha256": "d375a3bd451631cbb26d7d15bed87cd304f5c5e45dc5856f4bc470a8d469d437"
+      },
+      {
+        "path": "docs/validation/2026-10-28/scope-reduction-round2.md",
+        "sha256": "d31ea34726e476d375946be9ca1c856be20b2cb4a2069fc72643a378c87d015c"
+      },
+      {
+        "path": "docs/validation/2026-10-28/scope-release-closure.json",
+        "sha256": "5c14369a7a549fdf9db6e5bdba988952deaf7cc13a3629a08af6b2da73176722"
+      },
+      {
+        "path": "docs/validation/2026-10-28/scope-release-closure.md",
+        "sha256": "c1ddaef38da9d61a424786c3a7b0d566fd85a1d053876b91967ca45afd483842"
+      }
+    ],
+    "gateNotes": {
+      "scope": "DEC-10 additionally removes whole-site newest comments, theme-owned comment mounting, per-library resource overrides and plugin-business acceptance harnesses.",
+      "publication": "Publication remains unauthorized. Independent source review and local release validation passed; final PR and merged-master CI are checked separately before delivery.",
+      "realHalo": "Same ZIP as round2 evidence plus official SearchWidget 1.8.0 actual search, result navigation, empty state and focus restoration.",
+      "installUpgradeRollback": "Current ZIP fresh install, alpha.4 upgrade/migration/rollback, exact file set/content/config checks, and complete 391-file cold-backup restore passed.",
+      "source": "Final reviewed source archive, frozen dependency install, build and package checks reproduce the exact runtime ZIP.",
+      "followup": "本记录的源码、包和 passed 门禁仅适用于 #434 候选。后续图库/浏览器/发布范围收缩已改变源码，须为新候选重新汇总受影响验证与独立审查；此记录不放行新包。"
     }
   }
 }

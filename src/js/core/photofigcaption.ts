@@ -15,7 +15,7 @@ export function applyPhotoFigcaptions(article: HTMLElement | null, enabled: unkn
     if (image.hasAttribute('data-theme-photofigcaption') || image.closest('pre, code, button, svg')) continue;
     const text = photoCaptionText(image);
     if (!text.trim()) continue;
-    const figure = image.closest('figure');
+    let figure = image.closest('figure');
     // An editor's caption describes the whole figure, including multi-image figures.
     if (figure?.querySelector('figcaption, .img-alt')) continue;
     let target: Element = image;
@@ -28,11 +28,18 @@ export function applyPhotoFigcaptions(article: HTMLElement | null, enabled: unkn
       if (outer && article.contains(outer) && outer.querySelectorAll('img').length === 1) target = outer;
     }
     if (target.nextElementSibling?.matches('figcaption, .img-alt, .theme-photofigcaption')) continue;
+    // A gallery's image and caption must remain one grid item. Move the existing
+    // image/link/picture intact so responsive sources and lightbox targets survive.
+    if (target.parentElement?.matches('.gallery-items')) {
+      figure = article.ownerDocument.createElement('figure');
+      target.before(figure);
+      figure.append(target);
+    }
     const standaloneFigure = figure && figure.querySelectorAll('img').length === 1;
     const caption = article.ownerDocument.createElement(standaloneFigure ? 'figcaption' : 'span');
     caption.className = 'theme-photofigcaption';
     caption.textContent = text;
-    if (standaloneFigure) figure.append(caption);
+    if (standaloneFigure && figure) figure.append(caption);
     else target.after(caption);
     image.setAttribute('data-theme-photofigcaption', 'true');
     added++;
