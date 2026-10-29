@@ -2,7 +2,7 @@
 
 合并版本准备 PR 后，由维护者推送 `vX.Y.Z` 或 `vX.Y.Z-alpha.N/beta.N/rc.N` tag。`release.yml` 验证、构建、发布 Release，不调用 demo 工作流。master 合并不发布版本、不更新 demo。手动输入既有 tag 可以重试；不能改写已公开附件。
 
-每次发版须同步 `package.json`、`theme.yaml`、`site/manifest.json` 与 `site/config/theme-profile.json` 的版本，以及文档内容。准备 `releases/<tag>.md` 发行说明和 `<tag>.json` 放行记录：
+每次发版须同步 `package.json`、`theme.yaml`、`site/manifest.json` 与 `site/config/theme-profile.json` 的版本，以及文档内容。 发布前还须逐项核对 `README.md` 的当前版本与下载入口、`docs/INSTALL-UPGRADE.md`、`docs/SOURCE-BUILD.md` 和 `CHANGELOG.md`，删除针对当前版本已过时的“尚未发布”表述；历史版本记录保留原有身份。Demo 的部署状态单独说明，不能随主题发版自动改成“已同步”。准备 `releases/<tag>.md` 发行说明和 `<tag>.json` 放行记录：
 
 ```json
 {

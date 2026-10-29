@@ -1,5 +1,21 @@
 # 对应源码与构建
 
+## 1.0.0 对应源码
+
+从 [1.0.0 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)下载 `halo-butterfly-next-1.0.0-source.tar.gz`、`SHA256SUMS` 和 `release-validation.json`，先核对下载文件摘要。该源码对应提交 `41cc26b192877e870991df4d508463e01a570a87`；复现发行包请使用该附件，不以最新 master 代替。
+
+使用 **Bun 1.4.0 + Python 3**，解压后在源码根目录执行：
+
+```sh
+bun install --frozen-lockfile --ignore-scripts
+bun run verify
+shasum -a 256 dist/halo-butterfly-next-1.0.0.zip
+```
+
+1.0.0 安装包 SHA-256 为 `3280eefb3eb4782508e584f14af9df113cd08952f3d170d49411ad3cd782483b`。公开源码包已独立重建并与公开 ZIP 逐字节比对一致；身份与验收摘要见随版 `release-validation.json`，运行验收范围见[最终验证记录](validation/2026-10-29/release-readiness.md)。源码包不能直接作为主题 ZIP 上传。
+
+## alpha.4 历史源码复现
+
 alpha.4 使用 **Bun 1.4.0 + Python 3**。从[对应发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)取得源码附件，在源码根目录执行：
 
 ```sh
