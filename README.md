@@ -4,7 +4,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 [在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示导览](https://butterfly.baizhukui.com/archives/demo-guide)
 
-**[1.0.0 已正式发布](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)。** 安装包、对应源码、校验摘要及已知限制见[发行说明](releases/v1.0.0.md)。本版聚焦 Butterfly 的布局、视觉与阅读体验，不宣称完整对齐 Butterfly 5.7.0。
+**[1.0.0 已正式发布](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)。** 安装包、对应源码与校验摘要见[发行说明](releases/v1.0.0.md)。本版聚焦 Butterfly 的布局、视觉与阅读体验。
 
 **[公网 Demo](https://butterfly.baizhukui.com/) 已于 2026-10-29 单独升级至 1.0.0 并完成核验。** 当前身份见[版本回执](https://butterfly.baizhukui.com/site-assets/demo-version.json)，部署验证见[记录](docs/validation/2026-10-29/demo-1.0.0.md)；下方截图仍保留原采集日期。
 
@@ -43,16 +43,6 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 完整更新见[变更记录](CHANGELOG.md)。最终安装包的整体验收状态以发行说明中绑定的包身份与证据为准。
 
 正文提示、原生折叠、Tabs、时间线、链接按钮、图片网格与系列卡片采用可读 HTML 和渐进增强，写法见[正文扩展](docs/CONTENT-EXTENSIONS.md)。换主题后保留分组标题、文字、图片和真实链接；可选属性只负责当前主题的样式与交互。
-
-## 已知限制
-
-1.0 已完成 [有限发布门禁](docs/parity/DEC-09-RELEASE-CLOSURE.md)要求的核心使用、安装/升级/回退、构建/许可、独立审查及 CI，实际范围见[最终验证记录](docs/validation/2026-10-29/release-readiness.md)。矩阵保留未验证状态，完整生态和长尾覆盖列为后续改进；历史 alpha 记录仍只对应其原版本。
-
-- 所测 Playwright WebKit 中，刷新后恢复的评论图片草稿可能上传失败；新选图片直接上传对照正常。[复现证据](docs/validation/2026-10-27/webkit-file-transport.md)不外推实际 Safari。未交付插件修复，1.0 不承诺图片草稿刷新后可靠续传。
-- 普通图片入口不保证初始 HTML 带原生懒加载属性；不同编辑器保存增强属性的行为有差异。不承诺全部编辑器、插件版本或外部 SDK 组合已验证；Hexo 的 `{% %}` 标签不能直接在 Halo 中解析。
-- 保留 Butterfly 默认浅色顶图文字时，明亮封面上的导航和标题可能对比不足。自定义 CSS、配色和额外注入代码也会改变颜色、焦点或布局；应按实际内容检查可读性，不宣称完整无障碍通过。
-- 实际 Safari、真实手机、屏幕阅读器、全量插件业务与长尾组合尚无完整覆盖。PWA、评论/公式严格零资源按需仍延期；旧性能报告不作为本版性能达标结论。
-- 较早版本的搜索焦点、资源加载及性能结果继续保存在[alpha.3](releases/v0.1.0-alpha.3.md)、[alpha.4](releases/v0.1.0-alpha.4.md)和[平台资源加载记录](docs/RESOURCE-LOADING-DECISION.md)中，保留各自的受测版本边界。
 
 测试反馈请附主题/平台/插件版本、浏览器与复现步骤，并先移除日志中的 Cookie、Token、密码、个人信息和私有站点配置。不要上传数据库或凭据文件。
 
