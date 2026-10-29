@@ -6,7 +6,7 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 **[1.0.0 已正式发布](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)。** 安装包、对应源码、校验摘要及已知限制见[发行说明](releases/v1.0.0.md)。本版聚焦 Butterfly 的布局、视觉与阅读体验，不宣称完整对齐 Butterfly 5.7.0。
 
-**Demo 与主题发行分别部署；本次 1.0.0 发布尚未更新公网 Demo。** 在线演示和下方历史截图不能作为 1.0.0 已上线的证明。
+**[公网 Demo](https://butterfly.baizhukui.com/) 已于 2026-10-29 单独升级至 1.0.0 并完成核验。** 当前身份见[版本回执](https://butterfly.baizhukui.com/site-assets/demo-version.json)，部署验证见[记录](docs/validation/2026-10-29/demo-1.0.0.md)；下方截图仍保留原采集日期。
 
 ## 页面预览
 
