@@ -4,7 +4,9 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 [在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示导览](https://butterfly.baizhukui.com/archives/demo-guide)
 
-**[0.1.0-alpha.4 已公开，demo 已同步](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)。** 这一版本面向测试站试用，尚未全面对齐 Butterfly 5.7.0，也不是稳定 1.0。安装包、对应源码、校验摘要及已知限制见[发行说明](releases/v0.1.0-alpha.4.md)。
+**[1.0.0 已正式发布](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)。** 安装包、对应源码、校验摘要及已知限制见[发行说明](releases/v1.0.0.md)。本版聚焦 Butterfly 的布局、视觉与阅读体验，不宣称完整对齐 Butterfly 5.7.0。
+
+**Demo 与主题发行分别部署；本次 1.0.0 发布尚未更新公网 Demo。** 在线演示和下方历史截图不能作为 1.0.0 已上线的证明。
 
 ## 页面预览
 
@@ -18,25 +20,25 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 | --- | --- |
 | <img src="docs/images/demo/article-desktop-dark.jpg" alt="正文排版演示，桌面暗色" width="720"> | <img src="docs/images/demo/article-mobile-light.jpg" alt="正文排版演示，手机宽度亮色" width="240"> |
 
-截图保留 2026-10-05 预览站的采集时间，使用独立无头 Chromium；手机宽度预览不代表实机验收。当前站点按 Release 更新，与 master 开发源码可能不同；机制见[H2 演示站说明](site/demo/README.md)，当前 alpha.4 的实际发行包与部署核验见[发布完成记录](docs/validation/2026-10-09/alpha4-publication.md)。
+截图保留 2026-10-05 预览站的采集时间，使用独立无头 Chromium；手机宽度预览不代表实机验收。Demo 需手动推广已发布版本，机制见[H2 演示站说明](site/demo/README.md)。alpha.4 的[历史部署记录](docs/validation/2026-10-09/alpha4-publication.md)仅对应当时的版本与部署。
 
 ## 安装与支持范围
 
-当前源码的最低 Halo 版本为 **2.20.2**，主题元数据声明 `>=2.20.2`，不设上限。官方 **2.20.2 / 2.20.10 / 2.20.21 / 2.21.10 / 2.22.14 / 2.23.3 / 2.24.2 / 2.25.4 / 2.26.0 / 2.26.1** 已完成限定范围的核心兼容检查；**2.27.0-beta.1** 的预发布结果单独登记，具体场景与限制见[兼容验证记录](docs/validation/2026-10-08/halo-earlier-compatibility.md)。声明不代表未发布版本或所有插件组合均已验证。2.19.3 的当前默认核心场景存在模板错误，2.20.0/2.20.1 的全新初始化与登录检查未通过，失败记录单列；2.20.2 首次初始化的并发异常也保留。已发布 alpha.3 的元数据及历史验收保持原样。
+1.0.0 的最低 Halo 版本为 **2.20.2**，主题元数据声明 `>=2.20.2`，不设上限。最终候选的固定运行验收使用 **Halo 2.27.1**，范围见[1.0 验证记录](docs/validation/2026-10-29/release-readiness.md)。声明不代表全部平台版本或插件组合均已验证；较早 Halo 版本的成功与失败保存在[历史兼容记录](docs/validation/2026-10-08/halo-earlier-compatibility.md)，不外推为当前包的完整矩阵。
 
-搜索入口兼容基线仍为官方 **SearchWidget 1.7.1**，alpha.4 集成验收固定 **1.8.0**，建议升级以获得关闭焦点恢复修复；1.8.0 要求 **Halo ≥2.26.0**。评论入口及实测基线为官方 **CommentWidget 3.3.2**，也要求 **Halo ≥2.26.0**；较低 Halo 版本不提供该评论入口。仅承诺已登记的测试组合，未承诺未来版本组合。插件缺失、停用或低于入口基线时隐藏对应入口。文章及卡片评论数默认关闭。公共插件页面布局契约从 Halo 2.26.0 提供，不影响较低版本的主题核心页面。alpha.3 的历史实测使用搜索 1.7.1；alpha.4 demo 随版本构建为 1.8.0。
+搜索入口兼容基线仍为官方 **SearchWidget 1.7.1**，1.0 集成验收固定 **1.8.0**，建议升级以获得关闭焦点恢复修复；1.8.0 要求 **Halo ≥2.26.0**。评论入口及实测基线为官方 **CommentWidget 3.3.2**，也要求 **Halo ≥2.26.0**；较低 Halo 版本不提供该评论入口。仅承诺已登记的测试组合，未承诺未来版本组合。插件缺失、停用或低于入口基线时隐藏对应入口。文章及卡片评论数默认关闭。公共插件页面布局契约从 Halo 2.26.0 提供，不影响较低版本的主题核心页面。alpha.3 的历史实测使用搜索 1.7.1；历史 Demo 记录不代表 1.0 部署状态。
 
-在 [alpha.4 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)下载 `halo-butterfly-next-0.1.0-alpha.4.zip`，核对 SHA-256 后通过 Halo 控制台主题管理上传、配置并启用。主题 ID 保持 `halo-butterfly-next`。GitHub 自动生成的 Source code 压缩包是构建源码，不能直接作为主题 ZIP 安装。
+在 [1.0.0 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)下载 `halo-butterfly-next-1.0.0.zip`，核对 SHA-256 后通过 Halo 控制台主题管理上传、配置并启用。主题 ID 保持 `halo-butterfly-next`。GitHub 自动生成的 Source code 压缩包是构建源码，不能直接作为主题 ZIP 安装。
 
 - [安装、备份、同 ID 升级及回退](docs/INSTALL-UPGRADE.md)
 - [从原 theme-butterfly 迁移](docs/MIGRATION.md)
-- [数学公式与 KaTeX 插件适配（开发源码）](docs/MATH.md)
-- [SEO、站点验证与代码注入（开发源码）](docs/SEO-INJECTION.md)
-- [侧栏、图片与外观配置（开发源码）](docs/APPEARANCE-OPTIONS.md)
-- [alpha.4 发行说明](releases/v0.1.0-alpha.4.md)
+- [数学公式与 KaTeX 插件适配](docs/MATH.md)
+- [SEO、站点验证与代码注入](docs/SEO-INJECTION.md)
+- [侧栏、图片与外观配置](docs/APPEARANCE-OPTIONS.md)
+- [1.0.0 发行说明](releases/v1.0.0.md)
 - [应用市场上架差距与派生说明](docs/APP-STORE-READINESS.md)（首次审核暂未通过，整改中，尚不具备重新提交条件）
 
-版本发行与发布后 demo 更新流程见[发布说明](releases/README.md)和[H2 演示站机制](site/demo/README.md)。
+版本发行与单独授权的 Demo 部署流程见[发布说明](releases/README.md)和[H2 演示站机制](site/demo/README.md)。
 
 完整更新见[变更记录](CHANGELOG.md)。最终安装包的整体验收状态以发行说明中绑定的包身份与证据为准。
 
@@ -44,18 +46,13 @@ Butterfly 的 Halo 社区维护版，继承[小红的 Halo 移植项目](https:/
 
 ## 已知限制
 
-当前开发候选的 1.0 收口采用 [有限发布门禁](docs/parity/DEC-09-RELEASE-CLOSURE.md)：核心使用、安装/升级/回退、构建/许可、独立审查及 CI。矩阵保留未验证状态，完整生态和长尾覆盖列为后续改进；尚未发布 1.0，以下历史 alpha 记录仍只对应其原版本。
+1.0 已完成 [有限发布门禁](docs/parity/DEC-09-RELEASE-CLOSURE.md)要求的核心使用、安装/升级/回退、构建/许可、独立审查及 CI，实际范围见[最终验证记录](docs/validation/2026-10-29/release-readiness.md)。矩阵保留未验证状态，完整生态和长尾覆盖列为后续改进；历史 alpha 记录仍只对应其原版本。
 
-- 开发候选在所测 Playwright WebKit 中，刷新后恢复的评论图片草稿可能上传失败；新选图片直接上传对照正常。原因范围与[复现证据](docs/validation/2026-10-27/webkit-file-transport.md)单列，不外推实际 Safari。未交付插件修复，1.0 不承诺图片草稿刷新后可靠续传。
-- 普通图片入口不保证初始 HTML 带原生懒加载属性；不同编辑器保存增强属性的行为有差异。使用已说明的正文输入方式；不承诺全部编辑器、插件版本或外部 SDK 组合已验证。已登记插件需要完整导航时保留回退。
-
-- alpha.3 固定 SearchWidget 1.7.1 通过 Escape 或遮罩关闭后，焦点不会返回搜索入口，键盘用户需重新使用 Tab 导航。官方 1.8.0 已修复，集成回归见[搜索焦点验收](docs/validation/2026-10-08/search-widget-1.8.md)。旧版失败和 alpha 例外继续保留，完整无障碍与 1.0 门禁不豁免；alpha.4 demo 使用 1.8.0。
-- 默认开启 `mask.header` 时，明亮或白色顶图上的导航、站名和首页大标题仍可能对比不足；关闭遮罩也不能保证可读性。维护者已决定保留 Butterfly 默认样式，作为本次 alpha 已知限制披露。建议选择文字区域较暗的封面并检查可读性；不宣称任意图片/遮罩组合均符合可访问性要求。
-- Halo 2.26.1 的原生连接测试仍出现静态资源无响应和页面就绪超时，涉及 macOS Firefox、插件导航及 Linux 浏览器测试，可能影响页面加载。维护者已将 #338 作为 Halo 上游已知限制接受，不再阻塞本次 alpha 发行；原始失败继续保留，详见[资源加载裁定](docs/RESOURCE-LOADING-DECISION.md)。
-- alpha.3 历史候选 Lighthouse 模拟手机首页、长文的 LCP 中位数分别为 6.95 秒、4.66 秒，每组 5 次冷浏览器测量；均未达到 2.5 秒目标。这不是实机等待时间或性能达标声明，完整性能合同仍未完成。
-- 自定义 CSS、第三方代码高亮主题和用户额外注入代码可能改变颜色、焦点或布局，不包含在默认配色的通过范围中。
-- 友链、图库、瞬间和正文扩展，以及完整插件生态仍按各自证据标注实验性或未验证；有模板不等于已经通过端到端验收。Hexo 的 `{% %}` 标签不能直接在 Halo 中解析。
-- 无头 Chromium/Firefox/WebKit 与手机宽度测试不能替代实际 Safari、真机触摸/软键盘或屏幕阅读器。真实 Safari、真实手机、完整性能合同和完整 1.0 验收尚未完成。
+- 所测 Playwright WebKit 中，刷新后恢复的评论图片草稿可能上传失败；新选图片直接上传对照正常。[复现证据](docs/validation/2026-10-27/webkit-file-transport.md)不外推实际 Safari。未交付插件修复，1.0 不承诺图片草稿刷新后可靠续传。
+- 普通图片入口不保证初始 HTML 带原生懒加载属性；不同编辑器保存增强属性的行为有差异。不承诺全部编辑器、插件版本或外部 SDK 组合已验证；Hexo 的 `{% %}` 标签不能直接在 Halo 中解析。
+- 保留 Butterfly 默认浅色顶图文字时，明亮封面上的导航和标题可能对比不足。自定义 CSS、配色和额外注入代码也会改变颜色、焦点或布局；应按实际内容检查可读性，不宣称完整无障碍通过。
+- 实际 Safari、真实手机、屏幕阅读器、全量插件业务与长尾组合尚无完整覆盖。PWA、评论/公式严格零资源按需仍延期；旧性能报告不作为本版性能达标结论。
+- 较早版本的搜索焦点、资源加载及性能结果继续保存在[alpha.3](releases/v0.1.0-alpha.3.md)、[alpha.4](releases/v0.1.0-alpha.4.md)和[平台资源加载记录](docs/RESOURCE-LOADING-DECISION.md)中，保留各自的受测版本边界。
 
 测试反馈请附主题/平台/插件版本、浏览器与复现步骤，并先移除日志中的 Cookie、Token、密码、个人信息和私有站点配置。不要上传数据库或凭据文件。
 
@@ -68,7 +65,7 @@ bun install --frozen-lockfile --ignore-scripts
 bun run verify
 ```
 
-当前源码正在准备 **1.0.0，尚未发布**，发行范围与限制见[1.0 说明草案](releases/v1.0.0.md)。构建输出 `dist/halo-butterfly-next-1.0.0.zip`。源码在 `src/`；`templates/` 与 `dist/` 为生成物，不手工修改。详见[对应源码与构建说明](docs/SOURCE-BUILD.md)、[双站实验室](docs/COMPARISON-LAB.md)和[贡献流程](CONTRIBUTING.md)。无服务 CI 通过不能替代真实 Halo 安装与插件交互验证。
+**1.0.0 已正式发布**，发行范围与限制见[1.0 发行说明](releases/v1.0.0.md)。复现发行包请使用该版本的对应源码附件，master 后续提交可能继续变化。构建输出 `dist/halo-butterfly-next-1.0.0.zip`。源码在 `src/`；`templates/` 与 `dist/` 为生成物，不手工修改。详见[对应源码与构建说明](docs/SOURCE-BUILD.md)、[双站实验室](docs/COMPARISON-LAB.md)和[贡献流程](CONTRIBUTING.md)。无服务 CI 通过不能替代真实 Halo 安装与插件交互验证。
 
 ## 许可与后续计划
 
@@ -76,6 +73,6 @@ bun run verify
 
 主题范围已按 [DEC-10](docs/parity/DEC-10-THEME-SCOPE.md) 收敛：原生整页导航、Halo 阅读量、本地字幕与原生分享；不再内置分析、聊天、广告和第三方分享 SDK。
 
-[公开 alpha 计划](docs/PUBLIC-ALPHA.md)、[完整功能矩阵](docs/parity/MATRIX.md)和[1.0 验收合同](docs/RELEASE-ACCEPTANCE.md)继续保留各项未完成状态。
+[历史 alpha 计划](docs/PUBLIC-ALPHA.md)、[完整功能矩阵](docs/parity/MATRIX.md)和[1.0 验收要求](docs/RELEASE-ACCEPTANCE.md)保留历史范围及未覆盖项目；最终发行结论以[1.0 发行说明](releases/v1.0.0.md)和对应证据为准。
 
 自维护浏览器代码统一使用 TypeScript（`src/js/**/*.ts`、`src/plugins/loading/*.ts`），运行 `bun run typecheck` 做严格类型检查；`bun run verify` 已包含此步骤。Bun 直接执行测试引用的 TypeScript，测试使用 `bun:test` 并隔离各文件的全局环境；类型检查仍由 `tsc --noEmit` 独立完成。第三方压缩库保留 JS，使用声明文件描述调用边界。模板只注入 Halo 数据，首屏逻辑由 `src/js/bootstrap.ts` 构建后同步内联，页面资源仍输出原有 `.min.js` 文件名。

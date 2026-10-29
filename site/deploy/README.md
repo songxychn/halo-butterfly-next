@@ -2,7 +2,7 @@
 
 后续 Release 驱动的 H2 整站机制见 [H2 demo](../demo/README.md)。本页保留首次导入与旧站恢复资料；`initialize.py` 的原 hk 入口不用于 H2 日常更新。
 
-站点：<https://butterfly.baizhukui.com/>。本页记录 2026-10-05 首次 PostgreSQL 预览部署；当前站点已改用已发布 alpha.3 的 H2 镜像，详见[发布完成记录](../../docs/validation/2026-10-06/alpha3-publication.md)。
+站点：<https://butterfly.baizhukui.com/>。本页记录 2026-10-05 首次 PostgreSQL 预览部署；2026-10-06 曾迁移到 alpha.3 的 H2 镜像，详见[历史发布记录](../../docs/validation/2026-10-06/alpha3-publication.md)。
 
 2026-10-05 首次 PostgreSQL 部署使用安装包 `4d76eec6be5ee53d639fef73bf10a5a14b63bde2cb8078738f02ea2b38ec515a`。2026-10-06 H2 迁移已改用包含阅读设置 PR #356 的安装包 `ad051bff7684fb4f91409f21dd9b07cf3a33178d4071dceb85759626ece0bcd1`；旧 PostgreSQL 部署保留并停止，仅用于回退。以下命令记录首次部署，不是活动 H2 站点的更新或备份入口。
 
