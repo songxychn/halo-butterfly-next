@@ -21,7 +21,7 @@ Butterfly 的 Halo 社区维护版，将 [Hexo Butterfly](https://github.com/jer
 
 | 文章桌面暗色 | 文章手机宽度亮色 |
 | --- | --- |
-| <img src="docs/images/demo/article-desktop-dark.jpg" alt="正文排版演示，桌面暗色" width="720"> | <img src="docs/images/demo/article-mobile-light.jpg" alt="正文排版演示，手机宽度亮色" width="240"> |
+| <img src="docs/images/demo/article-desktop-dark.jpg" alt="文章与代码排版，桌面暗色" width="720"> | <img src="docs/images/demo/article-mobile-light.jpg" alt="文章与代码排版，手机宽度亮色" width="240"> |
 
 ## 安装
 
