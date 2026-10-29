@@ -6,7 +6,7 @@
   "themeSha256": "3280eefb3eb4782508e584f14af9df113cd08952f3d170d49411ad3cd782483b",
   "decision": "approved",
   "reviewer": "Codex read-only subagent /root/release_review_435; reviewed cd606cb9b3e309a7b4a07e3da23d4239887f1de0",
-  "publicationAuthorized": false,
+  "publicationAuthorized": true,
   "gates": {
     "realHalo": "passed",
     "installUpgradeRollback": "passed",
@@ -36,7 +36,7 @@
   ],
   "gateNotes": {
     "scope": "Final #435 scope plus gallery-caption grid regression fix; bounded candidate-specific acceptance.",
-    "publication": "Publication remains unauthorized. Final PR CI and merged-master CI are separate pre-tag gates.",
+    "publication": "Maintainer explicitly authorized v1.0.0 publication and public artifact verification on 2026-10-29. Release-material PR CI and merged-master CI must pass before tagging; demo promotion is separate.",
     "realHalo": "Exact reviewed source ZIP on isolated Halo 2.27.1; native gallery/captions/no-script rendering, keyboard lightbox/history, official search/comment entries and narrow dark mode passed.",
     "installUpgradeRollback": "Fresh install, alpha.4 upgrade/migration/rollback, exact installed files/config/content and 393-file cold-backup recovery passed.",
     "resourcesAndLicenses": "Current bun run verify package/resource/license guards passed.",
@@ -137,5 +137,10 @@
       "source": "Final reviewed source archive, frozen dependency install, build and package checks reproduce the exact runtime ZIP.",
       "followup": "本记录的源码、包和 passed 门禁仅适用于 #434 候选。后续图库/浏览器/发布范围收缩已改变源码，须为新候选重新汇总受影响验证与独立审查；此记录不放行新包。"
     }
+  },
+  "publicationAuthorization": {
+    "date": "2026-10-29",
+    "scope": "Publish v1.0.0 and verify the public theme ZIP, corresponding source archive and checksums.",
+    "authority": "Maintainer explicit instruction in this task: 可以，正式发布 1.0.0，发布后把安装包、源码包和校验和都核验一下。"
   }
 }
