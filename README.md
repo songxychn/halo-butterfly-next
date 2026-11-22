@@ -2,7 +2,7 @@
 
 Butterfly 的 Halo 社区维护版，将 [Hexo Butterfly](https://github.com/jerryc127/hexo-theme-butterfly) 的布局、视觉风格与阅读体验带到 Halo。项目继承自[小红的 Halo 移植项目](https://github.com/dhjddcn/halo-theme-butterfly)，独立维护，不代表 Halo 或 Butterfly 官方。
 
-[在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示](https://butterfly.baizhukui.com/archives/demo-guide) · [下载 1.0.0](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)
+[在线演示](https://butterfly.baizhukui.com/) · [使用文档](https://butterfly.baizhukui.com/docs) · [功能演示](https://butterfly.baizhukui.com/archives/demo-guide) · [稳定版 1.0.0](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0) · [预发行版 2.0.0-alpha.1](https://github.com/songxychn/halo-butterfly-next/releases/tag/v2.0.0-alpha.1)
 
 ## 特性
 
@@ -32,7 +32,7 @@ Butterfly 的 Halo 社区维护版，将 [Hexo Butterfly](https://github.com/jer
 | 搜索 | SearchWidget ≥1.7.1，推荐 1.8.0 | 1.8.0 需 Halo ≥2.26.0 |
 | 评论 | CommentWidget ≥3.3.2 | Halo ≥2.26.0 |
 
-1. 在 [1.0.0 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)下载 `halo-butterfly-next-1.0.0.zip`。
+1. 在[稳定版 1.0.0 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)下载 `halo-butterfly-next-1.0.0.zip`。体验 2.0 请下载[预发行版 2.0.0-alpha.1](https://github.com/songxychn/halo-butterfly-next/releases/tag/v2.0.0-alpha.1)的主题 ZIP，并先阅读配置迁移说明。
 2. 在 Halo 控制台的主题管理中上传安装包。
 3. 配置并启用主题。
 
@@ -46,7 +46,7 @@ GitHub 自动生成的 Source code 压缩包用于源码构建，不能直接作
 - [正文扩展](docs/CONTENT-EXTENSIONS.md)
 - [数学公式与 KaTeX 插件适配](docs/MATH.md)
 - [SEO、站点验证与代码注入](docs/SEO-INJECTION.md)
-- [1.0.0 发行说明](releases/v1.0.0.md) · [变更记录](CHANGELOG.md)
+- [2.0.0-alpha.1 发行说明](releases/v2.0.0-alpha.1.md) · [1.0.0 发行说明](releases/v1.0.0.md) · [变更记录](CHANGELOG.md)
 
 ## 开发与贡献
 
@@ -57,7 +57,7 @@ bun install --frozen-lockfile --ignore-scripts
 bun run verify
 ```
 
-构建输出为 `dist/halo-butterfly-next-1.0.0.zip`。源码位于 `src/`，`templates/` 与 `dist/` 为生成物。构建方式见[源码与构建说明](docs/SOURCE-BUILD.md)，参与开发见[贡献指南](CONTRIBUTING.md)。
+构建输出为 `dist/halo-butterfly-next-<version>.zip`，版本号取自 `package.json`。源码位于 `src/`，`templates/` 与 `dist/` 为生成物。构建方式见[源码与构建说明](docs/SOURCE-BUILD.md)，参与开发见[贡献指南](CONTRIBUTING.md)。
 
 欢迎通过 [Issues](https://github.com/songxychn/halo-butterfly-next/issues)反馈问题或建议。报告问题时请附上主题、Halo、插件及浏览器版本和复现步骤，并移除日志中的密码、Token 与个人信息。
 
