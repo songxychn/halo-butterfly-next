@@ -77,7 +77,7 @@ def fixture_hash():
     return h.hexdigest()
 
 
-def prepare():
+def prepare(halo_only=False):
     if RUNTIME.exists() and any(RUNTIME.iterdir()) and not (RUNTIME / 'lab.json').exists():
         raise RuntimeError('Refusing to claim a non-empty directory without lab.json')
     RUNTIME.mkdir(parents=True, exist_ok=True)
@@ -85,7 +85,7 @@ def prepare():
     identity = {'schema': 1, 'ports': PORTS, 'owner': 'halo-butterfly-next-comparison'}
     if marker.exists() and json.loads(marker.read_text()) != identity:
         raise RuntimeError('Runtime belongs to a different lab/port configuration')
-    if (RUNTIME / 'seed.json').exists():
+    if not halo_only and (RUNTIME / 'seed.json').exists():
         check_hexo_inputs(json.loads((RUNTIME / 'seed.json').read_text()))
     write_json(marker, identity)
     halo = RUNTIME / 'halo'
@@ -99,31 +99,32 @@ def prepare():
             run(['curl', '--fail', '--location', '--retry', '2', VERSIONS['halo']['url'], '-o', jar])
     if digest(jar) != VERSIONS['halo']['sha256']:
         raise RuntimeError('Halo JAR SHA-256 mismatch; refusing to execute it')
-    site = RUNTIME / 'hexo'
-    site.mkdir(exist_ok=True)
-    upstream = site / 'themes/butterfly'
-    if not upstream.exists():
-        upstream.parent.mkdir(exist_ok=True)
-        # A caller-supplied clone is only an object cache; tracked content is checked out by SHA.
-        source = os.environ.get('HEXO_SOURCE', VERSIONS['butterfly']['repository'])
-        run(['git', 'clone', '--no-checkout', source, upstream])
-        run(['git', '-C', upstream, 'checkout', '--detach', VERSIONS['butterfly']['commit']])
-    head = run(['git', '-C', upstream, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
-    dirty = run(['git', '-C', upstream, 'status', '--porcelain'], capture_output=True, text=True).stdout
-    if head != VERSIONS['butterfly']['commit'] or dirty:
-        raise RuntimeError('Reference theme must be the clean pinned Butterfly commit')
-    if json.loads((upstream / 'package.json').read_text())['version'] != VERSIONS['butterfly']['version']:
-        raise RuntimeError('Butterfly version mismatch')
-    for name in ['package.json', 'bun.lock']:
-        shutil.copyfile(FIXTURES / 'hexo' / name, site / name)
-    run(['bun', 'install', '--frozen-lockfile', '--ignore-scripts'], cwd=site)
-    if (RUNTIME / 'seed.json').exists():
-        check_hexo_inputs(json.loads((RUNTIME / 'seed.json').read_text()))
-    else:
-        render_hexo()
+    if not halo_only:
+        site = RUNTIME / 'hexo'
+        site.mkdir(exist_ok=True)
+        upstream = site / 'themes/butterfly'
+        if not upstream.exists():
+            upstream.parent.mkdir(exist_ok=True)
+            # A caller-supplied clone is only an object cache; tracked content is checked out by SHA.
+            source = os.environ.get('HEXO_SOURCE', VERSIONS['butterfly']['repository'])
+            run(['git', 'clone', '--no-checkout', source, upstream])
+            run(['git', '-C', upstream, 'checkout', '--detach', VERSIONS['butterfly']['commit']])
+        head = run(['git', '-C', upstream, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
+        dirty = run(['git', '-C', upstream, 'status', '--porcelain'], capture_output=True, text=True).stdout
+        if head != VERSIONS['butterfly']['commit'] or dirty:
+            raise RuntimeError('Reference theme must be the clean pinned Butterfly commit')
+        if json.loads((upstream / 'package.json').read_text())['version'] != VERSIONS['butterfly']['version']:
+            raise RuntimeError('Butterfly version mismatch')
+        for name in ['package.json', 'bun.lock']:
+            shutil.copyfile(FIXTURES / 'hexo' / name, site / name)
+        run(['bun', 'install', '--frozen-lockfile', '--ignore-scripts'], cwd=site)
+        if (RUNTIME / 'seed.json').exists():
+            check_hexo_inputs(json.loads((RUNTIME / 'seed.json').read_text()))
+        else:
+            render_hexo()
     assets = halo / 'data/attachments/lab'
     shutil.copytree(FIXTURES / 'assets', assets, dirs_exist_ok=True)
-    print('Prepared pinned Halo and Butterfly; shared fixture assets copied')
+    print('Prepared pinned Halo' + ('' if halo_only else ' and Butterfly') + '; shared fixture assets copied')
 
 
 def render_hexo():
@@ -542,7 +543,7 @@ def seed(client, reference=True):
     client.api(config_path, 'PUT', config)
     validate_content(client, reference=reference)
     validate_menu(client)
-    write_json(stamp, {'fixtureSha256': current, 'posts': 12, 'pages': 1, 'themeConfig': patches, 'systemConfig': system_patches, 'hexoInputs': hexo_inputs(), 'referenceChecked': reference})
+    write_json(stamp, {'fixtureSha256': current, 'posts': 12, 'pages': 1, 'themeConfig': patches, 'systemConfig': system_patches, 'hexoInputs': hexo_inputs() if reference else None, 'referenceChecked': reference})
     print(f'Seed ready; created {created} content objects (repeat run creates 0)')
 
 
@@ -744,13 +745,14 @@ def main():
     parser.add_argument('command', choices=['prepare', 'start', 'bootstrap', 'install', 'seed', 'health', 'evidence', 'stop'])
     parser.add_argument('--source-sha', help='Exact git SHA of the checkout used to build --package')
     parser.add_argument('--package', help='Absolute or relative path to an already-built Halo theme ZIP')
+    parser.add_argument('--halo-only', action='store_true', help='Skip Hexo reference build/server and run Halo only')
     args = parser.parse_args()
     if args.command in ['bootstrap', 'install'] and (not args.package or not args.source_sha):
         parser.error('--package and --source-sha are required; build the intended checkout first')
-    if args.command == 'prepare': prepare()
-    elif args.command == 'start': start()
+    if args.command == 'prepare': prepare(halo_only=args.halo_only)
+    elif args.command == 'start': start(halo_only=args.halo_only)
     elif args.command == 'bootstrap':
-        prepare(); start(); client = Client(initialize=True)
+        prepare(halo_only=args.halo_only); start(halo_only=args.halo_only); client = Client(initialize=True)
         if client.initialized_now:
             capture_initial_content(client)
         if (RUNTIME / 'seed.json').exists():
@@ -759,9 +761,9 @@ def main():
                 raise RuntimeError('Bootstrap preserves installed themes; use install for an explicit upgrade')
         else:
             install(client, args.package, args.source_sha)
-        seed(client)
+        seed(client, reference=not args.halo_only)
     elif args.command == 'install': install(Client(), args.package, args.source_sha)
-    elif args.command == 'seed': seed(Client())
+    elif args.command == 'seed': seed(Client(), reference=not args.halo_only)
     elif args.command == 'evidence': evidence()
     elif args.command == 'health':
         for name, url in BASE.items():

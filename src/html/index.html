@@ -33,8 +33,8 @@
         'totalPages': posts.totalPages,
         'hasPrevious': posts.hasPrevious(),
         'hasNext': posts.hasNext()
-      } }"
-      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      } }, pageConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      th:attr="data-conf=${pageConfJson}"
     >window.MainApp.merge(document.currentScript);</script>
   </th:block>
 

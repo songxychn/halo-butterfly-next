@@ -21,8 +21,9 @@
         'abcjs': {
           'enable': (abcOverride == 'true' ? true : (abcOverride == 'false' ? false : (theme.config.code?.abcjs?.enable == true and theme.config.code?.abcjs?.per_page != false and theme.config.code?.abcjs?.per_page != 'false')))
         }
-      } }
+      } },
+      bodyRenderersJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(bodyRenderers)}
     "
-    th:attr="data-body-renderers=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(bodyRenderers)}"
+    th:attr="data-body-renderers=${bodyRenderersJson}"
   >window.MainApp.merge(document.currentScript);</script>
 </th:block>

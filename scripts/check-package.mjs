@@ -98,6 +98,9 @@ for (const file of Object.values(zip.files).filter(f => !f.dir && f.name.endsWit
   if (/\bth:inline=(["'])javascript\1/i.test(html)) {
     throw new Error(`禁止使用不安全的 th:inline="javascript"：${file.name}`);
   }
+  if (/\bth:attr="[^"]*T\(/.test(html)) {
+    throw new Error(`th:attr 处于 Thymeleaf 3.1 受限表达式上下文，禁止直接调用 T(...)：${file.name}`);
+  }
 }
 
 console.log(`安装包检查通过：${zipNames.length} 个文件，核心样式、ES Module 分块与所有页面资源齐全`);

@@ -11,7 +11,9 @@ spec:
           name: date_format
           label: 日期显示格式
           value: ""
-          help: 留空保留各页面默认。支持 Java 日期格式，例如 yyyy/MM/dd、dd MMM yyyy、yyyy年MM月dd日 HH:mm；支持 yyyy yy MMMM MMM MM M dd d EEEE EEE HH H hh h mm m ss s a XXX Z 和常用日期分隔符。非法或超过80字回退默认，relative模式保持相对时间。
+          help: 留空保留各页面默认。支持 Java 日期格式，例如 yyyy/MM/dd、dd MMM yyyy、yyyy年MM月dd日 HH:mm；支持 yyyy
+            yy MMMM MMM MM M dd d EEEE EEE HH H hh h mm m ss s a XXX Z
+            和常用日期分隔符。非法或超过80字回退默认，relative模式保持相对时间。
         - $formkit: text
           name: metadata_name
           label: 作者用户名
@@ -47,6 +49,9 @@ spec:
               label: 404 配图
               value: ""
               help: 留空使用首页第一屏背景；图片加载失败时回退到首页背景及主题内置插图。
+          value:
+            subtitle: Page Not Found
+            background: ""
         - $formkit: group
           name: cdn
           label: 静态资源源（CDN）
@@ -60,7 +65,11 @@ spec:
               name: asset_base
               label: 统一主题资源地址
               value: ""
-              help: 填写后直接生效，留空使用安装包。填写完整 assets 目录的 HTTPS 地址或本站路径；可用 ${version}、${name}，不支持查询参数。
+              help: 填写后直接生效，留空使用安装包。填写完整 assets 目录的 HTTPS 地址或本站路径；可用
+                ${version}、${name}，不支持查询参数。
+          value:
+            version: true
+            asset_base: ""
         - $formkit: group
           name: inject
           label: 代码注入
@@ -85,6 +94,9 @@ spec:
                   name: html
                   label: HTML 代码
                   value: ""
+          value:
+            head: []
+            bottom: []
     - group: appearance
       label: 外观与配色
       formSchema:
@@ -139,6 +151,10 @@ spec:
               max: 23
               validation: required|min:0|max:23
               help: 仅定时模式使用，开始包含、结束不包含；支持跨午夜。起止相同或非法时采用 18～6。
+          value:
+            button: true
+            night_start: 18
+            night_end: 6
         - $formkit: group
           name: card
           label: 卡片样式
@@ -157,6 +173,9 @@ spec:
               value: 0 3px 8px 6px rgba(7,17,27,0.05)
               help: 卡片阴影，默认值： 0 3px 8px 6px rgba(7,17,27,0.05)
               validation: required
+          value:
+            radius: 15px
+            shadow: 0 3px 8px 6px rgba(7,17,27,0.05)
         - $formkit: group
           name: mask
           label: 顶图与页脚遮罩
@@ -174,13 +193,17 @@ spec:
             - $formkit: radio
               name: header
               label: 页头第一屏遮罩
-              help: 默认 true。仅显式 false 关闭。有第一屏（.above）时给页头加 :before 遮罩，对齐 :not(.not-top-img)。无第一屏（header.dp）不加。
+              help: 默认 true。仅显式 false 关闭。有第一屏（.above）时给页头加 :before 遮罩，对齐
+                :not(.not-top-img)。无第一屏（header.dp）不加。
               value: true
               options:
                 - label: 开启
                   value: true
                 - label: 关闭
                   value: false
+          value:
+            footer: true
+            header: true
         - $formkit: radio
           name: text_align_justify
           label: 正文两端对齐
@@ -269,6 +292,11 @@ spec:
               name: title_prefix_icon_color
               label: 标题图标颜色
               value: ""
+          value:
+            enable: false
+            field: post
+            title_prefix_icon: \f0c1
+            title_prefix_icon_color: ""
         - $formkit: group
           name: font
           label: 字体
@@ -291,6 +319,11 @@ spec:
               name: code_font_family
               label: 代码字体
               value: ""
+          value:
+            global_font_size: ""
+            code_font_size: ""
+            font_family: ""
+            code_font_family: ""
         - $formkit: group
           name: blog_title_font
           label: 站点标题字体
@@ -304,6 +337,9 @@ spec:
               name: font_family
               label: 字体族
               value: ""
+          value:
+            font_link: ""
+            font_family: ""
         - $formkit: group
           name: hr_icon
           label: 分割线图标
@@ -325,6 +361,10 @@ spec:
               name: icon_top
               label: 图标垂直位置
               value: -10px
+          value:
+            enable: true
+            icon: \f2dc
+            icon_top: -10px
         - $formkit: group
           name: theme_color
           label: 主题配色
@@ -413,6 +453,23 @@ spec:
               label: 浏览器主题色（深色）
               value: ""
               help: 留空使用原配色，接受 CSS 颜色值。
+          value:
+            enable: false
+            main: ""
+            paginator: ""
+            button_hover: ""
+            text_selection: ""
+            link_color: ""
+            meta_color: ""
+            hr_color: ""
+            code_foreground: ""
+            code_background: ""
+            toc_color: ""
+            blockquote_padding_color: ""
+            blockquote_background_color: ""
+            scrollbar_color: ""
+            meta_theme_color_light: ""
+            meta_theme_color_dark: ""
         - $formkit: group
           name: effects
           label: 动画特效
@@ -459,6 +516,11 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                colorful: true
+                shake: true
+                mobile: false
             - $formkit: group
               name: canvas_ribbon
               label: 静态彩带
@@ -508,6 +570,13 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                size: 150
+                alpha: 0.6
+                zIndex: -1
+                click_to_change: false
+                mobile: false
             - $formkit: group
               name: canvas_fluttering_ribbon
               label: 飘动彩带
@@ -530,6 +599,9 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                mobile: false
             - $formkit: group
               name: canvas_nest
               label: 连线背景
@@ -574,6 +646,13 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                color: 0,0,255
+                opacity: 0.7
+                zIndex: -1
+                count: 99
+                mobile: false
             - $formkit: group
               name: fireworks
               label: 点击烟花
@@ -602,6 +681,10 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                zIndex: 10
+                mobile: false
             - $formkit: group
               name: click_heart
               label: 点击爱心
@@ -624,6 +707,9 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                mobile: false
             - $formkit: group
               name: clickShowText
               label: 点击文字
@@ -668,6 +754,48 @@ spec:
                       value: true
                     - label: 关闭
                       value: false
+              value:
+                enable: false
+                text: []
+                fontSize: 15px
+                random: false
+                mobile: false
+          value:
+            activate_power_mode:
+              enable: false
+              colorful: true
+              shake: true
+              mobile: false
+            canvas_ribbon:
+              enable: false
+              size: 150
+              alpha: 0.6
+              zIndex: -1
+              click_to_change: false
+              mobile: false
+            canvas_fluttering_ribbon:
+              enable: false
+              mobile: false
+            canvas_nest:
+              enable: false
+              color: 0,0,255
+              opacity: 0.7
+              zIndex: -1
+              count: 99
+              mobile: false
+            fireworks:
+              enable: false
+              zIndex: 10
+              mobile: false
+            click_heart:
+              enable: false
+              mobile: false
+            clickShowText:
+              enable: false
+              text: []
+              fontSize: 15px
+              random: false
+              mobile: false
     - group: nav
       label: 导航栏
       formSchema:
@@ -712,8 +840,8 @@ spec:
           label: 导航栏默认字体颜色
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: rgba(238, 238, 238, 1)
-            dark: rgba(255, 255, 255, 0.7)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -732,8 +860,8 @@ spec:
           label: 导航栏滚动悬浮字体颜色
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: rgb(76, 73, 72)
-            dark: rgba(255, 255, 255, 0.7)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -752,8 +880,8 @@ spec:
           label: 导航栏滚动悬浮鼠标移入字体颜色
           help: 支持rgba颜色值和十六进制颜色值（默认主题色）
           value:
-            light: var(--theme)
-            dark: var(--theme)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -772,8 +900,8 @@ spec:
           label: 导航栏滚动悬浮背景颜色
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: rgba(255, 255, 255, .8)
-            dark: rgba(18, 18, 18, .8)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -792,8 +920,8 @@ spec:
           label: 导航栏滚动悬浮阴影
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: 0 5px 6px -5px rgba(133, 133, 133, .6)
-            dark: 0 5px 6px -5px rgba(133, 133, 133, 0)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -812,8 +940,8 @@ spec:
           label: 导航栏二级下拉背景颜色
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: rgba(255, 255, 255)
-            dark: rgba(18, 18, 18)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -832,8 +960,8 @@ spec:
           label: 导航栏二级下拉字体颜色
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: rgba(76, 73, 72, 1)
-            dark: rgba(255, 255, 255, 0.7)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -852,8 +980,8 @@ spec:
           label: 导航栏hover二级下拉字体颜色
           help: 支持rgba颜色值和十六进制颜色值
           value:
-            light: rgb(244 244 244)
-            dark: rgb(54 50 50)
+            light: ""
+            dark: ""
           children:
             - $formkit: text
               name: light
@@ -931,7 +1059,10 @@ spec:
           rows: 5
           value: ""
           placeholder: '{"typeSpeed":150,"backDelay":1500,"loop":true}'
-          help: 默认速度 200ms；可用 typeSpeed、startDelay、backSpeed、backDelay、smartBackspace、shuffle、fadeOut、fadeOutClass、fadeOutDelay、loop、loopCount、showCursor、cursorChar、autoInsertCss、bindInputFocusEvents。loopCount 可设数字或字符串 Infinity。光标按纯文本处理；不支持覆盖文案、HTML模式、DOM目标或回调。无效 JSON 或字段忽略；静态模式不使用这些参数。
+          help: 默认速度 200ms；可用
+            typeSpeed、startDelay、backSpeed、backDelay、smartBackspace、shuffle、fadeOut、fadeOutClass、fadeOutDelay、loop、loopCount、showCursor、cursorChar、autoInsertCss、bindInputFocusEvents。loopCount
+            可设数字或字符串 Infinity。光标按纯文本处理；不支持覆盖文案、HTML模式、DOM目标或回调。无效 JSON
+            或字段忽略；静态模式不使用这些参数。
         - $formkit: select
           name: index_layout
           id: index_layout
@@ -956,7 +1087,8 @@ spec:
         - $formkit: group
           name: index_post_content
           label: 首页列表摘要
-          help: method：false 不显示；1 仅手动摘要；2 优先手动摘要否则截断正文；3 截断正文（默认）。length 仅 method 为 2 或 3 时生效，默认 500。
+          help: method：false 不显示；1 仅手动摘要；2 优先手动摘要否则截断正文；3 截断正文（默认）。length 仅 method 为 2 或 3
+            时生效，默认 500。
           value:
             method: "3"
             length: 500
@@ -984,7 +1116,8 @@ spec:
         - $formkit: group
           name: post_meta
           label: 首页列表元信息
-          help: 控制首页/分类/标签列表卡片上的日期、分类与标签。tags 默认关闭对齐上游。date_format 与文章页 post.post_meta.date_format 独立。
+          help: 控制首页/分类/标签列表卡片上的日期、分类与标签。tags 默认关闭对齐上游。date_format 与文章页
+            post.post_meta.date_format 独立。
           value:
             date_type: created
             date_format: date
@@ -1007,7 +1140,8 @@ spec:
             - $formkit: radio
               name: date_format
               label: 日期格式
-              help: date 为 yyyy-MM-dd 绝对日期（默认），relative 为相对时间（x 分钟前 / x 小时前 / x 天前）。与文章页 post.post_meta.date_format 独立。
+              help: date 为 yyyy-MM-dd 绝对日期（默认），relative 为相对时间（x 分钟前 / x 小时前 / x 天前）。与文章页
+                post.post_meta.date_format 独立。
               value: date
               options:
                 - label: 绝对日期
@@ -1051,7 +1185,8 @@ spec:
             - $formkit: radio
               name: index_enable
               label: 首页列表显示封面
-              help: 关闭后首页 list/tile 不渲染封面。当前分类/标签页共用 list 模板，亦跟随此开关（对齐上游 indexPostUI；归档封面由 cover.archives_enable 控制，本项不含）。
+              help: 关闭后首页 list/tile 不渲染封面。当前分类/标签页共用 list 模板，亦跟随此开关（对齐上游 indexPostUI；归档封面由
+                cover.archives_enable 控制，本项不含）。
               value: true
               options:
                 - label: 启用
@@ -1063,7 +1198,9 @@ spec:
               label: 默认封面
               placeholder: 可选，文章未设置封面时使用
               value: ""
-              help: 对应上游 cover.default_cover。留空对齐上游 null。多张候选在下方默认封面候选列表配置；本项仍支持单张附件/URL。优先级：文章封面 > 本默认封面 > loading.img.random_enable。
+              help: 对应上游 cover.default_cover。留空对齐上游
+                null。多张候选在下方默认封面候选列表配置；本项仍支持单张附件/URL。优先级：文章封面 > 本默认封面 >
+                loading.img.random_enable。
             - $formkit: radio
               name: aside_enable
               label: 侧栏最近文章显示封面
@@ -1094,6 +1231,12 @@ spec:
                   name: url
                   label: 图片或颜色
                   value: ""
+          value:
+            index_enable: true
+            default_cover: ""
+            aside_enable: true
+            archives_enable: true
+            default_cover_list: []
         - $formkit: group
           name: image
           label: 顶图与默认图片
@@ -1112,7 +1255,8 @@ spec:
               name: default_top_img
               label: 默认顶图
               value: ""
-              help: 支持图片 URL、CSS 颜色、渐变和 background 简写。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空使用纯色，不继承列表随机图或首页背景。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
+              help: 支持图片 URL、CSS 颜色、渐变和 background
+                简写。文章和单页优先复用原生封面，无封面时使用此图；其他页面优先使用自己的背景或原生分类/标签封面。留空使用纯色，不继承列表随机图或首页背景。顶图加载失败时也尝试此图，仍失败则显示纯色背景。
             - $formkit: checkbox
               name: other_pages_above
               label: 友链、图库、瞬间顶图区域
@@ -1123,6 +1267,11 @@ spec:
               label: 友链失败图片
               value: ""
               help: 留空继续使用图片加载中的失败图；失败图也不可用时保留文字与链接。
+          value:
+            disable_top_img: false
+            default_top_img: ""
+            other_pages_above: true
+            flink_error: ""
     - group: aside
       label: 侧边栏
       formSchema:
@@ -1180,8 +1329,8 @@ spec:
           name: button
           label: 侧边栏按钮
           value:
-            name: 上游 Halo 移植项目
-            link: https://github.com/dhjddcn/halo-theme-butterfly
+            name: ""
+            link: ""
           children:
             - $formkit: text
               name: name
@@ -1261,6 +1410,7 @@ spec:
             enable: true
             limit: 5
             sort: date
+            sort_order: 20
           children:
             - $formkit: radio
               name: enable
@@ -1275,14 +1425,16 @@ spec:
             - $formkit: number
               name: limit
               label: 显示数量
-              help: 对应上游 aside.card_recent_post.limit（默认 5）。上游 0 表示全部；Halo 最多取 20 篇（填 0 或大于 20 时按 20）。
+              help: 对应上游 aside.card_recent_post.limit（默认 5）。上游 0 表示全部；Halo 最多取 20 篇（填 0 或大于 20
+                时按 20）。
               value: 5
               min: 0
               max: 20
             - $formkit: radio
               name: sort
               label: 排序字段
-              help: 对应上游 aside.card_recent_post.sort。date 用 publishTime，updated 用 lastModifyTime。
+              help: 对应上游 aside.card_recent_post.sort。date 用 publishTime，updated 用
+                lastModifyTime。
               value: date
               options:
                 - label: 发布时间
@@ -1366,6 +1518,10 @@ spec:
                   value: true
                 - label: 禁用
                   value: false
+          value:
+            archive: true
+            tag: true
+            category: true
         - $formkit: group
           name: card_author
           label: 作者卡片
@@ -1393,6 +1549,9 @@ spec:
                   label: 图标 CSS 类
                   value: ""
                   help: 例如 fa-brands fa-github；按钮文字和链接继续使用原侧边栏按钮配置。
+              value:
+                enable: true
+                icon: ""
             - $formkit: radio
               name: enable
               label: 显示作者卡片
@@ -1407,6 +1566,13 @@ spec:
               label: 卡片顺序
               value: 0
               min: 0
+          value:
+            description: ""
+            button:
+              enable: true
+              icon: ""
+            enable: true
+            sort_order: 0
         - $formkit: group
           name: card_announcement
           label: 公告卡片
@@ -1425,6 +1591,9 @@ spec:
               label: 卡片顺序
               value: 10
               min: 0
+          value:
+            enable: true
+            sort_order: 10
         - $formkit: group
           name: card_categories
           label: 分类选项
@@ -1452,6 +1621,10 @@ spec:
               label: 卡片顺序
               value: 30
               min: 0
+          value:
+            limit: 5
+            expand: none
+            sort_order: 30
         - $formkit: group
           name: card_tags
           label: 标签选项
@@ -1511,6 +1684,13 @@ spec:
               label: 卡片顺序
               value: 40
               min: 0
+          value:
+            color: false
+            custom_colors: []
+            limit: 25
+            orderby: random
+            order: 1
+            sort_order: 40
         - $formkit: group
           name: card_archives
           label: 归档选项
@@ -1550,6 +1730,12 @@ spec:
               label: 卡片顺序
               value: 50
               min: 0
+          value:
+            type: monthly
+            format: ""
+            order: -1
+            limit: 8
+            sort_order: 50
         - $formkit: group
           name: card_webinfo
           label: 网站信息字段
@@ -1587,6 +1773,11 @@ spec:
               label: 卡片顺序
               value: 60
               min: 0
+          value:
+            post_count: true
+            last_push_date: true
+            runtime: true
+            sort_order: 60
         - $formkit: repeater
           name: custom_cards
           label: 自定义侧栏卡片
@@ -1639,6 +1830,8 @@ spec:
               label: 显示“编辑本文”快捷入口
               value: false
               help: 登录且拥有文章查看和管理权限时，在文章元信息旁显示编辑入口，新标签页打开当前文章的 Halo 后台编辑页。
+          value:
+            enable: false
         - $formkit: checkbox
           name: photofigcaption
           label: 正文图片说明
@@ -1691,7 +1884,8 @@ spec:
             - $formkit: radio
               name: date_format
               label: 日期格式
-              help: date 为 yyyy-MM-dd 绝对日期（默认），relative 为相对时间（x 分钟前 / x 小时前 / x 天前）。与列表 index.post_meta.date_format 独立。
+              help: date 为 yyyy-MM-dd 绝对日期（默认），relative 为相对时间（x 分钟前 / x 小时前 / x 天前）。与列表
+                index.post_meta.date_format 独立。
               value: date
               options:
                 - label: 绝对日期
@@ -1750,7 +1944,8 @@ spec:
             limit_day: 365
             position: top
             message_prev: It has been
-            message_next: days since the last update, the content of the article may be outdated.
+            message_next: days since the last update, the content of the article may be
+              outdated.
           children:
             - $formkit: radio
               name: enable
@@ -1857,7 +2052,8 @@ spec:
             - $formkit: radio
               name: decode
               label: 解码文章链接
-              help: 对应上游 post_copyright.decode（默认 false）。仅显式 true 才对 permalink 做 decodeURI。可见文本走 text，不用 html。
+              help: 对应上游 post_copyright.decode（默认 false）。仅显式 true 才对 permalink 做
+                decodeURI。可见文本走 text，不用 html。
               value: false
               options:
                 - label: 解码
@@ -1877,7 +2073,9 @@ spec:
             - $formkit: text
               name: license_url
               label: 许可协议链接
-              help: 对应上游 post_copyright.license_url。空时回退 https://creativecommons.org/licenses/by-nc-sa/4.0/ 。可见文本 th:href。
+              help: 对应上游 post_copyright.license_url。空时回退
+                https://creativecommons.org/licenses/by-nc-sa/4.0/ 。可见文本
+                th:href。
               value: https://creativecommons.org/licenses/by-nc-sa/4.0/
         - $formkit: group
           name: reward
@@ -1988,6 +2186,13 @@ spec:
                   value: true
                 - label: 隐藏
                   value: false
+          value:
+            post: true
+            page: false
+            number: true
+            expand: false
+            style_simple: false
+            scroll_percent: true
         - $formkit: group
           name: anchor
           label: 章节锚点
@@ -2012,6 +2217,9 @@ spec:
                   value: true
                 - label: 关闭
                   value: false
+          value:
+            auto_update: false
+            click_to_scroll: false
         - $formkit: group
           name: wordcount
           label: 字数统计
@@ -2046,6 +2254,10 @@ spec:
                   value: true
                 - label: 隐藏
                   value: false
+          value:
+            enable: false
+            post_wordcount: true
+            min2read: true
         - $formkit: group
           name: copy
           label: 正文复制与版权
@@ -2069,6 +2281,14 @@ spec:
                   value: 150
                   min: 0
                   help: 选中文字的字符数超过此值才追加。0 表示复制非空正文时追加；短选区保持原始复制。
+              value:
+                enable: false
+                limit_count: 150
+          value:
+            enable: true
+            copyright:
+              enable: false
+              limit_count: 150
         - $formkit: group
           name: share
           label: 文章分享
@@ -2083,6 +2303,8 @@ spec:
                 - label: 系统分享与复制链接
                   value: native
               help: 系统分享与复制链接，不加载第三方分享服务。
+          value:
+            use: ""
         - $formkit: group
           name: stats
           label: 阅读量统计
@@ -2101,6 +2323,9 @@ spec:
                   value: true
                 - label: 隐藏
                   value: false
+          value:
+            site_pv: false
+            page_pv: false
     - group: code
       label: 代码与正文渲染
       formSchema:
@@ -2393,7 +2618,8 @@ spec:
               name: enable
               label: 显示公式
               value: true
-              help: 配合 Halo KaTeX 插件使用。关闭时有 TeX 源码的公式显示为源码；文章/单页的 katex 元数据优先。此开关不控制插件全站资源加载。默认编辑器请关闭插件的前台渲染，避免重复渲染。
+              help: 配合 Halo KaTeX 插件使用。关闭时有 TeX 源码的公式显示为源码；文章/单页的 katex
+                元数据优先。此开关不控制插件全站资源加载。默认编辑器请关闭插件的前台渲染，避免重复渲染。
             - $formkit: checkbox
               name: copy_tex
               label: 复制 TeX
@@ -2404,6 +2630,10 @@ spec:
               label: 隐藏长公式滚动条
               value: false
               help: 长公式仍可横向滚动；溢出容器支持键盘聚焦和方向键。
+          value:
+            enable: true
+            copy_tex: true
+            hide_scrollbar: false
         - $formkit: group
           name: mermaid
           label: Mermaid 图表
@@ -2484,6 +2714,14 @@ spec:
                   value: true
                 - label: 关闭
                   value: false
+          value:
+            enable: false
+            code_write: false
+            theme:
+              light: default
+              dark: dark
+            open_in_new_tab: true
+            zoom_pan: true
         - $formkit: group
           name: chartjs
           label: Chart.js 图表
@@ -2543,6 +2781,17 @@ spec:
                   name: dark
                   label: 深色模式
                   value: transparent
+          value:
+            enable: false
+            fontColor:
+              light: rgba(0, 0, 0, 0.8)
+              dark: rgba(255, 255, 255, 0.8)
+            borderColor:
+              light: rgba(0, 0, 0, 0.1)
+              dark: rgba(255, 255, 255, 0.2)
+            scale_ticks_backdropColor:
+              light: transparent
+              dark: transparent
         - $formkit: group
           name: abcjs
           label: ABC 乐谱
@@ -2567,6 +2816,9 @@ spec:
                   value: true
                 - label: 关闭
                   value: false
+          value:
+            enable: false
+            per_page: true
     - group: pages
       label: 归档与专题页
       formSchema:
@@ -2613,6 +2865,12 @@ spec:
               placeholder: 请填写 第一屏背景图
               value: /themes/halo-butterfly-next/assets/images/above.svg
               help: 归档页顶部背景图，留空时使用全局默认顶图。
+          value:
+            title: ""
+            year: true
+            month: false
+            enable_above: true
+            above_background: /themes/halo-butterfly-next/assets/images/above.svg
         - $formkit: group
           name: tags
           label: 标签页
@@ -2668,6 +2926,13 @@ spec:
                       value: em
                     - label: rem
                       value: rem
+              value:
+                orderby: native
+                order: 1
+                amount: 0
+                min_font: 12
+                max_font: 21
+                unit: px
             - $formkit: radio
               name: enable_above
               label: 启用第一屏
@@ -2684,6 +2949,16 @@ spec:
               placeholder: 请填写 第一屏背景图
               value: /themes/halo-butterfly-next/assets/images/above.svg
               help: 支持图片 URL、CSS 颜色、渐变和 background 简写。留空使用默认顶图；分类/标签详情优先使用各自原生封面
+          value:
+            cloud:
+              orderby: native
+              order: 1
+              amount: 0
+              min_font: 12
+              max_font: 21
+              unit: px
+            enable_above: true
+            above_background: /themes/halo-butterfly-next/assets/images/above.svg
         - $formkit: group
           name: categories
           label: 分类页
@@ -2704,6 +2979,9 @@ spec:
               placeholder: 请填写 第一屏背景图
               value: /themes/halo-butterfly-next/assets/images/above.svg
               help: 支持图片 URL、CSS 颜色、渐变和 background 简写。留空使用默认顶图；分类/标签详情优先使用各自原生封面
+          value:
+            enable_above: true
+            above_background: /themes/halo-butterfly-next/assets/images/above.svg
         - $formkit: group
           name: single
           label: 自定义单页
@@ -2713,6 +2991,8 @@ spec:
               label: 显示页面顶图区域
               value: true
               help: 是否在自定义单页顶部显示头图区域。
+          value:
+            enable_above: true
         - $formkit: group
           name: moments
           label: 瞬间页
@@ -2722,6 +3002,8 @@ spec:
               label: 瞬间日期显示时区
               value: UTC
               help: IANA 时区，例如 Asia/Shanghai。无脚本时保留原始 ISO 日期和时区，非法值回退 UTC。
+          value:
+            timezone: UTC
         - $formkit: group
           name: links
           label: 友链页
@@ -2745,6 +3027,9 @@ spec:
                   name: description
                   label: 分组说明
                   value: ""
+          value:
+            random_order: false
+            group_descriptions: []
     - group: footer
       label: 页脚
       formSchema:
@@ -2890,12 +3175,18 @@ spec:
                   name: hide
                   label: 展开后显示的按钮
                   value: readmode,translate,darkmode,hideAside
-                  help: 按顺序填写英文标识，以逗号分隔：readmode 阅读模式、translate 繁简转换、darkmode 深色模式、hideAside 侧栏、toc 手机目录。留空使用默认分组。
+                  help: 按顺序填写英文标识，以逗号分隔：readmode 阅读模式、translate 繁简转换、darkmode 深色模式、hideAside
+                    侧栏、toc 手机目录。留空使用默认分组。
                 - $formkit: text
                   name: show
                   label: 常驻按钮
                   value: toc,comment
-                  help: 使用相同标识。仅显示已启用且当前页面可用的功能；comment 对应跳到评论，已移除的 chat 项会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。
+                  help: 使用相同标识。仅显示已启用且当前页面可用的功能；comment 对应跳到评论，已移除的 chat
+                    项会被忽略。重复项以展开组优先；未列出的按钮隐藏，返回顶部始终保留。留空使用默认分组。
+              value:
+                enable: false
+                hide: readmode,translate,darkmode,hideAside
+                show: toc,comment
             - $formkit: checkbox
               name: config_animation
               label: 齿轮旋转动画
@@ -2927,6 +3218,15 @@ spec:
                   value: true
                 - label: 关闭
                   value: false
+          value:
+            item_order:
+              enable: false
+              hide: readmode,translate,darkmode,hideAside
+              show: toc,comment
+            config_animation: true
+            scroll_percent: false
+            bottom: ""
+            readmode: true
         - $formkit: group
           name: loading
           label: 加载动画与进度条
@@ -2982,14 +3282,16 @@ spec:
                   label: 预加载图
                   placeholder: 请填写 预加载图片
                   value: data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
-                  help: 预加载图片，默认 data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
+                  help: 预加载图片，默认
+                    data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
                   validation: required
                 - $formkit: attachment
                   name: err
                   label: 加载失败图
                   placeholder: 请填写 加载失败图片
                   value: data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
-                  help: 加载失败图片，默认 data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
+                  help: 加载失败图片，默认
+                    data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
                   validation: required
                 - $formkit: radio
                   name: random_enable
@@ -3009,6 +3311,16 @@ spec:
                   value: ""
                   help: 自定义随机图API，用于填充没有设置封面的 ，免费 API 不会一直可用，请知悉
                   validation: url
+          value:
+            enable: true
+            mode: pace
+            pace_css_url: ""
+            type: circle
+            img:
+              preload: data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
+              err: data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=
+              random_enable: false
+              random_link: ""
         - $formkit: group
           name: snackbar
           label: 消息提示
@@ -3043,6 +3355,11 @@ spec:
               name: bg_dark
               label: 深色模式背景
               value: "#374151"
+          value:
+            enable: false
+            position: bottom-left
+            bg_light: "#1f2937"
+            bg_dark: "#374151"
         - $formkit: group
           name: lazyload
           label: 图片懒加载
@@ -3071,6 +3388,11 @@ spec:
               label: 图片加载前模糊
               value: false
               help: 只在启用范围内应用；加载成功或失败后解除。占位图沿用“加载设置”中的预加载图。
+          value:
+            enable: true
+            native: true
+            field: site
+            blur: false
         - $formkit: group
           name: translate
           label: 繁简转换
@@ -3113,6 +3435,13 @@ spec:
               name: msgToSimplifiedChinese
               label: 转为简体的按钮文案
               value: 簡
+          value:
+            enable: false
+            default: 繁
+            defaultEncoding: 2
+            translateDelay: 0
+            msgToTraditionalChinese: 繁
+            msgToSimplifiedChinese: 簡
     - group: comments
       label: 评论
       formSchema:
@@ -3158,7 +3487,8 @@ spec:
           name: enable
           label: 输出主题分享元数据与规范链接
           value: true
-          help: 输出核心页面及分页的 canonical、Open Graph、Twitter/Facebook 和可选结构化数据。由 SEO 插件接管时关闭；描述和关键词仍由 Halo 提供。
+          help: 输出核心页面及分页的 canonical、Open Graph、Twitter/Facebook 和可选结构化数据。由 SEO
+            插件接管时关闭；描述和关键词仍由 Halo 提供。
         - $formkit: repeater
           name: site_verification
           label: 站点验证
@@ -3226,9 +3556,14 @@ spec:
               name: rss
               label: RSS 发现链接与页脚订阅入口
               value: true
-              help: 需要已启用的官方 RSS 插件 1.5.0 或更高版本。主题使用 /rss.xml；插件缺失、停用或版本不足时隐藏入口。关闭只隐藏主题入口，不关闭插件路由。
+              help: 需要已启用的官方 RSS 插件 1.5.0 或更高版本。主题使用
+                /rss.xml；插件缺失、停用或版本不足时隐藏入口。关闭只隐藏主题入口，不关闭插件路由。
             - $formkit: checkbox
               name: sitemap
               label: 站点地图发现链接与页脚入口
               value: true
-              help: 需要已启用的官方 Sitemap 插件 1.3.0 或更高版本。数据与 /sitemap.xml、robots.txt 由插件维护。关闭只隐藏主题入口，不关闭插件路由。
+              help: 需要已启用的官方 Sitemap 插件 1.3.0 或更高版本。数据与 /sitemap.xml、robots.txt
+                由插件维护。关闭只隐藏主题入口，不关闭插件路由。
+          value:
+            rss: true
+            sitemap: true

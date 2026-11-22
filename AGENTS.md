@@ -23,10 +23,10 @@
 
 ```sh
 bun run build
-python3 scripts/lab/lab.py bootstrap --package dist/halo-butterfly-next-<version>.zip --source-sha "$(git rev-parse HEAD)"
+python3 scripts/lab/lab.py --halo-only --package dist/halo-butterfly-next-<version>.zip --source-sha "$(git rev-parse HEAD)" bootstrap
 bun scripts/smoke.mjs --base http://127.0.0.1:18091
 python3 scripts/lab/lab.py stop
 ```
 
 - 运行产物全部保存在 git 忽略的 `.runtime/comparison/` 下，管理员随机凭据位于 `.runtime/comparison/halo/credentials.json`。
-- `lab.py bootstrap` 可选启动上游 Hexo 参考站（端口 `14000`）；若 Hexo 侧因上游渲染差异返回非零退出码，Halo 侧通常已正常就绪，可直接通过 `smoke.mjs` 或访问 `http://127.0.0.1:18091` 验证主题效果。
+- 传入 `--halo-only` 时仅启动 Halo 实例；去掉该参数可同时构建上游 Hexo 参考站（端口 `14000`）。

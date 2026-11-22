@@ -25,9 +25,10 @@
           'anchor_auto_update': theme.config.post?.anchor?.auto_update,
           'anchor_click_to_scroll': theme.config.post?.anchor?.click_to_scroll,
           'photofigcaption': (theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true')
-        } }
+        } },
+        pageConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}
       "
-      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      th:attr="data-conf=${pageConfJson}"
     >window.MainApp.merge(document.currentScript);</script>
     <th:block th:replace="~{views/body-renderers :: config(${singlePage})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>

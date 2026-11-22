@@ -23,7 +23,7 @@
      canonicalPath = ${page == 'post' ? post.status.permalink : (page == 'single' ? singlePage.status.permalink : #ctx.getExchange().getRequest().getRequestPath())},
      canonical = ${#strings.startsWith(canonicalPath, 'http://') or #strings.startsWith(canonicalPath, 'https://') ? canonicalPath : canonicalOrigin + canonicalPath},
      assets_link = ${#theme.assets('/') + '/'},
-     param_prefix = ${#strings.containsIgnoreCase(theme.config.interaction?.loading.img.random_link,'?') ? '&' : '?'}
+     param_prefix = ${#strings.containsIgnoreCase(theme.config.interaction?.loading?.img?.random_link ?: '', '?') ? '&' : '?'}
   "
   th:fragment="layout (page,title,pin,header,main)"
 >

@@ -31,9 +31,10 @@
           'photofigcaption': (theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'),
           'related_post_limit': theme.config.post.related_post.limit,
           'post_copyright_decode': theme.config.post.post_copyright.decode
-        } }
+        } },
+        pageConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}
       "
-      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      th:attr="data-conf=${pageConfJson}"
     >window.MainApp.merge(document.currentScript);</script>
     <th:block th:replace="~{views/body-renderers :: config(${post})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>

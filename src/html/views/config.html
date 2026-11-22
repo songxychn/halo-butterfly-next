@@ -139,9 +139,10 @@
       'conf': themeConf,
       'resources': {'version': theme.config.general?.cdn?.version, 'asset_base': theme.config.general?.cdn?.asset_base},
       'version': theme.spec.version
-    } }
+    } },
+    themePayloadJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(themePayload)}
   "
-  th:attr="data-config=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(themePayload)}"
+  th:attr="data-config=${themePayloadJson}"
 >/* @theme-bootstrap */</script>
 
 <!--/* style */-->

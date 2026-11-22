@@ -1,7 +1,7 @@
 <!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
 <th:block
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.interaction?.loading.img.random_enable and random) ? (theme.config.interaction?.loading.img.random_link + parma) : src},
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.interaction?.loading?.img?.random_enable and random) ? ((theme.config.interaction?.loading?.img?.random_link ?: '') + parma) : src},
     imageSrc = ${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.interaction?.loading.img.preload},
     colorCover = ${not #strings.isEmpty(src) and (#strings.startsWith(src, '#') or #strings.startsWith(src, 'rgb') or #strings.startsWith(src, 'hsl'))},
     lazyOn = ${theme.config.interaction?.lazyload?.enable != false and theme.config.interaction?.lazyload?.enable != 'false' and theme.config.interaction?.lazyload?.field != 'post'},
@@ -507,8 +507,8 @@
       'code_height_limit': theme.config.code.code_height_limit,
       'enable_code_word_wrap': theme.config.code.enable_code_word_wrap,
       'enable_code_fullpage': theme.config.code.enable_code_fullpage
-    } }"
-    th:attr="data-prism=${assets_link + 'plugins/prism/prism.min.js'},data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(codeConf)}"
+    } }, codeConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(codeConf)}"
+    th:attr="data-prism=${assets_link + 'plugins/prism/prism.min.js'},data-conf=${codeConfJson}"
   >window.MainApp.merge(document.currentScript);</script>
   <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/prism/prism.min.css'}">
   <link rel="preload stylesheet" as="style" id="codeLight" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.code.code_theme_light + '.css'}">

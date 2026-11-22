@@ -98,3 +98,30 @@ test('every representable legacy hour window keeps all 24 hourly outcomes', () =
     }
   }
 });
+
+test('every $formkit: group in settings.yaml carries a complete value map for Halo SettingUtils', async () => {
+  const settings = parse(await readFile('settings.yaml', 'utf8'));
+  const collect = (node) => {
+    if (node.$formkit === 'group') {
+      const out = {};
+      for (const child of node.children || []) {
+        if (!child?.name) continue;
+        const val = collect(child);
+        if (val !== undefined) out[child.name] = val;
+      }
+      return out;
+    }
+    if ('value' in node) return node.value;
+    if (node.$formkit === 'repeater') return [];
+    return undefined;
+  };
+  const check = (nodes, path) => {
+    for (const node of nodes || []) {
+      if (node?.$formkit === 'group' && node.name) {
+        assert.deepEqual(node.value, collect(node), `${path}.${node.name} missing or stale value map`);
+        check(node.children, `${path}.${node.name}`);
+      }
+    }
+  };
+  for (const form of settings.spec.forms) check(form.formSchema, form.group);
+});

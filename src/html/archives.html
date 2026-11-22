@@ -22,8 +22,10 @@
         'totalPages': archives.totalPages,
         'hasPrevious': archives.hasPrevious(),
         'hasNext': archives.hasNext()
-      } }"
-      th:attr="data-items=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(postFinder.archives(1, archives.total).items)},data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      } },
+      itemsJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(postFinder.archives(1, archives.total).items)},
+      pageConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      th:attr="data-items=${itemsJson},data-conf=${pageConfJson}"
     >window.MainApp.merge(document.currentScript);</script>
   </th:block>
 
