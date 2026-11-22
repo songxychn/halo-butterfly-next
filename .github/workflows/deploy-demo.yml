@@ -1,5 +1,11 @@
 name: Publish released demo image
 on:
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Published version to promote to the demo channel'
+        type: string
+        required: true
   workflow_dispatch:
     inputs:
       tag:

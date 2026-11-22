@@ -10,17 +10,17 @@ on:
         required: true
 permissions:
   contents: read
-concurrency:
-  group: release-theme
-  cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    concurrency:
+      group: release-theme
+      cancel-in-progress: false
     permissions:
       contents: write
     env:
-      TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+      TAG: ${{ inputs.tag || github.ref_name }}
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
@@ -37,3 +37,11 @@ jobs:
         run: python3 scripts/release/prepare.py "$TAG"
       - name: Publish GitHub Release
         run: python3 scripts/release/publish.py "$TAG"
+  demo:
+    needs: publish
+    uses: ./.github/workflows/deploy-demo.yml
+    permissions:
+      contents: read
+      packages: write
+    with:
+      tag: ${{ inputs.tag || github.ref_name }}
