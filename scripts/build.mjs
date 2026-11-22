@@ -87,7 +87,7 @@ async function build() {
   await appendIconSubsets(icons, path.join(root, 'src/fonts/fontawesome-subsets'), path.join(assets, 'plugins/fontawesome'));
   await mkdir(path.join(assets, 'licenses'), { recursive: true });
   // Adapted upstream sources are not npm dependencies, so collect their notices explicitly.
-  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt', 'butterfly-extsrc-1.1.6-LICENSE.txt']) {
+  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'UPSTREAM-ATTRIBUTION.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt']) {
     await cp(path.join(root, 'third-party-licenses', file), path.join(assets, 'licenses', file));
   }
   const licensed = new Set();
@@ -143,7 +143,7 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
   for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
     if (!file.endsWith('.scss')) continue;
@@ -167,13 +167,15 @@ async function build() {
   // Inline only the selected small Loading implementation in rendered HTML.
   // Retain the standalone files for the public layout and existing consumers.
   let loadingLayout = await readFile(layoutFile, 'utf8');
+  let circleCode = '';
   for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) {
     const marker = `/* @theme-loading-${name} */`;
     if (!loadingLayout.includes(marker)) throw new Error(`Missing inline Loading insertion point: ${name}`);
     const code = await readFile(path.join(assets, 'plugins/loading', `${name}.min.js`), 'utf8');
+    if (name === 'circle') circleCode = code;
     loadingLayout = loadingLayout.replace(marker, () => code);
   }
-  loadingLayout = loadingLayout.replace('/* @theme-loading-fallback */', () => loadingLayout.match(/<script data-theme-script="loading" th:case="'circle'">([\s\S]*?)<\/script>/)[1]);
+  loadingLayout = loadingLayout.replace('/* @theme-loading-fallback */', () => circleCode);
   await writeFile(layoutFile, loadingLayout);
   await rm(path.join(root, 'templates'), { recursive: true, force: true });
   await rename(stage, path.join(root, 'templates'));

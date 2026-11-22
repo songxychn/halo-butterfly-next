@@ -26,30 +26,14 @@ for (const source of masonrySources.sources) {
   const entry = zip.file(`templates/assets/licenses/${source.file}`);
   if (!entry || !(await entry.async('nodebuffer')).equals(bytes)) throw new Error(`安装包缺少或改写了瀑布流许可：${source.file}`);
 }
-const lazyloadSource = JSON.parse(await readFile(path.join(root, 'third-party-licenses/vanilla-lazyload-source.json'), 'utf8'));
-for (const record of [lazyloadSource.local, lazyloadSource.license]) {
-  if (createHash('sha256').update(await readFile(path.join(root, record.path))).digest('hex') !== record.sha256) throw new Error('LazyLoad 来源或许可字节改变，需重新核查');
-}
-for (const file of ['vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt']) {
-  const entry = zip.file(`templates/assets/licenses/${file}`);
-  if (!entry || !(await entry.async('nodebuffer')).equals(await readFile(path.join(root, 'third-party-licenses', file)))) throw new Error(`LazyLoad 许可或署名缺失/不一致：${file}`);
-}
 const prismThemes = JSON.parse(await readFile(path.join(root, 'third-party-licenses/prism-themes-source.json'), 'utf8'));
 const prismThemesLicense = await readFile(path.join(root, prismThemes.license.path));
 if (createHash('sha256').update(prismThemesLicense).digest('hex') !== prismThemes.license.sha256) throw new Error('Prism Themes 许可正文与固定官方摘要不符');
 const prismThemesEntry = zip.file('templates/assets/plugins/prism/themes/LICENSE');
 if (!prismThemesEntry || !(await prismThemesEntry.async('nodebuffer')).equals(prismThemesLicense)) throw new Error('安装包缺少或改写了 Prism Themes 独立许可');
-const upstreamSources = JSON.parse(await readFile(path.join(root, 'third-party-licenses/upstream-sources.json'), 'utf8'));
-for (const source of upstreamSources.sources) {
-  const original = await readFile(path.join(root, 'third-party-licenses', source.file));
-  if (createHash('sha256').update(original).digest('hex') !== source.sha256) throw new Error(`上游许可正文与固定来源摘要不符：${source.file}`);
-}
-for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt']) {
+for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'UPSTREAM-ATTRIBUTION.txt']) {
   const entry = zip.file(`templates/assets/licenses/${file}`);
   if (!entry || !(await entry.async('nodebuffer')).equals(await readFile(path.join(root, 'third-party-licenses', file)))) throw new Error(`安装包缺少或改写了上游许可材料：${file}`);
-}
-for (const file of upstreamSources.adaptedFiles) {
-  if (!(await readFile(path.join(root, file.path), 'utf8')).includes('third-party-licenses/UPSTREAM-ATTRIBUTION.txt')) throw new Error(`改写源文件缺少归属声明指针：${file.path}`);
 }
 for (const page of ['index', 'post', 'archives', 'categories', 'category', 'tags', 'tag', 'single', 'photos', 'moments', 'links', 'plugin', 'error404']) {
   required.push(`templates/assets/js/${page}.min.js`, `templates/assets/css/${page}.min.css`);

@@ -1,24 +1,12 @@
-// Adapted from Hexo Butterfly 5.7.0 (Apache-2.0); modified for Halo (SCSS, selectors and settings).
-// Source and license: third-party-licenses/UPSTREAM-ATTRIBUTION.txt; detailed changes are noted below.
-/**
- * 对齐 Butterfly 5.7.0 source/css/_tags/gallery.styl
- * （f223b1888b42b2b336068e6c959ed90a3cd7c8f3）。
- *
- * 保留上游 .container；仅将图库规则接入 article.render 正文。figure.gallery-group
- * 的 float / 250px / calc 宽度不会作用于主栏、按钮或代码工具栏。不要用
- * #Butterfly 把 float / 250px / calc 宽度压到主栏、活 .button 或
- * .code-toolbar（#203 P1 同类）。
- *
- * @extend .limit-more-line：跨 @use 不能 @extend，把 display:-webkit-box /
- * overflow:hidden / -webkit-box-orient:vertical 写进本选择器。
- * addBorderRadius(5) 且 rounded_corners_ui 默认 true → 5px。
- *
- * 不实现 hexo.styl 及其余 _tags/* / source/css/index.styl / var.styl。
- * 不改 data-theme。不改 html.hide-aside 80%。不改 #pagination.pagination-post。
- * #hide-aside-btn 仍走 hide_button。无新增 th:utext。不加 #Butterfly。
- */
+// Adapted from Hexo Butterfly 5.7.0 (Apache-2.0); modified for Halo.
+// Source and license: third-party-licenses/UPSTREAM-ATTRIBUTION.txt.
 
-.container, article.render {
+article.render {
+  &:has(figure.gallery-group) { display: flow-root; }
+  .gallery-container { clear: both; margin: 0 0 20px; }
+  .gallery-group-name { color: #fff; }
+  .gallery-group figcaption > a::after { display: none; }
+
   figure.gallery-group {
     position: relative;
     float: left;
@@ -28,7 +16,7 @@
     height: 250px;
     border-radius: 10px;
     background: #000000;
-    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 
     @media screen and (max-width: 600px) {
       width: calc(100% - 8px);
@@ -138,7 +126,6 @@
   }
 
   .gallery-container {
-    margin: 0 0 20px;
     .gallery-items {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -150,120 +137,7 @@
     img { display: block; width: 100%; height: auto; margin: 0; }
   }
 
-  .loading-container {
-    display: inline-block;
-    overflow: hidden;
-    width: 154px;
-    height: 154px;
-
-    .loading-item {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      transform: translateZ(0) scale(1);
-      transform-origin: 0 0;
-
-      div {
-        position: absolute;
-        width: 30.8px;
-        height: 30.8px;
-        border-radius: 50%;
-        background: #e15b64;
-        transform: translate(61.6px, 61.6px) scale(1);
-        animation: loading-ball 1.92s infinite cubic-bezier(0, 0.5, 0.5, 1);
-
-        &:nth-child(1) {
-          background: #f47e60;
-          transform: translate(113.96px, 61.6px) scale(1);
-          animation: loading-ball-r 0.48s infinite cubic-bezier(0, 0.5, 0.5, 1), loading-ball-c 1.92s infinite step-start;
-        }
-
-        &:nth-child(2) {
-          background: #e15b64;
-          animation-delay: -0.48s;
-        }
-
-        &:nth-child(3) {
-          background: #f47e60;
-          animation-delay: -0.96s;
-        }
-
-        &:nth-child(4) {
-          background: #f8b26a;
-          animation-delay: -1.44s;
-        }
-
-        &:nth-child(5) {
-          background: #abbd81;
-          animation-delay: -1.92s;
-        }
-      }
-    }
-  }
-}
-
-article.render {
-  // Clear group-card floats within the article, never the page's grid/flex layout.
-  &:has(figure.gallery-group) { display: flow-root; }
-  .gallery-container { clear: both; }
-  .gallery-group-name { color: #fff; }
-  .gallery-group figcaption > a::after { display: none; }
   @media (prefers-reduced-motion: reduce) {
     figure.gallery-group img, figure.gallery-group p, .gallery-group-name::after { transition: none; }
-  }
-}
-
-@keyframes loading-ball {
-  0% {
-    transform: translate(9.24px, 61.6px) scale(0);
-  }
-
-  25% {
-    transform: translate(9.24px, 61.6px) scale(0);
-  }
-
-  50% {
-    transform: translate(9.24px, 61.6px) scale(1);
-  }
-
-  75% {
-    transform: translate(61.6px, 61.6px) scale(1);
-  }
-
-  100% {
-    transform: translate(113.96px, 61.6px) scale(1);
-  }
-}
-
-@keyframes loading-ball-r {
-  0% {
-    transform: translate(113.96px, 61.6px) scale(1);
-  }
-
-  100% {
-    transform: translate(113.96px, 61.6px) scale(0);
-  }
-}
-
-@keyframes loading-ball-c {
-  0% {
-    background: #e15b64;
-  }
-
-  25% {
-    background: #abbd81;
-  }
-
-  50% {
-    background: #f8b26a;
-  }
-
-  75% {
-    background: #f47e60;
-  }
-
-  100% {
-    background: #e15b64;
   }
 }
