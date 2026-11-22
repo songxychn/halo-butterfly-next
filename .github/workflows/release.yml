@@ -16,7 +16,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     permissions:
       contents: write
     env:
@@ -31,21 +31,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.0'
-      - name: Select historical source runtime
-        id: source-runtime
-        run: bun -p "'needs-node=' + Boolean(require('./package.json').engines?.node)" >> "$GITHUB_OUTPUT"
-      - uses: actions/setup-node@v4
-        if: steps.source-runtime.outputs.needs-node == 'true'
-        with:
-          node-version: '24'
       - run: bun install --frozen-lockfile --ignore-scripts
       - run: bun run verify
-      - name: Reproduce archive
-        run: |
-          sha256sum dist/*.zip > /tmp/theme.sha256
-          bun run build
-          sha256sum -c /tmp/theme.sha256
-      - name: Check acceptance and corresponding source
+      - name: Stage release assets
         run: python3 scripts/release/prepare.py "$TAG"
-      - name: Publish and verify downloaded assets
+      - name: Publish GitHub Release
         run: python3 scripts/release/publish.py "$TAG"

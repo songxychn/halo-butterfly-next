@@ -1,29 +1,7 @@
 # 版本发行
 
-合并版本准备 PR 后，由维护者推送 `vX.Y.Z` 或 `vX.Y.Z-alpha.N/beta.N/rc.N` tag。`release.yml` 验证、构建、发布 Release，不调用 demo 工作流。master 合并不发布版本、不更新 demo。手动输入既有 tag 可以重试；不能改写已公开附件。
+发版前需同步更新 `package.json`、`theme.yaml`、`site/manifest.json`、`site/config/theme-profile.json` 中的版本号，编写 `releases/v<version>.md` 发行说明并更新 `CHANGELOG.md`。
 
-每次发版须同步 `package.json`、`theme.yaml`、`site/manifest.json` 与 `site/config/theme-profile.json` 的版本，以及文档内容。 发布前还须逐项核对 `README.md` 的当前版本与下载入口、`docs/INSTALL-UPGRADE.md`、`docs/SOURCE-BUILD.md` 和 `CHANGELOG.md`，删除针对当前版本已过时的“尚未发布”表述；历史版本记录保留原有身份。Demo 的部署状态单独说明，不能随主题发版自动改成“已同步”。准备 `releases/<tag>.md` 发行说明和 `<tag>.json` 放行记录：
+合并准备 PR 后，推送 `vX.Y.Z`（或 `vX.Y.Z-alpha.N` / `beta.N` / `rc.N`）标签，`release.yml` 会自动执行校验、构建并发布 GitHub Release（含主题 ZIP、源码归档与 `SHA256SUMS`）。预发行标签自动标记为 GitHub prerelease。
 
-```json
-{
-  "tag": "v0.1.0-alpha.3",
-  "sourceSha": "经独立审查的完整源码SHA",
-  "themeSha256": "实际验收主题ZIP的SHA256",
-  "decision": "approved",
-  "reviewer": "独立审查者及证据引用",
-  "gates": {
-    "realHalo": "passed",
-    "installUpgradeRollback": "passed",
-    "resourcesAndLicenses": "passed",
-    "sourceRebuild": "passed"
-  },
-  "knownLimitations": ["获准披露的限制及对应裁定"],
-  "evidence": [{"path": "docs/validation/某份真实验收记录.json", "sha256": "该文件摘要"}]
-}
-```
-
-此处是结构示例，不是任意候选的放行依据。alpha.3 的[实际批准记录](v0.1.0-alpha.3.json)与[发布完成记录](../docs/validation/2026-10-06/alpha3-publication.md)已归档；后续版本仍须取得对应候选的验收与维护者发布授权。补工作流不会自动放行已知失败。证据源码必须是 tag 的祖先，包摘要必须与本次构建完全一致；发行材料提交可以晚于实际验收源码。工作流另外从分发源码归档独立重建，确认同一 ZIP。
-
-附件为主题 ZIP、对应源码 tar.gz、`release-validation.json`、`SHA256SUMS`。先上传草稿并下载校验，再公开，再下载校验。公开附件不覆盖。Demo 镜像由维护者单独手动运行 `deploy-demo.yml` 构建和推广；镜像失败不影响已公开的主题附件，推广可能触发现有主机更新器，应单独授权。线上部署核验归 infra-ops。
-
-alpha/beta/rc 标记为 GitHub prerelease；独立 Demo 工作流仅允许按语义版本推广最新已发布版本（包括预发行），不使用忽略 prerelease 的 `/releases/latest` 接口。回退由 hk 显式执行，不允许旧发布覆盖新通道。
+演示站镜像发布独立于主题发行，可通过手动触发 `deploy-demo.yml` 工作流构建并推送指定已发布版本的容器镜像。

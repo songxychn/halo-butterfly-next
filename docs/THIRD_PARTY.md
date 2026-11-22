@@ -1,50 +1,29 @@
-# 来源与许可证
+# 第三方组件与开源许可
 
-| 资源 | 来源/用途 | 许可 |
-| --- | --- | --- |
-| 原 Halo Butterfly 代码 | [dhjddcn/halo-theme-butterfly](https://github.com/dhjddcn/halo-theme-butterfly)；本公开仓库保留上游及后续维护的完整 Git 历史 | GPL-3.0 |
-| Hexo Butterfly 5.7.0 | jerryc127/hexo-theme-butterfly；已有样式改写及繁简字表提取，未直接导入其构建系统 | Apache-2.0；固定原文及本项目归属说明随源码和 ZIP 分发，见 [改写来源清单](../third-party-licenses/UPSTREAM-ATTRIBUTION.txt) |
-| normalize.css 8.0.1 | 从固定 Hexo 源码继承，改为 SCSS 并限定 `.container` 选择器 | MIT；保留 Nicolas Gallagher / Jonathan Neal 版权及[官方许可原文](../third-party-licenses/normalize-8.0.1-LICENSE.md)，不改标 Apache-2.0 |
-| Font Awesome Free 6.7.2 | npm `@fortawesome/fontawesome-free`，本地图标 | 图标 CC BY 4.0、字体 SIL OFL 1.1、代码 MIT；包内附上游许可证 |
-| Butterfly Icons 字体子集 | 从上述 Font Awesome Free 6.7.2 生成，内部及 CSS 字体名改为 Butterfly Icons Free / Brands | 沿用 SIL OFL 1.1，保留版权与完整许可；包内附 `plugins/fontawesome/SUBSETS-NOTICE.md`，完整原字体继续作为任意图标和加载失败的回退 |
-| Prism 1.29.0 核心 | 原主题 vendored JS/CSS，高亮核心 | MIT，Copyright (c) 2012 Lea Verou；包内保留核心 LICENSE |
-| Prism Themes 扩展配色 | `src/plugins/prism/themes/` 的 36 个继承/改写主题，与核心独立归属 | MIT，Copyright (c) 2015 PrismJS；[官方固定许可原文](../src/plugins/prism/themes/LICENSE)随源码和 ZIP 保留；[固定来源与文件比对](../third-party-licenses/prism-themes-source.json) |
-| Viewer.js 1.14.0 | 图片灯箱；[官方固定版源码](https://github.com/fengyuanchen/viewerjs/tree/v1.14.0) | [MIT](https://github.com/fengyuanchen/viewerjs/blob/v1.14.0/LICENSE)；完整版权及许可正文随包分发 |
-| InfiniteGrid 4.13.0 | 首页布局 6/7 和正文图库；与固定 Butterfly 5.7.0 相同的排版引擎，分别按页面能力加载 | MIT；本地打包，直接与间接依赖的许可随 ZIP 分发 |
-| jQuery、Clipboard、Tocbot、Typed.js | DOM、复制、目录、打字机 | MIT；许可证随包分发 |
-| vanilla-lazyload 继承实现 | 图片懒加载；工厂体与官方 17.3.0/17.3.1 在局部绑定重命名后结构一致，准确继承版本无法唯一确定 | MIT，Copyright (c) 2015 Andrea Verlicchi；以官方 17.3.1 为固定许可参照，许可与改写说明随包分发 |
-| Mermaid 11.16.0、Chart.js 4.5.1、ABCJS 6.6.4 | 正文图表与 ABC 乐谱；与固定 Butterfly 5.7.0 的供应版本一致，独立按内容加载 | MIT；直接及间接依赖的 LICENSE/NOTICE 随 ZIP 分发 |
-| DOMPurify 3.4.12 | 清理正文 Mermaid/ABC SVG 输出 | Apache-2.0 OR MPL-2.0；包内保留双许可原文 |
-| ECharts | 原分类统计页面 | Apache-2.0；许可证随包分发 |
-| Animate.css | 原有动画 | MIT；许可证随包分发 |
-| `src/images/above.svg` | Halo Butterfly Next 原创装饰图 | GPL-3.0，同本主题 |
+本主题采用 [GPL-3.0](../LICENSE) 开源许可。
 
-确切依赖版本由 `bun.lock` 锁定。第三方许可证位于安装包的 `templates/assets/licenses/` 及相应插件目录。
+## 上游项目致谢
 
-非 npm 改写内容由 [upstream-sources.json](../third-party-licenses/upstream-sources.json) 记录固定提交、官方许可证 URL、原文字节 SHA-256 和本地来源映射。Hexo 固定为 `f223b1888b42b2b336068e6c959ed90a3cd7c8f3`；normalize 8.0.1 固定为 `fc091cce1534909334c1911709a39c22d406977b`。固定 Hexo 树没有上游 NOTICE；`UPSTREAM-ATTRIBUTION.txt` 是本项目编写的归属和修改说明，不冒充上游 NOTICE。改写源文件保留来源/修改注释，构建与包检查保证两份未改写的官方许可及此说明进入 ZIP。
+- [Hexo Butterfly](https://github.com/jerryc127/hexo-theme-butterfly)（Apache-2.0）：视觉风格与布局参考来源。
+- [halo-theme-butterfly](https://github.com/dhjddcn/halo-theme-butterfly)（GPL-3.0）：原始 Halo 移植基础。
 
-构建会递归收集运行时依赖的 LICENSE/NOTICE，包括 ECharts 的 ZRender/tslib 和 Clipboard 的间接依赖。good-listener 1.2.2、delegate 3.2.0、select 1.1.2 的 npm 包在 README 中声明 MIT 和 Zeno Rocha 版权，安装包同时保留这些原始声明及 MIT 正文。
+## 打包随附的主要第三方库
 
-原主题所带 Font Awesome Pro、CircularBody/HarmonyOS 字体和默认照片已从当前源码与安装包移除。本仓库保留公开上游的 Git 历史；这些旧资源不包含在 Next 新发行包的许可承诺中。默认系统字体由访问者操作系统提供。
+构建时会自动收集运行时依赖的开源许可文本并打包至 `templates/assets/licenses/`：
 
-Butterfly Icons 的生成来源、固定 FontTools 4.60.1 / Brotli 1.1.0 再生步骤见 [子集说明](../src/fonts/fontawesome-subsets/NOTICE.md)；[生成脚本](../scripts/fonts/generate-subsets.py)按主题静态图标和 SCSS 码点生成三份小字体，`manifest.json`记录上游输入与产物哈希。常规 Bun 构建只校验与复制，不需要安装字体工具。原 Font Awesome CSS、完整字形、FA4/5 别名和 CDN 自选路径保留；子集名称不沿用上游保留字体名。
+| 组件 | 用途 | 许可 |
+|---|---|---|
+| Font Awesome Free | 图标字体与样式 | CC BY 4.0 / SIL OFL 1.1 / MIT |
+| Prism.js & Prism Themes | 代码语法高亮与配色 | MIT |
+| Viewer.js | 正文与图库图片灯箱 | MIT |
+| Tocbot | 文章目录生成与滚动联动 | MIT |
+| Typed.js | 首页打字机字幕 | MIT |
+| Pace.js | 顶部加载进度条 | MIT |
+| `@egjs/infinitegrid` | 首页瀑布流布局 | MIT |
+| ECharts | 归档/分类/标签统计图（按需加载） | Apache-2.0 |
+| Mermaid | 正文流程图渲染（按需加载） | MIT |
+| Chart.js | 正文图表渲染（按需加载） | MIT |
+| ABCJS | 正文乐谱渲染（按需加载） | MIT |
+| DOMPurify | HTML/SVG 净化（按需加载） | Apache-2.0 / MPL-2.0 |
 
-发布前仍应检查本次实际安装包及新增依赖；新增上游文件时登记来源、版本和对应许可证，不能用主题主许可证替代第三方声明。
-
-公开 alpha 准备中移除了来源尚未逐项核实的两份继承 `.cur` 光标，改用操作系统的默认/链接光标；不随包分发光标文件。四张未被当前文档引用的继承 PNG（`metadata.png`、`renderings.png`、`sponsor.png`、`user.png`）也已从当前源码移除。`docs/previews/` 保留本项目合成测试站的旧版本截图；它们不作为最终 alpha.3 的截图证据。这里描述当前源码与新构建包，不表示完整 Git 历史已经清理；公开历史的处理方式仍须单独确认。
-
-2026-09-22 更正：此前将 Fancyapps UI 5.x 标为 GPLv3 不正确。[v5 官方许可](https://v5.fancyapps.com/license/)对开源项目分发另有授权要求；主题运行时代码、内嵌 CSS、直接依赖和新发行 ZIP 已移除该实现，改用 Viewer.js。比较实验室固定的上游 Hexo 参考站保留其自身依赖，仅供本地对照测试，不进入本主题 ZIP，也不据此承诺有权重新分发上游参考站。Git 历史及旧发行物的公开处理仍需单独核查，当前替换不能追溯改变旧内容的许可。
-
-2026-09-22 的 Prism Themes 来源核对固定官方提交 `447479fc7b2be2051fe27e561aceed7cc87a589f`：20 个配色文件字节一致，16 个为继承旧变体或 Halo 改写，不能声称所有文件直接来自这一提交；保留各文件作者/移植署名，Next 对默认 One Light/One Dark 的对比度修改亦保留注释。其 MIT 原文与 Prism 核心许可分别保存在安装包 `templates/assets/plugins/prism/themes/LICENSE` 和 `templates/assets/plugins/prism/LICENSE`。
-
-`src/vendor/lazyload.js` 从原 `src/js/core/_lazyLoad.js` 原样移动，第三方压缩实现保持字节一致；`lazyload.d.ts` 描述主题使用的 API，`src/js/core/_lazyLoad.ts` 作为类型入口。2026-10-06 补核查：它来自 vanilla-lazyload，继承的模块包装与压缩局部变量名不同于官方发布文件，不能称为官方 17.3.1 原样副本；工厂结构与 17.3.0/17.3.1 均一致。固定来源、继承提交、文件摘要见 [来源清单](../third-party-licenses/vanilla-lazyload-source.json)，[MIT 原文](../third-party-licenses/vanilla-lazyload-LICENSE.txt)与[本项目归属说明](../third-party-licenses/vanilla-lazyload-NOTICE.txt)进入 ZIP 的 `templates/assets/licenses/`。本次不修改运行代码。Prism 的第三方 JS 同样保留原格式。
-
-来源比对可复现：从清单中固定的 npm 官方 tarball 提取 `package/dist/lazyload.min.js`（校验 tarball integrity），执行 `bun scripts/licenses/compare-lazyload.mjs /path/to/lazyload.min.js`。脚本先核对原始文件摘要，再隔离工厂函数、按作用域声明顺序统一局部绑定名称并比较结构；模块包装差异另行披露。此步骤只用于来源核对，不替代功能验收。
-
-2026-10-07 上架整改：hopscotch 移除 Google Fonts 在线导入与 Fira Mono 声明，使用系统等宽字体，不分发额外字体。原作者及 CC0 注释保留；修改摘要登记在来源清单的 `subsequentModifications`，`files` 保留 9 月 22 日核对快照。当前文件与固定参考的字节一致数量相应由 20 降为 19，不改写历史核对结论。安装包检查拒绝 CSS 中的 Google Fonts 域名。
-
-2026-10-11 首页瀑布流随包新增 InfiniteGrid 4.13.0。部分间接依赖的 npm tarball 没有独立 LICENSE：component 3.0.5 的完整 MIT 原文取自该包 README，imready 1.4.2 取自 npm gitHead；cfcs 早期 npm gitHead 已不可获取，使用官方固定后继提交的 MIT 许可参照，并明确不声称它是该发行包的原始文件。逐文件 URL、来源边界及 SHA-256 见 [来源清单](../third-party-licenses/infinitegrid-sources.json)。构建递归保留所有依赖的原始许可声明，补齐完整 MIT 正文与 imready/cfcs 的 NOTICE；包检查核对登记字节。
-
-第三方服务接入（2026-10-13）：主题的分析/聊天/广告适配器为本项目维护的 TypeScript，不复制或随包分发服务商 SDK。仅在管理员配置后从服务官方端点或其显式覆盖地址加载；SDK 属于服务商在线发布物，没有由主题锁定的 npm 版本或内容哈希。固定参考源码、官方 API、加载和本地回退范围见 [接入说明](INTEGRATIONS.md)。因此本地契约通过不代表 SUPPLY-03 或真实账号联调通过。默认随包资源来源及许可证继续按本清单保持；可选 CDN Font Awesome 明确固定 6.7.2（关闭版本段为用户自选配置）。
-
-Pace **1.2.4**（MIT）通过精确依赖 `pace-js` 供应，原样打包 `pace.min.js` 与蓝色 minimal CSS，许可原样随包。包和文件摘要见 [固定来源](../third-party-licenses/pace-source.json)，安装包检查验证字节一致性。CSS/JS 可独立覆盖，使用者提供的外部文件需保持 Pace 接口契约。
+完整上游归属说明见 [third-party-licenses/UPSTREAM-ATTRIBUTION.txt](../third-party-licenses/UPSTREAM-ATTRIBUTION.txt)。
