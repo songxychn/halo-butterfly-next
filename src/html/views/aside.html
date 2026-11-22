@@ -138,7 +138,7 @@
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="archives" th:if="${theme.config.aside.enable_archives != false}" class="aside-archives card card-archives"
   th:attr="data-card-order=${theme.config.aside.card_archives?.sort_order ?: 50}">
   <h1 class="title"><i class="fas fa-archive"></i><span class="name" th:text="#{ui.archives}">归档</span><a class="card-more-btn" href="/archives" aria-label="查看全部归档" th:aria-label="#{ui.allArchives}">›</a></h1>
-  <div class="content" th:with="archiveSize = ${stats.post == null or stats.post < 1 ? 1 : stats.post}, archiveYears = ${postFinder.archives(1, archiveSize)}, archiveRowLimit = ${theme.config.aside.card_archives?.limit == null ? 8 : theme.config.aside.card_archives.limit}, yearly = ${theme.config.aside.card_archives?.type == 'yearly'}">
+  <div class="content" th:with="archiveSize = ${stats.post == null or stats.post < 1 ? 1 : (stats.post > 200 ? 200 : stats.post)}, archiveYears = ${postFinder.archives(1, archiveSize)}, archiveRowLimit = ${theme.config.aside.card_archives?.limit == null ? 8 : theme.config.aside.card_archives.limit}, yearly = ${theme.config.aside.card_archives?.type == 'yearly'}">
     <style th:if="${archiveRowLimit > 0}" th:inline="css">.aside-archives .card-archive-list-item:nth-child(n + /*[[${archiveRowLimit + 1}]]*/ 9) { display: none; }</style>
     <ul class="card-archive-list" data-aside-archives th:attr="data-order=${theme.config.aside.card_archives?.order ?: -1},data-format=${theme.config.aside.card_archives?.format ?: (yearly ? 'YYYY' : 'YYYY-MM')},data-archive-row-limit=${archiveRowLimit}">
       <th:block th:each="year : ${archiveYears.items}">

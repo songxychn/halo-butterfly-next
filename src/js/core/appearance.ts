@@ -3,7 +3,9 @@ import { preconnectResource } from './resource-hints.ts';
 export type Appearance = Record<string, unknown>;
 const record = (value: unknown): Appearance => value && typeof value === 'object' ? value as Appearance : {};
 export const enabled = (value: unknown) => value === true || value === 'true';
-export function cssValue(property: string, value: unknown, supports = CSS.supports) {
+const defaultSupports = (property: string, value: string) =>
+  typeof CSS !== 'undefined' && typeof CSS.supports === 'function' ? CSS.supports(property, value) : true;
+export function cssValue(property: string, value: unknown, supports = defaultSupports) {
   const text = typeof value === 'string' ? value.trim() : '';
   return text && !/[;{}<>]|url\(|var\(|expression\(/i.test(text) && supports(property, text) ? text : '';
 }

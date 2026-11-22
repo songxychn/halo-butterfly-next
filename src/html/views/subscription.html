@@ -1,4 +1,4 @@
-<!-- Feed and Sitemap own the XML; the theme only advertises started plugins. -->
+<!--/* Feed and Sitemap discovery links when plugins are active. */-->
 <th:block xmlns:th="https://www.thymeleaf.org" th:fragment="head">
   <link th:if="${theme.config.subscription?.rss != false and theme.config.subscription?.rss != 'false' and pluginFinder.available('PluginFeed', '>=1.5.0')}"
         rel="alternate" type="application/rss+xml" th:href="@{/rss.xml}" th:title="#{ui.rssSubscribe}" data-theme-rss>

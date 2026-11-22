@@ -90,7 +90,7 @@ class Hourglass {
 
   start() {
     this.container.className = 'loading-container';
-    this.container.innerHTML = `<dvi class="loading-body"></dvi>`;
+    this.container.innerHTML = `<div class="loading-body"></div>`;
     document.body.appendChild(this.container);
   }
 

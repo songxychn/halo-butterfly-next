@@ -13,31 +13,29 @@
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground) and (#strings.startsWith(aboveBackground, '/') or #strings.startsWith(aboveBackground, 'https://') or #strings.startsWith(aboveBackground, 'http://'))}"
           th:href="${aboveBackground}">
-    <script data-theme-script="page-config" id="pageScript" th:inline="javascript" th:with="tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')}, tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')}, mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')}">
-      Object.assign(window.MainApp.conf, {
-        // 第一屏
-        enable_above: /*[[${aboveEnabled}]]*/ '',
-        above_background: /*[[${aboveBackground}]]*/ '',
-        // 渲染
-        enable_h_icon: /*[[${theme.config.render.enable_h_icon}]]*/ true,
-        // 目录：单篇显式 true / false 优先，否则继承全局
-        toc_number: /*[[${tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)}]]*/ true,
-        toc_expand: /*[[${tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)}]]*/ false,
-        toc_scroll_percent: /*[[${theme.config.toc.scroll_percent}]]*/ true,
-        math_enabled: /*[[${mathOverride == 'true' ? true : (mathOverride == 'false' ? false : (theme.config.math?.enable != false and theme.config.math?.enable != 'false'))}]]*/ true,
-        math_copy_tex: /*[[${theme.config.math?.copy_tex != false and theme.config.math?.copy_tex != 'false'}]]*/ true,
-        math_hide_scrollbar: /*[[${theme.config.math?.hide_scrollbar == true or theme.config.math?.hide_scrollbar == 'true'}]]*/ false,
-        anchor_auto_update: /*[[${theme.config.anchor?.auto_update}]]*/ false,
-        anchor_click_to_scroll: /*[[${theme.config.anchor?.click_to_scroll}]]*/ false,
-        photofigcaption: /*[[${theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'}]]*/ false,
-        related_post_limit: /*[[${theme.config.post.related_post.limit}]]*/ 6,
-        post_copyright_decode: /*[[${theme.config.post.post_copyright.decode}]]*/ false,
-      });
-      // 文章页面 自定义元数据
-      Object.assign(window.MainApp.attrs, {
-        enable_code_copy: /*[[${#annotations.getOrDefault(post, 'enable_code_copy','true')}]]*/ true,
-      });
-    </script>
+    <script data-theme-script="page-config" id="pageScript" th:inline="none"
+      th:with="
+        tocNumberOverride = ${#annotations.getOrDefault(post, 'toc_number', 'inherit')},
+        tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')},
+        mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')},
+        pageConf = ${ {
+          'enable_h_icon': theme.config.render.enable_h_icon,
+          'toc_number': (tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)),
+          'toc_expand': (tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)),
+          'toc_scroll_percent': theme.config.toc.scroll_percent,
+          'math_enabled': (mathOverride == 'true' ? true : (mathOverride == 'false' ? false : (theme.config.math?.enable != false and theme.config.math?.enable != 'false'))),
+          'math_copy_tex': (theme.config.math?.copy_tex != false and theme.config.math?.copy_tex != 'false'),
+          'math_hide_scrollbar': (theme.config.math?.hide_scrollbar == true or theme.config.math?.hide_scrollbar == 'true'),
+          'anchor_auto_update': theme.config.anchor?.auto_update,
+          'anchor_click_to_scroll': theme.config.anchor?.click_to_scroll,
+          'photofigcaption': (theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'),
+          'related_post_limit': theme.config.post.related_post.limit,
+          'post_copyright_decode': theme.config.post.post_copyright.decode
+        } },
+        pageAttrs = ${ {'enable_code_copy': #annotations.getOrDefault(post, 'enable_code_copy', 'true')} }
+      "
+      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)},data-attrs=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageAttrs)}"
+    >window.MainApp.merge(document.currentScript);</script>
     <th:block th:replace="~{views/body-renderers :: config(${post})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>
   </th:block>

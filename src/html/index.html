@@ -18,28 +18,24 @@
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground) and (#strings.startsWith(aboveBackground, '/') or #strings.startsWith(aboveBackground, 'https://') or #strings.startsWith(aboveBackground, 'http://'))}"
           th:href="${aboveBackground}">
-    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
-      Object.assign(window.MainApp.conf, {
-        //第一屏
-        enable_above: /*[[${aboveEnabled}]]*/ '',
-        above_background: /*[[${aboveBackground}]]*/ '',
-        // 字幕使用统一默认和明确来源
-        enable_subtitle: /*[[${theme.config.index.enable_subtitle != false}]]*/ true,
-        subtitle_effect: /*[[${theme.config.index.subtitle_effect != false}]]*/ true,
-        subtitle_typed_option: /*[[${theme.config.index.subtitle_typed_option}]]*/ null,
-        site_subtitle: /*[[${site.subtitle ?: ''}]]*/ '',
-        typewriter_custom_text: /*[[${theme.config.index.typewriter_custom_text}]]*/ '',
-        // 分页
-        nextUrl: /*[[${posts.nextUrl}]]*/ {},
-        prevUrl: /*[[${posts.prevUrl}]]*/ {},
-        page: /*[[${posts.page}]]*/ {},
-        size: /*[[${posts.size}]]*/ {},
-        total: /*[[${posts.total}]]*/ {},
-        totalPages: /*[[${posts.totalPages}]]*/ {},
-        hasPrevious: /*[[${posts.hasPrevious()}]]*/ {},
-        hasNext: /*[[${posts.hasNext()}]]*/ {},
-      });
-    </script>
+    <script data-theme-script="page-config" id="pageScript" th:inline="none"
+      th:with="pageConf = ${ {
+        'enable_subtitle': (theme.config.index.enable_subtitle != false),
+        'subtitle_effect': (theme.config.index.subtitle_effect != false),
+        'subtitle_typed_option': theme.config.index.subtitle_typed_option,
+        'site_subtitle': (site.subtitle ?: ''),
+        'typewriter_custom_text': theme.config.index.typewriter_custom_text,
+        'nextUrl': posts.nextUrl,
+        'prevUrl': posts.prevUrl,
+        'page': posts.page,
+        'size': posts.size,
+        'total': posts.total,
+        'totalPages': posts.totalPages,
+        'hasPrevious': posts.hasPrevious(),
+        'hasNext': posts.hasNext()
+      } }"
+      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+    >window.MainApp.merge(document.currentScript);</script>
   </th:block>
 
 

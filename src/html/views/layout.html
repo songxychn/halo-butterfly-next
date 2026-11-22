@@ -32,7 +32,6 @@
     th:lang="${uiLanguage}"
     data-color-scheme="light"
     th:classappend="${(asideEnabled and (theme.config.aside.hide == true or theme.config.aside.hide == 'true') ? 'hide-aside' : '') + (asideEnabled and (theme.config.aside.mobile == false or theme.config.aside.mobile == 'false') ? ' aside-mobile-off' : '')}"
-    th:with="isDev = ${true ? #dates.createNow().time : ''} "
   >
   <head>
     <title th:text="${title}"></title>
@@ -74,7 +73,7 @@
     <th:block th:replace="~{views/components::side}"/>
   </div>
 
-  <!-- The rendered body is complete; deferred enhancements can initialize afterwards. -->
+  <!--/* The rendered body is complete; deferred enhancements can initialize afterwards. */-->
   <script data-theme-script="ready" id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
   <script data-theme-script="entry" defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>

@@ -399,7 +399,7 @@
   th:classappend="${(hasOther ? '' : 'full-width ') + (hasDesc ? '' : 'no-desc')}"
 >
   <th:block th:if="${hasImg}">
-    <img th:replace="~{::lazyLoadImg(${coverSrc},${target.spec.title},'cover',true,${'v=' + #dates.format(target.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+    <img th:replace="~{::lazyLoadImg(${coverSrc},${target.spec.title},'cover',true,${param_prefix + 'v=' + #dates.format(target.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
   </th:block>
   <div th:unless="${hasImg}" class="cover"></div>
   <div class="info" th:classappend="${direction == 'next' ? 'text-right' : ''}">
@@ -438,54 +438,46 @@
     th:attr="data-limit=${rpLimit},data-current-post=${post.metadata.name}"
   >
     <template th:each="tag : ${post.tags}" th:attr="data-related-tag=${tag.metadata.name}"
-      th:with="firstPage = ${postFinder.listByTag(1, 100, tag.metadata.name)}">
-      <th:block th:if="${firstPage != null and firstPage.total > 0}">
-      <th:block th:each="pageNumber : ${#numbers.sequence(1, firstPage.totalPages)}"
-        th:with="listed = ${pageNumber == 1 ? firstPage : postFinder.listByTag(pageNumber, 100, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
-        <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
-          <a
-            class="pagination-related"
-            th:href="${item.status.permalink}"
-            th:title="${item.spec.title}"
-            th:attr="data-post-name=${item.metadata.name}"
-            th:with="
-              description = ${#strings.defaultString(item.spec.excerpt.raw, '')},
-              methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
-              methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
-              methodOff = ${ipcMethod == false or ipcMethod == 'false'},
-              useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
-              contentVo = ${methodOff or useDescription or methodOne ? null : postFinder.content(item.metadata.name)},
-              htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
-              stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
-              plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(item.status.excerpt, '')},
-              autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
-              excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
-              hasDesc = ${not #strings.isEmpty(excerptText)},
-              coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(item.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
-              hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable},
-              showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
-            "
-            th:classappend="${hasDesc ? '' : 'no-desc'}"
-          >
-            <th:block th:if="${hasImg}">
-              <img th:replace="~{::lazyLoadImg(${coverSrc},${item.spec.title},'cover',true,${'v=' + #dates.format(item.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
-            </th:block>
-            <div th:unless="${hasImg}" class="cover"></div>
-            <div class="info text-center">
-              <div class="info-1">
-                <div class="info-item-1">
-                  <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
-                  <time th:datetime="${showTime}" th:text="${#dates.format(showTime, datePattern ?: 'yyyy-MM-dd')}"></time>
-                </div>
-                <div class="info-item-2" th:text="${item.spec.title}"></div>
+      th:with="listed = ${postFinder.listByTag(1, 24, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
+      <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
+        <a
+          class="pagination-related"
+          th:href="${item.status.permalink}"
+          th:title="${item.spec.title}"
+          th:attr="data-post-name=${item.metadata.name}"
+          th:with="
+            description = ${#strings.defaultString(item.spec.excerpt?.raw, '')},
+            methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+            methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+            methodOff = ${ipcMethod == false or ipcMethod == 'false'},
+            useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+            plain = ${#strings.defaultString(item.status.excerpt, '')},
+            autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+            excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
+            hasDesc = ${not #strings.isEmpty(excerptText)},
+            coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(item.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
+            hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable},
+            showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
+          "
+          th:classappend="${hasDesc ? '' : 'no-desc'}"
+        >
+          <th:block th:if="${hasImg}">
+            <img th:replace="~{::lazyLoadImg(${coverSrc},${item.spec.title},'cover',true,${param_prefix + 'v=' + #dates.format(item.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+          </th:block>
+          <div th:unless="${hasImg}" class="cover"></div>
+          <div class="info text-center">
+            <div class="info-1">
+              <div class="info-item-1">
+                <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
+                <time th:datetime="${showTime}" th:text="${#dates.format(showTime, datePattern ?: 'yyyy-MM-dd')}"></time>
               </div>
-              <div class="info-2" th:if="${hasDesc}">
-                <div class="info-item-1" th:text="${excerptText}"></div>
-              </div>
+              <div class="info-item-2" th:text="${item.spec.title}"></div>
             </div>
-          </a>
-        </th:block>
-      </th:block>
+            <div class="info-2" th:if="${hasDesc}">
+              <div class="info-item-1" th:text="${excerptText}"></div>
+            </div>
+          </div>
+        </a>
       </th:block>
     </template>
   </div>
@@ -497,21 +489,21 @@
   th:fragment="codeBlockPin"
   th:with="shrinkOverride = ${post != null ? #annotations.getOrDefault(post, 'highlight_shrink', 'inherit') : (singlePage != null ? #annotations.getOrDefault(singlePage, 'highlight_shrink', 'inherit') : 'inherit')}, codeShrink = ${#lists.contains({'expanded', 'collapsed', 'disabled'}, shrinkOverride) ? shrinkOverride : theme.config.render.code_shrink}"
 >
-  <script data-theme-script="code-config" id="codeBlockScript" th:inline="javascript">
-    window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
-    Object.assign(window.MainApp.conf, {
-      enable_code: /*[[${theme.config.render.enable_code}]]*/ true,
-      enable_code_copy: /*[[${theme.config.render.enable_code_copy}]]*/ true,
-      code_shrink: /*[[${codeShrink}]]*/ 'expanded',
-      enable_code_title: /*[[${theme.config.render.enable_code_title}]]*/ true,
-      enable_code_hr: /*[[${theme.config.render.enable_code_hr}]]*/ true,
-      enable_code_line: /*[[${theme.config.render.enable_code_line}]]*/ true,
-      enable_code_mac_style: /*[[${theme.config.render.enable_code_mac_style}]]*/ false,
-      code_height_limit: /*[[${theme.config.render.code_height_limit}]]*/ false,
-      enable_code_word_wrap: /*[[${theme.config.render.enable_code_word_wrap}]]*/ false,
-      enable_code_fullpage: /*[[${theme.config.render.enable_code_fullpage}]]*/ false,
-    });
-  </script>
+  <script data-theme-script="code-config" id="codeBlockScript" th:inline="none"
+    th:with="codeConf = ${ {
+      'enable_code': theme.config.render.enable_code,
+      'enable_code_copy': theme.config.render.enable_code_copy,
+      'code_shrink': codeShrink,
+      'enable_code_title': theme.config.render.enable_code_title,
+      'enable_code_hr': theme.config.render.enable_code_hr,
+      'enable_code_line': theme.config.render.enable_code_line,
+      'enable_code_mac_style': theme.config.render.enable_code_mac_style,
+      'code_height_limit': theme.config.render.code_height_limit,
+      'enable_code_word_wrap': theme.config.render.enable_code_word_wrap,
+      'enable_code_fullpage': theme.config.render.enable_code_fullpage
+    } }"
+    th:attr="data-prism=${assets_link + 'plugins/prism/prism.min.js'},data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(codeConf)}"
+  >window.MainApp.merge(document.currentScript);</script>
   <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/prism/prism.min.css'}">
   <link rel="preload stylesheet" as="style" id="codeLight" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_light + '.css'}">
   <link rel="preload stylesheet" as="style" id="codeDark" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_dark + '.css'}">

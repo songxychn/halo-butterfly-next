@@ -9,22 +9,19 @@
 >
   <!--/* pin */-->
   <th:block th:fragment="pin">
-    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
-      Object.assign(window.MainApp.conf, {
-        //第一屏
-        enable_above: /*[[${aboveEnabled}]]*/ '',
-        above_background: /*[[${aboveBackground}]]*/ '',
-        // 分页
-        nextUrl: /*[[${posts.nextUrl}]]*/ {},
-        prevUrl: /*[[${posts.prevUrl}]]*/ {},
-        page: /*[[${posts.page}]]*/ {},
-        size: /*[[${posts.size}]]*/ {},
-        total: /*[[${posts.total}]]*/ {},
-        totalPages: /*[[${posts.totalPages}]]*/ {},
-        hasPrevious: /*[[${posts.hasPrevious()}]]*/ {},
-        hasNext: /*[[${posts.hasNext()}]]*/ {},
-      });
-    </script>
+    <script data-theme-script="page-config" id="pageScript" th:inline="none"
+      th:with="pageConf = ${ {
+        'nextUrl': posts.nextUrl,
+        'prevUrl': posts.prevUrl,
+        'page': posts.page,
+        'size': posts.size,
+        'total': posts.total,
+        'totalPages': posts.totalPages,
+        'hasPrevious': posts.hasPrevious(),
+        'hasNext': posts.hasNext()
+      } }"
+      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+    >window.MainApp.merge(document.currentScript);</script>
   </th:block>
 
 

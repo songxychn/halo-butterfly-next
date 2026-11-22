@@ -1,4 +1,4 @@
-<!-- Butterfly 5.7.0: Open_Graph.pug / structured_data.pug / site_verification.pug. -->
+<!--/* Open Graph, structured data, and site verification tags. */-->
 <th:block xmlns:th="https://www.thymeleaf.org" th:fragment="verification"
   th:with="verificationItems = ${(theme.config.seo?.site_verification ?: {}).?[#this != null and not #strings.isEmpty(#strings.trim(name)) and not #strings.isEmpty(#strings.trim(content))]}, verificationNames = ${verificationItems.![#strings.trim(name)]}">
   <meta th:each="item, state : ${verificationItems}"

@@ -115,8 +115,8 @@ test('文章和独立页接入继承目录配置，目录关闭不留下空简�
   for (const html of [postHtml, pageHtml]) {
     assert.match(html, /tocNumberOverride == 'false' \? false/);
     assert.match(html, /tocExpandOverride == 'false' \? false/);
-    assert.match(html, /anchor_auto_update:/);
-    assert.match(html, /anchor_click_to_scroll:/);
+    assert.match(html, /'anchor_auto_update':/);
+    assert.match(html, /'anchor_click_to_scroll':/);
   }
   assert.match(pageHtml, /views\/aside::single/);
   const articleAside = fragment(aside, 'article(content, postPage)');

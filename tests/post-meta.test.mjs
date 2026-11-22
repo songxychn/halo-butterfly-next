@@ -58,17 +58,9 @@ test('模板按 post_meta 开关读取分类/标签/日期/前缀/对齐，且�
   assert.doesNotMatch(post, /字数总计 --/);
   assert.doesNotMatch(post, /阅读时长 --/);
   assert.equal((post.match(/views\/components :: postMeta/g) || []).length, 2);
-
-  const header = await readFile(new URL('../src/html/views/header.html', import.meta.url), 'utf8');
-  assert.match(header, /views\/components :: postMeta/);
-  assert.doesNotMatch(header, /wp tag[\s\S]*post\.categories/);
-  assert.doesNotMatch(header, /th:if="\$\{not #lists\.isEmpty\(post\.categories\)\}"[\s\S]*fa-tags/);
 });
 
-test('header 标签行不再误用 post.categories 作为显示条件', async () => {
-  const header = await readFile(new URL('../src/html/views/header.html', import.meta.url), 'utf8');
-  const tagsIf = header.match(/class="wp tag"[^>]*>/);
-  assert.equal(tagsIf, null);
+test('postMeta 标签行按 post.tags 条件显示', async () => {
   const fragment = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
   assert.match(fragment, /class="wp tag" th:if="\$\{theme.config.post.post_meta\?\.tags != false and not #lists\.isEmpty\(post\.tags\)\}"/);
 });

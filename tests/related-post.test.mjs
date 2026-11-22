@@ -179,13 +179,14 @@ test('capRelatedPosts 去重、去掉当前文、截断 limit；空则移除容�
 
 test('文章页插入 relatedPosts；单页不插入；enable 与无标签由 th:if 约束', () => {
   assert.match(postHtml, /views\/components :: relatedPosts/);
-  assert.match(postHtml, /related_post_limit: \/\*\[\[\$\{theme\.config\.post\.related_post\.limit\}\]\]\*\/ 6/);
+  assert.match(postHtml, /'related_post_limit':\s*theme\.config\.post\.related_post\.limit/);
   assert.doesNotMatch(pageHtml, /relatedPosts/);
   assert.doesNotMatch(pageHtml, /related_post/);
   const related = fragment(components, 'relatedPosts', 'th:fragment="codeBlockPin"');
   assert.match(related, /related_post\?\.enable != false/);
   assert.match(related, /not #lists\.isEmpty\(post\.tags\)/);
-  assert.match(related, /postFinder\.listByTag/);
+  assert.match(related, /postFinder\.listByTag\(1, 24, tag\.metadata\.name\)/);
+  assert.doesNotMatch(related, /postFinder\.content\(/);
   assert.match(related, /data-post-name/);
   assert.match(related, /rpUpdated \? .*lastModifyTime/);
   assert.match(related, /th:text="\$\{item\.spec\.title\}"/);
@@ -194,8 +195,6 @@ test('文章页插入 relatedPosts；单页不插入；enable 与无标签由 th
   assert.match(renderJs, /from '\.\.\/core\/related-post\.ts'/);
   assert.match(renderJs, /renderRelatedPosts/);
   assert.match(related, /<template[\s\S]*data-related-tag/);
-  assert.match(related, /firstPage\.totalPages/);
-  assert.match(related, /postFinder\.listByTag\(pageNumber, 100, tag\.metadata\.name\)/);
 });
 
 test('窄屏不横向溢出；三列到单列网格', () => {

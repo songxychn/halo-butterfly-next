@@ -10,7 +10,6 @@ import autoprefixer from 'autoprefixer';
 import JSZip from 'jszip';
 import { parse } from 'yaml';
 import { configureResourceTags } from './resource-templates.mjs';
-import { safeInlineData } from './safe-inline-data.mjs';
 import { appendIconSubsets } from './fontawesome-subsets.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
@@ -49,10 +48,9 @@ async function build() {
   if (pkg.version !== theme.spec.version) throw new Error('package.json 和 theme.yaml 版本不一致');
   await rm(path.join(root, '.build'), { recursive: true, force: true });
   await mkdir(assets, { recursive: true });
-  // Preserve natural-template syntax; protect dynamic script data before packaging. No HTML/JS minifier.
   await cp(path.join(root, 'src/html'), stage, { recursive: true });
   for (const file of await filesUnder(stage)) {
-    if (file.endsWith('.html')) await writeFile(file, safeInlineData(configureResourceTags(await readFile(file, 'utf8'))));
+    if (file.endsWith('.html')) await writeFile(file, configureResourceTags(await readFile(file, 'utf8')));
   }
   // Keep startup synchronous and inline so color/aside restoration precedes paint.
   const startup = await bundle(path.join(root, 'src/js/bootstrap.ts'), assets, false);
