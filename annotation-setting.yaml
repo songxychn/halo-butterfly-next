@@ -61,32 +61,32 @@ spec:
       name: copyright_author
       label: 版权作者
       value: ""
-      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+      help: 留空继承文章作者或站点名称。
     - $formkit: text
       name: copyright_author_href
       label: 版权作者链接
       value: ""
-      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+      help: 留空继承全局作者链接；仅允许 HTTP(S) 或站内根路径。
     - $formkit: text
       name: copyright_url
       label: 原文链接
       value: ""
-      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+      help: 转载或指定原文地址时填写，仅允许 HTTP(S) 或站内根路径；留空使用本文链接。
     - $formkit: textarea
       name: copyright_info
       label: 版权补充声明
       value: ""
-      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+      help: 留空使用默认版权声明模板；按纯文本显示。
     - $formkit: text
       name: copyright_license
       label: 本篇许可证名称
       value: ""
-      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+      help: 留空继承全局许可证名称（如 CC BY-NC-SA 4.0）。
     - $formkit: text
       name: copyright_license_url
       label: 本篇许可证链接
       value: ""
-      help: 留空继承全局或当前文章；链接仅允许 HTTP(S) 或站内根路径，声明按纯文本显示。
+      help: 留空继承全局许可证链接；仅允许 HTTP(S) 或站内根路径。
     - $formkit: select
       name: language
       label: 正文语言
@@ -170,9 +170,11 @@ spec:
     - $formkit: "radio"
       name: "enable_code_copy"
       label: "启用代码复制"
-      help: "本篇文章代码块复制按钮"
-      value: "true"
+      help: "单篇覆盖代码块复制按钮开关。"
+      value: "inherit"
       options:
+        - label: 跟随全局
+          value: "inherit"
         - label: 启用
           value: "true"
         - label: 禁用
@@ -365,6 +367,18 @@ spec:
         - label: 开启
           value: "true"
         - label: 关闭
+          value: "false"
+    - $formkit: "radio"
+      name: "enable_code_copy"
+      label: "启用代码复制"
+      help: "单页覆盖代码块复制按钮开关。"
+      value: "inherit"
+      options:
+        - label: 跟随全局
+          value: "inherit"
+        - label: 启用
+          value: "true"
+        - label: 禁用
           value: "false"
     - $formkit: "radio"
       name: "toc"

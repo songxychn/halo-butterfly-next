@@ -1,4 +1,4 @@
-<th:block th:with="archivePath=${#ctx.getExchange().getRequest().getRequestPath()}, archiveSegments=${#strings.arraySplit(archivePath, '/')}, archiveDated=${(archivePath matches '/archives/[0-9]{4}(/.*)?')}, archiveMonth=${archiveDated and #arrays.length(archiveSegments) > 2 and (archiveSegments[2] matches '[0-9]{1,2}')}, archiveTitle=${archiveDated ? (archiveSegments[1] + (archiveMonth ? '-' + archiveSegments[2] : '')) : (#strings.isEmpty(#strings.trim(theme.config.archives?.title)) ? #messages.msg('ui.archives') : theme.config.archives.title)}">
+<th:block th:with="archivePath=${#ctx.getExchange().getRequest().getRequestPath()}, archiveSegments=${#strings.arraySplit(archivePath, '/')}, archiveDated=${(archivePath matches '/archives/[0-9]{4}(/.*)?')}, archiveMonth=${archiveDated and #arrays.length(archiveSegments) > 2 and (archiveSegments[2] matches '[0-9]{1,2}')}, archiveTitle=${archiveDated ? (archiveSegments[1] + (archiveMonth ? '-' + archiveSegments[2] : '')) : (#strings.isEmpty(#strings.trim(theme.config.pages?.archives?.title)) ? #messages.msg('ui.archives') : theme.config.pages?.archives.title)}">
 <layout
   th:replace="~{views/layout :: layout (
   page = 'archives',
@@ -12,7 +12,7 @@
   <th:block th:fragment="pin">
     <script data-theme-script="page-config" id="pageScript" th:inline="none"
       th:with="pageConf = ${ {
-        'archive_title': (theme.config.archives?.title ?: ''),
+        'archive_title': (theme.config.pages?.archives?.title ?: ''),
         'archive_dated': archiveDated,
         'nextUrl': archives.nextUrl,
         'prevUrl': archives.prevUrl,
@@ -55,17 +55,17 @@
 
         <ul class="axis-list">
           <th:block th:each="archive : ${archives.items}">
-            <li class="axis-list--item year" th:if="${theme.config.archives?.year != false}">
+            <li class="axis-list--item year" th:if="${theme.config.pages?.archives?.year != false}">
               <span class="name" th:text="${archive.year}"></span>
             </li>
 
             <th:block th:each="months : ${archive.months}">
-              <li class="axis-list--item month" th:if="${theme.config.archives?.month == true}"><span class="name" th:text="|${archive.year}-${months.month}|"></span></li>
+              <li class="axis-list--item month" th:if="${theme.config.pages?.archives?.month == true}"><span class="name" th:text="|${archive.year}-${months.month}|"></span></li>
               <li class="axis-list--item "
                   th:each="post : ${months.posts}"
                   th:with="
-                    coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
-                    showCover = ${theme.config.cover.archives_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+                    coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.home?.cover.default_cover)},
+                    showCover = ${theme.config.home?.cover.archives_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.interaction?.loading.img.random_enable)}
                   "
                   th:classappend="${showCover ? '' : ' no-cover'}">
 

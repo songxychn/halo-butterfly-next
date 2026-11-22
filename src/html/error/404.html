@@ -19,8 +19,8 @@
   <th:block th:fragment="main">
     <section id="error-content" class="error-card card" tabindex="-1"
       th:with="
-        errorConfig = ${theme.config.error404},
-        siteBackground = ${#strings.isEmpty(#strings.trim(theme.config.index.above_background)) ? #theme.assets('/images/above.svg') : theme.config.index.above_background},
+        errorConfig = ${theme.config.general?.error404},
+        siteBackground = ${#strings.isEmpty(#strings.trim(theme.config.home.above_background)) ? #theme.assets('/images/above.svg') : theme.config.home.above_background},
         errorBackground = ${errorConfig == null or #strings.isEmpty(#strings.trim(errorConfig.background)) ? siteBackground : #strings.trim(errorConfig.background)},
         errorSubtitle = ${errorConfig == null or #strings.isEmpty(#strings.trim(errorConfig.subtitle)) ? #messages.msg('ui.notFound') : errorConfig.subtitle}
       ">

@@ -6,20 +6,20 @@
       abcOverride = ${#annotations.getOrDefault(subject, 'abcjs', 'inherit')},
       bodyRenderers = ${ {
         'mermaid': {
-          'enable': (mermaidOverride == 'true' ? true : (mermaidOverride == 'false' ? false : theme.config.mermaid?.enable == true)),
-          'code_write': (theme.config.mermaid?.code_write == true),
-          'theme': {'light': (theme.config.mermaid?.theme?.light ?: 'default'), 'dark': (theme.config.mermaid?.theme?.dark ?: 'dark')},
-          'open_in_new_tab': (theme.config.mermaid?.open_in_new_tab != false and theme.config.mermaid?.open_in_new_tab != 'false'),
-          'zoom_pan': (theme.config.mermaid?.zoom_pan != false and theme.config.mermaid?.zoom_pan != 'false')
+          'enable': (mermaidOverride == 'true' ? true : (mermaidOverride == 'false' ? false : theme.config.code?.mermaid?.enable == true)),
+          'code_write': (theme.config.code?.mermaid?.code_write == true),
+          'theme': {'light': (theme.config.code?.mermaid?.theme?.light ?: 'default'), 'dark': (theme.config.code?.mermaid?.theme?.dark ?: 'dark')},
+          'open_in_new_tab': (theme.config.code?.mermaid?.open_in_new_tab != false and theme.config.code?.mermaid?.open_in_new_tab != 'false'),
+          'zoom_pan': (theme.config.code?.mermaid?.zoom_pan != false and theme.config.code?.mermaid?.zoom_pan != 'false')
         },
         'chartjs': {
-          'enable': (chartOverride == 'true' ? true : (chartOverride == 'false' ? false : theme.config.chartjs?.enable == true)),
-          'fontColor': theme.config.chartjs?.fontColor,
-          'borderColor': theme.config.chartjs?.borderColor,
-          'scale_ticks_backdropColor': theme.config.chartjs?.scale_ticks_backdropColor
+          'enable': (chartOverride == 'true' ? true : (chartOverride == 'false' ? false : theme.config.code?.chartjs?.enable == true)),
+          'fontColor': theme.config.code?.chartjs?.fontColor,
+          'borderColor': theme.config.code?.chartjs?.borderColor,
+          'scale_ticks_backdropColor': theme.config.code?.chartjs?.scale_ticks_backdropColor
         },
         'abcjs': {
-          'enable': (abcOverride == 'true' ? true : (abcOverride == 'false' ? false : (theme.config.abcjs?.enable == true and theme.config.abcjs?.per_page != false and theme.config.abcjs?.per_page != 'false')))
+          'enable': (abcOverride == 'true' ? true : (abcOverride == 'false' ? false : (theme.config.code?.abcjs?.enable == true and theme.config.code?.abcjs?.per_page != false and theme.config.code?.abcjs?.per_page != 'false')))
         }
       } }
     "

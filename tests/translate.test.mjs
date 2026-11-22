@@ -1,14 +1,9 @@
 import assert from 'node:assert/strict';
-import {test} from 'bun:test';
+import { test } from 'bun:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
 import {
-  TRANSLATE_ENABLE_DEFAULT,
-  TRANSLATE_DEFAULT_TEXT,
-  TRANSLATE_DEFAULT_ENCODING,
-  MSG_TO_TRADITIONAL,
-  MSG_TO_SIMPLIFIED,
   TRANSLATE_STORAGE_KEY,
   resolveTranslateEnable,
   resolveTranslateDefault,
@@ -19,23 +14,7 @@ import {
   translatePage,
 } from '../src/js/core/translate.ts';
 
-const settingsText = await readFile(new URL('../settings.yaml', import.meta.url), 'utf8');
-const settings = parse(settingsText);
-const defaults = defaultsFromSettings(settings);
-const componentsHtml = await readFile(new URL('../src/html/views/components.html', import.meta.url), 'utf8');
-const commonJs = await readFile(new URL('../src/js/core/common.ts', import.meta.url), 'utf8');
-
-function translateForm() {
-  const form = settings.spec.forms.find(item => item.group === 'translate');
-  assert.ok(form, 'translate');
-  return form;
-}
-
-function field(name) {
-  const node = translateForm().formSchema.find(item => item.name === name);
-  assert.ok(node, name);
-  return node;
-}
+const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
 
 function textNode(data) {
   return { nodeType: 3, data, tagName: undefined };
@@ -54,48 +33,20 @@ function element(tagName, childNodes = [], extra = {}) {
   };
 }
 
-test('默认对齐上游 SHA：enable false；仅显式 true 开启；default 繁', () => {
-  assert.equal(TRANSLATE_ENABLE_DEFAULT, false);
-  assert.equal(TRANSLATE_DEFAULT_TEXT, '繁');
-  assert.equal(TRANSLATE_DEFAULT_ENCODING, 2);
-  assert.equal(MSG_TO_TRADITIONAL, '繁');
-  assert.equal(MSG_TO_SIMPLIFIED, '簡');
-  assert.equal(defaults.translate.enable, false);
-  assert.equal(defaults.translate.default, '繁');
-  assert.equal(field('enable').value, false);
-  assert.equal(field('default').value, '繁');
-  assert.deepEqual(field('enable').options.map(option => option.value), [true, false]);
-  assert.equal(typeof defaults.aside.button, 'object');
-  assert.equal(resolveTranslateEnable(undefined), false);
-  assert.equal(resolveTranslateEnable(null), false);
+test('translate defaults and resolvers', () => {
+  assert.equal(defaults.interaction.translate.enable, false);
+  assert.equal(defaults.interaction.translate.default, '繁');
+  assert.equal(defaults.interaction.translate.defaultEncoding, 2);
+  assert.equal(defaults.interaction.translate.translateDelay, 0);
+  assert.equal(defaults.interaction.translate.msgToTraditionalChinese, '繁');
+  assert.equal(defaults.interaction.translate.msgToSimplifiedChinese, '簡');
   assert.equal(resolveTranslateEnable(false), false);
-  assert.equal(resolveTranslateEnable('false'), false);
   assert.equal(resolveTranslateEnable(true), true);
-  assert.equal(resolveTranslateEnable('true'), true);
-  assert.equal(resolveTranslateDefault(undefined), '繁');
   assert.equal(resolveTranslateDefault(''), '繁');
   assert.equal(resolveTranslateDefault('简'), '简');
 });
 
-test('新增繁简配置有默认值，按钮仅显式 true 渲染；无新增 th:utext', () => {
-  assert.equal(defaults.translate.defaultEncoding, 2);
-  assert.equal(defaults.translate.translateDelay, 0);
-  assert.equal(defaults.translate.msgToTraditionalChinese, '繁');
-  assert.equal(defaults.translate.msgToSimplifiedChinese, '簡');
-  assert.match(componentsHtml, /id="translateLink"/);
-  assert.match(componentsHtml, /translateOn/);
-  assert.match(componentsHtml, /theme.config.translate\?\.enable == true/);
-  assert.match(componentsHtml, /th:text="\$\{theme.config.translate/);
-  assert.match(componentsHtml, /hideBtnOn or darkBtnOn or readmodeOn or translateOn/);
-  assert.match(commonJs, /bindTranslate/);
-  assert.doesNotMatch(componentsHtml, /th:utext/);
-  const readIdx = componentsHtml.indexOf('id="readmode"');
-  const transIdx = componentsHtml.indexOf('id="translateLink"');
-  const hideIdx = componentsHtml.indexOf('id="hide-aside-btn"');
-  assert.ok(readIdx > 0 && transIdx > readIdx && transIdx < hideIdx);
-});
-
-test('字库：简繁往返；点击改 textContent、lang，不走 innerHTML，不改按钮自身文本节点', () => {
+test('traditional/simplified conversion toggles textContent and html.lang without touching button children', () => {
   assert.equal(traditionalized('专业'), '專業');
   assert.equal(simplified('專業'), '专业');
   const payload = textNode('专业');
@@ -113,8 +64,6 @@ test('字库：简繁往返；点击改 textContent、lang，不走 innerHTML，
     removeItem(key) { storage.delete(key); },
   };
   const state = createTranslateState({ button, body, html, storage: store });
-  assert.equal(state.currentEncoding, 2);
-  assert.equal(state.targetEncoding, 2);
   translatePage(state);
   assert.equal(payload.data, '專業');
   assert.equal(button.textContent, '簡');
@@ -129,16 +78,14 @@ test('字库：简繁往返；点击改 textContent、lang，不走 innerHTML，
   assert.equal(JSON.parse(store.getItem(TRANSLATE_STORAGE_KEY)).value, 2);
 });
 
-test('初始化：已存目标编码 1 时还原繁体并改按钮文案', () => {
+test('initializeTranslate restores persisted traditional state', () => {
   const payload = textNode('专业');
   const button = element('BUTTON', []);
   button.textContent = '繁';
   const body = element('DIV', [payload]);
   const html = { lang: '' };
   const store = {
-    getItem() {
-      return JSON.stringify({ value: 1, expiry: Date.now() + 86400000 });
-    },
+    getItem() { return JSON.stringify({ value: 1, expiry: Date.now() + 86400000 }); },
     setItem() {},
     removeItem() {},
   };

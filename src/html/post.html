@@ -19,22 +19,21 @@
         tocExpandOverride = ${#annotations.getOrDefault(post, 'toc_expand', 'inherit')},
         mathOverride = ${#annotations.getOrDefault(post, 'katex', 'inherit')},
         pageConf = ${ {
-          'enable_h_icon': theme.config.render.enable_h_icon,
-          'toc_number': (tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.toc.number)),
-          'toc_expand': (tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.toc.expand)),
-          'toc_scroll_percent': theme.config.toc.scroll_percent,
-          'math_enabled': (mathOverride == 'true' ? true : (mathOverride == 'false' ? false : (theme.config.math?.enable != false and theme.config.math?.enable != 'false'))),
-          'math_copy_tex': (theme.config.math?.copy_tex != false and theme.config.math?.copy_tex != 'false'),
-          'math_hide_scrollbar': (theme.config.math?.hide_scrollbar == true or theme.config.math?.hide_scrollbar == 'true'),
-          'anchor_auto_update': theme.config.anchor?.auto_update,
-          'anchor_click_to_scroll': theme.config.anchor?.click_to_scroll,
+          'enable_h_icon': theme.config.code.enable_h_icon,
+          'toc_number': (tocNumberOverride == 'true' ? true : (tocNumberOverride == 'false' ? false : theme.config.post?.toc.number)),
+          'toc_expand': (tocExpandOverride == 'true' ? true : (tocExpandOverride == 'false' ? false : theme.config.post?.toc.expand)),
+          'toc_scroll_percent': theme.config.post?.toc.scroll_percent,
+          'math_enabled': (mathOverride == 'true' ? true : (mathOverride == 'false' ? false : (theme.config.code?.math?.enable != false and theme.config.code?.math?.enable != 'false'))),
+          'math_copy_tex': (theme.config.code?.math?.copy_tex != false and theme.config.code?.math?.copy_tex != 'false'),
+          'math_hide_scrollbar': (theme.config.code?.math?.hide_scrollbar == true or theme.config.code?.math?.hide_scrollbar == 'true'),
+          'anchor_auto_update': theme.config.post?.anchor?.auto_update,
+          'anchor_click_to_scroll': theme.config.post?.anchor?.click_to_scroll,
           'photofigcaption': (theme.config.post?.photofigcaption == true or theme.config.post?.photofigcaption == 'true'),
           'related_post_limit': theme.config.post.related_post.limit,
           'post_copyright_decode': theme.config.post.post_copyright.decode
-        } },
-        pageAttrs = ${ {'enable_code_copy': #annotations.getOrDefault(post, 'enable_code_copy', 'true')} }
+        } }
       "
-      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)},data-attrs=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageAttrs)}"
+      th:attr="data-conf=${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
     >window.MainApp.merge(document.currentScript);</script>
     <th:block th:replace="~{views/body-renderers :: config(${post})}"/>
     <th:block th:replace="~{views/components :: codeBlockPin}"/>
@@ -68,7 +67,7 @@
         <th:block th:replace="~{views/components :: postMeta}"/>
       </div>
       <article th:lang="${contentLanguage}" class="render"
-        th:attr="data-copy-enabled=${theme.config.copy?.enable != false and theme.config.copy?.enable != 'false'},data-copy-copyright=${theme.config.copy?.copyright?.enable == true or theme.config.copy?.copyright?.enable == 'true'},data-copy-limit=${theme.config.copy?.copyright?.limit_count != null ? theme.config.copy.copyright.limit_count : 150},data-copy-author=${post.owner?.displayName ?: site.title},data-copy-url=${canonical ?: post.status.permalink},data-copy-site=${site.title},data-copy-license=${theme.config.post.post_copyright?.license ?: 'CC BY-NC-SA 4.0'}">
+        th:attr="data-copy-enabled=${theme.config.post?.copy?.enable != false and theme.config.post?.copy?.enable != 'false'},data-copy-copyright=${theme.config.post?.copy?.copyright?.enable == true or theme.config.post?.copy?.copyright?.enable == 'true'},data-copy-limit=${theme.config.post?.copy?.copyright?.limit_count != null ? theme.config.post?.copy.copyright.limit_count : 150},data-copy-author=${post.owner?.displayName ?: site.title},data-copy-url=${canonical ?: post.status.permalink},data-copy-site=${site.title},data-copy-license=${theme.config.post.post_copyright?.license ?: 'CC BY-NC-SA 4.0'}">
         <th:block th:replace="~{views/components :: noticeOutdate('top')}"/>
         <th:block th:utext="${post.content.content}"/>
         <th:block th:replace="~{views/components :: noticeOutdate('bottom')}"/>

@@ -54,13 +54,13 @@ test('原版 2.0.5/2.0.7 迁移补齐兼容开关，显式 false 不被默认值
   for (const from of ['2.0.5', '2.0.7']) {
     const index = from === '2.0.5' ? { typewriter: '甲 &+& 乙' } : { typewriter_custom_text: '甲|&|乙' };
     const result = migrateConfig({ index }, from, defaults);
-    assert.equal(result.config.index.enable_subtitle, true);
-    assert.equal(result.config.index.subtitle_effect, true);
-    assert.equal(result.config.index.subtitle_typed_option, '');
-    assert.equal(result.config.index.typewriter_custom_text, '甲|&|乙');
+    assert.equal(result.config.home.enable_subtitle, true);
+    assert.equal(result.config.home.subtitle_effect, true);
+    assert.equal(result.config.home.subtitle_typed_option, '');
+    assert.equal(result.config.home.typewriter_custom_text, '甲|&|乙');
     const disabled = migrateConfig({ index: { enable_subtitle: false, subtitle_effect: false } }, from, defaults);
-    assert.equal(disabled.config.index.enable_subtitle, false);
-    assert.equal(disabled.config.index.subtitle_effect, false);
+    assert.equal(disabled.config.home.enable_subtitle, false);
+    assert.equal(disabled.config.home.subtitle_effect, false);
   }
 });
 

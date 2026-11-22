@@ -6,7 +6,7 @@ import {defaultsFromSettings} from '../scripts/config-migration.mjs';
 import {resolveMode, resolveHourBound, nightWindow, isNightHour, resolveInitialColorScheme, nextColorBoundary, shouldShowDarkmodeButton, toggleColorScheme} from '../src/js/core/darkmode.ts';
 const defaults=defaultsFromSettings(parse(await readFile('settings.yaml','utf8')));
 test('one policy defaults to system and only one visibility setting remains',()=>{
- assert.equal(defaults.style.mode,'system');assert.deepEqual(defaults.darkmode,{button:true,night_start:18,night_end:6});
+ assert.equal(defaults.appearance.mode,'system');assert.deepEqual(defaults.appearance.darkmode,{button:true,night_start:18,night_end:6});
  assert.equal(shouldShowDarkmodeButton(undefined,undefined),true);
  for(const mode of ['light','dark'])assert.equal(shouldShowDarkmodeButton(true,mode),false);
  assert.equal(shouldShowDarkmodeButton(false,'system'),false);

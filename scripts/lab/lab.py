@@ -516,16 +516,29 @@ def seed(client, reference=True):
     config_path = f'/apis/api.console.halo.run/v1alpha1/themes/{THEME}/json-config'
     for _ in range(30):
         config = client.api(config_path)
-        if config and config.get('index'):
+        if config and config.get('home'):
             break
         time.sleep(1)
     else:
         raise RuntimeError('Theme config reconciler did not become ready')
-    patches = {'base': {'metadata_name': owner}, 'index': {'above_background': CONTENT['images']['home'], 'typewriter_custom_text': '', 'subtitle_source': 'local'}, 'cover': {'default_cover': CONTENT['images']['default']}, 'style': {'mode': 'system'}, 'aside': {'notice': '共用合成内容；验收结果以证据记录为准。', 'social': [], 'button': {'name': '关于对照实验室', 'link': '/about-preview/'}}}
-    for group, image in [('archives', 'archive'), ('tags', 'tag'), ('categories', 'category')]:
-        patches[group] = {'above_background': CONTENT['images'][image]}
-    for group, patch in patches.items():
-        config.setdefault(group, {}).update(patch)
+    patches = {
+        'general': {'metadata_name': owner},
+        'home': {'above_background': CONTENT['images']['home'], 'typewriter_custom_text': '', 'cover': {'default_cover': CONTENT['images']['default']}},
+        'appearance': {'mode': 'system'},
+        'aside': {'notice': '共用合成内容；验收结果以证据记录为准。', 'social': [], 'button': {'name': '关于对照实验室', 'link': '/about-preview/'}},
+        'pages': {
+            'archives': {'above_background': CONTENT['images']['archive']},
+            'tags': {'above_background': CONTENT['images']['tag']},
+            'categories': {'above_background': CONTENT['images']['category']},
+        },
+    }
+    def deep_update(target, src):
+        for k, v in src.items():
+            if isinstance(v, dict) and isinstance(target.get(k), dict):
+                deep_update(target[k], v)
+            else:
+                target[k] = v
+    deep_update(config, patches)
     client.api(config_path, 'PUT', config)
     validate_content(client, reference=reference)
     validate_menu(client)

@@ -4,11 +4,11 @@
      uiLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh'}, #locale.language) ? #locale.toLanguageTag() : 'en'},
      contentLanguage = ${page == 'post' ? #annotations.getOrDefault(post, 'language', '') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'language', '') : '')},
      contentLanguage = ${#lists.contains({'en', 'ja', 'ko', 'zh-CN', 'zh-HK', 'zh-TW'}, contentLanguage) ? contentLanguage : uiLanguage},
-     coverCandidates = ${theme.config.cover?.default_cover_list == null ? {} : theme.config.cover.default_cover_list.?[#this != null and not #strings.isEmpty(#strings.trim(url))]},
-     topImgConfig = ${theme.config[(page == 'category' or page == 'categories') ? 'categories' : ((page == 'tag' or page == 'tags') ? 'tags' : (page == 'archives' ? 'archives' : (page == 'post' ? 'post' : (page == 'single' ? 'single' : (page == 'index' ? 'index' : 'image')))))]},
+     coverCandidates = ${theme.config.home?.cover?.default_cover_list == null ? {} : theme.config.home?.cover.default_cover_list.?[#this != null and not #strings.isEmpty(#strings.trim(url))]},
+     topImgConfig = ${page == 'index' ? theme.config.home : (page == 'post' ? theme.config.post : (page == 'single' ? theme.config.pages?.single : (page == 'archives' ? theme.config.pages?.archives : ((page == 'category' or page == 'categories') ? theme.config.pages?.categories : ((page == 'tag' or page == 'tags') ? theme.config.pages?.tags : theme.config.home?.image)))))},
      topImgOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'top_img_enable', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'top_img_enable', 'inherit') : 'inherit')},
-     aboveEnabled = ${theme.config.image?.disable_top_img != true and theme.config.image?.disable_top_img != 'true' and (topImgOverride == 'true' or (topImgOverride != 'false' and ((page == 'links' or page == 'photos' or page == 'moments') ? (theme.config.image?.other_pages_above != false and theme.config.image?.other_pages_above != 'false') : (topImgConfig?.enable_above != false and topImgConfig?.enable_above != 'false'))))},
-     defaultTopImg = ${theme.config.image?.default_top_img ?: ''},
+     aboveEnabled = ${theme.config.home?.image?.disable_top_img != true and theme.config.home?.image?.disable_top_img != 'true' and (topImgOverride == 'true' or (topImgOverride != 'false' and ((page == 'links' or page == 'photos' or page == 'moments') ? (theme.config.home?.image?.other_pages_above != false and theme.config.home?.image?.other_pages_above != 'false') : (topImgConfig?.enable_above != false and topImgConfig?.enable_above != 'false'))))},
+     defaultTopImg = ${theme.config.home?.image?.default_top_img ?: ''},
      nativeTopImg = ${page == 'post' ? post.spec.cover : (page == 'single' ? singlePage.spec.cover : (page == 'category' ? category.spec.cover : (page == 'tag' ? tag.spec.cover : '')))},
      pageTopImg = ${(page == 'post' or page == 'single' or (page != 'index' and page != 'archives' and page != 'category' and page != 'categories' and page != 'tag' and page != 'tags')) ? '' : (topImgConfig?.above_background ?: '')},
      aboveBackground = ${not #strings.isEmpty(nativeTopImg) ? nativeTopImg : (not #strings.isEmpty(pageTopImg) ? pageTopImg : defaultTopImg)},
@@ -16,14 +16,14 @@
      asidePageVisible = ${(page != 'archives' or asideDisplay?.archive != false) and ((page != 'tag' and page != 'tags') or asideDisplay?.tag != false) and ((page != 'category' and page != 'categories') or asideDisplay?.category != false)},
      asideOverride = ${page == 'post' ? #annotations.getOrDefault(post, 'aside', 'inherit') : (page == 'single' ? #annotations.getOrDefault(singlePage, 'aside', 'inherit') : 'inherit')},
      asideEnabled = ${asideOverride == 'true' or (asideOverride != 'false' and theme.config.aside.enable != false and theme.config.aside.enable != 'false' and asidePageVisible)},
-     datePatternRaw = ${theme.config.base?.date_format ?: ''},
+     datePatternRaw = ${theme.config.general?.date_format ?: ''},
      datePattern = ${#strings.length(datePatternRaw) <= 80 and (datePatternRaw matches '(?!.*XXXX)(yyyy|yy|MMMM|MMM|MM|M|dd|d|EEEE|EEE|HH|H|hh|h|mm|m|ss|s|a|XXX|Z|[-/ :.,年月日])+') ? datePatternRaw : ''},
      canonicalBase = ${#strings.endsWith(site.url, '/') ? #strings.substring(site.url, 0, #strings.length(site.url) - 1) : #strings.toString(site.url)},
      canonicalOrigin = ${#strings.substringBefore(canonicalBase, '://') + '://' + #strings.substringBefore(#strings.substringAfter(canonicalBase + '/', '://'), '/')},
      canonicalPath = ${page == 'post' ? post.status.permalink : (page == 'single' ? singlePage.status.permalink : #ctx.getExchange().getRequest().getRequestPath())},
      canonical = ${#strings.startsWith(canonicalPath, 'http://') or #strings.startsWith(canonicalPath, 'https://') ? canonicalPath : canonicalOrigin + canonicalPath},
      assets_link = ${#theme.assets('/') + '/'},
-     param_prefix = ${#strings.containsIgnoreCase(theme.config.loading.img.random_link,'?') ? '&' : '?'}
+     param_prefix = ${#strings.containsIgnoreCase(theme.config.interaction?.loading.img.random_link,'?') ? '&' : '?'}
   "
   th:fragment="layout (page,title,pin,header,main)"
 >
@@ -50,8 +50,8 @@
     <th:block th:replace="~{views/inject :: head}"/>
   </head>
 
-  <body th:classappend="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading?.mode == 'animation' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.base.metadata_name) ? null : contributorFinder.getContributor(theme.config.base.metadata_name)}">
-  <th:block th:if="${theme.config.loading?.enable != false and theme.config.loading?.enable != 'false' and theme.config.loading?.mode == 'animation'}" th:switch="${theme.config.loading?.type}">
+  <body th:classappend="${theme.config.interaction?.loading?.enable != false and theme.config.interaction?.loading?.enable != 'false' and theme.config.interaction?.loading?.mode == 'animation' ? 'loading' : ''}" th:with="stats = ${siteStatsFinder.getStats()},contributor = ${#strings.isEmpty(theme.config.general.metadata_name) ? null : contributorFinder.getContributor(theme.config.general.metadata_name)}">
+  <th:block th:if="${theme.config.interaction?.loading?.enable != false and theme.config.interaction?.loading?.enable != 'false' and theme.config.interaction?.loading?.mode == 'animation'}" th:switch="${theme.config.interaction?.loading?.type}">
     <script data-theme-script="loading" th:case="'circle'">/* @theme-loading-circle */</script>
     <script data-theme-script="loading" th:case="'cross_line'">/* @theme-loading-cross_line */</script>
     <script data-theme-script="loading" th:case="'dot'">/* @theme-loading-dot */</script>
@@ -62,7 +62,7 @@
   <div
     id="Butterfly"
     th:class="${page}"
-    th:classappend="${theme.config.mask?.header != false and theme.config.mask?.header != 'false'} ? ' mask-header'"
+    th:classappend="${theme.config.appearance?.mask?.header != false and theme.config.appearance?.mask?.header != 'false'} ? ' mask-header'"
   >
     <th:block th:replace="${header}"></th:block>
 
