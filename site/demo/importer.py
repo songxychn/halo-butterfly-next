@@ -157,20 +157,19 @@ def import_public(runtime, bundle, data_root, public_url):
     patch = copy.deepcopy(profile['settings'])
     for binding in profile['bindings']:
         parts = binding['path'].split('.')
-        target_url = resolve_url(binding['target'])
         if binding['target']['type'] == 'manifest':
-            value = [{'title': x['label'], 'url': resolve_url(x['target'])} for x in manifest['footer'] if x['enabled']]
-        elif binding.get('operation') == 'append-link':
-            cur = patch
-            for p in parts[:-1]:
-                cur = cur.setdefault(p, {})
-            value = cur.get(parts[-1], '') + f' <a href="{target_url}">{binding["label"]}</a>'
-        elif binding.get('operation') == 'button':
-            value = {'name': binding['label'], 'link': target_url}
-        elif binding['path'] == 'aside.button':
-            value = {'name': binding['label'], 'link': target_url}
+            value = [{'title': x['label'], 'url': resolve_url(x['target'])} for x in manifest[binding['target']['key']] if x['enabled']]
         else:
-            value = target_url
+            target_url = resolve_url(binding['target'])
+            if binding.get('operation') == 'append-link':
+                cur = patch
+                for p in parts[:-1]:
+                    cur = cur.setdefault(p, {})
+                value = cur.get(parts[-1], '') + f' <a href="{target_url}">{binding["label"]}</a>'
+            elif binding.get('operation') == 'button' or binding['path'] == 'aside.button':
+                value = {'name': binding['label'], 'link': target_url}
+            else:
+                value = target_url
         cur = patch
         for p in parts[:-1]:
             cur = cur.setdefault(p, {})

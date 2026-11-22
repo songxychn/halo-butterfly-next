@@ -38,7 +38,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
-          path: ${{ runner.temp }}/h
           persist-credentials: false
       - uses: oven-sh/setup-bun@v2
         with:
@@ -48,21 +47,17 @@ jobs:
           distribution: temurin
           java-version: '21'
       - name: Verify and build theme
-        working-directory: ${{ runner.temp }}/h
         run: |
           bun install --frozen-lockfile --ignore-scripts
           bun run verify
       - name: Install Playwright browsers
-        working-directory: ${{ runner.temp }}/h
         run: |
           bun scripts/browser/install.mjs
           bun .runtime/browser-matrix/deps/node_modules/playwright/cli.js install-deps chromium firefox webkit
       - name: Run Halo browser regression
-        working-directory: ${{ runner.temp }}/h
         run: python3 scripts/ci/linux-halo/run.py --source . --source-sha "$(git rev-parse HEAD)"
       - name: Stop lab service
         if: always()
-        working-directory: ${{ runner.temp }}/h
         run: python3 scripts/ci/linux-halo/run.py --cleanup
       - uses: actions/upload-artifact@v4
         if: always()
