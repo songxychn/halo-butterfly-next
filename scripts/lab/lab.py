@@ -572,7 +572,7 @@ def start(halo_only=False):
             continue
         if name == 'halo':
             identity = str(RUNTIME / 'halo' / HALO_JAR_NAME)
-            command = ['java', '-Xms128m', '-Xmx512m', '-Duser.timezone=' + VERSIONS['timezone'], '-jar', identity, '--server.address=127.0.0.1', '--server.port=' + str(PORTS[name]), '--halo.work-dir=' + str(RUNTIME / 'halo/data'), '--halo.external-url=' + BASE[name], '--spring.thymeleaf.cache=false', '--springdoc.api-docs.enabled=true', '--halo.attachment.resource-mappings[0].path-pattern=/lab/**', '--halo.attachment.resource-mappings[0].locations[0]=lab', '--logging.level.org.thymeleaf.TemplateEngine=ERROR']
+            command = ['java', '-Xms128m', '-Xmx1024m', '-Duser.timezone=' + VERSIONS['timezone'], '-jar', identity, '--server.address=127.0.0.1', '--server.port=' + str(PORTS[name]), '--halo.work-dir=' + str(RUNTIME / 'halo/data'), '--halo.external-url=' + BASE[name], '--spring.thymeleaf.cache=false', '--springdoc.api-docs.enabled=true', '--halo.attachment.resource-mappings[0].path-pattern=/lab/**', '--halo.attachment.resource-mappings[0].locations[0]=lab', '--logging.level.org.thymeleaf.TemplateEngine=ERROR']
         else:
             identity = str(RUNTIME / 'hexo/public')
             command = [sys.executable, '-m', 'http.server', str(PORTS[name]), '--bind', '127.0.0.1', '--directory', identity]

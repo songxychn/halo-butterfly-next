@@ -190,80 +190,93 @@ async function main() {
       engine.status = 'unavailable'; engine.error = message(error); await snapshot();
       console.log(name, 'unavailable:', engine.error); continue;
     }
+    const isTransientTimeout = (res) =>
+      res.status === 'failed' &&
+      res.jsErrors.length === 0 &&
+      res.blockedRequests.length === 0 &&
+      !res.resources.some(item => item.failure) &&
+      res.failures.length > 0 &&
+      res.failures.every(f => /Timeout \d+ms exceeded|Resource completion before close|Unfinished resource requests before context close|Context close exceeded/.test(f));
+
     try {
       for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844 }]) for (const mode of ['light', 'dark']) for (const route of ROUTES) {
-        const result = { path: route, viewport, mode, status: 'running', resources: [], allowedWrites: [], blockedRequests: [], requestFailures: [], jsErrors: [], failures: [] };
-        engine.pages.push(result);
-        const context = await browser.newContext({ viewport, colorScheme: mode, reducedMotion: 'no-preference', locale: 'zh-CN', timezoneId: 'Asia/Shanghai', serviceWorkers: 'block', acceptDownloads: false, storageState: { cookies: [], origins: [{ origin: base, localStorage: [{ name: 'halo-butterfly-next.color-scheme', value: mode }] }] } });
-        const pending = [];
-        await context.route('**/*', async requestRoute => {
-          const request = requestRoute.request(), policy = requestPolicy(request.url(), request.method(), base);
-          if (policy === 'blocked') {
-            result.blockedRequests.push({ url: request.url(), method: request.method() });
-            return requestRoute.abort('blockedbyclient');
-          }
-          if (policy === 'visit-counter') result.allowedWrites.push({ url: request.url(), method: request.method(), purpose: 'Halo public visit counter', bodySha256: sha256(request.postData() || '') });
-          return requestRoute.continue();
-        });
-        await context.routeWebSocket('**/*', socket => { result.blockedRequests.push({ url: socket.url(), method: 'WEBSOCKET' }); socket.close(); });
-        const page = await context.newPage();
-        const diagnostics = observeSearchPage(page, `${name}-${viewport.width}-${mode}-${route}`);
-        result.diagnostics = diagnostics.report;
-        page.setDefaultTimeout(15000);
-        page.on('pageerror', error => result.jsErrors.push({ message: message(error), stack: String(error.stack || '').slice(0, 5000) }));
-        const requests = observeReloadRequests(page, result);
-        page.on('response', response => pending.push((async () => {
-          const type = response.request().resourceType(), contentType = response.headers()['content-type'] || '';
-          const item = { url: response.url(), type, status: response.status(), contentType, contentEncoding: response.headers()['content-encoding'] || null };
-          result.resources.push(item);
-          requests.response(response.request(), item);
-          const failure = responseFailure(item.status, contentType, type);
-          if (failure) item.failure = failure;
-          if (['stylesheet', 'script', 'image', 'font', 'media'].includes(type) && response.status() === 200) {
-            let body;
-            try { body = await response.body(); }
-            catch (error) { requests.captureError(response.request(), item, error); return; }
-            requests.bodyComplete(response.request());
-            item.sha256 = sha256(body);
-            const expected = assetBytes(item.url);
-            if (expected) {
-              item.packageAssetSha256 = sha256(expected);
-              item.comparableBodySha256 = sha256(comparableAsset(body, type));
-              item.comparablePackageSha256 = sha256(comparableAsset(expected, type));
-              if (item.comparableBodySha256 !== item.comparablePackageSha256) item.failure = 'Response asset differs from declared installed theme package';
+        let result;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          result = { path: route, viewport, mode, status: 'running', attempt, resources: [], allowedWrites: [], blockedRequests: [], requestFailures: [], jsErrors: [], failures: [] };
+          const context = await browser.newContext({ viewport, colorScheme: mode, reducedMotion: 'no-preference', locale: 'zh-CN', timezoneId: 'Asia/Shanghai', serviceWorkers: 'block', acceptDownloads: false, storageState: { cookies: [], origins: [{ origin: base, localStorage: [{ name: 'halo-butterfly-next.color-scheme', value: mode }] }] } });
+          const pending = [];
+          await context.route('**/*', async requestRoute => {
+            const request = requestRoute.request(), policy = requestPolicy(request.url(), request.method(), base);
+            if (policy === 'blocked') {
+              result.blockedRequests.push({ url: request.url(), method: request.method() });
+              return requestRoute.abort('blockedbyclient');
+            }
+            if (policy === 'visit-counter') result.allowedWrites.push({ url: request.url(), method: request.method(), purpose: 'Halo public visit counter', bodySha256: sha256(request.postData() || '') });
+            return requestRoute.continue();
+          });
+          await context.routeWebSocket('**/*', socket => { result.blockedRequests.push({ url: socket.url(), method: 'WEBSOCKET' }); socket.close(); });
+          const page = await context.newPage();
+          const diagnostics = observeSearchPage(page, `${name}-${viewport.width}-${mode}-${route}`);
+          result.diagnostics = diagnostics.report;
+          page.setDefaultTimeout(15000);
+          page.on('pageerror', error => result.jsErrors.push({ message: message(error), stack: String(error.stack || '').slice(0, 5000) }));
+          const requests = observeReloadRequests(page, result);
+          page.on('response', response => pending.push((async () => {
+            const type = response.request().resourceType(), contentType = response.headers()['content-type'] || '';
+            const item = { url: response.url(), type, status: response.status(), contentType, contentEncoding: response.headers()['content-encoding'] || null };
+            result.resources.push(item);
+            requests.response(response.request(), item);
+            const failure = responseFailure(item.status, contentType, type);
+            if (failure) item.failure = failure;
+            if (['stylesheet', 'script', 'image', 'font', 'media'].includes(type) && response.status() === 200) {
+              let body;
+              try { body = await response.body(); }
+              catch (error) { requests.captureError(response.request(), item, error); return; }
+              requests.bodyComplete(response.request());
+              item.sha256 = sha256(body);
+              const expected = assetBytes(item.url);
+              if (expected) {
+                item.packageAssetSha256 = sha256(expected);
+                item.comparableBodySha256 = sha256(comparableAsset(body, type));
+                item.comparablePackageSha256 = sha256(comparableAsset(expected, type));
+                if (item.comparableBodySha256 !== item.comparablePackageSha256) item.failure = 'Response asset differs from declared installed theme package';
+              }
+            }
+          })().catch(error => result.failures.push('Resource capture: ' + message(error)))));
+          try {
+            const response = await page.goto(base + route, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            assert(response?.status() === 200 && new URL(page.url()).origin === base && new URL(page.url()).pathname === route, 'Core route status, origin or pathname mismatch');
+            result.httpStatus = response.status();
+            assert(!result.jsErrors.length, 'Page script failed before readiness');
+            result.readiness = await settle(page);
+            result.dom = await page.evaluate(() => ({ title: document.title, titleCount: document.querySelectorAll('title').length, themeRoot: !!document.querySelector('#Butterfly'), mode: document.documentElement.dataset.colorScheme, horizontalOverflow: document.documentElement.scrollWidth > innerWidth + 1, documentWidth: document.documentElement.scrollWidth, viewportWidth: innerWidth, desktopMenuLinks: document.querySelectorAll('.nav .menu a').length, mobileMenuLinks: document.querySelectorAll('.side-bar menu a').length, userAgent: navigator.userAgent }));
+            assert(result.dom.themeRoot && result.dom.titleCount === 1 && result.dom.title, 'Core route did not render a unique theme document/title');
+            assert(result.dom.mode === mode, 'Theme mode differs from context storage state');
+            assert(!result.dom.horizontalOverflow, 'Horizontal overflow detected');
+            assert(result.dom.desktopMenuLinks > 0 && result.dom.mobileMenuLinks > 0, 'Rendered navigation is empty');
+            const filename = `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.png`;
+            const bytes = await page.screenshot({ path: path.join(output, filename), fullPage: false, animations: 'allow' });
+            result.screenshot = { path: filename, sha256: sha256(bytes) };
+            if (route === '/') result.keyboard = await keyboardChecks(page, viewport.width, requests);
+            if (route === '/archives/preview-1/') result.codeCollapse = await codeCollapseChecks(page);
+          } catch (error) {
+            result.failures.push(message(error));
+            if (error.readinessFailure) result.readinessFailure = error.readinessFailure;
+            result.diagnostics.failure = await diagnostics.snapshot();
+            if (!result.screenshot) {
+              try {
+                const filename = `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}-diagnostic.png`;
+                const bytes = await page.screenshot({ path: path.join(output, filename), fullPage: false, animations: 'allow', timeout: 5000 });
+                result.screenshot = { path: filename, sha256: sha256(bytes), diagnosticOnly: true, readinessCertified: false };
+              } catch (captureError) { result.screenshotError = message(captureError); }
             }
           }
-        })().catch(error => result.failures.push('Resource capture: ' + message(error)))));
-        try {
-          const response = await page.goto(base + route, { waitUntil: 'domcontentloaded', timeout: 30000 });
-          assert(response?.status() === 200 && new URL(page.url()).origin === base && new URL(page.url()).pathname === route, 'Core route status, origin or pathname mismatch');
-          result.httpStatus = response.status();
-          assert(!result.jsErrors.length, 'Page script failed before readiness');
-          result.readiness = await settle(page);
-          result.dom = await page.evaluate(() => ({ title: document.title, titleCount: document.querySelectorAll('title').length, themeRoot: !!document.querySelector('#Butterfly'), mode: document.documentElement.dataset.colorScheme, horizontalOverflow: document.documentElement.scrollWidth > innerWidth + 1, documentWidth: document.documentElement.scrollWidth, viewportWidth: innerWidth, desktopMenuLinks: document.querySelectorAll('.nav .menu a').length, mobileMenuLinks: document.querySelectorAll('.side-bar menu a').length, userAgent: navigator.userAgent }));
-          assert(result.dom.themeRoot && result.dom.titleCount === 1 && result.dom.title, 'Core route did not render a unique theme document/title');
-          assert(result.dom.mode === mode, 'Theme mode differs from context storage state');
-          assert(!result.dom.horizontalOverflow, 'Horizontal overflow detected');
-          assert(result.dom.desktopMenuLinks > 0 && result.dom.mobileMenuLinks > 0, 'Rendered navigation is empty');
-          const filename = `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.png`;
-          const bytes = await page.screenshot({ path: path.join(output, filename), fullPage: false, animations: 'allow' });
-          result.screenshot = { path: filename, sha256: sha256(bytes) };
-          if (route === '/') result.keyboard = await keyboardChecks(page, viewport.width, requests);
-          if (route === '/archives/preview-1/') result.codeCollapse = await codeCollapseChecks(page);
-        } catch (error) {
-          result.failures.push(message(error));
-          if (error.readinessFailure) result.readinessFailure = error.readinessFailure;
-          result.diagnostics.failure = await diagnostics.snapshot();
-          if (!result.screenshot) {
-            try {
-              const filename = `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}-diagnostic.png`;
-              const bytes = await page.screenshot({ path: path.join(output, filename), fullPage: false, animations: 'allow', timeout: 5000 });
-              result.screenshot = { path: filename, sha256: sha256(bytes), diagnosticOnly: true, readinessCertified: false };
-            } catch (captureError) { result.screenshotError = message(captureError); }
-          }
+          await diagnostics.finish(); // Bounded final state before the context closes.
+          await finishPage(result, pending, () => context.close(), 5000, requests);
+          if (!isTransientTimeout(result) || attempt === 3) break;
+          console.log(`${name} ${viewport.width} ${mode} ${route} transient timeout on attempt ${attempt}, retrying`);
         }
-        await diagnostics.finish(); // Bounded final state before the context closes.
-        await finishPage(result, pending, () => context.close(), 5000, requests);
+        engine.pages.push(result);
         await writeJson(path.join(output, `${name}-${viewport.width}-${mode}-${ROUTES.indexOf(route)}.json`), result);
         console.log(`${name} ${viewport.width} ${mode} ${route} ${result.status}`);
         await snapshot();
