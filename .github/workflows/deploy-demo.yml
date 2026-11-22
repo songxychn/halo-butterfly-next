@@ -6,6 +6,10 @@ on:
         description: 'Published version to promote to the demo channel'
         required: true
         type: string
+      candidate_digest:
+        description: 'Promote the exact staged digest after replacement testing. Leave empty to stage only.'
+        required: false
+        type: string
 permissions:
   contents: read
   packages: write
@@ -28,27 +32,59 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - uses: oven-sh/setup-bun@v2
+        if: inputs.candidate_digest == ''
         with:
           bun-version: '1.4.0'
-      - run: bun install --frozen-lockfile --ignore-scripts
+      - if: inputs.candidate_digest == ''
+        run: bun install --frozen-lockfile --ignore-scripts
       - name: Download released theme
+        if: inputs.candidate_digest == ''
         run: python3 scripts/release/download.py "$TAG"
       - name: Prepare demo image context
+        if: inputs.candidate_digest == ''
         run: |
           bun site/demo/bundle.mjs ".runtime/published/halo-butterfly-next-${TAG#v}.zip" .runtime/demo-bundle
           cp .runtime/published/release-identity.json .runtime/demo-bundle/release-identity.json
           python3 site/demo/context.py .runtime/demo-bundle .runtime/demo-context
       - name: Build runnable H2 demo
+        if: inputs.candidate_digest == ''
         run: docker build -t demo-candidate .runtime/demo-context
       - name: Fresh H2 initialization and restart smoke
+        if: inputs.candidate_digest == ''
         run: python3 site/demo/smoke.py demo-candidate
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
-      - name: Promote demo image
-        run: python3 scripts/release/promote.py "$TAG" "$IMAGE"
+      - name: Stage demo image without updating the live channel
+        if: inputs.candidate_digest == ''
+        run: |
+          candidate="$IMAGE:watchtower-candidate-$TAG"
+          docker tag demo-candidate "$candidate"
+          docker push "$candidate"
+      - name: Promote the staged demo image
+        if: inputs.candidate_digest != ''
+        env:
+          CANDIDATE_DIGEST: ${{ inputs.candidate_digest }}
+        run: |
+          python3 - <<'PY'
+          import os, re, sys
+          sys.path.insert(0, 'scripts/release')
+          from common import latest_tag
+          if os.environ['TAG'] != latest_tag():
+              raise SystemExit('Newer published release exists')
+          if not re.fullmatch(r'sha256:[0-9a-f]{64}', os.environ['CANDIDATE_DIGEST']):
+              raise SystemExit('Invalid candidate digest')
+          PY
+          candidate="$IMAGE@$CANDIDATE_DIGEST"
+          staged="$IMAGE:watchtower-candidate-$TAG"
+          docker pull "$staged"
+          docker image inspect "$staged" --format '{{range .RepoDigests}}{{println .}}{{end}}' | grep -Fx "$candidate"
+          docker tag "$candidate" "$IMAGE:$TAG"
+          docker push "$IMAGE:$TAG"
+          docker tag "$candidate" "$IMAGE:demo"
+          docker push "$IMAGE:demo"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
