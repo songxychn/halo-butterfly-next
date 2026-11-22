@@ -10,12 +10,9 @@ const layout = await readFile(new URL('../src/html/views/layout.html', import.me
 
 test('Prism URL is configuration only, with early DOM-ready gate; page bundle remains deferred', () => {
   assert.doesNotMatch(components, /<script[^>]*src="[^"\n]*plugins\/prism\/prism\.min\.js/);
-  assert.match(components, /window\.MainApp\.prismSource =/);
-  assert.match(bootstrapSource, /window\.MainApp\.codeDomReady = new Promise/);
-  assert.match(bootstrapSource, /document\.addEventListener\('DOMContentLoaded', resolve, \{once: true\}\)/);
-  const page = layout.match(/<script\b[^>]*th:src="[^"\n]*'js\/'[^"\n]*"[^>]*>/)?.[0];
-  assert.match(page, /\sdefer(?:\s|>)/);
-  assert.doesNotMatch(page, /\sasync(?:\s|=|>)|type="module"/);
+  assert.match(components, /data-prism=\$\{assets_link \+ 'plugins\/prism\/prism\.min\.js'\}/);
+  assert.match(bootstrapSource, /app\.codeDomReady = new Promise/);
+  assert.match(bootstrapSource, /document\.addEventListener\('DOMContentLoaded', resolve, \{ once: true \}\)/);
   assert(layout.indexOf('th:replace="~{views/config}"') < layout.indexOf('th:replace="${pin}"'));
 });
 

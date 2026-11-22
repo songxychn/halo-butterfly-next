@@ -10,7 +10,6 @@ import autoprefixer from 'autoprefixer';
 import JSZip from 'jszip';
 import { parse } from 'yaml';
 import { configureResourceTags } from './resource-templates.mjs';
-import { safeInlineData } from './safe-inline-data.mjs';
 import { appendIconSubsets } from './fontawesome-subsets.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
@@ -49,10 +48,9 @@ async function build() {
   if (pkg.version !== theme.spec.version) throw new Error('package.json 和 theme.yaml 版本不一致');
   await rm(path.join(root, '.build'), { recursive: true, force: true });
   await mkdir(assets, { recursive: true });
-  // Preserve natural-template syntax; protect dynamic script data before packaging. No HTML/JS minifier.
   await cp(path.join(root, 'src/html'), stage, { recursive: true });
   for (const file of await filesUnder(stage)) {
-    if (file.endsWith('.html')) await writeFile(file, safeInlineData(configureResourceTags(await readFile(file, 'utf8'))));
+    if (file.endsWith('.html')) await writeFile(file, configureResourceTags(await readFile(file, 'utf8')));
   }
   // Keep startup synchronous and inline so color/aside restoration precedes paint.
   const startup = await bundle(path.join(root, 'src/js/bootstrap.ts'), assets, false);
@@ -87,12 +85,10 @@ async function build() {
   await appendIconSubsets(icons, path.join(root, 'src/fonts/fontawesome-subsets'), path.join(assets, 'plugins/fontawesome'));
   await mkdir(path.join(assets, 'licenses'), { recursive: true });
   // Adapted upstream sources are not npm dependencies, so collect their notices explicitly.
-  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'normalize-8.0.1-LICENSE.md', 'UPSTREAM-ATTRIBUTION.txt', 'vanilla-lazyload-LICENSE.txt', 'vanilla-lazyload-NOTICE.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt', 'butterfly-extsrc-1.1.6-LICENSE.txt']) {
+  for (const file of ['hexo-butterfly-5.7.0-LICENSE.txt', 'UPSTREAM-ATTRIBUTION.txt', 'egjs-imready-1.4.2-NOTICE.txt', 'cfcs-core-NOTICE.txt']) {
     await cp(path.join(root, 'third-party-licenses', file), path.join(assets, 'licenses', file));
   }
   const licensed = new Set();
-  // These exact npm releases omit a standalone license file. Fixed upstream
-  // texts and their provenance are recorded in infinitegrid-sources.json.
   const upstreamLicenses = {
     '@egjs-infinitegrid-4.13.0': 'egjs-infinitegrid-4.13.0-LICENSE.txt',
     '@egjs-component-3.0.5': 'egjs-component-3.0.5-LICENSE.txt',
@@ -100,7 +96,6 @@ async function build() {
     '@cfcs-core-0.0.5': 'cfcs-core-LICENSE.txt',
     '@cfcs-core-0.0.24': 'cfcs-core-LICENSE.txt',
   };
-  const readmeLicenses = new Set(['good-listener-1.2.2', 'delegate-3.2.0', 'select-1.1.2']);
   async function collectLicenses(dir) {
     dir = await realpath(dir);
     const pkg = JSON.parse(await readFile(path.join(dir, 'package.json'), 'utf8'));
@@ -115,18 +110,12 @@ async function build() {
       if (!text.includes('Copyright') || !text.includes('Permission is hereby granted')) throw new Error(`无效的依赖许可：${name}`);
       await cp(path.join(root, 'third-party-licenses', upstreamLicenses[name]), path.join(assets, 'licenses', upstreamLicenses[name]));
     }
-    if (!files.length && readmeLicenses.has(name) && pkg.license === 'MIT') {
-      files.push(entries.find(file => /^readme/i.test(file)));
-      await cp(path.join(root, 'third-party-licenses/zenorocha-MIT.txt'), path.join(assets, 'licenses/zenorocha-MIT.txt'));
-    }
     if ((!files.length && !suppliedLicense) || files.includes(undefined)) throw new Error(`依赖缺少许可证：${name}`);
     for (const file of files) await cp(path.join(dir, file), path.join(assets, 'licenses', name + '-' + file));
     if (entries.includes('licenses')) await cp(path.join(dir, 'licenses'), path.join(assets, 'licenses', name + '-additional'), { recursive: true });
     const require = createRequire(path.join(dir, 'package.json'));
     for (const dependency of Object.keys(pkg.dependencies || {})) {
-      // Type-only packages have no browser code to distribute.
       if (dependency.startsWith('@types/')) continue;
-      // 部分包不导出 package.json，从已解析的入口向上寻找其包目录。
       let entry;
       try { entry = require.resolve(dependency + '/package.json'); }
       catch { try { entry = require.resolve(dependency); } catch { entry = Bun.resolveSync(dependency, dir); } }
@@ -143,21 +132,48 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'animate.css', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'echarts', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
-  for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
-    if (!file.endsWith('.scss')) continue;
-    const source = path.join(root, 'src/scss/page', file);
+  async function compileScss(source, outFile) {
     const compiled = sass.compile(source, {
       style: 'compressed', loadPaths: [path.join(root, 'node_modules')],
       silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'legacy-js-api'],
     });
     const css = await postcss([postcssImport(), autoprefixer()]).process(compiled.css, { from: source });
-    await writeFile(path.join(assets, 'css', file.replace('.scss', '.min.css')), css.css);
+    await writeFile(outFile, css.css);
   }
+  await compileScss(path.join(root, 'src/scss/core/index.scss'), path.join(assets, 'css/core.min.css'));
+  for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
+    if (!file.endsWith('.scss')) continue;
+    await compileScss(path.join(root, 'src/scss/page', file), path.join(assets, 'css', file.replace('.scss', '.min.css')));
+  }
+  const standalonePageScripts = new Set(['charts.ts', 'effects.ts', 'masonry.ts']);
+  const esPageEntries = {};
   for (const file of (await readdir(path.join(root, 'src/js/page'))).sort()) {
-    if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/js/page', file), path.join(assets, 'js'));
+    if (!file.endsWith('.ts') || file.endsWith('.d.ts')) continue;
+    const full = path.join(root, 'src/js/page', file);
+    if (standalonePageScripts.has(file)) await bundle(full, path.join(assets, 'js'));
+    else esPageEntries[path.basename(file, '.ts')] = full;
   }
+  await viteBuild({
+    configFile: false,
+    logLevel: 'error',
+    define: { 'process.env.NODE_ENV': JSON.stringify('production') },
+    build: {
+      outDir: path.join(assets, 'js'),
+      emptyOutDir: false,
+      target: 'es2022',
+      modulePreload: false,
+      rollupOptions: {
+        input: esPageEntries,
+        output: {
+          format: 'es',
+          entryFileNames: '[name].min.js',
+          chunkFileNames: 'chunks/[name]-[hash].js',
+        },
+      },
+    },
+  });
   for (const file of (await readdir(path.join(root, 'src/js/renderers'))).sort()) {
     if (file.endsWith('.ts')) await bundle(path.join(root, 'src/js/renderers', file), path.join(assets, 'renderers'));
   }
@@ -167,13 +183,15 @@ async function build() {
   // Inline only the selected small Loading implementation in rendered HTML.
   // Retain the standalone files for the public layout and existing consumers.
   let loadingLayout = await readFile(layoutFile, 'utf8');
+  let circleCode = '';
   for (const name of ['circle', 'cross_line', 'dot', 'hourglass']) {
     const marker = `/* @theme-loading-${name} */`;
     if (!loadingLayout.includes(marker)) throw new Error(`Missing inline Loading insertion point: ${name}`);
     const code = await readFile(path.join(assets, 'plugins/loading', `${name}.min.js`), 'utf8');
+    if (name === 'circle') circleCode = code;
     loadingLayout = loadingLayout.replace(marker, () => code);
   }
-  loadingLayout = loadingLayout.replace('/* @theme-loading-fallback */', () => loadingLayout.match(/<script data-theme-script="loading" th:case="'circle'">([\s\S]*?)<\/script>/)[1]);
+  loadingLayout = loadingLayout.replace('/* @theme-loading-fallback */', () => circleCode);
   await writeFile(layoutFile, loadingLayout);
   await rm(path.join(root, 'templates'), { recursive: true, force: true });
   await rename(stage, path.join(root, 'templates'));

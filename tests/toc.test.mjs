@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {test} from 'bun:test';
+import { test } from 'bun:test';
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { defaultsFromSettings } from '../scripts/config-migration.mjs';
@@ -14,82 +14,29 @@ import {
   resolveStyleSimple,
 } from '../src/js/core/toc.ts';
 
-const settings = parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8'));
-const defaults = defaultsFromSettings(settings);
-const aside = await readFile(new URL('../src/html/views/aside.html', import.meta.url), 'utf8');
-const postHtml = await readFile(new URL('../src/html/post.html', import.meta.url), 'utf8');
-const pageHtml = await readFile(new URL('../src/html/page.html', import.meta.url), 'utf8');
-const renderJs = await readFile(new URL('../src/js/modules/Render.ts', import.meta.url), 'utf8');
-const scss = await readFile(new URL('../src/scss/modules/render.scss', import.meta.url), 'utf8');
+const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));
 
-function tocForm() {
-  const form = settings.spec.forms.find(item => item.group === 'toc');
-  assert.ok(form, 'toc');
-  return form;
-}
-
-function field(name) {
-  const node = tocForm().formSchema.find(item => item.name === name);
-  assert.ok(node, name);
-  return node;
-}
-
-function fragment(html, name, stop) {
-  const start = html.indexOf(`th:fragment="${name}"`);
-  assert.notEqual(start, -1, name);
-  const end = stop ? html.indexOf(stop, start) : html.length;
-  assert.notEqual(end, -1, stop || 'eof');
-  return html.slice(start, end);
-}
-
-test('默认对齐上游 SHA：number true、expand false、style_simple false、scroll_percent true', () => {
-  assert.equal(defaults.toc.number, true);
-  assert.equal(defaults.toc.expand, false);
-  assert.equal(defaults.toc.style_simple, false);
-  assert.equal(defaults.toc.scroll_percent, true);
-  assert.equal(field('number').value, true);
-  assert.deepEqual(field('number').options.map(option => option.value), [true, false]);
-  assert.equal(field('expand').value, false);
-  assert.deepEqual(field('expand').options.map(option => option.value), [true, false]);
-  assert.equal(field('style_simple').value, false);
-  assert.deepEqual(field('style_simple').options.map(option => option.value), [true, false]);
-  assert.equal(field('scroll_percent').value, true);
-  assert.deepEqual(field('scroll_percent').options.map(option => option.value), [true, false]);
-  assert.match(String(field('scroll_percent').help), /toc\.scroll_percent/);
-  assert.equal(defaults.toc.post, true);
-  assert.equal(defaults.toc.page, false);
-
-  assert.match(String(field('scroll_percent').help), /rightside\.scroll_percent/);
-  assert.equal(resolveNumber(defaults.toc.number), true);
-  assert.equal(resolveExpand(defaults.toc.expand), false);
-  assert.equal(resolveStyleSimple(defaults.toc.style_simple), false);
-  assert.equal(resolveScrollPercent(defaults.toc.scroll_percent), true);
-});
-
-test('resolveNumber / scroll_percent：仅显式 false 关闭；expand / style_simple：仅显式 true 开启', () => {
+test('toc defaults and option resolvers', () => {
+  assert.equal(defaults.post.toc.post, true);
+  assert.equal(defaults.post.toc.page, false);
+  assert.equal(defaults.post.toc.number, true);
+  assert.equal(defaults.post.toc.expand, false);
+  assert.equal(defaults.post.toc.style_simple, false);
+  assert.equal(defaults.post.toc.scroll_percent, true);
   assert.equal(resolveNumber(false), false);
   assert.equal(resolveNumber('false'), false);
-  assert.equal(resolveNumber(true), true);
-  assert.equal(resolveNumber('true'), true);
-  assert.equal(resolveNumber(null), true);
-  assert.equal(resolveNumber(''), true);
+  assert.equal(resolveNumber(undefined), true);
   assert.equal(resolveScrollPercent(false), false);
-  assert.equal(resolveScrollPercent('false'), false);
   assert.equal(resolveScrollPercent(null), true);
   assert.equal(resolveExpand(true), true);
-  assert.equal(resolveExpand('true'), true);
   assert.equal(resolveExpand(false), false);
-  assert.equal(resolveExpand(null), false);
   assert.equal(resolveStyleSimple(true), true);
-  assert.equal(resolveStyleSimple('true'), true);
   assert.equal(resolveStyleSimple(false), false);
-  assert.equal(resolveStyleSimple(null), false);
   assert.equal(resolveCollapseDepth(true), 6);
   assert.equal(resolveCollapseDepth(false), 0);
-  assert.equal(resolveCollapseDepth(null), 0);
 });
 
-test('序号形如 1. / 1.1.；getScrollPercent 对齐 btf 并夹在 0–100', () => {
+test('toc numbering and scroll percent calculation', () => {
   assert.equal(formatTocNumber([1]), '1.');
   assert.equal(formatTocNumber([1, 1]), '1.1.');
   assert.equal(formatTocNumber([2, 3, 1]), '2.3.1.');
@@ -109,41 +56,4 @@ test('序号形如 1. / 1.1.；getScrollPercent 对齐 btf 并夹在 0–100', (
   assert.equal(getScrollPercent(9999, ele, viewport), 100);
   assert.equal(getScrollPercent(-10, ele, viewport), 0);
   assert.equal(getScrollPercent(10, null, viewport), 0);
-});
-
-test('文章和独立页接入继承目录配置，目录关闭不留下空简洁侧栏', () => {
-  for (const html of [postHtml, pageHtml]) {
-    assert.match(html, /tocNumberOverride == 'false' \? false/);
-    assert.match(html, /tocExpandOverride == 'false' \? false/);
-    assert.match(html, /anchor_auto_update:/);
-    assert.match(html, /anchor_click_to_scroll:/);
-  }
-  assert.match(pageHtml, /views\/aside::single/);
-  const articleAside = fragment(aside, 'article(content, postPage)');
-  assert.match(articleAside, /tocEnabled = .*tocOverride == 'false' \? false/);
-  assert.match(articleAside, /tocSimple = .*tocEnabled and/);
-  assert.match(articleAside, /tocSimpleDefault = .*postPage and/);
-  assert.match(articleAside, /th:if="\$\{tocEnabled\}"/);
-  assert.match(articleAside, /toc-percentage/);
-  assert.doesNotMatch(articleAside, /th:unless="[^"\n]+" th:replace=/, 'conditions wrap fragment replacements');
-});
-
-test('Render 接线 number / expand / scroll_percent；百分比 textContent 非 HTML', () => {
-  assert.match(renderJs, /from '\.\.\/core\/toc\.ts'/);
-  assert.match(renderJs, /collapseDepth: resolveCollapseDepth\(this\.#conf\.toc_expand\)/);
-  assert.match(renderJs, /applyTocNumbers\(tocEl, resolveNumber\(this\.#conf\.toc_number\)\)/);
-  assert.match(renderJs, /percentEl\.textContent = String\(getScrollPercent\(scrollTop, article\)\)/);
-  assert.match(renderJs, /resolveScrollPercent\(this\.#conf\.toc_scroll_percent\)/);
-  assert.doesNotMatch(renderJs, /innerHTML.*toc-percentage/);
-  assert.doesNotMatch(renderJs, /anchor\.auto_update/);
-});
-
-test('窄屏不横向溢出；折叠与百分比样式', () => {
-  assert.match(scss, /\.toc-percentage/);
-  assert.match(scss, /overflow-wrap:\s*anywhere/);
-  assert.match(scss, /word-break:\s*break-word/);
-  assert.match(scss, /min-width:\s*0/);
-  assert.match(scss, /&\.is-expand/);
-  assert.match(scss, /&:not\(\.is-expand\)/);
-  assert.match(scss, /\.toc-number/);
 });

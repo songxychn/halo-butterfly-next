@@ -1,5 +1,5 @@
 <th:block xmlns:th="https://www.thymeleaf.org"
-          th:with="selectedLayout = ${#strings.toString(theme.config.index.index_layout)}, homeLayout = ${#lists.contains({'1','2','3','4','5','6','7'}, selectedLayout) ? selectedLayout : '3'}">
+          th:with="selectedLayout = ${#strings.toString(theme.config.home.index_layout)}, homeLayout = ${#lists.contains({'1','2','3','4','5','6','7'}, selectedLayout) ? selectedLayout : '3'}">
 <layout
   th:replace="~{views/layout :: layout (
   page = 'index',
@@ -18,28 +18,24 @@
     <link rel="preload" as="image" fetchpriority="high"
           th:if="${aboveEnabled and not #strings.isEmpty(aboveBackground) and (#strings.startsWith(aboveBackground, '/') or #strings.startsWith(aboveBackground, 'https://') or #strings.startsWith(aboveBackground, 'http://'))}"
           th:href="${aboveBackground}">
-    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
-      Object.assign(window.MainApp.conf, {
-        //第一屏
-        enable_above: /*[[${aboveEnabled}]]*/ '',
-        above_background: /*[[${aboveBackground}]]*/ '',
-        // 字幕使用统一默认和明确来源
-        enable_subtitle: /*[[${theme.config.index.enable_subtitle != false}]]*/ true,
-        subtitle_effect: /*[[${theme.config.index.subtitle_effect != false}]]*/ true,
-        subtitle_typed_option: /*[[${theme.config.index.subtitle_typed_option}]]*/ null,
-        site_subtitle: /*[[${site.subtitle ?: ''}]]*/ '',
-        typewriter_custom_text: /*[[${theme.config.index.typewriter_custom_text}]]*/ '',
-        // 分页
-        nextUrl: /*[[${posts.nextUrl}]]*/ {},
-        prevUrl: /*[[${posts.prevUrl}]]*/ {},
-        page: /*[[${posts.page}]]*/ {},
-        size: /*[[${posts.size}]]*/ {},
-        total: /*[[${posts.total}]]*/ {},
-        totalPages: /*[[${posts.totalPages}]]*/ {},
-        hasPrevious: /*[[${posts.hasPrevious()}]]*/ {},
-        hasNext: /*[[${posts.hasNext()}]]*/ {},
-      });
-    </script>
+    <script data-theme-script="page-config" id="pageScript" th:inline="none"
+      th:with="pageConf = ${ {
+        'enable_subtitle': (theme.config.home.enable_subtitle != false),
+        'subtitle_effect': (theme.config.home.subtitle_effect != false),
+        'subtitle_typed_option': theme.config.home.subtitle_typed_option,
+        'site_subtitle': (site.subtitle ?: ''),
+        'typewriter_custom_text': theme.config.home.typewriter_custom_text,
+        'nextUrl': posts.nextUrl,
+        'prevUrl': posts.prevUrl,
+        'page': posts.page,
+        'size': posts.size,
+        'total': posts.total,
+        'totalPages': posts.totalPages,
+        'hasPrevious': posts.hasPrevious(),
+        'hasNext': posts.hasNext()
+      } }, pageConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(pageConf)}"
+      th:attr="data-conf=${pageConfJson}"
+    >window.MainApp.merge(document.currentScript);</script>
   </th:block>
 
 
@@ -51,10 +47,10 @@
 
       <!--/* 第一屏内容 */-->
       <section class="above" th:if="${aboveEnabled}"
-               th:style="|height: ${#strings.isEmpty(theme.config.index.top_img_height) ? '100vh' : theme.config.index.top_img_height}; --index-site-info-top: ${#strings.isEmpty(theme.config.index.site_info_top) ? '43%' : theme.config.index.site_info_top};|">
+               th:style="|height: ${#strings.isEmpty(theme.config.home.top_img_height) ? '100vh' : theme.config.home.top_img_height}; --index-site-info-top: ${#strings.isEmpty(theme.config.home.site_info_top) ? '43%' : theme.config.home.site_info_top};|">
         <div class="above-info">
           <h1 class="above-title" th:text="${site.title}"></h1>
-          <div class="above-subtitle" th:if="${theme.config.index.enable_subtitle != false and (not #strings.isEmpty(site.subtitle) or not #strings.isEmpty(theme.config.index.typewriter_custom_text))}">
+          <div class="above-subtitle" th:if="${theme.config.home.enable_subtitle != false and (not #strings.isEmpty(site.subtitle) or not #strings.isEmpty(theme.config.home.typewriter_custom_text))}">
             <span class="above-subtitle--text"></span>
           </div>
           <th:block th:if="${theme.config.aside?.social_position == 'header' or theme.config.aside?.social_position == 'both'}"><th:block th:replace="~{views/social :: icons}"/></th:block>

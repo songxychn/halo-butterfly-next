@@ -7,16 +7,8 @@
   main = ~{::main}
   )}"
 >
-  <!--/* css */-->
-  <th:block th:fragment="pin">
-    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
-      Object.assign(window.MainApp.conf, {
-        //第一屏
-        enable_above: /*[[${aboveEnabled}]]*/ '',
-        above_background: /*[[${aboveBackground}]]*/ '',
-      });
-    </script>
-  </th:block>
+  <!--/* pin */-->
+  <th:block th:fragment="pin"></th:block>
 
 
 
@@ -38,13 +30,13 @@
 
   <!--/* 內容 */-->
   <th:block th:fragment="main">
-    <section class="content card" th:attr="data-link-random=${theme.config.links?.random_order}" th:with="noData = ${not #lists.isEmpty(groups)}">
+    <section class="content card" th:attr="data-link-random=${theme.config.pages?.links?.random_order}" th:with="noData = ${not #lists.isEmpty(groups)}">
       <h1 class="page-title" th:if="${not aboveEnabled}" th:text="${#messages.msg('ui.links')}"></h1>
       <th:block th:if="${noData}">
         <div class="groups">
           <div class="item" th:each="group : ${groups}">
             <h2 class="name" th:text="${group.spec.displayName}"></h2>
-            <th:block th:each="description : ${theme.config.links?.group_descriptions}"><p class="group-description" th:if="${description.group == group.metadata.name}" th:text="${description.description}"></p></th:block>
+            <th:block th:each="description : ${theme.config.pages?.links?.group_descriptions}"><p class="group-description" th:if="${description.group == group.metadata.name}" th:text="${description.description}"></p></th:block>
 
             <div class="list" data-link-list>
               <a class="link " th:each="link : ${group.links}" th:href="${link.spec.url != null and link.spec.url.matches('(?i)^https?://.*|^/(?!/).*') ? link.spec.url : null}" data-site-link target="_blank" rel="noopener noreferrer">

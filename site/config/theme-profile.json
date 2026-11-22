@@ -1,17 +1,20 @@
 {
   "schemaVersion": 1,
   "themeId": "halo-butterfly-next",
-  "themeVersion": "1.0.0",
+  "themeVersion": "2.0.0-alpha.1",
   "mode": "merge-reviewed-fields-only",
   "settings": {
-    "base": {
+    "general": {
       "metadata_name": ""
     },
-    "style": {
+    "appearance": {
       "mode": "system",
-      "body_background": ""
+      "body_background": "",
+      "darkmode": {
+        "button": true
+      }
     },
-    "index": {
+    "home": {
       "enable_above": true,
       "top_img_height": "",
       "site_info_top": "",
@@ -33,22 +36,22 @@
         "orderby": "name",
         "order": 1
       },
-      "notice": "Halo Butterfly Next 1.0 发行准备；尚未公开发布。当前样站部署状态以实际运行版本为准。"
+      "notice": "Halo Butterfly Next 在线文档与功能演示站。"
     },
     "post": {
       "enable_above": true,
       "post_copyright": {
         "license": "GPL-3.0",
         "license_url": "https://www.gnu.org/licenses/gpl-3.0.html"
+      },
+      "toc": {
+        "number": true,
+        "expand": false,
+        "style_simple": false,
+        "scroll_percent": true
       }
     },
-    "toc": {
-      "number": true,
-      "expand": false,
-      "style_simple": false,
-      "scroll_percent": true
-    },
-    "render": {
+    "code": {
       "enable_code": true,
       "enable_code_title": true,
       "enable_code_line": true,
@@ -58,9 +61,6 @@
       "code_theme_light": "one-light",
       "code_theme_dark": "one-dark",
       "code_shrink": "expanded"
-    },
-    "darkmode": {
-      "button": true
     },
     "comments": {
       "count": false,
@@ -76,14 +76,14 @@
   },
   "bindings": [
     {
-      "path": "index.above_background",
+      "path": "home.above_background",
       "target": {
         "type": "asset",
         "key": "cover"
       }
     },
     {
-      "path": "cover.default_cover",
+      "path": "home.cover.default_cover",
       "target": {
         "type": "asset",
         "key": "cover"

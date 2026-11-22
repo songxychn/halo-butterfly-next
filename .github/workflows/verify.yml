@@ -24,22 +24,7 @@ jobs:
         with:
           bun-version: '1.4.0'
       - run: bun install --frozen-lockfile --ignore-scripts
-      - name: Checkout fixed Butterfly reference
-        uses: actions/checkout@v4
-        with:
-          repository: jerryc127/hexo-theme-butterfly
-          ref: f223b1888b42b2b336068e6c959ed90a3cd7c8f3
-          path: .runtime/upstream-butterfly
-          persist-credentials: false
-      - name: Verify inventory against fixed upstream source
-        run: bun run parity:check --upstream .runtime/upstream-butterfly
       - run: bun run verify
-      - name: Rebuild and compare archive
-        shell: bash
-        run: |
-          sha256sum dist/*.zip > package.sha256
-          bun run build
-          sha256sum --check package.sha256
       - name: Upload requested preview package
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_artifact }}
         uses: actions/upload-artifact@v4

@@ -1,14 +1,5 @@
-import { t } from '../core/i18n';
-
-/**
- * @date: 2024/2/25
- * @author: 小红
- * @fileName: Render
- * @Description: 渲染html
- */
-import $ from 'jquery';
-import {useDelay} from '../core/_util.ts';
 import tocBot from 'tocbot';
+import { t } from '../core/i18n';
 import { bindArticleAnchors, ensureHeadingIds } from '../core/article-anchor.ts';
 import { enhanceContent } from '../core/content-extensions.ts';
 import { applyRightsideItemOrder } from '../core/rightside.ts';
@@ -25,9 +16,7 @@ import {
   renderRelatedPosts,
   resolveLimit,
 } from '../core/related-post.ts';
-import {
-  formatPermalinkText,
-} from '../core/post-copyright.ts';
+import { formatPermalinkText } from '../core/post-copyright.ts';
 import { enhanceBodyRenderers } from '../core/body-renderers.ts';
 import { enhanceMath } from '../core/math.ts';
 import { bindRewards } from '../core/reward.ts';
@@ -35,64 +24,52 @@ import { bindRewards } from '../core/reward.ts';
 export default class Render {
   name = 'Render';
 
-  #renderDom = $('article.render'); // 文章渲染区域
+  #article = document.querySelector<HTMLElement>('article.render');
 
-  #tocStickyDom = $('.aside .is-sticky');
+  #tocStickyDom = document.querySelector<HTMLElement>('.aside .is-sticky');
 
   #conf = MainApp.conf;
 
   constructor() {
-    this.#h();
-    const article = document.querySelector<HTMLElement>('article.render');
-    if (article) enhanceBodyRenderers(article, this.#conf.body_renderers);
-    if (article) enhanceMath(article, {
-      enabled: this.#conf.math_enabled,
-      copyTex: this.#conf.math_copy_tex,
-      hideScrollbar: this.#conf.math_hide_scrollbar,
-    });
-    if (article) applyPhotoFigcaptions(article, this.#conf.photofigcaption);
+    const article = this.#article;
     if (article) {
+      if (this.#conf.enable_h_icon) article.classList.add('enable_h_icon');
+      enhanceBodyRenderers(article, this.#conf.body_renderers);
+      enhanceMath(article, {
+        enabled: this.#conf.math_enabled,
+        copyTex: this.#conf.math_copy_tex,
+        hideScrollbar: this.#conf.math_hide_scrollbar,
+      });
+      applyPhotoFigcaptions(article, this.#conf.photofigcaption);
       ensureHeadingIds(article);
       enhanceContent(article);
+      bindArticleAnchors(article, {
+        autoUpdate: this.#conf.anchor_auto_update,
+        clickToScroll: this.#conf.anchor_click_to_scroll,
+      });
+      this.#domObserver(article);
     }
-    if (article) bindArticleAnchors(article, {
-      autoUpdate: this.#conf.anchor_auto_update,
-      clickToScroll: this.#conf.anchor_click_to_scroll,
-    });
-    this.#domObserver();
     this.#tocBotH5();
     this.#copyRight();
     this.#relatedPosts();
     bindRewards();
   }
 
-  /**
-   * h标题
-   */
-  #h() {
-    if(this.#conf.enable_h_icon) this.#renderDom.addClass('enable_h_icon');
-  }
-
-  #domObserver() {
-    const renderDom = document.querySelector<HTMLElement>('article.render');
-    if (!renderDom) return;
-
-    const observer = new ResizeObserver(entries => {
-      for (let entry of entries) {
-        if(entry.contentRect.height > 0) {
-          this.#tocBot();
+  #domObserver(renderDom: HTMLElement) {
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentRect.height > 0) {
+          this.#tocBot(renderDom);
           observer.disconnect();
+          return;
         }
       }
     });
     observer.observe(renderDom);
   }
 
-  /**
-   * 设置目录。对齐 toc.number / expand / scroll_percent。
-   */
-  #tocBot() {
-    const tocEl = document.querySelector('.aside-toc > .toc');
+  #tocBot(article: HTMLElement) {
+    const tocEl = document.querySelector<HTMLElement>('.aside-toc > .toc');
     if (!tocEl) return;
 
     const expand = resolveExpand(this.#conf.toc_expand);
@@ -104,80 +81,67 @@ export default class Render {
       tocSelector: '.aside-toc > .toc',
       headingSelector: 'h1,h2,h3,h4,h5,h6',
       hasInnerContainers: true,
-      // Chapter navigation is shared with heading links and preserves browser history.
       scrollSmooth: false,
       includeTitleTags: true,
       scrollSmoothDuration: 280,
       throttleTimeout: 30,
       collapseDepth: resolveCollapseDepth(this.#conf.toc_expand),
-      headingsOffset: 20, // 目录中高亮的偏移值，和scrollSmoothOffset有关联
-      scrollSmoothOffset: -20, // 屏幕滚动的偏移值（这里和导航条固定也有关联）
+      headingsOffset: 20,
+      scrollSmoothOffset: -20,
       fixedSidebarOffset: 'auto',
     });
 
-    const article = document.querySelector<HTMLElement>('article.render');
     const percentEl = document.querySelector('.aside-toc .toc-percentage');
     const showPercent = resolveScrollPercent(this.#conf.toc_scroll_percent);
 
     MainApp.useScroll.change((max, num, scrollTop) => {
-      if (showPercent && percentEl && article) {
+      if (showPercent && percentEl) {
         percentEl.textContent = String(getScrollPercent(scrollTop, article));
       }
-      if(scrollTop < max || window.innerWidth <= 1100) return;
-      if(num <= scrollTop) {
-        this.#tocStickyDom.css('top', '');
-      }
-      else {
-        this.#tocStickyDom.css('top', '70px');
-      }
+      if (!this.#tocStickyDom || scrollTop < max || window.innerWidth <= 1100) return;
+      this.#tocStickyDom.style.top = num <= scrollTop ? '' : '70px';
     });
 
-    const toc = $('.aside-toc > .toc');
-
-    if(!toc.html()) toc.html(t('ui.emptyToc'));
+    if (!tocEl.innerHTML) tocEl.textContent = t('ui.emptyToc');
     else applyTocNumbers(tocEl, resolveNumber(this.#conf.toc_number));
   }
 
-  /**
-   * h5目录
-   */
   #tocBotH5() {
-    const adeToc = this.#tocStickyDom.find('.aside-toc');
-    if (!adeToc.length) return;
+    const adeToc = this.#tocStickyDom?.querySelector<HTMLElement>('.aside-toc');
+    if (!adeToc) return;
 
-    const showPane = $('#rightside-config-show');
-    const sideBtn = showPane.length ? showPane : $('.side-btn');
-    const goUp = $('#go-up');
+    const showPane = document.getElementById('rightside-config-show');
+    const sideBtn = showPane || document.querySelector('.side-btn');
+    if (!sideBtn) return;
+    const goUp = document.getElementById('go-up');
 
-    const tocBtn = $(`<button id="mobile-toc-button" class="button h5-toc" type="button" title="${t('ui.postToc')}"><i class="fas fa-list-ul"></i></button>`);
+    const tocBtn = document.createElement('button');
+    tocBtn.id = 'mobile-toc-button';
+    tocBtn.className = 'button h5-toc';
+    tocBtn.type = 'button';
+    tocBtn.title = t('ui.postToc');
+    tocBtn.innerHTML = '<i class="fas fa-list-ul"></i>';
 
-    if (goUp.length && showPane.length) tocBtn.insertBefore(goUp);
+    if (goUp && showPane) showPane.insertBefore(tocBtn, goUp);
     else sideBtn.prepend(tocBtn);
 
-    tocBtn.on('click', async () => {
-      adeToc.toggle('fast');
-
-      await useDelay(500);
-
-      adeToc.css('display') === 'none' && adeToc.attr('style', '');
+    tocBtn.addEventListener('click', () => {
+      const hidden = window.getComputedStyle(adeToc).display === 'none';
+      adeToc.style.display = hidden ? 'block' : '';
     });
     applyRightsideItemOrder(document);
   }
 
-  /**
-   * 版权
-   */
   #copyRight() {
-    const a = $('.copy-right a.permalink');
-    if (!a.length) return;
-    const href = a.attr('href') || document.querySelector<HTMLLinkElement>('link[rel=canonical]')?.href || window.location.href;
-    a.attr('href', href);
-    a.text(formatPermalinkText(href, this.#conf.post_copyright_decode));
+    const a = document.querySelector<HTMLAnchorElement>('.copy-right a.permalink');
+    if (!a) return;
+    const href = a.getAttribute('href')
+      || document.querySelector<HTMLLinkElement>('link[rel=canonical]')?.href
+      || window.location.href;
+    a.setAttribute('href', href);
+    a.textContent = formatPermalinkText(href, this.#conf.post_copyright_decode);
   }
 
-  /**
-   * 相关文章：按共享标签数加权，同权重随机，再截断到配置数量。
-   */
   #relatedPosts() {
     const list = document.querySelector('.relatedPosts-list');
     if (!list) return;

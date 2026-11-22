@@ -73,10 +73,10 @@ test('a hanging permission request is aborted and leaves no entry', async () => 
   const {root, template, mounted} = fixture();
   await initializePostEdit(root, (_url, {signal}) => new Promise((_resolve, reject) => {
     signal.addEventListener('abort', () => reject(new DOMException('Timeout', 'AbortError')), {once: true});
-  }));
+  }), 30);
   assert.equal(template.isConnected, false);
   assert.deepEqual(mounted, []);
-}, 10000);
+});
 
 test('old configurations keep the edit shortcut disabled', async () => {
   const defaults = defaultsFromSettings(parse(await readFile(new URL('../settings.yaml', import.meta.url), 'utf8')));

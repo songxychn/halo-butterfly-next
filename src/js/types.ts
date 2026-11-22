@@ -92,6 +92,7 @@ export interface ThemeApp {
   prismReady?: Promise<boolean>;
   resources?: import('./core/external-resource.ts').ResourceConfig;
   version?: string;
+  merge?: (script: HTMLOrSVGScriptElement | null) => void;
 }
 export interface ArchiveYear { year: number; months: { month: number; posts: unknown[] }[] }
 export interface Category { postCount: number; spec: { displayName: string } }

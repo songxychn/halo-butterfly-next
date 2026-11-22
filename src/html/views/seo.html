@@ -1,4 +1,4 @@
-<!-- Butterfly 5.7.0: Open_Graph.pug / structured_data.pug / site_verification.pug. -->
+<!--/* Open Graph, structured data, and site verification tags. */-->
 <th:block xmlns:th="https://www.thymeleaf.org" th:fragment="verification"
   th:with="verificationItems = ${(theme.config.seo?.site_verification ?: {}).?[#this != null and not #strings.isEmpty(#strings.trim(name)) and not #strings.isEmpty(#strings.trim(content))]}, verificationNames = ${verificationItems.![#strings.trim(name)]}">
   <meta th:each="item, state : ${verificationItems}"
@@ -24,7 +24,7 @@
     twitterImage = ${#strings.isEmpty(twitterRaw) ? '' : (#strings.startsWith(twitterRaw, '//') ? #strings.substringBefore(seoBase, ':') + ':' + twitterRaw : (#strings.startsWith(twitterRaw, 'https://') or #strings.startsWith(twitterRaw, 'http://') ? twitterRaw : (#strings.startsWith(twitterRaw, '/') ? seoOrigin + twitterRaw : seoBase + '/' + twitterRaw)))}
   ">
   <th:block th:replace="~{views/seo :: verification}"/>
-  <th:block th:if="${theme.config.base.enable_seo != false and theme.config.base.enable_seo != 'false' and page != 'error404'}">
+  <th:block th:if="${theme.config.seo?.enable != false and theme.config.seo?.enable != 'false' and page != 'error404'}">
     <link rel="canonical" th:href="${seoUrl}">
     <meta property="og:title" th:content="${seoTitle}">
     <meta property="og:description" th:if="${not #strings.isEmpty(seoDescription)}" th:content="${seoDescription}">
@@ -45,7 +45,6 @@
     <meta name="twitter:site" th:if="${not #strings.isEmpty(theme.config.seo?.twitter_site)}" th:content="${theme.config.seo.twitter_site}">
     <meta property="fb:admins" th:if="${not #strings.isEmpty(theme.config.seo?.fb_admins)}" th:content="${theme.config.seo.fb_admins}">
     <meta property="fb:app_id" th:if="${not #strings.isEmpty(theme.config.seo?.fb_app_id)}" th:content="${theme.config.seo.fb_app_id}">
-    <link rel="publisher" th:if="${not #strings.isEmpty(theme.config.seo?.google_plus)}" th:href="${theme.config.seo.google_plus}">
     <th:block th:if="${theme.config.seo?.structured_data == true or theme.config.seo?.structured_data == 'true'}">
       <th:block th:replace="~{views/seo-json :: structured}"/>
     </th:block>

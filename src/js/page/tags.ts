@@ -7,38 +7,24 @@
 
 import App from '../core/App.ts';
 import { initializeTagCloud } from '../core/listing-options.ts';
-import {applyTagColors, tagCloudColors} from '../core/tag-cloud-colors.ts';
-import {loadPageChart} from '../core/chart-loader.ts';
+import { applyTagColors } from '../core/tag-cloud-colors.ts';
+import { loadPageChart } from '../core/chart-loader.ts';
 
 class Tags {
-
-  // 渲染标签
   run_equinox() {
     const container = document.querySelector<HTMLElement>('[data-tag-cloud]');
     if (!container) return;
     const customizedFont = container.dataset.minFont !== '12' || container.dataset.maxFont !== '21' || container.dataset.unit !== 'px';
     const items = initializeTagCloud(container, MainApp.conf.appearance?.tag_ui !== 'chart' || customizedFont);
+    if (!items.length) return;
 
-    if(!items.length) return;
-
-    const source: [string, number][] = [];
-
-    for (let i = 0; i < items.length; i++) {
-
-      const dom = items[i];
-
-      const count = Number(dom.getAttribute('data-postCount') || 0);
-
-      const colors = tagCloudColors(i);
-      dom.style.setProperty('--tag-color-light', colors.light);
-      dom.style.setProperty('--tag-color-dark', colors.dark);
-
-      source.push([dom.innerText, count]);
-    }
+    const source: [string, number][] = Array.from(items, (dom) => [
+      dom.innerText,
+      Number(dom.getAttribute('data-postCount') || 0),
+    ]);
 
     applyTagColors([...items], MainApp.conf.appearance?.tag_custom_colors, true, false);
     void loadPageChart('tags', source);
   }
-
 }
 App([])(Tags);

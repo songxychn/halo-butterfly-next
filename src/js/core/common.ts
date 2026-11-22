@@ -1,21 +1,13 @@
-import { t } from './i18n';
+import { t } from './i18n.ts';
 import { initializeArchiveTitle } from './listing-options.ts';
-/**
- * @date: 2024/3/2
- * @author: 小红
- * @fileName: _aside
- * @Description:common
- */
-import $ from 'jquery';
 import { initializeFooterBackground } from './decorative-background.ts';
-import {initializeAppearance} from './appearance.ts';
+import { initializeAppearance } from './appearance.ts';
 import Navigation from './navigation.ts';
 import { initializeAsideOptions } from './aside-options.ts';
 import { initializeImageLoading } from './image-loading.ts';
 import { applyRelativeDates } from './relative-date.ts';
 import { bindHideAsideButton } from './aside-hide-button.ts';
 import { bindRightsideConfig, bindReadmode } from './rightside.ts';
-import { bindTranslate } from './translate.ts';
 import { bindDarkmode } from './darkmode.ts';
 import { bindCommentJump } from './comment-jump.ts';
 import { bindCopyAttribution } from './copy-attribution.ts';
@@ -23,12 +15,12 @@ import { initializeSiteContent } from './site-content.ts';
 import { initializeEffects } from './effects-loader.ts';
 
 export default class Common {
-
   constructor() {
-    this.#createSingleAction(); //创建单一行为事件
+    initializeImageLoading(MainApp.conf);
+    new Navigation();
     this.#bindScrollDown();
 
-    if(MainApp.conf.enable_aside && MainApp.conf.enable_webInfo) this.#runDay(); //站点运行时间
+    if (MainApp.conf.enable_aside && MainApp.conf.enable_webInfo) this.#runDay();
 
     initializeAsideOptions(document, MainApp.conf.aside_tag_colors);
     initializeAppearance(MainApp.conf.appearance);
@@ -39,59 +31,35 @@ export default class Common {
     bindHideAsideButton();
     bindRightsideConfig();
     bindReadmode();
-    bindTranslate();
+    if (document.getElementById('translateLink')) {
+      void import('./translate.ts').then(({ bindTranslate }) => bindTranslate());
+    }
     bindDarkmode();
     bindCommentJump();
     bindCopyAttribution();
     initializeSiteContent();
-
   }
 
-  // 站点运行时间
   #runDay() {
-    const dom = $('.main > .aside .aside-webInfo .run-day');
-
-    if(!dom.length) return;
-
-    const siteDate = new Date(dom.attr('data-date') || '');
-
-    if(siteDate.toString() === 'Invalid Date') return;
-
-    const currentDate = new Date();
-
-    const date = currentDate.getTime() - siteDate.getTime();
-
-    const day = parseInt((date / (1000 * 24 * 60 * 60)).toString());
-
-    dom.html(day + t('ui.dayUnit'));
+    const dom = document.querySelector<HTMLElement>('.main > .aside .aside-webInfo .run-day');
+    if (!dom) return;
+    const siteDate = new Date(dom.getAttribute('data-date') || '');
+    if (Number.isNaN(siteDate.getTime())) return;
+    const day = Math.floor((Date.now() - siteDate.getTime()) / 86_400_000);
+    dom.textContent = day + t('ui.dayUnit');
   }
 
-  /**
-   * 创建单一行为事件
-   */
-  #createSingleAction() {
-    //图片懒加载
-    initializeImageLoading(MainApp.conf);
-
-    new Navigation();
-  }
-
-  //返回顶部
   backTop() {
-    $('html,body').animate({scrollTop: 0}, 300);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // 首页 #scroll-down：对齐 5.7.0 main.js 滚到内容区（Halo 为 #Butterfly > .main）
   #bindScrollDown() {
     const el = document.getElementById('scroll-down');
     if (!el) return;
     el.addEventListener('click', () => {
       const main = document.querySelector<HTMLElement>('#Butterfly > .main');
       if (!main) return;
-      $('html,body').animate({scrollTop: main.offsetTop}, 300);
+      window.scrollTo({ top: main.offsetTop, behavior: 'smooth' });
     });
   }
-
 }
- 
- 

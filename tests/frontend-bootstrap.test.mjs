@@ -12,8 +12,12 @@ function initialize(conf, saved = {}, blocked = false) {
   const classes = new Set();
   const listeners = new Map();
   const document = {
-    documentElement: {dataset: {}, classList: {toggle(name, on) {on ? classes.add(name) : classes.delete(name);}}},
-    addEventListener(name, callback) {listeners.set(name, callback);},
+    documentElement: {
+      dataset: {},
+      style: { setProperty() {}, removeProperty() {} },
+      classList: { toggle(name, on) { on ? classes.add(name) : classes.delete(name); } },
+    },
+    addEventListener(name, callback) { listeners.set(name, callback); },
   };
   const storage = new Map(Object.entries(saved));
   const window = {MainApp: {conf}, matchMedia: query => ({matches: query.includes('dark')})};

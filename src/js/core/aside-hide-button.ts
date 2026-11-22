@@ -78,8 +78,10 @@ export function restoreAsideStatus(classList: DOMTokenList, storage: Storage, as
 
 export function onHideAsideButtonClick(classList: DOMTokenList, storage: Storage) {
   const saveStatus = nextAsideStatus(classList.contains('hide-aside'));
-  writeAsideStatus(saveStatus, ASIDE_STATUS_TTL_DAYS, storage);
   classList.toggle('hide-aside');
+  try {
+    writeAsideStatus(saveStatus, ASIDE_STATUS_TTL_DAYS, storage);
+  } catch {}
 }
 
 export function bindHideAsideButton(root = typeof document !== 'undefined' ? document : null) {
@@ -87,8 +89,6 @@ export function bindHideAsideButton(root = typeof document !== 'undefined' ? doc
   const btn = root.getElementById('hide-aside-btn');
   if (!btn) return;
   btn.addEventListener('click', () => {
-    try {
-      onHideAsideButtonClick(document.documentElement.classList, localStorage);
-    } catch {}
+    onHideAsideButtonClick(document.documentElement.classList, localStorage);
   });
 }

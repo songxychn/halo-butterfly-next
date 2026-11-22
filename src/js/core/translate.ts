@@ -99,14 +99,11 @@ export function translateBody(fobj: Node | null | undefined, button: HTMLElement
   for (const node of list) {
     if (!node || skipNode(node, button)) continue;
     if (node.nodeType === ELEMENT_NODE) {
-      const element = node as HTMLElement & {alt?: string; placeholder?: string; value?: string; type?: string};
-      const { tagName, title, alt, placeholder, value, type } = element;
+      const element = node as HTMLElement & { alt?: string; placeholder?: string };
+      const { title, alt, placeholder } = element;
       if (title) element.title = translateText(title, currentEncoding, targetEncoding);
       if (alt) element.alt = translateText(alt, currentEncoding, targetEncoding);
       if (placeholder) element.placeholder = translateText(placeholder, currentEncoding, targetEncoding);
-      if (tagName === 'INPUT' && value && type !== 'text' && type !== 'hidden') {
-        element.value = translateText(value, currentEncoding, targetEncoding);
-      }
       translateBody(node, button, currentEncoding, targetEncoding);
     } else if (node.nodeType === TEXT_NODE) {
       (node as Text).data = translateText((node as Text).data, currentEncoding, targetEncoding);
@@ -180,7 +177,6 @@ export function initializeTranslate(state: TranslateState) {
   setDocumentLang(state.html, state.targetEncoding);
   if (state.currentEncoding !== state.targetEncoding) {
     applyButtonLabel(state);
-    setDocumentLang(state.html, state.targetEncoding);
     translateBody(state.body, state.button, state.currentEncoding, state.targetEncoding);
     state.currentEncoding = state.targetEncoding;
   }

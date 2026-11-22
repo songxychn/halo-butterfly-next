@@ -37,8 +37,8 @@ test('every template/browser message reference exists and is safely inlined', as
     for (const [key] of text.matchAll(/ui\.[A-Za-z0-9]+/g)) assert.ok(catalogs.default[key], `${file}: ${key}`);
   }
   const config = await readFile(new URL('src/html/views/config.html', root), 'utf8');
-  assert.match(config, /th:inline="javascript"/);
-  assert.match(config, /\/\*\[\[#\{ui\.copyCode\}\]\]\*\//);
+  assert.match(config, /data-config=/);
+  assert.match(config, /#messages\.msg\('ui\.copyCode'\)/);
   const build = await readFile(new URL('scripts/build.mjs', root), 'utf8');
   assert.match(build, /filesUnder\(path.join\(root, 'i18n'\)\)/);
 });

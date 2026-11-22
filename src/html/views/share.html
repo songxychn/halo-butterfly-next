@@ -1,7 +1,7 @@
 <section xmlns:th="https://www.thymeleaf.org" class="post-share"
   th:fragment="postShare" aria-label="分享文章" th:aria-label="#{ui.share}"
-  th:if="${theme.config.share?.use == 'native'}"
-  th:attr="data-post-share=${theme.config.share.use},data-url=${canonical ?: post.status.permalink},data-title=${post.spec.title}">
+  th:if="${theme.config.post?.share?.use == 'native'}"
+  th:attr="data-post-share=${theme.config.post?.share.use},data-url=${canonical ?: post.status.permalink},data-title=${post.spec.title}">
   <h2 th:text="#{ui.share}">分享文章</h2>
   <div class="share-actions">
     <button type="button" data-share-system hidden th:text="#{ui.shareSystem}">系统分享</button>

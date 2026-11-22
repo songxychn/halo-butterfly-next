@@ -1,16 +1,16 @@
 <!--/* 图片加载。有真实地址时直接写 src，避免 1×1 预加载图被 blur(50px) 成色块（上游 lazyload.enable / blur 默认 false）。 */-->
 <th:block
   th:fragment="lazyLoadImg(src,alt,class,random,parma)"
-  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.loading.img.random_enable and random) ? (theme.config.loading.img.random_link + parma) : src},
-    imageSrc = ${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.loading.img.preload},
+  th:with="resolvedSrc = ${(#strings.isEmpty(src) and theme.config.interaction?.loading?.img?.random_enable and random) ? ((theme.config.interaction?.loading?.img?.random_link ?: '') + parma) : src},
+    imageSrc = ${not #strings.isEmpty(resolvedSrc) ? resolvedSrc : theme.config.interaction?.loading.img.preload},
     colorCover = ${not #strings.isEmpty(src) and (#strings.startsWith(src, '#') or #strings.startsWith(src, 'rgb') or #strings.startsWith(src, 'hsl'))},
-    lazyOn = ${theme.config.lazyload?.enable != false and theme.config.lazyload?.enable != 'false' and theme.config.lazyload?.field != 'post'},
-    lazyDeferred = ${lazyOn and (theme.config.lazyload?.native == false or theme.config.lazyload?.native == 'false')}"
+    lazyOn = ${theme.config.interaction?.lazyload?.enable != false and theme.config.interaction?.lazyload?.enable != 'false' and theme.config.interaction?.lazyload?.field != 'post'},
+    lazyDeferred = ${lazyOn and (theme.config.interaction?.lazyload?.native == false or theme.config.interaction?.lazyload?.native == 'false')}"
 >
   <span th:if="${colorCover}" class="cover-color" th:classappend="${class}" th:attr="data-cover-color=${src}" aria-hidden="true"></span>
-  <img th:unless="${colorCover}" data-theme-image th:src="${lazyDeferred ? theme.config.loading.img.preload : imageSrc}"
+  <img th:unless="${colorCover}" data-theme-image th:src="${lazyDeferred ? theme.config.interaction?.loading.img.preload : imageSrc}"
     th:data-lazy-src="${lazyDeferred ? imageSrc : null}"
-    th:data-theme-image-fallback="${class == 'logo' and not #strings.isEmpty(theme.config.image?.flink_error) ? theme.config.image.flink_error : theme.config.loading.img.err}"
+    th:data-theme-image-fallback="${class == 'logo' and not #strings.isEmpty(theme.config.home?.image?.flink_error) ? theme.config.home?.image.flink_error : theme.config.interaction?.loading.img.err}"
     th:alt="${alt}" th:class="${class}" th:loading="${lazyOn ? 'lazy' : 'eager'}" decoding="async">
   <noscript th:if="${not colorCover and lazyDeferred}"><img th:src="${imageSrc}" th:alt="${alt}" th:class="${class}"></noscript>
 </th:block>
@@ -24,10 +24,10 @@
     dateType = ${theme.config.post.post_meta?.date_type},
     dateFormat = ${theme.config.post.post_meta?.date_format},
     showLabel = ${theme.config.post.post_meta?.label != false},
-    wordcountOn = ${theme.config.wordcount?.enable == true or theme.config.wordcount?.enable == 'true'},
-    showWordcount = ${wordcountOn and theme.config.wordcount?.post_wordcount != false},
-    showMin2read = ${wordcountOn and theme.config.wordcount?.min2read != false},
-    showPagePv = ${theme.config.busuanzi?.page_pv == true or theme.config.busuanzi?.page_pv == 'true'},
+    wordcountOn = ${theme.config.post?.wordcount?.enable == true or theme.config.post?.wordcount?.enable == 'true'},
+    showWordcount = ${wordcountOn and theme.config.post?.wordcount?.post_wordcount != false},
+    showMin2read = ${wordcountOn and theme.config.post?.wordcount?.min2read != false},
+    showPagePv = ${theme.config.post?.stats?.page_pv == true or theme.config.post?.stats?.page_pv == 'true'},
     showCommentCount = ${theme.config.comments?.count == true and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and post.spec.allowComment},
     rawHtml = ${wordcountOn and post.content != null ? #strings.defaultString(post.content.content, '') : ''},
     plain = ${T(org.unbescape.html.HtmlEscape).unescapeHtml(rawHtml.replaceAll('(?is)<!--.*?-->|<(script|style|template|svg)\b[^>]*>.*?</\1\s*>', '').replaceAll('(?s)<[^>]+>', ' '))},
@@ -112,12 +112,12 @@
     rawLayout = ${#strings.toString(layout)},
     indexLayout = ${#lists.contains({'1','2','3','4','5','6','7'},rawLayout) ? rawLayout : '3'},
     noData = ${not #lists.isEmpty(data)},
-    dateType = ${theme.config.index.post_meta?.date_type},
-    dateFormat = ${theme.config.index.post_meta?.date_format},
-    showLabel = ${theme.config.index.post_meta?.label != false},
-    indexCoverEnable = ${theme.config.cover.index_enable != false},
-    ipcMethod = ${theme.config.index.index_post_content?.method},
-    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+    dateType = ${theme.config.home.post_meta?.date_type},
+    dateFormat = ${theme.config.home.post_meta?.date_format},
+    showLabel = ${theme.config.home.post_meta?.label != false},
+    indexCoverEnable = ${theme.config.home?.cover.index_enable != false},
+    ipcMethod = ${theme.config.home.index_post_content?.method},
+    ipcLength = ${theme.config.home.index_post_content?.length == null ? 500 : theme.config.home.index_post_content.length}
   "
 >
   <th:block th:if="${noData}">
@@ -125,8 +125,8 @@
     <li
       class="item card"
       th:with="
-        coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
-        showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+        coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.home?.cover.default_cover)},
+        showCover = ${indexCoverEnable and (not #strings.isEmpty(coverSrc) or theme.config.interaction?.loading.img.random_enable)}
       "
       th:classappend="${showCover ? '' : ' no-cover'}"
     >
@@ -151,7 +151,7 @@
               <i class="fas fa-history fa-fw"></i>
               <time th:datetime="${post.status.lastModifyTime}" th:data-relative-date="${dateFormat == 'relative'}" th:text="${(showLabel ? #messages.msg('ui.updated') : '') + #dates.format(post.status.lastModifyTime, datePattern ?: 'yyyy-MM-dd')}"></time>
             </span>
-            <span class="wp category" th:if="${theme.config.index.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
+            <span class="wp category" th:if="${theme.config.home.post_meta?.categories != false and not #lists.isEmpty(post.categories)}">
               <i class="fas fa-inbox"></i>
               <span class="cys">
                 <th:block th:each="cy : ${post.categories}">
@@ -159,7 +159,7 @@
                 </th:block>
               </span>
             </span>
-            <span class="wp tag" th:if="${theme.config.index.post_meta?.tags != false and not #lists.isEmpty(post.tags)}">
+            <span class="wp tag" th:if="${theme.config.home.post_meta?.tags != false and not #lists.isEmpty(post.tags)}">
               <i class="fa-solid fa-tags"></i>
               <span class="cys">
                 <th:block th:each="cy : ${post.tags}">
@@ -242,13 +242,13 @@
   <div
     id="rightside"
     class="side-btn"
-    th:attr="data-item-order-enable=${theme.config.rightside?.item_order?.enable},data-item-order-hide=${theme.config.rightside?.item_order?.hide},data-item-order-show=${theme.config.rightside?.item_order?.show}"
+    th:attr="data-item-order-enable=${theme.config.interaction?.rightside?.item_order?.enable},data-item-order-hide=${theme.config.interaction?.rightside?.item_order?.hide},data-item-order-show=${theme.config.interaction?.rightside?.item_order?.show}"
     th:with="
       hideBtnOn = ${asideEnabled and theme.config.aside.hide_button != false and theme.config.aside.hide_button != 'false'},
-      darkBtnOn = ${theme.config.style?.mode != 'light' and theme.config.style?.mode != 'dark' and theme.config.darkmode?.button != false and theme.config.darkmode?.button != 'false'},
-      percentOn = ${theme.config.rightside?.scroll_percent == true or theme.config.rightside?.scroll_percent == 'true'},
-      readmodeOn = ${theme.config.rightside?.readmode != false and theme.config.rightside?.readmode != 'false' and page == 'post'},
-      translateOn = ${theme.config.translate?.enable == true or theme.config.translate?.enable == 'true'},
+      darkBtnOn = ${theme.config.appearance?.mode != 'light' and theme.config.appearance?.mode != 'dark' and theme.config.appearance?.darkmode?.button != false and theme.config.appearance?.darkmode?.button != 'false'},
+      percentOn = ${theme.config.interaction?.rightside?.scroll_percent == true or theme.config.interaction?.rightside?.scroll_percent == 'true'},
+      readmodeOn = ${theme.config.interaction?.rightside?.readmode != false and theme.config.interaction?.rightside?.readmode != 'false' and page == 'post'},
+      translateOn = ${theme.config.interaction?.translate?.enable == true or theme.config.interaction?.translate?.enable == 'true'},
       commentOn = ${theme.config.comments?.jump != false and pluginFinder.available('PluginCommentWidget', '>=3.3.2') and haloCommentEnabled and (page == 'post' ? post.spec.allowComment : (page == 'single' ? singlePage.spec.allowComment : (page == 'moments' and #ctx.containsVariable('moment') and moment != null)))}
     "
   >
@@ -264,12 +264,12 @@
       </button>
       <button
         id="translateLink"
-        th:attr="data-default-encoding=${theme.config.translate?.defaultEncoding ?: 2},data-translate-delay=${theme.config.translate?.translateDelay ?: 0},data-msg-traditional=${theme.config.translate?.msgToTraditionalChinese ?: '繁'},data-msg-simplified=${theme.config.translate?.msgToSimplifiedChinese ?: '簡'}"
+        th:attr="data-default-encoding=${theme.config.interaction?.translate?.defaultEncoding ?: 2},data-translate-delay=${theme.config.interaction?.translate?.translateDelay ?: 0},data-msg-traditional=${theme.config.interaction?.translate?.msgToTraditionalChinese ?: '繁'},data-msg-simplified=${theme.config.interaction?.translate?.msgToSimplifiedChinese ?: '簡'}"
         class="button"
         type="button"
         title="简繁转换" th:title="#{ui.scriptConvert}"
         th:if="${translateOn}"
-        th:text="${theme.config.translate == null or theme.config.translate.default == null or theme.config.translate.default == '' ? '繁' : theme.config.translate.default}"
+        th:text="${theme.config.interaction?.translate == null or theme.config.interaction?.translate.default == null or theme.config.interaction?.translate.default == '' ? '繁' : theme.config.interaction?.translate.default}"
       ></button>
       <button
         id="darkmode"
@@ -304,9 +304,9 @@
         title="设置" th:title="#{ui.settings}"
         aria-controls="rightside-config-hide"
         aria-expanded="false"
-        th:if="${hideBtnOn or darkBtnOn or readmodeOn or translateOn or theme.config.rightside?.item_order?.enable == true or theme.config.rightside?.item_order?.enable == 'true'}"
+        th:if="${hideBtnOn or darkBtnOn or readmodeOn or translateOn or theme.config.interaction?.rightside?.item_order?.enable == true or theme.config.interaction?.rightside?.item_order?.enable == 'true'}"
       >
-        <i class="fas fa-cog" th:classappend="${theme.config.rightside?.config_animation != false and theme.config.rightside?.config_animation != 'false'} ? 'fa-spin'" aria-hidden="true"></i>
+        <i class="fas fa-cog" th:classappend="${theme.config.interaction?.rightside?.config_animation != false and theme.config.interaction?.rightside?.config_animation != 'false'} ? 'fa-spin'" aria-hidden="true"></i>
       </button>
       <button
         id="go-up"
@@ -365,8 +365,8 @@
     modeTwo = ${paginationMode == 2 or paginationMode == '2'},
     prevPost = ${modeTwo ? haloNext : haloPrev},
     nextPost = ${modeTwo ? haloPrev : haloNext},
-    ipcMethod = ${theme.config.index.index_post_content?.method},
-    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+    ipcMethod = ${theme.config.home.index_post_content?.method},
+    ipcLength = ${theme.config.home.index_post_content?.length == null ? 500 : theme.config.home.index_post_content.length}
   "
 >
   <th:block th:replace="~{:: postPaginationLink(${prevPost}, 'prev', ${nextPost != null}, ${ipcMethod}, ${ipcLength})}"/>
@@ -393,13 +393,13 @@
     autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
     excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
     hasDesc = ${not #strings.isEmpty(excerptText)},
-    coverSrc = ${not #strings.isEmpty(target.spec.cover) ? target.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(target.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
-    hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable}
+    coverSrc = ${not #strings.isEmpty(target.spec.cover) ? target.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(target.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.home?.cover.default_cover)},
+    hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.interaction?.loading.img.random_enable}
   "
   th:classappend="${(hasOther ? '' : 'full-width ') + (hasDesc ? '' : 'no-desc')}"
 >
   <th:block th:if="${hasImg}">
-    <img th:replace="~{::lazyLoadImg(${coverSrc},${target.spec.title},'cover',true,${'v=' + #dates.format(target.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+    <img th:replace="~{::lazyLoadImg(${coverSrc},${target.spec.title},'cover',true,${param_prefix + 'v=' + #dates.format(target.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
   </th:block>
   <div th:unless="${hasImg}" class="cover"></div>
   <div class="info" th:classappend="${direction == 'next' ? 'text-right' : ''}">
@@ -425,8 +425,8 @@
     rpCfg = ${theme.config.post.related_post},
     rpLimit = ${rpCfg.limit == null or rpCfg.limit == 0 or rpCfg.limit == '0' ? 6 : rpCfg.limit},
     rpUpdated = ${not #strings.isEmpty(rpCfg.date_type) and rpCfg.date_type != 'created'},
-    ipcMethod = ${theme.config.index.index_post_content?.method},
-    ipcLength = ${theme.config.index.index_post_content?.length == null ? 500 : theme.config.index.index_post_content.length}
+    ipcMethod = ${theme.config.home.index_post_content?.method},
+    ipcLength = ${theme.config.home.index_post_content?.length == null ? 500 : theme.config.home.index_post_content.length}
   "
 >
   <div class="headline">
@@ -438,54 +438,46 @@
     th:attr="data-limit=${rpLimit},data-current-post=${post.metadata.name}"
   >
     <template th:each="tag : ${post.tags}" th:attr="data-related-tag=${tag.metadata.name}"
-      th:with="firstPage = ${postFinder.listByTag(1, 100, tag.metadata.name)}">
-      <th:block th:if="${firstPage != null and firstPage.total > 0}">
-      <th:block th:each="pageNumber : ${#numbers.sequence(1, firstPage.totalPages)}"
-        th:with="listed = ${pageNumber == 1 ? firstPage : postFinder.listByTag(pageNumber, 100, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
-        <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
-          <a
-            class="pagination-related"
-            th:href="${item.status.permalink}"
-            th:title="${item.spec.title}"
-            th:attr="data-post-name=${item.metadata.name}"
-            th:with="
-              description = ${#strings.defaultString(item.spec.excerpt.raw, '')},
-              methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
-              methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
-              methodOff = ${ipcMethod == false or ipcMethod == 'false'},
-              useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
-              contentVo = ${methodOff or useDescription or methodOne ? null : postFinder.content(item.metadata.name)},
-              htmlContent = ${contentVo != null ? #strings.defaultString(contentVo.content, '') : ''},
-              stripped = ${#strings.replace(htmlContent.replaceAll('(?s)<[^>]+>', ''), '\n', ' ')},
-              plain = ${not #strings.isEmpty(stripped) ? stripped : #strings.defaultString(item.status.excerpt, '')},
-              autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
-              excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
-              hasDesc = ${not #strings.isEmpty(excerptText)},
-              coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(item.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
-              hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable},
-              showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
-            "
-            th:classappend="${hasDesc ? '' : 'no-desc'}"
-          >
-            <th:block th:if="${hasImg}">
-              <img th:replace="~{::lazyLoadImg(${coverSrc},${item.spec.title},'cover',true,${'v=' + #dates.format(item.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
-            </th:block>
-            <div th:unless="${hasImg}" class="cover"></div>
-            <div class="info text-center">
-              <div class="info-1">
-                <div class="info-item-1">
-                  <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
-                  <time th:datetime="${showTime}" th:text="${#dates.format(showTime, datePattern ?: 'yyyy-MM-dd')}"></time>
-                </div>
-                <div class="info-item-2" th:text="${item.spec.title}"></div>
+      th:with="listed = ${postFinder.listByTag(1, 24, tag.metadata.name)}, relatedItems = ${listed != null ? listed.items : null}">
+      <th:block th:each="item : ${relatedItems}" th:if="${item != null and item.metadata.name != post.metadata.name}">
+        <a
+          class="pagination-related"
+          th:href="${item.status.permalink}"
+          th:title="${item.spec.title}"
+          th:attr="data-post-name=${item.metadata.name}"
+          th:with="
+            description = ${#strings.defaultString(item.spec.excerpt?.raw, '')},
+            methodOne = ${ipcMethod == 1 or ipcMethod == '1'},
+            methodTwo = ${ipcMethod == 2 or ipcMethod == '2'},
+            methodOff = ${ipcMethod == false or ipcMethod == 'false'},
+            useDescription = ${(methodOne or methodTwo) and not #strings.isEmpty(description)},
+            plain = ${#strings.defaultString(item.status.excerpt, '')},
+            autoExcerpt = ${#strings.length(plain) < ipcLength ? plain : (#strings.substring(plain, 0, (ipcLength > 3 ? ipcLength - 3 : 0)) + '...')},
+            excerptText = ${methodOff ? '' : (useDescription ? description : (methodOne ? '' : autoExcerpt))},
+            hasDesc = ${not #strings.isEmpty(excerptText)},
+            coverSrc = ${not #strings.isEmpty(item.spec.cover) ? item.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(item.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.home?.cover.default_cover)},
+            hasImg = ${not #strings.isEmpty(coverSrc) or theme.config.interaction?.loading.img.random_enable},
+            showTime = ${rpUpdated ? (item.status.lastModifyTime != null ? item.status.lastModifyTime : item.spec.publishTime) : item.spec.publishTime}
+          "
+          th:classappend="${hasDesc ? '' : 'no-desc'}"
+        >
+          <th:block th:if="${hasImg}">
+            <img th:replace="~{::lazyLoadImg(${coverSrc},${item.spec.title},'cover',true,${param_prefix + 'v=' + #dates.format(item.spec.publishTime, 'yyyyMMddhhmmss')})}"/>
+          </th:block>
+          <div th:unless="${hasImg}" class="cover"></div>
+          <div class="info text-center">
+            <div class="info-1">
+              <div class="info-item-1">
+                <i th:class="${rpUpdated ? 'fa-solid fa-clock-rotate-left fa-fw' : 'fa-regular fa-calendar-days fa-fw'}"></i>
+                <time th:datetime="${showTime}" th:text="${#dates.format(showTime, datePattern ?: 'yyyy-MM-dd')}"></time>
               </div>
-              <div class="info-2" th:if="${hasDesc}">
-                <div class="info-item-1" th:text="${excerptText}"></div>
-              </div>
+              <div class="info-item-2" th:text="${item.spec.title}"></div>
             </div>
-          </a>
-        </th:block>
-      </th:block>
+            <div class="info-2" th:if="${hasDesc}">
+              <div class="info-item-1" th:text="${excerptText}"></div>
+            </div>
+          </div>
+        </a>
       </th:block>
     </template>
   </div>
@@ -495,26 +487,32 @@
 <th:block
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="codeBlockPin"
-  th:with="shrinkOverride = ${post != null ? #annotations.getOrDefault(post, 'highlight_shrink', 'inherit') : (singlePage != null ? #annotations.getOrDefault(singlePage, 'highlight_shrink', 'inherit') : 'inherit')}, codeShrink = ${#lists.contains({'expanded', 'collapsed', 'disabled'}, shrinkOverride) ? shrinkOverride : theme.config.render.code_shrink}"
+  th:with="
+    codeSubject = ${post != null ? post : singlePage},
+    shrinkOverride = ${codeSubject != null ? #annotations.getOrDefault(codeSubject, 'highlight_shrink', 'inherit') : 'inherit'},
+    codeShrink = ${#lists.contains({'expanded', 'collapsed', 'disabled'}, shrinkOverride) ? shrinkOverride : theme.config.code.code_shrink},
+    copyOverride = ${codeSubject != null ? #annotations.getOrDefault(codeSubject, 'enable_code_copy', 'inherit') : 'inherit'},
+    codeCopyEnabled = ${copyOverride == 'true' ? true : (copyOverride == 'false' ? false : theme.config.code.enable_code_copy)}
+  "
 >
-  <script data-theme-script="code-config" id="codeBlockScript" th:inline="javascript">
-    window.MainApp.prismSource = /*[[${assets_link + 'plugins/prism/prism.min.js'}]]*/ '';
-    Object.assign(window.MainApp.conf, {
-      enable_code: /*[[${theme.config.render.enable_code}]]*/ true,
-      enable_code_copy: /*[[${theme.config.render.enable_code_copy}]]*/ true,
-      code_shrink: /*[[${codeShrink}]]*/ 'expanded',
-      enable_code_title: /*[[${theme.config.render.enable_code_title}]]*/ true,
-      enable_code_hr: /*[[${theme.config.render.enable_code_hr}]]*/ true,
-      enable_code_line: /*[[${theme.config.render.enable_code_line}]]*/ true,
-      enable_code_mac_style: /*[[${theme.config.render.enable_code_mac_style}]]*/ false,
-      code_height_limit: /*[[${theme.config.render.code_height_limit}]]*/ false,
-      enable_code_word_wrap: /*[[${theme.config.render.enable_code_word_wrap}]]*/ false,
-      enable_code_fullpage: /*[[${theme.config.render.enable_code_fullpage}]]*/ false,
-    });
-  </script>
+  <script data-theme-script="code-config" id="codeBlockScript" th:inline="none"
+    th:with="codeConf = ${ {
+      'enable_code': theme.config.code.enable_code,
+      'enable_code_copy': codeCopyEnabled,
+      'code_shrink': codeShrink,
+      'enable_code_title': theme.config.code.enable_code_title,
+      'enable_code_hr': theme.config.code.enable_code_hr,
+      'enable_code_line': theme.config.code.enable_code_line,
+      'enable_code_mac_style': theme.config.code.enable_code_mac_style,
+      'code_height_limit': theme.config.code.code_height_limit,
+      'enable_code_word_wrap': theme.config.code.enable_code_word_wrap,
+      'enable_code_fullpage': theme.config.code.enable_code_fullpage
+    } }, codeConfJson = ${T(run.halo.app.infra.utils.JsonUtils).objectToJson(codeConf)}"
+    th:attr="data-prism=${assets_link + 'plugins/prism/prism.min.js'},data-conf=${codeConfJson}"
+  >window.MainApp.merge(document.currentScript);</script>
   <link rel="preload stylesheet" as="style" th:href="${assets_link + 'plugins/prism/prism.min.css'}">
-  <link rel="preload stylesheet" as="style" id="codeLight" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_light + '.css'}">
-  <link rel="preload stylesheet" as="style" id="codeDark" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.render.code_theme_dark + '.css'}">
+  <link rel="preload stylesheet" as="style" id="codeLight" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.code.code_theme_light + '.css'}">
+  <link rel="preload stylesheet" as="style" id="codeDark" th:href="${assets_link + 'plugins/prism/themes/prism-' + theme.config.code.code_theme_dark + '.css'}">
 </th:block>
 
 <!--/* 文章版权。对齐 Butterfly 5.7.0 layout/includes/post/post-copyright.pug

@@ -7,7 +7,7 @@
     th:alt="${contributor?.displayName ?: site.title}"
     class="avatar"
     data-theme-image
-    th:loading="${theme.config.lazyload?.enable != false and theme.config.lazyload?.enable != 'false' and theme.config.lazyload?.field != 'post' ? 'lazy' : 'eager'}"
+    th:loading="${theme.config.interaction?.lazyload?.enable != false and theme.config.interaction?.lazyload?.enable != 'false' and theme.config.interaction?.lazyload?.field != 'post' ? 'lazy' : 'eager'}"
     decoding="async"
   >
 
@@ -79,8 +79,8 @@
         th:href="${post.status.permalink}"
         th:title="${post.spec.title}"
         th:with="
-          coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.cover.default_cover)},
-          showCover = ${theme.config.cover.aside_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.loading.img.random_enable)}
+          coverSrc = ${not #strings.isEmpty(post.spec.cover) ? post.spec.cover : (not #lists.isEmpty(coverCandidates) ? coverCandidates[(post.metadata.name.hashCode() % #lists.size(coverCandidates) + #lists.size(coverCandidates)) % #lists.size(coverCandidates)].url : theme.config.home?.cover.default_cover)},
+          showCover = ${theme.config.home?.cover.aside_enable != false and (not #strings.isEmpty(coverSrc) or theme.config.interaction?.loading.img.random_enable)}
         "
         th:classappend="${showCover ? '' : ' no-cover'}"
       >
@@ -138,7 +138,7 @@
 <section xmlns:th="https://www.thymeleaf.org" th:fragment="archives" th:if="${theme.config.aside.enable_archives != false}" class="aside-archives card card-archives"
   th:attr="data-card-order=${theme.config.aside.card_archives?.sort_order ?: 50}">
   <h1 class="title"><i class="fas fa-archive"></i><span class="name" th:text="#{ui.archives}">归档</span><a class="card-more-btn" href="/archives" aria-label="查看全部归档" th:aria-label="#{ui.allArchives}">›</a></h1>
-  <div class="content" th:with="archiveSize = ${stats.post == null or stats.post < 1 ? 1 : stats.post}, archiveYears = ${postFinder.archives(1, archiveSize)}, archiveRowLimit = ${theme.config.aside.card_archives?.limit == null ? 8 : theme.config.aside.card_archives.limit}, yearly = ${theme.config.aside.card_archives?.type == 'yearly'}">
+  <div class="content" th:with="archiveSize = ${stats.post == null or stats.post < 1 ? 1 : (stats.post > 200 ? 200 : stats.post)}, archiveYears = ${postFinder.archives(1, archiveSize)}, archiveRowLimit = ${theme.config.aside.card_archives?.limit == null ? 8 : theme.config.aside.card_archives.limit}, yearly = ${theme.config.aside.card_archives?.type == 'yearly'}">
     <style th:if="${archiveRowLimit > 0}" th:inline="css">.aside-archives .card-archive-list-item:nth-child(n + /*[[${archiveRowLimit + 1}]]*/ 9) { display: none; }</style>
     <ul class="card-archive-list" data-aside-archives th:attr="data-order=${theme.config.aside.card_archives?.order ?: -1},data-format=${theme.config.aside.card_archives?.format ?: (yearly ? 'YYYY' : 'YYYY-MM')},data-archive-row-limit=${archiveRowLimit}">
       <th:block th:each="year : ${archiveYears.items}">
@@ -177,11 +177,11 @@
       <span th:text="#{ui.postCount}">文章数目：</span>
       <span th:text="${stats.post}"></span>
     </div>
-    <div class="item" th:if="${theme.config.aside.card_webinfo?.runtime != false and not #strings.isEmpty(theme.config.base.site_birthday)}">
+    <div class="item" th:if="${theme.config.aside.card_webinfo?.runtime != false and not #strings.isEmpty(theme.config.general.site_birthday)}">
       <span th:text="#{ui.uptime}">运行时间：</span>
-      <span class="run-day" th:data-date="${theme.config.base.site_birthday}">...</span>
+      <span class="run-day" th:data-date="${theme.config.general.site_birthday}">...</span>
     </div>
-    <div class="item" th:if="${theme.config.busuanzi?.site_pv == true or theme.config.busuanzi?.site_pv == 'true'}">
+    <div class="item" th:if="${theme.config.post?.stats?.site_pv == true or theme.config.post?.stats?.site_pv == 'true'}">
       <span th:text="#{ui.postVisits}"></span>
       <span th:text="${stats.visit}"></span>
     </div>
@@ -229,7 +229,7 @@
   class="aside"
   data-aside-custom-sort
   th:with="
-    tocCfg = ${theme.config.toc},
+    tocCfg = ${theme.config.post?.toc},
     tocOverride = ${#annotations.getOrDefault(content, 'toc', 'inherit')},
     tocNumberOverride = ${#annotations.getOrDefault(content, 'toc_number', 'inherit')},
     tocExpandOverride = ${#annotations.getOrDefault(content, 'toc_expand', 'inherit')},

@@ -1,57 +1,24 @@
 # 安装、升级与回退
 
-## 1.0.0 正式发行
+## 环境要求
 
-从 [1.0.0 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v1.0.0)下载 `halo-butterfly-next-1.0.0.zip`，核对随版 `SHA256SUMS`，然后在 Halo 控制台主题管理中上传、配置并启用。主题 ID 保持 `halo-butterfly-next`；源码归档不能直接安装。
-
-本次固定运行验收使用 Halo 2.27.1；最低声明仍为 `>=2.20.2`，不代表全部版本均已实测。当前包的新安装、alpha.4 → 1.0 → alpha.4 → 1.0 往返、配置/内容保留及冷备恢复结果见[最终验证记录](validation/2026-10-29/release-readiness.md)。旧版记录保留原包身份。
-
-alpha.4 到 1.0 还涉及已实施的配置模型转换：先导出旧配置，运行 `bun run migrate --input old.json --from 0.1.0-alpha.4 --output next.json`，逐项检查报告后再应用新配置。原字段仍在存储中不代表旧字段继续生效；详见[统一配置模型](MIGRATION.md#2026-10-14统一配置模型)。回退旧包时同时恢复旧配置备份。
-
-下面的备份、同 ID 升级与回退操作继续适用。回退前先保存旧 ZIP 与完整配置；恢复配置会替换整份 JSON。正文、附件和数据库备份须按 Halo 的部署方式另行保存。主题 ZIP 本身不是整站备份。
-
-## alpha.4 历史发行与验收
-
-alpha.4 的主题 ID 为 `halo-butterfly-next`，最低声明 Halo ≥2.20.2，不设上限；真实升级回退基线为 Halo 2.26.1。获取[alpha.4 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.4)中的 `halo-butterfly-next-0.1.0-alpha.4.zip`，按 `SHA256SUMS` 校验。安装、升级和回退均在控制台主题管理中上传构建 ZIP；源码归档不能直接安装。
-
-升级前备份数据库、附件与完整主题配置，并保留当前可用的旧包。先在测试站更新同 ID 主题；出现问题时上传原版本并重新启用，检查页面、配置和内容。alpha.4 历史验收在真实 Halo 2.26.1 演练了 alpha.3 → alpha.4 → alpha.3 → alpha.4，129 文件核对、配置及内容保留通过，见[alpha.4 验收记录](validation/2026-10-08/alpha4-acceptance.json)。搜索与评论插件版本单独管理；退回主题不会自动降低插件版本。
-
-[alpha.4 已知限制与平台范围](../releases/v0.1.0-alpha.4.md)。旧 `theme-butterfly` 迁移见[迁移说明](MIGRATION.md)。下文保留 alpha.3 的实际发行与历史回退证据，不归给 alpha.4。
-
-## alpha.3 历史安装与回退
-
-本文针对 Halo 2.26.1、主题 ID `halo-butterfly-next`。[alpha.3 已公开发行](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.3)，主题 ZIP 与 `SHA256SUMS` 均可从发行页下载。安装升级回退的证据范围见[最终验收](validation/2026-10-06/alpha3-final-acceptance.md)；资源加载超时等已知限制仍保留，详见[发行说明](RELEASE-alpha.3.md)。旧 `theme-butterfly` 迁移是另一条流程，见[迁移说明](MIGRATION.md)。
-
-alpha.3 之后的源码将最低 Halo 版本改为 `>=2.20.2`，不设上限；当时官方版本的全新安装、配置与重启检查见[兼容记录](validation/2026-10-08/halo-earlier-compatibility.md)。评论入口与公共插件页面布局要求 Halo ≥2.26.0。已发布 alpha.3 安装包及上述升级回退证据不因此改变，1.0 的生命周期验收另见本文开头的最终验证记录。
-
-## 安装前保存恢复材料
-
-1. 在测试站先演练。按自己的 Halo 部署方式创建并下载可恢复的站点备份，确认数据库、附件及配置的覆盖范围；保留运行中的 Halo 和插件版本信息。只有主题 ZIP 不能恢复整站内容。
-2. 单独保存当前主题安装 ZIP、它的 SHA-256，以及主题配置。通过已认证 Halo API `GET /apis/api.console.halo.run/v1alpha1/themes/halo-butterfly-next/json-config` 导出完整分组 JSON，或使用已确认可覆盖该配置的备份流程。文件留在个人安全存储，不提交 Git、issue 或截图；包含自定义链接与文本时先脱敏。
-3. 记录活动主题、关键开关、菜单、合成测试页面和评论数量。保留至少一个可登录控制台的恢复入口。
-4. 对下载 ZIP 使用 `shasum -a 256 halo-butterfly-next-1.0.0.zip`（或等效 SHA-256 工具）核对发行页公布的摘要。摘要未发布或不一致时不要使用。
+- **Halo**：`>= 2.20.2`
+- **搜索插件（可选）**：官方 `SearchWidget >= 1.7.1`（推荐 `1.8.0`，需 Halo `>= 2.26.0`）
+- **评论插件（可选）**：官方 `CommentWidget >= 3.3.2`（需 Halo `>= 2.26.0`）
 
 ## 全新安装
 
-在 Halo 控制台主题管理上传主题 ZIP，然后配置并启用。主题名称和 ID 是 `halo-butterfly-next`；可与原 `theme-butterfly` 分开安装。不要上传 GitHub 的 Source code 压缩包。
+1. 前往 [GitHub Releases](https://github.com/songxychn/halo-butterfly-next/releases) 下载 `halo-butterfly-next-<version>.zip`（不要下载 GitHub 自动生成的 Source code 压缩包）。
+2. 在 Halo 控制台进入 **外观 → 主题 → 安装 → 本地上传**，上传安装包。
+3. 启用主题并按需配置外观、导航、侧边栏与页脚。
 
-默认状态先检查首页、空归档/分类/标签和 404；添加测试文章及单页后，检查目录、代码块、图片、分类标签和手机菜单。搜索/评论按需要安装并启用固定支持插件，配置其权限，再检查入口和实际交互。未安装插件时入口隐藏是预期行为。
+## 升级步骤
 
-## Next 同 ID 升级
+1. **备份**：升级前先备份 Halo 数据目录、当前主题安装包以及控制台导出的主题配置。
+2. **上传新版本**：在主题管理中选择升级并上传新版 ZIP。
+3. **跨大版本迁移配置**：如从原版 `halo-theme-butterfly` 或 `1.x` 跨版本升级，按 [配置迁移说明](MIGRATION.md) 转换旧配置后重新导入。
+4. **验证**：检查首页、文章页、归档/分类/标签页、暗色模式、搜索与评论是否正常，确认浏览器缓存已刷新。
 
-先完成备份，再在主题管理中上传新 ZIP，执行同 ID 主题更新。保留 `halo-butterfly-next` 的 ID、Setting 与 ConfigMap；不要先删除旧主题，也不要将新主题作为不同 ID 导入。旧 `theme-butterfly` 配置不能直接写入 Next ConfigMap。
+## 回退方式
 
-升级后核对主题版本、关键自定义设置、菜单、文章/单页正文与评论。分别检查桌面和窄屏、亮暗模式及插件开关。新评论计数开关缺失时有效默认应为关闭；候选已验证缺少这两个旧配置字段时均有效默认为关闭，见[验收记录](ALPHA3-VERIFICATION.md)。
-
-## 回退旧包
-
-1. 停止继续调整主题配置，保留故障日志和当前配置的额外副本。
-2. 在主题管理中上传之前保存的**同 ID 原始旧 ZIP**，更新回旧版，清理浏览器缓存后复查。避免把两个同名 alpha.2 开发包误当成同一包；以 SHA-256 区分。
-3. 先比较旧版配置。若需恢复升级前配置，只对相同主题 ID 使用已核对的完整备份；`PUT /apis/api.console.halo.run/v1alpha1/themes/halo-butterfly-next/json-config` 会替换整份配置，适合已理解该操作的维护者，不要直接发送不完整 JSON 或 ConfigMap 文档。
-4. 检查内容/评论和关键页面。如暂时不能恢复主题显示，可在控制台启用此前保留、已验证可用的主题，并按站点备份流程恢复；主题包回退本身不会回退升级后新增的文章或评论。
-
-**已发布 alpha.2 的旧版限制：** `post.enable_above=false`（关闭文章顶图）会让旧文章元信息脚本访问不存在的字数/时长节点并报错。需要回退原始 alpha.2 时，主演练使用顶图开启的受支持配置；请在该旧版使用开启顶图的设置。新候选已另行验证关闭顶图，但不能把旧包缺陷称为已修复，也不能将此配置差异混入等配置升级回退结论。
-
-真实原始 alpha.2 ZIP 摘要为 `a1bbbb13fa61c07e9500fc228941b4e9d759f0f1d1bc042c22621a5d55afaa42`。这是本轮演练使用的原始发行附件；[alpha.2 Release](https://github.com/songxychn/halo-butterfly-next/releases/tag/v0.1.0-alpha.2) 及安装附件现已公开，2026-10-05 匿名请求附件返回 HTTP 200。该旧版仍有上述限制，不能把它当作 alpha.3 候选或最新推荐安装包；回退前应核对包摘要、资源说明及配置适用范围。
-
-候选 `776958ad`（ZIP SHA-256 `c6fae909b8d74b23c39bdcc6b85b6ae46e4d95a305f7d7f4f8e3a9eb834d6944`）已完成真正全新数据库安装，以及上述原始 alpha.2 → 候选 → alpha.2 → 候选演练；配置、13 篇文章、4 个单页、29 条评论和 16 条回复保留。升级克隆中的插件停用，此结果只覆盖安装和数据保留；搜索/评论交互另行验收。完整边界见[历史候选验收记录](ALPHA3-VERIFICATION.md)。最终包的复用关系与全新安装检查另见[最终验收](validation/2026-10-06/alpha3-final-acceptance.md)，实际公开状态见[发布完成记录](validation/2026-10-06/alpha3-publication.md)；历史候选通过不等于当前包所有场景均重新执行。
+若升级后发现异常，在 Halo 控制台切回或重新上传旧版主题 ZIP，并恢复升级前备份的主题配置即可。

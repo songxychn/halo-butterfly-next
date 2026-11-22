@@ -1,44 +1,33 @@
-/**
- * @date: 2024/2/23
- * @author: 小红
- * @fileName: naveScroll
- * @Description: 滚动触发导航侧边的一些事件
- */
-import $ from 'jquery';
-import {useThrottle} from './_util.ts';
-import {isNavAlwaysPinned, navScrollAppearance} from './nav-scroll.ts';
+import { useThrottle } from './_util.ts';
+import { isNavAlwaysPinned, navScrollAppearance } from './nav-scroll.ts';
 import { bindRightsideScrollPercent } from './rightside.ts';
 
+type ScrollListener = (max: number, previous: number, top: number) => void;
+
 export default class Scroll {
-  #CHANGE_FN: ((max: number, previous: number, top: number) => void) | null = null; // 回调
-  #sideBtnDom = $('#Butterfly > .side-btn');
-  #navDom = $('.header > .nav');
-  #max = 56; // 最大值
-  #num = 0; // 上一次滚动值
+  #listeners: ScrollListener[] = [];
+  #sideBtnDom = document.querySelector<HTMLElement>('#Butterfly > .side-btn');
+  #navDom = document.querySelector<HTMLElement>('.header > .nav');
+  #max = 56;
+  #num = 0;
   #fixed = false;
   #goUpPercent: ((top: number) => void) | null = null;
 
-  // 初始化
   constructor() {
     this.#fixed = isNavAlwaysPinned(window.MainApp?.conf?.nav_fixed);
     this.#goUpPercent = bindRightsideScrollPercent();
     window.addEventListener('scroll', useThrottle(() => {
-      let scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-      // 激活头部导航栏
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
       this.#activeNav(scrollTop);
-
-      // 激活侧边按钮
       this.#activeBtn(scrollTop);
-
-      this.#goUpPercent && this.#goUpPercent(scrollTop);
-      this.#CHANGE_FN && this.#CHANGE_FN(this.#max, this.#num, scrollTop);
+      this.#goUpPercent?.(scrollTop);
+      for (const listener of this.#listeners) listener(this.#max, this.#num, scrollTop);
       this.#num = scrollTop;
     }, 200));
   }
 
-  // 激活头部导航栏
   #activeNav(scrollTop: number) {
+    if (!this.#navDom) return;
     const next = navScrollAppearance({
       scrollTop,
       previousTop: this.#num,
@@ -46,28 +35,21 @@ export default class Scroll {
       alwaysPinned: this.#fixed,
     });
     if (!next) return;
-    this.#navDom.toggleClass('style', next.style);
-    this.#navDom.toggleClass('active', next.active);
+    this.#navDom.classList.toggle('style', next.style);
+    this.#navDom.classList.toggle('active', next.active);
   }
 
-  // 激活侧边按钮
   #activeBtn(scrollTop: number) {
-    // 滚动到顶部取消按钮。上游 #rightside.rightside-show；Halo 仍用 .active。
-    if(scrollTop < this.#max && scrollTop <= 2) {
-      this.#sideBtnDom.removeClass('active rightside-show');
+    if (!this.#sideBtnDom) return;
+    if (scrollTop < this.#max && scrollTop <= 2) {
+      this.#sideBtnDom.classList.remove('active', 'rightside-show');
     }
-
-    // 向下滚动激活侧边按钮
-    if(scrollTop > this.#max && this.#num <= scrollTop) {
-      this.#sideBtnDom.addClass('active rightside-show');
+    if (scrollTop > this.#max && this.#num <= scrollTop) {
+      this.#sideBtnDom.classList.add('active', 'rightside-show');
     }
   }
 
-  /**
-   *  回调
-   */
-  change(fn: (max: number, previous: number, top: number) => void) {
-    this.#CHANGE_FN = fn;
+  change(fn: ScrollListener) {
+    this.#listeners.push(fn);
   }
 }
-

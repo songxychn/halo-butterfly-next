@@ -8,15 +8,7 @@
   )}"
 >
   <!--/* pin */-->
-  <th:block th:fragment="pin">
-    <script data-theme-script="page-config" id="pageScript" th:inline="javascript">
-      Object.assign(window.MainApp.conf, {
-        //第一屏
-        enable_above: /*[[${aboveEnabled}]]*/ '',
-        above_background: /*[[${aboveBackground}]]*/ '',
-      });
-    </script>
-  </th:block>
+  <th:block th:fragment="pin"></th:block>
 
   <!--/* header */-->
   <th:block th:fragment="header">
@@ -57,7 +49,7 @@
             <img class="moment-avatar" th:if="${not #strings.isEmpty(moment.owner?.avatar)}" th:src="${moment.owner.avatar}" alt="" width="40" height="40" loading="lazy"/>
             <span th:text="${moment.owner?.displayName ?: moment.spec.owner}"></span>
             <a class="moment-permalink" th:href="@{/moments/{name}(name=${moment.metadata.name})}">
-              <time data-moment-date th:datetime="${momentDate}" th:text="${momentDate}" th:attr="data-time-zone=${theme.config.moments?.timezone ?: 'UTC'}"></time>
+              <time data-moment-date th:datetime="${momentDate}" th:text="${momentDate}" th:attr="data-time-zone=${theme.config.pages?.moments?.timezone ?: 'UTC'}"></time>
             </a>
           </div>
           <div class="h" th:if="${not #strings.isEmpty(content.html)}" th:utext="${content.html}"></div>

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Published version to promote to the demo channel (may trigger host updater)'
+        description: 'Published version to promote to the demo channel'
         required: true
         type: string
 permissions:
@@ -20,7 +20,7 @@ jobs:
       TAG: ${{ inputs.tag }}
       GH_TOKEN: ${{ github.token }}
       DEMO_RELEASE: 'true'
-      IMAGE: ghcr.io/songxychn/halo-butterfly-next/demo
+      IMAGE: ghcr.io/${{ github.repository }}/demo
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,17 +30,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.0'
-      - name: Select historical source runtime
-        id: source-runtime
-        run: bun -p "'needs-node=' + Boolean(require('./package.json').engines?.node)" >> "$GITHUB_OUTPUT"
-      - uses: actions/setup-node@v4
-        if: steps.source-runtime.outputs.needs-node == 'true'
-        with:
-          node-version: '24'
       - run: bun install --frozen-lockfile --ignore-scripts
-      - name: Download verified released theme
+      - name: Download released theme
         run: python3 scripts/release/download.py "$TAG"
-      - name: Prepare public demo image context
+      - name: Prepare demo image context
         run: |
           bun site/demo/bundle.mjs ".runtime/published/halo-butterfly-next-${TAG#v}.zip" .runtime/demo-bundle
           cp .runtime/published/release-identity.json .runtime/demo-bundle/release-identity.json
@@ -54,7 +47,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
-      - name: Promote only newest immutable release image
+      - name: Promote demo image
         run: python3 scripts/release/promote.py "$TAG" "$IMAGE"
       - uses: actions/upload-artifact@v4
         if: always()

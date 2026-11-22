@@ -12,7 +12,11 @@ export function canEditPosts(payload: unknown): boolean {
 const initialized = new WeakSet<HTMLTemplateElement>();
 
 /** No template is emitted for anonymous users or when the setting is off. Fail closed. */
-export async function initializePostEdit(root: ParentNode = document, request: typeof fetch = fetch): Promise<void> {
+export async function initializePostEdit(
+  root: ParentNode = document,
+  request: typeof fetch = fetch,
+  timeoutMs = 5000,
+): Promise<void> {
   const templates = [...root.querySelectorAll<HTMLTemplateElement>('template[data-post-edit]')]
     .filter(template => !initialized.has(template));
   if (!templates.length) return;
@@ -20,7 +24,7 @@ export async function initializePostEdit(root: ParentNode = document, request: t
 
   const controller = new AbortController();
 
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await request(POST_EDIT_PERMISSIONS_URL, {
       credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: controller.signal,

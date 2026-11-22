@@ -44,11 +44,16 @@ const api: BodyRenderer = {
       controls.append(button);
     }
     // Keep native canvas legend clicks and the accessible controls in sync.
-    if (chart.options.plugins?.legend) {
-      const original = chart.options.plugins?.legend?.onClick;
-      if (chart.options.plugins?.legend) chart.options.plugins.legend.onClick = function(event, item, legend) {
-        original?.call(this, event, item, legend);
-        config.data.datasets.forEach((_, i) => { const visible = chart.isDatasetVisible(i); if (visible) request.hiddenDatasets.delete(i); else request.hiddenDatasets.add(i); controls.children[i].setAttribute('aria-pressed', String(visible)); });
+    const legend = chart.options.plugins?.legend;
+    if (legend) {
+      const original = legend.onClick;
+      legend.onClick = function(event, item, legendInst) {
+        original?.call(this, event, item, legendInst);
+        config.data.datasets.forEach((_, i) => {
+          const visible = chart.isDatasetVisible(i);
+          if (visible) request.hiddenDatasets.delete(i); else request.hiddenDatasets.add(i);
+          controls.children[i].setAttribute('aria-pressed', String(visible));
+        });
       };
     }
     chart.update('none');

@@ -1,7 +1,7 @@
 <footer
   class="footer"
   th:data-footer-background="${theme.config.footer?.footer_img}"
-  th:data-footer-mask="${theme.config.mask?.footer != false and theme.config.mask?.footer != 'false'}"
+  th:data-footer-mask="${theme.config.appearance?.mask?.footer != false and theme.config.appearance?.mask?.footer != 'false'}"
 >
   <div
     class="footer-flex"
@@ -67,12 +67,12 @@
          th:if="${not #strings.isEmpty(theme.config.footer?.custom_text)}"
          th:text="${theme.config.footer.custom_text}"></div>
     <div class="footer_custom_text" th:if="${not #strings.isEmpty(theme.config.footer?.custom_html)}" data-site-html th:text="${theme.config.footer.custom_html}"></div>
-    <div class="icp" th:if="${not #strings.isEmpty(theme.config.base.icp)}">
-      <a th:text="#{ui.icp}+${theme.config.base.icp}"
+    <div class="icp" th:if="${not #strings.isEmpty(theme.config.general.icp)}">
+      <a th:text="#{ui.icp}+${theme.config.general.icp}"
          href="https://beian.miit.gov.cn/">
       </a>
     </div>
-    <div class="police" th:if="${not #strings.isEmpty(theme.config.base.police)}">
+    <div class="police" th:if="${not #strings.isEmpty(theme.config.general.police)}">
       <img
         width="18"
         height="18"
@@ -81,7 +81,7 @@
       <a
         href="https://www.beian.gov.cn/portal/registerSystemInfo"
         target="_blank"
-        th:text="#{ui.police}+${theme.config.base.police}"></a>
+        th:text="#{ui.police}+${theme.config.general.police}"></a>
     </div>
   </div>
   <halo:footer/>

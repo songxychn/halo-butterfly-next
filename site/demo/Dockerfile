@@ -1,4 +1,4 @@
-FROM docker-mirror.infra.baizhukui.com/halohub/halo:2.26.1@sha256:bfe89bf70c44ea94a7dd33f8ec98e8e59088adfb7a9fb7b6f013f82391c33bee
+FROM docker.io/halohub/halo:2.26.1@sha256:bfe89bf70c44ea94a7dd33f8ec98e8e59088adfb7a9fb7b6f013f82391c33bee
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends python3 openssl && rm -rf /var/lib/apt/lists/*
 COPY source/ /opt/demo/source/

@@ -5,7 +5,8 @@ export function configureResourceTags(html) {
     const match = tail.match(/^'([^']+)'/);
     if (!match) return tag;
     const path = match[1];
-    const key = path.startsWith('css/') ? 'main_css' : path.startsWith('js/masonry') ? 'masonry'
+    const key = path === 'css/core.min.css' ? 'core_css'
+      : path.startsWith('css/') ? 'main_css' : path.startsWith('js/masonry') ? 'masonry'
       : path.startsWith('js/') ? 'main' : path.startsWith('plugins/loading/') ? 'loading'
       : path === 'plugins/fontawesome/css/all.min.css' ? 'fontawesome'
       : path === 'plugins/prism/prism.min.css' ? 'prismjs_css'
@@ -16,7 +17,7 @@ export function configureResourceTags(html) {
     const root = `(cdn?.asset_base ?: '').replaceAll('[$]\\x7bversion\\x7d', theme.spec.version).replaceAll('[$]\\x7bname\\x7d', 'halo-butterfly-next')`;
     const unified = `(not #strings.isEmpty(themeRoot) and not #strings.contains(themeRoot, '?') and not #strings.contains(themeRoot, '#') and not #strings.contains(themeRoot, '$') ? themeRoot.replaceAll('/+$', '') + '/' + ${withoutQuery(tail)} : '')`;
     const valid = value => `not #strings.isEmpty(${value}) and not #strings.startsWith(${value}, '//') and ${value}.matches('https://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/[a-zA-Z0-9._~:/?#%&amp;=,+!()@$-]*)?|/[a-zA-Z0-9._~/?#%&amp;=,+!()@$-]*') and not #strings.contains(${value}, '$')`;
-    const withAttr = `th:with="cdn=\${theme.config.CDN},localResource=\${${local}},themeRoot=\${${root}},unifiedResource=\${${unified}},resourceUrl=\${${valid('unifiedResource')} ? unifiedResource : localResource}"`;
+    const withAttr = `th:with="cdn=\${theme.config.general?.cdn},localResource=\${${local}},themeRoot=\${${root}},unifiedResource=\${${unified}},resourceUrl=\${${valid('unifiedResource')} ? unifiedResource : localResource}"`;
     // A prepared parser-inserted script does not execute again when its src changes.
     const fallback = element === 'script'
       ? "var s=document.createElement('script');s.async=false;for(var a of this.attributes){if(a.name!=='src' &amp;&amp; a.name!=='onerror')s.setAttribute(a.name,a.value)}s.src=this.dataset.localResource;this.replaceWith(s)"
@@ -27,7 +28,7 @@ export function configureResourceTags(html) {
 
 /** The default illustration belongs to the theme; author images and local error fallback do not move. */
 export function configureResourceImages(html) {
-  const expand = field => `(theme.config.CDN?.${field} ?: '').replaceAll('[$]\\x7bversion\\x7d', theme.spec.version).replaceAll('[$]\\x7bname\\x7d', 'halo-butterfly-next')`;
+  const expand = field => `(theme.config.general?.cdn?.${field} ?: '').replaceAll('[$]\\x7bversion\\x7d', theme.spec.version).replaceAll('[$]\\x7bname\\x7d', 'halo-butterfly-next')`;
   const base = expand('asset_base');
   const candidate = `(not #strings.isEmpty(${base}) ? (not #strings.contains(${base}, '?') and not #strings.contains(${base}, '#') ? ${base}.replaceAll('/+$', '') + '/images/above.svg' : '') : '')`;
   const expression = `(not #strings.isEmpty(${base}) and ${candidate}.matches('https://[a-zA-Z0-9.-]+(?::[0-9]+)?/[a-zA-Z0-9._~:/?#%&amp;=,+!()@$-]*|/(?!/)[a-zA-Z0-9._~/?#%&amp;=,+!()@$-]*') and not #strings.contains(${candidate}, '$') ? ${candidate} : #theme.assets('/images/above.svg'))`;
