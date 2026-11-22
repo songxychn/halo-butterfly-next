@@ -58,5 +58,5 @@ test('交互：齿轮切换 #rightside-config-hide.show', () => {
 test('移动目录按钮插入 show 组 #go-up 之前', () => {
   assert.match(renderJs, /rightside-config-show/);
   assert.match(renderJs, /mobile-toc-button/);
-  assert.match(renderJs, /insertBefore\(goUp\)/);
+  assert.match(renderJs, /insertBefore\(tocBtn,\s*goUp\)/);
 });

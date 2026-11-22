@@ -89,8 +89,6 @@ async function build() {
     await cp(path.join(root, 'third-party-licenses', file), path.join(assets, 'licenses', file));
   }
   const licensed = new Set();
-  // These exact npm releases omit a standalone license file. Fixed upstream
-  // texts and their provenance are recorded in infinitegrid-sources.json.
   const upstreamLicenses = {
     '@egjs-infinitegrid-4.13.0': 'egjs-infinitegrid-4.13.0-LICENSE.txt',
     '@egjs-component-3.0.5': 'egjs-component-3.0.5-LICENSE.txt',
@@ -98,7 +96,6 @@ async function build() {
     '@cfcs-core-0.0.5': 'cfcs-core-LICENSE.txt',
     '@cfcs-core-0.0.24': 'cfcs-core-LICENSE.txt',
   };
-  const readmeLicenses = new Set(['good-listener-1.2.2', 'delegate-3.2.0', 'select-1.1.2']);
   async function collectLicenses(dir) {
     dir = await realpath(dir);
     const pkg = JSON.parse(await readFile(path.join(dir, 'package.json'), 'utf8'));
@@ -113,18 +110,12 @@ async function build() {
       if (!text.includes('Copyright') || !text.includes('Permission is hereby granted')) throw new Error(`无效的依赖许可：${name}`);
       await cp(path.join(root, 'third-party-licenses', upstreamLicenses[name]), path.join(assets, 'licenses', upstreamLicenses[name]));
     }
-    if (!files.length && readmeLicenses.has(name) && pkg.license === 'MIT') {
-      files.push(entries.find(file => /^readme/i.test(file)));
-      await cp(path.join(root, 'third-party-licenses/zenorocha-MIT.txt'), path.join(assets, 'licenses/zenorocha-MIT.txt'));
-    }
     if ((!files.length && !suppliedLicense) || files.includes(undefined)) throw new Error(`依赖缺少许可证：${name}`);
     for (const file of files) await cp(path.join(dir, file), path.join(assets, 'licenses', name + '-' + file));
     if (entries.includes('licenses')) await cp(path.join(dir, 'licenses'), path.join(assets, 'licenses', name + '-additional'), { recursive: true });
     const require = createRequire(path.join(dir, 'package.json'));
     for (const dependency of Object.keys(pkg.dependencies || {})) {
-      // Type-only packages have no browser code to distribute.
       if (dependency.startsWith('@types/')) continue;
-      // 部分包不导出 package.json，从已解析的入口向上寻找其包目录。
       let entry;
       try { entry = require.resolve(dependency + '/package.json'); }
       catch { try { entry = require.resolve(dependency); } catch { entry = Bun.resolveSync(dependency, dir); } }
@@ -141,21 +132,48 @@ async function build() {
       await collectLicenses(cursor);
     }
   }
-  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'clipboard', 'echarts', 'jquery', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
+  for (const name of ['@egjs/infinitegrid', 'viewerjs', 'echarts', 'tocbot', 'typed.js', 'mermaid', 'chart.js', 'abcjs', 'dompurify', 'pace-js']) await collectLicenses(path.join(root, 'node_modules', name));
   await mkdir(path.join(assets, 'css'), { recursive: true });
-  for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
-    if (!file.endsWith('.scss')) continue;
-    const source = path.join(root, 'src/scss/page', file);
+  async function compileScss(source, outFile) {
     const compiled = sass.compile(source, {
       style: 'compressed', loadPaths: [path.join(root, 'node_modules')],
       silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'legacy-js-api'],
     });
     const css = await postcss([postcssImport(), autoprefixer()]).process(compiled.css, { from: source });
-    await writeFile(path.join(assets, 'css', file.replace('.scss', '.min.css')), css.css);
+    await writeFile(outFile, css.css);
   }
+  await compileScss(path.join(root, 'src/scss/core/index.scss'), path.join(assets, 'css/core.min.css'));
+  for (const file of (await readdir(path.join(root, 'src/scss/page'))).sort()) {
+    if (!file.endsWith('.scss')) continue;
+    await compileScss(path.join(root, 'src/scss/page', file), path.join(assets, 'css', file.replace('.scss', '.min.css')));
+  }
+  const standalonePageScripts = new Set(['charts.ts', 'effects.ts', 'masonry.ts']);
+  const esPageEntries = {};
   for (const file of (await readdir(path.join(root, 'src/js/page'))).sort()) {
-    if (file.endsWith('.ts') && !file.endsWith('.d.ts')) await bundle(path.join(root, 'src/js/page', file), path.join(assets, 'js'));
+    if (!file.endsWith('.ts') || file.endsWith('.d.ts')) continue;
+    const full = path.join(root, 'src/js/page', file);
+    if (standalonePageScripts.has(file)) await bundle(full, path.join(assets, 'js'));
+    else esPageEntries[path.basename(file, '.ts')] = full;
   }
+  await viteBuild({
+    configFile: false,
+    logLevel: 'error',
+    define: { 'process.env.NODE_ENV': JSON.stringify('production') },
+    build: {
+      outDir: path.join(assets, 'js'),
+      emptyOutDir: false,
+      target: 'es2022',
+      modulePreload: false,
+      rollupOptions: {
+        input: esPageEntries,
+        output: {
+          format: 'es',
+          entryFileNames: '[name].min.js',
+          chunkFileNames: 'chunks/[name]-[hash].js',
+        },
+      },
+    },
+  });
   for (const file of (await readdir(path.join(root, 'src/js/renderers'))).sort()) {
     if (file.endsWith('.ts')) await bundle(path.join(root, 'src/js/renderers', file), path.join(assets, 'renderers'));
   }

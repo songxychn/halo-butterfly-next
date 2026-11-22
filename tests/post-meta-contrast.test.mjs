@@ -3,9 +3,10 @@ import {test} from 'bun:test';
 import * as sass from 'sass';
 import postcss from 'postcss';
 
-const css = postcss.parse(sass.compile(new URL('../src/scss/page/post.scss', import.meta.url).pathname, {
+const compile = (file) => sass.compile(new URL(file, import.meta.url).pathname, {
   loadPaths: ['node_modules'], logger: sass.Logger.silent,
-}).css);
+}).css;
+const css = postcss.parse(compile('../src/scss/core/index.scss') + '\n' + compile('../src/scss/page/post.scss'));
 const scope = '.post .header .above .post-meta';
 function declarations(selector) {
   const result = {};

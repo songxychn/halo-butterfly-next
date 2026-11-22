@@ -1,57 +1,47 @@
 import { t } from '../core/i18n';
-
-/**
- * @date: 2024/2/25
- * @author: 小红
- * @fileName: codeBlock
- * @Description: 代码块
- */
-import $ from 'jquery';
-import Clipboard from 'clipboard';
-import {useToBool} from '../core/_util.ts';
-import {resolveCodeShrink} from '../core/code-shrink.ts';
+import { copyText, useToBool } from '../core/_util.ts';
+import { resolveCodeShrink } from '../core/code-shrink.ts';
 import { bindCodeScrollFocus, preserveCodeReadingFocus } from '../core/code-scroll-focus.ts';
 import { enhanceCodeWhenReady, loadPrismAfterPaint } from '../core/prism-ready.ts';
 import { preserveDeferredCodeScroll } from '../core/deferred-code-scroll.ts';
 
-export default class codeBlock {
+export default class CodeBlock {
   name = 'codeBlock';
 
-  #renderDom = $('article.render');
+  #renderDom = document.querySelector<HTMLElement>('article.render');
 
   #conf = MainApp.conf;
 
   #attrs = MainApp.attrs;
 
   constructor() {
-
-    // Mode/navigation initialize with the page, independently of the optional highlighter.
     this.#codeTheme(MainApp.useTheme.getMode());
     MainApp.useTheme.change((mode) => this.#codeTheme(mode));
-    const refreshScrollFocus = bindCodeScrollFocus(this.#renderDom[0]);
-    if (!this.#flag('enable_code') || !this.#renderDom[0]?.querySelector('pre code')) return;
+    const root = this.#renderDom;
+    const refreshScrollFocus = bindCodeScrollFocus(root);
+    if (!root || !this.#flag('enable_code') || !root.querySelector('pre code')) return;
+
     const enhanceWithRestoredScroll = preserveDeferredCodeScroll();
     MainApp.prismReady = loadPrismAfterPaint({
       source: MainApp.prismSource,
       domReady: MainApp.codeDomReady,
     });
     enhanceCodeWhenReady({
-      root: this.#renderDom[0],
+      root,
       enabled: this.#flag('enable_code'),
       ready: MainApp.prismReady,
       getPrism: () => window.Prism,
       enhance: (prism) => {
-
-        const restoreReadingFocus = preserveCodeReadingFocus(this.#renderDom[0], pre => {
-          const wrap = $(pre).parent('.code-toolbar');
-          // Do not hide the block a keyboard reader entered while Prism loaded.
-          // Other blocks retain the configured initial collapsed state.
-          if (wrap.hasClass('closed')) this.#setCodeExpanded(wrap, wrap.find('.code-expander'), true);
+        const restoreReadingFocus = preserveCodeReadingFocus(root, (pre) => {
+          const wrap = pre.parentElement?.classList.contains('code-toolbar') ? pre.parentElement : null;
+          if (wrap?.classList.contains('closed')) {
+            this.#setCodeExpanded(wrap, wrap.querySelector<HTMLElement>('.code-expander'), true);
+          }
           refreshScrollFocus();
         });
         enhanceWithRestoredScroll(() => {
-          this.#code(prism);
-          this.#codeToolbar();
+          this.#code(root, prism);
+          this.#codeToolbar(root);
           refreshScrollFocus();
           restoreReadingFocus();
         });
@@ -81,10 +71,10 @@ export default class codeBlock {
     return resolveCodeShrink(this.#conf?.code_shrink);
   }
 
-  #code(prism: import('../types.ts').PrismApi) {
-    this.#renderDom.addClass('single_code_select');
-    if (this.#flag('enable_code_line')) this.#renderDom.addClass('line-numbers');
-    prism.highlightAllUnder(this.#renderDom[0]);
+  #code(root: HTMLElement, prism: import('../types.ts').PrismApi) {
+    root.classList.add('single_code_select');
+    if (this.#flag('enable_code_line')) root.classList.add('line-numbers');
+    prism.highlightAllUnder(root);
     this.#codeTheme(MainApp.useTheme.getMode());
   }
 
@@ -96,89 +86,112 @@ export default class codeBlock {
     codeDark.disabled = mode === 'light';
   }
 
-  #codeToolbar() {
-    const pres = this.#renderDom.find('pre');
-    pres.each((index, dom) => {
-      const pre = $(dom);
-      const wrap = pre.parent('.code-toolbar');
-      const toolbar = pre.next('.toolbar');
-      if (!toolbar.length) return;
+  #codeToolbar(root: HTMLElement) {
+    const pres = Array.from(root.querySelectorAll<HTMLElement>('pre'));
+    for (const pre of pres) {
+      const wrap = pre.parentElement?.classList.contains('code-toolbar') ? pre.parentElement : null;
+      const toolbar = pre.nextElementSibling?.classList.contains('toolbar')
+        ? (pre.nextElementSibling as HTMLElement)
+        : null;
+      if (!wrap || !toolbar) continue;
 
-      if (this.#flag('enable_code_mac_style')) wrap.addClass('mac-style');
-      if (this.#flag('enable_code_word_wrap')) wrap.addClass('word-wrap');
+      if (this.#flag('enable_code_mac_style')) wrap.classList.add('mac-style');
+      if (this.#flag('enable_code_word_wrap')) wrap.classList.add('word-wrap');
 
-      if (this.#flag('enable_code_title')) toolbar.addClass('enable-title');
-      else toolbar.find('.toolbar-item').first().remove();
+      if (this.#flag('enable_code_title')) toolbar.classList.add('enable-title');
+      else toolbar.querySelector('.toolbar-item')?.remove();
 
-      if (this.#flag('enable_code_hr')) toolbar.addClass('enable-hr');
+      if (this.#flag('enable_code_hr')) toolbar.classList.add('enable-hr');
 
       this.#codeToolbarCustom(toolbar, pre, wrap);
       this.#applyHeightLimit(wrap, pre);
-    });
+    }
 
-    setTimeout(() => pres.addClass('code-success'), 200);
+    setTimeout(() => {
+      for (const pre of pres) pre.classList.add('code-success');
+    }, 200);
   }
 
-  #codeToolbarCustom(toolbar: JQuery<HTMLElement>, pre: JQuery<HTMLElement>, wrap: JQuery<HTMLElement>) {
-    toolbar.append('<div class="custom-item"></div>');
-    const customItem = toolbar.find('.custom-item');
+  #codeToolbarCustom(toolbar: HTMLElement, pre: HTMLElement, wrap: HTMLElement) {
+    const customItem = document.createElement('div');
+    customItem.className = 'custom-item';
+    toolbar.appendChild(customItem);
 
     if (this.#copyEnabled()) {
-      const button = $(`<button type="button" class="code-copy" aria-label="${t('ui.copyCode')}" title="${t('ui.copyCode')}"><i class="fas fa-paste" aria-hidden="true"></i></button>`);
-      button.on('click', (e) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy';
+      button.setAttribute('aria-label', t('ui.copyCode'));
+      button.title = t('ui.copyCode');
+      button.innerHTML = '<i class="fas fa-paste" aria-hidden="true"></i>';
+      button.addEventListener('click', (e) => {
         e.preventDefault();
-        const text = pre.children('code[class*=\'language-\']').text();
-        this.#copyText(text, button[0], e);
+        const code = pre.querySelector<HTMLElement>(":scope > code[class*='language-']") || pre.querySelector('code');
+        void copyText(code?.textContent ?? '').then((ok) => this.#copyFeedback(button, ok));
       });
-      customItem.append(button);
+      customItem.appendChild(button);
     }
 
     const shrink = this.#shrinkMode();
     if (shrink !== 'none') {
       const initiallyClosed = shrink === 'true';
-      if (initiallyClosed) wrap.addClass('closed');
-      const expander = $(`<button type="button" class="code-expander" aria-label="${initiallyClosed ? t('ui.expandCode') : t('ui.collapseCode')}" title="${initiallyClosed ? t('ui.expandCode') : t('ui.collapseCode')}" aria-expanded="${initiallyClosed ? 'false' : 'true'}"><i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>`);
-      expander.on('click', () => {
-        this.#setCodeExpanded(wrap, expander, wrap.hasClass('closed'));
+      if (initiallyClosed) wrap.classList.add('closed');
+      const label = initiallyClosed ? t('ui.expandCode') : t('ui.collapseCode');
+      const expander = document.createElement('button');
+      expander.type = 'button';
+      expander.className = 'code-expander';
+      expander.setAttribute('aria-label', label);
+      expander.title = label;
+      expander.setAttribute('aria-expanded', initiallyClosed ? 'false' : 'true');
+      expander.innerHTML = '<i class="fa-solid fa-caret-down" aria-hidden="true"></i>';
+      expander.addEventListener('click', () => {
+        this.#setCodeExpanded(wrap, expander, wrap.classList.contains('closed'));
       });
-      customItem.append(expander);
+      customItem.appendChild(expander);
     }
 
     if (this.#flag('enable_code_fullpage')) {
-      const button = $(`<button type="button" class="fullpage-button" aria-label="${t('ui.fullscreenCode')}" title="${t('ui.fullscreenCode')}" aria-pressed="false"><i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i></button>`);
-      button.on('click', (e) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'fullpage-button';
+      button.setAttribute('aria-label', t('ui.fullscreenCode'));
+      button.title = t('ui.fullscreenCode');
+      button.setAttribute('aria-pressed', 'false');
+      button.innerHTML = '<i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i>';
+      button.addEventListener('click', (e) => {
         e.preventDefault();
         this.#toggleFullpage(wrap, button);
       });
-      customItem.append(button);
+      customItem.appendChild(button);
     }
 
-    if (!customItem.children().length) customItem.remove();
+    if (!customItem.children.length) customItem.remove();
   }
 
-  #setCodeExpanded(wrap: JQuery<HTMLElement>, button: JQuery<HTMLElement>, expanded: boolean) {
-    wrap.toggleClass('closed', !expanded);
-    button.attr('aria-expanded', String(expanded));
-    button.attr('aria-label', expanded ? t('ui.collapseCode') : t('ui.expandCode'));
-    button.attr('title', expanded ? t('ui.collapseCode') : t('ui.expandCode'));
+  #setCodeExpanded(wrap: HTMLElement, button: HTMLElement | null, expanded: boolean) {
+    wrap.classList.toggle('closed', !expanded);
+    if (!button) return;
+    const label = expanded ? t('ui.collapseCode') : t('ui.expandCode');
+    button.setAttribute('aria-expanded', String(expanded));
+    button.setAttribute('aria-label', label);
+    button.title = label;
   }
 
-  #fullpageWrap: JQuery<HTMLElement> | null = null;
-  #fullpageButton: JQuery<HTMLElement> | null = null;
-  #scrollLock: {body: string; html: string} | null = null;
+  #fullpageWrap: HTMLElement | null = null;
+  #fullpageButton: HTMLElement | null = null;
+  #scrollLock: { body: string; html: string } | null = null;
   #escBound = false;
 
-  #toggleFullpage(wrap: JQuery<HTMLElement>, button: JQuery<HTMLElement>) {
-    if (!wrap?.length) return;
-    this.#setFullpage(wrap, button, !wrap.hasClass('code-fullpage'));
+  #toggleFullpage(wrap: HTMLElement, button: HTMLElement) {
+    this.#setFullpage(wrap, button, !wrap.classList.contains('code-fullpage'));
   }
 
-  #setFullpage(wrap: JQuery<HTMLElement>, button: JQuery<HTMLElement> | null, on: boolean) {
+  #setFullpage(wrap: HTMLElement, button: HTMLElement | null, on: boolean) {
     if (on) {
-      if (this.#fullpageWrap && this.#fullpageWrap[0] !== wrap[0]) {
+      if (this.#fullpageWrap && this.#fullpageWrap !== wrap) {
         this.#setFullpage(this.#fullpageWrap, this.#fullpageButton, false);
       }
-      wrap.addClass('code-fullpage');
+      wrap.classList.add('code-fullpage');
       this.#fullpageWrap = wrap;
       this.#fullpageButton = button;
       this.#lockScroll();
@@ -186,9 +199,9 @@ export default class codeBlock {
       this.#bindEsc();
       return;
     }
-    wrap.removeClass('code-fullpage');
+    wrap.classList.remove('code-fullpage');
     this.#syncFullpageButton(button, false);
-    if (this.#fullpageWrap && this.#fullpageWrap[0] === wrap[0]) {
+    if (this.#fullpageWrap === wrap) {
       this.#fullpageWrap = null;
       this.#fullpageButton = null;
       this.#unlockScroll();
@@ -196,14 +209,17 @@ export default class codeBlock {
     }
   }
 
-  #syncFullpageButton(button: JQuery<HTMLElement> | null, on: boolean) {
-    if (!button?.length) return;
-    const icon = button.find('i');
-    icon.toggleClass('fa-down-left-and-up-right-to-center', on);
-    icon.toggleClass('fa-up-right-and-down-left-from-center', !on);
-    button.attr('aria-pressed', String(on));
-    button.attr('aria-label', on ? t('ui.exitFullscreen') : t('ui.fullscreenCode'));
-    button.attr('title', on ? t('ui.exitFullscreen') : t('ui.fullscreenCode'));
+  #syncFullpageButton(button: HTMLElement | null, on: boolean) {
+    if (!button) return;
+    const icon = button.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-down-left-and-up-right-to-center', on);
+      icon.classList.toggle('fa-up-right-and-down-left-from-center', !on);
+    }
+    const label = on ? t('ui.exitFullscreen') : t('ui.fullscreenCode');
+    button.setAttribute('aria-pressed', String(on));
+    button.setAttribute('aria-label', label);
+    button.title = label;
   }
 
   #lockScroll() {
@@ -246,30 +262,6 @@ export default class codeBlock {
     this.#escBound = false;
   }
 
-  #copyText(text: string, button: HTMLElement, event: JQuery.ClickEvent) {
-    const finish = (ok: boolean) => this.#copyFeedback(button, ok);
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(() => finish(true)).catch(() => this.#clipboardJs(text, button, event, finish));
-      return;
-    }
-    this.#clipboardJs(text, button, event, finish);
-  }
-
-  #clipboardJs(text: string, button: HTMLElement, event: JQuery.ClickEvent, finish: (ok: boolean) => void) {
-    const clipboard = new Clipboard(button, {text: () => text});
-
-    clipboard.on('success', () => {
-      clipboard.destroy();
-      finish(true);
-    });
-    clipboard.on('error', () => {
-      clipboard.destroy();
-      finish(false);
-    });
-    // Clipboard's public declaration omits the existing manual click entry.
-    (clipboard as Clipboard & {onClick(event: JQuery.ClickEvent): void}).onClick(event);
-  }
-
   #copyFeedback(button: HTMLElement, ok: boolean) {
     const text = ok ? t('ui.copied') : t('ui.copyFailed');
     if (ok) MainApp.useMessage.info(text);
@@ -285,20 +277,25 @@ export default class codeBlock {
     setTimeout(() => notice.remove(), 1600);
   }
 
-  #applyHeightLimit(wrap: JQuery<HTMLElement>, pre: JQuery<HTMLElement>) {
+  #applyHeightLimit(wrap: HTMLElement, pre: HTMLElement) {
     const limit = this.#heightLimitPx();
-    if (!limit || !wrap.length) return;
-    const code = pre.children('code')[0];
+    if (!limit) return;
+    const code = pre.querySelector<HTMLElement>(':scope > code');
     if (!code || code.scrollHeight <= limit) return;
-    wrap.addClass('has-height-limit');
-    wrap[0].style.setProperty('--code-height-limit', `${limit}px`);
-    const btn = $(`<button type="button" class="code-expand-btn" aria-label="${t('ui.expandCode')}" aria-expanded="false"><i class="fas fa-angle-double-down" aria-hidden="true"></i></button>`);
-    btn.on('click', () => {
-      wrap.toggleClass('expand-done');
-      const expanded = wrap.hasClass('expand-done');
-      btn.attr('aria-expanded', String(expanded));
-      btn.attr('aria-label', expanded ? t('ui.hideCode') : t('ui.expandCode'));
+    wrap.classList.add('has-height-limit');
+    wrap.style.setProperty('--code-height-limit', `${limit}px`);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'code-expand-btn';
+    btn.setAttribute('aria-label', t('ui.expandCode'));
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<i class="fas fa-angle-double-down" aria-hidden="true"></i>';
+    btn.addEventListener('click', () => {
+      wrap.classList.toggle('expand-done');
+      const expanded = wrap.classList.contains('expand-done');
+      btn.setAttribute('aria-expanded', String(expanded));
+      btn.setAttribute('aria-label', expanded ? t('ui.hideCode') : t('ui.expandCode'));
     });
-    wrap.append(btn);
+    wrap.appendChild(btn);
   }
 }

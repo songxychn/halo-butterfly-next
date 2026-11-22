@@ -66,7 +66,7 @@ export function initializeImageLoading(config: ThemeConfig) {
     }
     if (options.blur && (image.dataset.lazySrc || !(image.complete && image.naturalWidth > 0))) image.classList.add('theme-image-pending');
     if (options.native || !observer) {
-      if (!authorEager) image.loading = 'lazy';
+      image.loading = 'lazy';
       reveal(image);
     } else if (image.dataset.lazySrc) observer.observe(image);
     // Existing author src/srcset may already be requested. Never replace them with a placeholder.

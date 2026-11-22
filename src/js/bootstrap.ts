@@ -50,6 +50,7 @@ app.merge = (script) => {
 const page = String(app.conf.resource_page || '');
 if (/^[a-z0-9_-]+$/.test(page)) {
   const files = {
+    core_css: 'css/core.min.css',
     main_css: `css/${page}.min.css`,
     main: `js/${page}.min.js`,
     fontawesome: 'plugins/fontawesome/css/all.min.css',

@@ -44,6 +44,7 @@
     <th:block th:replace="~{views/config}"/>
     <th:block th:replace="${pin}"/>
     <script data-theme-script="above" id="aboveScript">/* @theme-above-background */</script>
+    <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/core.min.css?v=' + theme.spec.version}">
     <link rel="preload stylesheet" as="style" th:href="${assets_link + 'css/' + page + '.min.css?v=' + theme.spec.version}">
     <noscript><style>.loading #Butterfly { display: block; } img[data-lazy-src] { display: none; }</style></noscript>
     <th:block th:replace="~{views/subscription :: head}"/>
@@ -76,7 +77,7 @@
   <!--/* The rendered body is complete; deferred enhancements can initialize afterwards. */-->
   <script data-theme-script="ready" id="theme-content-ready">document.dispatchEvent(new Event('halo-butterfly-next:content-ready'));</script>
 
-  <script data-theme-script="entry" defer type="text/javascript" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
+  <script data-theme-script="entry" type="module" th:src="${assets_link + 'js/' + page + '.min.js?v=' + theme.spec.version }"></script>
   <th:block th:replace="~{views/inject :: bottom}"/>
   </body>
 

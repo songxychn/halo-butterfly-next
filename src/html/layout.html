@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title th:if="${head == null}" th:text="${site.title}"></title>
     <th:block th:replace="~{views/config}"/>
+    <link rel="stylesheet" th:href="${assets_link + 'css/core.min.css?v=' + theme.spec.version}"/>
     <link rel="stylesheet" th:href="${assets_link + 'css/plugin.min.css?v=' + theme.spec.version}"/>
     <th:block th:if="${head != null}">
       <th:block th:replace="${head}"/>
@@ -41,7 +42,7 @@
       <th:block th:replace="~{views/footer}"/>
       <th:block th:replace="~{views/components :: side}"/>
     </div>
-    <script th:src="${assets_link + 'js/plugin.min.js?v=' + theme.spec.version}"></script>
+    <script type="module" th:src="${assets_link + 'js/plugin.min.js?v=' + theme.spec.version}"></script>
     <th:block th:replace="~{views/inject :: bottom}"/>
   </body>
 </html>
