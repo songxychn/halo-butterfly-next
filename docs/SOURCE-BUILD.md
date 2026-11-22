@@ -8,7 +8,7 @@
 
 ## 构建主题安装包
 
-复现某个发行版本时，从对应 GitHub 发行页下载带 `-source.tar.gz` 后缀的源码附件，用同页的 `SHA256SUMS` 核对后解压。2.0.0-alpha.1 的发布工作流使用 Bun 1.4.0。[2.0.0-alpha.1 发行页](https://github.com/songxychn/halo-butterfly-next/releases/tag/v2.0.0-alpha.1)
+复现发行版本时，从对应的 GitHub 发行页下载带 `-source.tar.gz` 后缀的源码附件，用同页的 `SHA256SUMS` 核对后解压。使用该版本 `package.json` 中 `packageManager` 指定的 Bun 版本。
 
 ```sh
 bun install --frozen-lockfile --ignore-scripts
