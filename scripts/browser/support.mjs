@@ -1,5 +1,7 @@
+import { mkdirSync } from 'node:fs';
 import { readFile, mkdir, readdir, writeFile, realpath } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -67,7 +69,12 @@ export function browserEnvironment(runtime = RUNTIME) {
   if (process.env.PLAYWRIGHT_BROWSERS_PATH && path.resolve(process.env.PLAYWRIGHT_BROWSERS_PATH) !== browsers) {
     throw new Error('PLAYWRIGHT_BROWSERS_PATH must remain within this task runtime');
   }
-  return { ...process.env, PLAYWRIGHT_BROWSERS_PATH: browsers, PLAYWRIGHT_SKIP_BROWSER_GC: '1', TMPDIR: path.join(runtime, 'tmp'), TMP: path.join(runtime, 'tmp'), TEMP: path.join(runtime, 'tmp') };
+  const runtimeTmp = path.join(runtime, 'tmp');
+  // Linux Unix domain socket paths (sun_path) are capped at 108 bytes; keep Chromium's TMPDIR short.
+  const fallbackTmp = process.platform === 'linux' ? '/tmp/hbn-bm-tmp' : path.join(os.tmpdir(), 'hbn-bm-tmp');
+  const tmpDir = runtimeTmp.length > 55 ? fallbackTmp : runtimeTmp;
+  mkdirSync(tmpDir, { recursive: true, mode: 0o700 });
+  return { ...process.env, PLAYWRIGHT_BROWSERS_PATH: browsers, PLAYWRIGHT_SKIP_BROWSER_GC: '1', TMPDIR: tmpDir, TMP: tmpDir, TEMP: tmpDir };
 }
 
 export function responseFailure(status, contentType, resourceType) {
